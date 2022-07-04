@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <properties>
+        <property name="name">qa_autopilot_gestil</property>
+        <property name="pattern">%-5p %d{yyyy-MM-dd HH:mm:ss.SSS} %t %C{2}:%L -
+            %msg%n
+        </property>
+        <!-- It will look like that: -->
+        <!-- INFO 2018-02-20 15:35:53.546 main com.adp.qa.autopilot.lsprh.demo.pages.GenericPage:77
+            -Logging message here -->
+
+        <!-- This will be the default log name for threads which have not their
+            context threadID (ctx:threadId) initialized : -->
+        <property name="threadId">Default</property>
+        <!-- we remove the thread id in multithread logs, as they are already thread
+            separated : -->
+        <property name="multithread_pattern">%-5p %d{yyyy-MM-dd HH:mm:ss.SSS} %C{2}:%L -
+            %msg%n
+        </property>
+    </properties>
+
+    <Appenders>
+
+        <Routing name="debug_thread">
+            <Routes pattern="$${ctx:threadId}">
+                <Route>
+                    <File name="debug_thread_logfile"
+                          fileName="logs/details/${name}_DEBUG_${date:yyyy-MM-dd-HH-mm}_${ctx:threadId}.log"
+                          immediateFlush="false" append="yes">
+                        <PatternLayout pattern="${multithread_pattern}"/>
+                    </File>
+                </Route>
+            </Routes>
+        </Routing>
+
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${pattern}"/>
+        </Console>
+
+        <!-- If one day we want to activate rolling file we can activate the below
+            code snippets -->
+        <!-- <RollingFile name="RollingFileERROR" fileName="logs/${name}_ERROR.log" -->
+        <!-- filePattern="logs/$${date:yyyy-MM}/${name}-%d{yyyy-MM-dd}-ERROR-%i.log.gz"> -->
+        <!-- <PatternLayout> -->
+        <!-- <pattern>${pattern}</pattern> -->
+        <!-- </PatternLayout> -->
+        <!-- <Policies> -->
+        <!-- <TimeBasedTriggeringPolicy />Rotated everyday -->
+        <!-- <SizeBasedTriggeringPolicy size="1 MB"/> Or every 100 MB -->
+        <!-- </Policies> -->
+        <!-- </RollingFile> -->
+        <File name="error_logfile"
+              fileName="logs/${name}_ERROR_${date:yyyy-MM-dd-HH-mm}.log"
+              immediateFlush="false" append="yes">
+            <PatternLayout pattern="${pattern}"/>
+        </File>
+        <File name="debug_logfile"
+              fileName="logs/${name}_DEBUG_${date:yyyy-MM-dd-HH-mm}.log"
+              immediateFlush="false" append="yes">
+            <PatternLayout pattern="${pattern}"/>
+        </File>
+        <File name="info_logfile"
+              fileName="logs/${name}_INFO_${date:yyyy-MM-dd-HH-mm}.log"
+              immediateFlush="false" append="yes">
+            <PatternLayout pattern="${pattern}"/>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Root level="debug">
+            <AppenderRef ref="Console" level="debug"/>
+            <AppenderRef ref="debug_logfile" level="debug"/>
+            <AppenderRef ref="debug_thread" level="debug"/>
+            <AppenderRef ref="info_logfile" level="info"/>
+            <AppenderRef ref="error_logfile" level="error"/>
+        </Root>
+    </Loggers>
+</Configuration>
