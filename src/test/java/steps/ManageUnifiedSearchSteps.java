@@ -1,94 +1,90 @@
 package steps;
 
-import org.junit.Assert;
-import pages.page.factory.UnifiedSearchPage;
-
 import static pages.page.factory.UnifiedSearchPage.ELEMENT_ICON_SEARCH;
 import static pages.page.factory.UnifiedSearchPage.ELEMENT_SEARCH_INPUT_DW;
 
+import pages.page.factory.UnifiedSearchPage;
+
 public class ManageUnifiedSearchSteps {
-    private UnifiedSearchPage unifiedSearchPage;
+  private UnifiedSearchPage unifiedSearchPage;
 
-    public void searchInTribe(String element) {
-        ELEMENT_ICON_SEARCH.waitUntilVisible();
-        ELEMENT_ICON_SEARCH.clickOnElement();
-        ELEMENT_SEARCH_INPUT_DW.setTextValue(element);
-    }
+  public void search(String element) {
+    ELEMENT_ICON_SEARCH.waitUntilVisible();
+    ELEMENT_ICON_SEARCH.clickOnElement();
+    ELEMENT_SEARCH_INPUT_DW.setTextValue(element);
+  }
 
+  public boolean isSearchedUserNameVisible(String user) {
+    return unifiedSearchPage.isSearchedUserNameVisible(user);
+  }
 
-    public boolean isSearchedUserNameVisible(String user) {
-        return unifiedSearchPage.isSearchedUserNameVisible(user);
-    }
+  public boolean isSearchedApplicationNameVisible(String appName) {
+    return unifiedSearchPage.isSearchedApplicationNameVisible(appName);
+  }
 
+  public boolean isSearchedApplicationDescriptionVisible(String appDesc) {
+    return unifiedSearchPage.isSearchedApplicationDescriptionVisible(appDesc);
+  }
 
-    public boolean isSearchedApplicationNameVisible(String appName) {
-        return unifiedSearchPage.isSearchedApplicationNameVisible(appName);
-    }
+  public boolean isSearchedApplicationPictureVisible() {
+    return unifiedSearchPage.isSearchedApplicationPictureVisible();
+  }
 
-    public boolean isSearchedApplicationDescriptionVisible(String appDesc) {
-        return unifiedSearchPage.isSearchedApplicationDescriptionVisible(appDesc);
-    }
+  public boolean isSearchedActivityTitleVisible(String activity) {
+    return unifiedSearchPage.isSearchedActivityTitleVisible(activity);
+  }
 
-    public boolean isSearchedApplicationPictureVisible() {
-        return unifiedSearchPage.isSearchedApplicationPictureVisible();
-    }
+  public boolean isSearchedSpaceNameVisible(String space) {
+    return unifiedSearchPage.isSearchedSpaceNameVisible(space);
+  }
 
-    public boolean isSearchedActivityTitleVisible(String activity) {
-        return unifiedSearchPage.isSearchedActivityTitleVisible(activity);
-    }
+  public boolean isSearchedAttachedFileVisible(String attachedFile) {
+    return unifiedSearchPage.isSearchedAttachedFileVisible(attachedFile);
+  }
 
-    public boolean isSearchedSpaceNameVisible(String space) {
-        return unifiedSearchPage.isSearchedSpaceNameVisible(space);
-    }
+  public void isImageDisplayedInSearch(String imageName) {
+    unifiedSearchPage.isImageDisplayedInSearch(imageName);
+  }
 
-    public boolean isSearchedAttachedFileVisible(String attachedFile) {
-        return unifiedSearchPage.isSearchedAttachedFileVisible(attachedFile);
-    }
+  public void goToTheSearchedImage(String imageName) {
+    unifiedSearchPage.goToTheSearchedImage(imageName);
+  }
 
-    public void isImageDisplayedInSearch(String imageName) {
-        unifiedSearchPage.isImageDisplayedInSearch(imageName);
-    }
+  public void goToTheSearchedApplication(String appName) {
+    unifiedSearchPage.goToTheSearchedApplication(appName);
+  }
 
-    public void goToTheSearchedImage(String imageName) {
-        unifiedSearchPage.goToTheSearchedImage(imageName);
-    }
+  public void goToTheSearchedSpace(String space) {
+    unifiedSearchPage.goToTheSearchedSpace(space);
+  }
 
-    public void goToTheSearchedApplication(String appName) {
-        unifiedSearchPage.goToTheSearchedApplication(appName);
-    }
+  public void goToTheSearchedFile(String file) {
+    unifiedSearchPage.goToTheSearchedFile(file);
+  }
 
-    public void goToTheSearchedSpace(String space) {
-        unifiedSearchPage.goToTheSearchedSpace(space);
-    }
+  public void goToTheSearchedActivity() {
+    unifiedSearchPage.goToTheSearchedActivity();
+  }
 
-    public void goToTheSearchedFile(String file) {
-        unifiedSearchPage.goToTheSearchedFile(file);
-    }
+  public void accessUnifiedSearchPage() {
+    ELEMENT_ICON_SEARCH.waitUntilVisible();
+    ELEMENT_ICON_SEARCH.clickOnElement();
+  }
 
-    public void goToTheSearchedActivity() {
-        unifiedSearchPage.goToTheSearchedActivity();
-    }
+  public void clickFavoriteBtn() {
+    unifiedSearchPage.clickFavoriteBtn();
+  }
 
-    public void accessUnifiedSearchPage() {
-        ELEMENT_ICON_SEARCH.waitUntilVisible();
-        ELEMENT_ICON_SEARCH.clickOnElement();
-    }
+  public boolean isSearchedActivityTitleNotVisible(String activity) {
+    return unifiedSearchPage.isSearchedActivityTitleNotVisible(activity);
+  }
 
-    public void clickFavoriteBtn() {
-        unifiedSearchPage.clickFavoriteBtn();
-    }
+  public void favoriteSearchedActivity(String activity) {
+    unifiedSearchPage.favoriteSearchedActivity(activity);
+  }
 
-    public boolean isSearchedActivityTitleNotVisible(String activity) {
-        return unifiedSearchPage.isSearchedActivityTitleNotVisible(activity);
-    }
-
-    public void favoriteSearchedActivity(String activity) {
-        unifiedSearchPage.favoriteSearchedActivity(activity);
-    }
-
-    public void selectDropDown(String object) {
-        unifiedSearchPage.selectDropDown(object);
-    }
+  public void selectDropDown(String object) {
+    unifiedSearchPage.selectDropDown(object);
+  }
 
 }
-

@@ -1,590 +1,484 @@
 package stepDefinitions;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static steps.GenericSteps.switchToTabByIndex;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import cucumber.api.java.en.And;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 import steps.HomeSteps;
 import steps.PeopleSteps;
 
 public class HomeStepDefinition {
-    @Steps
-    private HomeSteps homeSteps;
-
-    @Steps
-    private PeopleSteps peopleSteps;
-
-    @Steps
-    private ChatSteps chatSteps;
-
-    @When("I go to My Profile page")
-    public void goToProfilePage() {
-        homeSteps.goToProfilePage();
-    }
-
-    @Given("^I go to spaces page$")
-    public void goToSpacesPage() {
-        homeSteps.goToManageSpacesPage();
-    }
-
-    @Given("No activity is displayed in stream$")
-    public void checkNoActivityDisplayed() {
-        homeSteps.checkNoActivityDisplayed();
-    }
-
-    @Given("^I go to Stream page$")
-    public void goToStreamPage() {
-        homeSteps.goToStreamPage();
-    }
-
-    @Given("^I select '(.*)'$")
-    public void selectAllOrMySpaces(String filter) {
-        homeSteps.selectAllOrMySpaces(filter);
-    }
-
-    @Then("^my applications button is displayed$")
-    @When("I go to the news page")
-    public void goToNewsApp() {
-        homeSteps.goToNewsApp();
-    }
-
-    @When("^I open the app center menu$")
-    public void openAppCenterMenu() {
-        homeSteps.openAppCenterMenu();
-    }
-
-    @When("^I open all application page$")
-    public void openAllApplicationPage() {
-        homeSteps.openAllApplicationPage();
-    }
-
-    @When("the following sections are displayed")
-    public void checkSections(List<String> sliderList) {
-        assertThat(homeSteps.checkSections(sliderList)).as(String.format("The section %s is not visible",
-                        homeSteps.checkSections(sliderList)))
-                .isEmpty();
-    }
-
-    @When("^I hover on Recent spaces$")
-    public void hoverOnRecentSpaces() {
-        homeSteps.hoverOnRecentSpaces();
-    }
-
-    @When("^Searched space '(.*)' is displayed in Side Bar Filter$")
-    public void searchedSpaceIsDisplayedInSideBarFilter(String space) {
-        homeSteps.searchedSpaceIsDisplayedInSideBarFilter(space);
-    }
-
-    @When("^Second searched space is displayed in Side Bar Filter$")
-    public void secondSearchedSpaceIsDisplayedInSideBarFilter() {
-        String secondRandomSpaceName = Serenity.sessionVariableCalled("secondRandomSpaceName");
-        homeSteps.searchedSpaceIsDisplayedInSideBarFilter(secondRandomSpaceName);
-    }
-
-    @When("^First searched space is not displayed in Side Bar Filter$")
-    public void firstSearchedSpaceIsNotDisplayedInSideBarFilter() {
-        String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
-        homeSteps.searchedSpaceIsNotDisplayedInSideBarFilter(randomSpaceName);
-    }
-
-    @When("^Searched space '(.*)' is not displayed in Side Bar Filter$")
-    public void searchedSpaceIsNotDisplayedInSideBarFilter(String space) {
-        homeSteps.searchedSpaceIsNotDisplayedInSideBarFilter(space);
-    }
-
-    @When("^I search space '(.*)' in Side Bar Filter$")
-    public void searchSpaceInSideBarFilter(String space) {
-        homeSteps.searchSpaceInSideBarFilter(space);
-    }
-
-    @When("^I search for the second created space in Side Bar Filter$")
-    public void searchSecondSpaceInSideBarFilter() {
-        String secondRandomSpaceName = Serenity.sessionVariableCalled("secondRandomSpaceName");
-        homeSteps.searchSpaceInSideBarFilter(secondRandomSpaceName);
-    }
-
-    @Then("I search for the random created application")
-    public void searchApplicationCenter() {
-        String randomApplicationTitle = Serenity.sessionVariableCalled("randomApplicationTitle");
-        homeSteps.searchApplicationCenter(randomApplicationTitle);
-    }
-
-    @Then("I search for the edited random application")
-    public void searchEditedApplicationCenter() {
-        String editedRandomApplicationTitle = Serenity.sessionVariableCalled("editedRandomApplicationTitle");
-        homeSteps.searchApplicationCenter(editedRandomApplicationTitle);
-    }
+  @Steps
+  private HomeSteps   homeSteps;
+
+  @Steps
+  private PeopleSteps peopleSteps;
+
+  @When("I go to My Profile page")
+  public void goToProfilePage() {
+    homeSteps.goToProfilePage();
+  }
+
+  @Given("^I go to spaces page$")
+  public void goToSpacesPage() {
+    homeSteps.goToManageSpacesPage();
+  }
+
+  @Given("No activity is displayed in stream$")
+  public void checkNoActivityDisplayed() {
+    homeSteps.checkNoActivityDisplayed();
+  }
+
+  @Given("^I go to Stream page$")
+  public void goToStreamPage() {
+    homeSteps.goToStreamPage();
+  }
+
+  @Given("^I select '(.*)'$")
+  public void selectAllOrMySpaces(String filter) {
+    homeSteps.selectAllOrMySpaces(filter);
+  }
+
+  @When("^I open the app center menu$")
+  public void openAppCenterMenu() {
+    homeSteps.openAppCenterMenu();
+  }
+
+  @When("^I open all application page$")
+  public void openAllApplicationPage() {
+    homeSteps.openAllApplicationPage();
+  }
+
+  @When("the following sections are displayed")
+  public void checkSections(List<String> sliderList) {
+    assertThat(homeSteps.checkSections(sliderList)).as(String.format("The section %s is not visible",
+                                                                     homeSteps.checkSections(sliderList)))
+                                                   .isEmpty();
+  }
+
+  @When("^I hover on Recent spaces$")
+  public void hoverOnRecentSpaces() {
+    homeSteps.hoverOnRecentSpaces();
+  }
+
+  @When("^Searched space '(.*)' is displayed in Side Bar Filter$")
+  public void searchedSpaceIsDisplayedInSideBarFilter(String space) {
+    homeSteps.searchedSpaceIsDisplayedInSideBarFilter(space);
+  }
+
+  @When("^Second searched space is displayed in Side Bar Filter$")
+  public void secondSearchedSpaceIsDisplayedInSideBarFilter() {
+    String secondRandomSpaceName = Serenity.sessionVariableCalled("secondRandomSpaceName");
+    homeSteps.searchedSpaceIsDisplayedInSideBarFilter(secondRandomSpaceName);
+  }
+
+  @When("^First searched space is not displayed in Side Bar Filter$")
+  public void firstSearchedSpaceIsNotDisplayedInSideBarFilter() {
+    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
+    homeSteps.searchedSpaceIsNotDisplayedInSideBarFilter(randomSpaceName);
+  }
+
+  @When("^Searched space '(.*)' is not displayed in Side Bar Filter$")
+  public void searchedSpaceIsNotDisplayedInSideBarFilter(String space) {
+    homeSteps.searchedSpaceIsNotDisplayedInSideBarFilter(space);
+  }
+
+  @When("^I search space '(.*)' in Side Bar Filter$")
+  public void searchSpaceInSideBarFilter(String space) {
+    homeSteps.searchSpaceInSideBarFilter(space);
+  }
+
+  @When("^I search for the second created space in Side Bar Filter$")
+  public void searchSecondSpaceInSideBarFilter() {
+    String secondRandomSpaceName = Serenity.sessionVariableCalled("secondRandomSpaceName");
+    homeSteps.searchSpaceInSideBarFilter(secondRandomSpaceName);
+  }
+
+  @Then("I search for the random created application")
+  public void searchApplicationCenter() {
+    String randomApplicationTitle = Serenity.sessionVariableCalled("randomApplicationTitle");
+    homeSteps.searchApplicationCenter(randomApplicationTitle);
+  }
+
+  @Then("I search for the edited random application")
+  public void searchEditedApplicationCenter() {
+    String editedRandomApplicationTitle = Serenity.sessionVariableCalled("editedRandomApplicationTitle");
+    homeSteps.searchApplicationCenter(editedRandomApplicationTitle);
+  }
+
+  @Then("I search for the second random created application")
+  public void searchSecondApplicationCenter() {
+    String secondRandomApplicationTitle = Serenity.sessionVariableCalled("secondRandomApplicationTitle");
+    homeSteps.searchApplicationCenter(secondRandomApplicationTitle);
+  }
+
+  @When("the slider is displayed on the home page")
+  public void checkSlider() {
+    assertThat(homeSteps.checkSlider()).as("The slider is not visible", homeSteps.checkSlider()).isTrue();
+  }
+
+  @When("I go to the home page")
+  public void goToHomePage() {
+    homeSteps.goToHomePage();
+  }
+
+  @Then(
+    "^The notification that shows that activity '(.*)' posted by first user is commented by second user with comment '(.*)', is displayed$"
+  )
+  public void firstUserActivityCommentedBySecondUserNotificationIsDisplayed(String activity, String comment) {
+    String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
+    String secondUserLastName = Serenity.sessionVariableCalled("secondUserLastName");
+
+    String secondUserFullName = secondUserFirstName + " " + secondUserLastName;
+
+    String message = secondUserFullName + " has commented on a post";
+    homeSteps.commentActivityNotificationIsDisplayed(message, activity, comment);
+  }
+
+  @Then(
+    "^The notification that shows that comment '(.*)' posted by second user is replied by first user with '(.*)', is displayed$"
+  )
+  public void secondUserCommentRepliedByFirstUserNotificationIsDisplayed(String comment, String reply) {
+    String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
+    String firstUserLastName = Serenity.sessionVariableCalled("firstUserLastName");
+
+    String firstUserFullName = firstUserFirstName + " " + firstUserLastName;
+
+    String message = firstUserFullName + " replied to your comment";
+    homeSteps.commentActivityNotificationIsDisplayed(message, comment, reply);
+  }
+
+  @When("^I click on the notification that shows that comment '(.*)' posted by second user is replied by first user with '(.*)'$")
+  public void clickOnSecondUserCommentRepliedByFirstUserNotification(String comment, String reply) {
+    String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
+    String firstUserLastName = Serenity.sessionVariableCalled("firstUserLastName");
+
+    String firstUserFullName = firstUserFirstName + " " + firstUserLastName;
+
+    String message = firstUserFullName + " replied to your comment";
+    homeSteps.clickOnCommentActivityNotification(message, comment, reply);
+  }
+
+  @When(
+    "^I click on the notification that shows that activity '(.*)' posted by first user is commented by second user with comment '(.*)'$"
+  )
+  public void clickOnFirstUserActivityCommentedBySecondUserNotification(String activity, String comment) {
+    String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
+    String secondUserLastName = Serenity.sessionVariableCalled("secondUserLastName");
+
+    String secondUserFullName = secondUserFirstName + " " + secondUserLastName;
+
+    String message = secondUserFullName + " has commented on a post";
+    homeSteps.clickOnCommentActivityNotification(message, activity, comment);
+  }
+
+  @When("I open Notifications")
+  public void openNotifications() {
+    homeSteps.openNotifications();
+  }
+
+  @When("I refresh the page")
+  public void refreshPage() {
+    homeSteps.refreshPage();
+  }
+
+  @When("^I go to my profile$")
+  public void goToMyProfile() {
+    homeSteps.goToMyProfile();
+  }
+
+  @Then(
+    "^The notification with timestamp that shows that article '(.*)' posted by first user in the created space, is displayed$"
+  )
+  public void publishedArticleNotificationIsDisplayed(String article) {
+    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
+
+    String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
+    String firstUserLastName = Serenity.sessionVariableCalled("firstUserLastName");
+
+    String firstUserFullName = firstUserFirstName + " " + firstUserLastName;
+
+    String message = firstUserFullName + " has posted an article";
+    String space = randomSpaceName + " space";
+
+    homeSteps.publishedArticleNotificationIsDisplayed(message, article, space);
+  }
+
+  @Then(
+    "^I click on the notification with timestamp that shows that article '(.*)' is posted by first user in the created space$"
+  )
+  public void clickOnPublishedArticleNotification(String article) {
+    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
+
+    String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
+    String firstUserLastName = Serenity.sessionVariableCalled("firstUserLastName");
+
+    String firstUserFullName = firstUserFirstName + " " + firstUserLastName;
+
+    String message = firstUserFullName + " has posted an article";
+    String space = randomSpaceName + " space";
+
+    homeSteps.clickOnPublishedArticleNotification(message, article, space);
+  }
+
+  @When("I click on wallet label")
+  public void clickWallet() {
+    homeSteps.clickWalletWidget();
+  }
+
+  @When("the wallet page is opened")
+  public void checkWalletPage() throws InterruptedException {
+    assertThat(homeSteps.checkWalletPage()).as("Wallet page is not opened").isTrue();
+  }
+
+  @When("the '(.*)' page is opened")
+  public void checkPage(String page) {
+    assertThat(homeSteps.checkPage(page)).as("Wallet page is not opened").isTrue();
+  }
+
+  @When("I go to groups Management page")
+  public void goToAddGroups() {
+    homeSteps.goToAddGroups();
+  }
+
+  @Then("^The '(.*)' number is '(.*)'$")
+  public void checkWidgetContent(String widget, String number) {
+    assertThat(homeSteps.isWidgetWithNumberVisible(widget, number)).as(String.format("La widget %s doit avoir le nombre %s",
+                                                                                     widget,
+                                                                                     number))
+                                                                   .isTrue();
+  }
+
+  @Then("^the invitation number for spaces is '(.*)'$")
+  public void checkBagde(String number) {
+    assertThat(homeSteps.isSpacesBadgeWithNumberVisible(number))
+                                                                .as(String.format("La badge doit avoir le nombre %s", number))
+                                                                .isTrue();
+  }
+
+  @When("I click on spaces badge")
+  public void clickOnSpacesBadge() {
+    homeSteps.clickOnSpacesBagde();
+  }
+
+  @When("The 'Spaces' badge is '(.*)'")
+  public void checkSpaceBadge(String badgeNumber) {
+    homeSteps.checkSpacesBadge(badgeNumber);
+  }
+
+  @When("I click on connections badge")
+  public void clickOnConnectionsBadge() {
+    homeSteps.clickOnConnectionsBagde();
+  }
+
+  @When("The 'Connections' badge is '(.*)'")
+  public void checkConnectionsBadge(String badgeNumber) {
+    homeSteps.checkConnectionsBadge(badgeNumber);
+  }
+
+  @Then("^the drawer with '(.*)' spaces is opened$")
+  public void checkSpaceDrawer(String number) {
+    assertThat(homeSteps.isNumberOfSpacesInDrawer(number)).as(String.format("Le nombre d'espace dans le drawer n'est pas égale à %s",
+                                                                            number))
+                                                          .isTrue();
+  }
+
+  @Then("^the drawer with '(.*)' connections is opened$")
+  public void checkConnexionDrawer(String number) {
+    assertThat(homeSteps.isNumberOfConnectionsInDrawer(number)).as(String.format("Le nombre de connexions dans le drawer n'est pas égale à %s",
+                                                                                 number))
+                                                               .isTrue();
+  }
+
+  @When("I accept the invitation of the following spaces")
+  public void acceptSpaces(List<String> listOfSpace) {
+    homeSteps.acceptSpaceInvitation(listOfSpace);
+  }
+
+  @Then("^I close Space Drawer$")
+  public void closeSpaceDrawer() {
+    homeSteps.closeSpaceDrawer();
+
+  }
+
+  @When("I accept the invitation of the following four random spaces")
+  public void acceptFourRandomSpaces() {
+    List<String> spaces = new ArrayList<>();
+    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
+    String secondRandomSpaceName = Serenity.sessionVariableCalled("secondRandomSpaceName");
+    String thirdRandomSpaceName = Serenity.sessionVariableCalled("thirdRandomSpaceName");
+    String fourthRandomSpaceName = Serenity.sessionVariableCalled("fourthRandomSpaceName");
+
+    spaces.add(randomSpaceName);
+    spaces.add(secondRandomSpaceName);
+    spaces.add(thirdRandomSpaceName);
+    spaces.add(fourthRandomSpaceName);
+    homeSteps.acceptSpaceInvitation(spaces);
+  }
+
+  @When("I accept the invitation of the following three random spaces")
+  public void acceptThreeRandomSpaces() {
+    List<String> spaces = new ArrayList<>();
+    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
+    String secondRandomSpaceName = Serenity.sessionVariableCalled("secondRandomSpaceName");
+    String thirdRandomSpaceName = Serenity.sessionVariableCalled("thirdRandomSpaceName");
+
+    spaces.add(randomSpaceName);
+    spaces.add(secondRandomSpaceName);
+    spaces.add(thirdRandomSpaceName);
+    homeSteps.acceptSpaceInvitation(spaces);
+  }
+
+  @When("I accept the following connection invitation sent by first user and second user")
+  public void acceptRandomConnections() {
+    List<String> connections = new ArrayList<>();
+    String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
+    String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
+
+    connections.add(firstUserFirstName);
+    connections.add(secondUserFirstName);
+
+    homeSteps.acceptConnexionInvitation(connections);
+  }
+
+  @When("I accept the following connection invitation")
+  public void acceptConnexion(List<String> listOfPeople) {
+    homeSteps.acceptConnexionInvitation(listOfPeople);
+  }
+
+  @When("I accept the following connection invitation sent by first user")
+  public void acceptConnectionInvitationSentByFirstUser() {
+    String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
+    homeSteps.acceptSingleConnectionInvitation(firstUserFirstName);
+  }
+
+  @When("I reject the following connection invitation sent by second user")
+  public void rejectConnectionInvitationSentBySecondUser() {
+    String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
+    homeSteps.rejectSingleConnectionInvitation(secondUserFirstName);
+  }
+
+  @When("^I reject the invitation of the following connections$")
+  public void rejectConnexion(List<String> listOfPeople) {
+    homeSteps.rejectConnexionInvitation(listOfPeople);
+  }
+
+  @When("I reject the invitation of the following spaces")
+  public void rejectSpaces(List<String> listOfSpace) {
+    homeSteps.rejectSpaceInvitation(listOfSpace);
+  }
+
+  @Then("^the number of connection requests is '(.*)'$")
+  public void checkConnexionBagde(String number) {
+    assertThat(homeSteps.isConnectionsBadgeWithNumberVisible(number))
+                                                                     .as(String.format("La badge doit avoir le nombre %s",
+                                                                                       number))
+                                                                     .isTrue();
+  }
+
+  @When("I go to Person Page")
+  public void goToPeoplePage() {
+    homeSteps.goToPeoplePage();
+  }
+
+  @When("I go to Tasks Page")
+  public void goToTasksPage() {
+    homeSteps.goToTasksPage();
+  }
+
+  @Given("^I go to Administer application center Page$")
+  public void goToappCenterAdminSetupPage() {
+    homeSteps.goToappCenterAdminSetupPage();
+  }
+
+  @Given("^I go to Settings page$")
+  public void goToSettingsPage() {
+    homeSteps.goToSettingsPage();
+  }
+
+  @Given("^I click on see all$")
+  public void clickSeeAll() {
+    homeSteps.clickSeeAll();
+  }
+
+  @And("^I open Navigation menu$")
+  public void openNavigationMenu() {
+    homeSteps.openNavigationMenu();
+  }
+
+  @And("^I mouse over the stream icon in sidebar menu$")
+  public void hoverOnStreamIcon() {
+    homeSteps.hoverOnStreamIcon();
+  }
+
+  @And("^I click on home icon$")
+  public void clickOnHomeIcon() {
+    homeSteps.clickOnHomeIcon();
+  }
+
+  @Then("^I click to confirm the new home page$")
+  public void confirmationForChangeSiteHomeLink() {
+    homeSteps.confirmationForChangeSiteHomeLink();
+  }
+
+  @And("^I click on home page button")
+  public void clickOnHomeButton() {
+    homeSteps.clickOnHomeButton();
+  }
+
+  @Then("^Activity Stream page is displayed")
+  public void checkThatStreamPageIsDisplayed() {
+    homeSteps.checkThatStreamPageIsDisplayed();
+  }
+
+  @When("^I click on space invitation widget$")
+  public void clickOnSpaceInvitationWidget() {
+    homeSteps.clickOnSpaceInvitationWidget();
+  }
+
+  @When("the following Space is displayed in Spaces Requests section")
+  public void checkDisplaySpaceInvitation(List<String> listOfSpace) {
+    homeSteps.checkDisplaySpaceInvitation(listOfSpace);
+  }
+
+  @When("the following Space is not displayed in Spaces Requests section")
+  public void checkNotDisplaySpaceInvitation(List<String> listOfSpace) {
+    homeSteps.checkNotDisplaySpaceInvitation(listOfSpace);
+  }
+
+  @Then("The favorite star should be displayed in the published activity '(.*)'")
+  public void checkFavIcon(String activity) {
+    homeSteps.checkFavIcon(activity);
+  }
+
+  @When("^I favorite the activity posted in the space")
+  public void favoriteActivity() {
+    String oldActiviyy = Serenity.sessionVariableCalled("activity");
+    homeSteps.favoriteActivity(oldActiviyy);
+  }
+
+  @Then("^The favorite success message '(.*)' should be displayed$")
+  public void checkFavSuccessMessage(String message) {
+    homeSteps.checkFavSuccessMessage(message);
+  }
+
+  @And("I unbookmark the favorite activity posted in the space")
+  public void unbookmarkActivity() {
+    String oldActiviyy = Serenity.sessionVariableCalled("activity");
+    homeSteps.unbookmarkActivity(oldActiviyy);
+  }
+
+  @And("I unbookmark the activity '(.*)'")
+  @When("I bookmark the activity '(.*)'")
+  public void bookmarkActivity(String activity) {
+    homeSteps.bookmarkActivity(activity);
+  }
 
-    @Then("I search for the second random created application")
-    public void searchSecondApplicationCenter() {
-        String secondRandomApplicationTitle = Serenity.sessionVariableCalled("secondRandomApplicationTitle");
-        homeSteps.searchApplicationCenter(secondRandomApplicationTitle);
-    }
-
-    @When("the slider is displayed on the home page")
-    public void checkSlider() {
-        assertThat(homeSteps.checkSlider()).as("The slider is not visible", homeSteps.checkSlider()).isTrue();
-    }
-
-    @When("I go to the home page")
-    public void goToHomePage() {
-        homeSteps.goToHomePage();
-    }
-
-    @Then("^The notification that shows that activity '(.*)' posted by first user is commented by second user with comment '(.*)', is displayed$")
-    public void firstUserActivityCommentedBySecondUserNotificationIsDisplayed(String activity, String comment) {
-        String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
-        String secondUserLastName = Serenity.sessionVariableCalled("secondUserLastName");
-
-        String secondUserFullName = secondUserFirstName + " " + secondUserLastName;
-
-        String message = secondUserFullName + " has commented on a post";
-        homeSteps.commentActivityNotificationIsDisplayed(message, activity, comment);
-    }
-
-    @Then("^The notification that shows that comment '(.*)' posted by second user is replied by first user with '(.*)', is displayed$")
-    public void secondUserCommentRepliedByFirstUserNotificationIsDisplayed(String comment, String reply) {
-        String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
-        String firstUserLastName = Serenity.sessionVariableCalled("firstUserLastName");
-
-        String firstUserFullName = firstUserFirstName + " " + firstUserLastName;
-
-        String message = firstUserFullName + " replied to your comment";
-        homeSteps.commentActivityNotificationIsDisplayed(message, comment, reply);
-    }
-
-
-    @When("^I click on the notification that shows that comment '(.*)' posted by second user is replied by first user with '(.*)'$")
-    public void clickOnSecondUserCommentRepliedByFirstUserNotification(String comment, String reply) {
-        String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
-        String firstUserLastName = Serenity.sessionVariableCalled("firstUserLastName");
-
-        String firstUserFullName = firstUserFirstName + " " + firstUserLastName;
-
-        String message = firstUserFullName + " replied to your comment";
-        homeSteps.clickOnCommentActivityNotification(message, comment, reply);
-    }
-
-    @When("^I click on the notification that shows that activity '(.*)' posted by first user is commented by second user with comment '(.*)'$")
-    public void clickOnFirstUserActivityCommentedBySecondUserNotification(String activity, String comment) {
-        String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
-        String secondUserLastName = Serenity.sessionVariableCalled("secondUserLastName");
-
-        String secondUserFullName = secondUserFirstName + " " + secondUserLastName;
-
-        String message = secondUserFullName + " has commented on a post";
-        homeSteps.clickOnCommentActivityNotification(message, activity, comment);
-    }
-
-    @When("I open Notifications")
-    public void openNotifications() {
-        homeSteps.openNotifications();
-    }
-
-    @When("I refresh the page")
-    public void refreshPage() {
-        homeSteps.refreshPage();
-    }
-
-    @When("^I go to my profile$")
-    public void goToMyProfile() {
-        homeSteps.goToMyProfile();
-    }
-
-    @Then("^The notification with timestamp that shows that article '(.*)' posted by first user in the created space, is displayed$")
-    public void publishedArticleNotificationIsDisplayed(String article) {
-        String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
-
-        String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
-        String firstUserLastName = Serenity.sessionVariableCalled("firstUserLastName");
-
-        String firstUserFullName = firstUserFirstName + " " + firstUserLastName;
-
-        String message = firstUserFullName + " has posted an article";
-        String space = randomSpaceName + " space";
-
-        homeSteps.publishedArticleNotificationIsDisplayed(message, article, space);
-    }
-
-    @Then("^I click on the notification with timestamp that shows that article '(.*)' is posted by first user in the created space$")
-    public void clickOnPublishedArticleNotification(String article) {
-        String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
-
-        String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
-        String firstUserLastName = Serenity.sessionVariableCalled("firstUserLastName");
-
-        String firstUserFullName = firstUserFirstName + " " + firstUserLastName;
-
-        String message = firstUserFullName + " has posted an article";
-        String space = randomSpaceName + " space";
-
-        homeSteps.clickOnPublishedArticleNotification(message, article, space);
-    }
-
-    @When("the news are displayed in the widget")
-    public void checkNews() {
-        assertThat(homeSteps.isNewsDisplayedInWidget()).as("News are not displayed in widget").isTrue();
-    }
-
-    @When("No news article is displayed in the widget")
-    public void checkNewsArticleIsNotDisplayedInSnapshotPageNewsBloc() {
-        assertThat(homeSteps.isNewsDisplayedInWidget()).as("News are displayed in snapshot page news bloc").isFalse();
-    }
-
-    @When("le button voir plus est affiché")
-    public void checkSeeMore() {
-        assertThat(homeSteps.isSeeMoreNewsButtonVisible()).as("See more News button is not displayed in widget").isTrue();
-    }
-
-    @When("The article title '(.*)' is displayed in snapshot page news bloc")
-    public void isNewsTitleDisplayedInWidget(String title) {
-        homeSteps.isNewsTitleDisplayedInWidget(title);
-    }
-
-    @When("The article summary '(.*)' is displayed in snapshot page news bloc")
-    public void isNewsSummaryDisplayedInWidget(String summary) {
-        homeSteps.isNewsSummaryDisplayedInWidget(summary);
-    }
-
-    @When("The article title '(.*)' is not displayed in snapshot page news bloc")
-    public void noNewsArticleTitleIsDisplayedInWidget(String title) {
-        homeSteps.isNewsTitleNotDisplayedInWidget(title);
-    }
-
-    @When("The article summary '(.*)' is not displayed in snapshot page news bloc")
-    public void noNewsSummaryIsDisplayedInWidget(String summary) {
-        homeSteps.isNewsSummaryNotDisplayedInWidget(summary);
-    }
-
-    @When("I click on wallet label")
-    public void clickWallet() {
-        homeSteps.clickWalletWidget();
-    }
-
-    @When("the wallet page is opened")
-    public void checkWalletPage() throws InterruptedException {
-        assertThat(homeSteps.checkWalletPage()).as("Wallet page is not opened").isTrue();
-    }
-
-    @When("the '(.*)' page is opened")
-    public void checkPage(String page) {
-        assertThat(homeSteps.checkPage(page)).as("Wallet page is not opened").isTrue();
-    }
-
-    @When("I go to groups Management page")
-    public void goToAddGroups() {
-        homeSteps.goToAddGroups();
-    }
-
-    @Then("^The '(.*)' number is '(.*)'$")
-    public void checkWidgetContent(String widget, String number) {
-        assertThat(homeSteps.isWidgetWithNumberVisible(widget, number)).as(String.format("La widget %s doit avoir le nombre %s",
-                        widget,
-                        number))
-                .isTrue();
-    }
-
-    @Then("^the invitation number for spaces is '(.*)'$")
-    public void checkBagde(String number) {
-        assertThat(homeSteps.isSpacesBadgeWithNumberVisible(number))
-                .as(String.format("La badge doit avoir le nombre %s", number)).isTrue();
-    }
-
-    @When("I click on spaces badge")
-    public void clickOnSpacesBadge() {
-        homeSteps.clickOnSpacesBagde();
-    }
-
-    @When("The 'Spaces' badge is '(.*)'")
-    public void checkSpaceBadge(String badgeNumber) {
-        homeSteps.checkSpacesBadge(badgeNumber);
-    }
-
-    @When("I click on connections badge")
-    public void clickOnConnectionsBadge() {
-        homeSteps.clickOnConnectionsBagde();
-    }
-
-    @When("The 'Connections' badge is '(.*)'")
-    public void checkConnectionsBadge(String badgeNumber) {
-        homeSteps.checkConnectionsBadge(badgeNumber);
-    }
-
-    @Then("^the drawer with '(.*)' spaces is opened$")
-    public void checkSpaceDrawer(String number) {
-        assertThat(homeSteps.isNumberOfSpacesInDrawer(number)).as(String.format("Le nombre d'espace dans le drawer n'est pas égale à %s",
-                        number))
-                .isTrue();
-    }
-
-    @Then("^the drawer with '(.*)' connections is opened$")
-    public void checkConnexionDrawer(String number) {
-        assertThat(homeSteps.isNumberOfConnectionsInDrawer(number)).as(String.format("Le nombre de connexions dans le drawer n'est pas égale à %s",
-                        number))
-                .isTrue();
-    }
-
-    @When("I accept the invitation of the following spaces")
-    public void acceptSpaces(List<String> listOfSpace) {
-        homeSteps.acceptSpaceInvitation(listOfSpace);
-    }
-
-    @Then("^I close Space Drawer$")
-    public void closeSpaceDrawer() {
-        homeSteps.closeSpaceDrawer();
-
-    }
-
-    @When("I accept the invitation of the following four random spaces")
-    public void acceptFourRandomSpaces() {
-        List<String> spaces = new ArrayList<>();
-        String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
-        String secondRandomSpaceName = Serenity.sessionVariableCalled("secondRandomSpaceName");
-        String thirdRandomSpaceName = Serenity.sessionVariableCalled("thirdRandomSpaceName");
-        String fourthRandomSpaceName = Serenity.sessionVariableCalled("fourthRandomSpaceName");
-
-        spaces.add(randomSpaceName);
-        spaces.add(secondRandomSpaceName);
-        spaces.add(thirdRandomSpaceName);
-        spaces.add(fourthRandomSpaceName);
-        homeSteps.acceptSpaceInvitation(spaces);
-    }
-
-    @When("I accept the invitation of the following three random spaces")
-    public void acceptThreeRandomSpaces() {
-        List<String> spaces = new ArrayList<>();
-        String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
-        String secondRandomSpaceName = Serenity.sessionVariableCalled("secondRandomSpaceName");
-        String thirdRandomSpaceName = Serenity.sessionVariableCalled("thirdRandomSpaceName");
-
-        spaces.add(randomSpaceName);
-        spaces.add(secondRandomSpaceName);
-        spaces.add(thirdRandomSpaceName);
-        homeSteps.acceptSpaceInvitation(spaces);
-    }
-
-    @When("I accept the following connection invitation sent by first user and second user")
-    public void acceptRandomConnections() {
-        List<String> connections = new ArrayList<>();
-        String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
-        String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
-
-        connections.add(firstUserFirstName);
-        connections.add(secondUserFirstName);
-
-        homeSteps.acceptConnexionInvitation(connections);
-    }
-
-    @When("I accept the following connection invitation")
-    public void acceptConnexion(List<String> listOfPeople) {
-        homeSteps.acceptConnexionInvitation(listOfPeople);
-    }
-
-    @When("I accept the following connection invitation sent by first user")
-    public void acceptConnectionInvitationSentByFirstUser() {
-        String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
-        homeSteps.acceptSingleConnectionInvitation(firstUserFirstName);
-    }
-
-    @When("I reject the following connection invitation sent by second user")
-    public void rejectConnectionInvitationSentBySecondUser() {
-        String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
-        homeSteps.rejectSingleConnectionInvitation(secondUserFirstName);
-    }
-
-    @When("^I reject the invitation of the following connections$")
-    public void rejectConnexion(List<String> listOfPeople) {
-        homeSteps.rejectConnexionInvitation(listOfPeople);
-    }
-
-    @When("I reject the invitation of the following spaces")
-    public void rejectSpaces(List<String> listOfSpace) {
-        homeSteps.rejectSpaceInvitation(listOfSpace);
-    }
-
-    @Then("^the number of connection requests is '(.*)'$")
-    public void checkConnexionBagde(String number) {
-        assertThat(homeSteps.isConnectionsBadgeWithNumberVisible(number))
-                .as(String.format("La badge doit avoir le nombre %s", number)).isTrue();
-    }
-
-    @When("I go to Person Page")
-    public void goToPeoplePage() {
-        homeSteps.goToPeoplePage();
-    }
-
-    @When("I go to Tasks Page")
-    public void goToTasksPage() {
-        homeSteps.goToTasksPage();
-    }
-
-    @Given("^I go to Administer application center Page$")
-    public void goToappCenterAdminSetupPage() {
-        homeSteps.goToappCenterAdminSetupPage();
-    }
-
-    @Given("^I go to Settings page$")
-    public void goToSettingsPage() {
-        homeSteps.goToSettingsPage();
-    }
-
-    @Given("^I click on see all$")
-    public void clickSeeAll() {
-        homeSteps.clickSeeAll();
-    }
-
-    @Given("^I click on see all news$")
-    public void clickSeeAllNews() {
-        homeSteps.clickSeeAllLinkNews();
-    }
-
-    @And("^I access to web conferencing admin page$")
-    public void goToWebConferencingPage() {
-        homeSteps.goToWebConferencingAdminPage();
-    }
-
-    @And("^I deactivate webRTC$")
-    public void deativateSwitcher() {
-        homeSteps.deactivateSwitcher();
-    }
-
-    @Then("^The jitsi call button should be displayed in the user profile$")
-    public void checkCallButton() {
-        homeSteps.checkCallButton();
-    }
-
-    @Then("^The phone icon should be displayed on the topbar of chat drawer$")
-    public void checkPhoneIcon() {
-        homeSteps.checkPhoneIcon();
-    }
-
-    @Then("^The phone icon should be displayed on the topbar of the space$")
-    public void checkSpacePhoneIcon() {
-        homeSteps.checkSpacePhoneIcon();
-    }
-
-    @When("^I open the chat drawer with the space '(.*)'$")
-    public void openSpaceChatDrawer(String space) {
-        homeSteps.openChatDrawer();
-        homeSteps.openSpaceChat(space);
-    }
-
-    @When("^I open the chat drawer with the created space$")
-    public void openFirstSpaceChatDrawer() {
-        String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
-        homeSteps.openChatDrawer();
-        homeSteps.openSpaceChat(randomSpaceName);
-    }
-
-    @Then("^The jitsi call button should be displayed in the chat application topbar$")
-    public void checkJitsiButton() {
-        homeSteps.checkJitsiButtton();
-    }
-
-    @When("^I open the chat drawer with the room '(.*)'$")
-    public void openRoomChatDrawer(String room) {
-        homeSteps.openChatDrawer();
-        homeSteps.openRoomChat(room);
-    }
-
-    @When("^I open chat application$")
-    public void openChatApp() {
-        chatSteps.openChatApp();
-        switchToTabByIndex(1);
-    }
-
-    @When("^I go back to  chat application$")
-    public void goBackChatApp() {
-        switchToTabByIndex(1);
-    }
-
-    @And("^I open Navigation menu$")
-    public void openNavigationMenu() {
-        homeSteps.openNavigationMenu();
-    }
-
-    @And("^I mouse over the stream icon in sidebar menu$")
-    public void hoverOnStreamIcon() {
-        homeSteps.hoverOnStreamIcon();
-    }
-
-    @And("^I click on home icon$")
-    public void clickOnHomeIcon() {
-        homeSteps.clickOnHomeIcon();
-    }
-
-    @Then("^I click to confirm the new home page$")
-    public void confirmationForChangeSiteHomeLink() {
-        homeSteps.confirmationForChangeSiteHomeLink();
-    }
-
-    @And("^I click on home page button")
-    public void clickOnHomeButton() {
-        homeSteps.clickOnHomeButton();
-    }
-
-    @Then("^Activity Stream page is displayed")
-    public void checkThatStreamPageIsDisplayed() {
-        homeSteps.checkThatStreamPageIsDisplayed();
-    }
-
-    @When("^I click on space invitation widget$")
-    public void clickOnSpaceInvitationWidget() {
-        homeSteps.clickOnSpaceInvitationWidget();
-    }
-
-    @When("the following Space is displayed in Spaces Requests section")
-    public void checkDisplaySpaceInvitation(List<String> listOfSpace) {
-        homeSteps.checkDisplaySpaceInvitation(listOfSpace);
-    }
-
-    @When("the following Space is not displayed in Spaces Requests section")
-    public void checkNotDisplaySpaceInvitation(List<String> listOfSpace) {
-        homeSteps.checkNotDisplaySpaceInvitation(listOfSpace);
-    }
-
-    @Then("The favorite star should be displayed in the published activity '(.*)'")
-    public void checkFavIcon(String activity) {
-        homeSteps.checkFavIcon(activity);
-    }
-
-    @When("^I favorite the activity posted in the space")
-    public void favoriteActivity() {
-        String oldActiviyy = Serenity.sessionVariableCalled("activity");
-        homeSteps.favoriteActivity(oldActiviyy);
-    }
-
-    @Then("^The favorite success message '(.*)' should be displayed$")
-    public void checkFavSuccessMessage(String message) {
-        homeSteps.checkFavSuccessMessage(message);
-    }
-
-    @And("I unbookmark the favorite activity posted in the space")
-    public void unbookmarkActivity() {
-        String oldActiviyy = Serenity.sessionVariableCalled("activity");
-        homeSteps.unbookmarkActivity(oldActiviyy);
-    }
-
-    @And("I unbookmark the activity '(.*)'")
-    @When("I bookmark the activity '(.*)'")
-    public void bookmarkActivity(String activity) {
-        homeSteps.bookmarkActivity(activity);
-    }
-
-    @Given("^I check that Event Widget is displayed$")
-    public void eventWidgetIsDisplayed() { homeSteps.eventWidgetIsDisplayed(); }
-
-    @Given("^I check that application name is Agenda$")
-    public void eventWidgetName() { homeSteps.eventWidgetName(); }
 }
-
-
-

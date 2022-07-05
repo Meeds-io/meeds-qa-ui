@@ -8,17 +8,17 @@ import utils.galenBaseClass.GalenTestBase;
 
 public class GalenSteps extends GalenTestBase {
 
-	@Steps
-	GenericSteps genericSteps;
+  @Steps
+  GenericSteps genericSteps;
 
-	public void checkPage(String template) throws IOException, InterruptedException {
-		Thread.sleep(3000);
-		checkLayout(template, null);
+  public void checkPage(String template) throws IOException, InterruptedException {
+    Thread.sleep(3000);
+    checkLayout(template, null);
 
-	}
+  }
 
-	public List<String> getListOfFails() {
-		return getFailedTestsList();
-	}
+  public List<String> getListOfFails() {
+    return getFailedTestsList();
+  }
 
 }

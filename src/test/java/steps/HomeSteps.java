@@ -1,354 +1,298 @@
 package steps;
 
-import pages.page.factory.HomePage;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import pages.page.factory.HomePage;
+
 public class HomeSteps {
 
-    private HomePage homePage;
+  private HomePage homePage;
+
+  public void goToManageSpacesPage() {
+    homePage.goToSpacesPage();
+  }
+
+  public void checkNoActivityDisplayed() {
+    homePage.checkNoActivityDisplayed();
+  }
+
+  public void goToStreamPage() {
+    homePage.goToStreamPage();
+  }
+
+  public void selectAllOrMySpaces(String filter) {
+    homePage.selectAllOrMySpaces(filter);
+  }
+
+  public void hoverOnRecentSpaces() {
+    homePage.hoverOnRecentSpaces();
+  }
+
+  public void searchedSpaceIsDisplayedInSideBarFilter(String space) {
+    homePage.searchedSpaceIsDisplayedInSideBarFilter(space);
+  }
+
+  public void searchedSpaceIsNotDisplayedInSideBarFilter(String space) {
+    homePage.searchedSpaceIsNotDisplayedInSideBarFilter(space);
+  }
+
+  public void searchSpaceInSideBarFilter(String space) {
+    homePage.searchSpaceInSideBarFilter(space);
+  }
+
+  public void openAppCenterMenu() {
+    homePage.openAppCenterMenu();
+  }
+
+  public void openAllApplicationPage() {
+    homePage.openAllApplicationPage();
+  }
+
+  public void searchApplicationCenter(String app) {
+    homePage.searchApplicationCenter(app);
+  }
+
+  public void goToProfilePage() {
+    homePage.goToProfilePage();
+  }
+
+  public void goToTasksPage() {
+    homePage.goToTasksPage();
+  }
+
+  public List<String> checkSections(List<String> elementList) {
+    List<String> missingValues = new ArrayList<>();
+    for (String elementName : elementList) {
+      if (!homePage.isElementVisible(elementName))
+        missingValues.add(elementName);
+    }
+    return missingValues;
+  }
 
-    public void goToManageSpacesPage() {
-        homePage.goToSpacesPage();
-    }
-
-    public void checkNoActivityDisplayed() {
-        homePage.checkNoActivityDisplayed();
-    }
-
-    public void goToStreamPage() {
-        homePage.goToStreamPage();
-    }
-
-    public void selectAllOrMySpaces(String filter) {
-        homePage.selectAllOrMySpaces(filter);
-    }
-
-    public void goToNewsApp() {
-        homePage.goToNewsApp();
-    }
-
-    public void hoverOnRecentSpaces() {
-        homePage.hoverOnRecentSpaces();
-    }
-
-    public void searchedSpaceIsDisplayedInSideBarFilter(String space) {
-        homePage.searchedSpaceIsDisplayedInSideBarFilter(space);
-    }
-
-    public void searchedSpaceIsNotDisplayedInSideBarFilter(String space) {
-        homePage.searchedSpaceIsNotDisplayedInSideBarFilter(space);
-    }
-
-    public void searchSpaceInSideBarFilter(String space) {
-        homePage.searchSpaceInSideBarFilter(space);
-    }
-
-    public void openAppCenterMenu() {
-        homePage.openAppCenterMenu();
-    }
-
-    public void openAllApplicationPage() {
-        homePage.openAllApplicationPage();
-    }
-
-    public void searchApplicationCenter(String app) {
-        homePage.searchApplicationCenter(app);
-    }
-
-    public void goToProfilePage() {
-        homePage.goToProfilePage();
-    }
-
-    public void goToTasksPage() {
-        homePage.goToTasksPage();
-    }
-
-    public List<String> checkSections(List<String> elementList) {
-        List<String> missingValues = new ArrayList<>();
-        for (String elementName : elementList) {
-            if (!homePage.isElementVisible(elementName))
-                missingValues.add(elementName);
-        }
-        return missingValues;
-    }
-
-    public boolean checkSlider() {
-        return homePage.isElementVisible("Article");
-    }
-
-    public void commentActivityNotificationIsDisplayed(String message, String activity, String comment) {
-        homePage.commentActivityNotificationIsDisplayed(message, activity, comment);
-    }
-
-    public void clickOnCommentActivityNotification(String message, String activity, String comment) {
-        homePage.clickOnCommentActivityNotification(message, activity, comment);
-    }
-
-    public void goToHomePage() {
-        homePage.goToHomePage();
-    }
-
-    public void openNotifications() {
-        homePage.openNotifications();
-    }
-
-    public void refreshPage() {
-        homePage.refreshPage();
-    }
-
-    public boolean isNewsDisplayedInWidget() {
-        return homePage.isNewsDisplayedInWidget();
-    }
-
-    public void publishedArticleNotificationIsDisplayed(String message, String article, String space) {
-        homePage.publishedArticleNotificationIsDisplayed(message, article, space);
-    }
-
-    public void clickOnPublishedArticleNotification(String message, String article, String space) {
-        homePage.clickOnPublishedArticleNotification(message, article, space);
-    }
-
-    public void isNewsTitleDisplayedInWidget(String title) {
-        homePage.isNewsTitleDisplayedInWidget(title);
-    }
-
-    public void isNewsSummaryDisplayedInWidget(String summary) {
-        homePage.isNewsSummaryDisplayedInWidget(summary);
-    }
-
-    public void isNewsTitleNotDisplayedInWidget(String title) {
-        homePage.isNewsTitleNotDisplayedInWidget(title);
-    }
+  public boolean checkSlider() {
+    return homePage.isElementVisible("Article");
+  }
 
-    public void isNewsSummaryNotDisplayedInWidget(String summary) {
-        homePage.isNewsSummaryNotDisplayedInWidget(summary);
-    }
-
-    public boolean isSeeMoreNewsButtonVisible() {
-        return homePage.isSeeMoreNewsButtonVisible();
-    }
-
-    public void clickWalletWidget() {
-        homePage.clickWalletWidget();
-    }
-
-    public boolean checkWalletPage() throws InterruptedException {
-        return homePage.isWalletPageOpened();
-    }
+  public void commentActivityNotificationIsDisplayed(String message, String activity, String comment) {
+    homePage.commentActivityNotificationIsDisplayed(message, activity, comment);
+  }
 
-    public boolean checkPage(String page) {
-        return homePage.isPageOpened(page);
-    }
+  public void clickOnCommentActivityNotification(String message, String activity, String comment) {
+    homePage.clickOnCommentActivityNotification(message, activity, comment);
+  }
 
-    public void goToAddUser() {
-        homePage.goToAddUser();
-    }
+  public void goToHomePage() {
+    homePage.goToHomePage();
+  }
 
-    public void goToAddGroups() {
-        homePage.goToAddGroups();
-    }
+  public void openNotifications() {
+    homePage.openNotifications();
+  }
 
-    public boolean isWidgetWithNumberVisible(String widget, String number) {
-        return homePage.isWidgetWithNumberVisible(widget, number);
-    }
+  public void refreshPage() {
+    homePage.refreshPage();
+  }
 
-    public boolean isConnectionsBadgeWithNumberVisible(String number) {
-        return homePage.isConnectionsBadgeWithNumberVisible(number);
-    }
+  public void publishedArticleNotificationIsDisplayed(String message, String article, String space) {
+    homePage.publishedArticleNotificationIsDisplayed(message, article, space);
+  }
 
-    public boolean isSpacesBadgeWithNumberVisible(String number) {
-        return homePage.isSpacesBadgeWithNumberVisible(number);
-    }
+  public void clickOnPublishedArticleNotification(String message, String article, String space) {
+    homePage.clickOnPublishedArticleNotification(message, article, space);
+  }
 
-    public void clickOnConnectionsBagde() {
-        homePage.clickOnConnectionsBagde();
-    }
+  public void clickWalletWidget() {
+    homePage.clickWalletWidget();
+  }
 
-    public void checkConnectionsBadge(String badgeNumber) {
-        homePage.isConnectionsBadgeWithNumberVisible(badgeNumber);
-    }
+  public boolean checkWalletPage() throws InterruptedException {
+    return homePage.isWalletPageOpened();
+  }
 
-    public void clickOnSpacesBagde() {
-        homePage.clickOnSpacesBagde();
-    }
+  public boolean checkPage(String page) {
+    return homePage.isPageOpened(page);
+  }
 
-    public void checkSpacesBadge(String badgeNumber) {
-        homePage.isSpacesBadgeWithNumberVisible(badgeNumber);
-    }
+  public void goToAddUser() {
+    homePage.goToAddUser();
+  }
 
-    public boolean isNumberOfSpacesInDrawer(String number) {
-        return homePage.isNumberOfSpacesInDrawer(Integer.valueOf(number));
-    }
+  public void goToAddGroups() {
+    homePage.goToAddGroups();
+  }
 
-    public boolean isNumberOfConnectionsInDrawer(String number) {
-        return homePage.isNumberOfConnectionsInDrawer(Integer.valueOf(number));
-    }
+  public boolean isWidgetWithNumberVisible(String widget, String number) {
+    return homePage.isWidgetWithNumberVisible(widget, number);
+  }
 
-    public void rejectSpaceInvitation(List<String> listOfSpaces) {
-        for (String spaceName : listOfSpaces)
-            homePage.rejectSpaceInvitation(spaceName);
-    }
+  public boolean isConnectionsBadgeWithNumberVisible(String number) {
+    return homePage.isConnectionsBadgeWithNumberVisible(number);
+  }
 
-    public void acceptSpaceInvitation(List<String> listOfSpaces) {
-        for (String spaceName : listOfSpaces) {
-            homePage.acceptSpaceInvitation(spaceName);
-        }
+  public boolean isSpacesBadgeWithNumberVisible(String number) {
+    return homePage.isSpacesBadgeWithNumberVisible(number);
+  }
 
-    }
+  public void clickOnConnectionsBagde() {
+    homePage.clickOnConnectionsBagde();
+  }
 
-    public void acceptRandomSpaceInvitation(String spaceName) {
-        homePage.acceptSpaceInvitation(spaceName);
-    }
+  public void checkConnectionsBadge(String badgeNumber) {
+    homePage.isConnectionsBadgeWithNumberVisible(badgeNumber);
+  }
 
-    public void rejectRandomSpaceInvitation(String spaceName) {
-        homePage.rejectSpaceInvitation(spaceName);
-    }
+  public void clickOnSpacesBagde() {
+    homePage.clickOnSpacesBagde();
+  }
 
-    public void closeSpaceDrawer() {
-        homePage.closeSpaceDrawer();
-    }
+  public void checkSpacesBadge(String badgeNumber) {
+    homePage.isSpacesBadgeWithNumberVisible(badgeNumber);
+  }
 
-    public void acceptConnexionInvitation(List<String> listOfPeople) {
-        for (String peopleName : listOfPeople)
-            homePage.acceptConnexionInvitation(peopleName);
-    }
+  public boolean isNumberOfSpacesInDrawer(String number) {
+    return homePage.isNumberOfSpacesInDrawer(Integer.valueOf(number));
+  }
 
-    public void acceptSingleConnectionInvitation(String userName) {
-        homePage.acceptConnexionInvitation(userName);
-    }
+  public boolean isNumberOfConnectionsInDrawer(String number) {
+    return homePage.isNumberOfConnectionsInDrawer(Integer.valueOf(number));
+  }
 
-    public void rejectSingleConnectionInvitation(String userName) {
-        homePage.rejectConnexionInvitation(userName);
-    }
+  public void rejectSpaceInvitation(List<String> listOfSpaces) {
+    for (String spaceName : listOfSpaces)
+      homePage.rejectSpaceInvitation(spaceName);
+  }
 
-    public void rejectConnexionInvitation(List<String> listOfPeople) {
-        for (String peopleName : listOfPeople)
-            homePage.rejectConnexionInvitation(peopleName);
+  public void acceptSpaceInvitation(List<String> listOfSpaces) {
+    for (String spaceName : listOfSpaces) {
+      homePage.acceptSpaceInvitation(spaceName);
     }
 
-    public void openChatDrawer() {
-        homePage.openChatDrawer();
-    }
+  }
 
-    public void goToPeoplePage() {
-        homePage.goToPeoplePage();
-    }
+  public void acceptRandomSpaceInvitation(String spaceName) {
+    homePage.acceptSpaceInvitation(spaceName);
+  }
 
-    public void goToappCenterAdminSetupPage() {
-        homePage.goToappCenterAdminSetupPage();
-    }
+  public void rejectRandomSpaceInvitation(String spaceName) {
+    homePage.rejectSpaceInvitation(spaceName);
+  }
 
-    public void goToMyProfile() {
-        homePage.goToMyProfile();
-    }
+  public void closeSpaceDrawer() {
+    homePage.closeSpaceDrawer();
+  }
 
-    public void goToSettingsPage() {
-        homePage.goToSettingsPage();
-    }
+  public void acceptConnexionInvitation(List<String> listOfPeople) {
+    for (String peopleName : listOfPeople)
+      homePage.acceptConnexionInvitation(peopleName);
+  }
 
-    public void clickSeeAll() {
-        homePage.clickSeeAll();
-    }
+  public void acceptSingleConnectionInvitation(String userName) {
+    homePage.acceptConnexionInvitation(userName);
+  }
 
-    public void clickSeeAllLinkNews() {
-        homePage.clickSeeAllLinkNews();
-    }
+  public void rejectSingleConnectionInvitation(String userName) {
+    homePage.rejectConnexionInvitation(userName);
+  }
 
-    public void goToWebConferencingAdminPage() {
-        homePage.goToWebConferencingAdminPage();
-    }
+  public void rejectConnexionInvitation(List<String> listOfPeople) {
+    for (String peopleName : listOfPeople)
+      homePage.rejectConnexionInvitation(peopleName);
+  }
 
-    public void deactivateSwitcher() {
-        homePage.deactivateSwitcher();
-    }
+  public void goToPeoplePage() {
+    homePage.goToPeoplePage();
+  }
 
-    public void checkCallButton() {
-        homePage.checkCallButton();
-    }
+  public void goToappCenterAdminSetupPage() {
+    homePage.goToappCenterAdminSetupPage();
+  }
 
-    public void checkPhoneIcon() {
-        homePage.checkPhoneIcon();
-    }
+  public void goToMyProfile() {
+    homePage.goToMyProfile();
+  }
 
-    public void checkSpacePhoneIcon() {
-        homePage.checkSpacePhoneIcon();
-    }
+  public void goToSettingsPage() {
+    homePage.goToSettingsPage();
+  }
 
-    public void checkJitsiButtton() {
-        homePage.checkJitsiButtton();
-    }
+  public void clickSeeAll() {
+    homePage.clickSeeAll();
+  }
 
-    public void openNavigationMenu() {
-        homePage.clickOnHamburgerIcon();
-    }
+  public void goToWebConferencingAdminPage() {
+    homePage.goToWebConferencingAdminPage();
+  }
 
-    public void hoverOnStreamIcon() {
-        homePage.hoverOnStreamIcon();
-    }
+  public void deactivateSwitcher() {
+    homePage.deactivateSwitcher();
+  }
 
-    public void clickOnHomeIcon() {
-        homePage.clickOnHomeIcon();
-    }
+  public void openNavigationMenu() {
+    homePage.clickOnHamburgerIcon();
+  }
 
-    public void confirmationForChangeSiteHomeLink() {
-        homePage.confirmationForChangeSiteHomeLink();
-    }
+  public void hoverOnStreamIcon() {
+    homePage.hoverOnStreamIcon();
+  }
 
-    public void clickOnHomeButton() {
-        homePage.clickOnHomePageButton();
-    }
+  public void clickOnHomeIcon() {
+    homePage.clickOnHomeIcon();
+  }
 
-    public void checkThatStreamPageIsDisplayed() {
-        homePage.checkThatStreamPageIsDisplayed();
-    }
+  public void confirmationForChangeSiteHomeLink() {
+    homePage.confirmationForChangeSiteHomeLink();
+  }
 
-    public void clickOnSpaceInvitationWidget() {
-        homePage.clickOnSpaceInvitationWidget();
-    }
+  public void clickOnHomeButton() {
+    homePage.clickOnHomePageButton();
+  }
 
-    public void checkDisplaySpaceInvitation(List<String> listOfSpaces) {
-        for (String spaceName : listOfSpaces) {
-            homePage.checkExistingSpaceInvitation(spaceName);
-        }
-    }
+  public void checkThatStreamPageIsDisplayed() {
+    homePage.checkThatStreamPageIsDisplayed();
+  }
 
-    public void checkRandomDisplaySpaceInvitation(String space) {
-        homePage.checkExistingSpaceInvitation(space);
-    }
+  public void clickOnSpaceInvitationWidget() {
+    homePage.clickOnSpaceInvitationWidget();
+  }
 
-    public void checkRandomNotDisplaySpaceInvitation(String space) {
-        homePage.checkNotExistingSpaceInvitation(space);
+  public void checkDisplaySpaceInvitation(List<String> listOfSpaces) {
+    for (String spaceName : listOfSpaces) {
+      homePage.checkExistingSpaceInvitation(spaceName);
     }
+  }
 
-    public void checkNotDisplaySpaceInvitation(List<String> listOfSpaces) {
-        for (String spaceName : listOfSpaces) {
-            homePage.checkNotExistingSpaceInvitation(spaceName);
-        }
-    }
+  public void checkRandomDisplaySpaceInvitation(String space) {
+    homePage.checkExistingSpaceInvitation(space);
+  }
 
-    public void checkFavIcon(String activity) {
-        homePage.checkFavIcon(activity);
-    }
+  public void checkRandomNotDisplaySpaceInvitation(String space) {
+    homePage.checkNotExistingSpaceInvitation(space);
+  }
 
-    public void favoriteActivity(String activity) {
-        homePage.favoriteActivity(activity);
+  public void checkNotDisplaySpaceInvitation(List<String> listOfSpaces) {
+    for (String spaceName : listOfSpaces) {
+      homePage.checkNotExistingSpaceInvitation(spaceName);
     }
+  }
 
-    public void checkFavSuccessMessage(String message) {
-        homePage.checkFavSuccessMessage(message);
-    }
+  public void checkFavIcon(String activity) {
+    homePage.checkFavIcon(activity);
+  }
 
-    public void unbookmarkActivity(String activity) {
-        homePage.unbookmarkActivity(activity);
-    }
+  public void favoriteActivity(String activity) {
+    homePage.favoriteActivity(activity);
+  }
 
-    public void bookmarkActivity(String activity) {
-        homePage.bookmarkActivity(activity);
-    }
+  public void checkFavSuccessMessage(String message) {
+    homePage.checkFavSuccessMessage(message);
+  }
 
-    public void eventWidgetIsDisplayed() { homePage.eventWidgetIsDisplayed(); }
+  public void unbookmarkActivity(String activity) {
+    homePage.unbookmarkActivity(activity);
+  }
 
-    public void eventWidgetName() { homePage.eventWidgetName(); }
+  public void bookmarkActivity(String activity) {
+    homePage.bookmarkActivity(activity);
+  }
 }

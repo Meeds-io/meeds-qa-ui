@@ -2,8 +2,8 @@ package pages.page.factory.Social;
 
 import elements.BaseElementFacade;
 import elements.TextBoxElementFacade;
-import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.Serenity;
+import net.serenitybdd.core.annotations.findby.FindBy;
 import pages.GenericPage;
 
 public class SocialPage extends GenericPage {
@@ -34,7 +34,9 @@ public class SocialPage extends GenericPage {
   @FindBy(xpath = "(//*[@id='activityCommentsDrawer']//*[@class='v-btn__content'])[3]")
   private BaseElementFacade          closeCommentsDrawer;
 
-  @FindBy(xpath = "(//*[@class='v-list-item v-list-item--dense v-list-item--link theme--light']//*[@class='v-list-item__title pl-3'])[1]")
+  @FindBy(
+      xpath = "(//*[@class='v-list-item v-list-item--dense v-list-item--link theme--light']//*[@class='v-list-item__title pl-3'])[1]"
+  )
   public static BaseElementFacade    editButton;
 
   @FindBy(xpath = "(//i[@class='v-icon notranslate primary--text mdi mdi-dots-vertical theme--light'])[2]")
