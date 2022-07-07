@@ -1,11 +1,10 @@
 # new feature
 # Tags: optional
-@secondpart
 Feature: Activities
 
   Scenario: delete your activity
     Given I am authenticated as
-      | login    | root   |
+      | login    | root     |
       | password | password |
     And I create the space
     When I click on post in space

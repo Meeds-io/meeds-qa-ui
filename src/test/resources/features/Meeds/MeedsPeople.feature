@@ -1,5 +1,3 @@
-# language: en
-@secondpart
 Feature: Search for Contacts in People page
   As a user
   I want to check in People page all contacts informations

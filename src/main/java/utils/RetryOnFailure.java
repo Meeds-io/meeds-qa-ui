@@ -6,14 +6,14 @@ import net.jodah.failsafe.RetryPolicy;
 
 public class RetryOnFailure {
 
-  private RetryOnFailure() {
-    super();
-  }
+    private RetryOnFailure() {
+        super();
+    }
 
-  public static RetryPolicy<Object> getRetryPolicy(int timeInSeconds, int maxRetries) {
-    return new RetryPolicy<>()
-                              .handle(Exception.class)
-                              .withDelay(Duration.ofSeconds(timeInSeconds))
-                              .withMaxRetries(maxRetries);
-  }
+    public static RetryPolicy<Object> getRetryPolicy(int timeInSeconds, int maxRetries) {
+        return new RetryPolicy<>()
+                .handle(Exception.class)
+                .withDelay(Duration.ofSeconds(timeInSeconds))
+                .withMaxRetries(maxRetries);
+    }
 }

@@ -2,8 +2,6 @@
 # Tags: optional
 Feature: Favorite activities
 
-
-  @executetest
   Scenario: [Favs_US03]: Bookmark an activity
     Given I am authenticated as
       | login    | john   |
@@ -140,100 +138,6 @@ Feature: Favorite activities
     Then The activity is not displayed in the search 'activity2'
     And The activity is not displayed in the search 'activity1'
     And The activity is not displayed in the search 'activity0'
-
-  Scenario: [Favs_US10 ][01]: Bookmark a news by the article creator
-    Given I am authenticated as
-      | login    | john   |
-      | password | gtngtn |
-    And I create the space
-    When I click on post in space
-    And I click on 'write an article'
-    And I add an article immediately with the following data
-      | Titre   | ArticleFavorite01 |
-      | Contenu | ArticleFavorite01 |
-    Then The article is displayed in the activity stream of the space
-    When I close the second window
-    And I click on the title of the article in the activity stream
-    When I favorite the article from it's details page
-    Then The favorite success message 'Favorite added successfully. Find it easily from the search' should be displayed
-
-  @ignored @favoriteXpathtoadapt
-  Scenario: [Favs_US11][03]: check removed bookmarked news from news details
-    Given I am authenticated as
-      | login    | john   |
-      | password | gtngtn |
-    And I create the space
-    When I click on post in space
-    And I click on 'write an article'
-    And I add an article immediately with the following data
-      | Titre   | ArticleFavorite02 |
-      | Contenu | ArticleFavorite02 |
-    Then The article is displayed in the activity stream of the space
-    When I close the second window
-    Then I favorite the article from the activity stream
-    Then The favorite success message 'Favorite added successfully. Find it easily from the search' should be displayed
-    When I click on the title of the article in the activity stream
-    And I unbookmark the article from it's details page
-    Then The favorite success message 'The item has been removed from favorites successfully.' should be displayed
-
-  @ignored @favoriteXpathtoadapt
-  Scenario: [Favs_US12][01]: Search by favorites and news
-    Given I am authenticated as
-      | login    | john   |
-      | password | gtngtn |
-    And I create the space
-    When I click on post in space
-    And I click on 'write an article'
-    And I add an article immediately with the following data
-      | Titre   | ArticleFavorite03 |
-      | Contenu | ArticleFavorite03 |
-    Then The article is displayed in the activity stream of the space
-    When I close the second window
-    When I click on post in space
-    And I click on 'write an article'
-    And I add an article immediately with the following data
-      | Titre   | ArticleFavorite04 |
-      | Contenu | ArticleFavorite04 |
-    Then The article is displayed in the activity stream of the space
-    When I close the second window
-    And I bookmark the activity 'ArticleFavorite04'
-    Then The favorite success message 'Favorite added successfully. Find it easily from the search' should be displayed
-    When I access to the news details page from the article 'ArticleFavorite03'
-    And I favorite the article from it's details page
-    Then The favorite success message 'Favorite added successfully. Find it easily from the search' should be displayed
-    When I access to the unified search page
-    And I click on the favorite button
-    And I select an object from the drop-down menu 'News'
-    Then The activity is displayed in the search 'ArticleFavorite03'
-    And The activity is displayed in the search 'ArticleFavorite04'
-
-  @ignored @favoriteXpathtoadapt
-  Scenario: [Favs_US12][03]: Search by favorites and news (article bookmarked/unbookmarked from the news details)
-    Given I am authenticated as
-      | login    | john   |
-      | password | gtngtn |
-    And I create the space
-    When I click on post in space
-    And I click on 'write an article'
-    And I add an article immediately with the following data
-      | Titre   | ArticleFavorite05 |
-      | Contenu | ArticleFavorite05 |
-    Then The article is displayed in the activity stream of the space
-    When I close the second window
-    And I bookmark the activity 'ArticleFavorite05'
-    Then The favorite success message 'Favorite added successfully. Find it easily from the search' should be displayed
-    When I access to the unified search page
-    And I click on the favorite button
-    And I select an object from the drop-down menu 'News'
-    Then The activity is displayed in the search 'ArticleFavorite05'
-    When I go to Stream page
-    When I access to the news details page from the article 'ArticleFavorite05'
-    And I unbookmark the article from it's details page
-    Then The favorite success message 'The item has been removed from favorites successfully.' should be displayed
-    When I access to the unified search page
-    And I click on the favorite button
-    And I select an object from the drop-down menu 'News'
-    Then The activity is not displayed in the search 'ArticleFavorite05'
 
   Scenario: [Fav_US13][01]: Bookmark a note from it's details
     Given I am authenticated as

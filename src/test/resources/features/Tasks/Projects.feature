@@ -1,6 +1,5 @@
 # new feature
 # Tags: optional
-@secondpart
 Feature: User adds, deletes, edits and clones a project
 
   Scenario: [User_UI_US18.1]: Add project with a description

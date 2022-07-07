@@ -1,5 +1,3 @@
-# language: en
-@firstpart
 Feature: : To be able to access applications
   As a user
   I want to access any application from the app center
@@ -8,10 +6,6 @@ Feature: : To be able to access applications
     Given I am authenticated as
       | login    | john   |
       | password | gtngtn |
-
-    When I go To AppCenter Drawer
-    And I go to News AppCenter Application
-    Then News Application Page is displayed
 
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application

@@ -30,7 +30,7 @@ Feature: Challenges
     Then Challenge Application Page is displayed
     And Add challenge button should not be displayed
 
-    @ignored
+  @ignored
   Scenario: Challenge_App_Admin_US01: Challenge App
     Given I am authenticated as
       | login    | john   |

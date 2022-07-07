@@ -6,262 +6,262 @@ import net.serenitybdd.core.Serenity;
 import pages.page.factory.space.ManageSpacesPage;
 
 public class ManageSpaceSteps {
-  private ManageSpacesPage manageSpacesPage;
+    private ManageSpacesPage manageSpacesPage;
 
-  public void addSimpleSpace(String spaceName) {
-    manageSpacesPage.openSpaceFormDrawer();
-    manageSpacesPage.setSpaceName(spaceName);
-    manageSpacesPage.clickFirstProcessButton();
-    manageSpacesPage.clickSecondProcessButton();
-    manageSpacesPage.clickAddSpaceButton();
-  }
-
-  public void addSpaceWithRegistration(String spaceName, String registration) {
-    manageSpacesPage.openSpaceFormDrawer();
-    manageSpacesPage.setSpaceName(spaceName);
-    manageSpacesPage.clickFirstProcessButton();
-    manageSpacesPage.checkSpaceRegistration(registration);
-    manageSpacesPage.clickSecondProcessButton();
-    manageSpacesPage.clickAddSpaceButton();
-  }
-
-  public void addSpaceWithRegistrationWithInvitedUser(String spaceName, String registration, String user) {
-    manageSpacesPage.openSpaceFormDrawer();
-    manageSpacesPage.setSpaceName(spaceName);
-    manageSpacesPage.clickFirstProcessButton();
-    manageSpacesPage.checkSpaceRegistration(registration);
-    manageSpacesPage.clickSecondProcessButton();
-    manageSpacesPage.inviteUserToSpace(user);
-    manageSpacesPage.clickAddSpaceButton();
-  }
-
-  public void checkThatSpaceDetailsInSearchResultsAreDisplayed(String spaceName, String members) {
-    manageSpacesPage.checkThatSpaceDetailsInSearchResultsAreDisplayed(spaceName, members);
-  }
-
-  public void checkThatSpaceDetailsInSearchResultsAreDisplayedByOtherUser(String spaceName, String members) {
-    manageSpacesPage.checkThatSpaceDetailsInSearchResultsAreDisplayedByOtherUser(spaceName, members);
-  }
-
-  public void checkThatSpaceInSearchResultsIsNotDisplayed(String spaceName) {
-    manageSpacesPage.checkThatSpaceInSearchResultsIsNotDisplayed(spaceName);
-  }
-
-  public void goToSpeceficSpace(String space) {
-    manageSpacesPage.insertSpaceNameInSearchField(space);
-    manageSpacesPage.goToSpecificSpace(space);
-  }
-
-  public void addSpaceWithInviteUser(String spaceName, String user) {
-    manageSpacesPage.openSpaceFormDrawer();
-    manageSpacesPage.setSpaceName(spaceName);
-    manageSpacesPage.clickFirstProcessButton();
-    manageSpacesPage.clickSecondProcessButton();
-    manageSpacesPage.inviteUserToSpace(user);
-    manageSpacesPage.clickAddSpaceButton();
-  }
-
-  public void spaceNameIsDisplayed(String space) {
-    manageSpacesPage.spaceNameIsDisplayed(space);
-  }
-
-  public void clickSpaceAction(String action) {
-    manageSpacesPage.clickSpaceAction(action);
-  }
-
-  public void deleteSpace(String spaceName) {
-    manageSpacesPage.deleteSpace(spaceName);
-  }
-
-  public void deleteSpacesList(List<String> listOfSpaces) {
-    for (String spaceName : listOfSpaces) {
-      Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
-      manageSpacesPage.deleteRandomSpace(spaceName);
+    public void addSimpleSpace(String spaceName) {
+        manageSpacesPage.openSpaceFormDrawer();
+        manageSpacesPage.setSpaceName(spaceName);
+        manageSpacesPage.clickFirstProcessButton();
+        manageSpacesPage.clickSecondProcessButton();
+        manageSpacesPage.clickAddSpaceButton();
     }
-  }
 
-  public void checkThatSpaceTabsAreDisplayedInOrder(String space) {
-    manageSpacesPage.checkThatSpaceTabsAreDisplayedInOrder(space);
-  }
+    public void addSpaceWithRegistration(String spaceName, String registration) {
+        manageSpacesPage.openSpaceFormDrawer();
+        manageSpacesPage.setSpaceName(spaceName);
+        manageSpacesPage.clickFirstProcessButton();
+        manageSpacesPage.checkSpaceRegistration(registration);
+        manageSpacesPage.clickSecondProcessButton();
+        manageSpacesPage.clickAddSpaceButton();
+    }
 
-  public void goToSpaceToAcceptInvitation(String space) {
-    manageSpacesPage.insertSpaceNameInSearchField(space);
-    manageSpacesPage.goToSpaceToAcceptInvitation(space);
-  }
+    public void addSpaceWithRegistrationWithInvitedUser(String spaceName, String registration, String user) {
+        manageSpacesPage.openSpaceFormDrawer();
+        manageSpacesPage.setSpaceName(spaceName);
+        manageSpacesPage.clickFirstProcessButton();
+        manageSpacesPage.checkSpaceRegistration(registration);
+        manageSpacesPage.clickSecondProcessButton();
+        manageSpacesPage.inviteUserToSpace(user);
+        manageSpacesPage.clickAddSpaceButton();
+    }
 
-  public void checkThatSpaceTopBarElementsAreDisplayed() {
-    manageSpacesPage.checkThatSpaceTopBarElementsAreDisplayed();
-  }
+    public void checkThatSpaceDetailsInSearchResultsAreDisplayed(String spaceName, String members) {
+        manageSpacesPage.checkThatSpaceDetailsInSearchResultsAreDisplayed(spaceName, members);
+    }
 
-  public void isSpaceBannerUpdated() {
-    manageSpacesPage.isSpaceBannerUpdated();
-  }
+    public void checkThatSpaceDetailsInSearchResultsAreDisplayedByOtherUser(String spaceName, String members) {
+        manageSpacesPage.checkThatSpaceDetailsInSearchResultsAreDisplayedByOtherUser(spaceName, members);
+    }
 
-  public void uploadSpaceBanner(String fileName) {
-    manageSpacesPage.uploadSpaceBanner(fileName);
-  }
+    public void checkThatSpaceInSearchResultsIsNotDisplayed(String spaceName) {
+        manageSpacesPage.checkThatSpaceInSearchResultsIsNotDisplayed(spaceName);
+    }
 
-  public void searchSpace(String spaceName) {
-    manageSpacesPage.insertSpaceNameInSearchField(spaceName);
-  }
+    public void goToSpeceficSpace(String space) {
+        manageSpacesPage.insertSpaceNameInSearchField(space);
+        manageSpacesPage.goToSpecificSpace(space);
+    }
 
-  public void goToSpaceHomeViaSpaceAvatar() {
-    manageSpacesPage.goToSpaceHomeViaSpaceAvatar();
-  }
+    public void addSpaceWithInviteUser(String spaceName, String user) {
+        manageSpacesPage.openSpaceFormDrawer();
+        manageSpacesPage.setSpaceName(spaceName);
+        manageSpacesPage.clickFirstProcessButton();
+        manageSpacesPage.clickSecondProcessButton();
+        manageSpacesPage.inviteUserToSpace(user);
+        manageSpacesPage.clickAddSpaceButton();
+    }
 
-  public void spaceAvatarIsDisplayed() {
-    manageSpacesPage.spaceAvatarIsDisplayed();
-  }
+    public void spaceNameIsDisplayed(String space) {
+        manageSpacesPage.spaceNameIsDisplayed(space);
+    }
 
-  public void selectFilter(String filter) {
-    manageSpacesPage.selectFilter(filter);
-  }
+    public void clickSpaceAction(String action) {
+        manageSpacesPage.clickSpaceAction(action);
+    }
 
-  public void checkDisplayOfTwentySpaces() {
-    manageSpacesPage.checkDisplayOfTwentySpaces();
-  }
+    public void deleteSpace(String spaceName) {
+        manageSpacesPage.deleteSpace(spaceName);
+    }
 
-  public void showMoreSpaces() {
-    manageSpacesPage.showMoreSpaces();
-  }
+    public void deleteSpacesList(List<String> listOfSpaces) {
+        for (String spaceName : listOfSpaces) {
+            Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
+            manageSpacesPage.deleteRandomSpace(spaceName);
+        }
+    }
 
-  public void checkDisplayOfOtherSpaces() {
-    manageSpacesPage.checkDisplayOfOtherSpaces();
-  }
+    public void checkThatSpaceTabsAreDisplayedInOrder(String space) {
+        manageSpacesPage.checkThatSpaceTabsAreDisplayedInOrder(space);
+    }
 
-  public void clickOnSpaceSettingsTab() {
-    manageSpacesPage.clickOnSpaceSettingsTab();
-  }
+    public void goToSpaceToAcceptInvitation(String space) {
+        manageSpacesPage.insertSpaceNameInSearchField(space);
+        manageSpacesPage.goToSpaceToAcceptInvitation(space);
+    }
 
-  public void checkGeneralSpaceSettings() {
-    manageSpacesPage.checkGeneralSpaceSettings();
-  }
+    public void checkThatSpaceTopBarElementsAreDisplayed() {
+        manageSpacesPage.checkThatSpaceTopBarElementsAreDisplayed();
+    }
 
-  public void checkApplicationsSpaceSettings() {
-    manageSpacesPage.checkApplicationsSpaceSettings();
-  }
+    public void isSpaceBannerUpdated() {
+        manageSpacesPage.isSpaceBannerUpdated();
+    }
 
-  public void clickOnGeneralSpaceSettings() {
-    manageSpacesPage.clickOnGeneralSpaceSettings();
-  }
+    public void uploadSpaceBanner(String fileName) {
+        manageSpacesPage.uploadSpaceBanner(fileName);
+    }
 
-  public void checkAvatarSection() {
-    manageSpacesPage.checkAvatarSection();
-  }
+    public void searchSpace(String spaceName) {
+        manageSpacesPage.insertSpaceNameInSearchField(spaceName);
+    }
 
-  public void checkNameSpaceSection() {
-    manageSpacesPage.checkNameSpaceSection();
-  }
+    public void goToSpaceHomeViaSpaceAvatar() {
+        manageSpacesPage.goToSpaceHomeViaSpaceAvatar();
+    }
 
-  public void checkDescriptionSpaceSection() {
-    manageSpacesPage.checkDescriptionSpaceSection();
-  }
+    public void spaceAvatarIsDisplayed() {
+        manageSpacesPage.spaceAvatarIsDisplayed();
+    }
 
-  public void checkSpaceTemplateSection() {
-    manageSpacesPage.checkSpaceTemplateSection();
-  }
+    public void selectFilter(String filter) {
+        manageSpacesPage.selectFilter(filter);
+    }
 
-  public void checkHiddenAndSwitchButtonSection() {
-    manageSpacesPage.checkHiddenAndSwitchButtonSection();
-  }
+    public void checkDisplayOfTwentySpaces() {
+        manageSpacesPage.checkDisplayOfTwentySpaces();
+    }
 
-  public void checkRegistrationSection() {
-    manageSpacesPage.checkRegistrationSection();
-  }
+    public void showMoreSpaces() {
+        manageSpacesPage.showMoreSpaces();
+    }
 
-  public void checkCancelButton() {
-    manageSpacesPage.checkCancelButton();
-  }
+    public void checkDisplayOfOtherSpaces() {
+        manageSpacesPage.checkDisplayOfOtherSpaces();
+    }
 
-  public void checkUpdateButton() {
-    manageSpacesPage.checkUpdateButton();
-  }
+    public void clickOnSpaceSettingsTab() {
+        manageSpacesPage.clickOnSpaceSettingsTab();
+    }
 
-  public void addSpaceCommunity(String spaceName) {
-    manageSpacesPage.openSpaceFormDrawer();
-    manageSpacesPage.setSpaceName(spaceName);
-    manageSpacesPage.selectCommunityTemplate();
-    manageSpacesPage.clickFirstProcessButton();
-    manageSpacesPage.clickSecondProcessButton();
-    manageSpacesPage.clickAddSpaceButton();
-  }
+    public void checkGeneralSpaceSettings() {
+        manageSpacesPage.checkGeneralSpaceSettings();
+    }
 
-  public void clickOnArrowIconAppSpaceSettings() {
-    manageSpacesPage.clickOnArrowIconAppSpaceSettings();
-  }
+    public void checkApplicationsSpaceSettings() {
+        manageSpacesPage.checkApplicationsSpaceSettings();
+    }
 
-  public void spaceAppSettingsIsOpened() {
-    manageSpacesPage.spaceAppSettingsIsOpened();
-  }
+    public void clickOnGeneralSpaceSettings() {
+        manageSpacesPage.clickOnGeneralSpaceSettings();
+    }
 
-  public void appCardIsDisplayed() {
-    manageSpacesPage.appCardIsDisplayed();
-  }
+    public void checkAvatarSection() {
+        manageSpacesPage.checkAvatarSection();
+    }
 
-  public void plusButtonIsDisplayed() {
-    manageSpacesPage.plusButtonIsDisplayed();
-  }
+    public void checkNameSpaceSection() {
+        manageSpacesPage.checkNameSpaceSection();
+    }
 
-  public void clickOn3dotsAppCard() {
-    manageSpacesPage.clickOn3dotsAppCard();
-  }
+    public void checkDescriptionSpaceSection() {
+        manageSpacesPage.checkDescriptionSpaceSection();
+    }
 
-  public void removeAppButtonIsDisplayed() {
-    manageSpacesPage.removeAppButtonIsDisplayed();
-  }
+    public void checkSpaceTemplateSection() {
+        manageSpacesPage.checkSpaceTemplateSection();
+    }
 
-  public void moveBeforeAppButtonIsDisplayed() {
-    manageSpacesPage.moveBeforeAppButtonIsDisplayed();
-  }
+    public void checkHiddenAndSwitchButtonSection() {
+        manageSpacesPage.checkHiddenAndSwitchButtonSection();
+    }
 
-  public void moveAfterAppButtonIsDisplayed() {
-    manageSpacesPage.moveAfterAppButtonIsDisplayed();
-  }
+    public void checkRegistrationSection() {
+        manageSpacesPage.checkRegistrationSection();
+    }
 
-  public void clickOnPlusButton() {
-    manageSpacesPage.clickOnPlusButton();
-  }
+    public void checkCancelButton() {
+        manageSpacesPage.checkCancelButton();
+    }
 
-  public void checkSpaceAppInstallerDrawerIsDisplayed() {
-    manageSpacesPage.checkSpaceAppInstallerDrawerIsDisplayed();
-  }
+    public void checkUpdateButton() {
+        manageSpacesPage.checkUpdateButton();
+    }
 
-  public void checkApplicationsAreDisplayed() {
-    manageSpacesPage.checkApplicationsAreDisplayed();
-  }
+    public void addSpaceCommunity(String spaceName) {
+        manageSpacesPage.openSpaceFormDrawer();
+        manageSpacesPage.setSpaceName(spaceName);
+        manageSpacesPage.selectCommunityTemplate();
+        manageSpacesPage.clickFirstProcessButton();
+        manageSpacesPage.clickSecondProcessButton();
+        manageSpacesPage.clickAddSpaceButton();
+    }
 
-  public void clickToAddApp(String application) {
-    manageSpacesPage.clickToAddApp(application);
-  }
+    public void clickOnArrowIconAppSpaceSettings() {
+        manageSpacesPage.clickOnArrowIconAppSpaceSettings();
+    }
 
-  public void checkThatAppIsDisplayed(String application) {
-    manageSpacesPage.checkThatAppIsAdded(application);
-  }
+    public void spaceAppSettingsIsOpened() {
+        manageSpacesPage.spaceAppSettingsIsOpened();
+    }
 
-  public void goToMembersTab() {
-    manageSpacesPage.goToMembersTab();
-  }
+    public void appCardIsDisplayed() {
+        manageSpacesPage.appCardIsDisplayed();
+    }
 
-  public void goToTasksTab() {
-    manageSpacesPage.goToTasksTab();
-  }
+    public void plusButtonIsDisplayed() {
+        manageSpacesPage.plusButtonIsDisplayed();
+    }
 
-  public void goToSettingsTab() {
-    manageSpacesPage.goToSettingsTab();
-  }
+    public void clickOn3dotsAppCard() {
+        manageSpacesPage.clickOn3dotsAppCard();
+    }
 
-  public void addUserToSpace(String user) {
-    manageSpacesPage.addUserToSpace(user);
-  }
+    public void removeAppButtonIsDisplayed() {
+        manageSpacesPage.removeAppButtonIsDisplayed();
+    }
 
-  public void addCommunitySpaceWithFirstUser(String randomSpaceName, String firstUserName) {
-    manageSpacesPage.openSpaceFormDrawer();
-    manageSpacesPage.setSpaceName(randomSpaceName);
-    manageSpacesPage.selectCommunityTemplate();
-    manageSpacesPage.clickFirstProcessButton();
-    manageSpacesPage.clickSecondProcessButton();
-    manageSpacesPage.inviteUserToSpace(firstUserName);
-    manageSpacesPage.clickAddSpaceButton();
+    public void moveBeforeAppButtonIsDisplayed() {
+        manageSpacesPage.moveBeforeAppButtonIsDisplayed();
+    }
 
-  }
+    public void moveAfterAppButtonIsDisplayed() {
+        manageSpacesPage.moveAfterAppButtonIsDisplayed();
+    }
+
+    public void clickOnPlusButton() {
+        manageSpacesPage.clickOnPlusButton();
+    }
+
+    public void checkSpaceAppInstallerDrawerIsDisplayed() {
+        manageSpacesPage.checkSpaceAppInstallerDrawerIsDisplayed();
+    }
+
+    public void checkApplicationsAreDisplayed() {
+        manageSpacesPage.checkApplicationsAreDisplayed();
+    }
+
+    public void clickToAddApp(String application) {
+        manageSpacesPage.clickToAddApp(application);
+    }
+
+    public void checkThatAppIsDisplayed(String application) {
+        manageSpacesPage.checkThatAppIsAdded(application);
+    }
+
+    public void goToMembersTab() {
+        manageSpacesPage.goToMembersTab();
+    }
+
+    public void goToTasksTab() {
+        manageSpacesPage.goToTasksTab();
+    }
+
+    public void goToSettingsTab() {
+        manageSpacesPage.goToSettingsTab();
+    }
+
+    public void addUserToSpace(String user) {
+        manageSpacesPage.addUserToSpace(user);
+    }
+
+    public void addCommunitySpaceWithFirstUser(String randomSpaceName, String firstUserName) {
+        manageSpacesPage.openSpaceFormDrawer();
+        manageSpacesPage.setSpaceName(randomSpaceName);
+        manageSpacesPage.selectCommunityTemplate();
+        manageSpacesPage.clickFirstProcessButton();
+        manageSpacesPage.clickSecondProcessButton();
+        manageSpacesPage.inviteUserToSpace(firstUserName);
+        manageSpacesPage.clickAddSpaceButton();
+
+    }
 }

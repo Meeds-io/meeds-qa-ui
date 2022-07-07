@@ -1,4 +1,3 @@
-@secondpart
 Feature: Spaces widget checking
   As a user
   I want to check the spaces in home page

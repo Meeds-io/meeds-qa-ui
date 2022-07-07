@@ -1,11 +1,9 @@
 # new feature
 # Tags: optional
-@secondpart
 Feature: Badges Management
   As an administrator user
   I can manage badges list
 
-  @ignored @labelBug
   Scenario: Add badge
     Given I am authenticated as
       | login    | john   |
@@ -41,7 +39,7 @@ Feature: Badges Management
     Then Success alert 'Badge updated successfully' is displayed
     And The badge has been updated successfully and is displayed with random name, description 'badgeDescriptionUpdated', score '50', domain 'Feedback', and enabled status in badges list
 
-    @ignored @labelBug
+  @ignored @labelBug
   Scenario: Delete badge
     Given I am authenticated as
       | login    | john   |
@@ -61,7 +59,6 @@ Feature: Badges Management
     Then Success alert 'Badge deleted successfully' is displayed
     And The deleted badge with random name, description 'deletedDescription', score '300', domain 'Social' is no longer displayed in badges list
 
-      @ignored @labelBug
   Scenario: Search badge
     Given I am authenticated as
       | login    | john   |

@@ -1,4 +1,3 @@
-@firstpart
 Feature: UI app administration
   As an admin user
   I want to manage application
@@ -9,12 +8,12 @@ Feature: UI app administration
       | login    | john   |
       | password | gtngtn |
     And I go to Administer application center Page
-    When I open 'Agenda' edit drawer
-    Then Edit Agenda title is displayed 'Agenda' in drawer
-    And  Edit Agenda url is displayed './agenda' in drawer
-    And Edit Agenda image is displayed 'Agenda.png' in drawer
-    And Edit Agenda Mandatory Active and Mobile are displayed in drawer
-    And Edit Agenda permissions '/platform/users' and '/platform/externals' are displayed in drawer
+    When I open 'Tasks' edit drawer
+    Then Edit application title is displayed 'Tasks' in drawer
+    And  Edit application url is displayed './tasks' in drawer
+    And Edit application image is displayed 'Tasks.png' in drawer
+    And Edit application mandatory active and mobile are displayed in drawer
+    And Edit application permissions '/platform/users' and '/platform/externals' are displayed in drawer
     And I refresh the page
 
   Scenario: CAP79-[Admin_UI_US07][02]:Delete an app

@@ -1,11 +1,10 @@
 # new feature
 # Tags: optional
-@firstpart
 Feature: Mark task as completed from BOARD view
 
   Scenario: CAP81 - [User_UI_US22]: Mark as completed for "TASKS" in a Project (Manager case)
     Given I am authenticated as
-      | login    | root   |
+      | login    | root     |
       | password | password |
     And I create the first random user
     And I connect with the first created user
@@ -17,7 +16,7 @@ Feature: Mark task as completed from BOARD view
     And I search for the created project
     And I open the created project
     And The following task is created in the specific project
-      | taskName    | tasktest   |
+      | taskName | tasktest |
     And I mark the task as completed from the task card
     Then An alert message Task successfully marked as completed is displayed
     And Task name 'tasktest' is not displayed in project details
@@ -25,7 +24,7 @@ Feature: Mark task as completed from BOARD view
 
   Scenario: CAP176 - [US_Filterfield_01]: Add Clear typed characters icon (Filter by task under TASKS tab)
     Given I am authenticated as
-      | login    | root   |
+      | login    | root     |
       | password | password |
     And I create the first random user
     And I connect with the first created user
@@ -34,7 +33,7 @@ Feature: Mark task as completed from BOARD view
     Then Tasks Application Page is displayed
     When I select 'Tasks' tab
     And The following task is created
-      | taskName    | task1 |
+      | taskName | task1 |
     And I start the search for Task 'task1'
     Then A clear button is displayed in the Filter by task field
     When I click on clear button in the Filter by task field
@@ -45,8 +44,8 @@ Feature: Mark task as completed from BOARD view
 
   Scenario: CAP94_[Add_Task_Drawer_US04]: (3 dots menu-Delete action) "Tasks TAB"
     Given I am authenticated as
-      | login    | john     |
-      | password | gtngtn   |
+      | login    | john   |
+      | password | gtngtn |
 
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
@@ -64,8 +63,8 @@ Feature: Mark task as completed from BOARD view
 
   Scenario: CAP82 - [User_UI_US22]: Mark as completed for "TASKS" in a Project (Participant case)
     Given I am authenticated as
-      | login    | root|
-      | password | password|
+      | login    | root     |
+      | password | password |
     And I create the first random user
 
     When I go To AppCenter Drawer
@@ -84,7 +83,7 @@ Feature: Mark task as completed from BOARD view
     And I search for the created project
     And I open the created project
     And The following task is created in the specific project
-      | taskName    | task11   |
+      | taskName | task11 |
     And I mark the task as completed from the task card
     Then An alert message Task successfully marked as completed is displayed
     And Task name 'task11' is not displayed in project details
@@ -119,8 +118,8 @@ Feature: Mark task as completed from BOARD view
 
   Scenario: [CERF-77][BUG]: Check tasks display in snapshot's Tasks gadget
     Given I am authenticated as
-      | login    | john     |
-      | password | gtngtn   |
+      | login    | john   |
+      | password | gtngtn |
     And I create the first random user
     And I create the second random user
 
@@ -142,7 +141,7 @@ Feature: Mark task as completed from BOARD view
     And I search for the created project
     And I open the created project
     And The following task is created in the specific project
-      | taskName    | task test   |
+      | taskName | task test |
 
     When I open the task 'task test'
     And I assign task to the first user
@@ -252,10 +251,10 @@ Feature: Mark task as completed from BOARD view
     And Label 'label5' is displayed in edit project drawer
 
 
-  Scenario: [TRIBE-2314] [CERF-94] [MARM-33]: Mark task as completed from the task drawer [1]
+  Scenario: [CERF-94] [MARM-33]: Mark task as completed from the task drawer [1]
     Given I am authenticated as
-      | login    | john     |
-      | password | gtngtn   |
+      | login    | john   |
+      | password | gtngtn |
     And I create the first random user
     And I connect with the first created user
     And I create space project
@@ -268,7 +267,7 @@ Feature: Mark task as completed from BOARD view
     And I search for the created project
     And I open the created project
     And The following task is created in the specific project
-      | taskName    | task E   |
+      | taskName | task E |
     And I open the task 'task E'
     And I mark the task as completed in task drawer without closing the drawer
     Then The task is marked as completed in task drawer
@@ -317,8 +316,8 @@ Feature: Mark task as completed from BOARD view
 
   Scenario: CAP264 - [NF] [US_Sharedlabels_01]:All project members can use added labels
     Given I am authenticated as
-      | login    | root|
-      | password | password|
+      | login    | root     |
+      | password | password |
     And I create the first random user
     And I create the second random user
 
@@ -348,7 +347,7 @@ Feature: Mark task as completed from BOARD view
     And I search for the created project
     And I open the created project
     And The following task is created in the specific project
-      | taskName    | newtask   |
+      | taskName | newtask |
     Then Task 'newtask' is displayed from tasks widget
 
     When I connect with the second created user
@@ -406,7 +405,7 @@ Feature: Mark task as completed from BOARD view
 
   Scenario: CAP190 -[IMP] [US_SortGroupeBy_01]: Memorize Group and Sort filters (Group by)
     Given I am authenticated as
-      | login    | root   |
+      | login    | root     |
       | password | password |
     And  I create the first random user
     And  I connect with the first created user
@@ -442,10 +441,10 @@ Feature: Mark task as completed from BOARD view
     And I clear browsing data cache and cookies
     Then I check that grouping is still applied
 
-  Scenario: CAP341 - [TRIBE-2938][TASK]: when refresh task's drawer, the description should not be lost
+  Scenario: CAP341 [TASK]: when refresh task's drawer, the description should not be lost
     Given I am authenticated as
-      | login    | root|
-      | password | password|
+      | login    | root     |
+      | password | password |
     And I create the first random user
 
     When I go To AppCenter Drawer

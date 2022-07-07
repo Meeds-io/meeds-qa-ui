@@ -1,4 +1,3 @@
-@firstpart
 Feature: Task Drawer Checking
 
   Scenario: US 3.13.5 [FRONT/BACK] : Comments in Task drawer
@@ -15,7 +14,7 @@ Feature: Task Drawer Checking
     And I search for the created project
     And I open the created project
     And The following task is created in the specific project
-      | taskName    | task1313   |
+      | taskName | task1313 |
 
     And I open the task 'task1313'
     And I add this comment 'taskcomment1212' in task
@@ -64,7 +63,7 @@ Feature: Task Drawer Checking
     And I search for the created project
     And I open the created project
     And The following task is created in the specific project
-      | taskName    | task1313   |
+      | taskName | task1313 |
 
     When I go to the home page
     And I go to Tasks Page
@@ -94,7 +93,7 @@ Feature: Task Drawer Checking
     And I search for the created project
     And I open the created project
     And The following task is created in the specific project
-      | taskName    | task1414   |
+      | taskName | task1414 |
 
     And I open the task 'task1414'
     And I mark the task as completed in task drawer without closing the drawer
@@ -105,7 +104,7 @@ Feature: Task Drawer Checking
     And Task name 'task1414' is not displayed in project details
     And Tasks number '0' is displayed in the column To Do
 
-  Scenario: Cap182 - [TRIBE-2287] [PFR] [Can't add a long comment]Comment button is disabled when exceeds the max chars number
+  Scenario: Cap182 - [-2287] [PFR] [Can't add a long comment]Comment button is disabled when exceeds the max chars number
     Given I am authenticated as
       | login    | john   |
       | password | gtngtn |
@@ -158,7 +157,7 @@ Feature: Task Drawer Checking
     And I search for the created project
     And I open the created project
     And The following task is created in the specific project
-      | taskName    | task183   |
+      | taskName | task183 |
 
     When I connect with the first created user
     Then The 'Spaces' badge is '1'
@@ -204,8 +203,8 @@ Feature: Task Drawer Checking
 
   Scenario: US 3.13.10 [FRONT/BACK] : Update Status, Due Date and Priority in Task Drawer
     Given I am authenticated as
-      | login    | john     |
-      | password | gtngtn   |
+      | login    | john   |
+      | password | gtngtn |
     And I create the first random user
     And I connect with the first created user
     And I create space project
@@ -216,7 +215,7 @@ Feature: Task Drawer Checking
     And I search for the created project
     And I open the created project
     And The following task is created in the specific project
-      | taskName    | task E   |
+      | taskName | task E |
 
     When I open the task 'task E'
     And I assign task to me

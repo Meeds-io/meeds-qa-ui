@@ -7,70 +7,70 @@ import pages.page.factory.administration.AddUserPage;
 
 public class AddUserSteps {
 
-  private AddUserPage addUserPage;
+    private AddUserPage addUserPage;
 
-  private HomePage    homePage;
+    private HomePage homePage;
 
-  public void addUser(Map<String, String> userDetails) {
-    addUserPage.clickAddUserButton();
-    for (String fieldsName : userDetails.keySet()) {
-      addUserPage.setUserDetails(fieldsName, userDetails.get(fieldsName));
+    public void addUser(Map<String, String> userDetails) {
+        addUserPage.clickAddUserButton();
+        for (String fieldsName : userDetails.keySet()) {
+            addUserPage.setUserDetails(fieldsName, userDetails.get(fieldsName));
+        }
+        addUserPage.saveAddUserButton();
     }
-    addUserPage.saveAddUserButton();
-  }
 
-  public void addRandomUser(String userName, String firstName, String lastName, String mail, String password) {
-    addUserPage.clickAddUserButton();
-    addUserPage.setRandomUserDetails(userName, firstName, lastName, mail, password);
-    addUserPage.saveAddUserButton();
-  }
-
-  public void enterUserInformations(Map<String, String> userDetails) {
-    addUserPage.clickAddUserButton();
-    for (String fieldsName : userDetails.keySet()) {
-      addUserPage.setUserDetails(fieldsName, userDetails.get(fieldsName));
+    public void addRandomUser(String userName, String firstName, String lastName, String mail, String password) {
+        addUserPage.clickAddUserButton();
+        addUserPage.setRandomUserDetails(userName, firstName, lastName, mail, password);
+        addUserPage.saveAddUserButton();
     }
-  }
 
-  public void saveAddingUser() {
-    addUserPage.saveAddUserButton();
-  }
+    public void enterUserInformations(Map<String, String> userDetails) {
+        addUserPage.clickAddUserButton();
+        for (String fieldsName : userDetails.keySet()) {
+            addUserPage.setUserDetails(fieldsName, userDetails.get(fieldsName));
+        }
+    }
 
-  public void enableDisableUser(String user) throws InterruptedException {
-    addUserPage.enableDisableUser(user);
-  }
+    public void saveAddingUser() {
+        addUserPage.saveAddUserButton();
+    }
 
-  public void searchForUsersByName(String fullName) {
-    addUserPage.searchForUsersByName(fullName);
-  }
+    public void enableDisableUser(String user) throws InterruptedException {
+        addUserPage.enableDisableUser(user);
+    }
 
-  public void searchForUsersByStatus(String status) {
-    addUserPage.searchForUsersByStatus(status);
-  }
+    public void searchForUsersByName(String fullName) {
+        addUserPage.searchForUsersByName(fullName);
+    }
 
-  public void isUserNameDisplayed(String user) {
-    addUserPage.isUserNameDisplayed(user);
-  }
+    public void searchForUsersByStatus(String status) {
+        addUserPage.searchForUsersByStatus(status);
+    }
 
-  public void checkThatAddUserDrawerIsDisplayed() {
-    addUserPage.clickAddUserButton();
-    addUserPage.checkThatAddUserDrawerIsDisplayed();
-  }
+    public void isUserNameDisplayed(String user) {
+        addUserPage.isUserNameDisplayed(user);
+    }
 
-  public void deleteUser() {
-    addUserPage.deleteUser();
-  }
+    public void checkThatAddUserDrawerIsDisplayed() {
+        addUserPage.clickAddUserButton();
+        addUserPage.checkThatAddUserDrawerIsDisplayed();
+    }
 
-  public void checkUserIsDeleted(String fullName) {
-    addUserPage.checkUserIsDeleted(fullName);
-  }
+    public void deleteUser() {
+        addUserPage.deleteUser();
+    }
 
-  public void clickToDeleteUser() {
-    addUserPage.clickToDeleteUser();
-  }
+    public void checkUserIsDeleted(String fullName) {
+        addUserPage.checkUserIsDeleted(fullName);
+    }
 
-  public void checkPopupCantDeleteLoggedUser() {
-    addUserPage.checkPopupCantDeleteLoggedUser();
-  }
+    public void clickToDeleteUser() {
+        addUserPage.clickToDeleteUser();
+    }
+
+    public void checkPopupCantDeleteLoggedUser() {
+        addUserPage.checkPopupCantDeleteLoggedUser();
+    }
 
 }

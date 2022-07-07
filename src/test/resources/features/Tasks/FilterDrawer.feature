@@ -1,10 +1,9 @@
-@firstpart
 Feature: Filter Drawer
 
   Scenario: CAP110 - [Filter_Drawer_US03]:Group by Labels [Group and Sort" tab under project]
     Given I am authenticated as
-      | login    | john     |
-      | password | gtngtn   |
+      | login    | john   |
+      | password | gtngtn |
 
     When I create space project
     And I go to the home page
@@ -13,9 +12,9 @@ Feature: Filter Drawer
     And I search for the created project
     And I open the created project
     And The following task with label 'test007' is created in the specific project
-      | taskName    | task11   |
+      | taskName | task11 |
     And The following task with label 'test007' is created in the specific project
-      | taskName    | task12   |
+      | taskName | task12 |
 
     Then Task name 'task11' is displayed in project details
     And Task name 'task12' is displayed in project details
@@ -36,8 +35,8 @@ Feature: Filter Drawer
 
   Scenario: CAP113 - [Filter_Drawer_US03]:Sort by Title ["Group and Sort" tab under project]
     Given I am authenticated as
-      | login    | john     |
-      | password | gtngtn   |
+      | login    | john   |
+      | password | gtngtn |
 
     When I create space project
     And I go to the home page
@@ -46,11 +45,11 @@ Feature: Filter Drawer
     And I search for the created project
     And I open the created project
     And The following task is created in the specific project
-      | taskName    | ctask11   |
+      | taskName | ctask11 |
     And The following task is created in the specific project
-      | taskName    | atask11  |
+      | taskName | atask11 |
     And The following task is created in the specific project
-      | taskName    | btask11  |
+      | taskName | btask11 |
 
     Then Task name 'ctask11' is displayed in project details
     And Task name 'atask11' is displayed in project details
@@ -77,11 +76,11 @@ Feature: Filter Drawer
     And I search for the created project
     And I open the created project
     And The following task is created in the specific project
-      | taskName    | task11   |
+      | taskName | task11 |
     And The following task is created in the specific project
-      | taskName    | task12   |
+      | taskName | task12 |
     And The following task is created in the specific project
-      | taskName    | task13   |
+      | taskName | task13 |
 
     Then Task name 'task11' is displayed in project details
     And Task name 'task12' is displayed in project details
@@ -112,8 +111,8 @@ Feature: Filter Drawer
 
   Scenario: CAP53 - [Filter_Drawer_US01]: Filter button in a project
     Given I am authenticated as
-      | login    | john     |
-      | password | gtngtn   |
+      | login    | john   |
+      | password | gtngtn |
 
     When I create space project
     And I go to the home page
@@ -122,7 +121,7 @@ Feature: Filter Drawer
     And I search for the created project
     And I open the created project
     And The following task is created in the specific project
-      | taskName    | taskcap53   |
+      | taskName | taskcap53 |
 
     When I open the Filter drawer
     Then 'Group And Sort' Tab is displayed
@@ -144,8 +143,8 @@ Feature: Filter Drawer
 
   Scenario: [Regression][Tasks]Problem to filter project
     Given I am authenticated as
-      | login    | john     |
-      | password | gtngtn   |
+      | login    | john   |
+      | password | gtngtn |
 
     And I create the first random user
 

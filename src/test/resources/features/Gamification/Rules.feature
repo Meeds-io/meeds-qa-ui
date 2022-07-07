@@ -1,4 +1,3 @@
-@secondpart
 Feature: Rules
 
   Scenario: Receive Kudos

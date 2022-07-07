@@ -67,7 +67,7 @@ Feature: Kudos
     And I connect with the first created user
     And I go to My Profile page
     Then '1' kudos are received
-    
+
   Scenario: [ActivityStream_US51][01]: Edit a kudos activity
     Given I am authenticated as
       | login    | root     |

@@ -1,5 +1,3 @@
-# language: en
-@secondpart
 Feature: Search for User Informations in Profile page
   As a user
   I want to check in Profile page all contact informations

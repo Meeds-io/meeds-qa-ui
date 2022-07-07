@@ -1,11 +1,10 @@
 # language: en
-@firstpart
 Feature: Spaces Management
   As a user
   I want to check that Space details and sections are displayed
 
   Scenario: SPC_MNG-1 : Spaces avatar and title
-   Given I am authenticated as
+    Given I am authenticated as
       | login    | john   |
       | password | gtngtn |
 

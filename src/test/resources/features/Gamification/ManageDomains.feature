@@ -1,6 +1,5 @@
 # new feature
 # Tags: optional
-@firstpart
 Feature: Domains Management
   As an administrator user
   I can manage domains list

@@ -1,11 +1,10 @@
 # new feature
 # Tags: optional
-@secondpart
 Feature: Project manager deletes, moves after/before a status column
 
   Scenario: CAP136 - [Project_Board_US04]:Three dots menu - Delete
     Given I am authenticated as
-      | login    | root   |
+      | login    | root     |
       | password | password |
     And I create the first random user
     And I connect with the first created user
@@ -22,7 +21,7 @@ Feature: Project manager deletes, moves after/before a status column
 
   Scenario: CAP247 - [NewF] [US_TaskStatusColumn_01]: Move Status column after in Board view
     Given I am authenticated as
-      | login    | root   |
+      | login    | root     |
       | password | password |
     And I create the first random user
     And I connect with the first created user
@@ -41,7 +40,7 @@ Feature: Project manager deletes, moves after/before a status column
 
   Scenario: CAP339 - [NewF] [US_TaskStatusColumn_01]: Move Status column before in Board view
     Given I am authenticated as
-      | login    | root   |
+      | login    | root     |
       | password | password |
     And I create the first random user
     And I connect with the first created user

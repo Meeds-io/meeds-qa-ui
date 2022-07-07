@@ -5,20 +5,20 @@ import pages.page.factory.administration.AddGroupsPage;
 
 public class AddGroupsSteps {
 
-  private AddGroupsPage addGroupsPage;
+    private AddGroupsPage addGroupsPage;
 
-  private HomePage      homePage;
+    private HomePage homePage;
 
-  public void openGroup(String group) {
-    addGroupsPage.openGroup(group);
-  }
+    public void openGroup(String group) {
+        addGroupsPage.openGroup(group);
+    }
 
-  public void selectGroup(String group) {
-    addGroupsPage.selectGroup(group);
-  }
+    public void selectGroup(String group) {
+        addGroupsPage.selectGroup(group);
+    }
 
-  public void addMemberInGroup(String role, String member) {
-    addGroupsPage.addMemberInGroup(role, member);
-  }
+    public void addMemberInGroup(String role, String member) {
+        addGroupsPage.addMemberInGroup(role, member);
+    }
 
 }

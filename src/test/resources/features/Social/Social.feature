@@ -1,6 +1,5 @@
 # new feature
 # Tags: optional
-@firstpart
 Feature: Social
   As a user I have the right
   to comment on any activity in a space in which I am a member

@@ -1,7 +1,6 @@
 @firstpart
 Feature: Gamification Components
 
-  @ignored @badgeIsNotDisplayed
   Scenario: check badges pop-over in my badges
     Given I am authenticated as
       | login    | john   |

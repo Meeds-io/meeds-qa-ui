@@ -10,25 +10,25 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class ButtonElementFacadeImpl extends BaseElementFacadeImpl implements ButtonElementFacade {
 
-  static final Logger LOGGER = LogManager.getLogger();
+    static final Logger LOGGER = LogManager.getLogger();
 
-  public ButtonElementFacadeImpl(WebDriver driver,
-                                 ElementLocator locator,
-                                 WebElement element,
-                                 long timeoutInMilliseconds,
-                                 long waitForTimeoutInMilliseconds) {
-    super(driver, locator, element, timeoutInMilliseconds, waitForTimeoutInMilliseconds);
-  }
+    public ButtonElementFacadeImpl(WebDriver driver,
+                                   ElementLocator locator,
+                                   WebElement element,
+                                   long timeoutInMilliseconds,
+                                   long waitForTimeoutInMilliseconds) {
+        super(driver, locator, element, timeoutInMilliseconds, waitForTimeoutInMilliseconds);
+    }
 
-  @SuppressWarnings("unchecked")
-  public static <T extends ButtonElementFacade> T wrapWebElementFacadeInButtonElement(final WebDriver driver,
-                                                                                      final WebElementFacade element,
-                                                                                      final long implicitTimeoutInMilliseconds,
-                                                                                      final long waitForTimeoutInMilliseconds) {
-    return (T) new ButtonElementFacadeImpl(driver,
-                                           null,
-                                           element,
-                                           implicitTimeoutInMilliseconds,
-                                           waitForTimeoutInMilliseconds);
-  }
+    @SuppressWarnings("unchecked")
+    public static <T extends ButtonElementFacade> T wrapWebElementFacadeInButtonElement(final WebDriver driver,
+                                                                                        final WebElementFacade element,
+                                                                                        final long implicitTimeoutInMilliseconds,
+                                                                                        final long waitForTimeoutInMilliseconds) {
+        return (T) new ButtonElementFacadeImpl(driver,
+                null,
+                element,
+                implicitTimeoutInMilliseconds,
+                waitForTimeoutInMilliseconds);
+    }
 }

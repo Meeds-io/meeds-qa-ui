@@ -1,6 +1,5 @@
 # new feature
 # Tags: optional
-@secondpart
 Feature: Check the rules score increase
   for different type of activity on the plf
 

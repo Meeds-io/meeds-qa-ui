@@ -1,4 +1,3 @@
-@firstpart
 Feature: Login widget checking
   As a user
   I want to check the connections in home page
@@ -69,7 +68,7 @@ Feature: Login widget checking
     Then The 'Connections' badge is '3'
     When I click on connections badge
     And I accept the following connection invitation
-      | John         |
+      | John |
     Then The 'Connections' number is '1'
 
     Then The 'Connections' badge is '2'
@@ -81,8 +80,8 @@ Feature: Login widget checking
 
   Scenario: US 3.3.7[BACK]Common Connections for users requests
     Given I am authenticated as
-      | login    | john     |
-      | password | gtngtn   |
+      | login    | john   |
+      | password | gtngtn |
     When I create the first random user
     And I create the second random user
     And I create the third random user

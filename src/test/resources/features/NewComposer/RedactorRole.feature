@@ -1,6 +1,5 @@
 # new feature
 # Tags: optional
-@firstpart
 Feature: Redactor Role
   Aa a space manager
   I can set / remove redactor role from any user

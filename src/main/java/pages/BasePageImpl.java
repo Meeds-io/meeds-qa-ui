@@ -25,101 +25,101 @@ import utils.RetryOnFailure;
 
 public class BasePageImpl extends PageObject implements BasePage {
 
-  static final Logger LOGGER = LogManager.getLogger();
+    static final Logger LOGGER = LogManager.getLogger();
 
-  public String       url;
+    public String url;
 
-  protected WebDriver driver;
+    protected WebDriver driver;
 
-  ExceptionLauncher   exceptionLauncher;
+    ExceptionLauncher exceptionLauncher;
 
-  public BasePageImpl() {
-  }
+    public BasePageImpl() {
+    }
 
-  public BasePageImpl(WebDriver driver) {
-    super(driver);
-    this.driver = driver;
-    exceptionLauncher = new ExceptionLauncher();
-  }
+    public BasePageImpl(WebDriver driver) {
+        super(driver);
+        this.driver = driver;
+        exceptionLauncher = new ExceptionLauncher();
+    }
 
-  public void verifyPageLoaded() {
-    Field[] fields = getClass().getDeclaredFields();
-    for (Field field : fields) {
-      Class<?> fieldClass = field.getType();
-      if (BaseElementFacade.class.isAssignableFrom(fieldClass)) {
-        field.setAccessible(true);
-        BaseElementFacade fieldInstance = null;
-        try {
-          fieldInstance = (BaseElementFacade) field.get(this);
-          assertThat(fieldInstance.isPresent())
-                                               .as(String.format("Could not find the element [%s] !", field.getName()))
-                                               .isTrue();
-        } catch (IllegalArgumentException | IllegalAccessException e) {
-          exceptionLauncher.throwSerenityExeption(e,
-                                                  String.format("Could not find the element [%s] !", field.getName()));
+    public void verifyPageLoaded() {
+        Field[] fields = getClass().getDeclaredFields();
+        for (Field field : fields) {
+            Class<?> fieldClass = field.getType();
+            if (BaseElementFacade.class.isAssignableFrom(fieldClass)) {
+                field.setAccessible(true);
+                BaseElementFacade fieldInstance = null;
+                try {
+                    fieldInstance = (BaseElementFacade) field.get(this);
+                    assertThat(fieldInstance.isPresent())
+                            .as(String.format("Could not find the element [%s] !", field.getName()))
+                            .isTrue();
+                } catch (IllegalArgumentException | IllegalAccessException e) {
+                    exceptionLauncher.throwSerenityExeption(e,
+                            String.format("Could not find the element [%s] !", field.getName()));
+                }
+            }
         }
-      }
     }
-  }
 
-  /**********************************************************
-   * Methods for finding element facade in the page
-   **********************************************************/
+    /**********************************************************
+     * Methods for finding element facade in the page
+     **********************************************************/
 
-  private WebElementFacade getWebElementFacadeByXpath(String xpath) {
-    return Failsafe.with(RetryOnFailure.getRetryPolicy(1, 3)).get(() -> findBy(xpath));
-  }
-
-  public <T extends BaseElementFacade> T findByXpath(String xpath) {
-    if (!Selectors.isXPath(xpath)) {
-      exceptionLauncher.throwSerenityExeption(new Exception(),
-                                              String.format("The format for the xpath [%s] is not correct.", xpath));
+    private WebElementFacade getWebElementFacadeByXpath(String xpath) {
+        return Failsafe.with(RetryOnFailure.getRetryPolicy(1, 3)).get(() -> findBy(xpath));
     }
-    WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
 
-    return BaseElementFacadeImpl.wrapWebElementFacade(getDriver(),
-                                                      nestedElement,
-                                                      getImplicitWaitTimeout().toMillis(),
-                                                      getWaitForTimeout().toMillis());
-  }
+    public <T extends BaseElementFacade> T findByXpath(String xpath) {
+        if (!Selectors.isXPath(xpath)) {
+            exceptionLauncher.throwSerenityExeption(new Exception(),
+                    String.format("The format for the xpath [%s] is not correct.", xpath));
+        }
+        WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
 
-  public <T extends TextBoxElementFacade> T findTextBoxElementByXpath(String xpath) {
-    if (!Selectors.isXPath(xpath)) {
-      exceptionLauncher.throwSerenityExeption(new Exception(),
-                                              String.format("The format for the xpath [%s] is not correct.", xpath));
+        return BaseElementFacadeImpl.wrapWebElementFacade(getDriver(),
+                nestedElement,
+                getImplicitWaitTimeout().toMillis(),
+                getWaitForTimeout().toMillis());
     }
-    WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
 
-    return TextBoxElementFacadeImpl.wrapWebElementFacadeInTextBoxElement(getDriver(),
-                                                                         nestedElement,
-                                                                         getImplicitWaitTimeout().toMillis(),
-                                                                         getWaitForTimeout().toMillis());
-  }
+    public <T extends TextBoxElementFacade> T findTextBoxElementByXpath(String xpath) {
+        if (!Selectors.isXPath(xpath)) {
+            exceptionLauncher.throwSerenityExeption(new Exception(),
+                    String.format("The format for the xpath [%s] is not correct.", xpath));
+        }
+        WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
 
-  public <T extends ButtonElementFacade> T findButtonElementByXpath(String xpath) {
-    if (!Selectors.isXPath(xpath)) {
-      exceptionLauncher.throwSerenityExeption(new Exception(),
-                                              String.format("The format for the xpath [%s] is not correct.", xpath));
+        return TextBoxElementFacadeImpl.wrapWebElementFacadeInTextBoxElement(getDriver(),
+                nestedElement,
+                getImplicitWaitTimeout().toMillis(),
+                getWaitForTimeout().toMillis());
     }
-    WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
 
-    return ButtonElementFacadeImpl.wrapWebElementFacadeInButtonElement(getDriver(),
-                                                                       nestedElement,
-                                                                       getImplicitWaitTimeout().toMillis(),
-                                                                       getWaitForTimeout().toMillis());
-  }
+    public <T extends ButtonElementFacade> T findButtonElementByXpath(String xpath) {
+        if (!Selectors.isXPath(xpath)) {
+            exceptionLauncher.throwSerenityExeption(new Exception(),
+                    String.format("The format for the xpath [%s] is not correct.", xpath));
+        }
+        WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
 
-  public <T extends TextElementFacade> T findTextElementByXpath(String xpath) {
-    if (!Selectors.isXPath(xpath)) {
-      exceptionLauncher.throwSerenityExeption(new Exception(),
-                                              String.format("The format for the xpath [%s] is not correct.", xpath));
+        return ButtonElementFacadeImpl.wrapWebElementFacadeInButtonElement(getDriver(),
+                nestedElement,
+                getImplicitWaitTimeout().toMillis(),
+                getWaitForTimeout().toMillis());
     }
-    WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
 
-    return TextElementFacadeImpl.wrapWebElementFacadeInTextElement(getDriver(),
-                                                                   nestedElement,
-                                                                   getImplicitWaitTimeout().toMillis(),
-                                                                   getWaitForTimeout().toMillis());
-  }
+    public <T extends TextElementFacade> T findTextElementByXpath(String xpath) {
+        if (!Selectors.isXPath(xpath)) {
+            exceptionLauncher.throwSerenityExeption(new Exception(),
+                    String.format("The format for the xpath [%s] is not correct.", xpath));
+        }
+        WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
+
+        return TextElementFacadeImpl.wrapWebElementFacadeInTextElement(getDriver(),
+                nestedElement,
+                getImplicitWaitTimeout().toMillis(),
+                getWaitForTimeout().toMillis());
+    }
 
 }

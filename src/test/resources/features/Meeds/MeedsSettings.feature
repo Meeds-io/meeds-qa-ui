@@ -1,17 +1,15 @@
-# language: en
-@firstpart
 Feature: Edit sections in Settings page
   As a user
   I want to edit in Settings page many sections
 
   Scenario: : SETTINGS-5 : Language and its drawer
-   Given I am authenticated as
+    Given I am authenticated as
       | login    | john   |
       | password | gtngtn |
 
     And I go to Settings page
     Then Settings Page Is Opened
-    
+
     When I click on Edit language and I change it 'French'
     And I cancel editing language
 
@@ -104,31 +102,6 @@ Feature: Edit sections in Settings page
     And I enable notification on Site
 
     Then The 'EnabledNotifications' is displayed
-
-
-  Scenario: SETTINGS-9 : Manage Notification view and drawer
-    Given I am authenticated as
-      | login    | john   |
-      | password | gtngtn |
-
-    And I go to Settings page
-    Then Settings Page Is Opened
-
-    When I go to Manage Notifications
-    Then Manage Notification Page Is Opened
-    And General section is displayed
-    And Connections section is displayed
-    And Spaces section is displayed
-    And Activity Stream section is displayed
-    And Document Sharing section is displayed
-    And News Notifications section is displayed
-    And My Tasks section is displayed
-    And Wallet section is displayed
-    And Kudos section is displayed
-    And Notes section is displayed
-    And Perk Store section is displayed
-    And Agenda Application Page is displayed
-    And Chat Store section is displayed
 
   Scenario: SETTINGS-4 : Add the favorite icon for Homepage default view
     Given I am authenticated as

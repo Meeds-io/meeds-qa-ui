@@ -1,4 +1,3 @@
-@firstpart
 Feature: Activity Stream
 
   Scenario: CAP01 - ActivityStream_US01: Activity topbar section
@@ -26,7 +25,6 @@ Feature: Activity Stream
     When I go to Stream page
     Then The activity 'activityTest01' posted by the second user in the created space is displayed with its timestamp in streams page
 
-    @ignored @BugUserPopOverNotDisplayedWhenHoveringInActivityStream
   Scenario: CAP02 - ActivityStream_US03: new Activity body with text display
     Given I am authenticated as
       | login    | john   |
@@ -1703,17 +1701,17 @@ Feature: Activity Stream
     And I 'Join'
     Then the activity 'activitytest157' is displayed in activity stream
 
-    When I add in activity 'activitytest157' an internal link 'portal/dw/spaces' as a comment
+    When I add in activity 'activitytest157' an internal link 'portal/meeds/spaces' as a comment
     And I open in activity 'activitytest157' the Comments drawer
-    Then Internal link 'portal/dw/spaces' is displayed in Comments drawer as a comment
-    And Internal link 'portal/dw/spaces' is displayed in activity stream as a comment
+    Then Internal link 'portal/meeds/spaces' is displayed in Comments drawer as a comment
+    And Internal link 'portal/meeds/spaces' is displayed in activity stream as a comment
 
-    When I click on the internal link 'portal/dw/spaces'
+    When I click on the internal link 'portal/meeds/spaces'
     Then Space Top Bar Elements are displayed
 
     When I go to the created space
-    And I open the internal link 'portal/dw/spaces' in new tab
-    Then The internal link 'portal/dw/spaces' is opened in new tab
+    And I open the internal link 'portal/meeds/spaces' in new tab
+    Then The internal link 'portal/meeds/spaces' is opened in new tab
 
   Scenario: CAP158 - [ActivityStream_IMPV15][02]: External Link opening behaviors inside comments
     Given I am authenticated as
@@ -1842,144 +1840,6 @@ Feature: Activity Stream
     When I click on three dots button related to activity 'activity13'
     Then Delete button related to activity 'activity13' is displayed
     And Copy link button related to activity 'activity13' is displayed
-
-  Scenario: CAP35 - [ActivityStream_US20][01]: Files Activity options (3 dots) ( Author)
-    Given I am authenticated as
-      | login    | john   |
-      | password | gtngtn |
-
-    And I create the first random user
-    And I create the second random user
-
-    When I connect with the first created user
-    And I add the random space with registration 'Open'
-    Then The created space name is displayed
-
-    When I connect with the second created user
-    And I go to the created space to accept to join it
-    And I 'Join'
-    And I click on post in space
-    And I attach the file 'text.txt'
-    And I enter an activity 'activity cap35'
-    And I publish the activity
-    Then the activity 'activity cap35' is displayed in activity stream
-    And the file 'text.txt' is displayed in the activity stream
-
-    When I click on three dots button related to activity 'activity cap35'
-    Then Edit button related to activity 'activity cap35' is displayed
-    And Delete button related to activity 'activity cap35' is displayed
-    And Copy link button related to activity 'activity cap35' is displayed
-    And Download button related to activity 'activity cap35' is displayed
-
-    When I go to Stream page
-    And I click on three dots button related to activity 'activity cap35'
-    Then Edit button related to activity 'activity cap35' is displayed
-    And Delete button related to activity 'activity cap35' is displayed
-    And Copy link button related to activity 'activity cap35' is displayed
-    And Download button related to activity 'activity cap35' is displayed
-
-  Scenario: CAP36 - [ActivityStream_US20][02]: Files Activity options (3 dots) ( Space manager)
-    Given I am authenticated as
-      | login    | john   |
-      | password | gtngtn |
-
-    And I create the first random user
-    And I create the second random user
-    And I create the third random user
-
-    When I connect with the first created user
-    And I add the random space with registration 'Open'
-    Then The created space name is displayed
-
-    When I connect with the second created user
-    And I go to the created space to accept to join it
-    And I 'Join'
-    Then The created space name is displayed
-
-    When I connect with the third created user
-    And I go to the created space to accept to join it
-    And I 'Join'
-    Then The created space name is displayed
-
-    When I connect with the first created user
-    And I go to the created space
-    And I go to 'Members' tab
-    And I promote the third user as a space manager
-    And I connect with the second created user
-    And I go to the created space
-    And I click on post in space
-    And I attach the file 'text.txt'
-    And I enter an activity 'activity cap36'
-    And I publish the activity
-    Then the activity 'activity cap36' is displayed in activity stream
-    And the file 'text.txt' is displayed in the activity stream
-
-    When I click on three dots button related to activity 'activity cap36'
-    Then Delete button related to activity 'activity cap36' is displayed
-    And Copy link button related to activity 'activity cap36' is displayed
-    And Download button related to activity 'activity cap36' is displayed
-
-    When I connect with the third created user
-    And I go to the created space
-    Then the activity 'activity cap36' is displayed in activity stream
-    And the file 'text.txt' is displayed in the activity stream
-
-    When I click on three dots button related to activity 'activity cap36'
-    Then Delete button related to activity 'activity cap36' is displayed
-    And Copy link button related to activity 'activity cap36' is displayed
-    And Download button related to activity 'activity cap36' is displayed
-
-    When I go to Stream page
-    And I click on three dots button related to activity 'activity cap36'
-    Then Delete button related to activity 'activity cap36' is displayed
-    And Copy link button related to activity 'activity cap36' is displayed
-    And Download button related to activity 'activity cap36' is displayed
-
-  Scenario: CAP37 - [ActivityStream_US20][03]: Files Activity options (3 dots) ( Space member)
-    Given I am authenticated as
-      | login    | john   |
-      | password | gtngtn |
-
-    And I create the first random user
-    And I create the second random user
-    And I create the third random user
-
-    When I connect with the first created user
-    And I add the random space with registration 'Open'
-    Then The created space name is displayed
-
-    When I connect with the second created user
-    And I go to the created space to accept to join it
-    And I 'Join'
-    Then The created space name is displayed
-
-    When I connect with the third created user
-    And I go to the created space to accept to join it
-    And I 'Join'
-    Then The created space name is displayed
-
-    When I connect with the second created user
-    And I go to the created space
-    And I click on post in space
-    And I attach the file 'text.txt'
-    And I enter an activity 'activity cap37'
-    And I publish the activity
-    Then the activity 'activity cap37' is displayed in activity stream
-    And the file 'text.txt' is displayed in the activity stream
-
-    When I connect with the third created user
-    And I go to the created space
-    Then the activity 'activity cap37' is displayed in activity stream
-    And the file 'text.txt' is displayed in the activity stream
-
-    When I click on three dots button related to activity 'activity cap37'
-    Then Copy link button related to activity 'activity cap37' is displayed
-    And Download button related to activity 'activity cap37' is displayed
-
-    When I go to Stream page
-    And I click on three dots button related to activity 'activity cap37'
-    Then Copy link button related to activity 'activity cap37' is displayed
-    And Download button related to activity 'activity cap37' is displayed
 
   Scenario: CAP97 - [ActivityStream_US38][01]: Delete a simple comment from the activity stream
     Given I am authenticated as
@@ -2397,8 +2257,8 @@ Feature: Activity Stream
 
   Scenario: [ActivityStream_US32][02]: space note page
     Given I am authenticated as
-      | login    | john     |
-      | password | gtngtn   |
+      | login    | john   |
+      | password | gtngtn |
     And I create the first random user
     And I create the second random user
     When I connect with the first created user
@@ -2765,53 +2625,3 @@ Feature: Activity Stream
     When In comment 'Test Auto replay Kudos', I click on edit button
     And I set the new kudos comment text 'updated Test Auto replay Kudos' and I click on update button
     Then the updated Kudos activity 'updated Test Auto replay Kudos' is displayed in stream page
-
-  Scenario: [ActivityStreamShare_US03][01]: Share a news activity in a single space
-    Given I am authenticated as
-      | login    | root     |
-      | password | password |
-
-    And I create the first random user
-    And I create the second random user
-    And I create the third random user
-
-    And I connect with the first created user
-    And I create the random space
-    And I refresh the page
-    And I go to members tab
-    And I add second user to the space
-    And I refresh the page
-    And I add third user to the space
-    And I create the second random space
-    And I refresh the page
-    And I go to members tab
-    And I add second user to the space
-    And I refresh the page
-    And I add third user to the space
-    And I refresh the page
-
-    And I connect with the second created user
-    And I click on spaces badge
-    And I accept the invitation of the created space
-    And I accept the invitation of the second created space
-    And I refresh the page
-
-    And I go to the created space
-    When I click on post in space
-    And I click on 'write an article'
-    And I add an article with the following data with simple user and I close the page
-      | Titre   | ArticleTitle    |
-      | Résumé  | ArticleSummary  |
-      | Contenu | ArticleContent  |
-
-    And I connect with the third created user
-    And I click on spaces badge
-    And I accept the invitation of the created space
-    And I accept the invitation of the second created space
-    And I refresh the page
-
-    And I go to the created space
-    And I click on 'Share'
-    And I share the article with the second created space with a description with 1250 characters
-    And I go to the second created space
-    Then I check that the article is shared in the stream of the space

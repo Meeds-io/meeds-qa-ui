@@ -1,13 +1,12 @@
 # new feature
 # Tags: optional
-@secondpart
 Feature: Create Note
 
   Scenario: CAP01: ManageNote_USXX[01]: Open Create note page in new tab
 
     Given I am authenticated as
-      | login    | john     |
-      | password | gtngtn   |
+      | login    | john   |
+      | password | gtngtn |
     And I create the first random user
     When I connect with the first created user
 
@@ -19,8 +18,8 @@ Feature: Create Note
 
   Scenario: CAP04: Publish note
     Given I am authenticated as
-      | login    | john     |
-      | password | gtngtn   |
+      | login    | john   |
+      | password | gtngtn |
     And I create the space community
     And I go to notes application of the space
 
@@ -34,8 +33,8 @@ Feature: Create Note
 
   Scenario: CAP05: Publish and post note
     Given I am authenticated as
-      | login    | john     |
-      | password | gtngtn   |
+      | login    | john   |
+      | password | gtngtn |
     And I create the space community
     And I go to notes application of the space
 
@@ -50,8 +49,8 @@ Feature: Create Note
   Scenario: CAP01: CreateEditNotes_US02 : Check Note Activity in AS -create Page
 
     Given I am authenticated as
-      | login    | john     |
-      | password | gtngtn   |
+      | login    | john   |
+      | password | gtngtn |
     And I create the space community
     And I go to notes application of the space
 
@@ -71,8 +70,8 @@ Feature: Create Note
   Scenario: CAP05 : Access of Note Activity
 
     Given I am authenticated as
-      | login    | john     |
-      | password | gtngtn   |
+      | login    | john   |
+      | password | gtngtn |
     And I create the space community
     And I go to notes application of the space
 

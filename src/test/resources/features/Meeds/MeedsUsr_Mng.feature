@@ -1,5 +1,4 @@
 # language: en
-@secondpart
 Feature: Users Management
   As an administrator
   I want to check that i can manage the users
@@ -22,7 +21,7 @@ Feature: Users Management
     Then The second created user is displayed
 
   Scenario: [USR_MNG-1.2] Add User drawer
-   Given I am authenticated as
+    Given I am authenticated as
       | login    | john   |
       | password | gtngtn |
 
@@ -32,7 +31,7 @@ Feature: Users Management
 
   Scenario: [USR_MNG-1.5] Delete User
     Given I am authenticated as
-      | login    | root   |
+      | login    | root     |
       | password | password |
 
     When I create the first random user

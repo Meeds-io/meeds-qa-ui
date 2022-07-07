@@ -1,4 +1,3 @@
-@firstpart
 Feature: Administration settings
   As an admin user
   I want to manage application

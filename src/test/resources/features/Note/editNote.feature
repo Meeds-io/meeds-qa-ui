@@ -5,8 +5,8 @@ Feature: Edit Note
 
   Scenario: Open edit Note page in new tab
     Given I am authenticated as
-      | login    | john     |
-      | password | gtngtn   |
+      | login    | john   |
+      | password | gtngtn |
     And I create the space community
     And I go to notes application of the space
 
@@ -21,8 +21,8 @@ Feature: Edit Note
 
   Scenario: edit note
     Given I am authenticated as
-      | login    | john     |
-      | password | gtngtn   |
+      | login    | john   |
+      | password | gtngtn |
     And I create the space community
     And I go to notes application of the space
 
