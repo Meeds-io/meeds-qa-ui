@@ -27,6 +27,13 @@
     <selenium.version>3.141.59</selenium.version>
     <serenity-cucumber4.version>1.0.21</serenity-cucumber4.version>
     <galen-java-support.version>2.4.4</galen-java-support.version>
+    <cucumber-junit.version>4.2.0</cucumber-junit.version>
+    <log4j.version>2.7</log4j.version>
+    <assertj-core.version>3.11.1</assertj-core.version>
+    <unirest-java.version>1.4.9</unirest-java.version>
+    <failsafe.version>2.0.0</failsafe.version>
+    <maven-failsafe-plugin.version>2.22.1</maven-failsafe-plugin.version>
+    <cucumber-jvm-parallel-plugin.version>5.0.0</cucumber-jvm-parallel-plugin.version>
   </properties>
   <dependencies>
     <dependency>
@@ -134,42 +141,43 @@
     <dependency>
       <groupId>io.cucumber</groupId>
       <artifactId>cucumber-junit</artifactId>
-      <version>4.2.0</version>
+      <version>${cucumber-junit.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-api</artifactId>
-      <version>2.7</version>
+      <version>${log4j.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
-      <version>2.7</version>
+      <version>${log4j.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-slf4j-impl</artifactId>
-      <version>2.7</version>
+      <version>${log4j.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
-      <version>3.11.1</version>
+      <version>${assertj-core.version}</version>
     </dependency>
+
     <dependency>
       <groupId>com.mashape.unirest</groupId>
       <artifactId>unirest-java</artifactId>
-      <version>1.4.9</version>
+      <version>${unirest-java.version}</version>
     </dependency>
 
     <dependency>
       <groupId>net.jodah</groupId>
       <artifactId>failsafe</artifactId>
-      <version>2.0.0</version>
+      <version>${failsafe.version}</version>
     </dependency>
   </dependencies>
 
@@ -177,7 +185,7 @@
     <plugins>
       <plugin>
         <artifactId>maven-failsafe-plugin</artifactId>
-        <version>2.22.1</version>
+        <version>${maven-failsafe-plugin.version}</version>
         <configuration>
           <includes>
             <include>**/*.java</include>
@@ -229,7 +237,7 @@
       <plugin>
         <groupId>com.github.temyers</groupId>
         <artifactId>cucumber-jvm-parallel-plugin</artifactId>
-        <version>5.0.0</version>
+        <version>${cucumber-jvm-parallel-plugin.version}</version>
         <executions>
           <execution>
             <id>generateRunners</id>

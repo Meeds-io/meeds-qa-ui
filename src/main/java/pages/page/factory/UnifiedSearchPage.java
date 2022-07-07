@@ -1,6 +1,5 @@
 package pages.page.factory;
 
-import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 
 import elements.BaseElementFacade;
@@ -23,11 +22,6 @@ public class UnifiedSearchPage extends GenericPage {
 
     @FindBy(xpath = "(//*[@class='v-list-item__content']//*[@class='v-list-item__title'])[1]")
     public static BaseElementFacade ELEMENT_ACCESS_TO_SEARCHED_ACTIVITY;
-
-    @FindBy(
-            xpath = "(//*[@class='searchFileCard d-flex flex-column border-radius box-shadow v-card v-card--flat v-sheet theme--light']//*[@class='v-list-item__content']//div)[1]"
-    )
-    private static BaseElementFacade searchedImage;
 
     private BaseElementFacade ELEMENT_USER_SEARCH_TITLE(String user) {
         return findByXpath(String.format("//*[@id='searchDialog']//a[@title='%s']", user));
@@ -84,15 +78,6 @@ public class UnifiedSearchPage extends GenericPage {
 
     public void goToTheSearchedActivity() {
         ELEMENT_ACCESS_TO_SEARCHED_ACTIVITY.clickOnElement();
-    }
-
-    public void isImageDisplayedInSearch(String imageName) {
-        Assert.assertEquals(searchedImage.getTextValue(), imageName);
-    }
-
-    public void goToTheSearchedImage(String imageName) {
-        Assert.assertEquals(searchedImage.getTextValue(), imageName);
-        searchedImage.clickOnElement();
     }
 
     @FindBy(xpath = "//span[@class='subtitle-1' and contains(text(),'Favorites')]")

@@ -4,16 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Assert;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 import elements.BaseElementFacade;
 import elements.TextBoxElementFacade;
 import net.serenitybdd.core.Serenity;
-import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import pages.GenericPage;
 
@@ -329,9 +326,6 @@ public class TasksPage extends GenericPage {
     @FindBy(xpath = "//i[contains(@class,'uiIconEcmsOnlyOfficeOpen ')]")
     private BaseElementFacade editIcon;
 
-    @FindBy(xpath = "//div[@title='Detach file']")
-    private BaseElementFacade detachIcon;
-
     @FindBy(xpath = "//div[@class='drawerTitle']/button[@type='button']")
     private BaseElementFacade goBackIcon;
 
@@ -388,16 +382,6 @@ public class TasksPage extends GenericPage {
     private BaseElementFacade getAttachmentName(String attachmentName) {
         return findByXpath(
                 String.format("(//div[@class='v-list-item__content']//div[@title='%s'])[2]", attachmentName));
-    }
-
-    private BaseElementFacade getTitleDoc(String titleDoc) {
-        return findByXpath(
-                String.format("//div[@class='lr-separator']//label[contains(text(),'%s')]", titleDoc));
-    }
-
-    private BaseElementFacade getUsername(String userName) {
-        return findByXpath(
-                String.format("//label[@id='title-user-name' and contains(text(),'%s')]", userName));
     }
 
     private BaseElementFacade getTaskName(String taskName) {

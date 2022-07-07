@@ -6,15 +6,12 @@ import cucumber.api.java.en.When;
 import cucumber.api.java.fr.Et;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
-import pages.page.factory.space.ManageSpacesPage;
 import steps.HomeSteps;
 import steps.ManageUnifiedSearchSteps;
 
 public class ManageUnifiedSearchStepDefinitions {
     @Steps
     private ManageUnifiedSearchSteps manageUnifiedSearchSteps;
-
-    private ManageSpacesPage manageSpacesPage;
 
     @Steps
     private HomeSteps homeSteps;
@@ -54,11 +51,6 @@ public class ManageUnifiedSearchStepDefinitions {
         manageUnifiedSearchSteps.isSearchedSpaceNameVisible(randomSpaceName);
     }
 
-    @Then("^The attached image is displayed in the search '(.*)'$")
-    public void isImageDisplayedInSearch(String imageName) {
-        manageUnifiedSearchSteps.isImageDisplayedInSearch(imageName);
-    }
-
     @Then("^The user's full name is displayed in the search with last name Smith$")
     public void isSearchedRandomUserNameVisibleWithSameLastName() {
         String randomUserFirstName = Serenity.sessionVariableCalled("randomUserFirstName");
@@ -92,11 +84,6 @@ public class ManageUnifiedSearchStepDefinitions {
     @When("^I click on the application '(.*)'$")
     public void goToTheSearchedApplication(String appName) {
         manageUnifiedSearchSteps.goToTheSearchedApplication(appName);
-    }
-
-    @Then("^I click on the searched image '(.*)'$")
-    public void goToTheSearchedImage(String image) {
-        manageUnifiedSearchSteps.goToTheSearchedImage(image);
     }
 
     @When("^I click on the activity '(.*)'$")

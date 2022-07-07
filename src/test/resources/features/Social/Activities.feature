@@ -1,7 +1,7 @@
 # new feature
 # Tags: optional
 Feature: Activities
-
+  @test
   Scenario: delete your activity
     Given I am authenticated as
       | login    | root     |

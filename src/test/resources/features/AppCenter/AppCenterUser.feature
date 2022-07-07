@@ -81,10 +81,6 @@ Feature: : To be able to access applications
     When I see All Applications
     Then All Applications Page is Displayed
 
-    When Application 'Agenda' is displayed in Favorites Applications
-    And I click on 'Agenda' Application Open Button
-    Then Agenda Application Page is displayed
-
   Scenario: CAP19 - [User_UI_US12][02]: Design V6-Open button of an external app card
     Given I am authenticated as
       | login    | john   |

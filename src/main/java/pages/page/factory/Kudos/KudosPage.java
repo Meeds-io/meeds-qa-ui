@@ -97,7 +97,7 @@ public class KudosPage extends GenericPage {
     private BaseElementFacade editKudosComment;
 
     @FindBy(xpath = "//*[@class='cke_inner cke_reset']")
-    private BaseElementFacade kudosCommentFiled;
+    private BaseElementFacade kudosCommentFilled;
 
     @FindBy(xpath = "//*[@class='v-btn__content' and contains(text(),'Update')]")
     private BaseElementFacade updateKudosComment;

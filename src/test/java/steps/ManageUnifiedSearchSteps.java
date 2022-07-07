@@ -38,14 +38,6 @@ public class ManageUnifiedSearchSteps {
         return unifiedSearchPage.isSearchedSpaceNameVisible(space);
     }
 
-    public void isImageDisplayedInSearch(String imageName) {
-        unifiedSearchPage.isImageDisplayedInSearch(imageName);
-    }
-
-    public void goToTheSearchedImage(String imageName) {
-        unifiedSearchPage.goToTheSearchedImage(imageName);
-    }
-
     public void goToTheSearchedApplication(String appName) {
         unifiedSearchPage.goToTheSearchedApplication(appName);
     }
