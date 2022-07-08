@@ -3,9 +3,14 @@ services:
   selenium-hub:
     image: selenium/hub:4.3
     container_name: selenium-hub
+    ports:
+      - "4444:4444"
+      - "4443:4443"
+      - "4442:4442"
     networks:
       - selenium
-    #network_mode: host
+    extra_hosts:
+      MEEDSERVER: ${DOCKER_GATEWAY_HOST:-host.docker.internal}
   chrome:
     image: selenium/node-chrome:4.3
     #shm_size: 8gb
@@ -22,7 +27,8 @@ services:
       - SE_NODE_SESSION_TIMEOUT=60
     networks:
       - selenium
-    #network_mode: host
+    extra_hosts:
+      MEEDSERVER: ${DOCKER_GATEWAY_HOST:-host.docker.internal}
   firefox:
     image: selenium/node-firefox:4.3
     #shm_size: 8gb
@@ -39,7 +45,8 @@ services:
       - SE_NODE_SESSION_TIMEOUT=60
     networks:
       - selenium
-    #network_mode: host
+    extra_hosts:
+      MEEDSERVER: ${DOCKER_GATEWAY_HOST:-host.docker.internal}
 networks:
   selenium:
     name: selenium
