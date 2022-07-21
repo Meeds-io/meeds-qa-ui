@@ -1,0 +1,30 @@
+#parse("/array.java.vm")
+#if ($packageName)
+package $packageName;
+
+#end##
+import org.apache.logging.log4j.ThreadContext;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.runner.RunWith;
+
+import cucumber.api.CucumberOptions;
+import net.serenitybdd.cucumber.CucumberWithSerenity;
+
+@RunWith(CucumberWithSerenity.class)
+@CucumberOptions(
+features = {"$featureFile"},
+glue = #stringArray($glue),
+tags = "not @ignored")
+public class $className {
+	@BeforeClass
+	public static void startUp() {
+		String featureFilePath = "$featureFile";
+		ThreadContext.put("threadId", featureFilePath.substring(featureFilePath.lastIndexOf("/")+1));
+	}
+
+	@AfterClass
+	public static void tearDown() {
+		ThreadContext.remove("threadId");
+	}
+}
