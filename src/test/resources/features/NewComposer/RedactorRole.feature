@@ -4,10 +4,11 @@ Feature: Redactor Role
   Aa a space manager
   I can set / remove redactor role from any user
 
+  @newcomposer
   Scenario: CAP112 - [US-General-06] : Add the redactor role for a space member
     Given I am authenticated as
-      | login    | root     |
-      | password | password |
+      | login    | superadmin |
+      | password | password   |
     And I create the first random user
     And I create the second random user
     When I connect with the first created user

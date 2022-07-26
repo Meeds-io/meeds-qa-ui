@@ -4,8 +4,8 @@ Feature: Search for Contacts in People page
 
   Scenario: : PEOPLE-6 : Integrate the Suggestions widget in People App
     Given I am authenticated as
-      | login    | root     |
-      | password | password |
+      | login    | superadmin |
+      | password | password   |
 
     And I create a dedicated user to be an administrator
     And I go to groups Management page
@@ -59,7 +59,7 @@ Feature: Search for Contacts in People page
 
   Scenario: : PEOPLE-7 : Leaderboard in the People Cards list application
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
 
     When I create the first random user

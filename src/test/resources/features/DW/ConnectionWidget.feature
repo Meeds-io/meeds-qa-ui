@@ -5,7 +5,7 @@ Feature: Login widget checking
 
   Scenario: US 3.3.3_(02) [BACK] No Connection requests number
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     And I create the first random user
     And I create the second random user
@@ -26,7 +26,7 @@ Feature: Login widget checking
 
   Scenario:US 3.3.4_(01) [BACK]Connections requests to join: See All
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
 
     And I create the first random user
@@ -53,7 +53,7 @@ Feature: Login widget checking
 
   Scenario:US 3.3.4_(02)[BACK]Connections requests : accept and reject
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     And I create the first random user
     And I create the second random user
@@ -68,7 +68,7 @@ Feature: Login widget checking
     Then The 'Connections' badge is '3'
     When I click on connections badge
     And I accept the following connection invitation
-      | John |
+      | admin |
     Then The 'Connections' number is '1'
 
     Then The 'Connections' badge is '2'
@@ -80,7 +80,7 @@ Feature: Login widget checking
 
   Scenario: US 3.3.7[BACK]Common Connections for users requests
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     When I create the first random user
     And I create the second random user

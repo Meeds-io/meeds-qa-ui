@@ -3,9 +3,10 @@ Feature: Administration settings
   I want to manage application
   in order to share them with users
 
+  @appcenter
   Scenario: CAP50 - Admin_Settings_US06:Active option
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     And I create the first random user
     And I go to Administer application center Page
@@ -16,7 +17,7 @@ Feature: Administration settings
     And I search for the random created application
     Then The random application is displayed in application list
     When I change user
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     And I go to Administer application center Page
     And I click on the added application active button
@@ -26,10 +27,11 @@ Feature: Administration settings
     And I search for the random created application
     Then The random application is not displayed in application list
 
+  @appcenter
   Scenario: CAP53 - Edit an app which contain an attached image
     Given I am authenticated as
-      | login    | root     |
-      | password | password |
+      | login    | superadmin |
+      | password | password   |
 
     When I go to Administer application center Page
     And I add a new random application with the title, the url and the description with image <cap02.png>
@@ -57,10 +59,11 @@ Feature: Administration settings
     When I click on Save in application drawer
     Then The image of the application 'cap03.png' is not displayed in Applications Table
 
+  @appcenter
   Scenario: CAP55 - Edit the title ,URL, description field for an app
     Given I am authenticated as
-      | login    | root     |
-      | password | password |
+      | login    | superadmin |
+      | password | password   |
 
     And I go to Administer application center Page
     When I add a new random application with the title, the url and the description
@@ -75,10 +78,11 @@ Feature: Administration settings
     And First application edited Url is displayed in Applications Table
     And First application edited Description is displayed in Applications Table
 
+  @appcenter
   Scenario: CAP56 - Admin_Settings_US04: Default permissions for an app
     Given I am authenticated as
-      | login    | root     |
-      | password | password |
+      | login    | superadmin |
+      | password | password   |
     And I create the first random user
 
     And I go to Administer application center Page

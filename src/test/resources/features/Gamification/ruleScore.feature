@@ -3,9 +3,10 @@
 Feature: Check the rules score increase
   for different type of activity on the plf
 
+  @gamification
   Scenario:Send Kudos
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     And I create the first random user
     And I create the second random user
@@ -17,9 +18,10 @@ Feature: Check the rules score increase
     When I go to my profile
     Then My points augmented
 
+  @gamification
   Scenario:Receive a connection request
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     And I create the first random user
     And I create the second random user
@@ -32,9 +34,10 @@ Feature: Check the rules score increase
     When I go to my profile
     Then My points augmented
 
+  @gamification
   Scenario:Like a comment (in space)
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     And I create the first random user
     And I create the second random user
@@ -64,9 +67,10 @@ Feature: Check the rules score increase
     And I go to my profile
     Then My points augmented
 
+  @gamification
   Scenario:Receive a like on a post
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     And I create the first random user
     And I create the second random user
@@ -90,9 +94,10 @@ Feature: Check the rules score increase
     And I go to my profile
     Then My points augmented
 
+  @gamification
   Scenario: Create a new wiki page
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     And I create the first random user
     And I connect with the first created user
@@ -106,9 +111,10 @@ Feature: Check the rules score increase
     And I go to my profile
     Then My points augmented
 
+  @gamification
   Scenario:Receive relationship request
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     And I create the first random user
     And I create the second random user

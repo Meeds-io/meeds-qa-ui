@@ -4,7 +4,7 @@ Feature: Edit sections in Settings page
 
   Scenario: : SETTINGS-5 : Language and its drawer
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
 
     And I go to Settings page
@@ -27,7 +27,7 @@ Feature: Edit sections in Settings page
 
   Scenario: : SETTINGS-6 : TimeZone view and drawer
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
 
     And I go to Settings page
@@ -50,7 +50,7 @@ Feature: Edit sections in Settings page
 
   Scenario: : SETTINGS-7 : Security on settings
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
 
     And I create the first random user
@@ -81,7 +81,7 @@ Feature: Edit sections in Settings page
 
   Scenario: : SETTINGS-8 : Notifications section (Disable Notifications)
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
 
     When I create the first random user
@@ -105,7 +105,7 @@ Feature: Edit sections in Settings page
 
   Scenario: SETTINGS-4 : Add the favorite icon for Homepage default view
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
 
     And I open Navigation menu

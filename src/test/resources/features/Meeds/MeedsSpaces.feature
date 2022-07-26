@@ -4,7 +4,7 @@ Feature: Meeds Space
 
   Scenario:[SPACES-2] Spaces Cards bloc
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
 
     When I create thirty random space
@@ -15,7 +15,7 @@ Feature: Meeds Space
 
   Scenario: [SPACES-4] Spaces Request
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
 
     And I create the first random user
@@ -39,7 +39,7 @@ Feature: Meeds Space
 
   Scenario: [SPC_MNG-7] General Space Settings
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     When I create the random space
     And I click on space settings tab
@@ -58,7 +58,7 @@ Feature: Meeds Space
 
   Scenario: [SPC_MNG-8] Spaces applications management
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     When I create the random space
     And I click on space settings tab

@@ -2,7 +2,7 @@ Feature: Task Drawer Checking
 
   Scenario: US 3.13.5 [FRONT/BACK] : Comments in Task drawer
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     And I create the first random user
 
@@ -35,7 +35,7 @@ Feature: Task Drawer Checking
     And I add other comment 'taskcomment1213' in task
 
     When I change user
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     And I go to the home page
     And I go to Tasks Page
@@ -45,7 +45,7 @@ Feature: Task Drawer Checking
     And I open the task 'task1313'
     And I view all task comments
 
-    Then 'John Smith' with the task comment 'taskcomment1212' is displayed in task comments drawer
+    Then 'admin Smith' with the task comment 'taskcomment1212' is displayed in task comments drawer
     And First user with the task comment 'taskcomment1213' is displayed in task comments drawer
 
     And I close task comments drawer
@@ -53,7 +53,7 @@ Feature: Task Drawer Checking
 
   Scenario: US 3.13.7 [FRONT/BACK] : Update Project Name in Task Drawer
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
 
     And I create space project
@@ -83,7 +83,7 @@ Feature: Task Drawer Checking
 
   Scenario: US 3.13.9 [FRONT/BACK]_(02) : Mark as Completed in Task Drawer
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
 
     And I create space project
@@ -106,7 +106,7 @@ Feature: Task Drawer Checking
 
   Scenario: Cap182 - [-2287] [PFR] [Can't add a long comment]Comment button is disabled when exceeds the max chars number
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     And I create the first random user
 
@@ -149,7 +149,7 @@ Feature: Task Drawer Checking
 
     When I close task comments drawer
     And I close task drawer
-    And I connect with John
+    And I connect with admin
     And I create space project with the first user
     And I go to the home page
     And I go to Tasks Page
@@ -203,7 +203,7 @@ Feature: Task Drawer Checking
 
   Scenario: US 3.13.10 [FRONT/BACK] : Update Status, Due Date and Priority in Task Drawer
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     And I create the first random user
     And I connect with the first created user

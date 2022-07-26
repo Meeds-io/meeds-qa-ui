@@ -1,11 +1,12 @@
 # new feature
 # Tags: optional
 Feature: Activities
+
   @test
   Scenario: delete your activity
     Given I am authenticated as
-      | login    | root     |
-      | password | password |
+      | login    | superadmin |
+      | password | password   |
     And I create the space
     When I click on post in space
     And I enter an activity 'activitytest'
@@ -16,9 +17,10 @@ Feature: Activities
     Then the confirmation popup is not displayed
     And the activity 'activitytest' is no more displayed in the activity stream
 
+  @activitystream
   Scenario:  delete your comment
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     And I create the space
     When I click on post in space
@@ -34,9 +36,10 @@ Feature: Activities
     Then the confirmation popup is not displayed
     And Comment 'commenttest' is not displayed in activity 'activitytest'
 
+  @activitystream
   Scenario:   comment your activity
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     And I create the space
     When I click on post in space

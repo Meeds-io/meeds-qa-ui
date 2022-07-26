@@ -1,9 +1,9 @@
-@firstpart
 Feature: Gamification Components
 
+  @gamification
   Scenario: check badges pop-over in my badges
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
 
     And I create the first random user

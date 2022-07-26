@@ -34,7 +34,7 @@ public class AfterHooks {
 
     Map<String, String> credentials = new HashMap<String, String>() {
         {
-            put("login", "root");
+            put("login", "superadmin");
             put("password", "password");
 
         }
@@ -42,7 +42,7 @@ public class AfterHooks {
 
     Map<String, String> secondCredentials = new HashMap<String, String>() {
         {
-            put("login", "john");
+            put("login", "admin");
             put("password", "gtngtn");
 
         }

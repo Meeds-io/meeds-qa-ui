@@ -5,7 +5,7 @@ Feature: Spaces widget checking
 
   Scenario: US 3.3.2_(02) [BACK] Spaces requests to join: See All
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     And I create the first random user
     When I create random space with the first created user
@@ -23,7 +23,7 @@ Feature: Spaces widget checking
 
   Scenario: US 3.3.2_(03) [BACK] Spaces requests to join: accept and reject
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     And I create the first random user
     When I create random space with the first created user

@@ -5,7 +5,7 @@ Feature: Users Management
 
   Scenario: [USR_MNG-1.1] Users Grid
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
 
     When I create the first random user
@@ -22,7 +22,7 @@ Feature: Users Management
 
   Scenario: [USR_MNG-1.2] Add User drawer
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
 
     When I go to Add Users page
@@ -31,8 +31,8 @@ Feature: Users Management
 
   Scenario: [USR_MNG-1.5] Delete User
     Given I am authenticated as
-      | login    | root     |
-      | password | password |
+      | login    | superadmin |
+      | password | password   |
 
     When I create the first random user
 
@@ -45,7 +45,7 @@ Feature: Users Management
     Then I check that the created user is deleted
 
     When I refresh the page
-    And I search for created user 'root'
+    And I search for created user 'superadmin'
     And I click to delete user
     Then Popup is displayed to inform user that we can't delete your user account while being logged in with it
 

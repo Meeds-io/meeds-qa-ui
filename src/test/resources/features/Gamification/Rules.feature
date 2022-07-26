@@ -1,8 +1,9 @@
 Feature: Rules
 
+  @gamification
   Scenario: Receive Kudos
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     And I create the first random user
     And I create the second random user
@@ -16,9 +17,10 @@ Feature: Rules
     When I go to my profile
     Then My points augmented
 
+  @gamification
   Scenario: Comment a post
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     And I create the first random user
     And I connect with the first created user
@@ -33,9 +35,10 @@ Feature: Rules
     And I go to my profile
     Then My points augmented
 
+  @gamification
   Scenario: Like a comment
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     And I create the first random user
     And I create random space with the first created user
@@ -56,9 +59,10 @@ Feature: Rules
     And I go to my profile
     Then My points augmented
 
+  @gamification
   Scenario: Like a post
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     And I create the first random user
     And I create random space with the first created user
@@ -78,9 +82,10 @@ Feature: Rules
     And I go to my profile
     Then My points augmented
 
+  @gamification
   Scenario: Join a space
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     And I create the first random user
     And I create random space with the first created user
@@ -93,9 +98,10 @@ Feature: Rules
     When I go to my profile
     Then My points augmented
 
+  @gamification
   Scenario: Create new task
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     And I check my points
 
@@ -107,9 +113,10 @@ Feature: Rules
     And I go to my profile
     Then My points augmented
 
+  @gamification
   Scenario: Complete assigned task
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
 
     When I go to the home page

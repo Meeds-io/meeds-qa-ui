@@ -4,7 +4,7 @@ Feature: Search for User Informations in Profile page
 
   Scenario: PROFILE-1 : Integrate default user's avatar and cover
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
 
     When I go to My Profile page
@@ -14,25 +14,25 @@ Feature: Search for User Informations in Profile page
 
   Scenario: PROFILE-2 : User avatar and cover block_(01)
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
 
     When I go to My Profile page
 
     Then User Cover is displayed in Profile Page
     And User Avatar is displayed in Profile Page
-    And User Fullname 'John Smith' is displayed in Profile Page
+    And User Fullname 'admin Smith' is displayed in Profile Page
     And User Job '' is displayed in Profile Page
 
   Scenario: PROFILE-2 : User avatar and cover block_(02)
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
 
     When I go to My Profile page
 
-    Then Profile Contact Fullname 'Contact information' is displayed in 'John Smith'
-    And Profile Contact Email 'john.smith@exoplatform.com' is displayed
+    Then Profile Contact Fullname 'Contact information' is displayed in 'admin Smith'
+    And Profile Contact Email 'admin.smith@exoplatform.com' is displayed
 
     When I create the first random user
     And I connect with the first created user
@@ -42,7 +42,7 @@ Feature: Search for User Informations in Profile page
 
   Scenario: PROFILE-4 : Contact information block_(01) : Add informations
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
 
     When I create the first random user
@@ -55,7 +55,7 @@ Feature: Search for User Informations in Profile page
 
   Scenario: PROFILE-4 : Contact information block_(02) : Add informations
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
 
     When I create the first random user
@@ -74,7 +74,7 @@ Feature: Search for User Informations in Profile page
 
   Scenario: PROFILE-5 : Kudos block
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
 
     When I create the first random user
@@ -109,7 +109,7 @@ Feature: Search for User Informations in Profile page
 
   Scenario: : PROFILE-6 : Rawards Meeds block and its drawer
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
 
     When I go to My Profile page
@@ -120,7 +120,7 @@ Feature: Search for User Informations in Profile page
 
   Scenario: : PROFILE-7 : Work Experiences block and its drawer
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
 
     And I create the first random user
@@ -149,7 +149,7 @@ Feature: Search for User Informations in Profile page
 
   Scenario: : PROFILE-9 : Achievement Drawer in Points
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
 
     And I create the first random user

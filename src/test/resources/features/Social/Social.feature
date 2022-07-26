@@ -4,9 +4,10 @@ Feature: Social
   As a user I have the right
   to comment on any activity in a space in which I am a member
 
+  @activitystream
   Scenario: Comment on your friends activity
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     And I create the first random user
     And I create the second random user
@@ -30,8 +31,8 @@ Feature: Social
 
   Scenario: Search users in My connections tab
     Given I am authenticated as
-      | login    | Root     |
-      | password | password |
+      | login    | superadmin |
+      | password | password   |
     And I create the first random user
     And I create the second random user
     And I connect with the first created user
@@ -46,10 +47,11 @@ Feature: Social
     And  I enter the contact name of the first user
     Then The search result is well matched with the username entered of the first user
 
+  @activitystream
   Scenario: Cancel edit comment
     Given I am authenticated as
-      | login    | Root     |
-      | password | password |
+      | login    | superadmin |
+      | password | password   |
     And I create the first random user
     When I connect with the first created user
     And I create the space
@@ -65,10 +67,11 @@ Feature: Social
     Then Comment 'updateComment' is not displayed in activity 'CancelEditComment'
     And Activity Comment 'comment' is displayed in activity stream
 
+  @activitystream
   Scenario: [ID: REPLY_05] The comment is displayed on the buttom of the comment reply section
     Given I am authenticated as
-      | login    | Root     |
-      | password | password |
+      | login    | superadmin |
+      | password | password   |
     And I create the first random user
     And I create the second random user
     And I create the third random user

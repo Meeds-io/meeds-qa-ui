@@ -3,9 +3,10 @@
 
 Feature: Edit Note
 
+  @note
   Scenario: Open edit Note page in new tab
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     And I create the space community
     And I go to notes application of the space
@@ -19,9 +20,10 @@ Feature: Edit Note
     And I close the third window
     And I close the second window
 
+  @note
   Scenario: edit note
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     And I create the space community
     And I go to notes application of the space

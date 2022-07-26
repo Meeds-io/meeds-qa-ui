@@ -1,9 +1,10 @@
 Feature: Poll
 
+  @poll
   Scenario: Poll_US05_(01) : Post a poll_simple case
     Given I am authenticated as
-      | login    | root     |
-      | password | password |
+      | login    | superadmin |
+      | password | password   |
     And I create the first random user
     And I create random space with the first created user
 
@@ -20,10 +21,11 @@ Feature: Poll
     And I publish the Poll
     Then The Poll 'Poll eXo' is displayed in stream page
 
+  @poll
   Scenario: Poll_US05_(02) : Post a poll_all options
     Given I am authenticated as
-      | login    | root     |
-      | password | password |
+      | login    | superadmin |
+      | password | password   |
     And I create the first random user
     And I create random space with the first created user
 
@@ -52,10 +54,11 @@ Feature: Poll
     And I publish the Poll
     Then The Poll 'Poll 2 eXo' is displayed in stream page
 
+  @poll
   Scenario: Poll_US04_(01) : Edit a poll_edit informations
     Given I am authenticated as
-      | login    | root     |
-      | password | password |
+      | login    | superadmin |
+      | password | password   |
     And I create the first random user
     And I create random space with the first created user
 
@@ -74,10 +77,11 @@ Feature: Poll
     And I created a simple poll with title ' edited' and Choice One ' edited' and Choice Two ' edited'
     Then create poll drawer is closed
 
+  @poll
   Scenario: Poll_US05.1_(01) : Post a poll : create poll activity_with message
     Given I am authenticated as
-      | login    | root     |
-      | password | password |
+      | login    | superadmin |
+      | password | password   |
     And I create the first random user
     And I create random space with the first created user
 

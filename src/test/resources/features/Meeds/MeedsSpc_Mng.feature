@@ -5,7 +5,7 @@ Feature: Spaces Management
 
   Scenario: SPC_MNG-1 : Spaces avatar and title
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
 
     When I create the random space
@@ -15,7 +15,7 @@ Feature: Spaces Management
 
   Scenario: SPC_MNG-2 : Space applications
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
 
     When I create the random space
@@ -26,7 +26,7 @@ Feature: Spaces Management
 
   Scenario: SPC_MNG-3 : Home space page banner
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
 
     When I create the random space
@@ -40,7 +40,7 @@ Feature: Spaces Management
 
   Scenario: SPC_MNG-4 : Clickable Space avatar
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
 
     When I create the random space

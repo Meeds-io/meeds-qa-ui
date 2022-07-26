@@ -88,9 +88,9 @@ public class LoginStepDefinitions {
         assertThat(loginSteps.isHomePageDisplayed()).as("The home page should be loaded, but it did not !").isTrue();
     }
 
-    @Given("^I connect with John$")
-    public void logOutLoginJohn() {
-        loginSteps.logOutLoginFirstUser("john", "gtngtn");
+    @Given("^I connect with admin$")
+    public void logOutLoginadmin() {
+        loginSteps.logOutLoginFirstUser("admin", "gtngtn");
         assertThat(loginSteps.isHomePageDisplayed()).as("The home page should be loaded, but it did not !").isTrue();
     }
 

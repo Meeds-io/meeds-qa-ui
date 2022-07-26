@@ -2,10 +2,11 @@
 # Tags: optional
 Feature: User adds, deletes, edits and clones a project
 
+  @task
   Scenario: [User_UI_US18.1]: Add project with a description
     Given I am authenticated as
-      | login    | root     |
-      | password | password |
+      | login    | superadmin |
+      | password | password   |
     And I create the first random user
     And I connect with the first created user
     When I go To AppCenter Drawer
@@ -15,10 +16,11 @@ Feature: User adds, deletes, edits and clones a project
     And I add a new project with a description
     Then the project is created successfully and displayed on Projects tab
 
+  @task
   Scenario: CAP47 - [Project_manager_US03.2]: Clone a project
     Given I am authenticated as
-      | login    | root     |
-      | password | password |
+      | login    | superadmin |
+      | password | password   |
     And I create the first random user
     And I connect with the first created user
     And I create space project
@@ -36,10 +38,11 @@ Feature: User adds, deletes, edits and clones a project
     And I open the cloned project
     Then task 'Copy of task1414' is cloned successfully
 
+  @task
   Scenario: CAP174 -[US_Filterfield_01]: Add Clear typed characters icon "Filter by project"
     Given I am authenticated as
-      | login    | root     |
-      | password | password |
+      | login    | superadmin |
+      | password | password   |
     And I create the first random user
     And I connect with the first created user
     When I go To AppCenter Drawer
@@ -54,9 +57,10 @@ Feature: User adds, deletes, edits and clones a project
     And The placeholder Filter by project should be displayed
     And The clear button is disappeared from the Filter by project field
 
+  @task
   Scenario: CAP15 - [Project_Card_US01]: check the display "Spaces Managers avatars"
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     And I create the first random user
     And I create random space with the first created user
@@ -68,7 +72,7 @@ Feature: User adds, deletes, edits and clones a project
     And I close Space Drawer
 
     When I change user
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     And I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
@@ -78,7 +82,7 @@ Feature: User adds, deletes, edits and clones a project
     And I search for the created space
     Then First project name with description 'No description available' is displayed in Project Card
     When I hover on project manager icon
-    Then Space manager 'John Smith' is displayed in Project Card
+    Then Space manager 'admin Smith' is displayed in Project Card
     And First Space member is not displayed in Project Card
 
     When I go to the created space
@@ -91,12 +95,13 @@ Feature: User adds, deletes, edits and clones a project
 
     When I select 'Projects' tab
     And I search for the created space
-    Then User avatar 'john' is displayed in Project Card
+    Then User avatar 'admin' is displayed in Project Card
     And Avatar of the first created user is displayed in Project Card
 
+  @task
   Scenario: CAP17 - [Project_Card_US01]: check the display of users avatars with managing permissions
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     And I create the first random user
     And I create the second random user
@@ -109,13 +114,14 @@ Feature: User adds, deletes, edits and clones a project
     And I add the random project with first user as the manager and second user as the participant
     And I search for the created project
     Then The random created project with description 'No description available' is displayed in Project Card
-    And User avatar 'john' is displayed in Project Card
+    And User avatar 'admin' is displayed in Project Card
     And Avatar of the first created user is displayed in Project Card
     And Avatar of the second created user is not displayed in Project Card
 
+  @task
   Scenario: CAP19 - [User_UI_US09]: Project's Tasks "BOARD" view
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
 
     When I go To AppCenter Drawer
@@ -132,9 +138,10 @@ Feature: User adds, deletes, edits and clones a project
     And Status column 'Waiting On' is displayed in the third position
     And Status column 'Done' is displayed in the last position
 
+  @task
   Scenario: CAP36 [User_UI_US18.1]: Check  message when  Project title is empty
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
 
     When I go To AppCenter Drawer
@@ -145,9 +152,10 @@ Feature: User adds, deletes, edits and clones a project
     And I click on save project button
     Then Message Project Title is mandatory is displayed
 
+  @task
   Scenario: CAP290 - [Bug]: Project participant cannot open the edit status mode
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     And I create the first random user
 
@@ -182,9 +190,10 @@ Feature: User adds, deletes, edits and clones a project
     When I click on Status name 'To Do'
     Then Status name 'To Do' Edit mode is not opened successfully
 
+  @task
   Scenario: CAP216 - [Bug]: Task's card should be well displayed when task title is long
     Given I am authenticated as
-      | login    | john   |
+      | login    | admin  |
       | password | gtngtn |
     And I create the first random user
 
@@ -204,11 +213,11 @@ Feature: User adds, deletes, edits and clones a project
     When I hover on task's title 'testlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtaskname'
     Then Task tooltip is displayed 'testlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtaskname'
 
-
+  @task
   Scenario: [NF] [US_GanttView_01]: Display Gantt tab in Space tasks projects
     Given I am authenticated as
-      | login    | root     |
-      | password | password |
+      | login    | superadmin |
+      | password | password   |
     And I create the first random user
     And I create space project with the first user
     And I connect with the first created user
