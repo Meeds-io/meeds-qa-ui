@@ -4,6 +4,7 @@ Feature: Administration settings
   in order to share them with users
 
   @appcenter
+  @appcenterSettings
   Scenario: CAP50 - Admin_Settings_US06:Active option
     Given I am authenticated as admin
     And I create the first random user
@@ -14,9 +15,7 @@ Feature: Administration settings
     And I open all application page
     And I search for the random created application
     Then The random application is displayed in application list
-    When I change user
-
-
+    When I change user admin
     And I go to Administer application center Page
     And I click on the added application active button
     And I connect with the first created user
@@ -26,6 +25,7 @@ Feature: Administration settings
     Then The random application is not displayed in application list
 
   @appcenter
+  @appcenterSettings
   Scenario: CAP53 - Edit an app which contain an attached image
     Given I am authenticated as admin
 
@@ -56,6 +56,7 @@ Feature: Administration settings
     Then The image of the application 'cap03.png' is not displayed in Applications Table
 
   @appcenter
+  @appcenterSettings
   Scenario: CAP55 - Edit the title ,URL, description field for an app
     Given I am authenticated as admin
 
@@ -73,6 +74,7 @@ Feature: Administration settings
     And First application edited Description is displayed in Applications Table
 
   @appcenter
+  @appcenterSettings
   Scenario: CAP56 - Admin_Settings_US04: Default permissions for an app
     Given I am authenticated as admin
     And I create the first random user

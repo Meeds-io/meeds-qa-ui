@@ -449,9 +449,7 @@ Feature: Activity Stream
     When I add a reply 'replyTest100' to comment 'commenttest100' in activity 'activityTest100'
     Then In activity 'activityTest100' with comment 'commenttest100', the reply 'replyTest100' is displayed
 
-    When I change user
-
-
+    When I change user admin
 
     And I go to the created space
     Then the activity 'activityTest100' is displayed in activity stream
@@ -533,9 +531,7 @@ Feature: Activity Stream
     When I add a reply 'replyTest103' to comment 'commenttest101' in activity 'activityTest101'
     Then In activity 'activityTest101' with comment 'commenttest101', the reply 'replyTest103' is displayed
 
-    When I change user
-
-
+    When I change user admin
 
     And I go to the created space
     Then the activity 'activityTest101' is displayed in activity stream
@@ -623,9 +619,7 @@ Feature: Activity Stream
     When I add a reply 'replyTest103' to comment 'commenttest102' in activity 'activityTest102'
     Then In activity 'activityTest102' with comment 'commenttest102', the reply 'replyTest103' is displayed
 
-    When I change user
-
-
+    When I change user admin
 
     And I go to the created space
     Then the activity 'activityTest102' is displayed in activity stream

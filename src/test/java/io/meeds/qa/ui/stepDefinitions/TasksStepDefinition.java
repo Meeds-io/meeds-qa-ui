@@ -1077,51 +1077,14 @@ public class TasksStepDefinition {
     tasksSteps.checkDrawerDisplay();
   }
 
-  @When("^I change the location to the space '(.*)'$")
-  public void changeLocation(String spaceDriveTitle) {
-    tasksSteps.changeLocation(spaceDriveTitle);
-  }
-
-  @When("^I change the location to the created space$")
-  public void changeLocationRandomSpace() {
-    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
-    tasksSteps.changeLocation(randomSpaceName);
-  }
-
-  @Then("^The selected location '(.*)' is displayed in a ship form$")
-  public void checkSelectedLocation(String driveName) {
-    tasksSteps.checkSelectedLocation(driveName);
-  }
-
-  @Then("^The selected location of the created space is displayed in a ship form$")
-  public void checkSelectedLocationRandomSpace() {
-    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
-    tasksSteps.checkSelectedLocation(randomSpaceName);
-  }
-
   @And("^I close the edit task drawer$")
   public void closeEditTaskDrawer() {
     tasksSteps.closeEditTaskDrawer();
   }
 
-  @When("^I change the location to others '(.*)'$")
-  public void changePlacement(String othersDriveTitle) {
-    tasksSteps.changePlacement(othersDriveTitle);
-  }
-
   @And("^I close the edit drawer of task in simple project$")
   public void closeEditTaskDrawerSimpleProject() {
     tasksSteps.closeEditTaskDrawerSimpleProject();
-  }
-
-  @When("^I access to groups drives interface$")
-  public void accessDrivesInterface() {
-    tasksSteps.accessDrivesInterface();
-  }
-
-  @And("^I select the drive '(.*)'$")
-  public void selectDrive(String driveName) {
-    tasksSteps.selectDrive(driveName);
   }
 
   @And("^I assign task to me$")

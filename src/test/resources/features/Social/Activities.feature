@@ -2,7 +2,7 @@
 # Tags: optional
 Feature: Activities
 
-  @test
+  @activitystream
   Scenario: delete your activity
     Given I am authenticated as admin
     And I create the space

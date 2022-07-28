@@ -46,6 +46,8 @@
     <junit-platform.version>1.5.2</junit-platform.version>
     <org.junit.version>5.5.2</org.junit.version>
     <org.assertj.version>3.13.2</org.assertj.version>
+
+    <failsafe.rerunFailingTestsCount>0</failsafe.rerunFailingTestsCount>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -277,10 +279,8 @@
             <include>**/it/*.java</include>
           </includes>
           <argLine>-Xmx1g</argLine>
-          <reuseForks>true</reuseForks>
-          <parallel>classes</parallel>
-          <threadCount>1</threadCount>
-          <perCoreThreadCount>false</perCoreThreadCount>
+          <parallel>classesAndMethods</parallel>
+          <useUnlimitedThreads>true</useUnlimitedThreads>
         </configuration>
         <executions>
           <execution>

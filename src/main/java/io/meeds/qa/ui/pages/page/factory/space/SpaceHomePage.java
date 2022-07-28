@@ -55,16 +55,6 @@ public class SpaceHomePage extends GenericPage {
   @FindBy(xpath = "(//*[contains(@class,'v-dialog--active')]//button)[1]")
   private BaseElementFacade    closeWhatSNewPopUp;
 
-  @FindBy(
-      xpath = "//*[@id='connectCloudApp']//*[@class='uiIcon-onedrive uiIconEcmsBlue']/following::*[@class='v-list-item__title cloudDriveListItem__title' and contains(text(),'Connect your OneDrive')]"
-  )
-  private BaseElementFacade    connectYourServiceDrawerOneDrive;
-
-  @FindBy(
-      xpath = "//*[@id='connectCloudApp']//*[@class='uiIcon-onedrive uiIconEcmsBlue']/following::*[@class='v-list-item__title cloudDriveListItem__title' and contains(text(),'Connect your Google Drive')]"
-  )
-  private BaseElementFacade    connectYourServiceDrawerGoogleDrive;
-
   @FindBy(xpath = "//iframe[contains(@class,'cke_wysiwyg_frame')]")
   private BaseElementFacade    ckEditorFrame;
 
@@ -89,9 +79,6 @@ public class SpaceHomePage extends GenericPage {
   @FindBy(xpath = "//div[@class='progress']")
   private BaseElementFacade    progressDownloadBar;
 
-  @FindBy(xpath = "//*[contains(@class,'currentDriveTitle')]")
-  private BaseElementFacade    currentDrive;
-
   @FindBy(
       xpath = "//*[contains(@id,'Extactivity-content-extensions')]//following::*[@src]//following::*[@class='my-4']//*[contains(@class,'font-weight-bold')]"
   )
@@ -114,9 +101,6 @@ public class SpaceHomePage extends GenericPage {
 
   @FindBy(xpath = "//i[contains(@class,'iconCloud')]")
   private BaseElementFacade    selectFromDocument;
-
-  @FindBy(xpath = "//a[contains(@class,'uiIconFilter')]")
-  private BaseElementFacade    filterDrivesIcon;
 
   @FindBy(xpath = "(//*[@id='activityCommentsDrawer']//*[contains(@id,'Extactivity-content-extensions')]//p//div)[1]")
   private BaseElementFacade    firstCommentInDrawer;
@@ -157,14 +141,8 @@ public class SpaceHomePage extends GenericPage {
   @FindBy(xpath = "(//*[@id='activityCommentsDrawer']//*[@class='v-btn__content'])[3]")
   private BaseElementFacade          closeCommentsDrawer;
 
-  @FindBy(xpath = "//input[contains(@id,'searchServerAttachments')]")
-  private TextBoxElementFacade       searchDriveInput;
-
   @FindBy(xpath = "//*[contains(@class,'v-btn--block v-btn--contained theme--light')]//span")
   private BaseElementFacade          loadMoreActivitiesBtn;
-
-  @FindBy(xpath = "//div[contains(@class,'actionBoxLogo')]")
-  private BaseElementFacade          selectFromDrivesButton;
 
   @FindBy(xpath = "//button[contains(@class,'primary btn no-box-shadow ms-auto v-btn v-btn--contained')]")
   private BaseElementFacade          newActivityButtonInArabicLanguage;
@@ -447,10 +425,6 @@ public class SpaceHomePage extends GenericPage {
     closeActivityDrawerbutton.clickOnElement();
   }
 
-  public void connectYourServiceDrawerGoogleDriveButtonIsDisplayed() {
-    connectYourServiceDrawerGoogleDrive.isVisibleAfterWaiting();
-  }
-
   public void replyInDrawerIsNotDisplayed(String reply) {
     getDrawerReplyName(reply).isNotVisibleAfterWaiting();
   }
@@ -465,10 +439,6 @@ public class SpaceHomePage extends GenericPage {
 
   public void normalLinkPreviewIsVisible(String link) {
     getNormalLinkPreview(link).isVisibleAfterWaiting();
-  }
-
-  public void connectYourServiceDrawerOneDriveButtonIsDisplayed() {
-    connectYourServiceDrawerOneDrive.isVisibleAfterWaiting();
   }
 
   public void enterActivityText(String activity) {
@@ -965,10 +935,6 @@ public class SpaceHomePage extends GenericPage {
     closeCommentsDrawer.clickOnElement();
   }
 
-  public void clickOnCurrentSpaceAsDrive() {
-    currentDrive.clickOnElement();
-  }
-
   public void openEditActivityMenu(String activity) {
     getDropDownActivityMenu(activity).clickOnElement();
     geEditActivityIcon(activity).clickOnElement();
@@ -1012,16 +978,8 @@ public class SpaceHomePage extends GenericPage {
     newTab.keyDown(Keys.CONTROL).click(getCommentTitleActivityStream(link)).keyUp(Keys.CONTROL).build().perform();
   }
 
-  public boolean isSelectFromDrivesButtonVisible() {
-    return selectFromDrivesButton.isVisibleAfterWaiting();
-  }
-
   public void commentsDrawerlikeActivityComment(String activityComment) {
     getCommentsDrawerLikeCommentIcon(activityComment).clickOnElement();
-  }
-
-  public void clickAddDriveButton() {
-    selectFromDrivesButton.clickOnElement();
   }
 
   public void likeActivity(String activity) {

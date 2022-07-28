@@ -14,7 +14,7 @@ public class GenericStepDefinitions {
   @Steps
   GenericSteps genericSteps;
 
-  @When("Confirmation message is displayed '(.*)'")
+  @When("Confirmation message is displayed '{}'")
   public void checkConfirmMessage(String message) {
     assertThat(genericSteps.inConfirmMessageDisplayed(message)).as(String.format("Confirm message %s should be displayed but it is not",
                                                                                  message))
@@ -27,7 +27,7 @@ public class GenericStepDefinitions {
                                                         .isTrue();
   }
 
-  @When("The button '(.*)' is displayed")
+  @When("The button '{}' is displayed")
   public void checkButton(String button) {
     assertThat(genericSteps.isButtonDisplayed(button)).as(String.format("The button %s should be displayed but it is not",
                                                                         button))

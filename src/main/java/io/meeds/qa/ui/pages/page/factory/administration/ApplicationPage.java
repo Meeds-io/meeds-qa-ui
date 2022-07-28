@@ -104,7 +104,7 @@ public class ApplicationPage extends GenericPage {
   }
 
   private BaseElementFacade editTheApplication(String appTitle) {
-    return findByXpath(String.format("//td[contains(text(),'%s')]/..//button[contains(@data-original-title,'Edit')]", appTitle));
+    return findByXpath(String.format("//td[contains(text(),'%s')]/..//i[contains(@class,'mdi-pencil')]", appTitle));
   }
 
   private BaseElementFacade appTitleInApplicationsTable(String appTitle) {

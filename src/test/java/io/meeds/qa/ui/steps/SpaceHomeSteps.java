@@ -186,10 +186,6 @@ public class SpaceHomeSteps {
     spaceHomePage.goToSpaceMembersTab();
   }
 
-  public void clickOnCurrentSpaceAsDrive() {
-    spaceHomePage.clickOnCurrentSpaceAsDrive();
-  }
-
   public void openEditActivityMenu(String activity) {
     spaceHomePage.openEditActivityMenu(activity);
   }
@@ -216,14 +212,6 @@ public class SpaceHomeSteps {
 
   public void openDeleteActivityMenu(String activity) {
     spaceHomePage.openDeleteActivityMenu(activity);
-  }
-
-  public boolean isSelectFromDrivesButtonVisible() {
-    return spaceHomePage.isSelectFromDrivesButtonVisible();
-  }
-
-  public void clickAddDrive() {
-    spaceHomePage.clickAddDriveButton();
   }
 
   public void commentsDrawerlikeActivityComment(String activityComment) {
@@ -325,10 +313,6 @@ public class SpaceHomeSteps {
     spaceHomePage.replyInDrawerIsNotDisplayed(reply);
   }
 
-  public void connectYourServiceDrawerGoogleDriveButtonIsDisplayed() {
-    spaceHomePage.connectYourServiceDrawerGoogleDriveButtonIsDisplayed();
-  }
-
   public void normalLinkPreviewIsVisible(String link) {
     spaceHomePage.normalLinkPreviewIsVisible(link);
   }
@@ -355,10 +339,6 @@ public class SpaceHomeSteps {
 
   public void checkActivityCommentInDrawer(String comment) {
     spaceHomePage.checkActivityCommentInDrawer(comment);
-  }
-
-  public void connectYourServiceDrawerOneDriveButtonIsDisplayed() {
-    spaceHomePage.connectYourServiceDrawerOneDriveButtonIsDisplayed();
   }
 
   public void deleteReply(String reply) {
