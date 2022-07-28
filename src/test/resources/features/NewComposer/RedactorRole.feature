@@ -6,9 +6,7 @@ Feature: Redactor Role
 
   @newcomposer
   Scenario: CAP112 - [US-General-06] : Add the redactor role for a space member
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
     When I connect with the first created user

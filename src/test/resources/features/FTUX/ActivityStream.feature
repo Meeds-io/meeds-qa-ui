@@ -2,9 +2,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP01 - ActivityStream_US01: Activity topbar section
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
 
@@ -28,9 +26,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP02 - ActivityStream_US03: new Activity body with text display
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create the first random user
     And I create the second random user
@@ -53,9 +49,7 @@ Feature: Activity Stream
     Then The profile page is displayed
 
   Scenario: CAP03 - [ActivityStream_US05][01]: Display first 10 created activities in new Activity Stream
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
 
@@ -132,9 +126,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP04 - [ActivityStream_US05][02]: Display first 10 activities in new Activity Stream
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create the first random user
     And I create the second random user
@@ -297,9 +289,7 @@ Feature: Activity Stream
     And the activity 'act10' is not displayed in stream page
 
   Scenario: CAP05 - [ActivityStream_US05][03]: Display first 10 activities in new Activity Stream
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create the first random user
     And I create the second random user
@@ -423,9 +413,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP100 - [ActivityStream_US38][04]: Cancel Delete comment with replies from the activity stream
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create the first random user
     And I create the second random user
@@ -462,8 +450,8 @@ Feature: Activity Stream
     Then In activity 'activityTest100' with comment 'commenttest100', the reply 'replyTest100' is displayed
 
     When I change user
-      | login    | admin  |
-      | password | gtngtn |
+
+
 
     And I go to the created space
     Then the activity 'activityTest100' is displayed in activity stream
@@ -490,9 +478,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP101 - [ActivityStream_US38][05]: Delete a reply from the activity stream
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create the first random user
     And I create the second random user
@@ -548,8 +534,8 @@ Feature: Activity Stream
     Then In activity 'activityTest101' with comment 'commenttest101', the reply 'replyTest103' is displayed
 
     When I change user
-      | login    | admin  |
-      | password | gtngtn |
+
+
 
     And I go to the created space
     Then the activity 'activityTest101' is displayed in activity stream
@@ -582,9 +568,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP102 - [ActivityStream_US38][06]: Cancel Delete a reply from the activity stream
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create the first random user
     And I create the second random user
@@ -640,8 +624,8 @@ Feature: Activity Stream
     Then In activity 'activityTest102' with comment 'commenttest102', the reply 'replyTest103' is displayed
 
     When I change user
-      | login    | admin  |
-      | password | gtngtn |
+
+
 
     And I go to the created space
     Then the activity 'activityTest102' is displayed in activity stream
@@ -674,9 +658,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP103 - [ActivityStream_US39][01]: Delete a simple comment from the comment drawer
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create the first random user
     And I create the second random user
@@ -755,9 +737,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP104 - [ActivityStream_US39][02]: Cancel Delete a simple comment from the comment drawer
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create the first random user
     And I create the second random user
@@ -833,9 +813,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP105 - [ActivityStream_US39][03]: Delete comment with replies from the comment drawer
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create the first random user
     And I create the second random user
@@ -939,9 +917,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP106 - [ActivityStream_US39][04]: Cancel Delete comment with replies from the comments drawer
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create the first random user
     And I create the second random user
@@ -1044,9 +1020,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP107 - [ActivityStream_US39][05]: Delete a reply from comments drawer
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create the first random user
     And I create the second random user
@@ -1156,9 +1130,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP108 - [ActivityStream_US39][06]: Cancel Delete a reply from the comments drawer
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create the first random user
     And I create the second random user
@@ -1270,9 +1242,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP109 - [ActivityStream_US40][01]: Like my comment/reply from activity stream
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create the first random user
     And I create the second random user
@@ -1315,9 +1285,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP110 - [ActivityStream_US40][02]: DisLike my comment/reply from activity stream
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create the first random user
     And I create the second random user
@@ -1357,9 +1325,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP111 - [ActivityStream_US40][03]: Like comment/reply of other user from activity stream
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create the first random user
     And I create the second random user
@@ -1406,9 +1372,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP112 - [ActivityStream_US40][04]: DisLike comment/reply of other user from activity stream
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create the first random user
     And I create the second random user
@@ -1450,9 +1414,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP115 - [ActivityStream_US41][01 ]: Like my comment/reply from the comment drawer
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create the first random user
     And I create the second random user
@@ -1499,9 +1461,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP116 - [ActivityStream_US41][02]: DisLike my comment/reply from the comments drawer
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create the first random user
     And I create the second random user
@@ -1543,9 +1503,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP121 - [ActivityStream_IMPV14][01]: Display maximum only the last 2 comments/replies below each activity
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create the first random user
     And I create the second random user
@@ -1585,9 +1543,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP122 - [ActivityStream_IMPV14][02]: Display maximum only the last 2 comments/replies below each activity
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create the first random user
     And I create the second random user
@@ -1631,9 +1587,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP123 - [ActivityStream_IMPV14][03]: Display maximum only the last 2 comments/replies below each activity
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create the first random user
     And I create the second random user
@@ -1702,9 +1656,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP157 - [ActivityStream_IMPV15][01]: Internal Link opening behaviors inside comments
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create the first random user
     And I create the second random user
@@ -1737,9 +1689,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP158 - [ActivityStream_IMPV15][02]: External Link opening behaviors inside comments
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create the first random user
     And I create the second random user
@@ -1771,9 +1721,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP12 - [ActivityStream_US10][01]: Activity with text or link options (3 dots) (Author)
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create the first random user
     And I create the second random user
@@ -1806,9 +1754,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP13 - [ActivityStream_US10][02]: Activity with text or link options (3 dots) (Space manager)
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create the first random user
     And I create the second random user
@@ -1868,9 +1814,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP97 - [ActivityStream_US38][01]: Delete a simple comment from the activity stream
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
 
     When I create the first random user
     And I create the second random user
@@ -1914,9 +1858,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP99 - [ActivityStream_US38][03]: Delete comment with replies from the activity stream
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
 
     When I create the first random user
     And I create the second random user
@@ -1977,9 +1919,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: Cap155 - ActivityStream_US58: Mention a user in the comments
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
 
     When I create the first random user
     And I create the second random user
@@ -2033,9 +1973,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: Cap146 - [ActivityStream_US40][01 ]: Notifications for comments to my activity
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
 
     When I create the first random user
     And I create the second random user
@@ -2067,9 +2005,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: Cap147 - [ActivityStream_US40][02]: Notifications for comment to my comment
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
 
     When I create the first random user
     And I create the second random user
@@ -2109,9 +2045,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP20 - [ActivityStream_US10][09]: Activity with text or link options (3 dots) (Author delete the post)
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create the first random user
     And I create the second random user
@@ -2140,9 +2074,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP21 - [ActivityStream_US10][10]: Activity with text or link options (3 dots) ( Author cancel delete post)
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create the first random user
     And I create the second random user
@@ -2171,9 +2103,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP87 - [ActivityStream_US04][01]: Edit comment in Activity stream
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
 
     And I create the first random user
     And I create the second random user
@@ -2234,9 +2164,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP88 - [ActivityStream_US04.1][01]: Edit comment from the comment drawer
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
 
     And I create the first random user
     And I create the second random user
@@ -2290,9 +2218,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: [ActivityStream_US32][02]: space note page
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
     When I connect with the first created user
@@ -2312,9 +2238,7 @@ Feature: Activity Stream
   @activitystream
   Scenario: CAP128 - [ActivityStream_US47][01]: Send a kudos from a comment
 
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
     And I create the third random user
@@ -2350,9 +2274,7 @@ Feature: Activity Stream
   @activitystream
   Scenario: CAP129 - [ActivityStream_US47][03]: Send a kudos from the comments drawer
 
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
     And I create the third random user
@@ -2388,9 +2310,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP220 - [ActivityStream_IMPV07][01]: Pagination in comments drawer
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
 
     And I create the first random user
     And I create the second random user
@@ -2453,9 +2373,7 @@ Feature: Activity Stream
   @activitystream
   Scenario: CAP129 - [ActivityStream_US47][02]: Send a kudos from a replay
 
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
     And I create the third random user
@@ -2498,9 +2416,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP89 - [ActivityStream_US04][03]: Edit reply in Activity stream
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
 
     And I create the first random user
     And I create the second random user
@@ -2558,9 +2474,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: [ActivityStream_US52][03]: Edit a kudos from a comment
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
     And I create the third random user
@@ -2595,9 +2509,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: [ActivityStream_US52][05]: Edit a kudos from a reply
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
     And I create the third random user
@@ -2643,9 +2555,7 @@ Feature: Activity Stream
 
   @activitystream
   Scenario: CAP132 - [ActivityStream_US52][01]: Edit a kudos comment from an activity
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
 

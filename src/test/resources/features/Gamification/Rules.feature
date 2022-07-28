@@ -2,9 +2,7 @@ Feature: Rules
 
   @gamification
   Scenario: Receive Kudos
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
     And I connect with the first created user
@@ -19,9 +17,7 @@ Feature: Rules
 
   @gamification
   Scenario: Comment a post
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user
     When I go to my profile
@@ -37,9 +33,7 @@ Feature: Rules
 
   @gamification
   Scenario: Like a comment
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
     And I create random space with the first created user
     And I click on post in space
@@ -61,9 +55,7 @@ Feature: Rules
 
   @gamification
   Scenario: Like a post
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
     And I create random space with the first created user
     And I click on post in space
@@ -84,9 +76,7 @@ Feature: Rules
 
   @gamification
   Scenario: Join a space
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
     And I create random space with the first created user
     And I connect with the first created user
@@ -100,9 +90,7 @@ Feature: Rules
 
   @gamification
   Scenario: Create new task
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I check my points
 
     When I go to the home page
@@ -115,9 +103,7 @@ Feature: Rules
 
   @gamification
   Scenario: Complete assigned task
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     When I go to the home page
     And I go to Tasks Page

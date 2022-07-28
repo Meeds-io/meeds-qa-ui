@@ -4,9 +4,7 @@ Feature: User adds, deletes, edits and clones a project
 
   @task
   Scenario: [User_UI_US18.1]: Add project with a description
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user
     When I go To AppCenter Drawer
@@ -18,9 +16,7 @@ Feature: User adds, deletes, edits and clones a project
 
   @task
   Scenario: CAP47 - [Project_manager_US03.2]: Clone a project
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user
     And I create space project
@@ -40,9 +36,7 @@ Feature: User adds, deletes, edits and clones a project
 
   @task
   Scenario: CAP174 -[US_Filterfield_01]: Add Clear typed characters icon "Filter by project"
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user
     When I go To AppCenter Drawer
@@ -59,9 +53,7 @@ Feature: User adds, deletes, edits and clones a project
 
   @task
   Scenario: CAP15 - [Project_Card_US01]: check the display "Spaces Managers avatars"
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
     And I create random space with the first created user
 
@@ -72,8 +64,8 @@ Feature: User adds, deletes, edits and clones a project
     And I close Space Drawer
 
     When I change user
-      | login    | admin  |
-      | password | gtngtn |
+
+
     And I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
@@ -100,9 +92,7 @@ Feature: User adds, deletes, edits and clones a project
 
   @task
   Scenario: CAP17 - [Project_Card_US01]: check the display of users avatars with managing permissions
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
 
@@ -120,9 +110,7 @@ Feature: User adds, deletes, edits and clones a project
 
   @task
   Scenario: CAP19 - [User_UI_US09]: Project's Tasks "BOARD" view
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
@@ -140,9 +128,7 @@ Feature: User adds, deletes, edits and clones a project
 
   @task
   Scenario: CAP36 [User_UI_US18.1]: Check  message when  Project title is empty
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
@@ -154,9 +140,7 @@ Feature: User adds, deletes, edits and clones a project
 
   @task
   Scenario: CAP290 - [Bug]: Project participant cannot open the edit status mode
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
 
     When I go To AppCenter Drawer
@@ -192,9 +176,7 @@ Feature: User adds, deletes, edits and clones a project
 
   @task
   Scenario: CAP216 - [Bug]: Task's card should be well displayed when task title is long
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
 
     When I connect with the first created user
@@ -215,9 +197,7 @@ Feature: User adds, deletes, edits and clones a project
 
   @task
   Scenario: [NF] [US_GanttView_01]: Display Gantt tab in Space tasks projects
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
     And I create the first random user
     And I create space project with the first user
     And I connect with the first created user

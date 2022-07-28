@@ -2,9 +2,7 @@ Feature: Poll
 
   @poll
   Scenario: Poll_US05_(01) : Post a poll_simple case
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
     And I create the first random user
     And I create random space with the first created user
 
@@ -23,9 +21,7 @@ Feature: Poll
 
   @poll
   Scenario: Poll_US05_(02) : Post a poll_all options
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
     And I create the first random user
     And I create random space with the first created user
 
@@ -56,9 +52,7 @@ Feature: Poll
 
   @poll
   Scenario: Poll_US04_(01) : Edit a poll_edit informations
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
     And I create the first random user
     And I create random space with the first created user
 
@@ -79,9 +73,7 @@ Feature: Poll
 
   @poll
   Scenario: Poll_US05.1_(01) : Post a poll : create poll activity_with message
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
     And I create the first random user
     And I create random space with the first created user
 

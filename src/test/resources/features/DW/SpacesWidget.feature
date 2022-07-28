@@ -4,9 +4,7 @@ Feature: Spaces widget checking
   In order to validate the page
 
   Scenario: US 3.3.2_(02) [BACK] Spaces requests to join: See All
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
     When I create random space with the first created user
     And I create second random space with the first created user
@@ -22,9 +20,7 @@ Feature: Spaces widget checking
     And the 'Invitations Sent' page is opened
 
   Scenario: US 3.3.2_(03) [BACK] Spaces requests to join: accept and reject
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
     When I create random space with the first created user
     And I create second random space with the first created user

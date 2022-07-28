@@ -5,9 +5,7 @@ Feature: Check the rules score increase
 
   @gamification
   Scenario:Send Kudos
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
     When I connect with the first created user
@@ -20,9 +18,7 @@ Feature: Check the rules score increase
 
   @gamification
   Scenario:Receive a connection request
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
     When I connect with the second created user
@@ -36,9 +32,7 @@ Feature: Check the rules score increase
 
   @gamification
   Scenario:Like a comment (in space)
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
     When I connect with the first created user
@@ -69,9 +63,7 @@ Feature: Check the rules score increase
 
   @gamification
   Scenario:Receive a like on a post
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
     And I connect with the first created user
@@ -96,9 +88,7 @@ Feature: Check the rules score increase
 
   @gamification
   Scenario: Create a new wiki page
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user
     And I go to my profile
@@ -113,9 +103,7 @@ Feature: Check the rules score increase
 
   @gamification
   Scenario:Receive relationship request
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
     And I connect with the first created user

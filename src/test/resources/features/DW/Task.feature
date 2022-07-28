@@ -1,9 +1,7 @@
 Feature: Task Drawer Checking
 
   Scenario: US 3.13.5 [FRONT/BACK] : Comments in Task drawer
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
 
     And I refresh the page
@@ -35,8 +33,8 @@ Feature: Task Drawer Checking
     And I add other comment 'taskcomment1213' in task
 
     When I change user
-      | login    | admin  |
-      | password | gtngtn |
+
+
     And I go to the home page
     And I go to Tasks Page
     And I select 'Projects' tab
@@ -52,9 +50,7 @@ Feature: Task Drawer Checking
     And I close task drawer
 
   Scenario: US 3.13.7 [FRONT/BACK] : Update Project Name in Task Drawer
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create space project
     When I go to the home page
@@ -82,9 +78,7 @@ Feature: Task Drawer Checking
     And Tasks number '1' is displayed in the column To Do
 
   Scenario: US 3.13.9 [FRONT/BACK]_(02) : Mark as Completed in Task Drawer
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create space project
     When I go to the home page
@@ -105,9 +99,7 @@ Feature: Task Drawer Checking
     And Tasks number '0' is displayed in the column To Do
 
   Scenario: Cap182 - [-2287] [PFR] [Can't add a long comment]Comment button is disabled when exceeds the max chars number
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
 
     When I connect with the first created user
@@ -202,9 +194,7 @@ Feature: Task Drawer Checking
     And I close task drawer
 
   Scenario: US 3.13.10 [FRONT/BACK] : Update Status, Due Date and Priority in Task Drawer
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user
     And I create space project

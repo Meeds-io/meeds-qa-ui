@@ -3,11 +3,9 @@
 
 Feature: Challenges
 
-  @chalenge
+  @challenge
   Scenario: [Challenge_App_US02][02]: First screen of the App ( manager of a space+ admin)
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
     And I go to groups Management page
     And I open the group 'Platform'
@@ -22,9 +20,7 @@ Feature: Challenges
 
   @challenge
   Scenario: [Challenge_App_US02][01]: First screen of the App ( not manager of any space)
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user
     When I go To AppCenter Drawer
@@ -34,9 +30,7 @@ Feature: Challenges
 
   @challenge
   Scenario: Challenge_App_Admin_US01: Challenge App
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
     And I go to groups Management page
@@ -85,9 +79,7 @@ Feature: Challenges
 
   @challenge
   Scenario:Challenge_App_Admin_US02: Challenge CARD
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
     And I go to groups Management page
     And I open the group 'Platform'
@@ -115,9 +107,7 @@ Feature: Challenges
 
   @challenge
   Scenario:Challenge_App_US01: Post the challenge on the space stream
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
     And I go to groups Management page

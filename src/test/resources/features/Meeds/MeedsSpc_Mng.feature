@@ -4,9 +4,7 @@ Feature: Spaces Management
   I want to check that Space details and sections are displayed
 
   Scenario: SPC_MNG-1 : Spaces avatar and title
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     When I create the random space
 
@@ -14,9 +12,7 @@ Feature: Spaces Management
     And The created space name is displayed
 
   Scenario: SPC_MNG-2 : Space applications
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     When I create the random space
 
@@ -25,9 +21,7 @@ Feature: Spaces Management
     And First created space Tabs are displayed in order
 
   Scenario: SPC_MNG-3 : Home space page banner
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     When I create the random space
 
@@ -39,9 +33,7 @@ Feature: Spaces Management
     Then Space banner is changed successfully
 
   Scenario: SPC_MNG-4 : Clickable Space avatar
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     When I create the random space
 

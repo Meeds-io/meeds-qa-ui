@@ -2,9 +2,7 @@ Feature: Filter Drawer
 
   @task
   Scenario: CAP110 - [Filter_Drawer_US03]:Group by Labels [Group and Sort" tab under project]
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     When I create space project
     And I go to the home page
@@ -36,9 +34,7 @@ Feature: Filter Drawer
 
   @task
   Scenario: CAP113 - [Filter_Drawer_US03]:Sort by Title ["Group and Sort" tab under project]
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     When I create space project
     And I go to the home page
@@ -68,9 +64,7 @@ Feature: Filter Drawer
 
   @task
   Scenario: CAP111 - [Filter_Drawer_US03]:Group by Completed [Group and Sort" tab under project]
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create space project
     When I go to the home page
@@ -114,9 +108,7 @@ Feature: Filter Drawer
 
   @task
   Scenario: CAP53 - [Filter_Drawer_US01]: Filter button in a project
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     When I create space project
     And I go to the home page
@@ -147,9 +139,7 @@ Feature: Filter Drawer
 
   @task
   Scenario: [Regression][Tasks]Problem to filter project
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create the first random user
 

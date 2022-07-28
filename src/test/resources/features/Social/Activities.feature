@@ -4,9 +4,7 @@ Feature: Activities
 
   @test
   Scenario: delete your activity
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
     And I create the space
     When I click on post in space
     And I enter an activity 'activitytest'
@@ -19,9 +17,7 @@ Feature: Activities
 
   @activitystream
   Scenario:  delete your comment
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the space
     When I click on post in space
     And I enter an activity 'activitytest'
@@ -38,9 +34,7 @@ Feature: Activities
 
   @activitystream
   Scenario:   comment your activity
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the space
     When I click on post in space
     And I enter an activity 'activitytest'
