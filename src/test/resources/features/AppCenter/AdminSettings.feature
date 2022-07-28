@@ -5,9 +5,7 @@ Feature: Administration settings
 
   @appcenter
   Scenario: CAP50 - Admin_Settings_US06:Active option
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
     And I go to Administer application center Page
     When I add a new application with the random following data
@@ -17,8 +15,8 @@ Feature: Administration settings
     And I search for the random created application
     Then The random application is displayed in application list
     When I change user
-      | login    | admin  |
-      | password | gtngtn |
+
+
     And I go to Administer application center Page
     And I click on the added application active button
     And I connect with the first created user
@@ -29,9 +27,7 @@ Feature: Administration settings
 
   @appcenter
   Scenario: CAP53 - Edit an app which contain an attached image
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
 
     When I go to Administer application center Page
     And I add a new random application with the title, the url and the description with image <cap02.png>
@@ -61,9 +57,7 @@ Feature: Administration settings
 
   @appcenter
   Scenario: CAP55 - Edit the title ,URL, description field for an app
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
 
     And I go to Administer application center Page
     When I add a new random application with the title, the url and the description
@@ -80,9 +74,7 @@ Feature: Administration settings
 
   @appcenter
   Scenario: CAP56 - Admin_Settings_US04: Default permissions for an app
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
     And I create the first random user
 
     And I go to Administer application center Page

@@ -3,9 +3,7 @@ Feature: Meeds Space
   I want to check spaces page
 
   Scenario:[SPACES-2] Spaces Cards bloc
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     When I create thirty random space
     And I go to spaces page
@@ -14,9 +12,7 @@ Feature: Meeds Space
     Then I check that other spaces are displayed
 
   Scenario: [SPACES-4] Spaces Request
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create the first random user
 
@@ -38,9 +34,7 @@ Feature: Meeds Space
     And The second created space is not displayed in Spaces Requests section
 
   Scenario: [SPC_MNG-7] General Space Settings
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     When I create the random space
     And I click on space settings tab
     Then I check that general settings section is displayed with his edit icon
@@ -57,9 +51,7 @@ Feature: Meeds Space
     And I check that update button is displayed
 
   Scenario: [SPC_MNG-8] Spaces applications management
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     When I create the random space
     And I click on space settings tab
     Then I check that general settings section is displayed with his edit icon

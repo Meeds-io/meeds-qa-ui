@@ -6,9 +6,7 @@ Feature: Actions available for note
   @note
   Scenario: CAP02: DeleteNote_US02: Delete note UX  improvement
 
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create the space community
 

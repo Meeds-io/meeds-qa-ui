@@ -3,9 +3,7 @@ Feature: Search for User Informations in Profile page
   I want to check in Profile page all contact informations
 
   Scenario: PROFILE-1 : Integrate default user's avatar and cover
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     When I go to My Profile page
 
@@ -13,9 +11,7 @@ Feature: Search for User Informations in Profile page
     And User Avatar is displayed in Profile Page
 
   Scenario: PROFILE-2 : User avatar and cover block_(01)
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     When I go to My Profile page
 
@@ -25,9 +21,7 @@ Feature: Search for User Informations in Profile page
     And User Job '' is displayed in Profile Page
 
   Scenario: PROFILE-2 : User avatar and cover block_(02)
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     When I go to My Profile page
 
@@ -41,9 +35,7 @@ Feature: Search for User Informations in Profile page
     Then User Job '' is displayed in Profile Page
 
   Scenario: PROFILE-4 : Contact information block_(01) : Add informations
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     When I create the first random user
     And I connect with the first created user
@@ -54,9 +46,7 @@ Feature: Search for User Informations in Profile page
     And Updated Profile Contact Job is displayed
 
   Scenario: PROFILE-4 : Contact information block_(02) : Add informations
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     When I create the first random user
     And I connect with the first created user
@@ -73,9 +63,7 @@ Feature: Search for User Informations in Profile page
     And Updated Profile Contact Url is displayed
 
   Scenario: PROFILE-5 : Kudos block
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     When I create the first random user
     And I create the second random user
@@ -108,9 +96,7 @@ Feature: Search for User Informations in Profile page
     And I refresh the page
 
   Scenario: : PROFILE-6 : Rawards Meeds block and its drawer
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     When I go to My Profile page
 
@@ -119,9 +105,7 @@ Feature: Search for User Informations in Profile page
     Then Gained Cauris Section is displayed
 
   Scenario: : PROFILE-7 : Work Experiences block and its drawer
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create the first random user
 
@@ -148,9 +132,7 @@ Feature: Search for User Informations in Profile page
     And I remove my profile work experiences 'IT Engineer Developer'
 
   Scenario: : PROFILE-9 : Achievement Drawer in Points
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create the first random user
 

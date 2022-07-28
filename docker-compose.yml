@@ -3,15 +3,13 @@ services:
   selenium-hub:
     image: selenium/hub:4.3
     container_name: selenium-hub
-    ports:
-      - "4444:4444"
-      - "4443:4443"
-      - "4442:4442"
-    networks:
-      - selenium
-
-    #network_mode: host
-
+    #ports:
+    #  - "4444:4444"
+    #  - "4443:4443"
+    #  - "4442:4442"
+    #networks:
+    #  - selenium
+    network_mode: host
   chrome:
     image: selenium/node-chrome:4.3
     shm_size: 2gb
@@ -26,11 +24,9 @@ services:
       - SE_NODE_OVERRIDE_MAX_SESSIONS=true
       - SE_NODE_MAX_SESSIONS=100
       - SE_NODE_SESSION_TIMEOUT=60
-    #network_mode: host
-    networks:
-      - selenium
-
-
+    network_mode: host
+    #networks:
+    #  - selenium
   firefox:
     image: selenium/node-firefox:4.3
     shm_size: 2gb
@@ -45,10 +41,9 @@ services:
       - SE_NODE_OVERRIDE_MAX_SESSIONS=true
       - SE_NODE_MAX_SESSIONS=100
       - SE_NODE_SESSION_TIMEOUT=60
-    #network_mode: host
-    networks:
-      - selenium
-
+    network_mode: host
+    #networks:
+    #  - selenium
 networks:
   selenium:
     name: selenium

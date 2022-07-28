@@ -6,9 +6,7 @@ Feature: Domains Management
 
   @gamification
   Scenario: Add domain
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
     When I go to administration then I select manage domains
     And I add new Domain with random name and random description
     And I confirm the addition of the new domain
@@ -16,9 +14,7 @@ Feature: Domains Management
 
   @gamification
   Scenario: Edit domain
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
     And I go to administration then I select manage domains
     And I add new Domain with random name and random description
     And I confirm the addition of the new domain
@@ -28,9 +24,7 @@ Feature: Domains Management
 
   @gamification
   Scenario: Delete domain
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
     And I go to administration then I select manage domains
     And I add new Domain with random name and random description
     And I confirm the addition of the new domain
@@ -42,9 +36,7 @@ Feature: Domains Management
 
   @gamification
   Scenario: Domains search
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
     When I go to administration then I select manage domains
     And I add new Domain with random name and random description
     And I confirm the addition of the new domain

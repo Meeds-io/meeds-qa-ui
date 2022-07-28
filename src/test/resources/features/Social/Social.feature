@@ -6,9 +6,7 @@ Feature: Social
 
   @activitystream
   Scenario: Comment on your friends activity
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
     When I connect with the first created user
@@ -30,9 +28,7 @@ Feature: Social
     And Activity Comment 'commenttest' is displayed in activity stream
 
   Scenario: Search users in My connections tab
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
     And I connect with the first created user
@@ -49,9 +45,7 @@ Feature: Social
 
   @activitystream
   Scenario: Cancel edit comment
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
     And I create the first random user
     When I connect with the first created user
     And I create the space
@@ -69,9 +63,7 @@ Feature: Social
 
   @activitystream
   Scenario: [ID: REPLY_05] The comment is displayed on the buttom of the comment reply section
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
     And I create the third random user

@@ -4,9 +4,7 @@ Feature: Users Management
   I want to check that i can manage the users
 
   Scenario: [USR_MNG-1.1] Users Grid
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     When I create the first random user
     And I refresh the page
@@ -21,18 +19,14 @@ Feature: Users Management
     Then The second created user is displayed
 
   Scenario: [USR_MNG-1.2] Add User drawer
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     When I go to Add Users page
 
     Then Add Users drawer is opened
 
   Scenario: [USR_MNG-1.5] Delete User
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
 
     When I create the first random user
 
@@ -45,7 +39,7 @@ Feature: Users Management
     Then I check that the created user is deleted
 
     When I refresh the page
-    And I search for created user 'superadmin'
+    And I search for created user 'admin'
     And I click to delete user
     Then Popup is displayed to inform user that we can't delete your user account while being logged in with it
 

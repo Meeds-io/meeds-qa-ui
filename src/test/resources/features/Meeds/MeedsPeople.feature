@@ -3,9 +3,7 @@ Feature: Search for Contacts in People page
   I want to check in People page all contacts informations
 
   Scenario: : PEOPLE-6 : Integrate the Suggestions widget in People App
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
 
     And I create a dedicated user to be an administrator
     And I go to groups Management page
@@ -58,9 +56,7 @@ Feature: Search for Contacts in People page
     And I close Sent Request button
 
   Scenario: : PEOPLE-7 : Leaderboard in the People Cards list application
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     When I create the first random user
     And I create the second random user

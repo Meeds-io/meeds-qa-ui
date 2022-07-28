@@ -4,9 +4,7 @@ Feature: Login widget checking
   In order to validate the page
 
   Scenario: US 3.3.3_(02) [BACK] No Connection requests number
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
     And I create the third random user
@@ -25,9 +23,7 @@ Feature: Login widget checking
     Then the number of connection requests is '5'
 
   Scenario:US 3.3.4_(01) [BACK]Connections requests to join: See All
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     And I create the first random user
     And I create the second random user
@@ -52,9 +48,7 @@ Feature: Login widget checking
     And the 'People' page is opened
 
   Scenario:US 3.3.4_(02)[BACK]Connections requests : accept and reject
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
     And I create the third random user
@@ -79,9 +73,7 @@ Feature: Login widget checking
     Then The 'Connections' number is '2'
 
   Scenario: US 3.3.7[BACK]Common Connections for users requests
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     When I create the first random user
     And I create the second random user
     And I create the third random user

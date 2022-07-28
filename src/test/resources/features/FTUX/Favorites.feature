@@ -4,9 +4,7 @@ Feature: Favorite activities
 
   @favorite
   Scenario: [Favs_US03]: Bookmark an activity
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user
     And I create the space
@@ -20,9 +18,7 @@ Feature: Favorite activities
 
   @favorite
   Scenario: [Favs_US04]: Remove the Bookmark for an activity
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user
     And I create the space
@@ -38,9 +34,7 @@ Feature: Favorite activities
 
   @favorite
   Scenario: [Favs_US05][01]: Search by favorites (Filter by favorite button)
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user
     And I create the space
@@ -66,9 +60,7 @@ Feature: Favorite activities
 
   @favorite
   Scenario:  [Favs_US05][02]: Search by favorites (Filter by keyword and favorite button)
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user
     And I create the space
@@ -97,9 +89,7 @@ Feature: Favorite activities
 
   @favorite
   Scenario: [Favs_US06][01]: Manage favorites from the search card ( Bookmark an activity)
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user
     And I create the space
@@ -121,9 +111,7 @@ Feature: Favorite activities
 
   @favorite
   Scenario: [Favs_US06][02]: Manage favorites from the search card ( UnBookmark an activity)
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user
     And I create the space
@@ -147,9 +135,7 @@ Feature: Favorite activities
 
   @favorite
   Scenario: [Fav_US13][01]: Bookmark a note from it's details
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
     And I create the space community with the first created user
     And I go to notes application of the space
@@ -175,9 +161,7 @@ Feature: Favorite activities
 
   @favorite
   Scenario: [Fav_US13][02]: Bookmark a note from it's activity
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the space community
     And I go to notes application of the space
     When I click to add note
@@ -197,9 +181,7 @@ Feature: Favorite activities
 
   @favorite
   Scenario: [Fav_US14][01]: Remove the bookmark for a note from it's details
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
     And I create the space community with the first created user
     And I go to notes application of the space
@@ -226,9 +208,7 @@ Feature: Favorite activities
 
   @favorite
   Scenario:[Fav_US14][02]: Remove the bookmark for a note from it's activity
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the space community
     And I go to notes application of the space
     When I click to add note
@@ -248,9 +228,7 @@ Feature: Favorite activities
 
   @favorite
   Scenario:[Fav_US15][01]: Search by favorites and notes
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the space community
     And I go to notes application of the space
     When I click to add note

@@ -6,9 +6,7 @@ Feature: Badges Management
 
   @gamification
   Scenario: Add badge
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     When I go to administration then I select manage badges
     And  I add new Badge with random name, description 'badgeDescription', score '500', icon 'badgeIcon.png', and domain 'Social'
@@ -19,9 +17,7 @@ Feature: Badges Management
 
   @gamification
   Scenario: Edit badge
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     When I go to administration then I select manage badges
     And  I add new Badge to be updated with random name, description 'badgeDescriptionTest', score '100', icon 'badgeIcon.png', and domain 'Teamwork'
@@ -43,9 +39,7 @@ Feature: Badges Management
 
   @gamification
   Scenario: Delete badge
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     When I go to administration then I select manage badges
     And  I add new Badge to be deleted with random name, description 'deletedDescription', score '300', icon 'badgeIcon.png', and domain 'Social'
@@ -63,9 +57,7 @@ Feature: Badges Management
 
   @gamification
   Scenario: Search badge
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
 
     When I go to administration then I select manage badges
     And  I add new Badge with random name, description 'searchedDescription', score '200', icon 'badgeIcon.png', and domain 'Social'

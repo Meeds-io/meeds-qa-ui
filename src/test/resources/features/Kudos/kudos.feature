@@ -3,9 +3,7 @@ Feature: Kudos
 
   @kudos
   Scenario: [EXISTANT-KUDOS 3] Select the number of Kudos that a user is allowed to send per period
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
 
     When I go to administration then reward then kudos
     And  I enter a number of kudos'8'
@@ -15,9 +13,7 @@ Feature: Kudos
 
   @kudos
   Scenario: [EXISTANT-KUDOS 2] Sending and Receiving Kudos
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
 
@@ -43,9 +39,7 @@ Feature: Kudos
 
   @kudos
   Scenario: [EXISTANT-KUDOS 5] check that user cannot send kudos to himself
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
     And I create the first random user
 
     When I connect with the first created user
@@ -58,9 +52,7 @@ Feature: Kudos
 
   @kudos
   Scenario: [EXISTANT-KUDOS 7] Sending Kudos from user profile
-    Given I am authenticated as
-      | login    | admin  |
-      | password | gtngtn |
+    Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
 
@@ -74,9 +66,7 @@ Feature: Kudos
 
   @kudos
   Scenario: [ActivityStream_US51][01]: Edit a kudos activity
-    Given I am authenticated as
-      | login    | superadmin |
-      | password | password   |
+    Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
     When I connect with the first created user
