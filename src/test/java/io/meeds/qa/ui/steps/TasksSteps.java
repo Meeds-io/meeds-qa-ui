@@ -724,32 +724,12 @@ public class TasksSteps {
     tasksPage.checkDrawerDisplay();
   }
 
-  public void changeLocation(String spaceDriveTitle) {
-    tasksPage.changeLocation(spaceDriveTitle);
-  }
-
-  public void checkSelectedLocation(String driveName) {
-    tasksPage.checkSelectedLocation(driveName);
-  }
-
   public void closeEditTaskDrawer() {
     tasksPage.closeEditTaskDrawer();
   }
 
-  public void changePlacement(String othersDriveTitle) {
-    tasksPage.changePlacement(othersDriveTitle);
-  }
-
   public void closeEditTaskDrawerSimpleProject() {
     tasksPage.closeEditTaskDrawerSimpleProject();
-  }
-
-  public void accessDrivesInterface() {
-    tasksPage.accessDrivesInterface();
-  }
-
-  public void selectDrive(String driveName) {
-    tasksPage.selectDrive(driveName);
   }
 
   public void assignTaskToMe() {

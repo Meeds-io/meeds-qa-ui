@@ -199,7 +199,7 @@ public class HomeStepDefinition {
     assertThat(homeSteps.checkWalletPage()).as("Wallet page is not opened").isTrue();
   }
 
-  @When("the '(.*)' page is opened")
+  @When("the '{}' page is opened")
   public void checkPage(String page) {
     assertThat(homeSteps.checkPage(page)).as("Wallet page is not opened").isTrue();
   }
@@ -229,7 +229,7 @@ public class HomeStepDefinition {
     homeSteps.clickOnSpacesBagde();
   }
 
-  @When("The 'Spaces' badge is '(.*)'")
+  @When("The 'Spaces' badge is '{}'")
   public void checkSpaceBadge(String badgeNumber) {
     homeSteps.checkSpacesBadge(badgeNumber);
   }
@@ -239,7 +239,7 @@ public class HomeStepDefinition {
     homeSteps.clickOnConnectionsBagde();
   }
 
-  @When("The 'Connections' badge is '(.*)'")
+  @When("The 'Connections' badge is '{}'")
   public void checkConnectionsBadge(String badgeNumber) {
     homeSteps.checkConnectionsBadge(badgeNumber);
   }
@@ -436,8 +436,8 @@ public class HomeStepDefinition {
     homeSteps.unbookmarkActivity(oldActiviyy);
   }
 
-  @And("I unbookmark the activity '(.*)'")
-  @When("I bookmark the activity '(.*)'")
+  @And("I unbookmark the activity '{}'")
+  @When("I bookmark the activity '{}'")
   public void bookmarkActivity(String activity) {
     homeSteps.bookmarkActivity(activity);
   }

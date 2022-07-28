@@ -23,7 +23,7 @@ public class KudosStepDefinitions {
     kudoSteps.goToKudosMenu();
   }
 
-  @And("I enter a number of kudos'(.*)'$")
+  @And("^I enter a number of kudos'(.*)'$")
   public void kudosSettings(String val) {
     kudoSteps.enterKudosNumber(val);
   }
@@ -38,7 +38,7 @@ public class KudosStepDefinitions {
     kudoSteps.saveChanges();
   }
 
-  @Then("The kudos settings saved with a kudos number equal to '(.*)' and '(.*)' period type")
+  @Then("The kudos settings saved with a kudos number equal to '{}' and '{}' period type")
   public void checkKudosSettings(String val, String semester) {
     kudoSteps.checkKudosSettings(val, semester);
   }
@@ -48,17 +48,17 @@ public class KudosStepDefinitions {
     kudosPage.addActivityKudos(spaceHomePage.getActivityElement(activity), kudos);
   }
 
-  @And("kudos icon of the activity '(.*)' is Disabled")
+  @And("kudos icon of the activity '{}' is Disabled")
   public void checkKudosIcon(String activityId) {
     kudoSteps.checkKudosIcon(activityId);
   }
 
-  @And("I set the new kudos '(.*)' and I click on update button")
+  @And("I set the new kudos '{}' and I click on update button")
   public void updateKudosMessage(String kudos) {
     kudoSteps.updateKudosMessage(kudos);
   }
 
-  @And("I search for '(.*)' card")
+  @And("I search for '{}' card")
   public void SearchUserCard(String user) {
     kudoSteps.SearchUserCard(user);
   }
@@ -72,13 +72,13 @@ public class KudosStepDefinitions {
     kudoSteps.SearchUserCard(fullName);
   }
 
-  @And("I click on send kudos button and I send kudos with message '(.*)'$")
+  @And("^I click on send kudos button and I send kudos with message '(.*)'$")
   public void threeDotsMenuSendKudos(String kudosMessage) {
     kudoSteps.threeDotsMenuSendKudos(kudosMessage);
   }
 
-  @And("the kudos activity UI '(.*)' is displayed in stream page")
-  @Then("the updated Kudos activity '(.*)' is displayed in stream page")
+  @And("the kudos activity UI '{}' is displayed in stream page")
+  @Then("the updated Kudos activity '{}' is displayed in stream page")
   public void checkkudosActivity(String message) {
     kudoSteps.isKudosActivityVisible(message);
   }

@@ -8,6 +8,7 @@ import java.util.List;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.meeds.qa.ui.stepDefinitions.ManageSpaceStepDefinitions;
+import io.meeds.qa.ui.steps.AdminApplicationSteps;
 import io.meeds.qa.ui.steps.HomeSteps;
 import io.meeds.qa.ui.steps.LoginSteps;
 import io.meeds.qa.ui.steps.ManageBadgesSteps;
@@ -32,10 +33,16 @@ public class TestHooks {
   @Steps
   private ManageBadgesSteps          manageBadgesSteps;
 
+  @Steps
+  private AdminApplicationSteps      adminApplicationSteps;
+
+  private boolean                    adminLoggedIn;
+
   @Before
   public void initDatas() {
     String adminPassword = System.getProperty("adminPassword");
     Serenity.setSessionVariable("admin-password").to(adminPassword);
+    adminLoggedIn = false;
   }
 
   @After
@@ -52,14 +59,14 @@ public class TestHooks {
     String fifthRandomSpaceName = Serenity.sessionVariableCalled("fifthRandomSpaceName");
 
     if (badgeName != null && !badgeName.isEmpty()) {
-      loginSteps.logoutLogin("admin");
+      loginAsAdmin();
       manageBadgesSteps.goToManageBadgesMenu();
       manageBadgesSteps.clickOnDeleteBadge(badgeName);
       manageBadgesSteps.confirmDeletionBadge();
     }
 
     if (updatedBadgeName != null && !updatedBadgeName.isEmpty()) {
-      loginSteps.logoutLogin("admin");
+      loginAsAdmin();
       manageBadgesSteps.goToManageBadgesMenu();
       manageBadgesSteps.clickOnDeleteBadge(updatedBadgeName);
       manageBadgesSteps.confirmDeletionBadge();
@@ -90,11 +97,31 @@ public class TestHooks {
     }
 
     if (spaces != null && !spaces.isEmpty()) {
+      loginAsAdmin();
       switchToTabByIndex(0);
-      loginSteps.logoutLogin("admin");
       homeSteps.goToManageSpacesPage();
       manageSpaceSteps.deleteSpacesList(spaces);
     }
+
+    String appCenterAppName = Serenity.sessionVariableCalled("appCenterAppName");
+    if (appCenterAppName != null) {
+      loginAsAdmin();
+      homeSteps.goToappCenterAdminSetupPage();
+      adminApplicationSteps.deleteApp(appCenterAppName, true);
+    }
+
+    String secondAppCenterAppName = Serenity.sessionVariableCalled("secondAppCenterAppName");
+    if (secondAppCenterAppName != null) {
+      loginAsAdmin();
+      homeSteps.goToappCenterAdminSetupPage();
+      adminApplicationSteps.deleteApp(secondAppCenterAppName, true);
+    }
   }
 
+  private void loginAsAdmin() {
+    if (!adminLoggedIn) {
+      loginSteps.logoutLogin("admin");
+      adminLoggedIn = true;
+    }
+  }
 }

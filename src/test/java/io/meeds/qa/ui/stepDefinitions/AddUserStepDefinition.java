@@ -12,11 +12,6 @@ import net.thucydides.core.annotations.Steps;
 
 public class AddUserStepDefinition {
 
-  public AddUserStepDefinition(HomeSteps homeSteps, AddUserSteps addUserSteps) {
-    this.homeSteps = homeSteps;
-    this.addUserSteps = addUserSteps;
-  }
-
   @Steps
   HomeSteps    homeSteps;
 
@@ -130,7 +125,7 @@ public class AddUserStepDefinition {
 
   }
 
-  @Given("^I create the first random user$")
+  @Given("I create the first random user")
   public void addRandomUser() {
     homeSteps.goToAddUser();
     addUserSteps.addRandomUser(firstUserName, firstUserFirstName, firstUserLastName, firstUserMail, firstUserPassword);
@@ -210,7 +205,7 @@ public class AddUserStepDefinition {
     addUserSteps.enableDisableUser(secondUserName);
   }
 
-  @Given("^I search for user '(.*)'$")
+  @Given("^I search for user '/.*/'$")
   public void searchForUsersByName(String fullName) {
     addUserSteps.searchForUsersByName(fullName);
   }

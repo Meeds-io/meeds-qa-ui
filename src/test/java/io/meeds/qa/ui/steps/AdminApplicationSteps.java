@@ -135,7 +135,6 @@ public class AdminApplicationSteps {
 
   public void applicationDrawerEnabledButtonsAreIsDisplayed() {
     applicationPage.applicationDrawerEnabledButtonsAreIsDisplayed();
-
   }
 
   public void applicationDrawerPermissionsIsDisplayed(String firstPermission, String secondPermission) {

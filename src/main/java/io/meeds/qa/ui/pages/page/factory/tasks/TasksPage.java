@@ -335,48 +335,16 @@ public class TasksPage extends GenericPage {
   @FindBy(xpath = "//span[contains(text(),'Select Folder')]")
   private BaseElementFacade drawerTitle;
 
-  @FindBy(xpath = "//i[@class='uiIconFolder mr-1']")
-  private BaseElementFacade driveIcon;
-
-  @FindBy(xpath = "//button[@type='button']/span[contains(text(),'Select')] ")
-  private BaseElementFacade selectButton;
-
   @FindBy(xpath = "(//div[@class='v-list-item__action drawerIcons align-end d-flex flex-row']//button[@title='Close'])[01]")
   private BaseElementFacade closeEditTaskDrawer;
 
   @FindBy(xpath = "(//div[@class='v-list-item__action drawerIcons align-end d-flex flex-row']//button[@title='Close'])[02]")
   private BaseElementFacade closeEditTaskDrawerSimpleProject;
 
-  @FindBy(xpath = "//a[@id='driveAction']")
-  private BaseElementFacade showDrives;
-
-  private BaseElementFacade selectDriveName(String driveName) {
-    return findByXpath(
-                       String.format("//div[@class='rowDrives rowDrivesGroups clearfix']//a[@data-original-title='%s']",
-                                     driveName));
-  }
-
-  private BaseElementFacade getOthersDriveTitle(String othersDriveTitle) {
-    return findByXpath(
-                       String.format("(//div[@class='selectionBox px-5 d-flex flex-wrap'])[3]//div[@title='%s']",
-                                     othersDriveTitle));
-  }
-
   private BaseElementFacade getTaskCommentReplyBtn(String comment) {
     return findByXpath(
                        String.format("//*[contains(@class,'taskCommentDrawer')]//*[@class='taskContentComment']/p[contains(text(),'%s')]/following::button[@id='reply_btn'][1]",
                                      comment));
-  }
-
-  private BaseElementFacade getDriveNameInShipForm(String driveName) {
-    return findByXpath(
-                       String.format("//span[@class='v-chip__content' and contains(text(),'%s')]", driveName));
-  }
-
-  private BaseElementFacade getSpaceDriveTitle(String spaceDriveTitle) {
-    return findByXpath(
-                       String.format("(//div[@class='selectionBox px-5 d-flex flex-wrap'])[2]//div[@title='%s']",
-                                     spaceDriveTitle));
   }
 
   private BaseElementFacade getAttachmentName(String attachmentName) {
@@ -1430,38 +1398,13 @@ public class TasksPage extends GenericPage {
     drawerTitle.isVisibleAfterWaiting();
   }
 
-  public void changeLocation(String spaceDriveTitle) {
-    driveIcon.clickOnElement();
-    getSpaceDriveTitle(spaceDriveTitle).clickOnElement();
-    selectButton.clickOnElement();
-  }
-
-  public void checkSelectedLocation(String driveName) {
-    getDriveNameInShipForm(driveName).isVisibleAfterWaiting();
-  }
-
   public void closeEditTaskDrawer() {
     closeEditTaskDrawer.clickOnElement();
-  }
-
-  public void changePlacement(String othersDriveTitle) {
-    driveIcon.clickOnElement();
-    getOthersDriveTitle(othersDriveTitle).clickOnElement();
-    selectButton.clickOnElement();
   }
 
   public void closeEditTaskDrawerSimpleProject() {
     closeEditTaskDrawerSimpleProject.waitUntilVisible();
     closeEditTaskDrawerSimpleProject.clickOnElement();
-  }
-
-  public void accessDrivesInterface() {
-    showDrives.waitUntilVisible();
-    showDrives.clickOnElement();
-  }
-
-  public void selectDrive(String driveName) {
-    selectDriveName(driveName).clickOnElement();
   }
 
   @FindBy(xpath = "(//*[contains(@id,'DatePicker')])[2]//input")

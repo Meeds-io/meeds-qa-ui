@@ -3,8 +3,7 @@ services:
   selenium-hub:
     image: selenium/hub:4.3
     container_name: selenium-hub
-    networks:
-      - selenium
+    network_mode: host
   chrome:
     image: selenium/node-chrome:4.3
     shm_size: 2gb
@@ -19,8 +18,7 @@ services:
       - SE_NODE_OVERRIDE_MAX_SESSIONS=true
       - SE_NODE_MAX_SESSIONS=100
       - SE_NODE_SESSION_TIMEOUT=60
-    networks:
-      - selenium
+    network_mode: host
   firefox:
     image: selenium/node-firefox:4.3
     shm_size: 2gb
@@ -35,8 +33,4 @@ services:
       - SE_NODE_OVERRIDE_MAX_SESSIONS=true
       - SE_NODE_MAX_SESSIONS=100
       - SE_NODE_SESSION_TIMEOUT=60
-    networks:
-      - selenium
-networks:
-  selenium:
-    name: selenium
+    network_mode: host

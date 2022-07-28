@@ -30,13 +30,13 @@ public class ManageBadgesStepDefinitions {
 
   }
 
-  @Then("Success alert '(.*)' is displayed")
+  @Then("Success alert '{}' is displayed")
   public void isSuccessAlertDisplayed(String message) {
     manageBadgesSteps.isSuccessAlertDisplayed(message);
 
   }
 
-  @And("I add new Badge with random name, description '(.*)', score '(.*)', icon '(.*)', and domain '(.*)'")
+  @And("I add new Badge with random name, description '{}', score '{}', icon '{}', and domain '{}'")
   public void addRandomBadge(String description, String score, String icon, String domain) {
     String badgeName = "badge1" + getRandomString();
     manageBadgesSteps.addBadge(badgeName, description, score, icon, domain);
@@ -44,10 +44,10 @@ public class ManageBadgesStepDefinitions {
   }
 
   @Then(
-    "The new badge is added successfully and is displayed with name '(.*)', description '(.*)', score '(.*)', domain '(.*)', and enabled status in badges list"
+    "^The new badge is added successfully and is displayed with name '(.*)', description '(.*)', score '(.*)', domain '(.*)', and enabled status in badges list"
   )
   @And(
-    "The badge has been updated successfully and is displayed with name '(.*)', description '(.*)', score '(.*)', domain '(.*)', and enabled status in badges list"
+    "^The badge has been updated successfully and is displayed with name '(.*)', description '(.*)', score '(.*)', domain '(.*)', and enabled status in badges list"
   )
   public void isBadgeDisplayedWithEnabledStatus(String badgeName,
                                                 String badgeDescription,
@@ -57,13 +57,13 @@ public class ManageBadgesStepDefinitions {
 
   }
 
-  @And("I search for the badge '(.*)'")
+  @And("^I search for the badge '(.*)'")
   public void insertBadgeNameInSearchField(String badgeName) {
     manageBadgesSteps.insertBadgeNameInSearchField(badgeName);
 
   }
 
-  @And("The badge with name '(.*)', description '(.*)', score '(.*)', domain '(.*)' is no longer displayed in badges list")
+  @And("^The badge with name '(.*)', description '(.*)', score '(.*)', domain '(.*)' is no longer displayed in badges list")
   public void isBadgeNotDisplayedWithEnabledStatus(String badgeName,
                                                    String badgeDescription,
                                                    String badgeScore,
@@ -72,20 +72,20 @@ public class ManageBadgesStepDefinitions {
 
   }
 
-  @And("I click on badge '(.*)' Edit button")
+  @And("^I click on badge '(.*)' Edit button")
   public void clickOnEditBadge(String badgeName) {
     manageBadgesSteps.clickOnEditBadge(badgeName);
 
   }
 
-  @And("I add new Badge to be updated with random name, description '(.*)', score '(.*)', icon '(.*)', and domain '(.*)'")
+  @And("^I add new Badge to be updated with random name, description '(.*)', score '(.*)', icon '(.*)', and domain '(.*)'")
   public void addRandomBadgeToBeUpdated(String description, String score, String icon, String domain) {
     String badgeNameToBeUpdated = "badge1" + getRandomString();
     manageBadgesSteps.addBadge(badgeNameToBeUpdated, description, score, icon, domain);
     Serenity.setSessionVariable("badgeNameToBeUpdated").to(badgeNameToBeUpdated);
   }
 
-  @And("I add new Badge to be deleted with random name, description '(.*)', score '(.*)', icon '(.*)', and domain '(.*)'")
+  @And("^I add new Badge to be deleted with random name, description '(.*)', score '(.*)', icon '(.*)', and domain '(.*)'")
   public void addRandomBadgeToBeDeleted(String description, String score, String icon, String domain) {
     String badgeName = "badge1" + getRandomString();
     manageBadgesSteps.addBadge(badgeName, description, score, icon, domain);
@@ -93,7 +93,7 @@ public class ManageBadgesStepDefinitions {
   }
 
   @Then(
-    "The new badge to be updated is added successfully and is displayed with random name, description '(.*)', score '(.*)', domain '(.*)', and enabled status in badges list"
+    "^The new badge to be updated is added successfully and is displayed with random name, description '(.*)', score '(.*)', domain '(.*)', and enabled status in badges list"
   )
   public void isRandomBadgeToBeUpdatedDisplayedWithEnabledStatus(String badgeDescription, String badgeScore, String badgeDomain) {
     String badgeNameToBeUpdated = Serenity.sessionVariableCalled("badgeNameToBeUpdated");
@@ -102,7 +102,7 @@ public class ManageBadgesStepDefinitions {
   }
 
   @Then(
-    "The new badge is added successfully and is displayed with random name, description '(.*)', score '(.*)', domain '(.*)', and enabled status in badges list"
+    "^The new badge is added successfully and is displayed with random name, description '(.*)', score '(.*)', domain '(.*)', and enabled status in badges list"
   )
   public void isRandomBadgeDisplayedWithEnabledStatus(String badgeDescription, String badgeScore, String badgeDomain) {
     String badgeName = Serenity.sessionVariableCalled("badgeName");
@@ -130,7 +130,7 @@ public class ManageBadgesStepDefinitions {
   }
 
   @And(
-    "The deleted badge with random name, description '(.*)', score '(.*)', domain '(.*)' is no longer displayed in badges list"
+    "^The deleted badge with random name, description '(.*)', score '(.*)', domain '(.*)' is no longer displayed in badges list"
   )
   public void isDeletedRandomBadgeNotDisplayedWithEnabledStatus(String badgeDescription, String badgeScore, String badgeDomain) {
     String badgeName = Serenity.sessionVariableCalled("badgeNameToBeDeleted");
@@ -139,7 +139,7 @@ public class ManageBadgesStepDefinitions {
   }
 
   @Then(
-    "The new badge to be deleted is added successfully and is displayed with random name, description '(.*)', score '(.*)', domain '(.*)', and enabled status in badges list"
+    "^The new badge to be deleted is added successfully and is displayed with random name, description '(.*)', score '(.*)', domain '(.*)', and enabled status in badges list"
   )
   public void isRandomBadgeToBeDeletedDisplayedWithEnabledStatus(String badgeDescription, String badgeScore, String badgeDomain) {
     String badgeNameToBeUpdated = Serenity.sessionVariableCalled("badgeNameToBeDeleted");
@@ -147,7 +147,7 @@ public class ManageBadgesStepDefinitions {
 
   }
 
-  @And("The badge with random name, description '(.*)', score '(.*)', domain '(.*)' is no longer displayed in badges list")
+  @And("^The badge with random name, description '(.*)', score '(.*)', domain '(.*)' is no longer displayed in badges list")
   public void isRandomBadgeNotDisplayedWithEnabledStatus(String badgeDescription, String badgeScore, String badgeDomain) {
     String badgeName = Serenity.sessionVariableCalled("badgeName");
     manageBadgesSteps.isBadgeNotDisplayedWithEnabledStatus(badgeName, badgeDescription, badgeScore, badgeDomain);
@@ -155,7 +155,7 @@ public class ManageBadgesStepDefinitions {
   }
 
   @Then(
-    "The badge has been updated successfully and is displayed with random name, description '(.*)', score '(.*)', domain '(.*)', and enabled status in badges list"
+    "^The badge has been updated successfully and is displayed with random name, description '(.*)', score '(.*)', domain '(.*)', and enabled status in badges list"
   )
   public void isUpdatedRandomBadgeDisplayedWithEnabledStatus(String badgeDescription, String badgeScore, String badgeDomain) {
     String updatedBadgeName = Serenity.sessionVariableCalled("updatedBadgeName");
@@ -163,7 +163,7 @@ public class ManageBadgesStepDefinitions {
 
   }
 
-  @And("I enter the new badge name '(.*)'")
+  @And("^I enter the new badge name '(.*)'")
   public void editBadgeName(String name) {
     manageBadgesSteps.editBadgeName(name);
 
@@ -182,25 +182,25 @@ public class ManageBadgesStepDefinitions {
 
   }
 
-  @And("I click on badge '(.*)' Delete button")
+  @And("^I click on badge '(.*)' Delete button")
   public void clickOnDeleteBadge(String badgeName) {
     manageBadgesSteps.clickOnDeleteBadge(badgeName);
 
   }
 
-  @And("I enter the new badge description '(.*)'")
+  @And("^I enter the new badge description '(.*)'")
   public void editBadgeDescription(String description) {
     manageBadgesSteps.editBadgeDescription(description);
 
   }
 
-  @And("I enter the new badge score '(.*)'")
+  @And("^I enter the new badge score '(.*)'")
   public void editBadgeScore(String score) {
     manageBadgesSteps.editBadgeScore(score);
 
   }
 
-  @And("I select the new badge domain '(.*)'")
+  @And("^I select the new badge domain '(.*)'")
   public void editBadgeDomain(String domain) {
     manageBadgesSteps.editBadgeDomain(domain);
 

@@ -6,7 +6,6 @@ import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEM
 import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_APPCENTER_TASKS;
 import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_APPCENTER_WALLET;
 import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_APPLICATIONS_TOPBAR;
-import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_DRIVES_APPLICATION_PAGE;
 import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_NOTES_APPLICATION_PAGE;
 import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_PERK_STORE_APPLICATION_PAGE;
 import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_SEND_FEEDBACK_APPLICATION_PAGE;
@@ -52,11 +51,6 @@ public class ApplicationSteps {
   public void clickOnTheAppLauncherIcon() {
     ELEMENT_APPLICATIONS_TOPBAR.waitUntilVisible();
     ELEMENT_APPLICATIONS_TOPBAR.clickOnElement();
-  }
-
-  public boolean isDrivesPageOpened() {
-
-    return ELEMENT_DRIVES_APPLICATION_PAGE.isVisibleAfterWaiting();
   }
 
   public boolean isNotesPageOpened() {
@@ -130,7 +124,6 @@ public class ApplicationSteps {
   }
 
   public void addRemoveApplicationToFavorites(String app) {
-
     applicationPage.addRemoveApplicationToFavorites(app);
   }
 

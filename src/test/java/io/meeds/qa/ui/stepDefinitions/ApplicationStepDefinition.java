@@ -31,7 +31,7 @@ public class ApplicationStepDefinition {
                                                                            .isEmpty();
   }
 
-  @Then("The application '(.*)' is displayed in application list")
+  @Then("The application '{}' is displayed in application list")
   public void checkApplicationVisible(String appName) {
     assertThat(applicationSteps.isApplicationVisible(appName)).as("The active application is not displayed")
                                                               .isTrue();
@@ -51,7 +51,7 @@ public class ApplicationStepDefinition {
                                                                              .isFalse();
   }
 
-  @Then("The application '(.*)' is not displayed in application list")
+  @Then("The application '{}' is not displayed in application list")
   public void checkApplicationNotVisible(String appName) {
     assertThat(applicationSteps.isApplicationVisible(appName)).as("The disabled application is displayed")
                                                               .isFalse();
@@ -75,11 +75,6 @@ public class ApplicationStepDefinition {
   @Then("^Settings Application Page is displayed$")
   public void settingsPageIsOpened() {
     applicationSteps.settingsPageIsOpened();
-  }
-
-  @Then("^Drives Application Page is displayed$")
-  public void isDrivesPageOpened() {
-    applicationSteps.isDrivesPageOpened();
   }
 
   @When("^I go to Wallet AppCenter Application$")
@@ -113,7 +108,7 @@ public class ApplicationStepDefinition {
 
   }
 
-  @When("^I go to AppCenter '(.*)' Application Page$")
+  @When("^I go to AppCenter '/.*/' Application Page$")
   public void goToTheAppcenterApplicationPage(String app) {
     applicationSteps.goToTheAppcenterApplicationPage(app);
 
@@ -126,8 +121,8 @@ public class ApplicationStepDefinition {
 
   }
 
-  @When("^I remove Application '(.*)' From Favorites$")
-  @And("^I add Application '(.*)' To Favorites$")
+  @When("I remove Application '{}' From Favorites")
+  @And("I add Application '{}' To Favorites")
   public void addRemoveApplicationToFavorites(String app) {
     applicationSteps.addRemoveApplicationToFavorites(app);
 
@@ -233,7 +228,7 @@ public class ApplicationStepDefinition {
 
   }
 
-  @Then("Star button for removing application '(.*)' from Favorites is displayed")
+  @Then("Star button for removing application '{}' from Favorites is displayed")
   public void starButtonIsSelected(String appTitle) {
     applicationSteps.starButtonIsSelected(appTitle);
   }
@@ -244,7 +239,7 @@ public class ApplicationStepDefinition {
     applicationSteps.starButtonIsSelected(randomApplicationTitle);
   }
 
-  @Then("Star button for adding application '(.*)' to Favorites is displayed")
+  @Then("Star button for adding application '{}' to Favorites is displayed")
   public void starButtonIsNotSelected(String appTitle) {
     applicationSteps.starButtonIsNotSelected(appTitle);
   }

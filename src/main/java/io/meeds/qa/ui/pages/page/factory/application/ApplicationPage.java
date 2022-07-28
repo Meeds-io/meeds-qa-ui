@@ -48,9 +48,6 @@ public class ApplicationPage extends GenericPage {
   @FindBy(xpath = "//*[@class='drawer filterSpacesDrawer open']//*[@class='btn reset']")
   public static BaseElementFacade settingsPage;
 
-  @FindBy(xpath = "//*[@class='UIJCRExplorerPortlet']")
-  public static BaseElementFacade ELEMENT_DRIVES_APPLICATION_PAGE;
-
   @FindBy(xpath = "//*[@id='UIWikiPortlet']")
   public static BaseElementFacade ELEMENT_NOTES_APPLICATION_PAGE;
 
@@ -91,22 +88,22 @@ public class ApplicationPage extends GenericPage {
   public static BaseElementFacade elementChallengeApplicationPage;
 
   private BaseElementFacade addApplicationAFavoriteInApplicationCenter(String app) {
-    return findByXpath(String.format("(//*[@class='authorisedAppContent']//*[@class='tooltipContent']//div[contains(text(),'%s')]/following::*[@class='v-card__actions applicationActions']//button)[1]",
+    return findByXpath(String.format("(//*[@class='authorisedAppContent']//*[@class='appTitle']//div[contains(text(),'%s')]/following::*[contains(@class, 'applicationActions')]//i[contains(@class, 'mdi-star')])",
                                      app));
   }
 
   private BaseElementFacade addToAppCenterFavoriteIsDisplayed(String app) {
-    return findByXpath(String.format("(//*[@class='authorisedAppContent']//*[@class='tooltipContent']//div[contains(text(),'%s')]/following::*[@class='v-card__actions applicationActions']//*[@title='Add to favorites applications']//button)[1]",
+    return findByXpath(String.format("(//*[@class='authorisedAppContent']//*[@class='appTitle']//div[contains(text(),'%s')]/following::*[contains(@class, 'applicationActions')]//*[@title='Add to favorites applications']//button)[1]",
                                      app));
   }
 
   private BaseElementFacade removeFromAppCenterFavoriteIsDisplayed(String app) {
-    return findByXpath(String.format("(//*[@class='authorisedAppContent']//*[@class='tooltipContent']//div[contains(text(),'%s')]/following::*[@class='v-card__actions applicationActions']//*[@title='Remove from favorites']//button)[1]",
+    return findByXpath(String.format("(//*[@class='authorisedAppContent']//*[@class='appTitle']//div[contains(text(),'%s')]/following::*[contains(@class, 'applicationActions')]//*[@title='Remove from favorites']//button)[1]",
                                      app));
   }
 
   private BaseElementFacade ELEMENT_APPCENTER_ALL_APPLICATIONS_OPEN_APP_BTN(String app) {
-    return findByXpath(String.format("(//*[@class='authorisedAppContent']//*[@class='tooltipContent']//div[contains(text(),'%s')]/following::*[@class='v-card__actions applicationActions']//a)[1]",
+    return findByXpath(String.format("(//*[@class='authorisedAppContent']//*[@class='appTitle']//div[contains(text(),'%s')]/following::*[contains(@class, 'applicationActions')]//a)[1]",
                                      app));
   }
 

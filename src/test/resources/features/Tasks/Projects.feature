@@ -63,8 +63,7 @@ Feature: User adds, deletes, edits and clones a project
     And I accept the invitation of the created space
     And I close Space Drawer
 
-    When I change user
-
+    When I change user admin
 
     And I go To AppCenter Drawer
     And I go to Tasks AppCenter Application

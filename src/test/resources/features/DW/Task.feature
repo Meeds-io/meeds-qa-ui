@@ -32,8 +32,7 @@ Feature: Task Drawer Checking
     And I view all task comments
     And I add other comment 'taskcomment1213' in task
 
-    When I change user
-
+    When I change user admin
 
     And I go to the home page
     And I go to Tasks Page
