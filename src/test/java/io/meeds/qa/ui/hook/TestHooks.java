@@ -3,7 +3,6 @@ package io.meeds.qa.ui.hook;
 import static io.meeds.qa.ui.steps.GenericSteps.switchToTabByIndex;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -50,9 +49,26 @@ public class TestHooks {
 
   @After
   public void deleteDatas() {
-    String badgeName = Serenity.sessionVariableCalled("badgeName");
-    String updatedBadgeName = Serenity.sessionVariableCalled("updatedBadgeName");
+    deleteGamificationBadges();
+    deleteSpaces();
+    deleteAppCenterApplications();
+  }
 
+  private void deleteAppCenterApplications() {
+    // cleanup created AppCenter applications
+    List<String> appNames = Serenity.sessionVariableCalled("appCenterAppName");
+    if (CollectionUtils.isNotEmpty(appNames)) {
+      loginAsAdmin();
+      homeSteps.goToAppCenterAdminSetupPage();
+      for (String appName : appNames) {
+        if (adminApplicationSteps.isAppExists(appName)) {
+          adminApplicationSteps.deleteApp(appName, true);
+        }
+      }
+    }
+  }
+
+  private void deleteSpaces() {
     List<String> spaces = new ArrayList<>();
     String spaceName = Serenity.sessionVariableCalled("spaceName");
     String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
@@ -60,20 +76,6 @@ public class TestHooks {
     String thirdRandomSpaceName = Serenity.sessionVariableCalled("thirdRandomSpaceName");
     String fourthRandomSpaceName = Serenity.sessionVariableCalled("fourthRandomSpaceName");
     String fifthRandomSpaceName = Serenity.sessionVariableCalled("fifthRandomSpaceName");
-
-    if (badgeName != null && !badgeName.isEmpty()) {
-      loginAsAdmin();
-      manageBadgesSteps.goToManageBadgesMenu();
-      manageBadgesSteps.clickOnDeleteBadge(badgeName);
-      manageBadgesSteps.confirmDeletionBadge();
-    }
-
-    if (updatedBadgeName != null && !updatedBadgeName.isEmpty()) {
-      loginAsAdmin();
-      manageBadgesSteps.goToManageBadgesMenu();
-      manageBadgesSteps.clickOnDeleteBadge(updatedBadgeName);
-      manageBadgesSteps.confirmDeletionBadge();
-    }
 
     if (spaceName != null && !spaceName.isEmpty()) {
       spaces.add(spaceName);
@@ -99,23 +101,30 @@ public class TestHooks {
       spaces.add(fifthRandomSpaceName);
     }
 
-    if (spaces != null && !spaces.isEmpty()) {
+    if (!spaces.isEmpty()) {
       loginAsAdmin();
       switchToTabByIndex(0);
       homeSteps.goToManageSpacesPage();
       manageSpaceSteps.deleteSpacesList(spaces);
     }
+  }
 
-    // cleanup created AppCenter applications
-    List<String> appNames = Serenity.sessionVariableCalled("appCenterAppName");
-    if (CollectionUtils.isNotEmpty(appNames)) {
+  private void deleteGamificationBadges() {
+    String badgeName = Serenity.sessionVariableCalled("badgeName");
+    String updatedBadgeName = Serenity.sessionVariableCalled("updatedBadgeName");
+
+    if (badgeName != null && !badgeName.isEmpty()) {
       loginAsAdmin();
-      homeSteps.goToAppCenterAdminSetupPage();
-      for (String appName : appNames) {
-        if (adminApplicationSteps.isAppExists(appName)) {
-          adminApplicationSteps.deleteApp(appName, true);
-        }
-      }
+      manageBadgesSteps.goToManageBadgesMenu();
+      manageBadgesSteps.clickOnDeleteBadge(badgeName);
+      manageBadgesSteps.confirmDeletionBadge();
+    }
+
+    if (updatedBadgeName != null && !updatedBadgeName.isEmpty()) {
+      loginAsAdmin();
+      manageBadgesSteps.goToManageBadgesMenu();
+      manageBadgesSteps.clickOnDeleteBadge(updatedBadgeName);
+      manageBadgesSteps.confirmDeletionBadge();
     }
   }
 
