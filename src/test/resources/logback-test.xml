@@ -1,0 +1,20 @@
+<configuration>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%date{ISO8601} | %highlight(%-5level) | %msg %green([%logger{40}){}%cyan(&lt;%thread&gt;){}%green(]){} %n%xEx</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="ASYNC_STDOUT" class="ch.qos.logback.classic.AsyncAppender">
+    <!-- Increase blocking queue capacity - 256 by default -->
+    <queueSize>512</queueSize>
+    <!-- Do not loose any event -->
+    <discardingThreshold>0</discardingThreshold>
+    <appender-ref ref="STDOUT" />
+  </appender>
+
+  <root level="INFO">
+    <appender-ref ref="ASYNC_STDOUT" />
+  </root>
+
+</configuration>

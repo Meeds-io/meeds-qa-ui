@@ -2,8 +2,8 @@ Feature: To be able to access applications
   As a user
   I want to access any application from the app center
 
-  @appcenter
-  @appcenterUser
+	@appcenter
+	@appcenterUser
   Scenario: CAP06 - Open an exo application from the drawer
     Given I am authenticated as admin
 

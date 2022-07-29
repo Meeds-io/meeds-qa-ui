@@ -1,5 +1,7 @@
 package io.meeds.qa.ui.elements;
 
+import java.time.Duration;
+
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
@@ -121,7 +123,7 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
   public void waitForPageLoaded() {
     try {
       // Thread.sleep(1000);
-      WebDriverWait wait = new WebDriverWait(driver, 30);
+      WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
       wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState")
                                                               .toString()
                                                               .equals("complete"));

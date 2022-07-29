@@ -3,8 +3,8 @@ Feature: Administration settings
   I want to manage application
   in order to share them with users
 
-  @appcenter
-  @appcenterSettings
+	@appcenter
+	@appcenterSettings
   Scenario: CAP50 - Admin_Settings_US06:Active option
     Given I am authenticated as admin
     And I create the first random user

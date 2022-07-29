@@ -3,7 +3,10 @@ package io.meeds.qa.ui.hook;
 import static io.meeds.qa.ui.steps.GenericSteps.switchToTabByIndex;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -103,18 +106,16 @@ public class TestHooks {
       manageSpaceSteps.deleteSpacesList(spaces);
     }
 
-    String appCenterAppName = Serenity.sessionVariableCalled("appCenterAppName");
-    if (appCenterAppName != null) {
+    // cleanup created AppCenter applications
+    List<String> appNames = Serenity.sessionVariableCalled("appCenterAppName");
+    if (CollectionUtils.isNotEmpty(appNames)) {
       loginAsAdmin();
-      homeSteps.goToappCenterAdminSetupPage();
-      adminApplicationSteps.deleteApp(appCenterAppName, true);
-    }
-
-    String secondAppCenterAppName = Serenity.sessionVariableCalled("secondAppCenterAppName");
-    if (secondAppCenterAppName != null) {
-      loginAsAdmin();
-      homeSteps.goToappCenterAdminSetupPage();
-      adminApplicationSteps.deleteApp(secondAppCenterAppName, true);
+      homeSteps.goToAppCenterAdminSetupPage();
+      for (String appName : appNames) {
+        if (adminApplicationSteps.isAppExists(appName)) {
+          adminApplicationSteps.deleteApp(appName, true);
+        }
+      }
     }
   }
 

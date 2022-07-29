@@ -146,6 +146,10 @@ public class AdminApplicationSteps {
     applicationPage.searchApp(appTitle);
   }
 
+  public boolean isAppExists(String appTitle) {
+    return applicationPage.isAppExists(appTitle);
+  }
+
   public void clickActiveApp(String appName) {
     applicationPage.clickActiveApp(appName);
   }
