@@ -249,11 +249,13 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void clickActiveApp(String appTitle) {
+    searchAppInput.clear();
     searchAppInput.setTextValue(appTitle);
     getActiveButton(appTitle).clickOnElement();
   }
 
   public void deleteApp(String appTitle, boolean confirm) {
+    searchAppInput.clear();
     searchAppInput.setTextValue(appTitle);
     getDeleteButton(appTitle).clickOnElement();
     if (confirm)
@@ -265,7 +267,14 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void searchApp(String appTitle) {
+    searchAppInput.clear();
     searchAppInput.setTextValue(appTitle);
+  }
+
+  public boolean isAppExists(String appTitle) {
+    searchAppInput.clear();
+    searchAppInput.setTextValue(appTitle);
+    return getActiveButton(appTitle).isCurrentlyVisible();
   }
 
   public void clickCloseDeletePopup() {

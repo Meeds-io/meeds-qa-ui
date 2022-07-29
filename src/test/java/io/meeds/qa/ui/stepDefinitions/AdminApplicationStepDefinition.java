@@ -2,6 +2,8 @@ package io.meeds.qa.ui.stepDefinitions;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -151,7 +153,7 @@ public class AdminApplicationStepDefinition {
   @When("I add a new application with the following data")
   public void addNewApp(Map<String, String> appData) {
     adminApplicationSteps.enterApplicationValues(appData);
-    Serenity.setSessionVariable("appCenterAppName").to(appData.get("title"));
+    setCurrentlyTestingApplicationTitle(appData.get("title"));
   }
 
   @When("I add a new application with the random following data")
@@ -161,7 +163,7 @@ public class AdminApplicationStepDefinition {
 
     Serenity.setSessionVariable("randomApplicationTitle").to(randomApplicationTitle);
     Serenity.setSessionVariable("randomApplicationUrl").to(randomApplicationUrl);
-    Serenity.setSessionVariable("appCenterAppName").to(randomApplicationTitle);
+    setCurrentlyTestingApplicationTitle(randomApplicationTitle);
 
     adminApplicationSteps.enterRandomApplicationTitleAndUrl(randomApplicationTitle, randomApplicationUrl);
   }
@@ -169,13 +171,13 @@ public class AdminApplicationStepDefinition {
   @When("I add a new application with the title, the url and the description")
   public void addNewAppWithDescription(Map<String, String> appData) {
     adminApplicationSteps.enterApplicationTitleUrlDescription(appData);
-    Serenity.setSessionVariable("appCenterAppName").to(appData.get("title"));
+    setCurrentlyTestingApplicationTitle(appData.get("title"));
   }
 
   @When("I add a new application with the title, the url and the description with image <{}>")
   public void enterApplicationTitleUrlDescriptionWithImage(String image, Map<String, String> applicationData) {
     adminApplicationSteps.enterApplicationTitleUrlDescriptionWithImage(image, applicationData);
-    Serenity.setSessionVariable("appCenterAppName").to(applicationData.get("title"));
+    setCurrentlyTestingApplicationTitle(applicationData.get("title"));
   }
 
   @When("I add a new random application with the title, the url and the description with image <{}>")
@@ -187,7 +189,7 @@ public class AdminApplicationStepDefinition {
     Serenity.setSessionVariable("randomApplicationTitle").to(randomApplicationTitle);
     Serenity.setSessionVariable("randomApplicationUrl").to(randomApplicationUrl);
     Serenity.setSessionVariable("randomApplicationDescription").to(randomApplicationDescription);
-    Serenity.setSessionVariable("appCenterAppName").to(randomApplicationTitle);
+    setCurrentlyTestingApplicationTitle(randomApplicationTitle);
 
     adminApplicationSteps.enterRandomApplicationTitleUrlDescriptionImage(randomApplicationTitle,
                                                                          randomApplicationUrl,
@@ -205,7 +207,7 @@ public class AdminApplicationStepDefinition {
     Serenity.setSessionVariable("randomApplicationTitle").to(randomApplicationTitle);
     Serenity.setSessionVariable("randomApplicationUrl").to(randomApplicationUrl);
     Serenity.setSessionVariable("randomApplicationDescription").to(randomApplicationDescription);
-    Serenity.setSessionVariable("appCenterAppName").to(randomApplicationTitle);
+    setCurrentlyTestingApplicationTitle(randomApplicationTitle);
 
     adminApplicationSteps.enterRandomApplicationTitleUrlDescription(randomApplicationTitle,
                                                                     randomApplicationUrl,
@@ -222,7 +224,7 @@ public class AdminApplicationStepDefinition {
     Serenity.setSessionVariable("secondRandomApplicationTitle").to(secondRandomApplicationTitle);
     Serenity.setSessionVariable("secondRandomApplicationUrl").to(secondRandomApplicationUrl);
     Serenity.setSessionVariable("secondRandomApplicationDescription").to(secondRandomApplicationDescription);
-    Serenity.setSessionVariable("secondAppCenterAppName").to(secondRandomApplicationTitle);
+    setCurrentlyTestingApplicationTitle(secondRandomApplicationTitle);
 
     adminApplicationSteps.enterRandomApplicationTitleUrlDescriptionImage(secondRandomApplicationTitle,
                                                                          secondRandomApplicationUrl,
@@ -363,6 +365,17 @@ public class AdminApplicationStepDefinition {
   @When("Edit application image is displayed '{}' in drawer")
   public void applicationDrawerImageIsDisplayed(String image) {
     adminApplicationSteps.applicationDrawerImageIsDisplayed(image);
+  }
+
+  private void setCurrentlyTestingApplicationTitle(String applicationTitle) {
+    if (Serenity.hasASessionVariableCalled("appCenterAppName")) {
+      List<String> appNames = Serenity.sessionVariableCalled("appCenterAppName");
+      appNames.add(applicationTitle);
+    } else {
+      List<String> appNames = new ArrayList<>();
+      appNames.add(applicationTitle);
+      Serenity.setSessionVariable("appCenterAppName").to(appNames);
+    }
   }
 
 }

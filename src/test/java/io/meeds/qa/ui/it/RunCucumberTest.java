@@ -7,7 +7,7 @@ import net.serenitybdd.cucumber.CucumberWithSerenity;
 
 @RunWith(CucumberWithSerenity.class)
 @CucumberOptions(
-    features = "src/test/resources/features",
+    features = "classpath:features",
     glue = { "io.meeds.qa.ui.hook", "io.meeds.qa.ui.stepDefinitions" }
 )
 public class RunCucumberTest {}

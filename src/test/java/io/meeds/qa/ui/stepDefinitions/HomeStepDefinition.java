@@ -115,6 +115,7 @@ public class HomeStepDefinition {
 
   @Then("I search for the second random created application")
   public void searchSecondApplicationCenter() {
+    goToAppCenterAdminSetupPage();
     String secondRandomApplicationTitle = Serenity.sessionVariableCalled("secondRandomApplicationTitle");
     homeSteps.searchApplicationCenter(secondRandomApplicationTitle);
   }
@@ -355,8 +356,8 @@ public class HomeStepDefinition {
   }
 
   @Given("^I go to Administer application center Page$")
-  public void goToappCenterAdminSetupPage() {
-    homeSteps.goToappCenterAdminSetupPage();
+  public void goToAppCenterAdminSetupPage() {
+    homeSteps.goToAppCenterAdminSetupPage();
   }
 
   @Given("^I go to Settings page$")

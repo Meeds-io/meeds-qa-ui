@@ -3,8 +3,8 @@ Feature: UI app administration
   I want to manage application
   in order to share them with users
 
-  @appcenter
-  @appcenterAdministration
+	@appcenter
+	@appcenterAdministration
   Scenario: CAP47-[Admin_UI_US12]:Applications table/Edit action
     Given I am authenticated as admin
     And I go to Administer application center Page

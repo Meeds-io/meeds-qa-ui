@@ -192,7 +192,7 @@ public class HomeSteps {
     homePage.goToPeoplePage();
   }
 
-  public void goToappCenterAdminSetupPage() {
+  public void goToAppCenterAdminSetupPage() {
     homePage.goToappCenterAdminSetupPage();
   }
 
