@@ -7,7 +7,14 @@ import net.serenitybdd.cucumber.CucumberWithSerenity;
 
 @RunWith(CucumberWithSerenity.class)
 @CucumberOptions(
+    plugin = {
+        "pretty"
+    },
     features = "classpath:features",
-    glue = { "io.meeds.qa.ui.hook", "io.meeds.qa.ui.stepDefinitions" }
+    glue = {
+        "io.meeds.qa.ui.hook",
+        "io.meeds.qa.ui.stepDefinitions"
+    }
 )
-public class RunCucumberTest {}
+public class RunCucumberTest {}// NOSONAR Empty Class: cucumber engine will
+                               // create test cases from feature files

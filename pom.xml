@@ -50,7 +50,7 @@
 
     <galen-java-support.version>2.4.4</galen-java-support.version>
 
-    <version.surefire.plugin>3.0.0-M5</version.surefire.plugin>
+    <version.surefire.plugin>3.0.0-M7</version.surefire.plugin>
 
     <failsafe.rerunFailingTestsCount>0</failsafe.rerunFailingTestsCount>
     <parallel.tests>4</parallel.tests>
@@ -212,16 +212,8 @@
           <includes>
             <include>**/it/*.java</include>
           </includes>
-          <argLine>-Xmx1g</argLine>
-          <parallel>classes</parallel>
           <parallel>methods</parallel>
-          <threadCount>${parallel.tests}</threadCount>
-          <properties>
-            <configurationParameters>
-              cucumber.execution.parallel.enabled=true
-              cucumber.junit-platform.naming-strategy=long
-            </configurationParameters>
-          </properties>
+          <useUnlimitedThreads>true</useUnlimitedThreads>
         </configuration>
         <executions>
           <execution>
