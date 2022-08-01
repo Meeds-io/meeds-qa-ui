@@ -39,7 +39,6 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <serenity.version>3.3.0</serenity.version>
-    <serenity-cucumber.version>${serenity.version}</serenity-cucumber.version>
     <cucumber.version>7.4.1</cucumber.version>
 
     <junit-jupiter.version>5.8.2</junit-jupiter.version>
@@ -53,7 +52,7 @@
     <version.surefire.plugin>3.0.0-M7</version.surefire.plugin>
 
     <failsafe.rerunFailingTestsCount>0</failsafe.rerunFailingTestsCount>
-    <parallel.tests>4</parallel.tests>
+    <parallel.tests>1</parallel.tests>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -67,18 +66,18 @@
       </dependency>
       <!--  junit -->
       <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>${junit-jupiter.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
         <groupId>org.junit.platform</groupId>
         <artifactId>junit-platform-launcher</artifactId>
         <version>${junit-platform.version}</version>
         <type>pom</type>
         <scope>import</scope>
-      </dependency>
-      <dependency>
-          <groupId>org.junit</groupId>
-          <artifactId>junit-bom</artifactId>
-          <version>${junit-jupiter.version}</version>
-          <type>pom</type>
-          <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>org.junit.platform</groupId>
@@ -199,20 +198,40 @@
   <build>
     <plugins>
       <plugin>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-          <excludes>
-            <exclude>**/it/*.java</exclude>
-          </excludes>
-        </configuration>
+        <groupId>com.github.temyers</groupId>
+        <artifactId>cucumber-jvm-parallel-plugin</artifactId>
+        <version>5.0.0</version>
+        <executions>
+          <execution>
+            <id>generateRunners</id>
+            <phase>generate-test-sources</phase>
+            <goals>
+              <goal>generateRunners</goal>
+            </goals>
+            <configuration>
+              <!-- List of package names to scan for glue code. -->
+              <glue>
+                <package>io.meeds.qa.ui.hook</package>
+                <package>io.meeds.qa.ui.stepDefinitions</package>
+              </glue>
+              <featuresDirectory>src/test/resources/features/</featuresDirectory>
+              <parallelScheme>FEATURE</parallelScheme>
+              <packageName>io.meeds.qa.ui.it</packageName>
+              <customVmTemplate>src/test/resources/cucumber-serenity-runner.vm</customVmTemplate>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <artifactId>maven-failsafe-plugin</artifactId>
         <configuration>
           <includes>
-            <include>**/it/*.java</include>
+            <include>**/*.java</include>
           </includes>
-          <parallel>methods</parallel>
+          <forkCount>${parallel.tests}</forkCount>
+          <reuseForks>true</reuseForks>
+          <argLine>-Xmx4g -Xms1g</argLine>
+          <parallel>all</parallel>
           <useUnlimitedThreads>true</useUnlimitedThreads>
         </configuration>
         <executions>
