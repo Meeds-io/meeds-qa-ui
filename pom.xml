@@ -50,6 +50,7 @@
     <galen-java-support.version>2.4.4</galen-java-support.version>
 
     <version.surefire.plugin>3.0.0-M7</version.surefire.plugin>
+    <cucumber-jvm-parallel-plugin.version>5.0.0</cucumber-jvm-parallel-plugin.version>
 
     <failsafe.rerunFailingTestsCount>0</failsafe.rerunFailingTestsCount>
     <parallel.tests>1</parallel.tests>
@@ -200,7 +201,7 @@
       <plugin>
         <groupId>com.github.temyers</groupId>
         <artifactId>cucumber-jvm-parallel-plugin</artifactId>
-        <version>5.0.0</version>
+        <version>${cucumber-jvm-parallel-plugin.version}</version>
         <executions>
           <execution>
             <id>generateRunners</id>
@@ -215,7 +216,7 @@
                 <package>io.meeds.qa.ui.stepDefinitions</package>
               </glue>
               <featuresDirectory>src/test/resources/features/</featuresDirectory>
-              <parallelScheme>FEATURE</parallelScheme>
+              <parallelScheme>SCENARIO</parallelScheme>
               <packageName>io.meeds.qa.ui.it</packageName>
               <customVmTemplate>src/test/resources/cucumber-serenity-runner.vm</customVmTemplate>
             </configuration>
@@ -230,9 +231,11 @@
           </includes>
           <forkCount>${parallel.tests}</forkCount>
           <reuseForks>true</reuseForks>
-          <argLine>-Xmx4g -Xms1g</argLine>
           <parallel>all</parallel>
           <useUnlimitedThreads>true</useUnlimitedThreads>
+          <systemPropertyVariables>
+            <io.meeds.space.template>crowdFunding</io.meeds.space.template>
+          </systemPropertyVariables>
         </configuration>
         <executions>
           <execution>

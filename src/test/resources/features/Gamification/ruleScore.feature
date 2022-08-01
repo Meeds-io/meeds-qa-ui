@@ -93,7 +93,7 @@ Feature: Check the rules score increase
     And I connect with the first created user
     And I go to my profile
     And I check my points
-    And I create the space community
+    And I create a space with full template
     And I go to notes application of the space
     And I click to add note
     Then Create note form is opened successfully in new tab

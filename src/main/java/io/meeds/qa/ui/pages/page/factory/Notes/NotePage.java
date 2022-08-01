@@ -39,7 +39,7 @@ public class NotePage extends GenericPage {
   @FindBy(xpath = "//*[contains(@class,'notes-title')]/span")
   private TextBoxElementFacade displayedNoteTitle;
 
-  @FindBy(xpath = "//*[contains(@class,'notes-application-content')]/p")
+  @FindBy(xpath = "//*[contains(@class,'notes-application-content')]")
   private TextBoxElementFacade displayedNoteContent;
 
   @FindBy(id = "notesPublichAndPost")
@@ -61,17 +61,26 @@ public class NotePage extends GenericPage {
 
   public void saveNote() {
     saveButton.waitUntilVisible();
+    saveButton.waitUntilClickable();
+    saveButton.waitUntilEnabled();
     saveButton.clickOnElement();
   }
 
   public void checkNoteDetailsDisplay(String noteTitle, String noteContent) {
+    displayedNoteContent.waitUntilVisible();
+    displayedNoteTitle.waitUntilVisible();
     Assert.assertTrue(displayedNoteTitle.getText().contains(noteTitle));
     Assert.assertTrue(displayedNoteContent.getText().contains(noteContent));
   }
 
   public void saveAndPostNote() {
+    pulldownSaveButton.waitUntilVisible();
+    pulldownSaveButton.waitUntilClickable();
+    pulldownSaveButton.waitUntilEnabled();
     pulldownSaveButton.clickOnElement();
     saveAndPostButton.waitUntilVisible();
+    saveAndPostButton.waitUntilClickable();
+    saveAndPostButton.waitUntilEnabled();
     saveAndPostButton.clickOnElement();
   }
 
@@ -89,6 +98,8 @@ public class NotePage extends GenericPage {
     Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
 
     saveButton.waitUntilVisible();
+    saveButton.waitUntilClickable();
+    saveButton.waitUntilEnabled();
     saveButton.clickOnElement();
   }
 
@@ -110,6 +121,8 @@ public class NotePage extends GenericPage {
     Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
 
     saveButton.waitUntilVisible();
+    saveButton.waitUntilClickable();
+    saveButton.waitUntilEnabled();
     saveButton.clickOnElement();
   }
 

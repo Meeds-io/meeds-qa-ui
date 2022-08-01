@@ -570,10 +570,10 @@ public class ManageSpacesPage extends GenericPage {
   @FindBy(xpath = "//select[contains(@class,'input-block-level ignore-vuetify-classes my-3')]")
   private static BaseElementFacade spaceTemplateFilter;
 
-  public void selectCommunityTemplate() {
+  public void selectTemplate(String value) {
     spaceTemplateFilter.waitUntilVisible();
     spaceTemplateFilter.clickOnElement();
-    spaceTemplateFilter.selectByValue("community");
+    spaceTemplateFilter.selectByValue(value);
   }
 
   public void goToTasksTab() {

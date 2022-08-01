@@ -177,10 +177,10 @@ public class ManageSpaceSteps {
     manageSpacesPage.checkUpdateButton();
   }
 
-  public void addSpaceCommunity(String spaceName) {
+  public void addSpaceWithTemplate(String spaceName, String spaceTemplate) {
     manageSpacesPage.openSpaceFormDrawer();
     manageSpacesPage.setSpaceName(spaceName);
-    manageSpacesPage.selectCommunityTemplate();
+    manageSpacesPage.selectTemplate(spaceTemplate);
     manageSpacesPage.clickFirstProcessButton();
     manageSpacesPage.clickSecondProcessButton();
     manageSpacesPage.clickAddSpaceButton();
@@ -254,10 +254,10 @@ public class ManageSpaceSteps {
     manageSpacesPage.addUserToSpace(user);
   }
 
-  public void addCommunitySpaceWithFirstUser(String randomSpaceName, String firstUserName) {
+  public void addSpaceByTemplateWithFirstUser(String randomSpaceName, String firstUserName, String spaceTemplate) {
     manageSpacesPage.openSpaceFormDrawer();
     manageSpacesPage.setSpaceName(randomSpaceName);
-    manageSpacesPage.selectCommunityTemplate();
+    manageSpacesPage.selectTemplate(spaceTemplate);
     manageSpacesPage.clickFirstProcessButton();
     manageSpacesPage.clickSecondProcessButton();
     manageSpacesPage.inviteUserToSpace(firstUserName);
