@@ -136,7 +136,7 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.replyInDrawerIsNotDisplayed(reply);
   }
 
-  @When("^I click on post in space$")
+  @When("I click on post in space")
   public void clickPostIcon() {
     spaceHomeSteps.clickPostIcon();
   }

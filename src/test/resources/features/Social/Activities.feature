@@ -2,6 +2,7 @@
 # Tags: optional
 Feature: Activities
 
+  @test
   @activitystream
   Scenario: delete your activity
     Given I am authenticated as admin
@@ -15,6 +16,7 @@ Feature: Activities
     Then the confirmation popup is not displayed
     And the activity 'activitytest' is no more displayed in the activity stream
 
+  @test
   @activitystream
   Scenario:  delete your comment
     Given I am authenticated as admin
@@ -32,6 +34,7 @@ Feature: Activities
     Then the confirmation popup is not displayed
     And Comment 'commenttest' is not displayed in activity 'activitytest'
 
+  @test
   @activitystream
   Scenario:   comment your activity
     Given I am authenticated as admin
