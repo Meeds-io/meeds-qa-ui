@@ -76,7 +76,7 @@ public class ManageSpaceSteps {
   public void deleteSpacesList(List<String> listOfSpaces) {
     for (String spaceName : listOfSpaces) {
       Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
-      manageSpacesPage.deleteRandomSpace(spaceName);
+      manageSpacesPage.deleteSpace(spaceName);
     }
   }
 

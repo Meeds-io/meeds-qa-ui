@@ -20,6 +20,10 @@ public class LoginSteps {
     return homePage.isHomePageDisplayed();
   }
 
+  public boolean isLoggedIn() {
+    return homePage.isHomePageDisplayed();
+  }
+
   public void logoutLogin(String username) {
     Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
     homePage.logout();
