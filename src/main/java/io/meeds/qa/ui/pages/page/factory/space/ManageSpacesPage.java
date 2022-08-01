@@ -10,7 +10,6 @@ import org.openqa.selenium.interactions.Actions;
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
@@ -212,8 +211,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   private BaseElementFacade spaceName(String spaceName) {
-    return findByXpath(String.format("//*[@class='ps-2 align-self-center brandingContainer space']//*[contains(text(),'%s')]",
-                                     spaceName));
+    return findByXpath(String.format("//*[contains(@class,'brandingContainer')]//div[contains(text(),'%s')]", spaceName));
   }
 
   private BaseElementFacade getSpaceNameInListOfSpace(String spaceName) {
@@ -231,18 +229,12 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   private BaseElementFacade getSpaceMenu(String spaceName) {
-    return findByXpath(
-                       String.format("//a[contains(@href,'%s')]/../..//button[contains(@class,'spaceMenuIcon')]", spaceName));
+    return findByXpath(String.format("//a[contains(@title,'%s')]/../..//button[contains(@class,'spaceMenuIcon')]", spaceName));
   }
 
   private BaseElementFacade ELEMENT_SPACE_TABS_TOP_BAR_ORDER(String order) {
     return findByXpath(String.format("//*[@class='v-application--wrap']//*[@class='v-slide-group__wrapper']//*[@tabindex][%s]",
                                      order));
-  }
-
-  private BaseElementFacade getSpaceThreeDots(String spaceName) {
-    return findByXpath(
-                       String.format("//a[contains(@title,'%s')]/../..//button[contains(@class,'spaceMenuIcon')]", spaceName));
   }
 
   private BaseElementFacade ELEMENT_HOME_SPACE_TAB_TOP_BAR(String space) {
@@ -251,12 +243,7 @@ public class ManageSpacesPage extends GenericPage {
 
   private BaseElementFacade getDeleteSpaceButton(String spaceName) {
     return findByXpath(
-                       String.format("//a[contains(@href,'%s')]//following::i[contains(@class,'uiIconTrash')]", spaceName));
-  }
-
-  private BaseElementFacade getDeleteRandomSpaceButton(String spaceName) {
-    return findByXpath(
-                       String.format("//a[contains(@title,'%s')]//following::i[contains(@class,'uiIconTrash')][1]", spaceName));
+                       String.format("//a[contains(@title,'%s')]//following::i[contains(@class,'uiIconTrash')]", spaceName));
   }
 
   private BaseElementFacade ELEMENT_SPACE_MEMBERS_TAB_TOP_BAR(String space) {
@@ -388,21 +375,14 @@ public class ManageSpacesPage extends GenericPage {
 
   public void insertSpaceNameInSearchField(String spaceName) {
     searchSpaceInput.waitUntilVisible();
-    if (searchSpaceInput.isNotVisibleAfterWaiting()) {
-      Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
-    }
-    searchSpaceInput.waitUntilVisible();
     searchSpaceInput.setTextValue(spaceName);
   }
 
   public void goToSpecificSpace(String spaceName) {
-    getSpaceNameInListOfSpace(spaceName).waitUntilVisible();
-    getSpaceNameInListOfSpace(spaceName).clickOnElement();
-    if (spaceName(spaceName).isNotVisibleAfterWaiting()) {
-      Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
-    }
+    BaseElementFacade element = getSpaceNameInListOfSpace(spaceName);
+    element.waitUntilVisible();
+    element.clickOnElement();
     spaceName(spaceName).waitUntilVisible();
-
   }
 
   public void inviteUserToSpace(String user) {
@@ -493,14 +473,6 @@ public class ManageSpacesPage extends GenericPage {
   public void checkHiddenAndSwitchButtonSection() {
     hiddenSection.isVisibleAfterWaiting();
     switchButton.isVisibleAfterWaiting();
-  }
-
-  public void deleteRandomSpace(String spaceName) {
-    searchSpaceInput.setTextValue(spaceName);
-    getSpaceThreeDots(spaceName).clickOnElement();
-    getDeleteRandomSpaceButton(spaceName).clickOnElement();
-    okButton.clickOnElement();
-    okButton.waitUntilNotVisible();
   }
 
   public void checkRegistrationSection() {

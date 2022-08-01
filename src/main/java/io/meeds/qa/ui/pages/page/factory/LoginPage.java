@@ -29,13 +29,7 @@ public class LoginPage extends GenericPage implements IsHidden {
   @FindBy(tagName = "button")
   private ButtonElementFacade  loginButton;
 
-  @FindBy(xpath = "//button[@value='skipform']")
-  private BaseElementFacade    skipButton;
-
   public void login(String login, String password) {
-    if (skipButton.isVisible())
-      skipButton.clickOnElement();
-
     loginTextBox.waitUntilVisible();
     loginTextBox.setTextValue(login);
     passwordTextbox.setTextValue(password);

@@ -17,7 +17,7 @@ services:
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
       - SE_NODE_OVERRIDE_MAX_SESSIONS=true
       - SE_NODE_MAX_SESSIONS=100
-      - SE_NODE_SESSION_TIMEOUT=60
+      - SE_NODE_SESSION_TIMEOUT=1200
     network_mode: host
   firefox:
     image: selenium/node-firefox:4.3
@@ -32,5 +32,5 @@ services:
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
       - SE_NODE_OVERRIDE_MAX_SESSIONS=true
       - SE_NODE_MAX_SESSIONS=100
-      - SE_NODE_SESSION_TIMEOUT=60
+      - SE_NODE_SESSION_TIMEOUT=1200
     network_mode: host

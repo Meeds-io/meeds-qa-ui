@@ -281,6 +281,7 @@ public class HomePage extends GenericPage {
   }
 
   private void clickOnElement(BaseElementFacade element) {
+    element.resetTimeouts();
     element.waitUntilVisible();
     element.clickOnElement();
   }

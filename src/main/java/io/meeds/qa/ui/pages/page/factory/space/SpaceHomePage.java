@@ -26,7 +26,7 @@ public class SpaceHomePage extends GenericPage {
   private BaseElementFacade    commentTitleInDrawer;
 
   @FindBy(xpath = "//button[contains(@class,'primary--text font-weight-bold mb-1')]")
-  private BaseElementFacade    ViewallXcomments;
+  private BaseElementFacade    viewallXcomments;
 
   @FindBy(xpath = "(//*[contains(@class,'composerActions')]//*[@class='actionItemIcon'])[1]")
   private BaseElementFacade    createPollLink;
@@ -51,9 +51,6 @@ public class SpaceHomePage extends GenericPage {
 
   @FindBy(xpath = "//body[contains(@class,'cke_editable_themed')]")
   private TextBoxElementFacade commentField;
-
-  @FindBy(xpath = "(//*[contains(@class,'v-dialog--active')]//button)[1]")
-  private BaseElementFacade    closeWhatSNewPopUp;
 
   @FindBy(xpath = "//iframe[contains(@class,'cke_wysiwyg_frame')]")
   private BaseElementFacade    ckEditorFrame;
@@ -467,9 +464,6 @@ public class SpaceHomePage extends GenericPage {
   public void clickPostIcon() {
     postIcon.waitUntilVisible();
     postIcon.clickOnElement();
-    if (closeWhatSNewPopUp.isVisibleAfterWaiting()) {
-      closeWhatSNewPopUp.clickOnElement();
-    }
   }
 
   public void viewAllRepliesInActivityStream(String comment) {
@@ -493,6 +487,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void addActivity(String activity) {
+    ckEditorFrame.waitUntilVisible();
     ckEditorFrame.clickOnElement();
     Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrame);
     if (activity.contains("https")) {
@@ -881,7 +876,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void clickOnViewallXcomments() {
-    ViewallXcomments.clickOnElement();
+    viewallXcomments.clickOnElement();
   }
 
   public void clickOnReplyDropDownMenu(String activity, String comment, String reply) {
