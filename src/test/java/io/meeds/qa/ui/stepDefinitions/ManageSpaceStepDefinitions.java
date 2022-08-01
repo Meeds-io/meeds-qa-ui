@@ -20,6 +20,8 @@ public class ManageSpaceStepDefinitions {
 
   private ManageSpacesPage manageSpacesPage;
 
+  String                   spaceTemplate   = System.getProperty("io.meeds.space.template");
+
   String                   firstSpaceName  = "topbar01" + getRandomString();
 
   String                   secondSpaceName = "topbar02" + getRandomString();
@@ -583,18 +585,18 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.checkUpdateButton();
   }
 
-  @And("^I create the space community '(.*)'$")
-  public void addNewSpaceCommunity(String spaceName) {
+  @And("^I create the space with full template '(.*)'$")
+  public void addNewSpaceWithTemplate(String spaceName) {
     homeSteps.goToManageSpacesPage();
-    manageSpaceSteps.addSpaceCommunity(spaceName);
+    manageSpaceSteps.addSpaceWithTemplate(spaceName, spaceTemplate);
   }
 
-  @And("^I create the space community$")
-  public void addRandomSpaceCommunity() {
+  @And("^I create a space with full template$")
+  public void addRandomSpaceWithTemplate() {
     homeSteps.goToManageSpacesPage();
     String spaceName = "spaceName" + getRandomNumber();
     setSessionVariable("spaceName").to(spaceName);
-    manageSpaceSteps.addSpaceCommunity(spaceName);
+    manageSpaceSteps.addSpaceWithTemplate(spaceName, spaceTemplate);
   }
 
   @Given("^I click on arrow icon of application space settings")
@@ -694,15 +696,15 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.addUserToSpace(thirdUserName);
   }
 
-  @And("^I create the space community with the first created user$")
-  public void addCommunitySpaceWithFirstUser() {
+  @And("^I create the space with template and the first created user$")
+  public void addSpaceByTemplateWithFirstUser() {
     String randomSpaceName = "randomSpaceName" + getRandomNumber();
     setSessionVariable("randomSpaceName").to(randomSpaceName);
     String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
     String firstUserLastName = Serenity.sessionVariableCalled("firstUserLastName");
     String firstUserName = firstUserFirstName + " " + firstUserLastName;
     homeSteps.goToManageSpacesPage();
-    manageSpaceSteps.addCommunitySpaceWithFirstUser(randomSpaceName, firstUserName);
+    manageSpaceSteps.addSpaceByTemplateWithFirstUser(randomSpaceName, firstUserName, spaceTemplate);
   }
 
   @Given("^I add fourth user to the space")

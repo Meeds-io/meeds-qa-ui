@@ -2217,7 +2217,7 @@ Feature: Activity Stream
     And I create the second random user
     When I connect with the first created user
 
-    And I create the space community
+    And I create a space with full template
     And I go to notes application of the space
     When I click to add note
     Then Create note form is opened successfully in new tab

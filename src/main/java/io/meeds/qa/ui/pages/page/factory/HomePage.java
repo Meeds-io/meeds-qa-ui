@@ -213,19 +213,19 @@ public class HomePage extends GenericPage {
   }
 
   public void hoverOnRecentSpaces() {
-    hamburgerNavigationMenuLink.clickOnElement();
+    clickOnElement(hamburgerNavigationMenuLink);
     recentSpacesBtn.hover("//*[contains(@class,'spacesNavigationTitle')]//*[contains(@class,'titleLabel')]");
   }
 
   public void goToSpacesPage() {
-    hamburgerNavigationMenuLink.clickOnElement();
-    openSpacesPageLink.clickOnElement();
+    clickOnElement(hamburgerNavigationMenuLink);
+    clickOnElement(openSpacesPageLink);
   }
 
   public void searchSpaceInSideBarFilter(String space) {
-    sideBarFilterSpaces.clickOnElement();
+    clickOnElement(sideBarFilterSpaces);
     sideBarFilterSpacesInput.setTextValue(space);
-    filterSpacesSearchIcon.clickOnElement();
+    clickOnElement(filterSpacesSearchIcon);
   }
 
   public void checkNoActivityDisplayed() {
@@ -234,8 +234,8 @@ public class HomePage extends GenericPage {
 
   public void goToStreamPage() {
     Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
-    hamburgerNavigationMenuLink.clickOnElement();
-    streamPageLink.clickOnElement();
+    clickOnElement(hamburgerNavigationMenuLink);
+    clickOnElement(streamPageLink);
   }
 
   public void selectAllOrMySpaces(String filter) {
@@ -260,30 +260,35 @@ public class HomePage extends GenericPage {
       Assert.assertTrue(firstNotificationContent.getText().contains(message));
       Assert.assertTrue(firstNotificationContent.getText().contains(activity));
       Assert.assertTrue(firstNotificationContent.getText().contains(comment));
-      firstNotificationContent.clickOnElement();
+      clickOnElement(firstNotificationContent);
 
     } else {
       Assert.assertTrue(secondNotificationContent.getText().contains(message));
       Assert.assertTrue(secondNotificationContent.getText().contains(activity));
       Assert.assertTrue(secondNotificationContent.getText().contains(comment));
-      secondNotificationContent.clickOnElement();
+      clickOnElement(secondNotificationContent);
     }
   }
 
   public void openAppCenterMenu() {
-    appCenterButton.clickOnElement();
+    clickOnElement(appCenterButton);
   }
 
   public void goToAddUser() {
-    hamburgerNavigationMenuLink.clickOnElement();
-    addministrationMenu.clickOnElement();
-    addUserLink.clickOnElement();
+    clickOnElement(hamburgerNavigationMenuLink);
+    clickOnElement(addministrationMenu);
+    clickOnElement(addUserLink);
+  }
+
+  private void clickOnElement(BaseElementFacade element) {
+    element.waitUntilVisible();
+    element.clickOnElement();
   }
 
   public void goToAddGroups() {
-    hamburgerNavigationMenuLink.clickOnElement();
-    addministrationMenu.clickOnElement();
-    addGroupsLink.clickOnElement();
+    clickOnElement(hamburgerNavigationMenuLink);
+    clickOnElement(addministrationMenu);
+    clickOnElement(addGroupsLink);
   }
 
   public boolean isHomePageDisplayed() {
@@ -295,8 +300,8 @@ public class HomePage extends GenericPage {
   }
 
   public void goToHomePage() {
-    hamburgerNavigationMenuLink.clickOnElement();
-    homePageLink.clickOnElement();
+    clickOnElement(hamburgerNavigationMenuLink);
+    clickOnElement(homePageLink);
   }
 
   public void refreshPage() {
@@ -304,17 +309,17 @@ public class HomePage extends GenericPage {
   }
 
   public void openNotifications() {
-    notificationIcon.clickOnElement();
+    clickOnElement(notificationIcon);
   }
 
   public void goToSettingsPageViaUrl() {
-    hamburgerNavigationMenuLink.clickOnElement();
-    homePageLink.clickOnElement();
+    clickOnElement(hamburgerNavigationMenuLink);
+    clickOnElement(homePageLink);
   }
 
   public void goToPeoplePage() {
-    hamburgerNavigationMenuLink.clickOnElement();
-    personnePageLink.clickOnElement();
+    clickOnElement(hamburgerNavigationMenuLink);
+    clickOnElement(personnePageLink);
   }
 
   public void searchedSpaceIsDisplayedInSideBarFilter(String space) {
@@ -326,12 +331,11 @@ public class HomePage extends GenericPage {
   }
 
   public void clickWalletWidget() {
-    walletBalanceNumber.waitUntilVisible();
-    walletBalanceNumber.clickOnElement();
+    clickOnElement(walletBalanceNumber);
   }
 
   public boolean isWalletPageOpened() throws InterruptedException {
-//    Thread.sleep(5000);
+    // Thread.sleep(5000);
     walletApplication.isVisibleAfterWaiting();
     return Serenity.getWebdriverManager().getCurrentDriver().getTitle().equals("Wallet");
   }
@@ -341,8 +345,8 @@ public class HomePage extends GenericPage {
   }
 
   public void logout() {
-    hamburgerNavigationMenuLink.clickOnElement();
-    logOutMenu.clickOnElement();
+    clickOnElement(hamburgerNavigationMenuLink);
+    clickOnElement(logOutMenu);
   }
 
   public boolean isWidgetWithNumberVisible(String widget, String number) {
@@ -359,11 +363,11 @@ public class HomePage extends GenericPage {
   }
 
   public void clickOnSpacesBagde() {
-    spacesBadge.clickOnElement();
+    clickOnElement(spacesBadge);
   }
 
   public void clickOnConnectionsBagde() {
-    connectionsBadge.clickOnElement();
+    clickOnElement(connectionsBadge);
   }
 
   public boolean isNumberOfSpacesInDrawer(int expectedNumber) {
@@ -377,27 +381,27 @@ public class HomePage extends GenericPage {
   }
 
   public void rejectSpaceInvitation(String spaceName) {
-    getRejectIconSpaceFromDrawer(spaceName).clickOnElement();
+    clickOnElement(getRejectIconSpaceFromDrawer(spaceName));
   }
 
   public void acceptSpaceInvitation(String spaceName) {
-    getAcceptIconSpaceFromDrawer(spaceName).clickOnElement();
+    clickOnElement(getAcceptIconSpaceFromDrawer(spaceName));
   }
 
   public void acceptConnexionInvitation(String userName) {
-    getAcceptIconConnexionFromDrawer(userName).clickOnElement();
+    clickOnElement(getAcceptIconConnexionFromDrawer(userName));
   }
 
   public void rejectConnexionInvitation(String userName) {
-    getRejectIconConnexionFromDrawer(userName).clickOnElement();
+    clickOnElement(getRejectIconConnexionFromDrawer(userName));
   }
 
   public void closeSpaceDrawer() {
-    closeSpaceDrawerButton.clickOnElement();
+    clickOnElement(closeSpaceDrawerButton);
   }
 
   public void openAllApplicationPage() {
-    viewAllApplicationLink.clickOnElement();
+    clickOnElement(viewAllApplicationLink);
   }
 
   public void searchApplicationCenter(String app) {
@@ -405,42 +409,41 @@ public class HomePage extends GenericPage {
   }
 
   public void goToappCenterAdminSetupPage() {
-    hamburgerNavigationMenuLink.clickOnElement();
-    addministrationMenu.clickOnElement();
-    applicationAdminPageLink.clickOnElement();
+    clickOnElement(hamburgerNavigationMenuLink);
+    clickOnElement(addministrationMenu);
+    clickOnElement(applicationAdminPageLink);
   }
 
   public void goToSettingsPage() {
-    hamburgerNavigationMenuLink.clickOnElement();
-    settingsPageLink.clickOnElement();
+    clickOnElement(hamburgerNavigationMenuLink);
+    clickOnElement(settingsPageLink);
   }
 
   public void goToMyProfile() {
-    hamburgerNavigationMenuLink.clickOnElement();
-    myProfileButton.clickOnElement();
+    clickOnElement(hamburgerNavigationMenuLink);
+    clickOnElement(myProfileButton);
   }
 
   public void goToProfilePage() {
-    hamburgerNavigationMenuLink.clickOnElement();
-    myProfilePageLink.clickOnElement();
+    clickOnElement(hamburgerNavigationMenuLink);
+    clickOnElement(myProfilePageLink);
   }
 
   public void goToTasksPage() {
-    tasksSnapshotPageButton.waitUntilVisible();
-    tasksSnapshotPageButton.clickOnElement();
+    clickOnElement(tasksSnapshotPageButton);
   }
 
   public void clickSeeAll() {
-    seeAllLink.clickOnElement();
+    clickOnElement(seeAllLink);
   }
 
   public void deactivateSwitcher() {
     switcherButton.isVisible();
-    switcherButton.clickOnElement();
+    clickOnElement(switcherButton);
   }
 
   public void clickOnHamburgerIcon() {
-    hamburgerNavigationMenuLink.clickOnElement();
+    clickOnElement(hamburgerNavigationMenuLink);
   }
 
   public void hoverOnStreamIcon() {
@@ -448,16 +451,16 @@ public class HomePage extends GenericPage {
   }
 
   public void clickOnHomeIcon() {
-    homeIcon.clickOnElement();
+    clickOnElement(homeIcon);
   }
 
   public void confirmationForChangeSiteHomeLink() {
-    confirmationForChangeSiteHomeLink.clickOnElement();
+    clickOnElement(confirmationForChangeSiteHomeLink);
     Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
   }
 
   public void clickOnHomePageButton() {
-    homePageButton.clickOnElement();
+    clickOnElement(homePageButton);
   }
 
   public void checkThatStreamPageIsDisplayed() {
@@ -465,7 +468,7 @@ public class HomePage extends GenericPage {
   }
 
   public void clickOnSpaceInvitationWidget() {
-    spaceInvitaitationWidget.clickOnElement();
+    clickOnElement(spaceInvitaitationWidget);
   }
 
   public void checkExistingSpaceInvitation(String spaceName) {
@@ -487,7 +490,7 @@ public class HomePage extends GenericPage {
   }
 
   public void favoriteActivity(String activity) {
-    getFavoriteIconActivity(activity).clickOnElement();
+    clickOnElement(getFavoriteIconActivity(activity));
   }
 
   private BaseElementFacade getFavoriteSucessMessage(String message) {
@@ -499,11 +502,11 @@ public class HomePage extends GenericPage {
   }
 
   public void unbookmarkActivity(String activity) {
-    getFavoriteIconActivity(activity).clickOnElement();
+    clickOnElement(getFavoriteIconActivity(activity));
   }
 
   public void bookmarkActivity(String activity) {
-    getFavoriteIconActivity(activity).clickOnElement();
+    clickOnElement(getFavoriteIconActivity(activity));
   }
 
 }
