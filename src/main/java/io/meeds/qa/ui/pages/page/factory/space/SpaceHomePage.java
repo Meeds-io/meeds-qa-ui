@@ -16,7 +16,7 @@ public class SpaceHomePage extends GenericPage {
     super(driver);
   }
 
-  @FindBy(xpath = "//div[@id='activityComposer']//i[@class='uiIconEdit']")
+  @FindBy(xpath = "//*[@id='activityComposer']//i[@class='uiIconEdit']")
   private BaseElementFacade    postIcon;
 
   @FindBy(xpath = "//*[contains(@class,'drawerHeader')]//*[contains(@class,'mdi-close')]")
