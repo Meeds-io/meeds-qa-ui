@@ -64,7 +64,7 @@ public class ChallengesStepDefinition {
     challengesSteps.addChallengeWithDescription(description);
   }
 
-  @Then("The message '(.*)' should be displayed")
+  @Then("^The message '(.*)' should be displayed$")
   public void checkSuccessMessage(String message) {
     challengesSteps.checkSuccessMessage(message);
   }
