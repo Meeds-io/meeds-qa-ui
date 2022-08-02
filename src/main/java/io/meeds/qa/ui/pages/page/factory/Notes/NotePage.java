@@ -52,11 +52,11 @@ public class NotePage extends GenericPage {
     noteTileTextBox.setTextValue(noteTitle);
     ckEditorFrameNote.waitUntilVisible();
     ckEditorFrameNote.clickOnElement();
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameNote);
+    driver.switchTo().frame(ckEditorFrameNote);
 
     noteContentTextBox.waitUntilVisible();
     noteContentTextBox.setTextValue(noteContent);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
   }
 
   public void saveNote() {
@@ -91,11 +91,11 @@ public class NotePage extends GenericPage {
     noteTileTextBox.setTextValue(noteTitle);
     ckEditorFrameNote.waitUntilVisible();
     ckEditorFrameNote.clickOnElement();
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameNote);
+    driver.switchTo().frame(ckEditorFrameNote);
 
     noteContentTextBox.waitUntilVisible();
     noteContentTextBox.setTextValue(noteContent);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
 
     saveButton.waitUntilVisible();
     saveButton.waitUntilClickable();
@@ -115,10 +115,10 @@ public class NotePage extends GenericPage {
     noteTileTextBox.setTextValue(noteTitleEdited);
     ckEditorFrameNote.waitUntilVisible();
     ckEditorFrameNote.clickOnElement();
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameNote);
+    driver.switchTo().frame(ckEditorFrameNote);
     noteContentTextBox.waitUntilVisible();
     noteContentTextBox.setTextValue(noteContentEdited);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
 
     saveButton.waitUntilVisible();
     saveButton.waitUntilClickable();

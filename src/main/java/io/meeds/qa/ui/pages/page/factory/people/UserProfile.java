@@ -277,7 +277,7 @@ public class UserProfile extends GenericPage {
     EDIT_WORK_EXPERIENCES.clickOnElement();
     openWorkExperience(jobTitle).clickOnElement();
     ELEMENT_REMOVE_WORK_EXPERIENCE.clickOnElement();
-    JavascriptExecutor executor = (JavascriptExecutor) Serenity.getWebdriverManager().getCurrentDriver();
+    JavascriptExecutor executor = (JavascriptExecutor) driver;
     executor.executeScript("arguments[0].click();", SAVE_WORK_EXPERIENCES);
     SAVE_WORK_EXPERIENCES.waitUntilNotVisible();
   }
@@ -352,10 +352,10 @@ public class UserProfile extends GenericPage {
   public void sendKudos(String comment) {
     ckEditorFrameSendKudosDrawer.waitUntilVisible();
     ckEditorFrameSendKudosDrawer.clickOnElement();
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameSendKudosDrawer);
+    driver.switchTo().frame(ckEditorFrameSendKudosDrawer);
     sendKudosMessageContent.waitUntilVisible();
     sendKudosMessageContent.setTextValue(comment);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
     sendKudosButton.clickOnElement();
   }
 
@@ -485,7 +485,7 @@ public class UserProfile extends GenericPage {
 
     // Thread.sleep(3000);
     SAVE_WORK_EXPERIENCES.waitUntilVisible();
-    JavascriptExecutor executor = (JavascriptExecutor) Serenity.getWebdriverManager().getCurrentDriver();
+    JavascriptExecutor executor = (JavascriptExecutor) driver;
     executor.executeScript("arguments[0].click();", SAVE_WORK_EXPERIENCES);
     SAVE_WORK_EXPERIENCES.waitUntilNotVisible();
   }
@@ -530,7 +530,7 @@ public class UserProfile extends GenericPage {
       $(ELEMENT_CONTACT_JOB_TITLE_EDIT_BTN).clear();
       $(ELEMENT_CONTACT_JOB_TITLE_EDIT_BTN).sendKeys(job);
     }
-    JavascriptExecutor executor = (JavascriptExecutor) Serenity.getWebdriverManager().getCurrentDriver();
+    JavascriptExecutor executor = (JavascriptExecutor) driver;
     executor.executeScript("arguments[0].click();", ELEMENT_CONTACT_EDIT_SAVE_BTN);
     ELEMENT_CONTACT_EDIT_SAVE_BTN.waitUntilNotVisible();
   }
@@ -548,7 +548,7 @@ public class UserProfile extends GenericPage {
   }
 
   public void goToSentKudos() {
-    Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
+    driver.navigate().refresh();
     ELEMENT_CONTACT_SENT_KUDOS.clickOnElement();
   }
 

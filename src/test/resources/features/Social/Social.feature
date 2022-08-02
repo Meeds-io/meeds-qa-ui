@@ -4,7 +4,6 @@ Feature: Social
   As a user I have the right
   to comment on any activity in a space in which I am a member
 
-  @test
   @activitystream
   Scenario: Comment on your friends activity
     Given I am authenticated as admin

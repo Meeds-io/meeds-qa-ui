@@ -9,11 +9,6 @@ import net.thucydides.core.annotations.Steps;
 
 public class AddGroupsStepDefinition {
 
-  public AddGroupsStepDefinition(HomeSteps homeSteps, AddGroupsSteps addGroupsSteps) {
-    this.homeSteps = homeSteps;
-    this.addGroupsSteps = addGroupsSteps;
-  }
-
   @Steps
   HomeSteps      homeSteps;
 

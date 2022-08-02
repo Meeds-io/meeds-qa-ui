@@ -118,10 +118,10 @@ public class KudosPage extends GenericPage {
   public void addActivityKudos(String activityId, String comment) {
     ELEMENT_kudos_LINK(activityId).clickOnElement();
     ckEditorFrameKudos.clickOnElement();
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameKudos);
+    driver.switchTo().frame(ckEditorFrameKudos);
     kudosField.waitUntilVisible();
     kudosField.setTextValue(comment);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
     kudosButtonInDrawer.isVisibleAfterWaiting();
     kudosButtonInDrawer.clickOnElement();
     ckEditorFrameKudos.isNotVisibleAfterWaiting();
@@ -196,11 +196,11 @@ public class KudosPage extends GenericPage {
   public void updateKudosMessage(String comment) {
 
     ckEditorFrameKudos.clickOnElement();
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameKudos);
+    driver.switchTo().frame(ckEditorFrameKudos);
     KudosField.waitUntilVisible();
     KudosField.clear();
     KudosField.setTextValue(comment);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
 
     updateKudosButon.clickOnElement();
 
@@ -211,20 +211,20 @@ public class KudosPage extends GenericPage {
   }
 
   public void addActivityCommentKudos(String comment) {
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameKudos);
+    driver.switchTo().frame(ckEditorFrameKudos);
     kudosField.waitUntilVisible();
     kudosField.setTextValue(comment);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
     kudosButtonInDrawer.isVisibleAfterWaiting();
     kudosButtonInDrawer.clickOnElement();
     ckEditorFrameKudos.isNotVisibleAfterWaiting();
   }
 
   public void addActivityCommentKudosFromDrawer(String comment) {
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameKudosFromDrawer);
+    driver.switchTo().frame(ckEditorFrameKudosFromDrawer);
     kudosFieldFromDrawer.waitUntilVisible();
     kudosFieldFromDrawer.setTextValue(comment);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
     kudosButtonInDrawer.isVisibleAfterWaiting();
     kudosButtonInDrawer.clickOnElement();
     ckEditorFrameKudosFromDrawer.isNotVisibleAfterWaiting();
@@ -242,11 +242,11 @@ public class KudosPage extends GenericPage {
 
   public void updateKudosCommentMessage(String comment) {
     ckEditorFrameKudos.clickOnElement();
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameKudos);
+    driver.switchTo().frame(ckEditorFrameKudos);
     KudosField.waitUntilVisible();
     KudosField.clear();
     KudosField.setTextValue(comment);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
     updateKudosComment.clickOnElement();
   }
 

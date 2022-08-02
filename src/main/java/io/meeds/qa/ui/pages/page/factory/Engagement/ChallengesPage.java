@@ -82,7 +82,7 @@ public class ChallengesPage extends GenericPage {
   public void addSpaceAudience(String randomSpaceName) {
     audienceSpaceField.waitUntilVisible();
     if (audienceSpaceField.isNotVisibleAfterWaiting()) {
-      Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
+      driver.navigate().refresh();
     }
     audienceSpaceField.waitUntilVisible();
     audienceSpaceField.setTextValue(randomSpaceName + " ");
@@ -120,10 +120,10 @@ public class ChallengesPage extends GenericPage {
 
   public void addChallengeWithDescription(String description) {
     ckEditorFrameChallenge.clickOnElement();
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameChallenge);
+    driver.switchTo().frame(ckEditorFrameChallenge);
     challengeDescriptionField.waitUntilVisible();
     challengeDescriptionField.setTextValue(description);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
     createButton.clickOnElement();
   }
 
@@ -161,10 +161,10 @@ public class ChallengesPage extends GenericPage {
 
   public void addChallengeWithRandomDescription(String challengeDescription) {
     ckEditorFrameChallenge.clickOnElement();
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameChallenge);
+    driver.switchTo().frame(ckEditorFrameChallenge);
     challengeDescriptionField.waitUntilVisible();
     challengeDescriptionField.setTextValue(challengeDescription);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
     createButton.clickOnElement();
   }
 
@@ -225,10 +225,10 @@ public class ChallengesPage extends GenericPage {
 
   public void addAnnouncementWithRandomDescription(String announcementDescription) {
     ckEditorFrameChallenge.clickOnElement();
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameChallenge);
+    driver.switchTo().frame(ckEditorFrameChallenge);
     challengeDescriptionField.waitUntilVisible();
     challengeDescriptionField.setTextValue(announcementDescription);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
     createAnnouncement.clickOnElement();
 
   }

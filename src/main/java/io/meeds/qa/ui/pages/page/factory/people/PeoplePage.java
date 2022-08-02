@@ -145,7 +145,7 @@ public class PeoplePage extends GenericPage {
 
   public void checkConnectToUser(String user) {
 
-    Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
+    driver.navigate().refresh();
     searchPeopleInput.waitUntilVisible();
     searchPeopleInput.sendKeys(user);
     if (getDisconnectUserButton(user).isVisibleAfterWaiting() && disconnectLabel.isVisibleAfterWaiting()) {
@@ -170,7 +170,7 @@ public class PeoplePage extends GenericPage {
   }
 
   public void connectUserProfile() {
-    Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
+    driver.navigate().refresh();
     connectUserProfile.waitUntilVisible();
     connectUserProfile.clickOnElement();
   }

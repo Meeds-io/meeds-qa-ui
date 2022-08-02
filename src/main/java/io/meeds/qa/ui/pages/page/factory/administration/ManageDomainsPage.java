@@ -100,7 +100,7 @@ public class ManageDomainsPage extends GenericPage {
   public void insertDomainNameInSearchField(String domainName) {
     searchDomainInput.waitUntilVisible();
     if (searchDomainInput.isNotVisibleAfterWaiting()) {
-      Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
+      driver.navigate().refresh();
     }
     searchDomainInput.waitUntilVisible();
     searchDomainInput.setTextValue(domainName);
