@@ -47,6 +47,7 @@ Feature: Login widget checking
     And I click on see all
     And the 'People' page is opened
 
+  @ignore
   Scenario:US 3.3.4_(02)[BACK]Connections requests : accept and reject
     Given I am authenticated as admin
     And I create the first random user
@@ -72,6 +73,7 @@ Feature: Login widget checking
 
     Then The 'Connections' number is '2'
 
+  @ignore
   Scenario: US 3.3.7[BACK]Common Connections for users requests
     Given I am authenticated as admin
     When I create the first random user

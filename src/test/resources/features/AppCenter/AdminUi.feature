@@ -17,7 +17,7 @@ Feature: UI app administration
     And I refresh the page
 
   @appcenter
-  @appcenterAdministration
+  @appcenterAdministration @ignore
   Scenario: CAP79-[Admin_UI_US07][02]:Delete an app
     Given I am authenticated as admin
     And I go to Administer application center Page
@@ -30,7 +30,7 @@ Feature: UI app administration
     Then The random application is not displayed in application list
 
   @appcenter
-  @appcenterAdministration
+  @appcenterAdministration @ignore
   Scenario:CAP80-[Admin_UI_US07][03]:Cancel button /close icon
     Given I am authenticated as admin
     And I go to Administer application center Page

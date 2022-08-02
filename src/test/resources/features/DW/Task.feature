@@ -1,5 +1,6 @@
 Feature: Task Drawer Checking
 
+  @ignore
   Scenario: US 3.13.5 [FRONT/BACK] : Comments in Task drawer
     Given I am authenticated as admin
     And I create the first random user
@@ -48,6 +49,7 @@ Feature: Task Drawer Checking
     And I close task comments drawer
     And I close task drawer
 
+  @ignore
   Scenario: US 3.13.7 [FRONT/BACK] : Update Project Name in Task Drawer
     Given I am authenticated as admin
 
@@ -76,6 +78,7 @@ Feature: Task Drawer Checking
     And Task name 'task1313' is displayed in project details
     And Tasks number '1' is displayed in the column To Do
 
+  @ignore
   Scenario: US 3.13.9 [FRONT/BACK]_(02) : Mark as Completed in Task Drawer
     Given I am authenticated as admin
 
@@ -97,6 +100,7 @@ Feature: Task Drawer Checking
     And Task name 'task1414' is not displayed in project details
     And Tasks number '0' is displayed in the column To Do
 
+  @ignore
   Scenario: Cap182 - [-2287] [PFR] [Can't add a long comment]Comment button is disabled when exceeds the max chars number
     Given I am authenticated as admin
     And I create the first random user
@@ -192,6 +196,7 @@ Feature: Task Drawer Checking
     And I close task comments drawer
     And I close task drawer
 
+  @ignore
   Scenario: US 3.13.10 [FRONT/BACK] : Update Status, Due Date and Priority in Task Drawer
     Given I am authenticated as admin
     And I create the first random user

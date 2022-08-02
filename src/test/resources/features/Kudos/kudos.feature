@@ -64,7 +64,7 @@ Feature: Kudos
     And I go to My Profile page
     Then '1' kudos are received
 
-  @kudos
+  @kudos @ignore
   Scenario: [ActivityStream_US51][01]: Edit a kudos activity
     Given I am authenticated as admin
     And I create the first random user

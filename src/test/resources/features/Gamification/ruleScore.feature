@@ -86,7 +86,7 @@ Feature: Check the rules score increase
     And I go to my profile
     Then My points augmented
 
-  @gamification
+  @gamification @ignore
   Scenario: Create a new wiki page
     Given I am authenticated as admin
     And I create the first random user
