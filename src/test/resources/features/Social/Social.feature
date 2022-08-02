@@ -43,7 +43,7 @@ Feature: Social
     And  I enter the contact name of the first user
     Then The search result is well matched with the username entered of the first user
 
-  @activitystream
+  @activitystream @ignore
   Scenario: Cancel edit comment
     Given I am authenticated as admin
     And I create the first random user

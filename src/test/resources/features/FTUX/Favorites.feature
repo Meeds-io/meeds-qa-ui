@@ -2,7 +2,7 @@
 # Tags: optional
 Feature: Favorite activities
 
-  @favorite
+  @favorite @ignore
   Scenario: [Favs_US03]: Bookmark an activity
     Given I am authenticated as admin
     And I create the first random user
@@ -16,7 +16,7 @@ Feature: Favorite activities
     When I favorite the activity posted in the space
     Then The favorite success message 'Favorite added successfully. Find it easily from the search' should be displayed
 
-  @favorite
+  @favorite  @ignore
   Scenario: [Favs_US04]: Remove the Bookmark for an activity
     Given I am authenticated as admin
     And I create the first random user
@@ -87,7 +87,7 @@ Feature: Favorite activities
     And The activity is displayed in the search 'activity2'
     And The activity is displayed in the search 'activity0'
 
-  @favorite
+  @favorite  @ignore
   Scenario: [Favs_US06][01]: Manage favorites from the search card ( Bookmark an activity)
     Given I am authenticated as admin
     And I create the first random user
@@ -109,7 +109,7 @@ Feature: Favorite activities
     And The activity is not displayed in the search 'activity2'
     And The activity is not displayed in the search 'activity0'
 
-  @favorite
+  @favorite @ignore
   Scenario: [Favs_US06][02]: Manage favorites from the search card ( UnBookmark an activity)
     Given I am authenticated as admin
     And I create the first random user
@@ -133,7 +133,7 @@ Feature: Favorite activities
     And The activity is not displayed in the search 'activity1'
     And The activity is not displayed in the search 'activity0'
 
-  @favorite
+  @favorite @ignore
   Scenario: [Fav_US13][01]: Bookmark a note from it's details
     Given I am authenticated as admin
     And I create the first random user
@@ -159,7 +159,7 @@ Feature: Favorite activities
     When  I go to Stream page
     Then The star icon of note activity should be yellow
 
-  @favorite
+  @favorite @ignore
   Scenario: [Fav_US13][02]: Bookmark a note from it's activity
     Given I am authenticated as admin
     And I create a space with full template
@@ -179,7 +179,7 @@ Feature: Favorite activities
     Then Note tile 'Note2' and content 'Content2' are displayed successfully
     And The star icon of the note details page should be yellow
 
-  @favorite
+  @favorite @ignore
   Scenario: [Fav_US14][01]: Remove the bookmark for a note from it's details
     Given I am authenticated as admin
     And I create the first random user
@@ -206,7 +206,7 @@ Feature: Favorite activities
     When  I go to Stream page
     Then The star icon of note activity should be grey
 
-  @favorite
+  @favorite @ignore
   Scenario:[Fav_US14][02]: Remove the bookmark for a note from it's activity
     Given I am authenticated as admin
     And I create a space with full template
@@ -226,7 +226,7 @@ Feature: Favorite activities
     When I access note 'Note4' activity
     Then The star icon of the note page should be grey
 
-  @favorite
+  @favorite @ignore
   Scenario:[Fav_US15][01]: Search by favorites and notes
     Given I am authenticated as admin
     And I create a space with full template

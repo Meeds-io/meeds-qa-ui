@@ -33,6 +33,7 @@ Feature: Meeds Space
     And The first created space is not displayed in Spaces Requests section
     And The second created space is not displayed in Spaces Requests section
 
+   @ignore
   Scenario: [SPC_MNG-7] General Space Settings
     Given I am authenticated as admin
     When I create the random space
@@ -50,6 +51,7 @@ Feature: Meeds Space
     And I check that cancel button is displayed
     And I check that update button is displayed
 
+  @ignore
   Scenario: [SPC_MNG-8] Spaces applications management
     Given I am authenticated as admin
     When I create the random space

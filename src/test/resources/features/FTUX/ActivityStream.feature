@@ -1,6 +1,7 @@
 @activitystream
 Feature: Activity Stream
 
+  @ignore
   Scenario: CAP01 - ActivityStream_US01: Activity topbar section
     Given I am authenticated as admin
     And I create the first random user
@@ -24,6 +25,7 @@ Feature: Activity Stream
     When I go to Stream page
     Then The activity 'activityTest01' posted by the second user in the created space is displayed with its timestamp in streams page
 
+  @ignore
   Scenario: CAP02 - ActivityStream_US03: new Activity body with text display
     Given I am authenticated as admin
 
@@ -47,6 +49,7 @@ Feature: Activity Stream
     When I click on the second user Popover
     Then The profile page is displayed
 
+  @ignore
   Scenario: CAP03 - [ActivityStream_US05][01]: Display first 10 created activities in new Activity Stream
     Given I am authenticated as admin
     And I create the first random user
@@ -123,6 +126,7 @@ Feature: Activity Stream
     And the activity 'act11' is displayed in stream page
     And the activity 'act10' is not displayed in stream page
 
+  @ignore
   Scenario: CAP04 - [ActivityStream_US05][02]: Display first 10 activities in new Activity Stream
     Given I am authenticated as admin
 
@@ -286,6 +290,7 @@ Feature: Activity Stream
     And the activity 'act30updated' is displayed in stream page
     And the activity 'act10' is not displayed in stream page
 
+  @ignore
   Scenario: CAP05 - [ActivityStream_US05][03]: Display first 10 activities in new Activity Stream
     Given I am authenticated as admin
 
@@ -1223,6 +1228,7 @@ Feature: Activity Stream
     And In activity 'activityTest108' with comment 'commenttest108', the reply 'replyTest102' is displayed
     And In activity 'activityTest108' with comment 'commenttest108', the reply 'replyTest103' is displayed
 
+  @ignore
   Scenario: CAP109 - [ActivityStream_US40][01]: Like my comment/reply from activity stream
     Given I am authenticated as admin
 
@@ -1304,6 +1310,7 @@ Feature: Activity Stream
     And In comment 'commenttest110', Like label should be black
     And On comment 'commenttest110', '(0)' like is displayed
 
+  @ignore
   Scenario: CAP111 - [ActivityStream_US40][03]: Like comment/reply of other user from activity stream
     Given I am authenticated as admin
 
@@ -1391,6 +1398,7 @@ Feature: Activity Stream
     And In comment 'commenttest112', Like label should be black
     And On comment 'commenttest112', '(0)' like is displayed
 
+  @ignore
   Scenario: CAP115 - [ActivityStream_US41][01 ]: Like my comment/reply from the comment drawer
     Given I am authenticated as admin
 
@@ -1478,6 +1486,7 @@ Feature: Activity Stream
     And In comments drawer, on comment 'commenttest116', '(0)' like is displayed
     And I close the comments drawer
 
+  @ignore
   Scenario: CAP121 - [ActivityStream_IMPV14][01]: Display maximum only the last 2 comments/replies below each activity
     Given I am authenticated as admin
 
@@ -1691,6 +1700,7 @@ Feature: Activity Stream
     When I open link 'https://www.exoplatform.com/' in new tab
     Then Link 'https://www.exoplatform.com/' is opened in new tab
 
+  @ignore
   Scenario: CAP12 - [ActivityStream_US10][01]: Activity with text or link options (3 dots) (Author)
     Given I am authenticated as admin
 
@@ -1723,6 +1733,7 @@ Feature: Activity Stream
     And Delete button related to activity 'activity12' is displayed
     And Copy link button related to activity 'activity12' is displayed
 
+  @ignore
   Scenario: CAP13 - [ActivityStream_US10][02]: Activity with text or link options (3 dots) (Space manager)
     Given I am authenticated as admin
 
@@ -1782,6 +1793,7 @@ Feature: Activity Stream
     Then Delete button related to activity 'activity13' is displayed
     And Copy link button related to activity 'activity13' is displayed
 
+  @ignore
   Scenario: CAP97 - [ActivityStream_US38][01]: Delete a simple comment from the activity stream
     Given I am authenticated as admin
 
@@ -1825,6 +1837,7 @@ Feature: Activity Stream
     Then the confirmation popup is not displayed
     And Comment 'commenttest97' is not displayed in activity 'activityTest97'
 
+  @ignore
   Scenario: CAP99 - [ActivityStream_US38][03]: Delete comment with replies from the activity stream
     Given I am authenticated as admin
 
@@ -1938,6 +1951,7 @@ Feature: Activity Stream
     Then Sixth User is not mentioned in the comment
     And I close the comments drawer
 
+  @ignore
   Scenario: Cap146 - [ActivityStream_US40][01 ]: Notifications for comments to my activity
     Given I am authenticated as admin
 
@@ -1969,6 +1983,7 @@ Feature: Activity Stream
     And Activity Comment 'commenttest146' is displayed in activity stream
     And I go to the home page
 
+  @ignore
   Scenario: Cap147 - [ActivityStream_US40][02]: Notifications for comment to my comment
     Given I am authenticated as admin
 
@@ -2008,6 +2023,7 @@ Feature: Activity Stream
     And In activity 'activityTest147' with comment 'commenttest147', the reply 'replyTest147' is displayed
     And I go to the home page
 
+  @ignore
   Scenario: CAP20 - [ActivityStream_US10][09]: Activity with text or link options (3 dots) (Author delete the post)
     Given I am authenticated as admin
 
@@ -2036,6 +2052,7 @@ Feature: Activity Stream
     When I go to Stream page
     Then the activity 'activityus1009cap20' is not displayed in stream page
 
+  @ignore
   Scenario: CAP21 - [ActivityStream_US10][10]: Activity with text or link options (3 dots) ( Author cancel delete post)
     Given I am authenticated as admin
 
@@ -2064,6 +2081,7 @@ Feature: Activity Stream
     When I go to Stream page
     Then the activity 'activityus1010cap21' is displayed in stream page
 
+  @ignore
   Scenario: CAP87 - [ActivityStream_US04][01]: Edit comment in Activity stream
     Given I am authenticated as admin
 
@@ -2124,6 +2142,7 @@ Feature: Activity Stream
     And I open in activity 'activitycap87' the Comments drawer
     Then Comment 'commenttestupdated104https://www.exoplatform.com/commenttest104' is displayed in comments drawer at the sixth position
 
+  @ignore
   Scenario: CAP88 - [ActivityStream_US04.1][01]: Edit comment from the comment drawer
     Given I am authenticated as admin
 
@@ -2177,6 +2196,7 @@ Feature: Activity Stream
     And I open in activity 'activitycap87' the Comments drawer
     Then Comment 'updatedcommenttest104' is displayed in comments drawer at the sixth position
 
+  @ignore
   Scenario: [ActivityStream_US32][02]: space note page
     Given I am authenticated as admin
     And I create the first random user
@@ -2230,6 +2250,7 @@ Feature: Activity Stream
     And I click on the kudos button number
     Then '1' kudos are displayed on the reaction drawer
 
+  @ignore
   Scenario: CAP129 - [ActivityStream_US47][03]: Send a kudos from the comments drawer
 
     Given I am authenticated as admin
@@ -2370,6 +2391,7 @@ Feature: Activity Stream
     When I click on the kudos button number
     Then '1' kudos are displayed on the reaction drawer
 
+  @ignore
   Scenario: CAP89 - [ActivityStream_US04][03]: Edit reply in Activity stream
     Given I am authenticated as admin
 
@@ -2427,6 +2449,7 @@ Feature: Activity Stream
     And I open in activity 'activitycap87' the Comments drawer
     Then Fourth comment 'commenttestupdated104' is displayed in comments drawer
 
+  @ignore
   Scenario: [ActivityStream_US52][03]: Edit a kudos from a comment
     Given I am authenticated as admin
     And I create the first random user
@@ -2461,6 +2484,7 @@ Feature: Activity Stream
     And I set the new kudos comment text 'updated kudos message ' and I click on update button
     Then the updated Kudos activity 'updated kudos message ' is displayed in stream page
 
+  @ignore
   Scenario: [ActivityStream_US52][05]: Edit a kudos from a reply
     Given I am authenticated as admin
     And I create the first random user
@@ -2506,6 +2530,7 @@ Feature: Activity Stream
     And I set the new kudos comment text 'updated kudos message ' and I click on update button
     Then the updated Kudos activity 'updated kudos message ' is displayed in stream page
 
+  @ignore
   Scenario: CAP132 - [ActivityStream_US52][01]: Edit a kudos comment from an activity
     Given I am authenticated as admin
     And I create the first random user

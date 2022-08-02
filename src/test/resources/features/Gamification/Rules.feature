@@ -88,7 +88,7 @@ Feature: Rules
     When I go to my profile
     Then My points augmented
 
-  @gamification
+  @gamification @ignore
   Scenario: Create new task
     Given I am authenticated as admin
     And I check my points
@@ -101,7 +101,7 @@ Feature: Rules
     And I go to my profile
     Then My points augmented
 
-  @gamification
+  @gamification @ignore
   Scenario: Complete assigned task
     Given I am authenticated as admin
 

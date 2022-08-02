@@ -51,7 +51,7 @@ Feature: User adds, deletes, edits and clones a project
     And The placeholder Filter by project should be displayed
     And The clear button is disappeared from the Filter by project field
 
-  @task
+  @task @ignore
   Scenario: CAP15 - [Project_Card_US01]: check the display "Spaces Managers avatars"
     Given I am authenticated as admin
     And I create the first random user
@@ -137,7 +137,7 @@ Feature: User adds, deletes, edits and clones a project
     And I click on save project button
     Then Message Project Title is mandatory is displayed
 
-  @task
+  @task @ignore
   Scenario: CAP290 - [Bug]: Project participant cannot open the edit status mode
     Given I am authenticated as admin
     And I create the first random user
