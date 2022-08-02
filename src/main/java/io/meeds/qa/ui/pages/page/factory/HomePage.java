@@ -10,11 +10,13 @@ import org.openqa.selenium.WebDriver;
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class HomePage extends GenericPage {
+
+  @FindBy(id = "HamburgerMenuNavigation")
+  private BaseElementFacade    hamburgerMenuNavigation;
 
   @FindBy(xpath = "//*[contains(@class,'HamburgerNavigationMenuLink')]")
   private BaseElementFacade    hamburgerNavigationMenuLink;
@@ -25,9 +27,6 @@ public class HomePage extends GenericPage {
   @FindBy(xpath = "//a[@href='/portal/meeds/spaces']")
   private BaseElementFacade    openSpacesPageLink;
 
-  @FindBy(xpath = "//a[@href='/portal/meeds/stream']")
-  private BaseElementFacade    streamPageLink;
-
   @FindBy(xpath = "(//div[contains(@class,'profileCard')]//*[@aria-label='Badge'])[2]")
   private BaseElementFacade    connectionsBadge;
 
@@ -37,11 +36,11 @@ public class HomePage extends GenericPage {
   @FindBy(xpath = "//*[@id='ActivityContextBoxWelcomeActivity']")
   private BaseElementFacade    contextBoxWelcomeActivity;
 
-  @FindBy(xpath = "//a[@href='/portal/meeds/home']")
-  private BaseElementFacade    homePageLink;
-
   @FindBy(xpath = "//*[@id='tasks']//*[@class='body-1 text-uppercase color-title px-0']")
   private BaseElementFacade    tasksSnapshotPageButton;
+
+  @FindBy(xpath = "//i[contains(@class,'uiIconStream')]")
+  private BaseElementFacade    streamPageLink;
 
   @FindBy(xpath = "//i[contains(@class,'uiIconPeople')]")
   private BaseElementFacade    personnePageLink;
@@ -213,12 +212,12 @@ public class HomePage extends GenericPage {
   }
 
   public void hoverOnRecentSpaces() {
-    clickOnElement(hamburgerNavigationMenuLink);
+    clickOnHamburgerMenu();
     recentSpacesBtn.hover("//*[contains(@class,'spacesNavigationTitle')]//*[contains(@class,'titleLabel')]");
   }
 
   public void goToSpacesPage() {
-    clickOnElement(hamburgerNavigationMenuLink);
+    clickOnHamburgerMenu();
     clickOnElement(openSpacesPageLink);
   }
 
@@ -233,8 +232,8 @@ public class HomePage extends GenericPage {
   }
 
   public void goToStreamPage() {
-    Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
-    clickOnElement(hamburgerNavigationMenuLink);
+    driver.navigate().refresh();
+    clickOnHamburgerMenu();
     clickOnElement(streamPageLink);
   }
 
@@ -275,19 +274,13 @@ public class HomePage extends GenericPage {
   }
 
   public void goToAddUser() {
-    clickOnElement(hamburgerNavigationMenuLink);
+    clickOnHamburgerMenu();
     clickOnElement(addministrationMenu);
     clickOnElement(addUserLink);
   }
 
-  private void clickOnElement(BaseElementFacade element) {
-    element.resetTimeouts();
-    element.waitUntilVisible();
-    element.clickOnElement();
-  }
-
   public void goToAddGroups() {
-    clickOnElement(hamburgerNavigationMenuLink);
+    clickOnHamburgerMenu();
     clickOnElement(addministrationMenu);
     clickOnElement(addGroupsLink);
   }
@@ -301,25 +294,19 @@ public class HomePage extends GenericPage {
   }
 
   public void goToHomePage() {
-    clickOnElement(hamburgerNavigationMenuLink);
-    clickOnElement(homePageLink);
+    driver.get("/portal/meeds/");
   }
 
   public void refreshPage() {
-    Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
+    driver.navigate().refresh();
   }
 
   public void openNotifications() {
     clickOnElement(notificationIcon);
   }
 
-  public void goToSettingsPageViaUrl() {
-    clickOnElement(hamburgerNavigationMenuLink);
-    clickOnElement(homePageLink);
-  }
-
   public void goToPeoplePage() {
-    clickOnElement(hamburgerNavigationMenuLink);
+    clickOnHamburgerMenu();
     clickOnElement(personnePageLink);
   }
 
@@ -338,20 +325,20 @@ public class HomePage extends GenericPage {
   public boolean isWalletPageOpened() throws InterruptedException {
     // Thread.sleep(5000);
     walletApplication.isVisibleAfterWaiting();
-    return Serenity.getWebdriverManager().getCurrentDriver().getTitle().equals("Wallet");
+    return driver.getTitle().equals("Wallet");
   }
 
   public boolean isPageOpened(String page) {
-    return Serenity.getWebdriverManager().getCurrentDriver().getTitle().equals(page);
+    return driver.getTitle().equals(page);
   }
 
   public void logout() {
-    clickOnElement(hamburgerNavigationMenuLink);
+    clickOnHamburgerMenu();
     clickOnElement(logOutMenu);
   }
 
   public boolean isWidgetWithNumberVisible(String widget, String number) {
-    Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
+    driver.navigate().refresh();
     return getProfileWidgetContent(widget, number).isVisibleAfterWaiting();
   }
 
@@ -410,23 +397,23 @@ public class HomePage extends GenericPage {
   }
 
   public void goToappCenterAdminSetupPage() {
-    clickOnElement(hamburgerNavigationMenuLink);
+    clickOnHamburgerMenu();
     clickOnElement(addministrationMenu);
     clickOnElement(applicationAdminPageLink);
   }
 
   public void goToSettingsPage() {
-    clickOnElement(hamburgerNavigationMenuLink);
+    clickOnHamburgerMenu();
     clickOnElement(settingsPageLink);
   }
 
   public void goToMyProfile() {
-    clickOnElement(hamburgerNavigationMenuLink);
+    clickOnHamburgerMenu();
     clickOnElement(myProfileButton);
   }
 
   public void goToProfilePage() {
-    clickOnElement(hamburgerNavigationMenuLink);
+    clickOnHamburgerMenu();
     clickOnElement(myProfilePageLink);
   }
 
@@ -444,7 +431,7 @@ public class HomePage extends GenericPage {
   }
 
   public void clickOnHamburgerIcon() {
-    clickOnElement(hamburgerNavigationMenuLink);
+    clickOnHamburgerMenu();
   }
 
   public void hoverOnStreamIcon() {
@@ -457,7 +444,7 @@ public class HomePage extends GenericPage {
 
   public void confirmationForChangeSiteHomeLink() {
     clickOnElement(confirmationForChangeSiteHomeLink);
-    Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
+    driver.navigate().refresh();
   }
 
   public void clickOnHomePageButton() {
@@ -508,6 +495,18 @@ public class HomePage extends GenericPage {
 
   public void bookmarkActivity(String activity) {
     clickOnElement(getFavoriteIconActivity(activity));
+  }
+
+  private void clickOnElement(BaseElementFacade element) {
+    element.resetTimeouts();
+    element.waitUntilClickable();
+    element.clickOnElement();
+  }
+
+  private void clickOnHamburgerMenu() {
+    hamburgerMenuNavigation.resetTimeouts();
+    hamburgerMenuNavigation.waitUntilPresent();
+    clickOnElement(hamburgerNavigationMenuLink);
   }
 
 }

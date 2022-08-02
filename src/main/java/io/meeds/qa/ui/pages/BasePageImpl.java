@@ -65,7 +65,6 @@ public class BasePageImpl extends PageObject implements BasePage {
    **********************************************************/
 
   private WebElementFacade getWebElementFacadeByXpath(String xpath) {
-    // return Failsafe.with(RetryOnFailure.getRetryPolicy(1, 3)).get(() -> findBy(xpath));
     return findBy(xpath);
   }
 

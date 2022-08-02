@@ -9,10 +9,6 @@ import net.thucydides.core.annotations.Steps;
 
 public class SettingsStepDefinition {
 
-  public SettingsStepDefinition(SettingsSteps settingsSteps) {
-    this.settingsSteps = settingsSteps;
-  }
-
   @Steps
   private SettingsSteps settingsSteps;
 

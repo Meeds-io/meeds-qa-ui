@@ -818,10 +818,10 @@ public class TasksPage extends GenericPage {
 
   public void commentTask(String comment) {
     ckEditorFrameTask.clickOnElement();
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameTask);
+    driver.switchTo().frame(ckEditorFrameTask);
     taskCommentContentTextBox.waitUntilVisible();
     taskCommentContentTextBox.setTextValue(comment);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
     commentTaskButton.waitUntilVisible();
     commentTaskButton.clickOnElement();
     goBackToTaskDrawerFromComments.waitUntilVisible();
@@ -832,12 +832,12 @@ public class TasksPage extends GenericPage {
 
   public void addNewCommentInTaskWithMentioningTheFirstUserInTask(String comment, String user) {
     ckEditorFrameTaskMentioningUser.clickOnElement();
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameTaskMentioningUser);
+    driver.switchTo().frame(ckEditorFrameTaskMentioningUser);
     taskCommentContentTextBox.waitUntilVisible();
     taskCommentContentTextBox.clear();
     taskCommentContentTextBox.setTextValue(comment + ' ' + '@' + user);
     taskCommentContentTextBox.sendKeys(Keys.ENTER);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
     commentTaskButton.waitUntilVisible();
     commentTaskButton.clickOnElement();
     goBackToTaskDrawerFromComments.waitUntilVisible();
@@ -929,7 +929,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void openFilterDrawer() {
-    Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
+    driver.navigate().refresh();
     filterDrawerButton.waitUntilVisible();
     filterDrawerButton.clickOnElement();
   }
@@ -943,10 +943,10 @@ public class TasksPage extends GenericPage {
     addProject.clickOnElement();
     projectTitle.setTextValue(projectName);
     ckEditorFrameTask.clickOnElement();
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameTask);
+    driver.switchTo().frame(ckEditorFrameTask);
     projectDescriptionField.waitUntilVisible();
     projectDescriptionField.setTextValue(description);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
     saveAddingTaskButton.clickOnElement();
   }
 
@@ -958,19 +958,19 @@ public class TasksPage extends GenericPage {
     addProject.clickOnElement();
     projectTitle.setTextValue(projectName);
     ckEditorFrameTask.clickOnElement();
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameTask);
+    driver.switchTo().frame(ckEditorFrameTask);
     projectDescriptionField.waitUntilVisible();
     projectDescriptionField.setTextValue(description);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
   }
 
   public void enterProjectDescriptionWithoutTheTitle(String description) {
     addProject.clickOnElement();
     ckEditorFrameTask.clickOnElement();
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameTask);
+    driver.switchTo().frame(ckEditorFrameTask);
     projectDescriptionField.waitUntilVisible();
     projectDescriptionField.setTextValue(description);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
   }
 
   public void checkProject(String projectName) {
@@ -1007,10 +1007,10 @@ public class TasksPage extends GenericPage {
     editProjectButton.clickOnElement();
     projectTitle.setTextValue(newProjectName);
     ckEditorFrameTask.clickOnElement();
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameTask);
+    driver.switchTo().frame(ckEditorFrameTask);
     projectDescriptionField.waitUntilVisible();
     projectDescriptionField.setTextValue(newDescription);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
     saveAddingTaskButton.clickOnElement();
   }
 
@@ -1066,10 +1066,10 @@ public class TasksPage extends GenericPage {
 
   public void enterTaskComment(String comment) {
     ckEditorFrameTask.clickOnElement();
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameTask);
+    driver.switchTo().frame(ckEditorFrameTask);
     taskCommentContentTextBox.waitUntilVisible();
     taskCommentContentTextBox.setTextValue(comment);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
   }
 
   public void commentButtonIsDisabled() {
@@ -1091,9 +1091,9 @@ public class TasksPage extends GenericPage {
 
   public void maxCharsNumberMessageIsDisplayed() {
     commentsDrawerSection.clickOnElement();
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameTask);
+    driver.switchTo().frame(ckEditorFrameTask);
     commentTaskMaxCharsMsg.isVisibleAfterWaiting();
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
   }
 
   public void cloneProject(String projectName) {
@@ -1651,10 +1651,10 @@ public class TasksPage extends GenericPage {
 
   public void enterDescriptionForTask(String description) {
     taskDescriptionField.clickOnElement();
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(switchToFrameTask);
+    driver.switchTo().frame(switchToFrameTask);
     taskDescriptionFieldIframe.waitUntilVisible();
     taskDescriptionFieldIframe.setTextValue(description);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
     TileForTaskField.clickOnElement();
   }
 
@@ -1664,12 +1664,12 @@ public class TasksPage extends GenericPage {
 
   public void editDescriptionForTask(String newDescription) {
     taskDescriptionField.clickOnElement();
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(switchToFrameTaskUser);
+    driver.switchTo().frame(switchToFrameTaskUser);
     taskDescriptionFieldIframe.clickOnElement();
     taskDescriptionFieldIframe.waitUntilVisible();
     taskDescriptionFieldIframe.clear();
     taskDescriptionFieldIframe.setTextValue(newDescription);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
     TileForTaskField.clickOnElement();
   }
 
@@ -1723,9 +1723,9 @@ public class TasksPage extends GenericPage {
 
   public void setTaskDescription(String Description) {
     taskDescriptionField.clickOnElement();
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameDescription);
+    driver.switchTo().frame(ckEditorFrameDescription);
     settaskDescription.sendKeys(Description);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
   }
 
   public void clickOnSaveButtonToAddTaskSpaceProject() {
@@ -1734,9 +1734,9 @@ public class TasksPage extends GenericPage {
 
   public void updateTaskDescription(String Description) {
     taskDescriptionField.clickOnElement();
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameDescription);
+    driver.switchTo().frame(ckEditorFrameDescription);
     settaskDescription.sendKeys(" " + Description);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
   }
 
   public void clickOnUpDateButton() {
@@ -1750,9 +1750,9 @@ public class TasksPage extends GenericPage {
 
   public void checkUpdatedDescription(String Description) {
     taskDescriptionField.clickOnElement();
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameDescription);
+    driver.switchTo().frame(ckEditorFrameDescription);
     Assert.assertEquals(settaskDescription.getText(), Description);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
   }
 
   public void hoverOnProjectManagerIcon() {

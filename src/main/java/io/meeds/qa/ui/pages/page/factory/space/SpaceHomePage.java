@@ -439,9 +439,9 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void enterActivityText(String activity) {
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrame);
+    driver.switchTo().frame(ckEditorFrame);
     activityContentTextBox.sendKeys(activity);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
     Serenity.setSessionVariable("activity").to(activity);
   }
 
@@ -489,15 +489,15 @@ public class SpaceHomePage extends GenericPage {
   public void addActivity(String activity) {
     ckEditorFrame.waitUntilVisible();
     ckEditorFrame.clickOnElement();
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrame);
+    driver.switchTo().frame(ckEditorFrame);
     if (activity.contains("https")) {
       activityContentTextBox.sendKeys(activity);
       activityContentTextBox.sendKeys(Keys.CONTROL + "a" + "x");
-      Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
+      driver.navigate().refresh();
       clickPostIcon();
       ckEditorFrame.waitUntilVisible();
       ckEditorFrame.clickOnElement();
-      Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrame);
+      driver.switchTo().frame(ckEditorFrame);
       activityContentTextBox.sendKeys(Keys.CONTROL + "v");
     } else if (activity.contains("lien")) {
       activityContentTextBox.clickOnElement();
@@ -508,7 +508,7 @@ public class SpaceHomePage extends GenericPage {
       Serenity.setSessionVariable("activity").to(activity);
     }
 
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
   }
 
   public void publishActivity() {
@@ -587,10 +587,10 @@ public class SpaceHomePage extends GenericPage {
     ELEMENT_COMMENT_LINK(activityId).clickOnElement();
 
     ckEditorFrameComment.clickOnElement();
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameComment);
+    driver.switchTo().frame(ckEditorFrameComment);
     commentField.waitUntilVisible();
     commentField.setTextValue(comment);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
 
     commentButtonInDrawer.clickOnElement();
     closeCommentsDrawer.clickOnElement();
@@ -642,17 +642,17 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void enterCommentText(String comment) {
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameComment);
+    driver.switchTo().frame(ckEditorFrameComment);
     commentField.sendKeys(comment);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
     Serenity.setSessionVariable("comment").to(comment);
   }
 
   public void updateCommentText(String comment) {
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameComment);
+    driver.switchTo().frame(ckEditorFrameComment);
     commentField.clear();
     commentField.sendKeys(comment);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
     Serenity.setSessionVariable("comment").to(comment);
   }
 
@@ -661,15 +661,15 @@ public class SpaceHomePage extends GenericPage {
     ELEMENT_COMMENT_LINK(activityId).clickOnElement();
 
     ckEditorFrameComment.clickOnElement();
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameComment);
+    driver.switchTo().frame(ckEditorFrameComment);
     if (comment.contains("https")) {
       commentField.sendKeys(comment);
       commentField.sendKeys(Keys.CONTROL + "a" + "x");
-      Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
+      driver.navigate().refresh();
       ELEMENT_COMMENT_LINK(activityId).clickOnElement();
       ckEditorFrameComment.waitUntilVisible();
       ckEditorFrameComment.clickOnElement();
-      Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameComment);
+      driver.switchTo().frame(ckEditorFrameComment);
       commentField.waitUntilVisible();
       commentField.clickOnElement();
       commentField.sendKeys(Keys.CONTROL + "v");
@@ -682,7 +682,7 @@ public class SpaceHomePage extends GenericPage {
       Serenity.setSessionVariable("comment").to(comment);
     }
 
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
   }
 
   public void goToSpaceMembersTab() {
@@ -760,10 +760,10 @@ public class SpaceHomePage extends GenericPage {
     getCommentReply(comment, activityId).clickOnElement();
 
     ckEditorFrameComment.clickOnElement();
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameComment);
+    driver.switchTo().frame(ckEditorFrameComment);
     commentField.waitUntilVisible();
     commentField.setTextValue(reply);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
 
     replyButtonInDrawer.clickOnElement();
     closeCommentsDrawer.clickOnElement();
@@ -855,12 +855,12 @@ public class SpaceHomePage extends GenericPage {
 
   public void enterActivityCommentWithUser(String comment, String user) {
     ckEditorFrameComment.clickOnElement();
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameComment);
+    driver.switchTo().frame(ckEditorFrameComment);
     commentField.waitUntilVisible();
     commentField.clear();
     commentField.setTextValue(comment + ' ' + '@' + user);
     commentField.sendKeys(Keys.ENTER);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
   }
 
   public void publishActivityInArabicLanguage() {
@@ -957,7 +957,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void linkIsOpenedNewTab(String link) {
-    Assert.assertTrue(Serenity.getWebdriverManager().getCurrentDriver().getCurrentUrl().contains(link));
+    Assert.assertTrue(driver.getCurrentUrl().contains(link));
   }
 
   public void copyLinkActivityButtonIsDisplayed(String activity) {
@@ -969,7 +969,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void openLinkInNewTab(String link) {
-    Actions newTab = new Actions(Serenity.getWebdriverManager().getCurrentDriver());
+    Actions newTab = new Actions(driver);
     newTab.keyDown(Keys.CONTROL).click(getCommentTitleActivityStream(link)).keyUp(Keys.CONTROL).build().perform();
   }
 

@@ -88,11 +88,11 @@ public class SocialPage extends GenericPage {
   public void updateActivityComment(String comment) {
 
     ckEditorFrameComment.clickOnElement();
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameComment);
+    driver.switchTo().frame(ckEditorFrameComment);
     commentField.waitUntilVisible();
     commentField.clear();
     commentField.setTextValue(comment);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
 
     updateButon.clickOnElement();
     closeCommentsDrawer.clickOnElement();
@@ -101,11 +101,11 @@ public class SocialPage extends GenericPage {
   public void cancelUpdateActivityComment(String comment) {
 
     ckEditorFrameComment.clickOnElement();
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameComment);
+    driver.switchTo().frame(ckEditorFrameComment);
     commentField.waitUntilVisible();
     commentField.clear();
     commentField.setTextValue(comment);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().defaultContent();
 
     cancelBtn.clickOnElement();
     closeCommentsDrawer.clickOnElement();

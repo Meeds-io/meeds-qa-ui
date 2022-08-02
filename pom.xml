@@ -54,6 +54,8 @@
 
     <failsafe.rerunFailingTestsCount>0</failsafe.rerunFailingTestsCount>
     <parallel.tests>1</parallel.tests>
+    <!-- One of [SCENARIO, FEATURE]. SCENARIO generates one runner per scenario.  FEATURE generates a runner per feature. -->
+    <parallel.scheme>FEATURE</parallel.scheme>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -216,7 +218,7 @@
                 <package>io.meeds.qa.ui.stepDefinitions</package>
               </glue>
               <featuresDirectory>src/test/resources/features/</featuresDirectory>
-              <parallelScheme>SCENARIO</parallelScheme>
+              <parallelScheme>${parallel.scheme}</parallelScheme>
               <packageName>io.meeds.qa.ui.it</packageName>
               <customVmTemplate>src/test/resources/cucumber-serenity-runner.vm</customVmTemplate>
             </configuration>

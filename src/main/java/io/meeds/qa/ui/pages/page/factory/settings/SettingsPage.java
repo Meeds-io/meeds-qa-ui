@@ -214,7 +214,7 @@ public class SettingsPage extends GenericPage {
   public void applyEditGeneralNotifications() {
     ELEMENT_APPLY_EDIT_GENERAL_NOTIFICATIONS_BUTTON.waitUntilClickable();
     ELEMENT_APPLY_EDIT_GENERAL_NOTIFICATIONS_BUTTON.clickOnElement();
-    Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
+    driver.navigate().refresh();
   }
 
   public void selectSendMeASummaryEmail(String mailSendingType) {
@@ -265,7 +265,7 @@ public class SettingsPage extends GenericPage {
   }
 
   public void enableDisableNotificationViaMail() {
-    Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
+    driver.navigate().refresh();
     ELEMENT_NOTIFICATION_VIA_MAIL.waitUntilVisible();
     ELEMENT_NOTIFICATION_VIA_MAIL.waitUntilClickable();
     ELEMENT_NOTIFICATION_VIA_MAIL.click();
@@ -280,7 +280,7 @@ public class SettingsPage extends GenericPage {
   }
 
   public void goToEditGeneralNotifications() {
-    JavascriptExecutor js = (JavascriptExecutor) Serenity.getWebdriverManager().getCurrentDriver();
+    JavascriptExecutor js = (JavascriptExecutor) driver;
 
     try {
       ELEMENT_EDIT_NOTIFICATIONS_GENERAL.waitUntilClickable();

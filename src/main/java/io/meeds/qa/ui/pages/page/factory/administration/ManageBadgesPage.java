@@ -205,7 +205,7 @@ public class ManageBadgesPage extends GenericPage {
   public void insertBadgeNameInSearchField(String badgeName) {
     searchBadgeInput.waitUntilVisible();
     if (searchBadgeInput.isNotVisibleAfterWaiting()) {
-      Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
+      driver.navigate().refresh();
     }
     searchBadgeInput.waitUntilVisible();
     searchBadgeInput.setTextValue(badgeName);
