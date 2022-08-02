@@ -1,0 +1,36 @@
+version: "3.5"
+services:
+  selenium-hub:
+    image: selenium/hub:4.3
+    container_name: selenium-hub
+    network_mode: host
+  chrome:
+    image: selenium/node-chrome:4.3
+    shm_size: 2gb
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=localhost
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_OVERRIDE_MAX_SESSIONS=true
+      - SE_NODE_MAX_SESSIONS=100
+      - SE_NODE_SESSION_TIMEOUT=1200
+    network_mode: host
+  firefox:
+    image: selenium/node-firefox:4.3
+    shm_size: 2gb
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=localhost
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_OVERRIDE_MAX_SESSIONS=true
+      - SE_NODE_MAX_SESSIONS=100
+      - SE_NODE_SESSION_TIMEOUT=1200
+    network_mode: host

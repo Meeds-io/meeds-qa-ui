@@ -1,0 +1,20 @@
+#parse("/array.java.vm")
+#if ($packageName)
+package $packageName;
+#end##
+
+import org.junit.runner.RunWith;
+
+import io.cucumber.junit.CucumberOptions;
+import net.serenitybdd.cucumber.CucumberWithSerenity;
+
+@RunWith(CucumberWithSerenity.class)
+@CucumberOptions(
+    plugin = {
+        "pretty"
+    },
+    features = {"$featureFile"},
+    glue = #stringArray($glue)
+)
+public class $className {}  // NOSONAR Empty Class: cucumber engine will
+                            // create test cases from feature files
