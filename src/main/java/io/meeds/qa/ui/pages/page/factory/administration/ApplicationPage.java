@@ -256,9 +256,7 @@ public class ApplicationPage extends GenericPage {
 
   public void deleteApp(String appTitle, boolean confirm) {
     searchAppInput.clear();
-    //driver.navigate().refresh();
     searchAppInput.setTextValue(appTitle);
-    //getDeleteButton(appTitle).waitUntilVisible();
     getDeleteButton(appTitle).clickOnElement();
     if (confirm)
       confirmDelete.clickOnElement();
