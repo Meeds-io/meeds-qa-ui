@@ -89,7 +89,7 @@ Feature: User adds, deletes, edits and clones a project
     Then User avatar 'admin' is displayed in Project Card
     And Avatar of the first created user is displayed in Project Card
 
-  @task
+  @task @ignore
   Scenario: CAP17 - [Project_Card_US01]: check the display of users avatars with managing permissions
     Given I am authenticated as admin
     And I create the first random user

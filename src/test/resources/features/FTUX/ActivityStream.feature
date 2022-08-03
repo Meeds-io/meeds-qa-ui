@@ -476,6 +476,7 @@ Feature: Activity Stream
     And In activity 'activityTest100' with comment 'commenttest100', the reply 'replyTest100' is displayed
     And In activity 'activityTest100' with comment 'commenttest100', the reply 'replyTest101' is displayed
 
+  @ignore
   Scenario: CAP101 - [ActivityStream_US38][05]: Delete a reply from the activity stream
     Given I am authenticated as admin
 
