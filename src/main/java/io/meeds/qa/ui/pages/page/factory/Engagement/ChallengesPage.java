@@ -14,7 +14,7 @@ public class ChallengesPage extends GenericPage {
     super(driver);
   }
 
-  @FindBy(xpath = "//*[@class='v-toolbar__content']//*[contains(@class,'d-lg-inline')]")
+  @FindBy(xpath = "(//*[@class='v-toolbar__content']//*[contains(@class,'d-lg-inline')])[01]")
   private BaseElementFacade addChallengeBtn;
 
   public void checkAddChallengeBtn() {
@@ -34,7 +34,7 @@ public class ChallengesPage extends GenericPage {
   @FindBy(xpath = "(//div[@name='challengeSpaceAutocomplete']//input)[01]")
   private TextBoxElementFacade audienceSpaceField;
 
-  @FindBy(xpath = "(//div[@class='v-input__control']//input)[03]")
+  @FindBy(xpath = "(//div[@class='v-select__selections']//input)[02]")
   private TextBoxElementFacade programField;
 
   @FindBy(xpath = "(//*[contains(@id,'DatePicker')])[1]//input")
@@ -46,7 +46,7 @@ public class ChallengesPage extends GenericPage {
   @FindBy(xpath = "(//*[contains(@class,'v-date-picker-table__current')])[1]/following::td[1]")
   private TextBoxElementFacade startDateTomorrow;
 
-  @FindBy(xpath = "(//*[contains(@class,'v-date-picker-table')])[2]/following::td[7]")
+  @FindBy(xpath = "(//*[contains(@class,'v-date-picker-table__current')])[2]/following::td[7]")
   private TextBoxElementFacade endDateNextWeek;
 
   @FindBy(xpath = "//iframe[contains(@class,'cke_wysiwyg_frame')]")
@@ -115,6 +115,7 @@ public class ChallengesPage extends GenericPage {
 
   public void selectEndDateNextWeek() {
     endDateField.clickOnElement();
+    endDateNextWeek.waitUntilVisible();
     endDateNextWeek.clickOnElement();
   }
 
@@ -137,6 +138,7 @@ public class ChallengesPage extends GenericPage {
 
   public void selectStartDateToday() {
     startDateField.clickOnElement();
+    startDateToday.waitUntilVisible();
     startDateToday.clickOnElement();
   }
 
@@ -160,6 +162,7 @@ public class ChallengesPage extends GenericPage {
   }
 
   public void addChallengeWithRandomDescription(String challengeDescription) {
+    ckEditorFrameChallenge.waitUntilVisible();
     ckEditorFrameChallenge.clickOnElement();
     driver.switchTo().frame(ckEditorFrameChallenge);
     challengeDescriptionField.waitUntilVisible();
@@ -169,6 +172,7 @@ public class ChallengesPage extends GenericPage {
   }
 
   public void selectEndDateTomorrow() {
+    endDateField.waitUntilVisible();
     endDateField.clickOnElement();
     endDateTomorrow.clickOnElement();
   }
@@ -177,7 +181,7 @@ public class ChallengesPage extends GenericPage {
     getChallengeCardTitle(title).isVisibleAfterWaiting();
   }
 
-  @FindBy(xpath = "//*[contains(@class,'ml-2 v-btn v-btn--flat v-btn--icon')]")
+  @FindBy(xpath = "//*[contains(@class,'me-2 v-btn v-btn--flat v-btn--icon v-btn--round')]")
   private BaseElementFacade threeDotsIcon;
 
   public void checkThreeDotsIconDisplay(String title) {
@@ -205,7 +209,7 @@ public class ChallengesPage extends GenericPage {
     announceBtn.clickOnElement();
   }
 
-  @FindBy(xpath = "(//*[@class='v-list-item__content drawerTitle align-start text-header-title text-truncate'])[1]")
+  @FindBy(xpath = "(//*[@class='v-list-item__content drawerTitle align-start text-header-title text-truncate'])[2]")
   private BaseElementFacade announcementHeaderDrawer;
 
   public void checkAnnouncementDrawer() {
@@ -216,7 +220,7 @@ public class ChallengesPage extends GenericPage {
   private BaseElementFacade    assignLink;
 
   @FindBy(
-      xpath = "//*[@class='flex drawerContent flex-grow-1 overflow-auto border-box-sizing']//following::*[@class='flex drawerFooter border-box-sizing flex-grow-0 px-4 py-3']//button[2]"
+      xpath = "(//*[@class='d-flex mr-2']//button[2])[2]"
   )
   private BaseElementFacade    createAnnouncement;
 
@@ -229,6 +233,7 @@ public class ChallengesPage extends GenericPage {
     challengeDescriptionField.waitUntilVisible();
     challengeDescriptionField.setTextValue(announcementDescription);
     driver.switchTo().defaultContent();
+    createAnnouncement.waitUntilVisible();
     createAnnouncement.clickOnElement();
 
   }
