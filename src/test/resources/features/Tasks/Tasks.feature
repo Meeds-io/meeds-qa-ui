@@ -181,7 +181,7 @@ Feature: Mark task as completed from BOARD view
     And Project 'new project test' is displayed in Tasks App Center
     And Project 'second project test' is displayed in Tasks App Center
 
-  @task
+  @task @ignore
   Scenario:[BUG]: Create Task with a new status
     Given I am authenticated as admin
     And I create the first random user
