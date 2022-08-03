@@ -28,7 +28,7 @@ public class AdminApplicationStepDefinition {
     return sb.toString();
   }
 
-  @When("I open '{}' edit drawer")
+  @When("I open '(.*)' edit drawer")
   public void openEditApplicationDrawer(String applicationName) {
     adminApplicationSteps.goToEditTheApplication(applicationName);
   }
@@ -55,17 +55,17 @@ public class AdminApplicationStepDefinition {
     adminApplicationSteps.clickSaveApplicationDrawer();
   }
 
-  @Then("Application image title '{}' is displayed in the drawer")
+  @Then("Application image title '(.*)' is displayed in the drawer")
   public void checkThatApplicationImageIsDisplayedInDrawer(String image) {
     adminApplicationSteps.checkThatApplicationImageIsDisplayedInDrawer(image);
   }
 
-  @Then("Application image title '{}' is not displayed in the drawer")
+  @Then("Application image title '(.*)' is not displayed in the drawer")
   public void checkThatApplicationImageIsNotDisplayedInDrawer(String image) {
     adminApplicationSteps.checkThatApplicationImageIsNotDisplayedInDrawer(image);
   }
 
-  @Then("Application Title '{}' is displayed in Applications Table")
+  @Then("Application Title '(.*)' is displayed in Applications Table")
   public void appTitleInApplicationsTableIsDisplayed(String appTitle) {
     adminApplicationSteps.appTitleInApplicationsTableIsDisplayed(appTitle);
   }
@@ -124,28 +124,28 @@ public class AdminApplicationStepDefinition {
     adminApplicationSteps.appDescriptionInApplicationsTableIsDisplayed(editedRandomApplicationDescription);
   }
 
-  @Then("The image of the application '{}' is not displayed in Applications Table")
+  @Then("The image of the application '(.*)' is not displayed in Applications Table")
   public void checkThatApplicationImageIsNotDisplayedInApplicationsTable(String appTitle) {
     adminApplicationSteps.checkThatApplicationImageIsNotDisplayedInApplicationsTable(appTitle);
   }
 
-  @Then("Application '{}' with permission '{}' is displayed in Applications Table")
+  @Then("Application '(.*)' with permission '(.*)' is displayed in Applications Table")
   public void appPermissionInApplicationsTableIsDisplayed(String appTitle, String permission) {
     adminApplicationSteps.appPermissionInApplicationsTableIsDisplayed(appTitle, permission);
   }
 
-  @Then("The added application with permission '{}' is displayed in Applications Table")
+  @Then("The added application with permission '(.*)' is displayed in Applications Table")
   public void randomAppPermissionInApplicationsTableIsDisplayed(String permission) {
     String randomApplicationTitle = Serenity.sessionVariableCalled("randomApplicationTitle");
     adminApplicationSteps.appPermissionInApplicationsTableIsDisplayed(randomApplicationTitle, permission);
   }
 
-  @Then("Application Url '{}' is displayed in Applications Table")
+  @Then("Application Url '(.*)' is displayed in Applications Table")
   public void appUrlInApplicationsTableIsDisplayed(String appUrl) {
     adminApplicationSteps.appUrlInApplicationsTableIsDisplayed(appUrl);
   }
 
-  @Then("Application Description '{}' is displayed in Applications Table")
+  @Then("Application Description '(.*)' is displayed in Applications Table")
   public void appDescriptionInApplicationsTableIsDisplayed(String appDescription) {
     adminApplicationSteps.appDescriptionInApplicationsTableIsDisplayed(appDescription);
   }
@@ -174,13 +174,13 @@ public class AdminApplicationStepDefinition {
     setCurrentlyTestingApplicationTitle(appData.get("title"));
   }
 
-  @When("I add a new application with the title, the url and the description with image <{}>")
+  @When("I add a new application with the title, the url and the description with image '(.*)'")
   public void enterApplicationTitleUrlDescriptionWithImage(String image, Map<String, String> applicationData) {
     adminApplicationSteps.enterApplicationTitleUrlDescriptionWithImage(image, applicationData);
     setCurrentlyTestingApplicationTitle(applicationData.get("title"));
   }
 
-  @When("I add a new random application with the title, the url and the description with image <{}>")
+  @When("I add a new random application with the title, the url and the description with image '(.*)'")
   public void enterRandomApplicationTitleUrlDescriptionWithImage(String image) {
     String randomApplicationTitle = "title" + getRandomString();
     String randomApplicationUrl = "./" + getRandomString();
@@ -215,7 +215,7 @@ public class AdminApplicationStepDefinition {
 
   }
 
-  @When("I add a second random application with the title, the url and the description with image <{}>")
+  @When("I add a second random application with the title, the url and the description with image '(.*)'")
   public void enterSecondRandomApplicationTitleUrlDescriptionWithImage(String image) {
     String secondRandomApplicationTitle = "title" + getRandomString();
     String secondRandomApplicationUrl = "./" + getRandomString();
@@ -233,7 +233,7 @@ public class AdminApplicationStepDefinition {
 
   }
 
-  @When("I edit the application '{}' data")
+  @When("I edit the application '*' data")
   public void editApplicationTitleUrlDescription(String appName, Map<String, String> appData) {
     adminApplicationSteps.editApplicationTitleUrlDescription(appName, appData);
   }
@@ -255,14 +255,14 @@ public class AdminApplicationStepDefinition {
                                                                    editedRandomApplicationDescription);
   }
 
-  @When("I disable Mandatory '{}' for application")
-  @Then("I enable Mandatory '{}' for application")
+  @When("I disable Mandatory '*' for application")
+  @Then("I enable Mandatory '*' for application")
   public void enableDisableMandatoryApplication(String appTitle) throws InterruptedException {
     adminApplicationSteps.enableDisableMandatoryApplication(appTitle);
   }
 
-  @When("I disable Active option for application '{}'")
-  @Then("I enable Active option for application '{}'")
+  @When("I disable Active option for application '*'")
+  @Then("I enable Active option for application '*'")
   public void enableDisableActiveApplication(String appTitle) {
     adminApplicationSteps.enableDisableActiveApplication(appTitle);
   }
@@ -281,12 +281,12 @@ public class AdminApplicationStepDefinition {
     adminApplicationSteps.enableDisableMandatoryApplication(randomApplicationTitle);
   }
 
-  @When("I search for application '{}'")
+  @When("I search for application '*'")
   public void searchApp(String appTitle) {
     adminApplicationSteps.searchApp(appTitle);
   }
 
-  @When("I click on '{}' active button")
+  @When("I click on '*' active button")
   public void clickActiveApp(String appName) {
     adminApplicationSteps.clickActiveApp(appName);
   }
@@ -297,7 +297,7 @@ public class AdminApplicationStepDefinition {
     adminApplicationSteps.clickActiveApp(randomApplicationTitle);
   }
 
-  @When("I delete the application '{}'")
+  @When("I delete the application '*'")
   public void deleteApp(String appName) {
     adminApplicationSteps.deleteApp(appName, true);
   }
@@ -308,7 +308,7 @@ public class AdminApplicationStepDefinition {
     adminApplicationSteps.deleteApp(randomApplicationTitle, true);
   }
 
-  @When("I click on delete icon of the application '{}'")
+  @When("I click on delete icon of the application '(.*)'")
   public void clickDelete(String appName) {
     adminApplicationSteps.deleteApp(appName, false);
   }
@@ -340,13 +340,13 @@ public class AdminApplicationStepDefinition {
                                                                         .isTrue();
   }
 
-  @When("Edit application title is displayed '{}' in drawer")
+  @When("Edit application title is displayed '*' in drawer")
   public void applicationDrawerTitleIsDisplayed(String title) {
 
     adminApplicationSteps.applicationDrawerTitleIsDisplayed(title);
   }
 
-  @When("Edit application url is displayed '{}' in drawer")
+  @When("Edit application url is displayed '*' in drawer")
   public void applicationDrawerUrlIsDisplayed(String url) {
     adminApplicationSteps.applicationDrawerUrlIsDisplayed(url);
   }
@@ -357,12 +357,12 @@ public class AdminApplicationStepDefinition {
 
   }
 
-  @When("Edit application permissions '{}' and '{}' are displayed in drawer")
+  @When("Edit application permissions '*' and '*' are displayed in drawer")
   public void applicationDrawerPermissionsIsDisplayed(String firstPermission, String secondPermission) {
     adminApplicationSteps.applicationDrawerPermissionsIsDisplayed(firstPermission, secondPermission);
   }
 
-  @When("Edit application image is displayed '{}' in drawer")
+  @When("Edit application image is displayed '*' in drawer")
   public void applicationDrawerImageIsDisplayed(String image) {
     adminApplicationSteps.applicationDrawerImageIsDisplayed(image);
   }

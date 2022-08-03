@@ -136,7 +136,7 @@ public class ApplicationPage extends GenericPage {
   }
 
   private BaseElementFacade getDeleteButton(String appTitle) {
-    return findByXpath(String.format("//td[contains(text(),'%s')]/..//i[contains(@class,'mdi-delete')]", appTitle));
+    return findByXpath(String.format("//td[contains(text(),'%s')]//following::i[contains(@class,'mdi-delete')]", appTitle));
   }
 
   public void clickEditApp(String app) {
@@ -263,6 +263,7 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void clickCancelDelete() {
+    cancelDeleteButton.waitUntilVisible();
     cancelDeleteButton.clickOnElement();
   }
 
