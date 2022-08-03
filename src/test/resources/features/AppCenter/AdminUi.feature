@@ -17,7 +17,7 @@ Feature: UI app administration
     And I refresh the page
 
   @appcenter
-  @appcenterAdministration @ignore
+  @appcenterAdministration
   Scenario: CAP79-[Admin_UI_US07][02]:Delete an app
     Given I am authenticated as admin
     And I go to Administer application center Page
@@ -30,7 +30,7 @@ Feature: UI app administration
     Then The random application is not displayed in application list
 
   @appcenter
-  @appcenterAdministration @ignore
+  @appcenterAdministration
   Scenario:CAP80-[Admin_UI_US07][03]:Cancel button /close icon
     Given I am authenticated as admin
     And I go to Administer application center Page
@@ -39,6 +39,7 @@ Feature: UI app administration
     And I click on delete icon of the created application
     And I click on cancel delete application
     Then Delete popup is not displayed
+    And I refresh the page
     When I click on delete icon of the created application
     And I click on close popup delete application
     Then Delete popup is not displayed
