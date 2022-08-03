@@ -22,6 +22,7 @@ Feature: Login widget checking
     When I connect with the fifth created user
     Then the number of connection requests is '5'
 
+  @ignore
   Scenario:US 3.3.4_(01) [BACK]Connections requests to join: See All
     Given I am authenticated as admin
 
