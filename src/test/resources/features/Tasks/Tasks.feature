@@ -457,7 +457,7 @@ Feature: Mark task as completed from BOARD view
     And I refresh the page
     And The edit description in the task 'Edit Automation Test Task' is displayed
 
-  @task
+  @task @ignore
   Scenario: [IMP] [US_ChangesDrawer_01]: Display last Update and Changes drawer
     Given I am authenticated as admin
     And  I create the first random user
