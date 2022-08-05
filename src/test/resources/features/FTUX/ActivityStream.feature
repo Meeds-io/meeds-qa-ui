@@ -2554,3 +2554,80 @@ Feature: Activity Stream
     When In comment 'Test Auto replay Kudos', I click on edit button
     And I set the new kudos comment text 'updated Test Auto replay Kudos' and I click on update button
     Then the updated Kudos activity 'updated Test Auto replay Kudos' is displayed in stream page
+
+  @smoke
+  @ignored
+  Scenario: Mention from user activity stream should push the activity in "My Activities" of the mentioned user
+    Given I am authenticated with the user with the credentials
+      | login    | aymen.khalfi |
+      | password | aymen2020    |
+
+    When I create the space with user 'houssem.riahi'
+    And I change user
+      | login    | houssem.riahi |
+      | password | houssem2020   |
+    And I go to First Space
+    And I 'Accept'
+    When I click on Post button
+    And I enter the activity 'activityWithMentionedUser', and I mention the user 'aymen khal'
+    And I publish the activity
+    Then In the created space, in post 'activityWithMentionedUser', the mentioned user 'aymen khal' is displayed
+
+    When I change user
+      | login    | aymen.khalfi |
+      | password | aymen2020    |
+    And I open Notifications
+    Then Notification when mentioning a user in activity, 'Houssem Riahi has mentioned you' 'activityWithMentionedUser aymen khal' is displayed
+    And Notification : 'Houssem Riahi has posted an activity' in the created space 'activityWithMentionedUser aymen khal', is displayed
+
+    When I click on the activity notification which is mentioning the user, 'Houssem Riahi has mentioned you' 'activityWithMentionedUser aymen khal'
+    Then In the created space, in post 'activityWithMentionedUser', the mentioned user 'aymen khal' is displayed
+
+  @smoke
+  @ignored
+  Scenario: Mention a member in comment from a space should push activity in "My Activities" of the member
+    Given I am authenticated as admin
+    When I create the space
+    And I change user
+      | login    | houssem.riahi |
+      | password | houssem2020   |
+    And I go to First Space
+    And I 'Accept'
+    When I click on Post button
+    And I enter the activity 'actTest', and I mention the user 'aymen khal'
+    And I publish the activity
+    Then In the created space, in post 'actTest', the mentioned user 'aymen khal' is displayed
+
+    When I change user
+      | login    | aymen.khalfi |
+      | password | aymen2020    |
+    And I open Notifications
+    Then Notification when mentioning a user in activity, 'Houssem Riahi has mentioned you' 'actTest aymen khal' is displayed
+    And Notification : 'Houssem Riahi has posted an activity' in the created space 'actTest aymen khal', is displayed
+    And I close Notifications drawer
+
+    When I go to First Space
+    Then In the created space, in post 'actTest', the mentioned user 'aymen khal' is displayed
+
+    When I add in activity 'actTest' a comment 'comTest' with mentioning the user 'Houssem Riahi'
+    And I open in activity 'actTest' the Comments drawer
+    Then Activity Comment 'comTest Houssem Riahi' is displayed in Comments drawer
+    And Activity Comment 'comTest Houssem Riahi' is displayed in activity stream
+
+    When I change user
+      | login    | houssem.riahi |
+      | password | houssem2020   |
+    And I open Notifications
+    Then Notification when mentioning a user in activity, 'aymen khal has mentioned you' 'actTest aymen khal' is displayed
+    And Notification : 'aymen khal has commented on a post' 'actTest aymen khal' 'comTest Houssem Riahi', is displayed
+
+    When I click on the activity comment notification which is mentioning the user, 'aymen khal has commented on a post' 'actTest aymen khal' 'comTest Houssem Riahi'
+    Then Activity Comment 'comTest Houssem Riahi' is displayed in Comments drawer
+    And Activity Comment 'comTest Houssem Riahi' is displayed in activity stream
+
+    When I go to the home page
+    And I open Notifications
+    And I click on the activity notification which is mentioning the user, 'aymen khal has mentioned you' 'actTest aymen khal'
+    Then Activity Comment 'comTest Houssem Riahi' is displayed in Comments drawer
+    And Activity Comment 'comTest Houssem Riahi' is displayed in activity stream
+    And I go to the home page

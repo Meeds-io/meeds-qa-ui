@@ -1,4 +1,4 @@
-Feature: Login widget checking
+Feature: Space widgets checking
   As a user
   I want to check the connections in home page
   In order to validate the page
