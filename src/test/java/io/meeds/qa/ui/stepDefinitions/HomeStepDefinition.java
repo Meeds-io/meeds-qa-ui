@@ -21,7 +21,7 @@ public class HomeStepDefinition {
   @Steps
   private PeopleSteps peopleSteps;
 
-  @When("I go to My Profile page")
+  @When("^I go to My Profile page$")
   public void goToProfilePage() {
     homeSteps.goToProfilePage();
   }
@@ -120,7 +120,7 @@ public class HomeStepDefinition {
     homeSteps.searchApplicationCenter(secondRandomApplicationTitle);
   }
 
-  @When("I go to the home page")
+  @When("^I go to the home page$")
   public void goToHomePage() {
     homeSteps.goToHomePage();
   }
@@ -175,12 +175,12 @@ public class HomeStepDefinition {
     homeSteps.clickOnCommentActivityNotification(message, activity, comment);
   }
 
-  @When("I open Notifications")
+  @When("^I open Notifications$")
   public void openNotifications() {
     homeSteps.openNotifications();
   }
 
-  @When("I refresh the page")
+  @When("^I refresh the page$")
   public void refreshPage() {
     homeSteps.refreshPage();
   }
@@ -190,7 +190,7 @@ public class HomeStepDefinition {
     homeSteps.goToMyProfile();
   }
 
-  @When("I click on wallet label")
+  @When("^I click on wallet label$")
   public void clickWallet() {
     homeSteps.clickWalletWidget();
   }
@@ -205,7 +205,7 @@ public class HomeStepDefinition {
     assertThat(homeSteps.checkPage(page)).as("Wallet page is not opened").isTrue();
   }
 
-  @When("I go to groups Management page")
+  @When("^I go to groups Management page$")
   public void goToAddGroups() {
     homeSteps.goToAddGroups();
   }
@@ -225,7 +225,7 @@ public class HomeStepDefinition {
                                                                 .isTrue();
   }
 
-  @When("I click on spaces badge")
+  @When("^I click on spaces badge$")
   public void clickOnSpacesBadge() {
     homeSteps.clickOnSpacesBagde();
   }
@@ -235,7 +235,7 @@ public class HomeStepDefinition {
     homeSteps.checkSpacesBadge(badgeNumber);
   }
 
-  @When("I click on connections badge")
+  @When("^I click on connections badge$")
   public void clickOnConnectionsBadge() {
     homeSteps.clickOnConnectionsBagde();
   }
@@ -259,7 +259,7 @@ public class HomeStepDefinition {
                                                                .isTrue();
   }
 
-  @When("I accept the invitation of the following spaces")
+  @When("^I accept the invitation of the following spaces$")
   public void acceptSpaces(List<String> listOfSpace) {
     homeSteps.acceptSpaceInvitation(listOfSpace);
   }
@@ -270,7 +270,7 @@ public class HomeStepDefinition {
 
   }
 
-  @When("I accept the invitation of the following four random spaces")
+  @When("^I accept the invitation of the following four random spaces$")
   public void acceptFourRandomSpaces() {
     List<String> spaces = new ArrayList<>();
     String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
@@ -285,7 +285,7 @@ public class HomeStepDefinition {
     homeSteps.acceptSpaceInvitation(spaces);
   }
 
-  @When("I accept the invitation of the following three random spaces")
+  @When("^I accept the invitation of the following three random spaces$")
   public void acceptThreeRandomSpaces() {
     List<String> spaces = new ArrayList<>();
     String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
@@ -298,7 +298,7 @@ public class HomeStepDefinition {
     homeSteps.acceptSpaceInvitation(spaces);
   }
 
-  @When("I accept the following connection invitation sent by first user and second user")
+  @When("^I accept the following connection invitation sent by first user and second user$")
   public void acceptRandomConnections() {
     List<String> connections = new ArrayList<>();
     String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
@@ -310,18 +310,18 @@ public class HomeStepDefinition {
     homeSteps.acceptConnexionInvitation(connections);
   }
 
-  @When("I accept the following connection invitation")
+  @When("^I accept the following connection invitation$")
   public void acceptConnexion(List<String> listOfPeople) {
     homeSteps.acceptConnexionInvitation(listOfPeople);
   }
 
-  @When("I accept the following connection invitation sent by first user")
+  @When("^I accept the following connection invitation sent by first user$")
   public void acceptConnectionInvitationSentByFirstUser() {
     String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
     homeSteps.acceptSingleConnectionInvitation(firstUserFirstName);
   }
 
-  @When("I reject the following connection invitation sent by second user")
+  @When("^I reject the following connection invitation sent by second user$")
   public void rejectConnectionInvitationSentBySecondUser() {
     String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
     homeSteps.rejectSingleConnectionInvitation(secondUserFirstName);
@@ -332,7 +332,7 @@ public class HomeStepDefinition {
     homeSteps.rejectConnexionInvitation(listOfPeople);
   }
 
-  @When("I reject the invitation of the following spaces")
+  @When("^I reject the invitation of the following spaces$")
   public void rejectSpaces(List<String> listOfSpace) {
     homeSteps.rejectSpaceInvitation(listOfSpace);
   }
@@ -345,12 +345,12 @@ public class HomeStepDefinition {
                                                                      .isTrue();
   }
 
-  @When("I go to Person Page")
+  @When("^I go to Person Page$")
   public void goToPeoplePage() {
     homeSteps.goToPeoplePage();
   }
 
-  @When("I go to Tasks Page")
+  @When("^I go to Tasks Page$")
   public void goToTasksPage() {
     homeSteps.goToTasksPage();
   }
@@ -390,12 +390,12 @@ public class HomeStepDefinition {
     homeSteps.confirmationForChangeSiteHomeLink();
   }
 
-  @And("^I click on home page button")
+  @And("^I click on home page button$")
   public void clickOnHomeButton() {
     homeSteps.clickOnHomeButton();
   }
 
-  @Then("^Activity Stream page is displayed")
+  @Then("^Activity Stream page is displayed$")
   public void checkThatStreamPageIsDisplayed() {
     homeSteps.checkThatStreamPageIsDisplayed();
   }
@@ -415,12 +415,12 @@ public class HomeStepDefinition {
     homeSteps.checkNotDisplaySpaceInvitation(listOfSpace);
   }
 
-  @Then("The favorite star should be displayed in the published activity '(.*)'")
+  @Then("^The favorite star should be displayed in the published activity '(.*)'$")
   public void checkFavIcon(String activity) {
     homeSteps.checkFavIcon(activity);
   }
 
-  @When("^I favorite the activity posted in the space")
+  @When("^I favorite the activity posted in the space$")
   public void favoriteActivity() {
     String oldActiviyy = Serenity.sessionVariableCalled("activity");
     homeSteps.favoriteActivity(oldActiviyy);
@@ -438,7 +438,7 @@ public class HomeStepDefinition {
   }
 
   @And("I unbookmark the activity '{}'")
-  @When("I bookmark the activity '{}'")
+  @When("^I bookmark the activity '{}'$")
   public void bookmarkActivity(String activity) {
     homeSteps.bookmarkActivity(activity);
   }

@@ -79,12 +79,12 @@ public class UserProfileStepDefinition {
     userProfileSteps.sentKudosSectionIsDisplayed(kudosNumber);
   }
 
-  @Then("^'(.*)' kudos are received")
+  @Then("^'(.*)' kudos are received$")
   public void receivedKudosSectionIsDisplayed(String kudosNumber) {
     userProfileSteps.receivedKudosSectionIsDisplayed(kudosNumber);
   }
 
-  @Then("^I open How To Earn Point Page")
+  @Then("^I open How To Earn Point Page$")
   public void openHowToEarnPointPage() {
     userProfileSteps.openHowToEarnPointPage();
   }
@@ -133,12 +133,12 @@ public class UserProfileStepDefinition {
     userProfileSteps.goToSentKudos();
   }
 
-  @Then("Sent kudos by user '(.*)' is displayed")
+  @Then("^Sent kudos by user '(.*)' is displayed$")
   public void sentKudosUsersSectionIsDisplayed(String user) {
     userProfileSteps.sentKudosUsersSectionIsDisplayed(user);
   }
 
-  @Then("Sent kudos by third user is displayed")
+  @Then("^Sent kudos by third user is displayed$")
   public void sentKudosThirdUserSectionIsDisplayed() {
     String thirdUserFirstName = Serenity.sessionVariableCalled("thirdUserFirstName");
     String thirdUserLastName = Serenity.sessionVariableCalled("thirdUserLastName");
@@ -161,7 +161,7 @@ public class UserProfileStepDefinition {
     userProfileSteps.isProfileAvatarUploaded();
   }
 
-  @Then("Received kudos by user '(.*)' is displayed")
+  @Then("^Received kudos by user '(.*)' is displayed$")
   public void receivedKudosUsersSectionIsDisplayed(String user) {
     userProfileSteps.receivedKudosUsersSectionIsDisplayed(user);
   }
@@ -352,12 +352,12 @@ public class UserProfileStepDefinition {
     userProfileSteps.isProfileContactInstantMessagingVisible(instantMessaging);
   }
 
-  @Then("^I open Weekly Points Chart")
+  @Then("^I open Weekly Points Chart$")
   public void openWeeklyPointsChart() {
     userProfileSteps.openWeeklyPointsChart();
   }
 
-  @Then("^I open Achievements Tab")
+  @Then("^I open Achievements Tab$")
   public void openAchievementsTab() {
     userProfileSteps.openAchievementsTab();
   }

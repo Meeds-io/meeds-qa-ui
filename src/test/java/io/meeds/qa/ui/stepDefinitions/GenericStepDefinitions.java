@@ -39,7 +39,7 @@ public class GenericStepDefinitions {
     genericSteps.clickConfirm();
   }
 
-  @When("^I click on 'OK' button")
+  @When("^I click on 'OK' button$")
   public void clickOkButton() {
     genericSteps.clickOkButton();
   }

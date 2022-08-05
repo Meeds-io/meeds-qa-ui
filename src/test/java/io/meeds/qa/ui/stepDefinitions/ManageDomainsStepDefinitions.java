@@ -24,12 +24,12 @@ public class ManageDomainsStepDefinitions {
     return sb.toString();
   }
 
-  @When("I go to administration then I select manage domains")
+  @When("^I go to administration then I select manage domains$")
   public void goToManageDomainMenu() {
     manageDomainsSteps.goToManageDomainMenu();
   }
 
-  @And("I add new Domain with name '(.*)' and '(.*)' as description")
+  @And("^I add new Domain with name '(.*)' and '(.*)' as description$")
   public void addDomain(String name, String description) {
     manageDomainsSteps.addDomain(name, description);
   }
@@ -85,58 +85,58 @@ public class ManageDomainsStepDefinitions {
     manageDomainsSteps.confirmDomain();
   }
 
-  @And("The new domain is added successfully and its name '(.*)' is displayed in the domain list")
-  @Then("The new domain is updated successfully and its name '(.*)' is displayed in the domain list")
+  @And("^The new domain is added successfully and its name '(.*)' is displayed in the domain list$")
+  @Then("^The new domain is updated successfully and its name '(.*)' is displayed in the domain list$")
   public void isDomainNameDisplayedInSearchResults(String name) {
     manageDomainsSteps.isDomainNameDisplayedInSearchResults(name);
   }
 
-  @And("I click on edit icon and edit the domain name to '(.*)' and I save changes")
+  @And("^I click on edit icon and edit the domain name to '(.*)' and I save changes$")
   public void editDomainName(String name) {
     manageDomainsSteps.editDomainName(name);
   }
 
-  @When("I click on delete icon to delete the new added domain")
+  @When("^I click on delete icon to delete the new added domain$")
   public void deleteDomain() {
     manageDomainsSteps.deleteDomain();
   }
 
-  @When("I confirm the deletion of the domain an it is deleted successfully")
+  @When("^I confirm the deletion of the domain an it is deleted successfully$")
   public void confirmDeletion() {
     manageDomainsSteps.confirmDomainDeletion();
   }
 
-  @And("The domain '(.*)' is not displayed in the domain list")
+  @And("^The domain '(.*)' is not displayed in the domain list$")
   public void domainNameIsNotDisplayed(String domainName) {
     manageDomainsSteps.domainNameIsNotDisplayed(domainName);
   }
 
-  @When("I go to administration")
+  @When("^I go to administration$")
   public void goToAdministration() {
     manageDomainsSteps.goToAdministration();
   }
 
-  @When("I select Automatic Translation")
+  @When("^I select Automatic Translation$")
   public void goToAutomaticTranslation() {
     manageDomainsSteps.goToAutomaticTranslation();
   }
 
-  @When("Automatic Translation '(.*)' page is displayed")
+  @When("^Automatic Translation '(.*)' page is displayed$")
   public void checkTitlePageAutomaticTranslation(String title) {
     manageDomainsSteps.checkTitlePageAutomaticTranslation(title);
   }
 
-  @When("Alert publishing activity '(.*)' is displayed in language arabic")
+  @When("^Alert publishing activity '(.*)' is displayed in language arabic$")
   public void checkAlertPublishingActivity(String alert) {
     manageDomainsSteps.checkAlertPublishingActivity(alert);
   }
 
-  @And("I search for '(.*)' domain")
+  @And("^I search for '(.*)' domain$")
   public void searchDomain(String domain) {
     manageDomainsSteps.searchDomain(domain);
   }
 
-  @Then("Searched domain name '(.*)' is displayed in the list of search results")
+  @Then("^Searched domain name '(.*)' is displayed in the list of search results$")
   public void searchedDomainNameDisplayed(String domain) {
     manageDomainsSteps.searchedDomainNameDisplayed(domain);
   }

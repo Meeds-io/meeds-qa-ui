@@ -112,12 +112,12 @@ public class ManageUnifiedSearchStepDefinitions {
     manageUnifiedSearchSteps.isSearchedActivityTitleNotVisible(activity);
   }
 
-  @When("I favorite the activity '(.*)' from the search page")
+  @When("^I favorite the activity '(.*)' from the search page$")
   public void favoriteSearchedActivity(String activity) {
     manageUnifiedSearchSteps.favoriteSearchedActivity(activity);
   }
 
-  @And("^I select an object from the drop-down menu '(.*)'")
+  @And("^I select an object from the drop-down menu '(.*)'$")
   public void selectDropDown(String object) {
     manageUnifiedSearchSteps.selectDropDown(object);
   }

@@ -76,7 +76,7 @@ public class PeopleStepDefinition {
     peopleSteps.checkThatSuggestionWidgetDisplayedTwoUsersWithAddAndDeleteButtons();
   }
 
-  @Given("I go to the profile '(.*)'")
+  @Given("^I go to the profile '(.*)'$")
   public void goToUserProfile(String user) {
     peopleSteps.goToUserProfile(user);
   }

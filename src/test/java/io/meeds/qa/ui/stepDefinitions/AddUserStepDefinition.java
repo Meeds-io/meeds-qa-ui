@@ -274,12 +274,12 @@ public class AddUserStepDefinition {
     addUserSteps.checkThatAddUserDrawerIsDisplayed();
   }
 
-  @Given("^I search for created user '(.*)'")
+  @Given("^I search for created user '(.*)'$")
   public void searchForUser(String fullName) {
     addUserSteps.searchForUsersByName(fullName);
   }
 
-  @Given("^I search for the created random user")
+  @Given("^I search for the created random user$")
   public void searchForCreatedUser() {
     String firstUserName = Serenity.sessionVariableCalled("firstUserName");
     addUserSteps.searchForUsersByName(firstUserName);
@@ -290,12 +290,12 @@ public class AddUserStepDefinition {
     addUserSteps.deleteUser();
   }
 
-  @Given("^I check that '(.*)' is deleted'")
+  @Given("^I check that '(.*)' is deleted'$")
   public void checkUserIsDeleted(String fullName) {
     addUserSteps.checkUserIsDeleted(fullName);
   }
 
-  @Given("^I check that the created user is deleted")
+  @Given("^I check that the created user is deleted$")
   public void checkCreatedUserIsDeleted() {
     String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
     String firstUserLastName = Serenity.sessionVariableCalled("firstUserLastName");

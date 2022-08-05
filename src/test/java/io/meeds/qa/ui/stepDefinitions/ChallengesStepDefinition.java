@@ -80,7 +80,7 @@ public class ChallengesStepDefinition {
     challengesSteps.addSpaceAudienceWithSecondUser(secondRandomSpaceName);
   }
 
-  @Then("^The challenge card title '(.*)' should be displayed")
+  @Then("^The challenge card title '(.*)' should be displayed$")
   public void checkChallengeCardTitle(String title) {
     challengesSteps.checkChallengeCardTitle(title);
   }
@@ -110,67 +110,67 @@ public class ChallengesStepDefinition {
     challengesSteps.checkTitleDisplayOnCard(challengeName);
   }
 
-  @And("^Three dots icon should be displayed on the challenge card")
+  @And("^Three dots icon should be displayed on the challenge card$")
   public void checkThreeDotsIconDisplay() {
     String randomChallengeName = Serenity.sessionVariableCalled("randomChallengeName");
     challengesSteps.checkThreeDotsIconDisplay(randomChallengeName);
   }
 
-  @And("^Announce button should be displayed on the challenge card")
+  @And("^Announce button should be displayed on the challenge card$")
   public void checkAnnounceBtn() {
     String randomChallengeName = Serenity.sessionVariableCalled("randomChallengeName");
     challengesSteps.checkAnnounceBtn(randomChallengeName);
   }
 
-  @And("^Date indication should be displayed on the challenge card")
+  @And("^Date indication should be displayed on the challenge card$")
   public void checkDateField() {
     String randomChallengeName = Serenity.sessionVariableCalled("randomChallengeName");
     challengesSteps.checkDateField(randomChallengeName);
   }
 
-  @And("^I click on the announce button")
+  @And("^I click on the announce button$")
   public void clickAnnounceBtn() {
     challengesSteps.clickAnnounceBtn();
   }
 
-  @Then("^The announcement drawer should be displayed")
+  @Then("^The announcement drawer should be displayed$")
   public void checkAnnouncementDrawer() {
     challengesSteps.checkAnnouncementDrawer();
   }
 
-  @And("^I assign the announcement to the second user")
+  @And("^I assign the announcement to the second user$")
   public void assignChallengeToSecondUser() {
     String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
     challengesSteps.assignChallengeToSecondUser(secondUserFirstName);
   }
 
-  @And("^I create announcement with random description")
+  @And("^I create announcement with random description$")
   public void addAnnouncementWithRandomDescription() {
     String announcementDescription = "announcementDescription" + getRandomNumber();
     Serenity.setSessionVariable("announcementDescription").to(announcementDescription);
     challengesSteps.addAnnouncementWithRandomDescription(announcementDescription);
   }
 
-  @And("^The announcement activity is posted by the first user in the created space")
+  @And("^The announcement activity is posted by the first user in the created space$")
   public void checkAnnouncementActivityTopBar() {
     String firstUserName = Serenity.sessionVariableCalled("firstUserName");
     String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
     challengesSteps.checkAnnouncementActivityTopBar(firstUserName, randomSpaceName);
   }
 
-  @And("^The winner name should be displayed on the announcement activity")
+  @And("^The winner name should be displayed on the announcement activity$")
   public void checkWinnerNameOnAnnouncement() {
     String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
     challengesSteps.checkWinnerNameOnAnnouncement(secondUserFirstName);
   }
 
-  @And("^The challenge title should be displayed on the announcement activity")
+  @And("^The challenge title should be displayed on the announcement activity$")
   public void checkChallengeTitleOnAnnouncement() {
     String challengeName = Serenity.sessionVariableCalled("challengeName");
     challengesSteps.checkChallengeTitleOnAnnouncement(challengeName);
   }
 
-  @And("^Achievement description should be displayed on the announcement activity")
+  @And("^Achievement description should be displayed on the announcement activity$")
   public void checkAchievementDescriptionOnAnnouncement() {
     String announcementDescription = Serenity.sessionVariableCalled("announcementDescription");
     challengesSteps.checkAchievementDescriptionOnAnnouncement(announcementDescription);
