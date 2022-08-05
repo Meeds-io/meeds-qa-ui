@@ -24,7 +24,7 @@ public class ManageBadgesStepDefinitions {
     return sb.toString();
   }
 
-  @When("I go to administration then I select manage badges")
+  @When("^I go to administration then I select manage badges$")
   public void goToManageBadgesMenu() {
     manageBadgesSteps.goToManageBadgesMenu();
 
@@ -57,13 +57,13 @@ public class ManageBadgesStepDefinitions {
 
   }
 
-  @And("^I search for the badge '(.*)'")
+  @And("^I search for the badge '(.*)'$")
   public void insertBadgeNameInSearchField(String badgeName) {
     manageBadgesSteps.insertBadgeNameInSearchField(badgeName);
 
   }
 
-  @And("^The badge with name '(.*)', description '(.*)', score '(.*)', domain '(.*)' is no longer displayed in badges list")
+  @And("^The badge with name '(.*)', description '(.*)', score '(.*)', domain '(.*)' is no longer displayed in badges list$")
   public void isBadgeNotDisplayedWithEnabledStatus(String badgeName,
                                                    String badgeDescription,
                                                    String badgeScore,
@@ -72,20 +72,20 @@ public class ManageBadgesStepDefinitions {
 
   }
 
-  @And("^I click on badge '(.*)' Edit button")
+  @And("^I click on badge '(.*)' Edit button$")
   public void clickOnEditBadge(String badgeName) {
     manageBadgesSteps.clickOnEditBadge(badgeName);
 
   }
 
-  @And("^I add new Badge to be updated with random name, description '(.*)', score '(.*)', icon '(.*)', and domain '(.*)'")
+  @And("^I add new Badge to be updated with random name, description '(.*)', score '(.*)', icon '(.*)', and domain '(.*)'$")
   public void addRandomBadgeToBeUpdated(String description, String score, String icon, String domain) {
     String badgeNameToBeUpdated = "badge1" + getRandomString();
     manageBadgesSteps.addBadge(badgeNameToBeUpdated, description, score, icon, domain);
     Serenity.setSessionVariable("badgeNameToBeUpdated").to(badgeNameToBeUpdated);
   }
 
-  @And("^I add new Badge to be deleted with random name, description '(.*)', score '(.*)', icon '(.*)', and domain '(.*)'")
+  @And("^I add new Badge to be deleted with random name, description '(.*)', score '(.*)', icon '(.*)', and domain '(.*)'$")
   public void addRandomBadgeToBeDeleted(String description, String score, String icon, String domain) {
     String badgeName = "badge1" + getRandomString();
     manageBadgesSteps.addBadge(badgeName, description, score, icon, domain);
@@ -147,7 +147,7 @@ public class ManageBadgesStepDefinitions {
 
   }
 
-  @And("^The badge with random name, description '(.*)', score '(.*)', domain '(.*)' is no longer displayed in badges list")
+  @And("^The badge with random name, description '(.*)', score '(.*)', domain '(.*)' is no longer displayed in badges list$")
   public void isRandomBadgeNotDisplayedWithEnabledStatus(String badgeDescription, String badgeScore, String badgeDomain) {
     String badgeName = Serenity.sessionVariableCalled("badgeName");
     manageBadgesSteps.isBadgeNotDisplayedWithEnabledStatus(badgeName, badgeDescription, badgeScore, badgeDomain);
@@ -163,7 +163,7 @@ public class ManageBadgesStepDefinitions {
 
   }
 
-  @And("^I enter the new badge name '(.*)'")
+  @And("^I enter the new badge name '(.*)'$")
   public void editBadgeName(String name) {
     manageBadgesSteps.editBadgeName(name);
 
@@ -182,25 +182,25 @@ public class ManageBadgesStepDefinitions {
 
   }
 
-  @And("^I click on badge '(.*)' Delete button")
+  @And("^I click on badge '(.*)' Delete button$")
   public void clickOnDeleteBadge(String badgeName) {
     manageBadgesSteps.clickOnDeleteBadge(badgeName);
 
   }
 
-  @And("^I enter the new badge description '(.*)'")
+  @And("^I enter the new badge description '(.*)'$")
   public void editBadgeDescription(String description) {
     manageBadgesSteps.editBadgeDescription(description);
 
   }
 
-  @And("^I enter the new badge score '(.*)'")
+  @And("^I enter the new badge score '(.*)'$")
   public void editBadgeScore(String score) {
     manageBadgesSteps.editBadgeScore(score);
 
   }
 
-  @And("^I select the new badge domain '(.*)'")
+  @And("^I select the new badge domain '(.*)'$")
   public void editBadgeDomain(String domain) {
     manageBadgesSteps.editBadgeDomain(domain);
 

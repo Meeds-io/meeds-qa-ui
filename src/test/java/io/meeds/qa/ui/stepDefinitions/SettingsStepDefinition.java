@@ -241,47 +241,47 @@ public class SettingsStepDefinition {
     settingsSteps.checkThatManageNotificationPageIsOpened();
   }
 
-  @And("^General section is displayed")
+  @And("^General section is displayed$")
   public void checkThatGeneralSectionIsDisplayed() {
     settingsSteps.checkThatGeneralSectionIsDisplayed();
   }
 
-  @And("^Connections section is displayed")
+  @And("^Connections section is displayed$")
   public void checkThatConnectionsSectionIsDisplayed() {
     settingsSteps.checkThatConnectionsSectionIsDisplayed();
   }
 
-  @And("^Spaces section is displayed")
+  @And("^Spaces section is displayed$")
   public void checkThatSpacesSectionIsDisplayed() {
     settingsSteps.checkThatSpacesSectionIsDisplayed();
   }
 
-  @And("^Activity Stream section is displayed")
+  @And("^Activity Stream section is displayed$")
   public void checkThatActivityStreamSectionIsDisplayed() {
     settingsSteps.checkThatActivityStreamSectionIsDisplayed();
   }
 
-  @And("^My Tasks section is displayed")
+  @And("^My Tasks section is displayed$")
   public void checkThatTasksSectionIsDisplayed() {
     settingsSteps.checkThatTasksSectionIsDisplayed();
   }
 
-  @And("^Wallet section is displayed")
+  @And("^Wallet section is displayed$")
   public void checkThatWalletSectionIsDisplayed() {
     settingsSteps.checkThatWalletSectionIsDisplayed();
   }
 
-  @And("^Kudos section is displayed")
+  @And("^Kudos section is displayed$")
   public void checkThatKudosSectionIsDisplayed() {
     settingsSteps.checkThatKudosSectionIsDisplayed();
   }
 
-  @And("^Notes section is displayed")
+  @And("^Notes section is displayed$")
   public void checkThatNotesSectionIsDisplayed() {
     settingsSteps.checkThatNotesSectionIsDisplayed();
   }
 
-  @And("^Perk Store section is displayed")
+  @And("^Perk Store section is displayed$")
   public void checkThatPerkStoreSectionIsDisplayed() {
     settingsSteps.checkThatPerkStoreSectionIsDisplayed();
   }

@@ -18,7 +18,7 @@ public class KudosStepDefinitions {
 
   private KudosPage     kudosPage;
 
-  @When("I go to administration then reward then kudos")
+  @When("^I go to administration then reward then kudos$")
   public void goToAdmin() {
     kudoSteps.goToKudosMenu();
   }
@@ -98,17 +98,17 @@ public class KudosStepDefinitions {
     kudoSteps.addActivityCommentKudosFromDrawer(kudos);
   }
 
-  @Given("^I click to edit the kudos text")
+  @Given("^I click to edit the kudos text$")
   public void clickEditKudos() {
     kudoSteps.clickEditKudos();
   }
 
-  @Given("^I click to edit the kudos from a reply comment")
+  @Given("^I click to edit the kudos from a reply comment$")
   public void clickEditKudosFromReply() {
     kudoSteps.clickEditKudosFromReply();
   }
 
-  @Given("I set the new kudos comment text '(.*)' and I click on update button")
+  @Given("^I set the new kudos comment text '(.*)' and I click on update button$")
   public void updateKudosCommentMessage(String kudos) {
     kudoSteps.updateKudosCommentMessage(kudos);
   }

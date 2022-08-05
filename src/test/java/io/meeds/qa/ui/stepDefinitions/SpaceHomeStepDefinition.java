@@ -136,7 +136,7 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.replyInDrawerIsNotDisplayed(reply);
   }
 
-  @When("I click on post in space")
+  @When("^I click on post in space$")
   public void clickPostIcon() {
     spaceHomeSteps.clickPostIcon();
   }
@@ -193,14 +193,14 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.clickKudosFromCommentsDrawer();
   }
 
-  @When("I enter an activity more than 1300 characters")
+  @When("^I enter an activity more than 1300 characters$")
   public void addActivityExceed() {
     String activity = StringUtils.repeat("activity to add", 90);
     spaceHomeSteps.addActivity(activity);
     Serenity.setSessionVariable("activity").to(activity);
   }
 
-  @When("I insert text '(.*)'")
+  @When("^I insert text '(.*)'$")
   public void enterActivityText(String activity) {
     spaceHomeSteps.enterActivityText(activity);
   }
@@ -221,7 +221,7 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.editActivity();
   }
 
-  @When("^I click on Load more button")
+  @When("^I click on Load more button$")
   public void clickOnLoadMoreActivities() {
     spaceHomeSteps.clickOnLoadMoreActivities();
   }
@@ -278,14 +278,14 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.editPoll(pollTitle, choiceOne, choiceTow);
   }
 
-  @When("^create poll drawer is closed")
+  @When("^create poll drawer is closed$")
   public void createPollDrawerClosed() {
     spaceHomeSteps.createPollDrawerClosed();
   }
 
   @When("^the activity '(.*)' is displayed in activity stream$")
-  @Then("the activity '(.*)' is displayed in stream page")
-  @And("The Poll '(.*)' is displayed in stream page")
+  @Then("^the activity '(.*)' is displayed in stream page$")
+  @And("^The Poll '(.*)' is displayed in stream page$")
   public void checkActivity(String activity) {
     assertThat(spaceHomeSteps.isActivityVisible(activity))
                                                           .as("L'activité n'est pas affichée dans l'activity stream")
@@ -393,8 +393,8 @@ public class SpaceHomeStepDefinition {
     spaceHomePage.clickOnCommentActivityButton(spaceHomePage.getActivityElement(activity));
   }
 
-  @Then("The activity '(.*)' posted by the user '(.*)' in space '(.*)' is displayed with its timestamp in activity stream")
-  @And("The activity '(.*)' posted by the user '(.*)' in space '(.*)' is displayed with its timestamp in streams page")
+  @Then("^The activity '(.*)' posted by the user '(.*)' in space '(.*)' is displayed with its timestamp in activity stream$")
+  @And("^The activity '(.*)' posted by the user '(.*)' in space '(.*)' is displayed with its timestamp in streams page$")
   public void isActivityNameUserSpaceDisplayed(String activity, String user, String space) {
     spaceHomeSteps.isActivityNameUserSpaceDisplayed(activity, user, space);
   }
@@ -404,8 +404,8 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.closeWriteMessageDrawer();
   }
 
-  @Then("The activity '(.*)' posted by the second user in the created space is displayed with its timestamp in activity stream")
-  @And("The activity '(.*)' posted by the second user in the created space is displayed with its timestamp in streams page")
+  @Then("^The activity '(.*)' posted by the second user in the created space is displayed with its timestamp in activity stream$")
+  @And("^The activity '(.*)' posted by the second user in the created space is displayed with its timestamp in streams page$")
   public void isActivityNamePostedBySecondUserSpaceDisplayed(String activity) {
     String user = Serenity.sessionVariableCalled("secondUserName");
     String space = Serenity.sessionVariableCalled("randomSpaceName");
@@ -413,12 +413,12 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.isActivityNameUserSpaceDisplayed(activity, user, space);
   }
 
-  @When("In post '(.*)', I mouse over the mentioned user '(.*)'")
+  @When("^In post '(.*)', I mouse over the mentioned user '(.*)'$")
   public void hoverOnMentionedUserInPost(String activity, String user) {
     spaceHomeSteps.hoverOnMentionedUserInPost(activity, user);
   }
 
-  @When("In post '(.*)', I mouse over the mentioned second user")
+  @When("^In post '(.*)', I mouse over the mentioned second user$")
   public void hoverOnMentionedSecondUserInPost(String activity) {
     String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
     String secondUserLastName = Serenity.sessionVariableCalled("secondUserLastName");
@@ -427,17 +427,17 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.hoverOnMentionedUserInPost(activity, fullName);
   }
 
-  @When("In comment '(.*)', I hover on Like icon")
+  @When("^In comment '(.*)', I hover on Like icon$")
   public void hoverOnLikeIcon(String comment) {
     spaceHomeSteps.hoverOnLikeIcon(comment);
   }
 
-  @When("In post '(.*)', the mentioned user '(.*)' is displayed")
+  @When("^In post '(.*)', the mentioned user '(.*)' is displayed$")
   public void isMentionedUserDisplayedInPost(String activity, String user) {
     spaceHomeSteps.isMentionedUserDisplayedInPost(activity, user);
   }
 
-  @When("In post '(.*)', the mentioned second user is displayed")
+  @When("^In post '(.*)', the mentioned second user is displayed$")
   public void isMentionedSecondUserDisplayedInPost(String activity) {
     String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
     String secondUserLastName = Serenity.sessionVariableCalled("secondUserLastName");
@@ -446,29 +446,29 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.isMentionedUserDisplayedInPost(activity, fullName);
   }
 
-  @When("Tooltip Like on '(.*)' is displayed in activity stream")
-  @And("Tooltip Remove Like on '(.*)' is displayed in activity stream")
+  @When("^Tooltip Like on '(.*)' is displayed in activity stream$")
+  @And("^Tooltip Remove Like on '(.*)' is displayed in activity stream$")
   public void tooltipActivityStreamIsDisplayed(String comment) {
     spaceHomeSteps.tooltipActivityStreamIsDisplayed(comment);
   }
 
-  @When("Tooltip Like on '(.*)' is displayed in comments drawer")
-  @And("Tooltip Remove Like on '(.*)' is displayed in comments drawer")
+  @When("^Tooltip Like on '(.*)' is displayed in comments drawer$")
+  @And("^Tooltip Remove Like on '(.*)' is displayed in comments drawer$")
   public void tooltipCommentsDrawerIsDisplayed(String comment) {
     spaceHomeSteps.tooltipCommentsDrawerIsDisplayed(comment);
   }
 
-  @When("In comments drawer, in comment '(.*)', I hover on Like icon")
+  @When("^In comments drawer, in comment '(.*)', I hover on Like icon$")
   public void hoverOnLikeIconCommentsDrawer(String comment) {
     spaceHomeSteps.hoverOnLikeIconCommentsDrawer(comment);
   }
 
-  @Then("I click on the user Popover '(.*)'")
+  @Then("^I click on the user Popover '(.*)'$")
   public void clickOnTheUserPopover(String user) {
     spaceHomeSteps.clickOnTheUserPopover(user);
   }
 
-  @Then("User Popover '(.*)' is displayed")
+  @Then("^User Popover '(.*)' is displayed$")
   public void isUserPopoverDisplayed(String user) {
     spaceHomeSteps.isUserPopoverDisplayed(user);
   }
@@ -491,7 +491,7 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.clickOnTheUserPopover(fullName);
   }
 
-  @Then("the video '(.*)' is displayed in the activity stream")
+  @Then("^the video '(.*)' is displayed in the activity stream$")
   public void checkDisplayVideo(String videoLink) {
     assertThat(spaceHomeSteps.isSharedVideoDisplayed(videoLink))
                                                                 .as("shared video link should be displayed but it is not")
@@ -523,32 +523,32 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.checkTenCommentIsDisplayedInDrawer();
   }
 
-  @Then("The link preview '(.*)' is displayed in activity stream")
+  @Then("^The link preview '(.*)' is displayed in activity stream$")
   public void normalLinkPreviewIsVisible(String link) {
     spaceHomeSteps.normalLinkPreviewIsVisible(link);
   }
 
-  @Then("First comment '(.*)' is displayed in comments drawer")
+  @Then("^First comment '(.*)' is displayed in comments drawer$")
   public void checkFirstCommentInDrawer(String comment) {
     spaceHomeSteps.checkFirstCommentInDrawer(comment);
   }
 
-  @Then("Second comment '(.*)' is displayed in comments drawer")
+  @Then("^Second comment '(.*)' is displayed in comments drawer$")
   public void checkSecondCommentInDrawer(String comment) {
     spaceHomeSteps.checkSecondCommentInDrawer(comment);
   }
 
-  @Then("Third comment '(.*)' is displayed in comments drawer")
+  @Then("^Third comment '(.*)' is displayed in comments drawer$")
   public void checkThirdCommentInDrawer(String comment) {
     spaceHomeSteps.checkThirdCommentInDrawer(comment);
   }
 
-  @Then("Fourth comment '(.*)' is displayed in comments drawer")
+  @Then("^Fourth comment '(.*)' is displayed in comments drawer$")
   public void checkFourthCommentInDrawer(String comment) {
     spaceHomeSteps.checkFourthCommentInDrawer(comment);
   }
 
-  @Then("Comment '(.*)' is displayed in comments drawer at the sixth position")
+  @Then("^Comment '(.*)' is displayed in comments drawer at the sixth position$")
   public void checkCommentInDrawerSixthPosition(String comment) {
     spaceHomeSteps.checkSixthPositionInDrawer(comment);
   }
@@ -658,7 +658,7 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.likeLabelIsBlue(comment);
   }
 
-  @When("^In comment '(.*)', Like label should be black")
+  @When("^In comment '(.*)', Like label should be black$")
   public void likeLabelIsBlack(String comment) {
     spaceHomeSteps.likeLabelIsBlack(comment);
   }
@@ -668,32 +668,32 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.checkCommentReplyNotDisplayed(activity, comment, reply);
   }
 
-  @When("^In comments drawer, Like label in comment '(.*)' should be blue")
+  @When("^In comments drawer, Like label in comment '(.*)' should be blue$")
   public void likeLabelInCommentsDrawerIsBlue(String comment) {
     spaceHomeSteps.likeLabelInCommentsDrawerIsBlue(comment);
   }
 
-  @When("^I insert text '(.*)' as comment")
+  @When("^I insert text '(.*)' as comment$")
   public void enterCommentText(String comment) {
     spaceHomeSteps.enterCommentText(comment);
   }
 
-  @When("^I update comment with a new one '(.*)'")
+  @When("^I update comment with a new one '(.*)'$")
   public void updateCommentText(String comment) {
     spaceHomeSteps.updateCommentText(comment);
   }
 
-  @When("^I publish the comment")
+  @When("^I publish the comment$")
   public void publishComment() {
     spaceHomeSteps.publishComment();
   }
 
-  @When("^I click on update comment")
+  @When("^I click on update comment$")
   public void updateComment() {
     spaceHomeSteps.updateComment();
   }
 
-  @When("^In comments drawer, Like label in comment '(.*)' should be black")
+  @When("^In comments drawer, Like label in comment '(.*)' should be black$")
   public void likeLabelInCommentsDrawerIsBlack(String comment) {
     spaceHomeSteps.likeLabelInCommentsDrawerIsBlack(comment);
   }
@@ -751,8 +751,8 @@ public class SpaceHomeStepDefinition {
   }
 
   @And("^the activity '(.*)' is no more displayed in the activity stream$")
-  @Then("the activity '(.*)' is not displayed in activity stream")
-  @When("the activity '(.*)' is not displayed in stream page")
+  @Then("^the activity '(.*)' is not displayed in activity stream$")
+  @When("^the activity '(.*)' is not displayed in stream page$")
   public void checkActivityIsNotVisible(String activity) {
     assertThat(spaceHomeSteps.isActivityVisible(activity))
                                                           .as("Activity is displayed in activity stream")
@@ -800,7 +800,7 @@ public class SpaceHomeStepDefinition {
     assertThat(spaceHomeSteps.isActivityCommentNotdisplayed()).isTrue();
   }
 
-  @And("^I go to notes application of the space")
+  @And("^I go to notes application of the space$")
   public void accessNotesApp() {
     spaceHomeSteps.accessNotesApp();
   }
@@ -826,8 +826,8 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.kudosLabelIsBlue(comment);
   }
 
-  @Then("^In comment '(.*)', the Kudos label should be black")
-  @When("^In comment '(.*)', Kudos label should be black")
+  @Then("^In comment '(.*)', the Kudos label should be black$")
+  @When("^In comment '(.*)', Kudos label should be black$")
   public void kudosLabelIsBlack(String comment) {
     spaceHomeSteps.kudosLabelIsBlack(comment);
   }
@@ -842,7 +842,7 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.clickOnKudosNumberButtonFromTheCommentsDrawer();
   }
 
-  @Then("^'(.*)' kudos are displayed on the reaction drawer")
+  @Then("^'(.*)' kudos are displayed on the reaction drawer$")
   public void receivedKudosOnDrawerIsDisplayed(String kudosNumber) {
     spaceHomeSteps.receivedKudosDrawerIsDisplayed(kudosNumber);
   }
@@ -853,8 +853,8 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.replaykudosLabelIsBlue(comment);
   }
 
-  @Then("^In replay '(.*)', the Kudos label should be black")
-  @When("^In replay '(.*)', Kudos label should be black")
+  @Then("^In replay '(.*)', the Kudos label should be black$")
+  @When("^In replay '(.*)', Kudos label should be black$")
   public void replayKudosLabelIsBlack(String comment) {
     spaceHomeSteps.replaykudosLabelIsBlack(comment);
   }

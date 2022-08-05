@@ -14,12 +14,12 @@ public class SocialStepDefinitions {
 
   private PeopleSteps peopleSteps;
 
-  @And("I add a comment in activity '(.*)'$")
+  @And("^I add a comment in activity '(.*)'$")
   public void commentActivity(String activity) {
     socialSteps.commentActivity(activity);
   }
 
-  @When("I go to people page")
+  @When("^I go to people page$")
   public void goToPeoplePage() {
     socialSteps.goToPeopleMenu();
   }
@@ -30,7 +30,7 @@ public class SocialStepDefinitions {
 
   }
 
-  @And("I enter the contact name '(.*)'")
+  @And("^I enter the contact name '(.*)'$")
   public void insertNameContact(String user) {
     socialSteps.insertNameContact(user);
   }
@@ -53,7 +53,7 @@ public class SocialStepDefinitions {
     socialSteps.insertNameContact(fullName);
   }
 
-  @Given("The search result is well matched with the username entered '(.*)'")
+  @Given("^The search result is well matched with the username entered '(.*)'$")
   public void checkSearchedUserWellMatched(String user) {
     socialSteps.checkSearchedUserWellMatched(user);
   }
@@ -75,12 +75,12 @@ public class SocialStepDefinitions {
     socialSteps.editComment();
   }
 
-  @When("I set the new comment '(.*)' and I click on update button")
+  @When("^I set the new comment '(.*)' and I click on update button$")
   public void updateActivityComment(String comment) {
     socialSteps.updateActivityComment(comment);
   }
 
-  @When("I set the new comment '(.*)' and I click on cancel button")
+  @When("^I set the new comment '(.*)' and I click on cancel button$")
   public void cancelUpdateActivityComment(String comment) {
     socialSteps.cancelUpdateActivityComment(comment);
   }

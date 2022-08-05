@@ -15,12 +15,12 @@ public class NoteStepDefinition {
   @Steps
   NoteSteps noteSteps;
 
-  @When("^I click to add note")
+  @When("^I click to add note$")
   public void clickAddNote() {
     noteSteps.clickAddNote();
   }
 
-  @Then("^Create note form is opened successfully in new tab")
+  @Then("^Create note form is opened successfully in new tab$")
   public void checkNoteCreateForm() {
     switchToTabByIndex(1);
     noteSteps.checkNoteCreateForm();
@@ -31,12 +31,12 @@ public class NoteStepDefinition {
     noteSteps.addNote(noteTitle, noteContent);
   }
 
-  @When("^I save Note")
+  @When("^I save Note$")
   public void saveNote() {
     noteSteps.saveNote();
   }
 
-  @When("^I save and post Note")
+  @When("^I save and post Note$")
   public void saveAndPostNote() {
     noteSteps.saveAndPostNote();
   }
@@ -52,23 +52,23 @@ public class NoteStepDefinition {
     noteSteps.createNotePage(noteTitle, noteContent);
   }
 
-  @When("^I click to edit note")
+  @When("^I click to edit note$")
   public void clickeditNote() {
     noteSteps.clickEditNote();
   }
 
-  @Then("^Edit note form is opened successfully in new tab")
+  @Then("^Edit note form is opened successfully in new tab$")
   public void checkNoteEditForm() {
     switchToTabByIndex(2);
     noteSteps.checkNoteEditForm();
   }
 
-  @And("^I close the third window")
+  @And("^I close the third window$")
   public void closeTheThirdWindow() {
     noteSteps.closeTheThirdWindow();
   }
 
-  @When("^I edit note page with random title and random content")
+  @When("^I edit note page with random title and random content$")
   public void editRandomNote() {
     switchToTabByIndex(2);
     String noteTitleEdited = "noteTitle" + getRandomNumber();
@@ -100,7 +100,7 @@ public class NoteStepDefinition {
     noteSteps.checkDeletedNote(noteTitle);
   }
 
-  @Then("Note activity with title '(.*)' is displayed")
+  @Then("^Note activity with title '(.*)' is displayed$")
   public void checkNoteActivityDisplay(String noteTitle) {
     noteSteps.noteActivityDisplay(noteTitle);
   }

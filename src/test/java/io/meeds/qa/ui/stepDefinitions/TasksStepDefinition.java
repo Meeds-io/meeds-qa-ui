@@ -33,39 +33,39 @@ public class TasksStepDefinition {
     tasksSteps.addTask(userDetails);
   }
 
-  @When("Status name '(.*)' Edit mode is opened successfully")
+  @When("^Status name '(.*)' Edit mode is opened successfully$")
   public void isStatusEditModeDisplayed(String statusColumn) {
     assertThat(tasksSteps.isStatusEditModeDisplayed(statusColumn)).as("Status edit mode is opened successfully")
                                                                   .isTrue();
   }
 
-  @When("Status name '(.*)' Edit mode is not opened successfully")
+  @When("^Status name '(.*)' Edit mode is not opened successfully$")
   public void isStatusEditModeNotDisplayed(String statusColumn) {
     assertThat(tasksSteps.isStatusEditModeDisplayed(statusColumn)).as("Status edit mode is opened successfully")
                                                                   .isFalse();
   }
 
-  @When("I click on Status name '(.*)'")
+  @When("^I click on Status name '(.*)'$")
   public void clickStatusName(String statusColumn) {
     tasksSteps.clickStatusName(statusColumn);
   }
 
-  @When("^I add this project '(.*)'")
+  @When("^I add this project '(.*)'$")
   public void addProject(String projectName) {
     tasksSteps.addProject(projectName);
   }
 
-  @When("^Task tooltip is displayed '(.*)'")
+  @When("^Task tooltip is displayed '(.*)'$")
   public void taskTooltipIsDisplayed(String task) {
     tasksSteps.taskTooltipIsDisplayed(task);
   }
 
-  @When("^I hover on task's title '(.*)'")
+  @When("^I hover on task's title '(.*)'$")
   public void hoverOnTaskName(String task) {
     tasksSteps.hoverOnTaskName(task);
   }
 
-  @When("^I edit this project title '(.*)'")
+  @When("^I edit this project title '(.*)'$")
   public void editProjectName(String projectName) {
     tasksSteps.editProjectName(projectName);
   }
@@ -75,7 +75,7 @@ public class TasksStepDefinition {
     tasksSteps.addTaskInProject(userDetails);
   }
 
-  @When("^I add this comment '(.*)' in task")
+  @When("^I add this comment '(.*)' in task$")
   public void addNewCommentInTask(String comment) {
     tasksSteps.addNewCommentInTask(comment);
   }
@@ -86,65 +86,65 @@ public class TasksStepDefinition {
     tasksSteps.addNewCommentInTaskWithMentioningTheFirstUserInTask(comment, user);
   }
 
-  @When("^I click on Add new comment button")
+  @When("^I click on Add new comment button$")
   public void clickAddNewComment() {
     tasksSteps.clickAddNewComment();
   }
 
-  @When("^I enter a comment with more than 1250 characters")
-  @And("^I enter a reply with more than 1250 characters")
+  @When("^I enter a comment with more than 1250 characters$")
+  @And("^I enter a reply with more than 1250 characters$")
   public void enterCommentMore1250Chars() {
     String comment = StringUtils.repeat("tasks", 251);
     tasksSteps.enterTaskComment(comment);
   }
 
-  @When("^I enter label '(.*)' in the project")
+  @When("^I enter label '(.*)' in the project$")
   public void addLabelToProject(String label) {
     tasksSteps.addLabelToProject(label);
   }
 
-  @When("^I click on Edit project button")
+  @When("^I click on Edit project button$")
   public void clickOnEditProjectButton() {
     tasksSteps.clickOnEditProjectButton();
     ;
   }
 
-  @When("^Label '(.*)' is displayed in edit project drawer")
+  @When("^Label '(.*)' is displayed in edit project drawer$")
   public void labelIsDisplayedInProjectDrawer(String label) {
     tasksSteps.labelIsDisplayedInProjectDrawer(label);
   }
 
-  @When("^I enter four label '(.*)' '(.*)' '(.*)' '(.*)' in the project")
+  @When("^I enter four label '(.*)' '(.*)' '(.*)' '(.*)' in the project$")
   public void addFourLabelToProject(String label1, String label2, String label3, String label4) {
     tasksSteps.addFourLabelToProject(label1, label2, label3, label4);
   }
 
-  @When("^Next to max chars number a green information icon is displayed")
+  @When("^Next to max chars number a green information icon is displayed$")
   public void greenInformationIconIsDisplayed() {
     tasksSteps.greenInformationIconIsDisplayed();
   }
 
-  @When("^The max chars number has been exceeded and it is displayed in red")
+  @When("^The max chars number has been exceeded and it is displayed in red$")
   public void more1250CharsInformationIsDisplayed() {
     tasksSteps.more1250CharsInformationIsDisplayed();
   }
 
-  @When("^The max chars number is 1250")
+  @When("^The max chars number is 1250$")
   public void maxCharsCount1250InformationIsDisplayed() {
     tasksSteps.maxCharsCount1250InformationIsDisplayed();
   }
 
-  @When("^Comment button is disabled")
+  @When("^Comment button is disabled$")
   public void commentButtonIsDisabled() {
     tasksSteps.commentButtonIsDisabled();
   }
 
-  @When("^Reply button is disabled")
+  @When("^Reply button is disabled$")
   public void replyTaskCommentButtonIsDisabled() {
     tasksSteps.replyTaskCommentButtonIsDisabled();
   }
 
-  @When("^Message : Please don't exceed 1250 characters, is displayed")
+  @When("^Message : Please don't exceed 1250 characters, is displayed$")
   public void maxCharsNumberMessageIsDisplayed() {
     tasksSteps.maxCharsNumberMessageIsDisplayed();
   }
@@ -154,106 +154,106 @@ public class TasksStepDefinition {
     tasksSteps.addTaskWithLabelInProject(label, userDetails);
   }
 
-  @When("^I add other comment '(.*)' in task")
+  @When("^I add other comment '(.*)' in task$")
   public void addOtherCommentInTask(String comment) {
     tasksSteps.addOtherCommentInTask(comment);
   }
 
-  @When("^The project name is displayed in project details")
+  @When("^The project name is displayed in project details$")
   public void projectNameIsDisplayedInProjectDetails() {
     String randomProjectName = Serenity.sessionVariableCalled("randomProjectName");
     tasksSteps.projectNameIsDisplayedInProjectDetails(randomProjectName);
   }
 
-  @When("^Board view is displayed by default")
+  @When("^Board view is displayed by default$")
   public void boardViewIsDisplayedByDefault() {
     tasksSteps.boardViewIsDisplayedByDefault();
   }
 
-  @When("^Task label '(.*)' related to task name '(.*)' is displayed in project details")
+  @When("^Task label '(.*)' related to task name '(.*)' is displayed in project details$")
   public void taskNameAndLabelIsDisplayedInProjectDetails(String label, String taskName) {
     tasksSteps.taskNameAndLabelIsDisplayedInProjectDetails(label, taskName);
   }
 
-  @When("^Task name '(.*)' is displayed in project details")
+  @When("^Task name '(.*)' is displayed in project details$")
   public void taskIsDisplayedInProjectDetails(String taskName) {
     tasksSteps.taskIsDisplayedInProjectDetails(taskName);
   }
 
-  @When("^I go to project details list")
+  @When("^I go to project details list$")
   public void goToProjectDetailsList() {
     tasksSteps.goToProjectDetailsList();
   }
 
-  @When("^In project details the task '(.*)' is displayed in '(.*)' place")
+  @When("^In project details the task '(.*)' is displayed in '(.*)' place$")
   public void taskOrderInProjectDetails(String task, String number) {
     tasksSteps.taskOrderInProjectDetails(task, number);
   }
 
-  @When("^The label '(.*)' is displayed '(.*)' times in project details")
-  @And("^In Section '(.*)', '(.*)' tasks are displayed")
-  @Then("^In Section '(.*)', '(.*)' task is displayed")
+  @When("^The label '(.*)' is displayed '(.*)' times in project details$")
+  @And("^In Section '(.*)', '(.*)' tasks are displayed$")
+  @Then("^In Section '(.*)', '(.*)' task is displayed$")
   public void isLabelDisplayedInProjectDetails(String label, String times) {
     tasksSteps.isLabelDisplayedInProjectDetails(label, times);
   }
 
-  @When("^I click on Confirm button")
+  @When("^I click on Confirm button$")
   public void confirmFilter() {
     tasksSteps.confirmFilter();
   }
 
-  @When("^Confirm button is displayed in the Filter drawer")
+  @When("^Confirm button is displayed in the Filter drawer$")
   public void confirmFilterButtonIsDisplayed() {
     tasksSteps.confirmFilterButtonIsDisplayed();
   }
 
-  @When("^Cancel button is displayed in the Filter drawer")
+  @When("^Cancel button is displayed in the Filter drawer$")
   public void cancelFilterButtonIsDisplayed() {
     tasksSteps.cancelFilterButtonIsDisplayed();
   }
 
-  @When("^Reset button is displayed in the Filter drawer")
+  @When("^Reset button is displayed in the Filter drawer$")
   public void resetFilterButtonIsDisplayed() {
     tasksSteps.resetFilterButtonIsDisplayed();
   }
 
-  @When("^I select '(.*)' from Sort By Filter section")
-  @And("^I select '(.*)' from Group By Filter section")
+  @When("^I select '(.*)' from Sort By Filter section$")
+  @And("^I select '(.*)' from Group By Filter section$")
   public void selectFilterOption(String label) {
     tasksSteps.selectFilterOption(label);
   }
 
-  @When("^'(.*)' Tab is displayed")
+  @When("^'(.*)' Tab is displayed$")
   public void isFilterDrawerTabDisplayed(String tab) {
     tasksSteps.isFilterDrawerTabDisplayed(tab);
   }
 
-  @When("^I go to Labels Tab")
+  @When("^I go to Labels Tab$")
   public void goToLabelsTab() {
     tasksSteps.goToLabelsTab();
   }
 
-  @When("^I go to Filter Tab")
+  @When("^I go to Filter Tab$")
   public void goToFilterTab() {
     tasksSteps.goToFilterTab();
   }
 
-  @When("^I go to Group And Sort Tab")
+  @When("^I go to Group And Sort Tab$")
   public void goToGroupAndSortTab() {
     tasksSteps.goToGroupAndSortTab();
   }
 
-  @When("^I open the Filter drawer")
+  @When("^I open the Filter drawer$")
   public void openFilterDrawer() {
     tasksSteps.openFilterDrawer();
   }
 
-  @When("^Alert '(.*)' is displayed")
+  @When("^Alert '(.*)' is displayed$")
   public void taskAlertIsDisplayed(String message) {
     tasksSteps.taskAlertIsDisplayed(message);
   }
 
-  @When("^Task name '(.*)' is not displayed in project details")
+  @When("^Task name '(.*)' is not displayed in project details$")
   public void taskIsNotDisplayedInProjectDetails(String taskName) {
     tasksSteps.taskIsNotDisplayedInProjectDetails(taskName);
   }
@@ -263,8 +263,8 @@ public class TasksStepDefinition {
     tasksSteps.checkProjectIsCreated();
   }
 
-  @Then("Project '(.*)' is displayed in Tasks App Center")
-  @And("Project '(.*)' is displayed in Tasks space")
+  @Then("^Project '(.*)' is displayed in Tasks App Center$")
+  @And("^Project '(.*)' is displayed in Tasks space$")
   public void projectIsDisplayedInTasksAppCenter(String projectName) {
     tasksSteps.projectIsDisplayedInTasksAppCenter(projectName);
   }
@@ -276,43 +276,43 @@ public class TasksStepDefinition {
     tasksSteps.editSpaceName(randomSpaceName);
   }
 
-  @When("^Next to max chars number a red information icon is displayed")
+  @When("^Next to max chars number a red information icon is displayed$")
   public void redInformationIconIsDisplayed() {
     tasksSteps.redInformationIconIsDisplayed();
   }
 
-  @When("^Tasks number '(.*)' is displayed in the column To Do")
+  @When("^Tasks number '(.*)' is displayed in the column To Do$")
   public void tasksNumberToDo(String tasksNumber) {
     tasksSteps.tasksNumberToDo(tasksNumber);
   }
 
-  @When("^Task '(.*)' is marked as completed and displayed in Completed section")
+  @When("^Task '(.*)' is marked as completed and displayed in Completed section$")
   public void taskIsMarkedAndDisplayedInCompletedSection(String taskName) {
     tasksSteps.taskIsMarkedAndDisplayedInCompletedSection(taskName);
   }
 
-  @When("^Task '(.*)' is not marked as completed and displayed in Uncompleted section")
+  @When("^Task '(.*)' is not marked as completed and displayed in Uncompleted section$")
   public void taskIsNotMarkedAndDisplayedInUncompletedSection(String taskName) {
     tasksSteps.taskIsNotMarkedAndDisplayedInUncompletedSection(taskName);
   }
 
-  @When("^The task is marked as completed in task drawer")
+  @When("^The task is marked as completed in task drawer$")
   public void taskMarkedAsCompletedIsDisplayedInDrawer() {
     tasksSteps.taskMarkedAsCompletedIsDisplayedInDrawer();
   }
 
-  @When("^I close task comments drawer")
+  @When("^I close task comments drawer$")
   public void closetaskCommentsDrawer() {
     tasksSteps.closetaskCommentsDrawer();
   }
 
-  @Then("^I close task drawer of cloned task")
-  @When("^I close task drawer")
+  @Then("^I close task drawer of cloned task$")
+  @When("^I close task drawer$")
   public void closetaskDrawer() {
     tasksSteps.closetaskDrawer();
   }
 
-  @When("^I view all task comments")
+  @When("^I view all task comments$")
   public void viewAllCommentsTaskButton() {
     tasksSteps.viewAllCommentsTaskButton();
   }
@@ -378,13 +378,13 @@ public class TasksStepDefinition {
     tasksSteps.setInSearchProjectField(randomProjectName);
   }
 
-  @When("^I edit the created project title")
+  @When("^I edit the created project title$")
   public void editRandomProjectName() {
     String randomProjectName = Serenity.sessionVariableCalled("randomProjectName");
     tasksSteps.editProjectName(randomProjectName);
   }
 
-  @When("^I search for the created space")
+  @When("^I search for the created space$")
   public void setInSearchRandomSpaceField() {
     String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
     tasksSteps.setInSearchProjectField(randomSpaceName);
@@ -396,7 +396,7 @@ public class TasksStepDefinition {
     tasksSteps.openProject(randomProjectName);
   }
 
-  @When("I accept the invitation of the created space project")
+  @When("^I accept the invitation of the created space project$")
   public void acceptRandomSpaceProject() {
     String randomProjectName = Serenity.sessionVariableCalled("randomProjectName");
     homeSteps.acceptRandomSpaceInvitation(randomProjectName);
@@ -427,7 +427,7 @@ public class TasksStepDefinition {
     tasksSteps.commentsDrawerIsDisplayed();
   }
 
-  @When("'(.*)' with the task comment '(.*)' is displayed in task comments drawer$")
+  @When("^'(.*)' with the task comment '(.*)' is displayed in task comments drawer$")
   public void commentTaskWithUser(String user, String comment) {
     tasksSteps.commentTaskWithUser(user, comment);
   }
@@ -442,7 +442,7 @@ public class TasksStepDefinition {
     tasksSteps.setTaskCompletedInDrawerWithoutClosingIt();
   }
 
-  @When("First user with the task comment '(.*)' is displayed in task comments drawer$")
+  @When("^First user with the task comment '(.*)' is displayed in task comments drawer$")
   public void commentTaskWithFirstUser(String comment) {
     String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
     String firstUserLastName = Serenity.sessionVariableCalled("firstUserLastName");
@@ -476,12 +476,12 @@ public class TasksStepDefinition {
     tasksSteps.addProjectWithDescription(projectName, description);
   }
 
-  @And("I enter the project title '(.*)' with a description '(.*)'")
+  @And("^I enter the project title '(.*)' with a description '(.*)'$")
   public void enterProjectTitleAndDescription(String projectName, String description) {
     tasksSteps.enterProjectTitleAndDescription(projectName, description);
   }
 
-  @And("I enter the project description '(.*)' without a project title")
+  @And("^I enter the project description '(.*)' without a project title$")
   public void enterProjectDescriptionWithoutTheTitle(String description) {
     tasksSteps.enterProjectDescriptionWithoutTheTitle(description);
   }
@@ -504,7 +504,7 @@ public class TasksStepDefinition {
     tasksSteps.checkProjectIsDisplayed(projectName);
   }
 
-  @Then("The project '(.*)' is not created successfully and not displayed in Projects tab")
+  @Then("^The project '(.*)' is not created successfully and not displayed in Projects tab$")
   public void checkProjectIsNotDisplayed(String projectName) {
     tasksSteps.checkProjectNotDisplayed(projectName);
   }
@@ -571,27 +571,27 @@ public class TasksStepDefinition {
     tasksSteps.addProjectWithParticipant(randomProjectName, firstUserFullName);
   }
 
-  @When("^I Remove Label '(.*)' in edit project drawer")
+  @When("^I Remove Label '(.*)' in edit project drawer$")
   public void removeLabelToProject(String label) {
     tasksSteps.removeLabelToProject(label);
   }
 
-  @When("^Label '(.*)' is Not displayed in edit project drawer")
+  @When("^Label '(.*)' is Not displayed in edit project drawer$")
   public void labelIsNotDisplayedInProjectDrawer(String label) {
     tasksSteps.labelIsNotDisplayedInProjectDrawer(label);
   }
 
-  @When("^I add Label '(.*)' to task")
+  @When("^I add Label '(.*)' to task$")
   public void addLabelToTask(String label) {
     tasksSteps.addLabelToTask(label);
   }
 
-  @When("^Label '(.*)' is displayed in edit task drawer and x icon is not displayed")
+  @When("^Label '(.*)' is displayed in edit task drawer and x icon is not displayed$")
   public void labelIsDisplayedInTaskDrawer(String label) {
     tasksSteps.labelIsDisplayedInTaskDrawer(label);
   }
 
-  @When("^I enter six label '(.*)' '(.*)' '(.*)' '(.*)' '(.*)' '(.*)' in the project")
+  @When("^I enter six label '(.*)' '(.*)' '(.*)' '(.*)' '(.*)' '(.*)' in the project$")
   public void addSixLabelToProject(String label1, String label2, String label3, String label4, String label5, String label6) {
     tasksSteps.addSixLabelToProject(label1, label2, label3, label4, label5, label6);
   }
@@ -785,18 +785,18 @@ public class TasksStepDefinition {
     tasksSteps.updateTaskDescription(Description);
   }
 
-  @When("^I click on update button")
+  @When("^I click on update button$")
   public void clickOnUpDateButton() {
     tasksSteps.clickOnUpDateButton();
   }
 
-  @When("^I clone Task in space project")
+  @When("^I clone Task in space project$")
   public void clonetaskinspaceproject() {
     tasksSteps.clonetaskinspaceproject();
   }
 
-  @When("The update description '(.*)' is displayed in origin task")
-  @Then("The update description '(.*)' is displayed in cloned task")
+  @When("^The update description '(.*)' is displayed in origin task$")
+  @Then("^The update description '(.*)' is displayed in cloned task$")
   public void checkUpdatedDescription(String Description) {
     tasksSteps.checkUpdatedDescription(Description);
   }
@@ -806,7 +806,7 @@ public class TasksStepDefinition {
     tasksSteps.ClickOnSaveButtonToAddTask();
   }
 
-  @When("^In column status '(.*)' , Task name '(.*)' is displayed")
+  @When("^In column status '(.*)' , Task name '(.*)' is displayed$")
   public void taskNameIsDisplayedInDesiredColumn(String status, String taskName) {
     tasksSteps.taskNameIsDisplayedInDesiredColumn(status, taskName);
   }
@@ -947,7 +947,7 @@ public class TasksStepDefinition {
     tasksSteps.clickOnClearButton();
   }
 
-  @Then("^The typed project '(.*)' is removed from the Filter by project field")
+  @Then("^The typed project '(.*)' is removed from the Filter by project field$")
   public void checkTypedProjectIsRemoved(String typedProject) {
     tasksSteps.checkTypedProjectIsRemoved(typedProject);
   }
@@ -992,7 +992,7 @@ public class TasksStepDefinition {
     tasksSteps.clickPlusIconProject();
   }
 
-  @And("^A clear button is displayed in the Filter by task field")
+  @And("^A clear button is displayed in the Filter by task field$")
   public void clearButtonInFilterByTaskIsVisible() {
     tasksSteps.clearButtonInFilterByTaskIsVisible();
   }
@@ -1007,7 +1007,7 @@ public class TasksStepDefinition {
     tasksSteps.checkDisplayOfFilterByTask();
   }
 
-  @Then("^The typed task '(.*)' is removed from Filter by task field")
+  @Then("^The typed task '(.*)' is removed from Filter by task field$")
   public void checkTypedTaskIsRemoved(String typedTask) {
     tasksSteps.checkTypedTaskIsRemoved(typedTask);
   }
@@ -1148,7 +1148,7 @@ public class TasksStepDefinition {
     tasksSteps.setInSearchProjectField(project);
   }
 
-  @When("^The project '(.*)' is displayed in project details")
+  @When("^The project '(.*)' is displayed in project details$")
   public void projectNameIsDisplayedInProjectDetails(String projectName) {
     tasksSteps.projectNameIsDisplayedInProjectDetails(projectName);
   }
@@ -1158,22 +1158,22 @@ public class TasksStepDefinition {
     tasksSteps.setTaskStartDateToday();
   }
 
-  @And("^I set task start date TOMORROW")
+  @And("^I set task start date TOMORROW$")
   public void setTaskStartDateTomorrow() {
     tasksSteps.setTaskStartDateTomorrow();
   }
 
-  @And("^I set task due date Next week")
+  @And("^I set task due date Next week$")
   public void setTaskDueDateNextWeek() {
     tasksSteps.setTaskDueDateNextWeek();
   }
 
-  @And("^I go to the PLAN view")
+  @And("^I go to the PLAN view$")
   public void goToPLanView() {
     tasksSteps.goToPLanView();
   }
 
-  @Then("^The task name '(.*)' should be displayed in PLAN view")
+  @Then("^The task name '(.*)' should be displayed in PLAN view$")
   public void taskNamePLanView(String taskName) {
     tasksSteps.taskNamePLanView(taskName);
   }
