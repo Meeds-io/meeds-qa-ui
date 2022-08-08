@@ -76,9 +76,7 @@ public class SpaceHomePage extends GenericPage {
   @FindBy(xpath = "//div[@class='progress']")
   private BaseElementFacade    progressDownloadBar;
 
-  @FindBy(
-      xpath = "//*[contains(@id,'Extactivity-content-extensions')]//following::*[@src]//following::*[@class='my-4']//*[contains(@class,'font-weight-bold')]"
-  )
+  @FindBy(xpath = "//*[contains(@id,'Extactivity-content-extensions')]//following::*[@src]//following::*[@class='my-4']//*[contains(@class,'font-weight-bold')]")
   private BaseElementFacade    linkPreview;
 
   @FindBy(xpath = "//*[@id='attachment']//*[contains(@class,'attachments-drawer')]//*[contains(@class,'mdi mdi-close')]")
@@ -193,42 +191,35 @@ public class SpaceHomePage extends GenericPage {
   private BaseElementFacade          commentsDrawerSecondPageBtn;
 
   private BaseElementFacade getLikeIcon(String activity) {
-    return findByXpath(
-                       String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLink')])[1]", activity));
+    return findByXpath(String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLink')])[1]", activity));
   }
 
   private BaseElementFacade getLikeCommentIcon(String activityComment) {
-    return findByXpath(
-                       String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLinkcomment')])[1]",
+    return findByXpath(String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLinkcomment')])[1]",
                                      activityComment));
   }
 
   private BaseElementFacade getCommentLikesNumber(String comment) {
-    return findByXpath(
-                       String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'LikersListLinkcomment')])[1]//span",
+    return findByXpath(String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'LikersListLinkcomment')])[1]//span",
                                      comment));
   }
 
   private BaseElementFacade getCommentsDrawerLikeCommentIcon(String activityComment) {
-    return findByXpath(
-                       String.format("(//*[contains(@class,'drawerContent')]//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLinkcomment')])[1]",
+    return findByXpath(String.format("(//*[contains(@class,'drawerContent')]//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLinkcomment')])[1]",
                                      activityComment));
   }
 
   private BaseElementFacade getMentionedUserInCommentEntered(String user) {
-    return findByXpath(
-                       String.format("//*[@class='atwho-inserted']//*[@class='exo-mention' and contains(text(),'%s')]", user));
+    return findByXpath(String.format("//*[@class='atwho-inserted']//*[@class='exo-mention' and contains(text(),'%s')]", user));
   }
 
   private BaseElementFacade getBlueLikeCommentIcon(String activityComment) {
-    return findByXpath(
-                       String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLinkcomment') and contains(@class,'v-size--x-small primary--text')])[1]",
+    return findByXpath(String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLinkcomment') and contains(@class,'v-size--x-small primary--text')])[1]",
                                      activityComment));
   }
 
   private BaseElementFacade getCommentLikesNumberCommentsDrawer(String comment) {
-    return findByXpath(
-                       String.format("(//*[contains(@class,'drawerContent')]//div[contains(text(),'%s')]//following::button[contains(@id,'LikersListLinkcomment')])[1]//span",
+    return findByXpath(String.format("(//*[contains(@class,'drawerContent')]//div[contains(text(),'%s')]//following::button[contains(@id,'LikersListLinkcomment')])[1]//span",
                                      comment));
   }
 
@@ -239,8 +230,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private BaseElementFacade getCommentsDrawerBlueLikeCommentIcon(String activityComment) {
-    return findByXpath(
-                       String.format("(//*[contains(@class,'drawerContent')]//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLinkcomment') and contains(@class,'v-size--x-small primary--text')])[1]",
+    return findByXpath(String.format("(//*[contains(@class,'drawerContent')]//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLinkcomment') and contains(@class,'v-size--x-small primary--text')])[1]",
                                      activityComment));
   }
 
@@ -285,20 +275,17 @@ public class SpaceHomePage extends GenericPage {
   private BaseElementFacade spaceTasksTab;
 
   private BaseElementFacade getDropDownActivityMenu(String activity) {
-    return findByXpath(String.format(
-                                     "//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::i[contains(@class,'v-icon notranslate')][1]",
+    return findByXpath(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::i[contains(@class,'v-icon notranslate')][1]",
                                      activity));
   }
 
   private BaseElementFacade geEditActivityIcon(String activity) {
-    return findByXpath(String.format(
-                                     "//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Edit')][1]",
+    return findByXpath(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Edit')][1]",
                                      activity));
   }
 
   private BaseElementFacade getDropDownCommentMenu(String activity, String comment) {
-    return findByXpath(String.format(
-                                     "//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//following::*[contains(@class,'activity-comment')]//*[contains(@class,'rich-editor-content')]//*[contains(text(),'%s')]/preceding::button[@class='v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--small'][1]",
+    return findByXpath(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//following::*[contains(@class,'activity-comment')]//*[contains(@class,'rich-editor-content')]//*[contains(text(),'%s')]/preceding::button[@class='v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--small'][1]",
                                      activity,
                                      comment));
   }
@@ -309,64 +296,54 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private BaseElementFacade getCommentsDrawerViewAllReplies(String comment) {
-    return findByXpath(String.format(
-                                     "//*[contains(@class,'drawerHeader')]/following::*[contains(@id,'Extactivity-content-extensions')]//div[contains(text(),'%s')]/following::span[contains(text(),'View all')][1]",
+    return findByXpath(String.format("//*[contains(@class,'drawerHeader')]/following::*[contains(@id,'Extactivity-content-extensions')]//div[contains(text(),'%s')]/following::span[contains(text(),'View all')][1]",
                                      comment));
   }
 
   private BaseElementFacade getDropDownReplyMenu(String activity, String comment, String reply) {
-    return findByXpath(String.format(
-                                     "(//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//following::*[contains(@class,'activity-comment')]//*[contains(text(),'%s')]/following::*[contains(text(),'%s')]/preceding::button[@class='v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--small']//i)[last()]",
+    return findByXpath(String.format("(//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//following::*[contains(@class,'activity-comment')]//*[contains(text(),'%s')]/following::*[contains(text(),'%s')]/preceding::button[@class='v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--small']//i)[last()]",
                                      activity,
                                      comment,
                                      reply));
   }
 
   private BaseElementFacade getDeleteCommentLabel(String comment) {
-    return findByXpath(String.format(
-                                     "//*[contains(text(),'%s')]/preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Delete')]",
+    return findByXpath(String.format("//*[contains(text(),'%s')]/preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Delete')]",
                                      comment));
   }
 
   private BaseElementFacade getEditCommentLabel(String comment) {
-    return findByXpath(String.format(
-                                     "//*[contains(text(),'%s')]/preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Edit')]",
+    return findByXpath(String.format("//*[contains(text(),'%s')]/preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Edit')]",
                                      comment));
   }
 
   private BaseElementFacade getEditCommentLabelFromCommentsDrawer(String comment) {
-    return findByXpath(String.format(
-                                     "(//*[@id='activityCommentsDrawer']//*[contains(@class,'d-inline-flex flex-column activity-comment')][4]//*[contains(@class,'v-list-item v-list-item')])[1]",
+    return findByXpath(String.format("(//*[@id='activityCommentsDrawer']//*[contains(@class,'d-inline-flex flex-column activity-comment')][4]//*[contains(@class,'v-list-item v-list-item')])[1]",
                                      comment));
   }
 
   private BaseElementFacade getActivityStreamViewAllReplies(String comment) {
-    return findByXpath(String.format(
-                                     "//*[contains(@id,'Extactivity-content-extensions')]//div[contains(text(),'%s')]/following::span[contains(text(),'replies')][1]",
+    return findByXpath(String.format("//*[contains(@id,'Extactivity-content-extensions')]//div[contains(text(),'%s')]/following::span[contains(text(),'replies')][1]",
                                      comment));
   }
 
   private BaseElementFacade geDeleteActivityIcon(String activity) {
-    return findByXpath(String.format(
-                                     "//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Delete')]",
+    return findByXpath(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Delete')]",
                                      activity));
   }
 
   private BaseElementFacade getDeleteReplyLabel(String comment) {
-    return findByXpath(String.format(
-                                     "//*[contains(text(),'%s')]/preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Delete')]",
+    return findByXpath(String.format("//*[contains(text(),'%s')]/preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Delete')]",
                                      comment));
   }
 
   private BaseElementFacade getCopyLinkActivityIcon(String activity) {
-    return findByXpath(String.format(
-                                     "//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Copy link')]",
+    return findByXpath(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Copy link')]",
                                      activity));
   }
 
   private BaseElementFacade getDownloadActivityIcon(String activity) {
-    return findByXpath(String.format(
-                                     "//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Download')]",
+    return findByXpath(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Download')]",
                                      activity));
   }
 
@@ -534,21 +511,16 @@ public class SpaceHomePage extends GenericPage {
 
   public void goToSpecificTab(String tabName) {
     switch (tabName) {
-      case "Documents":
-        documentTab.clickOnElement();
-        break;
-      case "Members":
-        if (!membersTab.isVisible())
-          goToRightTabs.waitUntilVisible();
-        goToRightTabs.clickOnElement();
-        ;
-        membersTab.clickOnElement();
-        break;
-      case "Activité":
-        if (!activityTab.isVisible())
-          goToLeftTabs.clickOnElement();
-        activityTab.sendKeys(Keys.ENTER);
-        break;
+    case "Members":
+      if (!membersTab.isVisible())
+        goToLeftTabs.waitUntilVisible();
+      membersTab.sendKeys(Keys.ENTER);
+      break;
+    case "Activité":
+      if (!activityTab.isVisible())
+        goToLeftTabs.clickOnElement();
+      activityTab.sendKeys(Keys.ENTER);
+      break;
     }
   }
 
@@ -776,22 +748,18 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private BaseElementFacade getActivityDropDownElement(String activity) {
-    return findByXpath(String.format(
-                                     "(//*[contains(@class,'postContent')]//*[contains(text(),'%s')]/following::button[contains(@id,'CommentLink')])[1]",
+    return findByXpath(String.format("(//*[contains(@class,'postContent')]//*[contains(text(),'%s')]/following::button[contains(@id,'CommentLink')])[1]",
                                      activity));
   }
 
   private BaseElementFacade getUserMentionedInPost(String activity, String user) {
-    return findByXpath(String.format(
-                                     "//*[contains(@id,'Extactivity-content')]//*[contains(text(),'%s')]//*[contains(text(),'%s')]",
+    return findByXpath(String.format("//*[contains(@id,'Extactivity-content')]//*[contains(text(),'%s')]//*[contains(text(),'%s')]",
                                      activity,
                                      user));
   }
 
   private BaseElementFacade getUserPopover(String user) {
-    return findByXpath(String.format(
-                                     "//*[@id='profileName']//*[contains(text(),'%s')]",
-                                     user));
+    return findByXpath(String.format("//*[@id='profileName']//*[contains(text(),'%s')]", user));
   }
 
   public void hoverOnLikeIcon(String comment) {
@@ -1046,9 +1014,7 @@ public class SpaceHomePage extends GenericPage {
     notesTab.clickOnElement();
   }
 
-  @FindBy(
-      xpath = "//div[contains(@class,'white border-radius')][1]//div[contains(@class,'v-list flex')]//div[contains(@class,'d-inline-flex')][1]//div[@role='button']//span[@class='v-btn__content'][last()]"
-  )
+  @FindBy(xpath = "//div[contains(@class,'white border-radius')][1]//div[contains(@class,'v-list flex')]//div[contains(@class,'d-inline-flex')][1]//div[@role='button']//span[@class='v-btn__content'][last()]")
   private BaseElementFacade kudosButtonToCommentActivity;
 
   @FindBy(xpath = "//*[@id='activityCommentsDrawer']//*[contains(@id,'Extactivity-footer-comment-action')]")
@@ -1072,8 +1038,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private BaseElementFacade getBlueKudosCommentIcon(String activityComment) {
-    return findByXpath(
-                       String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'KudosActivity') and contains(@class,'v-size--x-small primary--text')])[1]",
+    return findByXpath(String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'KudosActivity') and contains(@class,'v-size--x-small primary--text')])[1]",
                                      activityComment));
   }
 
@@ -1092,9 +1057,7 @@ public class SpaceHomePage extends GenericPage {
     kudosButtonNumberToCommentActivity.clickOnElement();
   }
 
-  @FindBy(
-      xpath = "//*[@id='activityCommentsDrawer']//*[contains(@id,'Extactivity-footer-comment-action')]//div[@class='d-inline-flex']//button[contains(@class,'primary--text font-weight')][1]"
-  )
+  @FindBy(xpath = "//*[@id='activityCommentsDrawer']//*[contains(@id,'Extactivity-footer-comment-action')]//div[@class='d-inline-flex']//button[contains(@class,'primary--text font-weight')][1]")
   private BaseElementFacade kudosButtonNumberFromCommentsDrawerToCommentActivity;
 
   public void clickOnKudosButtonNumberFromCommentsDrawerToCommentActivity() {
@@ -1112,14 +1075,12 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private BaseElementFacade getBlueKudosCommentReplayIcon(String activityComment) {
-    return findByXpath(
-                       String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'KudosActivity') and contains(@class,'v-size--x-small primary--text')])[1]",
+    return findByXpath(String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'KudosActivity') and contains(@class,'v-size--x-small primary--text')])[1]",
                                      activityComment));
   }
 
   private BaseElementFacade getBlackKudosCommentReplayIcon(String activityComment) {
-    return findByXpath(
-                       String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'KudosActivity') and contains(@class,'v-size--x-small')])[1]",
+    return findByXpath(String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'KudosActivity') and contains(@class,'v-size--x-small')])[1]",
                                      activityComment));
   }
 

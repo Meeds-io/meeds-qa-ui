@@ -7,12 +7,10 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class RedactorRolePage extends GenericPage {
 
-  @FindBy(
-      xpath = "//button[@class='peopleMenuIcon d-block v-btn v-btn--flat v-btn--icon v-btn--round v-btn--text theme--light v-size--default']"
-  )
+  @FindBy(xpath = "//button[@class='peopleMenuIcon d-block v-btn v-btn--flat v-btn--icon v-btn--round v-btn--text theme--light v-size--default']")
   public static BaseElementFacade threeDotsMenu;
 
-  @FindBy(xpath = "(//*[@class='v-list-item__title peopleActionItem'])[5]")
+  @FindBy(xpath = "(//*[@class='v-list-item__title peopleActionItem'])[4]")
   public static BaseElementFacade setAsRedactorBtn;
 
   @FindBy(xpath = "(//*[@class='v-list-item__title peopleActionItem'])[4]")
@@ -25,8 +23,7 @@ public class RedactorRolePage extends GenericPage {
   private TextBoxElementFacade    searchPeopleInput;
 
   private BaseElementFacade setRedactorUserButton(String user) {
-    return findByXpath(String
-                             .format("//a[contains(@href,'%s')]//following::button[@class='peopleMenuIcon d-block v-btn v-btn--flat v-btn--icon v-btn--round v-btn--text theme--light v-size--default']",
+    return findByXpath(String.format("//a[contains(@href,'%s')]//following::button[@class='peopleMenuIcon d-block v-btn v-btn--flat v-btn--icon v-btn--round v-btn--text theme--light v-size--default']",
                                      user));
   }
 
