@@ -131,7 +131,7 @@ Feature: Favorite activities
     And I refresh the page
     Then The activity is not displayed in the search 'activity2'
     And The activity is not displayed in the search 'activity1'
-    And The activity is not displayed in the search 'activity0'
+    And The activity is not displayed in the search 'activity0'.
 
   @favorite @ignore
   Scenario: [Fav_US13][01]: Bookmark a note from it's details

@@ -17,24 +17,21 @@ public class ApplicationStepDefinition {
 
   @Then("^The application below are displayed in favorite list$")
   public void isAppDisplayedInFavoriteList(List<String> listOfApp) {
-    assertThat(applicationSteps.isAppDisplayedInFavoriteList(listOfApp))
-                                                                        .as(String.format("The app %s is not displayed in favorite list",
+    assertThat(applicationSteps.isAppDisplayedInFavoriteList(listOfApp)).as(String.format("The app %s is not displayed in favorite list",
                                                                                           applicationSteps.isAppDisplayedInFavoriteList(listOfApp)))
                                                                         .isEmpty();
   }
 
   @Then("^The application below are not displayed in favorite list$")
   public void isAppNotDisplayedInFavoriteList(List<String> listOfApp) {
-    assertThat(applicationSteps.isAppNotDisplayedInFavoriteList(listOfApp))
-                                                                           .as(String.format("The app %s is displayed in favorite list",
+    assertThat(applicationSteps.isAppNotDisplayedInFavoriteList(listOfApp)).as(String.format("The app %s is displayed in favorite list",
                                                                                              applicationSteps.isAppNotDisplayedInFavoriteList(listOfApp)))
                                                                            .isEmpty();
   }
 
-  @Then("The application '{}' is displayed in application list")
+  @Then("^The application '(.*)' is displayed in application list$")
   public void checkApplicationVisible(String appName) {
-    assertThat(applicationSteps.isApplicationVisible(appName)).as("The active application is not displayed")
-                                                              .isTrue();
+    assertThat(applicationSteps.isApplicationVisible(appName)).as("The active application is not displayed").isTrue();
   }
 
   @Then("The random application is displayed in application list")
@@ -51,10 +48,9 @@ public class ApplicationStepDefinition {
                                                                              .isFalse();
   }
 
-  @Then("The application '{}' is not displayed in application list")
+  @Then("^The application '(.*)' is not displayed in application list$")
   public void checkApplicationNotVisible(String appName) {
-    assertThat(applicationSteps.isApplicationVisible(appName)).as("The disabled application is displayed")
-                                                              .isFalse();
+    assertThat(applicationSteps.isApplicationVisible(appName)).as("The disabled application is displayed").isFalse();
   }
 
   @Then("^I go To AppCenter Drawer$")
@@ -121,8 +117,8 @@ public class ApplicationStepDefinition {
 
   }
 
-  @When("^I remove Application '{}' From Favorites$")
-  @And("I add Application '{}' To Favorites")
+  @When("^I remove Application '(.*)' From Favorites$")
+  @And("^I add Application '(.*)' To Favorites$")
   public void addRemoveApplicationToFavorites(String app) {
     applicationSteps.addRemoveApplicationToFavorites(app);
 
@@ -228,23 +224,23 @@ public class ApplicationStepDefinition {
 
   }
 
-  @Then("Star button for removing application '{}' from Favorites is displayed")
+  @Then("^Star button for removing application '(.*)' from Favorites is displayed$")
   public void starButtonIsSelected(String appTitle) {
     applicationSteps.starButtonIsSelected(appTitle);
   }
 
-  @Then("Star button for removing the created application from Favorites is displayed")
+  @Then("^Star button for removing the created application from Favorites is displayed$")
   public void starButtonIsSelected() {
     String randomApplicationTitle = Serenity.sessionVariableCalled("randomApplicationTitle");
     applicationSteps.starButtonIsSelected(randomApplicationTitle);
   }
 
-  @Then("Star button for adding application '{}' to Favorites is displayed")
+  @Then("^Star button for adding application '(.*)' to Favorites is displayed$")
   public void starButtonIsNotSelected(String appTitle) {
     applicationSteps.starButtonIsNotSelected(appTitle);
   }
 
-  @Then("Star button for adding the first added application to Favorites is displayed")
+  @Then("^Star button for adding the first added application to Favorites is displayed$")
   public void starButtonForFirstRandomAppIsNotSelected() {
     String randomApplicationTitle = Serenity.sessionVariableCalled("randomApplicationTitle");
     applicationSteps.starButtonIsNotSelected(randomApplicationTitle);
