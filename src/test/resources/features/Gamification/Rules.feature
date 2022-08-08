@@ -88,34 +88,32 @@ Feature: Rules
     When I go to my profile
     Then My points augmented
 
-  @gamification @ignore
+  @gamification
   Scenario: Create new task
     Given I am authenticated as admin
     And I check my points
-
-    When I go to the home page
-    And I go to Tasks Page
+    When I go To AppCenter Drawer
+    And I go to Tasks AppCenter Application
+    And I select 'Tasks' tab
     And The following task is created
-      | taskName | task1212 |
-
+      | taskName | taskgamification |
     And I go to my profile
     Then My points augmented
 
-  @gamification @ignore
+  @gamification
   Scenario: Complete assigned task
     Given I am authenticated as admin
-
-    When I go to the home page
-    And I go to Tasks Page
+    When I go To AppCenter Drawer
+    And I go to Tasks AppCenter Application
+    And I select 'Tasks' tab
     And The following task is created
-      | taskName | task1218 |
+      | taskName | taskcompleted |
     And I go to my profile
     And I check my points
-
-    When I go to the home page
-    And I go to Tasks Page
-    And I start the search for Task 'task1218'
+    When I go To AppCenter Drawer
+    And I go to Tasks AppCenter Application
+    And I select 'Tasks' tab
+    And I start the search for Task 'taskcompleted'
     And I mark the task as completed
-
     And I go to my profile
     Then My points augmented
