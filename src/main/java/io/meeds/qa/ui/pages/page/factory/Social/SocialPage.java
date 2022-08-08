@@ -39,7 +39,7 @@ public class SocialPage extends GenericPage {
   )
   public static BaseElementFacade    editButton;
 
-  @FindBy(xpath = "(//i[@class='v-icon notranslate primary--text mdi mdi-dots-vertical theme--light'])[2]")
+  @FindBy(xpath = "//i[@class='v-icon notranslate primary--text mdi mdi-dots-vertical theme--light']")
   public static BaseElementFacade    dotsMenu;
 
   @FindBy(xpath = "//button[@class='btn btn-primary ms-10 v-btn v-btn--contained theme--light v-size--default primary']")
@@ -101,12 +101,11 @@ public class SocialPage extends GenericPage {
   public void cancelUpdateActivityComment(String comment) {
 
     ckEditorFrameComment.clickOnElement();
-    driver.switchTo().frame(ckEditorFrameComment);
+    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameComment);
     commentField.waitUntilVisible();
     commentField.clear();
     commentField.setTextValue(comment);
-    driver.switchTo().defaultContent();
-
+    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
     cancelBtn.clickOnElement();
     closeCommentsDrawer.clickOnElement();
   }

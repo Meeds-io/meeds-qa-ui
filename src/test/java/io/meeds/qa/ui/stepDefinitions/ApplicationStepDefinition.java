@@ -117,8 +117,8 @@ public class ApplicationStepDefinition {
 
   }
 
-  @When("^I remove Application '(.*)' From Favorites$")
-  @And("^I add Application '(.*)' To Favorites$")
+  @When("I remove Application '{}' From Favorites")
+  @And("I add Application '{}' To Favorites")
   public void addRemoveApplicationToFavorites(String app) {
     applicationSteps.addRemoveApplicationToFavorites(app);
 
