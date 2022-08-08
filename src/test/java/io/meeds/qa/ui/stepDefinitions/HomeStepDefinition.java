@@ -429,8 +429,8 @@ public class HomeStepDefinition {
     homeSteps.unbookmarkActivity(oldActiviyy);
   }
 
-  @And("^I unbookmark the activity '(.*)'")
-  @When("^I bookmark the activity '(.*)'$")
+  @And("I unbookmark the activity '{}'")
+  @When("I bookmark the activity '{}'")
   public void bookmarkActivity(String activity) {
     homeSteps.bookmarkActivity(activity);
   }
