@@ -1,6 +1,6 @@
 Feature: Poll
 
-  @poll @ignore
+  @poll
   Scenario: Poll_US05_(01) : Post a poll_simple case
     Given I am authenticated as admin
     And I create the first random user
@@ -19,7 +19,7 @@ Feature: Poll
     And I publish the Poll
     Then The Poll 'Poll eXo' is displayed in stream page
 
-  @poll @ignore
+  @poll
   Scenario: Poll_US05_(02) : Post a poll_all options
     Given I am authenticated as admin
     And I create the first random user
@@ -71,7 +71,7 @@ Feature: Poll
     And I created a simple poll with title ' edited' and Choice One ' edited' and Choice Two ' edited'
     Then create poll drawer is closed
 
-  @poll @ignore
+  @poll
   Scenario: Poll_US05.1_(01) : Post a poll : create poll activity_with message
     Given I am authenticated as admin
     And I create the first random user
