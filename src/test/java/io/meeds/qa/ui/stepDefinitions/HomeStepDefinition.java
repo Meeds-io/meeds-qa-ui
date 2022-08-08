@@ -125,9 +125,7 @@ public class HomeStepDefinition {
     homeSteps.goToHomePage();
   }
 
-  @Then(
-    "^The notification that shows that activity '(.*)' posted by first user is commented by second user with comment '(.*)', is displayed$"
-  )
+  @Then("^The notification that shows that activity '(.*)' posted by first user is commented by second user with comment '(.*)', is displayed$")
   public void firstUserActivityCommentedBySecondUserNotificationIsDisplayed(String activity, String comment) {
     String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
     String secondUserLastName = Serenity.sessionVariableCalled("secondUserLastName");
@@ -138,9 +136,7 @@ public class HomeStepDefinition {
     homeSteps.commentActivityNotificationIsDisplayed(message, activity, comment);
   }
 
-  @Then(
-    "^The notification that shows that comment '(.*)' posted by second user is replied by first user with '(.*)', is displayed$"
-  )
+  @Then("^The notification that shows that comment '(.*)' posted by second user is replied by first user with '(.*)', is displayed$")
   public void secondUserCommentRepliedByFirstUserNotificationIsDisplayed(String comment, String reply) {
     String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
     String firstUserLastName = Serenity.sessionVariableCalled("firstUserLastName");
@@ -162,9 +158,7 @@ public class HomeStepDefinition {
     homeSteps.clickOnCommentActivityNotification(message, comment, reply);
   }
 
-  @When(
-    "^I click on the notification that shows that activity '(.*)' posted by first user is commented by second user with comment '(.*)'$"
-  )
+  @When("^I click on the notification that shows that activity '(.*)' posted by first user is commented by second user with comment '(.*)'$")
   public void clickOnFirstUserActivityCommentedBySecondUserNotification(String activity, String comment) {
     String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
     String secondUserLastName = Serenity.sessionVariableCalled("secondUserLastName");
@@ -220,8 +214,7 @@ public class HomeStepDefinition {
 
   @Then("^the invitation number for spaces is '(.*)'$")
   public void checkBagde(String number) {
-    assertThat(homeSteps.isSpacesBadgeWithNumberVisible(number))
-                                                                .as(String.format("La badge doit avoir le nombre %s", number))
+    assertThat(homeSteps.isSpacesBadgeWithNumberVisible(number)).as(String.format("La badge doit avoir le nombre %s", number))
                                                                 .isTrue();
   }
 
@@ -339,8 +332,7 @@ public class HomeStepDefinition {
 
   @Then("^the number of connection requests is '(.*)'$")
   public void checkConnexionBagde(String number) {
-    assertThat(homeSteps.isConnectionsBadgeWithNumberVisible(number))
-                                                                     .as(String.format("La badge doit avoir le nombre %s",
+    assertThat(homeSteps.isConnectionsBadgeWithNumberVisible(number)).as(String.format("La badge doit avoir le nombre %s",
                                                                                        number))
                                                                      .isTrue();
   }
@@ -437,8 +429,8 @@ public class HomeStepDefinition {
     homeSteps.unbookmarkActivity(oldActiviyy);
   }
 
-  @And("I unbookmark the activity '{}'")
-  @When("^I bookmark the activity '{}'$")
+  @And("^I unbookmark the activity '(.*)'")
+  @When("^I bookmark the activity '(.*)'$")
   public void bookmarkActivity(String activity) {
     homeSteps.bookmarkActivity(activity);
   }
