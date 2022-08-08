@@ -105,9 +105,7 @@ public class UserProfile extends GenericPage {
   @FindBy(xpath = "//*[@class='btn btn-primary v-btn v-btn--contained theme--light v-size--default']")
   public BaseElementFacade     SAVE_WORK_EXPERIENCES;
 
-  @FindBy(
-      xpath = "//*[@id='ProfileWorkExperience']//button[@class='v-icon notranslate my-auto v-icon--link mdi mdi-plus theme--light']"
-  )
+  @FindBy(xpath = "//*[@id='ProfileWorkExperience']//button[@class='v-icon notranslate my-auto v-icon--link mdi mdi-plus theme--light']")
   public BaseElementFacade     ADD_WORK_EXPERIENCES;
 
   @FindBy(xpath = "//*[@id='kudosOverviewCardsParent']//*[@class='kudosOverviewCard col'][2]/div/div[2]")
@@ -119,14 +117,10 @@ public class UserProfile extends GenericPage {
   @FindBy(xpath = "(//*[contains(@id,'DatePicker')])[2]//input")
   private TextBoxElementFacade ELEMENT_WORK_EXPERIENCES_END_DATE;
 
-  @FindBy(
-      xpath = "(//*[contains(@class,'v-date-picker-table__current v-btn--active ')])[1]/preceding::*[@class='v-btn__content'][1]"
-  )
+  @FindBy(xpath = "(//*[contains(@class,'v-date-picker-table__current v-btn--active ')])[1]/preceding::*[@class='v-btn__content'][1]")
   private TextBoxElementFacade ELEMENT_WORK_EXPERIENCES_END_DATE_TOMORROW_DAY;
 
-  @FindBy(
-      xpath = "(//*[contains(@class,'v-date-picker-table__current v-btn--active ')])[1]/preceding::*[@class='v-btn__content'][2]"
-  )
+  @FindBy(xpath = "(//*[contains(@class,'v-date-picker-table__current v-btn--active ')])[1]/preceding::*[@class='v-btn__content'][2]")
   private TextBoxElementFacade ELEMENT_WORK_EXPERIENCES_START_DATE_TOMORROW_DAY;
 
   @FindBy(xpath = "(//*[@class='v-expansion-panel-content']//input)[1]")
@@ -352,10 +346,10 @@ public class UserProfile extends GenericPage {
   public void sendKudos(String comment) {
     ckEditorFrameSendKudosDrawer.waitUntilVisible();
     ckEditorFrameSendKudosDrawer.clickOnElement();
-    driver.switchTo().frame(ckEditorFrameSendKudosDrawer);
+    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameSendKudosDrawer);
     sendKudosMessageContent.waitUntilVisible();
     sendKudosMessageContent.setTextValue(comment);
-    driver.switchTo().defaultContent();
+    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
     sendKudosButton.clickOnElement();
   }
 
@@ -401,55 +395,53 @@ public class UserProfile extends GenericPage {
 
   }
 
-  public void selectPhoneType(String phoneType,
-                              String... option) {
+  public void selectPhoneType(String phoneType, String... option) {
     switch (phoneType) {
-      case "WORK":
-        // Select WORK option
-        ELEMENT_CONTACT_PHONE_TYPE_SELECT_EDIT_BTN.selectByValue("work");
-        break;
-      case "HOME":
-        // Select HOME option
-        ELEMENT_CONTACT_PHONE_TYPE_SELECT_EDIT_BTN.selectByValue("home");
-        break;
-      case "OTHER":
-        // Select OTHER option
-        ELEMENT_CONTACT_PHONE_TYPE_SELECT_EDIT_BTN.selectByValue("other");
-        break;
+    case "WORK":
+      // Select WORK option
+      ELEMENT_CONTACT_PHONE_TYPE_SELECT_EDIT_BTN.selectByValue("work");
+      break;
+    case "HOME":
+      // Select HOME option
+      ELEMENT_CONTACT_PHONE_TYPE_SELECT_EDIT_BTN.selectByValue("home");
+      break;
+    case "OTHER":
+      // Select OTHER option
+      ELEMENT_CONTACT_PHONE_TYPE_SELECT_EDIT_BTN.selectByValue("other");
+      break;
 
-      default:
-        // No option in the list.Please select correct option.
-        break;
+    default:
+      // No option in the list.Please select correct option.
+      break;
     }
   }
 
-  public void selectInstantMessagingType(String instantMessagingType,
-                                         String... option) {
+  public void selectInstantMessagingType(String instantMessagingType, String... option) {
     switch (instantMessagingType) {
-      case "SKYPE":
-        // Select SKYPE option
-        ELEMENT_CONTACT_INSTANT_MESSAGING_TYPE_SELECT_EDIT_BTN.selectByValue("skype");
-        break;
-      case "MSN":
-        // Select MSN option
-        ELEMENT_CONTACT_INSTANT_MESSAGING_TYPE_SELECT_EDIT_BTN.selectByValue("msn");
-        break;
-      case "GITHUB":
-        // Select GITHUB option
-        ELEMENT_CONTACT_INSTANT_MESSAGING_TYPE_SELECT_EDIT_BTN.selectByValue("github");
-        break;
-      case "FACEBOOK":
-        // Select FACEBOOK option
-        ELEMENT_CONTACT_INSTANT_MESSAGING_TYPE_SELECT_EDIT_BTN.selectByValue("facebook");
-        break;
-      case "OTHER":
-        // Select OTHER option
-        ELEMENT_CONTACT_INSTANT_MESSAGING_TYPE_SELECT_EDIT_BTN.selectByValue("other");
-        break;
+    case "SKYPE":
+      // Select SKYPE option
+      ELEMENT_CONTACT_INSTANT_MESSAGING_TYPE_SELECT_EDIT_BTN.selectByValue("skype");
+      break;
+    case "MSN":
+      // Select MSN option
+      ELEMENT_CONTACT_INSTANT_MESSAGING_TYPE_SELECT_EDIT_BTN.selectByValue("msn");
+      break;
+    case "GITHUB":
+      // Select GITHUB option
+      ELEMENT_CONTACT_INSTANT_MESSAGING_TYPE_SELECT_EDIT_BTN.selectByValue("github");
+      break;
+    case "FACEBOOK":
+      // Select FACEBOOK option
+      ELEMENT_CONTACT_INSTANT_MESSAGING_TYPE_SELECT_EDIT_BTN.selectByValue("facebook");
+      break;
+    case "OTHER":
+      // Select OTHER option
+      ELEMENT_CONTACT_INSTANT_MESSAGING_TYPE_SELECT_EDIT_BTN.selectByValue("other");
+      break;
 
-      default:
-        // No option in the list.Please select correct option.
-        break;
+    default:
+      // No option in the list.Please select correct option.
+      break;
     }
   }
 

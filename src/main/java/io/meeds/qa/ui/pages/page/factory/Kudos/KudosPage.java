@@ -53,7 +53,7 @@ public class KudosPage extends GenericPage {
   @FindBy(xpath = "(//*[@id='activityCommentsDrawer']//*[@class='v-btn__content'])[3]")
   private BaseElementFacade       closeKudosDrawer;
 
-  @FindBy(xpath = "(//*[@class='v-list-item__title peopleActionItem'])[2]")
+  @FindBy(xpath = "//*[@class='v-list-item__title peopleActionItem']")
   public static BaseElementFacade sendKudosMenu;
 
   @FindBy(xpath = "//header[@id='peopleListToolbar']//input")
@@ -83,29 +83,25 @@ public class KudosPage extends GenericPage {
   @FindBy(xpath = "//button[@class='ignore-vuetify-classes btn btn-primary me-3']")
   private BaseElementFacade       sendKudosBtn;
 
-  @FindBy(
-      xpath = "//*[contains(@id,'Extactivity-content-extensions')]//*[@class='my-4']//*[contains(@class,'rich-editor-content')]//div"
-  )
-  private BaseElementFacade       getKudosActivityText;
+  private BaseElementFacade getKudosActivityText(String message) {
+    return findByXpath(String.format("//*[contains(@id,'Extactivity-content-extensions')]//*[@class='my-4']//*[contains(@class,'rich-editor-content')]//div[contains(text(),'%s')]",
+                                     message));
+  }
 
-  @FindBy(
-      xpath = "(//*[@class='flex-grow-1 flex-shrink-1 overflow-hidden']//*[@class='v-icon notranslate primary--text mdi mdi-dots-vertical theme--light'])[2]"
-  )
-  private BaseElementFacade       threedotsKudosComment;
+  @FindBy(xpath = "(//*[@class='flex-grow-1 flex-shrink-1 overflow-hidden']//*[@class='v-icon notranslate primary--text mdi mdi-dots-vertical theme--light'])[2]")
+  private BaseElementFacade threedotsKudosComment;
 
   @FindBy(xpath = "//*[@class='v-list-item__title pl-3' and contains(text(),'Edit')]")
-  private BaseElementFacade       editKudosComment;
+  private BaseElementFacade editKudosComment;
 
   @FindBy(xpath = "//*[@class='cke_inner cke_reset']")
-  private BaseElementFacade       kudosCommentFilled;
+  private BaseElementFacade kudosCommentFilled;
 
   @FindBy(xpath = "//*[@class='v-btn__content' and contains(text(),'Update')]")
-  private BaseElementFacade       updateKudosComment;
+  private BaseElementFacade updateKudosComment;
 
-  @FindBy(
-      xpath = "(//*[@class='flex-grow-1 flex-shrink-1 overflow-hidden']//*[@class='v-icon notranslate primary--text mdi mdi-dots-vertical theme--light'])[3]"
-  )
-  private BaseElementFacade       threedotsKudosReplyComment;
+  @FindBy(xpath = "(//*[@class='flex-grow-1 flex-shrink-1 overflow-hidden']//*[@class='v-icon notranslate primary--text mdi mdi-dots-vertical theme--light'])[3]")
+  private BaseElementFacade threedotsKudosReplyComment;
 
   private BaseElementFacade getKudosText(String kudos) {
     return findByXpath(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]", kudos));
@@ -128,13 +124,11 @@ public class KudosPage extends GenericPage {
   }
 
   private BaseElementFacade getLikeIcon(String activity) {
-    return findByXpath(
-                       String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLink')])[1]", activity));
+    return findByXpath(String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLink')])[1]", activity));
   }
 
   private BaseElementFacade getKudosiconsss(String activity) {
-    return findByXpath(
-                       String.format("//i[contains(@class,'uiIconKudos')]", activity));
+    return findByXpath(String.format("//i[contains(@class,'uiIconKudos')]", activity));
   }
 
   public void goToKudosMenu() {
@@ -207,7 +201,7 @@ public class KudosPage extends GenericPage {
   }
 
   public void isKudosActivityVisible(String message) {
-    Assert.assertTrue(getKudosActivityText.getText().contains(message));
+    getKudosActivityText(message).isVisibleAfterWaiting();
   }
 
   public void addActivityCommentKudos(String comment) {

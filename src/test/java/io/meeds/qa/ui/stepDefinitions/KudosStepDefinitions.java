@@ -48,12 +48,12 @@ public class KudosStepDefinitions {
     kudosPage.addActivityKudos(spaceHomePage.getActivityElement(activity), kudos);
   }
 
-  @And("kudos icon of the activity '{}' is Disabled")
+  @And("^kudos icon of the activity '(.*)' is Disabled$")
   public void checkKudosIcon(String activityId) {
     kudoSteps.checkKudosIcon(activityId);
   }
 
-  @And("I set the new kudos '{}' and I click on update button")
+  @And("^I set the new kudos '(.*)' and I click on update button$")
   public void updateKudosMessage(String kudos) {
     kudoSteps.updateKudosMessage(kudos);
   }
@@ -77,8 +77,8 @@ public class KudosStepDefinitions {
     kudoSteps.threeDotsMenuSendKudos(kudosMessage);
   }
 
-  @And("the kudos activity UI '{}' is displayed in stream page")
-  @Then("the updated Kudos activity '{}' is displayed in stream page")
+  @And("^the kudos activity UI '(.*)' is displayed in stream page$")
+  @Then("^the updated Kudos activity '(.*)' is displayed in stream page$")
   public void checkkudosActivity(String message) {
     kudoSteps.isKudosActivityVisible(message);
   }
