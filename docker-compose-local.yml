@@ -4,14 +4,17 @@ services:
     image: selenium/hub:4.3
     container_name: selenium-hub
     network_mode: host
+    environment:
+      - SE_JAVA_OPTS=-Xmx4g
   chrome:
     image: selenium/node-chrome:4.3
-    shm_size: 2gb
+    shm_size: 4gb
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
       - selenium-hub
     environment:
+      - SE_START_XVFB=false
       - SE_EVENT_BUS_HOST=localhost
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
@@ -21,7 +24,7 @@ services:
     network_mode: host
   firefox:
     image: selenium/node-firefox:4.3
-    shm_size: 2gb
+    shm_size: 4gb
     volumes:
       - /dev/shm:/dev/shm
     depends_on:

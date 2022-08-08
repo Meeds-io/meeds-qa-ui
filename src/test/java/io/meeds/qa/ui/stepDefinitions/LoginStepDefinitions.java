@@ -24,6 +24,11 @@ public class LoginStepDefinitions {
     assertThat(loginSteps.isHomePageDisplayed()).as("The home page should be loaded, but it did not !").isTrue();
   }
 
+  @Given("I logout")
+  public void logout() {
+    loginSteps.logout();
+  }
+
   @Given("^I connect with the first created user$")
   public void logoutLoginFirstUser() {
     String firstUserName = Serenity.sessionVariableCalled("firstUserName");

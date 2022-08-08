@@ -2558,14 +2558,8 @@ Feature: Activity Stream
   @smoke
   @ignored
   Scenario: Mention from user activity stream should push the activity in "My Activities" of the mentioned user
-    Given I am authenticated with the user with the credentials
-      | login    | aymen.khalfi |
-      | password | aymen2020    |
-
-    When I create the space with user 'houssem.riahi'
-    And I change user
-      | login    | houssem.riahi |
-      | password | houssem2020   |
+    Given I am authenticated as admin
+    And I create the first random user
     And I go to First Space
     And I 'Accept'
     When I click on Post button
@@ -2573,9 +2567,7 @@ Feature: Activity Stream
     And I publish the activity
     Then In the created space, in post 'activityWithMentionedUser', the mentioned user 'aymen khal' is displayed
 
-    When I change user
-      | login    | aymen.khalfi |
-      | password | aymen2020    |
+    When I am authenticated as admin
     And I open Notifications
     Then Notification when mentioning a user in activity, 'Houssem Riahi has mentioned you' 'activityWithMentionedUser aymen khal' is displayed
     And Notification : 'Houssem Riahi has posted an activity' in the created space 'activityWithMentionedUser aymen khal', is displayed
@@ -2598,9 +2590,7 @@ Feature: Activity Stream
     And I publish the activity
     Then In the created space, in post 'actTest', the mentioned user 'aymen khal' is displayed
 
-    When I change user
-      | login    | aymen.khalfi |
-      | password | aymen2020    |
+    When I am authenticated as admin
     And I open Notifications
     Then Notification when mentioning a user in activity, 'Houssem Riahi has mentioned you' 'actTest aymen khal' is displayed
     And Notification : 'Houssem Riahi has posted an activity' in the created space 'actTest aymen khal', is displayed

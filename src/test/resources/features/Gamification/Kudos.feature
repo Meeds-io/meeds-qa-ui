@@ -8,9 +8,7 @@ Feature: Kudos gamification
       | password | houssem2020   |
     When I go to my profile
     And I check my points
-    And I change user
-      | login    | aymen.khalfi |
-      | password | aymen2020    |
+    And I am authenticated as admin
     And I go to the profile 'houssem.riahi'
     And I send kudos with message 'Message for kudos'
     And I change user
@@ -20,9 +18,7 @@ Feature: Kudos gamification
     Then My points augmented
 
   Scenario: Post activity (space stream)
-    Given I am authenticated with the user with the credentials
-      | login    | aymen.khalfi |
-      | password | aymen2020    |
+    Given I am authenticated as admin
     And I check my points
     When I create the space
     And I click on post in space
