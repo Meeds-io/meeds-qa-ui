@@ -2,7 +2,7 @@
 # Tags: optional
 Feature: Favorite activities
 
-  @favorite @ignore
+  @favorite
   Scenario: [Favs_US03]: Bookmark an activity
     Given I am authenticated as admin
     And I create the first random user
@@ -16,7 +16,7 @@ Feature: Favorite activities
     When I favorite the activity posted in the space
     Then The favorite success message 'Favorite added successfully. Find it easily from the search' should be displayed
 
-  @favorite  @ignore
+  @favorite
   Scenario: [Favs_US04]: Remove the Bookmark for an activity
     Given I am authenticated as admin
     And I create the first random user
@@ -87,7 +87,7 @@ Feature: Favorite activities
     And The activity is displayed in the search 'activity2'
     And The activity is displayed in the search 'activity0'
 
-  @favorite  @ignore
+  @favorite
   Scenario: [Favs_US06][01]: Manage favorites from the search card ( Bookmark an activity)
     Given I am authenticated as admin
     And I create the first random user
@@ -109,7 +109,7 @@ Feature: Favorite activities
     And The activity is not displayed in the search 'activity2'
     And The activity is not displayed in the search 'activity0'
 
-  @favorite @ignore
+  @favorite
   Scenario: [Favs_US06][02]: Manage favorites from the search card ( UnBookmark an activity)
     Given I am authenticated as admin
     And I create the first random user
@@ -131,7 +131,7 @@ Feature: Favorite activities
     And I refresh the page
     Then The activity is not displayed in the search 'activity2'
     And The activity is not displayed in the search 'activity1'
-    And The activity is not displayed in the search 'activity0'.
+    And The activity is not displayed in the search 'activity0'
 
   @favorite @ignore
   Scenario: [Fav_US13][01]: Bookmark a note from it's details
