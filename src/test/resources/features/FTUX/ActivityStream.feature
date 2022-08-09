@@ -2349,6 +2349,7 @@ Feature: Activity Stream
     And Comment 'commenttest1020' is not displayed in the drawer
     Then Check Four comment is displayed in comments drawer
 
+  @test
   Scenario: CAP129 - [ActivityStream_US47][02]: Send a kudos from a replay
 
     Given I am authenticated as admin

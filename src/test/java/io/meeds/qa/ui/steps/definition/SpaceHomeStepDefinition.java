@@ -26,11 +26,13 @@ public class SpaceHomeStepDefinition {
 
   @Then("^Activity Comment '(.*)' is displayed in activity stream$")
   public void checkActivityComment(String comment) {
+    spaceHomePage.open();
     spaceHomeSteps.checkActivityComment(comment);
   }
 
   @Then("^Comment '(.*)' is not displayed in activity '(.*)'$")
   public void checkActivityCommentNotDisplayed(String comment, String activity) {
+    spaceHomePage.open();
     spaceHomeSteps.checkActivityCommentNotDisplayed(activity, comment);
   }
 
@@ -69,11 +71,13 @@ public class SpaceHomeStepDefinition {
 
   @Then("^First comment '(.*)' is displayed in activity stream$")
   public void checkFirstActivityComment(String comment) {
+    spaceHomePage.open();
     spaceHomeSteps.checkFirstActivityComment(comment);
   }
 
   @Then("^Second comment '(.*)' is displayed in activity stream$")
   public void checkSecondActivityComment(String comment) {
+    spaceHomePage.open();
     spaceHomeSteps.checkSecondActivityComment(comment);
   }
 
@@ -177,8 +181,7 @@ public class SpaceHomeStepDefinition {
 
   @When("^In activity '(.*)' I enter the link '(.*)' as comment$")
   public void enterCommentLink(String activity, String link) {
-    spaceHomePage.getActivityElement(activity);
-    spaceHomePage.enterCommentLink(spaceHomePage.getActivityElement(activity), link);
+    spaceHomePage.enterCommentLink(spaceHomePage.getActivityId(activity), link);
   }
 
   @When("^I enter an activity '(.*)' mentioning the second user$")
@@ -389,8 +392,8 @@ public class SpaceHomeStepDefinition {
 
   @When("^I click on comment button related to activity '(.*)'$")
   public void clickOnCommentActivity(String activity) {
-    spaceHomePage.getActivityElement(activity);
-    spaceHomePage.clickOnCommentActivityButton(spaceHomePage.getActivityElement(activity));
+    spaceHomePage.getActivityId(activity);
+    spaceHomePage.clickOnCommentActivityButton(spaceHomePage.getActivityId(activity));
   }
 
   @Then("^The activity '(.*)' posted by the user '(.*)' in space '(.*)' is displayed with its timestamp in activity stream$")
@@ -636,21 +639,20 @@ public class SpaceHomeStepDefinition {
 
   @When("^I add in activity '(.*)' a comment '(.*)'$")
   public void addActivityComment(String activity, String comment) {
-    spaceHomePage.getActivityElement(activity);
-    spaceHomePage.addActivityComment(spaceHomePage.getActivityElement(activity), comment);
+    spaceHomePage.getActivityId(activity);
+    spaceHomePage.addActivityComment(spaceHomePage.getActivityId(activity), comment);
   }
 
   @When("^I add in activity '(.*)' an internal link '(.*)' as a comment$")
   public void addInternalLinkComment(String activity, String comment) {
     String currentUrl = Serenity.getWebdriverManager().getCurrentDriver().getCurrentUrl().split("portal")[0];
-    spaceHomePage.getActivityElement(activity);
-    spaceHomePage.addActivityComment(spaceHomePage.getActivityElement(activity), currentUrl + comment);
+    spaceHomePage.getActivityId(activity);
+    spaceHomePage.addActivityComment(spaceHomePage.getActivityId(activity), currentUrl + comment);
   }
 
   @When("^I add a reply '(.*)' to comment '(.*)' in activity '(.*)'$")
   public void addCommentReply(String reply, String comment, String activity) {
-    spaceHomePage.getActivityElement(activity);
-    spaceHomePage.addCommentReply(reply, comment, spaceHomePage.getActivityElement(activity));
+    spaceHomePage.addCommentReply(reply, comment, activity);
   }
 
   @When("^In comment '(.*)', Like label should be blue$")
@@ -710,8 +712,8 @@ public class SpaceHomeStepDefinition {
 
   @When("^I open in activity '(.*)' the Comments drawer$")
   public void openCommentsDrawer(String activity) {
-    spaceHomePage.getActivityElement(activity);
-    spaceHomePage.openCommentsDrawer(spaceHomePage.getActivityElement(activity));
+    spaceHomePage.getActivityId(activity);
+    spaceHomePage.openCommentsDrawer(spaceHomePage.getActivityId(activity));
   }
 
   @When("^I click to delete from the dropdownActivitymenu$")

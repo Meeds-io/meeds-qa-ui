@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.meeds.qa.ui.steps.AdminApplicationSteps;
@@ -180,7 +181,7 @@ public class AdminApplicationStepDefinition {
     setCurrentlyTestingApplicationTitle(applicationData.get("title"));
   }
 
-  @When("^I add a new random application with the title, the url and the description with image '(.*)'$")
+  @When("^I add a new random application with the title, the url and the description with image <(.*)>$")
   public void enterRandomApplicationTitleUrlDescriptionWithImage(String image) {
     String randomApplicationTitle = "title" + getRandomString();
     String randomApplicationUrl = "./" + getRandomString();
@@ -215,7 +216,7 @@ public class AdminApplicationStepDefinition {
 
   }
 
-  @When("^I add a second random application with the title, the url and the description with image '(.*)'$")
+  @When("^I add a second random application with the title, the url and the description with image <(.*)>$")
   public void enterSecondRandomApplicationTitleUrlDescriptionWithImage(String image) {
     String secondRandomApplicationTitle = "title" + getRandomString();
     String secondRandomApplicationUrl = "./" + getRandomString();
@@ -233,7 +234,7 @@ public class AdminApplicationStepDefinition {
 
   }
 
-  @When("^I edit the application '*' data$")
+  @When("^I edit the application '(.*)' data$")
   public void editApplicationTitleUrlDescription(String appName, Map<String, String> appData) {
     adminApplicationSteps.editApplicationTitleUrlDescription(appName, appData);
   }
@@ -261,8 +262,8 @@ public class AdminApplicationStepDefinition {
     adminApplicationSteps.enableDisableMandatoryApplication(appTitle);
   }
 
-  @When("^I disable Active option for application '*'$")
-  @Then("I enable Active option for application '*'")
+  @When("^I disable Active option for application '(.*)'$")
+  @Then("$I enable Active option for application '(.*)'$")
   public void enableDisableActiveApplication(String appTitle) {
     adminApplicationSteps.enableDisableActiveApplication(appTitle);
   }
@@ -297,7 +298,7 @@ public class AdminApplicationStepDefinition {
     adminApplicationSteps.clickActiveApp(randomApplicationTitle);
   }
 
-  @When("^I delete the application '*'$")
+  @When("^I delete the application '(.*)'$")
   public void deleteApp(String appName) {
     adminApplicationSteps.deleteApp(appName, true);
   }
@@ -339,13 +340,13 @@ public class AdminApplicationStepDefinition {
     assertThat(adminApplicationSteps.isPopupConfirmDeleteNotDisplayed()).as("Delete popup still displayed").isTrue();
   }
 
-  @When("Edit application title is displayed '*' in drawer")
+  @When("^Edit application title is displayed '(.*)' in drawer$")
   public void applicationDrawerTitleIsDisplayed(String title) {
 
     adminApplicationSteps.applicationDrawerTitleIsDisplayed(title);
   }
 
-  @When("Edit application url is displayed '*' in drawer")
+  @When("Edit application url is displayed {string} in drawer")
   public void applicationDrawerUrlIsDisplayed(String url) {
     adminApplicationSteps.applicationDrawerUrlIsDisplayed(url);
   }
@@ -353,15 +354,14 @@ public class AdminApplicationStepDefinition {
   @When("Edit application mandatory active and mobile are displayed in drawer")
   public void applicationDrawerEnabledButtonsAreIsDisplayed() {
     adminApplicationSteps.applicationDrawerEnabledButtonsAreIsDisplayed();
-
   }
 
-  @When("Edit application permissions '*' and '*' are displayed in drawer")
+  @When("Edit application permissions {string} and {string} are displayed in drawer")
   public void applicationDrawerPermissionsIsDisplayed(String firstPermission, String secondPermission) {
     adminApplicationSteps.applicationDrawerPermissionsIsDisplayed(firstPermission, secondPermission);
   }
 
-  @When("Edit application image is displayed '*' in drawer")
+  @When("Edit application image is displayed {string} in drawer")
   public void applicationDrawerImageIsDisplayed(String image) {
     adminApplicationSteps.applicationDrawerImageIsDisplayed(image);
   }

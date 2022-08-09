@@ -133,7 +133,7 @@ public class SpaceHomePage extends GenericPage {
   @FindBy(xpath = "//*[contains(@class,'drawerContent ')]//button//span[contains(text(),'Comment')]")
   private BaseElementFacade          replyButtonInDrawer;
 
-  @FindBy(xpath = "(//*[@id='activityCommentsDrawer']//*[@class='v-btn__content'])[3]")
+  @FindBy(css = "#activityCommentsDrawer .drawerIcons button.mdi-close")
   private BaseElementFacade          closeCommentsDrawer;
 
   @FindBy(xpath = "//*[contains(@class,'v-btn--block v-btn--contained theme--light')]//span")
@@ -246,7 +246,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private BaseElementFacade getActivityText(String activity) {
-    return findByXpath(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]", activity));
+    return findByXpath(String.format("//div[contains(@class,'activity-detail')]//*[contains(@class,'postContent')]//*[contains(text(),'%s')]", activity));
   }
 
   private BaseElementFacade getActivityNameUserSpace(String activity, String user, String space) {
@@ -408,7 +408,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void replyIsDisplayedInCommentsDrawer(String comment, String reply) {
-    getDrawerReplyNameInComment(comment, reply).isNotVisibleAfterWaiting();
+    getDrawerReplyNameInComment(comment, reply).isVisibleAfterWaiting();
   }
 
   public void normalLinkPreviewIsVisible(String link) {
@@ -567,7 +567,6 @@ public class SpaceHomePage extends GenericPage {
     commentButtonInDrawer.clickOnElement();
     closeCommentsDrawer.clickOnElement();
     commentButtonInDrawer.isNotVisibleAfterWaiting();
-
   }
 
   public void clickOnCommentsDrawerSecondPage() {
@@ -727,8 +726,8 @@ public class SpaceHomePage extends GenericPage {
     buttonCreatePoll.clickOnElement();
   }
 
-  public void addCommentReply(String reply, String comment, String activityId) {
-
+  public void addCommentReply(String reply, String comment, String activity) {
+    String activityId = getActivityId(activity);
     getCommentReply(comment, activityId).clickOnElement();
 
     ckEditorFrameComment.clickOnElement();
@@ -747,8 +746,8 @@ public class SpaceHomePage extends GenericPage {
     getConfirmButton("Confirm").clickOnElement();
   }
 
-  private BaseElementFacade getActivityDropDownElement(String activity) {
-    return findByXpath(String.format("(//*[contains(@class,'postContent')]//*[contains(text(),'%s')]/following::button[contains(@id,'CommentLink')])[1]",
+  private BaseElementFacade getActivityElement(String activity) {
+    return findByXpath(String.format("//*[contains(@class,'activity-detail')]//*[contains(text(),'%s')]/ancestor::*[contains(@class,'activity-detail')]",
                                      activity));
   }
 
@@ -767,8 +766,10 @@ public class SpaceHomePage extends GenericPage {
     oAction.contextClick(getLikeCommentIcon(comment)).build().perform();
   }
 
-  public String getActivityElement(String activity) {
-    return getActivityDropDownElement(activity).getAttribute("id").split("CommentLink")[1];
+  public String getActivityId(String activity) {
+    BaseElementFacade activityElement = getActivityElement(activity);
+    activityElement.waitUntilVisible();
+    return activityElement.getAttribute("id").replace("activity-detail-", "");
   }
 
   public void checkActivityTitle(String activity) {
