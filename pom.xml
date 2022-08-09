@@ -215,7 +215,7 @@
               <!-- List of package names to scan for glue code. -->
               <glue>
                 <package>io.meeds.qa.ui.hook</package>
-                <package>io.meeds.qa.ui.stepDefinitions</package>
+                <package>io.meeds.qa.ui.steps.definition</package>
               </glue>
               <featuresDirectory>src/test/resources/features/</featuresDirectory>
               <parallelScheme>${parallel.scheme}</parallelScheme>

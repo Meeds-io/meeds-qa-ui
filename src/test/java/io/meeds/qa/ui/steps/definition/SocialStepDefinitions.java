@@ -1,18 +1,20 @@
-package io.meeds.qa.ui.stepDefinitions;
+package io.meeds.qa.ui.steps.definition;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
-import io.meeds.qa.ui.steps.PeopleSteps;
 import io.meeds.qa.ui.steps.SocialSteps;
+import io.meeds.qa.ui.steps.StreamSteps;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 
 public class SocialStepDefinitions {
+
   @Steps
   private SocialSteps socialSteps;
 
-  private PeopleSteps peopleSteps;
+  @Steps
+  private StreamSteps streamSteps;
 
   @And("^I add a comment in activity '(.*)'$")
   public void commentActivity(String activity) {
@@ -83,5 +85,10 @@ public class SocialStepDefinitions {
   @When("^I set the new comment '(.*)' and I click on cancel button$")
   public void cancelUpdateActivityComment(String comment) {
     socialSteps.cancelUpdateActivityComment(comment);
+  }
+
+  @When("^I hover on user name '(.*)' activity$")
+  public void hoverUserName(String user) {
+    streamSteps.hoverUserName(user);
   }
 }

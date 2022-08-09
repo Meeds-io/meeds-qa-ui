@@ -1,10 +1,8 @@
-# new feature
-# Tags: optional
+@gamification
 Feature: Domains Management
   As an administrator user
   I can manage domains list
 
-  @gamification
   Scenario: Add domain
     Given I am authenticated as admin
     When I go to administration then I select manage domains
@@ -12,7 +10,6 @@ Feature: Domains Management
     And I confirm the addition of the new domain
     Then The random domain is added successfully and its name is displayed in the domain list
 
-  @gamification
   Scenario: Edit domain
     Given I am authenticated as admin
     And I go to administration then I select manage domains
@@ -22,7 +19,6 @@ Feature: Domains Management
     When I click on edit icon and enter the updated domain name and I save changes
     Then The random domain is updated successfully and its name is displayed in the domain list
 
-  @gamification
   Scenario: Delete domain
     Given I am authenticated as admin
     And I go to administration then I select manage domains
@@ -34,7 +30,6 @@ Feature: Domains Management
     Then I confirm the deletion of the domain an it is deleted successfully
     And The random domain is not displayed in the domain list
 
-  @gamification
   Scenario: Domains search
     Given I am authenticated as admin
     When I go to administration then I select manage domains

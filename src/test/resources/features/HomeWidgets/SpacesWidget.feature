@@ -1,8 +1,11 @@
+@space
+@widget
 Feature: Spaces widget checking
   As a user
   I want to check the spaces in home page
   In order to validate the page
 
+  @smoke
   Scenario: US 3.3.2_(02) [BACK] Spaces requests to join: See All
     Given I am authenticated as admin
     And I create the first random user
@@ -20,6 +23,7 @@ Feature: Spaces widget checking
     And the 'Invitations Sent' page is opened
 
   @ignore
+  @smoke
   Scenario: US 3.3.2_(03) [BACK] Spaces requests to join: accept and reject
     Given I am authenticated as admin
     And I create the first random user

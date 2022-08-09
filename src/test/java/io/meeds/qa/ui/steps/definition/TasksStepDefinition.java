@@ -1,6 +1,6 @@
-package io.meeds.qa.ui.stepDefinitions;
+package io.meeds.qa.ui.steps.definition;
 
-import static io.meeds.qa.ui.stepDefinitions.ManageSpaceStepDefinitions.getRandomNumber;
+import static io.meeds.qa.ui.steps.definition.ManageSpaceStepDefinitions.getRandomNumber;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.assertj.core.api.Assertions.assertThat;
 

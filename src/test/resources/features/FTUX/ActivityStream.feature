@@ -8,7 +8,7 @@ Feature: Activity Stream
     And I create the second random user
 
     And I connect with the first created user
-    And I create the random space
+    And I create random space with the first created user 
 
     When I connect with the second created user
     And I go to the created space to accept to join it
@@ -33,7 +33,7 @@ Feature: Activity Stream
     And I create the second random user
 
     And I connect with the second created user
-    And I create the random space
+    And I create random space with the first created user 
 
     When I connect with the first created user
     And I go to the created space to accept to join it

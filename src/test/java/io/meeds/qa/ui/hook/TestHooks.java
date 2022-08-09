@@ -9,12 +9,12 @@ import org.apache.commons.collections.CollectionUtils;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
-import io.meeds.qa.ui.stepDefinitions.ManageSpaceStepDefinitions;
 import io.meeds.qa.ui.steps.AdminApplicationSteps;
 import io.meeds.qa.ui.steps.HomeSteps;
 import io.meeds.qa.ui.steps.LoginSteps;
 import io.meeds.qa.ui.steps.ManageBadgesSteps;
 import io.meeds.qa.ui.steps.ManageSpaceSteps;
+import io.meeds.qa.ui.steps.definition.ManageSpaceStepDefinitions;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 

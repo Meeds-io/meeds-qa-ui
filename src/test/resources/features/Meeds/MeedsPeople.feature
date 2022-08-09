@@ -1,3 +1,4 @@
+@people
 Feature: Search for Contacts in People page
   As a user
   I want to check in People page all contacts informations
@@ -56,6 +57,7 @@ Feature: Search for Contacts in People page
     And I delete Sent Request
     And I close Sent Request button
 
+  @smoke
   Scenario: : PEOPLE-7 : Leaderboard in the People Cards list application
     Given I am authenticated as admin
 

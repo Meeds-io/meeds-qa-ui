@@ -1,21 +1,6 @@
 Feature: Rules
 
   @gamification
-  Scenario: Receive Kudos
-    Given I am authenticated as admin
-    And I create the first random user
-    And I create the second random user
-    And I connect with the first created user
-    When I go to my profile
-    And I check my points
-    And I connect with the second created user
-    And I go to the first user profile
-    And I send kudos with message 'Message for kudos'
-    And I connect with the first created user
-    When I go to my profile
-    Then My points augmented
-
-  @gamification
   Scenario: Comment a post
     Given I am authenticated as admin
     And I create the first random user

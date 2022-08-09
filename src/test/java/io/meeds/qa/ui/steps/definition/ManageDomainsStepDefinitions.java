@@ -1,4 +1,4 @@
-package io.meeds.qa.ui.stepDefinitions;
+package io.meeds.qa.ui.steps.definition;
 
 import java.util.Random;
 

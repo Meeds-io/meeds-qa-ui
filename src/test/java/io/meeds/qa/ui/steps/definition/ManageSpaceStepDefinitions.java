@@ -1,4 +1,4 @@
-package io.meeds.qa.ui.stepDefinitions;
+package io.meeds.qa.ui.steps.definition;
 
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
@@ -171,7 +171,7 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.addSpaceWithRegistrationWithInvitedUser(spaceName, registration, fullName);
   }
 
-  @Given("^I create the random space$")
+  @Given("I create the random space")
   public void addRandomSpace() {
     homeSteps.goToManageSpacesPage();
     String randomSpaceName = "randomSpaceName" + getRandomNumber();
@@ -381,7 +381,7 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.addSpaceWithInviteUser(randomSpaceName, user);
   }
 
-  @Given("^I create random space with the first created user$")
+  @Given("I create random space with the first created user")
   public void addRandomSpaceWithFirstUser() {
     homeSteps.goToManageSpacesPage();
     String randomSpaceName = "randomSpaceName" + getRandomNumber();

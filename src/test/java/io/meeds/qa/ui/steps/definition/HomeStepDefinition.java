@@ -1,4 +1,4 @@
-package io.meeds.qa.ui.stepDefinitions;
+package io.meeds.qa.ui.steps.definition;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

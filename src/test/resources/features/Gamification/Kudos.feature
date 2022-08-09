@@ -1,22 +1,22 @@
-@smoke
+@kudos
 Feature: Kudos gamification
 
-  @ignored @Not_enough_kudos
+  @smoke
   Scenario: Receive Kudos
-    Given I am authenticated with the user with the credentials
-      | login    | houssem.riahi |
-      | password | houssem2020   |
+    Given I am authenticated as admin
+    And I create the first random user
+    And I create the second random user
+    And I connect with the first created user
     When I go to my profile
     And I check my points
-    And I am authenticated as admin
-    And I go to the profile 'houssem.riahi'
+    And I connect with the second created user
+    And I go to the first user profile
     And I send kudos with message 'Message for kudos'
-    And I change user
-      | login    | houssem.riahi |
-      | password | houssem2020   |
+    And I connect with the first created user
     When I go to my profile
     Then My points augmented
 
+  @smoke
   Scenario: Post activity (space stream)
     Given I am authenticated as admin
     And I check my points

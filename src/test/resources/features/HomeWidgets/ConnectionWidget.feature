@@ -1,8 +1,11 @@
+@widget
+@connection
 Feature: Space widgets checking
   As a user
   I want to check the connections in home page
   In order to validate the page
 
+  @smoke
   Scenario: US 3.3.3_(02) [BACK] No Connection requests number
     Given I am authenticated as admin
     And I create the first random user

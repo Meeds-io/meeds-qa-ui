@@ -1,6 +1,7 @@
-@smoke
+@gamification
 Feature: Gamification point
 
+  @smoke
   Scenario: check my points
     Given I am authenticated as admin
     And I go to my profile
@@ -8,6 +9,7 @@ Feature: Gamification point
       | Weekly points |
       | Weekly rank   |
 
+  @smoke
   Scenario: check badges pop-over in my badges
     Given I am authenticated as admin
     And I go to my profile
