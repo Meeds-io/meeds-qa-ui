@@ -1,7 +1,7 @@
 @activitystream
 Feature: Meeds stream
 
-  @ignore
+  @ignored
   Scenario: [STREAM-12] Activity Likers in drawer
     Given I am authenticated as admin
     And I create the first random user
@@ -22,7 +22,7 @@ Feature: Meeds stream
     And I hover on user 'firas' and go to profile after click
     And The page 'Profile' is opened
 
-  @ignore
+  @ignored
   Scenario:[STREAM-22]_(04) Space Popover : User is member of space
     Given I am authenticated as admin
     And I create the first random user
@@ -37,7 +37,7 @@ Feature: Meeds stream
     When In activity, I hover on space name
     Then The 'spacePopoverMember' is displayed
 
-  @ignore
+  @ignored
   Scenario:[Streem]_(02) User popover new UI : Users are not connect
     Given I am authenticated as admin
     And I create the first random user
@@ -52,7 +52,7 @@ Feature: Meeds stream
     And I hover on user name 'aymen.khalfi' activity
     Then The 'userPopoverNotConnected' is displayed
 
-  @ignore
+  @ignored
   Scenario:[Streem]_(01) User popover new UI : Users are connect
     Given I am authenticated with the user with the credentials
       | login    | khalil_riahi |

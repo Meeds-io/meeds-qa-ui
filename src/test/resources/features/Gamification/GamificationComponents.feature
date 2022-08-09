@@ -1,7 +1,7 @@
 @gamification
 Feature: Gamification Components
 
-  @ignore
+  @ignored
   Scenario: check badges pop-over in my badges
     Given I am authenticated as admin
 

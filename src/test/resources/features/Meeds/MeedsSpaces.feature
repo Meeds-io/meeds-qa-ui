@@ -33,7 +33,7 @@ Feature: Meeds Space
     And The first created space is not displayed in Spaces Requests section
     And The second created space is not displayed in Spaces Requests section
 
-  @ignore
+  @ignored
   Scenario: [SPC_MNG-7] General Space Settings
     Given I am authenticated as admin
     When I create the random space
@@ -51,7 +51,7 @@ Feature: Meeds Space
     And I check that cancel button is displayed
     And I check that update button is displayed
 
-  @ignore
+  @ignored
   Scenario: [SPC_MNG-8] Spaces applications management
     Given I am authenticated as admin
     When I create the random space
@@ -76,7 +76,7 @@ Feature: Meeds Space
     When I click to add application 'Wallet'
     Then I check that application 'Wallet' is added to applications page
 
-  @ignore
+  @ignored
   Scenario: [SPACES-4.1] Spaces Invitations
     Given I am authenticated with the user with the credentials
       | login    | firas.mejri |
@@ -99,7 +99,7 @@ Feature: Meeds Space
     Then I go to Second Space
     And The space home page is not visible
 
-  @ignore
+  @ignored
   Scenario: [SPACES-4.2]Spaces Sent Requests
     Given I am authenticated with the user with the credentials
       | login    | aymen.khalfi |
@@ -123,7 +123,7 @@ Feature: Meeds Space
       | password | aymen2020    |
     And The First space was deleted successfully
 
-  @ignore
+  @ignored
   Scenario: [SPACES-3]Spaces Card UI and UX
     Given I am authenticated with the user with the credentials
       | login    | aymen.khalfi |
@@ -152,7 +152,7 @@ Feature: Meeds Space
     And I search the space 'spaceWithCoverAvatar'
     Then The 'spaceNotMember' is displayed
 
-  @ignore
+  @ignored
   Scenario:[SPACES-1]Topbar spaces section_(01)
     Given I am authenticated with the user with the credentials
       | login    | aymen.khalfi |
@@ -160,7 +160,7 @@ Feature: Meeds Space
     And I go to spaces page
     And The 'spaceTopBar' is displayed
 
-  @ignore
+  @ignored
   Scenario:[SPACES-1]Topbar spaces section_(02):Filter pulldown
     Given I am authenticated as admin
     And I create the space with user 'firas.mejri'
@@ -173,7 +173,7 @@ Feature: Meeds Space
     When I select the filter 'My spaces'
     Then The 'mySpaces' is displayed
 
-  @ignore
+  @ignored
   Scenario:[SPACES-1] Topbar spaces section_(03): Filter spaces field
     Given I am authenticated as admin
     And I create the first space

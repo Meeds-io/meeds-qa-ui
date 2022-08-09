@@ -1,14 +1,14 @@
 @search
 Feature: Meeds Search
 
-  @ignore
+  @ignored
   Scenario:[SEARCH-2.1]People cards view
     Given I am authenticated as admin
     When I go to Person Page
     And I search the user 'ilyes'
     Then The 'PeopleFiltredList' is displayed
 
-  @ignore
+  @ignored
   Scenario: [SEARCH-2.9] Applications cards view
     Given I am authenticated as admin
     And I go to search page
@@ -17,7 +17,7 @@ Feature: Meeds Search
     And I click on 'Wallet' card
     And The wallet page is not opened
 
-  @ignore
+  @ignored
   Scenario: [SEARCH-2.2]Activity cards
     Given I am authenticated as admin
     And I go to search page
@@ -35,7 +35,7 @@ Feature: Meeds Search
     And I search for 'activity' with type 'Activity'
     And The 'twoActivitiesCardDiplsayed' is displayed
 
-  @ignore
+  @ignored
   Scenario:[SEARCH-2.3] Spaces cards view
     Given I am authenticated as admin
     And I go to search page
@@ -44,7 +44,7 @@ Feature: Meeds Search
     And I click on 'ilyes' card
     And The page 'ilyes' is opened
 
-  @ignore
+  @ignored
   Scenario:[SEARCH-2.5] Tasks cards view
     Given I am authenticated as admin
     And I go to search page

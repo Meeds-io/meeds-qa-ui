@@ -22,7 +22,7 @@ Feature: Spaces widget checking
     When I click on see all
     And the 'Invitations Sent' page is opened
 
-  @ignore
+  @ignored
   @smoke
   Scenario: US 3.3.2_(03) [BACK] Spaces requests to join: accept and reject
     Given I am authenticated as admin

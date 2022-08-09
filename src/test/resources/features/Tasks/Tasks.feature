@@ -145,7 +145,7 @@ Feature: Tasks
     Then Tasks widget is displayed
     And Task 'task test' is displayed from tasks widget
 
-  @ignore
+  @ignored
   Scenario: CAP188 - [MARM-1][BUG][Lost Projects] check that project isn't lost after renaming space name
     Given I am authenticated as admin
     And I create the first random user
@@ -360,7 +360,7 @@ Feature: Tasks
     And Label 'label6' is displayed in edit task drawer and x icon is not displayed
     And I close task drawer
 
-  @ignore
+  @ignored
   Scenario:[Task]: when click on notification, user is redirected under the specific project
     Given I am authenticated as admin
     And I create the first random user
