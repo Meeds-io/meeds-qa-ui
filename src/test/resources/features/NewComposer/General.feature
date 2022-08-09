@@ -1,4 +1,5 @@
 @smoke
+@activitycomposer
 Feature: General new composer
   As a user
   I want to handle activities via the new composer
@@ -20,6 +21,7 @@ Feature: General new composer
     And I create the space
     When I click on post in space
     And I enter an activity 'https://www.exoplatform.com/'
+    And I wait '5' seconds
     And I insert text 'activity109'
     And I publish the activity
     And I click on modify the activity
@@ -33,6 +35,7 @@ Feature: General new composer
     And I create the space
     When I click on post in space
     And I enter an activity 'https://www.youtube.com/watch?v=wgpduVyZT50'
+    And I wait '5' seconds
     And I insert text 'activity110'
     And I publish the activity
     And I click on modify the activity

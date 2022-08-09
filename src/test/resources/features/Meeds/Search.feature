@@ -5,8 +5,9 @@ Feature: Meeds Search
   Scenario:[SEARCH-2.1]People cards view
     Given I am authenticated as admin
     When I go to Person Page
-    And I search the user 'ilyes'
-    Then The 'PeopleFiltredList' is displayed
+    And I search the user 'First Name'
+    Then The page 'search' that contains 'connect' is displayed
+    Then The page 'search' that contains 'First Name' is displayed
 
   @ignored
   Scenario: [SEARCH-2.9] Applications cards view

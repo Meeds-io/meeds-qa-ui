@@ -33,7 +33,7 @@ public class UserProfile extends GenericPage {
   @FindBy(xpath = "//*[@id='GamificationEarnPoints']//*[@id='uiHowEarnPoint']//*[contains(text(),'How can I earn points?')]")
   public BaseElementFacade     howToEarnPointsPage;
 
-  @FindBy(xpath = "//aside[contains(@class,'achievementsDrawer')]//i[contains(@class,'uiIconInformation ')]")
+  @FindBy(css = ".achievementsDrawer .drawerHeader .uiIconInformation")
   private BaseElementFacade    achievementIconInfo;
 
   @FindBy(xpath = "//aside[contains(@class,'achievementsDrawer')]")
@@ -288,6 +288,7 @@ public class UserProfile extends GenericPage {
 
   public void openAchivementTab() {
     getUserStat("Points").clickOnElement();
+    iconProfileStatInfo.waitUntilVisible();
     iconProfileStatInfo.clickOnElement();
   }
 
@@ -324,6 +325,9 @@ public class UserProfile extends GenericPage {
   }
 
   public void openHowToEarnPointPage() {
+    if (iconProfileStatInfo.isVisibleAfterWaiting()) {
+      iconProfileStatInfo.clickOnElement();
+    }
     achievementIconInfo.clickOnElement();
   }
 
@@ -489,7 +493,7 @@ public class UserProfile extends GenericPage {
     return findByXpath(String.format("//div[@id='profile-stats-portlet']//span[contains(text(),'%s')]", statType));
   }
 
-  @FindBy(xpath = "//div[@id='profile-stats-portlet']//i[contains(@class,'uiIconInformation ')]")
+  @FindBy(css = "#profile-stats-portlet .uiIconInformation")
   private BaseElementFacade iconProfileStatInfo;
 
   public void openWeeklyPointsChart() {

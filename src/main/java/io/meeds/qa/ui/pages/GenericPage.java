@@ -2,7 +2,9 @@ package io.meeds.qa.ui.pages;
 
 import java.io.File;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -55,8 +57,10 @@ public class GenericPage extends BasePageImpl {
     getOKButton("OK").clickOnElement();
   }
 
-  public void waitInSeconds(int second) throws InterruptedException {
-    Thread.sleep(1000);
+  public boolean containsContent(String content) {
+    WebElement element = getDriver().findElement(By.xpath(String.format("//*[contains(text(),'%s')]",
+                                                                        content)));
+    return element != null && element.isDisplayed();
   }
 
 }

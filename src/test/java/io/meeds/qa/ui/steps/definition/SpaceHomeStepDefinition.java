@@ -291,7 +291,7 @@ public class SpaceHomeStepDefinition {
   @And("^The Poll '(.*)' is displayed in stream page$")
   public void checkActivity(String activity) {
     assertThat(spaceHomeSteps.isActivityVisible(activity))
-                                                          .as("L'activité n'est pas affichée dans l'activity stream")
+                                                          .as("The activity with expected content isn't displayed in activity stream")
                                                           .isTrue();
   }
 

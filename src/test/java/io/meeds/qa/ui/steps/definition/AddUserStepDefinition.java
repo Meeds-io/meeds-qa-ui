@@ -20,71 +20,71 @@ public class AddUserStepDefinition {
 
   String       firstUserName        = "user1" + getRandomString();
 
-  String       firstUserFirstName   = getRandomString();
+  String       firstUserFirstName   = getRandomString("User One First Name ");
 
-  String       firstUserLastName    = getRandomString();
+  String       firstUserLastName    = getRandomString("User One Last Name ");
 
-  String       firstUserMail        = firstUserFirstName + "." + firstUserLastName + "@aa.bb";
+  String       firstUserMail        = firstUserName + "@aa.bb";
 
   String       firstUserPassword    = "123456nBm";
 
   String       secondUserName       = "user2" + getRandomString();
 
-  String       secondUserFirstName  = getRandomString();
+  String       secondUserFirstName  = getRandomString("User Two First Name ");
 
-  String       secondUserLastName   = getRandomString();
+  String       secondUserLastName   = getRandomString("User Two Last Name ");
 
-  String       secondUserMail       = secondUserFirstName + "." + secondUserLastName + "@aa.bb";
+  String       secondUserMail       = secondUserName + "@aa.bb";
 
   String       secondUserPassword   = "123456nBm";
 
   String       thirdUserName        = "user3" + getRandomString();
 
-  String       thirdUserFirstName   = getRandomString();
+  String       thirdUserFirstName   = getRandomString("User Three First Name ");
 
-  String       thirdUserLastName    = getRandomString();
+  String       thirdUserLastName    = getRandomString("User Three Last Name ");
 
-  String       thirdUserMail        = thirdUserFirstName + "." + thirdUserLastName + "@aa.bb";
+  String       thirdUserMail        = thirdUserName + "@aa.bb";
 
   String       thirdUserPassword    = "123456nBm";
 
   String       fourthUserName       = "user4" + getRandomString();
 
-  String       fourthUserFirstName  = getRandomString();
+  String       fourthUserFirstName  = getRandomString("User1 First Name ");
 
-  String       fourthUserLastName   = getRandomString();
+  String       fourthUserLastName   = getRandomString("User1 Last Name ");
 
-  String       fourthUserMail       = fourthUserFirstName + "." + fourthUserLastName + "@aa.bb";
+  String       fourthUserMail       = fourthUserName + "@aa.bb";
 
   String       fourthUserPassword   = "123456nBm";
 
   String       fifthUserName        = "user5" + getRandomString();
 
-  String       fifthUserFirstName   = getRandomString();
+  String       fifthUserFirstName   = getRandomString("User Five First Name ");
 
-  String       fifthUserLastName    = getRandomString();
+  String       fifthUserLastName    = getRandomString("User Five Last Name ");
 
-  String       fifthUserMail        = fifthUserFirstName + "." + fifthUserLastName + "@aa.bb";
+  String       fifthUserMail        = fifthUserName + "@aa.bb";
 
   String       fifthUserPassword    = "123456nBm";
 
   String       sixthUserName        = "user6" + getRandomString();
 
-  String       sixthUserFirstName   = getRandomString();
+  String       sixthUserFirstName   = getRandomString("User Six First Name ");
 
-  String       sixthUserLastName    = getRandomString();
+  String       sixthUserLastName    = getRandomString("User Six Last Name ");
 
-  String       sixthUserMail        = sixthUserFirstName + "." + sixthUserLastName + "@aa.bb";
+  String       sixthUserMail        = sixthUserName + "@aa.bb";
 
   String       sixthUserPassword    = "123456nBm";
 
   String       firstAdminName       = "admin1" + getRandomString();
 
-  String       firstAdminFirstName  = getRandomString();
+  String       firstAdminFirstName  = getRandomString("Admin First Name ");
 
-  String       firstAdminLastName   = getRandomString();
+  String       firstAdminLastName   = getRandomString("Admin Last Name ");
 
-  String       firstAdminMail       = firstAdminFirstName + "." + firstAdminLastName + "@aa.bb";
+  String       firstAdminMail       = firstAdminName + "@aa.bb";
 
   String       firstAdminPassword   = "123456nBm";
 
@@ -93,8 +93,12 @@ public class AddUserStepDefinition {
   String       secondUserSuggestion = secondUserFirstName + " " + secondUserLastName;
 
   public static String getRandomString() {
+    return getRandomString("");
+  }
+
+  public static String getRandomString(String base) {
     char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
-    StringBuilder sb = new StringBuilder();
+    StringBuilder sb = new StringBuilder(base);
     Random random = new Random();
     for (int i = 0; i < 6; i++) {
       char c = chars[random.nextInt(chars.length)];

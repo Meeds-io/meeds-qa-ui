@@ -242,8 +242,7 @@ Feature: Tasks - Projects
     And I enter the project name 'projectCard1'
     And I save add project
     And I search for the project 'projectCard1'
-    Then The 'projectCard' is displayed
-    And The project 'projectCard1' was deleted successfully
+    Then The project 'projectCard1' was deleted successfully
 
   Scenario: CAP43-[Project_manager_US02]:Delete a Project
     Given I am authenticated as admin

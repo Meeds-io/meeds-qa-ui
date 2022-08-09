@@ -145,4 +145,3 @@ Feature: Search for User Informations in Profile page
 
     When I open Achievements Tab
     Then The achievements drawer is displayed
-

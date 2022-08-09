@@ -76,7 +76,6 @@ Feature: Edit sections in Settings page
 
     Then I connect with the first created user
 
-  @ignored
   Scenario: : SETTINGS-8 : Notifications section (Disable Notifications)
     Given I am authenticated as admin
 
@@ -91,13 +90,17 @@ Feature: Edit sections in Settings page
     And I disable notification on Mobile
     And I disable notification on Site
 
-    Then The 'DisabledNotifications' is displayed
+    Then Notification via Mail is disabled
+    Then Notification On Mobile is disabled
+    Then Notification On Site is disabled
 
     When I enable notification via Mail
     And I enable notification on Mobile
     And I enable notification on Site
 
-    Then The 'EnabledNotifications' is displayed
+    Then Notification via Mail is enabled
+    Then Notification On Mobile is enabled
+    Then Notification On Site is enabled
 
   Scenario: SETTINGS-4 : Add the favorite icon for Homepage default view
     Given I am authenticated as admin

@@ -19,4 +19,4 @@ Feature: SideBar
     And I create the first random user
     When I connect with the first created user
     When I go to Settings page
-    Then The 'settingsPage' is displayed
+    Then The page 'settings' that contains 'Manage notifications' is displayed

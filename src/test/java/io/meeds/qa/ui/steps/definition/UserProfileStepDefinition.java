@@ -58,7 +58,7 @@ public class UserProfileStepDefinition {
                                                                .isEmpty();
   }
 
-  @Then("^I open achievement tab$")
+  @Then("I open achievement tab")
   public void openAchivementTab() {
     userProfileSteps.openAchivementTab();
   }
@@ -68,7 +68,7 @@ public class UserProfileStepDefinition {
     userProfileSteps.sendKudos(kudosMessage);
   }
 
-  @Then("^I open badge details$")
+  @Then("I open badge details")
   public void openBadgeDetails() {
     userProfileSteps.openBadgeDetails();
   }

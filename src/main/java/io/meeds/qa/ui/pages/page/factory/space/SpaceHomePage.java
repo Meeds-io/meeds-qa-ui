@@ -417,6 +417,7 @@ public class SpaceHomePage extends GenericPage {
 
   public void enterActivityText(String activity) {
     driver.switchTo().frame(ckEditorFrame);
+    activityContentTextBox.waitUntilVisible();
     activityContentTextBox.sendKeys(activity);
     driver.switchTo().defaultContent();
     Serenity.setSessionVariable("activity").to(activity);

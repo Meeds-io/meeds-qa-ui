@@ -33,7 +33,12 @@ public class GenericSteps {
     genericPage.clickOkButton();
   }
 
-  public void waitInSeconds(int seconds) throws InterruptedException {
-    genericPage.waitInSeconds(seconds);
+  public boolean containsContent(String content) {
+    return genericPage.containsContent(content);
   }
+
+  public void waitInSeconds(int seconds) {
+    genericPage.waitFor(seconds).seconds();
+  }
+
 }
