@@ -81,7 +81,7 @@ public class TasksStepDefinition {
   }
 
   @When("^I enter a comment '(.*)' with mentioning the first user in task$")
-  public void addNewCommentInTaskWithMentioningTheFirstUserInTask(String comment) {
+  public void addNewCommentInTaskWithMentioningTheFirstUserInTask(String comment)  {
     String user = Serenity.sessionVariableCalled("firstUserName");
     tasksSteps.addNewCommentInTaskWithMentioningTheFirstUserInTask(comment, user);
   }

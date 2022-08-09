@@ -1,5 +1,6 @@
 package io.meeds.qa.ui.pages.page.factory.tasks;
 
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -719,7 +720,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void removeLabelToProject(String label) {
-    getLabelInEditProjectDrawer(label).isDisplayed();
+    getLabelInEditProjectDrawer(label).waitUntilVisible();
     getRemoveLabelButton(label).clickOnElement();
   }
 
@@ -1581,6 +1582,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void clickOnTheNotificationThatMentioneFirstUserInATaskInProject(String message, String ProjectName) {
+    firstNotificationContent.waitUntilVisible();
     Assert.assertTrue(firstNotificationContent.getText().contains(message));
     Assert.assertTrue(firstNotificationContent.getText().contains(ProjectName));
     firstNotificationContent.clickOnElement();

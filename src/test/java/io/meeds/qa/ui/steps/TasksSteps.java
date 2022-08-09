@@ -69,7 +69,7 @@ public class TasksSteps {
     tasksPage.commentTask(comment);
   }
 
-  public void addNewCommentInTaskWithMentioningTheFirstUserInTask(String comment, String user) {
+  public void addNewCommentInTaskWithMentioningTheFirstUserInTask(String comment, String user)  {
     tasksPage.addNewCommentInTaskWithMentioningTheFirstUserInTask(comment, user);
   }
 
