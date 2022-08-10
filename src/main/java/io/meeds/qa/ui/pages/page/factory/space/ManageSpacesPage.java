@@ -553,9 +553,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void goToSettingsTab() {
-    if (spaceMembersTab.isNotVisibleAfterWaiting()) {
-      goToSpaceRightTabs.clickOnElement();
-    }
+    goToSpaceRightTabs.clickOnElement();
     spaceCommunitySettingsTab.clickOnElement();
   }
 

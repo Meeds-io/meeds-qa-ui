@@ -57,7 +57,7 @@ Feature: Mark task as completed from BOARD view
     And I close task drawer
     Then Task '<TestE>' is deleted successfully
 
-  @task @ignore
+  @task
   Scenario: CAP82 - [User_UI_US22]: Mark as completed for "TASKS" in a Project (Participant case)
     Given I am authenticated as admin
     And I create the first random user
@@ -109,46 +109,7 @@ Feature: Mark task as completed from BOARD view
     When I close task drawer
     Then Task name 'taskessai' is not displayed in project details
 
-  @task @ignore
-  Scenario: [CERF-77][BUG]: Check tasks display in snapshot's Tasks gadget
-    Given I am authenticated as admin
-    And I create the first random user
-    And I create the second random user
-
-    And I connect with the second created user
-    And I create space project with the first user
-
-    When I connect with the first created user
-    Then The 'Spaces' badge is '1'
-    When I click on spaces badge
-    And I accept the invitation of the created space project
-    And I refresh the page
-    Then The 'Spaces' number is '1'
-
-    When I connect with the second created user
-    And I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
-    When I select 'Projects' tab
-    And I search for the created project
-    And I open the created project
-    And The following task is created in the specific project
-      | taskName | task test |
-
-    When I open the task 'task test'
-    And I assign task to the first user
-    And I close task drawer
-
-    When I open the task 'task test'
-    And I set task due date TODAY
-    And I close task drawer
-
-    When I connect with the first created user
-    And I go to the home page
-    Then Tasks widget is displayed
-    And Task 'task test' is displayed from tasks widget
-
-  @task @ignore
+  @task
   Scenario: CAP188 - [MARM-1][BUG][Lost Projects] check that project isn't lost after renaming space name
     Given I am authenticated as admin
     And I create the first random user
@@ -170,7 +131,8 @@ Feature: Mark task as completed from BOARD view
     And I click on edit general space settings
     Then I edit the old Space Name with a new random Space Name
 
-    When I go to Tasks in space tab
+    When I refresh the page
+    And I go to Tasks in space tab
     And I add this project 'second project test'
     Then the project is created successfully and displayed on Tasks Space tab
     And Project 'second project test' is displayed in Tasks space
@@ -181,7 +143,7 @@ Feature: Mark task as completed from BOARD view
     And Project 'new project test' is displayed in Tasks App Center
     And Project 'second project test' is displayed in Tasks App Center
 
-  @task @ignore
+  @task
   Scenario:[BUG]: Create Task with a new status
     Given I am authenticated as admin
     And I create the first random user
@@ -263,7 +225,7 @@ Feature: Mark task as completed from BOARD view
     And Task name 'taskE' is not displayed in project details
     And Tasks number '0' is displayed in the column To Do
 
-  @task @ignore
+  @task
   Scenario: CAP270 - [NF] [US_Sharedlabels_02]: Manage labels in Project (Delete labels)
     Given I am authenticated as admin
     And I create the first random user
@@ -299,7 +261,7 @@ Feature: Mark task as completed from BOARD view
     And Label 'label4' is displayed in edit project drawer
     And Label 'label5' is displayed in edit project drawer
 
-  @task @ignore
+  @task
   Scenario: CAP264 - [NF] [US_Sharedlabels_01]:All project members can use added labels
     Given I am authenticated as admin
     And I create the first random user
@@ -345,10 +307,15 @@ Feature: Mark task as completed from BOARD view
 
     When I open the task 'newtask'
     And I add Label 'label1' to task
+    And I refresh the page
     And I add Label 'label2' to task
+    And I refresh the page
     And I add Label 'label3' to task
+    And I refresh the page
     And I add Label 'label4' to task
+    And I refresh the page
     And I add Label 'label5' to task
+    And I refresh the page
     And I add Label 'label6' to task
     And I close task drawer
     And I open the task 'newtask'
@@ -422,7 +389,7 @@ Feature: Mark task as completed from BOARD view
     And I clear browsing data cache and cookies
     Then I check that grouping is still applied
 
-  @task @ignore
+  @task
   Scenario: CAP341 [TASK]: when refresh task's drawer, the description should not be lost
     Given I am authenticated as admin
     And I create the first random user
@@ -457,7 +424,7 @@ Feature: Mark task as completed from BOARD view
     And I refresh the page
     And The edit description in the task 'Edit Automation Test Task' is displayed
 
-  @task @ignore
+  @task
   Scenario: [IMP] [US_ChangesDrawer_01]: Display last Update and Changes drawer
     Given I am authenticated as admin
     And  I create the first random user
@@ -485,7 +452,7 @@ Feature: Mark task as completed from BOARD view
     When I click on the timestamp
     Then I check that a new second level drawer Changes is opened
 
-  @task @ignore
+  @task
   Scenario:[CERF-133][TASK][BUG]:Description update should not be lost due to cloning task and assigning it or changing its status
     Given I am authenticated as admin
     And I create the first random user
