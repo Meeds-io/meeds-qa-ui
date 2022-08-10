@@ -81,9 +81,6 @@ public class ApplicationPage extends GenericPage {
   @FindBy(xpath = "//*[@href='/portal/meeds/wallet']//*[@class='appLauncherImage']")
   public static BaseElementFacade ELEMENT_APPCENTER_WALLET;
 
-  // @FindBy(xpath =
-  // "//*[@href='/portal/meeds/analytics']//*[@class='appLauncherImage']")
-  // public static BaseElementFacade elementChallengesAppCenter;
   @FindBy(xpath = "//*[@id='appcenterLauncherButton']")
   public static BaseElementFacade ELEMENT_APPLICATIONS_TOPBAR;
 
@@ -94,7 +91,7 @@ public class ApplicationPage extends GenericPage {
   public static BaseElementFacade elementChallengeApplicationPage;
 
   private BaseElementFacade addApplicationAFavoriteInApplicationCenter(String app) {
-    return findByXpath(String.format("(//*[@class='authorisedAppContent']//*[@class='appTitle noHelpPage' and contains(text(),'%s')]/following::*[contains(@class, 'applicationActions')]//i[contains(@class, 'mdi-star')])[01]",
+    return findByXpath(String.format("(//*[@class='authorisedAppContent']//*[contains (@class,'appTitle') and contains(text(),'%s')]/following::*[contains(@class, 'applicationActions')]//i[contains(@class, 'mdi-star')])[01]",
                                      app));
   }
 
@@ -109,7 +106,7 @@ public class ApplicationPage extends GenericPage {
   }
 
   private BaseElementFacade ELEMENT_APPCENTER_ALL_APPLICATIONS_OPEN_APP_BTN(String app) {
-    return findByXpath(String.format("(//*[@class='authorisedAppContent']//*[@class='appTitle noHelpPage' and contains(text(),'%s')]/following::*[contains(@class, 'applicationActions')]//a)[01]",
+    return findByXpath(String.format("(//*[@class='authorisedAppContent']//*[contains (@class,'appTitle') and contains(text(),'%s')]/following::*[contains(@class, 'applicationActions')]//a)[01]",
                                      app));
   }
 
