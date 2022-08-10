@@ -1,17 +1,19 @@
 Feature: Filter Drawer
 
-  @task @ignore
+  @task
   Scenario: CAP110 - [Filter_Drawer_US03]:Group by Labels [Group and Sort" tab under project]
     Given I am authenticated as admin
 
     When I create space project
-    And I go to the home page
-    And I go to Tasks Page
+    When I go To AppCenter Drawer
+    And I go to Tasks AppCenter Application
+    Then Tasks Application Page is displayed
     And I select 'Projects' tab
     And I search for the created project
     And I open the created project
     And The following task with label 'test007' is created in the specific project
       | taskName | task11 |
+    And I refresh the page
     And The following task with label 'test007' is created in the specific project
       | taskName | task12 |
 
@@ -32,20 +34,23 @@ Feature: Filter Drawer
     And Task label 'test007' related to task name 'task11' is displayed in project details
     And Task label 'test007' related to task name 'task12' is displayed in project details
 
-  @task @ignore
+  @task
   Scenario: CAP113 - [Filter_Drawer_US03]:Sort by Title ["Group and Sort" tab under project]
     Given I am authenticated as admin
 
     When I create space project
-    And I go to the home page
-    And I go to Tasks Page
+    When I go To AppCenter Drawer
+    And I go to Tasks AppCenter Application
+    Then Tasks Application Page is displayed
     And I select 'Projects' tab
     And I search for the created project
     And I open the created project
     And The following task is created in the specific project
       | taskName | ctask11 |
+    And I refresh the page
     And The following task is created in the specific project
       | taskName | atask11 |
+    And I refresh the page
     And The following task is created in the specific project
       | taskName | btask11 |
 
@@ -62,20 +67,23 @@ Feature: Filter Drawer
     And In project details the task 'btask11' is displayed in '2' place
     And In project details the task 'ctask11' is displayed in '3' place
 
-  @task @ignore
+  @task
   Scenario: CAP111 - [Filter_Drawer_US03]:Group by Completed [Group and Sort" tab under project]
     Given I am authenticated as admin
 
     And I create space project
-    When I go to the home page
-    And I go to Tasks Page
+    When I go To AppCenter Drawer
+    And I go to Tasks AppCenter Application
+    Then Tasks Application Page is displayed
     And I select 'Projects' tab
     And I search for the created project
     And I open the created project
     And The following task is created in the specific project
       | taskName | task11 |
+    And I refresh the page
     And The following task is created in the specific project
       | taskName | task12 |
+    And I refresh the page
     And The following task is created in the specific project
       | taskName | task13 |
 
@@ -85,6 +93,7 @@ Feature: Filter Drawer
     And Tasks number '3' is displayed in the column To Do
 
     When I mark the task 'task11' as completed in project details
+    And I wait 1 second
     Then Task name 'task11' is not displayed in project details
     And Alert 'Task successfully marked as completed' is displayed
 
@@ -106,13 +115,14 @@ Feature: Filter Drawer
     And Task 'task12' is marked as completed and displayed in Completed section
     And Task 'task13' is not marked as completed and displayed in Uncompleted section
 
-  @task @ignore
+  @task
   Scenario: CAP53 - [Filter_Drawer_US01]: Filter button in a project
     Given I am authenticated as admin
 
     When I create space project
-    And I go to the home page
-    And I go to Tasks Page
+    When I go To AppCenter Drawer
+    And I go to Tasks AppCenter Application
+    Then Tasks Application Page is displayed
     And I select 'Projects' tab
     And I search for the created project
     And I open the created project
