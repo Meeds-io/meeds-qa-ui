@@ -879,5 +879,4 @@ public class TasksSteps {
   public void hoverOnProjectManagerIcon() {
     tasksPage.hoverOnProjectManagerIcon();
   }
-
 }
