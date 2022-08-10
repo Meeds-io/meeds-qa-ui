@@ -196,4 +196,12 @@ public class UserProfileSteps {
     userProfile.clickConfirmConnect();
   }
 
+  public void checkWeeklyPointChart() {
+    userProfile.checkWeeklyPointChart();
+  }
+
+  public void checkAchievementsDrawer() {
+    userProfile.checkAchievementsDrawer();
+  }
+
 }
