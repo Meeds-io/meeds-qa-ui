@@ -1285,8 +1285,8 @@ public class TasksStepDefinition {
     tasksSteps.hoverOnProjectManagerIcon();
   }
 
-  @When("I wait 1 second")
-  public void waitOneSeconds() throws InterruptedException {
-    tasksSteps.waitOneSeconds();
+  @When("I wait '{int}' seconds")
+  public void waitInSeconds(int seconds) throws InterruptedException {
+    tasksSteps.waitInSeconds(seconds);
   }
 }

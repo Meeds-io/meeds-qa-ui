@@ -93,7 +93,7 @@ Feature: Filter Drawer
     And Tasks number '3' is displayed in the column To Do
 
     When I mark the task 'task11' as completed in project details
-    And I wait 1 second
+    And I wait '1' seconds
     Then Task name 'task11' is not displayed in project details
     And Alert 'Task successfully marked as completed' is displayed
 

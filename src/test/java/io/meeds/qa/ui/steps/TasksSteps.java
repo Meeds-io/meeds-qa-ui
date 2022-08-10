@@ -880,8 +880,8 @@ public class TasksSteps {
     tasksPage.hoverOnProjectManagerIcon();
   }
 
-  public void waitOneSeconds() throws InterruptedException {
-    tasksPage.waitOneSeconds();
+  public void waitInSeconds(int seconds) throws InterruptedException {
+    tasksPage.waitInSeconds(seconds);
   }
 
 }
