@@ -879,9 +879,4 @@ public class TasksSteps {
   public void hoverOnProjectManagerIcon() {
     tasksPage.hoverOnProjectManagerIcon();
   }
-
-  public void waitInSeconds(int seconds) throws InterruptedException {
-    tasksPage.waitInSeconds(seconds);
-  }
-
 }

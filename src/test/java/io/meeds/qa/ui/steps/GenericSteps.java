@@ -32,4 +32,8 @@ public class GenericSteps {
   public void clickOkButton() {
     genericPage.clickOkButton();
   }
+
+  public void waitInSeconds(int seconds) throws InterruptedException {
+    genericPage.waitInSeconds(seconds);
+  }
 }

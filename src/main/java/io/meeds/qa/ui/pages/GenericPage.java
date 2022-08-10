@@ -55,4 +55,8 @@ public class GenericPage extends BasePageImpl {
     getOKButton("OK").clickOnElement();
   }
 
+  public void waitInSeconds(int second) throws InterruptedException {
+    Thread.sleep(1000);
+  }
+
 }

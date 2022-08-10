@@ -55,4 +55,9 @@ public class GenericStepDefinitions {
                                                              galenSteps.getListOfFails()))
                                            .isEmpty();
   }
+
+  @When("I wait '{int}' seconds")
+  public void waitInSeconds(int seconds) throws InterruptedException {
+    genericSteps.waitInSeconds(seconds);
+  }
 }
