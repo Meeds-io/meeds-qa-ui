@@ -1,8 +1,9 @@
+@profile
 Feature: Search for User Informations in Profile page
   As a user
   I want to check in Profile page all contact informations
 
-  @profile
+
   Scenario: PROFILE-1 : Integrate default user's avatar and cover
     Given I am authenticated as admin
 
@@ -11,7 +12,6 @@ Feature: Search for User Informations in Profile page
     Then User Cover is displayed in Profile Page
     And User Avatar is displayed in Profile Page
 
-  @profile
   Scenario: PROFILE-2 : User avatar and cover block_(01)
     Given I am authenticated as admin
 
@@ -22,7 +22,6 @@ Feature: Search for User Informations in Profile page
     And User Fullname 'Admin User' is displayed in Profile Page
     And User Job '' is displayed in Profile Page
 
-  @profile
   Scenario: PROFILE-2 : User avatar and cover block_(02)
     Given I am authenticated as admin
 
@@ -107,7 +106,7 @@ Feature: Search for User Informations in Profile page
     Then Sent Kudos Section is displayed
     Then Gained Cauris Section is displayed
 
-  @profile
+
   Scenario: : PROFILE-7 : Work Experiences block and its drawer
     Given I am authenticated as admin
 
@@ -135,7 +134,6 @@ Feature: Search for User Informations in Profile page
     And I remove my profile work experiences 'QA Engineer'
     And I remove my profile work experiences 'IT Engineer Developer'
 
-  @profile
   Scenario: : PROFILE-9 : Achievement Drawer in Points
     Given I am authenticated as admin
 

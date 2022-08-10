@@ -373,12 +373,12 @@ public class UserProfileStepDefinition {
     userProfileSteps.isProfileContactJobVisible(job);
   }
 
-  @Then("^The weekly point chart is displayed$")
+  @Then("The weekly point chart is displayed")
   public void checkWeeklyPointChart() {
     userProfileSteps.checkWeeklyPointChart();
   }
 
-  @Then("^The achievements drawer is displayed$")
+  @Then("The achievements drawer is displayed")
   public void checkAchievementsDrawer() {
     userProfileSteps.checkAchievementsDrawer();
   }
