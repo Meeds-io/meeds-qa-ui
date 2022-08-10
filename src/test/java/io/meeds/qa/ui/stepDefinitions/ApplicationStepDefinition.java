@@ -63,6 +63,11 @@ public class ApplicationStepDefinition {
     applicationSteps.isWalletPageOpened();
   }
 
+  @Then("^Challenges Application Page is displayed$")
+  public void isChallengesPageOpened() {
+    applicationSteps.isChallengesPageOpened();
+  }
+
   @Then("^Notes Application Page is displayed$")
   public void isNotesPageOpened() {
     applicationSteps.isNotesPageOpened();
@@ -76,6 +81,11 @@ public class ApplicationStepDefinition {
   @When("^I go to Wallet AppCenter Application$")
   public void goToWalletAppCenterApplication() {
     applicationSteps.goToWalletAppCenterApplication();
+  }
+
+  @When("^I go to Challenges AppCenter Application$")
+  public void goToChallengesAppCenterApplication() {
+    applicationSteps.goToChallengesAppCenterApplication();
   }
 
   @When("^I go to Perk Store AppCenter Application$")
@@ -117,8 +127,8 @@ public class ApplicationStepDefinition {
 
   }
 
-  @When("I remove Application '{}' From Favorites")
-  @And("I add Application '{}' To Favorites")
+  @When("^I remove Application '(.*)' From Favorites$")
+  @And("^I add Application '(.*)' To Favorites$")
   public void addRemoveApplicationToFavorites(String app) {
     applicationSteps.addRemoveApplicationToFavorites(app);
 

@@ -42,6 +42,9 @@ public class ApplicationPage extends GenericPage {
   @FindBy(xpath = "//*[@id='WalletApp']")
   public static BaseElementFacade ELEMENT_WALLET_APPLICATION_PAGE;
 
+  @FindBy(xpath = "//*[@id='UISiteBody']")
+  public static BaseElementFacade elementChallengesApplicationPage;
+
   @FindBy(xpath = "//*[@id='TasksManagementPortlet']")
   public static BaseElementFacade ELEMENT_TASKS_APPLICATION_PAGE;
 
@@ -88,7 +91,7 @@ public class ApplicationPage extends GenericPage {
   public static BaseElementFacade elementChallengeApplicationPage;
 
   private BaseElementFacade addApplicationAFavoriteInApplicationCenter(String app) {
-    return findByXpath(String.format("(//*[@class='authorisedAppContent']//*[@class='appTitle']//div[contains(text(),'%s')]/following::*[contains(@class, 'applicationActions')]//i[contains(@class, 'mdi-star')])",
+    return findByXpath(String.format("(//*[@class='authorisedAppContent']//*[contains (@class,'appTitle') and contains(text(),'%s')]/following::*[contains(@class, 'applicationActions')]//i[contains(@class, 'mdi-star')])[01]",
                                      app));
   }
 
@@ -103,7 +106,7 @@ public class ApplicationPage extends GenericPage {
   }
 
   private BaseElementFacade ELEMENT_APPCENTER_ALL_APPLICATIONS_OPEN_APP_BTN(String app) {
-    return findByXpath(String.format("(//*[@class='authorisedAppContent']//*[@class='appTitle']//div[contains(text(),'%s')]/following::*[contains(@class, 'applicationActions')]//a)[1]",
+    return findByXpath(String.format("(//*[@class='authorisedAppContent']//*[contains (@class,'appTitle') and contains(text(),'%s')]/following::*[contains(@class, 'applicationActions')]//a)[01]",
                                      app));
   }
 
@@ -117,6 +120,10 @@ public class ApplicationPage extends GenericPage {
 
   public boolean isWalletPageOpened() {
     return ELEMENT_WALLET_APPLICATION_PAGE.isVisibleAfterWaiting();
+  }
+
+  public boolean isChallengesPageOpened() {
+    return elementChallengesApplicationPage.isVisibleAfterWaiting();
   }
 
   public void starButtonIsNotSelected(String appTitle) {
@@ -149,6 +156,7 @@ public class ApplicationPage extends GenericPage {
 
   public void clickOnOpenApplicationButton(String app) {
     // Click on open application
+    ELEMENT_APPCENTER_ALL_APPLICATIONS_OPEN_APP_BTN(app).waitUntilVisible();
     ELEMENT_APPCENTER_ALL_APPLICATIONS_OPEN_APP_BTN(app).clickOnElement();
   }
 

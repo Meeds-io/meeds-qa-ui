@@ -1,22 +1,12 @@
 package io.meeds.qa.ui.steps;
 
-import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_APPCENTER_ALL_APPLICATIONS_PAGE;
-import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_APPCENTER_PERK_STORE;
-import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_APPCENTER_SEE_ALL_APPLICATIONS;
-import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_APPCENTER_TASKS;
-import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_APPCENTER_WALLET;
-import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_APPLICATIONS_TOPBAR;
-import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_NOTES_APPLICATION_PAGE;
-import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_PERK_STORE_APPLICATION_PAGE;
-import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_SEND_FEEDBACK_APPLICATION_PAGE;
-import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_TASKS_APPLICATION_PAGE;
-import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.elementChallengeApplicationPage;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import io.meeds.qa.ui.pages.page.factory.application.ApplicationPage;
 import net.serenitybdd.core.Serenity;
+
+import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.*;
 
 public class ApplicationSteps {
 
@@ -48,6 +38,10 @@ public class ApplicationSteps {
     return applicationPage.isWalletPageOpened();
   }
 
+  public boolean isChallengesPageOpened() {
+    return applicationPage.isChallengesPageOpened();
+  }
+
   public void clickOnTheAppLauncherIcon() {
     ELEMENT_APPLICATIONS_TOPBAR.waitUntilVisible();
     ELEMENT_APPLICATIONS_TOPBAR.clickOnElement();
@@ -77,6 +71,11 @@ public class ApplicationSteps {
   public void goToWalletAppCenterApplication() {
     // Click on App Center Wallet Application Button
     ELEMENT_APPCENTER_WALLET.clickOnElement();
+  }
+
+  public void goToChallengesAppCenterApplication() {
+    // Click on App Center Challenges Application Button
+    challengeApplication.clickOnElement();
   }
 
   public void goToPerkStoreAppCenterApplication() {
