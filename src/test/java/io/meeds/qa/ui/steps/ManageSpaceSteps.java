@@ -7,7 +7,9 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.WebDriver;
 
+import io.meeds.qa.ui.hook.TestHooks;
 import io.meeds.qa.ui.pages.page.factory.HomePage;
 import io.meeds.qa.ui.pages.page.factory.space.ManageSpacesPage;
 import net.serenitybdd.core.Serenity;
@@ -58,6 +60,10 @@ public class ManageSpaceSteps {
   }
 
   public void goToSpecificSpace(String space) {
+    WebDriver driver = Serenity.getWebdriverManager().getCurrentDriver();
+    if (!driver.getCurrentUrl().contains("/spaces")) {
+      homePage.goToSpacesPage();
+    }
     manageSpacesPage.insertSpaceNameInSearchField(space);
     manageSpacesPage.goToSpecificSpace(space);
   }
@@ -284,6 +290,7 @@ public class ManageSpaceSteps {
       setSessionVariable(spaceNamePrefix).to(spaceName);
       homePage.goToSpacesPage();
       addSpaceWithInviteUser(spaceName, userToInvite);
+      TestHooks.spaceWithPrefixCreated(spaceNamePrefix, spaceName);
     }
   }
 
@@ -295,7 +302,8 @@ public class ManageSpaceSteps {
       spaceName = spaceNamePrefix + getRandomNumber();
       setSessionVariable(spaceNamePrefix).to(spaceName);
       homePage.goToSpacesPage();
-      addSpaceWithRegistration(spaceName, "OPEN");
+      addSpaceWithRegistration(spaceName, "Open");
+      TestHooks.spaceWithPrefixCreated(spaceNamePrefix, spaceName);
     }
   }
 

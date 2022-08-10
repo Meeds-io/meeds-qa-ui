@@ -26,13 +26,11 @@ public class SpaceHomeStepDefinition {
 
   @Then("^Activity Comment '(.*)' is displayed in activity stream$")
   public void checkActivityComment(String comment) {
-    spaceHomePage.open();
     spaceHomeSteps.checkActivityComment(comment);
   }
 
   @Then("^Comment '(.*)' is not displayed in activity '(.*)'$")
   public void checkActivityCommentNotDisplayed(String comment, String activity) {
-    spaceHomePage.open();
     spaceHomeSteps.checkActivityCommentNotDisplayed(activity, comment);
   }
 
@@ -71,13 +69,11 @@ public class SpaceHomeStepDefinition {
 
   @Then("^First comment '(.*)' is displayed in activity stream$")
   public void checkFirstActivityComment(String comment) {
-    spaceHomePage.open();
     spaceHomeSteps.checkFirstActivityComment(comment);
   }
 
   @Then("^Second comment '(.*)' is displayed in activity stream$")
   public void checkSecondActivityComment(String comment) {
-    spaceHomePage.open();
     spaceHomeSteps.checkSecondActivityComment(comment);
   }
 

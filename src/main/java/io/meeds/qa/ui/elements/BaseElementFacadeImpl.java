@@ -134,6 +134,7 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
   public void clickOnElement() {
     LOGGER.debug("clicking on the element [{}]", this);
     try {
+      resetTimeouts();
       waitForPageLoaded();
       waitUntilClickable();
       click();

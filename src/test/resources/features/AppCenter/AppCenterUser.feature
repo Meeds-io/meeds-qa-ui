@@ -5,7 +5,6 @@ Feature: To be able to access applications
   I want to access any application from the app center
 
   @smoke
-  @failing
   Scenario: CAP31-US 7.7[FRONT]_(01):My applications button on Desktop
     Given I am authenticated as admin
     Then my applications button is displayed

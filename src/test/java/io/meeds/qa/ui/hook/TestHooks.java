@@ -24,15 +24,6 @@ public class TestHooks {
 
   protected static final Map<String, String> USERS  = new HashMap<>();
 
-  static {
-    SPACES.put("spaceName", null);
-    SPACES.put("randomSpaceName", null);
-    SPACES.put("secondRandomSpaceName", null);
-    SPACES.put("thirdRandomSpaceName", null);
-    SPACES.put("fourthRandomSpaceName", null);
-    SPACES.put("fifthRandomSpaceName", null);
-  }
-
   @Steps
   private ManageSpaceSteps           manageSpaceSteps;
 
@@ -82,6 +73,10 @@ public class TestHooks {
 
   public static void spaceWithPrefixDeleted(String spaceNamePrefix) {
     SPACES.put(spaceNamePrefix, null);
+  }
+
+  public static void spaceWithPrefixCreated(String spaceNamePrefix, String spaceName) {
+    SPACES.put(spaceNamePrefix, spaceName);
   }
 
   public static void userWithPrefixCreated(String userPrefix,

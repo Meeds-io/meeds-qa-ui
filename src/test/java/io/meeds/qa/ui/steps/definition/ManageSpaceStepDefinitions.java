@@ -128,7 +128,7 @@ public class ManageSpaceStepDefinitions {
 
   @Given("^I add the random space with registration '(.*)'$")
   public void addRandomSpaceWithRegistration(String registration) {
-    if (StringUtils.equals(registration, "OPEN")) {
+    if (StringUtils.equals(registration, "Open")) {
       manageSpaceSteps.addOrGoToSpace("randomSpaceName");
     } else {
       homeSteps.goToManageSpacesPage();

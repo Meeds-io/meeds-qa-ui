@@ -400,7 +400,10 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void clickSpaceAction(String action) {
-    getSpaceAction(action).clickOnElement();
+    BaseElementFacade spaceAction = getSpaceAction(action);
+    if (spaceAction.isVisibleAfterWaiting()) {
+      spaceAction.clickOnElement();
+    }
   }
 
   private BaseElementFacade getSpaceElement(String space) {

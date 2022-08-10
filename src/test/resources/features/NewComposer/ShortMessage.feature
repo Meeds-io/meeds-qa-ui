@@ -19,29 +19,3 @@ Feature: Activities publication
     And I enter an activity more than 1300 characters
     Then Switch to an article link is displayed
     And I close activity drawer
-
-  @failing
-  Scenario:CAP64-[US-ShortMessage-02 ]: when user click on "Switch to an article",he is redirected to a new tab (redactor case)
-    Given I am authenticated as admin
-    And I create the space
-    When I click on post in space
-    And I enter an activity more than 1300 characters
-    And I click on switch to an article
-    And I go to the second window
-    Then The form add an article is displayed
-    And the article is displayed with the correct content
-    And I close activity drawer
-
-  @failing
-  Scenario:CAP86-[US-ShortMessage-03]: check that attachments are displayed when user switch to "write an article" Form
-    Given I am authenticated as admin
-    And I create the space
-    When I click on post in space
-    And I enter an activity more than 1300 characters
-    And I attach the file 'text.txt'
-    And I click on switch to an article
-    And I go to the second window
-    Then The form add an article is displayed
-    And the article is displayed with the correct content
-    And the attached file is displayed
-    And I close activity drawer

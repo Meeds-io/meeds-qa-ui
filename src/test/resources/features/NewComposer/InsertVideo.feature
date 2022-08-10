@@ -4,7 +4,6 @@ Feature: Insert videos
   I want to publish videos via the new composer
   In order to share them with my collaborators
 
-  @test
   Scenario: CAP15-[US-InsertVideo-01]:Post a message with a video link
     Given I am authenticated as admin
     And I create the space
