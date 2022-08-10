@@ -53,8 +53,7 @@ public class UserProfileStepDefinition {
 
   @Then("^The following items are displayed$")
   public void checkListOfItem(List<String> listOfItems) {
-    assertThat(userProfileSteps.checkListOfFields(listOfItems))
-                                                               .as(String.format("The item %s is not diplayed",
+    assertThat(userProfileSteps.checkListOfFields(listOfItems)).as(String.format("The item %s is not diplayed",
                                                                                  userProfileSteps.checkListOfFields(listOfItems)))
                                                                .isEmpty();
   }
@@ -108,8 +107,7 @@ public class UserProfileStepDefinition {
   @Then("^My points augmented$")
   public void checkMyPointIncrease() {
     int myPointBeforeKudos = Serenity.sessionVariableCalled("myPointBeforeKudos");
-    assertThat(userProfileSteps.wasMyPointIncreased(myPointBeforeKudos))
-                                                                        .as("The point did not increase after send kudos")
+    assertThat(userProfileSteps.wasMyPointIncreased(myPointBeforeKudos)).as("The point did not increase after send kudos")
                                                                         .isTrue();
   }
 
@@ -334,9 +332,7 @@ public class UserProfileStepDefinition {
     userProfileSteps.updateContactOtherInformations(basicInformations);
   }
 
-  @Given(
-    "^Job title '(.*)' and Organization '(.*)' and Job details '(.*)' and Used skills '(.*)' are displayed in Work experiences section$"
-  )
+  @Given("^Job title '(.*)' and Organization '(.*)' and Job details '(.*)' and Used skills '(.*)' are displayed in Work experiences section$")
   public void checkWorkExperiencesSection(String jobTitle, String organization, String jobDetails, String usedSkills) {
     userProfileSteps.checkWorkExperiencesSection(jobTitle, organization, jobDetails, usedSkills);
   }
@@ -375,6 +371,16 @@ public class UserProfileStepDefinition {
   @Then("^Profile Contact Job '(.*)' is displayed$")
   public void isProfileContactJobVisible(String job) {
     userProfileSteps.isProfileContactJobVisible(job);
+  }
+
+  @Then("^The weekly point chart is displayed$")
+  public void checkWeeklyPointChart() {
+    userProfileSteps.checkWeeklyPointChart();
+  }
+
+  @Then("^The achievements drawer is displayed$")
+  public void checkAchievementsDrawer() {
+    userProfileSteps.checkAchievementsDrawer();
   }
 
 }

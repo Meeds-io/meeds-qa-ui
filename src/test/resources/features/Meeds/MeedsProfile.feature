@@ -2,6 +2,7 @@ Feature: Search for User Informations in Profile page
   As a user
   I want to check in Profile page all contact informations
 
+  @profile
   Scenario: PROFILE-1 : Integrate default user's avatar and cover
     Given I am authenticated as admin
 
@@ -10,7 +11,7 @@ Feature: Search for User Informations in Profile page
     Then User Cover is displayed in Profile Page
     And User Avatar is displayed in Profile Page
 
-  @ignore
+  @profile
   Scenario: PROFILE-2 : User avatar and cover block_(01)
     Given I am authenticated as admin
 
@@ -18,17 +19,17 @@ Feature: Search for User Informations in Profile page
 
     Then User Cover is displayed in Profile Page
     And User Avatar is displayed in Profile Page
-    And User Fullname 'admin Smith' is displayed in Profile Page
+    And User Fullname 'Admin User' is displayed in Profile Page
     And User Job '' is displayed in Profile Page
 
-  @ignore
+  @profile
   Scenario: PROFILE-2 : User avatar and cover block_(02)
     Given I am authenticated as admin
 
     When I go to My Profile page
 
-    Then Profile Contact Fullname 'Contact information' is displayed in 'admin Smith'
-    And Profile Contact Email 'admin.smith@exoplatform.com' is displayed
+    Then Profile Contact Fullname 'Contact information' is displayed in 'Admin User'
+    And Profile Contact Email 'admin@localhost' is displayed
 
     When I create the first random user
     And I connect with the first created user
@@ -106,7 +107,7 @@ Feature: Search for User Informations in Profile page
     Then Sent Kudos Section is displayed
     Then Gained Cauris Section is displayed
 
-  @ignore
+  @profile
   Scenario: : PROFILE-7 : Work Experiences block and its drawer
     Given I am authenticated as admin
 
@@ -134,7 +135,7 @@ Feature: Search for User Informations in Profile page
     And I remove my profile work experiences 'QA Engineer'
     And I remove my profile work experiences 'IT Engineer Developer'
 
-  @ignore
+  @profile
   Scenario: : PROFILE-9 : Achievement Drawer in Points
     Given I am authenticated as admin
 
@@ -143,8 +144,8 @@ Feature: Search for User Informations in Profile page
     When I connect with the first created user
 
     And I open Weekly Points Chart
-    Then The 'WeeklyPointsChart' is displayed
+    Then The weekly point chart is displayed
 
     When I open Achievements Tab
-    Then  The 'AchievementsTab' is displayed
+    Then The achievements drawer is displayed
 

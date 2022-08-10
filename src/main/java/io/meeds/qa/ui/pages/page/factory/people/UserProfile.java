@@ -198,6 +198,9 @@ public class UserProfile extends GenericPage {
   @FindBy(xpath = "//*[contains(@class,'uiIconTrash')]")
   private BaseElementFacade    ELEMENT_REMOVE_WORK_EXPERIENCE;
 
+  @FindBy(xpath = "//*[@id='echartUserPoints']")
+  private BaseElementFacade    weeklyChart;
+
   private BaseElementFacade openWorkExperience(String jobTitle) {
     return findByXpath(String.format("//button//*[@class='truncate-text']//*[contains(text(),'%s')]", jobTitle));
   }
@@ -567,6 +570,14 @@ public class UserProfile extends GenericPage {
 
   public void clickConfirmConnect() {
     confirmConnection.clickOnElement();
+  }
+
+  public void checkWeeklyPointChart() {
+    weeklyChart.isVisibleAfterWaiting();
+  }
+
+  public void checkAchievementsDrawer() {
+    achievementsDrawer.isVisibleAfterWaiting();
   }
 
 }
