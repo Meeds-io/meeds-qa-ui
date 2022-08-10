@@ -1,7 +1,7 @@
 package io.meeds.qa.ui.steps.definition;
 
 import static io.meeds.qa.ui.steps.GenericSteps.switchToTabByIndex;
-import static io.meeds.qa.ui.steps.definition.ManageSpaceStepDefinitions.getRandomNumber;
+import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;

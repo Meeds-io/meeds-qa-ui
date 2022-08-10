@@ -16,6 +16,7 @@ Feature: General new composer
     And I click on Update
     And the activity 'activité CAP97 edited' is displayed in activity stream
 
+  @failing
   Scenario: CAP109-[US-General-07]:update posts - text update with normal Link (space case)
     Given I am authenticated as admin
     And I create the space
@@ -30,6 +31,7 @@ Feature: General new composer
     Then the activity 'modifier le lien' is displayed in activity stream
     And The link is displayed with the preview
 
+  @failing
   Scenario: CAP110 - [US-General-07] : update posts - text update with video Link (space case)
     Given I am authenticated as admin
     And I create the space

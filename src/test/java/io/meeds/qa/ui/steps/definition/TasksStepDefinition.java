@@ -1,6 +1,6 @@
 package io.meeds.qa.ui.steps.definition;
 
-import static io.meeds.qa.ui.steps.definition.ManageSpaceStepDefinitions.getRandomNumber;
+import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,6 +19,7 @@ import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 
 public class TasksStepDefinition {
+
   @Steps
   HomeSteps        homeSteps;
 
@@ -37,6 +38,11 @@ public class TasksStepDefinition {
   public void isStatusEditModeDisplayed(String statusColumn) {
     assertThat(tasksSteps.isStatusEditModeDisplayed(statusColumn)).as("Status edit mode is opened successfully")
                                                                   .isTrue();
+  }
+
+  @When("^I click on (add project|add tasks) button$")
+  public void clickAddProjectButton(String buttonName) {
+    tasksSteps.clickAddProjectButton();
   }
 
   @When("^Status name '(.*)' Edit mode is not opened successfully$")
@@ -366,10 +372,9 @@ public class TasksStepDefinition {
 
   @Given("^I create space project$")
   public void addNewRandomProject() {
-    homeSteps.goToManageSpacesPage();
-    String randomProjectName = "randomProjectName" + getRandomNumber();
+    manageSpaceSteps.addOrGoToSpace("randomSpaceName");
+    String randomProjectName = Serenity.sessionVariableCalled("randomSpaceName");
     Serenity.setSessionVariable("randomProjectName").to(randomProjectName);
-    manageSpaceSteps.addSimpleSpace(randomProjectName);
   }
 
   @When("^I search for the created project$")

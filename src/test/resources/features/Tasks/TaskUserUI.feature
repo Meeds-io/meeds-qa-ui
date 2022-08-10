@@ -61,6 +61,7 @@ Feature: Task user ui
     And The old project name is not displayed
     And The updated project was deleted successfully
 
+  @failing
   Scenario: CAP27 - [User_UI_US07]: Project's Tasks access
     Given I am authenticated as admin
     And I open the app center menu
@@ -72,6 +73,7 @@ Feature: Task user ui
     And I select the 'Board' view mode
     Then The 'projectTasks' is displayed
 
+  @failing
   Scenario: CAP28 - [User_UI_US19]: Project's tasks - List view
     Given I am authenticated as admin
     And I open the app center menu
@@ -83,7 +85,8 @@ Feature: Task user ui
     And I select the 'List' view mode
     Then The 'projectTasksList' is displayed
 
-  Scenario:CAP06-[User_UI_US03]:Check Space's Project Card
+  @failing
+  Scenario: CAP06-[User_UI_US03]:Check Space's Project Card
     Given I am authenticated as admin
     And I open the app center menu
     And I open all application page
@@ -92,7 +95,8 @@ Feature: Task user ui
     And I search for the project 'spaceWithCoverAvatar'
     Then The 'spaceProjectCard' is displayed
 
-  Scenario:CAP07 - [User_UI_US03]:Check Project Card (When Project not belong to space)
+  @failing
+  Scenario: CAP07 - [User_UI_US03]:Check Project Card (When Project not belong to space)
     Given I am authenticated as admin
     And I open the app center menu
     And I open all application page

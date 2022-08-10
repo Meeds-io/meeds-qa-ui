@@ -1,12 +1,22 @@
 package io.meeds.qa.ui.steps;
 
+import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
+
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
+import io.meeds.qa.ui.pages.page.factory.HomePage;
 import io.meeds.qa.ui.pages.page.factory.space.ManageSpacesPage;
 import net.serenitybdd.core.Serenity;
 
 public class ManageSpaceSteps {
+
   private ManageSpacesPage manageSpacesPage;
+
+  private HomePage homePage;
 
   public void addSimpleSpace(String spaceName) {
     manageSpacesPage.openSpaceFormDrawer();
@@ -47,7 +57,7 @@ public class ManageSpaceSteps {
     manageSpacesPage.checkThatSpaceInSearchResultsIsNotDisplayed(spaceName);
   }
 
-  public void goToSpeceficSpace(String space) {
+  public void goToSpecificSpace(String space) {
     manageSpacesPage.insertSpaceNameInSearchField(space);
     manageSpacesPage.goToSpecificSpace(space);
   }
@@ -262,6 +272,31 @@ public class ManageSpaceSteps {
     manageSpacesPage.clickSecondProcessButton();
     manageSpacesPage.inviteUserToSpace(firstUserName);
     manageSpacesPage.clickAddSpaceButton();
-
   }
+
+  public void addOrGoToSpace(String spaceNamePrefix, String userToInvite) {
+    String spaceName = sessionVariableCalled(spaceNamePrefix);
+    if (StringUtils.isNotBlank(spaceName)) {
+      goToSpecificSpace(spaceName);
+      manageSpacesPage.addUserToSpace(userToInvite);
+    } else {
+      spaceName = spaceNamePrefix + getRandomNumber();
+      setSessionVariable(spaceNamePrefix).to(spaceName);
+      homePage.goToSpacesPage();
+      addSpaceWithInviteUser(spaceName, userToInvite);
+    }
+  }
+
+  public void addOrGoToSpace(String spaceNamePrefix) {
+    String spaceName = sessionVariableCalled(spaceNamePrefix);
+    if (StringUtils.isNotBlank(spaceName)) {
+      goToSpecificSpace(spaceName);
+    } else {
+      spaceName = spaceNamePrefix + getRandomNumber();
+      setSessionVariable(spaceNamePrefix).to(spaceName);
+      homePage.goToSpacesPage();
+      addSpaceWithRegistration(spaceName, "OPEN");
+    }
+  }
+
 }

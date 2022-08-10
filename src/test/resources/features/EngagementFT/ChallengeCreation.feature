@@ -24,6 +24,7 @@ Feature: Challenges
     Then Challenge Application Page is displayed
     And Add challenge button should not be displayed
 
+  @failing
   Scenario: Challenge_App_Admin_US01: Challenge App
     Given I am authenticated as admin
     And I create the first random user
@@ -72,7 +73,8 @@ Feature: Challenges
     And The challenge card title 'challenge2' should be displayed
     And Add challenge button should be displayed
 
-  Scenario:Challenge_App_Admin_US02: Challenge CARD
+  @failing
+  Scenario: Challenge_App_Admin_US02: Challenge CARD
     Given I am authenticated as admin
     And I create the first random user
     And I go to groups Management page

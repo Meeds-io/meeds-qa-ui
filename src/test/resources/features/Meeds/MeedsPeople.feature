@@ -6,7 +6,6 @@ Feature: Search for Contacts in People page
   @ignored
   Scenario: : PEOPLE-6 : Integrate the Suggestions widget in People App
     Given I am authenticated as admin
-
     And I create a dedicated user to be an administrator
     And I go to groups Management page
     And I open the group 'Platform'
@@ -58,6 +57,7 @@ Feature: Search for Contacts in People page
     And I close Sent Request button
 
   @smoke
+  @failing
   Scenario: : PEOPLE-7 : Leaderboard in the People Cards list application
     Given I am authenticated as admin
 

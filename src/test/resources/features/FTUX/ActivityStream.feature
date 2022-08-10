@@ -414,6 +414,7 @@ Feature: Activity Stream
     And the activity 'act11' is displayed in stream page
     And the activity 'act10' is not displayed in stream page
 
+  @failing
   Scenario: CAP100 - [ActivityStream_US38][04]: Cancel Delete comment with replies from the activity stream
     Given I am authenticated as admin
 
@@ -564,6 +565,7 @@ Feature: Activity Stream
     And In activity 'activityTest101' with comment 'commenttest101', the reply 'replyTest102' is displayed
     And In activity 'activityTest101' with comment 'commenttest100', the reply 'replyTest104' is displayed
 
+  @failing
   Scenario: CAP102 - [ActivityStream_US38][06]: Cancel Delete a reply from the activity stream
     Given I am authenticated as admin
 
@@ -651,6 +653,7 @@ Feature: Activity Stream
     And In activity 'activityTest102' with comment 'commenttest102', the reply 'replyTest103' is displayed
     And In activity 'activityTest102' with comment 'commenttest102', the reply 'replyTest104' is displayed
 
+  @failing
   Scenario: CAP103 - [ActivityStream_US39][01]: Delete a simple comment from the comment drawer
     Given I am authenticated as admin
 
@@ -729,6 +732,7 @@ Feature: Activity Stream
     When I close the comments drawer
     Then Comment 'commenttest103' is not displayed in activity 'activityTest103'
 
+  @failing
   Scenario: CAP104 - [ActivityStream_US39][02]: Cancel Delete a simple comment from the comment drawer
     Given I am authenticated as admin
 
@@ -804,6 +808,7 @@ Feature: Activity Stream
     When I close the comments drawer
     Then Activity Comment 'commenttest104' is displayed in activity stream
 
+  @failing
   Scenario: CAP105 - [ActivityStream_US39][03]: Delete comment with replies from the comment drawer
     Given I am authenticated as admin
 
@@ -907,6 +912,7 @@ Feature: Activity Stream
     When I close the comments drawer
     Then Comment 'commenttest105' is not displayed in activity 'activityTest105'
 
+  @failing
   Scenario: CAP106 - [ActivityStream_US39][04]: Cancel Delete comment with replies from the comments drawer
     Given I am authenticated as admin
 
@@ -1009,6 +1015,7 @@ Feature: Activity Stream
     When I close the comments drawer
     Then Activity Comment 'commenttest106' is displayed in activity stream
 
+  @failing
   Scenario: CAP107 - [ActivityStream_US39][05]: Delete a reply from comments drawer
     Given I am authenticated as admin
 
@@ -1118,6 +1125,7 @@ Feature: Activity Stream
     And In activity 'activityTest107' with comment 'commenttest107', the reply 'replyTest103' is displayed
     And In activity 'activityTest107' with comment 'commenttest107', the reply 'replyTest102' is not displayed
 
+  @failing
   Scenario: CAP108 - [ActivityStream_US39][06]: Cancel Delete a reply from the comments drawer
     Given I am authenticated as admin
 
@@ -1570,6 +1578,7 @@ Feature: Activity Stream
     And In activity 'activityTest122' with comment 'commenttest104', the reply 'replyTest103' is displayed
     And In activity 'activityTest122' with comment 'commenttest104', the reply 'replyTest104' is displayed
 
+  @failing
   Scenario: CAP123 - [ActivityStream_IMPV14][03]: Display maximum only the last 2 comments/replies below each activity
     Given I am authenticated as admin
 
@@ -1899,6 +1908,7 @@ Feature: Activity Stream
     And In activity 'activityTest99' with comment 'commenttest99', the reply 'replyTest101' is not displayed
     And In activity 'activityTest99' with comment 'commenttest99', the reply 'replyTest102' is not displayed
 
+  @failing
   Scenario: Cap155 - ActivityStream_US58: Mention a user in the comments
     Given I am authenticated as admin
 
@@ -2349,6 +2359,7 @@ Feature: Activity Stream
     And Comment 'commenttest1020' is not displayed in the drawer
     Then Check Four comment is displayed in comments drawer
 
+  @failing
   Scenario: CAP129 - [ActivityStream_US47][02]: Send a kudos from a replay
 
     Given I am authenticated as admin

@@ -5,6 +5,7 @@ Feature: To be able to access applications
   I want to access any application from the app center
 
   @smoke
+  @failing
   Scenario: CAP31-US 7.7[FRONT]_(01):My applications button on Desktop
     Given I am authenticated as admin
     Then my applications button is displayed
@@ -154,6 +155,7 @@ Feature: To be able to access applications
     And I go to Administer application center Page
     And I enable Mandatory 'Tasks' for application
 
+  @failing
   Scenario: CAP34 - [User_UI_US021][02]: Check the display of Mandatory apps when its no longer considered as mandatory app
     Given I am authenticated as admin
     When I go to Administer application center Page

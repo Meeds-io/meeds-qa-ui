@@ -12,9 +12,6 @@ import net.thucydides.core.annotations.DefaultUrl;
 
 @DefaultUrl("https://baseUrl/")
 public class LoginPage extends GenericPage implements IsHidden {
-  public LoginPage() {
-    url = "firstPage";
-  }
 
   public LoginPage(WebDriver driver) {
     super(driver);

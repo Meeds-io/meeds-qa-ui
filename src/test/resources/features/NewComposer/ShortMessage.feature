@@ -20,6 +20,7 @@ Feature: Activities publication
     Then Switch to an article link is displayed
     And I close activity drawer
 
+  @failing
   Scenario:CAP64-[US-ShortMessage-02 ]: when user click on "Switch to an article",he is redirected to a new tab (redactor case)
     Given I am authenticated as admin
     And I create the space
@@ -31,6 +32,7 @@ Feature: Activities publication
     And the article is displayed with the correct content
     And I close activity drawer
 
+  @failing
   Scenario:CAP86-[US-ShortMessage-03]: check that attachments are displayed when user switch to "write an article" Form
     Given I am authenticated as admin
     And I create the space

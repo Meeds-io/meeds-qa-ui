@@ -1,13 +1,13 @@
 package io.meeds.qa.ui.steps.definition;
 
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+
 import java.util.Map;
-import java.util.Random;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.meeds.qa.ui.steps.AddUserSteps;
 import io.meeds.qa.ui.steps.HomeSteps;
-import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 
 public class AddUserStepDefinition {
@@ -18,184 +18,39 @@ public class AddUserStepDefinition {
   @Steps
   AddUserSteps addUserSteps;
 
-  String       firstUserName        = "user1" + getRandomString();
-
-  String       firstUserFirstName   = getRandomString("User One First Name ");
-
-  String       firstUserLastName    = getRandomString("User One Last Name ");
-
-  String       firstUserMail        = firstUserName + "@aa.bb";
-
-  String       firstUserPassword    = "123456nBm";
-
-  String       secondUserName       = "user2" + getRandomString();
-
-  String       secondUserFirstName  = getRandomString("User Two First Name ");
-
-  String       secondUserLastName   = getRandomString("User Two Last Name ");
-
-  String       secondUserMail       = secondUserName + "@aa.bb";
-
-  String       secondUserPassword   = "123456nBm";
-
-  String       thirdUserName        = "user3" + getRandomString();
-
-  String       thirdUserFirstName   = getRandomString("User Three First Name ");
-
-  String       thirdUserLastName    = getRandomString("User Three Last Name ");
-
-  String       thirdUserMail        = thirdUserName + "@aa.bb";
-
-  String       thirdUserPassword    = "123456nBm";
-
-  String       fourthUserName       = "user4" + getRandomString();
-
-  String       fourthUserFirstName  = getRandomString("User1 First Name ");
-
-  String       fourthUserLastName   = getRandomString("User1 Last Name ");
-
-  String       fourthUserMail       = fourthUserName + "@aa.bb";
-
-  String       fourthUserPassword   = "123456nBm";
-
-  String       fifthUserName        = "user5" + getRandomString();
-
-  String       fifthUserFirstName   = getRandomString("User Five First Name ");
-
-  String       fifthUserLastName    = getRandomString("User Five Last Name ");
-
-  String       fifthUserMail        = fifthUserName + "@aa.bb";
-
-  String       fifthUserPassword    = "123456nBm";
-
-  String       sixthUserName        = "user6" + getRandomString();
-
-  String       sixthUserFirstName   = getRandomString("User Six First Name ");
-
-  String       sixthUserLastName    = getRandomString("User Six Last Name ");
-
-  String       sixthUserMail        = sixthUserName + "@aa.bb";
-
-  String       sixthUserPassword    = "123456nBm";
-
-  String       firstAdminName       = "admin1" + getRandomString();
-
-  String       firstAdminFirstName  = getRandomString("Admin First Name ");
-
-  String       firstAdminLastName   = getRandomString("Admin Last Name ");
-
-  String       firstAdminMail       = firstAdminName + "@aa.bb";
-
-  String       firstAdminPassword   = "123456nBm";
-
-  String       firstUserSuggestion  = firstUserFirstName + " " + firstUserLastName;
-
-  String       secondUserSuggestion = secondUserFirstName + " " + secondUserLastName;
-
-  public static String getRandomString() {
-    return getRandomString("");
-  }
-
-  public static String getRandomString(String base) {
-    char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
-    StringBuilder sb = new StringBuilder(base);
-    Random random = new Random();
-    for (int i = 0; i < 6; i++) {
-      char c = chars[random.nextInt(chars.length)];
-      sb.append(c);
-    }
-    return sb.toString();
-  }
-
-  public static String getTheRandomNumber() {
-    char[] chars = "0123456789".toCharArray();
-    StringBuilder sb = new StringBuilder();
-    Random random = new Random();
-    for (int i = 0; i < 10; i++) {
-      char c = chars[random.nextInt(chars.length)];
-      sb.append(c);
-    }
-    return sb.toString();
-  }
-
   @Given("^I create a dedicated user to be an administrator$")
   public void addRandomAdminUser() {
-    homeSteps.goToAddUser();
-    addUserSteps.addRandomUser(firstAdminName, firstAdminFirstName, firstAdminLastName, firstAdminMail, firstAdminPassword);
-    Serenity.setSessionVariable("firstAdminName").to(firstAdminName);
-    Serenity.setSessionVariable("firstAdminFirstName").to(firstAdminFirstName);
-    Serenity.setSessionVariable("firstAdminLastName").to(firstAdminLastName);
-    Serenity.setSessionVariable("firstAdminPassword").to(firstAdminPassword);
-
+    addUserSteps.addRandomUser("firstAdmin");
   }
 
   @Given("I create the first random user")
   public void addRandomUser() {
-    homeSteps.goToAddUser();
-    addUserSteps.addRandomUser(firstUserName, firstUserFirstName, firstUserLastName, firstUserMail, firstUserPassword);
-    Serenity.setSessionVariable("firstUserName").to(firstUserName);
-    Serenity.setSessionVariable(firstUserName + "-password").to(firstUserPassword);
-    Serenity.setSessionVariable("firstUserFirstName").to(firstUserFirstName);
-    Serenity.setSessionVariable("firstUserLastName").to(firstUserLastName);
-    Serenity.setSessionVariable("firstUserPassword").to(firstUserPassword);
-
+    addUserSteps.addRandomUser("first");
   }
 
   @Given("^I create the second random user$")
   public void addSecondRandomUser() {
-    homeSteps.goToAddUser();
-    addUserSteps.addRandomUser(secondUserName, secondUserFirstName, secondUserLastName, secondUserMail, secondUserPassword);
-    Serenity.setSessionVariable("secondUserName").to(secondUserName);
-    Serenity.setSessionVariable(secondUserName + "-password").to(secondUserPassword);
-    Serenity.setSessionVariable("secondUserFirstName").to(secondUserFirstName);
-    Serenity.setSessionVariable("secondUserLastName").to(secondUserLastName);
-    Serenity.setSessionVariable("secondUserPassword").to(secondUserPassword);
-
+    addUserSteps.addRandomUser("second");
   }
 
   @Given("^I create the third random user$")
   public void addThirdRandomUser() {
-    homeSteps.goToAddUser();
-    addUserSteps.addRandomUser(thirdUserName, thirdUserFirstName, thirdUserLastName, thirdUserMail, thirdUserPassword);
-    Serenity.setSessionVariable("thirdUserName").to(thirdUserName);
-    Serenity.setSessionVariable(thirdUserName + "-password").to(thirdUserPassword);
-    Serenity.setSessionVariable("thirdUserFirstName").to(thirdUserFirstName);
-    Serenity.setSessionVariable("thirdUserLastName").to(thirdUserLastName);
-    Serenity.setSessionVariable("thirdUserPassword").to(thirdUserPassword);
-
+    addUserSteps.addRandomUser("third");
   }
 
   @Given("^I create the fourth random user$")
   public void addFourthRandomUser() {
-    homeSteps.goToAddUser();
-    addUserSteps.addRandomUser(fourthUserName, fourthUserFirstName, fourthUserLastName, fourthUserMail, fourthUserPassword);
-    Serenity.setSessionVariable("fourthUserName").to(fourthUserName);
-    Serenity.setSessionVariable(fourthUserName + "-password").to(fourthUserPassword);
-    Serenity.setSessionVariable("fourthUserFirstName").to(fourthUserFirstName);
-    Serenity.setSessionVariable("fourthUserLastName").to(fourthUserLastName);
-    Serenity.setSessionVariable("fourthUserPassword").to(fourthUserPassword);
+    addUserSteps.addRandomUser("fourth");
   }
 
   @Given("^I create the fifth random user$")
   public void addFifthRandomUser() {
-    homeSteps.goToAddUser();
-    addUserSteps.addRandomUser(fifthUserName, fifthUserFirstName, fifthUserLastName, fifthUserMail, fifthUserPassword);
-    Serenity.setSessionVariable("fifthUserName").to(fifthUserName);
-    Serenity.setSessionVariable(fifthUserName + "-password").to(fifthUserPassword);
-    Serenity.setSessionVariable("fifthUserFirstName").to(fifthUserFirstName);
-    Serenity.setSessionVariable("fifthUserLastName").to(fifthUserLastName);
-    Serenity.setSessionVariable("fifthUserPassword").to(fifthUserPassword);
+    addUserSteps.addRandomUser("fifth");
   }
 
   @Given("^I create the sixth random user$")
   public void addSixthRandomUser() {
-    homeSteps.goToAddUser();
-    addUserSteps.addRandomUser(sixthUserName, sixthUserFirstName, sixthUserLastName, sixthUserMail, sixthUserPassword);
-    Serenity.setSessionVariable("sixthUserName").to(sixthUserName);
-    Serenity.setSessionVariable(sixthUserName + "-password").to(sixthUserPassword);
-    Serenity.setSessionVariable("sixthUserFirstName").to(sixthUserFirstName);
-    Serenity.setSessionVariable("sixthUserLastName").to(sixthUserLastName);
-    Serenity.setSessionVariable("sixthUserPassword").to(sixthUserPassword);
+    addUserSteps.addRandomUser("sixth");
   }
 
   @Given("^The following user is created$")
@@ -206,7 +61,7 @@ public class AddUserStepDefinition {
 
   @And("^I disable the second created User Status$")
   public void enableDisableSecondUser() throws InterruptedException {
-    addUserSteps.enableDisableUser(secondUserName);
+    addUserSteps.enableDisableUser(sessionVariableCalled("secondUserName"));
   }
 
   @Given("^I search for user '/.*/'$")
@@ -216,25 +71,14 @@ public class AddUserStepDefinition {
 
   @Given("^I search for second created user$")
   public void searchForSecondCreatedUser() {
-    addUserSteps.searchForUsersByName(secondUserFirstName + ' ' + secondUserLastName);
+    addUserSteps.searchForUsersByName(sessionVariableCalled("secondUserFirstName") + " "
+        + sessionVariableCalled("secondUserLastName"));
   }
 
   @Given("^I enter the user's informations$")
   public void enterUserInformations(Map<String, String> userDetails) {
     homeSteps.goToAddUser();
     addUserSteps.enterUserInformations(userDetails);
-  }
-
-  @Given("^I create a random user with last name Smith$")
-  public void addRandomUserWithSameLastName() {
-    homeSteps.goToAddUser();
-    addUserSteps.addRandomUser(firstUserName, firstUserFirstName, "Smith", firstUserMail, firstUserPassword);
-    Serenity.setSessionVariable("randomUserName").to(firstUserName);
-    Serenity.setSessionVariable(firstUserName + "-password").to(firstUserPassword);
-    Serenity.setSessionVariable("randomUserFirstName").to(firstUserFirstName);
-    Serenity.setSessionVariable("randomUserLastName").to("Smith");
-    Serenity.setSessionVariable("randomUserPassword").to(firstUserPassword);
-
   }
 
   @Given("^I enable User Status '(.*)'$")
@@ -255,12 +99,12 @@ public class AddUserStepDefinition {
 
   @Given("^The first created user is displayed$")
   public void isFirstUserNameDisplayed() {
-    addUserSteps.isUserNameDisplayed(firstUserName);
+    addUserSteps.isUserNameDisplayed(sessionVariableCalled("firstUserName"));
   }
 
   @Given("^The second created user is displayed$")
   public void isSecondUserNameDisplayed() {
-    addUserSteps.isUserNameDisplayed(secondUserName);
+    addUserSteps.isUserNameDisplayed(sessionVariableCalled("secondUserName"));
   }
 
   @Given("^I add the user$")
@@ -285,8 +129,7 @@ public class AddUserStepDefinition {
 
   @Given("^I search for the created random user$")
   public void searchForCreatedUser() {
-    String firstUserName = Serenity.sessionVariableCalled("firstUserName");
-    addUserSteps.searchForUsersByName(firstUserName);
+    addUserSteps.searchForUsersByName(sessionVariableCalled("firstUserName"));
   }
 
   @Given("^I delete user$")
@@ -301,9 +144,8 @@ public class AddUserStepDefinition {
 
   @Given("^I check that the created user is deleted$")
   public void checkCreatedUserIsDeleted() {
-    String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
-    String firstUserLastName = Serenity.sessionVariableCalled("firstUserLastName");
-
+    String firstUserFirstName = sessionVariableCalled("firstUserFirstName");
+    String firstUserLastName = sessionVariableCalled("firstUserLastName");
     String firstUserFullName = firstUserFirstName + " " + firstUserLastName;
     addUserSteps.checkUserIsDeleted(firstUserFullName);
   }
@@ -318,14 +160,4 @@ public class AddUserStepDefinition {
     addUserSteps.checkPopupCantDeleteLoggedUser();
   }
 
-  @Given("^I create a dedicated user to attribute role$")
-  public void addRandomRoleUser() {
-    homeSteps.goToAddUser();
-    addUserSteps.addRandomUser(firstAdminName, firstAdminFirstName, firstAdminLastName, firstAdminMail, firstAdminPassword);
-    Serenity.setSessionVariable("firstAdminName").to(firstAdminName);
-    Serenity.setSessionVariable(firstAdminName + "-password").to(firstAdminPassword);
-    Serenity.setSessionVariable("firstAdminFirstName").to(firstAdminFirstName);
-    Serenity.setSessionVariable("firstAdminLastName").to(firstAdminLastName);
-    Serenity.setSessionVariable("firstAdminPassword").to(firstAdminPassword);
-  }
 }

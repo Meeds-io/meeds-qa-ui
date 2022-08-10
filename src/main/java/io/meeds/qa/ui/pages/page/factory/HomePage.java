@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Assert;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.BaseElementFacade;
@@ -14,9 +15,6 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class HomePage extends GenericPage {
-
-  @FindBy(id = "HamburgerMenuNavigation")
-  private BaseElementFacade    hamburgerMenuNavigation;
 
   @FindBy(xpath = "//*[contains(@class,'HamburgerNavigationMenuLink')]")
   private BaseElementFacade    hamburgerNavigationMenuLink;
@@ -294,7 +292,12 @@ public class HomePage extends GenericPage {
   }
 
   public void goToHomePage() {
-    driver.get("/portal/meeds/");
+    try {
+      driver.switchTo().alert().accept();
+    } catch (NoAlertPresentException e) {
+      // Normal Behavior
+    }
+    driver.get(driver.getCurrentUrl().split("/portal/")[0]);
   }
 
   public void refreshPage() {
@@ -333,8 +336,13 @@ public class HomePage extends GenericPage {
   }
 
   public void logout() {
-    clickOnHamburgerMenu();
-    clickOnElement(logOutMenu);
+    try {
+      driver.switchTo().alert().accept();
+    } catch (NoAlertPresentException e) {
+      // Normal Behavior
+    }
+    driver.manage().deleteAllCookies();
+    goToHomePage();
   }
 
   public boolean isWidgetWithNumberVisible(String widget, String number) {
@@ -504,8 +512,10 @@ public class HomePage extends GenericPage {
   }
 
   private void clickOnHamburgerMenu() {
-    hamburgerMenuNavigation.resetTimeouts();
-    hamburgerMenuNavigation.waitUntilPresent();
+    resetImplicitTimeout();
+    if (!hamburgerNavigationMenuLink.isClickable()) {
+      waitFor(driver -> hamburgerNavigationMenuLink.isClickable());
+    }
     clickOnElement(hamburgerNavigationMenuLink);
   }
 

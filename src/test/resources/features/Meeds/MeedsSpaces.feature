@@ -1,3 +1,4 @@
+@spaces
 Feature: Meeds Space
   As a user
   I want to check spaces page
