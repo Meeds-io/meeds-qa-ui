@@ -292,14 +292,14 @@ public class SettingsPage extends GenericPage {
 
   }
 
-  public void chechThatNotificationViaMailIsDisabled() {
+  public void checkThatNotificationViaMailIsDisabled() {
     // Notification Via Mail is disabled
 
     Assert.assertTrue(ELEMENT_NOTIFICATION_VIA_MAIL_STATUS.getAttribute("aria-checked").contains("false"));
 
   }
 
-  public void chechThatNotificationViaMailIsEnabled() {
+  public void checkThatNotificationViaMailIsEnabled() {
     // Notification Via Mail is enabled
     Assert.assertEquals(ELEMENT_NOTIFICATION_VIA_MAIL_STATUS.waitUntilVisible().getAttribute("aria-checked"), "true");
 
@@ -312,13 +312,13 @@ public class SettingsPage extends GenericPage {
 
   }
 
-  public void chechThatNotificationOnMobileIsDisabled() {
+  public void checkThatNotificationOnMobileIsDisabled() {
     // Notification On Mobile is disabled
     Assert.assertEquals(ELEMENT_NOTIFICATION_ON_MOBILE_STATUS.waitUntilVisible().getAttribute("aria-checked"), "false");
 
   }
 
-  public void chechThatNotificationOnMobileIsEnabled() {
+  public void checkThatNotificationOnMobileIsEnabled() {
     // Notification On Mobile is enabled
     Assert.assertEquals(ELEMENT_NOTIFICATION_ON_MOBILE_STATUS.waitUntilVisible().getAttribute("aria-checked"), "true");
 
@@ -331,13 +331,13 @@ public class SettingsPage extends GenericPage {
 
   }
 
-  public void chechThatNotificationOnSiteIsDisabled() {
+  public void checkThatNotificationOnSiteIsDisabled() {
     // Notification On Site is disabled
     Assert.assertEquals(ELEMENT_NOTIFICATION_ON_SITE_STATUS.waitUntilVisible().getAttribute("aria-checked"), "false");
 
   }
 
-  public void chechThatNotificationOnSiteIsEnabled() {
+  public void checkThatNotificationOnSiteIsEnabled() {
     // Notification On Site is enabled
     Assert.assertEquals(ELEMENT_NOTIFICATION_ON_SITE_STATUS.waitUntilVisible().getAttribute("aria-checked"), "true");
 

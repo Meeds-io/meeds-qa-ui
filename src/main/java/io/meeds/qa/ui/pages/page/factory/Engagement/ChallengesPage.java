@@ -114,13 +114,12 @@ public class ChallengesPage extends GenericPage {
   }
 
   public void selectEndDateNextWeek() {
-    endDateField.clickOnElement();
-    endDateNextWeek.waitUntilVisible();
-    endDateNextWeek.clickOnElement();
+    clickOnElement(endDateField);
+    clickOnElement(endDateNextWeek);
   }
 
   public void addChallengeWithDescription(String description) {
-    ckEditorFrameChallenge.clickOnElement();
+    clickOnElement(ckEditorFrameChallenge);
     driver.switchTo().frame(ckEditorFrameChallenge);
     challengeDescriptionField.waitUntilVisible();
     challengeDescriptionField.setTextValue(description);

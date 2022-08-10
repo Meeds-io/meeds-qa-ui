@@ -21,6 +21,11 @@ public class HomeStepDefinition {
   @Steps
   private PeopleSteps peopleSteps;
 
+  @Then("my applications button is displayed")
+  public void goToAppCenterApplications() {
+    homeSteps.goToAppCenterApplications();
+  }
+
   @When("^I go to My Profile page$")
   public void goToProfilePage() {
     homeSteps.goToProfilePage();

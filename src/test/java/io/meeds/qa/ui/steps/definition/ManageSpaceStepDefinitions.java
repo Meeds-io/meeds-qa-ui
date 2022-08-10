@@ -206,7 +206,7 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.goToSpecificSpace(spaceName);
   }
 
-  @Given("^I go to the created space to accept to join it$")
+  @Given("I go to the created space to accept to join it")
   public void goToSpaceToAcceptInvitation() {
     homeSteps.goToManageSpacesPage();
     String randomSpaceName = sessionVariableCalled("randomSpaceName");

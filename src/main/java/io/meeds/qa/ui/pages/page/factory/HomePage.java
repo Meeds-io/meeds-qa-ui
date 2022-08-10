@@ -505,18 +505,16 @@ public class HomePage extends GenericPage {
     clickOnElement(getFavoriteIconActivity(activity));
   }
 
-  private void clickOnElement(BaseElementFacade element) {
-    element.resetTimeouts();
-    element.waitUntilClickable();
-    element.clickOnElement();
-  }
-
   private void clickOnHamburgerMenu() {
     resetImplicitTimeout();
     if (!hamburgerNavigationMenuLink.isClickable()) {
       waitFor(driver -> hamburgerNavigationMenuLink.isClickable());
     }
     clickOnElement(hamburgerNavigationMenuLink);
+  }
+
+  public void goToAppCenterApplications() {
+    appCenterButton.clickOnElement();
   }
 
 }

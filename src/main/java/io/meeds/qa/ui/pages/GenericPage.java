@@ -63,4 +63,10 @@ public class GenericPage extends BasePageImpl {
     return element != null && element.isDisplayed();
   }
 
+  public void clickOnElement(BaseElementFacade element) {
+    element.resetTimeouts();
+    element.waitUntilClickable();
+    element.clickOnElement();
+  }
+
 }

@@ -62,7 +62,7 @@ public class SettingsStepDefinition {
     settingsSteps.acceptEditTimeZone();
   }
 
-  @When("^I cancel editing time zone$")
+  @When("I cancel editing time zone")
   public void cancelEditTimeZone() {
     settingsSteps.cancelEditTimeZone();
   }
@@ -72,12 +72,12 @@ public class SettingsStepDefinition {
     settingsSteps.checkThatTimeZoneIsDisplayed(timeZone);
   }
 
-  @When("^I accept editing password$")
+  @When("I accept editing password")
   public void acceptEditPassword() {
     settingsSteps.acceptEditPassword();
   }
 
-  @When("^I cancel editing password$")
+  @When("I cancel editing password")
   public void cancelEditPassword() {
     settingsSteps.cancelEditPassword();
   }
@@ -87,52 +87,52 @@ public class SettingsStepDefinition {
     settingsSteps.editPassword(oldPassword, password);
   }
 
-  @When("^I enable notification on Site$")
-  @And("^I disable notification on Site$")
+  @When("I enable notification on Site")
+  @And("I disable notification on Site")
   public void enableDisableNotificationOnSite() {
     settingsSteps.enableDisableNotificationOnSite();
   }
 
-  @Then("^Notification On Site is disabled$")
-  public void chechThatNotificationOnSiteIsDisabled() {
-    settingsSteps.chechThatNotificationOnSiteIsDisabled();
+  @Then("Notification On Site is disabled")
+  public void checkThatNotificationOnSiteIsDisabled() {
+    settingsSteps.checkThatNotificationOnSiteIsDisabled();
   }
 
-  @Then("^Notification On Site is enabled$")
-  public void chechThatNotificationOnSiteIsEnabled() {
-    settingsSteps.chechThatNotificationOnSiteIsEnabled();
+  @Then("Notification On Site is enabled")
+  public void checkThatNotificationOnSiteIsEnabled() {
+    settingsSteps.checkThatNotificationOnSiteIsEnabled();
   }
 
-  @When("^I enable notification on Mobile$")
-  @And("^I disable notification on Mobile$")
+  @When("I enable notification on Mobile")
+  @And("I disable notification on Mobile")
   public void enableDisableNotificationOnMobile() {
     settingsSteps.enableDisableNotificationOnMobile();
   }
 
-  @Then("^Notification On Mobile is disabled$")
-  public void chechThatNotificationOnMobileIsDisabled() {
-    settingsSteps.chechThatNotificationOnMobileIsDisabled();
+  @Then("Notification On Mobile is disabled")
+  public void checkThatNotificationOnMobileIsDisabled() {
+    settingsSteps.checkThatNotificationOnMobileIsDisabled();
   }
 
-  @Then("^Notification On Mobile is enabled$")
-  public void chechThatNotificationOnMobileIsEnabled() {
-    settingsSteps.chechThatNotificationOnMobileIsEnabled();
+  @Then("Notification On Mobile is enabled")
+  public void checkThatNotificationOnMobileIsEnabled() {
+    settingsSteps.checkThatNotificationOnMobileIsEnabled();
   }
 
-  @When("^I enable notification via Mail$")
-  @And("^I disable notification via Mail$")
+  @When("I enable notification via Mail")
+  @And("I disable notification via Mail")
   public void enableDisableNotificationViaMail() {
     settingsSteps.enableDisableNotificationViaMail();
   }
 
-  @Then("^Notification via Mail is disabled$")
-  public void chechThatNotificationViaMailIsDisabled() {
-    settingsSteps.chechThatNotificationViaMailIsDisabled();
+  @Then("Notification via Mail is disabled")
+  public void checkThatNotificationViaMailIsDisabled() {
+    settingsSteps.checkThatNotificationViaMailIsDisabled();
   }
 
-  @Then("^Notification via Mail is enabled$")
-  public void chechThatNotificationViaMailIsEnabled() {
-    settingsSteps.chechThatNotificationViaMailIsEnabled();
+  @Then("Notification via Mail is enabled")
+  public void checkThatNotificationViaMailIsEnabled() {
+    settingsSteps.checkThatNotificationViaMailIsEnabled();
   }
 
   @Then("^General Notifications Sending Mail Type is Daily$")

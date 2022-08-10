@@ -25,6 +25,7 @@ Feature: Challenges
     And Add challenge button should not be displayed
 
   @failing
+  @test
   Scenario: Challenge_App_Admin_US01: Challenge App
     Given I am authenticated as admin
     And I create the first random user
