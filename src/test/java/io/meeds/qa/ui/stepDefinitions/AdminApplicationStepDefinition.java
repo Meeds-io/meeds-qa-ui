@@ -255,8 +255,8 @@ public class AdminApplicationStepDefinition {
                                                                    editedRandomApplicationDescription);
   }
 
-  @When("^I disable Mandatory '*' for application$")
-  @Then("I enable Mandatory '*' for application")
+  @When("^I disable Mandatory '(.*)' for application$")
+  @Then("^I enable Mandatory '(.*)' for application$")
   public void enableDisableMandatoryApplication(String appTitle) throws InterruptedException {
     adminApplicationSteps.enableDisableMandatoryApplication(appTitle);
   }
@@ -275,18 +275,18 @@ public class AdminApplicationStepDefinition {
   }
 
   @When("^I disable Mandatory for the created application$")
-  @Then("I enable Mandatory for the created application")
+  @Then("^I enable Mandatory for the created application$")
   public void enableDisableMandatoryRandomApplication() throws InterruptedException {
     String randomApplicationTitle = Serenity.sessionVariableCalled("randomApplicationTitle");
     adminApplicationSteps.enableDisableMandatoryApplication(randomApplicationTitle);
   }
 
-  @When("^I search for application '*'$")
+  @When("^I search for application '(.*)'$")
   public void searchApp(String appTitle) {
     adminApplicationSteps.searchApp(appTitle);
   }
 
-  @When("^I click on '*' active button$")
+  @When("^I click on '(.*)' active button$")
   public void clickActiveApp(String appName) {
     adminApplicationSteps.clickActiveApp(appName);
   }
@@ -336,8 +336,7 @@ public class AdminApplicationStepDefinition {
 
   @Then("Delete popup is not displayed")
   public void checkPopupDeleteNotVisible() {
-    assertThat(adminApplicationSteps.isPopupConfirmDeleteNotDisplayed()).as("Delete popup still displayed")
-                                                                        .isTrue();
+    assertThat(adminApplicationSteps.isPopupConfirmDeleteNotDisplayed()).as("Delete popup still displayed").isTrue();
   }
 
   @When("Edit application title is displayed '*' in drawer")
