@@ -94,46 +94,46 @@ public class PeoplePage extends GenericPage {
   public BaseElementFacade     connectUserProfile;
 
   private BaseElementFacade getConnectUserButton(String user) {
-    return findByXpath(String
+    return findByXpathOrCSS(String
                              .format("//a[contains(@href,'%s')]//following::i[contains(@class,'uiIconSocConnectUser')]", user));
   }
 
   private BaseElementFacade getDisconnectUserButton(String user) {
-    return findByXpath(String.format(
+    return findByXpathOrCSS(String.format(
                                      "//a[contains(@href,'%s')]//following::i[contains(@class,'uiIconSocCancelConnectUser')]",
                                      user));
   }
 
   public BaseElementFacade ELEMENT_CURRENT_USER_LEADER_BOARD_POINTS(String id) {
-    return findByXpath(String
+    return findByXpathOrCSS(String
                              .format("(//*[@class='v-list-item__title']//a/following::*[@class='v-list-item__action me-4'])['%s']",
                                      id));
   }
 
   public BaseElementFacade ELEMENT_SENT_REQUESTS_USERS(String user) {
-    return findByXpath(String
+    return findByXpathOrCSS(String
                              .format("//*[@class='layout column']//*[@class='v-list-item__title']//a[contains(text(),'%s')]",
                                      user));
   }
 
   public BaseElementFacade ELEMENT_ADD_CONTACT_FULLNAM_WITH_PARAM(String user) {
-    return findByXpath(String
+    return findByXpathOrCSS(String
                              .format("//*[@class='v-card__text peopleCardBody align-center pt-2 pb-1']//a[contains(text(),'%s')]",
                                      user));
   }
 
   public BaseElementFacade ELEMENT_DELETE_SENT_REQUESTS_USERS(String user) {
-    return findByXpath(String
+    return findByXpathOrCSS(String
                              .format("//*[@class='layout column']//*[@class='v-list-item__title']//a[contains(text(),'%s')]/following::button[1]",
                                      user));
   }
 
   private BaseElementFacade getUserProfileButton(String user) {
-    return findByXpath(String.format("//a[contains(@href,'%s')and contains(@class,'userFullname')]", user));
+    return findByXpathOrCSS(String.format("//a[contains(@href,'%s')and contains(@class,'userFullname')]", user));
   }
 
   private BaseElementFacade getUserMenu(String user) {
-    return findByXpath(
+    return findByXpathOrCSS(
                        String.format("//a[contains(@href,'%s')]/../..//button[contains(@class,'peopleMenuIcon')]", user));
   }
 

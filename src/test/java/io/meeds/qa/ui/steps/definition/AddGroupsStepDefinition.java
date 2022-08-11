@@ -60,4 +60,14 @@ public class AddGroupsStepDefinition {
     String fullName = firstAdminFirstName + " " + firstAdminLastName;
     addGroupsSteps.addMemberInGroup(role, fullName);
   }
+
+  @And("^I add the role '(.*)' to the fifth created user$")
+  public void addFifthMemberInGroup(String role) {
+    String secondUserFirstName = Serenity.sessionVariableCalled("fifthUserFirstName");
+    String secondUserLastName = Serenity.sessionVariableCalled("fifthUserLastName");
+
+    String fullName = secondUserFirstName + " " + secondUserLastName;
+    addGroupsSteps.addMemberInGroup(role, fullName);
+  }
+
 }

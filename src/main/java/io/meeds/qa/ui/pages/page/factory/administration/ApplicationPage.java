@@ -96,47 +96,47 @@ public class ApplicationPage extends GenericPage {
   private BaseElementFacade    closeDeletePopupButton;
 
   private BaseElementFacade getActiveButton(String appTitle) {
-    return findByXpath(String.format("(//td[contains(text(),'%s')]/..//input)[2]/..", appTitle));
+    return findByXpathOrCSS(String.format("(//td[contains(text(),'%s')]/..//input)[2]/..", appTitle));
   }
 
   private BaseElementFacade getApplicationImageInDrawer(String image) {
-    return findByXpath(String.format("//*[@class='imageTitle' and contains(text(),'%s')]", image));
+    return findByXpathOrCSS(String.format("//*[@class='imageTitle' and contains(text(),'%s')]", image));
   }
 
   private BaseElementFacade editTheApplication(String appTitle) {
-    return findByXpath(String.format("//td[contains(text(),'%s')]/..//i[contains(@class,'mdi-pencil')]", appTitle));
+    return findByXpathOrCSS(String.format("//td[contains(text(),'%s')]/..//i[contains(@class,'mdi-pencil')]", appTitle));
   }
 
   private BaseElementFacade appTitleInApplicationsTable(String appTitle) {
-    return findByXpath(String.format("//td[contains(@class,'tableAppTitle') and contains(text(),'%s')]", appTitle));
+    return findByXpathOrCSS(String.format("//td[contains(@class,'tableAppTitle') and contains(text(),'%s')]", appTitle));
   }
 
   private BaseElementFacade appPermissionInApplicationsTable(String appTitle, String permission) {
-    return findByXpath(String.format("//td[contains(text(),'%s')]/following::*[contains(@class,'permission')][1]//span[contains(text(),'%s')]",
+    return findByXpathOrCSS(String.format("//td[contains(text(),'%s')]/following::*[contains(@class,'permission')][1]//span[contains(text(),'%s')]",
                                      appTitle,
                                      permission));
   }
 
   private BaseElementFacade appUrlInApplicationsTable(String appUrl) {
-    return findByXpath(String.format("//td[contains(@class,'appUrl') and contains(text(),'%s')]", appUrl));
+    return findByXpathOrCSS(String.format("//td[contains(@class,'appUrl') and contains(text(),'%s')]", appUrl));
   }
 
   private BaseElementFacade appDescriptionInApplicationsTable(String appDescription) {
-    return findByXpath(String.format("//td[contains(@class,'tableAppDescription') and contains(text(),'%s')]", appDescription));
+    return findByXpathOrCSS(String.format("//td[contains(@class,'tableAppDescription') and contains(text(),'%s')]", appDescription));
   }
 
   private BaseElementFacade getMandatoryApplication(String appTitle) {
-    return findByXpath(String.format("//*[@class='text-md-center tableAppTitle' and contains(text(),'%s')]/following::*[@class='v-input--selection-controls__input'][1]",
+    return findByXpathOrCSS(String.format("//*[@class='text-md-center tableAppTitle' and contains(text(),'%s')]/following::*[@class='v-input--selection-controls__input'][1]",
                                      appTitle));
   }
 
   private BaseElementFacade getActiveApplication(String appTitle) {
-    return findByXpath(String.format("//*[@class='text-md-center tableAppTitle' and contains(text(),'%s')]/following::*[@class='v-input--selection-controls__input'][2]",
+    return findByXpathOrCSS(String.format("//*[@class='text-md-center tableAppTitle' and contains(text(),'%s')]/following::*[@class='v-input--selection-controls__input'][2]",
                                      appTitle));
   }
 
   private BaseElementFacade getDeleteButton(String appTitle) {
-    return findByXpath(String.format("//td[contains(text(),'%s')]//following::i[contains(@class,'mdi-delete')]", appTitle));
+    return findByXpathOrCSS(String.format("//td[contains(text(),'%s')]//following::i[contains(@class,'mdi-delete')]", appTitle));
   }
 
   public void clickEditApp(String app) {
@@ -217,9 +217,18 @@ public class ApplicationPage extends GenericPage {
 
   }
 
-  public void enableDisableMandatoryApplication(String appTitle) throws InterruptedException {
-//    Thread.sleep(3000);
-    setCheckbox(getMandatoryApplication(appTitle), true);
+  public void enableMandatoryApplication(String appTitle) {
+    BaseElementFacade mandatoryApplication = getMandatoryApplication(appTitle);
+    if (mandatoryApplication.findByXpath("//input").getAttribute("aria-checked").equals("false")) {
+      setCheckbox(mandatoryApplication, true);
+    }
+  }
+
+  public void disableMandatoryApplication(String appTitle) {
+    BaseElementFacade mandatoryApplication = getMandatoryApplication(appTitle);
+    if (mandatoryApplication.findByXpath("//input").getAttribute("aria-checked").equals("true")) {
+      setCheckbox(mandatoryApplication, true);
+    }
   }
 
   public void enableDisableActiveApplication(String appTitle) {

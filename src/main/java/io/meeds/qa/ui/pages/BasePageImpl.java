@@ -67,17 +67,13 @@ public class BasePageImpl extends PageObject implements BasePage {
    * Methods for finding element facade in the page
    **********************************************************/
 
-  private WebElementFacade getWebElementFacadeByXpath(String xpath) {
+  private WebElementFacade getWebElementFacadeByXpathOrCSS(String xpath) {
     waitForPageLoaded();
     return findBy(xpath);
   }
 
-  public <T extends BaseElementFacade> T findByXpath(String xpath) {
-    if (!Selectors.isXPath(xpath)) {
-      exceptionLauncher.throwSerenityExeption(new Exception(),
-                                              String.format("The format for the xpath [%s] is not correct.", xpath));
-    }
-    WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
+  public <T extends BaseElementFacade> T findByXpathOrCSS(String xpathOrCSSSelector) {
+    WebElementFacade nestedElement = getWebElementFacadeByXpathOrCSS(xpathOrCSSSelector);
 
     return BaseElementFacadeImpl.wrapWebElementFacade(getDriver(),
                                                       nestedElement,
@@ -90,7 +86,7 @@ public class BasePageImpl extends PageObject implements BasePage {
       exceptionLauncher.throwSerenityExeption(new Exception(),
                                               String.format("The format for the xpath [%s] is not correct.", xpath));
     }
-    WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
+    WebElementFacade nestedElement = getWebElementFacadeByXpathOrCSS(xpath);
 
     return TextBoxElementFacadeImpl.wrapWebElementFacadeInTextBoxElement(getDriver(),
                                                                          nestedElement,
@@ -114,7 +110,7 @@ public class BasePageImpl extends PageObject implements BasePage {
       exceptionLauncher.throwSerenityExeption(new Exception(),
                                               String.format("The format for the xpath [%s] is not correct.", xpath));
     }
-    WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
+    WebElementFacade nestedElement = getWebElementFacadeByXpathOrCSS(xpath);
 
     return ButtonElementFacadeImpl.wrapWebElementFacadeInButtonElement(getDriver(),
                                                                        nestedElement,
@@ -127,7 +123,7 @@ public class BasePageImpl extends PageObject implements BasePage {
       exceptionLauncher.throwSerenityExeption(new Exception(),
                                               String.format("The format for the xpath [%s] is not correct.", xpath));
     }
-    WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
+    WebElementFacade nestedElement = getWebElementFacadeByXpathOrCSS(xpath);
 
     return TextElementFacadeImpl.wrapWebElementFacadeInTextElement(getDriver(),
                                                                    nestedElement,

@@ -17,5 +17,5 @@ public interface BasePage {
    *
    * @param xpath: xpath of the element
    */
-  <T extends BaseElementFacade> T findByXpath(String xpath);
+  <T extends BaseElementFacade> T findByXpathOrCSS(String xpath);
 }

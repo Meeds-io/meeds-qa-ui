@@ -255,10 +255,14 @@ public class AdminApplicationStepDefinition {
                                                                    editedRandomApplicationDescription);
   }
 
+  @When("^I enable Mandatory '(.*)' for application$")
+  public void enableMandatoryApplication(String appTitle) throws InterruptedException {
+    adminApplicationSteps.enableMandatoryApplication(appTitle);
+  }
+
   @When("^I disable Mandatory '(.*)' for application$")
-  @Then("^I enable Mandatory '(.*)' for application$")
-  public void enableDisableMandatoryApplication(String appTitle) throws InterruptedException {
-    adminApplicationSteps.enableDisableMandatoryApplication(appTitle);
+  public void disableMandatoryApplication(String appTitle) throws InterruptedException {
+    adminApplicationSteps.disableMandatoryApplication(appTitle);
   }
 
   @When("^I disable Active option for application '(.*)'$")
@@ -274,11 +278,16 @@ public class AdminApplicationStepDefinition {
     adminApplicationSteps.enableDisableActiveApplication(randomApplicationTitle);
   }
 
-  @When("^I disable Mandatory for the created application$")
-  @Then("^I enable Mandatory for the created application$")
-  public void enableDisableMandatoryRandomApplication() throws InterruptedException {
+  @When("^I enable Mandatory for the created application$")
+  public void enableMandatoryRandomApplication() throws InterruptedException {
     String randomApplicationTitle = Serenity.sessionVariableCalled("randomApplicationTitle");
-    adminApplicationSteps.enableDisableMandatoryApplication(randomApplicationTitle);
+    adminApplicationSteps.enableMandatoryApplication(randomApplicationTitle);
+  }
+
+  @When("^I disable Mandatory for the created application$")
+  public void disableMandatoryRandomApplication() throws InterruptedException {
+    String randomApplicationTitle = Serenity.sessionVariableCalled("randomApplicationTitle");
+    adminApplicationSteps.disableMandatoryApplication(randomApplicationTitle);
   }
 
   @When("^I search for application '(.*)'$")

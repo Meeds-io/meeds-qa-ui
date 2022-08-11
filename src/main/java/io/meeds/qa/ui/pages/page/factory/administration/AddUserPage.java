@@ -62,13 +62,13 @@ public class AddUserPage extends GenericPage {
   }
 
   public BaseElementFacade disableEnableStatusButton(String user) {
-    return findByXpath(String
+    return findByXpathOrCSS(String
                              .format("(//*[@class='text-center' and contains(text(),'%s')]//following::*[@class='switch']//*[@class='slider round'])[1]",
                                      user));
   }
 
   public BaseElementFacade userNameDisplayed(String user) {
-    return findByXpath(String
+    return findByXpathOrCSS(String
                              .format("//*[@class='v-data-table__wrapper']//*[@class='text-center' and contains(text(),'%s')][1]",
                                      user));
   }

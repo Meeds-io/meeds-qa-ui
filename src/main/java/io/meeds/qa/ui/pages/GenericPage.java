@@ -26,15 +26,15 @@ public class GenericPage extends BasePageImpl {
       + File.separator + "test" + File.separator + "resources" + File.separator + "DataFiles" + File.separator;
 
   private BaseElementFacade getConfirmMessage(String message) {
-    return findByXpath(String.format("//span[contains(text(),\"%s\")]", message));
+    return findByXpathOrCSS(String.format("//span[contains(text(),\"%s\")]", message));
   }
 
   private BaseElementFacade getButton(String buttonName) {
-    return findByXpath(String.format("//a[contains(text(),'%s')]", buttonName));
+    return findByXpathOrCSS(String.format("//a[contains(text(),'%s')]", buttonName));
   }
 
   private BaseElementFacade getOKButton(String buttonName) {
-    return findByXpath(String.format("//button[contains(text(),'%s')]", buttonName));
+    return findByXpathOrCSS(String.format("//button[contains(text(),'%s')]", buttonName));
   }
 
   public boolean inConfirmMessageDisplayed(String message) {

@@ -60,11 +60,11 @@ public class ManageDomainsPage extends GenericPage {
   private BaseElementFacade       automaticTranslation;
 
   public BaseElementFacade getTitlePage(String title) {
-    return findByXpath(String.format("//*[@class='row']//h4[@class='font-weight-bold' and contains(text(),'%s')]", title));
+    return findByXpathOrCSS(String.format("//*[@class='row']//h4[@class='font-weight-bold' and contains(text(),'%s')]", title));
   }
 
   private BaseElementFacade getAlertPublishingActivity(String alert) {
-    return findByXpath(
+    return findByXpathOrCSS(
                        String.format("//*[@class='v-btn__content' and contains(text(),'%s')]", alert));
   }
 
@@ -107,7 +107,7 @@ public class ManageDomainsPage extends GenericPage {
   }
 
   private BaseElementFacade getDomainNameInListOfDomains(String domainName) {
-    return findByXpath(String.format("//table[@class='uiGrid table table-hover domain-table']//*[not(@class='domain-desc-col')]/div[contains(text(),'%s')]",
+    return findByXpathOrCSS(String.format("//table[@class='uiGrid table table-hover domain-table']//*[not(@class='domain-desc-col')]/div[contains(text(),'%s')]",
                                      domainName));
   }
 

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 
@@ -13,6 +14,7 @@ import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
 import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.exceptions.SerenityManagedException;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class HomePage extends GenericPage {
@@ -151,7 +153,7 @@ public class HomePage extends GenericPage {
   private BaseElementFacade    spaceInvitaitationWidget;
 
   private BaseElementFacade getProfileWidgetContent(String widget, String number) {
-    return findByXpath(String.format("//div[contains(@class,'profileCard')]//div[contains(@class,'mx-0')]//span[text()='%s']/../..//span[text()='%s']",
+    return findByXpathOrCSS(String.format("//div[contains(@class,'profileCard')]//div[contains(@class,'mx-0')]//span[text()='%s']/../..//span[text()='%s']",
                                      widget,
                                      number));
   }
@@ -165,39 +167,39 @@ public class HomePage extends GenericPage {
   }
 
   private BaseElementFacade getConnectionsBadgeWithNumber(String number) {
-    return findByXpath(
+    return findByXpathOrCSS(
                        String.format("//div[contains(@class,'profileCard')]//*[contains(text(),'Connections')]/preceding::*[@class='v-btn__content' and contains(text(),'%s')][1]",
                                      number));
   }
 
   private BaseElementFacade getSpacesBadgeWithNumber(String number) {
-    return findByXpath(
+    return findByXpathOrCSS(
                        String.format("//div[contains(@class,'profileCard')]//*[contains(text(),'Spaces')]/preceding::*[@class='v-btn__content' and contains(text(),'%s')][1]",
                                      number));
   }
 
   private BaseElementFacade getRejectIconSpaceFromDrawer(String spaceName) {
-    return findByXpath(String.format("//aside[contains(@class,'spaceDrawer ')]//descendant::div[contains(text(),'%s')]//following::i[contains(@class,'mdi-close-circle')]",
+    return findByXpathOrCSS(String.format("//aside[contains(@class,'spaceDrawer ')]//descendant::div[contains(text(),'%s')]//following::i[contains(@class,'mdi-close-circle')]",
                                      spaceName));
   }
 
   private BaseElementFacade getAcceptIconSpaceFromDrawer(String spaceName) {
-    return findByXpath(String.format("//aside[contains(@class,'spaceDrawer ')]//descendant::div[contains(text(),'%s')]//following::i[contains(@class,'mdi-checkbox-marked')]",
+    return findByXpathOrCSS(String.format("//aside[contains(@class,'spaceDrawer ')]//descendant::div[contains(text(),'%s')]//following::i[contains(@class,'mdi-checkbox-marked')]",
                                      spaceName));
   }
 
   private BaseElementFacade getAcceptIconConnexionFromDrawer(String spaceName) {
-    return findByXpath(String.format("//aside[contains(@class,'connectionsDrawer ')]//descendant::div[contains(text(),'%s')]//following::i[contains(@class,'mdi-checkbox-marked')]",
+    return findByXpathOrCSS(String.format("//aside[contains(@class,'connectionsDrawer ')]//descendant::div[contains(text(),'%s')]//following::i[contains(@class,'mdi-checkbox-marked')]",
                                      spaceName));
   }
 
   private BaseElementFacade getRejectIconConnexionFromDrawer(String spaceName) {
-    return findByXpath(String.format("//aside[contains(@class,'connectionsDrawer')]//descendant::div[contains(text(),'%s')]//following::i[contains(@class,'mdi-close-circle')]",
+    return findByXpathOrCSS(String.format("//aside[contains(@class,'connectionsDrawer')]//descendant::div[contains(text(),'%s')]//following::i[contains(@class,'mdi-close-circle')]",
                                      spaceName));
   }
 
   private BaseElementFacade checkSpaceFromDrawer(String spaceName) {
-    return findByXpath(String.format("//aside[contains(@class,'spaceDrawer ')]//descendant::div[contains(text(),'%s')]//following::i[contains(@class,'mdi-checkbox-marked')]",
+    return findByXpathOrCSS(String.format("//aside[contains(@class,'spaceDrawer ')]//descendant::div[contains(text(),'%s')]//following::i[contains(@class,'mdi-checkbox-marked')]",
                                      spaceName));
   }
 
@@ -341,13 +343,19 @@ public class HomePage extends GenericPage {
   }
 
   public void logout() {
-    try {
-      driver.switchTo().alert().accept();
-    } catch (NoAlertPresentException e) {
-      // Normal Behavior
+    if (hamburgerNavigationMenuLink.isPresent()) {
+      clickOnHamburgerMenu();
+      logOutMenu.clickOnElement();
+      waitForPageLoaded();
+    } else {
+      try {
+        driver.switchTo().alert().accept();
+      } catch (NoAlertPresentException e) {
+        // Normal Behavior
+      }
+      driver.manage().deleteAllCookies();
+      goToHomePage();
     }
-    driver.manage().deleteAllCookies();
-    goToHomePage();
   }
 
   public boolean isWidgetWithNumberVisible(String widget, String number) {
@@ -481,7 +489,7 @@ public class HomePage extends GenericPage {
   }
 
   private BaseElementFacade getFavoriteIconActivity(String activity) {
-    return findByXpath(String.format(
+    return findByXpathOrCSS(String.format(
                                      "//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::i[contains(@class,'fa-star')][01]",
                                      activity));
   }
@@ -495,7 +503,7 @@ public class HomePage extends GenericPage {
   }
 
   private BaseElementFacade getFavoriteSucessMessage(String message) {
-    return findByXpath(String.format("//div[@class='v-alert__content']//*[contains(text(),'%s')]", message));
+    return findByXpathOrCSS(String.format("//div[@class='v-alert__content']//*[contains(text(),'%s')]", message));
   }
 
   public void checkFavSuccessMessage(String message) {
@@ -512,10 +520,14 @@ public class HomePage extends GenericPage {
 
   private void clickOnHamburgerMenu() {
     resetImplicitTimeout();
-    if (!hamburgerNavigationMenuLink.isClickable()) {
-      waitFor(driver -> hamburgerNavigationMenuLink.isClickable());
+    waitForPageLoaded();
+    try {
+      clickOnElement(hamburgerNavigationMenuLink);
+    } catch (SerenityManagedException e) {
+      refreshPage();
+      waitForPageLoaded();
+      clickOnHamburgerMenu();
     }
-    clickOnElement(hamburgerNavigationMenuLink);
   }
 
   public void goToAppCenterApplications() {

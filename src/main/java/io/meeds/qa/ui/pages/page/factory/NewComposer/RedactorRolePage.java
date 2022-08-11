@@ -23,7 +23,7 @@ public class RedactorRolePage extends GenericPage {
   private TextBoxElementFacade    searchPeopleInput;
 
   private BaseElementFacade setRedactorUserButton(String user) {
-    return findByXpath(String.format("//a[contains(@href,'%s')]//following::button[@class='peopleMenuIcon d-block v-btn v-btn--flat v-btn--icon v-btn--round v-btn--text theme--light v-size--default']",
+    return findByXpathOrCSS(String.format("//a[contains(@href,'%s')]//following::button[@class='peopleMenuIcon d-block v-btn v-btn--flat v-btn--icon v-btn--round v-btn--text theme--light v-size--default']",
                                      user));
   }
 

@@ -22,7 +22,7 @@ public class LoginPage extends GenericPage implements IsHidden {
     loginTextBox.setTextValue(login);
     TextBoxElementFacade passwordTextbox = findTextBoxElementByXpath("//*[@id='password']");
     passwordTextbox.setTextValue(password);
-    BaseElementFacade loginButton = findByXpath("//*[contains(@class, 'loginButton')]//button");
+    BaseElementFacade loginButton = findByXpathOrCSS("//*[contains(@class, 'loginButton')]//button");
     clickOnElement(loginButton);
   }
 

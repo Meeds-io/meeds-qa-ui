@@ -145,7 +145,7 @@ public class NotePage extends GenericPage {
   private BaseElementFacade confirmationPopupDeleteButton;
 
   private BaseElementFacade noteTitleField(String title) {
-    return findByXpath(String.format("//*[contains(@class,'notes-title')]/span[ contains(text(),'%s')]", title));
+    return findByXpathOrCSS(String.format("//*[contains(@class,'notes-title')]/span[ contains(text(),'%s')]", title));
   }
 
   public void deleteNote() {
@@ -159,7 +159,7 @@ public class NotePage extends GenericPage {
   }
 
   private BaseElementFacade getNoteActivityTitle(String noteTitle) {
-    return findByXpath(String.format("//*[contains(@class,'font-weight-bold')]//div[contains(text(),'%s')]", noteTitle));
+    return findByXpathOrCSS(String.format("//*[contains(@class,'font-weight-bold')]//div[contains(text(),'%s')]", noteTitle));
   }
 
   public void isNoteActivityDisplayed(String noteTitle) {

@@ -26,7 +26,7 @@ public class SettingsPage extends GenericPage {
   private BaseElementFacade ELEMENT_CANCEL_CHANGE_LANGUAGE_BUTTON;
 
   private BaseElementFacade ELEMENT_CHANGE_LANGUAGE(String language) {
-    return findByXpath(String.format("//*[contains(text(),'%s')]", language));
+    return findByXpathOrCSS(String.format("//*[contains(text(),'%s')]", language));
   }
 
   @FindBy(
@@ -43,7 +43,7 @@ public class SettingsPage extends GenericPage {
   private BaseElementFacade ELEMENT_CANCEL_CHANGE_TIMEZONE_BUTTON;
 
   private BaseElementFacade ELEMENT_CHANGE_TIMEZONE(String timeZone) {
-    return findByXpath(String.format("//*[contains(text(),'%s')]", timeZone));
+    return findByXpathOrCSS(String.format("//*[contains(text(),'%s')]", timeZone));
   }
 
   @FindBy(xpath = "(//*[@class='btn btn-primary v-btn v-btn--contained theme--light v-size--default'])[2]")
@@ -115,17 +115,17 @@ public class SettingsPage extends GenericPage {
   private BaseElementFacade ELEMENT_MANAGE_NOTIFICATION_PERKSTORE_SECTION;
 
   public void enableDisableGeneralNotificationsViaMail() {
-    findByXpath("(//*[@class='v-input--selection-controls__input'])[1]").clickOnElement();
+    findByXpathOrCSS("(//*[@class='v-input--selection-controls__input'])[1]").clickOnElement();
 
   }
 
   public void enableDisableGeneralNotificationsOnSite() {
-    findByXpath("(//*[@class='v-input--selection-controls__input'])[3]").clickOnElement();
+    findByXpathOrCSS("(//*[@class='v-input--selection-controls__input'])[3]").clickOnElement();
 
   }
 
   public void enableDisableGeneralNotificationsOnMobile() {
-    findByXpath("(//*[@class='v-input--selection-controls__input'])[2]").clickOnElement();
+    findByXpathOrCSS("(//*[@class='v-input--selection-controls__input'])[2]").clickOnElement();
   }
 
   public void notifyMeByEmailIsDisplayedInGeneralNotificationsSection() {
@@ -232,7 +232,7 @@ public class SettingsPage extends GenericPage {
   }
 
   public void enableDisableNotificationViaMail() {
-    findByXpath("(//*[@class='v-input--selection-controls__input'])[1]").click();
+    findByXpathOrCSS("(//*[@class='v-input--selection-controls__input'])[1]").click();
   }
 
   public void goToManageNotifications() {
@@ -254,44 +254,44 @@ public class SettingsPage extends GenericPage {
 
   public void checkThatNotificationViaMailIsDisabled() {
     // Notification Via Mail is disabled
-    Assert.assertTrue(findByXpath("(//*[@class='v-input--selection-controls__input']//input)[1]").getAttribute("aria-checked").contains("false"));
+    Assert.assertTrue(findByXpathOrCSS("(//*[@class='v-input--selection-controls__input']//input)[1]").getAttribute("aria-checked").contains("false"));
   }
 
   public void checkThatNotificationViaMailIsEnabled() {
     // Notification Via Mail is enabled
-    Assert.assertEquals(findByXpath("(//*[@class='v-input--selection-controls__input']//input)[1]").getAttribute("aria-checked"), "true");
+    Assert.assertEquals(findByXpathOrCSS("(//*[@class='v-input--selection-controls__input']//input)[1]").getAttribute("aria-checked"), "true");
 
   }
 
   public void enableDisableNotificationOnMobile() {
-    findByXpath("(//*[@class='v-input--selection-controls__input'])[2]").click();
+    findByXpathOrCSS("(//*[@class='v-input--selection-controls__input'])[2]").click();
   }
 
   public void checkThatNotificationOnMobileIsDisabled() {
     // Notification On Mobile is disabled
-    Assert.assertEquals(findByXpath("(//*[@class='v-input--selection-controls__input']//input)[2]").getAttribute("aria-checked"), "false");
+    Assert.assertEquals(findByXpathOrCSS("(//*[@class='v-input--selection-controls__input']//input)[2]").getAttribute("aria-checked"), "false");
 
   }
 
   public void checkThatNotificationOnMobileIsEnabled() {
     // Notification On Mobile is enabled
-    Assert.assertEquals(findByXpath("(//*[@class='v-input--selection-controls__input']//input)[2]").getAttribute("aria-checked"), "true");
+    Assert.assertEquals(findByXpathOrCSS("(//*[@class='v-input--selection-controls__input']//input)[2]").getAttribute("aria-checked"), "true");
 
   }
 
   public void enableDisableNotificationOnSite() {
-    findByXpath("(//*[@class='v-input--selection-controls__input'])[3]").click();
+    findByXpathOrCSS("(//*[@class='v-input--selection-controls__input'])[3]").click();
   }
 
   public void checkThatNotificationOnSiteIsDisabled() {
     // Notification On Site is disabled
-    Assert.assertEquals(findByXpath("(//*[@class='v-input--selection-controls__input']//input)[3]").getAttribute("aria-checked"), "false");
+    Assert.assertEquals(findByXpathOrCSS("(//*[@class='v-input--selection-controls__input']//input)[3]").getAttribute("aria-checked"), "false");
 
   }
 
   public void checkThatNotificationOnSiteIsEnabled() {
     // Notification On Site is enabled
-    Assert.assertEquals(findByXpath("(//*[@class='v-input--selection-controls__input']//input)[3]").getAttribute("aria-checked"), "true");
+    Assert.assertEquals(findByXpathOrCSS("(//*[@class='v-input--selection-controls__input']//input)[3]").getAttribute("aria-checked"), "true");
 
   }
 
@@ -313,7 +313,7 @@ public class SettingsPage extends GenericPage {
 
   public void editLanguage(String language) {
     // Select language and change it
-    findByXpath("(//*[@class='uiIconEdit uiIconLightBlue pb-2'])[1]").clickOnElement();
+    findByXpathOrCSS("(//*[@class='uiIconEdit uiIconLightBlue pb-2'])[1]").clickOnElement();
 
     ELEMENT_CHANGE_LANGUAGE(language).waitUntilClickable();
     ELEMENT_CHANGE_LANGUAGE(language).clickOnElement();
@@ -335,7 +335,7 @@ public class SettingsPage extends GenericPage {
 
   public void checkThatSettingsPageIsOpened() {
     // Check that Settings Page is opened
-    findByXpath("//*[@id=UserSettingLanguage]").isDisplayed();
+    findByXpathOrCSS("//*[@id=UserSettingLanguage]").isDisplayed();
 
   }
 
