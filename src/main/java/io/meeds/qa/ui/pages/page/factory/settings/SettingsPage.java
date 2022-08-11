@@ -14,12 +14,6 @@ public class SettingsPage extends GenericPage {
     super(driver);
   }
 
-  @FindBy(xpath = "(//*[@class='uiIconEdit uiIconLightBlue pb-2'])[1]")
-  private BaseElementFacade ELEMENT_EDIT_LANGUAGE;
-
-  @FindBy(id = "UserSettingLanguage")
-  private BaseElementFacade ELEMENT_SETTINGS_PAGE;
-
   @FindBy(xpath = "(//*[@class='v-list-item__subtitle text-sub-title text-capitalize font-italic'])[1]")
   private BaseElementFacade ELEMENT_LANGUAGE_TXT;
 
@@ -73,24 +67,6 @@ public class SettingsPage extends GenericPage {
   @FindBy(xpath = "(//input[@type='password'])[3]/following::*[@class='v-btn__content'][2]")
   private BaseElementFacade ELEMENT_CONFIRM_EDIT_PASSWORD;
 
-  @FindBy(xpath = "(//*[@class='v-input--selection-controls__input'])[1]")
-  private BaseElementFacade ELEMENT_NOTIFICATION_VIA_MAIL;
-
-  @FindBy(xpath = "(//*[@class='v-input--selection-controls__input']//input)[1]")
-  private BaseElementFacade ELEMENT_NOTIFICATION_VIA_MAIL_STATUS;
-
-  @FindBy(xpath = "(//*[@class='v-input--selection-controls__input'])[2]")
-  private BaseElementFacade ELEMENT_NOTIFICATION_ON_MOBILE;
-
-  @FindBy(xpath = "(//*[@class='v-input--selection-controls__input']//input)[2]")
-  private BaseElementFacade ELEMENT_NOTIFICATION_ON_MOBILE_STATUS;
-
-  @FindBy(xpath = "(//*[@class='v-input--selection-controls__input'])[3]")
-  private BaseElementFacade ELEMENT_NOTIFICATION_ON_SITE;
-
-  @FindBy(xpath = "(//*[@class='v-input--selection-controls__input']//input)[3]")
-  private BaseElementFacade ELEMENT_NOTIFICATION_ON_SITE_STATUS;
-
   @FindBy(xpath = "(//*[@class='uiIconEdit uiIconLightBlue pb-2'])[1]")
   private BaseElementFacade ELEMENT_EDIT_NOTIFICATIONS_GENERAL;
 
@@ -107,15 +83,6 @@ public class SettingsPage extends GenericPage {
       xpath = "(//button[@class='btn btn-primary v-btn v-btn--contained theme--light v-size--default']//*[@class='v-btn__content'])[1]"
   )
   private BaseElementFacade ELEMENT_APPLY_EDIT_GENERAL_NOTIFICATIONS_BUTTON;
-
-  @FindBy(xpath = "(//*[@class='v-input--selection-controls__input'])[1]")
-  private BaseElementFacade ELEMENT_GENERAL_NOTIFICATION_VIA_MAIL;
-
-  @FindBy(xpath = "(//*[@class='v-input--selection-controls__input'])[3]")
-  private BaseElementFacade ELEMENT_GENERAL_NOTIFICATION_ON_SITE;
-
-  @FindBy(xpath = "(//*[@class='v-input--selection-controls__input'])[2]")
-  private BaseElementFacade ELEMENT_GENERAL_NOTIFICATION_ON_MOBILE;
 
   @FindBy(xpath = "(//*[contains(text(),'Manage notifications')]")
   private BaseElementFacade ELEMENT_MANAGE_NOTIFICATION_PAGE;
@@ -148,17 +115,17 @@ public class SettingsPage extends GenericPage {
   private BaseElementFacade ELEMENT_MANAGE_NOTIFICATION_PERKSTORE_SECTION;
 
   public void enableDisableGeneralNotificationsViaMail() {
-    ELEMENT_GENERAL_NOTIFICATION_VIA_MAIL.clickOnElement();
+    findByXpath("(//*[@class='v-input--selection-controls__input'])[1]").clickOnElement();
 
   }
 
   public void enableDisableGeneralNotificationsOnSite() {
-    ELEMENT_GENERAL_NOTIFICATION_ON_SITE.clickOnElement();
+    findByXpath("(//*[@class='v-input--selection-controls__input'])[3]").clickOnElement();
 
   }
 
   public void enableDisableGeneralNotificationsOnMobile() {
-    ELEMENT_GENERAL_NOTIFICATION_ON_MOBILE.clickOnElement();
+    findByXpath("(//*[@class='v-input--selection-controls__input'])[2]").clickOnElement();
   }
 
   public void notifyMeByEmailIsDisplayedInGeneralNotificationsSection() {
@@ -265,18 +232,11 @@ public class SettingsPage extends GenericPage {
   }
 
   public void enableDisableNotificationViaMail() {
-    driver.navigate().refresh();
-    ELEMENT_NOTIFICATION_VIA_MAIL.waitUntilVisible();
-    ELEMENT_NOTIFICATION_VIA_MAIL.waitUntilClickable();
-    ELEMENT_NOTIFICATION_VIA_MAIL.click();
-
+    findByXpath("(//*[@class='v-input--selection-controls__input'])[1]").click();
   }
 
   public void goToManageNotifications() {
-    ELEMENT_MANAGE_NOTIFICATIONS.waitUntilVisible();
-    ELEMENT_MANAGE_NOTIFICATIONS.waitUntilClickable();
-    ELEMENT_MANAGE_NOTIFICATIONS.clickOnElement();
-
+    clickOnElement(ELEMENT_MANAGE_NOTIFICATIONS);
   }
 
   public void goToEditGeneralNotifications() {
@@ -294,52 +254,44 @@ public class SettingsPage extends GenericPage {
 
   public void checkThatNotificationViaMailIsDisabled() {
     // Notification Via Mail is disabled
-
-    Assert.assertTrue(ELEMENT_NOTIFICATION_VIA_MAIL_STATUS.getAttribute("aria-checked").contains("false"));
-
+    Assert.assertTrue(findByXpath("(//*[@class='v-input--selection-controls__input']//input)[1]").getAttribute("aria-checked").contains("false"));
   }
 
   public void checkThatNotificationViaMailIsEnabled() {
     // Notification Via Mail is enabled
-    Assert.assertEquals(ELEMENT_NOTIFICATION_VIA_MAIL_STATUS.waitUntilVisible().getAttribute("aria-checked"), "true");
+    Assert.assertEquals(findByXpath("(//*[@class='v-input--selection-controls__input']//input)[1]").getAttribute("aria-checked"), "true");
 
   }
 
   public void enableDisableNotificationOnMobile() {
-    ELEMENT_NOTIFICATION_ON_MOBILE.waitUntilClickable();
-    ELEMENT_NOTIFICATION_ON_MOBILE.click();
-    ELEMENT_NOTIFICATION_ON_MOBILE.waitUntilVisible();
-
+    findByXpath("(//*[@class='v-input--selection-controls__input'])[2]").click();
   }
 
   public void checkThatNotificationOnMobileIsDisabled() {
     // Notification On Mobile is disabled
-    Assert.assertEquals(ELEMENT_NOTIFICATION_ON_MOBILE_STATUS.waitUntilVisible().getAttribute("aria-checked"), "false");
+    Assert.assertEquals(findByXpath("(//*[@class='v-input--selection-controls__input']//input)[2]").getAttribute("aria-checked"), "false");
 
   }
 
   public void checkThatNotificationOnMobileIsEnabled() {
     // Notification On Mobile is enabled
-    Assert.assertEquals(ELEMENT_NOTIFICATION_ON_MOBILE_STATUS.waitUntilVisible().getAttribute("aria-checked"), "true");
+    Assert.assertEquals(findByXpath("(//*[@class='v-input--selection-controls__input']//input)[2]").getAttribute("aria-checked"), "true");
 
   }
 
   public void enableDisableNotificationOnSite() {
-    ELEMENT_NOTIFICATION_ON_SITE.waitUntilClickable();
-    ELEMENT_NOTIFICATION_ON_SITE.click();
-    ELEMENT_NOTIFICATION_ON_SITE.waitUntilVisible();
-
+    findByXpath("(//*[@class='v-input--selection-controls__input'])[3]").click();
   }
 
   public void checkThatNotificationOnSiteIsDisabled() {
     // Notification On Site is disabled
-    Assert.assertEquals(ELEMENT_NOTIFICATION_ON_SITE_STATUS.waitUntilVisible().getAttribute("aria-checked"), "false");
+    Assert.assertEquals(findByXpath("(//*[@class='v-input--selection-controls__input']//input)[3]").getAttribute("aria-checked"), "false");
 
   }
 
   public void checkThatNotificationOnSiteIsEnabled() {
     // Notification On Site is enabled
-    Assert.assertEquals(ELEMENT_NOTIFICATION_ON_SITE_STATUS.waitUntilVisible().getAttribute("aria-checked"), "true");
+    Assert.assertEquals(findByXpath("(//*[@class='v-input--selection-controls__input']//input)[3]").getAttribute("aria-checked"), "true");
 
   }
 
@@ -361,8 +313,7 @@ public class SettingsPage extends GenericPage {
 
   public void editLanguage(String language) {
     // Select language and change it
-    ELEMENT_EDIT_LANGUAGE.waitUntilClickable();
-    ELEMENT_EDIT_LANGUAGE.clickOnElement();
+    findByXpath("(//*[@class='uiIconEdit uiIconLightBlue pb-2'])[1]").clickOnElement();
 
     ELEMENT_CHANGE_LANGUAGE(language).waitUntilClickable();
     ELEMENT_CHANGE_LANGUAGE(language).clickOnElement();
@@ -384,7 +335,7 @@ public class SettingsPage extends GenericPage {
 
   public void checkThatSettingsPageIsOpened() {
     // Check that Settings Page is opened
-    ELEMENT_SETTINGS_PAGE.isDisplayed();
+    findByXpath("//*[@id=UserSettingLanguage]").isDisplayed();
 
   }
 

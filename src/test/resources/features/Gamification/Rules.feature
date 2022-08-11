@@ -1,7 +1,6 @@
 Feature: Rules
 
   @gamification
-  @failing
   Scenario: Comment a post
     Given I am authenticated as admin
     And I create the first random user
@@ -78,7 +77,6 @@ Feature: Rules
     Then My points augmented
 
   @gamification
-  @failing
   Scenario: Create new task
     Given I am authenticated as admin
     And I check my points
@@ -91,7 +89,6 @@ Feature: Rules
     Then My points augmented
 
   @gamification
-  @failing
   Scenario: Complete assigned task
     Given I am authenticated as admin
     When I go To AppCenter Drawer

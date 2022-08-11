@@ -401,13 +401,22 @@ public class ManageSpacesPage extends GenericPage {
 
   public void clickSpaceAction(String action) {
     BaseElementFacade spaceAction = getSpaceAction(action);
-    if (spaceAction.isVisibleAfterWaiting()) {
+    if (!spaceAction.isPresent()) {
+      BaseElementFacade spaceFirstNavigationTab = getSpaceFirstNavigationTab();
+      if ((spaceFirstNavigationTab == null || !spaceFirstNavigationTab.isPresent()) && spaceAction.isVisibleAfterWaiting()) {
+        spaceAction.clickOnElement();
+      }
+    } else {
       spaceAction.clickOnElement();
     }
   }
 
+  private BaseElementFacade getSpaceFirstNavigationTab() {
+    return findByXpath("//*[contains(@class, 'spaceNavigationTab')]");
+  }
+
   private BaseElementFacade getSpaceElement(String space) {
-    return findByXpath(String.format("//*[@class='pl-2 align-self-center brandingContainer space']//*[contains(text(),'%s')]",
+    return findByXpath(String.format("//*[contains(@class, 'brandingContainer space')]//*[contains(text(),'%s')]",
                                      space));
   }
 

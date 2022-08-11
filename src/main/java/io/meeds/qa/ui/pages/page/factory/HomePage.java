@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
@@ -272,9 +273,11 @@ public class HomePage extends GenericPage {
   }
 
   public void goToAddUser() {
-    clickOnHamburgerMenu();
-    clickOnElement(addministrationMenu);
-    clickOnElement(addUserLink);
+    if (!StringUtils.contains(driver.getCurrentUrl(), "usersManagement")) {
+      clickOnHamburgerMenu();
+      clickOnElement(addministrationMenu);
+      clickOnElement(addUserLink);
+    }
   }
 
   public void goToAddGroups() {

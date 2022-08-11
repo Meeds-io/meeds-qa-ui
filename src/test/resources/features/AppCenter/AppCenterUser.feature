@@ -154,7 +154,6 @@ Feature: To be able to access applications
     And I go to Administer application center Page
     And I enable Mandatory 'Tasks' for application
 
-  @failing
   Scenario: CAP34 - [User_UI_US021][02]: Check the display of Mandatory apps when its no longer considered as mandatory app
     Given I am authenticated as admin
     When I go to Administer application center Page

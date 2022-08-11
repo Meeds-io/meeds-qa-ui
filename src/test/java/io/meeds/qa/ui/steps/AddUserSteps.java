@@ -34,8 +34,8 @@ public class AddUserSteps {
   public void addRandomUser(String userPrefix) {
     if (StringUtils.isBlank(sessionVariableCalled(userPrefix + "UserName"))) {
       String userName = "user" + userPrefix + getRandomString();
-      String firstName = getRandomString("User " + userPrefix + " First Name ");
-      String lastName = getRandomString("User " + userPrefix + " Last Name ");
+      String firstName = getRandomString("FN " + userPrefix);
+      String lastName = getRandomString("LN " + userPrefix);
       String email = userName + "@aa.bb";
       String password = "123456nBm";
 

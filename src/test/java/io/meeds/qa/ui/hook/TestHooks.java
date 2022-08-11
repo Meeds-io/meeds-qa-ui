@@ -67,7 +67,6 @@ public class TestHooks {
   @After
   public void deleteDatas() {
     deleteGamificationBadges();
-    setSpaceNames();
     deleteAppCenterApplications();
   }
 
@@ -104,15 +103,6 @@ public class TestHooks {
         }
       }
     }
-  }
-
-  private void setSpaceNames() {
-    SPACES.keySet().forEach(key -> {
-      String value = Serenity.sessionVariableCalled(key);
-      if (StringUtils.isNotBlank(value)) {
-        Serenity.setSessionVariable(key).to(value);
-      }
-    });
   }
 
   private void deleteGamificationBadges() {

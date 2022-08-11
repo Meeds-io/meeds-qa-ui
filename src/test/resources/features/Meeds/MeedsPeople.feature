@@ -57,7 +57,6 @@ Feature: Search for Contacts in People page
     And I close Sent Request button
 
   @smoke
-  @failing
   Scenario: : PEOPLE-7 : Leaderboard in the People Cards list application
     Given I am authenticated as admin
 

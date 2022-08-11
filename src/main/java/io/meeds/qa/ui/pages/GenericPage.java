@@ -65,6 +65,7 @@ public class GenericPage extends BasePageImpl {
 
   public void clickOnElement(BaseElementFacade element) {
     element.resetTimeouts();
+    element.waitUntilEnabled();
     element.waitUntilClickable();
     element.clickOnElement();
   }

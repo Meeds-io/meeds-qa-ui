@@ -76,7 +76,6 @@ Feature: Edit sections in Settings page
 
     Then I connect with the first created user
 
-  @failing
   Scenario: : SETTINGS-8 : Notifications section (Disable Notifications)
     Given I am authenticated as admin
 
@@ -112,7 +111,3 @@ Feature: Edit sections in Settings page
     And I click to confirm the new home page
     And I click on home page button
     Then Activity Stream page is displayed
-
-
-
-

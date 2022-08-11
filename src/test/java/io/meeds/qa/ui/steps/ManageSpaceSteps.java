@@ -20,14 +20,6 @@ public class ManageSpaceSteps {
 
   private HomePage homePage;
 
-  public void addSimpleSpace(String spaceName) {
-    manageSpacesPage.openSpaceFormDrawer();
-    manageSpacesPage.setSpaceName(spaceName);
-    manageSpacesPage.clickFirstProcessButton();
-    manageSpacesPage.clickSecondProcessButton();
-    manageSpacesPage.clickAddSpaceButton();
-  }
-
   public void addSpaceWithRegistration(String spaceName, String registration) {
     manageSpacesPage.openSpaceFormDrawer();
     manageSpacesPage.setSpaceName(spaceName);
@@ -45,6 +37,7 @@ public class ManageSpaceSteps {
     manageSpacesPage.clickSecondProcessButton();
     manageSpacesPage.inviteUserToSpace(user);
     manageSpacesPage.clickAddSpaceButton();
+    setSessionVariable("randomSpaceName").to(spaceName);
   }
 
   public void checkThatSpaceDetailsInSearchResultsAreDisplayed(String spaceName, String members) {
@@ -278,6 +271,7 @@ public class ManageSpaceSteps {
     manageSpacesPage.clickSecondProcessButton();
     manageSpacesPage.inviteUserToSpace(firstUserName);
     manageSpacesPage.clickAddSpaceButton();
+    setSessionVariable("randomSpaceName").to(randomSpaceName);
   }
 
   public void addOrGoToSpace(String spaceNamePrefix, String userToInvite) {

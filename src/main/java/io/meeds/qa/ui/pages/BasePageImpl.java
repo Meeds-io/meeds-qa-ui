@@ -3,8 +3,11 @@ package io.meeds.qa.ui.pages;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.lang.reflect.Field;
+import java.time.Duration;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,6 +68,7 @@ public class BasePageImpl extends PageObject implements BasePage {
    **********************************************************/
 
   private WebElementFacade getWebElementFacadeByXpath(String xpath) {
+    waitForPageLoaded();
     return findBy(xpath);
   }
 
@@ -92,6 +96,17 @@ public class BasePageImpl extends PageObject implements BasePage {
                                                                          nestedElement,
                                                                          getImplicitWaitTimeout().toMillis(),
                                                                          getWaitForTimeout().toMillis());
+  }
+
+  public void waitForPageLoaded() {
+    try {
+      WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+      wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState === 'complete' && (!document.getElementById('TopbarLoadingContainer') || document.getElementById('TopbarLoadingContainer').className.indexOf('hidden') > 0)")
+                                                              .toString()
+                                                              .equals("true"));
+    } catch (Exception error) {
+      exceptionLauncher.throwSerenityExeption(error, "Timeout waiting for Page Load Request to complete.");
+    }
   }
 
   public <T extends ButtonElementFacade> T findButtonElementByXpath(String xpath) {

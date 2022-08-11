@@ -134,6 +134,7 @@ public class ManageSpaceStepDefinitions {
       homeSteps.goToManageSpacesPage();
       String randomSpaceName = "randomSpaceName" + getRandomNumber();
       manageSpaceSteps.addSpaceWithRegistration(randomSpaceName, registration);
+      setSessionVariable("randomSpaceName").to(randomSpaceName);
     }
   }
 
@@ -353,7 +354,7 @@ public class ManageSpaceStepDefinitions {
     for (int i = 0; i < 30; i++) {
       homeSteps.goToManageSpacesPage();
       String randomSpaceName = "randomSpaceName" + getRandomNumber();
-      manageSpaceSteps.addSimpleSpace(randomSpaceName);
+      manageSpaceSteps.addSpaceWithRegistration(randomSpaceName, "Open");
     }
   }
 
@@ -536,7 +537,7 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.addUserToSpace(thirdUserName);
   }
 
-  @And("^I create the space with template and the first created user$")
+  @And("I create the space with template and the first created user")
   public void addSpaceByTemplateWithFirstUser() {
     String randomSpaceName = "randomSpaceName" + getRandomNumber();
     String firstUserFirstName = sessionVariableCalled("firstUserFirstName");

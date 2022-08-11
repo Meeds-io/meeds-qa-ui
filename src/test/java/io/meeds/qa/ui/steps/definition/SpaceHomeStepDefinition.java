@@ -798,7 +798,7 @@ public class SpaceHomeStepDefinition {
     assertThat(spaceHomeSteps.isActivityCommentNotdisplayed()).isTrue();
   }
 
-  @And("^I go to notes application of the space$")
+  @And("I go to notes application of the space")
   public void accessNotesApp() {
     spaceHomeSteps.accessNotesApp();
   }

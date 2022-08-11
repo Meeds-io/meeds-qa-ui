@@ -1,6 +1,7 @@
 package io.meeds.qa.ui.pages.page.factory.space;
 
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
@@ -132,9 +133,6 @@ public class SpaceHomePage extends GenericPage {
 
   @FindBy(xpath = "//*[contains(@class,'drawerContent ')]//button//span[contains(text(),'Comment')]")
   private BaseElementFacade          replyButtonInDrawer;
-
-  @FindBy(css = "#activityCommentsDrawer .drawerIcons button.mdi-close")
-  private BaseElementFacade          closeCommentsDrawer;
 
   @FindBy(xpath = "//*[contains(@class,'v-btn--block v-btn--contained theme--light')]//span")
   private BaseElementFacade          loadMoreActivitiesBtn;
@@ -291,7 +289,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private BaseElementFacade getCommentsDrawerDropDownMenu(String comment) {
-    return findByXpath(String.format("//*[contains(@class,'drawerHeader')]/following::*[contains(@id,'Extactivity-content-extensions')]//div[contains(text(),'%s')]/preceding::i[contains(@class,'mdi mdi-dots-vertical')][1]",
+    return findByXpath(String.format("//*[contains(@class,'drawerHeader')]/following::*[contains(@id,'Extactivity-content-extensions')]//div[contains(text(),'%s')]/preceding::i[contains(@class,'mdi mdi-dots-vertical')][1]/ancestor::button",
                                      comment));
   }
 
@@ -449,7 +447,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void commentIsDisplayedInDrawer(String commentsNumber, String comment) {
-    getDrawerCommentsNumberAndNames(commentsNumber, comment).isVisibleAfterWaiting();
+    getDrawerCommentsNumberAndNames(commentsNumber, comment).isVisible();
   }
 
   public void commentIsNotDisplayedInDrawer(String commentsNumber, String comment) {
@@ -566,8 +564,7 @@ public class SpaceHomePage extends GenericPage {
     driver.switchTo().defaultContent();
 
     commentButtonInDrawer.clickOnElement();
-    closeCommentsDrawer.clickOnElement();
-    commentButtonInDrawer.isNotVisibleAfterWaiting();
+    closeCommentsDrawer();
   }
 
   public void clickOnCommentsDrawerSecondPage() {
@@ -583,7 +580,7 @@ public class SpaceHomePage extends GenericPage {
     secondCommentInDrawer.isDisplayed();
     thirdCommentInDrawer.isDisplayed();
     fourthCommentInDrawer.isDisplayed();
-    closeCommentsDrawer.clickOnElement();
+    closeCommentsDrawer();
   }
 
   public void checkTenCommentIsDisplayedInDrawer() {
@@ -597,20 +594,17 @@ public class SpaceHomePage extends GenericPage {
     eighthCommentInDrawer.isDisplayed();
     ninthCommentInDrawer.isDisplayed();
     tenthCommentInDrawer.isDisplayed();
-    closeCommentsDrawer.clickOnElement();
-
+    closeCommentsDrawer();
   }
 
   public void publishComment() {
     commentButtonInDrawer.clickOnElement();
-    closeCommentsDrawer.clickOnElement();
-    commentButtonInDrawer.isNotVisibleAfterWaiting();
+    closeCommentsDrawer();
   }
 
   public void updateComment() {
     updateButtonInDrawer.clickOnElement();
-    closeCommentsDrawer.clickOnElement();
-    commentButtonInDrawer.isNotVisibleAfterWaiting();
+    closeCommentsDrawer();
   }
 
   public void enterCommentText(String comment) {
@@ -738,9 +732,7 @@ public class SpaceHomePage extends GenericPage {
     driver.switchTo().defaultContent();
 
     replyButtonInDrawer.clickOnElement();
-    closeCommentsDrawer.clickOnElement();
-    commentButtonInDrawer.isNotVisibleAfterWaiting();
-
+    closeCommentsDrawer();
   }
 
   public void clickOnConfirmButton() {
@@ -799,7 +791,7 @@ public class SpaceHomePage extends GenericPage {
 
   public void checkActivityCommentInDrawer(String comment) {
     Assert.assertEquals(commentTitleInDrawer.getText(), comment);
-    closeCommentsDrawer.clickOnElement();
+    closeCommentsDrawer();
   }
 
   public void hoverOnLikeIconCommentsDrawer(String comment) {
@@ -812,7 +804,9 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void closeCommentsDrawer() {
-    closeCommentsDrawer.clickOnElement();
+    BaseElementFacade closeDrawerButton = findByXpath("//*[@id='activityCommentsDrawer']//*[contains(@class, 'drawerIcons')]//button[contains(@class, 'mdi-close')]");
+    clickOnElement(closeDrawerButton);
+    closeDrawerButton.waitUntilNotVisible();
   }
 
   public boolean isActivityVisible(String activity) {
@@ -877,27 +871,27 @@ public class SpaceHomePage extends GenericPage {
 
   public void checkFirstCommentInDrawer(String comment) {
     Assert.assertEquals(firstCommentInDrawer.getText(), comment);
-    closeCommentsDrawer.clickOnElement();
+    closeCommentsDrawer();
   }
 
   public void checkSecondCommentInDrawer(String comment) {
     secondCommentInDrawer.isDisplayed();
-    closeCommentsDrawer.clickOnElement();
+    closeCommentsDrawer();
   }
 
   public void checkThirdCommentInDrawer(String comment) {
     thirdCommentInDrawer.isDisplayed();
-    closeCommentsDrawer.clickOnElement();
+    closeCommentsDrawer();
   }
 
   public void checkFourthCommentInDrawer(String comment) {
     fourthCommentInDrawer.isDisplayed();
-    closeCommentsDrawer.clickOnElement();
+    closeCommentsDrawer();
   }
 
   public void checkSixthPositionInDrawer(String comment) {
     sixthPositionInDrawer.isDisplayed();
-    closeCommentsDrawer.clickOnElement();
+    closeCommentsDrawer();
   }
 
   public void openEditActivityMenu(String activity) {
@@ -1001,8 +995,8 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void clickOnCommentThreeDotsInCommentsDrawer(String comment) {
-    getCommentsDrawerDropDownMenu(comment).waitUntilVisible();
-    getCommentsDrawerDropDownMenu(comment).clickOnElement();
+    BaseElementFacade commentsDrawerDropDownMenu = getCommentsDrawerDropDownMenu(comment);
+    clickOnElement(commentsDrawerDropDownMenu);
   }
 
   public void deleteReply(String reply) {
