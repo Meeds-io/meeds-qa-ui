@@ -18,6 +18,8 @@ public class ManageSpacesPage extends GenericPage {
     super(driver);
   }
 
+  private SpaceHomePage spaceHomePage;
+
   @FindBy(xpath = "//button[contains(@class,'addNewSpaceButton')]")
   private BaseElementFacade    addNewSpaceButton;
 
@@ -578,6 +580,12 @@ public class ManageSpacesPage extends GenericPage {
 
   public void addUserToSpace(String user) {
     spaceMembersTab.clickOnElement();
+    inviteUserButton.waitUntilVisible();
+    BaseElementFacade memberCard = findByXpath(String.format("//*[contains(@class, 'userFullname') and contains(text(), '%s')]",
+                                                             user));
+    if (memberCard.isPresent()) {
+      spaceHomePage.removeMember(user);
+    }
     inviteUserButton.clickOnElement();
     inviteUserInput.setTextValue(user + " ");
     inviteUserInput.sendKeys(Keys.BACK_SPACE);

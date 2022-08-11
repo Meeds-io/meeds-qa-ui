@@ -63,7 +63,6 @@ Feature: Social
     And Activity Comment 'comment' is displayed in activity stream
 
   @activitystream
-  @failing
   Scenario: [REPLY_05] The comment is displayed on the buttom of the comment reply section
     Given I am authenticated as admin
     And I create the first random user

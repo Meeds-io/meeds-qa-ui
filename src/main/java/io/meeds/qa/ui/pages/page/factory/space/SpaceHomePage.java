@@ -1,7 +1,6 @@
 package io.meeds.qa.ui.pages.page.factory.space;
 
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
@@ -146,6 +145,9 @@ public class SpaceHomePage extends GenericPage {
   @FindBy(xpath = "//*[contains(@class,'uiIcon uiIconMemberAdmin')]")
   private BaseElementFacade          promoteAsManagerBtn;
 
+  @FindBy(xpath = "//*[contains(@class,'uiIcon uiIconTrash')]")
+  private BaseElementFacade          removeMemberBtn;
+
   @FindBy(xpath = "//header[@id='peopleListToolbar']//input")
   public static TextBoxElementFacade spaceMembersFilterTextBox;
 
@@ -271,6 +273,9 @@ public class SpaceHomePage extends GenericPage {
 
   @FindBy(xpath = "//a[contains(@href,'tasks') and @tabindex='0']")
   private BaseElementFacade spaceTasksTab;
+
+  @FindBy(xpath = "(//div[@class='d-flex flex-lg-row flex-column'])[4]")
+  private BaseElementFacade kudosButtonToActivityStream;
 
   private BaseElementFacade getDropDownActivityMenu(String activity) {
     return findByXpath(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::i[contains(@class,'v-icon notranslate')][1]",
@@ -433,12 +438,22 @@ public class SpaceHomePage extends GenericPage {
     promoteAsManagerBtn.clickOnElement();
   }
 
+  public void removeMember(String name) {
+    spaceMembersFilterTextBox.waitUntilVisible();
+    spaceMembersFilterTextBox.setTextValue(name);
+    spaceMemberCardThreeDotsBtn.clickOnElement();
+    removeMemberBtn.clickOnElement();
+  }
+
   public void viewAllRepliesInCommentsDrawer(String comment) {
     getCommentsDrawerViewAllReplies(comment).clickOnElement();
   }
 
   public void clickPostIcon() {
-    postIcon.waitUntilVisible();
+    if (activityTab.getAttribute("aria-selected").equals("false")) {
+      goToSpecificTab("Stream");
+    }
+    waitForPageLoaded();
     postIcon.clickOnElement();
   }
 
@@ -516,6 +531,7 @@ public class SpaceHomePage extends GenericPage {
       membersTab.sendKeys(Keys.ENTER);
       break;
     case "Activité":
+    case "Stream":
       if (!activityTab.isVisible())
         goToLeftTabs.clickOnElement();
       activityTab.sendKeys(Keys.ENTER);
@@ -557,7 +573,7 @@ public class SpaceHomePage extends GenericPage {
 
     ELEMENT_COMMENT_LINK(activityId).clickOnElement();
 
-    ckEditorFrameComment.clickOnElement();
+    clickOnCommentRichText();
     driver.switchTo().frame(ckEditorFrameComment);
     commentField.waitUntilVisible();
     commentField.setTextValue(comment);
@@ -626,7 +642,7 @@ public class SpaceHomePage extends GenericPage {
 
     ELEMENT_COMMENT_LINK(activityId).clickOnElement();
 
-    ckEditorFrameComment.clickOnElement();
+    clickOnCommentRichText();
     driver.switchTo().frame(ckEditorFrameComment);
     if (comment.contains("https")) {
       commentField.sendKeys(comment);
@@ -634,7 +650,7 @@ public class SpaceHomePage extends GenericPage {
       driver.navigate().refresh();
       ELEMENT_COMMENT_LINK(activityId).clickOnElement();
       ckEditorFrameComment.waitUntilVisible();
-      ckEditorFrameComment.clickOnElement();
+      clickOnCommentRichText();
       driver.switchTo().frame(ckEditorFrameComment);
       commentField.waitUntilVisible();
       commentField.clickOnElement();
@@ -725,7 +741,7 @@ public class SpaceHomePage extends GenericPage {
     String activityId = getActivityId(activity);
     getCommentReply(comment, activityId).clickOnElement();
 
-    ckEditorFrameComment.clickOnElement();
+    clickOnCommentRichText();
     driver.switchTo().frame(ckEditorFrameComment);
     commentField.waitUntilVisible();
     commentField.setTextValue(reply);
@@ -818,7 +834,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void enterActivityCommentWithUser(String comment, String user) {
-    ckEditorFrameComment.clickOnElement();
+    clickOnCommentRichText();
     driver.switchTo().frame(ckEditorFrameComment);
     commentField.waitUntilVisible();
     commentField.clear();
@@ -1093,9 +1109,6 @@ public class SpaceHomePage extends GenericPage {
     getBlackKudosCommentReplayIcon(reply).clickOnElement();
   }
 
-  @FindBy(xpath = "(//div[@class='d-flex flex-lg-row flex-column'])[4]")
-  private BaseElementFacade kudosButtonToActivityStream;
-
   public void clickOnkudosButtonToActivityStream() {
     kudosButtonToActivityStream.clickOnElement();
   }
@@ -1103,4 +1116,13 @@ public class SpaceHomePage extends GenericPage {
   public void goToSpaceTasksTab() {
     spaceTasksTab.clickOnElement();
   }
+
+  private void clickOnCommentRichText() {
+    BaseElementFacade richTextLoadingElement = findByXpath("//*[contains(@class, 'loadingRing')]");
+    if (richTextLoadingElement != null && richTextLoadingElement.isPresent()) {
+      richTextLoadingElement.waitUntilNotVisible();
+    }
+    ckEditorFrameComment.clickOnElement();
+  }
+
 }
