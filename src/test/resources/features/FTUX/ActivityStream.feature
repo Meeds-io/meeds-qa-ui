@@ -415,7 +415,6 @@ Feature: Activity Stream
     And the activity 'act10' is not displayed in stream page
 
   @failing
-  @test
   Scenario: CAP100 - [ActivityStream_US38][04]: Cancel Delete comment with replies from the activity stream
     Given I am authenticated as admin
 
@@ -567,7 +566,6 @@ Feature: Activity Stream
     And In activity 'activityTest101' with comment 'commenttest100', the reply 'replyTest104' is displayed
 
   @failing
-  @test
   Scenario: CAP102 - [ActivityStream_US38][06]: Cancel Delete a reply from the activity stream
     Given I am authenticated as admin
 
