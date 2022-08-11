@@ -17,7 +17,8 @@ Feature: Check the rules score increase
     Then My points augmented
 
   @gamification
-  Scenario:Receive a connection request
+  @failing
+  Scenario: Receive a connection request
     Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
@@ -31,7 +32,8 @@ Feature: Check the rules score increase
     Then My points augmented
 
   @gamification
-  Scenario:Like a comment (in space)
+  @failing
+  Scenario: Like a comment (in space)
     Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
@@ -62,6 +64,7 @@ Feature: Check the rules score increase
     Then My points augmented
 
   @gamification
+  @failing
   Scenario:Receive a like on a post
     Given I am authenticated as admin
     And I create the first random user

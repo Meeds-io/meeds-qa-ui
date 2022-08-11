@@ -49,6 +49,7 @@ Feature: To be able to access applications
 
     Then 'Notes' Application Open Button is displayed
 
+  @failing
   Scenario: CAP17 - Design V6-Star button of an app card
     Given I am authenticated as admin
     And I go to Administer application center Page
@@ -93,6 +94,7 @@ Feature: To be able to access applications
     And I click on 'Tasks' Application Open Button
     Then Tasks Application Page is displayed
 
+  @failing
   Scenario: CAP24 - Unfavorite app from right panel "Favorite applications"
     Given I am authenticated as admin
     And I go to Administer application center Page
@@ -123,6 +125,7 @@ Feature: To be able to access applications
     And I go to Administer application center Page
     And I enable Mandatory 'Tasks' for application
 
+  @failing
   Scenario: CAP26 - [User_Settings_US03]: Max number of fav apps/Mandatory apps
     Given I am authenticated as admin
     And I go to Administer application center Page

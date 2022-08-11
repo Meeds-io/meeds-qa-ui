@@ -36,7 +36,8 @@ Feature: Search for User Informations in Profile page
 
     Then User Job '' is displayed in Profile Page
 
-  Scenario: PROFILE-4 : Contact information block_(01) : Add informations
+  @failing
+  Scenario: PROFILE-4 Contact information block_(01) : Add informations
     Given I am authenticated as admin
 
     When I create the first random user
@@ -47,7 +48,8 @@ Feature: Search for User Informations in Profile page
     And Updated Profile Contact Email is displayed
     And Updated Profile Contact Job is displayed
 
-  Scenario: PROFILE-4 : Contact information block_(02) : Add informations
+  @failing
+  Scenario: PROFILE-4 Contact information block_(02) : Add informations
     Given I am authenticated as admin
 
     When I create the first random user

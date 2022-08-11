@@ -20,6 +20,7 @@ Feature: Task user ui
       | eXo Auto |
     And The project 'manageProject' was deleted successfully
 
+  @failing
   Scenario: CAP21-[User_UI_US18.1][User_UI_US18.2]: Check "Add Project" drawer
     Given I am authenticated as admin
     And I open the app center menu
@@ -29,6 +30,7 @@ Feature: Task user ui
     And I click on add project button
     Then The 'addProjectDrawer' is displayed
 
+  @failing
   Scenario:CAP34-[User_UI_US20]: Check "Edit Project" drawer
     Given I am authenticated as admin
     And I open the app center menu

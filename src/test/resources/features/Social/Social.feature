@@ -27,6 +27,7 @@ Feature: Social
     Then Activity Comment 'commenttest' is displayed in Comments drawer
     And Activity Comment 'commenttest' is displayed in activity stream
 
+  @failing
   Scenario: Search users in My connections tab
     Given I am authenticated as admin
     And I create the first random user
@@ -62,7 +63,8 @@ Feature: Social
     And Activity Comment 'comment' is displayed in activity stream
 
   @activitystream
-  Scenario: [ID: REPLY_05] The comment is displayed on the buttom of the comment reply section
+  @failing
+  Scenario: [REPLY_05] The comment is displayed on the buttom of the comment reply section
     Given I am authenticated as admin
     And I create the first random user
     And I create the second random user

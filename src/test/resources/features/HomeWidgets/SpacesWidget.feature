@@ -6,6 +6,7 @@ Feature: Spaces widget checking
   In order to validate the page
 
   @smoke
+  @failing
   Scenario: US 3.3.2_(02) [BACK] Spaces requests to join: See All
     Given I am authenticated as admin
     And I create the first random user

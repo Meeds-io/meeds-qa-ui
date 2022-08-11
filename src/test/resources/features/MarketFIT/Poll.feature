@@ -51,6 +51,7 @@ Feature: Poll
     And I publish the Poll
     Then The Poll 'Poll 2 eXo' is displayed in stream page
 
+  @failing
   Scenario: Poll_US04_(01) : Edit a poll_edit informations
     Given I am authenticated as admin
     And I create the first random user

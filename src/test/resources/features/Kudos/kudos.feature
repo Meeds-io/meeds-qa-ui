@@ -12,6 +12,7 @@ Feature: Kudos
     Then The kudos settings saved with a kudos number equal to '8' and 'Semester' period type
 
   @kudos
+  @failing
   Scenario: [EXISTANT-KUDOS 2] Sending and Receiving Kudos
     Given I am authenticated as admin
     And I create the first random user

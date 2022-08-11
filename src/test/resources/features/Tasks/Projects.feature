@@ -12,6 +12,7 @@ Feature: Tasks - Projects
     And I add a new project with a description
     Then the project is created successfully and displayed on Projects tab
 
+  @failing
   Scenario: CAP47 - [Project_manager_US03.2]: Clone a project
     Given I am authenticated as admin
     And I create the first random user

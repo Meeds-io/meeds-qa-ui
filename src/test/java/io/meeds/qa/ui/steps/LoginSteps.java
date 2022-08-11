@@ -36,8 +36,7 @@ public class LoginSteps {
   }
 
   public void logoutLogin(String username) {
-    Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
-    homePage.logout();
+    logout();
     String password = Serenity.sessionVariableCalled(username + "-password");
     loginPage.login(username, password);
   }

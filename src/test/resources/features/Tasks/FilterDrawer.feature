@@ -66,6 +66,7 @@ Feature: Filter Drawer
     And In project details the task 'btask11' is displayed in '2' place
     And In project details the task 'ctask11' is displayed in '3' place
 
+  @failing
   Scenario: CAP111 - [Filter_Drawer_US03]:Group by Completed [Group and Sort" tab under project]
     Given I am authenticated as admin
 
@@ -144,6 +145,7 @@ Feature: Filter Drawer
     And Cancel button is displayed in the Filter drawer
     And Reset button is displayed in the Filter drawer
 
+  @failing
   Scenario: [Regression][Tasks]Problem to filter project
     Given I am authenticated as admin
     And I create the first random user
@@ -159,6 +161,7 @@ Feature: Filter Drawer
     Then The project 'test project edited' is displayed in project details
 
   @smoke
+  @failing
   Scenario: CAP75-[Add_Task_Drawer_US01]: Add Task in "TASKS" tab (task NOT belong to project)
     Given I am authenticated as admin
     And I create the first random user

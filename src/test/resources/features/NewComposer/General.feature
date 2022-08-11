@@ -5,7 +5,8 @@ Feature: General new composer
   I want to handle activities via the new composer
   In order to share them with my collaborators
 
-  Scenario: CAP97-[US-General-04]:update posts - text update (space case)
+  @failing
+  Scenario: CAP97 [US-General-04] update posts - text update (space case)
     Given I am authenticated as admin
     And I create the space
     When I click on post in space

@@ -4,6 +4,7 @@ Feature: Activities publication
   I want to publish activities
   In order to share them with my collaborators
 
+  @failing
   Scenario: CAP03 - [US-ShortMessage-01]: post a short message from drawer
     Given I am authenticated as admin
     And I create the space

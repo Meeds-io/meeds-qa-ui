@@ -17,20 +17,13 @@ public class LoginPage extends GenericPage implements IsHidden {
     super(driver);
   }
 
-  @FindBy(id = "username")
-  private TextBoxElementFacade loginTextBox;
-
-  @FindBy(id = "password")
-  private TextBoxElementFacade passwordTextbox;
-
-  @FindBy(tagName = "button")
-  private ButtonElementFacade  loginButton;
-
   public void login(String login, String password) {
-    loginTextBox.waitUntilVisible();
+    TextBoxElementFacade loginTextBox = findTextBoxElementByXpath("//*[@id='username']");
     loginTextBox.setTextValue(login);
+    TextBoxElementFacade passwordTextbox = findTextBoxElementByXpath("//*[@id='password']");
     passwordTextbox.setTextValue(password);
-    loginButton.clickOnElement();
+    BaseElementFacade loginButton = findByXpath("//*[contains(@class, 'loginButton')]//button");
+    clickOnElement(loginButton);
   }
 
 }

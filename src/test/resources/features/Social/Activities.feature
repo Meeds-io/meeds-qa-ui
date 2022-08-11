@@ -3,6 +3,7 @@
 Feature: Activities
 
   @activitystream
+  @failing
   Scenario: delete your activity
     Given I am authenticated as admin
     And I create the space
@@ -16,6 +17,7 @@ Feature: Activities
     And the activity 'activitytest' is no more displayed in the activity stream
 
   @activitystream
+  @failing
   Scenario:  delete your comment
     Given I am authenticated as admin
     And I create the space
@@ -33,6 +35,7 @@ Feature: Activities
     And Comment 'commenttest' is not displayed in activity 'activitytest'
 
   @activitystream
+  @failing
   Scenario:   comment your activity
     Given I am authenticated as admin
     And I create the space

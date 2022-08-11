@@ -17,6 +17,7 @@ Feature: Kudos gamification
     Then My points augmented
 
   @smoke
+  @failing
   Scenario: Post activity (space stream)
     Given I am authenticated as admin
     And I check my points

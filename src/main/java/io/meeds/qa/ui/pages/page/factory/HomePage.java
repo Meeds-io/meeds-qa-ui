@@ -301,10 +301,12 @@ public class HomePage extends GenericPage {
       // Normal Behavior
     }
     driver.get(driver.getCurrentUrl().split("/portal/")[0]);
+    waitForPageLoaded();
   }
 
   public void refreshPage() {
     driver.navigate().refresh();
+    waitForPageLoaded();
   }
 
   public void openNotifications() {

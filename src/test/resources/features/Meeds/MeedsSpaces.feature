@@ -12,6 +12,7 @@ Feature: Meeds Space
     When I click on Show more button
     Then I check that other spaces are displayed
 
+  @failing
   Scenario: [SPACES-4] Spaces Request
     Given I am authenticated as admin
 

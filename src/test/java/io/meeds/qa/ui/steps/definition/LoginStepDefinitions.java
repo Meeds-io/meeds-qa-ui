@@ -18,77 +18,62 @@ public class LoginStepDefinitions {
     assertThat(loginSteps.isHomePageDisplayed()).as("The home page should be loaded, but it did not !").isTrue();
   }
 
+  @Given("I logout")
+  public void logout() {
+    loginSteps.logout();
+  }
+
   @Given("^I change user (.*)$")
   public void logOutLogin(String username) {
     loginSteps.logoutLogin(username);
     assertThat(loginSteps.isHomePageDisplayed()).as("The home page should be loaded, but it did not !").isTrue();
   }
 
-  @Given("I logout")
-  public void logout() {
-    loginSteps.logout();
-  }
-
-  @Given("^I connect with the first created user$")
+  @Given("I connect with the first created user")
   public void logoutLoginFirstUser() {
     String firstUserName = Serenity.sessionVariableCalled("firstUserName");
-
-    loginSteps.logoutLogin(firstUserName);
-    assertThat(loginSteps.isHomePageDisplayed()).as("The home page should be loaded, but it did not !").isTrue();
+    logOutLogin(firstUserName);
   }
 
   @Given("^I connect with the first created user with the edited password$")
   public void logOutLoginFirstUserEditedPassword() {
     String firstUserName = Serenity.sessionVariableCalled("firstUserName");
-
-    loginSteps.logoutLogin(firstUserName);
-    assertThat(loginSteps.isHomePageDisplayed()).as("The home page should be loaded, but it did not !").isTrue();
+    logOutLogin(firstUserName);
   }
 
   @Given("^I connect with the second created user$")
   public void logOutLoginSecondUser() {
     String secondUserName = Serenity.sessionVariableCalled("secondUserName");
-
-    loginSteps.logoutLogin(secondUserName);
-    assertThat(loginSteps.isHomePageDisplayed()).as("The home page should be loaded, but it did not !").isTrue();
+    logOutLogin(secondUserName);
   }
 
   @Given("^I connect with the third created user$")
   public void logOutLoginThirdUser() {
     String thirdUserName = Serenity.sessionVariableCalled("thirdUserName");
-
-    loginSteps.logoutLogin(thirdUserName);
-    assertThat(loginSteps.isHomePageDisplayed()).as("The home page should be loaded, but it did not !").isTrue();
+    logOutLogin(thirdUserName);
   }
 
   @Given("^I connect with the fourth created user$")
   public void logOutLoginFourthUser() {
     String fourthUserName = Serenity.sessionVariableCalled("fourthUserName");
-
-    loginSteps.logoutLogin(fourthUserName);
-    assertThat(loginSteps.isHomePageDisplayed()).as("The home page should be loaded, but it did not !").isTrue();
+    logOutLogin(fourthUserName);
   }
 
   @Given("^I connect with the fifth created user$")
   public void logOutLoginFifthUser() {
     String fifthUserName = Serenity.sessionVariableCalled("fifthUserName");
-
-    loginSteps.logoutLogin(fifthUserName);
-    assertThat(loginSteps.isHomePageDisplayed()).as("The home page should be loaded, but it did not !").isTrue();
+    logOutLogin(fifthUserName);
   }
 
   @Given("^I connect with the dedicated user to be an administrator$")
   public void logOutLoginFirstAdminUser() {
     String firstAdminName = Serenity.sessionVariableCalled("firstAdminName");
-
-    loginSteps.logoutLogin(firstAdminName);
-    assertThat(loginSteps.isHomePageDisplayed()).as("The home page should be loaded, but it did not !").isTrue();
+    logOutLogin(firstAdminName);
   }
 
   @Given("^I connect with admin$")
   public void logOutLoginadmin() {
-    loginSteps.logoutLogin("admin");
-    assertThat(loginSteps.isHomePageDisplayed()).as("The home page should be loaded, but it did not !").isTrue();
+    logOutLogin("admin");
   }
 
 }

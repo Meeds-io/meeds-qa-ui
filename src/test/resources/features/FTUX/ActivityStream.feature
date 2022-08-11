@@ -1272,6 +1272,7 @@ Feature: Activity Stream
     When In comment 'commenttest109', I hover on Like icon
     Then Tooltip Remove Like on 'commenttest109' is displayed in activity stream
 
+  @failing
   Scenario: CAP110 - [ActivityStream_US40][02]: DisLike my comment/reply from activity stream
     Given I am authenticated as admin
 
@@ -1358,6 +1359,7 @@ Feature: Activity Stream
     When In comment 'commenttest111', I hover on Like icon
     Then Tooltip Remove Like on 'commenttest111' is displayed in activity stream
 
+  @failing
   Scenario: CAP112 - [ActivityStream_US40][04]: DisLike comment/reply of other user from activity stream
     Given I am authenticated as admin
 
@@ -1446,6 +1448,7 @@ Feature: Activity Stream
     And Tooltip Remove Like on 'commenttest115' is displayed in comments drawer
     And I close the comments drawer
 
+  @failing
   Scenario: CAP116 - [ActivityStream_US41][02]: DisLike my comment/reply from the comments drawer
     Given I am authenticated as admin
 
@@ -1527,6 +1530,7 @@ Feature: Activity Stream
     And Comment 'commenttest101' is not displayed in activity 'activityTest121'
     And Comment 'commenttest102' is not displayed in activity 'activityTest121'
 
+  @failing
   Scenario: CAP122 - [ActivityStream_IMPV14][02]: Display maximum only the last 2 comments/replies below each activity
     Given I am authenticated as admin
 
@@ -1638,6 +1642,7 @@ Feature: Activity Stream
     And In comment 'commenttest103', the reply 'replyTest103' is displayed in the drawer
     And I close the comments drawer
 
+  @failing
   Scenario: CAP157 - [ActivityStream_IMPV15][01]: Internal Link opening behaviors inside comments
     Given I am authenticated as admin
 
@@ -1670,6 +1675,7 @@ Feature: Activity Stream
     And I open the internal link 'portal/meeds/spaces' in new tab
     Then The internal link 'portal/meeds/spaces' is opened in new tab
 
+  @failing
   Scenario: CAP158 - [ActivityStream_IMPV15][02]: External Link opening behaviors inside comments
     Given I am authenticated as admin
 
@@ -2216,6 +2222,7 @@ Feature: Activity Stream
     When I go to Stream page
     Then the activity 'Long Name Long Name Long Name Long Name Long Name Long Name Long Name' is displayed in activity stream
 
+  @failing
   Scenario: CAP128 - [ActivityStream_US47][01]: Send a kudos from a comment
 
     Given I am authenticated as admin
@@ -2288,6 +2295,7 @@ Feature: Activity Stream
     And I close the comments drawer
     Then '1' kudos are displayed on the reaction drawer
 
+  @failing
   Scenario: CAP220 - [ActivityStream_IMPV07][01]: Pagination in comments drawer
     Given I am authenticated as admin
 

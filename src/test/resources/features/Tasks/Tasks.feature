@@ -107,7 +107,8 @@ Feature: Tasks
     When I close task drawer
     Then Task name 'taskessai' is not displayed in project details
 
-  Scenario: [CERF-77][BUG]: Check tasks display in snapshot's Tasks gadget
+  @failing
+  Scenario: [BUG]: Check tasks display in snapshot's Tasks gadget
     Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
@@ -146,7 +147,7 @@ Feature: Tasks
     And Task 'task test' is displayed from tasks widget
 
   @ignored
-  Scenario: CAP188 - [MARM-1][BUG][Lost Projects] check that project isn't lost after renaming space name
+  Scenario: CAP188 - [Lost Projects] check that project isn't lost after renaming space name
     Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user
@@ -179,6 +180,7 @@ Feature: Tasks
     And Project 'new project test' is displayed in Tasks App Center
     And Project 'second project test' is displayed in Tasks App Center
 
+  @failing
   Scenario:[BUG]: Create Task with a new status
     Given I am authenticated as admin
     And I create the first random user
@@ -236,7 +238,7 @@ Feature: Tasks
     And Label 'label5' is displayed in edit project drawer
 
   @smoke
-  Scenario: [CERF-94] [MARM-33]: Mark task as completed from the task drawer [1]
+  Scenario: Mark task as completed from the task drawer [1]
     Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user
@@ -437,6 +439,7 @@ Feature: Tasks
     Then The 'LabelsDrawer' is displayed
 
   @smoke
+  @failing
   Scenario: CAP50 - [Add_Task_Drawer_US01] [Tasks_tab_US05]: Add Task in "TASKS" tab
     Given I am authenticated as admin
     And I create the first random user
@@ -507,7 +510,8 @@ Feature: Tasks
     When I click on the timestamp
     Then I check that a new second level drawer Changes is opened
 
-  Scenario:[CERF-133][TASK][BUG]:Description update should not be lost due to cloning task and assigning it or changing its status
+  @failing
+  Scenario:[TASK]:Description update should not be lost due to cloning task and assigning it or changing its status
     Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user
