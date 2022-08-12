@@ -49,7 +49,7 @@ public class ChallengesStepDefinition {
     challengesSteps.addProgramName(programName);
   }
 
-  @And("^I select tomorrow for start date$")
+  @And("I select tomorrow for start date")
   public void selectStartDateTomorrow() {
     challengesSteps.selectStartDateTomorrow();
   }

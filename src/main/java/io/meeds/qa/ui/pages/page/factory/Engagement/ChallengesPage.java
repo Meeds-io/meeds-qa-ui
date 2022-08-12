@@ -43,9 +43,6 @@ public class ChallengesPage extends GenericPage {
   @FindBy(xpath = "(//*[contains(@id,'DatePicker')])[2]//input")
   private TextBoxElementFacade endDateField;
 
-  @FindBy(xpath = "(//*[contains(@class,'v-date-picker-table__current')])[1]/following::td[1]")
-  private TextBoxElementFacade startDateTomorrow;
-
   @FindBy(xpath = "(//*[contains(@class,'v-date-picker-table__current')])[2]/following::td[7]")
   private TextBoxElementFacade endDateNextWeek;
 
@@ -62,9 +59,6 @@ public class ChallengesPage extends GenericPage {
 
   @FindBy(xpath = "(//*[contains(@class,'v-date-picker-table__current')])[1]")
   private TextBoxElementFacade startDateToday;
-
-  @FindBy(xpath = "(//*[contains(@class,'v-date-picker-table__current')])[2]/following::td[1]")
-  private TextBoxElementFacade endDateTomorrow;
 
   public void clickAddChallengeBtn() {
     addChallengeBtn.waitUntilVisible();
@@ -110,7 +104,9 @@ public class ChallengesPage extends GenericPage {
 
   public void selectStartDateTomorrow() {
     startDateField.clickOnElement();
-    startDateTomorrow.clickOnElement();
+    BaseElementFacade startDateTomorrow = findByXpathOrCSS("(//*[contains(@class,'v-date-picker-table__current')])[1]/following::td[1]");
+    startDateTomorrow.waitUntilVisible();
+    clickOnElement(startDateTomorrow);
   }
 
   public void selectEndDateNextWeek() {
@@ -173,7 +169,9 @@ public class ChallengesPage extends GenericPage {
   public void selectEndDateTomorrow() {
     endDateField.waitUntilVisible();
     endDateField.clickOnElement();
-    endDateTomorrow.clickOnElement();
+    BaseElementFacade endDateTomorrow = findByXpathOrCSS("(//*[contains(@class,'v-date-picker-table__current')])[2]/following::td[1]");
+    endDateTomorrow.waitUntilVisible();
+    clickOnElement(endDateTomorrow);
   }
 
   public void checkTitleDisplayOnCard(String title) {

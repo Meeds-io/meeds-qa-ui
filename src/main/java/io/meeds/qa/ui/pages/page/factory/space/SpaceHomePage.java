@@ -58,7 +58,7 @@ public class SpaceHomePage extends GenericPage {
   @FindBy(xpath = "//body[contains(@class,'cke_editable_themed')]")
   private TextBoxElementFacade activityContentTextBox;
 
-  @FindBy(xpath = "//*[contains(@class,'v-card__actions')]//button[@aria-label='Post']")
+  @FindBy(xpath = "//*[contains(@class,'v-navigation-drawer--open')]//button[@aria-label='Post']")
   private BaseElementFacade    publishActivityButton;
 
   @FindBy(css = ".newActivitiesButton")
