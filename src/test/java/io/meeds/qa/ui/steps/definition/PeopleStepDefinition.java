@@ -21,34 +21,10 @@ public class PeopleStepDefinition {
     peopleSteps.checkThatFilterIsDisplayed();
   }
 
-  @Given("^I connect to second user$")
-  public void connectToSecondUser() {
-    String secondUserName = Serenity.sessionVariableCalled("secondUserName");
-    peopleSteps.connectToUser(secondUserName);
-  }
-
-  @Given("^I connect to first user$")
-  public void connectToFirstUser() {
-    String firstUserName = Serenity.sessionVariableCalled("firstUserName");
-    peopleSteps.connectToUser(firstUserName);
-  }
-
-  @Given("^I connect to third user$")
-  public void connectToThirdUser() {
-    String thirdUserName = Serenity.sessionVariableCalled("thirdUserName");
-    peopleSteps.connectToUser(thirdUserName);
-  }
-
-  @Given("^I connect to fourth user$")
-  public void connectToFourthUser() {
-    String fourthUserName = Serenity.sessionVariableCalled("fourthUserName");
-    peopleSteps.connectToUser(fourthUserName);
-  }
-
-  @Given("^I connect to fifth user$")
-  public void connectToFifthUser() {
-    String fifthUserName = Serenity.sessionVariableCalled("fifthUserName");
-    peopleSteps.connectToUser(fifthUserName);
+  @Given("^I connect to (.*) user$")
+  public void connectToUserWithPrefix(String userPrefix) {
+    String userName = Serenity.sessionVariableCalled(userPrefix + "UserName");
+    peopleSteps.connectToUser(userName);
   }
 
   @Given("^Pulldown Filter is displayed in People page$")
@@ -59,11 +35,6 @@ public class PeopleStepDefinition {
   @Given("^People Showing Results is displayed in People page$")
   public void checkThatPeopleShowingResultsIsDisplayed() {
     peopleSteps.checkThatPeopleShowingResultsIsDisplayed();
-  }
-
-  @Given("^I connect with this user'(.*)'$")
-  public void connectWithUser(String user) {
-    peopleSteps.connectWithUser(user);
   }
 
   @Given("^My Connections Pulldown Filter with user '(.*)' is displayed in People page$")

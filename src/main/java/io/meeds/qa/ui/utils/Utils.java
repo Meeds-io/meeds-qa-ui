@@ -32,9 +32,8 @@ public class Utils {
   public static String getRandomString(String base) {
     char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
     StringBuilder sb = new StringBuilder(base);
-    Random random = new Random();
     for (int i = 0; i < 6; i++) {
-      char c = chars[random.nextInt(chars.length)];
+      char c = chars[RANDOM.nextInt(chars.length)];
       sb.append(c);
     }
     return sb.toString();
@@ -42,7 +41,9 @@ public class Utils {
 
   public static void waitForPageLoaded(WebDriver driver) {
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
-    wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState === 'complete' && (!document.getElementById('TopbarLoadingContainer') || !!document.querySelector('.TopbarLoadingContainer.hidden'))")
+    wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState === 'complete' "
+        + " && (!document.getElementById('TopbarLoadingContainer') || !!document.querySelector('.TopbarLoadingContainer.hidden'))"
+        + " && !document.querySelector('.v-navigation-drawer--open .v-progress-linear')")
                                                             .toString()
                                                             .equals("true"));
   }

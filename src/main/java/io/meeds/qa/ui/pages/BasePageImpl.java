@@ -1,9 +1,6 @@
 package io.meeds.qa.ui.pages;
 
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoaded;
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.lang.reflect.Field;
 
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -42,24 +39,18 @@ public class BasePageImpl extends PageObject implements BasePage {
     exceptionLauncher = new ExceptionLauncher();
   }
 
+  @Override
   public void verifyPageLoaded() {
-    Field[] fields = getClass().getDeclaredFields();
-    for (Field field : fields) {
-      Class<?> fieldClass = field.getType();
-      if (BaseElementFacade.class.isAssignableFrom(fieldClass)) {
-        field.setAccessible(true);
-        BaseElementFacade fieldInstance = null;
-        try {
-          fieldInstance = (BaseElementFacade) field.get(this);
-          assertThat(fieldInstance.isPresent())
-                                               .as(String.format("Could not find the element [%s] !", field.getName()))
-                                               .isTrue();
-        } catch (IllegalArgumentException | IllegalAccessException e) {
-          exceptionLauncher.throwSerenityExeption(e,
-                                                  String.format("Could not find the element [%s] !", field.getName()));
-        }
-      }
-    }
+    waitForPageLoading();
+  }
+
+  public void refreshPage() {
+    driver.navigate().refresh();
+    waitForPageLoaded(driver);
+  }
+
+  public void waitForPageLoading() {
+    waitForPageLoaded(getDriver());
   }
 
   /**********************************************************

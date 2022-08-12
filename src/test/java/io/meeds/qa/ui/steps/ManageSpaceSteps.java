@@ -59,6 +59,9 @@ public class ManageSpaceSteps {
     }
     manageSpacesPage.insertSpaceNameInSearchField(space);
     manageSpacesPage.goToSpecificSpace(space);
+    if (!manageSpacesPage.isSpaceMenuDisplayed()) {
+      manageSpacesPage.clickSpaceAction("Join");
+    }
   }
 
   public void addSpaceWithInviteUser(String spaceName, String user) {

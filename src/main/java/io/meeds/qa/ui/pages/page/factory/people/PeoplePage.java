@@ -137,12 +137,6 @@ public class PeoplePage extends GenericPage {
                        String.format("//a[contains(@href,'%s')]/../..//button[contains(@class,'peopleMenuIcon')]", user));
   }
 
-  public void connectToUser(String user) {
-    searchPeopleInput.setTextValue(user);
-    getConnectUserButton(user).clickOnElement();
-    getConnectUserButton(user).waitUntilNotVisible();
-  }
-
   public void checkConnectToUser(String user) {
     getDriver().navigate().refresh();
     searchPeopleInput.waitUntilVisible();

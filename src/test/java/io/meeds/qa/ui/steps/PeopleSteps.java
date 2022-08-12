@@ -12,16 +12,7 @@ public class PeopleSteps {
 
   private HomePage   homePage;
 
-  String             firstUserSuggestion  = "Bilel Bouseha";
-
-  String             secondUserSuggestion = "Amin Mejri";
-
   public void connectToUser(String user) {
-    homePage.goToPeoplePage();
-    peoplePage.connectToUser(user);
-  }
-
-  public void connectWithUser(String user) {
     homePage.goToPeoplePage();
     peoplePage.checkConnectToUser(user);
   }
@@ -85,7 +76,8 @@ public class PeopleSteps {
   }
 
   public void checkThatSuggestionWidgetDisplayedTwoUsersWithAddAndDeleteButtons() {
-    // The suggestion widget is existing and displayed only 2 users with Add button and Delete buttons
+    // The suggestion widget is existing and displayed only 2 users with Add
+    // button and Delete buttons
     peoplePage.ELEMENT_FIRST_SUGGESTION.isVisible();
     peoplePage.ELEMENT_SECOND_SUGGESTION.isVisible();
     peoplePage.ELEMENT_ADD_FIRST_USER_SUGGESTION.isVisible();
@@ -165,7 +157,6 @@ public class PeopleSteps {
   }
 
   public void deleteSentRequest() throws InterruptedException {
-//    Thread.sleep(3000);
     // Delete the Sent Request
     String fourthUserFirstName = Serenity.sessionVariableCalled("fourthUserFirstName");
     String fourthUserLastName = Serenity.sessionVariableCalled("fourthUserLastName");

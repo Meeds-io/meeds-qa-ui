@@ -316,9 +316,6 @@ public class ManageSpacesPage extends GenericPage {
 
     Assert.assertTrue(ELEMENT_SPACE_TABS_TOP_BAR_ORDER("2").getAttribute("href")
                                                            .contains(ELEMENT_SPACE_MEMBERS_TAB_TOP_BAR(space.toLowerCase()).getAttribute("href")));
-
-    Assert.assertTrue(ELEMENT_SPACE_TABS_TOP_BAR_ORDER("3").getAttribute("href")
-                                                           .contains(ELEMENT_SPACE_SETTINGS_TAB_TOP_BAR(space.toLowerCase()).getAttribute("href")));
   }
 
   public void clickSecondProcessButton() {
@@ -384,7 +381,7 @@ public class ManageSpacesPage extends GenericPage {
     BaseElementFacade element = getSpaceNameInListOfSpace(spaceName);
     element.waitUntilVisible();
     element.clickOnElement();
-    spaceName(spaceName).waitUntilVisible();
+    waitForPageLoading();
   }
 
   public void inviteUserToSpace(String user) {
@@ -411,6 +408,11 @@ public class ManageSpacesPage extends GenericPage {
         clickOnElement(spaceAction);
       }
     }
+  }
+
+  public boolean isSpaceMenuDisplayed() {
+    BaseElementFacade spaceFirstNavigationTab = getSpaceFirstNavigationTab();
+    return spaceFirstNavigationTab.isPresent();
   }
 
   private BaseElementFacade getSpaceFirstNavigationTab() {

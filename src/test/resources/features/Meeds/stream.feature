@@ -51,25 +51,3 @@ Feature: Meeds stream
     And I go to stream page
     And I hover on user name 'aymen.khalfi' activity
     Then The 'userPopoverNotConnected' is displayed
-
-  @ignored
-  Scenario:[Streem]_(01) User popover new UI : Users are connect
-    Given I am authenticated with the user with the credentials
-      | login    | khalil_riahi |
-      | password | pHkhCkBB4c   |
-    And I create the space by eXo Member with user 'houssem.riahi'
-    And I click on post in space
-    And I enter an activity 'stream activité'
-    And I publish the activity
-    And I connect with this user'houssem.riahi'
-    And I change user
-      | login    | houssem.riahi |
-      | password | houssem2020   |
-    And I go to Person Page
-    And I go to the user's profile 'khalil_riahi'
-    And I confirm connection
-    And I go to First Space
-    And I 'Accept'
-    And I go to stream page
-    And I hover on user name 'khalil_riahi' activity
-    Then The 'userPopoverConnected' is displayed

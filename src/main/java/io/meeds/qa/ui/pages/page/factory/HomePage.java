@@ -307,11 +307,6 @@ public class HomePage extends GenericPage {
     waitForPageLoaded(driver);
   }
 
-  public void refreshPage() {
-    driver.navigate().refresh();
-    waitForPageLoaded(driver);
-  }
-
   public void openNotifications() {
     clickOnElement(notificationIcon);
   }

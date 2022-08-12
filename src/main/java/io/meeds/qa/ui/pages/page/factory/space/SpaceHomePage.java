@@ -63,7 +63,7 @@ public class SpaceHomePage extends GenericPage {
   @FindBy(xpath = "//*[contains(@class,'v-card__actions')]//button[@aria-label='Post']")
   private BaseElementFacade    publishActivityButton;
 
-  @FindBy(xpath = "//button[contains(@class,'newActivitiesButton ')]")
+  @FindBy(css = ".newActivitiesButton")
   private BaseElementFacade    newActivityButton;
 
   @FindBy(xpath = "//*[contains(@class,'v-card__actions')]//button[@aria-label='Update']")
@@ -511,7 +511,8 @@ public class SpaceHomePage extends GenericPage {
 
   public void publishActivity() {
     publishActivityButton.clickOnElement();
-    newActivityButton.clickOnElement();
+    publishActivityButton.waitUntilNotVisible();
+    refreshPage();
   }
 
   public void editActivity() {
