@@ -23,38 +23,13 @@ public class AddUserStepDefinition {
     addUserSteps.addRandomUser("firstAdmin");
   }
 
-  @Given("I create the first random user")
-  public void addRandomUser() {
-    addUserSteps.addRandomUser("first");
-  }
-
-  @Given("^I create the second random user$")
-  public void addSecondRandomUser() {
-    addUserSteps.addRandomUser("second");
-  }
-
-  @Given("^I create the third random user$")
-  public void addThirdRandomUser() {
-    addUserSteps.addRandomUser("third");
-  }
-
-  @Given("^I create the fourth random user$")
-  public void addFourthRandomUser() {
-    addUserSteps.addRandomUser("fourth");
-  }
-
-  @Given("^I create the fifth random user$")
-  public void addFifthRandomUser() {
-    addUserSteps.addRandomUser("fifth");
-  }
-
-  @Given("^I create the sixth random user$")
-  public void addSixthRandomUser() {
-    addUserSteps.addRandomUser("sixth");
+  @Given("^I create the (.*) random user$")
+  public void addRandomUser(String prefix) {
+    addUserSteps.addRandomUser(prefix);
   }
 
   @Given("^The following user is created$")
-  public void adduser(Map<String, String> userDetails) {
+  public void addUser(Map<String, String> userDetails) {
     homeSteps.goToAddUser();
     addUserSteps.addUser(userDetails);
   }

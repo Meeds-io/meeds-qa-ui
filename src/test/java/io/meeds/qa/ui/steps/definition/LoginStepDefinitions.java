@@ -29,51 +29,27 @@ public class LoginStepDefinitions {
     assertThat(loginSteps.isHomePageDisplayed()).as("The home page should be loaded, but it did not !").isTrue();
   }
 
-  @Given("I connect with the first created user")
-  public void logoutLoginFirstUser() {
-    String firstUserName = Serenity.sessionVariableCalled("firstUserName");
+  @Given("^I connect with admin$")
+  public void logOutLoginadmin() {
+    logOutLogin("admin");
+  }
+
+  @Given("^I connect with the (.*) created user$")
+  public void logoutLoginUser(String userPrefix) {
+    String firstUserName = Serenity.sessionVariableCalled(userPrefix + "UserName");
     logOutLogin(firstUserName);
   }
 
-  @Given("^I connect with the first created user with the edited password$")
+  @Given("I connect with the first created user with the edited password")
   public void logOutLoginFirstUserEditedPassword() {
     String firstUserName = Serenity.sessionVariableCalled("firstUserName");
     logOutLogin(firstUserName);
-  }
-
-  @Given("^I connect with the second created user$")
-  public void logOutLoginSecondUser() {
-    String secondUserName = Serenity.sessionVariableCalled("secondUserName");
-    logOutLogin(secondUserName);
-  }
-
-  @Given("^I connect with the third created user$")
-  public void logOutLoginThirdUser() {
-    String thirdUserName = Serenity.sessionVariableCalled("thirdUserName");
-    logOutLogin(thirdUserName);
-  }
-
-  @Given("^I connect with the fourth created user$")
-  public void logOutLoginFourthUser() {
-    String fourthUserName = Serenity.sessionVariableCalled("fourthUserName");
-    logOutLogin(fourthUserName);
-  }
-
-  @Given("^I connect with the fifth created user$")
-  public void logOutLoginFifthUser() {
-    String fifthUserName = Serenity.sessionVariableCalled("fifthUserName");
-    logOutLogin(fifthUserName);
   }
 
   @Given("^I connect with the dedicated user to be an administrator$")
   public void logOutLoginFirstAdminUser() {
     String firstAdminName = Serenity.sessionVariableCalled("firstAdminName");
     logOutLogin(firstAdminName);
-  }
-
-  @Given("^I connect with admin$")
-  public void logOutLoginadmin() {
-    logOutLogin("admin");
   }
 
 }
