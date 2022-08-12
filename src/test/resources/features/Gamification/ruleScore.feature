@@ -1,5 +1,3 @@
-# new feature
-# Tags: optional
 Feature: Check the rules score increase
   for different type of activity on the plf
 

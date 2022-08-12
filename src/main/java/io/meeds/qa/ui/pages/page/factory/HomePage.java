@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 
@@ -13,7 +14,6 @@ import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
 import net.serenitybdd.core.annotations.findby.FindBy;
-import net.serenitybdd.core.exceptions.SerenityManagedException;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class HomePage extends GenericPage {
@@ -509,7 +509,7 @@ public class HomePage extends GenericPage {
     verifyPageLoaded();
     try {
       clickOnElement(hamburgerNavigationMenuLink);
-    } catch (SerenityManagedException e) {
+    } catch (ElementClickInterceptedException e) {
       refreshPage();
       clickOnElement(hamburgerNavigationMenuLink);
     }

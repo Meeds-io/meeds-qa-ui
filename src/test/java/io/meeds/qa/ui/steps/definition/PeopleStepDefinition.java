@@ -11,11 +11,6 @@ public class PeopleStepDefinition {
   @Steps
   private PeopleSteps peopleSteps;
 
-  @Given("^I connect with the user'(.*)'$")
-  public void connectToUser(String user) {
-    peopleSteps.connectToUser(user);
-  }
-
   @Given("^Search Filter is displayed in People page$")
   public void checkThatFilterIsDisplayed() {
     peopleSteps.checkThatFilterIsDisplayed();
