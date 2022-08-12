@@ -76,7 +76,14 @@ public class UserProfileSteps {
   }
 
   public boolean wasMyPointIncreased(int myPointBeforeKudos) {
-    return userProfile.getMyWeeklyPoint() > myPointBeforeKudos;
+    int retry = 3;
+    int index = 0;
+    // Retry at most 3 times until Gamification Points are increased
+    while (userProfile.getMyWeeklyPoint() <= myPointBeforeKudos && index++ < retry) {
+      userProfile.waitFor(3).seconds();
+      userProfile.refreshPage();
+    }
+    return index < retry;
   }
 
   public void isProfileAvatarUploaded() {

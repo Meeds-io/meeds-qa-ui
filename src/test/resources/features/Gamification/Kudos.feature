@@ -13,7 +13,6 @@ Feature: Kudos gamification
     And I go to the first user profile
     And I send kudos with message 'Message for kudos'
     And I connect with the first created user
-    And I wait '3' seconds
     When I go to my profile
     Then My points augmented
 
@@ -26,6 +25,5 @@ Feature: Kudos gamification
     And I enter an activity 'kudosPostActivity'
     And I publish the activity
     And the activity 'kudosPostActivity' is displayed in activity stream
-    And I wait '3' seconds
     And I go to my profile
     Then My points augmented
