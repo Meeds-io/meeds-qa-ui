@@ -381,7 +381,7 @@ public class ManageSpacesPage extends GenericPage {
     BaseElementFacade element = getSpaceNameInListOfSpace(spaceName);
     element.waitUntilVisible();
     element.clickOnElement();
-    waitForPageLoading();
+    verifyPageLoaded();
   }
 
   public void inviteUserToSpace(String user) {

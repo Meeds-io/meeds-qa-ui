@@ -4,8 +4,9 @@ import java.time.Duration;
 import java.util.Random;
 
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import net.serenitybdd.core.Serenity;
 
 public class Utils {
 
@@ -39,8 +40,8 @@ public class Utils {
     return sb.toString();
   }
 
-  public static void waitForPageLoaded(WebDriver driver) {
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+  public static void waitForPageLoaded() {
+    WebDriverWait wait = new WebDriverWait(Serenity.getDriver(), Duration.ofSeconds(60));
     wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState === 'complete' "
         + " && (!document.getElementById('TopbarLoadingContainer') || !!document.querySelector('.TopbarLoadingContainer.hidden'))"
         + " && !document.querySelector('.v-navigation-drawer--open .v-progress-linear')")

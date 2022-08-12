@@ -41,16 +41,12 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   @Override
   public void verifyPageLoaded() {
-    waitForPageLoading();
+    waitForPageLoaded();
   }
 
   public void refreshPage() {
     driver.navigate().refresh();
-    waitForPageLoaded(driver);
-  }
-
-  public void waitForPageLoading() {
-    waitForPageLoaded(getDriver());
+    verifyPageLoaded();
   }
 
   /**********************************************************
@@ -58,7 +54,7 @@ public class BasePageImpl extends PageObject implements BasePage {
    **********************************************************/
 
   private WebElementFacade getWebElementFacadeByXpathOrCSS(String xpath) {
-    waitForPageLoaded(getDriver());
+    verifyPageLoaded();
     return findBy(xpath);
   }
 

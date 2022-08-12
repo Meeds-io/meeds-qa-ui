@@ -50,7 +50,8 @@ public class TestHooks {
     Serenity.setSessionVariable("admin-password").to(adminPassword);
     adminLoggedIn = false;
     loginSteps.open();
-    Serenity.getWebdriverManager().getCurrentDriver().manage().deleteAllCookies();
+    Serenity.getDriver().manage().deleteAllCookies();
+    loginSteps.open();
 
     SPACES.entrySet().forEach(entry -> {
       if (StringUtils.isNotBlank(entry.getValue())) {

@@ -1,7 +1,5 @@
 package io.meeds.qa.ui.pages;
 
-import static io.meeds.qa.ui.utils.Utils.waitForPageLoaded;
-
 import java.io.File;
 
 import org.openqa.selenium.By;
@@ -71,7 +69,7 @@ public class GenericPage extends BasePageImpl {
     element.waitUntilEnabled();
     element.waitUntilClickable();
     element.clickOnElement();
-    waitForPageLoaded(driver);
+    verifyPageLoaded();
   }
 
 }

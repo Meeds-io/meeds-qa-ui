@@ -1,7 +1,5 @@
 package io.meeds.qa.ui.pages.page.factory.space;
 
-import static io.meeds.qa.ui.utils.Utils.waitForPageLoaded;
-
 import org.junit.Assert;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -460,7 +458,7 @@ public class SpaceHomePage extends GenericPage {
     if (activityTab.getAttribute("aria-selected").equals("false")) {
       goToSpecificTab("Stream");
     }
-    waitForPageLoaded(driver);
+    verifyPageLoaded();
     postIcon.clickOnElement();
   }
 

@@ -122,11 +122,11 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
     LOGGER.debug("clicking on the element [{}]", this);
     try {
       resetTimeouts();
-      waitForPageLoaded(driver);
+      waitForPageLoaded();
       waitUntilClickable();
       click();
       resetTimeouts();
-      waitForPageLoaded(driver);
+      waitForPageLoaded();
     } catch (WebDriverException e) {
       exceptionLauncher.throwSerenityExeption(e, String.format("The element [%s] cannot be clicked.", this));
     }

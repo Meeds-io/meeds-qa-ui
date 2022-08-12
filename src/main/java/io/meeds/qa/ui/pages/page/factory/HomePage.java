@@ -1,7 +1,5 @@
 package io.meeds.qa.ui.pages.page.factory;
 
-import static io.meeds.qa.ui.utils.Utils.waitForPageLoaded;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -304,7 +302,7 @@ public class HomePage extends GenericPage {
       // Normal Behavior
     }
     driver.get(driver.getCurrentUrl().split("/portal/")[0]);
-    waitForPageLoaded(driver);
+    verifyPageLoaded();
   }
 
   public void openNotifications() {
@@ -342,7 +340,7 @@ public class HomePage extends GenericPage {
     if (hamburgerNavigationMenuLink.isPresent()) {
       clickOnHamburgerMenu();
       logOutMenu.clickOnElement();
-      waitForPageLoaded(driver);
+      verifyPageLoaded();
     }
   }
 
@@ -508,7 +506,7 @@ public class HomePage extends GenericPage {
 
   private void clickOnHamburgerMenu() {
     resetImplicitTimeout();
-    waitForPageLoaded(driver);
+    verifyPageLoaded();
     try {
       clickOnElement(hamburgerNavigationMenuLink);
     } catch (SerenityManagedException e) {

@@ -37,7 +37,7 @@ public class TextBoxElementFacadeImpl extends BaseElementFacadeImpl implements T
   }
 
   public void setTextValue(String newValue, Keys keys) {
-    waitForPageLoaded(driver);
+    waitForPageLoaded();
     try {
       waitUntilVisible();
     } catch (WebDriverException | IllegalArgumentException e) {
@@ -53,7 +53,7 @@ public class TextBoxElementFacadeImpl extends BaseElementFacadeImpl implements T
     if (keys != null) {
       sendKeys(keys);
     }
-    waitForPageLoaded(driver);
+    waitForPageLoaded();
   }
 
   public void setTextValue(String newValue) {
@@ -61,7 +61,7 @@ public class TextBoxElementFacadeImpl extends BaseElementFacadeImpl implements T
   }
 
   public String getTextBoxValue() {
-    waitForPageLoaded(driver);
+    waitForPageLoaded();
     LOGGER.debug(String.format("Getting text of the element [%s]", this));
     String textValue = null;
     try {
