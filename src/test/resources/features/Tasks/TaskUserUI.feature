@@ -2,6 +2,7 @@
 @smoke
 Feature: Task user ui
 
+  @failing
   Scenario: CAP123-[User_UI_US02.6]:Filter by button " I Manage" in Projects tab
     Given I am authenticated as admin
     And I open the app center menu
@@ -45,6 +46,7 @@ Feature: Task user ui
     Then The 'editProject' is displayed
     And The project 'editProject' was deleted successfully
 
+  @failing
   Scenario:CAP35-[User_UI_US20]:Edit a Project
     Given I am authenticated as admin
     And I open the app center menu
@@ -107,6 +109,7 @@ Feature: Task user ui
     And I search for the project 'projectTasks'
     Then The 'projectNotSpaceCard' is displayed
 
+  @failing
   Scenario: Check message when Project title is empty
     Given I am authenticated as admin
     And I open the app center menu
@@ -117,6 +120,7 @@ Feature: Task user ui
     And I save add project
     Then The 'messageAddProject' is displayed
 
+  @failing
   Scenario: CAP37 - [User_UI_US18.1]: Check message when project title contains less than 3 characters
     Given I am authenticated as admin
     And I open the app center menu

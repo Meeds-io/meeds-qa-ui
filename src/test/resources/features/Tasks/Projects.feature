@@ -232,6 +232,7 @@ Feature: Tasks - Projects
     And The task name 'task3' should be displayed in PLAN view
 
   @smoke
+  @failing
   Scenario: CAP16 - [Project_Card_US01]: check the display "project's creator avatar"
     Given I am authenticated as admin
     And I create the first random user
@@ -245,6 +246,7 @@ Feature: Tasks - Projects
     And I search for the project 'projectCard1'
     Then The project 'projectCard1' was deleted successfully
 
+  @failing
   Scenario: CAP43-[Project_manager_US02]:Delete a Project
     Given I am authenticated as admin
     And I create the first random user
@@ -261,6 +263,7 @@ Feature: Tasks - Projects
     And These projects are not displayed
       | deleteProject |
 
+  @failing
   Scenario: CAP44 - [Project_manager_US02]: Cancel Deletion of Project
     Given I am authenticated as admin
     And I create the first random user

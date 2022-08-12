@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.WebDriver;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -50,8 +51,9 @@ public class TestHooks {
     Serenity.setSessionVariable("admin-password").to(adminPassword);
     adminLoggedIn = false;
     loginSteps.open();
-    Serenity.getDriver().manage().deleteAllCookies();
-    loginSteps.open();
+    WebDriver driver = Serenity.getDriver();
+    driver.manage().deleteAllCookies();
+    driver.navigate().refresh();
 
     SPACES.entrySet().forEach(entry -> {
       if (StringUtils.isNotBlank(entry.getValue())) {

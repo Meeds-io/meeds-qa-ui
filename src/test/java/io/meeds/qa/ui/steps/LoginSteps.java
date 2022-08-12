@@ -18,7 +18,7 @@ public class LoginSteps {
 
   public void authenticate(String username) {
     loginPage.clearCookies();
-    loginPage.open();
+    loginPage.refreshPage();
     String password = Serenity.sessionVariableCalled(username + "-password");
     loginPage.login(username, password);
   }
