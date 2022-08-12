@@ -48,7 +48,6 @@ Feature: Tasks - Projects
     And The placeholder Filter by project should be displayed
     And The clear button is disappeared from the Filter by project field
 
-  @task
   Scenario: CAP15 - [Project_Card_US01]: check the display "Spaces Managers avatars"
     Given I am authenticated as admin
     And I create the first random user
@@ -86,7 +85,6 @@ Feature: Tasks - Projects
     Then User avatar 'admin' is displayed in Project Card
     And Avatar of the first created user is displayed in Project Card
 
-  @task
   Scenario: CAP17 - [Project_Card_US01]: check the display of users avatars with managing permissions
     Given I am authenticated as admin
     And I create the first random user
@@ -132,8 +130,6 @@ Feature: Tasks - Projects
     And I click on save project button
     Then Message Project Title is mandatory is displayed
 
-
-  @task
   Scenario: CAP290 - [Bug]: Project participant cannot open the edit status mode
     Given I am authenticated as admin
     And I create the first random user
