@@ -325,9 +325,10 @@ public class UserProfile extends GenericPage {
   }
 
   public void openHowToEarnPointPage() {
-    if (iconProfileStatInfo.isVisibleAfterWaiting()) {
+    if (iconProfileStatInfo.isVisibleAfterWaiting() && iconProfileStatInfo.isClickable()) {
       iconProfileStatInfo.clickOnElement();
     }
+    achievementIconInfo.waitUntilClickable();
     achievementIconInfo.clickOnElement();
   }
 

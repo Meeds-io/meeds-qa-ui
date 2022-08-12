@@ -77,8 +77,8 @@ public class KudosPage extends GenericPage {
   @FindBy(xpath = "//*[@data-cke-title='Rich Text Editor, kudosContent']/following::*[contains(@class,'cke_editable_themed')][1]")
   private TextBoxElementFacade    kudosFieldFromDrawer;
 
-  @FindBy(xpath = "//*[contains(@class,'v-card__actions')]//button[@aria-label='Update']")
-  public static BaseElementFacade updateKudosButon;
+  @FindBy(xpath = "//*[contains(@class,'v-navigation-drawer--open')]//button[@aria-label='Update']")
+  public BaseElementFacade        updateKudosButon;
 
   @FindBy(xpath = "//button[@class='ignore-vuetify-classes btn btn-primary me-3']")
   private BaseElementFacade       sendKudosBtn;

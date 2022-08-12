@@ -13,6 +13,7 @@ Feature: Check the rules score increase
     And I check my points
     And I go to the second user profile
     And I send kudos with message 'rule score kudos'
+    And I wait '3' seconds
     When I go to my profile
     Then My points augmented
 
@@ -28,6 +29,7 @@ Feature: Check the rules score increase
     And I connect with the first created user
     And I connect to second user
     And I connect with the second created user
+    And I wait '3' seconds
     When I go to my profile
     Then My points augmented
 
@@ -60,6 +62,7 @@ Feature: Check the rules score increase
     And I go to the created space
     And Activity Comment 'commenttest' is displayed in activity stream
     And I like the activity comment 'commenttest'
+    And I wait '3' seconds
     And I go to my profile
     Then My points augmented
 
@@ -86,6 +89,7 @@ Feature: Check the rules score increase
     And the activity 'PostToBeLiked' is displayed in activity stream
     And I like the activity 'PostToBeLiked'
     And I connect with the first created user
+    And I wait '3' seconds
     And I go to my profile
     Then My points augmented
 
@@ -101,6 +105,7 @@ Feature: Check the rules score increase
     And I click to add note
     Then Create note form is opened successfully in new tab
     And I close the second window
+    And I wait '3' seconds
     And I go to my profile
     Then My points augmented
 
@@ -115,5 +120,6 @@ Feature: Check the rules score increase
     And I connect with the second created user
     And I connect to first user
     And I connect with the first created user
+    And I wait '3' seconds
     And I go to my profile
     Then My points augmented

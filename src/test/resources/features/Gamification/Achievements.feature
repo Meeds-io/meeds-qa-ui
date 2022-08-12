@@ -12,6 +12,7 @@ Feature: Achievements gamification
       | Total point achievement |
 
   @smoke
+  @test
   Scenario: Open How to earn my points page
     Given I am authenticated as admin
     And I go to my profile

@@ -58,6 +58,7 @@ public class AddGroupsPage extends GenericPage {
     selectedRoleField.selectByVisibleText(role);
     inviteMemberInput.setTextValue(member);
     BaseElementFacade progressBar = findByXpathOrCSS(".membershipUserField .identitySuggester .v-progress-linear");
+    progressBar.waitUntilVisible();
     progressBar.waitUntilNotVisible();
 
     BaseElementFacade memberInDropDown = getSelectedMemberInDropDown(member);

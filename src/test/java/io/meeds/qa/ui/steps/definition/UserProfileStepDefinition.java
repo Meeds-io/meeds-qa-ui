@@ -104,7 +104,7 @@ public class UserProfileStepDefinition {
     userProfileSteps.clickConfirmConnect();
   }
 
-  @Then("^My points augmented$")
+  @Then("My points augmented")
   public void checkMyPointIncrease() {
     int myPointBeforeKudos = Serenity.sessionVariableCalled("myPointBeforeKudos");
     assertThat(userProfileSteps.wasMyPointIncreased(myPointBeforeKudos)).as("The point did not increase after send kudos")
