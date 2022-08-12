@@ -1,8 +1,7 @@
-# new feature
-# Tags: optional
-Feature: Mark task as completed from BOARD view
+@task
+Feature: Tasks
 
-  @task
+  @smoke
   Scenario: CAP81 - [User_UI_US22]: Mark as completed for "TASKS" in a Project (Manager case)
     Given I am authenticated as admin
     And I create the first random user
@@ -21,7 +20,7 @@ Feature: Mark task as completed from BOARD view
     And Task name 'tasktest' is not displayed in project details
     And Tasks number '0' is displayed in the column To Do
 
-  @task
+  @smoke
   Scenario: CAP176 - [US_Filterfield_01]: Add Clear typed characters icon (Filter by task under TASKS tab)
     Given I am authenticated as admin
     And I create the first random user
@@ -39,7 +38,7 @@ Feature: Mark task as completed from BOARD view
     And The placeholder Filter by task should be displayed
     And The clear button is disappeared from Filter by task field
 
-  @task
+  @smoke
   Scenario: CAP94_[Add_Task_Drawer_US04]: (3 dots menu-Delete action) "Tasks TAB"
     Given I am authenticated as admin
 
@@ -57,7 +56,6 @@ Feature: Mark task as completed from BOARD view
     And I close task drawer
     Then Task '<TestE>' is deleted successfully
 
-  @task
   Scenario: CAP82 - [User_UI_US22]: Mark as completed for "TASKS" in a Project (Participant case)
     Given I am authenticated as admin
     And I create the first random user
@@ -84,7 +82,7 @@ Feature: Mark task as completed from BOARD view
     And Task name 'task11' is not displayed in project details
     And Tasks number '0' is displayed in the column To Do
 
-  @task
+  @smoke
   Scenario: CAP95 - [Add_Task_Drawer_US04]: 3 dots menu (Delete action) "Task under project"
     Given I am authenticated as admin
     And I create the first random user
@@ -109,8 +107,47 @@ Feature: Mark task as completed from BOARD view
     When I close task drawer
     Then Task name 'taskessai' is not displayed in project details
 
-  @task
-  Scenario: CAP188 - [MARM-1][BUG][Lost Projects] check that project isn't lost after renaming space name
+  @failing
+  Scenario: [BUG]: Check tasks display in snapshot's Tasks gadget
+    Given I am authenticated as admin
+    And I create the first random user
+    And I create the second random user
+
+    And I connect with the second created user
+    And I create space project with the first user
+
+    When I connect with the first created user
+    Then The 'Spaces' badge is '1'
+    When I click on spaces badge
+    And I accept the invitation of the created space project
+    And I refresh the page
+    Then The 'Spaces' number is '1'
+
+    When I connect with the second created user
+    And I go To AppCenter Drawer
+    And I go to Tasks AppCenter Application
+    Then Tasks Application Page is displayed
+    When I select 'Projects' tab
+    And I search for the created project
+    And I open the created project
+    And The following task is created in the specific project
+      | taskName | task test |
+
+    When I open the task 'task test'
+    And I assign task to the first user
+    And I close task drawer
+
+    When I open the task 'task test'
+    And I set task due date TODAY
+    And I close task drawer
+
+    When I connect with the first created user
+    And I go to the home page
+    Then Tasks widget is displayed
+    And Task 'task test' is displayed from tasks widget
+
+  @ignored
+  Scenario: CAP188 - [Lost Projects] check that project isn't lost after renaming space name
     Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user
@@ -143,7 +180,7 @@ Feature: Mark task as completed from BOARD view
     And Project 'new project test' is displayed in Tasks App Center
     And Project 'second project test' is displayed in Tasks App Center
 
-  @task
+  @failing
   Scenario:[BUG]: Create Task with a new status
     Given I am authenticated as admin
     And I create the first random user
@@ -177,7 +214,7 @@ Feature: Mark task as completed from BOARD view
     And I click on save Button To Add Task
     Then In column status 'exoDev' , Task name 'Collaboration FT Task' is displayed
 
-  @task
+  @smoke
   Scenario: CAP269 - [NF] [US_Sharedlabels_02]: Manage labels in Project (Create labels)
     Given I am authenticated as admin
     And I create the first random user
@@ -200,8 +237,8 @@ Feature: Mark task as completed from BOARD view
     And Label 'label4' is displayed in edit project drawer
     And Label 'label5' is displayed in edit project drawer
 
-  @task
-  Scenario: [CERF-94] [MARM-33]: Mark task as completed from the task drawer [1]
+  @smoke
+  Scenario: Mark task as completed from the task drawer [1]
     Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user
@@ -225,7 +262,6 @@ Feature: Mark task as completed from BOARD view
     And Task name 'taskE' is not displayed in project details
     And Tasks number '0' is displayed in the column To Do
 
-  @task
   Scenario: CAP270 - [NF] [US_Sharedlabels_02]: Manage labels in Project (Delete labels)
     Given I am authenticated as admin
     And I create the first random user
@@ -261,7 +297,6 @@ Feature: Mark task as completed from BOARD view
     And Label 'label4' is displayed in edit project drawer
     And Label 'label5' is displayed in edit project drawer
 
-  @task
   Scenario: CAP264 - [NF] [US_Sharedlabels_01]:All project members can use added labels
     Given I am authenticated as admin
     And I create the first random user
@@ -327,7 +362,7 @@ Feature: Mark task as completed from BOARD view
     And Label 'label6' is displayed in edit task drawer and x icon is not displayed
     And I close task drawer
 
-  @task @ignore
+  @ignored
   Scenario:[Task]: when click on notification, user is redirected under the specific project
     Given I am authenticated as admin
     And I create the first random user
@@ -352,7 +387,7 @@ Feature: Mark task as completed from BOARD view
     And I click on the notification that mentione first user in a task in Project 'Test Compagne' project
     Then First user with the task comment 'Start working on it' is displayed in task comments drawer
 
-  @task
+  @smoke
   Scenario: CAP190 -[IMP] [US_SortGroupeBy_01]: Memorize Group and Sort filters (Group by)
     Given I am authenticated as admin
     And  I create the first random user
@@ -389,8 +424,33 @@ Feature: Mark task as completed from BOARD view
     And I clear browsing data cache and cookies
     Then I check that grouping is still applied
 
-  @task
-  Scenario: CAP341 [TASK]: when refresh task's drawer, the description should not be lost
+  @smoke
+  @failing
+  Scenario: CAP33 - [Filter_Drawer_US09]: "Sort And Filter" drawer - Check "Group and Sort" tab
+    Given I am authenticated as admin
+    And I open the app center menu
+    And I open all application page
+    When I go to 'Tasks' application
+    And I select 'Tasks' tab
+    And I click on filter tasks button in Tasks Tab
+    Then The 'groupAndSortDrawer' is displayed
+    And I select the 'Filter' filter type
+    Then The 'FilterDrawer' is displayed
+    And I select the 'Labels' filter type
+    Then The 'LabelsDrawer' is displayed
+
+  @smoke
+  @failing
+  Scenario: CAP50 - [Add_Task_Drawer_US01] [Tasks_tab_US05]: Add Task in "TASKS" tab
+    Given I am authenticated as admin
+    And I create the first random user
+    And I open the app center menu
+    And I open all application page
+    When I go to 'Tasks' application
+    And I click on add tasks button
+    Then The 'taskDrawer' is displayed
+
+  Scenario: CAP341 [TASK]: when refresh task drawer, the description should not be lost
     Given I am authenticated as admin
     And I create the first random user
 
@@ -424,7 +484,6 @@ Feature: Mark task as completed from BOARD view
     And I refresh the page
     And The edit description in the task 'Edit Automation Test Task' is displayed
 
-  @task
   Scenario: [IMP] [US_ChangesDrawer_01]: Display last Update and Changes drawer
     Given I am authenticated as admin
     And  I create the first random user
@@ -452,8 +511,8 @@ Feature: Mark task as completed from BOARD view
     When I click on the timestamp
     Then I check that a new second level drawer Changes is opened
 
-  @task
-  Scenario:[CERF-133][TASK][BUG]:Description update should not be lost due to cloning task and assigning it or changing its status
+  @failing
+  Scenario:[TASK]:Description update should not be lost due to cloning task and assigning it or changing its status
     Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user

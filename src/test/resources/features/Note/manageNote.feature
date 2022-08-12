@@ -3,7 +3,7 @@
 
 Feature: Actions available for note
 
-  @ignore
+  @ignored
   @note
   Scenario: CAP02: DeleteNote_US02: Delete note UX  improvement
 

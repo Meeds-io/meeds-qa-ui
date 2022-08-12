@@ -1,4 +1,4 @@
-# language: en
+@spacesMgmt
 Feature: Spaces Management
   As a user
   I want to check that Space details and sections are displayed
@@ -11,7 +11,6 @@ Feature: Spaces Management
     Then Space Avatar is displayed
     And The created space name is displayed
 
-  @ignore
   Scenario: SPC_MNG-2 : Space applications
     Given I am authenticated as admin
 
@@ -33,7 +32,6 @@ Feature: Spaces Management
     And I go to the created space
     Then Space banner is changed successfully
 
-  @ignore
   Scenario: SPC_MNG-4 : Clickable Space avatar
     Given I am authenticated as admin
 

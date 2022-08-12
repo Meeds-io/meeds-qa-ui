@@ -1,11 +1,11 @@
+@people
 Feature: Search for Contacts in People page
   As a user
   I want to check in People page all contacts informations
 
-  @ignore
+  @ignored
   Scenario: : PEOPLE-6 : Integrate the Suggestions widget in People App
     Given I am authenticated as admin
-
     And I create a dedicated user to be an administrator
     And I go to groups Management page
     And I open the group 'Platform'
@@ -56,6 +56,7 @@ Feature: Search for Contacts in People page
     And I delete Sent Request
     And I close Sent Request button
 
+  @smoke
   Scenario: : PEOPLE-7 : Leaderboard in the People Cards list application
     Given I am authenticated as admin
 

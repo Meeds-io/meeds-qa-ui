@@ -28,19 +28,19 @@ public class AddGroupsPage extends GenericPage {
   private BaseElementFacade    selectedRoleField;
 
   private BaseElementFacade getSelectedMemberInDropDown(String userName) {
-    return findByXpath(String.format(
+    return findByXpathOrCSS(String.format(
                                      "//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
                                      userName));
   }
 
   public BaseElementFacade groupOpenBtn(String group) {
-    return findByXpath(String
+    return findByXpathOrCSS(String
                              .format("//*[@class='flex sm12 md4 flat']//*[@class='v-list-item__content']//*[contains(text(),'%s')]/preceding::i[@class='v-icon notranslate mdi mdi-menu-right theme--light'][1]",
                                      group));
   }
 
   public BaseElementFacade groupToSelect(String group) {
-    return findByXpath(String
+    return findByXpathOrCSS(String
                              .format("//*[@class='flex sm12 md4 flat']//*[@class='v-list-item__content']//*[contains(text(),'%s')]",
                                      group));
   }
@@ -57,9 +57,16 @@ public class AddGroupsPage extends GenericPage {
     addMemberInGroupBtn.clickOnElement();
     selectedRoleField.selectByVisibleText(role);
     inviteMemberInput.setTextValue(member);
-    getSelectedMemberInDropDown(member).clickOnElement();
-    addMemberInGroupDrawerTitle.clickOnElement();
-    saveMemberAddedInGroup.clickOnElement();
+    BaseElementFacade progressBar = findByXpathOrCSS(".membershipUserField .identitySuggester .v-progress-linear");
+    progressBar.waitUntilVisible();
+    progressBar.waitUntilNotVisible();
+
+    BaseElementFacade memberInDropDown = getSelectedMemberInDropDown(member);
+    if (memberInDropDown.isPresent()) {
+      clickOnElement(memberInDropDown);
+      addMemberInGroupDrawerTitle.clickOnElement();
+      saveMemberAddedInGroup.clickOnElement();
+    }
   }
 
 }

@@ -2,7 +2,7 @@
 # Tags: optional
 Feature: Create Note
 
-  @note  @ignore
+  @note  @ignored
   Scenario: CAP01: ManageNote_USXX[01]: Open Create note page in new tab
 
     Given I am authenticated as admin
@@ -15,7 +15,7 @@ Feature: Create Note
     Then Create note form is opened successfully in new tab
     And I close the second window
 
-  @note @ignore
+  @note @ignored
   Scenario: CAP04: Publish note
     Given I am authenticated as admin
     And I create a space with full template
@@ -28,7 +28,7 @@ Feature: Create Note
     And I save Note
     Then Note tile 'Notee' and content 'Note Test E' are displayed successfully
 
-  @note @ignore
+  @note @ignored
   Scenario: CAP05: Publish and post note
     Given I am authenticated as admin
     And I create a space with full template
@@ -41,7 +41,7 @@ Feature: Create Note
     And I save and post Note
     Then Note tile 'Note Published' and content 'Content Note Published' are displayed successfully
 
-  @note @ignore
+  @note @ignored
   Scenario: CAP01: CreateEditNotes_US02 : Check Note Activity in AS -create Page
 
     Given I am authenticated as admin
@@ -60,7 +60,7 @@ Feature: Create Note
     When I go to Stream page
     Then Note activity with title 'Note A' is displayed
 
-  @note @ignore
+  @note @ignored
   Scenario: CAP05 : Access of Note Activity
 
     Given I am authenticated as admin

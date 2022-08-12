@@ -33,7 +33,7 @@ public class UserProfile extends GenericPage {
   @FindBy(xpath = "//*[@id='GamificationEarnPoints']//*[@id='uiHowEarnPoint']//*[contains(text(),'How can I earn points?')]")
   public BaseElementFacade     howToEarnPointsPage;
 
-  @FindBy(xpath = "//aside[contains(@class,'achievementsDrawer')]//i[contains(@class,'uiIconInformation ')]")
+  @FindBy(css = ".achievementsDrawer .drawerHeader .uiIconInformation")
   private BaseElementFacade    achievementIconInfo;
 
   @FindBy(xpath = "//aside[contains(@class,'achievementsDrawer')]")
@@ -202,46 +202,46 @@ public class UserProfile extends GenericPage {
   private BaseElementFacade    weeklyChart;
 
   private BaseElementFacade openWorkExperience(String jobTitle) {
-    return findByXpath(String.format("//button//*[@class='truncate-text']//*[contains(text(),'%s')]", jobTitle));
+    return findByXpathOrCSS(String.format("//button//*[@class='truncate-text']//*[contains(text(),'%s')]", jobTitle));
   }
 
   private BaseElementFacade getJobTitleWorkExperience(String jobTitle) {
-    return findByXpath(String.format("//*[@class='v-timeline-item__body']//*[@class='text-color' and contains(text(),'%s')]",
+    return findByXpathOrCSS(String.format("//*[@class='v-timeline-item__body']//*[@class='text-color' and contains(text(),'%s')]",
                                      jobTitle));
   }
 
   private BaseElementFacade getOrganizationWorkExperience(String organization) {
-    return findByXpath(String.format("//*[@class='v-timeline-item__body']//*[@class='text-sub-title' and contains(text(),'%s')]",
+    return findByXpathOrCSS(String.format("//*[@class='v-timeline-item__body']//*[@class='text-sub-title' and contains(text(),'%s')]",
                                      organization));
   }
 
   private BaseElementFacade getJobDetailsWorkExperience(String jobDetails) {
-    return findByXpath(String.format("//*[@class='v-timeline-item__body']//*[contains(@class,'font-weight-light') and contains(text(),'%s')]",
+    return findByXpathOrCSS(String.format("//*[@class='v-timeline-item__body']//*[contains(@class,'font-weight-light') and contains(text(),'%s')]",
                                      jobDetails));
   }
 
   private BaseElementFacade getUsedSkillsWorkExperience(String UsedSkill) {
-    return findByXpath(String.format("//*[@class='v-timeline-item__body']//*[contains(@class,'font-weight-bold') and contains(text(),'%s')]",
+    return findByXpathOrCSS(String.format("//*[@class='v-timeline-item__body']//*[contains(@class,'font-weight-bold') and contains(text(),'%s')]",
                                      UsedSkill));
   }
 
   private BaseElementFacade getReceivedKudosNumber(String kudosNumber) {
-    return findByXpath(String.format("//*[@id='kudosOverviewCardsParent']//*[contains(@class,'kudosReceivedOverviewPeriod')]//*[contains(@class,'kudosOverviewCount') and contains(text(),'%s')]",
+    return findByXpathOrCSS(String.format("//*[@id='kudosOverviewCardsParent']//*[contains(@class,'kudosReceivedOverviewPeriod')]//*[contains(@class,'kudosOverviewCount') and contains(text(),'%s')]",
                                      kudosNumber));
   }
 
   private BaseElementFacade getSentKudosNumber(String kudosNumber) {
-    return findByXpath(String.format("//*[@id='kudosOverviewCardsParent']//*[contains(@class,'kudosSentOverviewPeriod')]//*[contains(@class,'kudosOverviewCount') and contains(text(),'%s')]",
+    return findByXpathOrCSS(String.format("//*[@id='kudosOverviewCardsParent']//*[contains(@class,'kudosSentOverviewPeriod')]//*[contains(@class,'kudosOverviewCount') and contains(text(),'%s')]",
                                      kudosNumber));
   }
 
   private BaseElementFacade getSentKudosUsers(String user) {
-    return findByXpath(String.format("//*[contains(@class,'kudosOverviewDrawer')]//*[contains(@class,'drawerTitle') and contains(text(),'Kudos Sent')]/following::*[contains(@id,'avatar') and contains(text(),'%s')]",
+    return findByXpathOrCSS(String.format("//*[contains(@class,'kudosOverviewDrawer')]//*[contains(@class,'drawerTitle') and contains(text(),'Kudos Sent')]/following::*[contains(@id,'avatar') and contains(text(),'%s')]",
                                      user));
   }
 
   private BaseElementFacade getReceivedKudosUsers(String user) {
-    return findByXpath(String.format("//*[contains(@class,'kudosOverviewDrawer')]//*[contains(@class,'drawerTitle') and contains(text(),'Kudos Received')]/following::*[contains(@id,'avatar') and contains(text(),'%s')]",
+    return findByXpathOrCSS(String.format("//*[contains(@class,'kudosOverviewDrawer')]//*[contains(@class,'drawerTitle') and contains(text(),'Kudos Received')]/following::*[contains(@id,'avatar') and contains(text(),'%s')]",
                                      user));
   }
 
@@ -288,6 +288,7 @@ public class UserProfile extends GenericPage {
 
   public void openAchivementTab() {
     getUserStat("Points").clickOnElement();
+    iconProfileStatInfo.waitUntilVisible();
     iconProfileStatInfo.clickOnElement();
   }
 
@@ -324,6 +325,10 @@ public class UserProfile extends GenericPage {
   }
 
   public void openHowToEarnPointPage() {
+    if (iconProfileStatInfo.isVisibleAfterWaiting() && iconProfileStatInfo.isClickable()) {
+      iconProfileStatInfo.clickOnElement();
+    }
+    achievementIconInfo.waitUntilClickable();
     achievementIconInfo.clickOnElement();
   }
 
@@ -486,10 +491,10 @@ public class UserProfile extends GenericPage {
   }
 
   private BaseElementFacade getUserStat(String statType) {
-    return findByXpath(String.format("//div[@id='profile-stats-portlet']//span[contains(text(),'%s')]", statType));
+    return findByXpathOrCSS(String.format("//div[@id='profile-stats-portlet']//span[contains(text(),'%s')]", statType));
   }
 
-  @FindBy(xpath = "//div[@id='profile-stats-portlet']//i[contains(@class,'uiIconInformation ')]")
+  @FindBy(css = "#profile-stats-portlet .uiIconInformation")
   private BaseElementFacade iconProfileStatInfo;
 
   public void openWeeklyPointsChart() {

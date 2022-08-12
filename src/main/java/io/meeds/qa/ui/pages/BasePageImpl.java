@@ -1,8 +1,6 @@
 package io.meeds.qa.ui.pages;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.lang.reflect.Field;
+import static io.meeds.qa.ui.utils.Utils.waitForPageLoaded;
 
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -32,48 +30,36 @@ public class BasePageImpl extends PageObject implements BasePage {
   ExceptionLauncher   exceptionLauncher;
 
   public BasePageImpl() {
+    this(null);
   }
 
   public BasePageImpl(WebDriver driver) {
     super(driver);
-    this.driver = driver;
+    this.driver = getDriver();
     exceptionLauncher = new ExceptionLauncher();
   }
 
+  @Override
   public void verifyPageLoaded() {
-    Field[] fields = getClass().getDeclaredFields();
-    for (Field field : fields) {
-      Class<?> fieldClass = field.getType();
-      if (BaseElementFacade.class.isAssignableFrom(fieldClass)) {
-        field.setAccessible(true);
-        BaseElementFacade fieldInstance = null;
-        try {
-          fieldInstance = (BaseElementFacade) field.get(this);
-          assertThat(fieldInstance.isPresent())
-                                               .as(String.format("Could not find the element [%s] !", field.getName()))
-                                               .isTrue();
-        } catch (IllegalArgumentException | IllegalAccessException e) {
-          exceptionLauncher.throwSerenityExeption(e,
-                                                  String.format("Could not find the element [%s] !", field.getName()));
-        }
-      }
-    }
+    waitForPageLoaded();
+  }
+
+  public void refreshPage() {
+    driver.navigate().refresh();
+    verifyPageLoaded();
   }
 
   /**********************************************************
    * Methods for finding element facade in the page
    **********************************************************/
 
-  private WebElementFacade getWebElementFacadeByXpath(String xpath) {
+  private WebElementFacade getWebElementFacadeByXpathOrCSS(String xpath) {
+    verifyPageLoaded();
     return findBy(xpath);
   }
 
-  public <T extends BaseElementFacade> T findByXpath(String xpath) {
-    if (!Selectors.isXPath(xpath)) {
-      exceptionLauncher.throwSerenityExeption(new Exception(),
-                                              String.format("The format for the xpath [%s] is not correct.", xpath));
-    }
-    WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
+  public <T extends BaseElementFacade> T findByXpathOrCSS(String xpathOrCSSSelector) {
+    WebElementFacade nestedElement = getWebElementFacadeByXpathOrCSS(xpathOrCSSSelector);
 
     return BaseElementFacadeImpl.wrapWebElementFacade(getDriver(),
                                                       nestedElement,
@@ -86,7 +72,7 @@ public class BasePageImpl extends PageObject implements BasePage {
       exceptionLauncher.throwSerenityExeption(new Exception(),
                                               String.format("The format for the xpath [%s] is not correct.", xpath));
     }
-    WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
+    WebElementFacade nestedElement = getWebElementFacadeByXpathOrCSS(xpath);
 
     return TextBoxElementFacadeImpl.wrapWebElementFacadeInTextBoxElement(getDriver(),
                                                                          nestedElement,
@@ -99,7 +85,7 @@ public class BasePageImpl extends PageObject implements BasePage {
       exceptionLauncher.throwSerenityExeption(new Exception(),
                                               String.format("The format for the xpath [%s] is not correct.", xpath));
     }
-    WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
+    WebElementFacade nestedElement = getWebElementFacadeByXpathOrCSS(xpath);
 
     return ButtonElementFacadeImpl.wrapWebElementFacadeInButtonElement(getDriver(),
                                                                        nestedElement,
@@ -112,7 +98,7 @@ public class BasePageImpl extends PageObject implements BasePage {
       exceptionLauncher.throwSerenityExeption(new Exception(),
                                               String.format("The format for the xpath [%s] is not correct.", xpath));
     }
-    WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
+    WebElementFacade nestedElement = getWebElementFacadeByXpathOrCSS(xpath);
 
     return TextElementFacadeImpl.wrapWebElementFacadeInTextElement(getDriver(),
                                                                    nestedElement,

@@ -1,5 +1,6 @@
 package io.meeds.qa.ui.pages.page.factory;
 
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.BaseElementFacade;
@@ -12,28 +13,27 @@ import net.thucydides.core.annotations.DefaultUrl;
 
 @DefaultUrl("https://baseUrl/")
 public class LoginPage extends GenericPage implements IsHidden {
-  public LoginPage() {
-    url = "firstPage";
-  }
 
   public LoginPage(WebDriver driver) {
     super(driver);
   }
 
-  @FindBy(id = "username")
-  private TextBoxElementFacade loginTextBox;
-
-  @FindBy(id = "password")
-  private TextBoxElementFacade passwordTextbox;
-
-  @FindBy(tagName = "button")
-  private ButtonElementFacade  loginButton;
-
   public void login(String login, String password) {
-    loginTextBox.waitUntilVisible();
+    TextBoxElementFacade loginTextBox = findTextBoxElementByXpath("//*[@id='username']");
     loginTextBox.setTextValue(login);
+    TextBoxElementFacade passwordTextbox = findTextBoxElementByXpath("//*[@id='password']");
     passwordTextbox.setTextValue(password);
-    loginButton.clickOnElement();
+    BaseElementFacade loginButton = findByXpathOrCSS("//*[contains(@class, 'loginButton')]//button");
+    clickOnElement(loginButton);
+  }
+
+  public void clearCookies() {
+    try {
+      driver.switchTo().alert().accept();
+    } catch (NoAlertPresentException e) {
+      // Normal Behavior
+    }
+    driver.manage().deleteAllCookies();
   }
 
 }

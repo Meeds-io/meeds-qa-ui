@@ -166,13 +166,13 @@ public class SettingsSteps {
 
   }
 
-  public void chechThatNotificationViaMailIsDisabled() {
-    settingsPage.chechThatNotificationViaMailIsDisabled();
+  public void checkThatNotificationViaMailIsDisabled() {
+    settingsPage.checkThatNotificationViaMailIsDisabled();
 
   }
 
-  public void chechThatNotificationViaMailIsEnabled() {
-    settingsPage.chechThatNotificationViaMailIsEnabled();
+  public void checkThatNotificationViaMailIsEnabled() {
+    settingsPage.checkThatNotificationViaMailIsEnabled();
 
   }
 
@@ -181,13 +181,13 @@ public class SettingsSteps {
 
   }
 
-  public void chechThatNotificationOnMobileIsDisabled() {
-    settingsPage.chechThatNotificationOnMobileIsDisabled();
+  public void checkThatNotificationOnMobileIsDisabled() {
+    settingsPage.checkThatNotificationOnMobileIsDisabled();
 
   }
 
-  public void chechThatNotificationOnMobileIsEnabled() {
-    settingsPage.chechThatNotificationOnMobileIsEnabled();
+  public void checkThatNotificationOnMobileIsEnabled() {
+    settingsPage.checkThatNotificationOnMobileIsEnabled();
 
   }
 
@@ -196,13 +196,13 @@ public class SettingsSteps {
 
   }
 
-  public void chechThatNotificationOnSiteIsDisabled() {
-    settingsPage.chechThatNotificationOnSiteIsDisabled();
+  public void checkThatNotificationOnSiteIsDisabled() {
+    settingsPage.checkThatNotificationOnSiteIsDisabled();
 
   }
 
-  public void chechThatNotificationOnSiteIsEnabled() {
-    settingsPage.chechThatNotificationOnSiteIsEnabled();
+  public void checkThatNotificationOnSiteIsEnabled() {
+    settingsPage.checkThatNotificationOnSiteIsEnabled();
 
   }
 

@@ -275,7 +275,7 @@ public class TasksPage extends GenericPage {
   private BaseElementFacade    SaveButtonTask;
 
   private BaseElementFacade getTaskStatusColumn(String status) {
-    return findByXpath(String.format("(//*[contains(@class,'taskStatusName')]//*[@title='%s']/following::*[@class='taskTitleEllipsis'])[1]",
+    return findByXpathOrCSS(String.format("(//*[contains(@class,'taskStatusName')]//*[@title='%s']/following::*[@class='taskTitleEllipsis'])[1]",
                                      status));
   }
 
@@ -343,23 +343,23 @@ public class TasksPage extends GenericPage {
   private BaseElementFacade closeEditTaskDrawerSimpleProject;
 
   private BaseElementFacade getTaskCommentReplyBtn(String comment) {
-    return findByXpath(
+    return findByXpathOrCSS(
                        String.format("//*[contains(@class,'taskCommentDrawer')]//*[@class='taskContentComment']/p[contains(text(),'%s')]/following::button[@id='reply_btn'][1]",
                                      comment));
   }
 
   private BaseElementFacade getAttachmentName(String attachmentName) {
-    return findByXpath(
+    return findByXpathOrCSS(
                        String.format("(//div[@class='v-list-item__content']//div[@title='%s'])[2]", attachmentName));
   }
 
   private BaseElementFacade getTaskName(String taskName) {
-    return findByXpath(
+    return findByXpathOrCSS(
                        String.format("//div[@class='taskTitle pe-14 d-lg-block d-md-none']//a[@title='%s']", taskName));
   }
 
   private BaseElementFacade getTaskToMarkAsCompleted(String taskName) {
-    return findByXpath(String.format("//*[@class='taskTitleEllipsis' and contains(text(),'%s')]/preceding::*[@class='uiIconCircle'][1]",
+    return findByXpathOrCSS(String.format("//*[@class='taskTitleEllipsis' and contains(text(),'%s')]/preceding::*[@class='uiIconCircle'][1]",
                                      taskName));
   }
 
@@ -418,23 +418,23 @@ public class TasksPage extends GenericPage {
   private TextBoxElementFacade clearButtonInFilterByTask;
 
   private BaseElementFacade getTaskAlert(String message) {
-    return findByXpath(
+    return findByXpathOrCSS(
                        String.format("//*[@class='v-alert__content' and contains(text(),'%s')]", message));
   }
 
   private BaseElementFacade getProjectParticipant(String fullName) {
-    return findByXpath(
+    return findByXpathOrCSS(
                        String.format("//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
                                      fullName));
   }
 
   private BaseElementFacade getProjectCardUserAvatar(String userName) {
-    return findByXpath(
+    return findByXpathOrCSS(
                        String.format("//*[contains(@id,'userAvatar') and contains(@href,'%s')]", userName));
   }
 
   private BaseElementFacade getStatusColumn(String statusColumn) {
-    return findByXpath(String.format("(//*[@class='d-flex tasksViewHeaderLeft']//*[contains(text(),'%s')][1])[1]",
+    return findByXpathOrCSS(String.format("(//*[@class='d-flex tasksViewHeaderLeft']//*[contains(text(),'%s')][1])[1]",
                                      statusColumn));
   }
 
@@ -443,7 +443,7 @@ public class TasksPage extends GenericPage {
   }
 
   private BaseElementFacade getProjectManager(String fullName) {
-    return findByXpath(
+    return findByXpathOrCSS(
                        String.format("//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
                                      fullName));
   }
@@ -457,119 +457,119 @@ public class TasksPage extends GenericPage {
   }
 
   private BaseElementFacade getTabByName(String name) {
-    return findByXpath(String.format("//a[contains(text(),'%s')]", name));
+    return findByXpathOrCSS(String.format("//a[contains(text(),'%s')]", name));
   }
 
   private BaseElementFacade getFilterOption(String option) {
-    return findByXpath(String.format("//*[@class='v-label theme--light' and text()='%s']", option));
+    return findByXpathOrCSS(String.format("//*[@class='v-label theme--light' and text()='%s']", option));
   }
 
   private BaseElementFacade projectNameInProjectDetails(String projectName) {
-    return findByXpath(String.format("//*[@id='projectListApplication']//*[contains(@class,'taskViewBreadcrumb')]//span[contains(text(),'%s')]",
+    return findByXpathOrCSS(String.format("//*[@id='projectListApplication']//*[contains(@class,'taskViewBreadcrumb')]//span[contains(text(),'%s')]",
                                      projectName));
   }
 
   private BaseElementFacade taskNameInProjectDetails(String taskName) {
-    return findByXpath(String.format("//*[contains(@class,'taskStatusName')]//*[@title='To Do']/following::*[@class='taskTitleEllipsis' and contains(text(),'%s')]",
+    return findByXpathOrCSS(String.format("//*[contains(@class,'taskStatusName')]//*[@title='To Do']/following::*[@class='taskTitleEllipsis' and contains(text(),'%s')]",
                                      taskName));
   }
 
   private BaseElementFacade getLabelInEditProjectDrawer(String label) {
-    return findByXpath(
+    return findByXpathOrCSS(
                        String.format("//*[contains(@class,'v-chip__content')]//*[contains(@class,'pr-2') and contains(text(),'%s')]",
                                      label));
   }
 
   private BaseElementFacade getCompletedTask(String taskName) {
-    return findByXpath(String.format("//*[@class='nameGroup' and text()='Archived']//following::*[@class='taskCardViewTitle text-color strikethrough']//span[@class='taskTitleEllipsis' and contains(text(),'%s')]",
+    return findByXpathOrCSS(String.format("//*[@class='nameGroup' and text()='Archived']//following::*[@class='taskCardViewTitle text-color strikethrough']//span[@class='taskTitleEllipsis' and contains(text(),'%s')]",
                                      taskName));
   }
 
   private BaseElementFacade getUncompletedTask(String taskName) {
-    return findByXpath(String.format("//*[@class='nameGroup' and text()='Uncompleted']//following::*[@class='taskCardViewTitle text-color']//span[@class='taskTitleEllipsis' and contains(text(),'%s')]",
+    return findByXpathOrCSS(String.format("//*[@class='nameGroup' and text()='Uncompleted']//following::*[@class='taskCardViewTitle text-color']//span[@class='taskTitleEllipsis' and contains(text(),'%s')]",
                                      taskName));
   }
 
   private BaseElementFacade getTasksNumberToDo(String tasksNumber) {
-    return findByXpath(String.format("//*[contains(@class,'taskStatusName')]//*[@title='To Do']/following ::*[@class='uiTaskNumber' and text()='%s']",
+    return findByXpathOrCSS(String.format("//*[contains(@class,'taskStatusName')]//*[@title='To Do']/following ::*[@class='uiTaskNumber' and text()='%s']",
                                      tasksNumber));
   }
 
   private BaseElementFacade taskNameAndLabelAndNumberInProjectDetails(String taskName) {
-    return findByXpath(String.format("(//*[contains(@class,'taskStatusName')]//*[@title='To Do']/following::*[@class='taskTitleEllipsis' and contains(text(),'%s')]/following::*[contains(@class,'taskLabels')]//span[@class='text-truncate'])[1]",
+    return findByXpathOrCSS(String.format("(//*[contains(@class,'taskStatusName')]//*[@title='To Do']/following::*[@class='taskTitleEllipsis' and contains(text(),'%s')]/following::*[contains(@class,'taskLabels')]//span[@class='text-truncate'])[1]",
                                      taskName));
   }
 
   private BaseElementFacade getTaskCommentWithUser(String user, String comment) {
-    return findByXpath(String.format("//*[@class='TaskCommentContent']//*[contains(text(),'%s')]/following::*[@class='taskContentComment']//p[contains(text(),'%s')]",
+    return findByXpathOrCSS(String.format("//*[@class='TaskCommentContent']//*[contains(text(),'%s')]/following::*[@class='taskContentComment']//p[contains(text(),'%s')]",
                                      user,
                                      comment));
   }
 
   private BaseElementFacade getProjectCard(String projectName) {
-    return findByXpath(
+    return findByXpathOrCSS(
                        String.format("//span[contains(@class,'projectCardTitle') and contains(text(),'%s')]", projectName));
   }
 
   private BaseElementFacade getTaskOrder(String number) {
-    return findByXpath(
+    return findByXpathOrCSS(
                        String.format("(//*[@id='projectListApplication']//*[contains(@id,'taskView')]//*[contains(@class,'taskTitle')]//a)[%s]",
                                      number));
   }
 
   private BaseElementFacade getDisplayedLabel(String label, String times) {
-    return findByXpath(
+    return findByXpathOrCSS(
                        String.format("//*[@class='nameGroup' and contains(text(),'%s')]//following::*[@class='amount-item' and contains(text(),'%s')][1]",
                                      label,
                                      times));
   }
 
   private BaseElementFacade getAddLabelToTask(String label) {
-    return findByXpath(
+    return findByXpathOrCSS(
                        String.format("//*[contains(@class,'v-list')]//*[contains(@class,'v-chip v-chip--label')]//*[contains(@class,'v-chip__content') and contains(text(),'%s')]",
                                      label));
   }
 
   private BaseElementFacade getLabelInEditTaskDrawer(String label) {
-    return findByXpath(
+    return findByXpathOrCSS(
                        String.format("//*[contains(@class,'v-chip__content')]//*[contains(@class,'pe-2') and contains(text(),'%s')]",
                                      label));
   }
 
   private BaseElementFacade getDescriptionForTask(String description) {
-    return findByXpath(String.format("//*[@class='py-1 px-2 taskDescriptionToShow']//*[contains(text(),'%s')]", description));
+    return findByXpathOrCSS(String.format("//*[@class='py-1 px-2 taskDescriptionToShow']//*[contains(text(),'%s')]", description));
   }
 
   private BaseElementFacade getProjectCardDescription(String description) {
-    return findByXpath(
+    return findByXpathOrCSS(
                        String.format("//*[@class='taskItemDescription largeDescriptionArea']//*[contains(text(),'%s')]",
                                      description));
   }
 
   private BaseElementFacade openTask(String projectName) {
-    return findByXpath(
+    return findByXpathOrCSS(
                        String.format("//span[contains(@class,'taskTitleEllipsis') and contains(text(),'%s')]", projectName));
   }
 
   private BaseElementFacade getTaskTitle(String taskName) {
-    return findByXpath(
+    return findByXpathOrCSS(
                        String.format("//span[contains(@class,'taskTitleEllipsis') and contains(text(),'%s')]", taskName));
   }
 
   private BaseElementFacade getRemoveLabelButton(String label) {
-    return findByXpath(
+    return findByXpathOrCSS(
                        String.format("//*[contains(@class,'v-chip__content')]//*[contains(@class,'pr-2') and contains(text(),'%s')]/following::button[2]",
                                      label));
   }
 
   private BaseElementFacade getRemoveLabelTaskButton(String label) {
-    return findByXpath(
+    return findByXpathOrCSS(
                        String.format("//*[contains(@class,'v-chip__content')]//*[contains(@class,'pe-2') and contains(text(),'%s')]/following::button[1]",
                                      label));
   }
 
   private BaseElementFacade getTaskTitleInTasksTab(String taskName) {
-    return findByXpath(
+    return findByXpathOrCSS(
                        String.format("//*[contains(@class,'v-application tasksList')]//*[contains(@class,'taskTitle pe-14')]/a[contains(text(),'%s')]",
                                      taskName));
   }
@@ -1437,7 +1437,7 @@ public class TasksPage extends GenericPage {
   }
 
   private BaseElementFacade getTaskTitleDateFromWidget(String taskName) {
-    return findByXpath(String.format("(//*[@id='TasksContainer']//div[@class='v-list-item__title' and text()='%s'])[1]",
+    return findByXpathOrCSS(String.format("(//*[@id='TasksContainer']//div[@class='v-list-item__title' and text()='%s'])[1]",
                                      taskName));
   }
 
@@ -1468,13 +1468,13 @@ public class TasksPage extends GenericPage {
   private BaseElementFacade taskPrioritySelector;
 
   private BaseElementFacade getTaskPriority(String taskPriority) {
-    return findByXpath(
+    return findByXpathOrCSS(
                        String.format("//*[@class='taskPriority']//*[@class='v-select__selections']/div[contains(text(),'%s')]",
                                      taskPriority));
   }
 
   private BaseElementFacade selectTaskPriority(String taskPriority) {
-    return findByXpath(
+    return findByXpathOrCSS(
                        String.format("//*[@class='body-2' and contains(text(),'%s')]", taskPriority));
   }
 
@@ -1488,13 +1488,13 @@ public class TasksPage extends GenericPage {
   private BaseElementFacade selectStatusSelector;
 
   private BaseElementFacade getTaskStatus(String taskStatus) {
-    return findByXpath(
+    return findByXpathOrCSS(
                        String.format("//*[@class='taskStatus']//*[contains(@class,'v-select__selection--comma') and contains(text(),'%s')]",
                                      taskStatus));
   }
 
   private BaseElementFacade selectTaskStatus(String taskStatus) {
-    return findByXpath(
+    return findByXpathOrCSS(
                        String.format("//*[@role='listbox']//*[@class='v-list-item__title' and contains(text(),'%s')]",
                                      taskStatus));
   }
@@ -1515,7 +1515,7 @@ public class TasksPage extends GenericPage {
   }
 
   private BaseElementFacade getSelectUserInDropDown(String firstUserName) {
-    return findByXpath(String.format(
+    return findByXpathOrCSS(String.format(
                                      "//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
                                      firstUserName));
   }
@@ -1572,7 +1572,7 @@ public class TasksPage extends GenericPage {
   }
 
   private BaseElementFacade getTaskNamePlanView(String taskName) {
-    return findByXpath(String.format(
+    return findByXpathOrCSS(String.format(
                                      "//*[@class='bar-group']//*[contains(text(),'%s')]",
                                      taskName));
   }

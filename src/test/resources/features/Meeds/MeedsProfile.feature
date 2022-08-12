@@ -36,7 +36,8 @@ Feature: Search for User Informations in Profile page
 
     Then User Job '' is displayed in Profile Page
 
-  Scenario: PROFILE-4 : Contact information block_(01) : Add informations
+  @failing
+  Scenario: PROFILE-4 Contact information block_(01) : Add informations
     Given I am authenticated as admin
 
     When I create the first random user
@@ -47,7 +48,8 @@ Feature: Search for User Informations in Profile page
     And Updated Profile Contact Email is displayed
     And Updated Profile Contact Job is displayed
 
-  Scenario: PROFILE-4 : Contact information block_(02) : Add informations
+  @failing
+  Scenario: PROFILE-4 Contact information block_(02) : Add informations
     Given I am authenticated as admin
 
     When I create the first random user
@@ -106,7 +108,6 @@ Feature: Search for User Informations in Profile page
     Then Sent Kudos Section is displayed
     Then Gained Cauris Section is displayed
 
-
   Scenario: : PROFILE-7 : Work Experiences block and its drawer
     Given I am authenticated as admin
 
@@ -146,4 +147,3 @@ Feature: Search for User Informations in Profile page
 
     When I open Achievements Tab
     Then The achievements drawer is displayed
-

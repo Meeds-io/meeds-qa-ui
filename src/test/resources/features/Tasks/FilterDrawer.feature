@@ -1,6 +1,6 @@
+@task
 Feature: Filter Drawer
 
-  @task
   Scenario: CAP110 - [Filter_Drawer_US03]:Group by Labels [Group and Sort" tab under project]
     Given I am authenticated as admin
 
@@ -34,7 +34,6 @@ Feature: Filter Drawer
     And Task label 'test007' related to task name 'task11' is displayed in project details
     And Task label 'test007' related to task name 'task12' is displayed in project details
 
-  @task
   Scenario: CAP113 - [Filter_Drawer_US03]:Sort by Title ["Group and Sort" tab under project]
     Given I am authenticated as admin
 
@@ -67,7 +66,7 @@ Feature: Filter Drawer
     And In project details the task 'btask11' is displayed in '2' place
     And In project details the task 'ctask11' is displayed in '3' place
 
-  @task
+  @failing
   Scenario: CAP111 - [Filter_Drawer_US03]:Group by Completed [Group and Sort" tab under project]
     Given I am authenticated as admin
 
@@ -115,7 +114,6 @@ Feature: Filter Drawer
     And Task 'task12' is marked as completed and displayed in Completed section
     And Task 'task13' is not marked as completed and displayed in Uncompleted section
 
-  @task
   Scenario: CAP53 - [Filter_Drawer_US01]: Filter button in a project
     Given I am authenticated as admin
 
@@ -147,10 +145,9 @@ Feature: Filter Drawer
     And Cancel button is displayed in the Filter drawer
     And Reset button is displayed in the Filter drawer
 
-  @task
+  @failing
   Scenario: [Regression][Tasks]Problem to filter project
     Given I am authenticated as admin
-
     And I create the first random user
 
     When I connect with the first created user
@@ -163,3 +160,13 @@ Feature: Filter Drawer
     And I search for the created project 'test project edited'
     Then The project 'test project edited' is displayed in project details
 
+  @smoke
+  @failing
+  Scenario: CAP75-[Add_Task_Drawer_US01]: Add Task in "TASKS" tab (task NOT belong to project)
+    Given I am authenticated as admin
+    And I create the first random user
+    And I open the app center menu
+    And I open all application page
+    When I go to 'Tasks' application
+    And I click on add tasks button
+    Then The 'taskDrawer' is displayed

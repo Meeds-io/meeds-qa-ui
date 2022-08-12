@@ -1,9 +1,14 @@
+@appcenter
+@appcenterUser
 Feature: To be able to access applications
   As a user
   I want to access any application from the app center
 
-  @appcenter
-  @appcenterUser
+  @smoke
+  Scenario: CAP31-US 7.7[FRONT]_(01):My applications button on Desktop
+    Given I am authenticated as admin
+    Then my applications button is displayed
+
   Scenario: CAP06 - Open an exo application from the drawer
     Given I am authenticated as admin
     When I go To AppCenter Drawer
@@ -13,8 +18,6 @@ Feature: To be able to access applications
     And I go to Wallet AppCenter Application
     Then Wallet Application Page is displayed
 
-  @appcenter
-  @appcenterUser
   Scenario: CAP07 - Open an external application from the drawer
     Given I am authenticated as admin
     And I go to Administer application center Page
@@ -36,8 +39,6 @@ Feature: To be able to access applications
     And I go to Administer application center Page
     And I enable Mandatory 'Tasks' for application
 
-  @appcenter
-  @appcenterUser
   Scenario: CAP16 - Design V6-Buttons of an Application card
     Given I am authenticated as admin
 
@@ -48,8 +49,7 @@ Feature: To be able to access applications
 
     Then 'Notes' Application Open Button is displayed
 
-  @appcenter
-  @appcenterUser
+  @failing
   Scenario: CAP17 - Design V6-Star button of an app card
     Given I am authenticated as admin
     And I go to Administer application center Page
@@ -78,16 +78,12 @@ Feature: To be able to access applications
     And I go to Administer application center Page
     And I enable Mandatory 'Challenges' for application
 
-  @appcenter
-  @appcenterUser
   Scenario: CAP18 - Design V6-Open button of an exo app card
     Given I am authenticated as admin
 
     When I see All Applications
     Then All Applications Page is Displayed
 
-  @appcenter
-  @appcenterUser
   Scenario: CAP19 - [User_UI_US12][02]: Design V6-Open button of an external app card
     Given I am authenticated as admin
 
@@ -98,8 +94,7 @@ Feature: To be able to access applications
     And I click on 'Tasks' Application Open Button
     Then Tasks Application Page is displayed
 
-  @appcenter
-  @appcenterUser
+  @failing
   Scenario: CAP24 - Unfavorite app from right panel "Favorite applications"
     Given I am authenticated as admin
     And I go to Administer application center Page
@@ -130,8 +125,7 @@ Feature: To be able to access applications
     And I go to Administer application center Page
     And I enable Mandatory 'Tasks' for application
 
-  @appcenter
-  @appcenterUser
+  @failing
   Scenario: CAP26 - [User_Settings_US03]: Max number of fav apps/Mandatory apps
     Given I am authenticated as admin
     And I go to Administer application center Page
@@ -163,8 +157,6 @@ Feature: To be able to access applications
     And I go to Administer application center Page
     And I enable Mandatory 'Tasks' for application
 
-  @appcenter
-  @appcenterUser
   Scenario: CAP34 - [User_UI_US021][02]: Check the display of Mandatory apps when its no longer considered as mandatory app
     Given I am authenticated as admin
     When I go to Administer application center Page

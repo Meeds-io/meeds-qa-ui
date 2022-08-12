@@ -33,7 +33,7 @@ Feature: Activities
     And Comment 'commenttest' is not displayed in activity 'activitytest'
 
   @activitystream
-  Scenario:   comment your activity
+  Scenario: comment your activity
     Given I am authenticated as admin
     And I create the space
     When I click on post in space

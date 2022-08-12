@@ -77,14 +77,14 @@ public class KudosPage extends GenericPage {
   @FindBy(xpath = "//*[@data-cke-title='Rich Text Editor, kudosContent']/following::*[contains(@class,'cke_editable_themed')][1]")
   private TextBoxElementFacade    kudosFieldFromDrawer;
 
-  @FindBy(xpath = "//*[contains(@class,'v-card__actions')]//button[@aria-label='Update']")
-  public static BaseElementFacade updateKudosButon;
+  @FindBy(xpath = "//*[contains(@class,'v-navigation-drawer--open')]//button[@aria-label='Update']")
+  public BaseElementFacade        updateKudosButon;
 
   @FindBy(xpath = "//button[@class='ignore-vuetify-classes btn btn-primary me-3']")
   private BaseElementFacade       sendKudosBtn;
 
   private BaseElementFacade getKudosActivityText(String message) {
-    return findByXpath(String.format("//*[contains(@id,'Extactivity-content-extensions')]//*[@class='my-4']//*[contains(@class,'rich-editor-content')]//div[contains(text(),'%s')]",
+    return findByXpathOrCSS(String.format("//*[contains(@id,'Extactivity-content-extensions')]//*[@class='my-4']//*[contains(@class,'rich-editor-content')]//div[contains(text(),'%s')]",
                                      message));
   }
 
@@ -104,11 +104,11 @@ public class KudosPage extends GenericPage {
   private BaseElementFacade threedotsKudosReplyComment;
 
   private BaseElementFacade getKudosText(String kudos) {
-    return findByXpath(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]", kudos));
+    return findByXpathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]", kudos));
   }
 
   private BaseElementFacade ELEMENT_kudos_LINK(String id) {
-    return findByXpath(String.format("(//span[@class='mx-auto mt-1 mt-lg-0 ms-lg-2'])[3]", id));
+    return findByXpathOrCSS(String.format("(//span[@class='mx-auto mt-1 mt-lg-0 ms-lg-2'])[3]", id));
   }
 
   public void addActivityKudos(String activityId, String comment) {
@@ -124,11 +124,11 @@ public class KudosPage extends GenericPage {
   }
 
   private BaseElementFacade getLikeIcon(String activity) {
-    return findByXpath(String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLink')])[1]", activity));
+    return findByXpathOrCSS(String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLink')])[1]", activity));
   }
 
   private BaseElementFacade getKudosiconsss(String activity) {
-    return findByXpath(String.format("//i[contains(@class,'uiIconKudos')]", activity));
+    return findByXpathOrCSS(String.format("//i[contains(@class,'uiIconKudos')]", activity));
   }
 
   public void goToKudosMenu() {

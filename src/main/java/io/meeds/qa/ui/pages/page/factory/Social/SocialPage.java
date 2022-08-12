@@ -46,7 +46,7 @@ public class SocialPage extends GenericPage {
   public static BaseElementFacade    updateButon;
 
   private BaseElementFacade getUserProfileButton(String user) {
-    return findByXpath(String.format("//a[contains(@href,'%s')and contains(@class,'userFullname')]", user));
+    return findByXpathOrCSS(String.format("//a[contains(@href,'%s')and contains(@class,'userFullname')]", user));
   }
 
   public void GoToPeopleMenu() {
@@ -57,7 +57,7 @@ public class SocialPage extends GenericPage {
   }
 
   private BaseElementFacade getLikeCommentIcon(String activityComment) {
-    return findByXpath(String.format("(//a[@id='CommentLink1']", activityComment));
+    return findByXpathOrCSS(String.format("(//a[@id='CommentLink1']", activityComment));
   }
 
   public void CommentActivity(String activity) {

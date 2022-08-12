@@ -2,7 +2,9 @@ package io.meeds.qa.ui.pages;
 
 import java.io.File;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -10,11 +12,12 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 public class GenericPage extends BasePageImpl {
 
   public GenericPage() {
-    url = "genericPage";
+    this(null);
   }
 
   public GenericPage(WebDriver driver) {
     super(driver);
+    url = "genericPage";
   }
 
   @FindBy(xpath = "//div[contains(@class,'alert-success')]")
@@ -24,15 +27,15 @@ public class GenericPage extends BasePageImpl {
       + File.separator + "test" + File.separator + "resources" + File.separator + "DataFiles" + File.separator;
 
   private BaseElementFacade getConfirmMessage(String message) {
-    return findByXpath(String.format("//span[contains(text(),\"%s\")]", message));
+    return findByXpathOrCSS(String.format("//span[contains(text(),\"%s\")]", message));
   }
 
   private BaseElementFacade getButton(String buttonName) {
-    return findByXpath(String.format("//a[contains(text(),'%s')]", buttonName));
+    return findByXpathOrCSS(String.format("//a[contains(text(),'%s')]", buttonName));
   }
 
   private BaseElementFacade getOKButton(String buttonName) {
-    return findByXpath(String.format("//button[contains(text(),'%s')]", buttonName));
+    return findByXpathOrCSS(String.format("//button[contains(text(),'%s')]", buttonName));
   }
 
   public boolean inConfirmMessageDisplayed(String message) {
@@ -55,8 +58,18 @@ public class GenericPage extends BasePageImpl {
     getOKButton("OK").clickOnElement();
   }
 
-  public void waitInSeconds(int second) throws InterruptedException {
-    Thread.sleep(1000);
+  public boolean containsContent(String content) {
+    WebElement element = getDriver().findElement(By.xpath(String.format("//*[contains(text(),'%s')]",
+                                                                        content)));
+    return element != null && element.isDisplayed();
+  }
+
+  public void clickOnElement(BaseElementFacade element) {
+    element.resetTimeouts();
+    element.waitUntilEnabled();
+    element.waitUntilClickable();
+    element.clickOnElement();
+    verifyPageLoaded();
   }
 
 }

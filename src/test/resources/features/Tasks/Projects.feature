@@ -1,8 +1,6 @@
-# new feature
-# Tags: optional
-Feature: User adds, deletes, edits and clones a project
+@task
+Feature: Tasks - Projects
 
-  @task
   Scenario: [User_UI_US18.1]: Add project with a description
     Given I am authenticated as admin
     And I create the first random user
@@ -14,7 +12,7 @@ Feature: User adds, deletes, edits and clones a project
     And I add a new project with a description
     Then the project is created successfully and displayed on Projects tab
 
-  @task
+  @failing
   Scenario: CAP47 - [Project_manager_US03.2]: Clone a project
     Given I am authenticated as admin
     And I create the first random user
@@ -34,7 +32,6 @@ Feature: User adds, deletes, edits and clones a project
     And I open the cloned project
     Then task 'Copy of task1414' is cloned successfully
 
-  @task
   Scenario: CAP174 -[US_Filterfield_01]: Add Clear typed characters icon "Filter by project"
     Given I am authenticated as admin
     And I create the first random user
@@ -107,7 +104,6 @@ Feature: User adds, deletes, edits and clones a project
     And Avatar of the first created user is displayed in Project Card
     And Avatar of the second created user is not displayed in Project Card
 
-  @task
   Scenario: CAP19 - [User_UI_US09]: Project's Tasks "BOARD" view
     Given I am authenticated as admin
 
@@ -125,7 +121,6 @@ Feature: User adds, deletes, edits and clones a project
     And Status column 'Waiting On' is displayed in the third position
     And Status column 'Done' is displayed in the last position
 
-  @task
   Scenario: CAP36 [User_UI_US18.1]: Check  message when  Project title is empty
     Given I am authenticated as admin
 
@@ -136,6 +131,7 @@ Feature: User adds, deletes, edits and clones a project
     When I click to add new project
     And I click on save project button
     Then Message Project Title is mandatory is displayed
+
 
   @task
   Scenario: CAP290 - [Bug]: Project participant cannot open the edit status mode
@@ -173,8 +169,8 @@ Feature: User adds, deletes, edits and clones a project
     When I click on Status name 'To Do'
     Then Status name 'To Do' Edit mode is not opened successfully
 
-  @task
-  Scenario: CAP216 - [Bug]: Task's card should be well displayed when task title is long
+
+  Scenario: CAP216 - [Bug]: Task card should be well displayed when task title is long
     Given I am authenticated as admin
     And I create the first random user
 
@@ -194,7 +190,8 @@ Feature: User adds, deletes, edits and clones a project
     When I hover on task's title 'testlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtaskname'
     Then Task tooltip is displayed 'testlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtaskname'
 
-  @task @ignored
+
+  @ignored
   Scenario: [NF] [US_GanttView_01]: Display Gantt tab in Space tasks projects
     Given I am authenticated as admin
     And I create the first random user
@@ -235,3 +232,53 @@ Feature: User adds, deletes, edits and clones a project
     Then The task name 'task1' should be displayed in PLAN view
     And The task name 'task2' should be displayed in PLAN view
     And The task name 'task3' should be displayed in PLAN view
+
+  @smoke
+  @failing
+  Scenario: CAP16 - [Project_Card_US01]: check the display "project's creator avatar"
+    Given I am authenticated as admin
+    And I create the first random user
+    And I open the app center menu
+    And I open all application page
+    When I go to 'Tasks' application
+    And I select 'Projects' tab
+    And I click on add project button
+    And I enter the project name 'projectCard1'
+    And I save add project
+    And I search for the project 'projectCard1'
+    Then The project 'projectCard1' was deleted successfully
+
+  @failing
+  Scenario: CAP43-[Project_manager_US02]:Delete a Project
+    Given I am authenticated as admin
+    And I create the first random user
+    And I open the app center menu
+    And I open all application page
+    When I go to 'Tasks' application
+    And I select 'Projects' tab
+    And I click on add project button
+    And I enter the project name 'deleteProject'
+    And I save add project
+    And I select the 'Delete' action for the project 'deleteProject'
+    Then The 'confirmationDeleteProject' is displayed
+    And I click on delete button
+    And These projects are not displayed
+      | deleteProject |
+
+  @failing
+  Scenario: CAP44 - [Project_manager_US02]: Cancel Deletion of Project
+    Given I am authenticated as admin
+    And I create the first random user
+    And I open the app center menu
+    And I open all application page
+    When I go to 'Tasks' application
+    And I select 'Projects' tab
+    And I click on add project button
+    And I enter the project name 'cancelDelete'
+    And I save add project
+    And I select the 'Delete' action for the project 'cancelDelete'
+    And I click on cancel delete button
+    And I search for the project 'cancelDelete'
+    Then These projects are displayed
+      | cancelDelete |
+    And The project 'cancelDelete' was deleted successfully

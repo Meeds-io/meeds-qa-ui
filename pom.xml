@@ -55,7 +55,7 @@
     <failsafe.rerunFailingTestsCount>0</failsafe.rerunFailingTestsCount>
     <parallel.tests>1</parallel.tests>
     <!-- One of [SCENARIO, FEATURE]. SCENARIO generates one runner per scenario.  FEATURE generates a runner per feature. -->
-    <parallel.scheme>FEATURE</parallel.scheme>
+    <parallel.scheme></parallel.scheme>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -215,7 +215,7 @@
               <!-- List of package names to scan for glue code. -->
               <glue>
                 <package>io.meeds.qa.ui.hook</package>
-                <package>io.meeds.qa.ui.stepDefinitions</package>
+                <package>io.meeds.qa.ui.steps.definition</package>
               </glue>
               <featuresDirectory>src/test/resources/features/</featuresDirectory>
               <parallelScheme>${parallel.scheme}</parallelScheme>
@@ -261,11 +261,6 @@
             </goals>
           </execution>
         </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>3.0.0</version>
       </plugin>
     </plugins>
   </build>
