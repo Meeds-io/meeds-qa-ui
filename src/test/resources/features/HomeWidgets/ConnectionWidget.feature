@@ -1,3 +1,4 @@
+@smoke
 @widget
 @connection
 Feature: Space widgets checking
@@ -5,7 +6,6 @@ Feature: Space widgets checking
   I want to check the connections in home page
   In order to validate the page
 
-  @smoke
   Scenario: US 3.3.3_(02) [BACK] No Connection requests number
     Given I am authenticated as admin
     And I create the first random user
@@ -25,7 +25,6 @@ Feature: Space widgets checking
     When I connect with the fifth created user
     Then the number of connection requests is '5'
 
-  @ignored
   Scenario:US 3.3.4_(01) [BACK]Connections requests to join: See All
     Given I am authenticated as admin
 
@@ -51,7 +50,6 @@ Feature: Space widgets checking
     And I click on see all
     And the 'People' page is opened
 
-  @ignored
   Scenario:US 3.3.4_(02)[BACK]Connections requests : accept and reject
     Given I am authenticated as admin
     And I create the first random user
@@ -67,7 +65,7 @@ Feature: Space widgets checking
     Then The 'Connections' badge is '3'
     When I click on connections badge
     And I accept the following connection invitation
-      | admin |
+      | Admin |
     Then The 'Connections' number is '1'
 
     Then The 'Connections' badge is '2'
@@ -77,7 +75,6 @@ Feature: Space widgets checking
 
     Then The 'Connections' number is '2'
 
-  @ignored
   Scenario: US 3.3.7[BACK]Common Connections for users requests
     Given I am authenticated as admin
     When I create the first random user

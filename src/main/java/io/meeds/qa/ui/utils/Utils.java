@@ -41,7 +41,7 @@ public class Utils {
   }
 
   public static void waitForPageLoaded() {
-    WebDriverWait wait = new WebDriverWait(Serenity.getDriver(), Duration.ofSeconds(60));
+    WebDriverWait wait = new WebDriverWait(Serenity.getDriver(), Duration.ofSeconds(120));
     wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState === 'complete' "
         + " && (!document.getElementById('TopbarLoadingContainer') || !!document.querySelector('.TopbarLoadingContainer.hidden'))"
         + " && !document.querySelector('.v-navigation-drawer--open .v-progress-linear')")

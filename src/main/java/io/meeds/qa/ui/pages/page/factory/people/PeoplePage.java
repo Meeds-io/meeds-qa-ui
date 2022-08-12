@@ -6,7 +6,6 @@ import org.openqa.selenium.WebDriver;
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class PeoplePage extends GenericPage {
@@ -21,17 +20,11 @@ public class PeoplePage extends GenericPage {
   @FindBy(xpath = "//*[@class='v-card__text peopleCardBody align-center pt-2 pb-1']//a")
   public BaseElementFacade     ELEMENT_ADD_CONTACT_FULLNAME;
 
-  @FindBy(xpath = "//button[contains(text(),'OK')]")
-  private TextBoxElementFacade okButton;
-
   @FindBy(xpath = "//*[@class='showingPeopleText text-sub-title ms-3 d-none d-sm-flex']")
   public TextBoxElementFacade  ELEMENT_PEOPLE_SHOWING_RESULTS;
 
   @FindBy(xpath = "//*[@id='usersLeaderboard']//*[@class='d-inline-block']")
   public TextBoxElementFacade  ELEMENT_LEADER_BOARD_TITLE;
-
-  @FindBy(xpath = "//*[@class='d-inline peopleRelationshipButtonText' and contains(text(),'Disconnect')]")
-  public TextBoxElementFacade  disconnectLabel;
 
   @FindBy(xpath = "(//*[@class='v-list-item__title']//a)[1]")
   public TextBoxElementFacade  ELEMENT_FIRST_USER_LEADER_BOARD_POSITION;
@@ -93,68 +86,98 @@ public class PeoplePage extends GenericPage {
   @FindBy(xpath = "//*[@class='uiIconSocConnectUser']")
   public BaseElementFacade     connectUserProfile;
 
+  private BaseElementFacade getUserButton(String user) {
+    return findByXpathOrCSS(String
+                                  .format("//a[contains(@href,'%s')]//following::button[contains(@class, 'peopleRelationshipButton')]",
+                                          user));
+  }
+
   private BaseElementFacade getConnectUserButton(String user) {
     return findByXpathOrCSS(String
-                             .format("//a[contains(@href,'%s')]//following::i[contains(@class,'uiIconSocConnectUser')]", user));
+                                  .format("//a[contains(@href,'%s')]//following::button[contains(@class,'connectUserButton')]",
+                                          user));
   }
 
   private BaseElementFacade getDisconnectUserButton(String user) {
     return findByXpathOrCSS(String.format(
-                                     "//a[contains(@href,'%s')]//following::i[contains(@class,'uiIconSocCancelConnectUser')]",
-                                     user));
+                                          "//a[contains(@href,'%s')]//following::button[contains(@class,'disconnectUserButton')]",
+                                          user));
+  }
+
+  private BaseElementFacade getCancelRequestUserButton(String user) {
+    return findByXpathOrCSS(String.format(
+                                          "//a[contains(@href,'%s')]//following::button[contains(@class,'cancelRequestButton')]",
+                                          user));
+  }
+
+  private BaseElementFacade getInvitationsRequestUserButton(String user) {
+    return findByXpathOrCSS(String.format(
+                                          "//a[contains(@href,'%s')]//following::button[contains(@class,'peopleButtonMenu')]",
+                                          user));
+  }
+
+  private BaseElementFacade getRefuseInvitationUserButton(String user) {
+    return findByXpathOrCSS(String.format(
+                                          "//a[contains(@href,'%s')]//following::button[contains(@class,'refuseToConnectButton')]",
+                                          user));
   }
 
   public BaseElementFacade ELEMENT_CURRENT_USER_LEADER_BOARD_POINTS(String id) {
     return findByXpathOrCSS(String
-                             .format("(//*[@class='v-list-item__title']//a/following::*[@class='v-list-item__action me-4'])['%s']",
-                                     id));
+                                  .format("(//*[@class='v-list-item__title']//a/following::*[@class='v-list-item__action me-4'])['%s']",
+                                          id));
   }
 
   public BaseElementFacade ELEMENT_SENT_REQUESTS_USERS(String user) {
     return findByXpathOrCSS(String
-                             .format("//*[@class='layout column']//*[@class='v-list-item__title']//a[contains(text(),'%s')]",
-                                     user));
+                                  .format("//*[@class='layout column']//*[@class='v-list-item__title']//a[contains(text(),'%s')]",
+                                          user));
   }
 
   public BaseElementFacade ELEMENT_ADD_CONTACT_FULLNAM_WITH_PARAM(String user) {
     return findByXpathOrCSS(String
-                             .format("//*[@class='v-card__text peopleCardBody align-center pt-2 pb-1']//a[contains(text(),'%s')]",
-                                     user));
+                                  .format("//*[@class='v-card__text peopleCardBody align-center pt-2 pb-1']//a[contains(text(),'%s')]",
+                                          user));
   }
 
   public BaseElementFacade ELEMENT_DELETE_SENT_REQUESTS_USERS(String user) {
     return findByXpathOrCSS(String
-                             .format("//*[@class='layout column']//*[@class='v-list-item__title']//a[contains(text(),'%s')]/following::button[1]",
-                                     user));
+                                  .format("//*[@class='layout column']//*[@class='v-list-item__title']//a[contains(text(),'%s')]/following::button[1]",
+                                          user));
   }
 
   private BaseElementFacade getUserProfileButton(String user) {
     return findByXpathOrCSS(String.format("//a[contains(@href,'%s')and contains(@class,'userFullname')]", user));
   }
 
-  private BaseElementFacade getUserMenu(String user) {
-    return findByXpathOrCSS(
-                       String.format("//a[contains(@href,'%s')]/../..//button[contains(@class,'peopleMenuIcon')]", user));
-  }
-
   public void checkConnectToUser(String user) {
-    getDriver().navigate().refresh();
     searchPeopleInput.waitUntilVisible();
     searchPeopleInput.sendKeys(user);
-    if (getDisconnectUserButton(user).isVisibleAfterWaiting() && disconnectLabel.isVisibleAfterWaiting()) {
-      getDisconnectUserButton(user).clickOnElement();
-      okButton.clickOnElement();
-      getDisconnectUserButton(user).waitUntilNotVisible();
-      getConnectUserButton(user).waitUntilVisible();
-    }
+    BaseElementFacade progressBar = findByXpathOrCSS(".UISiteBody .v-progress-linear");
+    progressBar.waitUntilVisible();
+    progressBar.waitUntilNotVisible();
 
-    if (getDisconnectUserButton(user).isVisibleAfterWaiting() && disconnectLabel.isNotVisibleAfterWaiting()) {
-      getDisconnectUserButton(user).clickOnElement();
-      getConnectUserButton(user).waitUntilVisible();
+    BaseElementFacade userButton = getUserButton(user);
+    userButton.waitUntilClickable();
+    if (!userButton.hasClass("connectUserButton")) {
+      if (userButton.hasClass("acceptToConnectButton")) {
+        BaseElementFacade invitationsRequestUserButton = getInvitationsRequestUserButton(user);
+        clickOnElement(invitationsRequestUserButton);
+        BaseElementFacade refuseInvitationUserButton = getRefuseInvitationUserButton(user);
+        clickOnElement(refuseInvitationUserButton);
+      } else if (userButton.hasClass("disconnectUserButton")) {
+        clickOnElement(userButton);
+        BaseElementFacade okButton = findByXpathOrCSS("//*[contains(@class, 'v-dialog--active')]//button[contains(text(),'OK')]");
+        okButton.waitUntilClickable();
+        okButton.clickOnElement();
+      } else {
+        clickOnElement(userButton);
+      }
+      userButton = getConnectUserButton(user);
+      userButton.waitUntilVisible();
     }
-
-    getConnectUserButton(user).clickOnElement();
-    getConnectUserButton(user).waitUntilNotVisible();
+    clickOnElement(userButton);
+    getCancelRequestUserButton(user).waitUntilVisible();
   }
 
   public void goToUserProfile(String user) {

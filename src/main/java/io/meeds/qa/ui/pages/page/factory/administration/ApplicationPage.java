@@ -243,6 +243,7 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void clickAddApplicationButton() {
+    addApplicationButton.waitUntilVisible();
     addApplicationButton.clickOnElement();
   }
 

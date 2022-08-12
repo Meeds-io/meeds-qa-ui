@@ -36,8 +36,8 @@ public class LoginStepDefinitions {
 
   @Given("^I connect with the (.*) created user$")
   public void logoutLoginUser(String userPrefix) {
-    String firstUserName = Serenity.sessionVariableCalled(userPrefix + "UserName");
-    logOutLogin(firstUserName);
+    String userName = Serenity.sessionVariableCalled(userPrefix + "UserName");
+    logOutLogin(userName);
   }
 
   @Given("I connect with the first created user with the edited password")
