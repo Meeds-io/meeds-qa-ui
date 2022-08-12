@@ -130,7 +130,7 @@ Feature: Favorite activities
   Scenario: [Fav_US13][01]: Bookmark a note from it's details
     Given I am authenticated as admin
     And I create the first random user
-    And I create the space with template and the first created user
+    And I create random space with the first created user
     And I go to notes application of the space
     When I click to add note
     Then Create note form is opened successfully in new tab
@@ -176,7 +176,7 @@ Feature: Favorite activities
   Scenario: [Fav_US14][01]: Remove the bookmark for a note from it's details
     Given I am authenticated as admin
     And I create the first random user
-    And I create the space with template and the first created user
+    And I create random space with the first created user
     And I go to notes application of the space
     When I click to add note
     Then Create note form is opened successfully in new tab

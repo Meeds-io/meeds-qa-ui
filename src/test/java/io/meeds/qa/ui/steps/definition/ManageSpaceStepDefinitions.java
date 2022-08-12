@@ -263,10 +263,13 @@ public class ManageSpaceStepDefinitions {
   }
 
   @Given("I create random space with the first created user")
-  public void addRandomSpaceWithFirstUser() {
+  public void addSpaceByTemplateWithFirstUser() {
+    String randomSpaceName = "randomSpaceName" + getRandomNumber();
+    String firstUserFirstName = sessionVariableCalled("firstUserFirstName");
+    String firstUserLastName = sessionVariableCalled("firstUserLastName");
+    String firstUserName = firstUserFirstName + " " + firstUserLastName;
     homeSteps.goToManageSpacesPage();
-    String firstUserName = sessionVariableCalled("firstUserName");
-    manageSpaceSteps.addOrGoToSpace("randomSpaceName", firstUserName);
+    manageSpaceSteps.addSpaceByTemplateWithUser(randomSpaceName, firstUserName, spaceTemplate);
   }
 
   @Given("^I create second random space with the first created user$")
@@ -525,32 +528,10 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.addUserToSpace(user);
   }
 
-  @Given("^I add second user to the space$")
-  public void addSecondUserToSpace() {
-    String secondUserName = sessionVariableCalled("secondUserName");
-    manageSpaceSteps.addUserToSpace(secondUserName);
-  }
-
-  @Given("^I add third user to the space$")
-  public void addThirdUserToSpace() {
-    String thirdUserName = sessionVariableCalled("thirdUserName");
-    manageSpaceSteps.addUserToSpace(thirdUserName);
-  }
-
-  @And("I create the space with template and the first created user")
-  public void addSpaceByTemplateWithFirstUser() {
-    String randomSpaceName = "randomSpaceName" + getRandomNumber();
-    String firstUserFirstName = sessionVariableCalled("firstUserFirstName");
-    String firstUserLastName = sessionVariableCalled("firstUserLastName");
-    String firstUserName = firstUserFirstName + " " + firstUserLastName;
-    homeSteps.goToManageSpacesPage();
-    manageSpaceSteps.addSpaceByTemplateWithFirstUser(randomSpaceName, firstUserName, spaceTemplate);
-  }
-
-  @Given("^I add fourth user to the space$")
-  public void addFourthUserToSpace() {
-    String fourthUserName = sessionVariableCalled("fourthUserName");
-    manageSpaceSteps.addUserToSpace(fourthUserName);
+  @Given("^I add (.*) user to the space$")
+  public void addRandomUserToSpace(String userPrefix) {
+    String userName = sessionVariableCalled(userPrefix + "UserName");
+    manageSpaceSteps.addUserToSpace(userName);
   }
 
 }

@@ -15,7 +15,6 @@ Feature: Kudos
     Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
-
     When I connect with the second created user
     And I create random space with the first created user
     And I go to the created space

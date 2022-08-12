@@ -266,13 +266,13 @@ public class ManageSpaceSteps {
     manageSpacesPage.addUserToSpace(user);
   }
 
-  public void addSpaceByTemplateWithFirstUser(String randomSpaceName, String firstUserName, String spaceTemplate) {
+  public void addSpaceByTemplateWithUser(String randomSpaceName, String userName, String spaceTemplate) {
     manageSpacesPage.openSpaceFormDrawer();
     manageSpacesPage.setSpaceName(randomSpaceName);
     manageSpacesPage.selectTemplate(spaceTemplate);
     manageSpacesPage.clickFirstProcessButton();
     manageSpacesPage.clickSecondProcessButton();
-    manageSpacesPage.inviteUserToSpace(firstUserName);
+    manageSpacesPage.inviteUserToSpace(userName);
     manageSpacesPage.clickAddSpaceButton();
     setSessionVariable("randomSpaceName").to(randomSpaceName);
   }
