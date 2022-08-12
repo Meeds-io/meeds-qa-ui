@@ -29,6 +29,8 @@ public class AddUserSteps {
     addUserPage.clickAddUserButton();
     addUserPage.setRandomUserDetails(userName, firstName, lastName, mail, password);
     addUserPage.saveAddUserButton();
+    // Wait for ElasticSearch index creation asynchronously
+    addUserPage.waitFor(3).seconds();
   }
 
   public void addRandomUser(String userPrefix) {

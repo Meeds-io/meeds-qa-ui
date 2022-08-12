@@ -2,6 +2,7 @@ package io.meeds.qa.ui.elements;
 
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoaded;
 
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import io.meeds.qa.ui.utils.ExceptionLauncher;
 import net.serenitybdd.core.annotations.findby.By;
+import net.serenitybdd.core.exceptions.SerenityManagedException;
 import net.serenitybdd.core.pages.DefaultTimeouts;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.core.pages.WebElementFacadeImpl;
@@ -128,7 +130,7 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
       resetTimeouts();
       waitForPageLoaded();
     } catch (WebDriverException e) {
-      exceptionLauncher.throwSerenityExeption(e, String.format("The element [%s] cannot be clicked.", this));
+      throw new ElementClickInterceptedException(String.format("The element [%s] cannot be clicked.", this), e);
     }
   }
 

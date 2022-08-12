@@ -99,6 +99,8 @@ Feature: Check the rules score increase
     And I go to my profile
     Then My points augmented
 
+  # Relationship doesn't increase gamification points
+  # It seems a real bug to fix in product
   @failing
   Scenario: Receive relationship request
     Given I am authenticated as admin

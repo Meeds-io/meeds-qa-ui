@@ -9,7 +9,6 @@ public class ExceptionLauncher {
   static final Logger  LOGGER = LoggerFactory.getLogger(ExceptionLauncher.class);
 
   public void throwSerenityExeption(Exception e, String errorMsg) {
-    LOGGER.error(errorMsg);
-    throw (new SerenityManagedException(errorMsg, e));
+    throw new SerenityManagedException(errorMsg, e);
   }
 }
