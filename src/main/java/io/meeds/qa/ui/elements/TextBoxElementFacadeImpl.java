@@ -1,5 +1,7 @@
 package io.meeds.qa.ui.elements;
 
+import static io.meeds.qa.ui.utils.Utils.waitForPageLoaded;
+
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
@@ -35,6 +37,7 @@ public class TextBoxElementFacadeImpl extends BaseElementFacadeImpl implements T
   }
 
   public void setTextValue(String newValue, Keys keys) {
+    waitForPageLoaded(driver);
     try {
       waitUntilVisible();
     } catch (WebDriverException | IllegalArgumentException e) {
@@ -50,7 +53,7 @@ public class TextBoxElementFacadeImpl extends BaseElementFacadeImpl implements T
     if (keys != null) {
       sendKeys(keys);
     }
-    waitForPageLoaded();
+    waitForPageLoaded(driver);
   }
 
   public void setTextValue(String newValue) {
@@ -58,7 +61,7 @@ public class TextBoxElementFacadeImpl extends BaseElementFacadeImpl implements T
   }
 
   public String getTextBoxValue() {
-    waitForPageLoaded();
+    waitForPageLoaded(driver);
     LOGGER.debug(String.format("Getting text of the element [%s]", this));
     String textValue = null;
     try {

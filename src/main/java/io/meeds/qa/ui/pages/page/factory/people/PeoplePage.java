@@ -144,8 +144,7 @@ public class PeoplePage extends GenericPage {
   }
 
   public void checkConnectToUser(String user) {
-
-    driver.navigate().refresh();
+    getDriver().navigate().refresh();
     searchPeopleInput.waitUntilVisible();
     searchPeopleInput.sendKeys(user);
     if (getDisconnectUserButton(user).isVisibleAfterWaiting() && disconnectLabel.isVisibleAfterWaiting()) {
@@ -170,7 +169,7 @@ public class PeoplePage extends GenericPage {
   }
 
   public void connectUserProfile() {
-    driver.navigate().refresh();
+    getDriver().navigate().refresh();
     connectUserProfile.waitUntilVisible();
     connectUserProfile.clickOnElement();
   }

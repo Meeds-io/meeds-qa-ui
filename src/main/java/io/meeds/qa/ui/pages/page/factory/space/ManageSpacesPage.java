@@ -402,14 +402,14 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void clickSpaceAction(String action) {
-    BaseElementFacade spaceAction = getSpaceAction(action);
-    if (!spaceAction.isPresent()) {
-      BaseElementFacade spaceFirstNavigationTab = getSpaceFirstNavigationTab();
-      if ((spaceFirstNavigationTab == null || !spaceFirstNavigationTab.isPresent()) && spaceAction.isVisibleAfterWaiting()) {
-        spaceAction.clickOnElement();
-      }
+    BaseElementFacade spaceFirstNavigationTab = getSpaceFirstNavigationTab();
+    if (spaceFirstNavigationTab.isPresent()) {
+      clickOnElement(spaceFirstNavigationTab);
     } else {
-      spaceAction.clickOnElement();
+      BaseElementFacade spaceAction = getSpaceAction(action);
+      if (spaceAction.isPresent()) {
+        clickOnElement(spaceAction);
+      }
     }
   }
 

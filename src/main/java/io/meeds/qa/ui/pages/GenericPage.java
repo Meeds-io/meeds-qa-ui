@@ -1,5 +1,7 @@
 package io.meeds.qa.ui.pages;
 
+import static io.meeds.qa.ui.utils.Utils.waitForPageLoaded;
+
 import java.io.File;
 
 import org.openqa.selenium.By;
@@ -12,11 +14,12 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 public class GenericPage extends BasePageImpl {
 
   public GenericPage() {
-    url = "genericPage";
+    this(null);
   }
 
   public GenericPage(WebDriver driver) {
     super(driver);
+    url = "genericPage";
   }
 
   @FindBy(xpath = "//div[contains(@class,'alert-success')]")
@@ -68,6 +71,7 @@ public class GenericPage extends BasePageImpl {
     element.waitUntilEnabled();
     element.waitUntilClickable();
     element.clickOnElement();
+    waitForPageLoaded(driver);
   }
 
 }

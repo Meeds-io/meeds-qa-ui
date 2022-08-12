@@ -1,14 +1,12 @@
 package io.meeds.qa.ui.elements;
 
-import java.time.Duration;
+import static io.meeds.qa.ui.utils.Utils.waitForPageLoaded;
 
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -120,25 +118,15 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
 
   /*********************************************************************************************************/
 
-  public void waitForPageLoaded() {
-    try {
-      WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-      wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState === 'complete' && (!document.getElementById('TopbarLoadingContainer') || document.getElementById('TopbarLoadingContainer').className.indexOf('hidden') > 0)")
-                                                              .toString()
-                                                              .equals("true"));
-    } catch (Exception error) {
-      exceptionLauncher.throwSerenityExeption(error, "Timeout waiting for Page Load Request to complete.");
-    }
-  }
-
   public void clickOnElement() {
     LOGGER.debug("clicking on the element [{}]", this);
     try {
       resetTimeouts();
-      waitForPageLoaded();
+      waitForPageLoaded(driver);
       waitUntilClickable();
       click();
-      waitForPageLoaded();
+      resetTimeouts();
+      waitForPageLoaded(driver);
     } catch (WebDriverException e) {
       exceptionLauncher.throwSerenityExeption(e, String.format("The element [%s] cannot be clicked.", this));
     }

@@ -1,5 +1,6 @@
 package io.meeds.qa.ui.pages.page.factory;
 
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.BaseElementFacade;
@@ -24,6 +25,15 @@ public class LoginPage extends GenericPage implements IsHidden {
     passwordTextbox.setTextValue(password);
     BaseElementFacade loginButton = findByXpathOrCSS("//*[contains(@class, 'loginButton')]//button");
     clickOnElement(loginButton);
+  }
+
+  public void clearCookies() {
+    try {
+      driver.switchTo().alert().accept();
+    } catch (NoAlertPresentException e) {
+      // Normal Behavior
+    }
+    driver.manage().deleteAllCookies();
   }
 
 }
