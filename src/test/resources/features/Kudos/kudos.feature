@@ -1,7 +1,7 @@
+@kudos
 Feature: Kudos
   As an administrator I can modify kudos parameters
 
-  @kudos
   Scenario: [EXISTANT-KUDOS 3] Select the number of Kudos that a user is allowed to send per period
     Given I am authenticated as admin
 
@@ -11,12 +11,10 @@ Feature: Kudos
     And I save all changes
     Then The kudos settings saved with a kudos number equal to '8' and 'Semester' period type
 
-  @kudos
   Scenario: [EXISTANT-KUDOS 2] Sending and Receiving Kudos
     Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
-
     When I connect with the second created user
     And I create random space with the first created user
     And I go to the created space
@@ -37,7 +35,6 @@ Feature: Kudos
     And I go to My Profile page
     Then '1' kudos are received
 
-  @kudos
   Scenario: [EXISTANT-KUDOS 5] check that user cannot send kudos to himself
     Given I am authenticated as admin
     And I create the first random user
@@ -50,7 +47,6 @@ Feature: Kudos
     Then the activity 'Kudos Post' is displayed in activity stream
     And kudos icon of the activity 'Kudos Post' is Disabled
 
-  @kudos
   Scenario: [EXISTANT-KUDOS 7] Sending Kudos from user profile
     Given I am authenticated as admin
     And I create the first random user
@@ -64,7 +60,6 @@ Feature: Kudos
     And I go to My Profile page
     Then '1' kudos are received
 
-  @kudos
   Scenario: [ActivityStream_US51][01]: Edit a kudos activity
     Given I am authenticated as admin
     And I create the first random user

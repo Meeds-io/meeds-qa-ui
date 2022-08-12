@@ -1,20 +1,24 @@
 package io.meeds.qa.ui.steps;
 
+import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
+
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.WebDriver;
+
+import io.meeds.qa.ui.hook.TestHooks;
+import io.meeds.qa.ui.pages.page.factory.HomePage;
 import io.meeds.qa.ui.pages.page.factory.space.ManageSpacesPage;
 import net.serenitybdd.core.Serenity;
 
 public class ManageSpaceSteps {
+
   private ManageSpacesPage manageSpacesPage;
 
-  public void addSimpleSpace(String spaceName) {
-    manageSpacesPage.openSpaceFormDrawer();
-    manageSpacesPage.setSpaceName(spaceName);
-    manageSpacesPage.clickFirstProcessButton();
-    manageSpacesPage.clickSecondProcessButton();
-    manageSpacesPage.clickAddSpaceButton();
-  }
+  private HomePage homePage;
 
   public void addSpaceWithRegistration(String spaceName, String registration) {
     manageSpacesPage.openSpaceFormDrawer();
@@ -33,6 +37,7 @@ public class ManageSpaceSteps {
     manageSpacesPage.clickSecondProcessButton();
     manageSpacesPage.inviteUserToSpace(user);
     manageSpacesPage.clickAddSpaceButton();
+    setSessionVariable("randomSpaceName").to(spaceName);
   }
 
   public void checkThatSpaceDetailsInSearchResultsAreDisplayed(String spaceName, String members) {
@@ -47,9 +52,16 @@ public class ManageSpaceSteps {
     manageSpacesPage.checkThatSpaceInSearchResultsIsNotDisplayed(spaceName);
   }
 
-  public void goToSpeceficSpace(String space) {
+  public void goToSpecificSpace(String space) {
+    WebDriver driver = Serenity.getWebdriverManager().getCurrentDriver();
+    if (!driver.getCurrentUrl().contains("/spaces")) {
+      homePage.goToSpacesPage();
+    }
     manageSpacesPage.insertSpaceNameInSearchField(space);
     manageSpacesPage.goToSpecificSpace(space);
+    if (!manageSpacesPage.isSpaceMenuDisplayed()) {
+      manageSpacesPage.clickSpaceAction("Join");
+    }
   }
 
   public void addSpaceWithInviteUser(String spaceName, String user) {
@@ -254,14 +266,42 @@ public class ManageSpaceSteps {
     manageSpacesPage.addUserToSpace(user);
   }
 
-  public void addSpaceByTemplateWithFirstUser(String randomSpaceName, String firstUserName, String spaceTemplate) {
+  public void addSpaceByTemplateWithUser(String randomSpaceName, String userName, String spaceTemplate) {
     manageSpacesPage.openSpaceFormDrawer();
     manageSpacesPage.setSpaceName(randomSpaceName);
     manageSpacesPage.selectTemplate(spaceTemplate);
     manageSpacesPage.clickFirstProcessButton();
     manageSpacesPage.clickSecondProcessButton();
-    manageSpacesPage.inviteUserToSpace(firstUserName);
+    manageSpacesPage.inviteUserToSpace(userName);
     manageSpacesPage.clickAddSpaceButton();
-
+    setSessionVariable("randomSpaceName").to(randomSpaceName);
   }
+
+  public void addOrGoToSpace(String spaceNamePrefix, String userToInvite) {
+    String spaceName = sessionVariableCalled(spaceNamePrefix);
+    if (StringUtils.isNotBlank(spaceName)) {
+      goToSpecificSpace(spaceName);
+      manageSpacesPage.addUserToSpace(userToInvite);
+    } else {
+      spaceName = spaceNamePrefix + getRandomNumber();
+      setSessionVariable(spaceNamePrefix).to(spaceName);
+      homePage.goToSpacesPage();
+      addSpaceWithInviteUser(spaceName, userToInvite);
+      TestHooks.spaceWithPrefixCreated(spaceNamePrefix, spaceName);
+    }
+  }
+
+  public void addOrGoToSpace(String spaceNamePrefix) {
+    String spaceName = sessionVariableCalled(spaceNamePrefix);
+    if (StringUtils.isNotBlank(spaceName)) {
+      goToSpecificSpace(spaceName);
+    } else {
+      spaceName = spaceNamePrefix + getRandomNumber();
+      setSessionVariable(spaceNamePrefix).to(spaceName);
+      homePage.goToSpacesPage();
+      addSpaceWithRegistration(spaceName, "Open");
+      TestHooks.spaceWithPrefixCreated(spaceNamePrefix, spaceName);
+    }
+  }
+
 }

@@ -3,7 +3,7 @@
 
 Feature: Edit Note
 
-  @note @ignore
+  @note @ignored
   Scenario: Open edit Note page in new tab
     Given I am authenticated as admin
     And I create a space with full template
@@ -18,7 +18,7 @@ Feature: Edit Note
     And I close the third window
     And I close the second window
 
-  @note @ignore
+  @note @ignored
   Scenario: edit note
     Given I am authenticated as admin
     And I create a space with full template

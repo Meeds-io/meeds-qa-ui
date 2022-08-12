@@ -1,12 +1,9 @@
 package io.meeds.qa.ui.steps;
 
-import io.meeds.qa.ui.pages.page.factory.HomePage;
 import io.meeds.qa.ui.pages.page.factory.Social.SocialPage;
 
 public class SocialSteps {
   private SocialPage socialpage;
-
-  private HomePage   homePage;
 
   public void commentActivity(String activity) {
     socialpage.CommentActivity(activity);

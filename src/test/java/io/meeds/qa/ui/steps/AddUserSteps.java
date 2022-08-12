@@ -1,7 +1,13 @@
 package io.meeds.qa.ui.steps;
 
+import static io.meeds.qa.ui.utils.Utils.*;
+import static net.serenitybdd.core.Serenity.*;
+
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+
+import io.meeds.qa.ui.hook.TestHooks;
 import io.meeds.qa.ui.pages.page.factory.HomePage;
 import io.meeds.qa.ui.pages.page.factory.administration.AddUserPage;
 
@@ -23,6 +29,26 @@ public class AddUserSteps {
     addUserPage.clickAddUserButton();
     addUserPage.setRandomUserDetails(userName, firstName, lastName, mail, password);
     addUserPage.saveAddUserButton();
+  }
+
+  public void addRandomUser(String userPrefix) {
+    if (StringUtils.isBlank(sessionVariableCalled(userPrefix + "UserName"))) {
+      String userName = "user" + userPrefix + getRandomString();
+      String firstName = getRandomString(userPrefix);
+      String lastName = getRandomString(userName);
+      String email = userName + "@aa.bb";
+      String password = "123456nBm";
+
+      homePage.goToAddUser();
+      addRandomUser(userName, firstName, lastName, email, password);
+
+      setSessionVariable(userPrefix + "UserName").to(userName);
+      setSessionVariable(userPrefix + "UserFirstName").to(firstName);
+      setSessionVariable(userPrefix + "UserLastName").to(lastName);
+      setSessionVariable(userPrefix + "UserPassword").to(password);
+      setSessionVariable(userName + "-password").to(password);
+      TestHooks.userWithPrefixCreated(userPrefix, userName, firstName, lastName, email, password);
+    }
   }
 
   public void enterUserInformations(Map<String, String> userDetails) {

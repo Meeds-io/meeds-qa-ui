@@ -279,4 +279,8 @@ public class HomeSteps {
   public void bookmarkActivity(String activity) {
     homePage.bookmarkActivity(activity);
   }
+
+  public void goToAppCenterApplications() {
+    homePage.goToAppCenterApplications();
+  }
 }

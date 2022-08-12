@@ -1,21 +1,6 @@
 Feature: Rules
 
   @gamification
-  Scenario: Receive Kudos
-    Given I am authenticated as admin
-    And I create the first random user
-    And I create the second random user
-    And I connect with the first created user
-    When I go to my profile
-    And I check my points
-    And I connect with the second created user
-    And I go to the first user profile
-    And I send kudos with message 'Message for kudos'
-    And I connect with the first created user
-    When I go to my profile
-    Then My points augmented
-
-  @gamification
   Scenario: Comment a post
     Given I am authenticated as admin
     And I create the first random user
@@ -28,10 +13,12 @@ Feature: Rules
     And I publish the activity
     And the activity 'kudosPostActivity' is displayed in activity stream
     And I add in activity 'kudosPostActivity' a comment 'commentKudos'
+    And I wait '3' seconds
     And I go to my profile
     Then My points augmented
 
   @gamification
+  @failing
   Scenario: Like a comment
     Given I am authenticated as admin
     And I create the first random user
@@ -50,10 +37,12 @@ Feature: Rules
     And I check my points
     And I go to the created space
     And I like the activity comment 'commentKudosPostActivity'
+    And I wait '3' seconds
     And I go to my profile
     Then My points augmented
 
   @gamification
+  @failing
   Scenario: Like a post
     Given I am authenticated as admin
     And I create the first random user
@@ -71,10 +60,12 @@ Feature: Rules
     And I check my points
     And I go to the created space
     And I like the activity 'kudosActivity12'
+    And I wait '3' seconds
     And I go to my profile
     Then My points augmented
 
   @gamification
+  @failing
   Scenario: Join a space
     Given I am authenticated as admin
     And I create the first random user
@@ -85,6 +76,7 @@ Feature: Rules
     When I click on spaces badge
     And I accept the invitation of the created space
     And I close Space Drawer
+    And I wait '3' seconds
     When I go to my profile
     Then My points augmented
 
@@ -97,6 +89,7 @@ Feature: Rules
     And I select 'Tasks' tab
     And The following task is created
       | taskName | taskgamification |
+    And I wait '3' seconds
     And I go to my profile
     Then My points augmented
 
@@ -115,5 +108,6 @@ Feature: Rules
     And I select 'Tasks' tab
     And I start the search for Task 'taskcompleted'
     And I mark the task as completed
+    And I wait '3' seconds
     And I go to my profile
     Then My points augmented

@@ -3,7 +3,7 @@ Feature: Users Management
   As an administrator
   I want to check that i can manage the users
 
-  @ignore
+  @ignored
   Scenario: [USR_MNG-1.1] Users Grid
     Given I am authenticated as admin
 
@@ -26,7 +26,7 @@ Feature: Users Management
 
     Then Add Users drawer is opened
 
-  @ignore
+  @ignored
   Scenario: [USR_MNG-1.5] Delete User
     Given I am authenticated as admin
 

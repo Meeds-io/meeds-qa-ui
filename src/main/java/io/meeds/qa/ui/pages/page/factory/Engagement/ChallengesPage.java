@@ -43,9 +43,6 @@ public class ChallengesPage extends GenericPage {
   @FindBy(xpath = "(//*[contains(@id,'DatePicker')])[2]//input")
   private TextBoxElementFacade endDateField;
 
-  @FindBy(xpath = "(//*[contains(@class,'v-date-picker-table__current')])[1]/following::td[1]")
-  private TextBoxElementFacade startDateTomorrow;
-
   @FindBy(xpath = "(//*[contains(@class,'v-date-picker-table__current')])[2]/following::td[7]")
   private TextBoxElementFacade endDateNextWeek;
 
@@ -62,9 +59,6 @@ public class ChallengesPage extends GenericPage {
 
   @FindBy(xpath = "(//*[contains(@class,'v-date-picker-table__current')])[1]")
   private TextBoxElementFacade startDateToday;
-
-  @FindBy(xpath = "(//*[contains(@class,'v-date-picker-table__current')])[2]/following::td[1]")
-  private TextBoxElementFacade endDateTomorrow;
 
   public void clickAddChallengeBtn() {
     addChallengeBtn.waitUntilVisible();
@@ -91,13 +85,13 @@ public class ChallengesPage extends GenericPage {
   }
 
   private BaseElementFacade getSelectSpaceInDropDown(String spaceName) {
-    return findByXpath(String.format(
+    return findByXpathOrCSS(String.format(
                                      "//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
                                      spaceName));
   }
 
   private BaseElementFacade getSelectDomainInDropDown(String programName) {
-    return findByXpath(String.format(
+    return findByXpathOrCSS(String.format(
                                      "//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
                                      programName));
   }
@@ -110,17 +104,18 @@ public class ChallengesPage extends GenericPage {
 
   public void selectStartDateTomorrow() {
     startDateField.clickOnElement();
-    startDateTomorrow.clickOnElement();
+    BaseElementFacade startDateTomorrow = findByXpathOrCSS("(//*[contains(@class,'v-date-picker-table__current')])[1]/following::td[1]");
+    startDateTomorrow.waitUntilVisible();
+    clickOnElement(startDateTomorrow);
   }
 
   public void selectEndDateNextWeek() {
-    endDateField.clickOnElement();
-    endDateNextWeek.waitUntilVisible();
-    endDateNextWeek.clickOnElement();
+    clickOnElement(endDateField);
+    clickOnElement(endDateNextWeek);
   }
 
   public void addChallengeWithDescription(String description) {
-    ckEditorFrameChallenge.clickOnElement();
+    clickOnElement(ckEditorFrameChallenge);
     driver.switchTo().frame(ckEditorFrameChallenge);
     challengeDescriptionField.waitUntilVisible();
     challengeDescriptionField.setTextValue(description);
@@ -129,7 +124,7 @@ public class ChallengesPage extends GenericPage {
   }
 
   private BaseElementFacade getChallengeSuccessMessage(String message) {
-    return findByXpath(String.format("//div[@class='v-alert__content']//*[contains(text(),'%s')]", message));
+    return findByXpathOrCSS(String.format("//div[@class='v-alert__content']//*[contains(text(),'%s')]", message));
   }
 
   public void checkSuccessMessage(String message) {
@@ -150,7 +145,7 @@ public class ChallengesPage extends GenericPage {
   }
 
   private BaseElementFacade getChallengeCardTitle(String title) {
-    return findByXpath(String.format("//*[contains(@class,'subtitleChallenge') and contains(text(),'%s')]", title));
+    return findByXpathOrCSS(String.format("//*[contains(@class,'subtitleChallenge') and contains(text(),'%s')]", title));
   }
 
   public void checkChallengeCardTitle(String title) {
@@ -174,7 +169,9 @@ public class ChallengesPage extends GenericPage {
   public void selectEndDateTomorrow() {
     endDateField.waitUntilVisible();
     endDateField.clickOnElement();
-    endDateTomorrow.clickOnElement();
+    BaseElementFacade endDateTomorrow = findByXpathOrCSS("(//*[contains(@class,'v-date-picker-table__current')])[2]/following::td[1]");
+    endDateTomorrow.waitUntilVisible();
+    clickOnElement(endDateTomorrow);
   }
 
   public void checkTitleDisplayOnCard(String title) {
@@ -239,7 +236,7 @@ public class ChallengesPage extends GenericPage {
   }
 
   private BaseElementFacade getSelectWinnerInDropDown(String secondUserName) {
-    return findByXpath(String.format("//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
+    return findByXpathOrCSS(String.format("//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
                                      secondUserName));
   }
 
@@ -252,7 +249,7 @@ public class ChallengesPage extends GenericPage {
   }
 
   private BaseElementFacade getAnnouncementActivityTopBar(String user, String space) {
-    return findByXpath(String.format("(//*[contains(@class,'accountTitleLabel')][1]//*[contains(@id,'userAvatar')and contains(@href,'%s')]/following::*[contains(@id,'spaceAvatar') and contains(text(),'%s')])[1]",
+    return findByXpathOrCSS(String.format("(//*[contains(@class,'accountTitleLabel')][1]//*[contains(@id,'userAvatar')and contains(@href,'%s')]/following::*[contains(@id,'spaceAvatar') and contains(text(),'%s')])[1]",
                                      user,
                                      space));
   }
@@ -263,7 +260,7 @@ public class ChallengesPage extends GenericPage {
   }
 
   private BaseElementFacade getWinnerNameOnAnnouncement(String user) {
-    return findByXpath(String.format("//*[@class='font-weight-bold text-color mx-0 mt-0 mb-2 text-wrap text-break text-truncate-2']/a[contains(@href,'%s')]",
+    return findByXpathOrCSS(String.format("//*[@class='font-weight-bold text-color mx-0 mt-0 mb-2 text-wrap text-break text-truncate-2']/a[contains(@href,'%s')]",
                                      user));
   }
 
@@ -272,7 +269,7 @@ public class ChallengesPage extends GenericPage {
   }
 
   private BaseElementFacade getChallengeTitleOnAnnouncement(String name) {
-    return findByXpath(String.format("//*[@class='caption text-wrap text-break rich-editor-content reset-style-box text-light-color text-truncate-3']/a[contains(text(),'%s')]",
+    return findByXpathOrCSS(String.format("//*[@class='caption text-wrap text-break rich-editor-content reset-style-box text-light-color text-truncate-3']/a[contains(text(),'%s')]",
                                      name));
   }
 
@@ -281,7 +278,7 @@ public class ChallengesPage extends GenericPage {
   }
 
   private BaseElementFacade getAchievementDescriptionOnAnnouncement(String description) {
-    return findByXpath(String.format("//*[contains(@class,' postContent')]/*[contains(text(),'%s')]", description));
+    return findByXpathOrCSS(String.format("//*[contains(@class,' postContent')]/*[contains(text(),'%s')]", description));
   }
 
   public void checkAchievementDescriptionOnAnnouncement(String description) {

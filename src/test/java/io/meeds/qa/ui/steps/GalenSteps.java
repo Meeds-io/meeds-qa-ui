@@ -12,7 +12,7 @@ public class GalenSteps extends GalenTestBase {
   GenericSteps genericSteps;
 
   public void checkPage(String template) throws IOException, InterruptedException {
-//    Thread.sleep(3000);
+    Thread.sleep(3000);
     checkLayout(template, null);
   }
 

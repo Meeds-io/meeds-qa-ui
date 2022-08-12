@@ -1,35 +1,30 @@
-# new feature
-# Tags: optional
-
+@challenge
 Feature: Challenges
 
-  @challenge
-  Scenario: [Challenge_App_US02][02]: First screen of the App ( manager of a space+ admin)
+  Scenario: [Challenge_App_US02][02] First screen of the App ( manager of a space+ admin)
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the fifth random user
     And I go to groups Management page
     And I open the group 'Platform'
     When I select the group 'Administration'
-    And I add the role 'member' to the first created user
-    And I connect with the first created user
+    And I add the role 'member' to the fifth created user
+    And I connect with the fifth created user
     And I create the first space
     When I go To AppCenter Drawer
     And I go to Challenge Application
     Then Challenge Application Page is displayed
     And Add challenge button should be displayed
 
-  @challenge
-  Scenario: [Challenge_App_US02][01]: First screen of the App ( not manager of any space)
+  Scenario: [Challenge_App_US02][01] First screen of the App ( not manager of any space)
     Given I am authenticated as admin
-    And I create the first random user
-    And I connect with the first created user
+    And I create the sixth random user
+    And I connect with the sixth created user
     When I go To AppCenter Drawer
     And I go to Challenge Application
     Then Challenge Application Page is displayed
     And Add challenge button should not be displayed
 
-  @challenge
-  Scenario: Challenge_App_Admin_US01: Challenge App
+  Scenario: Challenge_App_Admin_US01 Challenge App
     Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
@@ -77,8 +72,7 @@ Feature: Challenges
     And The challenge card title 'challenge2' should be displayed
     And Add challenge button should be displayed
 
-  @challenge
-  Scenario:Challenge_App_Admin_US02: Challenge CARD
+  Scenario: Challenge_App_Admin_US02 Challenge CARD
     Given I am authenticated as admin
     And I create the first random user
     And I go to groups Management page
@@ -105,8 +99,7 @@ Feature: Challenges
     And Announce button should be displayed on the challenge card
     And Date indication should be displayed on the challenge card
 
-  @challenge
-  Scenario:Challenge_App_US01: Post the challenge on the space stream
+  Scenario: Challenge_App_US01 Post the challenge on the space stream
     Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
