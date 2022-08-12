@@ -265,4 +265,14 @@ public class SettingsStepDefinition {
     settingsSteps.weeklyEmailIsDisplayedInGeneralNotificationsSection();
   }
 
+  @Then("The notifications are disabled")
+  public void checkNotificationsDisabled() {
+    settingsSteps.checkNotificationsDisabled();
+  }
+
+  @Then("The notifications are enabled")
+  public void checkNotificationsEnabled() {
+    settingsSteps.checkNotificationsEnabled();
+  }
+
 }

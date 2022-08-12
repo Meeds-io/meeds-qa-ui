@@ -71,8 +71,6 @@ Feature: Meeds Space
     Then I check that space application installer drawer is displayed
     And I check that applications are displayed
 
-    When I click to add application 'Wallet'
-    Then I check that application 'Wallet' is added to applications page
 
   @ignored
   Scenario: [SPACES-4.1] Spaces Invitations

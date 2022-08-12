@@ -9,6 +9,7 @@ import io.cucumber.java.en.Given;
 import io.meeds.qa.ui.steps.AddUserSteps;
 import io.meeds.qa.ui.steps.HomeSteps;
 import net.thucydides.core.annotations.Steps;
+import net.serenitybdd.core.Serenity;
 
 public class AddUserStepDefinition {
 
@@ -132,6 +133,12 @@ public class AddUserStepDefinition {
   @Given("^I search for '(.*)' Users$")
   public void searchForUsersByStatus(String status) {
     addUserSteps.searchForUsersByStatus(status);
+  }
+
+  @And("^I search for (.*) random created user$")
+  public void searchForRandomUser(String userPrefix) {
+    String userName = Serenity.sessionVariableCalled(userPrefix + "UserName");
+    addUserSteps.searchForUsersByName(userName);
   }
 
 }
