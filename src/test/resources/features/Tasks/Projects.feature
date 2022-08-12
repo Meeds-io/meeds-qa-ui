@@ -51,7 +51,7 @@ Feature: User adds, deletes, edits and clones a project
     And The placeholder Filter by project should be displayed
     And The clear button is disappeared from the Filter by project field
 
-  @task @ignore
+  @task
   Scenario: CAP15 - [Project_Card_US01]: check the display "Spaces Managers avatars"
     Given I am authenticated as admin
     And I create the first random user
@@ -73,7 +73,7 @@ Feature: User adds, deletes, edits and clones a project
     And I search for the created space
     Then First project name with description 'No description available' is displayed in Project Card
     When I hover on project manager icon
-    Then Space manager 'admin Smith' is displayed in Project Card
+    Then Space manager 'Admin User' is displayed in Project Card
     And First Space member is not displayed in Project Card
 
     When I go to the created space
@@ -89,7 +89,7 @@ Feature: User adds, deletes, edits and clones a project
     Then User avatar 'admin' is displayed in Project Card
     And Avatar of the first created user is displayed in Project Card
 
-  @task @ignore
+  @task
   Scenario: CAP17 - [Project_Card_US01]: check the display of users avatars with managing permissions
     Given I am authenticated as admin
     And I create the first random user
@@ -137,7 +137,7 @@ Feature: User adds, deletes, edits and clones a project
     And I click on save project button
     Then Message Project Title is mandatory is displayed
 
-  @task @ignore
+  @task
   Scenario: CAP290 - [Bug]: Project participant cannot open the edit status mode
     Given I am authenticated as admin
     And I create the first random user
@@ -194,7 +194,7 @@ Feature: User adds, deletes, edits and clones a project
     When I hover on task's title 'testlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtaskname'
     Then Task tooltip is displayed 'testlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtaskname'
 
-  @task @ignore
+  @task @ignored
   Scenario: [NF] [US_GanttView_01]: Display Gantt tab in Space tasks projects
     Given I am authenticated as admin
     And I create the first random user
