@@ -33,9 +33,6 @@ public class UserProfile extends GenericPage {
   @FindBy(xpath = "//*[@id='GamificationEarnPoints']//*[@id='uiHowEarnPoint']//*[contains(text(),'How can I earn points?')]")
   public BaseElementFacade     howToEarnPointsPage;
 
-  @FindBy(css = ".achievementsDrawer .drawerHeader .uiIconInformation")
-  private BaseElementFacade    achievementIconInfo;
-
   @FindBy(xpath = "//aside[contains(@class,'achievementsDrawer')]")
   private BaseElementFacade    achievementsDrawer;
 
@@ -288,8 +285,9 @@ public class UserProfile extends GenericPage {
 
   public void openAchivementTab() {
     getUserStat("Points").clickOnElement();
-    iconProfileStatInfo.waitUntilVisible();
-    iconProfileStatInfo.clickOnElement();
+    waitFor(2).seconds(); // Wait until card is displayed
+    BaseElementFacade iconProfile = findByXpathOrCSS("#profile-stats-portlet .uiIconInformation");
+    clickOnElement(iconProfile);
   }
 
   public void openBadgeDetails() {
@@ -325,11 +323,9 @@ public class UserProfile extends GenericPage {
   }
 
   public void openHowToEarnPointPage() {
-    if (iconProfileStatInfo.isVisibleAfterWaiting() && iconProfileStatInfo.isClickable()) {
-      iconProfileStatInfo.clickOnElement();
-    }
-    achievementIconInfo.waitUntilClickable();
-    achievementIconInfo.clickOnElement();
+    waitFor(2).seconds(); // Wait until drawer is displayed
+    BaseElementFacade achievementIconInfo = findByXpathOrCSS(".achievementsDrawer .drawerHeader .uiIconInformation");
+    clickOnElement(achievementIconInfo);
   }
 
   public void isProfileContactInstantMessagingVisible(String instantMessaging) {
@@ -494,15 +490,8 @@ public class UserProfile extends GenericPage {
     return findByXpathOrCSS(String.format("//div[@id='profile-stats-portlet']//span[contains(text(),'%s')]", statType));
   }
 
-  @FindBy(css = "#profile-stats-portlet .uiIconInformation")
-  private BaseElementFacade iconProfileStatInfo;
-
   public void openWeeklyPointsChart() {
     getUserStat("Points").clickOnElement();
-  }
-
-  public void openAchievementsTab() {
-    iconProfileStatInfo.clickOnElement();
   }
 
   public void updateBasicInformation(String firstName, String lastName, String email, String job) {

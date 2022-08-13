@@ -353,11 +353,6 @@ public class UserProfileStepDefinition {
     userProfileSteps.openWeeklyPointsChart();
   }
 
-  @Then("^I open Achievements Tab$")
-  public void openAchievementsTab() {
-    userProfileSteps.openAchievementsTab();
-  }
-
   @Then("^Profile Contact Url '(.*)' is displayed$")
   public void isProfileContactUrlVisible(String url) {
     userProfileSteps.isProfileContactUrlVisible(url);
