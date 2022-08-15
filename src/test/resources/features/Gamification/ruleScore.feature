@@ -1,5 +1,3 @@
-# new feature
-# Tags: optional
 @gamification
 Feature: Check the rules score increase
   for different type of activity on the plf
@@ -83,8 +81,6 @@ Feature: Check the rules score increase
     And I go to my profile
     Then My points augmented
 
-  # Wait For Notes Bug Fix
-  @failing
   Scenario: Create a new wiki page
     Given I am authenticated as admin
     And I create the first random user
@@ -95,13 +91,12 @@ Feature: Check the rules score increase
     And I go to notes application of the space
     And I click to add note
     Then Create note form is opened successfully in new tab
-    And I close the second window
+    And I close browser tab 1
     And I go to my profile
     Then My points augmented
 
   # Relationship doesn't increase gamification points
   # It seems a real bug to fix in product
-  @failing
   Scenario: Receive relationship request
     Given I am authenticated as admin
     And I create the first random user
@@ -109,8 +104,9 @@ Feature: Check the rules score increase
     And I connect with the first created user
     And I go to my profile
     And I check my points
+    And I connect to sixth user
     And I connect with the sixth created user
-    And I connect to first user
-    And I connect with the sixth created user
+    And I accept the connection invitation sent by 'first' user
+    And I connect with the first created user
     And I go to my profile
     Then My points augmented
