@@ -56,6 +56,11 @@ public class GenericStepDefinitions {
     genericSteps.waitInSeconds(seconds);
   }
 
+  @When("I close browser tab {int}")
+  public void closeBrowserTab(int tabIndex) {
+    genericSteps.closeBrowserTab(tabIndex);
+  }
+
   @When("^The '(.*)' is displayed$")
   public void checkPage(String template) throws IOException, InterruptedException {
     Serenity.setSessionVariable("templateName").to(template);

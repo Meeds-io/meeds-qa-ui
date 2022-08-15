@@ -176,6 +176,8 @@ public class HomeSteps {
   }
 
   public void acceptSingleConnectionInvitation(String userName) {
+    homePage.goToStreamPage();
+    homePage.openConnectionRequestDrawer();
     homePage.acceptConnexionInvitation(userName);
   }
 

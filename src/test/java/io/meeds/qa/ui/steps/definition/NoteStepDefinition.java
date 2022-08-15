@@ -1,6 +1,6 @@
 package io.meeds.qa.ui.steps.definition;
 
-import static io.meeds.qa.ui.steps.GenericSteps.switchToTabByIndex;
+import static io.meeds.qa.ui.utils.Utils.switchToTabByIndex;
 import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
 
 import io.cucumber.java.en.And;

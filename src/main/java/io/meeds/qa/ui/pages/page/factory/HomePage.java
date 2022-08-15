@@ -232,7 +232,9 @@ public class HomePage extends GenericPage {
   }
 
   public void goToStreamPage() {
-    driver.navigate().refresh();
+    if (!hamburgerNavigationMenuLink.isClickable()) {
+      driver.navigate().refresh();
+    }
     clickOnHamburgerMenu();
     clickOnElement(streamPageLink);
   }
@@ -517,6 +519,11 @@ public class HomePage extends GenericPage {
 
   public void goToAppCenterApplications() {
     appCenterButton.clickOnElement();
+  }
+
+  public void openConnectionRequestDrawer() {
+    BaseElementFacade badgeButton = findByXpathOrCSS("#profile-stats-connectionsCount .v-badge button");
+    clickOnElement(badgeButton);
   }
 
 }

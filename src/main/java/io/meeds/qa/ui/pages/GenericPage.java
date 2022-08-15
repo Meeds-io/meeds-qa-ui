@@ -1,5 +1,7 @@
 package io.meeds.qa.ui.pages;
 
+import static io.meeds.qa.ui.utils.Utils.switchToTabByIndex;
+
 import java.io.File;
 
 import org.openqa.selenium.By;
@@ -7,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import io.meeds.qa.ui.elements.BaseElementFacade;
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class GenericPage extends BasePageImpl {
@@ -70,6 +73,14 @@ public class GenericPage extends BasePageImpl {
     element.waitUntilClickable();
     element.clickOnElement();
     verifyPageLoaded();
+  }
+
+  public void closeBrowserTab(int index) {
+    switchToTabByIndex(index);
+    Serenity.getWebdriverManager().getCurrentDriver().close();
+    if (index > 0) {
+      switchToTabByIndex(index - 1);
+    }
   }
 
 }

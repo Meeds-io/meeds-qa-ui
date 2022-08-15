@@ -1,6 +1,7 @@
 package io.meeds.qa.ui.utils;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Random;
 
 import org.openqa.selenium.JavascriptExecutor;
@@ -47,6 +48,11 @@ public class Utils {
         + " && !document.querySelector('.v-navigation-drawer--open .v-progress-linear')")
                                                             .toString()
                                                             .equals("true"));
+  }
+
+  public static void switchToTabByIndex(int index) {
+    ArrayList<String> newTab = new ArrayList<>(Serenity.getWebdriverManager().getCurrentDriver().getWindowHandles());
+    Serenity.getWebdriverManager().getCurrentDriver().switchTo().window(newTab.get(index));
   }
 
 }

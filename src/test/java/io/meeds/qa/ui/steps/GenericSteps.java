@@ -1,17 +1,9 @@
 package io.meeds.qa.ui.steps;
 
-import java.util.ArrayList;
-
 import io.meeds.qa.ui.pages.GenericPage;
-import net.serenitybdd.core.Serenity;
 
 public class GenericSteps {
   private GenericPage genericPage;
-
-  public static void switchToTabByIndex(int index) {
-    ArrayList<String> newTab = new ArrayList<String>(Serenity.getWebdriverManager().getCurrentDriver().getWindowHandles());
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().window(newTab.get(index));
-  }
 
   public boolean inConfirmMessageDisplayed(String message) {
     return genericPage.inConfirmMessageDisplayed(message);
@@ -39,6 +31,10 @@ public class GenericSteps {
 
   public void waitInSeconds(int seconds) {
     genericPage.waitFor(seconds).seconds();
+  }
+
+  public void closeBrowserTab(int tabIndex) {
+    genericPage.closeBrowserTab(tabIndex);
   }
 
 }

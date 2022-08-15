@@ -1,6 +1,6 @@
 package io.meeds.qa.ui.steps;
 
-import static io.meeds.qa.ui.steps.GenericSteps.switchToTabByIndex;
+import static io.meeds.qa.ui.utils.Utils.switchToTabByIndex;
 
 import io.meeds.qa.ui.pages.page.factory.space.SpaceHomePage;
 import net.serenitybdd.core.Serenity;

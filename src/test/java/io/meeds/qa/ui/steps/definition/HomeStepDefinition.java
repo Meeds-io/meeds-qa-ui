@@ -313,10 +313,10 @@ public class HomeStepDefinition {
     homeSteps.acceptConnexionInvitation(listOfPeople);
   }
 
-  @When("^I accept the following connection invitation sent by first user$")
-  public void acceptConnectionInvitationSentByFirstUser() {
-    String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
-    homeSteps.acceptSingleConnectionInvitation(firstUserFirstName);
+  @When("^I accept the connection invitation sent by '(.*)' user$")
+  public void acceptConnectionInvitationSentByRandomUser(String userPrefix) {
+    String userFirstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");
+    homeSteps.acceptSingleConnectionInvitation(userFirstName);
   }
 
   @When("^I reject the following connection invitation sent by second user$")

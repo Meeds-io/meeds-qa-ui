@@ -17,7 +17,6 @@ Feature: Rules
     Then My points augmented
 
   @gamification
-  @failing
   Scenario: Like a comment
     Given I am authenticated as admin
     And I create the first random user
@@ -40,7 +39,6 @@ Feature: Rules
     Then My points augmented
 
   @gamification
-  @failing
   Scenario: Like a post
     Given I am authenticated as admin
     And I create the first random user
@@ -62,7 +60,6 @@ Feature: Rules
     Then My points augmented
 
   @gamification
-  @failing
   Scenario: Join a space
     Given I am authenticated as admin
     And I create the first random user
