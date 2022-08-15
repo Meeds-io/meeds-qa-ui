@@ -12,7 +12,6 @@ Feature: Tasks - Projects
     And I add a new project with a description
     Then the project is created successfully and displayed on Projects tab
 
-  @failing
   Scenario: CAP47 - [Project_manager_US03.2]: Clone a project
     Given I am authenticated as admin
     And I create the first random user
@@ -40,7 +39,7 @@ Feature: Tasks - Projects
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
     When I select 'Projects' tab
-    And I add this project 'Project2'
+    And I create the project 'Project2'
     And I search for the project 'Project2'
     Then A clear button is displayed in the search field
     When I click on clear button
@@ -51,13 +50,10 @@ Feature: Tasks - Projects
   Scenario: CAP15 - [Project_Card_US01]: check the display "Spaces Managers avatars"
     Given I am authenticated as admin
     And I create the first random user
-    And I create random space with the first created user
+    And I go to the random space
 
     When I connect with the first created user
-    Then The 'Spaces' badge is '1'
-    And I click on spaces badge
-    And I accept the invitation of the created space
-    And I close Space Drawer
+    And I go to the random space
 
     When I change user admin
 
@@ -72,7 +68,7 @@ Feature: Tasks - Projects
     Then Space manager 'Admin User' is displayed in Project Card
     And First Space member is not displayed in Project Card
 
-    When I go to the created space
+    When I go to the random space
     And I go to the Space Members tab
     And I promote first member as a space manager
 
@@ -176,7 +172,7 @@ Feature: Tasks - Projects
     Then Tasks Application Page is displayed
 
     When I select 'Projects' tab
-    And I add this project 'teamcap216'
+    And I create the project 'teamcap216'
     And I open the project 'teamcap216'
     And The task is created in the specific project
       | taskName | testlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtaskname |
@@ -230,7 +226,7 @@ Feature: Tasks - Projects
     And The task name 'task3' should be displayed in PLAN view
 
   @smoke
-  @failing
+  @ignored
   Scenario: CAP16 - [Project_Card_US01]: check the display "project's creator avatar"
     Given I am authenticated as admin
     And I create the first random user
@@ -240,11 +236,11 @@ Feature: Tasks - Projects
     And I select 'Projects' tab
     And I click on add project button
     And I enter the project name 'projectCard1'
-    And I save add project
+    And I click on save project button
     And I search for the project 'projectCard1'
     Then The project 'projectCard1' was deleted successfully
 
-  @failing
+  @ignored
   Scenario: CAP43-[Project_manager_US02]:Delete a Project
     Given I am authenticated as admin
     And I create the first random user
@@ -254,14 +250,14 @@ Feature: Tasks - Projects
     And I select 'Projects' tab
     And I click on add project button
     And I enter the project name 'deleteProject'
-    And I save add project
+    And I click on save project button
     And I select the 'Delete' action for the project 'deleteProject'
     Then The 'confirmationDeleteProject' is displayed
     And I click on delete button
     And These projects are not displayed
       | deleteProject |
 
-  @failing
+  @ignored
   Scenario: CAP44 - [Project_manager_US02]: Cancel Deletion of Project
     Given I am authenticated as admin
     And I create the first random user
@@ -271,7 +267,7 @@ Feature: Tasks - Projects
     And I select 'Projects' tab
     And I click on add project button
     And I enter the project name 'cancelDelete'
-    And I save add project
+    And I click on save project button
     And I select the 'Delete' action for the project 'cancelDelete'
     And I click on cancel delete button
     And I search for the project 'cancelDelete'

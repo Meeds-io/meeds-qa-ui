@@ -220,21 +220,21 @@ public class ApplicationPage extends GenericPage {
   public void enableMandatoryApplication(String appTitle) {
     BaseElementFacade mandatoryApplication = getMandatoryApplication(appTitle);
     if (mandatoryApplication.findByXpath("//input").getAttribute("aria-checked").equals("false")) {
-      setCheckbox(mandatoryApplication, true);
+      clickOnElement(mandatoryApplication);
     }
   }
 
   public void disableMandatoryApplication(String appTitle) {
     BaseElementFacade mandatoryApplication = getMandatoryApplication(appTitle);
     if (mandatoryApplication.findByXpath("//input").getAttribute("aria-checked").equals("true")) {
-      setCheckbox(mandatoryApplication, true);
+      clickOnElement(mandatoryApplication);
     }
   }
 
   public void enableDisableActiveApplication(String appTitle) {
-
-    getActiveApplication(appTitle).waitUntilVisible();
-    getActiveApplication(appTitle).clickOnElement();
+    BaseElementFacade activeApplicationSwitchButton = getActiveApplication(appTitle);
+    activeApplicationSwitchButton.waitUntilVisible();
+    activeApplicationSwitchButton.clickOnElement();
   }
 
   public void applicationDrawerPermissionsIsDisplayed(String firstPermission, String secondPermission) {

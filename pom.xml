@@ -55,7 +55,7 @@
     <failsafe.rerunFailingTestsCount>0</failsafe.rerunFailingTestsCount>
     <parallel.tests>1</parallel.tests>
     <!-- One of [SCENARIO, FEATURE]. SCENARIO generates one runner per scenario.  FEATURE generates a runner per feature. -->
-    <parallel.scheme></parallel.scheme>
+    <parallel.scheme>SCENARIO</parallel.scheme>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -231,6 +231,7 @@
           <includes>
             <include>**/*.java</include>
           </includes>
+          <threadCount>${parallel.tests}</threadCount>
           <forkCount>${parallel.tests}</forkCount>
           <reuseForks>true</reuseForks>
           <parallel>all</parallel>

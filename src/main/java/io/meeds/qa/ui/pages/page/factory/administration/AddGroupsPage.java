@@ -54,6 +54,9 @@ public class AddGroupsPage extends GenericPage {
   }
 
   public void addMemberInGroup(String role, String member) {
+    if (!addMemberInGroupBtn.isClickable()) {
+      refreshPage();
+    }
     addMemberInGroupBtn.clickOnElement();
     selectedRoleField.selectByVisibleText(role);
     inviteMemberInput.setTextValue(member);

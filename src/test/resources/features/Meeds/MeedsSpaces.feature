@@ -12,34 +12,30 @@ Feature: Meeds Space
     When I click on Show more button
     Then I check that other spaces are displayed
 
-  @failing
   Scenario: [SPACES-4] Spaces Request
     Given I am authenticated as admin
-
     And I create the first random user
-
-    And I refresh the page
-    And I create random space with the first created user
-    And I create second random space with the first created user
-    And I create third random space with the first created user
+    And I create a first random space with the first created user as member
+    And I create a second random space with the first created user as member
+    And I create a third random space with the first created user as member
 
     When I connect with the first created user
     Then The 'Spaces' badge is '3'
     When I click on spaces badge
-    And I accept the invitation of the created space
+    And I accept the invitation of the first created space
     Then The 'Spaces' badge is '2'
     And I reject the invitation of the second created space
     And I refresh the page
     And I click on space invitation widget
-    Then The third created space is displayed in Spaces Requests section
+    And The third created space is displayed in Spaces Requests section
     And The first created space is not displayed in Spaces Requests section
     And The second created space is not displayed in Spaces Requests section
 
   @ignored
   Scenario: [SPC_MNG-7] General Space Settings
     Given I am authenticated as admin
-    When I create the random space
-    And I click on space settings tab
+    When I go to the random space
+    When I click on space settings tab
     Then I check that general settings section is displayed with his edit icon
     And I check that Applications section is displayed with his edit icon
 
@@ -56,8 +52,8 @@ Feature: Meeds Space
   @ignored
   Scenario: [SPC_MNG-8] Spaces applications management
     Given I am authenticated as admin
-    When I create the random space
-    And I click on space settings tab
+    When I go to the random space
+    When I click on space settings tab
     Then I check that general settings section is displayed with his edit icon
     And I check that Applications section is displayed with his edit icon
 
@@ -178,7 +174,7 @@ Feature: Meeds Space
   @ignored
   Scenario:[SPACES-1] Topbar spaces section_(03): Filter spaces field
     Given I am authenticated as admin
-    And I create the first space
+    And I create the space
     And I create the second space
     And I create the third space
     And I go to spaces page

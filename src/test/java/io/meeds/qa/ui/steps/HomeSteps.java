@@ -118,6 +118,11 @@ public class HomeSteps {
     return homePage.isConnectionsBadgeWithNumberVisible(number);
   }
 
+  public boolean isNoConnectionsBadge() {
+    homePage.goToStreamPage();
+    return homePage.isNoConnectionsBadge();
+  }
+
   public boolean isSpacesBadgeWithNumberVisible(String number) {
     return homePage.isSpacesBadgeWithNumberVisible(number);
   }
@@ -170,15 +175,15 @@ public class HomeSteps {
     homePage.closeSpaceDrawer();
   }
 
-  public void acceptConnexionInvitation(List<String> listOfPeople) {
+  public void acceptConnectionInvitation(List<String> listOfPeople) {
     for (String peopleName : listOfPeople)
-      homePage.acceptConnexionInvitation(peopleName);
+      homePage.acceptConnectionInvitation(peopleName);
   }
 
   public void acceptSingleConnectionInvitation(String userName) {
     homePage.goToStreamPage();
     homePage.openConnectionRequestDrawer();
-    homePage.acceptConnexionInvitation(userName);
+    homePage.acceptConnectionInvitation(userName);
   }
 
   public void rejectSingleConnectionInvitation(String userName) {

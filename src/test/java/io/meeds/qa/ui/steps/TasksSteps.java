@@ -708,6 +708,10 @@ public class TasksSteps {
     tasksPage.clickSaveProjectButton();
   }
 
+  public void setProjectTitle(String projectTitle) {
+    tasksPage.setProjectTitle(projectTitle);
+  }
+
   public void checkMessageSaveEmptyProject() {
     tasksPage.checkMessageEmptyProjectDisplay();
   }

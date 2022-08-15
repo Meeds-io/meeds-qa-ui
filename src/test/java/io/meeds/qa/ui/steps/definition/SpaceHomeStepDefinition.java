@@ -605,7 +605,7 @@ public class SpaceHomeStepDefinition {
 
   @Then("^The confirmation popup is displayed$")
   public void checkConfirmationPopupIsVisible() {
-    assertThat(spaceHomeSteps.isconfirmationpopupNotdisplayed()).isFalse();
+    assertThat(spaceHomeSteps.isConfirmationPopupNotDisplayed()).isFalse();
   }
 
   @When("^I like the activity '(.*)'$")
@@ -745,7 +745,7 @@ public class SpaceHomeStepDefinition {
 
   @Then("^the confirmation popup is not displayed$")
   public void checkConfirmationPopupNotVisible() {
-    assertThat(spaceHomeSteps.isconfirmationpopupNotdisplayed()).isTrue();
+    assertThat(spaceHomeSteps.isConfirmationPopupNotDisplayed()).isTrue();
   }
 
   @And("^the activity '(.*)' is no more displayed in the activity stream$")

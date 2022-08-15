@@ -32,17 +32,13 @@ Feature: Check the rules score increase
     And I create the first random user
     And I create the second random user
     When I connect with the first created user
-    And I create random space with the second created user
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'CommentPost'
     And I publish the activity
     And the activity 'CommentPost' is displayed in activity stream
     And I connect with the second created user
-    Then The 'Spaces' badge is '1'
-    When I click on spaces badge
-    And I accept the invitation of the created space
-    And I refresh the page
-    When I go to the created space
+    And I go to the random space
     And the activity 'CommentPost' is displayed in activity stream
     And I add in activity 'CommentPost' a comment 'commenttest'
     And I open in activity 'CommentPost' the Comments drawer
@@ -51,7 +47,7 @@ Feature: Check the rules score increase
     When I connect with the first created user
     And I go to my profile
     And I check my points
-    And I go to the created space
+    And I go to the random space
     And Activity Comment 'commenttest' is displayed in activity stream
     And I like the activity comment 'commenttest'
     And I go to my profile
@@ -62,19 +58,14 @@ Feature: Check the rules score increase
     And I create the first random user
     And I create the second random user
     And I connect with the first created user
-    And I create random space with the second created user
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'PostToBeLiked'
     And I publish the activity
     And the activity 'PostToBeLiked' is displayed in activity stream
     And I go to my profile
     And I check my points
-    And I connect with the second created user
-    Then The 'Spaces' badge is '1'
-    When I click on spaces badge
-    And I accept the invitation of the created space
-    And I refresh the page
-    When I go to the created space
+    And I go to the random space
     And the activity 'PostToBeLiked' is displayed in activity stream
     And I like the activity 'PostToBeLiked'
     And I connect with the first created user
@@ -87,7 +78,7 @@ Feature: Check the rules score increase
     And I connect with the first created user
     And I go to my profile
     And I check my points
-    And I create a space with full template
+    And I go to the random space
     And I go to notes application of the space
     And I click to add note
     Then Create note form is opened successfully in new tab

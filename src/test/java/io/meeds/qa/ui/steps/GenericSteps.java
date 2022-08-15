@@ -37,4 +37,8 @@ public class GenericSteps {
     genericPage.closeBrowserTab(tabIndex);
   }
 
+  public void checkDrawerDisplayed(String title) {
+    genericPage.checkDrawerDisplayed(title);
+  }
+
 }

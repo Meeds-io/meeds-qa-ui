@@ -171,6 +171,10 @@ public class HomePage extends GenericPage {
                                      number));
   }
 
+  private BaseElementFacade getConnectionsBadge() {
+    return findByXpathOrCSS("//div[contains(@class,'profileCard')]//*[contains(text(),'Connections')]/preceding::*[@class='v-btn__content'][1]");
+  }
+
   private BaseElementFacade getSpacesBadgeWithNumber(String number) {
     return findByXpathOrCSS(
                        String.format("//div[contains(@class,'profileCard')]//*[contains(text(),'Spaces')]/preceding::*[@class='v-btn__content' and contains(text(),'%s')][1]",
@@ -187,12 +191,12 @@ public class HomePage extends GenericPage {
                                      spaceName));
   }
 
-  private BaseElementFacade getAcceptIconConnexionFromDrawer(String spaceName) {
+  private BaseElementFacade getAcceptIconConnectionFromDrawer(String spaceName) {
     return findByXpathOrCSS(String.format("//aside[contains(@class,'connectionsDrawer ')]//descendant::div[contains(text(),'%s')]//following::i[contains(@class,'mdi-checkbox-marked')]",
                                      spaceName));
   }
 
-  private BaseElementFacade getRejectIconConnexionFromDrawer(String spaceName) {
+  private BaseElementFacade getRejectIconConnectionFromDrawer(String spaceName) {
     return findByXpathOrCSS(String.format("//aside[contains(@class,'connectionsDrawer')]//descendant::div[contains(text(),'%s')]//following::i[contains(@class,'mdi-close-circle')]",
                                      spaceName));
   }
@@ -355,6 +359,10 @@ public class HomePage extends GenericPage {
     return getConnectionsBadgeWithNumber(number).isVisibleAfterWaiting();
   }
 
+  public boolean isNoConnectionsBadge() {
+    return !getConnectionsBadge().isVisible();
+  }
+
   public boolean isSpacesBadgeWithNumberVisible(String number) {
     return getSpacesBadgeWithNumber(number).isVisibleAfterWaiting();
   }
@@ -385,12 +393,12 @@ public class HomePage extends GenericPage {
     clickOnElement(getAcceptIconSpaceFromDrawer(spaceName));
   }
 
-  public void acceptConnexionInvitation(String userName) {
-    clickOnElement(getAcceptIconConnexionFromDrawer(userName));
+  public void acceptConnectionInvitation(String userName) {
+    clickOnElement(getAcceptIconConnectionFromDrawer(userName));
   }
 
   public void rejectConnexionInvitation(String userName) {
-    clickOnElement(getRejectIconConnexionFromDrawer(userName));
+    clickOnElement(getRejectIconConnectionFromDrawer(userName));
   }
 
   public void closeSpaceDrawer() {

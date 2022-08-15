@@ -5,7 +5,7 @@ Feature: Favorite activities
     Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user
-    And I create the space
+    And I go to the random space
     When I click on post in space
     And I enter an activity 'favorite activity'
     And I publish the activity
@@ -18,7 +18,7 @@ Feature: Favorite activities
     Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user
-    And I create the space
+    And I go to the random space
     When I click on post in space
     And I enter an activity 'bookmark activity'
     And I publish the activity
@@ -33,7 +33,7 @@ Feature: Favorite activities
     Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user
-    And I create the space
+    And I go to the random space
     When I post '2' activities
     And I refresh the page
     Then the activity 'act0' is displayed in activity stream
@@ -58,7 +58,7 @@ Feature: Favorite activities
     Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user
-    And I create the space
+    And I go to the random space
     When I post many activities '2'
     And I refresh the page
     Then the activity 'activity0' is displayed in activity stream
@@ -86,7 +86,7 @@ Feature: Favorite activities
     Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user
-    And I create the space
+    And I go to the random space
     When I post many activities '2'
     And I refresh the page
     Then the activity 'activity0' is displayed in activity stream
@@ -107,7 +107,7 @@ Feature: Favorite activities
     Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user
-    And I create the space
+    And I go to the random space
     When I post many activities '2'
     And I refresh the page
     Then the activity 'activity0' is displayed in activity stream
@@ -130,7 +130,7 @@ Feature: Favorite activities
   Scenario: [Fav_US13][01]: Bookmark a note from it's details
     Given I am authenticated as admin
     And I create the first random user
-    And I create random space with the first created user
+    And I go to the random space
     And I go to notes application of the space
     When I click to add note
     Then Create note form is opened successfully in new tab
@@ -140,11 +140,9 @@ Feature: Favorite activities
     And I close the second window
     And I go to space Home
     Then Note activity with title 'Note1' is displayed
-    When I connect with the first created user
-    And I click on spaces badge
-    And I accept the invitation of the created space
-    And I refresh the page
-    When  I go to Stream page
+
+    When I go to the random space
+    And  I go to Stream page
     And I access note 'Note1' activity
     Then Note tile 'Note1' and content 'Content1' are displayed successfully
     When I favorite the note from it's details page
@@ -155,7 +153,7 @@ Feature: Favorite activities
   @ignored
   Scenario: [Fav_US13][02]: Bookmark a note from it's activity
     Given I am authenticated as admin
-    And I create a space with full template
+    And I go to the random space
     And I go to notes application of the space
     When I click to add note
     Then Create note form is opened successfully in new tab
@@ -176,7 +174,7 @@ Feature: Favorite activities
   Scenario: [Fav_US14][01]: Remove the bookmark for a note from it's details
     Given I am authenticated as admin
     And I create the first random user
-    And I create random space with the first created user
+    And I go to the random space
     And I go to notes application of the space
     When I click to add note
     Then Create note form is opened successfully in new tab
@@ -185,10 +183,7 @@ Feature: Favorite activities
     Then Note tile 'Note3' and content 'Content3' are displayed successfully
     And I close the second window
     When I connect with the first created user
-    And I click on spaces badge
-    And I accept the invitation of the created space
-    And I refresh the page
-    When  I go to Stream page
+    And I go to the random space
     And  I bookmark the activity 'Note3'
     Then The favorite success message 'Favorite added successfully. Find it easily from the search' should be displayed
     When I access note 'Note3' activity
@@ -202,7 +197,7 @@ Feature: Favorite activities
   @ignored
   Scenario:[Fav_US14][02]: Remove the bookmark for a note from it's activity
     Given I am authenticated as admin
-    And I create a space with full template
+    And I go to the random space
     And I go to notes application of the space
     When I click to add note
     Then Create note form is opened successfully in new tab
@@ -222,7 +217,7 @@ Feature: Favorite activities
   @ignored
   Scenario:[Fav_US15][01]: Search by favorites and notes
     Given I am authenticated as admin
-    And I create a space with full template
+    And I go to the random space
     And I go to notes application of the space
     When I click to add note
     Then Create note form is opened successfully in new tab

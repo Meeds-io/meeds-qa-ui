@@ -9,7 +9,7 @@ Feature: Challenges
     When I select the group 'Administration'
     And I add the role 'member' to the fifth created user
     And I connect with the fifth created user
-    And I create the first space
+    And I create a random space
     When I go To AppCenter Drawer
     And I go to Challenge Application
     Then Challenge Application Page is displayed
@@ -34,11 +34,9 @@ Feature: Challenges
     And I add the role 'member' to the first created user
     And I add the role 'member' to the second created user
     And I connect with the first created user
-    And I create random space with the second created user
+    And I go to the random space
     And I connect with the second created user
-    Then The 'Spaces' badge is '1'
-    When I click on spaces badge
-    And I accept the invitation of the created space
+    And I go to the random space
     And I connect with the first created user
     And I go To AppCenter Drawer
     And I go to Challenge Application
@@ -54,11 +52,10 @@ Feature: Challenges
     Then The message 'New challenge created successfully.' should be displayed
     And I refresh the page
     And I connect with the second created user
-    And I create the second random space
+    And I go to the random space
     And I go To AppCenter Drawer
     And I go to Challenge Application
     Then Challenge Application Page is displayed
-    #And I refresh the page
     When I click on the button add challenge
     When I enter the challenge title 'challenge2'
     And I select a space audience with second user
@@ -80,7 +77,7 @@ Feature: Challenges
     When I select the group 'Administration'
     And I add the role 'member' to the first created user
     And I connect with the first created user
-    And I create the random space
+    And I go to the random space
     And I go To AppCenter Drawer
     And I go to Challenge Application
     Then Challenge Application Page is displayed
@@ -108,11 +105,9 @@ Feature: Challenges
     When I select the group 'Administration'
     And I add the role 'member' to the first created user
     And I connect with the first created user
-    And I create random space with the second created user
+    And I go to the random space
     And I connect with the second created user
-    Then The 'Spaces' badge is '1'
-    When I click on spaces badge
-    And I accept the invitation of the created space
+    And I go to the random space
     And I connect with the first created user
     And I go To AppCenter Drawer
     And I go to Challenge Application
@@ -134,8 +129,7 @@ Feature: Challenges
     Then The message 'Announcement created successfully.' should be displayed
     When I connect with the second created user
     And I go to Stream page
-    Then  The announcement activity is posted by the first user in the created space
+    Then The announcement activity is posted by the first user in the created space
     And The winner name should be displayed on the announcement activity
     And The challenge title should be displayed on the announcement activity
     And Achievement description should be displayed on the announcement activity
-

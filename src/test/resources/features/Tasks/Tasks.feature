@@ -93,7 +93,7 @@ Feature: Tasks
     Then Tasks Application Page is displayed
 
     When I select 'Projects' tab
-    And I add this project 'newtestessai'
+    And I create the project 'newtestessai'
     And I open the project 'newtestessai'
     And The task is created in the specific project
       | taskName | taskessai |
@@ -107,8 +107,7 @@ Feature: Tasks
     When I close task drawer
     Then Task name 'taskessai' is not displayed in project details
 
-  @failing
-  Scenario: [BUG]: Check tasks display in snapshot's Tasks gadget
+  Scenario: Check tasks display in snapshot's Tasks gadget
     Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
@@ -152,10 +151,10 @@ Feature: Tasks
     And I create the first random user
     And I connect with the first created user
 
-    When I create the random space
+    And I go to the random space
     And I refresh the page
     And I go to Tasks in space tab
-    And I add this project 'new project test'
+    And I create the project 'new project test'
     Then the project is created successfully and displayed on Tasks Space tab
 
     When I go To AppCenter Drawer
@@ -163,14 +162,14 @@ Feature: Tasks
     Then Tasks Application Page is displayed
     And Project 'new project test' is displayed in Tasks App Center
 
-    When I go to the created space
+    When I go to the random space
     And I go to Settings in space tab
     And I click on edit general space settings
     Then I edit the old Space Name with a new random Space Name
 
     When I refresh the page
     And I go to Tasks in space tab
-    And I add this project 'second project test'
+    And I create the project 'second project test'
     Then the project is created successfully and displayed on Tasks Space tab
     And Project 'second project test' is displayed in Tasks space
 
@@ -180,8 +179,7 @@ Feature: Tasks
     And Project 'new project test' is displayed in Tasks App Center
     And Project 'second project test' is displayed in Tasks App Center
 
-  @failing
-  Scenario:[BUG]: Create Task with a new status
+  Scenario: Create Task with a new status
     Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user
@@ -191,7 +189,7 @@ Feature: Tasks
     Then Tasks Application Page is displayed
 
     When I select 'Projects' tab
-    And I add this project 'eXoProject'
+    And I create the project 'eXoProject'
     And I open the project 'eXoProject'
     And I click on three dots icon of the first status column
     And I click on Add Status Before option
@@ -222,7 +220,7 @@ Feature: Tasks
 
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
-    And I add this project 'project test labels'
+    And I create the project 'project test labels'
     And I click on three dots project button
     And I click on Edit project button
     And I enter label 'label1' in the project
@@ -269,7 +267,7 @@ Feature: Tasks
 
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
-    And I add this project 'project test labels'
+    And I create the project 'project test labels'
     And I click on three dots project button
     And I click on Edit project button
     And I enter label 'label1' in the project
@@ -395,7 +393,7 @@ Feature: Tasks
     When I go To AppCenter Drawer
     And  I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
-    And I add this project 'project01'
+    And I create the project 'project01'
     And I open the project 'project01'
     When I click on plus Button To Add Task
     And I enter tile for task 'Task01'
@@ -409,7 +407,7 @@ Feature: Tasks
     And I click on Confirm filter button
     Then I check that tasks are grouped by Assignee
     Then I exit from project
-    And I add this project 'project02'
+    And I create the project 'project02'
     And I open the project 'project02'
     And I click on Filter button
     Then I check that grouping is not applied
@@ -425,7 +423,6 @@ Feature: Tasks
     Then I check that grouping is still applied
 
   @smoke
-  @failing
   Scenario: CAP33 - [Filter_Drawer_US09]: "Sort And Filter" drawer - Check "Group and Sort" tab
     Given I am authenticated as admin
     And I open the app center menu
@@ -438,17 +435,6 @@ Feature: Tasks
     Then The 'FilterDrawer' is displayed
     And I select the 'Labels' filter type
     Then The 'LabelsDrawer' is displayed
-
-  @smoke
-  @failing
-  Scenario: CAP50 - [Add_Task_Drawer_US01] [Tasks_tab_US05]: Add Task in "TASKS" tab
-    Given I am authenticated as admin
-    And I create the first random user
-    And I open the app center menu
-    And I open all application page
-    When I go to 'Tasks' application
-    And I click on add tasks button
-    Then The 'taskDrawer' is displayed
 
   Scenario: CAP341 [TASK]: when refresh task drawer, the description should not be lost
     Given I am authenticated as admin
@@ -491,7 +477,7 @@ Feature: Tasks
     When I go To AppCenter Drawer
     And  I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
-    And I add this project 'project001'
+    And I create the project 'project001'
     And I open the project 'project001'
     When I click on plus Button To Add Task
     And I enter tile for task 'Task001'
@@ -511,8 +497,7 @@ Feature: Tasks
     When I click on the timestamp
     Then I check that a new second level drawer Changes is opened
 
-  @failing
-  Scenario:[TASK]:Description update should not be lost due to cloning task and assigning it or changing its status
+  Scenario: Description update should not be lost due to cloning task and assigning it or changing its status
     Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user

@@ -217,7 +217,8 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   private BaseElementFacade getSpaceNameInListOfSpace(String spaceName) {
-    return findByXpathOrCSS(String.format("//div[@id='spacesListBody']//a[contains(text(),'%s')]", spaceName));
+    return findByXpathOrCSS(String.format("//*[contains(@class, 'spaceDisplayName') and contains(@href, ':%s/')]",
+                                          spaceName.toLowerCase()));
   }
 
   private BaseElementFacade getSpaceAction(String action) {
@@ -410,6 +411,23 @@ public class ManageSpacesPage extends GenericPage {
     }
   }
 
+  public void clickSpaceActionToJoin() {
+    BaseElementFacade spaceFirstNavigationTab = getSpaceFirstNavigationTab();
+    if (spaceFirstNavigationTab.isDisplayed()) {
+      clickOnElement(spaceFirstNavigationTab);
+    } else {
+      BaseElementFacade spaceAction = getSpaceAction("Join");
+      if (spaceAction.isDisplayed()) {
+        clickOnElement(spaceAction);
+      } else {
+        spaceAction = getSpaceAction("Accept");
+        if (spaceAction.isDisplayed()) {
+          clickOnElement(spaceAction);
+        }
+      }
+    }
+  }
+
   public boolean isSpaceMenuDisplayed() {
     BaseElementFacade spaceFirstNavigationTab = getSpaceFirstNavigationTab();
     return spaceFirstNavigationTab.isPresent();
@@ -431,6 +449,11 @@ public class ManageSpacesPage extends GenericPage {
 
   public boolean isSpacePageOpened(String space) {
     return getSpaceElement(space).isVisibleAfterWaiting();
+  }
+
+  public boolean isSpaceCardDisplayed(String space) {
+    return findByXpathOrCSS(String.format("//*[contains(@class, 'spaceDisplayName') and contains(@href, ':%s/')]",
+                                          space.toLowerCase())).isVisible();
   }
 
   public void selectFilter(String filter) {

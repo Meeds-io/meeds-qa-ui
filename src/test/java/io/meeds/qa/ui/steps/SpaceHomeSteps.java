@@ -365,8 +365,8 @@ public class SpaceHomeSteps {
     spaceHomePage.clickYesbutton();
   }
 
-  public boolean isconfirmationpopupNotdisplayed() {
-    return spaceHomePage.isconfirmationpopupNotdisplayed();
+  public boolean isConfirmationPopupNotDisplayed() {
+    return spaceHomePage.isConfirmationPopupNotDisplayed();
   }
 
   public void clickDeleteActivityButton(String activity) {

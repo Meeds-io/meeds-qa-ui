@@ -228,7 +228,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private BaseElementFacade getDrawerCommentsNumberAndNames(String commentsNumber, String comment) {
-    return findByXpathOrCSS(String.format("//*[@class='text-capitalize-first-letter' and contains(text(),'%s')]/following::*[contains(@id,'Extactivity-content-extensions')]/p/div[contains(text(),'%s')]",
+    return findByXpathOrCSS(String.format("//*[@class='text-capitalize-first-letter' and contains(text(),'%s')]/following::*[contains(@class,'activity-comment-detail')]//*[contains(text(),'%s')]",
                                           commentsNumber,
                                           comment));
   }
@@ -250,7 +250,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private BaseElementFacade getActivityText(String activity) {
-    return findByXpathOrCSS(String.format("//div[contains(@class,'activity-detail')]//*[contains(@class,'postContent')]//*[contains(text(),'%s')]",
+    return findByXpathOrCSS(String.format("//div[contains(@class,'activity-detail')]//descendant::*[contains(text(),'%s')]",
                                           activity));
   }
 
@@ -467,11 +467,17 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void commentIsDisplayedInDrawer(String commentsNumber, String comment) {
-    getDrawerCommentsNumberAndNames(commentsNumber, comment).isVisible();
+    Assert.assertTrue(String.format("Comment '%s' should be displayed in drawer with drawer title '%s'",
+                                    comment,
+                                    commentsNumber),
+                      getDrawerCommentsNumberAndNames(commentsNumber, comment).isDisplayed());
   }
 
   public void commentIsNotDisplayedInDrawer(String commentsNumber, String comment) {
-    getDrawerCommentsNumberAndNames(commentsNumber, comment).isNotVisibleAfterWaiting();
+    Assert.assertFalse(String.format("Comment '%s' shouldn't be displayed in drawer with drawer title '%s'",
+                                     comment,
+                                     commentsNumber),
+                       getDrawerCommentsNumberAndNames(commentsNumber, comment).isDisplayed());
   }
 
   public void clickOnLoadMoreActivities() {
@@ -823,6 +829,7 @@ public class SpaceHomePage extends GenericPage {
 
   public void openCommentsDrawer(String activityId) {
     ELEMENT_COMMENT_LINK(activityId).clickOnElement();
+    waitForDrawerToLoad();
   }
 
   public void closeCommentsDrawer() {
@@ -833,7 +840,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public boolean isActivityVisible(String activity) {
-    return getActivityText(activity).isVisibleAfterWaiting();
+    return getActivityText(activity).isDisplayed();
   }
 
   public void clickOnCommentActivityButton(String activityId) {
@@ -976,8 +983,8 @@ public class SpaceHomePage extends GenericPage {
     confirmationButtonToDeleteActivity.clickOnElement();
   }
 
-  public boolean isconfirmationpopupNotdisplayed() {
-    return confirmationButtonToDeleteActivity.isNotVisibleAfterWaiting();
+  public boolean isConfirmationPopupNotDisplayed() {
+    return !confirmationButtonToDeleteActivity.isDisplayed();
   }
 
   public void clickDeleteActivityButton(String activity) {

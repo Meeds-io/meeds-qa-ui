@@ -194,7 +194,7 @@ public class HomeStepDefinition {
     homeSteps.clickWalletWidget();
   }
 
-  @When("the wallet page is opened")
+  @Then("The wallet page is opened")
   public void checkWalletPage() throws InterruptedException {
     assertThat(homeSteps.checkWalletPage()).as("Wallet page is not opened").isTrue();
   }
@@ -305,12 +305,20 @@ public class HomeStepDefinition {
     connections.add(firstUserFirstName);
     connections.add(secondUserFirstName);
 
-    homeSteps.acceptConnexionInvitation(connections);
+    homeSteps.acceptConnectionInvitation(connections);
   }
 
   @When("^I accept the following connection invitation$")
+  public void acceptConnection(List<String> listOfPeople) {
+    homeSteps.acceptConnectionInvitation(listOfPeople);
+  }
+  
+  @When("^I accept the following connection invitation from random user$")
   public void acceptConnexion(List<String> listOfPeople) {
-    homeSteps.acceptConnexionInvitation(listOfPeople);
+    listOfPeople.forEach(userPrefix -> {
+      String userFirstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");
+      homeSteps.acceptSingleConnectionInvitation(userFirstName);
+    });
   }
 
   @When("^I accept the connection invitation sent by '(.*)' user$")
@@ -337,9 +345,15 @@ public class HomeStepDefinition {
 
   @Then("^the number of connection requests is '(.*)'$")
   public void checkConnexionBagde(String number) {
-    assertThat(homeSteps.isConnectionsBadgeWithNumberVisible(number)).as(String.format("La badge doit avoir le nombre %s",
+    assertThat(homeSteps.isConnectionsBadgeWithNumberVisible(number)).as(String.format("The badge must contains %s connections",
                                                                                        number))
                                                                      .isTrue();
+  }
+
+  @Then("The badge isn't displayed")
+  public void isNoConnectionsBadge() {
+    assertThat(homeSteps.isNoConnectionsBadge()).as("The badge shouldn't be displayed")
+                                                .isTrue();
   }
 
   @When("^I go to Person Page$")

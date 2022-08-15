@@ -5,7 +5,7 @@ Feature: Activities
   @activitystream
   Scenario: delete your activity
     Given I am authenticated as admin
-    And I create the space
+    And I go to the random space
     When I click on post in space
     And I enter an activity 'activitytest'
     And I publish the activity
@@ -18,7 +18,7 @@ Feature: Activities
   @activitystream
   Scenario:  delete your comment
     Given I am authenticated as admin
-    And I create the space
+    And I go to the random space
     When I click on post in space
     And I enter an activity 'activitytest'
     And I publish the activity
@@ -35,7 +35,7 @@ Feature: Activities
   @activitystream
   Scenario: comment your activity
     Given I am authenticated as admin
-    And I create the space
+    And I go to the random space
     When I click on post in space
     And I enter an activity 'activitytest'
     And I publish the activity

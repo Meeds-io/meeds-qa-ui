@@ -9,7 +9,7 @@ Feature: Actions available for note
 
     Given I am authenticated as admin
 
-    And I create a space with full template
+    And I go to the random space
 
     When I go to notes application of the space
     When I click to add note

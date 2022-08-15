@@ -2,7 +2,13 @@ package io.meeds.qa.ui.pages;
 
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoaded;
 
+import java.time.Duration;
+
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,6 +21,7 @@ import io.meeds.qa.ui.elements.TextBoxElementFacadeImpl;
 import io.meeds.qa.ui.elements.TextElementFacade;
 import io.meeds.qa.ui.elements.TextElementFacadeImpl;
 import io.meeds.qa.ui.utils.ExceptionLauncher;
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.core.selectors.Selectors;
 import net.thucydides.core.pages.PageObject;
@@ -44,8 +51,23 @@ public class BasePageImpl extends PageObject implements BasePage {
     waitForPageLoaded();
   }
 
+  public void waitForDrawerToLoad() {
+    WebDriverWait wait = new WebDriverWait(Serenity.getDriver(), Duration.ofSeconds(30));
+    wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState === 'complete' "
+        + " && (!document.getElementById('TopbarLoadingContainer') || !!document.querySelector('.TopbarLoadingContainer.hidden'))"
+        + " && !!document.querySelector('.v-navigation-drawer--open')"
+        + " && !document.querySelector('.v-navigation-drawer--open .v-progress-linear')")
+                                                            .toString()
+                                                            .equals("true"));
+  }
+
   public void refreshPage() {
     driver.navigate().refresh();
+    try {
+      driver.switchTo().alert().accept();
+    } catch (NoAlertPresentException e) {
+      // Normal Behavior
+    }
     verifyPageLoaded();
   }
 

@@ -56,7 +56,7 @@ public class TasksStepDefinition {
     tasksSteps.clickStatusName(statusColumn);
   }
 
-  @When("^I add this project '(.*)'$")
+  @When("^I create the project '(.*)'$")
   public void addProject(String projectName) {
     tasksSteps.addProject(projectName);
   }
@@ -1062,9 +1062,14 @@ public class TasksStepDefinition {
     tasksSteps.clickAddProjectButton();
   }
 
-  @And("^I click on save project button$")
+  @And("I click on save project button")
   public void clickSaveProjectButton() {
     tasksSteps.clickSaveProjectButton();
+  }
+
+  @When("^I enter the project name '(.*)'$")
+  public void setProjectTitle(String projectTitle) {
+    tasksSteps.setProjectTitle(projectTitle);
   }
 
   @Then("^Message Project Title is mandatory is displayed$")

@@ -9,7 +9,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.WebDriver;
 
 import io.cucumber.java.After;
+import io.cucumber.java.AfterAll;
 import io.cucumber.java.Before;
+import io.cucumber.java.BeforeAll;
 import io.meeds.qa.ui.steps.AdminApplicationSteps;
 import io.meeds.qa.ui.steps.HomeSteps;
 import io.meeds.qa.ui.steps.LoginSteps;
@@ -21,29 +23,41 @@ import net.thucydides.core.annotations.Steps;
 
 public class TestHooks {
 
-  protected static final Map<String, String> SPACES = new HashMap<>();
+  protected static final ThreadLocal<Map<String, String>> SPACES = new ThreadLocal<>();
 
-  protected static final Map<String, String> USERS  = new HashMap<>();
-
-  @Steps
-  private ManageSpaceSteps           manageSpaceSteps;
+  protected static final ThreadLocal<Map<String, String>> USERS  = new ThreadLocal<>();
 
   @Steps
-  private ManageSpaceStepDefinitions manageSpaceStepDefinitions;
+  private ManageSpaceSteps                                manageSpaceSteps;
 
   @Steps
-  private HomeSteps                  homeSteps;
+  private ManageSpaceStepDefinitions                      manageSpaceStepDefinitions;
 
   @Steps
-  private LoginSteps                 loginSteps;
+  private HomeSteps                                       homeSteps;
 
   @Steps
-  private ManageBadgesSteps          manageBadgesSteps;
+  private LoginSteps                                      loginSteps;
 
   @Steps
-  private AdminApplicationSteps      adminApplicationSteps;
+  private ManageBadgesSteps                               manageBadgesSteps;
 
-  private boolean                    adminLoggedIn;
+  @Steps
+  private AdminApplicationSteps                           adminApplicationSteps;
+
+  private boolean                                         adminLoggedIn;
+
+  @BeforeAll
+  public static void setup() {
+    SPACES.set(new HashMap<>());
+    USERS.set(new HashMap<>());
+  }
+
+  @AfterAll
+  public static void teardown() {
+    SPACES.remove();
+    USERS.remove();
+  }
 
   @Before
   public void initDatas() {
@@ -55,12 +69,12 @@ public class TestHooks {
     driver.manage().deleteAllCookies();
     driver.navigate().refresh();
 
-    SPACES.entrySet().forEach(entry -> {
+    SPACES.get().entrySet().forEach(entry -> {
       if (StringUtils.isNotBlank(entry.getValue())) {
         Serenity.setSessionVariable(entry.getKey()).to(entry.getValue());
       }
     });
-    USERS.entrySet().forEach(entry -> {
+    USERS.get().entrySet().forEach(entry -> {
       if (StringUtils.isNotBlank(entry.getValue())) {
         Serenity.setSessionVariable(entry.getKey()).to(entry.getValue());
       }
@@ -74,11 +88,11 @@ public class TestHooks {
   }
 
   public static void spaceWithPrefixDeleted(String spaceNamePrefix) {
-    SPACES.put(spaceNamePrefix, null);
+    SPACES.get().put(spaceNamePrefix, null);
   }
 
   public static void spaceWithPrefixCreated(String spaceNamePrefix, String spaceName) {
-    SPACES.put(spaceNamePrefix, spaceName);
+    SPACES.get().put(spaceNamePrefix, spaceName);
   }
 
   public static void userWithPrefixCreated(String userPrefix,
@@ -87,11 +101,11 @@ public class TestHooks {
                                            String lastName,
                                            String email,
                                            String password) {
-    USERS.put(userPrefix + "UserName", userName);
-    USERS.put(userPrefix + "UserFirstName", firstName);
-    USERS.put(userPrefix + "UserLastName", lastName);
-    USERS.put(userPrefix + "UserPassword", password);
-    USERS.put(userName + "-password", password);
+    USERS.get().put(userPrefix + "UserName", userName);
+    USERS.get().put(userPrefix + "UserFirstName", firstName);
+    USERS.get().put(userPrefix + "UserLastName", lastName);
+    USERS.get().put(userPrefix + "UserPassword", password);
+    USERS.get().put(userName + "-password", password);
   }
 
   private void deleteAppCenterApplications() {

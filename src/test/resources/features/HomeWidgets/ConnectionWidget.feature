@@ -70,10 +70,10 @@ Feature: Space widgets checking
 
     Then The 'Connections' badge is '2'
     When I click on connections badge
-    And I accept the following connection invitation sent by first user
-    And I reject the following connection invitation sent by second user
-
-    Then The 'Connections' number is '2'
+    And I accept the following connection invitation from random user
+      | first |
+      | second |
+    Then The badge isn't displayed
 
   Scenario: US 3.3.7[BACK]Common Connections for users requests
     Given I am authenticated as admin
@@ -91,11 +91,15 @@ Feature: Space widgets checking
     And I connect with the third created user
     Then The 'Connections' badge is '2'
     When I click on connections badge
-    And I accept the following connection invitation sent by first user and second user
+    And I accept the following connection invitation from random user
+      | first |
+      | second |
     And I connect with the fourth created user
     Then The 'Connections' badge is '2'
     When I click on connections badge
-    And I accept the following connection invitation sent by first user and second user
+    And I accept the following connection invitation from random user
+      | first |
+      | second |
     And I connect with the second created user
     And I connect to first user
     And I connect with the fifth created user

@@ -75,10 +75,13 @@ public class TasksPage extends GenericPage {
   private TextBoxElementFacade taskMarkedAsCompletedInDrawer;
 
   @FindBy(xpath = "//*[@class='d-flex']//button[2]")
-  private BaseElementFacade    saveAddingTaskButton;
+  private BaseElementFacade    saveButton;
 
-  @FindBy(xpath = "//*[@class='uiIcon uiIconPlus']")
-  private BaseElementFacade    addProject;
+  @FindBy(xpath = "//*[contains(@class,'addProjectTitle ')]//input")
+  private TextBoxElementFacade projectTitleInput;
+
+  @FindBy(xpath = "//*[contains(@class, 'tasksToolbar')]//button[contains(@class, 'btn-primary')]")
+  private BaseElementFacade    addProjectOrTask;
 
   @FindBy(xpath = "//*[@id='labelInput']")
   private TextBoxElementFacade labelTask;
@@ -607,7 +610,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void saveAddTaskButton() {
-    saveAddingTaskButton.clickOnElement();
+    saveButton.clickOnElement();
   }
 
   public void enterLabelTask(String label) {
@@ -620,9 +623,9 @@ public class TasksPage extends GenericPage {
   }
 
   public void addProject(String projectName) {
-    addProject.clickOnElement();
+    addProjectOrTask.clickOnElement();
     projectTitle.setTextValue(projectName);
-    saveAddingTaskButton.clickOnElement();
+    saveButton.clickOnElement();
   }
 
   public void checkProjectIsCreated() {
@@ -639,36 +642,36 @@ public class TasksPage extends GenericPage {
   }
 
   public void addProjectWithParticipant(String projectName, String fullName) {
-    addProject.clickOnElement();
+    addProjectOrTask.clickOnElement();
     projectTitle.setTextValue(projectName);
     addParticipantBtn.clickOnElement();
     inviteProjectParticipantInput.setTextValue(fullName + " ");
     inviteProjectParticipantInput.sendKeys(Keys.BACK_SPACE);
     getProjectParticipant(fullName).clickOnElement();
-    saveAddingTaskButton.clickOnElement();
+    saveButton.clickOnElement();
   }
 
   public void addProjectWithManager(String projectName, String fullName) {
-    addProject.clickOnElement();
+    addProjectOrTask.clickOnElement();
     projectTitle.setTextValue(projectName);
     addManagerBtn.clickOnElement();
     inviteProjectManagerInput.setTextValue(fullName);
     getProjectManager(fullName).clickOnElement();
-    saveAddingTaskButton.clickOnElement();
+    saveButton.clickOnElement();
   }
 
   public void addProjectWithFirstCreatedUserAsManger(String projectName, String fullName) {
-    addProject.clickOnElement();
+    addProjectOrTask.clickOnElement();
     projectTitle.setTextValue(projectName);
     addManagerBtn.clickOnElement();
     inviteProjectManagerInput.setTextValue(fullName + " ");
     inviteProjectManagerInput.sendKeys(Keys.BACK_SPACE);
     getProjectManager(fullName).clickOnElement();
-    saveAddingTaskButton.clickOnElement();
+    saveButton.clickOnElement();
   }
 
   public void addProjectWithManagerAndParticipant(String projectName, String manager, String participant) {
-    addProject.clickOnElement();
+    addProjectOrTask.clickOnElement();
     projectTitle.setTextValue(projectName);
     addManagerBtn.clickOnElement();
     inviteProjectManagerInput.setTextValue(manager + " ");
@@ -678,7 +681,7 @@ public class TasksPage extends GenericPage {
     inviteProjectParticipantInput.setTextValue(participant + " ");
     inviteProjectParticipantInput.sendKeys(Keys.BACK_SPACE);
     getProjectParticipant(participant).clickOnElement();
-    saveAddingTaskButton.clickOnElement();
+    saveButton.clickOnElement();
   }
 
   public void closeProjectDrawer() {
@@ -774,11 +777,12 @@ public class TasksPage extends GenericPage {
     projectThreeDotsButton.clickOnElement();
     editProjectButton.clickOnElement();
     projectTitle.setTextValue(projectName);
-    saveAddingTaskButton.clickOnElement();
+    saveButton.clickOnElement();
   }
 
   public void goToTab(String tab) {
-    getTabByName(tab).clickOnElement();
+    BaseElementFacade tabLink = findByXpathOrCSS(String.format("//*[contains(@class, 'tasksMenuParent')]//a[contains(text(), '%s')]", tab));
+    clickOnElement(tabLink);
   }
 
   Map<String, TextBoxElementFacade> ADD_TASK_MAPPING_CONTAINER_NAME_TO_BASEELEMENTFACADE_XPATH =
@@ -941,22 +945,22 @@ public class TasksPage extends GenericPage {
   }
 
   public void addProjectWithDescription(String projectName, String description) {
-    addProject.clickOnElement();
+    addProjectOrTask.clickOnElement();
     projectTitle.setTextValue(projectName);
     ckEditorFrameTask.clickOnElement();
     driver.switchTo().frame(ckEditorFrameTask);
     projectDescriptionField.waitUntilVisible();
     projectDescriptionField.setTextValue(description);
     driver.switchTo().defaultContent();
-    saveAddingTaskButton.clickOnElement();
+    saveButton.clickOnElement();
   }
 
   public void saveAddingProject() {
-    saveAddingTaskButton.clickOnElement();
+    saveButton.clickOnElement();
   }
 
   public void enterProjectTitleAndDescription(String projectName, String description) {
-    addProject.clickOnElement();
+    addProjectOrTask.clickOnElement();
     projectTitle.setTextValue(projectName);
     ckEditorFrameTask.clickOnElement();
     driver.switchTo().frame(ckEditorFrameTask);
@@ -966,7 +970,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void enterProjectDescriptionWithoutTheTitle(String description) {
-    addProject.clickOnElement();
+    addProjectOrTask.clickOnElement();
     ckEditorFrameTask.clickOnElement();
     driver.switchTo().frame(ckEditorFrameTask);
     projectDescriptionField.waitUntilVisible();
@@ -1012,7 +1016,7 @@ public class TasksPage extends GenericPage {
     projectDescriptionField.waitUntilVisible();
     projectDescriptionField.setTextValue(newDescription);
     driver.switchTo().defaultContent();
-    saveAddingTaskButton.clickOnElement();
+    saveButton.clickOnElement();
   }
 
   public void checkUpdatedProject(String projectName, String description) {
@@ -1376,11 +1380,15 @@ public class TasksPage extends GenericPage {
   }
 
   public void clickAddProjectButton() {
-    addProject.clickOnElement();
+    addProjectOrTask.clickOnElement();
   }
 
   public void clickSaveProjectButton() {
-    saveAddingTaskButton.clickOnElement();
+    saveButton.clickOnElement();
+  }
+
+  public void setProjectTitle(String projectTitle) {
+    projectTitleInput.setTextValue(projectTitle);
   }
 
   public void checkMessageEmptyProjectDisplay() {

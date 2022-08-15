@@ -41,6 +41,10 @@ public class GenericPage extends BasePageImpl {
     return findByXpathOrCSS(String.format("//button[contains(text(),'%s')]", buttonName));
   }
 
+  public void checkDrawerDisplayed(String title) {
+    findByXpathOrCSS(String.format("//*[contains(@class, 'drawerTitle') and contains(text(),'%s')]", title)).isVisibleAfterWaiting();
+  }
+
   public boolean inConfirmMessageDisplayed(String message) {
     return getConfirmMessage(message).isVisibleAfterWaiting();
   }

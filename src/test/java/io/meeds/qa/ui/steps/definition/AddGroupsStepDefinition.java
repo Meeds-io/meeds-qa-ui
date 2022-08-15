@@ -25,13 +25,10 @@ public class AddGroupsStepDefinition {
     addGroupsSteps.selectGroup(group);
   }
 
-  @Given("^I add the role '(.*)' to the first created user$")
-  public void addMemberInGroup(String role) {
-    String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
-    String firstUserLastName = Serenity.sessionVariableCalled("firstUserLastName");
-
-    String fullName = firstUserFirstName + " " + firstUserLastName;
-    addGroupsSteps.addMemberInGroup(role, fullName);
+  @Given("^I add the role '(.*)' to the (.*) created user$")
+  public void addMemberInGroup(String role, String userPrefix) {
+    String userFirstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");
+    addGroupsSteps.addMemberInGroup(role, userFirstName);
   }
 
   @Given("^I add the role '(.*)' to the dedicated user to be an administrator$")
@@ -43,30 +40,12 @@ public class AddGroupsStepDefinition {
     addGroupsSteps.addMemberInGroup(role, fullName);
   }
 
-  @And("^I add the role '(.*)' to the second created user$")
-  public void addSecondMemberInGroup(String role) {
-    String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
-    String secondUserLastName = Serenity.sessionVariableCalled("secondUserLastName");
-
-    String fullName = secondUserFirstName + " " + secondUserLastName;
-    addGroupsSteps.addMemberInGroup(role, fullName);
-  }
-
   @Given("^I add the role '(.*)' to the dedicated user to the selected role$")
   public void addUserInGroup(String role) {
     String firstAdminFirstName = Serenity.sessionVariableCalled("firstAdminFirstName");
     String firstAdminLastName = Serenity.sessionVariableCalled("firstAdminLastName");
 
     String fullName = firstAdminFirstName + " " + firstAdminLastName;
-    addGroupsSteps.addMemberInGroup(role, fullName);
-  }
-
-  @And("^I add the role '(.*)' to the fifth created user$")
-  public void addFifthMemberInGroup(String role) {
-    String secondUserFirstName = Serenity.sessionVariableCalled("fifthUserFirstName");
-    String secondUserLastName = Serenity.sessionVariableCalled("fifthUserLastName");
-
-    String fullName = secondUserFirstName + " " + secondUserLastName;
     addGroupsSteps.addMemberInGroup(role, fullName);
   }
 

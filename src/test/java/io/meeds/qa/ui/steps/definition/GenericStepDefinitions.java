@@ -70,6 +70,11 @@ public class GenericStepDefinitions {
                                            .isEmpty();
   }
 
+  @When("^The '(.*)' drawer is displayed$")
+  public void checkDrawerDisplayed(String title) throws IOException, InterruptedException {
+    genericSteps.checkDrawerDisplayed(title);
+  }
+
   @Then("The page {string} that contains {string} is displayed")
   public void checkPage(String pageUri, String content) {
     WebDriver driver = Serenity.getWebdriverManager().getCurrentDriver();

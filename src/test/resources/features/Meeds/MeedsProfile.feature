@@ -36,7 +36,6 @@ Feature: Search for User Informations in Profile page
 
     Then User Job '' is displayed in Profile Page
 
-  @failing
   Scenario: PROFILE-4 Contact information block_(01) : Add informations
     Given I am authenticated as admin
 
@@ -48,7 +47,6 @@ Feature: Search for User Informations in Profile page
     And Updated Profile Contact Email is displayed
     And Updated Profile Contact Job is displayed
 
-  @failing
   Scenario: PROFILE-4 Contact information block_(02) : Add informations
     Given I am authenticated as admin
 

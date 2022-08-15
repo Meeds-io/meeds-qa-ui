@@ -6,7 +6,7 @@ Feature: Spaces Management
   Scenario: SPC_MNG-1 : Spaces avatar and title
     Given I am authenticated as admin
 
-    When I create the random space
+    When I go to the random space
 
     Then Space Avatar is displayed
     And The created space name is displayed
@@ -14,7 +14,7 @@ Feature: Spaces Management
   Scenario: SPC_MNG-2 : Space applications
     Given I am authenticated as admin
 
-    When I create the random space
+    When I go to the random space
 
     Then Space Avatar is displayed
     And The created space name is displayed
@@ -23,19 +23,19 @@ Feature: Spaces Management
   Scenario: SPC_MNG-3 : Home space page banner
     Given I am authenticated as admin
 
-    When I create the random space
+    When I go to the random space
 
     Then Space Avatar is displayed
     And The created space name is displayed
 
     When I upload the Space banner 'cap02.png'
-    And I go to the created space
+    And I go to the random space
     Then Space banner is changed successfully
 
   Scenario: SPC_MNG-4 : Clickable Space avatar
     Given I am authenticated as admin
 
-    When I create the random space
+    When I go to the random space
 
     Then Space Avatar is displayed
     And The created space name is displayed

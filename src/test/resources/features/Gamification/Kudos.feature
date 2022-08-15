@@ -20,7 +20,7 @@ Feature: Kudos gamification
   Scenario: Post activity (space stream)
     Given I am authenticated as admin
     And I check my points
-    When I create the space
+    When I go to the random space
     And I click on post in space
     And I enter an activity 'kudosPostActivity'
     And I publish the activity

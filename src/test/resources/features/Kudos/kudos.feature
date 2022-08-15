@@ -16,19 +16,14 @@ Feature: Kudos
     And I create the first random user
     And I create the second random user
     When I connect with the second created user
-    And I create random space with the first created user
-    And I go to the created space
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'Kudos Post activity'
     And I publish the activity
     Then the activity 'Kudos Post activity' is displayed in activity stream
 
     And I connect with the first created user
-    Then The 'Spaces' badge is '1'
-    When I click on spaces badge
-    And I accept the invitation of the created space
-    And I refresh the page
-    When I go to the created space
+    When I go to the random space
     And I sent to the activity 'Kudos Post activity' a kudos message 'Test Auto Kudos Module'
 
     And I connect with the second created user
@@ -40,7 +35,7 @@ Feature: Kudos
     And I create the first random user
 
     When I connect with the first created user
-    And I create the space
+    And I go to the random space
     When I click on post in space
     And I enter an activity 'Kudos Post'
     And I publish the activity

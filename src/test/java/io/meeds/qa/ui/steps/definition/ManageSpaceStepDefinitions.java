@@ -14,6 +14,7 @@ import io.meeds.qa.ui.hook.TestHooks;
 import io.meeds.qa.ui.pages.page.factory.space.ManageSpacesPage;
 import io.meeds.qa.ui.steps.HomeSteps;
 import io.meeds.qa.ui.steps.ManageSpaceSteps;
+import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 
 public class ManageSpaceStepDefinitions {
@@ -22,24 +23,13 @@ public class ManageSpaceStepDefinitions {
 
   private ManageSpacesPage manageSpacesPage;
 
-  String                   spaceTemplate   = System.getProperty("io.meeds.space.template");
-
   @Steps
   private HomeSteps        homeSteps;
 
-  @Given("^I create the space$")
-  public void addNewSpaceRandom() {
-    manageSpaceSteps.addOrGoToSpace("spaceName");
-  }
-
-  @Given("^I create the first space$")
-  public void addFirstSpaceRandom() {
-    manageSpaceSteps.addOrGoToSpace("spaceName");
-  }
-
   @Given("^The created space details are displayed in spaces page search results with '(.*)'$")
   public void checkThatSpaceDetailsInSearchResultsAreDisplayedByOtherUser(String members) {
-    manageSpaceSteps.checkThatSpaceDetailsInSearchResultsAreDisplayedByOtherUser(sessionVariableCalled("randomSpaceName"), members);
+    manageSpaceSteps.checkThatSpaceDetailsInSearchResultsAreDisplayedByOtherUser(sessionVariableCalled("randomSpaceName"),
+                                                                                 members);
   }
 
   @Given("^First space details are displayed in spaces page search results with '(.*)'$")
@@ -65,16 +55,6 @@ public class ManageSpaceStepDefinitions {
   @Given("^Third space details are displayed in spaces page search results with '(.*)'$")
   public void checkThatThirdSpaceDetailsInSearchResultsAreDisplayed(String members) {
     manageSpaceSteps.checkThatSpaceDetailsInSearchResultsAreDisplayed(sessionVariableCalled("thirdRandomSpaceName"), members);
-  }
-
-  @Given("^I create the second space$")
-  public void addSecondSpaceRandom() {
-    manageSpaceSteps.addOrGoToSpace("secondRandomSpaceName");
-  }
-
-  @Given("^I create the third space$")
-  public void addThirdSpaceRandom() {
-    manageSpaceSteps.addOrGoToSpace("thirdRandomSpaceName");
   }
 
   @Given("^Space Avatar is displayed$")
@@ -113,80 +93,20 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.isSpaceBannerUpdated();
   }
 
-  @Given("I create the random space")
-  public void addRandomSpace() {
+  @Given("I go to the random space")
+  public void goToRandomSpace() {
     manageSpaceSteps.addOrGoToSpace("randomSpaceName");
   }
 
-  @Given("^I add the random space with registration '(.*)' with the fifth user$")
-  public void addRandomSpaceWithRegistrationWithInvitedUser(String registration) {
-    String fifthUserName = sessionVariableCalled("fifthUserName");
-    String randomSpaceName = "randomSpaceName" + getRandomNumber();
-    homeSteps.goToManageSpacesPage();
-    manageSpaceSteps.addSpaceWithRegistrationWithInvitedUser(randomSpaceName, registration, fifthUserName);
+  @Given("^I go to the (.*) random space$")
+  public void goToRandomSpaceWithPrefix(String spacePrefix) {
+    manageSpaceSteps.addOrGoToSpace(spacePrefix + "RandomSpaceName");
   }
 
-  @Given("^I add the random space with registration '(.*)'$")
-  public void addRandomSpaceWithRegistration(String registration) {
-    if (StringUtils.equals(registration, "Open")) {
-      manageSpaceSteps.addOrGoToSpace("randomSpaceName");
-    } else {
-      homeSteps.goToManageSpacesPage();
-      String randomSpaceName = "randomSpaceName" + getRandomNumber();
-      manageSpaceSteps.addSpaceWithRegistration(randomSpaceName, registration);
-      setSessionVariable("randomSpaceName").to(randomSpaceName);
-    }
-  }
-
-  @Given("^I create random space with the first created Admin user$")
-  public void addRandomSpaceWithFirstAdminUser() {
-    homeSteps.goToManageSpacesPage();
-    String firstUserFirstName = sessionVariableCalled("firstAdminFirstName");
-    String firstUserLastName = sessionVariableCalled("firstAdminLastName");
-    String fullName = firstUserFirstName + " " + firstUserLastName;
-    manageSpaceSteps.addOrGoToSpace("randomSpaceName", fullName);
-  }
-
-  @When("^I accept the invitation of the random space$")
+  @When("I accept the invitation of the random space")
   public void acceptInvitationRandomSpace() {
     String randomSpaceName = sessionVariableCalled("randomSpaceName");
     homeSteps.acceptRandomSpaceInvitation(randomSpaceName);
-  }
-
-  @Given("^I create the second random space$")
-  public void addSecondRandomSpace() {
-    manageSpaceSteps.addOrGoToSpace("secondRandomSpaceName");
-  }
-
-  @Given("^I create the third random space$")
-  public void addThirdRandomSpace() {
-    manageSpaceSteps.addOrGoToSpace("thirdRandomSpaceName");
-  }
-
-  @Given("^I create the fourth random space$")
-  public void addFourthRandomSpace() {
-    manageSpaceSteps.addOrGoToSpace("fourthRandomSpaceName");
-  }
-
-  @Given("^I go to the created space$")
-  public void goToRandomSpace() {
-    homeSteps.goToManageSpacesPage();
-    String randomSpaceName = sessionVariableCalled("randomSpaceName");
-    manageSpaceSteps.goToSpecificSpace(randomSpaceName);
-  }
-
-  @Given("^I go to the second created space$")
-  public void goToSecondRandomSpace() {
-    homeSteps.goToManageSpacesPage();
-    String secondRandomSpaceName = sessionVariableCalled("secondRandomSpaceName");
-    manageSpaceSteps.goToSpecificSpace(secondRandomSpaceName);
-  }
-
-  @Given("^I go to the third created space$")
-  public void goToThirdRandomSpace() {
-    homeSteps.goToManageSpacesPage();
-    String thirdRandomSpaceName = sessionVariableCalled("thirdRandomSpaceName");
-    manageSpaceSteps.goToSpecificSpace(thirdRandomSpaceName);
   }
 
   @Given("^The created space name is displayed$")
@@ -201,41 +121,16 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.spaceNameIsDisplayed(secondRandomSpaceName);
   }
 
-  @Given("^I go to space '(.*)'$")
-  public void goToSpace(String spaceName) {
-    homeSteps.goToManageSpacesPage();
-    manageSpaceSteps.goToSpecificSpace(spaceName);
-  }
-
-  @Given("I go to the created space to accept to join it")
-  public void goToSpaceToAcceptInvitation() {
-    homeSteps.goToManageSpacesPage();
-    String randomSpaceName = sessionVariableCalled("randomSpaceName");
-    manageSpaceSteps.goToSpaceToAcceptInvitation(randomSpaceName);
-  }
-
-  @Given("^I go to the space '(.*)' to accept to join it$")
-  public void goToJoinSpace(String space) {
-    homeSteps.goToManageSpacesPage();
-    manageSpaceSteps.goToSpaceToAcceptInvitation(space);
-  }
-
-  @When("^I accept the invitation of the created space$")
-  public void acceptRandomSpace() {
-    String randomSpaceName = sessionVariableCalled("randomSpaceName");
+  @When("^I accept the invitation of the (.*) created space$")
+  public void acceptRandomSpace(String spacePrefix) {
+    String randomSpaceName = sessionVariableCalled(spacePrefix + "RandomSpaceName");
     homeSteps.acceptRandomSpaceInvitation(randomSpaceName);
   }
 
-  @When("^I accept the invitation of the second created space$")
-  public void acceptSecondRandomSpace() {
-    String secondRandomSpaceName = sessionVariableCalled("secondRandomSpaceName");
-    homeSteps.acceptRandomSpaceInvitation(secondRandomSpaceName);
-  }
-
-  @When("^I reject the invitation of the second created space$")
-  public void rejectSecondRandomSpace() {
-    String secondRandomSpaceName = sessionVariableCalled("secondRandomSpaceName");
-    homeSteps.rejectRandomSpaceInvitation(secondRandomSpaceName);
+  @When("^I reject the invitation of the (.*) created space$")
+  public void rejectRandomSpace(String spacePrefix) {
+    String randomSpaceName = sessionVariableCalled(spacePrefix + "RandomSpaceName");
+    homeSteps.rejectRandomSpaceInvitation(randomSpaceName);
   }
 
   @When("The third created space is displayed in Spaces Requests section")
@@ -260,57 +155,6 @@ public class ManageSpaceStepDefinitions {
   public void acceptThirdRandomSpace() {
     String thirdRandomSpaceName = sessionVariableCalled("thirdRandomSpaceName");
     homeSteps.acceptRandomSpaceInvitation(thirdRandomSpaceName);
-  }
-
-  @Given("I create random space with the first created user")
-  public void addSpaceByTemplateWithFirstUser() {
-    String randomSpaceName = "randomSpaceName" + getRandomNumber();
-    String firstUserFirstName = sessionVariableCalled("firstUserFirstName");
-    String firstUserLastName = sessionVariableCalled("firstUserLastName");
-    String firstUserName = firstUserFirstName + " " + firstUserLastName;
-    homeSteps.goToManageSpacesPage();
-    manageSpaceSteps.addSpaceByTemplateWithUser(randomSpaceName, firstUserName, spaceTemplate);
-  }
-
-  @Given("^I create second random space with the first created user$")
-  public void addSecondRandomSpaceWithFirstUser() {
-    String firstUserName = sessionVariableCalled("firstUserName");
-    manageSpaceSteps.addOrGoToSpace("secondRandomSpaceName", firstUserName);
-  }
-
-  @Given("^I create third random space with the first created user$")
-  public void addThirdRandomSpaceWithFirstUser() {
-    homeSteps.goToManageSpacesPage();
-    String firstUserName = sessionVariableCalled("firstUserName");
-    manageSpaceSteps.addOrGoToSpace("thirdRandomSpaceName", firstUserName);
-  }
-
-  @Given("^I create fourth random space with the first created user$")
-  public void addFourthRandomSpaceWithFirstUser() {
-    homeSteps.goToManageSpacesPage();
-    String firstUserName = sessionVariableCalled("firstUserName");
-    manageSpaceSteps.addOrGoToSpace("fourthRandomSpaceName", firstUserName);
-  }
-
-  @Given("^I create fifth random space with the first created user$")
-  public void addFifthRandomSpaceWithFirstUser() {
-    homeSteps.goToManageSpacesPage();
-    String firstUserName = sessionVariableCalled("firstUserName");
-    manageSpaceSteps.addOrGoToSpace("fifthRandomSpaceName", firstUserName);
-  }
-
-  @Given("^I create random space with the second created user$")
-  public void addRandomSpaceWithSecondUser() {
-    homeSteps.goToManageSpacesPage();
-    String secondUserName = sessionVariableCalled("secondUserName");
-    manageSpaceSteps.addOrGoToSpace("randomSpaceName", secondUserName);
-  }
-
-  @Given("^I create second random space with the first created space$")
-  public void addSecondRandomSpaceWithSecondUser() {
-    homeSteps.goToManageSpacesPage();
-    String randomSpaceName = sessionVariableCalled("randomSpaceName");
-    manageSpaceSteps.addOrGoToSpace("secondRandomSpaceName", randomSpaceName);
   }
 
   @Then("^The space page is displayed '(.*)'$")
@@ -352,7 +196,31 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.selectFilter(filter);
   }
 
-  @Given("^I create thirty random space$")
+  @Given("I create a random space")
+  public void addARandomSpace() {
+    String randomSpaceName = "randomSpaceName" + getRandomNumber();
+    homeSteps.goToManageSpacesPage();
+    manageSpaceSteps.addSpaceWithRegistration(randomSpaceName, "Open");
+  }
+
+  @Given("^I create a random space with the (.*) created user$")
+  public void addARandomSpaceWithRandomUserInvited(String userPrefix) {
+    String randomSpaceName = "randomSpaceName" + getRandomNumber();
+    String userFirstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");
+    homeSteps.goToManageSpacesPage();
+    manageSpaceSteps.addSpaceWithInviteUser(randomSpaceName, userFirstName);
+  }
+
+  @Given("^I create a (.*) random space with the (.*) created user as member$")
+  public void addARandomSpaceWithRandomUserInvited(String spacePrefix, String userPrefix) {
+    String randomSpaceName = "randomSpaceName" + getRandomNumber();
+    String userFirstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");
+    homeSteps.goToManageSpacesPage();
+    manageSpaceSteps.addSpaceWithInviteUser(randomSpaceName, userFirstName);
+    setSessionVariable(spacePrefix + "RandomSpaceName").to(randomSpaceName);
+  }
+
+  @Given("I create thirty random space")
   public void addThirtyRandomSpace() {
     for (int i = 0; i < 30; i++) {
       homeSteps.goToManageSpacesPage();
@@ -436,13 +304,6 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.checkUpdateButton();
   }
 
-  @And("^I create a space with full template$")
-  public void addRandomSpaceWithTemplate() {
-    homeSteps.goToManageSpacesPage();
-    String spaceName = "spaceName" + getRandomNumber();
-    manageSpaceSteps.addSpaceWithTemplate(spaceName, spaceTemplate);
-  }
-
   @Given("^I click on arrow icon of application space settings$")
   public void clickOnArrowIconAppSpaceSettings() {
     manageSpaceSteps.clickOnArrowIconAppSpaceSettings();
@@ -521,17 +382,6 @@ public class ManageSpaceStepDefinitions {
   @Given("^I go to Settings in space tab$")
   public void goToSettingsTab() {
     manageSpaceSteps.goToSettingsTab();
-  }
-
-  @Given("^I add '(.*)' to the space$")
-  public void addUserToSpace(String user) {
-    manageSpaceSteps.addUserToSpace(user);
-  }
-
-  @Given("^I add (.*) user to the space$")
-  public void addRandomUserToSpace(String userPrefix) {
-    String userName = sessionVariableCalled(userPrefix + "UserName");
-    manageSpaceSteps.addUserToSpace(userName);
   }
 
 }

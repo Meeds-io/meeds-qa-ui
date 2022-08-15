@@ -8,18 +8,17 @@ Feature: Activity Stream
     And I create the second random user
 
     And I connect with the first created user
-    And I create random space with the first created user 
+    And I go to the random space
 
     When I connect with the second created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activityTest01'
     And I publish the activity
     Then the activity 'activityTest01' is displayed in activity stream
 
     When I connect with the first created user
-    And I go to the created space
+    And I go to the random space
     Then The activity 'activityTest01' posted by the second user in the created space is displayed with its timestamp in activity stream
 
     When I go to Stream page
@@ -33,11 +32,10 @@ Feature: Activity Stream
     And I create the second random user
 
     And I connect with the second created user
-    And I create random space with the first created user 
+    And I go to the random space
 
     When I connect with the first created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activityTest02' mentioning the second user
     And I publish the activity
@@ -56,7 +54,7 @@ Feature: Activity Stream
     And I create the second random user
 
     And I connect with the first created user
-    And I create the random space
+    And I go to the random space
     And I post '30' activities
     And I refresh the page
     Then the activity 'act30' is displayed in activity stream
@@ -72,8 +70,7 @@ Feature: Activity Stream
     And the activity 'act20' is not displayed in activity stream
 
     When I connect with the second created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
 
     Then the activity 'act30' is displayed in activity stream
     And the activity 'act29' is displayed in activity stream
@@ -135,7 +132,7 @@ Feature: Activity Stream
 
     And I connect with the first created user
 
-    When I create the random space
+    And I go to the random space
     And I post '30' activities
     And I refresh the page
     Then the activity 'act30' is displayed in activity stream
@@ -151,8 +148,7 @@ Feature: Activity Stream
     And the activity 'act20' is not displayed in activity stream
 
     When I connect with the second created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'act30' is displayed in activity stream
     And the activity 'act29' is displayed in activity stream
     And the activity 'act28' is displayed in activity stream
@@ -166,7 +162,7 @@ Feature: Activity Stream
     And the activity 'act20' is not displayed in activity stream
 
     When I connect with the first created user
-    And I go to the created space
+    And I go to the random space
     And I click on modify the activity 'act30'
     And I enter an activity 'act30updated'
     And I click on Update
@@ -236,7 +232,7 @@ Feature: Activity Stream
     And I click on Update
 
     When I connect with the second created user
-    And I go to the created space
+    And I go to the random space
 
     Then the activity 'act11updated' is displayed in activity stream
     And the activity 'act12updated' is displayed in activity stream
@@ -299,7 +295,7 @@ Feature: Activity Stream
 
     And I connect with the first created user
 
-    When I create the random space
+    And I go to the random space
     And I post '30' activities
     And I refresh the page
     Then the activity 'act30' is displayed in activity stream
@@ -315,8 +311,7 @@ Feature: Activity Stream
     And the activity 'act20' is not displayed in activity stream
 
     When I connect with the second created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'act30' is displayed in activity stream
     And the activity 'act29' is displayed in activity stream
     And the activity 'act28' is displayed in activity stream
@@ -330,7 +325,7 @@ Feature: Activity Stream
     And the activity 'act20' is not displayed in activity stream
 
     When I connect with the first created user
-    And I go to the created space
+    And I go to the random space
     And I like the activity 'act30'
     And I like the activity 'act29'
     And I like the activity 'act28'
@@ -360,7 +355,7 @@ Feature: Activity Stream
     And I like the activity 'act11'
 
     When I connect with the second created user
-    And I go to the created space
+    And I go to the random space
 
     Then the activity 'act30' is displayed in activity stream
     And the activity 'act29' is displayed in activity stream
@@ -421,12 +416,11 @@ Feature: Activity Stream
     And I create the second random user
     And I create the third random user
 
-    And I add the random space with registration 'Open'
+    And I go to the random space
 
     When I connect with the first created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activityTest100'
     And I publish the activity
@@ -434,8 +428,7 @@ Feature: Activity Stream
 
     When I connect with the second created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activityTest100' is displayed in activity stream
     When I add in activity 'activityTest100' a comment 'commenttest100'
     And I open in activity 'activityTest100' the Comments drawer
@@ -444,8 +437,7 @@ Feature: Activity Stream
 
     When I connect with the third created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activityTest100' is displayed in activity stream
     And Activity Comment 'commenttest100' is displayed in activity stream
     When I add a reply 'replyTest100' to comment 'commenttest100' in activity 'activityTest100'
@@ -453,7 +445,7 @@ Feature: Activity Stream
 
     When I change user admin
 
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest100' is displayed in activity stream
     And Activity Comment 'commenttest100' is displayed in activity stream
     And In activity 'activityTest100' with comment 'commenttest100', the reply 'replyTest100' is displayed
@@ -462,7 +454,7 @@ Feature: Activity Stream
 
     When I connect with the second created user
 
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest100' is displayed in activity stream
     And Activity Comment 'commenttest100' is displayed in activity stream
     And In activity 'activityTest100' with comment 'commenttest100', the reply 'replyTest100' is displayed
@@ -484,12 +476,11 @@ Feature: Activity Stream
     And I create the second random user
     And I create the third random user
 
-    And I add the random space with registration 'Open'
+    And I go to the random space
 
     When I connect with the first created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activityTest101'
     And I publish the activity
@@ -497,8 +488,7 @@ Feature: Activity Stream
 
     When I connect with the second created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activityTest101' is displayed in activity stream
     When I add in activity 'activityTest101' a comment 'commenttest101'
     And I open in activity 'activityTest101' the Comments drawer
@@ -507,8 +497,7 @@ Feature: Activity Stream
 
     When I connect with the third created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activityTest101' is displayed in activity stream
     And Activity Comment 'commenttest101' is displayed in activity stream
     When I add a reply 'replyTest101' to comment 'commenttest101' in activity 'activityTest101'
@@ -516,7 +505,7 @@ Feature: Activity Stream
 
     When I connect with the second created user
 
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest101' is displayed in activity stream
     And Activity Comment 'commenttest101' is displayed in activity stream
     And In activity 'activityTest101' with comment 'commenttest101', the reply 'replyTest101' is displayed
@@ -525,7 +514,7 @@ Feature: Activity Stream
 
     When I connect with the first created user
 
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest101' is displayed in activity stream
     And Activity Comment 'commenttest101' is displayed in activity stream
     And In activity 'activityTest101' with comment 'commenttest101', the reply 'replyTest101' is displayed
@@ -535,7 +524,7 @@ Feature: Activity Stream
 
     When I change user admin
 
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest101' is displayed in activity stream
     And Activity Comment 'commenttest101' is displayed in activity stream
     And In activity 'activityTest101' with comment 'commenttest101', the reply 'replyTest101' is not displayed
@@ -546,7 +535,7 @@ Feature: Activity Stream
 
     When I connect with the first created user
 
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest101' is displayed in activity stream
     And Activity Comment 'commenttest101' is displayed in activity stream
     And In activity 'activityTest101' with comment 'commenttest101', the reply 'replyTest101' is not displayed
@@ -571,12 +560,11 @@ Feature: Activity Stream
     And I create the second random user
     And I create the third random user
 
-    And I add the random space with registration 'Open'
+    And I go to the random space
 
     When I connect with the first created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activityTest102'
     And I publish the activity
@@ -584,8 +572,7 @@ Feature: Activity Stream
 
     When I connect with the second created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activityTest102' is displayed in activity stream
     When I add in activity 'activityTest102' a comment 'commenttest102'
     And I open in activity 'activityTest102' the Comments drawer
@@ -594,8 +581,7 @@ Feature: Activity Stream
 
     When I connect with the third created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activityTest102' is displayed in activity stream
     And Activity Comment 'commenttest102' is displayed in activity stream
     When I add a reply 'replyTest101' to comment 'commenttest102' in activity 'activityTest102'
@@ -603,7 +589,7 @@ Feature: Activity Stream
 
     When I connect with the second created user
 
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest102' is displayed in activity stream
     And Activity Comment 'commenttest102' is displayed in activity stream
     And In activity 'activityTest102' with comment 'commenttest102', the reply 'replyTest101' is displayed
@@ -612,7 +598,7 @@ Feature: Activity Stream
 
     When I connect with the first created user
 
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest102' is displayed in activity stream
     And Activity Comment 'commenttest102' is displayed in activity stream
     And In activity 'activityTest102' with comment 'commenttest102', the reply 'replyTest101' is displayed
@@ -622,7 +608,7 @@ Feature: Activity Stream
 
     When I change user admin
 
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest102' is displayed in activity stream
     And Activity Comment 'commenttest102' is displayed in activity stream
     And In activity 'activityTest102' with comment 'commenttest102', the reply 'replyTest101' is not displayed
@@ -633,7 +619,7 @@ Feature: Activity Stream
 
     When I connect with the first created user
 
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest102' is displayed in activity stream
     And Activity Comment 'commenttest102' is displayed in activity stream
     And In activity 'activityTest102' with comment 'commenttest102', the reply 'replyTest101' is not displayed
@@ -651,6 +637,7 @@ Feature: Activity Stream
     And In activity 'activityTest102' with comment 'commenttest102', the reply 'replyTest103' is displayed
     And In activity 'activityTest102' with comment 'commenttest102', the reply 'replyTest104' is displayed
 
+  @test
   Scenario: CAP103 - [ActivityStream_US39][01]: Delete a simple comment from the comment drawer
     Given I am authenticated as admin
 
@@ -658,12 +645,11 @@ Feature: Activity Stream
     And I create the second random user
     And I create the third random user
 
-    And I add the random space with registration 'Open'
+    And I go to the random space
 
     When I connect with the first created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activityTest103'
     And I publish the activity
@@ -671,8 +657,7 @@ Feature: Activity Stream
 
     When I connect with the second created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activityTest103' is displayed in activity stream
     When I add in activity 'activityTest103' a comment 'commenttest103'
     And I open in activity 'activityTest103' the Comments drawer
@@ -681,8 +666,7 @@ Feature: Activity Stream
 
     When I connect with the third created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activityTest103' is displayed in activity stream
     And Activity Comment 'commenttest103' is displayed in activity stream
 
@@ -692,7 +676,7 @@ Feature: Activity Stream
 
     When I connect with the second created user
 
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest103' is displayed in activity stream
     And Activity Comment 'commenttest103' is displayed in activity stream
 
@@ -709,7 +693,7 @@ Feature: Activity Stream
 
     When I connect with the first created user
 
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest103' is displayed in activity stream
 
     When I open in activity 'activityTest103' the Comments drawer
@@ -720,7 +704,7 @@ Feature: Activity Stream
 
     When I connect with the third created user
 
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest103' is displayed in activity stream
 
     When I open in activity 'activityTest103' the Comments drawer
@@ -736,12 +720,11 @@ Feature: Activity Stream
     And I create the second random user
     And I create the third random user
 
-    And I add the random space with registration 'Open'
+    And I go to the random space
 
     When I connect with the first created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activityTest104'
     And I publish the activity
@@ -749,8 +732,7 @@ Feature: Activity Stream
 
     When I connect with the second created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activityTest104' is displayed in activity stream
     When I add in activity 'activityTest104' a comment 'commenttest104'
     And I open in activity 'activityTest104' the Comments drawer
@@ -759,8 +741,7 @@ Feature: Activity Stream
 
     When I connect with the third created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activityTest104' is displayed in activity stream
     And Activity Comment 'commenttest104' is displayed in activity stream
 
@@ -770,7 +751,7 @@ Feature: Activity Stream
 
     When I connect with the second created user
 
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest104' is displayed in activity stream
     And Activity Comment 'commenttest104' is displayed in activity stream
 
@@ -786,7 +767,7 @@ Feature: Activity Stream
 
     When I connect with the first created user
 
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest104' is displayed in activity stream
 
     When I open in activity 'activityTest104' the Comments drawer
@@ -796,7 +777,7 @@ Feature: Activity Stream
 
     When I connect with the third created user
 
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest104' is displayed in activity stream
 
     When I open in activity 'activityTest104' the Comments drawer
@@ -811,12 +792,11 @@ Feature: Activity Stream
     And I create the second random user
     And I create the third random user
 
-    And I add the random space with registration 'Open'
+    And I go to the random space
 
     When I connect with the first created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activityTest105'
     And I publish the activity
@@ -824,8 +804,7 @@ Feature: Activity Stream
 
     When I connect with the second created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activityTest105' is displayed in activity stream
     When I add in activity 'activityTest105' a comment 'commenttest105'
     And I open in activity 'activityTest105' the Comments drawer
@@ -836,7 +815,7 @@ Feature: Activity Stream
 
     When I connect with the first created user
 
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest105' is displayed in activity stream
     And Activity Comment 'commenttest105' is displayed in activity stream
     And In activity 'activityTest105' with comment 'commenttest105', the reply 'replyTest101' is displayed
@@ -845,8 +824,7 @@ Feature: Activity Stream
 
     When I connect with the third created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activityTest105' is displayed in activity stream
     And Activity Comment 'commenttest105' is displayed in activity stream
 
@@ -857,7 +835,7 @@ Feature: Activity Stream
 
     When I connect with the second created user
 
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest105' is displayed in activity stream
     And Activity Comment 'commenttest105' is displayed in activity stream
 
@@ -881,7 +859,7 @@ Feature: Activity Stream
 
     When I connect with the first created user
 
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest105' is displayed in activity stream
 
     When I open in activity 'activityTest105' the Comments drawer
@@ -895,7 +873,7 @@ Feature: Activity Stream
 
     When I connect with the third created user
 
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest105' is displayed in activity stream
 
     When I open in activity 'activityTest105' the Comments drawer
@@ -914,12 +892,11 @@ Feature: Activity Stream
     And I create the second random user
     And I create the third random user
 
-    And I add the random space with registration 'Open'
+    And I go to the random space
 
     When I connect with the first created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activityTest106'
     And I publish the activity
@@ -927,8 +904,7 @@ Feature: Activity Stream
 
     When I connect with the second created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activityTest106' is displayed in activity stream
     When I add in activity 'activityTest106' a comment 'commenttest106'
     And I open in activity 'activityTest106' the Comments drawer
@@ -939,7 +915,7 @@ Feature: Activity Stream
 
     When I connect with the first created user
 
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest106' is displayed in activity stream
     And Activity Comment 'commenttest106' is displayed in activity stream
     And In activity 'activityTest106' with comment 'commenttest106', the reply 'replyTest101' is displayed
@@ -948,8 +924,7 @@ Feature: Activity Stream
 
     When I connect with the third created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activityTest106' is displayed in activity stream
     And Activity Comment 'commenttest106' is displayed in activity stream
 
@@ -960,7 +935,7 @@ Feature: Activity Stream
 
     When I connect with the second created user
 
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest106' is displayed in activity stream
     And Activity Comment 'commenttest106' is displayed in activity stream
 
@@ -983,7 +958,7 @@ Feature: Activity Stream
 
     When I connect with the first created user
 
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest106' is displayed in activity stream
 
     When I open in activity 'activityTest106' the Comments drawer
@@ -997,7 +972,7 @@ Feature: Activity Stream
 
     When I connect with the third created user
 
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest106' is displayed in activity stream
 
     When I open in activity 'activityTest106' the Comments drawer
@@ -1016,12 +991,11 @@ Feature: Activity Stream
     And I create the second random user
     And I create the third random user
 
-    And I add the random space with registration 'Open'
+    And I go to the random space
 
     When I connect with the first created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activityTest107'
     And I publish the activity
@@ -1029,8 +1003,7 @@ Feature: Activity Stream
 
     When I connect with the second created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activityTest107' is displayed in activity stream
     When I add in activity 'activityTest107' a comment 'commenttest107'
     And I open in activity 'activityTest107' the Comments drawer
@@ -1041,7 +1014,7 @@ Feature: Activity Stream
 
     When I connect with the first created user
 
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest107' is displayed in activity stream
     And Activity Comment 'commenttest107' is displayed in activity stream
     And In activity 'activityTest107' with comment 'commenttest107', the reply 'replyTest101' is displayed
@@ -1050,8 +1023,7 @@ Feature: Activity Stream
 
     When I connect with the third created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activityTest107' is displayed in activity stream
     And Activity Comment 'commenttest107' is displayed in activity stream
 
@@ -1062,7 +1034,7 @@ Feature: Activity Stream
 
     When I connect with the first created user
 
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest107' is displayed in activity stream
     And Activity Comment 'commenttest107' is displayed in activity stream
 
@@ -1088,7 +1060,7 @@ Feature: Activity Stream
 
     When I connect with the second created user
 
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest107' is displayed in activity stream
 
     When I open in activity 'activityTest107' the Comments drawer
@@ -1104,7 +1076,7 @@ Feature: Activity Stream
 
     When I connect with the third created user
 
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest107' is displayed in activity stream
 
     When I open in activity 'activityTest107' the Comments drawer
@@ -1125,12 +1097,11 @@ Feature: Activity Stream
     And I create the second random user
     And I create the third random user
 
-    And I add the random space with registration 'Open'
+    And I go to the random space
 
     When I connect with the first created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activityTest108'
     And I publish the activity
@@ -1138,8 +1109,7 @@ Feature: Activity Stream
 
     When I connect with the second created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activityTest108' is displayed in activity stream
     When I add in activity 'activityTest108' a comment 'commenttest108'
     And I open in activity 'activityTest108' the Comments drawer
@@ -1150,7 +1120,7 @@ Feature: Activity Stream
 
     When I connect with the first created user
 
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest108' is displayed in activity stream
     And Activity Comment 'commenttest108' is displayed in activity stream
     And In activity 'activityTest108' with comment 'commenttest108', the reply 'replyTest101' is displayed
@@ -1159,8 +1129,7 @@ Feature: Activity Stream
 
     When I connect with the third created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activityTest108' is displayed in activity stream
     And Activity Comment 'commenttest108' is displayed in activity stream
 
@@ -1171,7 +1140,7 @@ Feature: Activity Stream
 
     When I connect with the first created user
 
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest108' is displayed in activity stream
     And Activity Comment 'commenttest108' is displayed in activity stream
 
@@ -1197,7 +1166,7 @@ Feature: Activity Stream
 
     When I connect with the second created user
 
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest108' is displayed in activity stream
 
     When I open in activity 'activityTest108' the Comments drawer
@@ -1214,7 +1183,7 @@ Feature: Activity Stream
 
     When I connect with the third created user
 
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest108' is displayed in activity stream
 
     When I open in activity 'activityTest108' the Comments drawer
@@ -1237,19 +1206,14 @@ Feature: Activity Stream
     And I create the second random user
 
     When I connect with the first created user
-    And I create random space with the second created user
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activitytest009'
     And I publish the activity
     Then the activity 'activitytest009' is displayed in activity stream
 
     When I connect with the second created user
-    Then The 'Spaces' badge is '1'
-
-    When I click on spaces badge
-    And I accept the invitation of the created space
-    And I close Space Drawer
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activitytest009' is displayed in activity stream
 
     When I add in activity 'activitytest009' a comment 'commenttest109'
@@ -1280,19 +1244,14 @@ Feature: Activity Stream
 
     And I connect with the first created user
 
-    And I create random space with the second created user
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activitytest010'
     And I publish the activity
     Then the activity 'activitytest010' is displayed in activity stream
 
-    When I connect with the second created user
-    Then The 'Spaces' badge is '1'
-
-    When I click on spaces badge
-    And I accept the invitation of the created space
-    And I close Space Drawer
-    And I go to the created space
+    And I connect with the second created user
+    And I go to the random space
     Then the activity 'activitytest010' is displayed in activity stream
 
     When I add in activity 'activitytest010' a comment 'commenttest110'
@@ -1321,15 +1280,14 @@ Feature: Activity Stream
 
     When I connect with the first created user
 
-    And I add the random space with registration 'Open'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activitytest011'
     And I publish the activity
     Then the activity 'activitytest011' is displayed in activity stream
 
     When I connect with the second created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activitytest011' is displayed in activity stream
 
     When I add in activity 'activitytest011' a comment 'commenttest111'
@@ -1341,8 +1299,7 @@ Feature: Activity Stream
     Then In activity 'activitytest011' with comment 'commenttest111', the reply 'replyTest101' is displayed
 
     When I connect with the third created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activitytest011' is displayed in activity stream
 
     And In comment 'commenttest111', Like label should be black
@@ -1367,15 +1324,14 @@ Feature: Activity Stream
 
     And I connect with the first created user
 
-    And I add the random space with registration 'Open'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activitytest012'
     And I publish the activity
     Then the activity 'activitytest012' is displayed in activity stream
 
     When I connect with the second created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activitytest012' is displayed in activity stream
 
     When I add in activity 'activitytest012' a comment 'commenttest112'
@@ -1387,8 +1343,7 @@ Feature: Activity Stream
     Then In activity 'activitytest012' with comment 'commenttest112', the reply 'replyTest101' is displayed
 
     When I connect with the third created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activitytest012' is displayed in activity stream
 
     When I like the activity comment 'commenttest112'
@@ -1408,19 +1363,14 @@ Feature: Activity Stream
 
     When I connect with the first created user
 
-    And I create random space with the second created user
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activitytest015'
     And I publish the activity
     Then the activity 'activitytest015' is displayed in activity stream
 
     When I connect with the second created user
-    Then The 'Spaces' badge is '1'
-
-    When I click on spaces badge
-    And I accept the invitation of the created space
-    And I close Space Drawer
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activitytest015' is displayed in activity stream
 
     When I add in activity 'activitytest015' a comment 'commenttest115'
@@ -1454,19 +1404,14 @@ Feature: Activity Stream
 
     And I connect with the first created user
 
-    And I create random space with the second created user
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activitytest016'
     And I publish the activity
     Then the activity 'activitytest016' is displayed in activity stream
 
-    When I connect with the second created user
-    Then The 'Spaces' badge is '1'
-
-    When I click on spaces badge
-    And I accept the invitation of the created space
-    And I close Space Drawer
-    And I go to the created space
+    And I connect with the second created user
+    And I go to the random space
     Then the activity 'activitytest016' is displayed in activity stream
 
     When I add in activity 'activitytest016' a comment 'commenttest116'
@@ -1496,7 +1441,7 @@ Feature: Activity Stream
 
     When I connect with the first created user
 
-    And I add the random space with registration 'Open'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activityTest121'
     And I publish the activity
@@ -1504,8 +1449,7 @@ Feature: Activity Stream
 
     When I connect with the second created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activityTest121' is displayed in activity stream
     When I add in activity 'activityTest121' a comment 'commenttest101'
     And I open in activity 'activityTest121' the Comments drawer
@@ -1535,7 +1479,7 @@ Feature: Activity Stream
 
     When I connect with the first created user
 
-    And I add the random space with registration 'Open'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activityTest122'
     And I publish the activity
@@ -1543,8 +1487,7 @@ Feature: Activity Stream
 
     When I connect with the second created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activityTest122' is displayed in activity stream
 
     When I add in activity 'activityTest122' a comment 'commenttest101'
@@ -1578,7 +1521,7 @@ Feature: Activity Stream
 
     When I connect with the first created user
 
-    And I add the random space with registration 'Open'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activityTest123'
     And I publish the activity
@@ -1586,8 +1529,7 @@ Feature: Activity Stream
 
     When I connect with the second created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activityTest123' is displayed in activity stream
 
     When I add in activity 'activityTest123' a comment 'commenttest101'
@@ -1646,7 +1588,7 @@ Feature: Activity Stream
 
     When I connect with the first created user
 
-    And I add the random space with registration 'Open'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activitytest157'
     And I publish the activity
@@ -1654,8 +1596,7 @@ Feature: Activity Stream
 
     When I connect with the second created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activitytest157' is displayed in activity stream
 
     When I add in activity 'activitytest157' an internal link 'portal/meeds/spaces' as a comment
@@ -1666,7 +1607,7 @@ Feature: Activity Stream
     When I click on the internal link 'portal/meeds/spaces'
     Then Space Top Bar Elements are displayed
 
-    When I go to the created space
+    When I go to the random space
     And I open the internal link 'portal/meeds/spaces' in new tab
     Then The internal link 'portal/meeds/spaces' is opened in new tab
 
@@ -1678,7 +1619,7 @@ Feature: Activity Stream
 
     When I connect with the first created user
 
-    And I add the random space with registration 'Open'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activitytest158'
     And I publish the activity
@@ -1686,8 +1627,7 @@ Feature: Activity Stream
 
     When I connect with the second created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activitytest158' is displayed in activity stream
 
     When I add in activity 'activitytest158' a comment 'https://www.exoplatform.com/'
@@ -1710,13 +1650,12 @@ Feature: Activity Stream
 
     When I connect with the first created user
 
-    And I add the random space with registration 'Open'
+    And I go to the random space
     Then The created space name is displayed
 
     When I connect with the second created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'https://www.exoplatform.com/'
     And I insert text 'activity12'
@@ -1744,30 +1683,28 @@ Feature: Activity Stream
 
     When I connect with the first created user
 
-    And I add the random space with registration 'Open'
+    And I go to the random space
     Then The created space name is displayed
 
     When I connect with the second created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then The created space name is displayed
 
     When I connect with the third created user
 
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then The created space name is displayed
 
     When I connect with the first created user
 
-    And I go to the created space
+    And I go to the random space
     And I go to 'Members' tab
     And I promote the third user as a space manager
 
     And I connect with the second created user
 
-    And I go to the created space
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'https://www.exoplatform.com/'
     And I insert text 'activity13'
@@ -1780,7 +1717,7 @@ Feature: Activity Stream
 
     And I connect with the third created user
 
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activity13' is displayed in activity stream
 
     When I click on three dots button related to activity 'activity13'
@@ -1808,18 +1745,16 @@ Feature: Activity Stream
     And I add the role '*' to the first created user
 
     When I connect with the second created user
-    And I add the random space with registration 'Open'
+    And I go to the random space
     And I connect with the third created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activityTest97'
     And I publish the activity
     Then the activity 'activityTest97' is displayed in activity stream
 
     When I connect with the fourth created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activityTest97' is displayed in activity stream
     When I add in activity 'activityTest97' a comment 'commenttest97'
     And I open in activity 'activityTest97' the Comments drawer
@@ -1827,8 +1762,7 @@ Feature: Activity Stream
     And Activity Comment 'commenttest97' is displayed in activity stream
 
     When I connect with the first created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activityTest97' is displayed in activity stream
     And Activity Comment 'commenttest97' is displayed in activity stream
 
@@ -1852,18 +1786,16 @@ Feature: Activity Stream
     And I add the role '*' to the first created user
 
     When I connect with the second created user
-    And I add the random space with registration 'Open'
+    And I go to the random space
     And I connect with the third created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activityTest99'
     And I publish the activity
     Then the activity 'activityTest99' is displayed in activity stream
 
     When I connect with the fourth created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activityTest99' is displayed in activity stream
     When I add in activity 'activityTest99' a comment 'commenttest99'
     And I open in activity 'activityTest99' the Comments drawer
@@ -1871,7 +1803,7 @@ Feature: Activity Stream
     And Activity Comment 'commenttest99' is displayed in activity stream
 
     When I connect with the second created user
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest99' is displayed in activity stream
     And Activity Comment 'commenttest99' is displayed in activity stream
     When I add a reply 'replyTest100' to comment 'commenttest99' in activity 'activityTest99'
@@ -1882,8 +1814,7 @@ Feature: Activity Stream
     Then In activity 'activityTest99' with comment 'commenttest99', the reply 'replyTest102' is displayed
 
     When I connect with the first created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activityTest99' is displayed in activity stream
     And Activity Comment 'commenttest99' is displayed in activity stream
     And In activity 'activityTest99' with comment 'commenttest99', the reply 'replyTest100' is displayed
@@ -1910,29 +1841,26 @@ Feature: Activity Stream
     And I create the sixth random user
 
     And I connect with the first created user
-    And I add the random space with registration 'Open' with the fifth user
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activityTest155'
     And I publish the activity
     Then the activity 'activityTest155' is displayed in activity stream
 
     When I connect with the second created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activityTest155' is displayed in activity stream
 
     When I connect with the third created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activityTest155' is displayed in activity stream
 
     When I connect with the fourth created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activityTest155' is displayed in activity stream
 
     When I connect with the second created user
-    And I go to the created space to accept to join it
+    And I go to the random space
     Then the activity 'activityTest155' is displayed in activity stream
 
     When I click on comment button related to activity 'activityTest155'
@@ -1960,15 +1888,14 @@ Feature: Activity Stream
     And I create the second random user
 
     And I connect with the first created user
-    And I add the random space with registration 'Open'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activityTest146'
     And I publish the activity
     Then the activity 'activityTest146' is displayed in activity stream
 
     When I connect with the second created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activityTest146' is displayed in activity stream
     When I add in activity 'activityTest146' a comment 'commenttest146'
     And I open in activity 'activityTest146' the Comments drawer
@@ -1992,15 +1919,14 @@ Feature: Activity Stream
     And I create the second random user
 
     And I connect with the first created user
-    And I add the random space with registration 'Open'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activityTest147'
     And I publish the activity
     Then the activity 'activityTest147' is displayed in activity stream
 
     When I connect with the second created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activityTest147' is displayed in activity stream
     When I add in activity 'activityTest147' a comment 'commenttest147'
     And I open in activity 'activityTest147' the Comments drawer
@@ -2008,7 +1934,7 @@ Feature: Activity Stream
     And Activity Comment 'commenttest147' is displayed in activity stream
 
     When I connect with the first created user
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activityTest147' is displayed in activity stream
     And Activity Comment 'commenttest147' is displayed in activity stream
     When I add a reply 'replyTest147' to comment 'commenttest147' in activity 'activityTest147'
@@ -2032,11 +1958,10 @@ Feature: Activity Stream
     And I create the second random user
 
     When I connect with the first created user
-    And I add the random space with registration 'Open'
+    And I go to the random space
 
     When I connect with the second created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activityus1009cap20'
     And I publish the activity
@@ -2061,11 +1986,10 @@ Feature: Activity Stream
     And I create the second random user
 
     When I connect with the first created user
-    And I add the random space with registration 'Open'
+    And I go to the random space
 
     When I connect with the second created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activityus1010cap21'
     And I publish the activity
@@ -2092,11 +2016,10 @@ Feature: Activity Stream
     And I create the fourth random user
 
     When I connect with the first created user
-    And I add the random space with registration 'Open'
+    And I go to the random space
 
     When I connect with the second created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activitycap87'
     And I publish the activity
@@ -2108,23 +2031,21 @@ Feature: Activity Stream
     And Activity Comment 'commenttest101' is displayed in activity stream
 
     When I connect with the first created user
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activitycap87' is displayed in activity stream
     When I add in activity 'activitycap87' a comment 'commenttest102'
     And I add a reply 'replyTest102' to comment 'commenttest102' in activity 'activitycap87'
     Then In activity 'activitycap87' with comment 'commenttest102', the reply 'replyTest102' is displayed
 
     When I connect with the third created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activitycap87' is displayed in activity stream
     When I add in activity 'activitycap87' a comment 'commenttest103'
     And I add a reply 'replyTest103' to comment 'commenttest103' in activity 'activitycap87'
     Then In activity 'activitycap87' with comment 'commenttest103', the reply 'replyTest103' is displayed
 
     When I connect with the fourth created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activitycap87' is displayed in activity stream
 
     When In activity 'activitycap87' I enter the link 'https://www.exoplatform.com/' as comment
@@ -2153,11 +2074,10 @@ Feature: Activity Stream
     And I create the fourth random user
 
     When I connect with the first created user
-    And I add the random space with registration 'Open'
+    And I go to the random space
 
     When I connect with the second created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activitycap87'
     And I publish the activity
@@ -2168,23 +2088,21 @@ Feature: Activity Stream
     And Activity Comment 'commenttest101' is displayed in activity stream
 
     When I connect with the first created user
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activitycap87' is displayed in activity stream
     When I add in activity 'activitycap87' a comment 'commenttest102'
     And I add a reply 'replyTest102' to comment 'commenttest102' in activity 'activitycap87'
     Then In activity 'activitycap87' with comment 'commenttest102', the reply 'replyTest102' is displayed
 
     When I connect with the third created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activitycap87' is displayed in activity stream
     When I add in activity 'activitycap87' a comment 'commenttest103'
     And I add a reply 'replyTest103' to comment 'commenttest103' in activity 'activitycap87'
     Then In activity 'activitycap87' with comment 'commenttest103', the reply 'replyTest103' is displayed
 
     When I connect with the fourth created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activitycap87' is displayed in activity stream
     When I add in activity 'activitycap87' a comment 'commenttest104'
     And I add a reply 'replyTest104' to comment 'commenttest104' in activity 'activitycap87'
@@ -2204,7 +2122,7 @@ Feature: Activity Stream
     And I create the second random user
     When I connect with the first created user
 
-    And I create a space with full template
+    And I go to the random space
     And I go to notes application of the space
     When I click to add note
     Then Create note form is opened successfully in new tab
@@ -2223,15 +2141,14 @@ Feature: Activity Stream
     And I create the third random user
 
     And I connect with the first created user
-    And I add the random space with registration 'Open'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activitytestkudos'
     And I publish the activity
     Then the activity 'activitytestkudos' is displayed in activity stream
 
     When I connect with the third created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activitytestkudos' is displayed in activity stream
 
     When I add in activity 'activitytestkudos' a comment 'activitytestkudoscomment'
@@ -2240,8 +2157,7 @@ Feature: Activity Stream
     And Activity Comment 'activitytestkudoscomment' is displayed in activity stream
 
     When I connect with the second created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activitytestkudos' is displayed in activity stream
     When In comment 'activitytestkudoscomment', Kudos label should be black
     Then I click on the kudos button from the comment
@@ -2259,15 +2175,14 @@ Feature: Activity Stream
     And I create the third random user
 
     And I connect with the first created user
-    And I add the random space with registration 'Open'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activitytestkudos'
     And I publish the activity
     Then the activity 'activitytestkudos' is displayed in activity stream
 
     When I connect with the third created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activitytestkudos' is displayed in activity stream
     When I add in activity 'activitytestkudos' a comment 'activitytestkudoscomment'
     And Activity Comment 'activitytestkudoscomment' is displayed in activity stream
@@ -2275,8 +2190,7 @@ Feature: Activity Stream
     Then Activity Comment 'activitytestkudoscomment' is displayed in Comments drawer
 
     When I connect with the second created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activitytestkudos' is displayed in activity stream
     And I open in activity 'activitytestkudos' the Comments drawer
     When In comment 'activitytestkudoscomment', Kudos label should be black
@@ -2294,10 +2208,9 @@ Feature: Activity Stream
     And I create the second random user
 
     When I connect with the first created user
-    And I add the random space with registration 'Open'
+    And I go to the random space
     And I connect with the second created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activitycap87'
     And I publish the activity
@@ -2357,15 +2270,14 @@ Feature: Activity Stream
     And I create the fourth random user
 
     And I connect with the first created user
-    And I add the random space with registration 'Open'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activitytestkudos'
     And I publish the activity
     Then the activity 'activitytestkudos' is displayed in activity stream
 
     When I connect with the third created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activitytestkudos' is displayed in activity stream
 
     When I add in activity 'activitytestkudos' a comment 'activitytestkudoscomment'
@@ -2374,15 +2286,13 @@ Feature: Activity Stream
     And Activity Comment 'activitytestkudoscomment' is displayed in activity stream
 
     When I connect with the fourth created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activitytestkudos' is displayed in activity stream
     When I add a reply 'activitytestkudoscommentreplay' to comment 'activitytestkudoscomment' in activity 'activitytestkudos'
     Then In activity 'activitytestkudos' with comment 'activitytestkudoscomment', the reply 'activitytestkudoscommentreplay' is displayed
 
     When I connect with the second created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activitytestkudos' is displayed in activity stream
     And In replay 'activitytestkudoscommentreplay', Kudos label should be black
     When In replay 'activitytestkudoscommentreplay', I click on kudos button
@@ -2401,11 +2311,10 @@ Feature: Activity Stream
     And I create the fourth random user
 
     When I connect with the first created user
-    And I add the random space with registration 'Open'
+    And I go to the random space
 
     When I connect with the second created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activitycap87'
     And I publish the activity
@@ -2417,7 +2326,7 @@ Feature: Activity Stream
     And Activity Comment 'commenttest101' is displayed in activity stream
 
     When I connect with the first created user
-    And I go to the created space
+    And I go to the random space
     Then the activity 'activitycap87' is displayed in activity stream
 
     When I add in activity 'activitycap87' a comment 'commenttest102'
@@ -2425,8 +2334,7 @@ Feature: Activity Stream
     Then Second comment 'commenttest102' is displayed in comments drawer
 
     When I connect with the third created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activitycap87' is displayed in activity stream
 
     When I add in activity 'activitycap87' a comment 'commenttest103'
@@ -2434,8 +2342,7 @@ Feature: Activity Stream
     Then Third comment 'commenttest103' is displayed in comments drawer
 
     When I connect with the fourth created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activitycap87' is displayed in activity stream
 
     When I add in activity 'activitycap87' a comment 'commenttest104'
@@ -2457,15 +2364,14 @@ Feature: Activity Stream
     And I create the third random user
 
     And I connect with the first created user
-    And I add the random space with registration 'Open'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activitytestkudos'
     And I publish the activity
     Then the activity 'activitytestkudos' is displayed in activity stream
 
     When I connect with the third created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activitytestkudos' is displayed in activity stream
 
     When I add in activity 'activitytestkudos' a comment 'activitytestkudoscomment'
@@ -2474,8 +2380,7 @@ Feature: Activity Stream
     And Activity Comment 'activitytestkudoscomment' is displayed in activity stream
 
     When I connect with the second created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activitytestkudos' is displayed in activity stream
     When In comment 'activitytestkudoscomment', Kudos label should be black
     And I click on the kudos button from the comment
@@ -2493,15 +2398,14 @@ Feature: Activity Stream
     And I create the fourth random user
 
     And I connect with the first created user
-    And I add the random space with registration 'Open'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activitytestkudos'
     And I publish the activity
     Then the activity 'activitytestkudos' is displayed in activity stream
 
     When I connect with the third created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activitytestkudos' is displayed in activity stream
 
     When I add in activity 'activitytestkudos' a comment 'activitytestkudoscomment'
@@ -2510,15 +2414,13 @@ Feature: Activity Stream
     And Activity Comment 'activitytestkudoscomment' is displayed in activity stream
 
     When I connect with the fourth created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activitytestkudos' is displayed in activity stream
     When I add a reply 'activitytestkudoscommentreplay' to comment 'activitytestkudoscomment' in activity 'activitytestkudos'
     Then In activity 'activitytestkudos' with comment 'activitytestkudoscomment', the reply 'activitytestkudoscommentreplay' is displayed
 
     When I connect with the second created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activitytestkudos' is displayed in activity stream
     And In replay 'activitytestkudoscommentreplay', Kudos label should be black
 
@@ -2537,15 +2439,14 @@ Feature: Activity Stream
     And I create the second random user
 
     And I connect with the first created user
-    And I add the random space with registration 'Open'
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'activitytestkudos'
     And I publish the activity
     Then the activity 'activitytestkudos' is displayed in activity stream
 
     When I connect with the second created user
-    And I go to the created space to accept to join it
-    And I 'Join'
+    And I go to the random space
     Then the activity 'activitytestkudos' is displayed in activity stream
     Then I click on the kudos button from the Activity Stream
     And I sent to the comment activity a kudos message 'Test Auto replay Kudos'
@@ -2575,15 +2476,11 @@ Feature: Activity Stream
     Then In the created space, in post 'activityWithMentionedUser', the mentioned user 'aymen khal' is displayed
 
   @smoke
-  @ignored
   Scenario: Mention a member in comment from a space should push activity in "My Activities" of the member
     Given I am authenticated as admin
-    When I create the space
-    And I change user
-      | login    | houssem.riahi |
-      | password | houssem2020   |
-    And I go to First Space
-    And I 'Accept'
+    When I go to the random space
+    And I connect with the first created user
+    And I go to the random space
     When I click on Post button
     And I enter the activity 'actTest', and I mention the user 'aymen khal'
     And I publish the activity
