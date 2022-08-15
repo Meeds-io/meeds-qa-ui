@@ -145,5 +145,5 @@ Feature: Search for User Informations in Profile page
     And I open Weekly Points Chart
     Then The weekly point chart is displayed
 
-    When I open Achievements Tab
+    When I open achievement tab
     Then The achievements drawer is displayed

@@ -175,10 +175,6 @@ public class UserProfileSteps {
     userProfile.openWeeklyPointsChart();
   }
 
-  public void openAchievementsTab() {
-    userProfile.openAchievementsTab();
-  }
-
   public void isProfileContactJobVisible(String job) {
     // Check That Profile Contact Job is displayed
     Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
