@@ -49,7 +49,7 @@ Feature: Meeds Space
     And I check that cancel button is displayed
     And I check that update button is displayed
 
-  @ignored
+
   Scenario: [SPC_MNG-8] Spaces applications management
     Given I am authenticated as admin
     When I go to the random space
@@ -66,10 +66,13 @@ Feature: Meeds Space
     Then Remove application button is displayed
     And Move before application button is displayed
     And Move after application button is displayed
+    And I remove application 'Notes' from the list application
 
     When I click on plus button to add application
     Then I check that space application installer drawer is displayed
     And I check that applications are displayed
+    And I click to add application 'Notes'
+    Then I check that application 'Notes' is added to applications page
 
 
   @ignored

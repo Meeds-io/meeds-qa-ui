@@ -241,11 +241,4 @@ public class SettingsSteps {
 
   }
 
-  public void checkNotificationsDisabled() {
-    settingsPage.checkNotificationsDisabled();
-  }
-
-  public void checkNotificationsEnabled() {
-    settingsPage.checkNotificationsEnabled();
-  }
 }
