@@ -1,5 +1,11 @@
 package io.meeds.qa.ui.pages.page.factory.space;
 
+import static org.junit.Assert.assertTrue;
+
+import java.time.Duration;
+import java.util.Set;
+
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -8,10 +14,13 @@ import org.openqa.selenium.interactions.Actions;
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
+import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class SpaceHomePage extends GenericPage {
+  private static final String CONFIRMATION_BUTTON_TO_DELETE_ACTIVITY_SELECTOR = "//*[contains(text(),'Yes')]";
+
   public SpaceHomePage(WebDriver driver) {
     super(driver);
   }
@@ -50,7 +59,7 @@ public class SpaceHomePage extends GenericPage {
   private BaseElementFacade    ckEditorFrameComment;
 
   @FindBy(xpath = "//body[contains(@class,'cke_editable_themed')]")
-  private TextBoxElementFacade commentField;
+  private TextBoxElementFacade ckEditorBodyComment;
 
   @FindBy(xpath = "//iframe[contains(@class,'cke_wysiwyg_frame')]")
   private BaseElementFacade    ckEditorFrame;
@@ -75,11 +84,6 @@ public class SpaceHomePage extends GenericPage {
 
   @FindBy(xpath = "//div[@class='progress']")
   private BaseElementFacade    progressDownloadBar;
-
-  @FindBy(
-      xpath = "//*[contains(@id,'Extactivity-content-extensions')]//following::*[@src]//following::*[@class='my-4']//*[contains(@class,'font-weight-bold')]"
-  )
-  private BaseElementFacade    linkPreview;
 
   @FindBy(xpath = "//*[@id='attachment']//*[contains(@class,'attachments-drawer')]//*[contains(@class,'mdi mdi-close')]")
   private BaseElementFacade    closeDocumentsDrawerBtn;
@@ -115,164 +119,146 @@ public class SpaceHomePage extends GenericPage {
   private BaseElementFacade    sixthPositionInDrawer;
 
   private BaseElementFacade getConfirmButton(String buttonName) {
-    return findByXpathOrCSS(String.format("//a[contains(text(),'%s')]", buttonName));
+    return findByXPathOrCSS(String.format("//a[contains(text(),'%s')]", buttonName));
   }
 
   private BaseElementFacade getNormalLinkPreview(String link) {
-    return findByXpathOrCSS(String.format("//*[contains(@id,'Extactivity-content-extensions')]//*[contains(@class,'activity-thumbnail-box') and @href='%s']//following::*[@class='v-image__image v-image__image--cover']/following::*[@class='my-4']",
+    return findByXPathOrCSS(String.format("//*[contains(@id,'Extactivity-content-extensions')]//*[contains(@class,'activity-thumbnail-box') and @href='%s']//following::*[@class='v-image__image v-image__image--cover']/following::*[@class='my-4']",
                                           link));
   }
 
   @FindBy(xpath = "//*[contains(@class,'drawerContent')]//*[@class='v-btn__content' and contains(text(),'Comment')]")
-  private BaseElementFacade          commentButtonInDrawer;
+  private BaseElementFacade   commentButtonInDrawer;
 
   @FindBy(xpath = "//*[contains(@class,'drawerContent')]//*[@class='v-btn__content' and contains(text(),'Update')]")
-  private BaseElementFacade          updateButtonInDrawer;
+  private BaseElementFacade   updateButtonInDrawer;
 
   @FindBy(xpath = "//*[@class='v-card__actions']//button[2]")
-  private BaseElementFacade          cancelDeleteCommentBtn;
+  private BaseElementFacade   cancelDeleteCommentBtn;
 
   @FindBy(xpath = "//*[contains(@class,'drawerContent ')]//button//span[contains(text(),'Comment')]")
-  private BaseElementFacade          replyButtonInDrawer;
+  private BaseElementFacade   replyButtonInDrawer;
 
   @FindBy(xpath = "//*[contains(@class,'v-btn--block v-btn--contained theme--light')]//span")
-  private BaseElementFacade          loadMoreActivitiesBtn;
+  private BaseElementFacade   loadMoreActivitiesBtn;
 
   @FindBy(xpath = "//button[contains(@class,'primary btn no-box-shadow ms-auto v-btn v-btn--contained')]")
-  private BaseElementFacade          newActivityButtonInArabicLanguage;
+  private BaseElementFacade   newActivityButtonInArabicLanguage;
 
   @FindBy(xpath = "//*[contains(@class,'peopleMenuIcon')]//*[contains(@class,'mdi-dots-vertical')]")
-  private BaseElementFacade          spaceMemberCardThreeDotsBtn;
+  private BaseElementFacade   spaceMemberCardThreeDotsBtn;
 
   @FindBy(xpath = "//*[contains(@class,'uiIcon uiIconMemberAdmin')]")
-  private BaseElementFacade          promoteAsManagerBtn;
+  private BaseElementFacade   promoteAsManagerBtn;
 
   @FindBy(xpath = "//*[contains(@class,'uiIcon uiIconTrash')]")
-  private BaseElementFacade          removeMemberBtn;
+  private BaseElementFacade   removeMemberBtn;
 
   @FindBy(xpath = "//header[@id='peopleListToolbar']//input")
-  public static TextBoxElementFacade spaceMembersFilterTextBox;
-
-  @FindBy(xpath = "//div[@id='UIActivitiesLoader']")
-  private BaseElementFacade          activityBlock;
+  public TextBoxElementFacade spaceMembersFilterTextBox;
 
   @FindBy(xpath = "//a[contains(text(),'Yes')]")
-  private BaseElementFacade          yesConfirmationButton;
-
-  @FindBy(xpath = "//*[@class='text-capitalize-first-letter' and contains(text(),'No comment yet')]")
-  private BaseElementFacade          noCommentYet;
+  private BaseElementFacade   yesConfirmationButton;
 
   @FindBy(xpath = "//i[contains(@class,'mdi-chevron-right')]")
-  private BaseElementFacade          goToRightTabs;
-
-  @FindBy(xpath = "//*[contains(text(),'Yes')]")
-  private BaseElementFacade          confirmationButtonToDeleteActivity;
-
-  @FindBy(xpath = "//div[@class='authorCommentContainer clearfix']")
-  private BaseElementFacade          commentBlock;
+  private BaseElementFacade   goToRightTabs;
 
   @FindBy(xpath = "(//*[@id='activityCommentsDrawer']//*[contains(@id,'Extactivity-content-extensions')]//p//div)[5]")
-  private BaseElementFacade          fifthCommentInDrawer;
+  private BaseElementFacade   fifthCommentInDrawer;
 
   @FindBy(xpath = "(//*[@id='activityCommentsDrawer']//*[contains(@id,'Extactivity-content-extensions')]//p//div)[7]")
-  private BaseElementFacade          seventhCommentInDrawer;
+  private BaseElementFacade   seventhCommentInDrawer;
 
   @FindBy(xpath = "(//*[@id='activityCommentsDrawer']//*[contains(@id,'Extactivity-content-extensions')]//p//div)[8]")
-  private BaseElementFacade          eighthCommentInDrawer;
+  private BaseElementFacade   eighthCommentInDrawer;
 
   @FindBy(xpath = "(//*[@id='activityCommentsDrawer']//*[contains(@id,'Extactivity-content-extensions')]//p//div)[9]")
-  private BaseElementFacade          ninthCommentInDrawer;
+  private BaseElementFacade   ninthCommentInDrawer;
 
   @FindBy(xpath = "(//*[@id='activityCommentsDrawer']//*[contains(@id,'Extactivity-content-extensions')]//p//div)[10]")
-  private BaseElementFacade          tenthCommentInDrawer;
+  private BaseElementFacade   tenthCommentInDrawer;
 
   @FindBy(xpath = "(//*[contains(@class, 'v-pagination__item')])[1]")
-  private BaseElementFacade          commentsDrawerFirstPageBtn;
+  private BaseElementFacade   commentsDrawerFirstPageBtn;
 
   @FindBy(xpath = "(//*[contains(@class, 'v-pagination__item')])[2]")
-  private BaseElementFacade          commentsDrawerSecondPageBtn;
+  private BaseElementFacade   commentsDrawerSecondPageBtn;
 
   private BaseElementFacade getLikeIcon(String activity) {
-    return findByXpathOrCSS(String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLink')])[1]",
+    return findByXPathOrCSS(String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLink')])[1]",
                                           activity));
   }
 
   private BaseElementFacade getLikeCommentIcon(String activityComment) {
-    return findByXpathOrCSS(String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLinkcomment')])[1]",
+    return findByXPathOrCSS(String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLinkcomment')])[1]",
                                           activityComment));
   }
 
   private BaseElementFacade getCommentLikesNumber(String comment) {
-    return findByXpathOrCSS(String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'LikersListLinkcomment')])[1]//span",
+    return findByXPathOrCSS(String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'LikersListLinkcomment')])[1]//span",
                                           comment));
   }
 
   private BaseElementFacade getCommentsDrawerLikeCommentIcon(String activityComment) {
-    return findByXpathOrCSS(String.format("(//*[contains(@class,'drawerContent')]//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLinkcomment')])[1]",
+    return findByXPathOrCSS(String.format("(//*[contains(@class,'drawerContent')]//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLinkcomment')])[1]",
                                           activityComment));
   }
 
   private BaseElementFacade getMentionedUserInCommentEntered(String user) {
-    return findByXpathOrCSS(String.format("//*[@class='atwho-inserted']//*[@class='exo-mention' and contains(text(),'%s')]",
+    return findByXPathOrCSS(String.format("//*[@class='atwho-inserted']//*[@class='exo-mention' and contains(text(),'%s')]",
                                           user));
   }
 
   private BaseElementFacade getBlueLikeCommentIcon(String activityComment) {
-    return findByXpathOrCSS(String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLinkcomment') and contains(@class,'v-size--x-small primary--text')])[1]",
+    return findByXPathOrCSS(String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLinkcomment') and contains(@class,'v-size--x-small primary--text')])[1]",
                                           activityComment));
   }
 
   private BaseElementFacade getCommentLikesNumberCommentsDrawer(String comment) {
-    return findByXpathOrCSS(String.format("(//*[contains(@class,'drawerContent')]//div[contains(text(),'%s')]//following::button[contains(@id,'LikersListLinkcomment')])[1]//span",
+    return findByXPathOrCSS(String.format("(//*[contains(@class,'drawerContent')]//div[contains(text(),'%s')]//following::button[contains(@id,'LikersListLinkcomment')])[1]//span",
                                           comment));
   }
 
   private BaseElementFacade getDrawerCommentsNumberAndNames(String commentsNumber, String comment) {
-    return findByXpathOrCSS(String.format("//*[@class='text-capitalize-first-letter' and contains(text(),'%s')]/following::*[contains(@class,'activity-comment-detail')]//*[contains(text(),'%s')]",
+    return findByXPathOrCSS(String.format("//*[@class='text-capitalize-first-letter' and contains(text(),'%s')]/following::*[contains(@class,'activity-comment-detail')]//*[contains(text(),'%s')]",
                                           commentsNumber,
                                           comment));
   }
 
   private BaseElementFacade getCommentsDrawerBlueLikeCommentIcon(String activityComment) {
-    return findByXpathOrCSS(String.format("(//*[contains(@class,'drawerContent')]//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLinkcomment') and contains(@class,'v-size--x-small primary--text')])[1]",
+    return findByXPathOrCSS(String.format("(//*[contains(@class,'drawerContent')]//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLinkcomment') and contains(@class,'v-size--x-small primary--text')])[1]",
                                           activityComment));
   }
 
   private BaseElementFacade getDrawerCommentName(String comment) {
-    return findByXpathOrCSS(String.format("(//*[contains(@class,'drawerHeader')]/following::*[contains(@id,'Extactivity-content-extensions')]/p/div[contains(text(),'%s')])[1]",
+    return findByXPathOrCSS(String.format("(//*[contains(@class,'drawerHeader')]/following::*[contains(@id,'Extactivity-content-extensions')]/p/div[contains(text(),'%s')])[1]",
                                           comment));
   }
 
-  private BaseElementFacade getDrawerReplyNameInComment(String comment, String reply) {
-    return findByXpathOrCSS(String.format("(//*[contains(@class,'drawerHeader')]/following::*[contains(@id,'Extactivity-content-extensions')]/p/div[contains(text(),'%s')]/following::*[contains(text(),'%s')])[1]",
-                                          comment,
-                                          reply));
-  }
-
   private BaseElementFacade getActivityText(String activity) {
-    return findByXpathOrCSS(String.format("//div[contains(@class,'activity-detail')]//descendant::*[contains(text(),'%s')]",
+    return findByXPathOrCSS(String.format("//div[contains(@class,'activity-detail')]//descendant::*[contains(text(),'%s')]",
                                           activity));
   }
 
   private BaseElementFacade getActivityNameUserSpace(String activity, String user, String space) {
-    return findByXpathOrCSS(String.format("//*[contains(text(),'%s')]/preceding::*[contains(@class,'accountTitleLabel')][1]//*[contains(@id,'userAvatar') and contains(@href,'%s')]/following::*[contains(@id,'spaceAvatar') and contains(text(),'%s')][1]/following::*[contains(@class,'caption text-light-color text-truncate d-flex activity-head-time')][1]",
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]/preceding::*[contains(@class,'accountTitleLabel')][1]//*[contains(@id,'userAvatar') and contains(@href,'%s')]/following::*[contains(@id,'spaceAvatar') and contains(text(),'%s')][1]/following::*[contains(@class,'caption text-light-color text-truncate d-flex activity-head-time')][1]",
                                           activity,
                                           user,
                                           space));
   }
 
   private BaseElementFacade getDrawerReplyName(String reply) {
-    return findByXpathOrCSS(String.format("(//*[contains(@class,'drawerHeader')]/following::*[contains(@class,'rich-editor-content')]//following::*[contains(text(),'%s')])[1]",
+    return findByXPathOrCSS(String.format("(//*[contains(@class,'drawerHeader')]/following::*[contains(@class,'rich-editor-content')]//following::*[contains(text(),'%s')])[1]",
                                           reply));
   }
 
   private BaseElementFacade getSharedVideoPreview(String link) {
-    return findByXpathOrCSS(String.format("//*[contains(@id,'Extactivity-content-extensions')]//following::*[@src]//following::*[@href='%s']//*[contains(@class,'font-weight-bold')]",
+    return findByXPathOrCSS(String.format("//*[contains(@id,'Extactivity-content-extensions')]//following::*[@src]//following::*[@href='%s']//*[contains(@class,'font-weight-bold')]",
                                           link));
   }
 
   private BaseElementFacade getCommentTitleActivityStream(String comment) {
-    return findByXpathOrCSS(String.format("//*[contains(@id,'activity-comment-detail')]//*[contains(@id,'Extactivity-content-extensions')]//a[contains(text(),'%s')]",
+    return findByXPathOrCSS(String.format("//*[contains(@id,'activity-comment-detail')]//*[contains(@id,'Extactivity-content-extensions')]//a[contains(text(),'%s')]",
                                           comment));
   }
 
@@ -283,124 +269,144 @@ public class SpaceHomePage extends GenericPage {
   private BaseElementFacade kudosButtonToActivityStream;
 
   private BaseElementFacade getDropDownActivityMenu(String activity) {
-    return findByXpathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::i[contains(@class,'v-icon notranslate')][1]",
+    return findByXPathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::i[contains(@class,'v-icon notranslate')][1]",
                                           activity));
   }
 
   private BaseElementFacade geEditActivityIcon(String activity) {
-    return findByXpathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Edit')][1]",
+    return findByXPathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Edit')][1]",
                                           activity));
   }
 
   private BaseElementFacade getDropDownCommentMenu(String activity, String comment) {
-    return findByXpathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//following::*[contains(@class,'activity-comment')]//*[contains(@class,'rich-editor-content')]//*[contains(text(),'%s')]/preceding::button[@class='v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--small'][1]",
+    return findByXPathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//following::*[contains(@class,'activity-comment')]//*[contains(@class,'rich-editor-content')]//*[contains(text(),'%s')]/preceding::button[@class='v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--small'][1]",
                                           activity,
                                           comment));
   }
 
   private BaseElementFacade getCommentsDrawerDropDownMenu(String comment) {
-    return findByXpathOrCSS(String.format("//*[contains(@class,'drawerHeader')]/following::*[contains(@id,'Extactivity-content-extensions')]//div[contains(text(),'%s')]/preceding::i[contains(@class,'mdi mdi-dots-vertical')][1]/ancestor::button",
+    return findByXPathOrCSS(String.format("//*[contains(@class,'drawerHeader')]/following::*[contains(@id,'Extactivity-content-extensions')]//div[contains(text(),'%s')]/preceding::i[contains(@class,'mdi mdi-dots-vertical')][1]/ancestor::button",
                                           comment));
   }
 
   private BaseElementFacade getCommentsDrawerViewAllReplies(String comment) {
-    return findByXpathOrCSS(String.format("//*[contains(@class,'drawerHeader')]/following::*[contains(@id,'Extactivity-content-extensions')]//div[contains(text(),'%s')]/following::span[contains(text(),'View all')][1]",
+    return findByXPathOrCSS(String.format("//*[contains(@class,'drawerHeader')]/following::*[contains(@id,'Extactivity-content-extensions')]//div[contains(text(),'%s')]/following::span[contains(text(),'View all')][1]",
                                           comment));
   }
 
   private BaseElementFacade getDropDownReplyMenu(String activity, String comment, String reply) {
-    return findByXpathOrCSS(String.format("(//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//following::*[contains(@class,'activity-comment')]//*[contains(text(),'%s')]/following::*[contains(text(),'%s')]/preceding::button[@class='v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--small']//i)[last()]",
+    return findByXPathOrCSS(String.format("//*[contains(@class,'activity-detail')]//*[contains(@class, 'postContent')]//*[contains(text(),'%s')]//ancestor::*[contains(@class,'activity-detail')]//*[contains(@class,'activity-comment')]//*[contains(@class,'activity-comment')]//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@class,'activity-comment') and contains(@id, 'ActivityCommment_')][1]//i[contains(@class, 'mdi-dots-vertical')]//ancestor::button",
                                           activity,
-                                          comment,
                                           reply));
   }
 
+  private BaseElementFacade getReplyBox(String comment, String reply, boolean inDrawer) {
+    String parentXPath = inDrawer ? "//*[@id='activityCommentsDrawer']"
+                                  : "//*[contains(@class,'activity-detail')]";
+    String replyXPath = parentXPath
+        + String.format("//*[contains(@class,'activity-comment')]//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@class,'activity-comment') and contains(@id, 'ActivityCommment_')]//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@class,'activity-comment') and contains(@id, 'ActivityCommment_')][1]",
+                        comment,
+                        reply);
+    return findByXPathOrCSS(replyXPath);
+  }
+
   private BaseElementFacade getDeleteCommentLabel(String comment) {
-    return findByXpathOrCSS(String.format("//*[contains(text(),'%s')]/preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Delete')]",
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]/preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Delete')]",
                                           comment));
   }
 
   private BaseElementFacade getEditCommentLabel(String comment) {
-    return findByXpathOrCSS(String.format("//*[contains(text(),'%s')]/preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Edit')]",
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]/preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Edit')]",
                                           comment));
   }
 
   private BaseElementFacade getEditCommentLabelFromCommentsDrawer(String comment) {
-    return findByXpathOrCSS(String.format("(//*[@id='activityCommentsDrawer']//*[contains(@class,'d-inline-flex flex-column activity-comment')][4]//*[contains(@class,'v-list-item v-list-item')])[1]",
+    return findByXPathOrCSS(String.format("//*[@id='activityCommentsDrawer']//*[contains(@class,'activity-comment')]//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@class,'activity-comment') and contains(@id, 'ActivityCommment_')][1]//i[contains(@class,'fa-edit')]/..",
                                           comment));
   }
 
   private BaseElementFacade getActivityStreamViewAllReplies(String comment) {
-    return findByXpathOrCSS(String.format("//*[contains(@id,'Extactivity-content-extensions')]//div[contains(text(),'%s')]/following::span[contains(text(),'replies')][1]",
+    return findByXPathOrCSS(String.format("//*[contains(@id,'Extactivity-content-extensions')]//div[contains(text(),'%s')]/following::span[contains(text(),'replies')][1]",
                                           comment));
   }
 
   private BaseElementFacade geDeleteActivityIcon(String activity) {
-    return findByXpathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Delete')]",
+    return findByXPathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Delete')]",
                                           activity));
   }
 
   private BaseElementFacade getDeleteReplyLabel(String comment) {
-    return findByXpathOrCSS(String.format("//*[contains(text(),'%s')]/preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Delete')]",
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]/preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Delete')]",
                                           comment));
   }
 
   private BaseElementFacade getCopyLinkActivityIcon(String activity) {
-    return findByXpathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Copy link')]",
+    return findByXPathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Copy link')]",
                                           activity));
   }
 
   private BaseElementFacade getDownloadActivityIcon(String activity) {
-    return findByXpathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Download')]",
+    return findByXPathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Download')]",
                                           activity));
   }
 
   public void tooltipActivityStreamIsDisplayed(String comment) {
-    Assert.assertTrue(getLikeCommentIcon(comment).getAttribute("aria-expanded").contains("true"));
+    assertTrue(getLikeCommentIcon(comment).getAttribute("aria-expanded").contains("true"));
   }
 
   public void tooltipCommentsDrawerIsDisplayed(String comment) {
-    Assert.assertTrue(getCommentsDrawerLikeCommentIcon(comment).getAttribute("aria-expanded").contains("true"));
+    assertTrue(getCommentsDrawerLikeCommentIcon(comment).getAttribute("aria-expanded").contains("true"));
   }
 
   public void commentNameIsNotDisplayedInDrawer(String comment) {
-    getDrawerCommentName(comment).isNotVisibleAfterWaiting();
+    assertWebElementNotVisible(getDrawerCommentName(comment));
   }
 
   public void noCommentDisplayedInDrawer() {
-    noCommentYet.isVisibleAfterWaiting();
+    assertWebElementVisible(findByXPathOrCSS("//*[@class='text-capitalize-first-letter' and contains(text(),'No comment yet')]"));
   }
 
   public void displayedLikesOnComment(String comment, String number) {
-    Assert.assertTrue(getCommentLikesNumber(comment).getTextContent().contains(number));
+    assertTrue(getCommentLikesNumber(comment).getTextContent().contains(number));
   }
 
   public void likeLabelIsBlue(String comment) {
-    getBlueLikeCommentIcon(comment).isVisibleAfterWaiting();
+    assertWebElementVisible(getBlueLikeCommentIcon(comment));
   }
 
   public void likeLabelIsBlack(String comment) {
-    getBlueLikeCommentIcon(comment).isNotVisibleAfterWaiting();
+    BaseElementFacade element = getBlueLikeCommentIcon(comment);
+    assertWebElementNotVisible(element);
   }
 
   public void commentsDrawerDisplayedLikesOnComment(String comment, String number) {
-    Assert.assertTrue(getCommentLikesNumberCommentsDrawer(comment).getTextContent().contains(number));
+    assertTrue(getCommentLikesNumberCommentsDrawer(comment).getTextContent().contains(number));
   }
 
   public void likeLabelInCommentsDrawerIsBlack(String comment) {
-    getCommentsDrawerBlueLikeCommentIcon(comment).isNotVisibleAfterWaiting();
+    assertWebElementNotVisible(getCommentsDrawerBlueLikeCommentIcon(comment));
   }
 
   public void userIsMentionedInCommentEntered(String user) {
-    getMentionedUserInCommentEntered(user).isVisibleAfterWaiting();
+    driver.switchTo().frame(ckEditorFrameComment);
+    try {
+      assertWebElementVisible(getMentionedUserInCommentEntered(user));
+    } finally {
+      driver.switchTo().defaultContent();
+    }
   }
 
   public void userIsNotMentionedInCommentEntered(String user) {
-    getMentionedUserInCommentEntered(user).isNotVisibleAfterWaiting();
+    driver.switchTo().frame(ckEditorFrameComment);
+    try {
+      assertWebElementNotVisible(getMentionedUserInCommentEntered(user));
+    } finally {
+      driver.switchTo().defaultContent();
+    }
   }
 
   public void likeLabelInCommentsDrawerIsBlue(String comment) {
-    getCommentsDrawerBlueLikeCommentIcon(comment).isVisibleAfterWaiting();
+    assertWebElementVisible(getCommentsDrawerBlueLikeCommentIcon(comment));
   }
 
   public void clickCloseActivityDrawerbutton() {
@@ -408,26 +414,33 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void replyInDrawerIsNotDisplayed(String reply) {
-    getDrawerReplyName(reply).isNotVisibleAfterWaiting();
+    BaseElementFacade element = getDrawerReplyName(reply);
+    assertWebElementNotVisible(element);
   }
 
   public void replyIsNotDisplayedInCommentsDrawer(String comment, String reply) {
-    getDrawerReplyNameInComment(comment, reply).isNotVisibleAfterWaiting();
+    assertWebElementNotVisible(getReplyBox(comment, reply, true));
   }
 
   public void replyIsDisplayedInCommentsDrawer(String comment, String reply) {
-    getDrawerReplyNameInComment(comment, reply).isVisibleAfterWaiting();
+    assertWebElementVisible(getReplyBox(comment, reply, true));
   }
 
   public void normalLinkPreviewIsVisible(String link) {
-    getNormalLinkPreview(link).isVisibleAfterWaiting();
+    assertWebElementVisible(getNormalLinkPreview(link));
   }
 
+  @SwitchToWindow
   public void enterActivityText(String activity) {
-    driver.switchTo().frame(ckEditorFrame);
-    activityContentTextBox.waitUntilVisible();
-    activityContentTextBox.sendKeys(activity);
-    driver.switchTo().defaultContent();
+
+    try {
+      driver.switchTo().frame(ckEditorFrame);
+      activityContentTextBox.waitUntilVisible();
+      activityContentTextBox.sendKeys(activity);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
+
     Serenity.setSessionVariable("activity").to(activity);
   }
 
@@ -467,17 +480,19 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void commentIsDisplayedInDrawer(String commentsNumber, String comment) {
-    Assert.assertTrue(String.format("Comment '%s' should be displayed in drawer with drawer title '%s'",
-                                    comment,
-                                    commentsNumber),
-                      getDrawerCommentsNumberAndNames(commentsNumber, comment).isDisplayed());
+    assertTrue(String.format("Comment '%s' should be displayed in drawer with drawer title '%s'",
+                             comment,
+                             commentsNumber),
+               getDrawerCommentsNumberAndNames(commentsNumber, comment).isDisplayed());
   }
 
   public void commentIsNotDisplayedInDrawer(String commentsNumber, String comment) {
+    BaseElementFacade element = getDrawerCommentsNumberAndNames(commentsNumber, comment);
+    element.setImplicitTimeout(Duration.ofMillis(200));
     Assert.assertFalse(String.format("Comment '%s' shouldn't be displayed in drawer with drawer title '%s'",
                                      comment,
                                      commentsNumber),
-                       getDrawerCommentsNumberAndNames(commentsNumber, comment).isDisplayed());
+                       element.isDisplayed());
   }
 
   public void clickOnLoadMoreActivities() {
@@ -485,42 +500,48 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void isActivityNameUserSpaceDisplayed(String activity, String user, String space) {
-    getActivityNameUserSpace(activity, user, space).isVisibleAfterWaiting();
+    assertWebElementVisible(getActivityNameUserSpace(activity, user, space));
   }
 
+  @SwitchToWindow
   public void addActivity(String activity) {
+    waitCKEditorLoading();
+
     ckEditorFrame.waitUntilVisible();
     ckEditorFrame.clickOnElement();
     driver.switchTo().frame(ckEditorFrame);
-    if (activity.contains("https")) {
-      activityContentTextBox.sendKeys(activity);
-      activityContentTextBox.sendKeys(Keys.CONTROL + "a" + "x");
-      driver.navigate().refresh();
-      clickPostIcon();
-      ckEditorFrame.waitUntilVisible();
-      ckEditorFrame.clickOnElement();
-      driver.switchTo().frame(ckEditorFrame);
-      activityContentTextBox.sendKeys(Keys.CONTROL + "v");
-    } else if (activity.contains("lien")) {
-      activityContentTextBox.clickOnElement();
-      activityContentTextBox.sendKeys(Keys.PAGE_UP);
-      activityContentTextBox.sendKeys(activity);
-    } else {
-      activityContentTextBox.setTextValue(activity);
-      Serenity.setSessionVariable("activity").to(activity);
-    }
 
-    driver.switchTo().defaultContent();
+    try {
+      if (activity.contains("https")) {
+        activityContentTextBox.sendKeys(activity);
+        activityContentTextBox.sendKeys(Keys.CONTROL + "a" + "x");
+        driver.navigate().refresh();
+        clickPostIcon();
+        ckEditorFrame.waitUntilVisible();
+        ckEditorFrame.clickOnElement();
+        driver.switchTo().frame(ckEditorFrame);
+        activityContentTextBox.sendKeys(Keys.CONTROL + "v");
+      } else if (activity.contains("lien")) {
+        activityContentTextBox.clickOnElement();
+        activityContentTextBox.sendKeys(Keys.PAGE_UP);
+        activityContentTextBox.sendKeys(activity);
+      } else {
+        activityContentTextBox.setTextValue(activity);
+        Serenity.setSessionVariable("activity").to(activity);
+      }
+    } finally {
+      driver.switchTo().defaultContent();
+    }
   }
 
   public void publishActivity() {
     publishActivityButton.clickOnElement();
-    publishActivityButton.waitUntilNotVisible();
     refreshPage();
   }
 
   public void editActivity() {
     updateActivityButton.clickOnElement();
+    verifyPageLoaded();
   }
 
   public void clickApplyDownload() {
@@ -528,7 +549,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public boolean isLinkPreviewVisible() {
-    return linkPreview.isVisibleAfterWaiting();
+    return isVisible("//*[contains(@id,'Extactivity-content-extensions')]//following::*[@src]//following::*[@class='my-4']//*[contains(@class,'font-weight-bold')]");
   }
 
   public void closeDocumentsDrawer() {
@@ -557,12 +578,12 @@ public class SpaceHomePage extends GenericPage {
   @FindBy(xpath = "//*[contains(@id,'activity-comment-detail')]//*[contains(@id,'Extactivity-content-extensions')]//p//div")
   private BaseElementFacade ELEMENT_COMMENT_TITLE;
 
-  private BaseElementFacade ELEMENT_COMMENT_LINK(String id) {
-    return findByXpathOrCSS(String.format("(//*[@id='CommentLink%s'])[1]", id));
+  private BaseElementFacade getCommentElementLink(String id) {
+    return findByXPathOrCSS(String.format("(//*[@id='CommentLink%s'])[1]", id));
   }
 
   private BaseElementFacade getCommentReply(String comment, String id) {
-    return findByXpathOrCSS(String.format("(//*[contains(text(),'%s')]/following::*[@id='CommentLink%s']//span[contains(text(),'Reply')])[1]",
+    return findByXPathOrCSS(String.format("(//*[contains(text(),'%s')]/following::*[@id='CommentLink%s']//span[contains(text(),'Reply')])[1]",
                                           comment,
                                           id));
   }
@@ -573,23 +594,19 @@ public class SpaceHomePage extends GenericPage {
   @FindBy(xpath = "(//*[contains(@id,'activity-comment-detail')]//*[contains(@id,'Extactivity-content-extensions')]//div)[2]")
   private BaseElementFacade secondASDisplayedComment;
 
-  private BaseElementFacade ELEMENT_COMMENT_INPUT(String id) {
-    return findByXpathOrCSS(String.format("//*[@id='cke_CommentTextarea%s']", id));
-  }
-
-  private BaseElementFacade ELEMENT_COMMENT_BUTTON(String id) {
-    return findByXpathOrCSS(String.format("//*[@id='CommentButton%s']", id));
-  }
-
+  @SwitchToWindow
   public void addActivityComment(String activityId, String comment) {
 
-    ELEMENT_COMMENT_LINK(activityId).clickOnElement();
+    getCommentElementLink(activityId).clickOnElement();
 
     clickOnCommentRichText();
     driver.switchTo().frame(ckEditorFrameComment);
-    commentField.waitUntilVisible();
-    commentField.setTextValue(comment);
-    driver.switchTo().defaultContent();
+    try {
+      ckEditorBodyComment.waitUntilVisible();
+      ckEditorBodyComment.setTextValue(comment);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
 
     commentButtonInDrawer.clickOnElement();
     closeCommentsDrawer();
@@ -635,48 +652,65 @@ public class SpaceHomePage extends GenericPage {
     closeCommentsDrawer();
   }
 
+  @SwitchToWindow
   public void enterCommentText(String comment) {
     driver.switchTo().frame(ckEditorFrameComment);
-    commentField.sendKeys(comment);
-    driver.switchTo().defaultContent();
+
+    try {
+      ckEditorBodyComment.sendKeys(comment);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
+
     Serenity.setSessionVariable("comment").to(comment);
   }
 
+  @SwitchToWindow
   public void updateCommentText(String comment) {
     driver.switchTo().frame(ckEditorFrameComment);
-    commentField.clear();
-    commentField.sendKeys(comment);
-    driver.switchTo().defaultContent();
+
+    try {
+      ckEditorBodyComment.clear();
+      ckEditorBodyComment.sendKeys(comment);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
+
     Serenity.setSessionVariable("comment").to(comment);
   }
 
+  @SwitchToWindow
   public void enterCommentLink(String activityId, String comment) {
 
-    ELEMENT_COMMENT_LINK(activityId).clickOnElement();
+    getCommentElementLink(activityId).clickOnElement();
 
     clickOnCommentRichText();
     driver.switchTo().frame(ckEditorFrameComment);
-    if (comment.contains("https")) {
-      commentField.sendKeys(comment);
-      commentField.sendKeys(Keys.CONTROL + "a" + "x");
-      driver.navigate().refresh();
-      ELEMENT_COMMENT_LINK(activityId).clickOnElement();
-      ckEditorFrameComment.waitUntilVisible();
-      clickOnCommentRichText();
-      driver.switchTo().frame(ckEditorFrameComment);
-      commentField.waitUntilVisible();
-      commentField.clickOnElement();
-      commentField.sendKeys(Keys.CONTROL + "v");
-    } else if (comment.contains("lien")) {
-      commentField.clickOnElement();
-      commentField.sendKeys(Keys.PAGE_UP);
-      commentField.sendKeys(comment);
-    } else {
-      commentField.setTextValue(comment);
-      Serenity.setSessionVariable("comment").to(comment);
+    try {
+      if (comment.contains("https")) {
+        ckEditorBodyComment.sendKeys(comment);
+        ckEditorBodyComment.sendKeys(Keys.CONTROL + "a" + "x");
+        driver.navigate().refresh();
+        getCommentElementLink(activityId).clickOnElement();
+        ckEditorFrameComment.waitUntilVisible();
+        clickOnCommentRichText();
+        driver.switchTo().frame(ckEditorFrameComment);
+
+        ckEditorBodyComment.waitUntilVisible();
+        ckEditorBodyComment.clickOnElement();
+        ckEditorBodyComment.sendKeys(Keys.CONTROL + "v");
+      } else if (comment.contains("lien")) {
+        ckEditorBodyComment.clickOnElement();
+        ckEditorBodyComment.sendKeys(Keys.PAGE_UP);
+        ckEditorBodyComment.sendKeys(comment);
+      } else {
+        ckEditorBodyComment.setTextValue(comment);
+        Serenity.setSessionVariable("comment").to(comment);
+      }
+    } finally {
+      driver.switchTo().defaultContent();
     }
 
-    driver.switchTo().defaultContent();
   }
 
   public void goToSpaceMembersTab() {
@@ -732,7 +766,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void createPollDrawerClosed() {
-    titlePoll.isNotVisibleAfterWaiting();
+    assertWebElementNotVisible(titlePoll);
   }
 
   public void editPoll(String pollTitle, String choiceOne, String choiceTow) {
@@ -749,15 +783,19 @@ public class SpaceHomePage extends GenericPage {
     buttonCreatePoll.clickOnElement();
   }
 
+  @SwitchToWindow
   public void addCommentReply(String reply, String comment, String activity) {
     String activityId = getActivityId(activity);
     getCommentReply(comment, activityId).clickOnElement();
 
     clickOnCommentRichText();
     driver.switchTo().frame(ckEditorFrameComment);
-    commentField.waitUntilVisible();
-    commentField.setTextValue(reply);
-    driver.switchTo().defaultContent();
+    try {
+      ckEditorBodyComment.waitUntilVisible();
+      ckEditorBodyComment.setTextValue(reply);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
 
     replyButtonInDrawer.clickOnElement();
     closeCommentsDrawer();
@@ -768,18 +806,18 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private BaseElementFacade getActivityElement(String activity) {
-    return findByXpathOrCSS(String.format("//*[contains(@class,'activity-detail')]//*[contains(text(),'%s')]/ancestor::*[contains(@class,'activity-detail')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class,'activity-detail')]//*[contains(text(),'%s')]/ancestor::*[contains(@class,'activity-detail')]",
                                           activity));
   }
 
   private BaseElementFacade getUserMentionedInPost(String activity, String user) {
-    return findByXpathOrCSS(String.format("//*[contains(@id,'Extactivity-content')]//*[contains(text(),'%s')]//*[contains(text(),'%s')]",
+    return findByXPathOrCSS(String.format("//*[contains(@id,'Extactivity-content')]//*[contains(text(),'%s')]//*[contains(text(),'%s')]",
                                           activity,
                                           user));
   }
 
   private BaseElementFacade getUserPopover(String user) {
-    return findByXpathOrCSS(String.format("//*[@id='profileName']//*[contains(text(),'%s')]", user));
+    return findByXPathOrCSS(String.format("//*[@id='profileName']//*[contains(text(),'%s')]", user));
   }
 
   public void hoverOnLikeIcon(String comment) {
@@ -802,7 +840,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void isUserPopoverDisplayed(String user) {
-    getUserPopover(user).isVisibleAfterWaiting();
+    assertWebElementVisible(getUserPopover(user));
   }
 
   public void clickOnTheUserPopover(String user) {
@@ -828,33 +866,28 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void openCommentsDrawer(String activityId) {
-    ELEMENT_COMMENT_LINK(activityId).clickOnElement();
+    getCommentElementLink(activityId).clickOnElement();
     waitForDrawerToLoad();
   }
 
   public void closeCommentsDrawer() {
     BaseElementFacade closeDrawerButton =
-                                        findByXpathOrCSS("//*[@id='activityCommentsDrawer']//*[contains(@class, 'drawerIcons')]//button[contains(@class, 'mdi-close')]");
+                                        findByXPathOrCSS("//*[@id='activityCommentsDrawer']//*[contains(@class, 'drawerIcons')]//button[contains(@class, 'mdi-close')]");
     clickOnElement(closeDrawerButton);
     closeDrawerButton.waitUntilNotVisible();
   }
 
   public boolean isActivityVisible(String activity) {
-    return getActivityText(activity).isDisplayed();
+    return isWebElementVisible(getActivityText(activity));
   }
 
   public void clickOnCommentActivityButton(String activityId) {
-    ELEMENT_COMMENT_LINK(activityId).clickOnElement();
+    getCommentElementLink(activityId).clickOnElement();
   }
 
+  @SwitchToWindow
   public void enterActivityCommentWithUser(String comment, String user) {
-    clickOnCommentRichText();
-    driver.switchTo().frame(ckEditorFrameComment);
-    commentField.waitUntilVisible();
-    commentField.clear();
-    commentField.setTextValue(comment + ' ' + '@' + user);
-    commentField.sendKeys(Keys.ENTER);
-    driver.switchTo().defaultContent();
+    mentionUserWithContent(ckEditorFrameComment, ckEditorBodyComment, comment, user);
   }
 
   public void publishActivityInArabicLanguage() {
@@ -862,11 +895,11 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void checkCommentReplyNotDisplayed(String activity, String comment, String reply) {
-    getDropDownReplyMenu(activity, comment, reply).isNotVisibleAfterWaiting();
+    assertWebElementNotVisible(getReplyBox(comment, reply, StringUtils.isBlank(activity)));
   }
 
   public void checkCommentReplyDisplayed(String activity, String comment, String reply) {
-    getDropDownReplyMenu(activity, comment, reply).isVisibleAfterWaiting();
+    assertWebElementVisible(getReplyBox(comment, reply, StringUtils.isBlank(activity)));
   }
 
   public void clickOnViewallXcomments() {
@@ -874,8 +907,9 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void clickOnReplyDropDownMenu(String activity, String comment, String reply) {
-    getDropDownReplyMenu(activity, comment, reply).waitUntilVisible();
-    getDropDownReplyMenu(activity, comment, reply).clickOnElement();
+    BaseElementFacade threeDots = getDropDownReplyMenu(activity, comment, reply);
+    threeDots.waitUntilVisible();
+    threeDots.clickOnElement();
   }
 
   public void clickOnDeleteReplyButton(String activity, String comment, String reply) {
@@ -883,7 +917,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void checkActivityCommentNotDisplayed(String activity, String comment) {
-    getDropDownCommentMenu(activity, comment).isNotVisibleAfterWaiting();
+    assertWebElementNotVisible(getDropDownCommentMenu(activity, comment));
   }
 
   public void hoverOnMentionedUserInPost(String activity, String user) {
@@ -892,11 +926,11 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void isMentionedUserDisplayedInPost(String activity, String user) {
-    getUserMentionedInPost(activity, user).isVisibleAfterWaiting();
+    assertWebElementVisible(getUserMentionedInPost(activity, user));
   }
 
   public boolean isSharedVideoDisplayed(String videoLink) {
-    return getSharedVideoPreview(videoLink).isVisibleAfterWaiting();
+    return isWebElementVisible(getSharedVideoPreview(videoLink));
   }
 
   public void checkFirstCommentInDrawer(String comment) {
@@ -935,11 +969,11 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void editActivityButtonIsDisplayed(String activity) {
-    geEditActivityIcon(activity).isVisibleAfterWaiting();
+    assertWebElementVisible(geEditActivityIcon(activity));
   }
 
   public void deleteActivityButtonIsDisplayed(String activity) {
-    geDeleteActivityIcon(activity).isVisibleAfterWaiting();
+    assertWebElementVisible(geDeleteActivityIcon(activity));
   }
 
   public void openThreeDotsActivityMenu(String activity) {
@@ -951,15 +985,26 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void linkIsOpenedNewTab(String link) {
-    Assert.assertTrue(driver.getCurrentUrl().contains(link));
+    Set<String> windowHandles = driver.getWindowHandles();
+    boolean tabFound = windowHandles.size() > 1 && windowHandles.stream().anyMatch(windowId -> {
+      driver.switchTo().window(windowId);
+      String currentUrl = driver.getCurrentUrl();
+      boolean found = currentUrl.contains(link);
+      if (!currentUrl.contains("/portal")) {
+        driver.close();
+      }
+      return found;
+    });
+    assertTrue(tabFound);
+    driver.switchTo().window(windowHandles.iterator().next());
   }
 
   public void copyLinkActivityButtonIsDisplayed(String activity) {
-    getCopyLinkActivityIcon(activity).isVisibleAfterWaiting();
+    assertWebElementVisible(getCopyLinkActivityIcon(activity));
   }
 
   public void downloadActivityButtonIsDisplayed(String activity) {
-    getDownloadActivityIcon(activity).isVisibleAfterWaiting();
+    assertWebElementVisible(getDownloadActivityIcon(activity));
   }
 
   public void openLinkInNewTab(String link) {
@@ -980,11 +1025,11 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void clickYesbutton() {
-    confirmationButtonToDeleteActivity.clickOnElement();
+    findByXPathOrCSS(CONFIRMATION_BUTTON_TO_DELETE_ACTIVITY_SELECTOR).clickOnElement();
   }
 
   public boolean isConfirmationPopupNotDisplayed() {
-    return !confirmationButtonToDeleteActivity.isDisplayed();
+    return isNotVisible(CONFIRMATION_BUTTON_TO_DELETE_ACTIVITY_SELECTOR);
   }
 
   public void clickDeleteActivityButton(String activity) {
@@ -995,17 +1040,9 @@ public class SpaceHomePage extends GenericPage {
     cancelDeleteCommentBtn.clickOnElement();
   }
 
-  public boolean isActivityBlockNotdisplayed() {
-    return activityBlock.isVisibleAfterWaiting();
-  }
-
   public void openDeleteCommentMenu(String activity, String comment) {
     getDropDownCommentMenu(activity, comment).clickOnElement();
     getDeleteCommentLabel(comment).clickOnElement();
-  }
-
-  public boolean isActivityCommentNotdisplayed() {
-    return commentBlock.isNotVisibleAfterWaiting();
   }
 
   public void deleteComment(String comment) {
@@ -1049,7 +1086,7 @@ public class SpaceHomePage extends GenericPage {
   private BaseElementFacade kudosButtonFromCommentsDrawerToCommentActivity;
 
   private BaseElementFacade getDropDownCommentMenuFromCommentsDrawer(String comment) {
-    return findByXpathOrCSS(String.format("(//*[@id='activityCommentsDrawer']//*[contains(@class,'d-inline-flex flex-column activity-comment')][4]//*[contains(@class,'v-icon notranslate primary--text')])[1]",
+    return findByXPathOrCSS(String.format("(//*[@id='activityCommentsDrawer']//*[contains(@class,'d-inline-flex flex-column activity-comment')][4]//*[contains(@class,'v-icon notranslate primary--text')])[1]",
                                           comment));
   }
 
@@ -1066,16 +1103,16 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private BaseElementFacade getBlueKudosCommentIcon(String activityComment) {
-    return findByXpathOrCSS(String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'KudosActivity') and contains(@class,'v-size--x-small primary--text')])[1]",
+    return findByXPathOrCSS(String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'KudosActivity') and contains(@class,'v-size--x-small primary--text')])[1]",
                                           activityComment));
   }
 
   public void kudosLabelIsBlue(String comment) {
-    getBlueKudosCommentIcon(comment).isVisibleAfterWaiting();
+    assertWebElementVisible(getBlueKudosCommentIcon(comment));
   }
 
   public void kudosLabelIsBlack(String comment) {
-    getBlueKudosCommentIcon(comment).isNotVisibleAfterWaiting();
+    assertWebElementNotVisible(getBlueKudosCommentIcon(comment));
   }
 
   @FindBy(xpath = "(//button[contains(@id,'KudusCountLinkcomment') and @style=''])[1]")
@@ -1091,40 +1128,40 @@ public class SpaceHomePage extends GenericPage {
   private BaseElementFacade kudosButtonNumberFromCommentsDrawerToCommentActivity;
 
   public void clickOnKudosButtonNumberFromCommentsDrawerToCommentActivity() {
-    kudosButtonNumberFromCommentsDrawerToCommentActivity.isVisibleAfterWaiting();
+    assertWebElementVisible(kudosButtonNumberFromCommentsDrawerToCommentActivity);
     kudosButtonNumberFromCommentsDrawerToCommentActivity.clickOnElement();
   }
 
   private BaseElementFacade getReceivedKudosNumberInDrawer(String kudosNumber) {
-    return findByXpathOrCSS(String.format("//div[@class='v-slide-group__wrapper']//a[@href='#kudos']//span[contains(.,'%s')]",
+    return findByXPathOrCSS(String.format("//div[@class='v-slide-group__wrapper']//a[@href='#kudos']//span[contains(.,'%s')]",
                                           kudosNumber));
   }
 
   public void getReceivedKudosSectionIsDisplayed(String kudosNumber) {
-    getReceivedKudosNumberInDrawer(kudosNumber).isVisibleAfterWaiting();
+    assertWebElementVisible(getReceivedKudosNumberInDrawer(kudosNumber));
   }
 
-  private BaseElementFacade getBlueKudosCommentReplayIcon(String activityComment) {
-    return findByXpathOrCSS(String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'KudosActivity') and contains(@class,'v-size--x-small primary--text')])[1]",
+  private BaseElementFacade getBlueKudosCommentReplyIcon(String activityComment) {
+    return findByXPathOrCSS(String.format("(//*[contains(text(),'%s')]//ancestor::*[contains(@id, 'ActivityCommment')])[1]/*[1]//button[contains(@id,'KudosActivity') and contains(@class,'primary--text')]",
                                           activityComment));
   }
 
-  private BaseElementFacade getBlackKudosCommentReplayIcon(String activityComment) {
-    return findByXpathOrCSS(String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'KudosActivity') and contains(@class,'v-size--x-small')])[1]",
+  private BaseElementFacade getBlackKudosCommentReplyIcon(String activityComment) {
+    return findByXPathOrCSS(String.format("(//*[contains(text(),'%s')]//ancestor::*[contains(@id, 'ActivityCommment')])[1]/*[1]//button[contains(@id,'KudosActivity') and not(contains(@class,'primary--text'))]",
                                           activityComment));
   }
 
-  public void ReplaykudosLabelIsBlue(String comment) {
-    getBlueKudosCommentReplayIcon(comment).isVisibleAfterWaiting();
+  public void replyKudosLabelIsBlue(String comment) {
+    assertWebElementVisible(getBlueKudosCommentReplyIcon(comment));
   }
 
-  public void ReplaykudosLabelIsBlack(String comment) {
-    getBlackKudosCommentReplayIcon(comment).isVisibleAfterWaiting();
-    getBlueKudosCommentReplayIcon(comment).isNotVisibleAfterWaiting();
+  public void replyKudosLabelIsBlack(String comment) {
+    assertWebElementVisible(getBlackKudosCommentReplyIcon(comment));
+    assertWebElementNotVisible(getBlueKudosCommentReplyIcon(comment));
   }
 
   public void clickOnReplyKudos(String reply) {
-    getBlackKudosCommentReplayIcon(reply).clickOnElement();
+    getBlackKudosCommentReplyIcon(reply).clickOnElement();
   }
 
   public void clickOnkudosButtonToActivityStream() {
@@ -1136,8 +1173,9 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private void clickOnCommentRichText() {
-    BaseElementFacade richTextLoadingElement = findByXpathOrCSS("//*[contains(@class, 'loadingRing')]");
-    richTextLoadingElement.waitUntilNotVisible();
+    waitCKEditorLoading();
+
+    ckEditorFrameComment.waitUntilVisible();
     ckEditorFrameComment.clickOnElement();
   }
 

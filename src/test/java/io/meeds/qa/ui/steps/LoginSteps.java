@@ -28,7 +28,7 @@ public class LoginSteps {
   }
 
   public boolean isLoggedIn() {
-    String currentUrl = Serenity.getWebdriverManager().getCurrentDriver().getCurrentUrl();
+    String currentUrl = loginPage.getCurrentUrl();
     return StringUtils.contains(currentUrl, "/portal") && !StringUtils.contains(currentUrl, "/login");
   }
 

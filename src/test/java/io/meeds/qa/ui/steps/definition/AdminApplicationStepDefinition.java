@@ -306,20 +306,10 @@ public class AdminApplicationStepDefinition {
     adminApplicationSteps.clickActiveApp(randomApplicationTitle);
   }
 
-  @When("^I delete the application '(.*)'$")
-  public void deleteApp(String appName) {
-    adminApplicationSteps.deleteApp(appName, true);
-  }
-
   @When("^I delete the created application$")
   public void deleteRandomApp() {
     String randomApplicationTitle = Serenity.sessionVariableCalled("randomApplicationTitle");
     adminApplicationSteps.deleteApp(randomApplicationTitle, true);
-  }
-
-  @When("^I click on delete icon of the application '(.*)'$")
-  public void clickDelete(String appName) {
-    adminApplicationSteps.deleteApp(appName, false);
   }
 
   @When("^I click on delete icon of the created application$")

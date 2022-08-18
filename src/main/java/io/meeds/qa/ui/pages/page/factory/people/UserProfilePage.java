@@ -12,12 +12,12 @@ import org.openqa.selenium.interactions.Actions;
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import net.serenitybdd.core.Serenity;
+import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
-public class UserProfile extends GenericPage {
-  public UserProfile(WebDriver driver) {
+public class UserProfilePage extends GenericPage {
+  public UserProfilePage(WebDriver driver) {
     super(driver);
   }
 
@@ -102,7 +102,9 @@ public class UserProfile extends GenericPage {
   @FindBy(xpath = "//*[@class='btn btn-primary v-btn v-btn--contained theme--light v-size--default']")
   public BaseElementFacade     SAVE_WORK_EXPERIENCES;
 
-  @FindBy(xpath = "//*[@id='ProfileWorkExperience']//button[@class='v-icon notranslate my-auto v-icon--link mdi mdi-plus theme--light']")
+  @FindBy(
+      xpath = "//*[@id='ProfileWorkExperience']//button[@class='v-icon notranslate my-auto v-icon--link mdi mdi-plus theme--light']"
+  )
   public BaseElementFacade     ADD_WORK_EXPERIENCES;
 
   @FindBy(xpath = "//*[@id='kudosOverviewCardsParent']//*[@class='kudosOverviewCard col'][2]/div/div[2]")
@@ -114,10 +116,14 @@ public class UserProfile extends GenericPage {
   @FindBy(xpath = "(//*[contains(@id,'DatePicker')])[2]//input")
   private TextBoxElementFacade ELEMENT_WORK_EXPERIENCES_END_DATE;
 
-  @FindBy(xpath = "(//*[contains(@class,'v-date-picker-table__current v-btn--active ')])[1]/preceding::*[@class='v-btn__content'][1]")
+  @FindBy(
+      xpath = "(//*[contains(@class,'v-date-picker-table__current v-btn--active ')])[1]/preceding::*[@class='v-btn__content'][1]"
+  )
   private TextBoxElementFacade ELEMENT_WORK_EXPERIENCES_END_DATE_TOMORROW_DAY;
 
-  @FindBy(xpath = "(//*[contains(@class,'v-date-picker-table__current v-btn--active ')])[1]/preceding::*[@class='v-btn__content'][2]")
+  @FindBy(
+      xpath = "(//*[contains(@class,'v-date-picker-table__current v-btn--active ')])[1]/preceding::*[@class='v-btn__content'][2]"
+  )
   private TextBoxElementFacade ELEMENT_WORK_EXPERIENCES_START_DATE_TOMORROW_DAY;
 
   @FindBy(xpath = "(//*[@class='v-expansion-panel-content']//input)[1]")
@@ -199,47 +205,47 @@ public class UserProfile extends GenericPage {
   private BaseElementFacade    weeklyChart;
 
   private BaseElementFacade openWorkExperience(String jobTitle) {
-    return findByXpathOrCSS(String.format("//button//*[@class='truncate-text']//*[contains(text(),'%s')]", jobTitle));
+    return findByXPathOrCSS(String.format("//button//*[@class='truncate-text']//*[contains(text(),'%s')]", jobTitle));
   }
 
   private BaseElementFacade getJobTitleWorkExperience(String jobTitle) {
-    return findByXpathOrCSS(String.format("//*[@class='v-timeline-item__body']//*[@class='text-color' and contains(text(),'%s')]",
-                                     jobTitle));
+    return findByXPathOrCSS(String.format("//*[@class='v-timeline-item__body']//*[@class='text-color' and contains(text(),'%s')]",
+                                          jobTitle));
   }
 
   private BaseElementFacade getOrganizationWorkExperience(String organization) {
-    return findByXpathOrCSS(String.format("//*[@class='v-timeline-item__body']//*[@class='text-sub-title' and contains(text(),'%s')]",
-                                     organization));
+    return findByXPathOrCSS(String.format("//*[@class='v-timeline-item__body']//*[@class='text-sub-title' and contains(text(),'%s')]",
+                                          organization));
   }
 
   private BaseElementFacade getJobDetailsWorkExperience(String jobDetails) {
-    return findByXpathOrCSS(String.format("//*[@class='v-timeline-item__body']//*[contains(@class,'font-weight-light') and contains(text(),'%s')]",
-                                     jobDetails));
+    return findByXPathOrCSS(String.format("//*[@class='v-timeline-item__body']//*[contains(@class,'font-weight-light') and contains(text(),'%s')]",
+                                          jobDetails));
   }
 
   private BaseElementFacade getUsedSkillsWorkExperience(String UsedSkill) {
-    return findByXpathOrCSS(String.format("//*[@class='v-timeline-item__body']//*[contains(@class,'font-weight-bold') and contains(text(),'%s')]",
-                                     UsedSkill));
+    return findByXPathOrCSS(String.format("//*[@class='v-timeline-item__body']//*[contains(@class,'font-weight-bold') and contains(text(),'%s')]",
+                                          UsedSkill));
   }
 
   private BaseElementFacade getReceivedKudosNumber(String kudosNumber) {
-    return findByXpathOrCSS(String.format("//*[@id='kudosOverviewCardsParent']//*[contains(@class,'kudosReceivedOverviewPeriod')]//*[contains(@class,'kudosOverviewCount') and contains(text(),'%s')]",
-                                     kudosNumber));
+    return findByXPathOrCSS(String.format("//*[@id='kudosOverviewCardsParent']//*[contains(@class,'kudosReceivedOverviewPeriod')]//*[contains(@class,'kudosOverviewCount') and contains(text(),'%s')]",
+                                          kudosNumber));
   }
 
   private BaseElementFacade getSentKudosNumber(String kudosNumber) {
-    return findByXpathOrCSS(String.format("//*[@id='kudosOverviewCardsParent']//*[contains(@class,'kudosSentOverviewPeriod')]//*[contains(@class,'kudosOverviewCount') and contains(text(),'%s')]",
-                                     kudosNumber));
+    return findByXPathOrCSS(String.format("//*[@id='kudosOverviewCardsParent']//*[contains(@class,'kudosSentOverviewPeriod')]//*[contains(@class,'kudosOverviewCount') and contains(text(),'%s')]",
+                                          kudosNumber));
   }
 
   private BaseElementFacade getSentKudosUsers(String user) {
-    return findByXpathOrCSS(String.format("//*[contains(@class,'kudosOverviewDrawer')]//*[contains(@class,'drawerTitle') and contains(text(),'Kudos Sent')]/following::*[contains(@id,'avatar') and contains(text(),'%s')]",
-                                     user));
+    return findByXPathOrCSS(String.format("//*[contains(@class,'kudosOverviewDrawer')]//*[contains(@class,'drawerTitle') and contains(text(),'Kudos Sent')]/following::*[contains(@id,'avatar') and contains(text(),'%s')]",
+                                          user));
   }
 
   private BaseElementFacade getReceivedKudosUsers(String user) {
-    return findByXpathOrCSS(String.format("//*[contains(@class,'kudosOverviewDrawer')]//*[contains(@class,'drawerTitle') and contains(text(),'Kudos Received')]/following::*[contains(@id,'avatar') and contains(text(),'%s')]",
-                                     user));
+    return findByXPathOrCSS(String.format("//*[contains(@class,'kudosOverviewDrawer')]//*[contains(@class,'drawerTitle') and contains(text(),'Kudos Received')]/following::*[contains(@id,'avatar') and contains(text(),'%s')]",
+                                          user));
   }
 
   Map<String, BaseElementFacade> MAPPING_FIELD_NAME_TO_TEXTELEMENT_XPATH = new HashMap<String, BaseElementFacade>() {
@@ -286,7 +292,7 @@ public class UserProfile extends GenericPage {
   public void openAchivementTab() {
     getUserStat("Points").clickOnElement();
     waitFor(2).seconds(); // Wait until card is displayed
-    BaseElementFacade iconProfile = findByXpathOrCSS("#profile-stats-portlet .uiIconInformation");
+    BaseElementFacade iconProfile = findByXPathOrCSS("#profile-stats-portlet .uiIconInformation");
     clickOnElement(iconProfile);
   }
 
@@ -324,7 +330,7 @@ public class UserProfile extends GenericPage {
 
   public void openHowToEarnPointPage() {
     waitFor(2).seconds(); // Wait until drawer is displayed
-    BaseElementFacade achievementIconInfo = findByXpathOrCSS(".achievementsDrawer .drawerHeader .uiIconInformation");
+    BaseElementFacade achievementIconInfo = findByXPathOrCSS(".achievementsDrawer .drawerHeader .uiIconInformation");
     clickOnElement(achievementIconInfo);
   }
 
@@ -347,13 +353,17 @@ public class UserProfile extends GenericPage {
     uiIconKudos.clickOnElement();
   }
 
+  @SwitchToWindow
   public void sendKudos(String comment) {
     ckEditorFrameSendKudosDrawer.waitUntilVisible();
     ckEditorFrameSendKudosDrawer.clickOnElement();
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameSendKudosDrawer);
-    sendKudosMessageContent.waitUntilVisible();
-    sendKudosMessageContent.setTextValue(comment);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().frame(ckEditorFrameSendKudosDrawer);
+    try {
+      sendKudosMessageContent.waitUntilVisible();
+      sendKudosMessageContent.setTextValue(comment);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
     sendKudosButton.clickOnElement();
   }
 
@@ -401,51 +411,51 @@ public class UserProfile extends GenericPage {
 
   public void selectPhoneType(String phoneType, String... option) {
     switch (phoneType) {
-    case "WORK":
-      // Select WORK option
-      ELEMENT_CONTACT_PHONE_TYPE_SELECT_EDIT_BTN.selectByValue("work");
-      break;
-    case "HOME":
-      // Select HOME option
-      ELEMENT_CONTACT_PHONE_TYPE_SELECT_EDIT_BTN.selectByValue("home");
-      break;
-    case "OTHER":
-      // Select OTHER option
-      ELEMENT_CONTACT_PHONE_TYPE_SELECT_EDIT_BTN.selectByValue("other");
-      break;
+      case "WORK":
+        // Select WORK option
+        ELEMENT_CONTACT_PHONE_TYPE_SELECT_EDIT_BTN.selectByValue("work");
+        break;
+      case "HOME":
+        // Select HOME option
+        ELEMENT_CONTACT_PHONE_TYPE_SELECT_EDIT_BTN.selectByValue("home");
+        break;
+      case "OTHER":
+        // Select OTHER option
+        ELEMENT_CONTACT_PHONE_TYPE_SELECT_EDIT_BTN.selectByValue("other");
+        break;
 
-    default:
-      // No option in the list.Please select correct option.
-      break;
+      default:
+        // No option in the list.Please select correct option.
+        break;
     }
   }
 
   public void selectInstantMessagingType(String instantMessagingType, String... option) {
     switch (instantMessagingType) {
-    case "SKYPE":
-      // Select SKYPE option
-      ELEMENT_CONTACT_INSTANT_MESSAGING_TYPE_SELECT_EDIT_BTN.selectByValue("skype");
-      break;
-    case "MSN":
-      // Select MSN option
-      ELEMENT_CONTACT_INSTANT_MESSAGING_TYPE_SELECT_EDIT_BTN.selectByValue("msn");
-      break;
-    case "GITHUB":
-      // Select GITHUB option
-      ELEMENT_CONTACT_INSTANT_MESSAGING_TYPE_SELECT_EDIT_BTN.selectByValue("github");
-      break;
-    case "FACEBOOK":
-      // Select FACEBOOK option
-      ELEMENT_CONTACT_INSTANT_MESSAGING_TYPE_SELECT_EDIT_BTN.selectByValue("facebook");
-      break;
-    case "OTHER":
-      // Select OTHER option
-      ELEMENT_CONTACT_INSTANT_MESSAGING_TYPE_SELECT_EDIT_BTN.selectByValue("other");
-      break;
+      case "SKYPE":
+        // Select SKYPE option
+        ELEMENT_CONTACT_INSTANT_MESSAGING_TYPE_SELECT_EDIT_BTN.selectByValue("skype");
+        break;
+      case "MSN":
+        // Select MSN option
+        ELEMENT_CONTACT_INSTANT_MESSAGING_TYPE_SELECT_EDIT_BTN.selectByValue("msn");
+        break;
+      case "GITHUB":
+        // Select GITHUB option
+        ELEMENT_CONTACT_INSTANT_MESSAGING_TYPE_SELECT_EDIT_BTN.selectByValue("github");
+        break;
+      case "FACEBOOK":
+        // Select FACEBOOK option
+        ELEMENT_CONTACT_INSTANT_MESSAGING_TYPE_SELECT_EDIT_BTN.selectByValue("facebook");
+        break;
+      case "OTHER":
+        // Select OTHER option
+        ELEMENT_CONTACT_INSTANT_MESSAGING_TYPE_SELECT_EDIT_BTN.selectByValue("other");
+        break;
 
-    default:
-      // No option in the list.Please select correct option.
-      break;
+      default:
+        // No option in the list.Please select correct option.
+        break;
     }
   }
 
@@ -487,7 +497,7 @@ public class UserProfile extends GenericPage {
   }
 
   private BaseElementFacade getUserStat(String statType) {
-    return findByXpathOrCSS(String.format("//div[@id='profile-stats-portlet']//span[contains(text(),'%s')]", statType));
+    return findByXPathOrCSS(String.format("//div[@id='profile-stats-portlet']//span[contains(text(),'%s')]", statType));
   }
 
   public void openWeeklyPointsChart() {

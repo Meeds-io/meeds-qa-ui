@@ -1,5 +1,6 @@
 package io.meeds.qa.ui.elements;
 
+import static io.meeds.qa.ui.utils.Utils.decorateDriver;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoaded;
 
 import org.openqa.selenium.Keys;
@@ -10,18 +11,20 @@ import org.openqa.selenium.support.pagefactory.ElementLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.meeds.qa.ui.utils.ExceptionLauncher;
+import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class TextBoxElementFacadeImpl extends BaseElementFacadeImpl implements TextBoxElementFacade {
 
-  static final Logger  LOGGER = LoggerFactory.getLogger(TextBoxElementFacadeImpl.class);
+  static final Logger LOGGER = LoggerFactory.getLogger(TextBoxElementFacadeImpl.class);
 
   public TextBoxElementFacadeImpl(WebDriver driver,
                                   ElementLocator locator,
                                   WebElement element,
                                   long timeoutInMilliseconds,
                                   long waitForTimeoutInMilliseconds) {
-    super(driver, locator, element, timeoutInMilliseconds, waitForTimeoutInMilliseconds);
+    super(decorateDriver(driver), locator, element, timeoutInMilliseconds, waitForTimeoutInMilliseconds);
   }
 
   @SuppressWarnings("unchecked")
@@ -36,39 +39,66 @@ public class TextBoxElementFacadeImpl extends BaseElementFacadeImpl implements T
                                             waitForTimeoutInMilliseconds);
   }
 
-  public void setTextValue(String newValue, Keys keys) {
-    waitForPageLoaded();
+  public void setTextValue(String value) {
+    setTextValue(value, null);
+  }
+
+  public void setTextValue(String value, Keys keys) {
     try {
-      waitUntilVisible();
+      sendValueWithKeys(true, keys, value);
     } catch (WebDriverException | IllegalArgumentException e) {
-      exceptionLauncher.throwSerenityExeption(e,
+      ExceptionLauncher.throwSerenityExeption(e,
                                               String.format(
                                                             "The element [%s] is not visible. "
                                                                 + "The new value [%s] cannot be entered.",
                                                             this,
-                                                            newValue));
+                                                            value));
     }
-    clear();
-    sendKeys(newValue);
-    if (keys != null) {
-      sendKeys(keys);
-    }
-    waitForPageLoaded();
   }
 
-  public void setTextValue(String newValue) {
-    setTextValue(newValue, null);
+  @Override
+  public void sendKeys(CharSequence... value) {
+    sendValueWithKeys(false, null, value);
+  }
+
+  public void sendValueWithKeys(boolean clear, Keys keys, CharSequence... value) {
+    boolean finishedRetries = false;
+    long retry = 0;
+    do {
+      try {
+        WebElement element = getElement();
+        sendValueWithKeysOnElement(element, clear, keys, value);
+        finishedRetries = true;
+      } catch (RuntimeException e) {
+        finishedRetries = (++retry == 5);
+        if (finishedRetries) {
+          throw new IllegalStateException("Unable to sendKeys on element " + this + " after " + retry + " retries", e);
+        } else {
+          LOGGER.warn("Error sending keys on element {}. retry = {}", this, retry);
+        }
+      }
+    } while (!finishedRetries);
+  }
+
+  @SwitchToWindow
+  public void sendValueWithKeysOnElement(WebElement element, boolean clear, Keys keys, CharSequence... value) {
+    if (clear) {
+      element.clear();
+    }
+    element.sendKeys(value);
+    if (keys != null) {
+      element.sendKeys(keys);
+    }
   }
 
   public String getTextBoxValue() {
     waitForPageLoaded();
-    LOGGER.debug(String.format("Getting text of the element [%s]", this));
     String textValue = null;
     try {
       waitUntilVisible();
       textValue = getValue();
     } catch (Exception e) {
-      exceptionLauncher.throwSerenityExeption(e,
+      ExceptionLauncher.throwSerenityExeption(e,
                                               String.format("Text can't be extracted from The element [%s]", this));
     }
     return textValue;

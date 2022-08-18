@@ -6,9 +6,13 @@ import org.slf4j.LoggerFactory;
 import net.serenitybdd.core.exceptions.SerenityManagedException;
 
 public class ExceptionLauncher {
-  static final Logger  LOGGER = LoggerFactory.getLogger(ExceptionLauncher.class);
+  public static final Logger LOGGER = LoggerFactory.getLogger(ExceptionLauncher.class);
 
-  public void throwSerenityExeption(Exception e, String errorMsg) {
+  private ExceptionLauncher() {
+    // Utils class
+  }
+
+  public static final void throwSerenityExeption(Exception e, String errorMsg) {
     throw new SerenityManagedException(errorMsg, e);
   }
 }

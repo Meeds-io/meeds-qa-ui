@@ -41,4 +41,8 @@ public class GenericSteps {
     genericPage.checkDrawerDisplayed(title);
   }
 
+  public String getCurrentUrl() {
+    return genericPage.getCurrentUrl();
+  }
+
 }

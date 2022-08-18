@@ -1,17 +1,48 @@
 package io.meeds.qa.ui.utils;
 
+import static io.meeds.qa.ui.utils.ExceptionLauncher.LOGGER;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.json.JsonException;
+import org.openqa.selenium.support.events.EventFiringDecorator;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import io.meeds.qa.ui.listener.CustomWebDriverListener;
 import net.serenitybdd.core.Serenity;
 
 public class Utils {
 
-  private static final Random RANDOM = new Random();
+  private static final AtomicInteger LOCK_COUNT             = new AtomicInteger(0);
+
+  private static final Random        RANDOM                 = new Random();
+
+  private static final int           TIMEOUT_CHECK_INTERVAL = 100;
+
+  private static final int           TIMEOUT_MILLISECONDS   =
+                                                          Integer.parseInt(System.getProperty("io.meeds.windowSwitch.timeout",
+                                                                                              "20000"));
+
+  private static final String        LOCK_FILE_PATH         = System.getProperty("io.meeds.windowSwitch.lockFile");
+
+  private static final File          LOCK_FILE              = new File(LOCK_FILE_PATH);
+
+  private static final boolean       PARALLEL_TESTING       = !System.getProperty("io.meeds.parallel.tests").equals("1");
+
+  private static WebDriver           decoratedWebDriver;
+
+  private static String              windowId;
+
+  private static boolean             locked;
 
   private Utils() {
     // Class containing static methods only
@@ -25,6 +56,10 @@ public class Utils {
       sb.append(c);
     }
     return sb.toString();
+  }
+
+  public static int getRandomInteger(int bound) {
+    return RANDOM.nextInt(bound);
   }
 
   public static String getRandomString() {
@@ -42,17 +77,157 @@ public class Utils {
   }
 
   public static void waitForPageLoaded() {
-    WebDriverWait wait = new WebDriverWait(Serenity.getDriver(), Duration.ofSeconds(120));
-    wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState === 'complete' "
-        + " && (!document.getElementById('TopbarLoadingContainer') || !!document.querySelector('.TopbarLoadingContainer.hidden'))"
-        + " && !document.querySelector('.v-navigation-drawer--open .v-progress-linear')")
-                                                            .toString()
-                                                            .equals("true"));
+    try {
+      WebDriverWait wait = new WebDriverWait(Serenity.getDriver(), Duration.ofSeconds(10));
+      wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState === 'complete' "
+          + " && (!document.getElementById('TopbarLoadingContainer') || !!document.querySelector('.TopbarLoadingContainer.hidden'))"
+          + " && !document.querySelector('.v-navigation-drawer--open .v-progress-linear')")
+                                                              .toString()
+                                                              .equals("true"));
+    } catch (TimeoutException | JsonException e) {
+      Serenity.getDriver().navigate().refresh();
+      waitForPageLoaded();
+    } catch (RuntimeException e) {
+      String result =
+                    ((JavascriptExecutor) Serenity.getDriver()).executeScript("return `document.readyState: ${document.readyState} ,"
+                        + " TopbarLoadingContainer = ${(!document.getElementById('TopbarLoadingContainer') || !!document.querySelector('.TopbarLoadingContainer.hidden'))}, "
+                        + " v-navigation-drawer--open = ${!document.querySelector('.v-navigation-drawer--open .v-progress-linear')}")
+                                                               .toString();
+      LOGGER.warn("Error on waiting document to be loaded. {}", result);
+    }
   }
 
-  public static void switchToTabByIndex(int index) {
-    ArrayList<String> newTab = new ArrayList<>(Serenity.getWebdriverManager().getCurrentDriver().getWindowHandles());
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().window(newTab.get(index));
+  public static void switchToTabByIndex(WebDriver driver, int index) {
+    ArrayList<String> newTab = new ArrayList<>(driver.getWindowHandles());
+    driver.switchTo().window(newTab.get(index));
+  }
+
+  public static void switchToCurrentWindow(WebDriver driver, Object element, String reason) {
+    switchToCurrentWindow(driver, element, reason, 1);
+  }
+
+  private static void switchToCurrentWindow(WebDriver driver, Object element, String reason, int retry) {
+    if (!PARALLEL_TESTING) {
+      return;
+    }
+    long start = System.currentTimeMillis();
+    if (incrementLock()) {
+      LOGGER.debug(".............. {} ignore locking {} - {}", LOCK_COUNT.get(), reason, windowId);
+    } else if (tryLock()) {
+      try {
+        driver.switchTo().window(windowId);
+        driver.switchTo().activeElement();
+        LOGGER.debug("++++ LOCKED in {}ms. {} - {} - {}", (System.currentTimeMillis() - start), reason, windowId, element);
+      } catch (Exception e) {
+        unlock();
+        LOGGER.warn("++++ LOCK ERROR {} times in {}ms. Will retry it. {} - {} - {}",
+                    retry,
+                    (System.currentTimeMillis() - start),
+                    reason,
+                    windowId,
+                    element,
+                    e);
+        if (retry < 3) {
+          // Try again
+          switchToCurrentWindow(driver, element, reason, ++retry);
+        }
+      }
+    } else {
+      LOGGER.warn("++++ NOT locked in {}ms. {} - {} - {}", (System.currentTimeMillis() - start), reason, windowId, element);
+    }
+  }
+
+  public static void releaseCurrentWindow(WebDriver driver, Object element, String reason) {
+    if (!PARALLEL_TESTING) {
+      return;
+    }
+    long start = System.currentTimeMillis();
+    if (decrementLock()) {
+      LOGGER.debug(".............. {} ignore unlocking {} - {} - {}",
+                   LOCK_COUNT.get(),
+                   reason,
+                   windowId,
+                   element);
+    } else if (unlock()) {
+      LOGGER.debug("---- UNLOCKED in {}ms. {} - {} - {}",
+                   (System.currentTimeMillis() - start),
+                   reason,
+                   windowId,
+                   element);
+    }
+  }
+
+  public static WebDriver decorateDriver(WebDriver driver) {
+    if (!PARALLEL_TESTING) {
+      return decoratedWebDriver = driver;
+    }
+    if (decoratedWebDriver == null) {
+      if (driver == null) {
+        driver = Serenity.getDriver();
+      }
+      EventFiringDecorator eventDriver = new EventFiringDecorator(new CustomWebDriverListener(driver));
+      decoratedWebDriver = eventDriver.decorate(driver);
+      windowId = driver.getWindowHandle();
+      Serenity.getWebdriverManager().setCurrentDriver(decoratedWebDriver);
+    }
+    return decoratedWebDriver;
+  }
+
+  private static boolean tryLock() {
+    int elapsedTime = 0;
+    while (!locked) {
+      try {
+        if (!LOCK_FILE.exists()) {
+          locked = LOCK_FILE.createNewFile();
+        }
+      } catch (IOException e) {
+        locked = false;
+      }
+      if (elapsedTime > TIMEOUT_MILLISECONDS) {
+        return false;
+      } else if (!locked) {
+        LOGGER.debug(".............. wait locking {}", windowId);
+        try {
+          elapsedTime += TIMEOUT_CHECK_INTERVAL;
+          Thread.sleep(TIMEOUT_CHECK_INTERVAL);
+        } catch (InterruptedException e1) {
+          Thread.currentThread().interrupt();
+        }
+      }
+    }
+    return isLocked();
+  }
+
+  private static boolean unlock() {
+    if (isLocked()) {
+      try {
+        Files.delete(LOCK_FILE.toPath());
+        return true;
+      } catch (IOException e) {
+        throw new IllegalStateException("Error while releasing lock", e);
+      } finally {
+        locked = false;
+      }
+    }
+    return false;
+  }
+
+  private static boolean isLocked() {
+    return locked;
+  }
+
+  private static boolean incrementLock() {
+    return LOCK_COUNT.incrementAndGet() > 1;
+  }
+
+  private static boolean decrementLock() {
+    int lockCount = LOCK_COUNT.get();
+    if (lockCount <= 0) {
+      LOGGER.warn("DECREMENT ERROR, currrent value = {}", lockCount);
+      return true;
+    } else {
+      return LOCK_COUNT.decrementAndGet() > 0;
+    }
   }
 
 }

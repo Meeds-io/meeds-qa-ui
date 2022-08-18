@@ -1,7 +1,8 @@
 package io.meeds.qa.ui.steps;
 
-import static io.meeds.qa.ui.utils.Utils.*;
-import static net.serenitybdd.core.Serenity.*;
+import static io.meeds.qa.ui.utils.Utils.getRandomString;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import java.util.Map;
 

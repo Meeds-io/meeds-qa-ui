@@ -59,7 +59,7 @@ Feature: Rules
     And I check my points
     Then The 'Spaces' badge is '1'
     When I click on spaces badge
-    And I accept the invitation of the created space
+    And I accept the invitation of the random space
     And I close Space Drawer
     When I go to my profile
     Then My points augmented

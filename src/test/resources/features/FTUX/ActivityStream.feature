@@ -637,7 +637,6 @@ Feature: Activity Stream
     And In activity 'activityTest102' with comment 'commenttest102', the reply 'replyTest103' is displayed
     And In activity 'activityTest102' with comment 'commenttest102', the reply 'replyTest104' is displayed
 
-  @test
   Scenario: CAP103 - [ActivityStream_US39][01]: Delete a simple comment from the comment drawer
     Given I am authenticated as admin
 
@@ -1160,7 +1159,7 @@ Feature: Activity Stream
     And In comment 'commenttest108', the reply 'replyTest103' is displayed in the drawer
     When I close the comments drawer
     Then Activity Comment 'commenttest108' is displayed in activity stream
-    And In activity 'activityTest108' with comment 'commenttest108', the reply 'replyTest101' is displayed
+    And In activity 'activityTest108' with comment 'commenttest108', the reply 'replyTest101' is not displayed
     And In activity 'activityTest108' with comment 'commenttest108', the reply 'replyTest102' is displayed
     And In activity 'activityTest108' with comment 'commenttest108', the reply 'replyTest103' is displayed
 
@@ -1177,7 +1176,7 @@ Feature: Activity Stream
     And In comment 'commenttest108', the reply 'replyTest103' is displayed in the drawer
     When I close the comments drawer
     Then Activity Comment 'commenttest108' is displayed in activity stream
-    And In activity 'activityTest108' with comment 'commenttest108', the reply 'replyTest101' is displayed
+    And In activity 'activityTest108' with comment 'commenttest108', the reply 'replyTest101' is not displayed
     And In activity 'activityTest108' with comment 'commenttest108', the reply 'replyTest102' is displayed
     And In activity 'activityTest108' with comment 'commenttest108', the reply 'replyTest103' is displayed
 
@@ -1194,7 +1193,7 @@ Feature: Activity Stream
     And In comment 'commenttest108', the reply 'replyTest103' is displayed in the drawer
     When I close the comments drawer
     Then Activity Comment 'commenttest108' is displayed in activity stream
-    And In activity 'activityTest108' with comment 'commenttest108', the reply 'replyTest101' is displayed
+    And In activity 'activityTest108' with comment 'commenttest108', the reply 'replyTest101' is not displayed
     And In activity 'activityTest108' with comment 'commenttest108', the reply 'replyTest102' is displayed
     And In activity 'activityTest108' with comment 'commenttest108', the reply 'replyTest103' is displayed
 
@@ -1481,37 +1480,37 @@ Feature: Activity Stream
 
     And I go to the random space
     And I click on post in space
-    And I enter an activity 'activityTest122'
+    And I enter an activity 'activityTest122-02'
     And I publish the activity
-    Then the activity 'activityTest122' is displayed in activity stream
+    Then the activity 'activityTest122-02' is displayed in activity stream
 
     When I connect with the second created user
 
     And I go to the random space
-    Then the activity 'activityTest122' is displayed in activity stream
+    Then the activity 'activityTest122-02' is displayed in activity stream
 
-    When I add in activity 'activityTest122' a comment 'commenttest101'
-    And I add in activity 'activityTest122' a comment 'commenttest102'
-    And I add in activity 'activityTest122' a comment 'commenttest103'
-    And I add in activity 'activityTest122' a comment 'commenttest104'
+    When I add in activity 'activityTest122-02' a comment 'commenttest101-02'
+    And I add in activity 'activityTest122-02' a comment 'commenttest102-02'
+    And I add in activity 'activityTest122-02' a comment 'commenttest103-02'
+    And I add in activity 'activityTest122-02' a comment 'commenttest104-02'
 
-    Then First comment 'commenttest103' is displayed in activity stream
-    And Second comment 'commenttest104' is displayed in activity stream
-    And Comment 'commenttest101' is not displayed in activity 'activityTest122'
-    And Comment 'commenttest102' is not displayed in activity 'activityTest122'
+    Then First comment 'commenttest103-02' is displayed in activity stream
+    And Second comment 'commenttest104-02' is displayed in activity stream
+    And Comment 'commenttest101-02' is not displayed in activity 'activityTest122-02'
+    And Comment 'commenttest102-02' is not displayed in activity 'activityTest122-02'
 
-    When I add a reply 'replyTest101' to comment 'commenttest103' in activity 'activityTest122'
-    And I add a reply 'replyTest102' to comment 'commenttest103' in activity 'activityTest122'
+    When I add a reply 'replyTest101-02' to comment 'commenttest103-02' in activity 'activityTest122-02'
+    And I add a reply 'replyTest102-02' to comment 'commenttest103-02' in activity 'activityTest122-02'
 
-    And I add a reply 'replyTest103' to comment 'commenttest104' in activity 'activityTest122'
-    And I add a reply 'replyTest104' to comment 'commenttest104' in activity 'activityTest122'
+    And I add a reply 'replyTest103-02' to comment 'commenttest104-02' in activity 'activityTest122-02'
+    And I add a reply 'replyTest104-02' to comment 'commenttest104-02' in activity 'activityTest122-02'
 
-    Then Comment 'commenttest101' is not displayed in activity 'activityTest122'
-    And Comment 'commenttest102' is not displayed in activity 'activityTest122'
-    And In activity 'activityTest122' with comment 'commenttest103', the reply 'replyTest101' is displayed
-    And In activity 'activityTest122' with comment 'commenttest103', the reply 'replyTest102' is displayed
-    And In activity 'activityTest122' with comment 'commenttest104', the reply 'replyTest103' is displayed
-    And In activity 'activityTest122' with comment 'commenttest104', the reply 'replyTest104' is displayed
+    Then Comment 'commenttest101-02' is not displayed in activity 'activityTest122-02'
+    And Comment 'commenttest102-02' is not displayed in activity 'activityTest122-02'
+    And In activity 'activityTest122-02' with comment 'commenttest103-02', the reply 'replyTest101-02' is displayed
+    And In activity 'activityTest122-02' with comment 'commenttest103-02', the reply 'replyTest102-02' is displayed
+    And In activity 'activityTest122-02' with comment 'commenttest104-02', the reply 'replyTest103-02' is displayed
+    And In activity 'activityTest122-02' with comment 'commenttest104-02', the reply 'replyTest104-02' is displayed
 
   Scenario: CAP123 - [ActivityStream_IMPV14][03]: Display maximum only the last 2 comments/replies below each activity
     Given I am authenticated as admin
@@ -1630,16 +1629,16 @@ Feature: Activity Stream
     And I go to the random space
     Then the activity 'activitytest158' is displayed in activity stream
 
-    When I add in activity 'activitytest158' a comment 'https://www.exoplatform.com/'
+    When I add in activity 'activitytest158' a comment 'https://www.meeds.io/'
     And I open in activity 'activitytest158' the Comments drawer
-    Then Activity Comment 'https://www.exoplatform.com/' is displayed in Comments drawer
-    And Activity Comment 'https://www.exoplatform.com/' is displayed in activity stream
+    Then Activity Comment 'https://www.meeds.io/' is displayed in Comments drawer
+    And Activity Comment 'https://www.meeds.io/' is displayed in activity stream
 
-    When I click on comment 'https://www.exoplatform.com/'
-    Then Link 'https://www.exoplatform.com/' is opened in new tab
+    When I click on comment 'https://www.meeds.io/'
+    Then Link 'https://www.meeds.io/' is opened in new tab
 
-    When I open link 'https://www.exoplatform.com/' in new tab
-    Then Link 'https://www.exoplatform.com/' is opened in new tab
+    When I open link 'https://www.meeds.io/' in new tab
+    Then Link 'https://www.meeds.io/' is opened in new tab
 
   @ignored
   Scenario: CAP12 - [ActivityStream_US10][01]: Activity with text or link options (3 dots) (Author)
@@ -1657,7 +1656,7 @@ Feature: Activity Stream
 
     And I go to the random space
     And I click on post in space
-    And I enter an activity 'https://www.exoplatform.com/'
+    And I enter an activity 'https://www.meeds.io/'
     And I insert text 'activity12'
     And I publish the activity
     And I click on three dots button related to activity 'activity12'
@@ -1706,7 +1705,7 @@ Feature: Activity Stream
 
     And I go to the random space
     And I click on post in space
-    And I enter an activity 'https://www.exoplatform.com/'
+    And I enter an activity 'https://www.meeds.io/'
     And I insert text 'activity13'
     And I publish the activity
     Then the activity 'activity13' is displayed in activity stream
@@ -2048,23 +2047,22 @@ Feature: Activity Stream
     And I go to the random space
     Then the activity 'activitycap87' is displayed in activity stream
 
-    When In activity 'activitycap87' I enter the link 'https://www.exoplatform.com/' as comment
-    And I insert text 'commenttest104' as comment
+    When In activity 'activitycap87' I enter the link 'https://www.meeds.io/' as comment
+    And I insert text ' commenttest104' as comment
     And I publish the comment
     And I open in activity 'activitycap87' the Comments drawer
-    Then Comment 'https://www.exoplatform.com/commenttest104' is displayed in comments drawer at the sixth position
+    Then Comment 'https://www.meeds.io/ commenttest104' is displayed in comments drawer at the sixth position
 
     When I add a reply 'replyTest104' to comment 'commenttest104' in activity 'activitycap87'
     Then In activity 'activitycap87' with comment 'commenttest104', the reply 'replyTest104' is displayed
 
     When In activity 'activitycap87', I click on the comment 'commenttest104' three dots icon
     And In comment 'commenttest104', I click on edit button
-    And I insert text 'commenttestupdated104' as comment
+    And I insert text 'commenttestupdated104 ' as comment
     And I click on update comment
     And I open in activity 'activitycap87' the Comments drawer
-    Then Comment 'commenttestupdated104https://www.exoplatform.com/commenttest104' is displayed in comments drawer at the sixth position
+    Then Comment 'commenttestupdated104 https://www.meeds.io/ commenttest104' is displayed in comments drawer at the sixth position
 
-  @ignored
   Scenario: CAP88 - [ActivityStream_US04.1][01]: Edit comment from the comment drawer
     Given I am authenticated as admin
 
@@ -2162,7 +2160,7 @@ Feature: Activity Stream
     When In comment 'activitytestkudoscomment', Kudos label should be black
     Then I click on the kudos button from the comment
     And I sent to the comment activity a kudos message 'Test Auto comment Kudos'
-    Then In comment 'activitytestkudoscomment', the Kudos label should be blue
+    Then In comment 'activitytestkudoscomment', Kudos label should be blue
     And I click on the kudos button number
     Then '1' kudos are displayed on the reaction drawer
 
@@ -2196,7 +2194,7 @@ Feature: Activity Stream
     When In comment 'activitytestkudoscomment', Kudos label should be black
     Then I click on the kudos button from the comments drawer
     And I sent to the comment activity a kudos message 'Test Auto comment Kudos' from comments drawer
-    Then In comment 'activitytestkudoscomment', the Kudos label should be blue
+    Then In comment 'activitytestkudoscomment', Kudos label should be blue
     And I click on the kudos button number from the comments drawer
     And I close the comments drawer
     Then '1' kudos are displayed on the reaction drawer
@@ -2261,7 +2259,7 @@ Feature: Activity Stream
     And Comment 'commenttest1020' is not displayed in the drawer
     Then Check Four comment is displayed in comments drawer
 
-  Scenario: CAP129 - [ActivityStream_US47][02]: Send a kudos from a replay
+  Scenario: CAP129 - [ActivityStream_US47][02]: Send a kudos from a reply
 
     Given I am authenticated as admin
     And I create the first random user
@@ -2288,16 +2286,16 @@ Feature: Activity Stream
     When I connect with the fourth created user
     And I go to the random space
     Then the activity 'activitytestkudos' is displayed in activity stream
-    When I add a reply 'activitytestkudoscommentreplay' to comment 'activitytestkudoscomment' in activity 'activitytestkudos'
-    Then In activity 'activitytestkudos' with comment 'activitytestkudoscomment', the reply 'activitytestkudoscommentreplay' is displayed
+    When I add a reply 'activitytestkudoscommentreply' to comment 'activitytestkudoscomment' in activity 'activitytestkudos'
+    Then In activity 'activitytestkudos' with comment 'activitytestkudoscomment', the reply 'activitytestkudoscommentreply' is displayed
 
     When I connect with the second created user
     And I go to the random space
     Then the activity 'activitytestkudos' is displayed in activity stream
-    And In replay 'activitytestkudoscommentreplay', Kudos label should be black
-    When In replay 'activitytestkudoscommentreplay', I click on kudos button
-    And I sent to the comment activity a kudos message 'Test Auto replay Kudos'
-    Then In replay 'activitytestkudoscommentreplay', the Kudos label should be blue
+    And In reply 'activitytestkudoscommentreply', Kudos label should be black
+    When In reply 'activitytestkudoscommentreply', I click on kudos button
+    And I sent to the comment activity a kudos message 'Test Auto reply Kudos'
+    Then In reply 'activitytestkudoscommentreply', Kudos label should be blue
     When I click on the kudos button number
     Then '1' kudos are displayed on the reaction drawer
 
@@ -2416,17 +2414,17 @@ Feature: Activity Stream
     When I connect with the fourth created user
     And I go to the random space
     Then the activity 'activitytestkudos' is displayed in activity stream
-    When I add a reply 'activitytestkudoscommentreplay' to comment 'activitytestkudoscomment' in activity 'activitytestkudos'
-    Then In activity 'activitytestkudos' with comment 'activitytestkudoscomment', the reply 'activitytestkudoscommentreplay' is displayed
+    When I add a reply 'activitytestkudoscommentreply' to comment 'activitytestkudoscomment' in activity 'activitytestkudos'
+    Then In activity 'activitytestkudos' with comment 'activitytestkudoscomment', the reply 'activitytestkudoscommentreply' is displayed
 
     When I connect with the second created user
     And I go to the random space
     Then the activity 'activitytestkudos' is displayed in activity stream
-    And In replay 'activitytestkudoscommentreplay', Kudos label should be black
+    And In reply 'activitytestkudoscommentreply', Kudos label should be black
 
-    When In replay 'activitytestkudoscommentreplay', I click on kudos button
-    And I sent to the comment activity a kudos message 'Test Auto replay Kudos'
-    Then In replay 'activitytestkudoscommentreplay', the Kudos label should be blue
+    When In reply 'activitytestkudoscommentreply', I click on kudos button
+    And I sent to the comment activity a kudos message 'Test Auto reply Kudos'
+    Then In reply 'activitytestkudoscommentreply', Kudos label should be blue
 
     When I click to edit the kudos from a reply comment
     And I set the new kudos comment text 'updated kudos message ' and I click on update button
@@ -2449,11 +2447,11 @@ Feature: Activity Stream
     And I go to the random space
     Then the activity 'activitytestkudos' is displayed in activity stream
     Then I click on the kudos button from the Activity Stream
-    And I sent to the comment activity a kudos message 'Test Auto replay Kudos'
-    Then In activity 'activitytestkudos', I click on the comment 'Test Auto replay Kudos' three dots icon
-    When In comment 'Test Auto replay Kudos', I click on edit button
-    And I set the new kudos comment text 'updated Test Auto replay Kudos' and I click on update button
-    Then the updated Kudos activity 'updated Test Auto replay Kudos' is displayed in stream page
+    And I sent to the comment activity a kudos message 'Test Auto reply Kudos'
+    Then In activity 'activitytestkudos', I click on the comment 'Test Auto reply Kudos' three dots icon
+    When In comment 'Test Auto reply Kudos', I click on edit button
+    And I set the new kudos comment text 'updated Test Auto reply Kudos' and I click on update button
+    Then the updated Kudos activity 'updated Test Auto reply Kudos' is displayed in stream page
 
   @smoke
   @ignored
@@ -2476,8 +2474,10 @@ Feature: Activity Stream
     Then In the created space, in post 'activityWithMentionedUser', the mentioned user 'aymen khal' is displayed
 
   @smoke
+  @ignored
   Scenario: Mention a member in comment from a space should push activity in "My Activities" of the member
     Given I am authenticated as admin
+    And I create the first random user
     When I go to the random space
     And I connect with the first created user
     And I go to the random space

@@ -1,4 +1,6 @@
-package io.meeds.qa.ui.pages.page.factory.Engagement;
+package io.meeds.qa.ui.pages.page.factory.engagement;
+
+import java.time.Duration;
 
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -6,10 +8,12 @@ import org.openqa.selenium.WebDriver;
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import net.serenitybdd.core.Serenity;
+import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class ChallengesPage extends GenericPage {
+  private static final String IDENTITY_SUGGESTER_ELEMENT = "//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]";
+
   public ChallengesPage(WebDriver driver) {
     super(driver);
   }
@@ -43,9 +47,6 @@ public class ChallengesPage extends GenericPage {
   @FindBy(xpath = "(//*[contains(@id,'DatePicker')])[2]//input")
   private TextBoxElementFacade endDateField;
 
-  @FindBy(xpath = "(//*[contains(@class,'v-date-picker-table__current')])[2]/following::td[7]")
-  private TextBoxElementFacade endDateNextWeek;
-
   @FindBy(xpath = "//iframe[contains(@class,'cke_wysiwyg_frame')]")
   private BaseElementFacade    ckEditorFrameChallenge;
 
@@ -56,9 +57,6 @@ public class ChallengesPage extends GenericPage {
       xpath = "//*[@class='v-form']//following::*[@class='flex drawerFooter border-box-sizing flex-grow-0 px-4 py-3']//button[2]"
   )
   private BaseElementFacade    createButton;
-
-  @FindBy(xpath = "(//*[contains(@class,'v-date-picker-table__current')])[1]")
-  private TextBoxElementFacade startDateToday;
 
   public void clickAddChallengeBtn() {
     addChallengeBtn.waitUntilVisible();
@@ -81,71 +79,119 @@ public class ChallengesPage extends GenericPage {
     audienceSpaceField.waitUntilVisible();
     audienceSpaceField.setTextValue(randomSpaceName + " ");
     audienceSpaceField.sendKeys(Keys.BACK_SPACE);
+    waitFor(100).milliseconds();
+    audienceSpaceField.sendKeys(Keys.BACK_SPACE);
     getSelectSpaceInDropDown(randomSpaceName).clickOnElement();
   }
 
   private BaseElementFacade getSelectSpaceInDropDown(String spaceName) {
-    return findByXpathOrCSS(String.format(
-                                     "//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
-                                     spaceName));
+    BaseElementFacade spaceSuggester = findByXPathOrCSS(String.format(
+                                                                      IDENTITY_SUGGESTER_ELEMENT,
+                                                                      spaceName));
+    spaceSuggester.setImplicitTimeout(Duration.ofSeconds(10));
+    spaceSuggester.resetTimeouts();
+    spaceSuggester.waitUntilVisible();
+    spaceSuggester.waitUntilClickable();
+    return spaceSuggester;
   }
 
   private BaseElementFacade getSelectDomainInDropDown(String programName) {
-    return findByXpathOrCSS(String.format(
-                                     "//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
-                                     programName));
+    BaseElementFacade domainSelection = findByXPathOrCSS(String.format(
+                                                                       IDENTITY_SUGGESTER_ELEMENT,
+                                                                       programName));
+    domainSelection.setImplicitTimeout(Duration.ofSeconds(10));
+    domainSelection.waitUntilVisible();
+    domainSelection.waitUntilClickable();
+    return domainSelection;
   }
 
   public void addProgramName(String programName) {
     programField.setTextValue(programName + " ");
+    waitFor(100).milliseconds();
     programField.sendKeys(Keys.BACK_SPACE);
     getSelectDomainInDropDown(programName).clickOnElement();
   }
 
   public void selectStartDateTomorrow() {
+    startDateField.waitUntilVisible();
     startDateField.clickOnElement();
-    BaseElementFacade startDateTomorrow = findByXpathOrCSS("(//*[contains(@class,'v-date-picker-table__current')])[1]/following::td[1]");
+    waitFor(200).milliseconds();
+    BaseElementFacade startDateTomorrow =
+                                        findByXPathOrCSS("(//*[contains(@class,'v-date-picker-table__current')])[1]/following::td[1]");
     startDateTomorrow.waitUntilVisible();
     clickOnElement(startDateTomorrow);
+    startDateTomorrow.waitUntilNotVisible();
+    startDateField.waitUntilClickable();
   }
 
   public void selectEndDateNextWeek() {
-    clickOnElement(endDateField);
+    endDateField.waitUntilVisible();
+    endDateField.clickOnElement();
+    waitFor(200).milliseconds();
+    BaseElementFacade endDateNextWeek =
+                                      findByXPathOrCSS("(//*[contains(@class,'v-date-picker-table__current')])[2]/following::td[7]");
+    endDateNextWeek.waitUntilVisible();
     clickOnElement(endDateNextWeek);
+    endDateNextWeek.waitUntilNotVisible();
+    endDateField.waitUntilClickable();
   }
 
+  public void selectStartDateToday() {
+    startDateField.waitUntilVisible();
+    startDateField.clickOnElement();
+    waitFor(200).milliseconds();
+    BaseElementFacade startDateToday = findByXPathOrCSS("(//*[contains(@class,'v-date-picker-table__current')])[1]");
+    startDateToday.waitUntilVisible();
+    clickOnElement(startDateToday);
+    startDateToday.waitUntilNotVisible();
+    startDateField.waitUntilClickable();
+  }
+
+  public void selectEndDateTomorrow() {
+    endDateField.waitUntilVisible();
+    endDateField.clickOnElement();
+    waitFor(200).milliseconds();
+    BaseElementFacade endDateTomorrow =
+                                      findByXPathOrCSS("(//*[contains(@class,'v-date-picker-table__current')])[2]/following::td[1]");
+    endDateTomorrow.waitUntilVisible();
+    clickOnElement(endDateTomorrow);
+    endDateTomorrow.waitUntilNotVisible();
+    endDateField.waitUntilClickable();
+  }
+
+  @SwitchToWindow
   public void addChallengeWithDescription(String description) {
     clickOnElement(ckEditorFrameChallenge);
     driver.switchTo().frame(ckEditorFrameChallenge);
-    challengeDescriptionField.waitUntilVisible();
-    challengeDescriptionField.setTextValue(description);
-    driver.switchTo().defaultContent();
+    try {
+      challengeDescriptionField.waitUntilVisible();
+      challengeDescriptionField.setTextValue(description);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
     createButton.clickOnElement();
   }
 
   private BaseElementFacade getChallengeSuccessMessage(String message) {
-    return findByXpathOrCSS(String.format("//div[@class='v-alert__content']//*[contains(text(),'%s')]", message));
+    return findByXPathOrCSS(String.format("//div[@class='v-alert__content']//*[contains(text(),'%s')]", message));
   }
 
   public void checkSuccessMessage(String message) {
     getChallengeSuccessMessage(message).isVisibleAfterWaiting();
   }
 
-  public void selectStartDateToday() {
-    startDateField.clickOnElement();
-    startDateToday.waitUntilVisible();
-    startDateToday.clickOnElement();
-  }
-
   public void addSpaceAudienceWithSecondUser(String secondRandomSpaceName) {
     audienceSpaceField.waitUntilVisible();
     audienceSpaceField.setTextValue(secondRandomSpaceName + " ");
+    waitFor(100).milliseconds();
+    audienceSpaceField.sendKeys(Keys.BACK_SPACE);
+    waitFor(100).milliseconds();
     audienceSpaceField.sendKeys(Keys.BACK_SPACE);
     getSelectSpaceInDropDown(secondRandomSpaceName).clickOnElement();
   }
 
   private BaseElementFacade getChallengeCardTitle(String title) {
-    return findByXpathOrCSS(String.format("//*[contains(@class,'subtitleChallenge') and contains(text(),'%s')]", title));
+    return findByXPathOrCSS(String.format("//*[contains(@class,'subtitleChallenge') and contains(text(),'%s')]", title));
   }
 
   public void checkChallengeCardTitle(String title) {
@@ -156,22 +202,18 @@ public class ChallengesPage extends GenericPage {
     challengeTitleField.setTextValue(challengeName);
   }
 
+  @SwitchToWindow
   public void addChallengeWithRandomDescription(String challengeDescription) {
     ckEditorFrameChallenge.waitUntilVisible();
     ckEditorFrameChallenge.clickOnElement();
     driver.switchTo().frame(ckEditorFrameChallenge);
-    challengeDescriptionField.waitUntilVisible();
-    challengeDescriptionField.setTextValue(challengeDescription);
-    driver.switchTo().defaultContent();
+    try {
+      challengeDescriptionField.waitUntilVisible();
+      challengeDescriptionField.setTextValue(challengeDescription);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
     createButton.clickOnElement();
-  }
-
-  public void selectEndDateTomorrow() {
-    endDateField.waitUntilVisible();
-    endDateField.clickOnElement();
-    BaseElementFacade endDateTomorrow = findByXpathOrCSS("(//*[contains(@class,'v-date-picker-table__current')])[2]/following::td[1]");
-    endDateTomorrow.waitUntilVisible();
-    clickOnElement(endDateTomorrow);
   }
 
   public void checkTitleDisplayOnCard(String title) {
@@ -224,20 +266,24 @@ public class ChallengesPage extends GenericPage {
   @FindBy(xpath = "(//div[@name='challengeSpaceAutocomplete']//input)[01]")
   private TextBoxElementFacade assignAnnouncementInput;
 
+  @SwitchToWindow
   public void addAnnouncementWithRandomDescription(String announcementDescription) {
     ckEditorFrameChallenge.clickOnElement();
     driver.switchTo().frame(ckEditorFrameChallenge);
-    challengeDescriptionField.waitUntilVisible();
-    challengeDescriptionField.setTextValue(announcementDescription);
-    driver.switchTo().defaultContent();
+    try {
+      challengeDescriptionField.waitUntilVisible();
+      challengeDescriptionField.setTextValue(announcementDescription);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
     createAnnouncement.waitUntilVisible();
     createAnnouncement.clickOnElement();
 
   }
 
   private BaseElementFacade getSelectWinnerInDropDown(String secondUserName) {
-    return findByXpathOrCSS(String.format("//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
-                                     secondUserName));
+    return findByXPathOrCSS(String.format(IDENTITY_SUGGESTER_ELEMENT,
+                                          secondUserName));
   }
 
   public void assignChallengeToSecondUser(String user) {
@@ -249,9 +295,9 @@ public class ChallengesPage extends GenericPage {
   }
 
   private BaseElementFacade getAnnouncementActivityTopBar(String user, String space) {
-    return findByXpathOrCSS(String.format("(//*[contains(@class,'accountTitleLabel')][1]//*[contains(@id,'userAvatar')and contains(@href,'%s')]/following::*[contains(@id,'spaceAvatar') and contains(text(),'%s')])[1]",
-                                     user,
-                                     space));
+    return findByXPathOrCSS(String.format("(//*[contains(@class,'accountTitleLabel')][1]//*[contains(@id,'userAvatar')and contains(@href,'%s')]/following::*[contains(@id,'spaceAvatar') and contains(text(),'%s')])[1]",
+                                          user,
+                                          space));
   }
 
   public void checkAnnouncementActivityTopBar(String user, String space) {
@@ -260,8 +306,8 @@ public class ChallengesPage extends GenericPage {
   }
 
   private BaseElementFacade getWinnerNameOnAnnouncement(String user) {
-    return findByXpathOrCSS(String.format("//*[@class='font-weight-bold text-color mx-0 mt-0 mb-2 text-wrap text-break text-truncate-2']/a[contains(@href,'%s')]",
-                                     user));
+    return findByXPathOrCSS(String.format("//*[@class='font-weight-bold text-color mx-0 mt-0 mb-2 text-wrap text-break text-truncate-2']/a[contains(@href,'%s')]",
+                                          user));
   }
 
   public void checkWinnerNameOnAnnouncement(String user) {
@@ -269,8 +315,8 @@ public class ChallengesPage extends GenericPage {
   }
 
   private BaseElementFacade getChallengeTitleOnAnnouncement(String name) {
-    return findByXpathOrCSS(String.format("//*[@class='caption text-wrap text-break rich-editor-content reset-style-box text-light-color text-truncate-3']/a[contains(text(),'%s')]",
-                                     name));
+    return findByXPathOrCSS(String.format("//*[@class='caption text-wrap text-break rich-editor-content reset-style-box text-light-color text-truncate-3']/a[contains(text(),'%s')]",
+                                          name));
   }
 
   public void checkChallengeTitleOnAnnouncement(String name) {
@@ -278,7 +324,7 @@ public class ChallengesPage extends GenericPage {
   }
 
   private BaseElementFacade getAchievementDescriptionOnAnnouncement(String description) {
-    return findByXpathOrCSS(String.format("//*[contains(@class,' postContent')]/*[contains(text(),'%s')]", description));
+    return findByXPathOrCSS(String.format("//*[contains(@class,' postContent')]/*[contains(text(),'%s')]", description));
   }
 
   public void checkAchievementDescriptionOnAnnouncement(String description) {

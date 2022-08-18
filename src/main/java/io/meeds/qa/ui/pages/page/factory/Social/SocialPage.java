@@ -3,7 +3,7 @@ package io.meeds.qa.ui.pages.page.factory.Social;
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import net.serenitybdd.core.Serenity;
+import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class SocialPage extends GenericPage {
@@ -46,7 +46,7 @@ public class SocialPage extends GenericPage {
   public static BaseElementFacade    updateButon;
 
   private BaseElementFacade getUserProfileButton(String user) {
-    return findByXpathOrCSS(String.format("//a[contains(@href,'%s')and contains(@class,'userFullname')]", user));
+    return findByXPathOrCSS(String.format("//a[contains(@href,'%s')and contains(@class,'userFullname')]", user));
   }
 
   public void GoToPeopleMenu() {
@@ -57,7 +57,7 @@ public class SocialPage extends GenericPage {
   }
 
   private BaseElementFacade getLikeCommentIcon(String activityComment) {
-    return findByXpathOrCSS(String.format("(//a[@id='CommentLink1']", activityComment));
+    return findByXPathOrCSS(String.format("(//a[@id='CommentLink1']", activityComment));
   }
 
   public void CommentActivity(String activity) {
@@ -85,27 +85,34 @@ public class SocialPage extends GenericPage {
 
   }
 
+  @SwitchToWindow
   public void updateActivityComment(String comment) {
 
     ckEditorFrameComment.clickOnElement();
     driver.switchTo().frame(ckEditorFrameComment);
-    commentField.waitUntilVisible();
-    commentField.clear();
-    commentField.setTextValue(comment);
-    driver.switchTo().defaultContent();
+    try {
+      commentField.waitUntilVisible();
+      commentField.clear();
+      commentField.setTextValue(comment);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
 
     updateButon.clickOnElement();
     closeCommentsDrawer.clickOnElement();
   }
 
+  @SwitchToWindow
   public void cancelUpdateActivityComment(String comment) {
-
     ckEditorFrameComment.clickOnElement();
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrameComment);
-    commentField.waitUntilVisible();
-    commentField.clear();
-    commentField.setTextValue(comment);
-    Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+    driver.switchTo().frame(ckEditorFrameComment);
+    try {
+      commentField.waitUntilVisible();
+      commentField.clear();
+      commentField.setTextValue(comment);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
     cancelBtn.clickOnElement();
     closeCommentsDrawer.clickOnElement();
   }

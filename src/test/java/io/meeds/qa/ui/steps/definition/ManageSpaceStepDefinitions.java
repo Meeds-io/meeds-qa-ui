@@ -4,9 +4,6 @@ import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
-import org.apache.commons.lang3.StringUtils;
-
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -209,6 +206,7 @@ public class ManageSpaceStepDefinitions {
     String userFirstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");
     homeSteps.goToManageSpacesPage();
     manageSpaceSteps.addSpaceWithInviteUser(randomSpaceName, userFirstName);
+    setSessionVariable("randomSpaceName").to(randomSpaceName);
   }
 
   @Given("^I create a (.*) random space with the (.*) created user as member$")

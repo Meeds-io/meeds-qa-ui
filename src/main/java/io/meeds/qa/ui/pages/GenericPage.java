@@ -9,7 +9,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import io.meeds.qa.ui.elements.BaseElementFacade;
-import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class GenericPage extends BasePageImpl {
@@ -30,19 +29,20 @@ public class GenericPage extends BasePageImpl {
       + File.separator + "test" + File.separator + "resources" + File.separator + "DataFiles" + File.separator;
 
   private BaseElementFacade getConfirmMessage(String message) {
-    return findByXpathOrCSS(String.format("//span[contains(text(),\"%s\")]", message));
+    return findByXPathOrCSS(String.format("//span[contains(text(),\"%s\")]", message));
   }
 
   private BaseElementFacade getButton(String buttonName) {
-    return findByXpathOrCSS(String.format("//a[contains(text(),'%s')]", buttonName));
+    return findByXPathOrCSS(String.format("//a[contains(text(),'%s')]", buttonName));
   }
 
   private BaseElementFacade getOKButton(String buttonName) {
-    return findByXpathOrCSS(String.format("//button[contains(text(),'%s')]", buttonName));
+    return findByXPathOrCSS(String.format("//button[contains(text(),'%s')]", buttonName));
   }
 
   public void checkDrawerDisplayed(String title) {
-    findByXpathOrCSS(String.format("//*[contains(@class, 'drawerTitle') and contains(text(),'%s')]", title)).isVisibleAfterWaiting();
+    findByXPathOrCSS(String.format("//*[contains(@class, 'drawerTitle') and contains(text(),'%s')]",
+                                   title)).isVisibleAfterWaiting();
   }
 
   public boolean inConfirmMessageDisplayed(String message) {
@@ -71,19 +71,11 @@ public class GenericPage extends BasePageImpl {
     return element != null && element.isDisplayed();
   }
 
-  public void clickOnElement(BaseElementFacade element) {
-    element.resetTimeouts();
-    element.waitUntilEnabled();
-    element.waitUntilClickable();
-    element.clickOnElement();
-    verifyPageLoaded();
-  }
-
   public void closeBrowserTab(int index) {
-    switchToTabByIndex(index);
-    Serenity.getWebdriverManager().getCurrentDriver().close();
+    switchToTabByIndex(driver, index);
+    driver.close();
     if (index > 0) {
-      switchToTabByIndex(index - 1);
+      switchToTabByIndex(driver, index - 1);
     }
   }
 

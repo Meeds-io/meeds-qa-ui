@@ -40,6 +40,7 @@ Feature: UI app administration
     And I click on cancel delete application
     Then Delete popup is not displayed
     And I refresh the page
+    And I search for the random created application
     When I click on delete icon of the created application
     And I click on close popup delete application
     Then Delete popup is not displayed

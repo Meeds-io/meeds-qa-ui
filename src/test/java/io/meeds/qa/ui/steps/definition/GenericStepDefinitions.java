@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.io.IOException;
 
 import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.WebDriver;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -77,8 +76,7 @@ public class GenericStepDefinitions {
 
   @Then("The page {string} that contains {string} is displayed")
   public void checkPage(String pageUri, String content) {
-    WebDriver driver = Serenity.getWebdriverManager().getCurrentDriver();
-    String currentUrl = driver.getCurrentUrl();
+    String currentUrl = genericSteps.getCurrentUrl();
     assertThat(StringUtils.contains(currentUrl, pageUri)).as(String.format("Current URL '%s' doesn't end with '%s'",
                                                                            currentUrl,
                                                                            pageUri))

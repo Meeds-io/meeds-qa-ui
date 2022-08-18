@@ -11,11 +11,11 @@ public class StreamPage extends GenericPage {
 	}
 
 	private BaseElementFacade getSpaceNameActivity(String spaceName) {
-		return findByXpathOrCSS(String.format("//div[@class='profile-popover space-avatar-wrapper']//a[contains(@href,'%s')]", spaceName));
+		return findByXPathOrCSS(String.format("//div[@class='profile-popover space-avatar-wrapper']//a[contains(@href,'%s')]", spaceName));
 	}
 
 	private BaseElementFacade getUserNameActivity(String user) {
-		return findByXpathOrCSS(String.format("(//*[contains(@class,'activity-head v-list-item v-list-item--dense theme--light py-2 ps-4 pe-1')]/div/a[contains(@href,'%s')])[1]", user));
+		return findByXPathOrCSS(String.format("(//*[contains(@class,'activity-head v-list-item v-list-item--dense theme--light py-2 ps-4 pe-1')]/div/a[contains(@href,'%s')])[1]", user));
 	}
 
 	public void hoverSpaceName(String spaceName) {

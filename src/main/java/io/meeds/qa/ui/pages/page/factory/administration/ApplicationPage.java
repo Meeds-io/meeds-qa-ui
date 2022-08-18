@@ -1,16 +1,20 @@
 package io.meeds.qa.ui.pages.page.factory.administration;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Assert;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
+import io.meeds.qa.ui.utils.ExceptionLauncher;
 import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
@@ -96,47 +100,48 @@ public class ApplicationPage extends GenericPage {
   private BaseElementFacade    closeDeletePopupButton;
 
   private BaseElementFacade getActiveButton(String appTitle) {
-    return findByXpathOrCSS(String.format("(//td[contains(text(),'%s')]/..//input)[2]/..", appTitle));
+    return findByXPathOrCSS(String.format("(//td[contains(text(),'%s')]/..//input)[2]/..", appTitle));
   }
 
   private BaseElementFacade getApplicationImageInDrawer(String image) {
-    return findByXpathOrCSS(String.format("//*[@class='imageTitle' and contains(text(),'%s')]", image));
+    return findByXPathOrCSS(String.format("//*[@class='imageTitle' and contains(text(),'%s')]", image));
   }
 
   private BaseElementFacade editTheApplication(String appTitle) {
-    return findByXpathOrCSS(String.format("//td[contains(text(),'%s')]/..//i[contains(@class,'mdi-pencil')]", appTitle));
+    return findByXPathOrCSS(String.format("//td[contains(text(),'%s')]/..//i[contains(@class,'mdi-pencil')]", appTitle));
   }
 
   private BaseElementFacade appTitleInApplicationsTable(String appTitle) {
-    return findByXpathOrCSS(String.format("//td[contains(@class,'tableAppTitle') and contains(text(),'%s')]", appTitle));
+    return findByXPathOrCSS(String.format("//td[contains(@class, 'tableAppTitle') and contains(text(),'%s')]", appTitle));
   }
 
   private BaseElementFacade appPermissionInApplicationsTable(String appTitle, String permission) {
-    return findByXpathOrCSS(String.format("//td[contains(text(),'%s')]/following::*[contains(@class,'permission')][1]//span[contains(text(),'%s')]",
-                                     appTitle,
-                                     permission));
+    return findByXPathOrCSS(String.format("//td[contains(text(),'%s')]/following::*[contains(@class,'permission')][1]//span[contains(text(),'%s')]",
+                                          appTitle,
+                                          permission));
   }
 
   private BaseElementFacade appUrlInApplicationsTable(String appUrl) {
-    return findByXpathOrCSS(String.format("//td[contains(@class,'appUrl') and contains(text(),'%s')]", appUrl));
+    return findByXPathOrCSS(String.format("//td[contains(@class,'appUrl') and contains(text(),'%s')]", appUrl));
   }
 
   private BaseElementFacade appDescriptionInApplicationsTable(String appDescription) {
-    return findByXpathOrCSS(String.format("//td[contains(@class,'tableAppDescription') and contains(text(),'%s')]", appDescription));
+    return findByXPathOrCSS(String.format("//td[contains(@class,'tableAppDescription') and contains(text(),'%s')]",
+                                          appDescription));
   }
 
   private BaseElementFacade getMandatoryApplication(String appTitle) {
-    return findByXpathOrCSS(String.format("//*[@class='text-md-center tableAppTitle' and contains(text(),'%s')]/following::*[@class='v-input--selection-controls__input'][1]",
-                                     appTitle));
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'tableAppTitle') and contains(text(),'%s')]/following::*[@class='v-input--selection-controls__input'][1]",
+                                          appTitle));
   }
 
   private BaseElementFacade getActiveApplication(String appTitle) {
-    return findByXpathOrCSS(String.format("//*[@class='text-md-center tableAppTitle' and contains(text(),'%s')]/following::*[@class='v-input--selection-controls__input'][2]",
-                                     appTitle));
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'tableAppTitle') and contains(text(),'%s')]/following::*[@class='v-input--selection-controls__input'][2]",
+                                          appTitle));
   }
 
   private BaseElementFacade getDeleteButton(String appTitle) {
-    return findByXpathOrCSS(String.format("//td[contains(text(),'%s')]//following::i[contains(@class,'mdi-delete')]", appTitle));
+    return findByXPathOrCSS(String.format("//td[contains(text(),'%s')]//following::i[contains(@class,'mdi-delete')]", appTitle));
   }
 
   public void clickEditApp(String app) {
@@ -218,17 +223,37 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void enableMandatoryApplication(String appTitle) {
-    BaseElementFacade mandatoryApplication = getMandatoryApplication(appTitle);
-    if (mandatoryApplication.findByXpath("//input").getAttribute("aria-checked").equals("false")) {
-      clickOnElement(mandatoryApplication);
-    }
+    boolean clicked = false;
+    int retry = 0;
+    do {
+      try {
+        BaseElementFacade mandatoryApplication = getMandatoryApplication(appTitle);
+        if (mandatoryApplication.findByXPath("//input").getAttribute("aria-checked").equals("false")) {
+          clickOnElement(mandatoryApplication);
+        }
+        clicked = true;
+      } catch (RuntimeException e) {
+        waitFor(1).seconds();
+      }
+    } while (!clicked && retry++ < 5);
+    assertTrue("Can't click on switch button to enable application " + appTitle, clicked);
   }
 
   public void disableMandatoryApplication(String appTitle) {
-    BaseElementFacade mandatoryApplication = getMandatoryApplication(appTitle);
-    if (mandatoryApplication.findByXpath("//input").getAttribute("aria-checked").equals("true")) {
-      clickOnElement(mandatoryApplication);
-    }
+    boolean clicked = false;
+    int retry = 0;
+    do {
+      try {
+        BaseElementFacade mandatoryApplication = getMandatoryApplication(appTitle);
+        if (mandatoryApplication.findByXPath("//input").getAttribute("aria-checked").equals("true")) {
+          clickOnElement(mandatoryApplication);
+        }
+        clicked = true;
+      } catch (RuntimeException e) {
+        waitFor(1).seconds();
+      }
+    } while (!clicked && retry++ < 5);
+    assertTrue("Can't click on switch button to disable application " + appTitle, clicked);
   }
 
   public void enableDisableActiveApplication(String appTitle) {
@@ -259,17 +284,15 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void clickActiveApp(String appTitle) {
-    searchAppInput.clear();
-    searchAppInput.setTextValue(appTitle);
+    searchAppByTitle(appTitle);
     getActiveButton(appTitle).clickOnElement();
   }
 
   public void deleteApp(String appTitle, boolean confirm) {
-    searchAppInput.clear();
-    searchAppInput.setTextValue(appTitle);
     getDeleteButton(appTitle).clickOnElement();
-    if (confirm)
+    if (confirm) {
       confirmDelete.clickOnElement();
+    }
   }
 
   public void clickCancelDelete() {
@@ -278,13 +301,11 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void searchApp(String appTitle) {
-    searchAppInput.clear();
-    searchAppInput.setTextValue(appTitle);
+    searchAppByTitle(appTitle);
   }
 
   public boolean isAppExists(String appTitle) {
-    searchAppInput.clear();
-    searchAppInput.setTextValue(appTitle);
+    searchAppByTitle(appTitle);
     return getActiveButton(appTitle).isCurrentlyVisible();
   }
 
@@ -300,5 +321,21 @@ public class ApplicationPage extends GenericPage {
   public boolean isPopupConfirmDeleteNotDisplayed() {
     return confirmDelete.isNotVisibleAfterWaiting() && cancelDeleteButton.isNotVisibleAfterWaiting()
         && closeDeletePopupButton.isNotVisibleAfterWaiting();
+  }
+
+  private void searchAppByTitle(String appTitle) {
+    searchAppInput.clear();
+    waitFor(100).milliseconds();
+    searchAppInput.setTextValue(appTitle);
+    waitForSearchToComplete();
+  }
+
+  private void waitForSearchToComplete() {
+    try {
+      findByXPathOrCSS("(//*[contains(@class, 'tableAppTitle')])[2]").waitUntilNotVisible();
+      findByXPathOrCSS("(//*[contains(@class, 'tableAppTitle')])[1]").waitUntilVisible();
+    } catch (Exception e) {
+      ExceptionLauncher.LOGGER.warn("Application search isn't completed yet", e);
+    }
   }
 }

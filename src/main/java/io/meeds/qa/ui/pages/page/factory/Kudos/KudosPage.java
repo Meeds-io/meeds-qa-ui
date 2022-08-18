@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import net.serenitybdd.core.Serenity;
+import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class KudosPage extends GenericPage {
@@ -84,11 +84,13 @@ public class KudosPage extends GenericPage {
   private BaseElementFacade       sendKudosBtn;
 
   private BaseElementFacade getKudosActivityText(String message) {
-    return findByXpathOrCSS(String.format("//*[contains(@id,'Extactivity-content-extensions')]//*[@class='my-4']//*[contains(@class,'rich-editor-content')]//div[contains(text(),'%s')]",
-                                     message));
+    return findByXPathOrCSS(String.format("//*[contains(@id,'Extactivity-content-extensions')]//*[@class='my-4']//*[contains(@class,'rich-editor-content')]//div[contains(text(),'%s')]",
+                                          message));
   }
 
-  @FindBy(xpath = "(//*[@class='flex-grow-1 flex-shrink-1 overflow-hidden']//*[@class='v-icon notranslate primary--text mdi mdi-dots-vertical theme--light'])[2]")
+  @FindBy(
+      xpath = "(//*[@class='flex-grow-1 flex-shrink-1 overflow-hidden']//*[@class='v-icon notranslate primary--text mdi mdi-dots-vertical theme--light'])[2]"
+  )
   private BaseElementFacade threedotsKudosComment;
 
   @FindBy(xpath = "//*[@class='v-list-item__title pl-3' and contains(text(),'Edit')]")
@@ -100,35 +102,31 @@ public class KudosPage extends GenericPage {
   @FindBy(xpath = "//*[@class='v-btn__content' and contains(text(),'Update')]")
   private BaseElementFacade updateKudosComment;
 
-  @FindBy(xpath = "(//*[@class='flex-grow-1 flex-shrink-1 overflow-hidden']//*[@class='v-icon notranslate primary--text mdi mdi-dots-vertical theme--light'])[3]")
+  @FindBy(
+      xpath = "(//*[@class='flex-grow-1 flex-shrink-1 overflow-hidden']//*[@class='v-icon notranslate primary--text mdi mdi-dots-vertical theme--light'])[3]"
+  )
   private BaseElementFacade threedotsKudosReplyComment;
 
-  private BaseElementFacade getKudosText(String kudos) {
-    return findByXpathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]", kudos));
+  private BaseElementFacade getKudosLink(String id) {
+    return findByXPathOrCSS(String.format("//button[@id='KudosActivity%s']", id));
   }
 
-  private BaseElementFacade ELEMENT_kudos_LINK(String id) {
-    return findByXpathOrCSS(String.format("(//span[@class='mx-auto mt-1 mt-lg-0 ms-lg-2'])[3]", id));
-  }
-
+  @SwitchToWindow
   public void addActivityKudos(String activityId, String comment) {
-    ELEMENT_kudos_LINK(activityId).clickOnElement();
+    getKudosLink(activityId).clickOnElement();
+    waitCKEditorLoading();
     ckEditorFrameKudos.clickOnElement();
     driver.switchTo().frame(ckEditorFrameKudos);
-    kudosField.waitUntilVisible();
-    kudosField.setTextValue(comment);
+    try {
+      kudosField.waitUntilVisible();
+      kudosField.setTextValue(comment);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
     driver.switchTo().defaultContent();
     kudosButtonInDrawer.isVisibleAfterWaiting();
     kudosButtonInDrawer.clickOnElement();
-    ckEditorFrameKudos.isNotVisibleAfterWaiting();
-  }
-
-  private BaseElementFacade getLikeIcon(String activity) {
-    return findByXpathOrCSS(String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLink')])[1]", activity));
-  }
-
-  private BaseElementFacade getKudosiconsss(String activity) {
-    return findByXpathOrCSS(String.format("//i[contains(@class,'uiIconKudos')]", activity));
+    verifyPageLoaded();
   }
 
   public void goToKudosMenu() {
@@ -167,7 +165,7 @@ public class KudosPage extends GenericPage {
   }
 
   public void checkKudosIcon(String activityId) {
-    ELEMENT_kudos_LINK(activityId).isDisabled();
+    getKudosLink(activityId).isDisabled();
   }
 
   public void threeDotsMenuSendKudos() {
@@ -187,41 +185,54 @@ public class KudosPage extends GenericPage {
 
   }
 
+  @SwitchToWindow
   public void updateKudosMessage(String comment) {
-
+    waitCKEditorLoading();
     ckEditorFrameKudos.clickOnElement();
     driver.switchTo().frame(ckEditorFrameKudos);
-    KudosField.waitUntilVisible();
-    KudosField.clear();
-    KudosField.setTextValue(comment);
-    driver.switchTo().defaultContent();
-
+    try {
+      KudosField.waitUntilVisible();
+      KudosField.clear();
+      KudosField.setTextValue(comment);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
     updateKudosButon.clickOnElement();
-
+    verifyPageLoaded();
   }
 
   public void isKudosActivityVisible(String message) {
     getKudosActivityText(message).isVisibleAfterWaiting();
   }
 
+  @SwitchToWindow
   public void addActivityCommentKudos(String comment) {
+    waitCKEditorLoading();
     driver.switchTo().frame(ckEditorFrameKudos);
-    kudosField.waitUntilVisible();
-    kudosField.setTextValue(comment);
-    driver.switchTo().defaultContent();
+    try {
+      kudosField.waitUntilVisible();
+      kudosField.setTextValue(comment);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
     kudosButtonInDrawer.isVisibleAfterWaiting();
     kudosButtonInDrawer.clickOnElement();
-    ckEditorFrameKudos.isNotVisibleAfterWaiting();
+    verifyPageLoaded();
   }
 
+  @SwitchToWindow
   public void addActivityCommentKudosFromDrawer(String comment) {
+    waitCKEditorLoading();
     driver.switchTo().frame(ckEditorFrameKudosFromDrawer);
-    kudosFieldFromDrawer.waitUntilVisible();
-    kudosFieldFromDrawer.setTextValue(comment);
-    driver.switchTo().defaultContent();
+    try {
+      kudosFieldFromDrawer.waitUntilVisible();
+      kudosFieldFromDrawer.setTextValue(comment);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
     kudosButtonInDrawer.isVisibleAfterWaiting();
     kudosButtonInDrawer.clickOnElement();
-    ckEditorFrameKudosFromDrawer.isNotVisibleAfterWaiting();
+    verifyPageLoaded();
   }
 
   public void clickEditKudos() {
@@ -234,14 +245,20 @@ public class KudosPage extends GenericPage {
     editKudosComment.clickOnElement();
   }
 
+  @SwitchToWindow
   public void updateKudosCommentMessage(String comment) {
+    waitCKEditorLoading();
     ckEditorFrameKudos.clickOnElement();
     driver.switchTo().frame(ckEditorFrameKudos);
-    KudosField.waitUntilVisible();
-    KudosField.clear();
-    KudosField.setTextValue(comment);
-    driver.switchTo().defaultContent();
+    try {
+      KudosField.waitUntilVisible();
+      KudosField.clear();
+      KudosField.setTextValue(comment);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
     updateKudosComment.clickOnElement();
+    verifyPageLoaded();
   }
 
 }

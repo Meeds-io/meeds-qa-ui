@@ -15,9 +15,6 @@ public class AddUserPage extends GenericPage {
     super(driver);
   }
 
-  @FindBy(xpath = "//button[contains(@class,'addNewUserButton')]")
-  private BaseElementFacade    addUserButton;
-
   @FindBy(xpath = "//*[contains(@class,'selectUsersFilter')]")
   private BaseElementFacade    pullDownFilterUserStatus;
 
@@ -62,13 +59,13 @@ public class AddUserPage extends GenericPage {
   }
 
   public BaseElementFacade disableEnableStatusButton(String user) {
-    return findByXpathOrCSS(String
+    return findByXPathOrCSS(String
                              .format("(//*[@class='text-center' and contains(text(),'%s')]//following::*[@class='switch']//*[@class='slider round'])[1]",
                                      user));
   }
 
   public BaseElementFacade userNameDisplayed(String user) {
-    return findByXpathOrCSS(String
+    return findByXPathOrCSS(String
                              .format("//*[@class='v-data-table__wrapper']//*[@class='text-center' and contains(text(),'%s')][1]",
                                      user));
   }
@@ -106,7 +103,7 @@ public class AddUserPage extends GenericPage {
   }
 
   public void clickAddUserButton() {
-    addUserButton.clickOnElement();
+    clickOnElement(findByXPathOrCSS(".addNewUserButton"));
   }
 
   public void setUserDetails(String userDetails, String fieldValue) {
@@ -127,9 +124,9 @@ public class AddUserPage extends GenericPage {
   }
 
   public void enableDisableUser(String user) throws InterruptedException {
-//    Thread.sleep(5000);
-    disableEnableStatusButton(user).waitUntilVisible();
-    disableEnableStatusButton(user).clickOnElement();
+    BaseElementFacade element = disableEnableStatusButton(user);
+    element.waitUntilVisible();
+    element.clickOnElement();
   }
 
   public void deleteUser() {

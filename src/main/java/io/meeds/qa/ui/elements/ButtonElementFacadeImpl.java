@@ -1,5 +1,7 @@
 package io.meeds.qa.ui.elements;
 
+import static io.meeds.qa.ui.utils.Utils.decorateDriver;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
@@ -17,7 +19,7 @@ public class ButtonElementFacadeImpl extends BaseElementFacadeImpl implements Bu
                                  WebElement element,
                                  long timeoutInMilliseconds,
                                  long waitForTimeoutInMilliseconds) {
-    super(driver, locator, element, timeoutInMilliseconds, waitForTimeoutInMilliseconds);
+    super(decorateDriver(driver), locator, element, timeoutInMilliseconds, waitForTimeoutInMilliseconds);
   }
 
   @SuppressWarnings("unchecked")

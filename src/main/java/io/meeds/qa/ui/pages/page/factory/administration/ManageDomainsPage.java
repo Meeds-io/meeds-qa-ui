@@ -3,7 +3,6 @@ package io.meeds.qa.ui.pages.page.factory.administration;
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class ManageDomainsPage extends GenericPage {
@@ -60,11 +59,11 @@ public class ManageDomainsPage extends GenericPage {
   private BaseElementFacade       automaticTranslation;
 
   public BaseElementFacade getTitlePage(String title) {
-    return findByXpathOrCSS(String.format("//*[@class='row']//h4[@class='font-weight-bold' and contains(text(),'%s')]", title));
+    return findByXPathOrCSS(String.format("//*[@class='row']//h4[@class='font-weight-bold' and contains(text(),'%s')]", title));
   }
 
   private BaseElementFacade getAlertPublishingActivity(String alert) {
-    return findByXpathOrCSS(
+    return findByXPathOrCSS(
                        String.format("//*[@class='v-btn__content' and contains(text(),'%s')]", alert));
   }
 
@@ -107,7 +106,7 @@ public class ManageDomainsPage extends GenericPage {
   }
 
   private BaseElementFacade getDomainNameInListOfDomains(String domainName) {
-    return findByXpathOrCSS(String.format("//table[@class='uiGrid table table-hover domain-table']//*[not(@class='domain-desc-col')]/div[contains(text(),'%s')]",
+    return findByXPathOrCSS(String.format("//table[@class='uiGrid table table-hover domain-table']//*[not(@class='domain-desc-col')]/div[contains(text(),'%s')]",
                                      domainName));
   }
 

@@ -1,9 +1,7 @@
 package io.meeds.qa.ui.steps;
 
-import static io.meeds.qa.ui.utils.Utils.switchToTabByIndex;
-
 import io.meeds.qa.ui.pages.page.factory.Notes.NotePage;
-import net.serenitybdd.core.Serenity;
+import io.meeds.qa.ui.utils.Utils;
 
 public class NoteSteps {
 
@@ -14,6 +12,7 @@ public class NoteSteps {
   }
 
   public void checkNoteCreateForm() {
+    switchToTabByIndex(1);
     notePage.checkNoteCreateFormOpened();
   }
 
@@ -34,6 +33,7 @@ public class NoteSteps {
   }
 
   public void createNotePage(String noteTitle, String noteContent) {
+    switchToTabByIndex(1);
     notePage.createNotePage(noteTitle, noteContent);
   }
 
@@ -42,12 +42,13 @@ public class NoteSteps {
   }
 
   public void checkNoteEditForm() {
+    switchToTabByIndex(2);
     notePage.checkNoteEditFormOpened();
   }
 
   public void closeTheThirdWindow() {
     switchToTabByIndex(2);
-    Serenity.getWebdriverManager().getCurrentDriver().close();
+    notePage.getDriver().close();
     switchToTabByIndex(1);
   }
 
@@ -93,6 +94,10 @@ public class NoteSteps {
 
   public void unfavoriteNotePage() {
     notePage.unfavoriteNotePage();
+  }
+
+  public void switchToTabByIndex(int i) {
+    Utils.switchToTabByIndex(notePage.getDriver(), 1);
   }
 
 }

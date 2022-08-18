@@ -200,7 +200,7 @@ public class HomeSteps {
   }
 
   public void goToAppCenterAdminSetupPage() {
-    homePage.goToappCenterAdminSetupPage();
+    homePage.goToAppCenterAdminSetupPage();
   }
 
   public void goToMyProfile() {

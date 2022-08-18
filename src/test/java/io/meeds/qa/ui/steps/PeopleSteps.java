@@ -37,9 +37,8 @@ public class PeopleSteps {
   }
 
   public void goToUserProfile(String user) {
-    Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
+    homePage.refreshPage();
     homePage.goToPeoplePage();
-    Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
     peoplePage.goToUserProfile(user);
   }
 

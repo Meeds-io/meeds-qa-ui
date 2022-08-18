@@ -18,7 +18,7 @@ public class ApplicationPage extends GenericPage {
   private BaseElementFacade maxFavoriteApps;
 
   private BaseElementFacade getApplication(String appName) {
-    return findByXpathOrCSS(String.format("//div[@class='authorisedAppContent']//div[contains(text(),'%s')]", appName));
+    return findByXPathOrCSS(String.format("//div[@class='authorisedAppContent']//div[contains(text(),'%s')]", appName));
   }
 
   Map<String, BaseElementFacade> MAPPING_FIELD_NAME_TO_BASEELEMENTFACADE_XPATH = new HashMap<>();
@@ -91,31 +91,31 @@ public class ApplicationPage extends GenericPage {
   public static BaseElementFacade elementChallengeApplicationPage;
 
   private BaseElementFacade addApplicationAFavoriteInApplicationCenter(String app) {
-    return findByXpathOrCSS(String.format("(//*[@class='authorisedAppContent']//*[contains (@class,'appTitle') and contains(text(),'%s')]/following::*[contains(@class, 'applicationActions')]//i[contains(@class, 'mdi-star')])[01]",
+    return findByXPathOrCSS(String.format("(//*[@class='authorisedAppContent']//*[contains (@class,'appTitle') and contains(text(),'%s')]/following::*[contains(@class, 'applicationActions')]//i[contains(@class, 'mdi-star')])[01]",
                                      app));
   }
 
   private BaseElementFacade addToAppCenterFavoriteIsDisplayed(String app) {
-    return findByXpathOrCSS(String.format("(//*[@class='authorisedAppContent']//*[@class='appTitle']//div[contains(text(),'%s')]/following::*[contains(@class, 'applicationActions')]//*[@title='Add to favorites applications']//button)[1]",
+    return findByXPathOrCSS(String.format("(//*[@class='authorisedAppContent']//*[@class='appTitle']//div[contains(text(),'%s')]/following::*[contains(@class, 'applicationActions')]//*[@title='Add to favorites applications']//button)[1]",
                                      app));
   }
 
   private BaseElementFacade removeFromAppCenterFavoriteIsDisplayed(String app) {
-    return findByXpathOrCSS(String.format("(//*[@class='authorisedAppContent']//*[@class='appTitle']//div[contains(text(),'%s')]/following::*[contains(@class, 'applicationActions')]//*[@title='Remove from favorites']//button)[1]",
+    return findByXPathOrCSS(String.format("(//*[@class='authorisedAppContent']//*[@class='appTitle']//div[contains(text(),'%s')]/following::*[contains(@class, 'applicationActions')]//*[@title='Remove from favorites']//button)[1]",
                                      app));
   }
 
   private BaseElementFacade ELEMENT_APPCENTER_ALL_APPLICATIONS_OPEN_APP_BTN(String app) {
-    return findByXpathOrCSS(String.format("(//*[@class='authorisedAppContent']//*[contains (@class,'appTitle') and contains(text(),'%s')]/following::*[contains(@class, 'applicationActions')]//a)[01]",
+    return findByXPathOrCSS(String.format("(//*[@class='authorisedAppContent']//*[contains (@class,'appTitle') and contains(text(),'%s')]/following::*[contains(@class, 'applicationActions')]//a)[01]",
                                      app));
   }
 
   private BaseElementFacade ELEMENT_APPCENTER_APPLICATION_TITLE(String app) {
-    return findByXpathOrCSS(String.format("//*[@class='appLauncherTitle' and contains(text(),'%s')]", app));
+    return findByXPathOrCSS(String.format("//*[@class='appLauncherTitle' and contains(text(),'%s')]", app));
   }
 
   private BaseElementFacade ELEMENT_FAVORITE_APPLICATION_TITLE(String app) {
-    return findByXpathOrCSS(String.format("//*[@class='favAppTitle' and contains(text(),'%s')]", app));
+    return findByXPathOrCSS(String.format("//*[@class='favAppTitle' and contains(text(),'%s')]", app));
   }
 
   public boolean isWalletPageOpened() {

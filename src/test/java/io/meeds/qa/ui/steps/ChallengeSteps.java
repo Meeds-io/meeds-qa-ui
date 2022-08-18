@@ -1,6 +1,6 @@
 package io.meeds.qa.ui.steps;
 
-import io.meeds.qa.ui.pages.page.factory.Engagement.ChallengesPage;
+import io.meeds.qa.ui.pages.page.factory.engagement.ChallengesPage;
 
 public class ChallengeSteps {
 

@@ -1,9 +1,6 @@
 package io.meeds.qa.ui.steps;
 
-import static io.meeds.qa.ui.utils.Utils.switchToTabByIndex;
-
 import io.meeds.qa.ui.pages.page.factory.space.SpaceHomePage;
-import net.serenitybdd.core.Serenity;
 
 public class SpaceHomeSteps {
 
@@ -251,10 +248,8 @@ public class SpaceHomeSteps {
   }
 
   public void linkIsOpenedNewTab(String link) {
-    switchToTabByIndex(1);
     spaceHomePage.linkIsOpenedNewTab(link);
-    Serenity.getWebdriverManager().getCurrentDriver().close();
-    switchToTabByIndex(0);
+    spaceHomePage.refreshPage();
   }
 
   public void clickOnActivityComment(String comment) {
@@ -373,10 +368,6 @@ public class SpaceHomeSteps {
     spaceHomePage.clickDeleteActivityButton(activity);
   }
 
-  public boolean isActivityBlockNotdisplayed() {
-    return spaceHomePage.isActivityBlockNotdisplayed();
-  }
-
   public void openDeleteCommentMenu(String activity, String comment) {
     spaceHomePage.openDeleteCommentMenu(activity, comment);
   }
@@ -433,10 +424,6 @@ public class SpaceHomeSteps {
     spaceHomePage.clickOnCommentThreeDotsInCommentsDrawer(comment);
   }
 
-  public boolean isActivityCommentNotdisplayed() {
-    return spaceHomePage.isActivityCommentNotdisplayed();
-  }
-
   public void accessNotesApp() {
     spaceHomePage.clickOnNotesTab();
   }
@@ -482,12 +469,12 @@ public class SpaceHomeSteps {
     spaceHomePage.getReceivedKudosSectionIsDisplayed(kudosNumber);
   }
 
-  public void replaykudosLabelIsBlue(String comment) {
-    spaceHomePage.ReplaykudosLabelIsBlue(comment);
+  public void replykudosLabelIsBlue(String comment) {
+    spaceHomePage.replyKudosLabelIsBlue(comment);
   }
 
-  public void replaykudosLabelIsBlack(String comment) {
-    spaceHomePage.ReplaykudosLabelIsBlack(comment);
+  public void replyKudosLabelIsBlack(String comment) {
+    spaceHomePage.replyKudosLabelIsBlack(comment);
   }
 
   public void clickOnReplyKudos(String reply) {

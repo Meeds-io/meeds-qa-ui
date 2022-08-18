@@ -36,7 +36,7 @@ public class SpaceHomeStepDefinition {
 
   @Then("^Internal link '(.*)' is displayed in activity stream as a comment$")
   public void checkInternalLinkCommentAS(String comment) {
-    String currentUrl = Serenity.getWebdriverManager().getCurrentDriver().getCurrentUrl().split("portal")[0];
+    String currentUrl = spaceHomePage.getCurrentUrl().split("portal")[0];
     spaceHomeSteps.checkActivityComment(currentUrl + comment);
   }
 
@@ -52,8 +52,7 @@ public class SpaceHomeStepDefinition {
 
   @Then("^The internal link '(.*)' is opened in new tab$")
   public void internalLinkIsOpenedNewTab(String link) {
-    String currentUrl = Serenity.getWebdriverManager().getCurrentDriver().getCurrentUrl().split("portal")[0];
-    spaceHomeSteps.linkIsOpenedNewTab(currentUrl + link);
+    spaceHomeSteps.linkIsOpenedNewTab(link);
   }
 
   @When("^I click on comment '(.*)'$")
@@ -63,7 +62,7 @@ public class SpaceHomeStepDefinition {
 
   @Then("^I open the internal link '(.*)' in new tab$")
   public void openInternalLinkInNewTab(String link) {
-    String currentUrl = Serenity.getWebdriverManager().getCurrentDriver().getCurrentUrl().split("portal")[0];
+    String currentUrl = spaceHomePage.getCurrentUrl().split("portal")[0];
     spaceHomeSteps.openLinkInNewTab(currentUrl + link);
   }
 
@@ -79,7 +78,7 @@ public class SpaceHomeStepDefinition {
 
   @When("^I click on the internal link '(.*)'$")
   public void clickOnInternalLinkComment(String comment) {
-    String currentUrl = Serenity.getWebdriverManager().getCurrentDriver().getCurrentUrl().split("portal")[0];
+    String currentUrl = spaceHomePage.getCurrentUrl().split("portal")[0];
     spaceHomeSteps.clickOnActivityComment(currentUrl + comment);
   }
 
@@ -95,7 +94,7 @@ public class SpaceHomeStepDefinition {
 
   @Then("^Internal link '(.*)' is displayed in Comments drawer as a comment$")
   public void checkInternalLinkCommentInDrawer(String comment) {
-    String currentUrl = Serenity.getWebdriverManager().getCurrentDriver().getCurrentUrl().split("portal")[0];
+    String currentUrl = spaceHomePage.getCurrentUrl().split("portal")[0];
     spaceHomeSteps.checkActivityCommentInDrawer(currentUrl + comment);
   }
 
@@ -291,99 +290,31 @@ public class SpaceHomeStepDefinition {
                                                           .isTrue();
   }
 
-  @When("^I enter a comment '(.*)' with mentioning the first user$")
-  public void enterActivityCommentWithFirstUser(String comment) {
-    String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
-    String firstUserLastName = Serenity.sessionVariableCalled("firstUserLastName");
-
-    String fullName = firstUserFirstName + " " + firstUserLastName;
-    spaceHomeSteps.enterActivityCommentWithUser(comment, fullName);
-  }
-
   @When("^I publish the activity stream in arabic language$")
   public void publishActivityInArabicLanguage() {
     spaceHomeSteps.publishActivityInArabicLanguage();
   }
 
-  @When("^I enter a comment '(.*)' with mentioning the third user$")
-  public void enterActivityCommentWithThirdUser(String comment) {
-    String thirdUserFirstName = Serenity.sessionVariableCalled("thirdUserFirstName");
-    String thirdUserLastName = Serenity.sessionVariableCalled("thirdUserLastName");
-
-    String fullName = thirdUserFirstName + " " + thirdUserLastName;
-    spaceHomeSteps.enterActivityCommentWithUser(comment, fullName);
-  }
-
-  @When("^I enter a comment '(.*)' with mentioning the fourth user$")
-  public void enterActivityCommentWithFourthUser(String comment) {
-    String fourthUserFirstName = Serenity.sessionVariableCalled("fourthUserFirstName");
-    String fourthUserLastName = Serenity.sessionVariableCalled("fourthUserLastName");
-
-    String fullName = fourthUserFirstName + " " + fourthUserLastName;
-    spaceHomeSteps.enterActivityCommentWithUser(comment, fullName);
-  }
-
-  @When("^I enter a comment '(.*)' with mentioning the fifth user$")
-  public void enterActivityCommentWithFifthUser(String comment) {
-    String fifthUserFirstName = Serenity.sessionVariableCalled("fifthUserFirstName");
-    String fifthUserLastName = Serenity.sessionVariableCalled("fifthUserLastName");
-
-    String fullName = fifthUserFirstName + " " + fifthUserLastName;
-    spaceHomeSteps.enterActivityCommentWithUser(comment, fullName);
-  }
-
-  @When("^First User is mentioned in the comment$")
-  public void firstUserIsMentionedInCommentEntered() {
-    String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
-    String firstUserLastName = Serenity.sessionVariableCalled("firstUserLastName");
-
-    String fullName = firstUserFirstName + " " + firstUserLastName;
+  @When("^(.*) User is mentioned in the comment$")
+  public void randomUserIsMentionedInCommentEntered(String userPrefix) {
+    String userFirstName = Serenity.sessionVariableCalled(userPrefix.toLowerCase() + "UserFirstName");
+    String userLastName = Serenity.sessionVariableCalled(userPrefix.toLowerCase() + "UserLastName");
+    String fullName = userFirstName + " " + userLastName;
     spaceHomeSteps.userIsMentionedInCommentEntered(fullName);
   }
 
-  @When("^Third User is mentioned in the comment$")
-  public void thirdUserIsMentionedInCommentEntered() {
-    String thirdUserFirstName = Serenity.sessionVariableCalled("thirdUserFirstName");
-    String thirdUserLastName = Serenity.sessionVariableCalled("thirdUserLastName");
-
-    String fullName = thirdUserFirstName + " " + thirdUserLastName;
-    spaceHomeSteps.userIsMentionedInCommentEntered(fullName);
-  }
-
-  @When("^Fourth User is mentioned in the comment$")
-  public void fourthUserIsMentionedInCommentEntered() {
-    String fourthUserFirstName = Serenity.sessionVariableCalled("fourthUserFirstName");
-    String fourthUserLastName = Serenity.sessionVariableCalled("fourthUserLastName");
-
-    String fullName = fourthUserFirstName + " " + fourthUserLastName;
-    spaceHomeSteps.userIsMentionedInCommentEntered(fullName);
-  }
-
-  @When("^Fifth User is not mentioned in the comment$")
-  public void fifthUserIsNotMentionedInCommentEntered() {
-    String fifthUserFirstName = Serenity.sessionVariableCalled("fifthUserFirstName");
-    String fifthUserLastName = Serenity.sessionVariableCalled("fifthUserLastName");
-
-    String fullName = fifthUserFirstName + " " + fifthUserLastName;
+  @When("^(.*) User is not mentioned in the comment$")
+  public void fifthUserIsNotMentionedInCommentEntered(String userPrefix) {
+    String userFirstName = Serenity.sessionVariableCalled(userPrefix.toLowerCase() + "UserFirstName");
+    String userLastName = Serenity.sessionVariableCalled(userPrefix.toLowerCase() + "UserLastName");
+    String fullName = userFirstName + " " + userLastName;
     spaceHomeSteps.userIsNotMentionedInCommentEntered(fullName);
   }
 
-  @When("^Sixth User is not mentioned in the comment$")
-  public void sixthUserIsNotMentionedInCommentEntered() {
-    String sixthUserFirstName = Serenity.sessionVariableCalled("sixthUserFirstName");
-    String sixthUserLastName = Serenity.sessionVariableCalled("sixthUserLastName");
-
-    String fullName = sixthUserFirstName + " " + sixthUserLastName;
-    spaceHomeSteps.userIsNotMentionedInCommentEntered(fullName);
-  }
-
-  @When("^I enter a comment '(.*)' with mentioning the sixth user$")
-  public void enterActivityCommentWithSixthUser(String comment) {
-    String sixthUserFirstName = Serenity.sessionVariableCalled("sixthUserFirstName");
-    String sixthUserLastName = Serenity.sessionVariableCalled("sixthUserLastName");
-
-    String fullName = sixthUserFirstName + " " + sixthUserLastName;
-    spaceHomeSteps.enterActivityCommentWithUser(comment, fullName);
+  @When("^I enter a comment '(.*)' with mentioning the (.*) user$")
+  public void enterActivityCommentWithRandomUser(String comment, String userPrefix) {
+    String lastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
+    spaceHomeSteps.enterActivityCommentWithUser(comment, lastName);
   }
 
   @When("^I click on comment button related to activity '(.*)'$")
@@ -641,7 +572,7 @@ public class SpaceHomeStepDefinition {
 
   @When("^I add in activity '(.*)' an internal link '(.*)' as a comment$")
   public void addInternalLinkComment(String activity, String comment) {
-    String currentUrl = Serenity.getWebdriverManager().getCurrentDriver().getCurrentUrl().split("portal")[0];
+    String currentUrl = spaceHomePage.getCurrentUrl().split("portal")[0];
     spaceHomePage.getActivityId(activity);
     spaceHomePage.addActivityComment(spaceHomePage.getActivityId(activity), currentUrl + comment);
   }
@@ -793,11 +724,6 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.viewAllRepliesInActivityStream(comment);
   }
 
-  @Then("^Comment is not displayed$")
-  public void checkActivityCommentNotDisplayed() {
-    assertThat(spaceHomeSteps.isActivityCommentNotdisplayed()).isTrue();
-  }
-
   @And("I go to notes application of the space")
   public void accessNotesApp() {
     spaceHomeSteps.accessNotesApp();
@@ -818,14 +744,12 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.clickOnCommentThreeDotsButtonFromCommentsDrawer(comment);
   }
 
-  @Then("^In comment '(.*)', the Kudos label should be blue$")
-  @When("^In comment '(.*)', Kudos label should be blue$")
+  @Then("^In comment '(.*)', Kudos label should be blue$")
   public void kudosLabelIsBlue(String comment) {
     spaceHomeSteps.kudosLabelIsBlue(comment);
   }
 
-  @Then("^In comment '(.*)', the Kudos label should be black$")
-  @When("^In comment '(.*)', Kudos label should be black$")
+  @Then("^In comment '(.*)', Kudos label should be black$")
   public void kudosLabelIsBlack(String comment) {
     spaceHomeSteps.kudosLabelIsBlack(comment);
   }
@@ -845,19 +769,17 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.receivedKudosDrawerIsDisplayed(kudosNumber);
   }
 
-  @Then("^In replay '(.*)', the Kudos label should be blue$")
-  @When("^In replay '(.*)', Kudos label should be blue$")
-  public void replayKudosLabelIsBlue(String comment) {
-    spaceHomeSteps.replaykudosLabelIsBlue(comment);
+  @Then("^In reply '(.*)', Kudos label should be blue$")
+  public void replyKudosLabelIsBlue(String comment) {
+    spaceHomeSteps.replykudosLabelIsBlue(comment);
   }
 
-  @Then("^In replay '(.*)', the Kudos label should be black$")
-  @When("^In replay '(.*)', Kudos label should be black$")
-  public void replayKudosLabelIsBlack(String comment) {
-    spaceHomeSteps.replaykudosLabelIsBlack(comment);
+  @Then("^In reply '(.*)', Kudos label should be black$")
+  public void replyKudosLabelIsBlack(String comment) {
+    spaceHomeSteps.replyKudosLabelIsBlack(comment);
   }
 
-  @Then("^In replay '(.*)', I click on kudos button$")
+  @Then("^In reply '(.*)', I click on kudos button$")
   public void clickOnReplyKudos(String reply) {
     spaceHomeSteps.clickOnReplyKudos(reply);
   }

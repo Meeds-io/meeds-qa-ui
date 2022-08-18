@@ -220,7 +220,7 @@ public class UserProfileStepDefinition {
     String phoneType = "Work";
     String phone = Serenity.sessionVariableCalled("phone");
     String phoneInformation = phoneType + ": " + phone;
-    Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
+    userProfileSteps.refreshPage();
     userProfileSteps.isProfileContactPhoneVisible(phoneInformation);
   }
 
@@ -339,7 +339,7 @@ public class UserProfileStepDefinition {
 
   @Then("^Profile Contact Phone '(.*)' is displayed$")
   public void isProfileContactPhoneVisible(String phone) {
-    Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
+    userProfileSteps.refreshPage();
     userProfileSteps.isProfileContactPhoneVisible(phone);
   }
 

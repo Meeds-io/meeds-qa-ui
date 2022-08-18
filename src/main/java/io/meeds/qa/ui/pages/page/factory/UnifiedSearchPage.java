@@ -25,19 +25,19 @@ public class UnifiedSearchPage extends GenericPage {
   public static BaseElementFacade    ELEMENT_ACCESS_TO_SEARCHED_ACTIVITY;
 
   private BaseElementFacade ELEMENT_USER_SEARCH_TITLE(String user) {
-    return findByXpathOrCSS(String.format("//*[@id='searchDialog']//a[@title='%s']", user));
+    return findByXPathOrCSS(String.format("//*[@id='searchDialog']//a[@title='%s']", user));
   }
 
   private BaseElementFacade ELEMENT_APPLICATION_SEARCH_TITLE(String appName) {
-    return findByXpathOrCSS(String.format("//*[@title='%s']", appName));
+    return findByXPathOrCSS(String.format("//*[@title='%s']", appName));
   }
 
   private BaseElementFacade ELEMENT_SPACE_SEARCH_TITLE(String space) {
-    return findByXpathOrCSS(String.format("//*[@class='spaceCardFront']//*[contains(text(),'%s')]", space));
+    return findByXPathOrCSS(String.format("//*[@class='spaceCardFront']//*[contains(text(),'%s')]", space));
   }
 
   private BaseElementFacade ELEMENT_ACTIVITY_SEARCH_TITLE(String activity) {
-    return findByXpathOrCSS(String.format("//*[@class='searchMatchExcerpt' and text()='%s']", activity));
+    return findByXPathOrCSS(String.format("//*[@class='searchMatchExcerpt' and text()='%s']", activity));
   }
 
   public boolean isSearchedActivityTitleVisible(String activity) {
@@ -53,7 +53,7 @@ public class UnifiedSearchPage extends GenericPage {
   }
 
   private BaseElementFacade ELEMENT_APPLICATION_SEARCH_DESCRIPTION(String appDesc) {
-    return findByXpathOrCSS(String.format("//*[@title='%s']", appDesc));
+    return findByXPathOrCSS(String.format("//*[@title='%s']", appDesc));
   }
 
   public boolean isSearchedSpaceNameVisible(String space) {
@@ -93,7 +93,7 @@ public class UnifiedSearchPage extends GenericPage {
   }
 
   private BaseElementFacade getFavoriteIconSearchedActivity(String activity) {
-    return findByXpathOrCSS(String.format(
+    return findByXPathOrCSS(String.format(
                                      "//div[@class='d-flex flex-column border-radius box-shadow v-card v-card--flat v-sheet theme--light']//div[@title='%s']//preceding::i[contains(@class,'fa-star')][01]",
                                      activity));
   }
@@ -106,7 +106,7 @@ public class UnifiedSearchPage extends GenericPage {
   private BaseElementFacade shipFormAll;
 
   private BaseElementFacade getObjectFromDropDown(String object) {
-    return findByXpathOrCSS(String.format(
+    return findByXPathOrCSS(String.format(
                                      "//div[@class='v-input--selection-controls__input']//preceding::span[@class='subtitle-1'and contains(text(),'%s')]",
                                      object));
   }

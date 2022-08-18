@@ -20,7 +20,7 @@ Feature: General new composer
     Given I am authenticated as admin
     And I go to the random space
     When I click on post in space
-    And I enter an activity 'https://www.exoplatform.com/'
+    And I enter an activity 'https://www.meeds.io/'
     And I wait '5' seconds
     And I insert text 'activity109'
     And I publish the activity

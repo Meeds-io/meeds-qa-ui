@@ -6,19 +6,15 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.hook.TestHooks;
 import io.meeds.qa.ui.pages.page.factory.HomePage;
 import io.meeds.qa.ui.pages.page.factory.space.ManageSpacesPage;
 import io.meeds.qa.ui.utils.Utils;
-import net.serenitybdd.core.Serenity;
 
 public class ManageSpaceSteps {
 
   private static final String SPACE_TEMPLATE = System.getProperty("io.meeds.space.template");
-
-  private static final String SPACE_SUFFIX   = System.getProperty("io.meeds.space.suffix", "FixedSuffix");
 
   private ManageSpacesPage    manageSpacesPage;
 
@@ -37,8 +33,7 @@ public class ManageSpaceSteps {
   }
 
   public void goToSpecificSpace(String space) {
-    WebDriver driver = Serenity.getWebdriverManager().getCurrentDriver();
-    if (!driver.getCurrentUrl().contains("/spaces")) {
+    if (!manageSpacesPage.getCurrentUrl().contains("/spaces")) {
       homePage.goToSpacesPage();
     }
     manageSpacesPage.insertSpaceNameInSearchField(space);
@@ -62,7 +57,7 @@ public class ManageSpaceSteps {
 
   public void deleteSpacesList(List<String> listOfSpaces) {
     for (String spaceName : listOfSpaces) {
-      Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
+      manageSpacesPage.refreshPage();
       manageSpacesPage.deleteSpace(spaceName);
     }
   }
@@ -262,6 +257,9 @@ public class ManageSpaceSteps {
       manageSpacesPage.insertSpaceNameInSearchField(spaceName);
       if (manageSpacesPage.isSpaceCardDisplayed(spaceName)) {
         manageSpacesPage.goToSpecificSpace(spaceName);
+        if (!manageSpacesPage.isSpaceMenuDisplayed()) {
+          manageSpacesPage.clickSpaceActionToJoin();
+        }
       } else {
         addSpaceWithRegistration(spaceName, "Open");
       }

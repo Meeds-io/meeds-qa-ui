@@ -75,10 +75,9 @@ public class PeopleStepDefinition {
     peopleSteps.isLeaderBoardWidgetDisplayed(title);
   }
 
-  @Given("^I add the first user suggestion$")
+  @Given("I add the first user suggestion")
   public void addFirstUserSuggestion() {
     peopleSteps.addFirstUserSuggestion();
-    Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
   }
 
   @Then("^First two places on Leaderboard are displayed$")

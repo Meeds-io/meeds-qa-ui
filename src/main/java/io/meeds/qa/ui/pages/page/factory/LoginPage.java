@@ -4,10 +4,8 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.BaseElementFacade;
-import io.meeds.qa.ui.elements.ButtonElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.markers.IsHidden;
 import net.thucydides.core.annotations.DefaultUrl;
 
@@ -23,7 +21,7 @@ public class LoginPage extends GenericPage implements IsHidden {
     loginTextBox.setTextValue(login);
     TextBoxElementFacade passwordTextbox = findTextBoxElementByXpath("//*[@id='password']");
     passwordTextbox.setTextValue(password);
-    BaseElementFacade loginButton = findByXpathOrCSS("//*[contains(@class, 'loginButton')]//button");
+    BaseElementFacade loginButton = findByXPathOrCSS("//*[contains(@class, 'loginButton')]//button");
     clickOnElement(loginButton);
   }
 

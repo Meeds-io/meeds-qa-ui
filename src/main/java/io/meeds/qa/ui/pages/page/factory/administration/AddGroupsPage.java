@@ -28,19 +28,19 @@ public class AddGroupsPage extends GenericPage {
   private BaseElementFacade    selectedRoleField;
 
   private BaseElementFacade getSelectedMemberInDropDown(String userName) {
-    return findByXpathOrCSS(String.format(
+    return findByXPathOrCSS(String.format(
                                      "//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
                                      userName));
   }
 
   public BaseElementFacade groupOpenBtn(String group) {
-    return findByXpathOrCSS(String
+    return findByXPathOrCSS(String
                              .format("//*[@class='flex sm12 md4 flat']//*[@class='v-list-item__content']//*[contains(text(),'%s')]/preceding::i[@class='v-icon notranslate mdi mdi-menu-right theme--light'][1]",
                                      group));
   }
 
   public BaseElementFacade groupToSelect(String group) {
-    return findByXpathOrCSS(String
+    return findByXPathOrCSS(String
                              .format("//*[@class='flex sm12 md4 flat']//*[@class='v-list-item__content']//*[contains(text(),'%s')]",
                                      group));
   }
@@ -60,7 +60,7 @@ public class AddGroupsPage extends GenericPage {
     addMemberInGroupBtn.clickOnElement();
     selectedRoleField.selectByVisibleText(role);
     inviteMemberInput.setTextValue(member);
-    BaseElementFacade progressBar = findByXpathOrCSS(".membershipUserField .identitySuggester .v-progress-linear");
+    BaseElementFacade progressBar = findByXPathOrCSS(".membershipUserField .identitySuggester .v-progress-linear");
     progressBar.waitUntilVisible();
     progressBar.waitUntilNotVisible();
 

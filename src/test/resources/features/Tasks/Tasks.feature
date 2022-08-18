@@ -423,6 +423,7 @@ Feature: Tasks
     Then I check that grouping is still applied
 
   @smoke
+  @ignored
   Scenario: CAP33 - [Filter_Drawer_US09]: "Sort And Filter" drawer - Check "Group and Sort" tab
     Given I am authenticated as admin
     And I open the app center menu

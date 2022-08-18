@@ -1,5 +1,7 @@
 package io.meeds.qa.ui.pages.page.factory.space;
 
+import java.time.Duration;
+
 import org.junit.Assert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -10,6 +12,7 @@ import org.openqa.selenium.interactions.Actions;
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
+import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
@@ -18,7 +21,7 @@ public class ManageSpacesPage extends GenericPage {
     super(driver);
   }
 
-  private SpaceHomePage spaceHomePage;
+  private SpaceHomePage        spaceHomePage;
 
   @FindBy(xpath = "//button[contains(@class,'addNewSpaceButton')]")
   private BaseElementFacade    addNewSpaceButton;
@@ -195,66 +198,73 @@ public class ManageSpacesPage extends GenericPage {
   private BaseElementFacade    goToSpaceRightTabs;
 
   private BaseElementFacade getAppCardNameDisplayed(String application) {
-    return findByXpathOrCSS(String.format("//*[contains(@title,'%s') and @class='text-truncate subtitle-1 px-1 pt-4 text-color SpaceApplicationCardTitle']",
-                                     application));
+    return findByXPathOrCSS(String.format("//*[contains(@title,'%s') and @class='text-truncate subtitle-1 px-1 pt-4 text-color SpaceApplicationCardTitle']",
+                                          application));
   }
 
   private BaseElementFacade getAppCardNameDrawer(String application) {
-    return findByXpathOrCSS(String.format("(//*[contains(@title,'%s') and @class='text-truncate subtitle-1 px-1 pt-4 text-color SpaceApplicationCardTitle']/following::*[contains(@class,'mdi mdi-plus')])[1]",
-                                     application));
+    return findByXPathOrCSS(String.format("(//*[contains(@title,'%s') and @class='text-truncate subtitle-1 px-1 pt-4 text-color SpaceApplicationCardTitle']/following::*[contains(@class,'mdi mdi-plus')])[1]",
+                                          application));
   }
 
   private BaseElementFacade spaceSearchDetailsSpaceName(String spaceName) {
-    return findByXpathOrCSS(String.format("//*[contains(@class,'spaceCardBody')]//a[contains(text(),'%s')]", spaceName));
+    return findByXPathOrCSS(String.format("//*[contains(@class,'spaceCardBody')]//a[contains(text(),'%s')]", spaceName));
   }
 
   private BaseElementFacade spaceSearchDetailsSpaceMembers(String members) {
-    return findByXpathOrCSS(String.format("//*[contains(@class,'spaceMembersLabel') and contains(text(),'%s')]", members));
+    return findByXPathOrCSS(String.format("//*[contains(@class,'spaceMembersLabel') and contains(text(),'%s')]", members));
   }
 
   private BaseElementFacade spaceName(String spaceName) {
-    return findByXpathOrCSS(String.format("//*[contains(@class,'brandingContainer')]//div[contains(text(),'%s')]", spaceName));
+    return findByXPathOrCSS(String.format("//*[contains(@class,'brandingContainer')]//div[contains(text(),'%s')]", spaceName));
   }
 
   private BaseElementFacade getSpaceNameInListOfSpace(String spaceName) {
-    return findByXpathOrCSS(String.format("//*[contains(@class, 'spaceDisplayName') and contains(@href, ':%s/')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'spaceDisplayName') and contains(@href, ':%s/')]",
                                           spaceName.toLowerCase()));
   }
 
   private BaseElementFacade getSpaceAction(String action) {
-    return findByXpathOrCSS(String.format("//a[@title='%s']", action));
+    try {
+      BaseElementFacade webElementFacade = findByXPathOrCSS(String.format("//a[@title='%s']", action));
+      webElementFacade.setImplicitTimeout(Duration.ofSeconds(0));
+      return webElementFacade.isDisplayed() ? webElementFacade : null;
+    } catch (RuntimeException e) {
+      return null;
+    }
   }
 
   private BaseElementFacade getSelectUserInDropDown(String userName) {
-    return findByXpathOrCSS(String.format(
-                                     "//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
-                                     userName));
+    return findByXPathOrCSS(String.format(
+                                          "//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
+                                          userName));
   }
 
   private BaseElementFacade getSpaceMenu(String spaceName) {
-    return findByXpathOrCSS(String.format("//a[contains(@title,'%s')]/../..//button[contains(@class,'spaceMenuIcon')]", spaceName));
+    return findByXPathOrCSS(String.format("//a[contains(@title,'%s')]/../..//button[contains(@class,'spaceMenuIcon')]",
+                                          spaceName));
   }
 
   private BaseElementFacade ELEMENT_SPACE_TABS_TOP_BAR_ORDER(String order) {
-    return findByXpathOrCSS(String.format("//*[@class='v-application--wrap']//*[@class='v-slide-group__wrapper']//*[@tabindex][%s]",
-                                     order));
+    return findByXPathOrCSS(String.format("//*[@class='v-application--wrap']//*[@class='v-slide-group__wrapper']//*[@tabindex][%s]",
+                                          order));
   }
 
   private BaseElementFacade ELEMENT_HOME_SPACE_TAB_TOP_BAR(String space) {
-    return findByXpathOrCSS(String.format("//*[@id='MiddleToolBar']//*[contains(@href,'%s')][1]", space));
+    return findByXPathOrCSS(String.format("//*[@id='MiddleToolBar']//*[contains(@href,'%s')][1]", space));
   }
 
   private BaseElementFacade getDeleteSpaceButton(String spaceName) {
-    return findByXpathOrCSS(
-                       String.format("//a[contains(@title,'%s')]//following::i[contains(@class,'uiIconTrash')]", spaceName));
+    return findByXPathOrCSS(
+                            String.format("//a[contains(@title,'%s')]//following::i[contains(@class,'uiIconTrash')]", spaceName));
   }
 
   private BaseElementFacade ELEMENT_SPACE_MEMBERS_TAB_TOP_BAR(String space) {
-    return findByXpathOrCSS(String.format("//*[@id='MiddleToolBar']//*[contains(@href,'%s/members')]", space));
+    return findByXPathOrCSS(String.format("//*[@id='MiddleToolBar']//*[contains(@href,'%s/members')]", space));
   }
 
   private BaseElementFacade ELEMENT_SPACE_SETTINGS_TAB_TOP_BAR(String space) {
-    return findByXpathOrCSS(String.format("//*[@id='MiddleToolBar']//*[contains(@href,'%s/settings')]", space));
+    return findByXPathOrCSS(String.format("//*[@id='MiddleToolBar']//*[contains(@href,'%s/settings')]", space));
   }
 
   public void checkThatSpaceTopBarElementsAreDisplayed() {
@@ -370,12 +380,14 @@ public class ManageSpacesPage extends GenericPage {
 
   public void clickAddSpaceButton() {
     addSpaceButton.clickOnElement();
-    addSpaceButton.waitUntilNotVisible();
   }
 
   public void insertSpaceNameInSearchField(String spaceName) {
     searchSpaceInput.waitUntilVisible();
     searchSpaceInput.setTextValue(spaceName);
+
+    BaseElementFacade progressBar = findByXPathOrCSS(".UISiteBody .v-progress-linear");
+    progressBar.waitUntilNotVisible();
   }
 
   public void goToSpecificSpace(String spaceName) {
@@ -399,47 +411,50 @@ public class ManageSpacesPage extends GenericPage {
     okButton.waitUntilNotVisible();
   }
 
+  @SwitchToWindow
   public void clickSpaceAction(String action) {
     BaseElementFacade spaceFirstNavigationTab = getSpaceFirstNavigationTab();
     if (spaceFirstNavigationTab.isPresent()) {
       clickOnElement(spaceFirstNavigationTab);
     } else {
       BaseElementFacade spaceAction = getSpaceAction(action);
-      if (spaceAction.isPresent()) {
+      if (spaceAction != null) {
         clickOnElement(spaceAction);
       }
     }
   }
 
+  @SwitchToWindow
   public void clickSpaceActionToJoin() {
-    BaseElementFacade spaceFirstNavigationTab = getSpaceFirstNavigationTab();
-    if (spaceFirstNavigationTab.isDisplayed()) {
-      clickOnElement(spaceFirstNavigationTab);
+    BaseElementFacade spaceAction = getSpaceAction("Join");
+    if (spaceAction != null) {
+      clickOnElement(spaceAction);
     } else {
-      BaseElementFacade spaceAction = getSpaceAction("Join");
-      if (spaceAction.isDisplayed()) {
+      spaceAction = getSpaceAction("Accept");
+      if (spaceAction != null) {
         clickOnElement(spaceAction);
-      } else {
-        spaceAction = getSpaceAction("Accept");
-        if (spaceAction.isDisplayed()) {
-          clickOnElement(spaceAction);
-        }
       }
     }
   }
 
+  @SwitchToWindow
   public boolean isSpaceMenuDisplayed() {
-    BaseElementFacade spaceFirstNavigationTab = getSpaceFirstNavigationTab();
-    return spaceFirstNavigationTab.isPresent();
+    try {
+      BaseElementFacade webElementFacade = findByXPathOrCSS("//*[contains(@class, 'v-tab--active')]");
+      webElementFacade.setImplicitTimeout(Duration.ofSeconds(0));
+      return webElementFacade.isDisplayed();
+    } catch (RuntimeException e) {
+      return false;
+    }
   }
 
   private BaseElementFacade getSpaceFirstNavigationTab() {
-    return findByXpathOrCSS("//*[contains(@class, 'spaceNavigationTab')]");
+    return findByXPathOrCSS("//*[contains(@class, 'spaceNavigationTab')]");
   }
 
   private BaseElementFacade getSpaceElement(String space) {
-    return findByXpathOrCSS(String.format("//*[contains(@class, 'brandingContainer space')]//*[contains(text(),'%s')]",
-                                     space));
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'brandingContainer space')]//*[contains(text(),'%s')]",
+                                          space));
   }
 
   public void goToSpaceToAcceptInvitation(String spaceName) {
@@ -452,8 +467,15 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public boolean isSpaceCardDisplayed(String space) {
-    return findByXpathOrCSS(String.format("//*[contains(@class, 'spaceDisplayName') and contains(@href, ':%s/')]",
-                                          space.toLowerCase())).isVisible();
+    try {
+      BaseElementFacade webElementFacade =
+                                findByXPathOrCSS(String.format("//*[contains(@class, 'spaceDisplayName') and contains(@href, ':%s/')]",
+                                                               space.toLowerCase()));
+      webElementFacade.setImplicitTimeout(Duration.ofSeconds(0));
+      return webElementFacade.isDisplayed();
+    } catch (RuntimeException e) {
+      return false;
+    }
   }
 
   public void selectFilter(String filter) {
@@ -606,8 +628,8 @@ public class ManageSpacesPage extends GenericPage {
   public void addUserToSpace(String user) {
     spaceMembersTab.clickOnElement();
     inviteUserButton.waitUntilVisible();
-    BaseElementFacade memberCard = findByXpathOrCSS(String.format("//*[contains(@class, 'userFullname') and contains(text(), '%s')]",
-                                                             user));
+    BaseElementFacade memberCard = findByXPathOrCSS(String.format("//*[contains(@class, 'userFullname') and contains(text(), '%s')]",
+                                                                user));
     if (memberCard.isPresent()) {
       spaceHomePage.removeMember(user);
     }

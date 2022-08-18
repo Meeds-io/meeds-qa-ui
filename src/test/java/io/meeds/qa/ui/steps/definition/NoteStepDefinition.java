@@ -1,6 +1,5 @@
 package io.meeds.qa.ui.steps.definition;
 
-import static io.meeds.qa.ui.utils.Utils.switchToTabByIndex;
 import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
 
 import io.cucumber.java.en.And;
@@ -22,7 +21,6 @@ public class NoteStepDefinition {
 
   @Then("^Create note form is opened successfully in new tab$")
   public void checkNoteCreateForm() {
-    switchToTabByIndex(1);
     noteSteps.checkNoteCreateForm();
   }
 
@@ -48,7 +46,6 @@ public class NoteStepDefinition {
 
   @When("^I create note page with title '(.*)' and content '(.*)'$")
   public void createNotePage(String noteTitle, String noteContent) {
-    switchToTabByIndex(1);
     noteSteps.createNotePage(noteTitle, noteContent);
   }
 
@@ -59,7 +56,6 @@ public class NoteStepDefinition {
 
   @Then("^Edit note form is opened successfully in new tab$")
   public void checkNoteEditForm() {
-    switchToTabByIndex(2);
     noteSteps.checkNoteEditForm();
   }
 
@@ -70,7 +66,7 @@ public class NoteStepDefinition {
 
   @When("^I edit note page with random title and random content$")
   public void editRandomNote() {
-    switchToTabByIndex(2);
+    noteSteps.switchToTabByIndex(2);
     String noteTitleEdited = "noteTitle" + getRandomNumber();
     String noteContentEdited = "notecontent" + getRandomNumber();
     Serenity.setSessionVariable("noteTitle").to(noteTitleEdited);

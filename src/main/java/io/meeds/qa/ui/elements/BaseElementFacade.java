@@ -1,5 +1,7 @@
 package io.meeds.qa.ui.elements;
 
+import org.openqa.selenium.WebDriver;
+
 import net.serenitybdd.core.annotations.ImplementedBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -42,7 +44,7 @@ public interface BaseElementFacade extends WebElementFacade {
    *
    * @return BaseElementFacade instance of the found element
    */
-  public <T extends BaseElementFacade> T findByXpath(String xpath);
+  public <T extends BaseElementFacade> T findByXPath(String xpath);
 
   /**
    * Method to find an element inside an element using the xpath and to wrapp it
@@ -58,7 +60,7 @@ public interface BaseElementFacade extends WebElementFacade {
    *
    * @return TextElementFacade instance of the found element
    */
-  public <T extends TextElementFacade> T findTextElementByXpath(String xpath);
+  public <T extends TextElementFacade> T findTextElementByXPath(String xpath);
 
   /**
    * This method will scroll the element to the right
@@ -86,4 +88,9 @@ public interface BaseElementFacade extends WebElementFacade {
    * this method is to make the mouse hover over the selected element.
    */
   public void hover(String xpath);
+
+  /**
+   * @return currently used {@link WebDriver}
+   */
+  public WebDriver getDriver();
 }

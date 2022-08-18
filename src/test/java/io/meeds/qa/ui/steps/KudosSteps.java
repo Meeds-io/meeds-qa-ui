@@ -2,13 +2,12 @@ package io.meeds.qa.ui.steps;
 
 import io.meeds.qa.ui.pages.page.factory.HomePage;
 import io.meeds.qa.ui.pages.page.factory.Kudos.KudosPage;
-import io.meeds.qa.ui.pages.page.factory.people.UserProfile;
-import net.serenitybdd.core.Serenity;
+import io.meeds.qa.ui.pages.page.factory.people.UserProfilePage;
 
 public class KudosSteps {
   private KudosPage   kudosPage;
 
-  private UserProfile userProfile;
+  private UserProfilePage userProfile;
 
   private HomePage    homePage;
 
@@ -46,9 +45,8 @@ public class KudosSteps {
   }
 
   public void SearchUserCard(String user) {
-    Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
+    homePage.refreshPage();
     homePage.goToPeoplePage();
-    Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
     kudosPage.searchForUsersByName(user);
   }
 

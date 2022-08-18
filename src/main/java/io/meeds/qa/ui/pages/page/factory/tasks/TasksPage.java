@@ -1,6 +1,5 @@
 package io.meeds.qa.ui.pages.page.factory.tasks;
 
-import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +11,7 @@ import org.openqa.selenium.interactions.Actions;
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import net.serenitybdd.core.Serenity;
+import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class TasksPage extends GenericPage {
@@ -278,8 +277,8 @@ public class TasksPage extends GenericPage {
   private BaseElementFacade    SaveButtonTask;
 
   private BaseElementFacade getTaskStatusColumn(String status) {
-    return findByXpathOrCSS(String.format("(//*[contains(@class,'taskStatusName')]//*[@title='%s']/following::*[@class='taskTitleEllipsis'])[1]",
-                                     status));
+    return findByXPathOrCSS(String.format("(//*[contains(@class,'taskStatusName')]//*[@title='%s']/following::*[@class='taskTitleEllipsis'])[1]",
+                                          status));
   }
 
   @FindBy(xpath = "(//*[@class='d-flex tasksViewHeaderLeft']/following::*[contains(@class,'uiIconVerticalDots')][1])[5]")
@@ -346,24 +345,24 @@ public class TasksPage extends GenericPage {
   private BaseElementFacade closeEditTaskDrawerSimpleProject;
 
   private BaseElementFacade getTaskCommentReplyBtn(String comment) {
-    return findByXpathOrCSS(
-                       String.format("//*[contains(@class,'taskCommentDrawer')]//*[@class='taskContentComment']/p[contains(text(),'%s')]/following::button[@id='reply_btn'][1]",
-                                     comment));
+    return findByXPathOrCSS(
+                            String.format("//*[contains(@class,'taskCommentDrawer')]//*[@class='taskContentComment']/p[contains(text(),'%s')]/following::button[@id='reply_btn'][1]",
+                                          comment));
   }
 
   private BaseElementFacade getAttachmentName(String attachmentName) {
-    return findByXpathOrCSS(
-                       String.format("(//div[@class='v-list-item__content']//div[@title='%s'])[2]", attachmentName));
+    return findByXPathOrCSS(
+                            String.format("(//div[@class='v-list-item__content']//div[@title='%s'])[2]", attachmentName));
   }
 
   private BaseElementFacade getTaskName(String taskName) {
-    return findByXpathOrCSS(
-                       String.format("//div[@class='taskTitle pe-14 d-lg-block d-md-none']//a[@title='%s']", taskName));
+    return findByXPathOrCSS(
+                            String.format("//div[@class='taskTitle pe-14 d-lg-block d-md-none']//a[@title='%s']", taskName));
   }
 
   private BaseElementFacade getTaskToMarkAsCompleted(String taskName) {
-    return findByXpathOrCSS(String.format("//*[@class='taskTitleEllipsis' and contains(text(),'%s')]/preceding::*[@class='uiIconCircle'][1]",
-                                     taskName));
+    return findByXPathOrCSS(String.format("//*[@class='taskTitleEllipsis' and contains(text(),'%s')]/preceding::*[@class='uiIconCircle'][1]",
+                                          taskName));
   }
 
   @FindBy(xpath = "(//*[@class='d-flex tasksViewHeaderLeft']/following::*[contains(@class,'uiIconVerticalDots')][1])[4]")
@@ -421,24 +420,24 @@ public class TasksPage extends GenericPage {
   private TextBoxElementFacade clearButtonInFilterByTask;
 
   private BaseElementFacade getTaskAlert(String message) {
-    return findByXpathOrCSS(
-                       String.format("//*[@class='v-alert__content' and contains(text(),'%s')]", message));
+    return findByXPathOrCSS(
+                            String.format("//*[@class='v-alert__content' and contains(text(),'%s')]", message));
   }
 
   private BaseElementFacade getProjectParticipant(String fullName) {
-    return findByXpathOrCSS(
-                       String.format("//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
-                                     fullName));
+    return findByXPathOrCSS(
+                            String.format("//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
+                                          fullName));
   }
 
   private BaseElementFacade getProjectCardUserAvatar(String userName) {
-    return findByXpathOrCSS(
-                       String.format("//*[contains(@id,'userAvatar') and contains(@href,'%s')]", userName));
+    return findByXPathOrCSS(
+                            String.format("//*[contains(@id,'userAvatar') and contains(@href,'%s')]", userName));
   }
 
   private BaseElementFacade getStatusColumn(String statusColumn) {
-    return findByXpathOrCSS(String.format("(//*[@class='d-flex tasksViewHeaderLeft']//*[contains(text(),'%s')][1])[1]",
-                                     statusColumn));
+    return findByXPathOrCSS(String.format("(//*[@class='d-flex tasksViewHeaderLeft']//*[contains(text(),'%s')][1])[1]",
+                                          statusColumn));
   }
 
   public void goToProjectDetailsList() {
@@ -446,9 +445,9 @@ public class TasksPage extends GenericPage {
   }
 
   private BaseElementFacade getProjectManager(String fullName) {
-    return findByXpathOrCSS(
-                       String.format("//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
-                                     fullName));
+    return findByXPathOrCSS(
+                            String.format("//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
+                                          fullName));
   }
 
   public void clickAddTaskButton() {
@@ -460,121 +459,122 @@ public class TasksPage extends GenericPage {
   }
 
   private BaseElementFacade getTabByName(String name) {
-    return findByXpathOrCSS(String.format("//a[contains(text(),'%s')]", name));
+    return findByXPathOrCSS(String.format("//a[contains(text(),'%s')]", name));
   }
 
   private BaseElementFacade getFilterOption(String option) {
-    return findByXpathOrCSS(String.format("//*[@class='v-label theme--light' and text()='%s']", option));
+    return findByXPathOrCSS(String.format("//*[@class='v-label theme--light' and text()='%s']", option));
   }
 
   private BaseElementFacade projectNameInProjectDetails(String projectName) {
-    return findByXpathOrCSS(String.format("//*[@id='projectListApplication']//*[contains(@class,'taskViewBreadcrumb')]//span[contains(text(),'%s')]",
-                                     projectName));
+    return findByXPathOrCSS(String.format("//*[@id='projectListApplication']//*[contains(@class,'taskViewBreadcrumb')]//span[contains(text(),'%s')]",
+                                          projectName));
   }
 
   private BaseElementFacade taskNameInProjectDetails(String taskName) {
-    return findByXpathOrCSS(String.format("//*[contains(@class,'taskStatusName')]//*[@title='To Do']/following::*[@class='taskTitleEllipsis' and contains(text(),'%s')]",
-                                     taskName));
+    return findByXPathOrCSS(String.format("//*[contains(@class,'taskStatusName')]//*[@title='To Do']/following::*[@class='taskTitleEllipsis' and contains(text(),'%s')]",
+                                          taskName));
   }
 
   private BaseElementFacade getLabelInEditProjectDrawer(String label) {
-    return findByXpathOrCSS(
-                       String.format("//*[contains(@class,'v-chip__content')]//*[contains(@class,'pr-2') and contains(text(),'%s')]",
-                                     label));
+    return findByXPathOrCSS(
+                            String.format("//*[contains(@class,'v-chip__content')]//*[contains(@class,'pr-2') and contains(text(),'%s')]",
+                                          label));
   }
 
   private BaseElementFacade getCompletedTask(String taskName) {
-    return findByXpathOrCSS(String.format("//*[@class='nameGroup' and text()='Archived']//following::*[@class='taskCardViewTitle text-color strikethrough']//span[@class='taskTitleEllipsis' and contains(text(),'%s')]",
-                                     taskName));
+    return findByXPathOrCSS(String.format("//*[@class='nameGroup' and text()='Archived']//following::*[@class='taskCardViewTitle text-color strikethrough']//span[@class='taskTitleEllipsis' and contains(text(),'%s')]",
+                                          taskName));
   }
 
   private BaseElementFacade getUncompletedTask(String taskName) {
-    return findByXpathOrCSS(String.format("//*[@class='nameGroup' and text()='Uncompleted']//following::*[@class='taskCardViewTitle text-color']//span[@class='taskTitleEllipsis' and contains(text(),'%s')]",
-                                     taskName));
+    return findByXPathOrCSS(String.format("//*[@class='nameGroup' and text()='Uncompleted']//following::*[@class='taskCardViewTitle text-color']//span[@class='taskTitleEllipsis' and contains(text(),'%s')]",
+                                          taskName));
   }
 
   private BaseElementFacade getTasksNumberToDo(String tasksNumber) {
-    return findByXpathOrCSS(String.format("//*[contains(@class,'taskStatusName')]//*[@title='To Do']/following ::*[@class='uiTaskNumber' and text()='%s']",
-                                     tasksNumber));
+    return findByXPathOrCSS(String.format("//*[contains(@class,'taskStatusName')]//*[@title='To Do']/following ::*[@class='uiTaskNumber' and text()='%s']",
+                                          tasksNumber));
   }
 
   private BaseElementFacade taskNameAndLabelAndNumberInProjectDetails(String taskName) {
-    return findByXpathOrCSS(String.format("(//*[contains(@class,'taskStatusName')]//*[@title='To Do']/following::*[@class='taskTitleEllipsis' and contains(text(),'%s')]/following::*[contains(@class,'taskLabels')]//span[@class='text-truncate'])[1]",
-                                     taskName));
+    return findByXPathOrCSS(String.format("(//*[contains(@class,'taskStatusName')]//*[@title='To Do']/following::*[@class='taskTitleEllipsis' and contains(text(),'%s')]/following::*[contains(@class,'taskLabels')]//span[@class='text-truncate'])[1]",
+                                          taskName));
   }
 
   private BaseElementFacade getTaskCommentWithUser(String user, String comment) {
-    return findByXpathOrCSS(String.format("//*[@class='TaskCommentContent']//*[contains(text(),'%s')]/following::*[@class='taskContentComment']//p[contains(text(),'%s')]",
-                                     user,
-                                     comment));
+    return findByXPathOrCSS(String.format("//*[@class='TaskCommentContent']//*[contains(text(),'%s')]/following::*[@class='taskContentComment']//p[contains(text(),'%s')]",
+                                          user,
+                                          comment));
   }
 
   private BaseElementFacade getProjectCard(String projectName) {
-    return findByXpathOrCSS(
-                       String.format("//span[contains(@class,'projectCardTitle') and contains(text(),'%s')]", projectName));
+    return findByXPathOrCSS(
+                            String.format("//span[contains(@class,'projectCardTitle') and contains(text(),'%s')]", projectName));
   }
 
   private BaseElementFacade getTaskOrder(String number) {
-    return findByXpathOrCSS(
-                       String.format("(//*[@id='projectListApplication']//*[contains(@id,'taskView')]//*[contains(@class,'taskTitle')]//a)[%s]",
-                                     number));
+    return findByXPathOrCSS(
+                            String.format("(//*[@id='projectListApplication']//*[contains(@id,'taskView')]//*[contains(@class,'taskTitle')]//a)[%s]",
+                                          number));
   }
 
   private BaseElementFacade getDisplayedLabel(String label, String times) {
-    return findByXpathOrCSS(
-                       String.format("//*[@class='nameGroup' and contains(text(),'%s')]//following::*[@class='amount-item' and contains(text(),'%s')][1]",
-                                     label,
-                                     times));
+    return findByXPathOrCSS(
+                            String.format("//*[@class='nameGroup' and contains(text(),'%s')]//following::*[@class='amount-item' and contains(text(),'%s')][1]",
+                                          label,
+                                          times));
   }
 
   private BaseElementFacade getAddLabelToTask(String label) {
-    return findByXpathOrCSS(
-                       String.format("//*[contains(@class,'v-list')]//*[contains(@class,'v-chip v-chip--label')]//*[contains(@class,'v-chip__content') and contains(text(),'%s')]",
-                                     label));
+    return findByXPathOrCSS(
+                            String.format("//*[contains(@class,'v-list')]//*[contains(@class,'v-chip v-chip--label')]//*[contains(@class,'v-chip__content') and contains(text(),'%s')]",
+                                          label));
   }
 
   private BaseElementFacade getLabelInEditTaskDrawer(String label) {
-    return findByXpathOrCSS(
-                       String.format("//*[contains(@class,'v-chip__content')]//*[contains(@class,'pe-2') and contains(text(),'%s')]",
-                                     label));
+    return findByXPathOrCSS(
+                            String.format("//*[contains(@class,'v-chip__content')]//*[contains(@class,'pe-2') and contains(text(),'%s')]",
+                                          label));
   }
 
   private BaseElementFacade getDescriptionForTask(String description) {
-    return findByXpathOrCSS(String.format("//*[@class='py-1 px-2 taskDescriptionToShow']//*[contains(text(),'%s')]", description));
+    return findByXPathOrCSS(String.format("//*[@class='py-1 px-2 taskDescriptionToShow']//*[contains(text(),'%s')]",
+                                          description));
   }
 
   private BaseElementFacade getProjectCardDescription(String description) {
-    return findByXpathOrCSS(
-                       String.format("//*[@class='taskItemDescription largeDescriptionArea']//*[contains(text(),'%s')]",
-                                     description));
+    return findByXPathOrCSS(
+                            String.format("//*[@class='taskItemDescription largeDescriptionArea']//*[contains(text(),'%s')]",
+                                          description));
   }
 
   private BaseElementFacade openTask(String projectName) {
-    return findByXpathOrCSS(
-                       String.format("//span[contains(@class,'taskTitleEllipsis') and contains(text(),'%s')]", projectName));
+    return findByXPathOrCSS(
+                            String.format("//span[contains(@class,'taskTitleEllipsis') and contains(text(),'%s')]", projectName));
   }
 
   private BaseElementFacade getTaskTitle(String taskName) {
-    return findByXpathOrCSS(
-                       String.format("//span[contains(@class,'taskTitleEllipsis') and contains(text(),'%s')]", taskName));
+    return findByXPathOrCSS(
+                            String.format("//span[contains(@class,'taskTitleEllipsis') and contains(text(),'%s')]", taskName));
   }
 
   private BaseElementFacade getRemoveLabelButton(String label) {
-    return findByXpathOrCSS(
-                       String.format("//*[contains(@class,'v-chip__content')]//*[contains(@class,'pr-2') and contains(text(),'%s')]/following::button[2]",
-                                     label));
+    return findByXPathOrCSS(
+                            String.format("//*[contains(@class,'v-chip__content')]//*[contains(@class,'pr-2') and contains(text(),'%s')]/following::button[2]",
+                                          label));
   }
 
   private BaseElementFacade getRemoveLabelTaskButton(String label) {
-    return findByXpathOrCSS(
-                       String.format("//*[contains(@class,'v-chip__content')]//*[contains(@class,'pe-2') and contains(text(),'%s')]/following::button[1]",
-                                     label));
+    return findByXPathOrCSS(
+                            String.format("//*[contains(@class,'v-chip__content')]//*[contains(@class,'pe-2') and contains(text(),'%s')]/following::button[1]",
+                                          label));
   }
 
   private BaseElementFacade getTaskTitleInTasksTab(String taskName) {
-    return findByXpathOrCSS(
-                       String.format("//*[contains(@class,'v-application tasksList')]//*[contains(@class,'taskTitle pe-14')]/a[contains(text(),'%s')]",
-                                     taskName));
+    return findByXPathOrCSS(
+                            String.format("//*[contains(@class,'v-application tasksList')]//*[contains(@class,'taskTitle pe-14')]/a[contains(text(),'%s')]",
+                                          taskName));
   }
 
   @FindBy(xpath = "(//*[contains(@class,'drawerContent')]//*[@class='contentSmall'])[1]")
@@ -781,7 +781,9 @@ public class TasksPage extends GenericPage {
   }
 
   public void goToTab(String tab) {
-    BaseElementFacade tabLink = findByXpathOrCSS(String.format("//*[contains(@class, 'tasksMenuParent')]//a[contains(text(), '%s')]", tab));
+    BaseElementFacade tabLink =
+                              findByXPathOrCSS(String.format("//*[contains(@class, 'tasksMenuParent')]//a[contains(text(), '%s')]",
+                                                             tab));
     clickOnElement(tabLink);
   }
 
@@ -821,12 +823,17 @@ public class TasksPage extends GenericPage {
     Assert.assertEquals(ELEMENT_DRAWER_TASK_NAME.getValue(), taskName);
   }
 
+  @SwitchToWindow
   public void commentTask(String comment) {
     ckEditorFrameTask.clickOnElement();
     driver.switchTo().frame(ckEditorFrameTask);
-    taskCommentContentTextBox.waitUntilVisible();
-    taskCommentContentTextBox.setTextValue(comment);
-    driver.switchTo().defaultContent();
+    try {
+      taskCommentContentTextBox.waitUntilVisible();
+      taskCommentContentTextBox.setTextValue(comment);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
+
     commentTaskButton.waitUntilVisible();
     commentTaskButton.clickOnElement();
     goBackToTaskDrawerFromComments.waitUntilVisible();
@@ -835,14 +842,9 @@ public class TasksPage extends GenericPage {
     closeTaskDrawerButton.clickOnElement();
   }
 
+  @SwitchToWindow
   public void addNewCommentInTaskWithMentioningTheFirstUserInTask(String comment, String user) {
-    ckEditorFrameTaskMentioningUser.clickOnElement();
-    driver.switchTo().frame(ckEditorFrameTaskMentioningUser);
-    taskCommentContentTextBox.waitUntilVisible();
-    taskCommentContentTextBox.clear();
-    taskCommentContentTextBox.setTextValue(comment + ' ' + '@' + user);
-    taskCommentContentTextBox.sendKeys(Keys.ENTER);
-    driver.switchTo().defaultContent();
+    mentionUserWithContent(ckEditorFrameTaskMentioningUser, taskCommentContentTextBox, comment, user);
     commentTaskButton.waitUntilVisible();
     commentTaskButton.clickOnElement();
     goBackToTaskDrawerFromComments.waitUntilVisible();
@@ -944,14 +946,19 @@ public class TasksPage extends GenericPage {
     Assert.assertEquals(informationIcon.getCssValue("color"), "rgba(46, 181, 140, 1)");
   }
 
+  @SwitchToWindow
   public void addProjectWithDescription(String projectName, String description) {
     addProjectOrTask.clickOnElement();
     projectTitle.setTextValue(projectName);
     ckEditorFrameTask.clickOnElement();
     driver.switchTo().frame(ckEditorFrameTask);
-    projectDescriptionField.waitUntilVisible();
-    projectDescriptionField.setTextValue(description);
-    driver.switchTo().defaultContent();
+    try {
+      projectDescriptionField.waitUntilVisible();
+      projectDescriptionField.setTextValue(description);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
+
     saveButton.clickOnElement();
   }
 
@@ -959,23 +966,33 @@ public class TasksPage extends GenericPage {
     saveButton.clickOnElement();
   }
 
+  @SwitchToWindow
   public void enterProjectTitleAndDescription(String projectName, String description) {
     addProjectOrTask.clickOnElement();
     projectTitle.setTextValue(projectName);
     ckEditorFrameTask.clickOnElement();
     driver.switchTo().frame(ckEditorFrameTask);
-    projectDescriptionField.waitUntilVisible();
-    projectDescriptionField.setTextValue(description);
-    driver.switchTo().defaultContent();
+    try {
+      projectDescriptionField.waitUntilVisible();
+      projectDescriptionField.setTextValue(description);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
+
   }
 
+  @SwitchToWindow
   public void enterProjectDescriptionWithoutTheTitle(String description) {
     addProjectOrTask.clickOnElement();
     ckEditorFrameTask.clickOnElement();
     driver.switchTo().frame(ckEditorFrameTask);
-    projectDescriptionField.waitUntilVisible();
-    projectDescriptionField.setTextValue(description);
-    driver.switchTo().defaultContent();
+    try {
+      projectDescriptionField.waitUntilVisible();
+      projectDescriptionField.setTextValue(description);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
+
   }
 
   public void checkProject(String projectName) {
@@ -1006,6 +1023,7 @@ public class TasksPage extends GenericPage {
     alertMessageAfterProjectDeletion.isVisibleAfterWaiting();
   }
 
+  @SwitchToWindow
   public void editProjectNameWithDescription(String projectName, String newProjectName, String newDescription) {
     getProjectCard(projectName).isVisibleAfterWaiting();
     projectThreeDotsButton.clickOnElement();
@@ -1013,9 +1031,13 @@ public class TasksPage extends GenericPage {
     projectTitle.setTextValue(newProjectName);
     ckEditorFrameTask.clickOnElement();
     driver.switchTo().frame(ckEditorFrameTask);
-    projectDescriptionField.waitUntilVisible();
-    projectDescriptionField.setTextValue(newDescription);
-    driver.switchTo().defaultContent();
+    try {
+      projectDescriptionField.waitUntilVisible();
+      projectDescriptionField.setTextValue(newDescription);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
+
     saveButton.clickOnElement();
   }
 
@@ -1069,12 +1091,17 @@ public class TasksPage extends GenericPage {
     getProjectCardUserAvatar(userName).isVisibleAfterWaiting();
   }
 
+  @SwitchToWindow
   public void enterTaskComment(String comment) {
     ckEditorFrameTask.clickOnElement();
     driver.switchTo().frame(ckEditorFrameTask);
-    taskCommentContentTextBox.waitUntilVisible();
-    taskCommentContentTextBox.setTextValue(comment);
-    driver.switchTo().defaultContent();
+    try {
+      taskCommentContentTextBox.waitUntilVisible();
+      taskCommentContentTextBox.setTextValue(comment);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
+
   }
 
   public void commentButtonIsDisabled() {
@@ -1094,11 +1121,16 @@ public class TasksPage extends GenericPage {
     getProjectCardUserAvatar(userName).isNotVisibleAfterWaiting();
   }
 
+  @SwitchToWindow
   public void maxCharsNumberMessageIsDisplayed() {
     commentsDrawerSection.clickOnElement();
     driver.switchTo().frame(ckEditorFrameTask);
-    commentTaskMaxCharsMsg.isVisibleAfterWaiting();
-    driver.switchTo().defaultContent();
+    try {
+      commentTaskMaxCharsMsg.isVisibleAfterWaiting();
+    } finally {
+      driver.switchTo().defaultContent();
+    }
+
   }
 
   public void cloneProject(String projectName) {
@@ -1445,8 +1477,8 @@ public class TasksPage extends GenericPage {
   }
 
   private BaseElementFacade getTaskTitleDateFromWidget(String taskName) {
-    return findByXpathOrCSS(String.format("(//*[@id='TasksContainer']//div[@class='v-list-item__title' and text()='%s'])[1]",
-                                     taskName));
+    return findByXPathOrCSS(String.format("(//*[@id='TasksContainer']//div[@class='v-list-item__title' and text()='%s'])[1]",
+                                          taskName));
   }
 
   public void checkTaskFromWidget(String taskName) {
@@ -1476,14 +1508,14 @@ public class TasksPage extends GenericPage {
   private BaseElementFacade taskPrioritySelector;
 
   private BaseElementFacade getTaskPriority(String taskPriority) {
-    return findByXpathOrCSS(
-                       String.format("//*[@class='taskPriority']//*[@class='v-select__selections']/div[contains(text(),'%s')]",
-                                     taskPriority));
+    return findByXPathOrCSS(
+                            String.format("//*[@class='taskPriority']//*[@class='v-select__selections']/div[contains(text(),'%s')]",
+                                          taskPriority));
   }
 
   private BaseElementFacade selectTaskPriority(String taskPriority) {
-    return findByXpathOrCSS(
-                       String.format("//*[@class='body-2' and contains(text(),'%s')]", taskPriority));
+    return findByXPathOrCSS(
+                            String.format("//*[@class='body-2' and contains(text(),'%s')]", taskPriority));
   }
 
   public void setTaskPriority(String taskPriority) {
@@ -1496,15 +1528,15 @@ public class TasksPage extends GenericPage {
   private BaseElementFacade selectStatusSelector;
 
   private BaseElementFacade getTaskStatus(String taskStatus) {
-    return findByXpathOrCSS(
-                       String.format("//*[@class='taskStatus']//*[contains(@class,'v-select__selection--comma') and contains(text(),'%s')]",
-                                     taskStatus));
+    return findByXPathOrCSS(
+                            String.format("//*[@class='taskStatus']//*[contains(@class,'v-select__selection--comma') and contains(text(),'%s')]",
+                                          taskStatus));
   }
 
   private BaseElementFacade selectTaskStatus(String taskStatus) {
-    return findByXpathOrCSS(
-                       String.format("//*[@role='listbox']//*[@class='v-list-item__title' and contains(text(),'%s')]",
-                                     taskStatus));
+    return findByXPathOrCSS(
+                            String.format("//*[@role='listbox']//*[@class='v-list-item__title' and contains(text(),'%s')]",
+                                          taskStatus));
   }
 
   public void setTaskStatus(String taskStatus) {
@@ -1523,9 +1555,9 @@ public class TasksPage extends GenericPage {
   }
 
   private BaseElementFacade getSelectUserInDropDown(String firstUserName) {
-    return findByXpathOrCSS(String.format(
-                                     "//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
-                                     firstUserName));
+    return findByXPathOrCSS(String.format(
+                                          "//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
+                                          firstUserName));
   }
 
   @FindBy(xpath = "(//div[@name='taskAssignee']//input)[1]")
@@ -1580,9 +1612,9 @@ public class TasksPage extends GenericPage {
   }
 
   private BaseElementFacade getTaskNamePlanView(String taskName) {
-    return findByXpathOrCSS(String.format(
-                                     "//*[@class='bar-group']//*[contains(text(),'%s')]",
-                                     taskName));
+    return findByXPathOrCSS(String.format(
+                                          "//*[@class='bar-group']//*[contains(text(),'%s')]",
+                                          taskName));
   }
 
   public void taskNamePLanView(String taskName) {
@@ -1659,12 +1691,17 @@ public class TasksPage extends GenericPage {
     textAssignee.shouldBeVisible();
   }
 
+  @SwitchToWindow
   public void enterDescriptionForTask(String description) {
     taskDescriptionField.clickOnElement();
     driver.switchTo().frame(switchToFrameTask);
-    taskDescriptionFieldIframe.waitUntilVisible();
-    taskDescriptionFieldIframe.setTextValue(description);
-    driver.switchTo().defaultContent();
+    try {
+      taskDescriptionFieldIframe.waitUntilVisible();
+      taskDescriptionFieldIframe.setTextValue(description);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
+
     TileForTaskField.clickOnElement();
   }
 
@@ -1672,14 +1709,19 @@ public class TasksPage extends GenericPage {
     getDescriptionForTask(description).isDisplayed();
   }
 
+  @SwitchToWindow
   public void editDescriptionForTask(String newDescription) {
     taskDescriptionField.clickOnElement();
     driver.switchTo().frame(switchToFrameTaskUser);
-    taskDescriptionFieldIframe.clickOnElement();
-    taskDescriptionFieldIframe.waitUntilVisible();
-    taskDescriptionFieldIframe.clear();
-    taskDescriptionFieldIframe.setTextValue(newDescription);
-    driver.switchTo().defaultContent();
+    try {
+      taskDescriptionFieldIframe.clickOnElement();
+      taskDescriptionFieldIframe.waitUntilVisible();
+      taskDescriptionFieldIframe.clear();
+      taskDescriptionFieldIframe.setTextValue(newDescription);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
+
     TileForTaskField.clickOnElement();
   }
 
@@ -1731,22 +1773,31 @@ public class TasksPage extends GenericPage {
     backDrawer.clickOnElement();
   }
 
+  @SwitchToWindow
   public void setTaskDescription(String Description) {
     taskDescriptionField.clickOnElement();
     driver.switchTo().frame(ckEditorFrameDescription);
-    settaskDescription.sendKeys(Description);
-    driver.switchTo().defaultContent();
+    try {
+      settaskDescription.sendKeys(Description);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
+
   }
 
   public void clickOnSaveButtonToAddTaskSpaceProject() {
     SaveButtonTaskSpaceProject.clickOnElement();
   }
 
-  public void updateTaskDescription(String Description) {
+  @SwitchToWindow
+  public void updateTaskDescription(String description) {
     taskDescriptionField.clickOnElement();
-    driver.switchTo().frame(ckEditorFrameDescription);
-    settaskDescription.sendKeys(" " + Description);
-    driver.switchTo().defaultContent();
+    try {
+      driver.switchTo().frame(ckEditorFrameDescription);
+      settaskDescription.sendKeys(" " + description);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
   }
 
   public void clickOnUpDateButton() {
@@ -1758,11 +1809,15 @@ public class TasksPage extends GenericPage {
     cloneoption.clickOnElement();
   }
 
+  @SwitchToWindow
   public void checkUpdatedDescription(String Description) {
     taskDescriptionField.clickOnElement();
     driver.switchTo().frame(ckEditorFrameDescription);
-    Assert.assertEquals(settaskDescription.getText(), Description);
-    driver.switchTo().defaultContent();
+    try {
+      Assert.assertEquals(settaskDescription.getText(), Description);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
   }
 
   public void hoverOnProjectManagerIcon() {

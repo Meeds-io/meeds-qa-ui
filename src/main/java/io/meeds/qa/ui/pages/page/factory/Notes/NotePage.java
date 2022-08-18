@@ -5,7 +5,7 @@ import org.junit.Assert;
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import net.serenitybdd.core.Serenity;
+import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class NotePage extends GenericPage {
@@ -48,15 +48,18 @@ public class NotePage extends GenericPage {
   @FindBy(xpath = "//*[contains(@class,'body-2 text-color')]")
   private TextBoxElementFacade saveAndPostButton;
 
+  @SwitchToWindow
   public void addNote(String noteTitle, String noteContent) {
     noteTileTextBox.setTextValue(noteTitle);
     ckEditorFrameNote.waitUntilVisible();
     ckEditorFrameNote.clickOnElement();
     driver.switchTo().frame(ckEditorFrameNote);
-
-    noteContentTextBox.waitUntilVisible();
-    noteContentTextBox.setTextValue(noteContent);
-    driver.switchTo().defaultContent();
+    try {
+      noteContentTextBox.waitUntilVisible();
+      noteContentTextBox.setTextValue(noteContent);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
   }
 
   public void saveNote() {
@@ -87,15 +90,18 @@ public class NotePage extends GenericPage {
   @FindBy(xpath = "//*[@class='v-icon notranslate clickable edit-note-click fas fa-edit theme--light']")
   private BaseElementFacade editNotePageIcon;
 
+  @SwitchToWindow
   public void createNotePage(String noteTitle, String noteContent) {
     noteTileTextBox.setTextValue(noteTitle);
     ckEditorFrameNote.waitUntilVisible();
     ckEditorFrameNote.clickOnElement();
     driver.switchTo().frame(ckEditorFrameNote);
-
-    noteContentTextBox.waitUntilVisible();
-    noteContentTextBox.setTextValue(noteContent);
-    driver.switchTo().defaultContent();
+    try {
+      noteContentTextBox.waitUntilVisible();
+      noteContentTextBox.setTextValue(noteContent);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
 
     saveButton.waitUntilVisible();
     saveButton.waitUntilClickable();
@@ -111,14 +117,18 @@ public class NotePage extends GenericPage {
     createNoteTab.isVisibleAfterWaiting();
   }
 
+  @SwitchToWindow
   public void editNotePage(String noteTitleEdited, String noteContentEdited) {
     noteTileTextBox.setTextValue(noteTitleEdited);
     ckEditorFrameNote.waitUntilVisible();
     ckEditorFrameNote.clickOnElement();
     driver.switchTo().frame(ckEditorFrameNote);
-    noteContentTextBox.waitUntilVisible();
-    noteContentTextBox.setTextValue(noteContentEdited);
-    driver.switchTo().defaultContent();
+    try {
+      noteContentTextBox.waitUntilVisible();
+      noteContentTextBox.setTextValue(noteContentEdited);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
 
     saveButton.waitUntilVisible();
     saveButton.waitUntilClickable();
@@ -145,7 +155,7 @@ public class NotePage extends GenericPage {
   private BaseElementFacade confirmationPopupDeleteButton;
 
   private BaseElementFacade noteTitleField(String title) {
-    return findByXpathOrCSS(String.format("//*[contains(@class,'notes-title')]/span[ contains(text(),'%s')]", title));
+    return findByXPathOrCSS(String.format("//*[contains(@class,'notes-title')]/span[ contains(text(),'%s')]", title));
   }
 
   public void deleteNote() {
@@ -159,7 +169,7 @@ public class NotePage extends GenericPage {
   }
 
   private BaseElementFacade getNoteActivityTitle(String noteTitle) {
-    return findByXpathOrCSS(String.format("//*[contains(@class,'font-weight-bold')]//div[contains(text(),'%s')]", noteTitle));
+    return findByXPathOrCSS(String.format("//*[contains(@class,'font-weight-bold')]//div[contains(text(),'%s')]", noteTitle));
   }
 
   public void isNoteActivityDisplayed(String noteTitle) {

@@ -6,136 +6,135 @@ import java.util.Map;
 
 import org.junit.Assert;
 
-import io.meeds.qa.ui.pages.page.factory.people.UserProfile;
-import net.serenitybdd.core.Serenity;
+import io.meeds.qa.ui.pages.page.factory.people.UserProfilePage;
 
 public class UserProfileSteps {
 
-  private UserProfile userProfile;
+  private UserProfilePage userProfilePage;
 
   public void isSentKudosVisible() {
-    userProfile.isSentKudosVisible();
+    userProfilePage.isSentKudosVisible();
   }
 
   public List<String> checkListOfFields(List<String> listIfFields) {
     List<String> missingValues = new ArrayList<>();
     for (String fieldName : listIfFields) {
-      if (!userProfile.isFieldVisible(fieldName))
+      if (!userProfilePage.isFieldVisible(fieldName))
         missingValues.add(fieldName);
     }
     return missingValues;
   }
 
   public void sentKudosUsersSectionIsDisplayed(String user) {
-    userProfile.sentKudosUsersSectionIsDisplayed(user);
+    userProfilePage.sentKudosUsersSectionIsDisplayed(user);
   }
 
   public void receivedKudosUsersSectionIsDisplayed(String user) {
-    userProfile.receivedKudosUsersSectionIsDisplayed(user);
+    userProfilePage.receivedKudosUsersSectionIsDisplayed(user);
   }
 
   public void profilePageIsDisplayed() {
-    userProfile.profilePageIsDisplayed();
+    userProfilePage.profilePageIsDisplayed();
   }
 
   public void isReceivedKudosVisible() {
-    userProfile.isReceivedKudosVisible();
+    userProfilePage.isReceivedKudosVisible();
   }
 
   public void openAchivementTab() {
-    userProfile.openAchivementTab();
+    userProfilePage.openAchivementTab();
   }
 
   public void goToReceivedKudos() {
-    userProfile.goToReceivedKudos();
+    userProfilePage.goToReceivedKudos();
   }
 
   public void openBadgeDetails() {
-    userProfile.openBadgeDetails();
+    userProfilePage.openBadgeDetails();
   }
 
   public void openHowToEarnPointPage() {
-    userProfile.openHowToEarnPointPage();
+    userProfilePage.openHowToEarnPointPage();
   }
 
   public void goToSentKudos() {
-    userProfile.goToSentKudos();
+    userProfilePage.goToSentKudos();
   }
 
   public int getMyWeeklyPoint() {
-    return userProfile.getMyWeeklyPoint();
+    return userProfilePage.getMyWeeklyPoint();
   }
 
   public void sendKudos(String kudosMessage) {
-    userProfile.clickOnSendKudosBtn();
-    userProfile.sendKudos(kudosMessage);
+    userProfilePage.clickOnSendKudosBtn();
+    userProfilePage.sendKudos(kudosMessage);
   }
 
   public void howToEarnPointsPageIsDisplayed() {
-    userProfile.howToEarnPointsPageIsDisplayed();
+    userProfilePage.howToEarnPointsPageIsDisplayed();
   }
 
   public boolean wasMyPointIncreased(int myPointBeforeKudos) {
     int retry = 3;
     int index = 0;
     // Retry at most 3 times until Gamification Points are increased
-    while (userProfile.getMyWeeklyPoint() <= myPointBeforeKudos && index++ < retry) {
-      userProfile.waitFor(3).seconds();
-      userProfile.refreshPage();
+    while (userProfilePage.getMyWeeklyPoint() <= myPointBeforeKudos && index++ < retry) {
+      userProfilePage.waitFor(3).seconds();
+      userProfilePage.refreshPage();
     }
     return index < retry;
   }
 
   public void isProfileAvatarUploaded() {
-    userProfile.isProfileAvatarUploaded();
+    userProfilePage.isProfileAvatarUploaded();
   }
 
   public void uploadProfileAvatar(String fileName) {
-    userProfile.uploadProfileAvatar(fileName);
+    userProfilePage.uploadProfileAvatar(fileName);
   }
 
   public void sentKudosSectionIsDisplayed(String kudosNumber) {
-    userProfile.sentKudosSectionIsDisplayed(kudosNumber);
+    userProfilePage.sentKudosSectionIsDisplayed(kudosNumber);
   }
 
   public void receivedKudosSectionIsDisplayed(String kudosNumber) {
-    userProfile.receivedKudosSectionIsDisplayed(kudosNumber);
+    userProfilePage.receivedKudosSectionIsDisplayed(kudosNumber);
   }
 
   public void isGainedCaurisVisible() {
-    userProfile.isGainedCaurisVisible();
+    userProfilePage.isGainedCaurisVisible();
   }
 
   public void isCoverVisible() {
     // Check That User Cover is displayed in Profile Page
-    userProfile.ELEMENT_PROFILE_COVER.isVisibleAfterWaiting();
+    userProfilePage.ELEMENT_PROFILE_COVER.isVisibleAfterWaiting();
   }
 
   public void isProfileContactCompanyVisible(String company) {
-    userProfile.isProfileContactCompanyVisible(company);
+    userProfilePage.isProfileContactCompanyVisible(company);
   }
 
   public void isProfileContactPhoneVisible(String phone) {
-    userProfile.isProfileContactPhoneVisible(phone);
+    userProfilePage.isProfileContactPhoneVisible(phone);
   }
 
   public void isProfileContactInstantMessagingVisible(String instantMessaging) {
-    userProfile.isProfileContactInstantMessagingVisible(instantMessaging);
+    userProfilePage.isProfileContactInstantMessagingVisible(instantMessaging);
   }
 
   public void isProfileContactUrlVisible(String url) {
-    userProfile.isProfileContactUrlVisible(url);
+    userProfilePage.isProfileContactUrlVisible(url);
   }
 
   public void updateBasicInformation(Map<String, String> basicInformations) {
-    userProfile.updateBasicInformation(basicInformations.get("firstName"),
+    userProfilePage.updateBasicInformation(basicInformations.get("firstName"),
                                        basicInformations.get("lastName"),
                                        basicInformations.get("email"),
                                        basicInformations.get("job"));
   }
 
   public void updateContactOtherInformations(Map<String, String> basicInformations) {
-    userProfile.updateContactOtherInformations(basicInformations.get("company"),
+    userProfilePage.updateContactOtherInformations(basicInformations.get("company"),
                                                basicInformations.get("phoneType"),
                                                basicInformations.get("phone"),
                                                basicInformations.get("instantMessagingType"),
@@ -145,66 +144,70 @@ public class UserProfileSteps {
 
   public void isProfileContactFullNameVisible(String title, String fullName) {
     // Check That Profile Contact Fullname is displayed
-    Assert.assertEquals(userProfile.ELEMENT_PROFILE_CONTACT_INFORMATION_TITLE.getText(), title);
-    Assert.assertEquals(userProfile.ELEMENT_PROFILE_CONTACT_INFORMATION_FULLNAME.getText(), fullName);
+    Assert.assertEquals(userProfilePage.ELEMENT_PROFILE_CONTACT_INFORMATION_TITLE.getText(), title);
+    Assert.assertEquals(userProfilePage.ELEMENT_PROFILE_CONTACT_INFORMATION_FULLNAME.getText(), fullName);
   }
 
   public void updateWorkExperiences(Map<String, String> workExperiences) throws InterruptedException {
-    userProfile.updateWorkExperiences(workExperiences.get("organization"),
+    userProfilePage.updateWorkExperiences(workExperiences.get("organization"),
                                       workExperiences.get("jobTitle"),
                                       workExperiences.get("jobDetails"),
                                       workExperiences.get("usedSkills"));
   }
 
   public void removeWorkExperience(String jobTitle) {
-    userProfile.removeWorkExperience(jobTitle);
+    userProfilePage.removeWorkExperience(jobTitle);
   }
 
   public void checkWorkExperiencesSection(String jobTitle, String organization, String jobDetails, String usedSkills) {
-    userProfile.checkWorkExperiencesSection(jobTitle, organization, jobDetails, usedSkills);
+    userProfilePage.checkWorkExperiencesSection(jobTitle, organization, jobDetails, usedSkills);
   }
 
   public void isProfileContactEmailVisible(String mail) {
-    userProfile.ELEMENT_PROFILE_CONTACT_INFORMATION_EMAIL.isVisibleAfterWaiting();
-    Assert.assertEquals(userProfile.ELEMENT_PROFILE_CONTACT_INFORMATION_EMAIL.getText(), mail);
-    String contactEmail = userProfile.ELEMENT_PROFILE_CONTACT_INFORMATION_EMAIL.getText();
+    userProfilePage.ELEMENT_PROFILE_CONTACT_INFORMATION_EMAIL.isVisibleAfterWaiting();
+    Assert.assertEquals(userProfilePage.ELEMENT_PROFILE_CONTACT_INFORMATION_EMAIL.getText(), mail);
+    String contactEmail = userProfilePage.ELEMENT_PROFILE_CONTACT_INFORMATION_EMAIL.getText();
     // Check That Profile Contact Email is displayed
   }
 
   public void openWeeklyPointsChart() {
-    userProfile.openWeeklyPointsChart();
+    userProfilePage.openWeeklyPointsChart();
   }
 
   public void isProfileContactJobVisible(String job) {
     // Check That Profile Contact Job is displayed
-    Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
-    Assert.assertEquals(userProfile.ELEMENT_PROFILE_CONTACT_INFORMATION_JOBTITLE.getText(), job);
+    userProfilePage.refreshPage();
+    Assert.assertEquals(userProfilePage.ELEMENT_PROFILE_CONTACT_INFORMATION_JOBTITLE.getText(), job);
   }
 
   public void isUserJobVisible(String job) {
-    Assert.assertEquals(userProfile.ELEMENT_PROFILE_JOB.getText(), job);
+    Assert.assertEquals(userProfilePage.ELEMENT_PROFILE_JOB.getText(), job);
   }
 
   public void isAvatarVisible() {
     // Check That User Avatar is displayed in Profile Page
-    userProfile.ELEMENT_PROFILE_AVATAR.isVisibleAfterWaiting();
+    userProfilePage.ELEMENT_PROFILE_AVATAR.isVisibleAfterWaiting();
   }
 
   public void isFullNameVisible(String fullName) {
     // Check That User Fullname is displayed in Profile Page
-    Assert.assertEquals(userProfile.ELEMENT_PROFILE_FULLNAME.getText(), fullName);
+    Assert.assertEquals(userProfilePage.ELEMENT_PROFILE_FULLNAME.getText(), fullName);
   }
 
   public void clickConfirmConnect() {
-    userProfile.clickConfirmConnect();
+    userProfilePage.clickConfirmConnect();
   }
 
   public void checkWeeklyPointChart() {
-    userProfile.checkWeeklyPointChart();
+    userProfilePage.checkWeeklyPointChart();
   }
 
   public void checkAchievementsDrawer() {
-    userProfile.checkAchievementsDrawer();
+    userProfilePage.checkAchievementsDrawer();
+  }
+
+  public void refreshPage() {
+    userProfilePage.refreshPage();
   }
 
 }
