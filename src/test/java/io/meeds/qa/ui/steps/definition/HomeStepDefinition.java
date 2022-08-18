@@ -141,9 +141,9 @@ public class HomeStepDefinition {
     homeSteps.checkNotDisplaySpaceInvitation(listOfSpace);
   }
 
-  @When("the '{}' page is opened")
+  @When("^The '(.*)' page is opened$")
   public void checkPage(String page) {
-    assertThat(homeSteps.checkPage(page)).as("Wallet page is not opened").isTrue();
+    assertThat(homeSteps.checkPage(page)).as(page + " page is not opened").isTrue();
   }
 
   @When("the following sections are displayed")

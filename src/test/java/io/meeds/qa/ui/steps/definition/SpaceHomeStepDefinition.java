@@ -774,4 +774,18 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.viewAllRepliesInCommentsDrawer(comment);
   }
 
+  @When("^I click likers number of the activity '(.*)'$")
+  public void openActivityReactionsDrawer(String activity) {
+    spaceHomeSteps.openActivityReactionsDrawer(activity);
+  }
+
+  @Then("The likers list should be displayed")
+  public void checkReactionsDrawerDisplay() {
+    spaceHomeSteps.checkReactionsDrawerDisplay();
+  }
+
+  @When("^I go to the profile page of the (.*) random user$")
+  public void goToUserProfile(String prefix) {
+    spaceHomeSteps.goToUserProfile(prefix);
+  }
 }
