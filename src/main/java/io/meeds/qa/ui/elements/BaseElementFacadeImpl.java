@@ -1,6 +1,7 @@
 package io.meeds.qa.ui.elements;
 
 import static io.meeds.qa.ui.utils.Utils.decorateDriver;
+import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoaded;
 
 import org.openqa.selenium.By;
@@ -143,21 +144,7 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
   }
 
   public void clickOnCurrentElement() {
-    boolean finishedRetries = false;
-    long retry = 0;
-    do {
-      try {
-        clickOnCurrentElementWindowSwitch();
-        finishedRetries = true;
-      } catch (RuntimeException e) {
-        finishedRetries = (++retry == 5);
-        if (finishedRetries) {
-          throw new IllegalStateException("Unable to click on element " + this + " after " + retry + " retries", e);
-        } else {
-          LOGGER.warn("Error clicking on element {}. retry = {}", this, retry);
-        }
-      }
-    } while (!finishedRetries);
+    retryOnCondition(this::clickOnCurrentElementWindowSwitch);
   }
 
   @SwitchToWindow
@@ -172,7 +159,7 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
     try {
       return super.getElement();
     } catch (Exception e) {
-      LOGGER.warn("Can't find element {}. Procees after switching window.", this, e);
+      LOGGER.debug("Can't find element {}. Procees after switching window.", this, e);
       return getCurrentElement();
     }
   }

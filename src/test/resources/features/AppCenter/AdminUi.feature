@@ -8,10 +8,10 @@ Feature: UI app administration
   Scenario: CAP47-[Admin_UI_US12]:Applications table/Edit action
     Given I am authenticated as admin
     And I go to Administer application center Page
-    When I open 'Tasks' edit drawer
-    Then Edit application title is displayed 'Tasks' in drawer
-    And  Edit application url is displayed './tasks' in drawer
-    And Edit application image is displayed 'Tasks.png' in drawer
+    When I open 'Analytics' edit drawer
+    Then Edit application title is displayed 'Analytics' in drawer
+    And  Edit application url is displayed './analytics' in drawer
+    And Edit application image is displayed 'Analytics.png' in drawer
     And Edit application mandatory active and mobile are displayed in drawer
     And Edit application permissions '/platform/users' and '/platform/externals' are displayed in drawer
     And I refresh the page

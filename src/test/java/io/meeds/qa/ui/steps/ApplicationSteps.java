@@ -1,5 +1,7 @@
 package io.meeds.qa.ui.steps;
 
+import static io.meeds.qa.ui.utils.Utils.*;
+
 import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_APPCENTER_ALL_APPLICATIONS_PAGE;
 import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_APPCENTER_PERK_STORE;
 import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_APPCENTER_SEE_ALL_APPLICATIONS;
@@ -53,12 +55,10 @@ public class ApplicationSteps {
   }
 
   public void clickOnTheAppLauncherIcon() {
-    ELEMENT_APPLICATIONS_TOPBAR.waitUntilVisible();
-    ELEMENT_APPLICATIONS_TOPBAR.clickOnElement();
+    applicationPage.clickOnTheAppLauncherIcon();
   }
 
   public boolean isNotesPageOpened() {
-
     return ELEMENT_NOTES_APPLICATION_PAGE.isVisibleAfterWaiting();
   }
 
@@ -67,10 +67,7 @@ public class ApplicationSteps {
   }
 
   public void goToTasksAppCenterApplication() {
-
-    // Click on App Center Tasks Application Button
-    ELEMENT_APPCENTER_TASKS.clickOnElement();
-
+    applicationPage.goToTasksAppCenterApplication();
   }
 
   public boolean isTasksPageOpened() {

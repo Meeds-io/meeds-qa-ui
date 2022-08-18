@@ -1,6 +1,8 @@
 package io.meeds.qa.ui.elements;
 
 import static io.meeds.qa.ui.utils.Utils.decorateDriver;
+import static io.meeds.qa.ui.utils.Utils.releaseWindowTemporarely;
+import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoaded;
 
 import org.openqa.selenium.Keys;
@@ -62,22 +64,10 @@ public class TextBoxElementFacadeImpl extends BaseElementFacadeImpl implements T
   }
 
   public void sendValueWithKeys(boolean clear, Keys keys, CharSequence... value) {
-    boolean finishedRetries = false;
-    long retry = 0;
-    do {
-      try {
-        WebElement element = getElement();
-        sendValueWithKeysOnElement(element, clear, keys, value);
-        finishedRetries = true;
-      } catch (RuntimeException e) {
-        finishedRetries = (++retry == 5);
-        if (finishedRetries) {
-          throw new IllegalStateException("Unable to sendKeys on element " + this + " after " + retry + " retries", e);
-        } else {
-          LOGGER.warn("Error sending keys on element {}. retry = {}", this, retry);
-        }
-      }
-    } while (!finishedRetries);
+    retryOnCondition(() -> {
+      WebElement element = getElement();
+      sendValueWithKeysOnElement(element, clear, keys, value);
+    });
   }
 
   @SwitchToWindow

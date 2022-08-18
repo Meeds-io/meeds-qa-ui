@@ -1,9 +1,11 @@
 package io.meeds.qa.ui.elements;
 
 import static io.meeds.qa.ui.utils.Utils.decorateDriver;
+import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
 import org.slf4j.Logger;
@@ -50,33 +52,40 @@ public class TextElementFacadeImpl extends BaseElementFacadeImpl implements Text
 
   }
 
-  @Override
-  public void sendKeys(CharSequence... value) {
-    sendValueWithKeys(null, value);
+  public void setTextValue(String value) {
+    setTextValue(value, null);
   }
 
-  public void sendValueWithKeys(Keys keys, CharSequence... value) {
-    boolean finishedRetries = false;
-    long retry = 0;
-    do {
-      try {
-        WebElement element = getElement();
-        sendValueWithKeysOnElement(element, keys, value);
-        finishedRetries = true;
-      } catch (RuntimeException e) {
-        finishedRetries = (++retry == 5);
-        if (finishedRetries) {
-          throw new IllegalStateException("Unable to sendKeys on element " + this + " after " + retry + " retries", e);
-        } else {
-          LOGGER.warn("Error sending keys on element {}. retry = {}", this, retry);
-        }
-      }
-    } while (!finishedRetries);
+  public void setTextValue(String value, Keys keys) {
+    try {
+      sendValueWithKeys(true, keys, value);
+    } catch (WebDriverException | IllegalArgumentException e) {
+      ExceptionLauncher.throwSerenityExeption(e,
+                                              String.format(
+                                                            "The element [%s] is not visible. "
+                                                                + "The new value [%s] cannot be entered.",
+                                                            this,
+                                                            value));
+    }
+  }
+
+  @Override
+  public void sendKeys(CharSequence... value) {
+    sendValueWithKeys(false, null, value);
+  }
+
+  public void sendValueWithKeys(boolean clear, Keys keys, CharSequence... value) {
+    retryOnCondition(() -> {
+      WebElement element = getElement();
+      sendValueWithKeysOnElement(element, clear, keys, value);
+    });
   }
 
   @SwitchToWindow
-  public void sendValueWithKeysOnElement(WebElement element, Keys keys, CharSequence... value) {
-    element.clear();
+  public void sendValueWithKeysOnElement(WebElement element, boolean clear, Keys keys, CharSequence... value) {
+    if (clear) {
+      element.clear();
+    }
     element.sendKeys(value);
     if (keys != null) {
       element.sendKeys(keys);

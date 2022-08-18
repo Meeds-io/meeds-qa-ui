@@ -1,27 +1,36 @@
 package io.meeds.qa.ui.pages.page.factory.application;
 
+import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_APPCENTER_TASKS;
+import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_APPLICATIONS_TOPBAR;
+import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.BaseElementFacade;
+import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class ApplicationPage extends GenericPage {
+
+  private static final Map<String, BaseElementFacade> MAPPING_FIELD_NAME_TO_BASEELEMENTFACADE_XPATH = new HashMap<>();
+
+  @FindBy(xpath = "//*[@class='maxFavorite']//span[contains(text(),'You can’t set more than 12 favorites')]")
+  private BaseElementFacade                           maxFavoriteApps;
+
+  @FindBy(xpath = "//div[contains(@class,'appSearch')]//input")
+  private TextBoxElementFacade                        searchAppInput;
+
   public ApplicationPage(WebDriver driver) {
     super(driver);
   }
 
-  @FindBy(xpath = "//*[@class='maxFavorite']//span[contains(text(),'You can’t set more than 12 favorites')]")
-  private BaseElementFacade maxFavoriteApps;
-
   private BaseElementFacade getApplication(String appName) {
     return findByXPathOrCSS(String.format("//div[@class='authorisedAppContent']//div[contains(text(),'%s')]", appName));
   }
-
-  Map<String, BaseElementFacade> MAPPING_FIELD_NAME_TO_BASEELEMENTFACADE_XPATH = new HashMap<>();
 
   public void maxFavoriteAppsIsDisplayed() {
     maxFavoriteApps.isVisibleAfterWaiting();
@@ -92,22 +101,22 @@ public class ApplicationPage extends GenericPage {
 
   private BaseElementFacade addApplicationAFavoriteInApplicationCenter(String app) {
     return findByXPathOrCSS(String.format("(//*[@class='authorisedAppContent']//*[contains (@class,'appTitle') and contains(text(),'%s')]/following::*[contains(@class, 'applicationActions')]//i[contains(@class, 'mdi-star')])[01]",
-                                     app));
+                                          app));
   }
 
   private BaseElementFacade addToAppCenterFavoriteIsDisplayed(String app) {
     return findByXPathOrCSS(String.format("(//*[@class='authorisedAppContent']//*[@class='appTitle']//div[contains(text(),'%s')]/following::*[contains(@class, 'applicationActions')]//*[@title='Add to favorites applications']//button)[1]",
-                                     app));
+                                          app));
   }
 
   private BaseElementFacade removeFromAppCenterFavoriteIsDisplayed(String app) {
     return findByXPathOrCSS(String.format("(//*[@class='authorisedAppContent']//*[@class='appTitle']//div[contains(text(),'%s')]/following::*[contains(@class, 'applicationActions')]//*[@title='Remove from favorites']//button)[1]",
-                                     app));
+                                          app));
   }
 
   private BaseElementFacade ELEMENT_APPCENTER_ALL_APPLICATIONS_OPEN_APP_BTN(String app) {
     return findByXPathOrCSS(String.format("(//*[@class='authorisedAppContent']//*[contains (@class,'appTitle') and contains(text(),'%s')]/following::*[contains(@class, 'applicationActions')]//a)[01]",
-                                     app));
+                                          app));
   }
 
   private BaseElementFacade ELEMENT_APPCENTER_APPLICATION_TITLE(String app) {
@@ -135,6 +144,8 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void addRemoveApplicationToFavorites(String app) {
+    searchAppInput.setTextValue(app);
+
     // Add/ Remove the application To Favorites
     BaseElementFacade appAsFavoriteInApplicationCenter = addApplicationAFavoriteInApplicationCenter(app);
     clickOnElement(appAsFavoriteInApplicationCenter);
@@ -193,6 +204,21 @@ public class ApplicationPage extends GenericPage {
   public void goToChallengeApplication() {
     challengeApplication.waitUntilVisible();
     challengeApplication.clickOnElement();
+  }
+
+  public void goToTasksAppCenterApplication() {
+    retryOnCondition(() -> {
+      // Click on App Center Tasks Application Button
+      ELEMENT_APPCENTER_TASKS.clickOnElement();
+    }, () -> {
+      refreshPage();
+      clickOnTheAppLauncherIcon();
+    });
+  }
+
+  public void clickOnTheAppLauncherIcon() {
+    ELEMENT_APPLICATIONS_TOPBAR.waitUntilVisible();
+    ELEMENT_APPLICATIONS_TOPBAR.clickOnElement();
   }
 
 }

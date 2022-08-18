@@ -56,7 +56,7 @@
     <failsafe.rerunFailingTestsCount>0</failsafe.rerunFailingTestsCount>
     <parallel.tests>1</parallel.tests>
     <!-- One of [SCENARIO, FEATURE]. SCENARIO generates one runner per scenario.  FEATURE generates a runner per feature. -->
-    <parallel.scheme>SCENARIO</parallel.scheme>
+    <parallel.scheme>FEATURE</parallel.scheme>
   </properties>
   <dependencyManagement>
     <dependencies>

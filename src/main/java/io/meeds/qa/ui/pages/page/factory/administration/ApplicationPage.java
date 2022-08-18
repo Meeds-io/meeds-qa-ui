@@ -223,6 +223,7 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void enableMandatoryApplication(String appTitle) {
+    searchAppByTitle(appTitle);
     boolean clicked = false;
     int retry = 0;
     do {
@@ -240,6 +241,7 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void disableMandatoryApplication(String appTitle) {
+    searchAppByTitle(appTitle);
     boolean clicked = false;
     int retry = 0;
     do {
@@ -324,8 +326,7 @@ public class ApplicationPage extends GenericPage {
   }
 
   private void searchAppByTitle(String appTitle) {
-    searchAppInput.clear();
-    waitFor(100).milliseconds();
+    refreshPage();
     searchAppInput.setTextValue(appTitle);
     waitForSearchToComplete();
   }
@@ -333,9 +334,9 @@ public class ApplicationPage extends GenericPage {
   private void waitForSearchToComplete() {
     try {
       findByXPathOrCSS("(//*[contains(@class, 'tableAppTitle')])[2]").waitUntilNotVisible();
-      findByXPathOrCSS("(//*[contains(@class, 'tableAppTitle')])[1]").waitUntilVisible();
+      waitFor(200).milliseconds(); // Wait until application finishes its display
     } catch (Exception e) {
-      ExceptionLauncher.LOGGER.warn("Application search isn't completed yet", e);
+      ExceptionLauncher.LOGGER.debug("Search on AppCenter hasn't finished loading at time", e);
     }
   }
 }

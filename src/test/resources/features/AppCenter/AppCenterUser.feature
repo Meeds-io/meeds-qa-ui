@@ -9,7 +9,7 @@ Feature: To be able to access applications
     Given I am authenticated as admin
     Then my applications button is displayed
 
-  Scenario: CAP06 - Open an exo application from the drawer
+  Scenario: CAP06 - Open an application from the AppCenter drawer
     Given I am authenticated as admin
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
@@ -21,11 +21,11 @@ Feature: To be able to access applications
   Scenario: CAP07 - Open an external application from the drawer
     Given I am authenticated as admin
     And I go to Administer application center Page
-    And I disable Mandatory 'Tasks' for application
+    And I disable Mandatory 'Wallet' for application
     When I see All Applications
     Then All Applications Page is Displayed
-    When I add Application 'Tasks' To Favorites
-    Then AppCenter Application 'Tasks' is added To Favorites
+    When I add Application 'Wallet' To Favorites
+    Then AppCenter Application 'Wallet' is added To Favorites
 
     When I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
@@ -33,11 +33,11 @@ Feature: To be able to access applications
     When I see All Applications
     Then All Applications Page is Displayed
 
-    When I remove Application 'Tasks' From Favorites
-    Then AppCenter Application 'Tasks' is removed From Favorites
+    When I remove Application 'Wallet' From Favorites
+    Then AppCenter Application 'Wallet' is removed From Favorites
     And I refresh the page
     And I go to Administer application center Page
-    And I enable Mandatory 'Tasks' for application
+    And I enable Mandatory 'Wallet' for application
 
   Scenario: CAP16 - Design V6-Buttons of an Application card
     Given I am authenticated as admin
@@ -95,9 +95,9 @@ Feature: To be able to access applications
 
   Scenario: CAP24 - Unfavorite app from right panel "Favorite applications"
     Given I am authenticated as admin
+    And I create the first random user
     And I go to Administer application center Page
     And I disable Mandatory 'Tasks' for application
-    And I create the first random user
     And I go to groups Management page
     And I open the group 'Platform'
     When I select the group 'Administration'

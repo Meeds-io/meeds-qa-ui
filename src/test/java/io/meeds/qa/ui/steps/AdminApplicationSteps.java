@@ -115,13 +115,11 @@ public class AdminApplicationSteps {
     applicationPage.applicationDrawerTitleIsDisplayed(title);
   }
 
-  public void enableMandatoryApplication(String appTitle) throws InterruptedException {
-
+  public void enableMandatoryApplication(String appTitle) {
     applicationPage.enableMandatoryApplication(appTitle);
   }
   
-  public void disableMandatoryApplication(String appTitle) throws InterruptedException {
-    
+  public void disableMandatoryApplication(String appTitle) {
     applicationPage.disableMandatoryApplication(appTitle);
   }
 
