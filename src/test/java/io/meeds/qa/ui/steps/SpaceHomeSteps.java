@@ -160,7 +160,7 @@ public class SpaceHomeSteps {
   }
 
   public void closeWriteMessageDrawer() {
-    spaceHomePage.closeWriteMessageDrawer();
+    spaceHomePage.closeActivityComposerDrawer();
   }
 
   public boolean isSharedVideoDisplayed(String videoLink) {
@@ -428,9 +428,9 @@ public class SpaceHomeSteps {
     spaceHomePage.clickOnNotesTab();
   }
 
-  public void postManyActivities(String activityNumber) {
+  public void postManyActivities(String activityNumber, String activityPrefix) {
     for (int i = 0; i < Integer.parseInt(activityNumber) + 1; i++) {
-      String activity = "activity" + i;
+      String activity = activityPrefix + i;
       spaceHomePage.clickPostIcon();
       spaceHomePage.addActivity(activity);
       spaceHomePage.publishActivity();

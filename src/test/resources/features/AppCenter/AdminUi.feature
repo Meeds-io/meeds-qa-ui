@@ -5,7 +5,7 @@ Feature: UI app administration
 
 	@appcenter
 	@appcenterAdministration
-  Scenario: CAP47-[Admin_UI_US12]:Applications table/Edit action
+  Scenario: CAP47-[Admin_UI_US12] Applications table/Edit action
     Given I am authenticated as admin
     And I go to Administer application center Page
     When I open 'Analytics' edit drawer

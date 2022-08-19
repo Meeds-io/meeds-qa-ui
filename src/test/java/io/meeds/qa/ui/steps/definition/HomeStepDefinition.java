@@ -100,10 +100,10 @@ public class HomeStepDefinition {
     homeSteps.searchSpaceInSideBarFilter(space);
   }
 
-  @When("^I search for the second created space in Side Bar Filter$")
-  public void searchSecondSpaceInSideBarFilter() {
-    String secondRandomSpaceName = Serenity.sessionVariableCalled("secondRandomSpaceName");
-    homeSteps.searchSpaceInSideBarFilter(secondRandomSpaceName);
+  @When("^I search for the (.*) created space in Side Bar Filter$")
+  public void searchRandomSpaceInSideBarFilter(String spacePrefix) {
+    String spaceName = Serenity.sessionVariableCalled(spacePrefix + "RandomSpaceName");
+    homeSteps.searchSpaceInSideBarFilter(spaceName);
   }
 
   @Then("I search for the random created application")

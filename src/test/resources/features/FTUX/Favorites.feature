@@ -59,73 +59,72 @@ Feature: Favorite activities
     And I create the first random user
     And I connect with the first created user
     And I go to the random space
-    When I post many activities '2'
+    When I post '2' activities with prefix 'activityFavs_US05'
     And I refresh the page
-    Then the activity 'activity0' is displayed in activity stream
-    And the activity 'activity1' is displayed in activity stream
-    And the activity 'activity2' is displayed in activity stream
-    When I bookmark the activity 'activity1'
+    Then the activity 'activityFavs_US050' is displayed in activity stream
+    And the activity 'activityFavs_US051' is displayed in activity stream
+    And the activity 'activityFavs_US052' is displayed in activity stream
+    When I bookmark the activity 'activityFavs_US051'
     Then The favorite success message 'Favorite added successfully. Find it easily from the search' should be displayed
-    When I bookmark the activity 'activity2'
+    When I bookmark the activity 'activityFavs_US052'
     Then The favorite success message 'Favorite added successfully. Find it easily from the search' should be displayed
     When I go to Stream page
-    And I start the search for 'activity'
-    Then The activity is displayed in the search 'activity0'
-    And The activity is displayed in the search 'activity1'
-    And The activity is displayed in the search 'activity2'
+    And I start the search for 'activityFavs_US05'
+    Then The activity is displayed in the search 'activityFavs_US050'
+    And The activity is displayed in the search 'activityFavs_US051'
+    And The activity is displayed in the search 'activityFavs_US052'
     When I click on the favorite button
-    Then The activity is displayed in the search 'activity1'
-    And The activity is displayed in the search 'activity2'
-    And The activity is not displayed in the search 'activity0'
+    Then The activity is displayed in the search 'activityFavs_US051'
+    And The activity is displayed in the search 'activityFavs_US052'
+    And The activity is not displayed in the search 'activityFavs_US050'
     When I click on the favorite button
-    Then The activity is displayed in the search 'activity1'
-    And The activity is displayed in the search 'activity2'
-    And The activity is displayed in the search 'activity0'
+    Then The activity is displayed in the search 'activityFavs_US051'
+    And The activity is displayed in the search 'activityFavs_US052'
+    And The activity is displayed in the search 'activityFavs_US050'
 
-  @wip
   Scenario: [Favs_US06][01] Manage favorites from the search card ( Bookmark an activity)
     Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user
     And I go to the random space
-    When I post many activities '2'
+    When I post '2' activities with prefix 'activityFavs_US06_01_'
     And I refresh the page
-    Then the activity 'activity0' is displayed in activity stream
-    And the activity 'activity1' is displayed in activity stream
-    And the activity 'activity2' is displayed in activity stream
-    When  I start the search for 'activity'
-    Then The activity is displayed in the search 'activity1'
-    And The activity is displayed in the search 'activity2'
-    And The activity is displayed in the search 'activity0'
-    When I favorite the activity 'activity1' from the search page
+    Then the activity 'activityFavs_US06_01_0' is displayed in activity stream
+    And the activity 'activityFavs_US06_01_1' is displayed in activity stream
+    And the activity 'activityFavs_US06_01_2' is displayed in activity stream
+    When  I start the search for 'activityFavs_US06_01_'
+    Then The activity is displayed in the search 'activityFavs_US06_01_1'
+    And The activity is displayed in the search 'activityFavs_US06_01_2'
+    And The activity is displayed in the search 'activityFavs_US06_01_0'
+    When I favorite the activity 'activityFavs_US06_01_1' from the search page
     And I click on the favorite button
     And I refresh the page
-    Then The activity is displayed in the search 'activity1'
-    And The activity is not displayed in the search 'activity2'
-    And The activity is not displayed in the search 'activity0'
+    Then The activity is displayed in the search 'activityFavs_US06_01_1'
+    And The activity is not displayed in the search 'activityFavs_US06_01_2'
+    And The activity is not displayed in the search 'activityFavs_US06_01_0'
 
   Scenario: [Favs_US06][02] Manage favorites from the search card ( UnBookmark an activity)
     Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user
     And I go to the random space
-    When I post many activities '2'
+    When I post '2' activities with prefix 'activityFavs_US06_02_'
     And I refresh the page
-    Then the activity 'activity0' is displayed in activity stream
-    And the activity 'activity1' is displayed in activity stream
-    And the activity 'activity2' is displayed in activity stream
-    When I bookmark the activity 'activity2'
+    Then the activity 'activityFavs_US06_02_0' is displayed in activity stream
+    And the activity 'activityFavs_US06_02_1' is displayed in activity stream
+    And the activity 'activityFavs_US06_02_2' is displayed in activity stream
+    When I bookmark the activity 'activityFavs_US06_02_2'
     Then The favorite success message 'Favorite added successfully. Find it easily from the search' should be displayed
-    When  I start the search for 'activity'
-    Then The activity is displayed in the search 'activity1'
-    And The activity is displayed in the search 'activity2'
-    And The activity is displayed in the search 'activity0'
-    When I favorite the activity 'activity2' from the search page
+    When  I start the search for 'activityFavs_US06_02_'
+    Then The activity is displayed in the search 'activityFavs_US06_02_1'
+    And The activity is displayed in the search 'activityFavs_US06_02_2'
+    And The activity is displayed in the search 'activityFavs_US06_02_0'
+    When I favorite the activity 'activityFavs_US06_02_2' from the search page
     And I click on the favorite button
     And I refresh the page
-    Then The activity is not displayed in the search 'activity2'
-    And The activity is not displayed in the search 'activity1'
-    And The activity is not displayed in the search 'activity0'
+    Then The activity is not displayed in the search 'activityFavs_US06_02_2'
+    And The activity is not displayed in the search 'activityFavs_US06_02_1'
+    And The activity is not displayed in the search 'activityFavs_US06_02_0'
 
   @ignored
   Scenario: [Fav_US13][01]: Bookmark a note from it's details

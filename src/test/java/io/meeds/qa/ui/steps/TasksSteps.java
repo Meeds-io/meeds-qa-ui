@@ -356,8 +356,8 @@ public class TasksSteps {
     tasksPage.checkProjectNameIsDisplayedInProjectCard(projectName, description);
   }
 
-  public void addProjectWithParticipant(String projectName, String fullName) {
-    tasksPage.addProjectWithParticipant(projectName, fullName);
+  public void addProjectWithParticipant(String projectName, String lastName) {
+    tasksPage.addProjectWithParticipant(projectName, lastName);
 
   }
 
@@ -385,8 +385,8 @@ public class TasksSteps {
     tasksPage.addSixLabelToProject(label1, label2, label3, label4, label5, label6);
   }
 
-  public void addSecondUserToProject(String fullName) {
-    tasksPage.addSecondUserToProject(fullName);
+  public void addSecondUserToProject(String lastName) {
+    tasksPage.addSecondUserToProject(lastName);
   }
 
   public void labelIsNotDisplayedInProjectDrawer(String label) {
@@ -742,10 +742,6 @@ public class TasksSteps {
 
   public void setTaskDueDateToday() {
     tasksPage.setTaskDueDateToday();
-  }
-
-  public void checkTaskWidget() {
-    tasksPage.checkTaskWidgetDisplay();
   }
 
   public void checkTaskFromWidget(String taskName) {

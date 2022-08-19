@@ -3,6 +3,7 @@ package io.meeds.qa.ui.pages.page.factory.application;
 import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_APPCENTER_TASKS;
 import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_APPLICATIONS_TOPBAR;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,7 +34,7 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void maxFavoriteAppsIsDisplayed() {
-    maxFavoriteApps.isVisibleAfterWaiting();
+    assertTrue(maxFavoriteApps.isVisibleAfterWaiting());
   }
 
   public boolean isAppDisplayedInFavoriteList(String appName) {
@@ -136,11 +137,11 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void starButtonIsNotSelected(String appTitle) {
-    addToAppCenterFavoriteIsDisplayed(appTitle).isVisibleAfterWaiting();
+    assertTrue(addToAppCenterFavoriteIsDisplayed(appTitle).isVisibleAfterWaiting());
   }
 
   public void starButtonIsSelected(String appTitle) {
-    removeFromAppCenterFavoriteIsDisplayed(appTitle).isVisibleAfterWaiting();
+    assertTrue(removeFromAppCenterFavoriteIsDisplayed(appTitle).isVisibleAfterWaiting());
   }
 
   public void addRemoveApplicationToFavorites(String app) {
@@ -153,16 +154,16 @@ public class ApplicationPage extends GenericPage {
 
   public void checkThatAddApplicationBtnToFavoritesIsDisplayed(String app) {
     // Check that add application to favorites Button is displayed
-    addApplicationAFavoriteInApplicationCenter(app).isVisibleAfterWaiting();
+    assertTrue(addApplicationAFavoriteInApplicationCenter(app).isVisibleAfterWaiting());
   }
 
   public void checkThatOpenApplicationButtonIsDisplayed(String app) {
     // Check that open application Button is displayed
-    ELEMENT_APPCENTER_ALL_APPLICATIONS_OPEN_APP_BTN(app).isVisibleAfterWaiting();
+    assertTrue(ELEMENT_APPCENTER_ALL_APPLICATIONS_OPEN_APP_BTN(app).isVisibleAfterWaiting());
   }
 
   public void settingsPageIsOpened() {
-    settingsPage.isVisibleAfterWaiting();
+    assertTrue(settingsPage.isVisibleAfterWaiting());
   }
 
   public void clickOnOpenApplicationButton(String app) {
@@ -174,23 +175,23 @@ public class ApplicationPage extends GenericPage {
   public void checkThatAppcenterApplicationIsDisplayed(String app) {
     // Check that AppCenter Application is displayed
     ELEMENT_APPLICATIONS_TOPBAR.clickOnElement();
-    ELEMENT_APPCENTER_APPLICATION_TITLE(app).isVisibleAfterWaiting();
+    assertTrue(ELEMENT_APPCENTER_APPLICATION_TITLE(app).isVisibleAfterWaiting());
   }
 
   public void checkThatApplicationIsDisplayedInFavoriteApps(String app) {
     // Check that app is displayed in Favorite Applications
-    ELEMENT_FAVORITE_APPLICATION_TITLE(app).isVisibleAfterWaiting();
+    assertTrue(ELEMENT_FAVORITE_APPLICATION_TITLE(app).isVisibleAfterWaiting());
   }
 
   public void checkThatApplicationIsNotDisplayedInFavoriteApps(String app) {
     // Check that app is not displayed in Favorite Applications
-    ELEMENT_FAVORITE_APPLICATION_TITLE(app).isNotVisibleAfterWaiting();
+    assertTrue(ELEMENT_FAVORITE_APPLICATION_TITLE(app).isNotVisibleAfterWaiting());
   }
 
   public void checkThatAppcenterApplicationIsNotDisplayed(String app) {
     // Check that AppCenter Application app is not displayed
     ELEMENT_APPLICATIONS_TOPBAR.clickOnElement();
-    ELEMENT_APPCENTER_APPLICATION_TITLE(app).isNotVisibleAfterWaiting();
+    assertTrue(ELEMENT_APPCENTER_APPLICATION_TITLE(app).isNotVisibleAfterWaiting());
   }
 
   public void goToTheAppcenterApplicationPage(String app) {

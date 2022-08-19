@@ -25,7 +25,6 @@ Feature: Space widgets checking
     When I connect with the fifth created user
     Then the number of connection requests is '5'
 
-  @wip
   Scenario:US 3.3.4_(01) [BACK]Connections requests to join: See All
     Given I am authenticated as admin
 
@@ -51,7 +50,6 @@ Feature: Space widgets checking
     And I click on see all
     And the 'People' page is opened
 
-  @wip
   Scenario:US 3.3.4_(02)[BACK]Connections requests : accept and reject
     Given I am authenticated as admin
     And I create the first random user

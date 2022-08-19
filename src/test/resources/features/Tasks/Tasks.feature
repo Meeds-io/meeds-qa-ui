@@ -6,7 +6,7 @@ Feature: Tasks
     Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user
-    And I create space project
+    And I create a random space
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
@@ -107,14 +107,13 @@ Feature: Tasks
     When I close task drawer
     Then Task name 'taskessai' is not displayed in project details
 
-  @wip
   Scenario: Check tasks display in snapshot's Tasks gadget
     Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
 
     And I connect with the second created user
-    And I create space project with the first user
+    And I create a random space with the first user
 
     When I connect with the first created user
     Then The 'Spaces' badge is '1'
@@ -140,11 +139,6 @@ Feature: Tasks
     When I open the task 'task test'
     And I set task due date TODAY
     And I close task drawer
-
-    When I connect with the first created user
-    And I go to the home page
-    Then Tasks widget is displayed
-    And Task 'task test' is displayed from tasks widget
 
   @ignored
   Scenario: CAP188 - [Lost Projects] check that project isn't lost after renaming space name
@@ -241,7 +235,7 @@ Feature: Tasks
     Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user
-    And I create space project
+    And I create a random space
 
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
@@ -504,7 +498,7 @@ Feature: Tasks
     And I create the first random user
     And I connect with the first created user
 
-    And I create space project
+    And I create a random space
     And I refresh the page
     And I go to Tasks in space tab
     And I search for the created project

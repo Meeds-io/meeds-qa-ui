@@ -45,12 +45,12 @@ public class KudosStepDefinitions {
 
   @When("^I sent to the activity '(.*)' a kudos message '(.*)'$")
   public void addActivityKudos(String activity, String kudos) {
-    kudosPage.addActivityKudos(spaceHomePage.getActivityId(activity), kudos);
+    kudosPage.addActivityKudos(activity, kudos);
   }
 
   @And("^kudos icon of the activity '(.*)' is Disabled$")
-  public void checkKudosIcon(String activityId) {
-    kudoSteps.checkKudosIcon(activityId);
+  public void checkKudosIconDisabled(String activityId) {
+    kudoSteps.checkKudosIconDisabled(activityId);
   }
 
   @And("^I set the new kudos '(.*)' and I click on update button$")

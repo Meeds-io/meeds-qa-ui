@@ -1,7 +1,6 @@
 @activitystream
 Feature: Activities
 
-  @wip
   Scenario: delete your activity
     Given I am authenticated as admin
     And I go to the random space
@@ -14,7 +13,6 @@ Feature: Activities
     Then the confirmation popup is not displayed
     And the activity 'activity to delete' is no more displayed in the activity stream
 
-  @wip
   Scenario:  delete your comment
     Given I am authenticated as admin
     And I go to the random space

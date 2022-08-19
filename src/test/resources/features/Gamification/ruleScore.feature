@@ -88,7 +88,7 @@ Feature: Check the rules score increase
 
   # Relationship doesn't increase gamification points
   # It seems a real bug to fix in product
-  @wip
+  @ignored
   Scenario: Receive relationship request
     Given I am authenticated as admin
     And I create the first random user

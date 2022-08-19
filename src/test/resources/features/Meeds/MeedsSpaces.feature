@@ -3,11 +3,10 @@ Feature: Meeds Space
   As a user
   I want to check spaces page
 
-  @wip
-  Scenario:[SPACES-2] Spaces Cards bloc
+  Scenario: [SPACES-2] Spaces Cards bloc
     Given I am authenticated as admin
 
-    When I create thirty random space
+    When I create or check that thirty spaces are created
     And I go to spaces page
     Then I check that only 20 spaces are displayed
     When I click on Show more button

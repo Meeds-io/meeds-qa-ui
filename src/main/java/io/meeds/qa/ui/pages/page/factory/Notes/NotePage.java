@@ -1,5 +1,7 @@
 package io.meeds.qa.ui.pages.page.factory.Notes;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Assert;
 
 import io.meeds.qa.ui.elements.BaseElementFacade;
@@ -21,7 +23,7 @@ public class NotePage extends GenericPage {
   }
 
   public void checkNoteCreateFormOpened() {
-    createNoteTab.isVisibleAfterWaiting();
+    assertTrue(createNoteTab.isVisibleAfterWaiting());
   }
 
   @FindBy(xpath = "//iframe[contains(@class,'cke_wysiwyg_frame')]")
@@ -114,7 +116,7 @@ public class NotePage extends GenericPage {
   }
 
   public void checkNoteEditFormOpened() {
-    createNoteTab.isVisibleAfterWaiting();
+    assertTrue(createNoteTab.isVisibleAfterWaiting());
   }
 
   @SwitchToWindow
@@ -161,11 +163,11 @@ public class NotePage extends GenericPage {
   public void deleteNote() {
     deleteNoteOption.clickOnElement();
     confirmationPopupDeleteButton.clickOnElement();
-    confirmationPopupDeleteButton.isNotVisibleAfterWaiting();
+    assertTrue(confirmationPopupDeleteButton.isNotVisibleAfterWaiting());
   }
 
   public void checkDeletedNote(String title) {
-    noteTitleField(title).isNotVisibleAfterWaiting();
+    assertTrue(noteTitleField(title).isNotVisibleAfterWaiting());
   }
 
   private BaseElementFacade getNoteActivityTitle(String noteTitle) {
@@ -173,7 +175,7 @@ public class NotePage extends GenericPage {
   }
 
   public void isNoteActivityDisplayed(String noteTitle) {
-    getNoteActivityTitle(noteTitle).isVisibleAfterWaiting();
+    assertTrue(getNoteActivityTitle(noteTitle).isVisibleAfterWaiting());
   }
 
   public void clickNoteActivity(String noteTitle) {

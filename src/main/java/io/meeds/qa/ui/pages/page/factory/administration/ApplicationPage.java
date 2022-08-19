@@ -1,13 +1,14 @@
 package io.meeds.qa.ui.pages.page.factory.administration;
 
+import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Assert;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -41,42 +42,27 @@ public class ApplicationPage extends GenericPage {
   @FindBy(xpath = "//input[@name='title']")
   private TextBoxElementFacade titleAppInput;
 
-  @FindBy(xpath = "//*[@class='appLauncherDrawerTitle' and text()='Edit application']/following::*[@name='title']")
+  @FindBy(xpath = "//*[@class='appLauncherDrawerTitle']/following::*[@name='title']")
   private TextBoxElementFacade editApplicationDrawerTitle;
 
   @FindBy(xpath = "//*[@name='description']")
   private TextBoxElementFacade applicationDescription;
 
-  @FindBy(xpath = "//*[@class='appLauncherDrawerTitle' and text()='Edit application']/following::input[@type='url'][1]")
+  @FindBy(xpath = "//*[@class='appLauncherDrawerTitle']/following::input[@type='url'][1]")
   private TextBoxElementFacade editApplicationDrawerUrl;
 
-  @FindBy(xpath = "//*[@class='appLauncherDrawerTitle' and text()='Edit application']/following::*[@class='imageTitle']")
+  @FindBy(xpath = "//*[@class='appLauncherDrawerTitle']/following::*[@class='imageTitle']")
   private BaseElementFacade    editApplicationDrawerImage;
 
   @FindBy(
-      xpath = "//*[@class='appLauncherDrawerTitle' and text()='Edit application']/following::*[@for='permissions']/following::*[@class='item' and contains(text(),'/platform/users')]"
+      xpath = "(//*[contains(@class, 'appCenterDrawer')]//*[@for='permissions']/following::*[@class='item'])[1]"
   )
-  private TextBoxElementFacade editApplicationDrawerPermissionsUsers;
+  private TextBoxElementFacade editApplicationDrawerPermissionsFirst;
 
   @FindBy(
-      xpath = "//*[@class='appLauncherDrawerTitle' and text()='Edit application']/following::*[@for='permissions']/following::*[@class='item' and contains(text(),'/platform/externals')]"
+      xpath = "(//*[contains(@class, 'appCenterDrawer')]//*[@for='permissions']/following::*[@class='item'])[2]"
   )
-  private BaseElementFacade    editApplicationDrawerPermissionsExternals;
-
-  @FindBy(
-      xpath = "(//*[@class='appLauncherDrawerTitle' and text()='Edit application']/following::*[@class='row applicationProperties']//input[@aria-checked='true'])[1]"
-  )
-  private TextBoxElementFacade editApplicationDrawerMandatoryEnabled;
-
-  @FindBy(
-      xpath = "(//*[@class='appLauncherDrawerTitle' and text()='Edit application']/following::*[@class='row applicationProperties']//input[@aria-checked='true'])[2]"
-  )
-  private TextBoxElementFacade editApplicationDrawerActiveEnabled;
-
-  @FindBy(
-      xpath = "(//*[@class='appLauncherDrawerTitle' and text()='Edit application']/following::*[@class='row applicationProperties']//input[@aria-checked='true'])[3]"
-  )
-  private TextBoxElementFacade editApplicationDrawerMobileEnabled;
+  private BaseElementFacade    editApplicationDrawerPermissionsSecond;
 
   @FindBy(xpath = "//input[@name='url']")
   private TextBoxElementFacade urlAppInput;
@@ -149,11 +135,11 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void checkThatApplicationImageIsNotDisplayedInApplicationsTable(String appTitle) {
-    appTitleInApplicationsTable(appTitle).isVisibleAfterWaiting();
+    assertTrue(appTitleInApplicationsTable(appTitle).isVisibleAfterWaiting());
   }
 
   public void checkThatApplicationImageIsDisplayedInDrawer(String image) {
-    getApplicationImageInDrawer(image).isVisibleAfterWaiting();
+    assertTrue(getApplicationImageInDrawer(image).isVisibleAfterWaiting());
   }
 
   public void removeFileFromApplicationDrawer() {
@@ -161,7 +147,7 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void checkThatApplicationImageIsNotDisplayedInDrawer(String image) {
-    getApplicationImageInDrawer(image).isNotVisibleAfterWaiting();
+    assertTrue(getApplicationImageInDrawer(image).isNotVisibleAfterWaiting());
   }
 
   public void goToEditTheApplication(String app) {
@@ -177,11 +163,11 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void appTitleInApplicationsTableIsDisplayed(String appTitle) {
-    appTitleInApplicationsTable(appTitle).isVisibleAfterWaiting();
+    assertTrue(appTitleInApplicationsTable(appTitle).isVisibleAfterWaiting());
   }
 
   public void appUrlInApplicationsTableIsDisplayed(String appUrl) {
-    appUrlInApplicationsTable(appUrl).isVisibleAfterWaiting();
+    assertTrue(appUrlInApplicationsTable(appUrl).isVisibleAfterWaiting());
   }
 
   public void enterRandomAppDataTitleUrl(String title, String url) {
@@ -196,11 +182,11 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void appDescriptionInApplicationsTableIsDisplayed(String appDescription) {
-    appDescriptionInApplicationsTable(appDescription).isVisibleAfterWaiting();
+    assertTrue(appDescriptionInApplicationsTable(appDescription).isVisibleAfterWaiting());
   }
 
   public void appPermissionInApplicationsTableIsDisplayed(String appTitle, String permission) {
-    appPermissionInApplicationsTable(appTitle, permission).isVisibleAfterWaiting();
+    assertTrue(appPermissionInApplicationsTable(appTitle, permission).isVisibleAfterWaiting());
   }
 
   public void applicationDrawerTitleIsDisplayed(String title) {
@@ -216,46 +202,29 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void applicationDrawerEnabledButtonsAreIsDisplayed() {
-    editApplicationDrawerMandatoryEnabled.isVisibleAfterWaiting();
-    editApplicationDrawerMobileEnabled.isVisibleAfterWaiting();
-    editApplicationDrawerActiveEnabled.isVisibleAfterWaiting();
-
+    assertWebElementVisible(findByXPathOrCSS("(//*[contains(@class, 'appCenterDrawer')]//*[contains(@class, 'applicationProperties')]//input[@aria-checked='true'])[1]//ancestor::*[contains(@class, 'v-input')]"));
+    assertWebElementVisible(findByXPathOrCSS("(//*[contains(@class, 'appCenterDrawer')]//*[contains(@class, 'applicationProperties')]//input[@aria-checked='true'])[2]//ancestor::*[contains(@class, 'v-input')]"));
+    assertWebElementVisible(findByXPathOrCSS("(//*[contains(@class, 'appCenterDrawer')]//*[contains(@class, 'applicationProperties')]//input[@aria-checked='true'])[3]//ancestor::*[contains(@class, 'v-input')]"));
   }
 
   public void enableMandatoryApplication(String appTitle) {
     searchAppByTitle(appTitle);
-    boolean clicked = false;
-    int retry = 0;
-    do {
-      try {
-        BaseElementFacade mandatoryApplication = getMandatoryApplication(appTitle);
-        if (mandatoryApplication.findByXPath("//input").getAttribute("aria-checked").equals("false")) {
-          clickOnElement(mandatoryApplication);
-        }
-        clicked = true;
-      } catch (RuntimeException e) {
-        waitFor(1).seconds();
+    retryOnCondition(() -> {
+      BaseElementFacade mandatoryApplication = getMandatoryApplication(appTitle);
+      if (mandatoryApplication.findByXPath("//input").getAttribute("aria-checked").equals("false")) {
+        clickOnElement(mandatoryApplication);
       }
-    } while (!clicked && retry++ < 5);
-    assertTrue("Can't click on switch button to enable application " + appTitle, clicked);
+    });
   }
 
   public void disableMandatoryApplication(String appTitle) {
     searchAppByTitle(appTitle);
-    boolean clicked = false;
-    int retry = 0;
-    do {
-      try {
-        BaseElementFacade mandatoryApplication = getMandatoryApplication(appTitle);
-        if (mandatoryApplication.findByXPath("//input").getAttribute("aria-checked").equals("true")) {
-          clickOnElement(mandatoryApplication);
-        }
-        clicked = true;
-      } catch (RuntimeException e) {
-        waitFor(1).seconds();
+    retryOnCondition(() -> {
+      BaseElementFacade mandatoryApplication = getMandatoryApplication(appTitle);
+      if (mandatoryApplication.findByXPath("//input").getAttribute("aria-checked").equals("true")) {
+        clickOnElement(mandatoryApplication);
       }
-    } while (!clicked && retry++ < 5);
-    assertTrue("Can't click on switch button to disable application " + appTitle, clicked);
+    });
   }
 
   public void enableDisableActiveApplication(String appTitle) {
@@ -265,8 +234,12 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void applicationDrawerPermissionsIsDisplayed(String firstPermission, String secondPermission) {
-    Assert.assertTrue(editApplicationDrawerPermissionsUsers.getTextValue().contains(firstPermission));
-    Assert.assertTrue(editApplicationDrawerPermissionsExternals.getTextValue().contains(secondPermission));
+    String firstValue = editApplicationDrawerPermissionsFirst.getAttribute("data-value");
+    assertEquals(firstPermission, firstValue);
+    assertTrue(editApplicationDrawerPermissionsFirst.getTextValue().contains(firstPermission));
+    String secondValue = editApplicationDrawerPermissionsSecond.getAttribute("data-value");
+    assertEquals(secondPermission, secondValue);
+    assertTrue(editApplicationDrawerPermissionsSecond.getTextValue().contains(secondPermission));
   }
 
   public void clickAddApplicationButton() {
@@ -334,7 +307,8 @@ public class ApplicationPage extends GenericPage {
   private void waitForSearchToComplete() {
     try {
       findByXPathOrCSS("(//*[contains(@class, 'tableAppTitle')])[2]").waitUntilNotVisible();
-      waitFor(200).milliseconds(); // Wait until application finishes its display
+      waitFor(200).milliseconds(); // Wait until application finishes its
+                                   // display
     } catch (Exception e) {
       ExceptionLauncher.LOGGER.debug("Search on AppCenter hasn't finished loading at time", e);
     }

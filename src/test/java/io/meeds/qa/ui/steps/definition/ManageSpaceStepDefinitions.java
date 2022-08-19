@@ -198,6 +198,7 @@ public class ManageSpaceStepDefinitions {
     String randomSpaceName = "randomSpaceName" + getRandomNumber();
     homeSteps.goToManageSpacesPage();
     manageSpaceSteps.addSpaceWithRegistration(randomSpaceName, "Open");
+    setSessionVariable("randomSpaceName").to(randomSpaceName);
   }
 
   @Given("^I create a random space with the (.*) created user$")
@@ -218,13 +219,9 @@ public class ManageSpaceStepDefinitions {
     setSessionVariable(spacePrefix + "RandomSpaceName").to(randomSpaceName);
   }
 
-  @Given("I create thirty random space")
-  public void addThirtyRandomSpace() {
-    for (int i = 0; i < 30; i++) {
-      homeSteps.goToManageSpacesPage();
-      String randomSpaceName = "randomSpaceName" + getRandomNumber();
-      manageSpaceSteps.addSpaceWithRegistration(randomSpaceName, "Open");
-    }
+  @Given("I create or check that thirty spaces are created")
+  public void checkThirtyRandomSpacesArePresent() {
+    manageSpaceSteps.checkThirtyRandomSpacesArePresent();
   }
 
   @Given("^I check that only 20 spaces are displayed$")

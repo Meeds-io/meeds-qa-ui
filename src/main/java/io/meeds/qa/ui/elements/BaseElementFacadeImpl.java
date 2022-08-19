@@ -6,8 +6,6 @@ import static io.meeds.qa.ui.utils.Utils.waitForPageLoaded;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
-import org.openqa.selenium.ElementNotInteractableException;
-import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
@@ -149,8 +147,7 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
 
   @SwitchToWindow
   public void clickOnCurrentElementWindowSwitch() {
-    WebElement element = getElement();
-    element.click();
+    super.click();
   }
 
   @Override
@@ -158,7 +155,7 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
     return retryOnCondition(() -> {
       try {
         return super.getElement();
-      } catch (Exception e) {
+      } catch (Throwable e) {
         LOGGER.debug("Can't find element {}. Procees after switching window.", this, e);
         return getCurrentElement();
       }
@@ -175,7 +172,7 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
     LOGGER.debug("Checking if the element [{}] is visible ", this);
     try {
       waitUntilVisible();
-    } catch (Exception e) {
+    } catch (Throwable e) {
       return false;
     }
     LOGGER.debug("The element [{}] is visible ", this);
@@ -187,7 +184,7 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
     LOGGER.debug("Checking if the element [{}] is not visible ", this);
     try {
       waitUntilNotVisible();
-    } catch (Exception e) {
+    } catch (Throwable e) {
       return false;
     }
     LOGGER.debug("The element [{}] is not visible ", this);
@@ -200,7 +197,7 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
     LOGGER.debug("Checking if the element [{}] is disabled ", this);
     try {
       waitUntilDisabled();
-    } catch (Exception e) {
+    } catch (Throwable e) {
       return false;
     }
     LOGGER.debug("The element [{}] isdisabled ", this);
@@ -212,7 +209,7 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
     LOGGER.debug("Checking if the element [{}] is enabled ", this);
     try {
       waitUntilEnabled();
-    } catch (Exception e) {
+    } catch (Throwable e) {
       return false;
     }
     LOGGER.debug("The element [{}] is enabled ", this);
@@ -224,7 +221,7 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
   public boolean isDisplayed() {
     try {
       return super.isDisplayed();
-    } catch (Exception e) {
+    } catch (Throwable e) {
       return false;
     }
   }
@@ -232,13 +229,21 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
   @Override
   @SwitchToWindow
   public boolean isVisible() {
-    return super.isVisible();
+    try {
+      return super.isVisible();
+    } catch (Throwable e) {
+      return false;
+    }
   }
 
   @Override
   @SwitchToWindow
   public boolean isClickable() {
-    return super.isClickable();
+    try {
+      return super.isClickable();
+    } catch (Throwable e) {
+      return false;
+    }
   }
 
   @Override
@@ -247,9 +252,7 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
     try {
       WebElement element = getElement();
       return element != null && element.isDisplayed();
-    } catch (ElementNotInteractableException e) {
-      return true;
-    } catch (NotFoundException | ElementNotFoundAfterTimeoutError e) {
+    } catch (Exception | ElementNotFoundAfterTimeoutError e) {
       return false;
     }
   }

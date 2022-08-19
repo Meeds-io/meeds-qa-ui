@@ -2,7 +2,6 @@
 Feature: SideBar
 
   @smoke
-  @wip
   Scenario: CAP37 - US 6.2.2 [FRONT]_(01) : Filter Recent Spaces in the Second level side bar in Desktop
     Given I am authenticated as admin
     And I create the first random user

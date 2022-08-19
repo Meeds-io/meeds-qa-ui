@@ -35,8 +35,8 @@ public class KudosSteps {
     kudosPage.sendMessage(txt);
   }
 
-  public void checkKudosIcon(String activityId) {
-    kudosPage.checkKudosIcon(activityId);
+  public void checkKudosIconDisabled(String activityId) {
+    kudosPage.checkKudosIconDisabled(activityId);
   }
 
   public void threeDotsMenuSendKudos(String kudosMessage) {

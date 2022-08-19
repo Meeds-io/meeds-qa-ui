@@ -462,10 +462,6 @@ public class TasksPage extends GenericPage {
     addTaskInProjectButton.clickOnElement();
   }
 
-  private BaseElementFacade getTabByName(String name) {
-    return findByXPathOrCSS(String.format("//a[contains(text(),'%s')]", name));
-  }
-
   private BaseElementFacade getFilterOption(String option) {
     return findByXPathOrCSS(String.format("//*[@class='v-label theme--light' and text()='%s']", option));
   }
@@ -549,7 +545,7 @@ public class TasksPage extends GenericPage {
 
   private BaseElementFacade getProjectCardDescription(String description) {
     return findByXPathOrCSS(
-                            String.format("//*[@class='taskItemDescription largeDescriptionArea']//*[contains(text(),'%s')]",
+                            String.format("//*[contains(@class, 'taskItemDescription')]//*[contains(text(),'%s')]",
                                           description));
   }
 
@@ -598,7 +594,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void isLabelDisplayedInProjectDetails(String label, String times) {
-    getDisplayedLabel(label, times).isVisibleAfterWaiting();
+    assertTrue(getDisplayedLabel(label, times).isVisibleAfterWaiting());
   }
 
   public void setTaskCompletedInDrawerWithoutClosingIt() {
@@ -637,7 +633,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void projectIsDisplayedInTasksAppCenter(String projectName) {
-    getProjectCard(projectName).isVisibleAfterWaiting();
+    assertTrue(getProjectCard(projectName).isVisibleAfterWaiting());
   }
 
   public void editSpaceName(String spaceName) {
@@ -645,13 +641,13 @@ public class TasksPage extends GenericPage {
     updateNameSpaceButton.clickOnElement();
   }
 
-  public void addProjectWithParticipant(String projectName, String fullName) {
+  public void addProjectWithParticipant(String projectName, String lastName) {
     addProjectOrTask.clickOnElement();
     projectTitle.setTextValue(projectName);
     addParticipantBtn.clickOnElement();
-    inviteProjectParticipantInput.setTextValue(fullName + " ");
+    inviteProjectParticipantInput.setTextValue(lastName + " ");
     inviteProjectParticipantInput.sendKeys(Keys.BACK_SPACE);
-    getProjectParticipant(fullName).clickOnElement();
+    getProjectParticipant(lastName).clickOnElement();
     saveButton.clickOnElement();
   }
 
@@ -694,11 +690,11 @@ public class TasksPage extends GenericPage {
   }
 
   public void projectDrawerNotClosing() {
-    closeProjectDrawerBtn.isVisibleAfterWaiting();
+    assertTrue(closeProjectDrawerBtn.isVisibleAfterWaiting());
   }
 
   public void projectNameIsDisplayedInProjectDetails(String projectName) {
-    projectNameInProjectDetails(projectName).isVisibleAfterWaiting();
+    assertTrue(projectNameInProjectDetails(projectName).isVisibleAfterWaiting());
   }
 
   public void hoverOnTaskName(String task) {
@@ -711,7 +707,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void taskMarkedAsCompletedIsDisplayedInDrawer() {
-    taskMarkedAsCompletedInDrawer.isVisibleAfterWaiting();
+    assertTrue(taskMarkedAsCompletedInDrawer.isVisibleAfterWaiting());
   }
 
   public void taskNameIsDisplayedInProjectDetails(String taskName) {
@@ -722,7 +718,7 @@ public class TasksPage extends GenericPage {
     if (tasksNameToDo.isVisibleAfterWaiting()) {
       Assert.assertFalse(tasksNameToDo.getText().contains(taskName));
     } else {
-      tasksNameToDo.isNotVisibleAfterWaiting();
+      assertTrue(tasksNameToDo.isNotVisibleAfterWaiting());
     }
   }
 
@@ -732,14 +728,14 @@ public class TasksPage extends GenericPage {
   }
 
   public void labelIsNotDisplayedInProjectDrawer(String label) {
-    getLabelInEditProjectDrawer(label).isNotVisibleAfterWaiting();
+    assertTrue(getLabelInEditProjectDrawer(label).isNotVisibleAfterWaiting());
   }
 
-  public void addSecondUserToProject(String fullName) {
+  public void addSecondUserToProject(String lastName) {
     addParticipantBtn.clickOnElement();
-    inviteProjectParticipantInput.setTextValue(fullName + " ");
+    inviteProjectParticipantInput.setTextValue(lastName + " ");
     inviteProjectParticipantInput.sendKeys(Keys.BACK_SPACE);
-    getProjectParticipant(fullName).clickOnElement();
+    getProjectParticipant(lastName).clickOnElement();
   }
 
   public void addLabelToTask(String label) {
@@ -749,7 +745,7 @@ public class TasksPage extends GenericPage {
 
   public void labelIsDisplayedInTaskDrawer(String label) {
     getLabelInEditTaskDrawer(label).isDisplayed();
-    getRemoveLabelTaskButton(label).isNotVisibleAfterWaiting();
+    assertTrue(getRemoveLabelTaskButton(label).isNotVisibleAfterWaiting());
   }
 
   public void addSixLabelToProject(String label1, String label2, String label3, String label4, String label5, String label6) {
@@ -766,7 +762,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void tasksNumberToDo(String tasksNumber) {
-    getTasksNumberToDo(tasksNumber).isVisibleAfterWaiting();
+    assertTrue(getTasksNumberToDo(tasksNumber).isVisibleAfterWaiting());
   }
 
   public void markTaskAsCompletedInProjectDetails(String taskName) {
@@ -791,12 +787,11 @@ public class TasksPage extends GenericPage {
     clickOnElement(tabLink);
   }
 
-  Map<String, TextBoxElementFacade> ADD_TASK_MAPPING_CONTAINER_NAME_TO_BASEELEMENTFACADE_XPATH =
-                                                                                               new HashMap<String, TextBoxElementFacade>() {
-                                                                                                 {
-                                                                                                   put("taskName", taskNameField);
-                                                                                                 }
-                                                                                               };
+  Map<String, TextBoxElementFacade> ADD_TASK_MAPPING_CONTAINER_NAME_TO_BASEELEMENTFACADE_XPATH = new HashMap<>() {
+    {
+      put("taskName", taskNameField);
+    }
+  };
 
   public void clickStatusName(String statusColumn) {
     getStatusColumn(statusColumn).waitUntilVisible();
@@ -816,11 +811,13 @@ public class TasksPage extends GenericPage {
   }
 
   public void boardViewIsDisplayedByDefault() {
-    projectActiveBoardView.isVisibleAfterWaiting();
+    assertTrue(projectActiveBoardView.isVisibleAfterWaiting());
   }
 
   public void setInSearchProjectField(String project) {
     searchProjectInput.setTextValue(project);
+    waitFor(1).seconds();
+    verifyPageLoaded();
   }
 
   public void isSearchedTaskDisplayed(String taskName) {
@@ -863,11 +860,11 @@ public class TasksPage extends GenericPage {
   }
 
   public void maxCharsCount1250InformationIsDisplayed() {
-    maxCharsCountInfo.isVisibleAfterWaiting();
+    assertTrue(maxCharsCountInfo.isVisibleAfterWaiting());
   }
 
   public void more1250CharsInformationIsDisplayed() {
-    more1250CharsCountInfo.isVisibleAfterWaiting();
+    assertTrue(more1250CharsCountInfo.isVisibleAfterWaiting());
     Assert.assertEquals(more1250CharsCountInfo.getCssValue("color"), "rgba(188, 67, 67, 1)");
   }
 
@@ -897,15 +894,15 @@ public class TasksPage extends GenericPage {
   }
 
   public void confirmFilterButtonIsDisplayed() {
-    confirmFilterButton.isVisibleAfterWaiting();
+    assertTrue(confirmFilterButton.isVisibleAfterWaiting());
   }
 
   public void cancelFilterButtonIsDisplayed() {
-    cancelFilterButton.isVisibleAfterWaiting();
+    assertTrue(cancelFilterButton.isVisibleAfterWaiting());
   }
 
   public void resetFilterButtonIsDisplayed() {
-    resetFilterButton.isVisibleAfterWaiting();
+    assertTrue(resetFilterButton.isVisibleAfterWaiting());
   }
 
   public void addNewCommentInTask() {
@@ -919,11 +916,11 @@ public class TasksPage extends GenericPage {
   }
 
   public void editTaskDrawerIsDisplayed() {
-    editTaskDrawerSection.isVisibleAfterWaiting();
+    assertTrue(editTaskDrawerSection.isVisibleAfterWaiting());
   }
 
   public void commentsDrawerIsDisplayed() {
-    commentsDrawerSection.isVisibleAfterWaiting();
+    assertTrue(commentsDrawerSection.isVisibleAfterWaiting());
   }
 
   public void viewAllCommentsTaskButton() {
@@ -932,7 +929,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void taskAlertIsDisplayed(String message) {
-    getTaskAlert(message).isVisibleAfterWaiting();
+    assertTrue(getTaskAlert(message).isVisibleAfterWaiting());
   }
 
   public void setTaskDetails(String taskDetails, String fieldValue) {
@@ -946,7 +943,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void greenInformationIconIsDisplayed() {
-    informationIcon.isVisibleAfterWaiting();
+    assertTrue(informationIcon.isVisibleAfterWaiting());
     Assert.assertEquals(informationIcon.getCssValue("color"), "rgba(46, 181, 140, 1)");
   }
 
@@ -1000,12 +997,12 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkProject(String projectName) {
-    getProjectCard(projectName).isVisibleAfterWaiting();
+    assertTrue(getProjectCard(projectName).isVisibleAfterWaiting());
     assertTrue(alertMessageAfterProjectCreation.isVisibleAfterWaiting());
   }
 
   public void checkProjectNotDisplayed(String projectName) {
-    getProjectCard(projectName).isNotVisibleAfterWaiting();
+    assertTrue(getProjectCard(projectName).isNotVisibleAfterWaiting());
     assertTrue(alertMessageAfterProjectCreation.isNotVisibleAfterWaiting());
   }
 
@@ -1014,22 +1011,22 @@ public class TasksPage extends GenericPage {
   }
 
   public void deleteProject(String projectName) {
-    getProjectCard(projectName).isVisibleAfterWaiting();
+    assertTrue(getProjectCard(projectName).isVisibleAfterWaiting());
     projectThreeDotsButton.clickOnElement();
     deleteProjectButton.clickOnElement();
     confirmationPopupDeleteButton.clickOnElement();
-    confirmationPopupDeleteButton.isNotVisibleAfterWaiting();
+    assertTrue(confirmationPopupDeleteButton.isNotVisibleAfterWaiting());
 
   }
 
   public void checkDeletedProject(String projectName) {
-    getProjectCard(projectName).isNotVisibleAfterWaiting();
+    assertTrue(getProjectCard(projectName).isNotVisibleAfterWaiting());
     assertTrue(alertMessageAfterProjectDeletion.isVisibleAfterWaiting());
   }
 
   @SwitchToWindow
   public void editProjectNameWithDescription(String projectName, String newProjectName, String newDescription) {
-    getProjectCard(projectName).isVisibleAfterWaiting();
+    assertTrue(getProjectCard(projectName).isVisibleAfterWaiting());
     projectThreeDotsButton.clickOnElement();
     editProjectButton.clickOnElement();
     projectTitle.setTextValue(newProjectName);
@@ -1046,8 +1043,8 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkUpdatedProject(String projectName, String description) {
-    getProjectCard(projectName).isVisibleAfterWaiting();
-    getProjectCardDescription(description).isVisibleAfterWaiting();
+    assertTrue(getProjectCard(projectName).isVisibleAfterWaiting());
+    assertTrue(getProjectCardDescription(description).isVisibleAfterWaiting());
     assertTrue(alertMessageAfterProjectUpdate.isVisibleAfterWaiting());
   }
 
@@ -1087,12 +1084,12 @@ public class TasksPage extends GenericPage {
   }
 
   public void redInformationIconIsDisplayed() {
-    informationIcon.isVisibleAfterWaiting();
+    assertTrue(informationIcon.isVisibleAfterWaiting());
     Assert.assertEquals(informationIcon.getCssValue("color"), "rgba(188, 67, 67, 1)");
   }
 
   public void userAvatarIsDisplayedInProjectCard(String userName) {
-    getProjectCardUserAvatar(userName).isVisibleAfterWaiting();
+    assertTrue(getProjectCardUserAvatar(userName).isVisibleAfterWaiting());
   }
 
   @SwitchToWindow
@@ -1117,12 +1114,12 @@ public class TasksPage extends GenericPage {
   }
 
   public void clickOnCommentReply(String comment) {
-    getTaskCommentReplyBtn(comment).isVisibleAfterWaiting();
+    assertTrue(getTaskCommentReplyBtn(comment).isVisibleAfterWaiting());
     getTaskCommentReplyBtn(comment).clickOnElement();
   }
 
   public void userAvatarIsNotDisplayedInProjectCard(String userName) {
-    getProjectCardUserAvatar(userName).isNotVisibleAfterWaiting();
+    assertTrue(getProjectCardUserAvatar(userName).isNotVisibleAfterWaiting());
   }
 
   @SwitchToWindow
@@ -1130,7 +1127,7 @@ public class TasksPage extends GenericPage {
     commentsDrawerSection.clickOnElement();
     driver.switchTo().frame(ckEditorFrameTask);
     try {
-      commentTaskMaxCharsMsg.isVisibleAfterWaiting();
+      assertTrue(commentTaskMaxCharsMsg.isVisibleAfterWaiting());
     } finally {
       driver.switchTo().defaultContent();
     }
@@ -1138,28 +1135,28 @@ public class TasksPage extends GenericPage {
   }
 
   public void cloneProject(String projectName) {
-    getProjectCard(projectName).isVisibleAfterWaiting();
+    assertTrue(getProjectCard(projectName).isVisibleAfterWaiting());
     projectThreeDotsButton.clickOnElement();
     cloneProjectButton.clickOnElement();
     confirmationPopupCloneButton.clickOnElement();
-    confirmationPopupCloneButton.isNotVisibleAfterWaiting();
+    assertTrue(confirmationPopupCloneButton.isNotVisibleAfterWaiting());
 
   }
 
   public void cloneProjectButtonIsDisplayed() {
-    cloneProjectButton.isVisibleAfterWaiting();
+    assertTrue(cloneProjectButton.isVisibleAfterWaiting());
   }
 
   public void colorPaletteIsDisplayed() {
-    colorPalette.isVisibleAfterWaiting();
+    assertTrue(colorPalette.isVisibleAfterWaiting());
   }
 
   public void editProjectButtonIsDisplayed() {
-    editProjectButton.isVisibleAfterWaiting();
+    assertTrue(editProjectButton.isVisibleAfterWaiting());
   }
 
   public void deleteProjectButtonIsDisplayed() {
-    deleteProjectButton.isVisibleAfterWaiting();
+    assertTrue(deleteProjectButton.isVisibleAfterWaiting());
   }
 
   public void checkClonedProject(String projectName) {
@@ -1226,7 +1223,7 @@ public class TasksPage extends GenericPage {
 
   public void confirmDeleteStatusColumn() {
     confirmationPopupDeleteButton.clickOnElement();
-    confirmationPopupDeleteButton.isNotVisibleAfterWaiting();
+    assertTrue(confirmationPopupDeleteButton.isNotVisibleAfterWaiting());
   }
 
   public void checkDeletedStatus(String statusColumn) {
@@ -1259,7 +1256,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkMoveStatusAfterIconIsNotDisplayed() {
-    moveStatusAfterIcon.isNotVisibleAfterWaiting();
+    assertTrue(moveStatusAfterIcon.isNotVisibleAfterWaiting());
   }
 
   public void clickOnMoveStatusBeforeIcon() {
@@ -1310,7 +1307,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void clearButtonIsVisible() {
-    clearButtonInFilterByProject.isVisibleAfterWaiting();
+    assertTrue(clearButtonInFilterByProject.isVisibleAfterWaiting());
   }
 
   public void clickOnClearButton() {
@@ -1322,7 +1319,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void clearButtonIsNotVisible() {
-    clearButtonInFilterByProject.isNotVisibleAfterWaiting();
+    assertTrue(clearButtonInFilterByProject.isNotVisibleAfterWaiting());
   }
 
   public void checkTypedProjectIsRemoved(String typedProject) {
@@ -1343,7 +1340,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void clickViewAttachmentLink() {
-    viewAttachmentsLink.isVisibleAfterWaiting();
+    assertTrue(viewAttachmentsLink.isVisibleAfterWaiting());
     viewAttachmentsLink.clickOnElement();
   }
 
@@ -1356,7 +1353,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void clearButtonInFilterByTaskIsVisible() {
-    clearButtonInFilterByTask.isVisibleAfterWaiting();
+    assertTrue(clearButtonInFilterByTask.isVisibleAfterWaiting());
   }
 
   public void clickOnClearButtonInFilterByTask() {
@@ -1372,7 +1369,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void clearButtonInFilterByTaskIsNotVisible() {
-    clearButtonInFilterByTask.isNotVisibleAfterWaiting();
+    assertTrue(clearButtonInFilterByTask.isNotVisibleAfterWaiting());
   }
 
   @FindBy(xpath = "//*[contains(@class,'uiThreeDotsIcon')]")
@@ -1387,7 +1384,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void deleteTaskOptionIsDisplayed() {
-    deleteTaskOption.isVisibleAfterWaiting();
+    assertTrue(deleteTaskOption.isVisibleAfterWaiting());
   }
 
   public void clickOnDeleteTaskOption() {
@@ -1396,7 +1393,7 @@ public class TasksPage extends GenericPage {
 
   public void confirmDeleteTaskFromTasksBord() {
     confirmationPopupDeleteButton.clickOnElement();
-    confirmationPopupDeleteButton.isNotVisibleAfterWaiting();
+    assertTrue(confirmationPopupDeleteButton.isNotVisibleAfterWaiting());
   }
 
   public void checkDeletedTaskIsNotDisplayed(String taskName) {
@@ -1412,7 +1409,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void verifyViewLinkAttachments() {
-    viewAttachmentsLink.isNotVisibleAfterWaiting();
+    assertTrue(viewAttachmentsLink.isNotVisibleAfterWaiting());
   }
 
   public void clickAddProjectButton() {
@@ -1473,13 +1470,6 @@ public class TasksPage extends GenericPage {
     ELEMENT_TASK_DUE_DATE_TOMORROW.clickOnElement();
   }
 
-  @FindBy(id = "tasks")
-  private BaseElementFacade tasksContainer;
-
-  public void checkTaskWidgetDisplay() {
-    assertTrue(tasksContainer.isVisibleAfterWaiting());
-  }
-
   private BaseElementFacade getTaskTitleDateFromWidget(String taskName) {
     return findByXPathOrCSS(String.format("(//*[@id='TasksContainer']//div[@class='v-list-item__title' and text()='%s'])[1]",
                                           taskName));
@@ -1490,7 +1480,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void openTaskFromWidget(String taskName) {
-    getTaskTitleDateFromWidget(taskName).isVisibleAfterWaiting();
+    assertTrue(getTaskTitleDateFromWidget(taskName).isVisibleAfterWaiting());
     getTaskTitleDateFromWidget(taskName).clickOnElement();
   }
 
@@ -1501,7 +1491,7 @@ public class TasksPage extends GenericPage {
   private BaseElementFacade taskAssignMe;
 
   public void assignTaskToMe() {
-    taskAssignLink.isVisibleAfterWaiting();
+    assertTrue(taskAssignLink.isVisibleAfterWaiting());
     taskAssignLink.clickOnElement();
     taskAssignMe.clickOnElement();
   }
@@ -1523,7 +1513,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void setTaskPriority(String taskPriority) {
-    taskPrioritySelector.isVisibleAfterWaiting();
+    assertTrue(taskPrioritySelector.isVisibleAfterWaiting());
     taskPrioritySelector.clickOnElement();
     selectTaskPriority(taskPriority).clickOnElement();
   }
@@ -1544,9 +1534,9 @@ public class TasksPage extends GenericPage {
   }
 
   public void setTaskStatus(String taskStatus) {
-    selectStatusSelector.isVisibleAfterWaiting();
+    assertTrue(selectStatusSelector.isVisibleAfterWaiting());
     selectStatusSelector.clickOnElement();
-    selectTaskStatus(taskStatus).isVisibleAfterWaiting();
+    assertTrue(selectTaskStatus(taskStatus).isVisibleAfterWaiting());
     selectTaskStatus(taskStatus).clickOnElement();
   }
 
@@ -1568,7 +1558,7 @@ public class TasksPage extends GenericPage {
   private TextBoxElementFacade taskAssignUserInput;
 
   public void assignTaskToUser(String user) {
-    taskAssignLink.isVisibleAfterWaiting();
+    assertTrue(taskAssignLink.isVisibleAfterWaiting());
     taskAssignLink.clickOnElement();
     taskAssignUserInput.setTextValue(user + " ");
     taskAssignUserInput.sendKeys(Keys.BACK_SPACE);

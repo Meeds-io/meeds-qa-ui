@@ -1,5 +1,7 @@
 package io.meeds.qa.ui.pages.page.factory.NewComposer;
 
+import static org.junit.Assert.assertTrue;
+
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
@@ -28,7 +30,7 @@ public class RedactorRolePage extends GenericPage {
   }
 
   public void checkPostDrawer() {
-    writeShortMessageDrawer.isVisibleAfterWaiting();
+    assertTrue(writeShortMessageDrawer.isVisibleAfterWaiting());
 
   }
 

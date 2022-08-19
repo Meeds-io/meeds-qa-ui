@@ -1,5 +1,7 @@
 package io.meeds.qa.ui.pages.page.factory.administration;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Assert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -65,9 +67,6 @@ public class ManageBadgesPage extends GenericPage {
 
   @FindBy(xpath = "(//button[@class='btn-primary pull-right'])[3]")
   private BaseElementFacade    confirmDeleteBadgeBtn;
-
-  @FindBy(xpath = "//*[@class='msg' and contains(text(),'Are you sure you want to delete this badge ?')]")
-  private BaseElementFacade    confirmDeleteBadgeMessage;
 
   public void goToManageBadgesMenu() {
     menuBtn.clickOnElement();
@@ -142,9 +141,8 @@ public class ManageBadgesPage extends GenericPage {
   }
 
   public void confirmDeletionBadge() {
-    confirmDeleteBadgeMessage.isVisibleAfterWaiting();
+    confirmDeleteBadgeBtn.waitUntilClickable();
     confirmDeleteBadgeBtn.clickOnElement();
-
   }
 
   public void clickOnEditBadge(String badgeName) {
@@ -163,7 +161,7 @@ public class ManageBadgesPage extends GenericPage {
   }
 
   public void fillForm(String name, String description, String score, String icon, String domain) {
-    closeFormBtn.isVisibleAfterWaiting();
+    closeFormBtn.waitUntilVisible();
     addBadgeName(name);
     addBadgeDescription(description);
     addBadgeScore(score);
@@ -215,17 +213,17 @@ public class ManageBadgesPage extends GenericPage {
                                                 String badgeDescription,
                                                 String badgeScore,
                                                 String badgeDomain) {
-    getBadgeNameInListOfBadges(badgeName, badgeDescription, badgeScore, badgeDomain).isVisibleAfterWaiting();
-    Assert.assertTrue(getBadgeNameInListOfBadges(badgeName, badgeDescription, badgeScore, badgeDomain).getText().contains("Yes"));
-
+    BaseElementFacade badgeElement = getBadgeNameInListOfBadges(badgeName, badgeDescription, badgeScore, badgeDomain);
+    badgeElement.waitUntilVisible();
+    Assert.assertTrue(badgeElement.getText().contains("Yes"));
   }
 
   public void isBadgeNotDisplayedWithEnabledStatus(String badgeName,
                                                    String badgeDescription,
                                                    String badgeScore,
                                                    String badgeDomain) {
-    getBadgeNameInListOfBadges(badgeName, badgeDescription, badgeScore, badgeDomain).isNotVisibleAfterWaiting();
-
+    BaseElementFacade badgeElement = getBadgeNameInListOfBadges(badgeName, badgeDescription, badgeScore, badgeDomain);
+    assertTrue(badgeElement.isNotVisibleAfterWaiting());
   }
 
 }

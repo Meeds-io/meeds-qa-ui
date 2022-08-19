@@ -85,6 +85,7 @@ public class UnifiedSearchPage extends GenericPage {
 
   public void clickFavoriteBtn() {
     favoritesBtn.waitUntilVisible();
+    favoritesBtn.waitUntilClickable();
     favoritesBtn.clickOnElement();
   }
 

@@ -1,6 +1,7 @@
 package io.meeds.qa.ui.pages.page.factory.Kudos;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertTrue;
+
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.BaseElementFacade;
@@ -107,13 +108,13 @@ public class KudosPage extends GenericPage {
   )
   private BaseElementFacade threedotsKudosReplyComment;
 
-  private BaseElementFacade getKudosLink(String id) {
-    return findByXPathOrCSS(String.format("//button[@id='KudosActivity%s']", id));
+  private BaseElementFacade getKudosLink(String activity) {
+    return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'activity-detail')]//child::button[contains(@id, 'KudosActivity')]", activity));
   }
 
   @SwitchToWindow
-  public void addActivityKudos(String activityId, String comment) {
-    getKudosLink(activityId).clickOnElement();
+  public void addActivityKudos(String activity, String comment) {
+    getKudosLink(activity).clickOnElement();
     waitCKEditorLoading();
     ckEditorFrameKudos.clickOnElement();
     driver.switchTo().frame(ckEditorFrameKudos);
@@ -124,7 +125,7 @@ public class KudosPage extends GenericPage {
       driver.switchTo().defaultContent();
     }
     driver.switchTo().defaultContent();
-    kudosButtonInDrawer.isVisibleAfterWaiting();
+    assertTrue(kudosButtonInDrawer.isVisibleAfterWaiting());
     kudosButtonInDrawer.clickOnElement();
     verifyPageLoaded();
   }
@@ -154,8 +155,8 @@ public class KudosPage extends GenericPage {
 
   public void checkKudosSettings(String kudosNbr, String period) {
 
-    Assert.assertTrue(kudosNumber.getTextValue().contains(kudosNbr));
-    Assert.assertTrue(displayedPeriodType.getTextValue().contains(period));
+    assertTrue(kudosNumber.getTextValue().contains(kudosNbr));
+    assertTrue(displayedPeriodType.getTextValue().contains(period));
   }
 
   public void sendMessage(String txt) {
@@ -164,12 +165,12 @@ public class KudosPage extends GenericPage {
     sendKudosBtn.clickOnElement();
   }
 
-  public void checkKudosIcon(String activityId) {
+  public void checkKudosIconDisabled(String activityId) {
     getKudosLink(activityId).isDisabled();
   }
 
   public void threeDotsMenuSendKudos() {
-    sendKudosMenu.isVisibleAfterWaiting();
+    assertTrue(sendKudosMenu.isVisibleAfterWaiting());
     sendKudosMenu.clickOnElement();
 
   }
@@ -202,7 +203,7 @@ public class KudosPage extends GenericPage {
   }
 
   public void isKudosActivityVisible(String message) {
-    getKudosActivityText(message).isVisibleAfterWaiting();
+    assertTrue(getKudosActivityText(message).isVisibleAfterWaiting());
   }
 
   @SwitchToWindow
@@ -215,7 +216,7 @@ public class KudosPage extends GenericPage {
     } finally {
       driver.switchTo().defaultContent();
     }
-    kudosButtonInDrawer.isVisibleAfterWaiting();
+    assertTrue(kudosButtonInDrawer.isVisibleAfterWaiting());
     kudosButtonInDrawer.clickOnElement();
     verifyPageLoaded();
   }
@@ -230,7 +231,7 @@ public class KudosPage extends GenericPage {
     } finally {
       driver.switchTo().defaultContent();
     }
-    kudosButtonInDrawer.isVisibleAfterWaiting();
+    assertTrue(kudosButtonInDrawer.isVisibleAfterWaiting());
     kudosButtonInDrawer.clickOnElement();
     verifyPageLoaded();
   }

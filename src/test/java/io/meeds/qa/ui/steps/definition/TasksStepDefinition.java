@@ -167,8 +167,8 @@ public class TasksStepDefinition {
 
   @When("^The project name is displayed in project details$")
   public void projectNameIsDisplayedInProjectDetails() {
-    String randomProjectName = Serenity.sessionVariableCalled("randomProjectName");
-    tasksSteps.projectNameIsDisplayedInProjectDetails(randomProjectName);
+    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
+    tasksSteps.projectNameIsDisplayedInProjectDetails(randomSpaceName);
   }
 
   @When("^Board view is displayed by default$")
@@ -346,9 +346,9 @@ public class TasksStepDefinition {
   @Given("^I create space project with user '(.*)'$")
   public void addNewRandomProjectWithUser(String user) {
     homeSteps.goToManageSpacesPage();
-    String randomProjectName = "randomProjectName" + getRandomNumber();
-    Serenity.setSessionVariable("randomProjectName").to(randomProjectName);
-    manageSpaceSteps.addSpaceWithInviteUser(randomProjectName, user);
+    String randomSpaceName = "randomSpaceName" + getRandomNumber();
+    Serenity.setSessionVariable("randomSpaceName").to(randomSpaceName);
+    manageSpaceSteps.addSpaceWithInviteUser(randomSpaceName, user);
   }
 
   @Given("^I close the project drawer$")
@@ -359,10 +359,10 @@ public class TasksStepDefinition {
   @Given("^I create space project with the first user$")
   public void addNewRandomProjectWithFirstUser() {
     homeSteps.goToManageSpacesPage();
-    String randomProjectName = "randomProjectName" + getRandomNumber();
-    Serenity.setSessionVariable("randomProjectName").to(randomProjectName);
+    String randomSpaceName = "randomSpaceName" + getRandomNumber();
+    Serenity.setSessionVariable("randomSpaceName").to(randomSpaceName);
     String firstUserName = Serenity.sessionVariableCalled("firstUserName");
-    manageSpaceSteps.addSpaceWithInviteUser(randomProjectName, firstUserName);
+    manageSpaceSteps.addSpaceWithInviteUser(randomSpaceName, firstUserName);
   }
 
   @Given("^The project drawer is not closing$")
@@ -370,23 +370,16 @@ public class TasksStepDefinition {
     tasksSteps.projectDrawerNotClosing();
   }
 
-  @Given("^I create space project$")
-  public void addNewRandomProject() {
-    manageSpaceSteps.addOrGoToSpace("randomSpaceName");
-    String randomProjectName = Serenity.sessionVariableCalled("randomSpaceName");
-    Serenity.setSessionVariable("randomProjectName").to(randomProjectName);
-  }
-
   @When("^I search for the created project$")
   public void setInSearchRandomProjectField() {
-    String randomProjectName = Serenity.sessionVariableCalled("randomProjectName");
-    tasksSteps.setInSearchProjectField(randomProjectName);
+    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
+    tasksSteps.setInSearchProjectField(randomSpaceName);
   }
 
   @When("^I edit the created project title$")
   public void editRandomProjectName() {
-    String randomProjectName = Serenity.sessionVariableCalled("randomProjectName");
-    tasksSteps.editProjectName(randomProjectName);
+    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
+    tasksSteps.editProjectName(randomSpaceName);
   }
 
   @When("^I search for the created space$")
@@ -397,14 +390,14 @@ public class TasksStepDefinition {
 
   @When("^I open the created project$")
   public void openRandomProject() {
-    String randomProjectName = Serenity.sessionVariableCalled("randomProjectName");
-    tasksSteps.openProject(randomProjectName);
+    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
+    tasksSteps.openProject(randomSpaceName);
   }
 
   @When("^I accept the invitation of the created space project$")
   public void acceptRandomSpaceProject() {
-    String randomProjectName = Serenity.sessionVariableCalled("randomProjectName");
-    homeSteps.acceptRandomSpaceInvitation(randomProjectName);
+    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
+    homeSteps.acceptRandomSpaceInvitation(randomSpaceName);
   }
 
   @When("^I open the project '(.*)'$")
@@ -559,21 +552,13 @@ public class TasksStepDefinition {
     tasksSteps.checkProjectNameIsDisplayedInProjectCard(randomSpaceName, projectDescription);
   }
 
-  @Then("^I create the project '(.*)' with the participant '(.*)'$")
-  public void addProjectWithParticipant(String projectName, String fullName) {
-    tasksSteps.addProjectWithParticipant(projectName, fullName);
+  @Then("^I create the random project with the (.*) created user as participant$")
+  public void addRandomProjectWithRandomParticipant(String userPrefix) {
+    String randomSpaceName = "randomSpaceName" + getRandomNumber();
+    Serenity.setSessionVariable("randomSpaceName").to(randomSpaceName);
+    String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
 
-  }
-
-  @Then("^I create the random project with the first created user as participant$")
-  public void addRandomProjectWithRandomParticipant() {
-    String randomProjectName = "randomProjectName" + getRandomNumber();
-    Serenity.setSessionVariable("randomProjectName").to(randomProjectName);
-    String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
-    String firstUserLastName = Serenity.sessionVariableCalled("firstUserLastName");
-
-    String firstUserFullName = firstUserFirstName + " " + firstUserLastName;
-    tasksSteps.addProjectWithParticipant(randomProjectName, firstUserFullName);
+    tasksSteps.addProjectWithParticipant(randomSpaceName, userLastName);
   }
 
   @When("^I Remove Label '(.*)' in edit project drawer$")
@@ -601,12 +586,10 @@ public class TasksStepDefinition {
     tasksSteps.addSixLabelToProject(label1, label2, label3, label4, label5, label6);
   }
 
-  @Then("^I add second user as the participant in the project$")
-  public void addSecondUserToProject() {
-    String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
-    String secondUserLastName = Serenity.sessionVariableCalled("secondUserLastName");
-    String secondUserFullName = secondUserFirstName + " " + secondUserLastName;
-    tasksSteps.addSecondUserToProject(secondUserFullName);
+  @Then("^I add (.*) user as the participant in the project$")
+  public void addSecondUserToProject(String userPrefix) {
+    String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
+    tasksSteps.addSecondUserToProject(userLastName);
   }
 
   @Then("^I create the project '(.*)' with the manager '(.*)'$")
@@ -636,9 +619,9 @@ public class TasksStepDefinition {
     String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
     String secondUserLastName = Serenity.sessionVariableCalled("secondUserLastName");
     String secondUserFullName = secondUserFirstName + " " + secondUserLastName;
-    String randomProjectName = "randomProjectName" + getRandomNumber();
-    Serenity.setSessionVariable("randomProjectName").to(randomProjectName);
-    tasksSteps.addProjectWithManagerAndParticipant(randomProjectName, firstUserFullName, secondUserFullName);
+    String randomSpaceName = "randomSpaceName" + getRandomNumber();
+    Serenity.setSessionVariable("randomSpaceName").to(randomSpaceName);
+    tasksSteps.addProjectWithManagerAndParticipant(randomSpaceName, firstUserFullName, secondUserFullName);
   }
 
   @Then("^Space manager '(.*)' is displayed in Project Card$")
@@ -654,8 +637,8 @@ public class TasksStepDefinition {
 
   @Then("^The random created project with description '(.*)' is displayed in Project Card$")
   public void checkCreatedTasksProjectNameIsDisplayedInProjectCard(String projectDescription) {
-    String randomProjectName = Serenity.sessionVariableCalled("randomProjectName");
-    tasksSteps.checkProjectNameIsDisplayedInProjectCard(randomProjectName, projectDescription);
+    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
+    tasksSteps.checkProjectNameIsDisplayedInProjectCard(randomSpaceName, projectDescription);
   }
 
   @Then("^Avatar of the first created user is displayed in Project Card$")
@@ -698,8 +681,8 @@ public class TasksStepDefinition {
 
   @And("^I clone the project$")
   public void cloneProject() {
-    String randomProjectName = Serenity.sessionVariableCalled("randomProjectName");
-    tasksSteps.cloneProject(randomProjectName);
+    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
+    tasksSteps.cloneProject(randomSpaceName);
   }
 
   @And("^Clone project button is displayed$")
@@ -724,14 +707,14 @@ public class TasksStepDefinition {
 
   @Then("^project is cloned successfully$")
   public void checkProjectIsCloned() {
-    String randomProjectName = "Copy of " + Serenity.sessionVariableCalled("randomProjectName");
-    tasksSteps.checkClonedProject(randomProjectName);
+    String randomSpaceName = "Copy of " + Serenity.sessionVariableCalled("randomSpaceName");
+    tasksSteps.checkClonedProject(randomSpaceName);
   }
 
   @And("^I open the cloned project$")
   public void openClonedProject() {
-    String randomProjectName = "Copy of " + Serenity.sessionVariableCalled("randomProjectName");
-    tasksSteps.openProject(randomProjectName);
+    String randomSpaceName = "Copy of " + Serenity.sessionVariableCalled("randomSpaceName");
+    tasksSteps.openProject(randomSpaceName);
   }
 
   @Then("^task '(.*)' is cloned successfully$")
@@ -1105,11 +1088,6 @@ public class TasksStepDefinition {
   @And("^I set task due date TODAY$")
   public void setTaskDueDateToday() {
     tasksSteps.setTaskDueDateToday();
-  }
-
-  @Then("^Tasks widget is displayed$")
-  public void tasksWidgetIsDisplayed() {
-    tasksSteps.checkTaskWidget();
   }
 
   @Then("^Task '(.*)' is displayed from tasks widget$")

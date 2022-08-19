@@ -25,7 +25,7 @@ public class SpaceHomePage extends GenericPage {
     super(driver);
   }
 
-  @FindBy(xpath = "//*[@id='activityComposer']//i[@class='uiIconEdit']")
+  @FindBy(css = ".activityComposer .openLink")
   private BaseElementFacade    postIcon;
 
   @FindBy(xpath = "//*[contains(@class,'drawerHeader')]//*[contains(@class,'mdi-close')]")
@@ -67,17 +67,20 @@ public class SpaceHomePage extends GenericPage {
   @FindBy(xpath = "//body[contains(@class,'cke_editable_themed')]")
   private TextBoxElementFacade activityContentTextBox;
 
+  @FindBy(css = "[data-widget='embedSemantic']")
+  private BaseElementFacade    activityLinkPreview;
+
   @FindBy(xpath = "//*[contains(@class,'v-navigation-drawer--open')]//button[@aria-label='Post']")
   private BaseElementFacade    publishActivityButton;
 
   @FindBy(css = ".newActivitiesButton")
   private BaseElementFacade    newActivityButton;
 
-  @FindBy(xpath = "//*[contains(@class,'v-card__actions')]//button[@aria-label='Update']")
+  @FindBy(xpath = "//*[contains(@class,'v-navigation-drawer--open')]//button[@aria-label='Update']")
   private BaseElementFacade    updateActivityButton;
 
   @FindBy(xpath = "//*[contains(@class,'drawerTitle')]/following::*[contains(@class,'mdi-close')]")
-  private BaseElementFacade    closeWriteMessageBtn;
+  private BaseElementFacade    closeActivityComposerDrawerBtn;
 
   @FindBy(xpath = "//div[contains(@class,'attachmentsFooter')]//a")
   private BaseElementFacade    applyDownloadButton;
@@ -123,7 +126,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private BaseElementFacade getNormalLinkPreview(String link) {
-    return findByXPathOrCSS(String.format("//*[contains(@id,'Extactivity-content-extensions')]//*[contains(@class,'activity-thumbnail-box') and @href='%s']//following::*[@class='v-image__image v-image__image--cover']/following::*[@class='my-4']",
+    return findByXPathOrCSS(String.format("//*[contains(@id,'Extactivity-content-extensions')]//*[contains(@class,'activity-thumbnail-box') and @href='%s']",
                                           link));
   }
 
@@ -145,14 +148,8 @@ public class SpaceHomePage extends GenericPage {
   @FindBy(xpath = "//button[contains(@class,'primary btn no-box-shadow ms-auto v-btn v-btn--contained')]")
   private BaseElementFacade   newActivityButtonInArabicLanguage;
 
-  @FindBy(xpath = "//*[contains(@class,'peopleMenuIcon')]//*[contains(@class,'mdi-dots-vertical')]")
-  private BaseElementFacade   spaceMemberCardThreeDotsBtn;
-
   @FindBy(xpath = "//*[contains(@class,'uiIcon uiIconMemberAdmin')]")
   private BaseElementFacade   promoteAsManagerBtn;
-
-  @FindBy(xpath = "//*[contains(@class,'uiIcon uiIconTrash')]")
-  private BaseElementFacade   removeMemberBtn;
 
   @FindBy(xpath = "//header[@id='peopleListToolbar']//input")
   public TextBoxElementFacade spaceMembersFilterTextBox;
@@ -205,7 +202,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private BaseElementFacade getMentionedUserInCommentEntered(String user) {
-    return findByXPathOrCSS(String.format("//*[@class='atwho-inserted']//*[@class='exo-mention' and contains(text(),'%s')]",
+    return findByXPathOrCSS(String.format("//*[@class='atwho-inserted']//*[contains(text(),'%s')]",
                                           user));
   }
 
@@ -387,6 +384,7 @@ public class SpaceHomePage extends GenericPage {
     assertWebElementNotVisible(getCommentsDrawerBlueLikeCommentIcon(comment));
   }
 
+  @SwitchToWindow
   public void userIsMentionedInCommentEntered(String user) {
     driver.switchTo().frame(ckEditorFrameComment);
     try {
@@ -396,10 +394,11 @@ public class SpaceHomePage extends GenericPage {
     }
   }
 
+  @SwitchToWindow
   public void userIsNotMentionedInCommentEntered(String user) {
     driver.switchTo().frame(ckEditorFrameComment);
     try {
-      assertWebElementNotVisible(getMentionedUserInCommentEntered(user));
+      assertWebElementNotVisible(getMentionedUserInCommentEntered(user), 2);
     } finally {
       driver.switchTo().defaultContent();
     }
@@ -432,11 +431,13 @@ public class SpaceHomePage extends GenericPage {
 
   @SwitchToWindow
   public void enterActivityText(String activity) {
-
+    driver.switchTo().frame(ckEditorFrame);
     try {
-      driver.switchTo().frame(ckEditorFrame);
       activityContentTextBox.waitUntilVisible();
       activityContentTextBox.sendKeys(activity);
+      activityContentTextBox.sendKeys(Keys.SPACE);
+      activityContentTextBox.sendKeys(Keys.BACK_SPACE);
+      waitFor(100).milliseconds();
     } finally {
       driver.switchTo().defaultContent();
     }
@@ -444,23 +445,35 @@ public class SpaceHomePage extends GenericPage {
     Serenity.setSessionVariable("activity").to(activity);
   }
 
-  public void closeWriteMessageDrawer() {
-    closeWriteMessageBtn.waitUntilVisible();
-    closeWriteMessageBtn.clickOnElement();
+  public void closeActivityComposerDrawer() {
+    closeActivityComposerDrawerBtn.waitUntilVisible();
+    closeActivityComposerDrawerBtn.clickOnElement();
   }
 
   public void promoteSpaceMemberAsManager(String name) {
     spaceMembersFilterTextBox.waitUntilVisible();
     spaceMembersFilterTextBox.setTextValue(name);
-    spaceMemberCardThreeDotsBtn.clickOnElement();
-    promoteAsManagerBtn.clickOnElement();
+    BaseElementFacade threeDots =
+                                findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'peopleCardItem')]//*[contains(@class, 'mdi-dots-vertical')]//ancestor::button",
+                                                               name));
+    threeDots.clickOnElement();
+    BaseElementFacade promoteAsAdminButton =
+                                           findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'peopleCardItem')]//*[contains(@class, 'uiIconMemberAdmin')]//ancestor::*[contains(@class, 'v-list-item')]",
+                                                                          name));
+    promoteAsAdminButton.clickOnElement();
   }
 
   public void removeMember(String name) {
     spaceMembersFilterTextBox.waitUntilVisible();
     spaceMembersFilterTextBox.setTextValue(name);
-    spaceMemberCardThreeDotsBtn.clickOnElement();
-    removeMemberBtn.clickOnElement();
+    BaseElementFacade threeDots =
+                                findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'peopleCardItem')]//*[contains(@class, 'mdi-dots-vertical')]//ancestor::button",
+                                                               name));
+    threeDots.clickOnElement();
+    BaseElementFacade removeMemberButton =
+                                         findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'peopleCardItem')]//*[contains(@class, 'uiIconTrash')]//ancestor::*[contains(@class, 'v-list-item')]",
+                                                                        name));
+    removeMemberButton.clickOnElement();
   }
 
   public void viewAllRepliesInCommentsDrawer(String comment) {
@@ -515,12 +528,12 @@ public class SpaceHomePage extends GenericPage {
       if (activity.contains("https")) {
         activityContentTextBox.sendKeys(activity);
         activityContentTextBox.sendKeys(Keys.CONTROL + "a" + "x");
-        driver.navigate().refresh();
+        driver.switchTo().defaultContent();
+        closeActivityComposerDrawer();
         clickPostIcon();
-        ckEditorFrame.waitUntilVisible();
-        ckEditorFrame.clickOnElement();
         driver.switchTo().frame(ckEditorFrame);
         activityContentTextBox.sendKeys(Keys.CONTROL + "v");
+        activityLinkPreview.waitUntilVisible();
       } else if (activity.contains("lien")) {
         activityContentTextBox.clickOnElement();
         activityContentTextBox.sendKeys(Keys.PAGE_UP);
@@ -536,14 +549,19 @@ public class SpaceHomePage extends GenericPage {
 
   public void publishActivity() {
     publishActivityButton.clickOnElement();
-    publishActivityButton.waitUntilNotVisible();
-    refreshPage();
+    try {
+      newActivityButton.clickOnElement();
+      verifyPageLoaded();
+    } catch (Exception e) {
+      refreshPage();
+    }
   }
 
   public void editActivity() {
     updateActivityButton.clickOnElement();
-    updateActivityButton.waitUntilNotVisible();
     verifyPageLoaded();
+    waitFor(200).milliseconds(); // Update doesn't trigger a loading effect, bad
+                                 // UX
   }
 
   public void clickApplyDownload() {
@@ -659,7 +677,11 @@ public class SpaceHomePage extends GenericPage {
     driver.switchTo().frame(ckEditorFrameComment);
 
     try {
+      ckEditorBodyComment.waitUntilVisible();
       ckEditorBodyComment.sendKeys(comment);
+      ckEditorBodyComment.sendKeys(Keys.SPACE);
+      ckEditorBodyComment.sendKeys(Keys.BACK_SPACE);
+      waitFor(100).milliseconds();
     } finally {
       driver.switchTo().defaultContent();
     }
@@ -988,17 +1010,20 @@ public class SpaceHomePage extends GenericPage {
 
   public void linkIsOpenedNewTab(String link) {
     Set<String> windowHandles = driver.getWindowHandles();
-    boolean tabFound = windowHandles.size() > 1 && windowHandles.stream().anyMatch(windowId -> {
-      driver.switchTo().window(windowId);
-      String currentUrl = driver.getCurrentUrl();
-      boolean found = currentUrl.contains(link);
-      if (!currentUrl.contains("/portal")) {
-        driver.close();
-      }
-      return found;
-    });
-    assertTrue(tabFound);
-    driver.switchTo().window(windowHandles.iterator().next());
+    try {
+      boolean tabFound = windowHandles.size() > 1 && windowHandles.stream().anyMatch(windowId -> {
+        driver.switchTo().window(windowId);
+        String currentUrl = driver.getCurrentUrl();
+        boolean found = currentUrl.contains(link);
+        if (!currentUrl.contains("/portal")) {
+          driver.close();
+        }
+        return found;
+      });
+      assertTrue(tabFound);
+    } finally {
+      driver.switchTo().window(windowHandles.iterator().next());
+    }
   }
 
   public void copyLinkActivityButtonIsDisplayed(String activity) {

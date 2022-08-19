@@ -4,7 +4,7 @@ Feature: Filter Drawer
   Scenario: CAP110 - [Filter_Drawer_US03]:Group by Labels [Group and Sort" tab under project]
     Given I am authenticated as admin
 
-    When I create space project
+    When I create a random space
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
@@ -37,7 +37,7 @@ Feature: Filter Drawer
   Scenario: CAP113 - [Filter_Drawer_US03]:Sort by Title ["Group and Sort" tab under project]
     Given I am authenticated as admin
 
-    When I create space project
+    When I create a random space
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
@@ -69,7 +69,7 @@ Feature: Filter Drawer
   Scenario: CAP111 - [Filter_Drawer_US03] Group by Completed [Group and Sort tab under project]
     Given I am authenticated as admin
 
-    And I create space project
+    And I create a random space
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
@@ -116,7 +116,7 @@ Feature: Filter Drawer
   Scenario: CAP53 - [Filter_Drawer_US01]: Filter button in a project
     Given I am authenticated as admin
 
-    When I create space project
+    When I create a random space
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed

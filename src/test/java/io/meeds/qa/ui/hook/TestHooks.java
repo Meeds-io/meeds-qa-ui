@@ -72,6 +72,7 @@ public class TestHooks {
 
   @After
   public void deleteDatas() {
+    homeSteps.refreshPage();
     deleteGamificationBadges();
     deleteAppCenterApplications();
   }

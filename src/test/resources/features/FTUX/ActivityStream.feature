@@ -1657,20 +1657,20 @@ Feature: Activity Stream
     And I go to the random space
     And I click on post in space
     And I enter an activity 'https://www.meeds.io/'
-    And I insert text 'activity12'
+    And I insert text 'activity-cap12'
     And I publish the activity
-    And I click on three dots button related to activity 'activity12'
-    Then Edit button related to activity 'activity12' is displayed
-    And Delete button related to activity 'activity12' is displayed
-    And Copy link button related to activity 'activity12' is displayed
+    And I click on three dots button related to activity 'activity-cap12'
+    Then Edit button related to activity 'activity-cap12' is displayed
+    And Delete button related to activity 'activity-cap12' is displayed
+    And Copy link button related to activity 'activity-cap12' is displayed
 
     When I go to Stream page
-    Then The activity 'activity12' posted by the second user in the created space is displayed with its timestamp in streams page
+    Then The activity 'activity-cap12' posted by the second user in the created space is displayed with its timestamp in streams page
 
-    When I click on three dots button related to activity 'activity12'
-    Then Edit button related to activity 'activity12' is displayed
-    And Delete button related to activity 'activity12' is displayed
-    And Copy link button related to activity 'activity12' is displayed
+    When I click on three dots button related to activity 'activity-cap12'
+    Then Edit button related to activity 'activity-cap12' is displayed
+    And Delete button related to activity 'activity-cap12' is displayed
+    And Copy link button related to activity 'activity-cap12' is displayed
 
   @ignored
   Scenario: CAP13 - [ActivityStream_US10][02]: Activity with text or link options (3 dots) (Space manager)
@@ -1699,36 +1699,36 @@ Feature: Activity Stream
 
     And I go to the random space
     And I go to 'Members' tab
-    And I promote the third user as a space manager
+    And I promote 'third' random user as a space manager
 
     And I connect with the second created user
 
     And I go to the random space
     And I click on post in space
     And I enter an activity 'https://www.meeds.io/'
-    And I insert text 'activity13'
+    And I insert text 'activity-CAP13'
     And I publish the activity
-    Then the activity 'activity13' is displayed in activity stream
+    Then the activity 'activity-CAP13' is displayed in activity stream
 
-    When I click on three dots button related to activity 'activity13'
-    Then Delete button related to activity 'activity13' is displayed
-    And Copy link button related to activity 'activity13' is displayed
+    When I click on three dots button related to activity 'activity-CAP13'
+    Then Delete button related to activity 'activity-CAP13' is displayed
+    And Copy link button related to activity 'activity-CAP13' is displayed
 
     And I connect with the third created user
 
     And I go to the random space
-    Then the activity 'activity13' is displayed in activity stream
+    Then the activity 'activity-CAP13' is displayed in activity stream
 
-    When I click on three dots button related to activity 'activity13'
-    Then Delete button related to activity 'activity13' is displayed
-    And Copy link button related to activity 'activity13' is displayed
+    When I click on three dots button related to activity 'activity-CAP13'
+    Then Delete button related to activity 'activity-CAP13' is displayed
+    And Copy link button related to activity 'activity-CAP13' is displayed
 
     When I go to Stream page
-    Then The activity 'activity13' posted by the second user in the created space is displayed with its timestamp in streams page
+    Then The activity 'activity-CAP13' posted by the second user in the created space is displayed with its timestamp in streams page
 
-    When I click on three dots button related to activity 'activity13'
-    Then Delete button related to activity 'activity13' is displayed
-    And Copy link button related to activity 'activity13' is displayed
+    When I click on three dots button related to activity 'activity-CAP13'
+    Then Delete button related to activity 'activity-CAP13' is displayed
+    And Copy link button related to activity 'activity-CAP13' is displayed
 
   @ignored
   Scenario: CAP97 - [ActivityStream_US38][01]: Delete a simple comment from the activity stream
@@ -1829,7 +1829,6 @@ Feature: Activity Stream
     And In activity 'activityTest99' with comment 'commenttest99', the reply 'replyTest101' is not displayed
     And In activity 'activityTest99' with comment 'commenttest99', the reply 'replyTest102' is not displayed
 
-  @test
   Scenario: Cap155 - ActivityStream_US58: Mention a user in the comments
     Given I am authenticated as admin
 

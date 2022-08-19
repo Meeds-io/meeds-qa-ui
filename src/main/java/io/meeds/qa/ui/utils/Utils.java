@@ -23,6 +23,9 @@ import net.serenitybdd.core.Serenity;
 
 public class Utils {
 
+  public static final int            MAX_WAIT_RETRIES       =
+                                                      Integer.parseInt(System.getProperty("io.meeds.parallel.retry.max", "5"));
+
   private static final AtomicInteger LOCK_COUNT             = new AtomicInteger(0);
 
   private static final Random        RANDOM                 = new Random();
@@ -31,16 +34,13 @@ public class Utils {
 
   private static final int           TIMEOUT_MILLISECONDS   =
                                                           Integer.parseInt(System.getProperty("io.meeds.windowSwitch.timeout",
-                                                                                              "200000"));
+                                                                                              "20000"));
 
   private static final String        LOCK_FILE_PATH         = System.getProperty("io.meeds.windowSwitch.lockFile");
 
   private static final File          LOCK_FILE              = new File(LOCK_FILE_PATH);
 
   private static final boolean       PARALLEL_TESTING       = !System.getProperty("io.meeds.parallel.tests").equals("1");
-
-  protected static final int         MAX_WAIT_RETRIES       =
-                                                      Integer.parseInt(System.getProperty("io.meeds.parallel.retry.max", "5"));
 
   private static WebDriver           decoratedWebDriver;
 
@@ -197,21 +197,29 @@ public class Utils {
 
   public static <T> T retryOnCondition(Supplier<T> supplier, Runnable onError) {
     long retry = 0;
-    do {
-      try {
-        return supplier.get();
-      } catch (RuntimeException e) {
-        if (++retry == MAX_WAIT_RETRIES) {
-          throw new IllegalStateException("Unable to process on element after " + retry + " retries", e);
-        } else {
-          LOGGER.debug("Error processing event on element. retry = {}/{}", retry, MAX_WAIT_RETRIES);
-          releaseWindowTemporarely(decoratedWebDriver, null, e.getMessage(), 500);
-          if (onError != null) {
-            onError.run();
+    Thread currentThread = Thread.currentThread();
+    String originalName = currentThread.getName();
+    try {
+      do {
+        String threadName = originalName + "Retry = " + (retry + 1) + "/" + MAX_WAIT_RETRIES;
+        currentThread.setName(threadName);
+        try {
+          return supplier.get();
+        } catch (Throwable e) {// NOSONAR
+          if (++retry == MAX_WAIT_RETRIES) {
+            throw new IllegalStateException("Unable to process on element after " + retry + " retries", e);
+          } else {
+            LOGGER.debug("Error processing event on element. retry = {}/{}", retry, MAX_WAIT_RETRIES);
+            releaseWindowTemporarely(decoratedWebDriver, null, e.getMessage(), 500);
+            if (onError != null) {
+              onError.run();
+            }
           }
         }
-      }
-    } while (true);
+      } while (true);
+    } finally {
+      currentThread.setName(originalName);
+    }
   }
 
   public static WebDriver decorateDriver(WebDriver driver) {
@@ -266,16 +274,20 @@ public class Utils {
 
   private static boolean unlock() {
     if (isLocked()) {
-      try {
-        Files.delete(LOCK_FILE.toPath());
-        return true;
-      } catch (IOException e) {
-        throw new IllegalStateException("Error while releasing lock", e);
-      } finally {
-        locked = false;
-      }
+      return unlockFile();
     }
     return false;
+  }
+
+  private static boolean unlockFile() {
+    try {
+      Files.delete(LOCK_FILE.toPath());
+      return true;
+    } catch (IOException e) {
+      throw new IllegalStateException("Error while releasing lock", e);
+    } finally {
+      locked = false;
+    }
   }
 
   private static boolean incrementLock() {

@@ -1,10 +1,13 @@
 package io.meeds.qa.ui.elements;
 
 import static io.meeds.qa.ui.utils.Utils.decorateDriver;
-import static io.meeds.qa.ui.utils.Utils.releaseWindowTemporarely;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoaded;
 
+import java.util.Collections;
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
@@ -64,20 +67,22 @@ public class TextBoxElementFacadeImpl extends BaseElementFacadeImpl implements T
   }
 
   public void sendValueWithKeys(boolean clear, Keys keys, CharSequence... value) {
-    retryOnCondition(() -> {
-      WebElement element = getElement();
-      sendValueWithKeysOnElement(element, clear, keys, value);
-    });
+    retryOnCondition(() -> sendValueWithKeysOnElement(clear, keys, value));
   }
 
   @SwitchToWindow
-  public void sendValueWithKeysOnElement(WebElement element, boolean clear, Keys keys, CharSequence... value) {
+  public void sendValueWithKeysOnElement(boolean clear, Keys keys, CharSequence... value) {
     if (clear) {
-      element.clear();
+      clear();
+      String currentValue = getValue();
+      if (StringUtils.isNotBlank(currentValue)) {
+        List<Keys> backSpace = Collections.nCopies(currentValue.length(), Keys.BACK_SPACE);
+        super.sendKeys(backSpace.toArray(new Keys[0]));
+      }
     }
-    element.sendKeys(value);
+    super.sendKeys(value);
     if (keys != null) {
-      element.sendKeys(keys);
+      super.sendKeys(keys);
     }
   }
 

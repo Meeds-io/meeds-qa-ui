@@ -1,5 +1,7 @@
 package io.meeds.qa.ui.pages.page.factory.engagement;
 
+import static org.junit.Assert.assertTrue;
+
 import java.time.Duration;
 
 import org.openqa.selenium.Keys;
@@ -12,7 +14,8 @@ import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class ChallengesPage extends GenericPage {
-  private static final String IDENTITY_SUGGESTER_ELEMENT = "//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]";
+  private static final String IDENTITY_SUGGESTER_ELEMENT =
+                                                         "//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]";
 
   public ChallengesPage(WebDriver driver) {
     super(driver);
@@ -22,7 +25,7 @@ public class ChallengesPage extends GenericPage {
   private BaseElementFacade addChallengeBtn;
 
   public void checkAddChallengeBtn() {
-    addChallengeBtn.isVisibleAfterWaiting();
+    assertTrue(addChallengeBtn.isVisibleAfterWaiting()); // NOSONAR
   }
 
   public void isAddChallengeBtnDisplayed() {
@@ -71,14 +74,15 @@ public class ChallengesPage extends GenericPage {
     challengeTitleField.setTextValue(challengeTitle);
   }
 
+  @SwitchToWindow
   public void addSpaceAudience(String randomSpaceName) {
     audienceSpaceField.waitUntilVisible();
     audienceSpaceField.setTextValue(randomSpaceName + " ");
     waitFor(100).milliseconds();
     audienceSpaceField.sendKeys(Keys.BACK_SPACE);
-    waitFor(100).milliseconds();
+    waitFor(200).milliseconds();
     audienceSpaceField.sendKeys(Keys.BACK_SPACE);
-    waitFor(100).milliseconds();
+    waitFor(200).milliseconds();
     BaseElementFacade audienceSuggester = getSelectSpaceInDropDown(randomSpaceName);
     audienceSuggester.waitUntilVisible();
     audienceSuggester.clickOnElement();
@@ -179,7 +183,7 @@ public class ChallengesPage extends GenericPage {
   }
 
   public void checkSuccessMessage(String message) {
-    getChallengeSuccessMessage(message).isVisibleAfterWaiting();
+    assertTrue(getChallengeSuccessMessage(message).isVisibleAfterWaiting());
   }
 
   private BaseElementFacade getChallengeCardTitle(String title) {
@@ -187,7 +191,7 @@ public class ChallengesPage extends GenericPage {
   }
 
   public void checkChallengeCardTitle(String title) {
-    getChallengeCardTitle(title).isVisibleAfterWaiting();
+    assertTrue(getChallengeCardTitle(title).isVisibleAfterWaiting());
   }
 
   public void enterRandomChallengeTitle(String challengeName) {
@@ -209,14 +213,14 @@ public class ChallengesPage extends GenericPage {
   }
 
   public void checkTitleDisplayOnCard(String title) {
-    getChallengeCardTitle(title).isVisibleAfterWaiting();
+    assertTrue(getChallengeCardTitle(title).isVisibleAfterWaiting());
   }
 
   @FindBy(xpath = "//*[contains(@class,'me-2 v-btn v-btn--flat v-btn--icon v-btn--round')]")
   private BaseElementFacade threeDotsIcon;
 
   public void checkThreeDotsIconDisplay(String title) {
-    getChallengeCardTitle(title).isVisibleAfterWaiting();
+    assertTrue(getChallengeCardTitle(title).isVisibleAfterWaiting());
     threeDotsIcon.shouldBeVisible();
   }
 
@@ -224,7 +228,7 @@ public class ChallengesPage extends GenericPage {
   private BaseElementFacade announceBtn;
 
   public void checkAnnounceBtn(String title) {
-    getChallengeCardTitle(title).isVisibleAfterWaiting();
+    assertTrue(getChallengeCardTitle(title).isVisibleAfterWaiting());
     announceBtn.shouldBeVisible();
   }
 
@@ -232,7 +236,7 @@ public class ChallengesPage extends GenericPage {
   private BaseElementFacade dateField;
 
   public void checkDateField(String title) {
-    getChallengeCardTitle(title).isVisibleAfterWaiting();
+    assertTrue(getChallengeCardTitle(title).isVisibleAfterWaiting());
     dateField.shouldBeVisible();
   }
 
@@ -279,7 +283,7 @@ public class ChallengesPage extends GenericPage {
   }
 
   public void assignChallengeToSecondUser(String user) {
-    assignLink.isVisibleAfterWaiting();
+    assertTrue(assignLink.isVisibleAfterWaiting());
     assignLink.clickOnElement();
     assignAnnouncementInput.setTextValue(user + " ");
     assignAnnouncementInput.sendKeys(Keys.BACK_SPACE);
@@ -293,7 +297,7 @@ public class ChallengesPage extends GenericPage {
   }
 
   public void checkAnnouncementActivityTopBar(String user, String space) {
-    getAnnouncementActivityTopBar(user, space).isVisibleAfterWaiting();
+    assertTrue(getAnnouncementActivityTopBar(user, space).isVisibleAfterWaiting());
 
   }
 
@@ -303,7 +307,7 @@ public class ChallengesPage extends GenericPage {
   }
 
   public void checkWinnerNameOnAnnouncement(String user) {
-    getWinnerNameOnAnnouncement(user).isVisibleAfterWaiting();
+    assertTrue(getWinnerNameOnAnnouncement(user).isVisibleAfterWaiting());
   }
 
   private BaseElementFacade getChallengeTitleOnAnnouncement(String name) {
@@ -312,7 +316,7 @@ public class ChallengesPage extends GenericPage {
   }
 
   public void checkChallengeTitleOnAnnouncement(String name) {
-    getChallengeTitleOnAnnouncement(name).isVisibleAfterWaiting();
+    assertTrue(getChallengeTitleOnAnnouncement(name).isVisibleAfterWaiting());
   }
 
   private BaseElementFacade getAchievementDescriptionOnAnnouncement(String description) {
@@ -320,7 +324,7 @@ public class ChallengesPage extends GenericPage {
   }
 
   public void checkAchievementDescriptionOnAnnouncement(String description) {
-    getAchievementDescriptionOnAnnouncement(description).isVisibleAfterWaiting();
+    assertTrue(getAchievementDescriptionOnAnnouncement(description).isVisibleAfterWaiting());
   }
 
 }

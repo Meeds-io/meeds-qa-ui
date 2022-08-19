@@ -1,6 +1,6 @@
 package io.meeds.qa.ui.pages;
 
-import static io.meeds.qa.ui.utils.Utils.decorateDriver;
+import static io.meeds.qa.ui.utils.Utils.*;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoaded;
 import static org.junit.Assert.assertTrue;
 
@@ -23,7 +23,9 @@ import io.meeds.qa.ui.elements.TextBoxElementFacadeImpl;
 import io.meeds.qa.ui.elements.TextElementFacade;
 import io.meeds.qa.ui.elements.TextElementFacadeImpl;
 import io.meeds.qa.ui.utils.ExceptionLauncher;
+import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.Serenity;
+import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.core.selectors.Selectors;
 import net.thucydides.core.pages.PageObject;
@@ -39,6 +41,9 @@ public class BasePageImpl extends PageObject implements BasePage {
   protected String              url;
 
   protected WebDriver           driver;
+
+  @FindBy(css = ".UISiteBody .v-progress-linear")
+  private BaseElementFacade     progressBar;
 
   public BasePageImpl() {
     this(null);
@@ -150,7 +155,6 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   public void waitForProgressBar() {
     try {
-      BaseElementFacade progressBar = findByXPathOrCSS(".UISiteBody .v-progress-linear");
       progressBar.waitUntilVisible();
       progressBar.waitUntilNotVisible();
     } catch (Exception e) {
@@ -158,6 +162,7 @@ public class BasePageImpl extends PageObject implements BasePage {
     }
   }
 
+  @SwitchToWindow
   public void mentionUserWithContent(BaseElementFacade ckEditorFrame,
                                      TextBoxElementFacade ckEditorBody,
                                      String content,
@@ -194,8 +199,16 @@ public class BasePageImpl extends PageObject implements BasePage {
     assertTrue(isWebElementNotVisible(element)); // NOSONAR
   }
 
+  public void assertWebElementNotVisible(BaseElementFacade element, int maxRetries) {
+    assertTrue(isWebElementNotVisible(element, maxRetries)); // NOSONAR
+  }
+
   public void assertWebElementVisible(BaseElementFacade element) {
     assertTrue(isWebElementVisible(element)); // NOSONAR
+  }
+
+  public void assertWebElementVisible(BaseElementFacade element, int maxRetries) {
+    assertTrue(isWebElementVisible(element, maxRetries)); // NOSONAR
   }
 
   public boolean isVisible(String xpathOrCss) {
@@ -207,24 +220,32 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public boolean isWebElementVisible(BaseElementFacade element) {
+    return isWebElementVisible(element, MAX_WAIT_RETRIES);
+  }
+
+  public boolean isWebElementVisible(BaseElementFacade element, long maxRetries) {
     verifyPageLoaded();
     element.setImplicitTimeout(DEFAULT_SHORT_WAIT_DURATION);
     boolean visible = false;
     int retry = 0;
     do {
       visible = element.isVisibleAfterWaiting();
-    } while (!visible && retry++ < 5);
+    } while (!visible && retry++ < maxRetries);
     return visible;
   }
 
   public boolean isWebElementNotVisible(BaseElementFacade element) {
+    return isWebElementNotVisible(element, MAX_WAIT_RETRIES);
+  }
+
+  public boolean isWebElementNotVisible(BaseElementFacade element, long maxRetries) {
     verifyPageLoaded();
     element.setImplicitTimeout(DEFAULT_SHORT_WAIT_DURATION);
     boolean notVisible = false;
     int retry = 0;
     do {
       notVisible = element.isNotVisibleAfterWaiting();
-    } while (!notVisible && retry++ < 5);
+    } while (!notVisible && retry++ < maxRetries);
     return notVisible;
   }
 

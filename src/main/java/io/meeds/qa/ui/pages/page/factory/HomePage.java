@@ -1,6 +1,7 @@
 package io.meeds.qa.ui.pages.page.factory;
 
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
 import java.util.List;
@@ -75,12 +76,6 @@ public class HomePage extends GenericPage {
       xpath = "//*[contains(@class,'recentSpacesTitle')]//*[contains(@class,'recentSpacesTitleLabel')]//*[contains(@class,'v-input recentSpacesFilter')]//input"
   )
   private TextBoxElementFacade                        sideBarFilterSpacesInput;
-
-  @FindBy(xpath = "//*[contains(@class,'recentSpacesTitle')]//*[contains(@class,'recentSpacesTitleIcon')]//button")
-  private BaseElementFacade                           filterSpacesSearchIcon;
-
-  @FindBy(xpath = "//*[contains(@class,'recentSpacesWrapper')]//*[@class='v-list-item__content']//div")
-  private BaseElementFacade                           sideBarFilterSearchedSpace;
 
   @FindBy(id = "profile-stats-portlet")
   private BaseElementFacade                           profileStatsPortlet;
@@ -257,12 +252,12 @@ public class HomePage extends GenericPage {
 
   public void searchSpaceInSideBarFilter(String space) {
     clickOnElement(sideBarFilterSpaces);
+    sideBarFilterSpacesInput.waitUntilVisible();
     sideBarFilterSpacesInput.setTextValue(space);
-    clickOnElement(filterSpacesSearchIcon);
   }
 
   public void checkNoActivityDisplayed() {
-    contextBoxWelcomeActivity.isVisibleAfterWaiting();
+    assertTrue(contextBoxWelcomeActivity.isVisibleAfterWaiting());
   }
 
   public void goToStreamPage() {
@@ -353,11 +348,14 @@ public class HomePage extends GenericPage {
   }
 
   public void searchedSpaceIsDisplayedInSideBarFilter(String space) {
-    Assert.assertTrue(sideBarFilterSearchedSpace.getTextValue().contains(space));
+    assertWebElementVisible(findByXPathOrCSS(String.format("//*[contains(@class,'recentSpacesWrapper')]//*[@class='v-list-item__content']//*[contains(text(), '%s')]",
+                                                           space)));
   }
 
   public void searchedSpaceIsNotDisplayedInSideBarFilter(String space) {
-    Assert.assertFalse(sideBarFilterSearchedSpace.getTextValue().contains(space));
+    assertWebElementNotVisible(findByXPathOrCSS(String.format("//*[contains(@class,'recentSpacesWrapper')]//*[@class='v-list-item__content']//*[contains(text(), '%s')]",
+                                                              space)),
+                               2);
   }
 
   public void clickWalletWidget() {
@@ -365,7 +363,7 @@ public class HomePage extends GenericPage {
   }
 
   public boolean isWalletPageOpened() {
-    walletApplication.isVisibleAfterWaiting();
+    assertTrue(walletApplication.isVisibleAfterWaiting());
     return driver.getTitle().equals("Wallet");
   }
 
@@ -474,7 +472,7 @@ public class HomePage extends GenericPage {
   }
 
   public void deactivateSwitcher() {
-    switcherButton.isVisible();
+    assertTrue(switcherButton.isVisible());
     clickOnElement(switcherButton);
   }
 
@@ -514,7 +512,7 @@ public class HomePage extends GenericPage {
   }
 
   public void checkNotExistingSpaceInvitation(String spaceName) {
-    checkSpaceFromDrawer(spaceName).isNotVisibleAfterWaiting();
+    assertTrue(checkSpaceFromDrawer(spaceName).isNotVisibleAfterWaiting());
   }
 
   private BaseElementFacade getFavoriteIconActivity(String activity) {
@@ -536,7 +534,7 @@ public class HomePage extends GenericPage {
   }
 
   public void checkFavSuccessMessage(String message) {
-    getFavoriteSucessMessage(message).isVisibleAfterWaiting();
+    assertTrue(getFavoriteSucessMessage(message).isVisibleAfterWaiting());
   }
 
   public void unbookmarkActivity(String activity) {

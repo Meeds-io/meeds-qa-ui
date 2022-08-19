@@ -1,5 +1,7 @@
 package io.meeds.qa.ui.pages.page.factory.administration;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,7 +73,7 @@ public class AddUserPage extends GenericPage {
   }
 
   public void isUserNameDisplayed(String user) {
-    userNameDisplayed(user).isVisibleAfterWaiting();
+    assertTrue(userNameDisplayed(user).isVisibleAfterWaiting());
   }
 
   Map<String, TextBoxElementFacade> MAPPING_CONTAINER_NAME_TO_BASEELEMENTFACADE_XPATH =
@@ -137,7 +139,7 @@ public class AddUserPage extends GenericPage {
   public void checkUserIsDeleted(String fullName) {
     searchUsersField.waitUntilVisible();
     searchUsersField.setTextValue(fullName);
-    deleteConfirmationButton.isNotVisibleAfterWaiting();
+    assertTrue(deleteConfirmationButton.isNotVisibleAfterWaiting());
   }
 
   public void clickToDeleteUser() {
@@ -145,7 +147,7 @@ public class AddUserPage extends GenericPage {
   }
 
   public void checkPopupCantDeleteLoggedUser() {
-    popupCantDeleteLoggedUser.isVisibleAfterWaiting();
+    assertTrue(popupCantDeleteLoggedUser.isVisibleAfterWaiting());
   }
 
 }

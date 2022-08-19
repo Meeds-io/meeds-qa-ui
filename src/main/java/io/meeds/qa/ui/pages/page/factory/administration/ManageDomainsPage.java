@@ -1,5 +1,7 @@
 package io.meeds.qa.ui.pages.page.factory.administration;
 
+import static org.junit.Assert.assertTrue;
+
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
@@ -87,7 +89,7 @@ public class ManageDomainsPage extends GenericPage {
   }
 
   public void fillForm(String name, String description) {
-    closeFormBtn.isVisibleAfterWaiting();
+    closeFormBtn.waitUntilVisible();
     addDomainName(name);
     addDomainDescription(description);
   }
@@ -111,14 +113,15 @@ public class ManageDomainsPage extends GenericPage {
   }
 
   public void checkTheDomainNameDisplay(String domainName) {
-    getDomainNameInListOfDomains(domainName).isVisibleAfterWaiting();
-    getDomainNameInListOfDomains(domainName).clickOnElement();
+    BaseElementFacade domainElement = getDomainNameInListOfDomains(domainName);
+    domainElement.waitUntilVisible();
+    domainElement.clickOnElement();
   }
 
   public void editDomainName(String name) {
-    editDomainIcon.isVisibleAfterWaiting();
+    editDomainIcon.waitUntilVisible();
     editDomainIcon.clickOnElement();
-    editDomainForm.isVisibleAfterWaiting();
+    editDomainForm.waitUntilVisible();
     editDomainNameField.clickOnElement();
     editDomainNameField.clear();
     editDomainNameField.setTextValue(name);
@@ -127,7 +130,7 @@ public class ManageDomainsPage extends GenericPage {
   }
 
   public void domainNameIsNotDisplayed(String domainName) {
-    getDomainNameInListOfDomains(domainName).isNotVisibleAfterWaiting();
+    assertTrue(getDomainNameInListOfDomains(domainName).isNotVisibleAfterWaiting());
   }
 
   public void deleteDomain() {
@@ -144,15 +147,15 @@ public class ManageDomainsPage extends GenericPage {
   }
 
   public void checkTitlePageAutomaticTranslation(String title) {
-    getTitlePage(title).isVisible();
+    assertTrue(getTitlePage(title).isVisible());
   }
 
   public void checkAlertPublishingActivity(String alert) {
-    getAlertPublishingActivity(alert).isVisible();
+    assertTrue(getAlertPublishingActivity(alert).isVisible());
   }
 
   public void confirmDomainDeletion() {
-    confirmDeletionBtn.isVisibleAfterWaiting();
+    confirmDeletionBtn.waitUntilVisible();
     confirmDeletionBtn.clickOnElement();
     searchDomainInput.clear();
   }

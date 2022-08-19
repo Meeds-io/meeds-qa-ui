@@ -1,5 +1,7 @@
 package io.meeds.qa.ui.pages.page.factory.space;
 
+import static org.junit.Assert.assertTrue;
+
 import java.time.Duration;
 
 import org.junit.Assert;
@@ -268,38 +270,37 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void checkThatSpaceTopBarElementsAreDisplayed() {
-    addNewSpaceButton.isVisibleAfterWaiting();
-    Assert.assertTrue(showingSpacesSection.getText().contains("Showing"));
-    Assert.assertTrue(showingSpacesSection.getText().contains("spaces"));
-    spacesFilterIcon.isVisibleAfterWaiting();
-    spacesFilterText.isVisibleAfterWaiting();
-    dropDownListSpaces.isVisibleAfterWaiting();
-    Assert.assertTrue(dropDownListSpaces.getText().contains("All spaces"));
-
+    assertTrue(addNewSpaceButton.isVisibleAfterWaiting());
+    assertTrue(showingSpacesSection.getText().contains("Showing"));
+    assertTrue(showingSpacesSection.getText().contains("spaces"));
+    assertTrue(spacesFilterIcon.isVisibleAfterWaiting());
+    assertTrue(spacesFilterText.isVisibleAfterWaiting());
+    assertTrue(dropDownListSpaces.isVisibleAfterWaiting());
+    assertTrue(dropDownListSpaces.getText().contains("All spaces"));
   }
 
   public void checkThatSpaceDetailsInSearchResultsAreDisplayed(String spaceName, String members) {
-    spaceSearchDetailsCover.isVisibleAfterWaiting();
-    spaceSearchDetailsAvatar.isVisibleAfterWaiting();
-    spaceSearchDetailsInfo.isVisibleAfterWaiting();
-    spaceSearchDetailsThreeDots.isVisibleAfterWaiting();
-    spaceSearchDetailsLeaveButton.isVisibleAfterWaiting();
-    spaceSearchDetailsSpaceName(spaceName).isVisibleAfterWaiting();
-    spaceSearchDetailsSpaceMembers(members).isVisibleAfterWaiting();
+    assertTrue(spaceSearchDetailsCover.isVisibleAfterWaiting());
+    assertTrue(spaceSearchDetailsAvatar.isVisibleAfterWaiting());
+    assertTrue(spaceSearchDetailsInfo.isVisibleAfterWaiting());
+    assertTrue(spaceSearchDetailsThreeDots.isVisibleAfterWaiting());
+    assertTrue(spaceSearchDetailsLeaveButton.isVisibleAfterWaiting());
+    assertTrue(spaceSearchDetailsSpaceName(spaceName).isVisibleAfterWaiting());
+    assertTrue(spaceSearchDetailsSpaceMembers(members).isVisibleAfterWaiting());
 
   }
 
   public void checkThatSpaceInSearchResultsIsNotDisplayed(String spaceName) {
-    spaceSearchDetailsSpaceName(spaceName).isNotVisibleAfterWaiting();
+    assertTrue(spaceSearchDetailsSpaceName(spaceName).isNotVisibleAfterWaiting());
   }
 
   public void checkThatSpaceDetailsInSearchResultsAreDisplayedByOtherUser(String spaceName, String members) {
-    spaceSearchDetailsCover.isVisibleAfterWaiting();
-    spaceSearchDetailsAvatar.isVisibleAfterWaiting();
-    spaceSearchDetailsInfo.isVisibleAfterWaiting();
-    spaceSearchDetailsLeaveButton.isVisibleAfterWaiting();
-    spaceSearchDetailsSpaceName(spaceName).isVisibleAfterWaiting();
-    spaceSearchDetailsSpaceMembers(members).isVisibleAfterWaiting();
+    assertTrue(spaceSearchDetailsCover.isVisibleAfterWaiting());
+    assertTrue(spaceSearchDetailsAvatar.isVisibleAfterWaiting());
+    assertTrue(spaceSearchDetailsInfo.isVisibleAfterWaiting());
+    assertTrue(spaceSearchDetailsLeaveButton.isVisibleAfterWaiting());
+    assertTrue(spaceSearchDetailsSpaceName(spaceName).isVisibleAfterWaiting());
+    assertTrue(spaceSearchDetailsSpaceMembers(members).isVisibleAfterWaiting());
 
   }
 
@@ -386,8 +387,7 @@ public class ManageSpacesPage extends GenericPage {
     searchSpaceInput.waitUntilVisible();
     searchSpaceInput.setTextValue(spaceName);
 
-    BaseElementFacade progressBar = findByXPathOrCSS(".UISiteBody .v-progress-linear");
-    progressBar.waitUntilNotVisible();
+    waitForProgressBar();
   }
 
   public void goToSpecificSpace(String spaceName) {
@@ -478,6 +478,25 @@ public class ManageSpacesPage extends GenericPage {
     }
   }
 
+  public boolean isSpaceCardJoinButtonDisplayed(String space) {
+    try {
+      BaseElementFacade webElementFacade =
+          findByXPathOrCSS(String.format("//*[contains(@class, 'spaceDisplayName') and contains(@href, ':%s/')]//ancestor::*[contains(@class, 'spaceCardItem')]//*[contains(text(), 'Join')]//ancestor::button",
+                                         space.toLowerCase()));
+      webElementFacade.setImplicitTimeout(Duration.ofSeconds(0));
+      return webElementFacade.isDisplayed();
+    } catch (RuntimeException e) {
+      return false;
+    }
+  }
+
+  public void joinSpaceFromCard(String space) {
+    BaseElementFacade webElementFacade =
+        findByXPathOrCSS(String.format("//*[contains(@class, 'spaceDisplayName') and contains(@href, ':%s/')]//ancestor::*[contains(@class, 'spaceCardItem')]//*[contains(text(), 'Join')]//ancestor::button",
+                                       space.toLowerCase()));
+    webElementFacade.clickOnElement();
+  }
+
   public void selectFilter(String filter) {
     if (filter.equals("My spaces"))
       selectSpaceFilter.select().byValue("member");
@@ -486,8 +505,8 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void checkDisplayOfTwentySpaces() {
-    spaceCardN20.isVisible();
-    spaceCardN21.isNotVisibleAfterWaiting();
+    assertTrue(spaceCardN20.isVisible());
+    assertTrue(spaceCardN21.isNotVisibleAfterWaiting());
   }
 
   public void showMoreSpaces() {
@@ -496,7 +515,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void checkDisplayOfOtherSpaces() {
-    spaceCardN21.isVisibleAfterWaiting();
+    assertTrue(spaceCardN21.isVisibleAfterWaiting());
   }
 
   public void clickOnSpaceSettingsTab() {
@@ -504,11 +523,11 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void checkGeneralSpaceSettings() {
-    editIconOfGeneralSpaceSettings.isVisibleAfterWaiting();
+    assertTrue(editIconOfGeneralSpaceSettings.isVisibleAfterWaiting());
   }
 
   public void checkApplicationsSpaceSettings() {
-    arrowIconOfApplicationsSpaceSettings.isVisibleAfterWaiting();
+    assertTrue(arrowIconOfApplicationsSpaceSettings.isVisibleAfterWaiting());
   }
 
   public void clickOnGeneralSpaceSettings() {
@@ -516,36 +535,36 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void checkAvatarSection() {
-    avatarSection.isVisibleAfterWaiting();
+    assertTrue(avatarSection.isVisibleAfterWaiting());
   }
 
   public void checkNameSpaceSection() {
-    nameSpaceSection.isVisibleAfterWaiting();
+    assertTrue(nameSpaceSection.isVisibleAfterWaiting());
   }
 
   public void checkDescriptionSpaceSection() {
-    descriptionSpaceSection.isVisibleAfterWaiting();
+    assertTrue(descriptionSpaceSection.isVisibleAfterWaiting());
   }
 
   public void checkSpaceTemplateSection() {
-    spaceTemplateSection.isVisibleAfterWaiting();
+    assertTrue(spaceTemplateSection.isVisibleAfterWaiting());
   }
 
   public void checkHiddenAndSwitchButtonSection() {
-    hiddenSection.isVisibleAfterWaiting();
-    switchButton.isVisibleAfterWaiting();
+    assertTrue(hiddenSection.isVisibleAfterWaiting());
+    assertTrue(switchButton.isVisibleAfterWaiting());
   }
 
   public void checkRegistrationSection() {
-    registrationSection.isVisibleAfterWaiting();
+    assertTrue(registrationSection.isVisibleAfterWaiting());
   }
 
   public void checkCancelButton() {
-    cancelButton.isVisibleAfterWaiting();
+    assertTrue(cancelButton.isVisibleAfterWaiting());
   }
 
   public void checkUpdateButton() {
-    spaceAppInstallerDrawer.isVisibleAfterWaiting();
+    assertTrue(spaceAppInstallerDrawer.isVisibleAfterWaiting());
   }
 
   public void clickOnArrowIconAppSpaceSettings() {
@@ -553,15 +572,15 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void spaceAppSettingsIsOpened() {
-    spaceAppSettingsPage.isVisibleAfterWaiting();
+    assertTrue(spaceAppSettingsPage.isVisibleAfterWaiting());
   }
 
   public void appCardIsDisplayed() {
-    appCard.isVisibleAfterWaiting();
+    assertTrue(appCard.isVisibleAfterWaiting());
   }
 
   public void plusButtonIsDisplayed() {
-    plusButtonAppSpaceSettings.isVisibleAfterWaiting();
+    assertTrue(plusButtonAppSpaceSettings.isVisibleAfterWaiting());
   }
 
   public void clickOn3dotsAppCard() {
@@ -569,15 +588,15 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void removeAppButtonIsDisplayed() {
-    removeAppButton.isVisibleAfterWaiting();
+    assertTrue(removeAppButton.isVisibleAfterWaiting());
   }
 
   public void moveBeforeAppButtonIsDisplayed() {
-    moveBeforeAppButton.isVisibleAfterWaiting();
+    assertTrue(moveBeforeAppButton.isVisibleAfterWaiting());
   }
 
   public void moveAfterAppButtonIsDisplayed() {
-    moveAfterAppButton.isVisibleAfterWaiting();
+    assertTrue(moveAfterAppButton.isVisibleAfterWaiting());
   }
 
   public void clickOnPlusButton() {
@@ -589,7 +608,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void checkApplicationsAreDisplayed() {
-    addAppButton.isVisibleAfterWaiting();
+    assertTrue(addAppButton.isVisibleAfterWaiting());
   }
 
   public void clickToAddApp(String application) {
@@ -597,7 +616,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void checkThatAppIsAdded(String application) {
-    getAppCardNameDisplayed(application).isVisibleAfterWaiting();
+    assertTrue(getAppCardNameDisplayed(application).isVisibleAfterWaiting());
   }
 
   @FindBy(xpath = "//select[contains(@class,'input-block-level ignore-vuetify-classes my-3')]")
@@ -638,6 +657,10 @@ public class ManageSpacesPage extends GenericPage {
     inviteUserInput.sendKeys(Keys.BACK_SPACE);
     getSelectUserInDropDown(user).clickOnElement();
     inviteUserButtonDrawer.clickOnElement();
+  }
+
+  public boolean isLoadMoreButtonDisplayed() {
+    return findByXPathOrCSS("#spacesListFooter .loadMoreButton").isCurrentlyVisible();
   }
 
 }

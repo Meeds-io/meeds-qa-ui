@@ -1,5 +1,7 @@
 package io.meeds.qa.ui.steps;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Assert;
 
 import io.meeds.qa.ui.pages.page.factory.HomePage;
@@ -77,12 +79,12 @@ public class PeopleSteps {
   public void checkThatSuggestionWidgetDisplayedTwoUsersWithAddAndDeleteButtons() {
     // The suggestion widget is existing and displayed only 2 users with Add
     // button and Delete buttons
-    peoplePage.ELEMENT_FIRST_SUGGESTION.isVisible();
-    peoplePage.ELEMENT_SECOND_SUGGESTION.isVisible();
-    peoplePage.ELEMENT_ADD_FIRST_USER_SUGGESTION.isVisible();
-    peoplePage.ELEMENT_ADD_SECOND_USER_SUGGESTION.isVisible();
-    peoplePage.ELEMENT_DELETE_FIRST_SUGGESTION.isVisible();
-    peoplePage.ELEMENT_DELETE_SECOND_SUGGESTION.isVisible();
+    assertTrue(peoplePage.ELEMENT_FIRST_SUGGESTION.isVisible());
+    assertTrue(peoplePage.ELEMENT_SECOND_SUGGESTION.isVisible());
+    assertTrue(peoplePage.ELEMENT_ADD_FIRST_USER_SUGGESTION.isVisible());
+    assertTrue(peoplePage.ELEMENT_ADD_SECOND_USER_SUGGESTION.isVisible());
+    assertTrue(peoplePage.ELEMENT_DELETE_FIRST_SUGGESTION.isVisible());
+    assertTrue(peoplePage.ELEMENT_DELETE_SECOND_SUGGESTION.isVisible());
 
   }
 

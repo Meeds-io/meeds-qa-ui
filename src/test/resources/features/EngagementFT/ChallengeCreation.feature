@@ -24,23 +24,25 @@ Feature: Challenges
     Then Challenge Application Page is displayed
     And Add challenge button should not be displayed
 
-  @test
   Scenario: Challenge_App_Admin_US01 Challenge App
     Given I am authenticated as admin
     And I create the first random user
     And I create the second random user
+    And I create a random space
     And I connect with the first created user
     And I go to the random space
-    And I go to the second random space
     And I connect with the second created user
     And I go to the random space
-    And I go to the second random space
     And I change user admin
     And I go to groups Management page
     And I open the group 'Platform'
     When I select the group 'Administration'
     And I add the role 'member' to the first created user
     And I add the role 'member' to the second created user
+    When I go to the random space
+    And I go to the Space Members tab
+    And I promote 'first' random user as a space manager
+    And I promote 'second' random user as a space manager
     And I connect with the first created user
     And I go To AppCenter Drawer
     And I go to Challenge Application

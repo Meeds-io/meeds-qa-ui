@@ -1,5 +1,7 @@
 package io.meeds.qa.ui.steps;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -75,7 +77,7 @@ public class UserProfileSteps {
   }
 
   public boolean wasMyPointIncreased(int myPointBeforeKudos) {
-    int retry = 3;
+    int retry = 5;
     int index = 0;
     // Retry at most 3 times until Gamification Points are increased
     while (userProfilePage.getMyWeeklyPoint() <= myPointBeforeKudos && index++ < retry) {
@@ -107,7 +109,7 @@ public class UserProfileSteps {
 
   public void isCoverVisible() {
     // Check That User Cover is displayed in Profile Page
-    userProfilePage.ELEMENT_PROFILE_COVER.isVisibleAfterWaiting();
+    assertTrue(userProfilePage.ELEMENT_PROFILE_COVER.isVisibleAfterWaiting());
   }
 
   public void isProfileContactCompanyVisible(String company) {
@@ -164,7 +166,7 @@ public class UserProfileSteps {
   }
 
   public void isProfileContactEmailVisible(String mail) {
-    userProfilePage.ELEMENT_PROFILE_CONTACT_INFORMATION_EMAIL.isVisibleAfterWaiting();
+    assertTrue(userProfilePage.ELEMENT_PROFILE_CONTACT_INFORMATION_EMAIL.isVisibleAfterWaiting());
     Assert.assertEquals(userProfilePage.ELEMENT_PROFILE_CONTACT_INFORMATION_EMAIL.getText(), mail);
     String contactEmail = userProfilePage.ELEMENT_PROFILE_CONTACT_INFORMATION_EMAIL.getText();
     // Check That Profile Contact Email is displayed
@@ -186,7 +188,7 @@ public class UserProfileSteps {
 
   public void isAvatarVisible() {
     // Check That User Avatar is displayed in Profile Page
-    userProfilePage.ELEMENT_PROFILE_AVATAR.isVisibleAfterWaiting();
+    assertTrue(userProfilePage.ELEMENT_PROFILE_AVATAR.isVisibleAfterWaiting());
   }
 
   public void isFullNameVisible(String fullName) {

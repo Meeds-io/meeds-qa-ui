@@ -1,5 +1,6 @@
 package io.meeds.qa.ui.steps;
 
+import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
@@ -30,17 +31,6 @@ public class ManageSpaceSteps {
 
   public void checkThatSpaceInSearchResultsIsNotDisplayed(String spaceName) {
     manageSpacesPage.checkThatSpaceInSearchResultsIsNotDisplayed(spaceName);
-  }
-
-  public void goToSpecificSpace(String space) {
-    if (!manageSpacesPage.getCurrentUrl().contains("/spaces")) {
-      homePage.goToSpacesPage();
-    }
-    manageSpacesPage.insertSpaceNameInSearchField(space);
-    manageSpacesPage.goToSpecificSpace(space);
-    if (!manageSpacesPage.isSpaceMenuDisplayed()) {
-      manageSpacesPage.clickSpaceActionToJoin();
-    }
   }
 
   public void spaceNameIsDisplayed(String space) {
@@ -248,22 +238,48 @@ public class ManageSpaceSteps {
 
   public void addOrGoToSpace(String spaceNamePrefix) {
     String spaceName = sessionVariableCalled(spaceNamePrefix);
-    if (StringUtils.isNotBlank(spaceName)) {
-      goToSpecificSpace(spaceName);
-    } else {
+    if (!manageSpacesPage.getCurrentUrl().contains("/spaces")) {
+      homePage.goToSpacesPage();
+    }
+    if (StringUtils.isBlank(spaceName)) {
       spaceName = Utils.getRandomString(spaceNamePrefix);
       setSessionVariable(spaceNamePrefix).to(spaceName);
-      homePage.goToSpacesPage();
-      manageSpacesPage.insertSpaceNameInSearchField(spaceName);
-      if (manageSpacesPage.isSpaceCardDisplayed(spaceName)) {
-        manageSpacesPage.goToSpecificSpace(spaceName);
-        if (!manageSpacesPage.isSpaceMenuDisplayed()) {
-          manageSpacesPage.clickSpaceActionToJoin();
-        }
+      if (findSpaceCard(spaceName)) {
+        goOrJoinToSpace(spaceName);
       } else {
         addSpaceWithRegistration(spaceName, "Open");
       }
       TestHooks.spaceWithPrefixCreated(spaceNamePrefix, spaceName);
+    } else if (findSpaceCard(spaceName)) {
+      goOrJoinToSpace(spaceName);
+    } else {
+      throw new IllegalStateException("Can't find previously created space with name " + spaceName);
+    }
+  }
+
+  public void checkThirtyRandomSpacesArePresent() {
+    homePage.goToSpacesPage();
+    if (!manageSpacesPage.isLoadMoreButtonDisplayed()) {
+      for (int i = 0; i < 30; i++) {
+        String randomSpaceName = "randomSpaceName" + getRandomNumber();
+        addSpaceWithRegistration(randomSpaceName, "Open");
+        homePage.goToSpacesPage();
+      }
+    }
+  }
+
+  private boolean findSpaceCard(String spaceName) {
+    manageSpacesPage.insertSpaceNameInSearchField(spaceName);
+    return manageSpacesPage.isSpaceCardDisplayed(spaceName);
+  }
+
+  private void goOrJoinToSpace(String spaceName) {
+    if (manageSpacesPage.isSpaceCardJoinButtonDisplayed(spaceName)) {
+      manageSpacesPage.joinSpaceFromCard(spaceName);
+    }
+    manageSpacesPage.goToSpecificSpace(spaceName);
+    if (!manageSpacesPage.isSpaceMenuDisplayed()) {
+      manageSpacesPage.clickSpaceActionToJoin();
     }
   }
 

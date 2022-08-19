@@ -145,22 +145,10 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.promoteSpaceMemberAsManager(name);
   }
 
-  @When("^I promote first member as a space manager$")
-  public void promoteFirstSpaceMemberAsManager() {
-    String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
-    String firstUserLastName = Serenity.sessionVariableCalled("firstUserLastName");
-
-    String fullName = firstUserFirstName + " " + firstUserLastName;
-    spaceHomeSteps.promoteSpaceMemberAsManager(fullName);
-  }
-
-  @When("^I promote the third user as a space manager$")
-  public void promoteThirdSpaceMemberAsManager() {
-    String thirdUserFirstName = Serenity.sessionVariableCalled("thirdUserFirstName");
-    String thirdUserLastName = Serenity.sessionVariableCalled("thirdUserLastName");
-
-    String fullName = thirdUserFirstName + " " + thirdUserLastName;
-    spaceHomeSteps.promoteSpaceMemberAsManager(fullName);
+  @When("^I promote '(.*)' random user as a space manager$")
+  public void promoteRandomUserAsSpaceManager(String userPrefix) {
+    String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
+    spaceHomeSteps.promoteSpaceMemberAsManager(userLastName);
   }
 
   @Then("^I close activity drawer$")
@@ -214,7 +202,7 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.publishActicity();
   }
 
-  @When("^I click on Update$")
+  @When("I click on Update")
   public void editActivity() {
     spaceHomeSteps.editActivity();
   }
@@ -304,7 +292,7 @@ public class SpaceHomeStepDefinition {
   }
 
   @When("^(.*) User is not mentioned in the comment$")
-  public void fifthUserIsNotMentionedInCommentEntered(String userPrefix) {
+  public void randomUserIsNotMentionedInCommentEntered(String userPrefix) {
     String userFirstName = Serenity.sessionVariableCalled(userPrefix.toLowerCase() + "UserFirstName");
     String userLastName = Serenity.sessionVariableCalled(userPrefix.toLowerCase() + "UserLastName");
     String fullName = userFirstName + " " + userLastName;
@@ -729,9 +717,9 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.accessNotesApp();
   }
 
-  @When("^I post many activities '(.*)'$")
-  public void postManyActivities(String activityNumber) {
-    spaceHomeSteps.postManyActivities(activityNumber);
+  @When("^I post '(.*)' activities with prefix '(.*)'$")
+  public void postManyActivities(String activityNumber, String activityPrefix) {
+    spaceHomeSteps.postManyActivities(activityNumber, activityPrefix);
   }
 
   @Then("I click on the kudos button from the comment")

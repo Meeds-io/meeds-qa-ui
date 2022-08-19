@@ -16,7 +16,7 @@ Feature: Tasks - Projects
     Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user
-    And I create space project
+    And I create a random space
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
@@ -47,11 +47,10 @@ Feature: Tasks - Projects
     And The placeholder Filter by project should be displayed
     And The clear button is disappeared from the Filter by project field
 
-  @wip
   Scenario: CAP15 - [Project_Card_US01]: check the display "Spaces Managers avatars"
     Given I am authenticated as admin
     And I create the first random user
-    And I go to the random space
+    And I create a random space
 
     When I connect with the first created user
     And I go to the random space
@@ -71,7 +70,7 @@ Feature: Tasks - Projects
 
     When I go to the random space
     And I go to the Space Members tab
-    And I promote first member as a space manager
+    And I promote 'first' random user as a space manager
 
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
@@ -127,7 +126,7 @@ Feature: Tasks - Projects
     And I click on save project button
     Then Message Project Title is mandatory is displayed
 
-  Scenario: CAP290 - [Bug]: Project participant cannot open the edit status mode
+  Scenario: CAP290 - Project participant cannot open the edit status mode
     Given I am authenticated as admin
     And I create the first random user
 
@@ -188,7 +187,7 @@ Feature: Tasks - Projects
   Scenario: [NF] [US_GanttView_01]: Display Gantt tab in Space tasks projects
     Given I am authenticated as admin
     And I create the first random user
-    And I create space project with the first user
+    And I create a random space with the first user
     And I connect with the first created user
     Then The 'Spaces' badge is '1'
     When I click on spaces badge

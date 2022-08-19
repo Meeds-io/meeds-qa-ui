@@ -1,5 +1,7 @@
 package io.meeds.qa.ui.pages.page.factory.Social;
 
+import static org.junit.Assert.assertTrue;
+
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
@@ -76,7 +78,7 @@ public class SocialPage extends GenericPage {
   }
 
   public void checkSearchedUserWellMatched(String user) {
-    getUserProfileButton(user).isVisibleAfterWaiting();
+    assertTrue(getUserProfileButton(user).isVisibleAfterWaiting());
   }
 
   public void editComment() {

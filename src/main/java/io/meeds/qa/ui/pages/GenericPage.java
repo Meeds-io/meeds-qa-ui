@@ -1,6 +1,7 @@
 package io.meeds.qa.ui.pages;
 
 import static io.meeds.qa.ui.utils.Utils.switchToTabByIndex;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
@@ -41,8 +42,8 @@ public class GenericPage extends BasePageImpl {
   }
 
   public void checkDrawerDisplayed(String title) {
-    findByXPathOrCSS(String.format("//*[contains(@class, 'drawerTitle') and contains(text(),'%s')]",
-                                   title)).isVisibleAfterWaiting();
+    assertTrue(findByXPathOrCSS(String.format("//*[contains(@class, 'drawerTitle') and contains(text(),'%s')]",
+                                              title)).isVisibleAfterWaiting());
   }
 
   public boolean inConfirmMessageDisplayed(String message) {

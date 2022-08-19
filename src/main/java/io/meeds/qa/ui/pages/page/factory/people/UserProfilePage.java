@@ -1,5 +1,8 @@
 package io.meeds.qa.ui.pages.page.factory.people;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -264,11 +267,11 @@ public class UserProfilePage extends GenericPage {
   }
 
   public void sentKudosUsersSectionIsDisplayed(String user) {
-    getSentKudosUsers(user).isVisibleAfterWaiting();
+    assertTrue(getSentKudosUsers(user).isVisibleAfterWaiting());
   }
 
   public void receivedKudosUsersSectionIsDisplayed(String user) {
-    getReceivedKudosUsers(user).isVisibleAfterWaiting();
+    assertTrue(getReceivedKudosUsers(user).isVisibleAfterWaiting());
   }
 
   public void removeWorkExperience(String jobTitle) {
@@ -283,10 +286,10 @@ public class UserProfilePage extends GenericPage {
   }
 
   public void checkWorkExperiencesSection(String jobTitle, String organization, String jobDetails, String usedSkills) {
-    getJobTitleWorkExperience(jobTitle).isVisibleAfterWaiting();
-    getOrganizationWorkExperience(organization).isVisibleAfterWaiting();
-    getJobDetailsWorkExperience(jobDetails).isVisibleAfterWaiting();
-    getUsedSkillsWorkExperience(usedSkills).isVisibleAfterWaiting();
+    assertTrue(getJobTitleWorkExperience(jobTitle).isVisibleAfterWaiting());
+    assertTrue(getOrganizationWorkExperience(organization).isVisibleAfterWaiting());
+    assertTrue(getJobDetailsWorkExperience(jobDetails).isVisibleAfterWaiting());
+    assertTrue(getUsedSkillsWorkExperience(usedSkills).isVisibleAfterWaiting());
   }
 
   public void openAchivementTab() {
@@ -302,30 +305,30 @@ public class UserProfilePage extends GenericPage {
   }
 
   public void profilePageIsDisplayed() {
-    profilePage.isVisibleAfterWaiting();
+    assertTrue(profilePage.isVisibleAfterWaiting());
   }
 
   public void howToEarnPointsPageIsDisplayed() {
-    howToEarnPointsPage.isVisibleAfterWaiting();
+    assertTrue(howToEarnPointsPage.isVisibleAfterWaiting());
   }
 
   public void sentKudosSectionIsDisplayed(String kudosNumber) {
-    getSentKudosNumber(kudosNumber).isVisibleAfterWaiting();
+    assertTrue(getSentKudosNumber(kudosNumber).isVisibleAfterWaiting());
   }
 
   public void receivedKudosSectionIsDisplayed(String kudosNumber) {
-    getReceivedKudosNumber(kudosNumber).isVisibleAfterWaiting();
+    assertTrue(getReceivedKudosNumber(kudosNumber).isVisibleAfterWaiting());
   }
 
   public void isProfileContactCompanyVisible(String company) {
     // Check That Profile Contact Company is displayed
     ELEMENT_PROFILE_CONTACT_INFORMATION_COMPANY.waitUntilVisible();
-    Assert.assertEquals(ELEMENT_PROFILE_CONTACT_INFORMATION_COMPANY.getText(), company);
+    assertEquals(ELEMENT_PROFILE_CONTACT_INFORMATION_COMPANY.getText(), company);
   }
 
   public void isProfileContactPhoneVisible(String phone) {
     // Check That Profile Contact Phone is displayed" + phone);
-    Assert.assertEquals(ELEMENT_PROFILE_CONTACT_INFORMATION_PHONE.getText(), phone);
+    assertEquals(ELEMENT_PROFILE_CONTACT_INFORMATION_PHONE.getText(), phone);
   }
 
   public void openHowToEarnPointPage() {
@@ -535,11 +538,11 @@ public class UserProfilePage extends GenericPage {
   }
 
   public void isSentKudosVisible() {
-    ELEMENT_CONTACT_SENT_KUDOS.isVisibleAfterWaiting();
+    assertTrue(ELEMENT_CONTACT_SENT_KUDOS.isVisibleAfterWaiting());
   }
 
   public void isReceivedKudosVisible() {
-    ELEMENT_CONTACT_RECEIVED_KUDOS.isVisibleAfterWaiting();
+    assertTrue(ELEMENT_CONTACT_RECEIVED_KUDOS.isVisibleAfterWaiting());
   }
 
   public void goToReceivedKudos() {
@@ -569,7 +572,7 @@ public class UserProfilePage extends GenericPage {
   }
 
   public void isGainedCaurisVisible() {
-    ELEMENT_CONTACT_GAINED_CAURIS.isVisibleAfterWaiting();
+    assertTrue(ELEMENT_CONTACT_GAINED_CAURIS.isVisibleAfterWaiting());
   }
 
   public void clickConfirmConnect() {
@@ -577,11 +580,11 @@ public class UserProfilePage extends GenericPage {
   }
 
   public void checkWeeklyPointChart() {
-    weeklyChart.isVisibleAfterWaiting();
+    assertTrue(weeklyChart.isVisibleAfterWaiting());
   }
 
   public void checkAchievementsDrawer() {
-    achievementsDrawer.isVisibleAfterWaiting();
+    assertTrue(achievementsDrawer.isVisibleAfterWaiting());
   }
 
 }

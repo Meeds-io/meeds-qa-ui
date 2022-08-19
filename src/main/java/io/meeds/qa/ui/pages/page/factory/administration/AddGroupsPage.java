@@ -67,7 +67,7 @@ public class AddGroupsPage extends GenericPage {
     progressBar.waitUntilNotVisible();
 
     BaseElementFacade memberInDropDown = getSelectedMemberInDropDown(member);
-    if (memberInDropDown.isVisible() || memberInDropDown.isVisibleAfterWaiting()) {
+    if (memberInDropDown.isCurrentlyVisible() || memberInDropDown.isVisibleAfterWaiting()) {
       clickOnElement(memberInDropDown);
       addMemberInGroupDrawerTitle.clickOnElement();
       saveMemberAddedInGroup.clickOnElement();
