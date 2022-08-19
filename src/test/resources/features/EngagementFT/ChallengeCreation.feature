@@ -62,7 +62,7 @@ Feature: Challenges
     Then Challenge Application Page is displayed
     When I click on the button add challenge
     When I enter the challenge title 'challenge2'
-    And I select a space audience with second user
+    And I select a space audience
     And I select the program 'Teamwork'
     And I select today for start date
     And I select next week for end date

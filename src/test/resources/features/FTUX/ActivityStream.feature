@@ -1829,6 +1829,7 @@ Feature: Activity Stream
     And In activity 'activityTest99' with comment 'commenttest99', the reply 'replyTest101' is not displayed
     And In activity 'activityTest99' with comment 'commenttest99', the reply 'replyTest102' is not displayed
 
+  @test
   Scenario: Cap155 - ActivityStream_US58: Mention a user in the comments
     Given I am authenticated as admin
 

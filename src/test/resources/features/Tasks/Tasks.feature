@@ -107,6 +107,7 @@ Feature: Tasks
     When I close task drawer
     Then Task name 'taskessai' is not displayed in project details
 
+  @wip
   Scenario: Check tasks display in snapshot's Tasks gadget
     Given I am authenticated as admin
     And I create the first random user

@@ -73,15 +73,15 @@ public class ChallengesPage extends GenericPage {
 
   public void addSpaceAudience(String randomSpaceName) {
     audienceSpaceField.waitUntilVisible();
-    if (audienceSpaceField.isNotVisibleAfterWaiting()) {
-      driver.navigate().refresh();
-    }
-    audienceSpaceField.waitUntilVisible();
     audienceSpaceField.setTextValue(randomSpaceName + " ");
+    waitFor(100).milliseconds();
     audienceSpaceField.sendKeys(Keys.BACK_SPACE);
     waitFor(100).milliseconds();
     audienceSpaceField.sendKeys(Keys.BACK_SPACE);
-    getSelectSpaceInDropDown(randomSpaceName).clickOnElement();
+    waitFor(100).milliseconds();
+    BaseElementFacade audienceSuggester = getSelectSpaceInDropDown(randomSpaceName);
+    audienceSuggester.waitUntilVisible();
+    audienceSuggester.clickOnElement();
   }
 
   private BaseElementFacade getSelectSpaceInDropDown(String spaceName) {
@@ -109,7 +109,9 @@ public class ChallengesPage extends GenericPage {
     programField.setTextValue(programName + " ");
     waitFor(100).milliseconds();
     programField.sendKeys(Keys.BACK_SPACE);
-    getSelectDomainInDropDown(programName).clickOnElement();
+    waitFor(100).milliseconds();
+    BaseElementFacade programSuggester = getSelectDomainInDropDown(programName);
+    programSuggester.clickOnElement();
   }
 
   public void selectStartDateTomorrow() {
@@ -178,16 +180,6 @@ public class ChallengesPage extends GenericPage {
 
   public void checkSuccessMessage(String message) {
     getChallengeSuccessMessage(message).isVisibleAfterWaiting();
-  }
-
-  public void addSpaceAudienceWithSecondUser(String secondRandomSpaceName) {
-    audienceSpaceField.waitUntilVisible();
-    audienceSpaceField.setTextValue(secondRandomSpaceName + " ");
-    waitFor(100).milliseconds();
-    audienceSpaceField.sendKeys(Keys.BACK_SPACE);
-    waitFor(100).milliseconds();
-    audienceSpaceField.sendKeys(Keys.BACK_SPACE);
-    getSelectSpaceInDropDown(secondRandomSpaceName).clickOnElement();
   }
 
   private BaseElementFacade getChallengeCardTitle(String title) {

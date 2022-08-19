@@ -38,7 +38,7 @@ public class ChallengesStepDefinition {
     challengesSteps.enterChallengeTitle(challengeTitle);
   }
 
-  @And("^I select a space audience$")
+  @And("I select a space audience")
   public void enterSpaceAudience() {
     String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
     challengesSteps.addSpaceAudience(randomSpaceName);
@@ -72,12 +72,6 @@ public class ChallengesStepDefinition {
   @And("^I select today for start date$")
   public void selectStartDateToday() {
     challengesSteps.selectStartDateToday();
-  }
-
-  @And("^I select a space audience with second user$")
-  public void enterSpaceAudienceWithSecondUser() {
-    String secondRandomSpaceName = Serenity.sessionVariableCalled("secondRandomSpaceName");
-    challengesSteps.addSpaceAudienceWithSecondUser(secondRandomSpaceName);
   }
 
   @Then("^The challenge card title '(.*)' should be displayed$")

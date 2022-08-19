@@ -30,6 +30,7 @@ Feature: Kudos
     And I go to My Profile page
     Then '1' kudos are received
 
+  @wip
   Scenario: [EXISTANT-KUDOS 5] check that user cannot send kudos to himself
     Given I am authenticated as admin
     And I create the first random user

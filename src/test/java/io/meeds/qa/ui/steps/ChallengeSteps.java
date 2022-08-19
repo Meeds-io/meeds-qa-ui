@@ -54,10 +54,6 @@ public class ChallengeSteps {
     challengesPage.selectStartDateToday();
   }
 
-  public void addSpaceAudienceWithSecondUser(String secondRandomSpaceName) {
-    challengesPage.addSpaceAudienceWithSecondUser(secondRandomSpaceName);
-  }
-
   public void checkChallengeCardTitle(String title) {
     challengesPage.checkChallengeCardTitle(title);
   }

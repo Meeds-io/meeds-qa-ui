@@ -32,6 +32,7 @@ Feature: Spaces Management
     And I go to the random space
     Then Space banner is changed successfully
 
+  @wip
   Scenario: SPC_MNG-4 : Clickable Space avatar
     Given I am authenticated as admin
 

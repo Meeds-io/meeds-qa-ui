@@ -3,6 +3,7 @@ Feature: Meeds Space
   As a user
   I want to check spaces page
 
+  @wip
   Scenario:[SPACES-2] Spaces Cards bloc
     Given I am authenticated as admin
 

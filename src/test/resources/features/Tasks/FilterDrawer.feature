@@ -11,28 +11,28 @@ Feature: Filter Drawer
     And I select 'Projects' tab
     And I search for the created project
     And I open the created project
-    And The following task with label 'test007' is created in the specific project
-      | taskName | task11 |
+    And The following task with label 'testlabel110-1' is created in the specific project
+      | taskName | task110-1 |
     And I refresh the page
-    And The following task with label 'test007' is created in the specific project
-      | taskName | task12 |
+    And The following task with label 'testlabel110-1' is created in the specific project
+      | taskName | task110-2 |
 
-    Then Task name 'task11' is displayed in project details
-    And Task name 'task12' is displayed in project details
+    Then Task name 'task110-1' is displayed in project details
+    And Task name 'task110-2' is displayed in project details
     And Tasks number '2' is displayed in the column To Do
-    And Task label 'test007' related to task name 'task11' is displayed in project details
-    And Task label 'test007' related to task name 'task12' is displayed in project details
+    And Task label 'testlabel110-1' related to task name 'task110-1' is displayed in project details
+    And Task label 'testlabel110-1' related to task name 'task110-2' is displayed in project details
 
     When I open the Filter drawer
     And I select 'Labels' from Group By Filter section
     And I click on Confirm button
 
-    Then The label 'test007' is displayed '(2)' times in project details
-    Then Task name 'task11' is displayed in project details
-    And Task name 'task12' is displayed in project details
+    Then The label 'testlabel110-1' is displayed '(2)' times in project details
+    Then Task name 'task110-1' is displayed in project details
+    And Task name 'task110-2' is displayed in project details
     And Tasks number '2' is displayed in the column To Do
-    And Task label 'test007' related to task name 'task11' is displayed in project details
-    And Task label 'test007' related to task name 'task12' is displayed in project details
+    And Task label 'testlabel110-1' related to task name 'task110-1' is displayed in project details
+    And Task label 'testlabel110-1' related to task name 'task110-2' is displayed in project details
 
   Scenario: CAP113 - [Filter_Drawer_US03]:Sort by Title ["Group and Sort" tab under project]
     Given I am authenticated as admin
@@ -66,7 +66,7 @@ Feature: Filter Drawer
     And In project details the task 'btask11' is displayed in '2' place
     And In project details the task 'ctask11' is displayed in '3' place
 
-  Scenario: CAP111 - [Filter_Drawer_US03]:Group by Completed [Group and Sort" tab under project]
+  Scenario: CAP111 - [Filter_Drawer_US03] Group by Completed [Group and Sort tab under project]
     Given I am authenticated as admin
 
     And I create space project
@@ -77,30 +77,30 @@ Feature: Filter Drawer
     And I search for the created project
     And I open the created project
     And The following task is created in the specific project
-      | taskName | task11 |
+      | taskName | task111-1 |
     And I refresh the page
     And The following task is created in the specific project
-      | taskName | task12 |
+      | taskName | task111-2 |
     And I refresh the page
     And The following task is created in the specific project
-      | taskName | task13 |
+      | taskName | task111-3 |
 
-    Then Task name 'task11' is displayed in project details
-    And Task name 'task12' is displayed in project details
-    And Task name 'task13' is displayed in project details
+    Then Task name 'task111-1' is displayed in project details
+    And Task name 'task111-2' is displayed in project details
+    And Task name 'task111-3' is displayed in project details
     And Tasks number '3' is displayed in the column To Do
 
-    When I mark the task 'task11' as completed in project details
+    When I mark the task 'task111-1' as completed in project details
     And I wait '1' seconds
-    Then Task name 'task11' is not displayed in project details
+    Then Task name 'task111-1' is not displayed in project details
     And Alert 'Task successfully marked as completed' is displayed
 
     When I refresh the page
-    And I mark the task 'task12' as completed in project details
+    And I mark the task 'task111-2' as completed in project details
     And I refresh the page
-    Then Task name 'task11' is not displayed in project details
-    And Task name 'task12' is not displayed in project details
-    And Task name 'task13' is displayed in project details
+    Then Task name 'task111-1' is not displayed in project details
+    And Task name 'task111-2' is not displayed in project details
+    And Task name 'task111-3' is displayed in project details
     And Tasks number '1' is displayed in the column To Do
 
     When I open the Filter drawer
@@ -109,9 +109,9 @@ Feature: Filter Drawer
 
     Then In Section 'Archived', '(2)' tasks are displayed
     And  In Section 'Uncompleted', '(1)' task is displayed
-    And Task 'task11' is marked as completed and displayed in Completed section
-    And Task 'task12' is marked as completed and displayed in Completed section
-    And Task 'task13' is not marked as completed and displayed in Uncompleted section
+    And Task 'task111-1' is marked as completed and displayed in Completed section
+    And Task 'task111-2' is marked as completed and displayed in Completed section
+    And Task 'task111-3' is not marked as completed and displayed in Uncompleted section
 
   Scenario: CAP53 - [Filter_Drawer_US01]: Filter button in a project
     Given I am authenticated as admin
