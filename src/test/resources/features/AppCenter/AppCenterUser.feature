@@ -12,8 +12,8 @@ Feature: To be able to access applications
   Scenario: CAP06 - Open an application from the AppCenter drawer
     Given I am authenticated as admin
     When I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
+    And I go to Perk Store AppCenter Application
+    Then Perk Store Application Page is displayed
     When I go To AppCenter Drawer
     And I go to Wallet AppCenter Application
     Then Wallet Application Page is displayed

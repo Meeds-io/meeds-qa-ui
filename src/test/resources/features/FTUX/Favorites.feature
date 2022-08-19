@@ -82,7 +82,8 @@ Feature: Favorite activities
     And The activity is displayed in the search 'activity2'
     And The activity is displayed in the search 'activity0'
 
-  Scenario: [Favs_US06][01]: Manage favorites from the search card ( Bookmark an activity)
+  @wip
+  Scenario: [Favs_US06][01] Manage favorites from the search card ( Bookmark an activity)
     Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user
@@ -103,7 +104,7 @@ Feature: Favorite activities
     And The activity is not displayed in the search 'activity2'
     And The activity is not displayed in the search 'activity0'
 
-  Scenario: [Favs_US06][02]: Manage favorites from the search card ( UnBookmark an activity)
+  Scenario: [Favs_US06][02] Manage favorites from the search card ( UnBookmark an activity)
     Given I am authenticated as admin
     And I create the first random user
     And I connect with the first created user

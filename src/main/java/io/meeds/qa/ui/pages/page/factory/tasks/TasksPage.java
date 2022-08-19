@@ -1,5 +1,9 @@
 package io.meeds.qa.ui.pages.page.factory.tasks;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -629,7 +633,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkProjectIsCreated() {
-    alertMessageAfterProjectCreation.isVisibleAfterWaiting();
+    assertTrue(alertMessageAfterProjectCreation.isVisibleAfterWaiting());
   }
 
   public void projectIsDisplayedInTasksAppCenter(String projectName) {
@@ -997,12 +1001,12 @@ public class TasksPage extends GenericPage {
 
   public void checkProject(String projectName) {
     getProjectCard(projectName).isVisibleAfterWaiting();
-    alertMessageAfterProjectCreation.isVisibleAfterWaiting();
+    assertTrue(alertMessageAfterProjectCreation.isVisibleAfterWaiting());
   }
 
   public void checkProjectNotDisplayed(String projectName) {
     getProjectCard(projectName).isNotVisibleAfterWaiting();
-    alertMessageAfterProjectCreation.isNotVisibleAfterWaiting();
+    assertTrue(alertMessageAfterProjectCreation.isNotVisibleAfterWaiting());
   }
 
   public void clickOnProjectThreeDotsButton() {
@@ -1020,7 +1024,7 @@ public class TasksPage extends GenericPage {
 
   public void checkDeletedProject(String projectName) {
     getProjectCard(projectName).isNotVisibleAfterWaiting();
-    alertMessageAfterProjectDeletion.isVisibleAfterWaiting();
+    assertTrue(alertMessageAfterProjectDeletion.isVisibleAfterWaiting());
   }
 
   @SwitchToWindow
@@ -1044,7 +1048,7 @@ public class TasksPage extends GenericPage {
   public void checkUpdatedProject(String projectName, String description) {
     getProjectCard(projectName).isVisibleAfterWaiting();
     getProjectCardDescription(description).isVisibleAfterWaiting();
-    alertMessageAfterProjectUpdate.isVisibleAfterWaiting();
+    assertTrue(alertMessageAfterProjectUpdate.isVisibleAfterWaiting());
   }
 
   public void addLabelToProject(String label) {
@@ -1070,8 +1074,8 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkProjectNameIsDisplayedInProjectCard(String projectName, String description) {
-    getProjectCard(projectName).isVisibleAfterWaiting();
-    getProjectCardDescription(description).isVisibleAfterWaiting();
+    assertTrue(getProjectCard(projectName).isVisibleAfterWaiting());
+    assertTrue(getProjectCardDescription(description).isVisibleAfterWaiting());
   }
 
   public void userFullNameIsDisplayedInProjectCard(String name) {
@@ -1159,12 +1163,12 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkClonedProject(String projectName) {
-    getProjectCard(projectName).isVisibleAfterWaiting();
-    alertMessageAfterProjectClone.isVisibleAfterWaiting();
+    assertTrue(getProjectCard(projectName).isVisibleAfterWaiting());
+    assertTrue(alertMessageAfterProjectClone.isVisibleAfterWaiting());
   }
 
   public void checkClonedTask(String taskName) {
-    getTaskTitle(taskName).isVisibleAfterWaiting();
+    assertTrue(getTaskTitle(taskName).isVisibleAfterWaiting());
   }
 
   public void returnToProjectsTab() {
@@ -1226,12 +1230,12 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkDeletedStatus(String statusColumn) {
-    getStatusColumn(statusColumn).isNotVisibleAfterWaiting();
-    alertMessageAfterStatusDeletion.isVisibleAfterWaiting();
+    assertTrue(getStatusColumn(statusColumn).isNotVisibleAfterWaiting());
+    assertTrue(alertMessageAfterStatusDeletion.isVisibleAfterWaiting());
   }
 
   public void checkMoveStatusBeforeIconIsNotDisplayed() {
-    moveStatusBeforeIcon.isNotVisibleAfterWaiting();
+    assertTrue(moveStatusBeforeIcon.isNotVisibleAfterWaiting());
   }
 
   public void clickOnMoveStatusAfterIcon() {
@@ -1239,15 +1243,15 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkAlertMessageMoveStatusAfter() {
-    alertMessageAfterStatusMoved.isVisibleAfterWaiting();
+    assertTrue(alertMessageAfterStatusMoved.isVisibleAfterWaiting());
   }
 
   public void checkSecondStatusColumn(String columnStatus) {
-    Assert.assertEquals(secondStatusColumn.getText(), columnStatus);
+    assertEquals(secondStatusColumn.getText(), columnStatus);
   }
 
   public void checkFirstStatusColumn(String columnStatus) {
-    Assert.assertEquals(firstStatusColumn.getText(), columnStatus);
+    assertEquals(firstStatusColumn.getText(), columnStatus);
   }
 
   public void clickOnLastColumnThreeDotsIcon() {
@@ -1276,7 +1280,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkSuccessMessage(String message) {
-    Assert.assertTrue(successMessage.getText().contains(message));
+    assertTrue(successMessage.getText().contains(message));
   }
 
   public void closeUploadDocDrawer() {
@@ -1285,7 +1289,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkViewLinkAttachments() {
-    viewAttachmentsLink.isVisibleAfterWaiting();
+    assertTrue(viewAttachmentsLink.isVisibleAfterWaiting());
   }
 
   public void clickDocButton() {
@@ -1302,7 +1306,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkAlertMessageAfterMarkTaskAsCompleted() {
-    alertMessageAfterMarkTaskAsCompleted.isVisibleAfterWaiting();
+    assertTrue(alertMessageAfterMarkTaskAsCompleted.isVisibleAfterWaiting());
   }
 
   public void clearButtonIsVisible() {
@@ -1314,7 +1318,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkDisplayOfFilterByProject() {
-    filterByProject.isVisibleAfterWaiting();
+    assertTrue(filterByProject.isVisibleAfterWaiting());
   }
 
   public void clearButtonIsNotVisible() {
@@ -1322,7 +1326,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkTypedProjectIsRemoved(String typedProject) {
-    Assert.assertFalse(filterByProject.getText().contains(typedProject));
+    assertFalse(filterByProject.getText().contains(typedProject));
   }
 
   public void saveAddTaskSimpleProject() {
@@ -1360,11 +1364,11 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkDisplayOfFilterByTask() {
-    filterByTask.isVisibleAfterWaiting();
+    assertTrue(filterByTask.isVisibleAfterWaiting());
   }
 
   public void checkTypedTaskIsRemoved(String typedTask) {
-    Assert.assertFalse(filterByTask.getText().contains(typedTask));
+    assertFalse(filterByTask.getText().contains(typedTask));
   }
 
   public void clearButtonInFilterByTaskIsNotVisible() {
@@ -1396,11 +1400,11 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkDeletedTaskIsNotDisplayed(String taskName) {
-    getTaskName(taskName).isNotVisibleAfterWaiting();
+    assertTrue(getTaskName(taskName).isNotVisibleAfterWaiting());
   }
 
   public void checkAttachmentDisplay(String attachmentName) {
-    getAttachmentName(attachmentName).isNotVisibleAfterWaiting();
+    assertTrue(getAttachmentName(attachmentName).isNotVisibleAfterWaiting());
   }
 
   public void goBack() {
@@ -1424,11 +1428,11 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkMessageEmptyProjectDisplay() {
-    Assert.assertEquals(projectTitle.getText(), "");
+    assertEquals(projectTitle.getText(), "");
   }
 
   public void checkAlertMessageAfterDeleteTask() {
-    alertMessageAfterTaskDeleted.isVisibleAfterWaiting();
+    assertTrue(alertMessageAfterTaskDeleted.isVisibleAfterWaiting());
   }
 
   public void clickChangeLocation() {
@@ -1436,7 +1440,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkDrawerDisplay() {
-    drawerTitle.isVisibleAfterWaiting();
+    assertTrue(drawerTitle.isVisibleAfterWaiting());
   }
 
   public void closeEditTaskDrawer() {
@@ -1473,7 +1477,7 @@ public class TasksPage extends GenericPage {
   private BaseElementFacade tasksContainer;
 
   public void checkTaskWidgetDisplay() {
-    tasksContainer.isVisibleAfterWaiting();
+    assertTrue(tasksContainer.isVisibleAfterWaiting());
   }
 
   private BaseElementFacade getTaskTitleDateFromWidget(String taskName) {
@@ -1482,7 +1486,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkTaskFromWidget(String taskName) {
-    getTaskTitleDateFromWidget(taskName).isVisibleAfterWaiting();
+    assertTrue(getTaskTitleDateFromWidget(taskName).isVisibleAfterWaiting());
   }
 
   public void openTaskFromWidget(String taskName) {
@@ -1547,11 +1551,11 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkTaskStatus(String taskStatus) {
-    getTaskStatus(taskStatus).isVisibleAfterWaiting();
+    assertTrue(getTaskStatus(taskStatus).isVisibleAfterWaiting());
   }
 
   public void checkTaskPriority(String taskPriority) {
-    getTaskPriority(taskPriority).isVisibleAfterWaiting();
+    assertTrue(getTaskPriority(taskPriority).isVisibleAfterWaiting());
   }
 
   private BaseElementFacade getSelectUserInDropDown(String firstUserName) {
@@ -1671,7 +1675,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkRadioButtonSelected() {
-    checkAssigneeRadioSelected.isVisibleAfterWaiting();
+    assertTrue(checkAssigneeRadioSelected.isVisibleAfterWaiting());
   }
 
   public void closeSortAndFilterDrawer() {
@@ -1680,7 +1684,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkRadioButtonNotSelected() {
-    checkAssigneeRadioNotSelected.isVisibleAfterWaiting();
+    assertTrue(checkAssigneeRadioNotSelected.isVisibleAfterWaiting());
   }
 
   public void deleteCookies() {
@@ -1688,7 +1692,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkThatTasksAreGroupedByAssignee() {
-    textAssignee.shouldBeVisible();
+    assertTrue(textAssignee.isVisibleAfterWaiting());
   }
 
   @SwitchToWindow
@@ -1706,7 +1710,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkDescriptionDisplay(String description) {
-    getDescriptionForTask(description).isDisplayed();
+    assertTrue(getDescriptionForTask(description).isDisplayed());
   }
 
   @SwitchToWindow
@@ -1742,12 +1746,12 @@ public class TasksPage extends GenericPage {
 
   public void checkThatEditTaskDrawerIsDisplayed() {
     String checkEditTaskDrawerText = checkEditTaskDrawer.getText();
-    Assert.assertEquals("Edit task", checkEditTaskDrawerText);
+    assertEquals("Edit task", checkEditTaskDrawerText);
   }
 
   public void checkTheTimestampUpdate() {
     String timestampText = timesTamp.getText();
-    Assert.assertTrue(timestampText.contains("Last Update"));
+    assertTrue(timestampText.contains("Last Update"));
   }
 
   public void hoverOnTheChangesTimestamp() {
@@ -1757,7 +1761,7 @@ public class TasksPage extends GenericPage {
 
   public void checkTooltipIsDisplayed() {
     String toolText = toolTip.getAttribute("title");
-    Assert.assertEquals("Click to view all changes", toolText);
+    assertEquals("Click to view all changes", toolText);
   }
 
   public void clickOnTheTimestamp() {
@@ -1766,7 +1770,7 @@ public class TasksPage extends GenericPage {
 
   public void checkThatSecondLevelDrawerChangesIsOpened() {
     String checkChangesDrawerText = checkChangesDrawer.getText();
-    Assert.assertEquals("Changes", checkChangesDrawerText);
+    assertEquals("Changes", checkChangesDrawerText);
   }
 
   public void switchToTASKSTab() {
@@ -1814,7 +1818,7 @@ public class TasksPage extends GenericPage {
     taskDescriptionField.clickOnElement();
     driver.switchTo().frame(ckEditorFrameDescription);
     try {
-      Assert.assertEquals(settaskDescription.getText(), Description);
+      assertEquals(settaskDescription.getText(), Description);
     } finally {
       driver.switchTo().defaultContent();
     }

@@ -13,7 +13,7 @@ Feature: UI app administration
     And  Edit application url is displayed './analytics' in drawer
     And Edit application image is displayed 'Analytics.png' in drawer
     And Edit application mandatory active and mobile are displayed in drawer
-    And Edit application permissions '/platform/users' and '/platform/externals' are displayed in drawer
+    And Edit application permissions '/platform/analytics' and '/platform/administrators' are displayed in drawer
     And I refresh the page
 
   @appcenter

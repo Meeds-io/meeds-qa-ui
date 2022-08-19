@@ -9,6 +9,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Supplier;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
@@ -184,15 +185,23 @@ public class Utils {
   }
 
   public static void retryOnCondition(Runnable task, Runnable onError) {
-    boolean finishedRetries = false;
+    retryOnCondition(() -> {
+      task.run();
+      return null;
+    }, onError);
+  }
+
+  public static <T> T retryOnCondition(Supplier<T> supplier) {
+    return retryOnCondition(supplier, null);
+  }
+
+  public static <T> T retryOnCondition(Supplier<T> supplier, Runnable onError) {
     long retry = 0;
     do {
       try {
-        task.run();
-        finishedRetries = true;
+        return supplier.get();
       } catch (RuntimeException e) {
-        finishedRetries = (++retry == MAX_WAIT_RETRIES);
-        if (finishedRetries) {
+        if (++retry == MAX_WAIT_RETRIES) {
           throw new IllegalStateException("Unable to process on element after " + retry + " retries", e);
         } else {
           LOGGER.debug("Error processing event on element. retry = {}/{}", retry, MAX_WAIT_RETRIES);
@@ -202,7 +211,7 @@ public class Utils {
           }
         }
       }
-    } while (!finishedRetries);
+    } while (true);
   }
 
   public static WebDriver decorateDriver(WebDriver driver) {

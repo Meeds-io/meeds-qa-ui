@@ -98,11 +98,11 @@ public class ManageSpacesPage extends GenericPage {
   @FindBy(xpath = "//select")
   private BaseElementFacade    selectSpaceFilter;
 
-  @FindBy(xpath = "//*[@class='flex spaceCardFlip'])[20]")
-  private BaseElementFacade    SpaceCardN20;
+  @FindBy(xpath = "(//*[contains(@class, 'spaceCardFlip')])[20]")
+  private BaseElementFacade    spaceCardN20;
 
-  @FindBy(xpath = "//*[@class='flex spaceCardFlip'])[21]")
-  private BaseElementFacade    SpaceCardN21;
+  @FindBy(xpath = "(//*[contains(@class, 'spaceCardFlip')])[21]")
+  private BaseElementFacade    spaceCardN21;
 
   @FindBy(xpath = "//*[@id='spacesListFooter']//button")
   private BaseElementFacade    showMoreButton;
@@ -486,8 +486,8 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void checkDisplayOfTwentySpaces() {
-    SpaceCardN20.isVisible();
-    SpaceCardN21.isNotVisibleAfterWaiting();
+    spaceCardN20.isVisible();
+    spaceCardN21.isNotVisibleAfterWaiting();
   }
 
   public void showMoreSpaces() {
@@ -496,7 +496,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void checkDisplayOfOtherSpaces() {
-    SpaceCardN21.isVisibleAfterWaiting();
+    spaceCardN21.isVisibleAfterWaiting();
   }
 
   public void clickOnSpaceSettingsTab() {

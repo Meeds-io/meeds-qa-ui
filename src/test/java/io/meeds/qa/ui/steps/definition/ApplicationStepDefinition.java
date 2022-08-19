@@ -88,12 +88,12 @@ public class ApplicationStepDefinition {
     applicationSteps.goToChallengesAppCenterApplication();
   }
 
-  @When("^I go to Perk Store AppCenter Application$")
+  @When("I go to Perk Store AppCenter Application")
   public void goToPerkStoreAppCenterApplication() {
     applicationSteps.goToPerkStoreAppCenterApplication();
   }
 
-  @Then("^Perk Store Application Page is displayed$")
+  @Then("Perk Store Application Page is displayed")
   public void isPerkStorePageOpened() {
     applicationSteps.isPerkStorePageOpened();
   }

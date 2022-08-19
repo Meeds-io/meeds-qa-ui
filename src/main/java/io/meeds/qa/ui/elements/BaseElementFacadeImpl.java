@@ -155,13 +155,14 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
 
   @Override
   public WebElement getElement() {
-    waitForPageLoaded();
-    try {
-      return super.getElement();
-    } catch (Exception e) {
-      LOGGER.debug("Can't find element {}. Procees after switching window.", this, e);
-      return getCurrentElement();
-    }
+    return retryOnCondition(() -> {
+      try {
+        return super.getElement();
+      } catch (Exception e) {
+        LOGGER.debug("Can't find element {}. Procees after switching window.", this, e);
+        return getCurrentElement();
+      }
+    });
   }
 
   @SwitchToWindow

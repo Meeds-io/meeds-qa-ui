@@ -536,11 +536,13 @@ public class SpaceHomePage extends GenericPage {
 
   public void publishActivity() {
     publishActivityButton.clickOnElement();
+    publishActivityButton.waitUntilNotVisible();
     refreshPage();
   }
 
   public void editActivity() {
     updateActivityButton.clickOnElement();
+    updateActivityButton.waitUntilNotVisible();
     verifyPageLoaded();
   }
 

@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
+import io.meeds.qa.ui.utils.ExceptionLauncher;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class PeoplePage extends GenericPage {
@@ -113,9 +114,7 @@ public class PeoplePage extends GenericPage {
   public void checkConnectToUser(String user) {
     searchPeopleInput.waitUntilVisible();
     searchPeopleInput.sendKeys(user);
-    BaseElementFacade progressBar = findByXPathOrCSS(".UISiteBody .v-progress-linear");
-    progressBar.waitUntilVisible();
-    progressBar.waitUntilNotVisible();
+    waitForProgressBar();
 
     BaseElementFacade userButton = getUserButton(user);
     userButton.waitUntilClickable();

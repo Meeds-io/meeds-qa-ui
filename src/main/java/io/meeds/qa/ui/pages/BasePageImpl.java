@@ -148,6 +148,16 @@ public class BasePageImpl extends PageObject implements BasePage {
     }
   }
 
+  public void waitForProgressBar() {
+    try {
+      BaseElementFacade progressBar = findByXPathOrCSS(".UISiteBody .v-progress-linear");
+      progressBar.waitUntilVisible();
+      progressBar.waitUntilNotVisible();
+    } catch (Exception e) {
+      ExceptionLauncher.LOGGER.debug("Can't wait for progress bar to finish loading", e);
+    }
+  }
+
   public void mentionUserWithContent(BaseElementFacade ckEditorFrame,
                                      TextBoxElementFacade ckEditorBody,
                                      String content,

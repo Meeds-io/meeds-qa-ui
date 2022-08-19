@@ -220,16 +220,33 @@ public class HomePage extends GenericPage {
 
   public void hoverOnRecentSpaces() {
     clickOnHamburgerMenu();
-    recentSpacesBtn.hover("//*[contains(@class,'spacesNavigationTitle')]//*[contains(@class,'titleLabel')]");
-    waitFor(300).milliseconds(); // Wait until drawer 'open' animation finishes
+    retryOnCondition(() -> {
+      recentSpacesBtn.waitUntilVisible();
+      recentSpacesBtn.hover("//*[contains(@class,'spacesNavigationTitle')]//*[contains(@class,'titleLabel')]");
+      waitFor(300).milliseconds(); // Wait until drawer 'open' animation
+                                   // finishes
+    }, () -> {
+      if (!hamburgerNavigationMenuLink.isVisible()) {
+        this.refreshPage();
+        this.clickOnHamburgerIcon();
+      }
+    });
   }
 
   public void hoverOnAdministrationMenu() {
     clickOnHamburgerMenu();
     retryOnCondition(() -> {
+      administrationMenu.waitUntilVisible();
       administrationMenu.hover("//*[contains(@class,'administrationTitle')]//*[contains(@class,'titleLabel')]");
+      waitFor(300).milliseconds(); // Wait until drawer 'open' animation
+      // finishes
       BaseElementFacade administrationMenuElement = findByXPathOrCSS("#AdministrationHamburgerNavigation");
       administrationMenuElement.waitUntilVisible();
+    }, () -> {
+      if (!hamburgerNavigationMenuLink.isVisible()) {
+        this.refreshPage();
+        this.clickOnHamburgerIcon();
+      }
     });
   }
 
