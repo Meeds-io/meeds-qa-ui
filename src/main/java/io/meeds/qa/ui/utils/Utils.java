@@ -12,6 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
 
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.json.JsonException;
@@ -36,11 +37,14 @@ public class Utils {
                                                           Integer.parseInt(System.getProperty("io.meeds.windowSwitch.timeout",
                                                                                               "20000"));
 
-  private static final String        LOCK_FILE_PATH         = System.getProperty("io.meeds.windowSwitch.lockFile");
+  private static final String        LOCK_FILE_PATH         = System.getProperty("io.meeds.windowSwitch.lockFile", "lockFile");
 
   private static final File          LOCK_FILE              = new File(LOCK_FILE_PATH);
 
-  private static final boolean       PARALLEL_TESTING       = !System.getProperty("io.meeds.parallel.tests").equals("1");
+  private static final int           PARALLEL_TESTS         =
+                                                    Integer.parseInt(System.getProperty("io.meeds.parallel.tests", "1"));
+
+  private static final boolean       PARALLEL_TESTING       = PARALLEL_TESTS > 1;
 
   private static WebDriver           decoratedWebDriver;
 
@@ -163,6 +167,7 @@ public class Utils {
 
   public static void releaseWindowTemporarely(WebDriver driver, Object element, String reason, long timeInMilliseconds) {
     if (!PARALLEL_TESTING) {
+      waitForInMillis(timeInMilliseconds);
       return;
     }
     int times = 0;
@@ -170,11 +175,7 @@ public class Utils {
       releaseCurrentWindow(driver, element, reason);
       times++;
     }
-    try {
-      Thread.sleep(timeInMilliseconds);
-    } catch (InterruptedException e1) {
-      Thread.currentThread().interrupt();
-    }
+    waitForInMillis(timeInMilliseconds * PARALLEL_TESTS);
     for (int i = 0; i < times; i++) {
       switchToCurrentWindow(driver, element, reason);
     }
@@ -214,7 +215,7 @@ public class Utils {
             }
           } else {
             LOGGER.debug("Error processing event on element. retry = {}/{}", retry, MAX_WAIT_RETRIES);
-            releaseWindowTemporarely(decoratedWebDriver, null, e.getMessage(), 500);
+            releaseWindowTemporarely(decoratedWebDriver, null, e.getMessage(), 200);
             if (onError != null) {
               onError.run();
             }
@@ -305,6 +306,14 @@ public class Utils {
       return true;
     } else {
       return LOCK_COUNT.decrementAndGet() > 0;
+    }
+  }
+
+  private static void waitForInMillis(long timeInMilliseconds) {
+    try {
+      Thread.sleep(timeInMilliseconds);
+    } catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
     }
   }
 

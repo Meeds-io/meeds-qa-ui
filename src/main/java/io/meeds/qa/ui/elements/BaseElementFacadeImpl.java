@@ -147,6 +147,7 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
 
   @SwitchToWindow
   public void clickOnCurrentElementWindowSwitch() {
+    waitUntilVisible();
     super.click();
   }
 

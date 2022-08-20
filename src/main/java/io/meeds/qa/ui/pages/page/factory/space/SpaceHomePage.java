@@ -451,8 +451,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void promoteSpaceMemberAsManager(String name) {
-    spaceMembersFilterTextBox.waitUntilVisible();
-    spaceMembersFilterTextBox.setTextValue(name);
+    searchMember(name);
     BaseElementFacade threeDots =
                                 findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'peopleCardItem')]//*[contains(@class, 'mdi-dots-vertical')]//ancestor::button",
                                                                name));
@@ -464,8 +463,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void removeMember(String name) {
-    spaceMembersFilterTextBox.waitUntilVisible();
-    spaceMembersFilterTextBox.setTextValue(name);
+    searchMember(name);
     BaseElementFacade threeDots =
                                 findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'peopleCardItem')]//*[contains(@class, 'mdi-dots-vertical')]//ancestor::button",
                                                                name));
@@ -474,6 +472,12 @@ public class SpaceHomePage extends GenericPage {
                                          findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'peopleCardItem')]//*[contains(@class, 'uiIconTrash')]//ancestor::*[contains(@class, 'v-list-item')]",
                                                                         name));
     removeMemberButton.clickOnElement();
+  }
+
+  private void searchMember(String name) {
+    spaceMembersFilterTextBox.waitUntilVisible();
+    spaceMembersFilterTextBox.setTextValue(name);
+    waitForProgressBar();
   }
 
   public void viewAllRepliesInCommentsDrawer(String comment) {

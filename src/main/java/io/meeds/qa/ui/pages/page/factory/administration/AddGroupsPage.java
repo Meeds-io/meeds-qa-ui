@@ -69,6 +69,7 @@ public class AddGroupsPage extends GenericPage {
 
     BaseElementFacade memberInDropDown = getSelectedMemberInDropDown(member);
     if (memberInDropDown.isCurrentlyVisible() || memberInDropDown.isVisibleAfterWaiting()) {
+      memberInDropDown.waitUntilClickable();
       clickOnElement(memberInDropDown);
       addMemberInGroupDrawerTitle.clickOnElement();
       saveMemberAddedInGroup.clickOnElement();

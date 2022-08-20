@@ -35,9 +35,6 @@ public class TasksPage extends GenericPage {
   @FindBy(xpath = "//*[@class='taskTabBoard v-tab v-tab--active']")
   private BaseElementFacade    projectActiveBoardView;
 
-  @FindBy(css = ".tasksToolbar button.btn-primary")
-  private BaseElementFacade    addTaskButton;
-
   @FindBy(css = ".tasksViewBoardRowContainer .tasksViewHeader .uiIconSocSimplePlus")
   private BaseElementFacade    addTaskInProjectButton;
 
@@ -63,7 +60,7 @@ public class TasksPage extends GenericPage {
   private BaseElementFacade    ckEditorFrameDescription;
 
   @FindBy(xpath = "(//*[@class='d-flex']//button[2])")
-  private BaseElementFacade    SaveButtonTaskSpaceProject;
+  private BaseElementFacade    saveButtonTaskSpaceProject;
 
   @FindBy(xpath = "//*[@id='saveDescriptionButton']")
   private BaseElementFacade    updateButtonDescription;
@@ -443,7 +440,8 @@ public class TasksPage extends GenericPage {
   }
 
   public void clickAddTaskButton() {
-    if (addTaskButton.isCurrentlyVisible()) {
+    BaseElementFacade addTaskButton = findByXPathOrCSS(".tasksToolbar button.btn-primary");
+    if (addTaskButton.isCurrentlyVisible() && addTaskButton.isVisibleAfterWaiting() && addTaskButton.isClickable()) {
       addTaskButton.clickOnElement();
     } else {
       addTaskInProjectButton.clickOnElement();
@@ -552,8 +550,7 @@ public class TasksPage extends GenericPage {
   }
 
   private BaseElementFacade getRemoveLabelButton(String label) {
-    return findByXPathOrCSS(
-                            String.format("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'projectLabelsName')]//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'v-chip')]//button)[last()]",
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'projectLabelsName')]//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'v-chip')]//button[contains(text(), 'close')]",
                                           label));
   }
 
@@ -1715,7 +1712,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void clickOnSaveButtonToAddTaskSpaceProject() {
-    SaveButtonTaskSpaceProject.clickOnElement();
+    saveButtonTaskSpaceProject.clickOnElement();
   }
 
   @SwitchToWindow
