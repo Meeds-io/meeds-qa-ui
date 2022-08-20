@@ -1,7 +1,8 @@
 package io.meeds.qa.ui.pages.page.factory;
 
+import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
+
 import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.BaseElementFacade;
@@ -18,19 +19,7 @@ public class LoginPage extends GenericPage implements IsHidden {
   }
 
   public void login(String login, String password) {
-    verifyPageLoaded();
-    try {
-      TextBoxElementFacade loginTextBox = findTextBoxElementByXpath("//*[@id='username']");
-      loginTextBox.setTextValue(login);
-      TextBoxElementFacade passwordTextbox = findTextBoxElementByXpath("//*[@id='password']");
-      passwordTextbox.setTextValue(password);
-      BaseElementFacade loginButton = findByXPathOrCSS("//*[contains(@class, 'loginButton')]//button");
-      clickOnElement(loginButton);
-    } catch (RuntimeException e) {
-      if (e instanceof StaleElementReferenceException || e.getCause() instanceof StaleElementReferenceException) {
-        login(login, password); // Retry by refreshing elements
-      }
-    }
+    retryOnCondition(() -> tryLogin(login, password), this::refreshPage);
   }
 
   public void clearCookies() {
@@ -40,6 +29,16 @@ public class LoginPage extends GenericPage implements IsHidden {
       // Normal Behavior
     }
     driver.manage().deleteAllCookies();
+  }
+
+  private void tryLogin(String login, String password) {
+    verifyPageLoaded();
+    TextBoxElementFacade loginTextBox = findTextBoxElementByXpath("//*[@id='username']");
+    loginTextBox.setTextValue(login);
+    TextBoxElementFacade passwordTextbox = findTextBoxElementByXpath("//*[@id='password']");
+    passwordTextbox.setTextValue(password);
+    BaseElementFacade loginButton = findByXPathOrCSS("//*[contains(@class, 'loginButton')]//button");
+    clickOnElement(loginButton);
   }
 
 }

@@ -474,7 +474,7 @@ public class SpaceHomePage extends GenericPage {
     removeMemberButton.clickOnElement();
   }
 
-  private void searchMember(String name) {
+  public void searchMember(String name) {
     spaceMembersFilterTextBox.waitUntilVisible();
     spaceMembersFilterTextBox.setTextValue(name);
     waitForProgressBar();

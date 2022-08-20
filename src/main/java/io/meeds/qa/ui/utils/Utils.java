@@ -252,6 +252,10 @@ public class Utils {
     return locked;
   }
 
+  public static boolean isStaleElementException(Throwable e) {
+    return e instanceof StaleElementReferenceException || (e.getCause() != null && isStaleElementException(e.getCause()));
+  }
+
   private static boolean tryLock() {
     int elapsedTime = 0;
     while (!locked) {
