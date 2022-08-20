@@ -156,7 +156,7 @@ public class AdminApplicationStepDefinition {
     setCurrentlyTestingApplicationTitle(appData.get("title"));
   }
 
-  @When("^I add a new application with the random following data$")
+  @When("I add a new random application")
   public void addNewRandomApp() {
     String randomApplicationTitle = "title" + getRandomString();
     String randomApplicationUrl = "./" + getRandomString();

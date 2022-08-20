@@ -136,7 +136,7 @@ Feature: Favorite activities
     Then Create note form is opened successfully in new tab
     When I add note with title 'Note1' and content 'Content1'
     And I save and post Note
-    Then Note tile 'Note1' and content 'Content1' are displayed successfully
+    Then Note title 'Note1' and content 'Content1' are displayed successfully
     And I close the second window
     And I go to space Home
     Then Note activity with title 'Note1' is displayed
@@ -144,7 +144,7 @@ Feature: Favorite activities
     When I go to the random space
     And  I go to Stream page
     And I access note 'Note1' activity
-    Then Note tile 'Note1' and content 'Content1' are displayed successfully
+    Then Note title 'Note1' and content 'Content1' are displayed successfully
     When I favorite the note from it's details page
     Then The favorite success message 'Favorite added successfully. Find it easily from the search' should be displayed
     When  I go to Stream page
@@ -159,7 +159,7 @@ Feature: Favorite activities
     Then Create note form is opened successfully in new tab
     When I add note with title 'Note2' and content 'Content2'
     And I save and post Note
-    Then Note tile 'Note2' and content 'Content2' are displayed successfully
+    Then Note title 'Note2' and content 'Content2' are displayed successfully
     And I close the second window
     And I go to space Home
     Then Note activity with title 'Note2' is displayed
@@ -167,7 +167,7 @@ Feature: Favorite activities
     When I bookmark the activity 'Note2'
     Then The favorite success message 'Favorite added successfully. Find it easily from the search' should be displayed
     And I access note 'Note2' activity
-    Then Note tile 'Note2' and content 'Content2' are displayed successfully
+    Then Note title 'Note2' and content 'Content2' are displayed successfully
     And The star icon of the note details page should be yellow
 
   @ignored
@@ -180,14 +180,14 @@ Feature: Favorite activities
     Then Create note form is opened successfully in new tab
     When I add note with title 'Note3' and content 'Content3'
     And I save and post Note
-    Then Note tile 'Note3' and content 'Content3' are displayed successfully
+    Then Note title 'Note3' and content 'Content3' are displayed successfully
     And I close the second window
     When I connect with the first created user
     And I go to the random space
     And  I bookmark the activity 'Note3'
     Then The favorite success message 'Favorite added successfully. Find it easily from the search' should be displayed
     When I access note 'Note3' activity
-    Then Note tile 'Note3' and content 'Content3' are displayed successfully
+    Then Note title 'Note3' and content 'Content3' are displayed successfully
     And The star icon of the note details page should be yellow
     And I unfavorite the note from its details page
     Then The favorite success message 'The item has been removed from favorites successfully.' should be displayed
@@ -203,7 +203,7 @@ Feature: Favorite activities
     Then Create note form is opened successfully in new tab
     When I add note with title 'Note4' and content 'Content4'
     And I save and post Note
-    Then Note tile 'Note4' and content 'Content4' are displayed successfully
+    Then Note title 'Note4' and content 'Content4' are displayed successfully
     And I close the second window
     And I go to space Home
     Then Note activity with title 'Note4' is displayed
@@ -223,7 +223,7 @@ Feature: Favorite activities
     Then Create note form is opened successfully in new tab
     When I add note with title 'Note5' and content 'Content5'
     And I save and post Note
-    Then Note tile 'Note5' and content 'Content5' are displayed successfully
+    Then Note title 'Note5' and content 'Content5' are displayed successfully
     And I close the second window
     And I go to space Home
     And I go to notes application of the space
@@ -231,13 +231,13 @@ Feature: Favorite activities
     Then Create note form is opened successfully in new tab
     When I add note with title 'Note6' and content 'Content6'
     And I save and post Note
-    Then Note tile 'Note6' and content 'Content6' are displayed successfully
+    Then Note title 'Note6' and content 'Content6' are displayed successfully
     And I close the second window
     When I go to Stream page
     When  I bookmark the activity 'Note5'
     Then The favorite success message 'Favorite added successfully. Find it easily from the search' should be displayed
     When I access note 'Note6' activity
-    Then Note tile 'Note6' and content 'Content6' are displayed successfully
+    Then Note title 'Note6' and content 'Content6' are displayed successfully
     And I favorite the note from it's details page
     Then The favorite success message 'Favorite added successfully. Find it easily from the search' should be displayed
     When I access to the unified search page

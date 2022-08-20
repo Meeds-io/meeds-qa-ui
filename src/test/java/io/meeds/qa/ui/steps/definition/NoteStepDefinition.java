@@ -39,7 +39,7 @@ public class NoteStepDefinition {
     noteSteps.saveAndPostNote();
   }
 
-  @Then("^Note tile '(.*)' and content '(.*)' are displayed successfully$")
+  @Then("^Note title '(.*)' and content '(.*)' are displayed successfully$")
   public void checkNoteDetailsDisplay(String noteTitle, String noteContent) {
     noteSteps.checkNoteDetailsDisplay(noteTitle, noteContent);
   }

@@ -11,7 +11,7 @@ Feature: Edit Note
 
     When I click to add note
     And I create note page with title 'testA' and content 'testA'
-    Then Note tile 'testA' and content 'testA' are displayed successfully
+    Then Note title 'testA' and content 'testA' are displayed successfully
 
     When I click to edit note
     Then Edit note form is opened successfully in new tab
@@ -26,7 +26,7 @@ Feature: Edit Note
 
     When I click to add note
     And I create note page with title 'testA' and content 'testA'
-    Then Note tile 'testA' and content 'testA' are displayed successfully
+    Then Note title 'testA' and content 'testA' are displayed successfully
 
     When I click to edit note
     Then Edit note form is opened successfully in new tab

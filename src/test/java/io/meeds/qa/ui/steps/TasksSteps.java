@@ -221,11 +221,11 @@ public class TasksSteps {
   }
 
   public void closetaskCommentsDrawer() {
-    tasksPage.closetaskCommentsDrawer();
+    tasksPage.closeTaskCommentsDrawer();
   }
 
-  public void closetaskDrawer() {
-    tasksPage.closetaskDrawer();
+  public void closeTaskDrawer() {
+    tasksPage.closeDrawer();
   }
 
   public void closeProjectDrawer() {
@@ -467,8 +467,8 @@ public class TasksSteps {
     tasksPage.ClickOnPlusButtonToAddTask();
   }
 
-  public void enterTileForTask(String title) {
-    tasksPage.enterTileForTask(title);
+  public void enterTitleForTask(String title) {
+    tasksPage.enterTitleForTask(title);
   }
 
   public void setTaskDescription(String Description) {
@@ -568,16 +568,8 @@ public class TasksSteps {
 
   }
 
-  public void openUploadDocDrawer() {
-    tasksPage.clickOnAddAttachmentLink();
-  }
-
   public void checkSuccessMessage(String message) {
     tasksPage.checkSuccessMessage(message);
-  }
-
-  public void closeUploadDocDrawer() {
-    tasksPage.closeUploadDocDrawer();
   }
 
   public void checkViewLinkAttachments() {
@@ -586,10 +578,6 @@ public class TasksSteps {
 
   public void clickDocButton() {
     tasksPage.clickDocButton();
-  }
-
-  public void closeUploadDocDrawerSnapshot() {
-    tasksPage.closeUploadDocDrawerSnapshot();
   }
 
   public void markTaskAsCompletedFromTaskCard() {
@@ -626,10 +614,6 @@ public class TasksSteps {
       tasksPage.setTaskDetails(fieldsName, taskDetails.get(fieldsName));
     }
     tasksPage.saveAddTaskSimpleProject();
-  }
-
-  public void closeUploadDocDrawerSimpleProject() {
-    tasksPage.closeUploadDocDrawerSimpleProject();
   }
 
   public void openTaskCreated(String taskName) {
@@ -744,14 +728,6 @@ public class TasksSteps {
     tasksPage.setTaskDueDateToday();
   }
 
-  public void checkTaskFromWidget(String taskName) {
-    tasksPage.checkTaskFromWidget(taskName);
-  }
-
-  public void openTaskFromWidget(String taskName) {
-    tasksPage.openTaskFromWidget(taskName);
-  }
-
   public void setTasksStatus(String taskStatus) {
     tasksPage.setTaskStatus(taskStatus);
   }
@@ -820,16 +796,12 @@ public class TasksSteps {
     tasksPage.exitFromTheFirstProject();
   }
 
-  public void checkRadioButtonSelected() {
-    tasksPage.checkRadioButtonSelected();
-  }
-
   public void deleteCookies() {
     tasksPage.deleteCookies();
   }
 
-  public void checkRadioButtonNotSelected() {
-    tasksPage.checkRadioButtonNotSelected();
+  public void checkGroupingSelected(String groupingValue) {
+    tasksPage.checkGroupingSelected(groupingValue);
   }
 
   public void checkThatTasksAreGroupedByAssignee() {

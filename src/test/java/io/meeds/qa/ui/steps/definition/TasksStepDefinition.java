@@ -76,7 +76,7 @@ public class TasksStepDefinition {
     tasksSteps.editProjectName(projectName);
   }
 
-  @Given("^The following task is created in the specific project$")
+  @Given("I create the following task in selected project")
   public void addTaskInProject(Map<String, String> userDetails) {
     tasksSteps.addTaskInProject(userDetails);
   }
@@ -87,7 +87,7 @@ public class TasksStepDefinition {
   }
 
   @When("^I enter a comment '(.*)' with mentioning the first user in task$")
-  public void addNewCommentInTaskWithMentioningTheFirstUserInTask(String comment)  {
+  public void addNewCommentInTaskWithMentioningTheFirstUserInTask(String comment) {
     String user = Serenity.sessionVariableCalled("firstUserName");
     tasksSteps.addNewCommentInTaskWithMentioningTheFirstUserInTask(comment, user);
   }
@@ -167,8 +167,11 @@ public class TasksStepDefinition {
 
   @When("^The project name is displayed in project details$")
   public void projectNameIsDisplayedInProjectDetails() {
-    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
-    tasksSteps.projectNameIsDisplayedInProjectDetails(randomSpaceName);
+    String projectName = Serenity.sessionVariableCalled("projectName");
+    if (StringUtils.isBlank(projectName)) {
+      projectName = Serenity.sessionVariableCalled("randomSpaceName");
+    }
+    tasksSteps.projectNameIsDisplayedInProjectDetails(projectName);
   }
 
   @When("^Board view is displayed by default$")
@@ -314,8 +317,8 @@ public class TasksStepDefinition {
 
   @Then("^I close task drawer of cloned task$")
   @When("^I close task drawer$")
-  public void closetaskDrawer() {
-    tasksSteps.closetaskDrawer();
+  public void closeTaskDrawer() {
+    tasksSteps.closeTaskDrawer();
   }
 
   @When("^I view all task comments$")
@@ -753,9 +756,9 @@ public class TasksStepDefinition {
     tasksSteps.ClickOnPlusButtonToAddTask();
   }
 
-  @When("^I enter tile for task '(.*)'$")
-  public void enterTileForTask(String title) {
-    tasksSteps.enterTileForTask(title);
+  @When("^I enter title for task '(.*)'$")
+  public void enterTitleForTask(String title) {
+    tasksSteps.enterTitleForTask(title);
   }
 
   @When("^I enter Description for this task '(.*)'$")
@@ -769,8 +772,8 @@ public class TasksStepDefinition {
   }
 
   @When("^I update task Description '(.*)'$")
-  public void updateTaskDescription(String Description) {
-    tasksSteps.updateTaskDescription(Description);
+  public void updateTaskDescription(String description) {
+    tasksSteps.updateTaskDescription(description);
   }
 
   @When("^I click on update button$")
@@ -825,7 +828,6 @@ public class TasksStepDefinition {
   }
 
   @Then("^Status '(.*)' is deleted successfully$")
-
   public void checkDeletedStatus(String statusColumn) {
     tasksSteps.checkDeletedStatus(statusColumn);
   }
@@ -884,20 +886,9 @@ public class TasksStepDefinition {
     tasksSteps.checkLastStatusColumn(columnStatus);
   }
 
-  @And("^I open the Upload document drawer$")
-  public void openUploadDocDrawer() {
-    tasksSteps.openUploadDocDrawer();
-
-  }
-
   @Then("^The success message '(.*)' should be displayed$")
   public void checkSuccessMessage(String message) {
     tasksSteps.checkSuccessMessage(message);
-  }
-
-  @When("^I close the Upload Document drawer$")
-  public void closeUploadDocDrawer() {
-    tasksSteps.closeUploadDocDrawer();
   }
 
   @Then("^The label View all attachments is displayed$")
@@ -910,17 +901,12 @@ public class TasksStepDefinition {
     tasksSteps.clickDocButton();
   }
 
-  @When("^I close the Upload Document drawer of snapshot$")
-  public void closeUploadDocDrawerSnapshot() {
-    tasksSteps.closeUploadDocDrawerSnapshot();
-  }
-
   @And("^I mark the task as completed from the task card$")
   public void markTaskAsCompletedFromTaskCard() {
     tasksSteps.markTaskAsCompletedFromTaskCard();
   }
 
-  @Then("^An alert message Task successfully marked as completed is displayed$")
+  @Then("An alert message Task successfully marked as archived is displayed")
   public void checkAlertMessageAfterMarkTaskAsCompleted() {
     tasksSteps.checkAlertMessageAfterMarkTaskAsCompleted();
   }
@@ -953,11 +939,6 @@ public class TasksStepDefinition {
   @And("^The task is created in the specific project$")
   public void addTaskInSimpleProject(Map<String, String> userDetails) {
     tasksSteps.addTaskInSimpleProject(userDetails);
-  }
-
-  @When("^I close the Upload Document drawer of task in simple project$")
-  public void closeUploadDocDrawerSimpleProject() {
-    tasksSteps.closeUploadDocDrawerSimpleProject();
   }
 
   @When("^I open the created task '(.*)'$")
@@ -1090,16 +1071,6 @@ public class TasksStepDefinition {
     tasksSteps.setTaskDueDateToday();
   }
 
-  @Then("^Task '(.*)' is displayed from tasks widget$")
-  public void checkTaskFromWidget(String taskName) {
-    tasksSteps.checkTaskFromWidget(taskName);
-  }
-
-  @When("^I open '(.*)' from widget$")
-  public void openTaskFromWidget(String taskName) {
-    tasksSteps.openTaskFromWidget(taskName);
-  }
-
   @And("^I set task priority to '(.*)'$")
   public void selectTaskPriority(String taskPriority) {
     tasksSteps.setTaskPriority(taskPriority);
@@ -1192,19 +1163,14 @@ public class TasksStepDefinition {
     tasksSteps.exitFromTheFirstProject();
   }
 
-  @Then("^I check that grouping is not applied$")
-  public void checkRadioButtonNotSelected() {
-    tasksSteps.checkRadioButtonNotSelected();
+  @Then("^I check that grouping '(.*)' is selected$")
+  public void checkGroupingSelected(String groupingValue) {
+    tasksSteps.checkGroupingSelected(groupingValue);
   }
 
   @And("^I close Sort And Filter drawer$")
   public void closeSortAndFilterDrawer() {
     tasksSteps.closeSortAndFilterDrawer();
-  }
-
-  @Then("^I check that grouping is still applied$")
-  public void checkRadioButtonSelected() {
-    tasksSteps.checkRadioButtonSelected();
   }
 
   @And("^I clear browsing data cache and cookies$")

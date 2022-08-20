@@ -44,13 +44,13 @@ Feature: Filter Drawer
     And I select 'Projects' tab
     And I search for the created project
     And I open the created project
-    And The following task is created in the specific project
+    And I create the following task in selected project
       | taskName | ctask11 |
     And I refresh the page
-    And The following task is created in the specific project
+    And I create the following task in selected project
       | taskName | atask11 |
     And I refresh the page
-    And The following task is created in the specific project
+    And I create the following task in selected project
       | taskName | btask11 |
 
     Then Task name 'ctask11' is displayed in project details
@@ -66,7 +66,6 @@ Feature: Filter Drawer
     And In project details the task 'btask11' is displayed in '2' place
     And In project details the task 'ctask11' is displayed in '3' place
 
-  @test
   Scenario: CAP111 - [Filter_Drawer_US03] Group by Completed [Group and Sort tab under project]
     Given I am authenticated as admin
 
@@ -77,13 +76,13 @@ Feature: Filter Drawer
     And I select 'Projects' tab
     And I search for the created project
     And I open the created project
-    And The following task is created in the specific project
+    And I create the following task in selected project
       | taskName | task111-1 |
     And I refresh the page
-    And The following task is created in the specific project
+    And I create the following task in selected project
       | taskName | task111-2 |
     And I refresh the page
-    And The following task is created in the specific project
+    And I create the following task in selected project
       | taskName | task111-3 |
 
     Then Task name 'task111-1' is displayed in project details
@@ -92,9 +91,8 @@ Feature: Filter Drawer
     And Tasks number '3' is displayed in the column To Do
 
     When I mark the task 'task111-1' as completed in project details
-    And I wait '1' seconds
-    Then Task name 'task111-1' is not displayed in project details
-    And Alert 'Task successfully marked as completed' is displayed
+    Then An alert message Task successfully marked as archived is displayed
+    And Task name 'task111-1' is not displayed in project details
 
     When I refresh the page
     And I mark the task 'task111-2' as completed in project details
@@ -124,7 +122,7 @@ Feature: Filter Drawer
     And I select 'Projects' tab
     And I search for the created project
     And I open the created project
-    And The following task is created in the specific project
+    And I create the following task in selected project
       | taskName | taskcap53 |
 
     When I open the Filter drawer
@@ -145,7 +143,6 @@ Feature: Filter Drawer
     And Cancel button is displayed in the Filter drawer
     And Reset button is displayed in the Filter drawer
 
-  @test
   Scenario: Filter project
     Given I am authenticated as admin
     And I create the first random user if not existing

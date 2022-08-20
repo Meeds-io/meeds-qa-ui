@@ -16,7 +16,7 @@ Feature: Actions available for note
     Then Create note form is opened successfully in new tab
     When I add note with title 'Note test' and content 'Note Test'
     And I save Note
-    Then Note tile 'Note test' and content 'Note Test' are displayed successfully
+    Then Note title 'Note test' and content 'Note Test' are displayed successfully
 
     When I click on three dots icon
     And I delete Note

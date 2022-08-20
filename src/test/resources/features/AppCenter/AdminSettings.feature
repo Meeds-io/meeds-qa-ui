@@ -5,11 +5,11 @@ Feature: Administration settings
 
 	@appcenter
 	@appcenterSettings
-  Scenario: CAP50 - Admin_Settings_US06:Active option
+  Scenario: CAP50 - Admin_Settings_US06 - Active option
     Given I am authenticated as admin
     And I create the first random user if not existing
     And I go to Administer application center Page
-    When I add a new application with the random following data
+    When I add a new random application
     And I connect with the first created user
     And I open the app center menu
     And I open all application page

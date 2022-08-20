@@ -9,7 +9,6 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
-import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 
@@ -95,20 +94,11 @@ public class HomePage extends GenericPage {
   @FindBy(xpath = "//i[contains(@class,'uiAdministrationIcon')]")
   private BaseElementFacade                           administrationMenu;
 
-  @FindBy(xpath = "//a[contains(@href,'appCenterAdminSetup')]")
-  private BaseElementFacade                           applicationAdminPageLink;
-
   @FindBy(id = "NotificationPopoverPortlet")
   private BaseElementFacade                           notificationIcon;
 
   @FindBy(xpath = "//i[contains(@class,'logoutIcon')]")
   private BaseElementFacade                           logOutMenu;
-
-  @FindBy(xpath = "//a[contains(@href, 'usersManagement')]")
-  private BaseElementFacade                           addUserLink;
-
-  @FindBy(xpath = "//a[contains(@href, 'groupsManagement')]")
-  private BaseElementFacade                           addGroupsLink;
 
   @FindBy(xpath = "//a[@href='/portal/meeds/profile']")
   private BaseElementFacade                           myProfileButton;
@@ -308,7 +298,7 @@ public class HomePage extends GenericPage {
   public void goToAddUser() {
     if (!StringUtils.contains(driver.getCurrentUrl(), "usersManagement")) {
       hoverOnAdministrationMenu();
-      clickOnElement(addUserLink);
+      clickOnElement(findByXPathOrCSS("//a[contains(@href, 'usersManagement')]"));
     }
   }
 
@@ -316,7 +306,7 @@ public class HomePage extends GenericPage {
   public void goToAddGroups() {
     if (!StringUtils.contains(driver.getCurrentUrl(), "groupsManagement")) {
       hoverOnAdministrationMenu();
-      clickOnElement(addGroupsLink);
+      clickOnElement(findByXPathOrCSS("//a[contains(@href, 'groupsManagement')]"));
     }
   }
 
@@ -445,7 +435,7 @@ public class HomePage extends GenericPage {
   @SwitchToWindow
   public void goToAppCenterAdminSetupPage() {
     hoverOnAdministrationMenu();
-    clickOnElement(applicationAdminPageLink);
+    clickOnElement(findByXPathOrCSS("//a[contains(@href,'appCenterAdminSetup')]"));
   }
 
   public void goToSettingsPage() {

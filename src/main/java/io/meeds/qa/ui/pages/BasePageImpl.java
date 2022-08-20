@@ -59,6 +59,12 @@ public class BasePageImpl extends PageObject implements BasePage {
     waitForPageLoaded();
   }
 
+  public void closeDrawer() {
+    findByXPathOrCSS(".v-navigation-drawer--open .drawerHeader button.mdi-close")
+                                                                                 .clickOnElement();
+    waitForDrawerToClose();
+  }
+
   public void waitForDrawerToLoad() {
     WebDriverWait wait = new WebDriverWait(Serenity.getDriver(), Duration.ofSeconds(30));
     wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState === 'complete' "
@@ -67,6 +73,24 @@ public class BasePageImpl extends PageObject implements BasePage {
         + " && !document.querySelector('.v-navigation-drawer--open .v-progress-linear')")
                                                             .toString()
                                                             .equals("true"));
+  }
+
+  public void waitForDrawerToOpen() {
+    findByXPathOrCSS(".v-navigation-drawer--open").waitUntilVisible();
+    try {
+      findByXPathOrCSS(".v-overlay").waitUntilVisible();
+    } catch (Exception e) {
+      LOGGER.warn("Overlay seems not displayed", e);
+    }
+  }
+
+  public void waitForDrawerToClose() {
+    findByXPathOrCSS(".v-navigation-drawer--open").waitUntilNotVisible();
+    try {
+      findByXPathOrCSS(".v-overlay").waitUntilNotVisible();
+    } catch (Exception e) {
+      LOGGER.warn("Overlay seems not displayed", e);
+    }
   }
 
   public String getCurrentUrl() {

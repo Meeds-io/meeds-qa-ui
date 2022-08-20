@@ -1,7 +1,6 @@
 @task
 Feature: Tasks - Projects
 
-  @test
   Scenario: [User_UI_US18.1]: Add project with a description
     Given I am authenticated as admin
     And I create the first random user if not existing
@@ -24,7 +23,7 @@ Feature: Tasks - Projects
     When I select 'Projects' tab
     And I search for the created project
     And I open the created project
-    And The following task is created in the specific project
+    And I create the following task in selected project
       | taskName | task1414 |
     And I return to Projects tab
     And I clone the project
@@ -32,7 +31,6 @@ Feature: Tasks - Projects
     And I open the cloned project
     Then task 'Copy of task1414' is cloned successfully
 
-  @test
   Scenario: CAP174 -[US_Filterfield_01]: Add Clear typed characters icon "Filter by project"
     Given I am authenticated as admin
     And I create the first random user if not existing
@@ -49,7 +47,6 @@ Feature: Tasks - Projects
     And The placeholder Filter by project should be displayed
     And The clear button is disappeared from the Filter by project field
 
-  @test
   Scenario: CAP15 [Project_Card_US01] check the display "Spaces Managers avatars"
     Given I am authenticated as admin
     And I create the first random user if not existing
@@ -101,7 +98,6 @@ Feature: Tasks - Projects
     And Avatar of the first created user is displayed in Project Card
     And Avatar of the second created user is not displayed in Project Card
 
-  @test
   Scenario: CAP19 - [User_UI_US09]: Project's Tasks "BOARD" view
     Given I am authenticated as admin
 
@@ -130,7 +126,6 @@ Feature: Tasks - Projects
     And I click on save project button
     Then Message Project Title is mandatory is displayed
 
-  @test
   Scenario: CAP290 - Project participant cannot open the edit status mode
     Given I am authenticated as admin
     And I create the first random user if not existing
@@ -205,19 +200,19 @@ Feature: Tasks - Projects
     When I select 'Projects' tab
     And I search for the created project
     And I open the created project
-    And The following task is created in the specific project
+    And I create the following task in selected project
       | taskName | task1 |
     When I open the task 'task1'
     And I set task start date TODAY
     And I set task due date TOMORROW
     And I close task drawer
-    And The following task is created in the specific project
+    And I create the following task in selected project
       | taskName | task2 |
     When I open the task 'task2'
     And I set task start date TOMORROW
     And I set task due date Next week
     And I close task drawer
-    And The following task is created in the specific project
+    And I create the following task in selected project
       | taskName | task3 |
     When I open the task 'task3'
     And I set task start date TOMORROW

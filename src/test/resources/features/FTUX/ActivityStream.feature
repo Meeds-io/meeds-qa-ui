@@ -2127,7 +2127,7 @@ Feature: Activity Stream
 
     When I add note with title 'Long Name Long Name Long Name Long Name Long Name Long Name Long Name' and content 'Long Content Long Content Long Content Long Content Long Content Long Content Long Content Long Content Long Content Long Content Long Content'
     And I save and post Note
-    Then Note tile 'Long Name Long Name Long Name Long Name Long Name Long Name Long Name' and content 'Long Content Long Content Long Content Long Content Long Content Long Content Long Content Long Content Long Content Long Content Long Content' are displayed successfully
+    Then Note title 'Long Name Long Name Long Name Long Name Long Name Long Name Long Name' and content 'Long Content Long Content Long Content Long Content Long Content Long Content Long Content Long Content Long Content Long Content Long Content' are displayed successfully
 
     When I go to Stream page
     Then the activity 'Long Name Long Name Long Name Long Name Long Name Long Name Long Name' is displayed in activity stream

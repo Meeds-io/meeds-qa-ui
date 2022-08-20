@@ -2,7 +2,6 @@
 Feature: Tasks
 
   @smoke
-  @test
   Scenario: CAP81 - [User_UI_US22]: Mark as completed for "TASKS" in a Project (Manager case)
     Given I am authenticated as admin
     And I create the first random user if not existing
@@ -14,10 +13,10 @@ Feature: Tasks
     When I select 'Projects' tab
     And I search for the created project
     And I open the created project
-    And The following task is created in the specific project
+    And I create the following task in selected project
       | taskName | tasktest |
     And I mark the task as completed from the task card
-    Then An alert message Task successfully marked as completed is displayed
+    Then An alert message Task successfully marked as archived is displayed
     And Task name 'tasktest' is not displayed in project details
     And Tasks number '0' is displayed in the column To Do
 
@@ -57,7 +56,6 @@ Feature: Tasks
     And I close task drawer
     Then Task '<TestE>' is deleted successfully
 
-  @test
   Scenario: CAP82 - [User_UI_US22]: Mark as completed for "TASKS" in a Project (Participant case)
     Given I am authenticated as admin
     And I create the first random user if not existing
@@ -77,15 +75,14 @@ Feature: Tasks
     When I select 'Projects' tab
     And I search for the created project
     And I open the created project
-    And The following task is created in the specific project
+    And I create the following task in selected project
       | taskName | task11 |
     And I mark the task as completed from the task card
-    Then An alert message Task successfully marked as completed is displayed
+    Then An alert message Task successfully marked as archived is displayed
     And Task name 'task11' is not displayed in project details
     And Tasks number '0' is displayed in the column To Do
 
   @smoke
-  @test
   Scenario: CAP95 - [Add_Task_Drawer_US04]: 3 dots menu (Delete action) "Task under project"
     Given I am authenticated as admin
     And I create the first random user if not existing
@@ -110,21 +107,16 @@ Feature: Tasks
     When I close task drawer
     Then Task name 'taskessai' is not displayed in project details
 
-  @test
-  Scenario: Check tasks display in snapshot's Tasks gadget
+  Scenario: Check tasks display in project
     Given I am authenticated as admin
     And I create the first random user if not existing
     And I create the second random user if not existing
 
     And I connect with the second created user
-    And I create a random space with the first user
+    And I create a random space
 
     When I connect with the first created user
-    Then The 'Spaces' badge is '1'
-    When I click on spaces badge
-    And I accept the invitation of the created space project
-    And I refresh the page
-    Then The 'Spaces' number is '1'
+    Then I go to the random space
 
     When I connect with the second created user
     And I go To AppCenter Drawer
@@ -133,7 +125,7 @@ Feature: Tasks
     When I select 'Projects' tab
     And I search for the created project
     And I open the created project
-    And The following task is created in the specific project
+    And I create the following task in selected project
       | taskName | task test |
 
     When I open the task 'task test'
@@ -178,7 +170,6 @@ Feature: Tasks
     And Project 'new project test' is displayed in Tasks App Center
     And Project 'second project test' is displayed in Tasks App Center
 
-  @test
   Scenario: Create Task with a new status
     Given I am authenticated as admin
     And I create the first random user if not existing
@@ -199,7 +190,7 @@ Feature: Tasks
     And Status column 'exoQA' is moved to the first position
 
     When I click on plus Button To Add Task
-    And I enter tile for task 'Automation Test Task'
+    And I enter title for task 'Automation Test Task'
     And I click on save Button To Add Task
     Then In column status 'exoQA' , Task name 'Automation Test Task' is displayed
 
@@ -208,12 +199,11 @@ Feature: Tasks
     And I Type a Status name 'exoDev'
     And I click on Validate Name
     And I click on plus Button To Add Task of the sixth status column
-    And I enter tile for task 'Collaboration FT Task'
+    And I enter title for task 'Collaboration FT Task'
     And I click on save Button To Add Task
     Then In column status 'exoDev' , Task name 'Collaboration FT Task' is displayed
 
   @smoke
-  @test
   Scenario: CAP269 - [US_Sharedlabels_02]: Manage labels in Project (Create labels)
     Given I am authenticated as admin
     And I create the first random user if not existing
@@ -237,7 +227,6 @@ Feature: Tasks
     And Label 'label5' is displayed in edit project drawer
 
   @smoke
-  @test
   Scenario: Mark task as completed from the task drawer [1]
     Given I am authenticated as admin
     And I create the first random user if not existing
@@ -251,14 +240,14 @@ Feature: Tasks
     When I select 'Projects' tab
     And I search for the created project
     And I open the created project
-    And The following task is created in the specific project
+    And I create the following task in selected project
       | taskName | task E |
     And I open the task 'task E'
     And I mark the task as completed in task drawer without closing the drawer
     Then The task is marked as completed in task drawer
 
     When I close task drawer
-    Then An alert message Task successfully marked as completed is displayed
+    Then An alert message Task successfully marked as archived is displayed
     And Task name 'taskE' is not displayed in project details
     And Tasks number '0' is displayed in the column To Do
 
@@ -327,9 +316,9 @@ Feature: Tasks
     And I select 'Projects' tab
     And I search for the created project
     And I open the created project
-    And The following task is created in the specific project
+    And I create the following task in selected project
       | taskName | newtask |
-    Then Task 'newtask' is displayed from tasks widget
+    Then Task name 'newtask' is displayed in project details
 
     When I connect with the second created user
     And I go To AppCenter Drawer
@@ -338,7 +327,7 @@ Feature: Tasks
     And I select 'Projects' tab
     And I search for the created project
     And I open the created project
-    Then Task 'newtask' is displayed from tasks widget
+    And Task name 'newtask' is displayed in project details
 
     When I open the task 'newtask'
     And I add Label 'label1' to task
@@ -388,7 +377,6 @@ Feature: Tasks
     Then First user with the task comment 'Start working on it' is displayed in task comments drawer
 
   @smoke
-  @test
   Scenario: CAP190 -[IMP] [US_SortGroupeBy_01]: Memorize Group and Sort filters (Group by)
     Given I am authenticated as admin
     And  I create the first random user if not existing
@@ -399,11 +387,11 @@ Feature: Tasks
     And I create the project 'project01'
     And I open the project 'project01'
     When I click on plus Button To Add Task
-    And I enter tile for task 'Task01'
+    And I enter title for task 'Task01'
     And I assign task to me
     And I click on save Button To Add Task
     When I click on plus Button To Add Task
-    And I enter tile for task 'Task02'
+    And I enter title for task 'Task02'
     And I click on save Button To Add Task
     And I click on Filter button
     And I click on Assignee radio button
@@ -413,17 +401,17 @@ Feature: Tasks
     And I create the project 'project02'
     And I open the project 'project02'
     And I click on Filter button
-    Then I check that grouping is not applied
+    Then I check that grouping 'none' is selected
     And I close Sort And Filter drawer
     Then I exit from project
     And I open the project 'project01'
     And I click on Filter button
-    Then I check that grouping is still applied
+    Then I check that grouping 'assignee' is selected
     And I refresh the page
     And I click on Filter button
-    Then I check that grouping is still applied
+    Then I check that grouping 'assignee' is selected
     And I clear browsing data cache and cookies
-    Then I check that grouping is still applied
+    Then I check that grouping 'assignee' is selected
 
   @smoke
   @ignored
@@ -440,7 +428,6 @@ Feature: Tasks
     And I select the 'Labels' filter type
     Then The 'LabelsDrawer' is displayed
 
-  @test
   Scenario: CAP341 [TASK]: when refresh task drawer, the description should not be lost
     Given I am authenticated as admin
     And I create the first random user if not existing
@@ -455,13 +442,13 @@ Feature: Tasks
     And I search for the created project
     And I open the created project
     And I click on plus Button To Add Task
-    And I enter tile for task 'Test Tasks'
+    And I enter title for task 'Test Tasks'
     And I enter description for task 'Automation Test Task'
     And I click on save Button To Add Task
     And I open the task 'Test Tasks'
     Then The description in the task 'Automation Test Task' is displayed
     And I close task drawer
-    And Task 'Test Tasks' is displayed from tasks widget
+    And Task name 'Test Tasks' is displayed in project details
 
     When I connect with the first created user
     And I go To AppCenter Drawer
@@ -471,11 +458,11 @@ Feature: Tasks
     And I search for the created project
     And I open the created project
     And I open the task 'Test Tasks'
-    Then I edit description of the task 'Edit Automation Test Task'
-    And I refresh the page
-    And The edit description in the task 'Edit Automation Test Task' is displayed
+    And I edit description of the task 'Edit Automation Test Task'
+    Then The edit description in the task 'Edit Automation Test Task' is displayed
+    When I refresh the page
+    Then The edit description in the task 'Edit Automation Test Task' is displayed
 
-  @test
   Scenario: [IMP] [US_ChangesDrawer_01]: Display last Update and Changes drawer
     Given I am authenticated as admin
     And  I create the first random user if not existing
@@ -486,7 +473,7 @@ Feature: Tasks
     And I create the project 'project001'
     And I open the project 'project001'
     When I click on plus Button To Add Task
-    And I enter tile for task 'Task001'
+    And I enter title for task 'Task001'
     And I click on save Button To Add Task
     And I open the task 'Task001'
     Then I check that Edit task drawer is displayed
@@ -515,7 +502,7 @@ Feature: Tasks
     And I open the created project
 
     When I click on plus Button To Add Task
-    And I enter tile for task 'Automation Test Task'
+    And I enter title for task 'Automation Test Task'
     And I enter Description for this task 'Decription Task'
     And I click on save Button To Add Task in space project
     And I open the task 'Automation Test Task'

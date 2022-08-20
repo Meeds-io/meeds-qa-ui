@@ -19,9 +19,6 @@ import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class TasksPage extends GenericPage {
-  public TasksPage(WebDriver driver) {
-    super(driver);
-  }
 
   @FindBy(xpath = "(//*[@id='TasksListToolbar']//button)[1]")
   private BaseElementFacade    addTaskButton;
@@ -33,7 +30,7 @@ public class TasksPage extends GenericPage {
   private BaseElementFacade    ckEditorFrameTaskMentioningUser;
 
   @FindBy(xpath = "//body[contains(@class,'cke_editable_themed')]")
-  private TextBoxElementFacade taskDescriptionFieldIframe;
+  private TextBoxElementFacade taskDescriptionBodyField;
 
   @FindBy(xpath = "(//iframe[contains(@class,'cke_wysiwyg_frame')])[2]")
   private BaseElementFacade    switchToFrameTask;
@@ -47,7 +44,7 @@ public class TasksPage extends GenericPage {
   @FindBy(xpath = "(//*[@class='d-flex tasksViewHeaderLeft']/following::*[contains(@class,'uiIconSocSimplePlus')][1])[1]")
   private BaseElementFacade    addTaskInProjectButton;
 
-  @org.openqa.selenium.support.FindBy(xpath = "//div[@id='projectBoardToolbar']//input")
+  @FindBy(xpath = "//div[@id='projectBoardToolbar']//input")
   private TextBoxElementFacade searchProjectInput;
 
   @FindBy(xpath = "//*[@class='taskTitleAndMark d-flex']//textarea")
@@ -66,7 +63,7 @@ public class TasksPage extends GenericPage {
   private BaseElementFacade    SaveButtonTaskSpaceProject;
 
   @FindBy(xpath = "//*[@id='saveDescriptionButton']")
-  private BaseElementFacade    upDateButtonDescription;
+  private BaseElementFacade    updateButtonDescription;
 
   @FindBy(xpath = "//*[contains(@class,'uiThreeDotsIcon')]")
   private BaseElementFacade    threeDotsIconInEditTask;
@@ -155,9 +152,6 @@ public class TasksPage extends GenericPage {
   @FindBy(xpath = "//input[@placeholder='Filter by task']")
   private TextBoxElementFacade filterByTask;
 
-  @FindBy(xpath = "//*[contains(@class,'drawerParent taskDrawer')]//*[@class='v-btn__content']//button")
-  private BaseElementFacade    closeTaskDrawerButton;
-
   @FindBy(xpath = "//*[@class='uiIcon uiArrowBAckIcon']")
   private BaseElementFacade    goBackToTaskDrawerFromComments;
 
@@ -166,9 +160,6 @@ public class TasksPage extends GenericPage {
 
   @FindBy(xpath = "//*[@class='ViewAllCommentText']")
   private BaseElementFacade    addNewCommentInTask;
-
-  @FindBy(xpath = "//*[@class='v-btn__content']//button")
-  private BaseElementFacade    closeProjectDrawerBtn;
 
   @FindBy(xpath = "//button[contains(@class,'addCommentBtn')]")
   private BaseElementFacade    addOtherCommentInTask;
@@ -269,16 +260,19 @@ public class TasksPage extends GenericPage {
   private BaseElementFacade    statusField;
 
   @FindBy(xpath = " //*[contains(@class,'uiIcon40x40TickBlue')]")
-  private BaseElementFacade    ValidateStatusName;
+  private BaseElementFacade    validateStatusName;
 
   @FindBy(xpath = "(//*[@title='Add Task'])[1]")
-  private BaseElementFacade    PlusButtonToAddTask;
+  private BaseElementFacade    plusButtonToAddTask;
 
   @FindBy(xpath = "//*[@placeholder='Enter a title for this task']")
-  private BaseElementFacade    TileForTaskField;
+  private BaseElementFacade    titleForTaskField;
+  
+  @FindBy(xpath = "//*[contains(@class, 'v-navigation-drawer--open')]//button[@id='saveDescriptionButton']")
+  private BaseElementFacade    saveDescriptionButton;
 
   @FindBy(xpath = "(//*[@class='d-flex']//button[2])[2]")
-  private BaseElementFacade    SaveButtonTask;
+  private BaseElementFacade    saveButtonTask;
 
   private BaseElementFacade getTaskStatusColumn(String status) {
     return findByXPathOrCSS(String.format("(//*[contains(@class,'taskStatusName')]//*[@title='%s']/following::*[@class='taskTitleEllipsis'])[1]",
@@ -286,67 +280,65 @@ public class TasksPage extends GenericPage {
   }
 
   @FindBy(xpath = "(//*[@class='d-flex tasksViewHeaderLeft']/following::*[contains(@class,'uiIconVerticalDots')][1])[5]")
-  private BaseElementFacade fifthColumnThreeDotsIcon;
+  private BaseElementFacade                 fifthColumnThreeDotsIcon;
 
   @FindBy(xpath = "(//*[contains(@class,'uiIcon uiIconRotateRight')])[2]")
-  private BaseElementFacade addStatusafteroption;
+  private BaseElementFacade                 addStatusafteroption;
 
   @FindBy(xpath = "(//*[@title='Add Task'])[6]")
-  private BaseElementFacade PlusButtonToAddTaskOfTheSixthStatusColumn;
+  private BaseElementFacade                 PlusButtonToAddTaskOfTheSixthStatusColumn;
 
   @FindBy(xpath = "//*[@class='uiIcon uiIconList']")
-  private BaseElementFacade projectDetailsListButton;
+  private BaseElementFacade                 projectDetailsListButton;
 
   @FindBy(xpath = "//*[@class='drawerTitleAndProject d-flex']//span[contains(text(),'Edit task')]")
-  private BaseElementFacade editTaskDrawerSection;
+  private BaseElementFacade                 editTaskDrawerSection;
 
   @FindBy(xpath = "//*[contains(@class,'v-list-item__content drawerTitle')]//span[contains(text(),'Comments')]")
-  private BaseElementFacade commentsDrawerSection;
+  private BaseElementFacade                 commentsDrawerSection;
 
   @FindBy(xpath = "//*[contains(@class,'uiIconDelete')]")
-  private BaseElementFacade deleteStatusIcon;
+  private BaseElementFacade                 deleteStatusIcon;
 
   @FindBy(xpath = "//*[contains(@class,'uiIconArrowRight ')]")
-  private BaseElementFacade moveStatusAfterIcon;
+  private BaseElementFacade                 moveStatusAfterIcon;
 
   @FindBy(xpath = "//*[contains(@class,'uiIconArrowLeft ')]")
-  private BaseElementFacade moveStatusBeforeIcon;
+  private BaseElementFacade                 moveStatusBeforeIcon;
 
   @FindBy(xpath = "(//*[contains(@id,'task-board')]//*[contains(@class,'statusName')])[2]")
-  private BaseElementFacade secondStatusColumn;
+  private BaseElementFacade                 secondStatusColumn;
 
   @FindBy(xpath = "(//*[contains(@id,'task-board')]//*[contains(@class,'statusName')])[1]")
-  private BaseElementFacade firstStatusColumn;
+  private BaseElementFacade                 firstStatusColumn;
 
   @FindBy(xpath = "(//*[@class='d-flex']//button[2])[2]")
-  private BaseElementFacade saveAddingTaskSimpleProject;
-
-  @FindBy(xpath = "(//div[@class='v-list-item__action drawerIcons align-end d-flex flex-row']//button[@title='Close'])[3]")
-  private BaseElementFacade closeButtonDrawerSimpleProject;
+  private BaseElementFacade                 saveAddingTaskSimpleProject;
 
   @FindBy(xpath = "(//div[@class='pe-0 v-list-item theme--light']//button[@type='button'])[7]")
-  private BaseElementFacade plusIcon;
+  private BaseElementFacade                 plusIcon;
 
   @FindBy(xpath = "(//div[contains(@class,'v-list-item__action drawerIcons')]//button)[7]")
-  private BaseElementFacade plusIconProject;
+  private BaseElementFacade                 plusIconProject;
 
   @FindBy(xpath = "//i[contains(@class,'uiIconEcmsOnlyOfficeOpen ')]")
-  private BaseElementFacade editIcon;
+  private BaseElementFacade                 editIcon;
 
   @FindBy(xpath = "//div[@class='drawerTitle']/button[@type='button']")
-  private BaseElementFacade goBackIcon;
+  private BaseElementFacade                 goBackIcon;
 
   @FindBy(xpath = "//a[@title='Change location']")
-  private BaseElementFacade changeLocationLink;
+  private BaseElementFacade                 changeLocationLink;
 
   @FindBy(xpath = "//span[contains(text(),'Select Folder')]")
-  private BaseElementFacade drawerTitle;
+  private BaseElementFacade                 drawerTitle;
 
-  @FindBy(xpath = "(//div[@class='v-list-item__action drawerIcons align-end d-flex flex-row']//button[@title='Close'])[01]")
-  private BaseElementFacade closeEditTaskDrawer;
+  private Map<String, TextBoxElementFacade> taskMappingElements = new HashMap<>();
 
-  @FindBy(xpath = "(//div[@class='v-list-item__action drawerIcons align-end d-flex flex-row']//button[@title='Close'])[02]")
-  private BaseElementFacade closeEditTaskDrawerSimpleProject;
+  public TasksPage(WebDriver driver) {
+    super(driver);
+    taskMappingElements.put("taskName", taskNameField);
+  }
 
   private BaseElementFacade getTaskCommentReplyBtn(String comment) {
     return findByXPathOrCSS(
@@ -360,12 +352,11 @@ public class TasksPage extends GenericPage {
   }
 
   private BaseElementFacade getTaskName(String taskName) {
-    return findByXPathOrCSS(
-                            String.format("//div[@class='taskTitle pe-14 d-lg-block d-md-none']//a[@title='%s']", taskName));
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'taskTitle')]//*[contains(text(), '%s')]", taskName));
   }
 
   private BaseElementFacade getTaskToMarkAsCompleted(String taskName) {
-    return findByXPathOrCSS(String.format("//*[@class='taskTitleEllipsis' and contains(text(),'%s')]/preceding::*[@class='uiIconCircle'][1]",
+    return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'taskCard')]//*[contains(@class, 'uiIconCircle')]",
                                           taskName));
   }
 
@@ -392,9 +383,6 @@ public class TasksPage extends GenericPage {
   @FindBy(xpath = "//*[contains(@class,'drawerParent attachmentsListDrawer')]/following::*[@class='v-alert__content'][1]//span")
   private TextBoxElementFacade successMessage;
 
-  @FindBy(xpath = "(//div[@class='v-list-item__action drawerIcons align-end d-flex flex-row']//button[@title='Close'])[02]")
-  private BaseElementFacade    closeUploadDocButton;
-
   @FindBy(
       xpath = "//div[@class='attachmentsList']//a[@class='viewAllAttachments primary--text font-weight-bold text-decoration-underline']"
   )
@@ -403,15 +391,10 @@ public class TasksPage extends GenericPage {
   @FindBy(xpath = "//*[contains(@class ,'flex document-timeline-header ')]//button[contains(@class,'v-btn v-btn--flat')]")
   private BaseElementFacade    documentButton;
 
-  @FindBy(xpath = "//div[@class='v-list-item__action drawerIcons align-end d-flex flex-row']//button[@title='Close']")
-  private BaseElementFacade    closeUploadDocButtonSnapshot;
-
   @FindBy(xpath = "//*[contains(@class,'taskViewCard')]//*[@class='taskCheckBox']")
   private BaseElementFacade    markTaskCompletedOnTaskCard;
 
-  @FindBy(
-      xpath = "//*[@class='v-alert v-sheet theme--dark success']//*[@class='v-alert__content' and contains(text(),'Task successfully marked as completed')]"
-  )
+  @FindBy(xpath = "//*[contains(text(),'Task successfully marked as archived')]")
   private TextBoxElementFacade alertMessageAfterMarkTaskAsCompleted;
 
   @FindBy(xpath = "//*[@id='ProjectListToolbar']//button[contains(@class,' mdi-close theme')]")
@@ -467,12 +450,12 @@ public class TasksPage extends GenericPage {
   }
 
   private BaseElementFacade projectNameInProjectDetails(String projectName) {
-    return findByXPathOrCSS(String.format("//*[@id='projectListApplication']//*[contains(@class,'taskViewBreadcrumb')]//span[contains(text(),'%s')]",
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@class, 'projectTasksDashboard')]",
                                           projectName));
   }
 
   private BaseElementFacade taskNameInProjectDetails(String taskName) {
-    return findByXPathOrCSS(String.format("//*[contains(@class,'taskStatusName')]//*[@title='To Do']/following::*[@class='taskTitleEllipsis' and contains(text(),'%s')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class,'taskTitle')]//*[@title = '%s']",
                                           taskName));
   }
 
@@ -539,7 +522,7 @@ public class TasksPage extends GenericPage {
   }
 
   private BaseElementFacade getDescriptionForTask(String description) {
-    return findByXPathOrCSS(String.format("//*[@class='py-1 px-2 taskDescriptionToShow']//*[contains(text(),'%s')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'taskDescription')]//*[contains(text(), '%s')]",
                                           description));
   }
 
@@ -586,7 +569,7 @@ public class TasksPage extends GenericPage {
 
   public void setTaskCompletedInDrawer() {
     markTaskCompletedInDrawer.clickOnElement();
-    closeTaskDrawerButton.clickOnElement();
+    closeDrawer();
   }
 
   public void taskOrderInProjectDetails(String task, String number) {
@@ -685,12 +668,11 @@ public class TasksPage extends GenericPage {
   }
 
   public void closeProjectDrawer() {
-    closeProjectDrawerBtn.waitUntilVisible();
-    closeProjectDrawerBtn.clickOnElement();
+    closeDrawer();
   }
 
   public void projectDrawerNotClosing() {
-    assertTrue(closeProjectDrawerBtn.isVisibleAfterWaiting());
+    assertTrue(findByXPathOrCSS(".v-navigation-drawer--open").isVisible());
   }
 
   public void projectNameIsDisplayedInProjectDetails(String projectName) {
@@ -711,15 +693,14 @@ public class TasksPage extends GenericPage {
   }
 
   public void taskNameIsDisplayedInProjectDetails(String taskName) {
-    Assert.assertEquals(taskNameInProjectDetails(taskName).getText(), taskName);
+    BaseElementFacade taskElement = taskNameInProjectDetails(taskName);
+    assertTrue(taskElement.isVisibleAfterWaiting());
+    Assert.assertEquals(taskElement.getText(), taskName);
   }
 
   public void taskNameIsNotDisplayedInProjectDetails(String taskName) {
-    if (tasksNameToDo.isVisibleAfterWaiting()) {
-      Assert.assertFalse(tasksNameToDo.getText().contains(taskName));
-    } else {
-      assertTrue(tasksNameToDo.isNotVisibleAfterWaiting());
-    }
+    BaseElementFacade taskElement = taskNameInProjectDetails(taskName);
+    assertTrue(taskElement.isNotVisibleAfterWaiting());
   }
 
   public void removeLabelToProject(String label) {
@@ -787,12 +768,6 @@ public class TasksPage extends GenericPage {
     clickOnElement(tabLink);
   }
 
-  Map<String, TextBoxElementFacade> ADD_TASK_MAPPING_CONTAINER_NAME_TO_BASEELEMENTFACADE_XPATH = new HashMap<>() {
-    {
-      put("taskName", taskNameField);
-    }
-  };
-
   public void clickStatusName(String statusColumn) {
     getStatusColumn(statusColumn).waitUntilVisible();
     getStatusColumn(statusColumn).clickOnElement();
@@ -839,8 +814,7 @@ public class TasksPage extends GenericPage {
     commentTaskButton.clickOnElement();
     goBackToTaskDrawerFromComments.waitUntilVisible();
     goBackToTaskDrawerFromComments.clickOnElement();
-    closeTaskDrawerButton.waitUntilVisible();
-    closeTaskDrawerButton.clickOnElement();
+    closeDrawer();
   }
 
   @SwitchToWindow
@@ -850,11 +824,10 @@ public class TasksPage extends GenericPage {
     commentTaskButton.clickOnElement();
     goBackToTaskDrawerFromComments.waitUntilVisible();
     goBackToTaskDrawerFromComments.clickOnElement();
-    closeTaskDrawerButton.waitUntilVisible();
-    closeTaskDrawerButton.clickOnElement();
+    closeDrawer();
   }
 
-  public void closetaskCommentsDrawer() {
+  public void closeTaskCommentsDrawer() {
     goBackToTaskDrawerFromComments.waitUntilVisible();
     goBackToTaskDrawerFromComments.clickOnElement();
   }
@@ -866,11 +839,6 @@ public class TasksPage extends GenericPage {
   public void more1250CharsInformationIsDisplayed() {
     assertTrue(more1250CharsCountInfo.isVisibleAfterWaiting());
     Assert.assertEquals(more1250CharsCountInfo.getCssValue("color"), "rgba(188, 67, 67, 1)");
-  }
-
-  public void closetaskDrawer() {
-    closeTaskDrawerButton.waitUntilVisible();
-    closeTaskDrawerButton.clickOnElement();
   }
 
   public void confirmFilter() {
@@ -933,7 +901,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void setTaskDetails(String taskDetails, String fieldValue) {
-    ADD_TASK_MAPPING_CONTAINER_NAME_TO_BASEELEMENTFACADE_XPATH.get(taskDetails).setTextValue(fieldValue);
+    taskMappingElements.get(taskDetails).setTextValue(fieldValue);
   }
 
   public void openFilterDrawer() {
@@ -1185,20 +1153,20 @@ public class TasksPage extends GenericPage {
   }
 
   public void clickOnValidateStatusName() {
-    ValidateStatusName.clickOnElement();
+    validateStatusName.clickOnElement();
   }
 
   public void ClickOnPlusButtonToAddTask() {
-    PlusButtonToAddTask.clickOnElement();
+    plusButtonToAddTask.clickOnElement();
   }
 
-  public void enterTileForTask(String title) {
-    TileForTaskField.waitUntilVisible();
-    TileForTaskField.sendKeys(title);
+  public void enterTitleForTask(String title) {
+    titleForTaskField.waitUntilVisible();
+    titleForTaskField.sendKeys(title);
   }
 
   public void ClickOnSaveButtonToAddTask() {
-    SaveButtonTask.clickOnElement();
+    saveButtonTask.clickOnElement();
   }
 
   public void taskNameIsDisplayedInDesiredColumn(String status, String taskName) {
@@ -1228,7 +1196,6 @@ public class TasksPage extends GenericPage {
 
   public void checkDeletedStatus(String statusColumn) {
     assertTrue(getStatusColumn(statusColumn).isNotVisibleAfterWaiting());
-    assertTrue(alertMessageAfterStatusDeletion.isVisibleAfterWaiting());
   }
 
   public void checkMoveStatusBeforeIconIsNotDisplayed() {
@@ -1280,22 +1247,12 @@ public class TasksPage extends GenericPage {
     assertTrue(successMessage.getText().contains(message));
   }
 
-  public void closeUploadDocDrawer() {
-    closeUploadDocButton.waitUntilVisible();
-    closeUploadDocButton.clickOnElement();
-  }
-
   public void checkViewLinkAttachments() {
     assertTrue(viewAttachmentsLink.isVisibleAfterWaiting());
   }
 
   public void clickDocButton() {
     documentButton.clickOnElement();
-  }
-
-  public void closeUploadDocDrawerSnapshot() {
-    closeUploadDocButtonSnapshot.waitUntilVisible();
-    closeUploadDocButtonSnapshot.clickOnElement();
   }
 
   public void markTaskAsCompletedFromTaskCard() {
@@ -1328,11 +1285,6 @@ public class TasksPage extends GenericPage {
 
   public void saveAddTaskSimpleProject() {
     saveAddingTaskSimpleProject.clickOnElement();
-  }
-
-  public void closeUploadDocDrawerSimpleProject() {
-    closeButtonDrawerSimpleProject.waitUntilVisible();
-    closeButtonDrawerSimpleProject.clickOnElement();
   }
 
   public void openTaskDrawer(String taskName) {
@@ -1441,12 +1393,11 @@ public class TasksPage extends GenericPage {
   }
 
   public void closeEditTaskDrawer() {
-    closeEditTaskDrawer.clickOnElement();
+    closeDrawer();
   }
 
   public void closeEditTaskDrawerSimpleProject() {
-    closeEditTaskDrawerSimpleProject.waitUntilVisible();
-    closeEditTaskDrawerSimpleProject.clickOnElement();
+    closeDrawer();
   }
 
   @FindBy(xpath = "(//*[contains(@id,'DatePicker')])[2]//input")
@@ -1468,20 +1419,6 @@ public class TasksPage extends GenericPage {
     ELEMENT_TASK_DUE_DATE.waitUntilVisible();
     ELEMENT_TASK_DUE_DATE.clickOnElement();
     ELEMENT_TASK_DUE_DATE_TOMORROW.clickOnElement();
-  }
-
-  private BaseElementFacade getTaskTitleDateFromWidget(String taskName) {
-    return findByXPathOrCSS(String.format("(//*[@id='TasksContainer']//div[@class='v-list-item__title' and text()='%s'])[1]",
-                                          taskName));
-  }
-
-  public void checkTaskFromWidget(String taskName) {
-    assertTrue(getTaskTitleDateFromWidget(taskName).isVisibleAfterWaiting());
-  }
-
-  public void openTaskFromWidget(String taskName) {
-    assertTrue(getTaskTitleDateFromWidget(taskName).isVisibleAfterWaiting());
-    getTaskTitleDateFromWidget(taskName).clickOnElement();
   }
 
   @FindBy(xpath = "(//*[@class='taskAssignBtn mt-n1'])")
@@ -1631,23 +1568,15 @@ public class TasksPage extends GenericPage {
   @FindBy(xpath = "//*[@class='v-label theme--light'and text()='Assignee']")
   private static BaseElementFacade assigneeRadioButton;
 
-  @FindBy(xpath = "//clearinput[@value='assignee' and @aria-checked='true']")
-  private static BaseElementFacade checkAssigneeRadioSelected;
-
-  @FindBy(xpath = "//input[@value='assignee' and @aria-checked='false']")
-  private static BaseElementFacade checkAssigneeRadioNotSelected;
-
   @FindBy(xpath = "//*[@class='btn btn-primary v-btn v-btn--contained theme--light v-size--default']")
   private BaseElementFacade        confirmButtonDrawer;
 
   @FindBy(xpath = "//*[@class='uiIcon uiBackIcon']")
   private BaseElementFacade        backButtonProject;
 
-  @FindBy(xpath = "//*[@class='v-list-item__action drawerIcons align-end d-flex flex-row']")
-  private BaseElementFacade        closeDrawerFilter;
-
   public void clickFilterButton() {
     filterButton.clickOnElement();
+    waitForDrawerToOpen();
   }
 
   public void clickOnAssigneeRadioButton() {
@@ -1664,17 +1593,13 @@ public class TasksPage extends GenericPage {
     backButtonProject.clickOnElement();
   }
 
-  public void checkRadioButtonSelected() {
-    assertTrue(checkAssigneeRadioSelected.isVisibleAfterWaiting());
-  }
-
   public void closeSortAndFilterDrawer() {
-    closeDrawerFilter.waitUntilVisible();
-    closeDrawerFilter.clickOnElement();
+    closeDrawer();
   }
 
-  public void checkRadioButtonNotSelected() {
-    assertTrue(checkAssigneeRadioNotSelected.isVisibleAfterWaiting());
+  public void checkGroupingSelected(String groupingValue) {
+    assertTrue(findByXPathOrCSS(String.format("//*[contains(@class, 'v-navigation-drawer--open')]//input[@aria-checked='true' and @value='%s']//ancestor::*[contains(@class, 'v-radio')]",
+                                              groupingValue)).isVisibleAfterWaiting());
   }
 
   public void deleteCookies() {
@@ -1690,17 +1615,15 @@ public class TasksPage extends GenericPage {
     taskDescriptionField.clickOnElement();
     driver.switchTo().frame(switchToFrameTask);
     try {
-      taskDescriptionFieldIframe.waitUntilVisible();
-      taskDescriptionFieldIframe.setTextValue(description);
+      taskDescriptionBodyField.waitUntilVisible();
+      taskDescriptionBodyField.setTextValue(description);
     } finally {
       driver.switchTo().defaultContent();
     }
-
-    TileForTaskField.clickOnElement();
   }
 
   public void checkDescriptionDisplay(String description) {
-    assertTrue(getDescriptionForTask(description).isDisplayed());
+    assertTrue(getDescriptionForTask(description).isVisibleAfterWaiting());
   }
 
   @SwitchToWindow
@@ -1708,15 +1631,14 @@ public class TasksPage extends GenericPage {
     taskDescriptionField.clickOnElement();
     driver.switchTo().frame(switchToFrameTaskUser);
     try {
-      taskDescriptionFieldIframe.clickOnElement();
-      taskDescriptionFieldIframe.waitUntilVisible();
-      taskDescriptionFieldIframe.clear();
-      taskDescriptionFieldIframe.setTextValue(newDescription);
+      taskDescriptionBodyField.waitUntilVisible();
+      taskDescriptionBodyField.setTextValue(newDescription);
     } finally {
       driver.switchTo().defaultContent();
     }
 
-    TileForTaskField.clickOnElement();
+    updateButtonDescription.clickOnElement();
+    verifyPageLoaded();
   }
 
   @FindBy(xpath = "//*[contains(text(),'Edit task')]")
@@ -1795,7 +1717,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void clickOnUpDateButton() {
-    upDateButtonDescription.clickOnElement();
+    updateButtonDescription.clickOnElement();
   }
 
   public void clonetaskinspaceproject() {

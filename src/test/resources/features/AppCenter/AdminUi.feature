@@ -21,7 +21,7 @@ Feature: UI app administration
   Scenario: CAP79-[Admin_UI_US07][02]:Delete an app
     Given I am authenticated as admin
     And I go to Administer application center Page
-    When I add a new application with the random following data
+    When I add a new random application
     And I search for the random created application
     And I delete the created application
     And I open the app center menu
@@ -34,7 +34,7 @@ Feature: UI app administration
   Scenario:CAP80-[Admin_UI_US07][03]:Cancel button /close icon
     Given I am authenticated as admin
     And I go to Administer application center Page
-    When I add a new application with the random following data
+    When I add a new random application
     And I search for the random created application
     And I click on delete icon of the created application
     And I click on cancel delete application
@@ -53,7 +53,7 @@ Feature: UI app administration
 
     When I create the first random user if not existing
     And I go to Administer application center Page
-    And I add a new application with the random following data
+    And I add a new random application
     And I search for the random created application
     And I enable Mandatory for the created application
     And I connect with the first created user
@@ -87,7 +87,7 @@ Feature: UI app administration
 
     And I create the first random user if not existing
     And I go to Administer application center Page
-    And I add a new application with the random following data
+    And I add a new random application
 
     And I connect with the first created user
     And I see All Applications
