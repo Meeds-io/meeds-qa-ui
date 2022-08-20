@@ -72,7 +72,7 @@ Feature: Rules
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
     And I select 'Tasks' tab
-    And The following task is created
+    And I create the following task
       | taskName | taskgamification |
     And I go to my profile
     Then My points augmented
@@ -82,7 +82,7 @@ Feature: Rules
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
     And I select 'Tasks' tab
-    And The following task is created
+    And I create the following task
       | taskName | taskcompleted |
     And I go to my profile
     And I check my points

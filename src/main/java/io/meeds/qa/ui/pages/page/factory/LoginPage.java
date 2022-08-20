@@ -1,6 +1,7 @@
 package io.meeds.qa.ui.pages.page.factory;
 
 import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.BaseElementFacade;
@@ -17,12 +18,16 @@ public class LoginPage extends GenericPage implements IsHidden {
   }
 
   public void login(String login, String password) {
-    TextBoxElementFacade loginTextBox = findTextBoxElementByXpath("//*[@id='username']");
-    loginTextBox.setTextValue(login);
-    TextBoxElementFacade passwordTextbox = findTextBoxElementByXpath("//*[@id='password']");
-    passwordTextbox.setTextValue(password);
-    BaseElementFacade loginButton = findByXPathOrCSS("//*[contains(@class, 'loginButton')]//button");
-    clickOnElement(loginButton);
+    try {
+      TextBoxElementFacade loginTextBox = findTextBoxElementByXpath("//*[@id='username']");
+      loginTextBox.setTextValue(login);
+      TextBoxElementFacade passwordTextbox = findTextBoxElementByXpath("//*[@id='password']");
+      passwordTextbox.setTextValue(password);
+      BaseElementFacade loginButton = findByXPathOrCSS("//*[contains(@class, 'loginButton')]//button");
+      clickOnElement(loginButton);
+    } catch (StaleElementReferenceException e) {
+      login(login, password); // Retry by refreshing elements
+    }
   }
 
   public void clearCookies() {

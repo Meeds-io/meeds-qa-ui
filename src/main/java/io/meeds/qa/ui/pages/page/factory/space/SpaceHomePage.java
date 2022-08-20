@@ -845,8 +845,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void hoverOnLikeIcon(String comment) {
-    Actions oAction = new Actions(driver);
-    oAction.contextClick(getLikeCommentIcon(comment)).build().perform();
+    getLikeCommentIcon(comment).hover();
   }
 
   public String getActivityId(String activity) {
@@ -885,8 +884,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void hoverOnLikeIconCommentsDrawer(String comment) {
-    Actions oAction = new Actions(driver);
-    oAction.contextClick(getCommentsDrawerLikeCommentIcon(comment)).build().perform();
+    getCommentsDrawerLikeCommentIcon(comment).hover();
   }
 
   public void openCommentsDrawer(String activityId) {
@@ -945,8 +943,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void hoverOnMentionedUserInPost(String activity, String user) {
-    Actions oAction = new Actions(driver);
-    oAction.contextClick(getUserMentionedInPost(activity, user)).build().perform();
+    getUserMentionedInPost(activity, user).hover();
   }
 
   public void isMentionedUserDisplayedInPost(String activity, String user) {

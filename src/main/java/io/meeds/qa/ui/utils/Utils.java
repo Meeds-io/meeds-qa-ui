@@ -207,7 +207,11 @@ public class Utils {
           return supplier.get();
         } catch (Throwable e) {// NOSONAR
           if (++retry == MAX_WAIT_RETRIES) {
-            throw new IllegalStateException("Unable to process on element after " + retry + " retries", e);
+            if (e instanceof RuntimeException) {
+              throw e;
+            } else {
+              throw new IllegalStateException("Unable to process on element after " + retry + " retries", e);
+            }
           } else {
             LOGGER.debug("Error processing event on element. retry = {}/{}", retry, MAX_WAIT_RETRIES);
             releaseWindowTemporarely(decoratedWebDriver, null, e.getMessage(), 500);

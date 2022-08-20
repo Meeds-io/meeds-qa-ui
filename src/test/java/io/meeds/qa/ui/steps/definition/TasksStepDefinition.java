@@ -29,11 +29,6 @@ public class TasksStepDefinition {
   @Steps
   ManageSpaceSteps manageSpaceSteps;
 
-  @Given("^The following task is created$")
-  public void addTask(Map<String, String> userDetails) {
-    tasksSteps.addTask(userDetails);
-  }
-
   @When("^Status name '(.*)' Edit mode is opened successfully$")
   public void isStatusEditModeDisplayed(String statusColumn) {
     assertThat(tasksSteps.isStatusEditModeDisplayed(statusColumn)).as("Status edit mode is opened successfully")
@@ -77,8 +72,9 @@ public class TasksStepDefinition {
   }
 
   @Given("I create the following task in selected project")
-  public void addTaskInProject(Map<String, String> userDetails) {
-    tasksSteps.addTaskInProject(userDetails);
+  @And("I create the following task")
+  public void addTaskInProject(Map<String, String> taskDetails) {
+    tasksSteps.addTaskInProject(taskDetails);
   }
 
   @When("^I add this comment '(.*)' in task$")
@@ -938,7 +934,7 @@ public class TasksStepDefinition {
 
   @And("^The task is created in the specific project$")
   public void addTaskInSimpleProject(Map<String, String> userDetails) {
-    tasksSteps.addTaskInSimpleProject(userDetails);
+    tasksSteps.addSimpleTaskProject(userDetails);
   }
 
   @When("^I open the created task '(.*)'$")

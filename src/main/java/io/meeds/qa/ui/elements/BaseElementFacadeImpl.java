@@ -324,6 +324,11 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
     action.moveToElement(we).build().perform();
   }
 
+  public void hover() {
+    Actions action = new Actions(driver);
+    action.moveToElement(this).build().perform();
+  }
+
   @Override
   public WebDriver getDriver() {
     return driver;

@@ -155,4 +155,5 @@ Feature: Filter Drawer
     And I edit this project title 'test project edited '
     And I refresh the page
     And I search for the created project 'test project edited'
+    And I open the project 'test project edited'
     Then The project 'test project edited' is displayed in project details

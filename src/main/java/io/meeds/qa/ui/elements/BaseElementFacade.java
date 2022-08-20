@@ -86,8 +86,15 @@ public interface BaseElementFacade extends WebElementFacade {
 
   /**
    * this method is to make the mouse hover over the selected element.
+   * 
+   * @param xpath 
    */
   public void hover(String xpath);
+
+  /**
+   * this method is to make the mouse hover over the selected element.
+   */
+  public void hover();
 
   /**
    * @return currently used {@link WebDriver}

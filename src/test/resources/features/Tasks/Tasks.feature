@@ -29,7 +29,7 @@ Feature: Tasks
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
     When I select 'Tasks' tab
-    And The following task is created
+    And I create the following task
       | taskName | task1 |
     And I start the search for Task 'task1'
     Then A clear button is displayed in the Filter by task field
@@ -46,7 +46,7 @@ Feature: Tasks
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
     When I select 'Tasks' tab
-    And The following task is created
+    And I create the following task
       | taskName | testE |
     When I open the created task 'testE'
     And I click on three dots task option
@@ -245,9 +245,9 @@ Feature: Tasks
     And I open the task 'task E'
     And I mark the task as completed in task drawer without closing the drawer
     Then The task is marked as completed in task drawer
+    Then An alert message Task successfully marked as archived is displayed
 
     When I close task drawer
-    Then An alert message Task successfully marked as archived is displayed
     And Task name 'taskE' is not displayed in project details
     And Tasks number '0' is displayed in the column To Do
 

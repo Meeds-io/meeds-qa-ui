@@ -6,15 +6,9 @@ import io.meeds.qa.ui.pages.page.factory.tasks.TasksPage;
 
 public class TasksSteps {
 
-  private TasksPage tasksPage;
+  private static final String TASK_NAME_PARAM = "taskName";
 
-  public void addTask(Map<String, String> taskDetails) {
-    tasksPage.clickAddTaskButton();
-    for (String fieldsName : taskDetails.keySet()) {
-      tasksPage.setTaskDetails(fieldsName, taskDetails.get(fieldsName));
-    }
-    tasksPage.saveAddTaskButton();
-  }
+  private TasksPage           tasksPage;
 
   public boolean isStatusEditModeDisplayed(String statusColumn) {
     return tasksPage.isStatusEditModeDisplayed(statusColumn);
@@ -57,10 +51,8 @@ public class TasksSteps {
   }
 
   public void addTaskInProject(Map<String, String> taskDetails) {
-    tasksPage.clickAddTaskInProjectButton();
-    for (String fieldsName : taskDetails.keySet()) {
-      tasksPage.setTaskDetails(fieldsName, taskDetails.get(fieldsName));
-    }
+    tasksPage.clickAddTaskButton();
+    tasksPage.setTaskName(taskDetails.get(TASK_NAME_PARAM));
     tasksPage.saveAddTaskButton();
   }
 
@@ -69,7 +61,7 @@ public class TasksSteps {
     tasksPage.commentTask(comment);
   }
 
-  public void addNewCommentInTaskWithMentioningTheFirstUserInTask(String comment, String user)  {
+  public void addNewCommentInTaskWithMentioningTheFirstUserInTask(String comment, String user) {
     tasksPage.addNewCommentInTaskWithMentioningTheFirstUserInTask(comment, user);
   }
 
@@ -115,10 +107,8 @@ public class TasksSteps {
   }
 
   public void addTaskWithLabelInProject(String label, Map<String, String> taskDetails) {
-    tasksPage.clickAddTaskInProjectButton();
-    for (String fieldsName : taskDetails.keySet()) {
-      tasksPage.setTaskDetails(fieldsName, taskDetails.get(fieldsName));
-    }
+    tasksPage.clickAddTaskButton();
+    tasksPage.setTaskName(taskDetails.get(TASK_NAME_PARAM));
     tasksPage.enterLabelTask(label);
     tasksPage.saveAddTaskButton();
   }
@@ -608,12 +598,10 @@ public class TasksSteps {
     tasksPage.checkTypedProjectIsRemoved(typedProject);
   }
 
-  public void addTaskInSimpleProject(Map<String, String> taskDetails) {
-    tasksPage.clickAddTaskInProjectButton();
-    for (String fieldsName : taskDetails.keySet()) {
-      tasksPage.setTaskDetails(fieldsName, taskDetails.get(fieldsName));
-    }
-    tasksPage.saveAddTaskSimpleProject();
+  public void addSimpleTaskProject(Map<String, String> taskDetails) {
+    tasksPage.clickQuickAddTaskButton();
+    tasksPage.setQuickTaskName(taskDetails.get(TASK_NAME_PARAM));
+    tasksPage.saveQuickTask();
   }
 
   public void openTaskCreated(String taskName) {
