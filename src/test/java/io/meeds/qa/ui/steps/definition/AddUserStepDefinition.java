@@ -103,9 +103,9 @@ public class AddUserStepDefinition {
     addUserSteps.searchForUsersByName(fullName);
   }
 
-  @Given("^I search for the created random user$")
-  public void searchForCreatedUser() {
-    addUserSteps.searchForUsersByName(sessionVariableCalled("firstUserName"));
+  @Given("^I search for the (.*) random user$")
+  public void searchForCreatedUser(String userPrefix) {
+    addUserSteps.searchForUsersByName(sessionVariableCalled(userPrefix + "UserName"));
   }
 
   @Given("^I delete user$")
@@ -118,12 +118,10 @@ public class AddUserStepDefinition {
     addUserSteps.checkUserIsDeleted(fullName);
   }
 
-  @Given("^I check that the created user is deleted$")
-  public void checkCreatedUserIsDeleted() {
-    String firstUserFirstName = sessionVariableCalled("firstUserFirstName");
-    String firstUserLastName = sessionVariableCalled("firstUserLastName");
-    String firstUserFullName = firstUserFirstName + " " + firstUserLastName;
-    addUserSteps.checkUserIsDeleted(firstUserFullName);
+  @Given("^I check that the (.*) random user is deleted$")
+  public void checkCreatedUserIsDeleted(String userPrefix) {
+    String userLastName = sessionVariableCalled(userPrefix + "UserLastName");
+    addUserSteps.checkUserIsDeleted(userLastName);
   }
 
   @Given("^I click to delete user$")

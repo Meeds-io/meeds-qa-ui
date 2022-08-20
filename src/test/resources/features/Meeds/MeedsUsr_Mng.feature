@@ -30,18 +30,17 @@ Feature: Users Management
   Scenario: [USR_MNG-1.5] Delete User
     Given I am authenticated as admin
 
-    When I create the first random user if not existing
+    When I create the firsttodelete random user if not existing
 
     And I refresh the page
-    Then I search for the created random user
+    Then I search for the firsttodelete random user
     And I delete user
 
     When I refresh the page
-    And I search for the created random user
-    Then I check that the created user is deleted
+    And I search for the firsttodelete random user
+    Then I check that the firsttodelete random user is deleted
 
     When I refresh the page
     And I search for created user 'admin'
     And I click to delete user
     Then Popup is displayed to inform user that we can't delete your user account while being logged in with it
-

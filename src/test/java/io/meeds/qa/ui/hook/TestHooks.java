@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 
 import io.cucumber.java.After;
@@ -18,6 +19,7 @@ import io.meeds.qa.ui.steps.LoginSteps;
 import io.meeds.qa.ui.steps.ManageBadgesSteps;
 import io.meeds.qa.ui.steps.ManageSpaceSteps;
 import io.meeds.qa.ui.steps.definition.ManageSpaceStepDefinitions;
+import io.meeds.qa.ui.utils.ExceptionLauncher;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 
@@ -52,11 +54,8 @@ public class TestHooks {
     String adminPassword = System.getProperty("adminPassword");
     Serenity.setSessionVariable("admin-password").to(adminPassword);
     adminLoggedIn = false;
-    loginSteps.open();
-    WebDriver driver = Serenity.getDriver();
-    driver = decorateDriver(driver);
-    driver.manage().deleteAllCookies();
-    driver.navigate().refresh();
+
+    decorateDriver(Serenity.getDriver());
 
     SPACES.entrySet().forEach(entry -> {
       if (StringUtils.isNotBlank(entry.getValue())) {
@@ -75,6 +74,7 @@ public class TestHooks {
     homeSteps.refreshPage();
     deleteGamificationBadges();
     deleteAppCenterApplications();
+    cleanupBrowser();
   }
 
   public static void spaceWithPrefixDeleted(String spaceNamePrefix) {
@@ -95,6 +95,7 @@ public class TestHooks {
     USERS.put(userPrefix + "UserFirstName", firstName);
     USERS.put(userPrefix + "UserLastName", lastName);
     USERS.put(userPrefix + "UserPassword", password);
+    USERS.put(userPrefix + "UserEmail", email);
     USERS.put(userName + "-password", password);
   }
 
@@ -135,6 +136,26 @@ public class TestHooks {
     if (!adminLoggedIn) {
       loginSteps.logoutLogin("admin");
       adminLoggedIn = true;
+    }
+  }
+
+  private void cleanupBrowser() {
+    try {
+      WebDriver driver = Serenity.getDriver();
+      String currentUrl = driver.getCurrentUrl();
+      driver.manage().deleteAllCookies();
+      driver.get(currentUrl.split("/portal/")[0]);
+      closeAlertIfExists(driver);
+    } catch (Throwable e) { // NOSONAR
+      ExceptionLauncher.LOGGER.warn("Error while cleaning browser", e);
+    }
+  }
+
+  private void closeAlertIfExists(WebDriver driver) {
+    try {
+      driver.switchTo().alert().accept();
+    } catch (NoAlertPresentException e) {
+      // Normal Behavior
     }
   }
 

@@ -18,6 +18,7 @@ public class LoginPage extends GenericPage implements IsHidden {
   }
 
   public void login(String login, String password) {
+    verifyPageLoaded();
     try {
       TextBoxElementFacade loginTextBox = findTextBoxElementByXpath("//*[@id='username']");
       loginTextBox.setTextValue(login);
@@ -25,8 +26,10 @@ public class LoginPage extends GenericPage implements IsHidden {
       passwordTextbox.setTextValue(password);
       BaseElementFacade loginButton = findByXPathOrCSS("//*[contains(@class, 'loginButton')]//button");
       clickOnElement(loginButton);
-    } catch (StaleElementReferenceException e) {
-      login(login, password); // Retry by refreshing elements
+    } catch (RuntimeException e) {
+      if (e instanceof StaleElementReferenceException || e.getCause() instanceof StaleElementReferenceException) {
+        login(login, password); // Retry by refreshing elements
+      }
     }
   }
 
