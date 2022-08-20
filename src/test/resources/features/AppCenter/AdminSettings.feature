@@ -7,7 +7,7 @@ Feature: Administration settings
 	@appcenterSettings
   Scenario: CAP50 - Admin_Settings_US06:Active option
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I go to Administer application center Page
     When I add a new application with the random following data
     And I connect with the first created user
@@ -26,6 +26,7 @@ Feature: Administration settings
 
   @appcenter
   @appcenterSettings
+  @test
   Scenario: CAP53 - Edit an app which contain an attached image
     Given I am authenticated as admin
 
@@ -57,6 +58,7 @@ Feature: Administration settings
 
   @appcenter
   @appcenterSettings
+  @test
   Scenario: CAP55 - Edit the title ,URL, description field for an app
     Given I am authenticated as admin
 
@@ -75,9 +77,10 @@ Feature: Administration settings
 
   @appcenter
   @appcenterSettings
+  @test
   Scenario: CAP56 - Admin_Settings_US04: Default permissions for an app
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
 
     And I go to Administer application center Page
     When I add a new random application with the title, the url and the description

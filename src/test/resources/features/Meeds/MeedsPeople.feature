@@ -31,11 +31,11 @@ Feature: Search for Contacts in People page
     And I refresh the page
 
     When I connect with the dedicated user to be an administrator
-    When I create the first random user
-    And I create the second random user
-    And I create the third random user
+    When I create the first random user if not existing
+    And I create the second random user if not existing
+    And I create the third random user if not existing
     And I refresh the page
-    And I create the fourth random user
+    And I create the fourth random user if not existing
 
     When I go to Person Page
     Then The suggestion widget is existing and displayed two users with Add button and Delete buttons
@@ -60,10 +60,10 @@ Feature: Search for Contacts in People page
   Scenario: : PEOPLE-7 : Leaderboard in the People Cards list application
     Given I am authenticated as admin
 
-    When I create the first random user
-    And I create the second random user
-    And I create the third random user
-    And I create the fourth random user
+    When I create the first random user if not existing
+    And I create the second random user if not existing
+    And I create the third random user if not existing
+    And I create the fourth random user if not existing
 
     And I go to Person Page
     Then Leaderboard Widget is displayed with title 'Leaderboard'

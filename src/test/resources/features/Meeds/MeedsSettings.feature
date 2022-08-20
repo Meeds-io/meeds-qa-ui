@@ -50,7 +50,7 @@ Feature: Edit sections in Settings page
   Scenario: : SETTINGS-7 : Security on settings
     Given I am authenticated as admin
 
-    And I create the first random user
+    And I create the first random user if not existing
     And I connect with the first created user
     And I go to Settings page
     Then Settings Page Is Opened
@@ -79,7 +79,7 @@ Feature: Edit sections in Settings page
   Scenario: : SETTINGS-8 : Notifications section (Disable Notifications)
     Given I am authenticated as admin
 
-    When I create the first random user
+    When I create the first random user if not existing
 
     Then I connect with the first created user
 

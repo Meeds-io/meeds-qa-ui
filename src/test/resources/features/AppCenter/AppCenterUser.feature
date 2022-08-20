@@ -9,6 +9,7 @@ Feature: To be able to access applications
     Given I am authenticated as admin
     Then my applications button is displayed
 
+  @test
   Scenario: CAP06 - Open an application from the AppCenter drawer
     Given I am authenticated as admin
     When I go To AppCenter Drawer
@@ -39,6 +40,7 @@ Feature: To be able to access applications
     And I go to Administer application center Page
     And I enable Mandatory 'Wallet' for application
 
+  @test
   Scenario: CAP16 - Design V6-Buttons of an Application card
     Given I am authenticated as admin
 
@@ -49,11 +51,12 @@ Feature: To be able to access applications
 
     Then 'Notes' Application Open Button is displayed
 
+  @test
   Scenario: CAP17 - Design V6-Star button of an app card
     Given I am authenticated as admin
     And I go to Administer application center Page
     And I disable Mandatory 'Challenges' for application
-    And I create the first random user
+    And I create the first random user if not existing
     And I go to groups Management page
     And I open the group 'Platform'
     When I select the group 'Administration'
@@ -83,6 +86,7 @@ Feature: To be able to access applications
     When I see All Applications
     Then All Applications Page is Displayed
 
+  @test
   Scenario: CAP19 - [User_UI_US12][02]: Design V6-Open button of an external app card
     Given I am authenticated as admin
 
@@ -93,9 +97,10 @@ Feature: To be able to access applications
     And I click on 'Tasks' Application Open Button
     Then Tasks Application Page is displayed
 
+  @test
   Scenario: CAP24 - Unfavorite app from right panel "Favorite applications"
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I go to Administer application center Page
     And I disable Mandatory 'Tasks' for application
     And I go to groups Management page
@@ -123,11 +128,12 @@ Feature: To be able to access applications
     And I go to Administer application center Page
     And I enable Mandatory 'Tasks' for application
 
+  @test
   Scenario: CAP26 - [User_Settings_US03]: Max number of fav apps/Mandatory apps
     Given I am authenticated as admin
     And I go to Administer application center Page
     And I disable Mandatory 'Tasks' for application
-    And I create the first random user
+    And I create the first random user if not existing
     And I go to groups Management page
     And I open the group 'Platform'
     When I select the group 'Administration'
@@ -154,6 +160,7 @@ Feature: To be able to access applications
     And I go to Administer application center Page
     And I enable Mandatory 'Tasks' for application
 
+  @test
   Scenario: CAP34 - [User_UI_US021][02]: Check the display of Mandatory apps when its no longer considered as mandatory app
     Given I am authenticated as admin
     When I go to Administer application center Page

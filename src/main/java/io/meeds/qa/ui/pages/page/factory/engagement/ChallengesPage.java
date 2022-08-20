@@ -14,34 +14,37 @@ import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class ChallengesPage extends GenericPage {
-  private static final String IDENTITY_SUGGESTER_ELEMENT =
-                                                         "//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]";
 
-  public ChallengesPage(WebDriver driver) {
-    super(driver);
-  }
+  private static final String  CHALLENGE_CARD_ANNOUNCE_BUTTON_XPATH = "//button[contains(@class, 'btnAdd')]";
 
-  @FindBy(xpath = "(//*[@class='v-toolbar__content']//*[contains(@class,'d-lg-inline')])[01]")
-  private BaseElementFacade addChallengeBtn;
+  private static final String  CHALLENGE_CARD_DATE_XPATH            = "//*[contains(@class, 'date')]";
 
-  public void checkAddChallengeBtn() {
-    assertTrue(addChallengeBtn.isVisibleAfterWaiting()); // NOSONAR
-  }
+  private static final String  CHALLENGE_CARD_TITLE_XPATH           = "//*[contains(text(),'%s')]"
+      + "//ancestor::*[contains(@class, 'cardOfChallenge')]";
 
-  public void isAddChallengeBtnDisplayed() {
-    addChallengeBtn.shouldNotBeVisible();
-  }
+  private static final String  CHALLENGE_CARD_THREE_DOTS_XPATH      = "//*[contains(@class ,'fa-ellipsis-v')]//ancestor::button";
 
-  @FindBy(xpath = "//*[contains(@class ,'v-list-item__content drawerTitle')]")
+  private static final String  IDENTITY_SUGGESTER_ELEMENT           = "//div[contains(@class,'identitySuggestionMenuItemText') "
+      + "and contains(text(),'%s')]";
+
+  @FindBy(css = ".challenges-application .addChallengeButton button.btn-primary")
+  private BaseElementFacade    addChallengeBtn;
+
+  @FindBy(css = ".challengeDrawer.v-navigation-drawer--open")
   private BaseElementFacade    headerChallengeDrawer;
 
-  @FindBy(xpath = "//*[contains(@class,'challenge-title')]//textarea")
+  @FindBy(css = "#announcementDrawer.v-navigation-drawer--open")
+  private BaseElementFacade    announcementHeaderDrawer;
+
+  @FindBy(css = ".v-navigation-drawer--open .challenge-title textarea")
   private TextBoxElementFacade challengeTitleField;
 
-  @FindBy(xpath = "(//div[@name='challengeSpaceAutocomplete']//input)[01]")
+  @FindBy(xpath = "(//*[contains(@class, 'v-navigation-drawer--open')]//div[@name='challengeSpaceAutocomplete']//input)[01]")
   private TextBoxElementFacade audienceSpaceField;
 
-  @FindBy(xpath = "(//div[@class='v-select__selections']//input)[02]")
+  @FindBy(
+      xpath = "(//*[contains(@class, 'v-navigation-drawer--open')]//div[contains(@class, 'v-select__selections')]//input)[02]"
+  )
   private TextBoxElementFacade programField;
 
   @FindBy(xpath = "(//*[contains(@id,'DatePicker')])[1]//input")
@@ -50,16 +53,29 @@ public class ChallengesPage extends GenericPage {
   @FindBy(xpath = "(//*[contains(@id,'DatePicker')])[2]//input")
   private TextBoxElementFacade endDateField;
 
-  @FindBy(xpath = "//iframe[contains(@class,'cke_wysiwyg_frame')]")
+  @FindBy(css = ".v-navigation-drawer--open iframe.cke_wysiwyg_frame")
   private BaseElementFacade    ckEditorFrameChallenge;
 
-  @FindBy(xpath = "//body[contains(@class,'cke_editable_themed')]")
+  @FindBy(css = "body.cke_editable_themed")
   private TextBoxElementFacade challengeDescriptionField;
 
-  @FindBy(
-      xpath = "//*[@class='v-form']//following::*[@class='flex drawerFooter border-box-sizing flex-grow-0 px-4 py-3']//button[2]"
-  )
+  @FindBy(css = ".v-navigation-drawer--open .drawerFooter button.btn-primary")
   private BaseElementFacade    createButton;
+
+  @FindBy(css = ".challengeQuickFilter")
+  private BaseElementFacade    challengeQuickFilterSelectBox;
+
+  public ChallengesPage(WebDriver driver) {
+    super(driver);
+  }
+
+  public void checkAddChallengeBtn() {
+    assertTrue(addChallengeBtn.isVisibleAfterWaiting()); // NOSONAR
+  }
+
+  public void checkAddChallengeBtnNotDispayed() {
+    assertTrue(addChallengeBtn.isNotVisibleAfterWaiting());
+  }
 
   public void clickAddChallengeBtn() {
     addChallengeBtn.waitUntilVisible();
@@ -67,7 +83,7 @@ public class ChallengesPage extends GenericPage {
   }
 
   public void checkAddChallengeDrawer() {
-    headerChallengeDrawer.shouldBeVisible();
+    assertTrue(headerChallengeDrawer.isVisibleAfterWaiting());
   }
 
   public void enterChallengeTitle(String challengeTitle) {
@@ -166,6 +182,14 @@ public class ChallengesPage extends GenericPage {
   }
 
   @SwitchToWindow
+  public void selectChallengesFilter(String value) {
+    challengeQuickFilterSelectBox.clickOnElement();
+    challengeQuickFilterSelectBox.selectByValue(value);
+    challengeQuickFilterSelectBox.clickOnElement();
+    verifyPageLoaded();
+  }
+
+  @SwitchToWindow
   public void addChallengeWithDescription(String description) {
     clickOnElement(ckEditorFrameChallenge);
     driver.switchTo().frame(ckEditorFrameChallenge);
@@ -179,7 +203,7 @@ public class ChallengesPage extends GenericPage {
   }
 
   private BaseElementFacade getChallengeSuccessMessage(String message) {
-    return findByXPathOrCSS(String.format("//div[@class='v-alert__content']//*[contains(text(),'%s')]", message));
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]", message));
   }
 
   public void checkSuccessMessage(String message) {
@@ -187,11 +211,27 @@ public class ChallengesPage extends GenericPage {
   }
 
   private BaseElementFacade getChallengeCardTitle(String title) {
-    return findByXPathOrCSS(String.format("//*[contains(@class,'subtitleChallenge') and contains(text(),'%s')]", title));
+    return findByXPathOrCSS(String.format(CHALLENGE_CARD_TITLE_XPATH, title));
+  }
+
+  private BaseElementFacade getChallengeCardThreeDots(String title) {
+    return findByXPathOrCSS(String.format(CHALLENGE_CARD_TITLE_XPATH + CHALLENGE_CARD_THREE_DOTS_XPATH, title));
+  }
+
+  private BaseElementFacade getChallengeCardAnnounceButton(String title) {
+    return findByXPathOrCSS(String.format(CHALLENGE_CARD_TITLE_XPATH + CHALLENGE_CARD_ANNOUNCE_BUTTON_XPATH, title));
+  }
+
+  private BaseElementFacade getChallengeCardDate(String title) {
+    return findByXPathOrCSS(String.format(CHALLENGE_CARD_TITLE_XPATH + CHALLENGE_CARD_DATE_XPATH, title));
   }
 
   public void checkChallengeCardTitle(String title) {
     assertTrue(getChallengeCardTitle(title).isVisibleAfterWaiting());
+  }
+
+  public void checkNoChallengeCardTitle(String title) {
+    assertTrue(getChallengeCardTitle(title).isNotVisibleAfterWaiting());
   }
 
   public void enterRandomChallengeTitle(String challengeName) {
@@ -216,39 +256,27 @@ public class ChallengesPage extends GenericPage {
     assertTrue(getChallengeCardTitle(title).isVisibleAfterWaiting());
   }
 
-  @FindBy(xpath = "//*[contains(@class,'me-2 v-btn v-btn--flat v-btn--icon v-btn--round')]")
-  private BaseElementFacade threeDotsIcon;
-
   public void checkThreeDotsIconDisplay(String title) {
     assertTrue(getChallengeCardTitle(title).isVisibleAfterWaiting());
-    threeDotsIcon.shouldBeVisible();
+    assertTrue(getChallengeCardThreeDots(title).isVisibleAfterWaiting());
   }
-
-  @FindBy(xpath = "//*[@class='v-btn__content' and contains(text(),'Announce')]")
-  private BaseElementFacade announceBtn;
 
   public void checkAnnounceBtn(String title) {
     assertTrue(getChallengeCardTitle(title).isVisibleAfterWaiting());
-    announceBtn.shouldBeVisible();
+    assertTrue(getChallengeCardAnnounceButton(title).isVisibleAfterWaiting());
   }
-
-  @FindBy(xpath = "//*[@class='date']")
-  private BaseElementFacade dateField;
 
   public void checkDateField(String title) {
     assertTrue(getChallengeCardTitle(title).isVisibleAfterWaiting());
-    dateField.shouldBeVisible();
+    assertTrue(getChallengeCardDate(title).isVisibleAfterWaiting());
   }
 
-  public void clickAnnounceBtn() {
-    announceBtn.clickOnElement();
+  public void clickAnnounceBtn(String title) {
+    getChallengeCardAnnounceButton(title).clickOnElement();
   }
-
-  @FindBy(xpath = "(//*[@class='v-list-item__content drawerTitle align-start text-header-title text-truncate'])[2]")
-  private BaseElementFacade announcementHeaderDrawer;
 
   public void checkAnnouncementDrawer() {
-    announcementHeaderDrawer.shouldBeVisible();
+    assertTrue(announcementHeaderDrawer.isVisibleAfterWaiting());
   }
 
   @FindBy(xpath = "//a[@class='challengeAssignBtn align-end']")
@@ -282,7 +310,7 @@ public class ChallengesPage extends GenericPage {
                                           secondUserName));
   }
 
-  public void assignChallengeToSecondUser(String user) {
+  public void assignChallengeToUser(String user) {
     assertTrue(assignLink.isVisibleAfterWaiting());
     assignLink.clickOnElement();
     assignAnnouncementInput.setTextValue(user + " ");
@@ -290,24 +318,34 @@ public class ChallengesPage extends GenericPage {
     getSelectWinnerInDropDown(user).clickOnElement();
   }
 
-  private BaseElementFacade getAnnouncementActivityTopBar(String user, String space) {
-    return findByXPathOrCSS(String.format("(//*[contains(@class,'accountTitleLabel')][1]//*[contains(@id,'userAvatar')and contains(@href,'%s')]/following::*[contains(@id,'spaceAvatar') and contains(text(),'%s')])[1]",
-                                          user,
-                                          space));
+  public void checkAnnouncementActivity(String posterPrefix,
+                                        String winnerPrefix,
+                                        String challengeName,
+                                        String announcementDescription) {
+    assertTrue(getAnnouncementActivity(posterPrefix,
+                                       winnerPrefix,
+                                       challengeName,
+                                       announcementDescription).isVisibleAfterWaiting());
+
   }
 
-  public void checkAnnouncementActivityTopBar(String user, String space) {
-    assertTrue(getAnnouncementActivityTopBar(user, space).isVisibleAfterWaiting());
-
-  }
-
-  private BaseElementFacade getWinnerNameOnAnnouncement(String user) {
-    return findByXPathOrCSS(String.format("//*[@class='font-weight-bold text-color mx-0 mt-0 mb-2 text-wrap text-break text-truncate-2']/a[contains(@href,'%s')]",
-                                          user));
-  }
-
-  public void checkWinnerNameOnAnnouncement(String user) {
-    assertTrue(getWinnerNameOnAnnouncement(user).isVisibleAfterWaiting());
+  private BaseElementFacade getAnnouncementActivity(String posterPrefix,
+                                                    String winnerPrefix,
+                                                    String challengeName,
+                                                    String announcementDescription) {
+    String posterXPath =
+                       "//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'activity-head')]//ancestor::*[contains(@class, 'activity-detail')]";
+    String winnerXPath =
+                       "//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'activity-thumbnail-box')]//ancestor::*[contains(@class, 'activity-detail')]";
+    String challengeNameXPath =
+                              "//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'activity-thumbnail-box')]//ancestor::*[contains(@class, 'activity-detail')]";
+    String announcementXPath = "//*[contains(@class,'postContent')]//*[contains(text(),'%s')]";
+    String announcementActivityFormatXPath = posterXPath + winnerXPath + challengeNameXPath + announcementXPath;
+    return findByXPathOrCSS(String.format(announcementActivityFormatXPath,
+                                          posterPrefix,
+                                          winnerPrefix,
+                                          challengeName,
+                                          announcementDescription));
   }
 
   private BaseElementFacade getChallengeTitleOnAnnouncement(String name) {

@@ -2,9 +2,10 @@
 Feature: Tasks
 
   @smoke
+  @test
   Scenario: CAP81 - [User_UI_US22]: Mark as completed for "TASKS" in a Project (Manager case)
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I connect with the first created user
     And I create a random space
     When I go To AppCenter Drawer
@@ -23,7 +24,7 @@ Feature: Tasks
   @smoke
   Scenario: CAP176 - [US_Filterfield_01]: Add Clear typed characters icon (Filter by task under TASKS tab)
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I connect with the first created user
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
@@ -56,9 +57,10 @@ Feature: Tasks
     And I close task drawer
     Then Task '<TestE>' is deleted successfully
 
+  @test
   Scenario: CAP82 - [User_UI_US22]: Mark as completed for "TASKS" in a Project (Participant case)
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
 
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
@@ -83,9 +85,10 @@ Feature: Tasks
     And Tasks number '0' is displayed in the column To Do
 
   @smoke
+  @test
   Scenario: CAP95 - [Add_Task_Drawer_US04]: 3 dots menu (Delete action) "Task under project"
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I connect with the first created user
 
     When I go To AppCenter Drawer
@@ -107,10 +110,11 @@ Feature: Tasks
     When I close task drawer
     Then Task name 'taskessai' is not displayed in project details
 
+  @test
   Scenario: Check tasks display in snapshot's Tasks gadget
     Given I am authenticated as admin
-    And I create the first random user
-    And I create the second random user
+    And I create the first random user if not existing
+    And I create the second random user if not existing
 
     And I connect with the second created user
     And I create a random space with the first user
@@ -143,7 +147,7 @@ Feature: Tasks
   @ignored
   Scenario: CAP188 - [Lost Projects] check that project isn't lost after renaming space name
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I connect with the first created user
 
     And I go to the random space
@@ -174,9 +178,10 @@ Feature: Tasks
     And Project 'new project test' is displayed in Tasks App Center
     And Project 'second project test' is displayed in Tasks App Center
 
+  @test
   Scenario: Create Task with a new status
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I connect with the first created user
 
     When I go To AppCenter Drawer
@@ -208,9 +213,10 @@ Feature: Tasks
     Then In column status 'exoDev' , Task name 'Collaboration FT Task' is displayed
 
   @smoke
-  Scenario: CAP269 - [NF] [US_Sharedlabels_02]: Manage labels in Project (Create labels)
+  @test
+  Scenario: CAP269 - [US_Sharedlabels_02]: Manage labels in Project (Create labels)
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I connect with the first created user
 
     When I go To AppCenter Drawer
@@ -231,9 +237,10 @@ Feature: Tasks
     And Label 'label5' is displayed in edit project drawer
 
   @smoke
+  @test
   Scenario: Mark task as completed from the task drawer [1]
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I connect with the first created user
     And I create a random space
 
@@ -257,7 +264,7 @@ Feature: Tasks
 
   Scenario: CAP270 - [NF] [US_Sharedlabels_02]: Manage labels in Project (Delete labels)
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I connect with the first created user
 
     When I go To AppCenter Drawer
@@ -292,8 +299,8 @@ Feature: Tasks
 
   Scenario: CAP264 - [NF] [US_Sharedlabels_01]:All project members can use added labels
     Given I am authenticated as admin
-    And I create the first random user
-    And I create the second random user
+    And I create the first random user if not existing
+    And I create the second random user if not existing
 
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
@@ -358,8 +365,8 @@ Feature: Tasks
   @ignored
   Scenario:[Task]: when click on notification, user is redirected under the specific project
     Given I am authenticated as admin
-    And I create the first random user
-    And I create the second random user
+    And I create the first random user if not existing
+    And I create the second random user if not existing
 
     When I connect with the second created user
     And I go To AppCenter Drawer
@@ -381,9 +388,10 @@ Feature: Tasks
     Then First user with the task comment 'Start working on it' is displayed in task comments drawer
 
   @smoke
+  @test
   Scenario: CAP190 -[IMP] [US_SortGroupeBy_01]: Memorize Group and Sort filters (Group by)
     Given I am authenticated as admin
-    And  I create the first random user
+    And  I create the first random user if not existing
     And  I connect with the first created user
     When I go To AppCenter Drawer
     And  I go to Tasks AppCenter Application
@@ -432,9 +440,10 @@ Feature: Tasks
     And I select the 'Labels' filter type
     Then The 'LabelsDrawer' is displayed
 
+  @test
   Scenario: CAP341 [TASK]: when refresh task drawer, the description should not be lost
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
 
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
@@ -466,9 +475,10 @@ Feature: Tasks
     And I refresh the page
     And The edit description in the task 'Edit Automation Test Task' is displayed
 
+  @test
   Scenario: [IMP] [US_ChangesDrawer_01]: Display last Update and Changes drawer
     Given I am authenticated as admin
-    And  I create the first random user
+    And  I create the first random user if not existing
     And  I connect with the first created user
     When I go To AppCenter Drawer
     And  I go to Tasks AppCenter Application
@@ -495,7 +505,7 @@ Feature: Tasks
 
   Scenario: Description update should not be lost due to cloning task and assigning it or changing its status
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I connect with the first created user
 
     And I create a random space

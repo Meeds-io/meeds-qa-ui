@@ -1,9 +1,10 @@
 @task
 Feature: Project manager deletes, moves after/before a status column
 
+  @test
   Scenario: CAP136 - [Project_Board_US04]:Three dots menu - Delete
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I connect with the first created user
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
@@ -16,9 +17,10 @@ Feature: Project manager deletes, moves after/before a status column
     And I confirm the deletion message
     Then Status 'To Do' is deleted successfully
 
-  Scenario: CAP247 - [NewF] [US_TaskStatusColumn_01]: Move Status column after in Board view
+  @test
+  Scenario: CAP247 - [US_TaskStatusColumn_01]: Move Status column after in Board view
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I connect with the first created user
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
@@ -35,7 +37,7 @@ Feature: Project manager deletes, moves after/before a status column
 
   Scenario: CAP339 - [NewF] [US_TaskStatusColumn_01]: Move Status column before in Board view
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I connect with the first created user
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application

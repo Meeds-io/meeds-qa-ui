@@ -66,6 +66,7 @@ Feature: Filter Drawer
     And In project details the task 'btask11' is displayed in '2' place
     And In project details the task 'ctask11' is displayed in '3' place
 
+  @test
   Scenario: CAP111 - [Filter_Drawer_US03] Group by Completed [Group and Sort tab under project]
     Given I am authenticated as admin
 
@@ -144,9 +145,10 @@ Feature: Filter Drawer
     And Cancel button is displayed in the Filter drawer
     And Reset button is displayed in the Filter drawer
 
+  @test
   Scenario: Filter project
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
 
     When I connect with the first created user
     And I go to the random space

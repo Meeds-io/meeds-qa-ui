@@ -7,9 +7,9 @@ Feature: Users Management
   Scenario: [USR_MNG-1.1] Users Grid
     Given I am authenticated as admin
 
-    When I create the first random user
+    When I create the first random user if not existing
     And I refresh the page
-    And I create the second random user
+    And I create the second random user if not existing
     And I refresh the page
     And I search for second created user
     When I disable the second created User Status
@@ -30,7 +30,7 @@ Feature: Users Management
   Scenario: [USR_MNG-1.5] Delete User
     Given I am authenticated as admin
 
-    When I create the first random user
+    When I create the first random user if not existing
 
     And I refresh the page
     Then I search for the created random user

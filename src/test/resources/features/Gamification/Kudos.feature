@@ -2,10 +2,11 @@
 Feature: Kudos gamification
 
   @smoke
+  @test
   Scenario: Receive Kudos
     Given I am authenticated as admin
-    And I create the first random user
-    And I create the second random user
+    And I create the first random user if not existing
+    And I create the second random user if not existing
     And I connect with the first created user
     When I go to my profile
     And I check my points

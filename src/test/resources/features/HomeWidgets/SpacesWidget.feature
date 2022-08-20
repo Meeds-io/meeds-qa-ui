@@ -8,7 +8,7 @@ Feature: Spaces widget checking
   @smoke
   Scenario: US 3.3.2_(02) [BACK] Spaces requests to join: See All
     Given I am authenticated as admin
-    And I create the fourth random user
+    And I create the fourth random user if not existing
     And I create a random space with the fourth created user
     And I create a random space with the fourth created user
     And I create a random space with the fourth created user
@@ -26,7 +26,7 @@ Feature: Spaces widget checking
   @smoke
   Scenario: US 3.3.2_(03) [BACK] Spaces requests to join: accept and reject
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I create a first random space with the first created user as member
     And I create a second random space with the first created user as member
     And I create a third random space with the first created user as member

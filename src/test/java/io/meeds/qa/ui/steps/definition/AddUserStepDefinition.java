@@ -23,7 +23,8 @@ public class AddUserStepDefinition {
     addUserSteps.addRandomUser("firstAdmin");
   }
 
-  @Given("^I create the (.*) random user$")
+  @Given("^I create the (.*) random user if not existing$")
+  @And("^I create the (.*) random user$")
   public void addRandomUser(String prefix) {
     addUserSteps.addRandomUser(prefix);
   }

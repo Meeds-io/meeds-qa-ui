@@ -47,10 +47,11 @@ Feature: UI app administration
 
   @appcenter
   @appcenterAdministration
+  @test
   Scenario: CAP72 - [Admin_UI_US06][02]: Applications table/ Editable fields(Mandatory option)
     Given I am authenticated as admin
 
-    When I create the first random user
+    When I create the first random user if not existing
     And I go to Administer application center Page
     And I add a new application with the random following data
     And I search for the random created application
@@ -80,10 +81,11 @@ Feature: UI app administration
 
   @appcenter
   @appcenterAdministration
+  @test
   Scenario: CAP71 - [Admin_UI_US06][01]: Applications table/ Editable fields (Active option)
     Given I am authenticated as admin
 
-    And I create the first random user
+    And I create the first random user if not existing
     And I go to Administer application center Page
     And I add a new application with the random following data
 

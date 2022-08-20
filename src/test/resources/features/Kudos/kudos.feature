@@ -11,10 +11,11 @@ Feature: Kudos
     And I save all changes
     Then The kudos settings saved with a kudos number equal to '8' and 'Semester' period type
 
+  @test
   Scenario: [EXISTANT-KUDOS 2] Sending and Receiving Kudos
     Given I am authenticated as admin
-    And I create the first random user
-    And I create the second random user
+    And I create the first random user if not existing
+    And I create the second random user if not existing
     When I connect with the second created user
     And I go to the random space
     And I click on post in space
@@ -32,7 +33,7 @@ Feature: Kudos
 
   Scenario: [EXISTANT-KUDOS 5] check that user cannot send kudos to himself
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
 
     When I connect with the first created user
     And I go to the random space
@@ -42,10 +43,11 @@ Feature: Kudos
     Then the activity 'Kudos Post' is displayed in activity stream
     And kudos icon of the activity 'Kudos Post' is Disabled
 
+  @test
   Scenario: [EXISTANT-KUDOS 7] Sending Kudos from user profile
     Given I am authenticated as admin
-    And I create the first random user
-    And I create the second random user
+    And I create the first random user if not existing
+    And I create the second random user if not existing
 
     When I connect with the second created user
     And I go to the first user profile
@@ -55,10 +57,11 @@ Feature: Kudos
     And I go to My Profile page
     Then '1' kudos are received
 
+  @test
   Scenario: [ActivityStream_US51][01]: Edit a kudos activity
     Given I am authenticated as admin
-    And I create the first random user
-    And I create the second random user
+    And I create the first random user if not existing
+    And I create the second random user if not existing
     When I connect with the first created user
 
     And I search for second user card

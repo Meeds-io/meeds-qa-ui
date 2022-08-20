@@ -6,7 +6,7 @@ Feature: Create Note
   Scenario: CAP01: ManageNote_USXX[01]: Open Create note page in new tab
 
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     When I connect with the first created user
 
     And I go to the random space

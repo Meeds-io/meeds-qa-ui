@@ -10,8 +10,8 @@ public class ChallengeSteps {
     challengesPage.checkAddChallengeBtn();
   }
 
-  public void isAddChallengeBtnDisplayed() {
-    challengesPage.isAddChallengeBtnDisplayed();
+  public void checkAddChallengeBtnNotDispayed() {
+    challengesPage.checkAddChallengeBtnNotDispayed();
   }
 
   public void clickAddChallengeBtn() {
@@ -50,12 +50,20 @@ public class ChallengeSteps {
     challengesPage.checkSuccessMessage(message);
   }
 
+  public void selectChallengesFilter(String value) {
+    challengesPage.selectChallengesFilter(value);
+  }
+
   public void selectStartDateToday() {
     challengesPage.selectStartDateToday();
   }
 
   public void checkChallengeCardTitle(String title) {
     challengesPage.checkChallengeCardTitle(title);
+  }
+
+  public void checkNoChallengeCardTitle(String title) {
+    challengesPage.checkNoChallengeCardTitle(title);
   }
 
   public void enterRandomChallengeTitle(String challengeName) {
@@ -87,29 +95,27 @@ public class ChallengeSteps {
     challengesPage.checkDateField(title);
   }
 
-  public void clickAnnounceBtn() {
-    challengesPage.clickAnnounceBtn();
+  public void clickAnnounceBtn(String title) {
+    challengesPage.clickAnnounceBtn(title);
   }
 
   public void checkAnnouncementDrawer() {
     challengesPage.checkAnnouncementDrawer();
   }
 
-  public void assignChallengeToSecondUser(String user) {
-    challengesPage.assignChallengeToSecondUser(user);
+  public void assignChallengeToUser(String user) {
+    challengesPage.assignChallengeToUser(user);
   }
 
   public void addAnnouncementWithRandomDescription(String announcementDescription) {
     challengesPage.addAnnouncementWithRandomDescription(announcementDescription);
   }
 
-  public void checkAnnouncementActivityTopBar(String user, String space) {
-    challengesPage.checkAnnouncementActivityTopBar(user, space);
-
-  }
-
-  public void checkWinnerNameOnAnnouncement(String user) {
-    challengesPage.checkWinnerNameOnAnnouncement(user);
+  public void checkAnnouncementActivity(String posterPrefix,
+                                        String winnerPrefix,
+                                        String challengeName,
+                                        String announcementDescription) {
+    challengesPage.checkAnnouncementActivity(posterPrefix, winnerPrefix, challengeName, announcementDescription);
 
   }
 

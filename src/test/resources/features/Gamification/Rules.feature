@@ -3,7 +3,7 @@ Feature: Rules
 
   Scenario: Comment a post
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I connect with the first created user
     When I go to my profile
     And I check my points
@@ -18,7 +18,7 @@ Feature: Rules
 
   Scenario: Like a comment
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I go to the random space
     And I click on post in space
     And I enter an activity 'kudosActivity11'
@@ -36,7 +36,7 @@ Feature: Rules
 
   Scenario: Like a post
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I go to the random space
     And I click on post in space
     And I enter an activity 'kudosActivity12'
@@ -51,9 +51,10 @@ Feature: Rules
     When I go to my profile
     Then My points augmented
 
+  @test
   Scenario: Join a space
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I create a random space with the first created user
     And I connect with the first created user
     And I check my points
@@ -64,6 +65,7 @@ Feature: Rules
     When I go to my profile
     Then My points augmented
 
+  @test
   Scenario: Create new task
     Given I am authenticated as admin
     And I check my points

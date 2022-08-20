@@ -12,9 +12,10 @@ Feature: Meeds Space
     When I click on Show more button
     Then I check that other spaces are displayed
 
+  @test
   Scenario: [SPACES-4] Spaces Request
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I create a first random space with the first created user as member
     And I create a second random space with the first created user as member
     And I create a third random space with the first created user as member

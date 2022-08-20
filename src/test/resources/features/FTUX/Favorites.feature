@@ -3,7 +3,7 @@ Feature: Favorite activities
 
   Scenario: [Favs_US03]: Bookmark an activity
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I connect with the first created user
     And I go to the random space
     When I click on post in space
@@ -16,7 +16,7 @@ Feature: Favorite activities
 
   Scenario: [Favs_US04]: Remove the Bookmark for an activity
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I connect with the first created user
     And I go to the random space
     When I click on post in space
@@ -31,7 +31,7 @@ Feature: Favorite activities
 
   Scenario: [Favs_US05][01]: Search by favorites (Filter by favorite button)
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I connect with the first created user
     And I go to the random space
     When I post '2' activities
@@ -56,7 +56,7 @@ Feature: Favorite activities
 
   Scenario:  [Favs_US05][02]: Search by favorites (Filter by keyword and favorite button)
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I connect with the first created user
     And I go to the random space
     When I post '2' activities with prefix 'activityFavs_US05'
@@ -84,7 +84,7 @@ Feature: Favorite activities
 
   Scenario: [Favs_US06][01] Manage favorites from the search card ( Bookmark an activity)
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I connect with the first created user
     And I go to the random space
     When I post '2' activities with prefix 'activityFavs_US06_01_'
@@ -105,7 +105,7 @@ Feature: Favorite activities
 
   Scenario: [Favs_US06][02] Manage favorites from the search card ( UnBookmark an activity)
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I connect with the first created user
     And I go to the random space
     When I post '2' activities with prefix 'activityFavs_US06_02_'
@@ -129,7 +129,7 @@ Feature: Favorite activities
   @ignored
   Scenario: [Fav_US13][01]: Bookmark a note from it's details
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I go to the random space
     And I go to notes application of the space
     When I click to add note
@@ -173,7 +173,7 @@ Feature: Favorite activities
   @ignored
   Scenario: [Fav_US14][01]: Remove the bookmark for a note from it's details
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I go to the random space
     And I go to notes application of the space
     When I click to add note

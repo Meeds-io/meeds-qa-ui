@@ -26,8 +26,8 @@ public class AddGroupsStepDefinition {
 
   @Given("^I add the role '(.*)' to the (.*) created user$")
   public void addMemberInGroup(String role, String userPrefix) {
-    String userFirstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");
-    addGroupsSteps.addMemberInGroup(role, userFirstName);
+    String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
+    addGroupsSteps.addMemberInGroup(role, userLastName);
   }
 
   @Given("^I add the role '(.*)' to the dedicated user to be an administrator$")

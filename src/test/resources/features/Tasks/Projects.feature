@@ -1,9 +1,10 @@
 @task
 Feature: Tasks - Projects
 
+  @test
   Scenario: [User_UI_US18.1]: Add project with a description
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I connect with the first created user
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
@@ -14,7 +15,7 @@ Feature: Tasks - Projects
 
   Scenario: CAP47 - [Project_manager_US03.2]: Clone a project
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I connect with the first created user
     And I create a random space
     When I go To AppCenter Drawer
@@ -31,9 +32,10 @@ Feature: Tasks - Projects
     And I open the cloned project
     Then task 'Copy of task1414' is cloned successfully
 
+  @test
   Scenario: CAP174 -[US_Filterfield_01]: Add Clear typed characters icon "Filter by project"
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I connect with the first created user
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
@@ -47,9 +49,10 @@ Feature: Tasks - Projects
     And The placeholder Filter by project should be displayed
     And The clear button is disappeared from the Filter by project field
 
-  Scenario: CAP15 - [Project_Card_US01]: check the display "Spaces Managers avatars"
+  @test
+  Scenario: CAP15 [Project_Card_US01] check the display "Spaces Managers avatars"
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I create a random space
 
     When I connect with the first created user
@@ -83,8 +86,8 @@ Feature: Tasks - Projects
 
   Scenario: CAP17 - [Project_Card_US01]: check the display of users avatars with managing permissions
     Given I am authenticated as admin
-    And I create the first random user
-    And I create the second random user
+    And I create the first random user if not existing
+    And I create the second random user if not existing
 
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
@@ -98,6 +101,7 @@ Feature: Tasks - Projects
     And Avatar of the first created user is displayed in Project Card
     And Avatar of the second created user is not displayed in Project Card
 
+  @test
   Scenario: CAP19 - [User_UI_US09]: Project's Tasks "BOARD" view
     Given I am authenticated as admin
 
@@ -126,9 +130,10 @@ Feature: Tasks - Projects
     And I click on save project button
     Then Message Project Title is mandatory is displayed
 
+  @test
   Scenario: CAP290 - Project participant cannot open the edit status mode
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
 
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
@@ -164,7 +169,7 @@ Feature: Tasks - Projects
 
   Scenario: CAP216 - [Bug]: Task card should be well displayed when task title is long
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
 
     When I connect with the first created user
     And I go To AppCenter Drawer
@@ -186,7 +191,7 @@ Feature: Tasks - Projects
   @ignored
   Scenario: [NF] [US_GanttView_01]: Display Gantt tab in Space tasks projects
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I create a random space with the first user
     And I connect with the first created user
     Then The 'Spaces' badge is '1'
@@ -229,7 +234,7 @@ Feature: Tasks - Projects
   @ignored
   Scenario: CAP16 - [Project_Card_US01]: check the display "project's creator avatar"
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I open the app center menu
     And I open all application page
     When I go to 'Tasks' application
@@ -243,7 +248,7 @@ Feature: Tasks - Projects
   @ignored
   Scenario: CAP43-[Project_manager_US02]:Delete a Project
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I open the app center menu
     And I open all application page
     When I go to 'Tasks' application
@@ -260,7 +265,7 @@ Feature: Tasks - Projects
   @ignored
   Scenario: CAP44 - [Project_manager_US02]: Cancel Deletion of Project
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I open the app center menu
     And I open all application page
     When I go to 'Tasks' application

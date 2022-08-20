@@ -60,7 +60,8 @@ public class AddGroupsPage extends GenericPage {
       refreshPage();
     }
     addMemberInGroupBtn.clickOnElement();
-    selectedRoleField.selectByVisibleText(role);
+    selectedRoleField.selectByValue(role);
+    selectedRoleField.clickOnElement();
     inviteMemberInput.setTextValue(member);
     BaseElementFacade progressBar = findByXPathOrCSS(".membershipUserField .identitySuggester .v-progress-linear");
     progressBar.waitUntilVisible();

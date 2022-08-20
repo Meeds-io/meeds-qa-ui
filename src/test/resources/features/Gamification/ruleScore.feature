@@ -2,10 +2,11 @@
 Feature: Check the rules score increase
   for different type of activity on the plf
 
+  @test
   Scenario: Send Kudos
     Given I am authenticated as admin
-    And I create the first random user
-    And I create the second random user
+    And I create the first random user if not existing
+    And I create the second random user if not existing
     When I connect with the first created user
     And I go to my profile
     And I check my points
@@ -14,10 +15,11 @@ Feature: Check the rules score increase
     When I go to my profile
     Then My points augmented
 
+  @test
   Scenario: Receive a connection request
     Given I am authenticated as admin
-    And I create the first random user
-    And I create the second random user
+    And I create the first random user if not existing
+    And I create the second random user if not existing
     When I connect with the second created user
     And I go to my profile
     And I check my points
@@ -29,8 +31,8 @@ Feature: Check the rules score increase
 
   Scenario: Like a comment (in space)
     Given I am authenticated as admin
-    And I create the first random user
-    And I create the second random user
+    And I create the first random user if not existing
+    And I create the second random user if not existing
     When I connect with the first created user
     And I go to the random space
     And I click on post in space
@@ -55,8 +57,8 @@ Feature: Check the rules score increase
 
   Scenario: Receive a like on a post
     Given I am authenticated as admin
-    And I create the first random user
-    And I create the second random user
+    And I create the first random user if not existing
+    And I create the second random user if not existing
     And I connect with the first created user
     And I go to the random space
     And I click on post in space
@@ -74,7 +76,7 @@ Feature: Check the rules score increase
 
   Scenario: Create a new wiki page
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I connect with the first created user
     And I go to my profile
     And I check my points
@@ -91,8 +93,8 @@ Feature: Check the rules score increase
   @ignored
   Scenario: Receive relationship request
     Given I am authenticated as admin
-    And I create the first random user
-    And I create the sixth random user
+    And I create the first random user if not existing
+    And I create the sixth random user if not existing
     And I connect with the first created user
     And I go to my profile
     And I check my points

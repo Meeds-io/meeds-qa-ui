@@ -7,8 +7,8 @@ Feature: Social
   @activitystream
   Scenario: Comment on your friends activity
     Given I am authenticated as admin
-    And I create the first random user
-    And I create the second random user
+    And I create the first random user if not existing
+    And I create the second random user if not existing
     And I connect with the first created user
     And I go to the random space
     And I click on post in space
@@ -23,10 +23,11 @@ Feature: Social
     Then Activity Comment 'commenttest' is displayed in Comments drawer
     And Activity Comment 'commenttest' is displayed in activity stream
 
+  @test
   Scenario: Search users in My connections tab
     Given I am authenticated as admin
-    And I create the first random user
-    And I create the second random user
+    And I create the first random user if not existing
+    And I create the second random user if not existing
     And I connect with the first created user
     And I connect to second user
     And I connect with the second created user
@@ -43,7 +44,7 @@ Feature: Social
   @activitystream
   Scenario: Cancel edit comment
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     When I connect with the first created user
     And I go to the random space
     And I click on post in space
@@ -61,9 +62,9 @@ Feature: Social
   @activitystream
   Scenario: [REPLY_05] The comment is displayed on the buttom of the comment reply section
     Given I am authenticated as admin
-    And I create the first random user
-    And I create the second random user
-    And I create the third random user
+    And I create the first random user if not existing
+    And I create the second random user if not existing
+    And I create the third random user if not existing
 
     When I connect with the first created user
     And I go to the random space
