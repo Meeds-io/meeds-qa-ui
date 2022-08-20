@@ -1,10 +1,10 @@
+@appcenter
+@appcenterAdministration
 Feature: UI app administration
   As an admin user
   I want to manage application
   in order to share them with users
 
-	@appcenter
-	@appcenterAdministration
   Scenario: CAP47-[Admin_UI_US12] Applications table/Edit action
     Given I am authenticated as admin
     And I go to Administer application center Page
@@ -16,8 +16,6 @@ Feature: UI app administration
     And Edit application permissions '/platform/analytics' and '/platform/administrators' are displayed in drawer
     And I refresh the page
 
-  @appcenter
-  @appcenterAdministration
   Scenario: CAP79-[Admin_UI_US07][02]:Delete an app
     Given I am authenticated as admin
     And I go to Administer application center Page
@@ -29,8 +27,6 @@ Feature: UI app administration
     And I search for the random created application
     Then The random application is not displayed in application list
 
-  @appcenter
-  @appcenterAdministration
   Scenario:CAP80-[Admin_UI_US07][03]:Cancel button /close icon
     Given I am authenticated as admin
     And I go to Administer application center Page
@@ -45,8 +41,6 @@ Feature: UI app administration
     And I click on close popup delete application
     Then Delete popup is not displayed
 
-  @appcenter
-  @appcenterAdministration
   @test
   Scenario: CAP72 - [Admin_UI_US06][02]: Applications table/ Editable fields(Mandatory option)
     Given I am authenticated as admin
@@ -79,8 +73,6 @@ Feature: UI app administration
     And AppCenter created application is removed From Favorites
     And I close AppCenter Drawer
 
-  @appcenter
-  @appcenterAdministration
   @test
   Scenario: CAP71 - [Admin_UI_US06][01]: Applications table/ Editable fields (Active option)
     Given I am authenticated as admin
