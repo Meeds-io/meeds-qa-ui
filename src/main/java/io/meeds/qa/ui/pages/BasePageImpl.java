@@ -2,6 +2,7 @@ package io.meeds.qa.ui.pages;
 
 import static io.meeds.qa.ui.utils.Utils.MAX_WAIT_RETRIES;
 import static io.meeds.qa.ui.utils.Utils.decorateDriver;
+import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoaded;
 import static org.junit.Assert.assertTrue;
 
@@ -213,9 +214,11 @@ public class BasePageImpl extends PageObject implements BasePage {
                                      String content,
                                      String user) {
     waitCKEditorLoading();
-    ckEditorFrame.waitUntilVisible();
-    ckEditorFrame.clickOnElement();
-    driver.switchTo().frame(ckEditorFrame);
+    retryOnCondition(() -> {
+      ckEditorFrame.waitUntilVisible();
+      ckEditorFrame.clickOnElement();
+      driver.switchTo().frame(ckEditorFrame);
+    }, driver.switchTo()::defaultContent);
     try {
       ckEditorBody.waitUntilVisible();
       ckEditorBody.setTextValue(content + ' ' + '@' + user + "x");

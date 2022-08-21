@@ -1,5 +1,6 @@
 package io.meeds.qa.ui.pages.page.factory.Kudos;
 
+import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static org.junit.Assert.assertTrue;
 
 import org.openqa.selenium.WebDriver;
@@ -114,9 +115,11 @@ public class KudosPage extends GenericPage {
     getKudosLink(activity).clickOnElement();
     waitForDrawerToOpen();
     waitCKEditorLoading();
-    ckEditorFrameKudos.waitUntilVisible();
-    ckEditorFrameKudos.clickOnElement();
-    driver.switchTo().frame(ckEditorFrameKudos);
+    retryOnCondition(() -> {
+      ckEditorFrameKudos.waitUntilVisible();
+      ckEditorFrameKudos.clickOnElement();
+      driver.switchTo().frame(ckEditorFrameKudos);
+    }, driver.switchTo()::defaultContent);
     try {
       kudosField.waitUntilVisible();
       kudosField.setTextValue(comment);
@@ -188,8 +191,11 @@ public class KudosPage extends GenericPage {
   @SwitchToWindow
   public void updateKudosMessage(String comment) {
     waitCKEditorLoading();
-    ckEditorFrameKudos.clickOnElement();
-    driver.switchTo().frame(ckEditorFrameKudos);
+    retryOnCondition(() -> {
+      ckEditorFrameKudos.waitUntilVisible();
+      ckEditorFrameKudos.clickOnElement();
+      driver.switchTo().frame(ckEditorFrameKudos);
+    }, driver.switchTo()::defaultContent);
     try {
       KudosField.waitUntilVisible();
       KudosField.clear();
@@ -208,7 +214,11 @@ public class KudosPage extends GenericPage {
   @SwitchToWindow
   public void addActivityCommentKudos(String comment) {
     waitCKEditorLoading();
-    driver.switchTo().frame(ckEditorFrameKudos);
+    retryOnCondition(() -> {
+      ckEditorFrameKudos.waitUntilVisible();
+      ckEditorFrameKudos.clickOnElement();
+      driver.switchTo().frame(ckEditorFrameKudos);
+    }, driver.switchTo()::defaultContent);
     try {
       kudosField.waitUntilVisible();
       kudosField.setTextValue(comment);
@@ -223,7 +233,11 @@ public class KudosPage extends GenericPage {
   @SwitchToWindow
   public void addActivityCommentKudosFromDrawer(String comment) {
     waitCKEditorLoading();
-    driver.switchTo().frame(ckEditorFrameKudos);
+    retryOnCondition(() -> {
+      ckEditorFrameKudos.waitUntilVisible();
+      ckEditorFrameKudos.clickOnElement();
+      driver.switchTo().frame(ckEditorFrameKudos);
+    }, driver.switchTo()::defaultContent);
     try {
       kudosFieldFromDrawer.waitUntilVisible();
       kudosFieldFromDrawer.setTextValue(comment);
@@ -248,8 +262,11 @@ public class KudosPage extends GenericPage {
   @SwitchToWindow
   public void updateKudosCommentMessage(String comment) {
     waitCKEditorLoading();
-    ckEditorFrameKudos.clickOnElement();
-    driver.switchTo().frame(ckEditorFrameKudos);
+    retryOnCondition(() -> {
+      ckEditorFrameKudos.waitUntilVisible();
+      ckEditorFrameKudos.clickOnElement();
+      driver.switchTo().frame(ckEditorFrameKudos);
+    }, driver.switchTo()::defaultContent);
     try {
       KudosField.waitUntilVisible();
       KudosField.clear();

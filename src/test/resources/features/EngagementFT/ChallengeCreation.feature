@@ -108,6 +108,7 @@ Feature: Challenges
     And Announce button should be displayed on the challenge card
     And Date indication should be displayed on the challenge card
 
+  @test
   Scenario: Challenge_App_US01 Post the challenge on the space stream
     Given I am authenticated as admin
     And I create the firstchgadm random user if not existing, no wait

@@ -2,6 +2,7 @@ package io.meeds.qa.ui.pages.page.factory.people;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static io.meeds.qa.ui.utils.Utils.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -59,9 +60,6 @@ public class UserProfilePage extends GenericPage {
 
   @FindBy(xpath = "//div[@id='profile-stats-portlet']//span[contains(text(),'Points')]//preceding::span[1]")
   private BaseElementFacade    myWeeklyPoint;
-
-  @FindBy(xpath = "//*[contains(@class, 'v-navigation-drawer--open')]//iframe[contains(@class,'cke_wysiwyg_frame')]")
-  private BaseElementFacade    ckEditorFrameSendKudosDrawer;
 
   @FindBy(xpath = "(//*[contains(@class,'v-input__icon--prepend')]//button)[1]")
   private BaseElementFacade    uploadProfileAvatarBtn;
@@ -361,9 +359,12 @@ public class UserProfilePage extends GenericPage {
   @SwitchToWindow
   public void sendKudos(String comment) {
     waitCKEditorLoading();
-    ckEditorFrameSendKudosDrawer.waitUntilVisible();
-    ckEditorFrameSendKudosDrawer.clickOnElement();
-    driver.switchTo().frame(ckEditorFrameSendKudosDrawer);
+    retryOnCondition(() -> {
+      BaseElementFacade ckEditorFrameSendKudosDrawer = findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//iframe[contains(@class,'cke_wysiwyg_frame')]");
+      ckEditorFrameSendKudosDrawer.waitUntilVisible();
+      ckEditorFrameSendKudosDrawer.clickOnElement();
+      driver.switchTo().frame(ckEditorFrameSendKudosDrawer);
+    });
     try {
       sendKudosMessageContent.waitUntilVisible();
       sendKudosMessageContent.setTextValue(comment);

@@ -1,5 +1,6 @@
 package io.meeds.qa.ui.pages.page.factory.engagement;
 
+import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static org.junit.Assert.assertTrue;
 
 import java.time.Duration;
@@ -180,8 +181,10 @@ public class ChallengesPage extends GenericPage {
   @SwitchToWindow
   public void addChallengeWithDescription(String description) {
     waitCKEditorLoading();
-    clickOnElement(ckEditorFrameChallenge);
-    driver.switchTo().frame(ckEditorFrameChallenge);
+    retryOnCondition(() -> {
+      clickOnElement(ckEditorFrameChallenge);
+      driver.switchTo().frame(ckEditorFrameChallenge);
+    }, driver.switchTo()::defaultContent);
     try {
       challengeDescriptionField.waitUntilVisible();
       challengeDescriptionField.setTextValue(description);
@@ -193,11 +196,10 @@ public class ChallengesPage extends GenericPage {
 
   public void clickCreateChallengeButton() {
     createButton.clickOnElement();
-    waitForDrawerToClose();
   }
 
   public void checkSuccessMessage(String message) {
-    assertTrue(getChallengeSuccessMessage(message).isVisibleAfterWaiting());
+    assertWebElementVisible(getChallengeSuccessMessage(message));
   }
 
   private BaseElementFacade getChallengeCardTitle(String title) {
@@ -285,7 +287,6 @@ public class ChallengesPage extends GenericPage {
   public void clickCreateAnnouncementButton() {
     createAnnouncement.waitUntilVisible();
     createAnnouncement.clickOnElement();
-    waitForDrawerToClose();
   }
 
   public void assignChallengeToUser(String user) {
