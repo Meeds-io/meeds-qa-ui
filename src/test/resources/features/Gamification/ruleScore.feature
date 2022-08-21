@@ -14,7 +14,6 @@ Feature: Check the rules score increase
     When I go to my profile
     Then My points augmented
 
-  @test
   Scenario: Receive a connection request
     Given I am authenticated as admin
     And I create the firstgami random user if not existing, no wait
@@ -87,7 +86,6 @@ Feature: Check the rules score increase
     And I go to my profile
     Then My points augmented
 
-  @test
   Scenario: Receive relationship request
     Given I am authenticated as admin
     And I create the thirdgami random user if not existing, no wait

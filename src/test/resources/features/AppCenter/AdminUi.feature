@@ -41,7 +41,6 @@ Feature: UI app administration
     And I click on close popup delete application
     Then Delete popup is not displayed
 
-  @test
   Scenario: CAP72 - [Admin_UI_US06][02]: Applications table/ Editable fields(Mandatory option)
     Given I am authenticated as admin
 
@@ -73,7 +72,6 @@ Feature: UI app administration
     And AppCenter created application is removed From Favorites
     And I close AppCenter Drawer
 
-  @test
   Scenario: CAP71 - [Admin_UI_US06][01]: Applications table/ Editable fields (Active option)
     Given I am authenticated as admin
 

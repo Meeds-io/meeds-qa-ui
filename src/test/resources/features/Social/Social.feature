@@ -1,5 +1,3 @@
-# new feature
-# Tags: optional
 Feature: Social
   As a user I have the right
   to comment on any activity in a space in which I am a member
@@ -23,7 +21,6 @@ Feature: Social
     Then Activity Comment 'commenttest' is displayed in Comments drawer
     And Activity Comment 'commenttest' is displayed in activity stream
 
-  @test
   Scenario: Search users in My connections tab
     Given I am authenticated as admin
     And I create the first random user if not existing, no wait

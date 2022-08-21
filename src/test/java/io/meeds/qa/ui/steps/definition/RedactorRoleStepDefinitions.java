@@ -23,7 +23,6 @@ public class RedactorRoleStepDefinitions {
   @Then("^\"write a short message\" drawer  is visible$")
   public void checkPostDrawer() {
     redactorRoleSteps.checkPostDrawer();
-
   }
 
   @Then("I click on three dots menu$")

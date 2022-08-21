@@ -24,7 +24,6 @@ Feature: Administration settings
     And I search for the random created application
     Then The random application is not displayed in application list
 
-  @test
   Scenario: CAP53 - Edit an app which contain an attached image
     Given I am authenticated as admin
 
@@ -54,7 +53,6 @@ Feature: Administration settings
     When I click on Save in application drawer
     Then The image of the application 'cap03.png' is not displayed in Applications Table
 
-  @test
   Scenario: CAP55 - Edit the title ,URL, description field for an app
     Given I am authenticated as admin
 
@@ -71,7 +69,6 @@ Feature: Administration settings
     And First application edited Url is displayed in Applications Table
     And First application edited Description is displayed in Applications Table
 
-  @test
   Scenario: CAP56 - Admin_Settings_US04: Default permissions for an app
     Given I am authenticated as admin
     And I create the first random user if not existing

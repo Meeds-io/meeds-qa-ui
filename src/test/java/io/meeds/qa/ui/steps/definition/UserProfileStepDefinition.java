@@ -237,7 +237,7 @@ public class UserProfileStepDefinition {
     userProfileSteps.isProfileContactCompanyVisible(company);
   }
 
-  @Then("Received kudos by (.*) user is displayed")
+  @Then("^Received kudos by (.*) user is displayed$")
   public void receivedKudosByRandomUserSectionIsDisplayed(String userPrefix) {
     String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
     userProfileSteps.receivedKudosUsersSectionIsDisplayed(userLastName);
