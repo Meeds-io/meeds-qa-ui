@@ -14,14 +14,57 @@ public interface BaseElementFacade extends WebElementFacade {
   public void clickOnElement();
 
   /**
-   * This method checks the visibility of a webElement. It waits for the element
-   * to appear.
+   * Method to find an element inside an element using the xpath and to wrapp it
+   * in a ButtonElementFacade instance
    *
-   * @return : true if the element is visible after the explicit timeout, false
-   *           if
-   *           it did not appear.
+   * @return ButtonElementFacade instance of the found element
    */
-  public boolean isVisibleAfterWaiting();
+  public <T extends ButtonElementFacade> T findButtonElementByXpath(String xpath);
+
+  /**
+   * Method to find an element inside an element using the xpath and to wrapp it
+   * in a BaseElementFacade instance
+   *
+   * @return BaseElementFacade instance of the found element
+   */
+  public <T extends BaseElementFacade> T findByXPath(String xpath);
+
+  /**
+   * Method to find an element inside an element using the xpath and to wrapp it
+   * in a TextElementFacade instance
+   *
+   * @return TextElementFacade instance of the found element
+   */
+  public <T extends TextElementFacade> T findTextElementByXPath(String xpath);
+
+  /**
+   * @return currently used {@link WebDriver}
+   */
+  public WebDriver getDriver();
+
+  /**
+   * this method is to make the mouse hover over the selected element.
+   */
+  public void hover();
+
+  /**
+   * this method is to make the mouse hover over the selected element.
+   *
+   * @param xpath
+   */
+  public void hover(String xpath);
+
+  public boolean isDisabledAfterWaiting();
+
+  /**
+   * this method will check if element is displayed or not
+   *
+   * @return : true if the element is displayed, false if it not.
+   */
+  @Override
+  boolean isDisplayed();
+
+  public boolean isEnabledAfterWaiting();
 
   /**
    * This method checks the invisibility of a webElement. It waits for the
@@ -34,38 +77,15 @@ public interface BaseElementFacade extends WebElementFacade {
    */
   public boolean isNotVisibleAfterWaiting();
 
-  public boolean isDisabledAfterWaiting();
-
-  public boolean isEnabledAfterWaiting();
-
   /**
-   * Method to find an element inside an element using the xpath and to wrapp it
-   * in a BaseElementFacade instance
+   * This method checks the visibility of a webElement. It waits for the element
+   * to appear.
    *
-   * @return BaseElementFacade instance of the found element
+   * @return : true if the element is visible after the explicit timeout, false
+   *           if
+   *           it did not appear.
    */
-  public <T extends BaseElementFacade> T findByXPath(String xpath);
-
-  /**
-   * Method to find an element inside an element using the xpath and to wrapp it
-   * in a ButtonElementFacade instance
-   *
-   * @return ButtonElementFacade instance of the found element
-   */
-  public <T extends ButtonElementFacade> T findButtonElementByXpath(String xpath);
-
-  /**
-   * Method to find an element inside an element using the xpath and to wrapp it
-   * in a TextElementFacade instance
-   *
-   * @return TextElementFacade instance of the found element
-   */
-  public <T extends TextElementFacade> T findTextElementByXPath(String xpath);
-
-  /**
-   * This method will scroll the element to the right
-   */
-  void scrollToTheRight();
+  public boolean isVisibleAfterWaiting();
 
   /**
    * This method will scroll down the element
@@ -73,31 +93,12 @@ public interface BaseElementFacade extends WebElementFacade {
   void scrollDown();
 
   /**
+   * This method will scroll the element to the right
+   */
+  void scrollToTheRight();
+
+  /**
    * This method will scroll up or down until it reaches the web element
    */
   public void scrollToWebElement();
-
-  /**
-   * this method will check if element is displayed or not
-   *
-   * @return : true if the element is displayed, false if it not.
-   */
-  boolean isDisplayed();
-
-  /**
-   * this method is to make the mouse hover over the selected element.
-   * 
-   * @param xpath 
-   */
-  public void hover(String xpath);
-
-  /**
-   * this method is to make the mouse hover over the selected element.
-   */
-  public void hover();
-
-  /**
-   * @return currently used {@link WebDriver}
-   */
-  public WebDriver getDriver();
 }

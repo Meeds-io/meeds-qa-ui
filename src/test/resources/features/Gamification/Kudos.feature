@@ -2,7 +2,6 @@
 Feature: Kudos gamification
 
   @smoke
-  @test
   Scenario: Receive Kudos
     Given I am authenticated as admin
     And I create the first random user if not existing, no wait

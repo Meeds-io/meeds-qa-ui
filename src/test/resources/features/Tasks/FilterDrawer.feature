@@ -143,7 +143,6 @@ Feature: Filter Drawer
     And Cancel button is displayed in the Filter drawer
     And Reset button is displayed in the Filter drawer
 
-  @test
   Scenario: Filter project
     Given I am authenticated as admin
     And I create the first random user if not existing, no wait

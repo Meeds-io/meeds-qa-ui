@@ -18,10 +18,6 @@ public class LoginPage extends GenericPage implements IsHidden {
     super(driver);
   }
 
-  public void login(String login, String password) {
-    retryOnCondition(() -> tryLogin(login, password), this::refreshPage);
-  }
-
   public void clearCookies() {
     try {
       driver.switchTo().alert().accept();
@@ -29,6 +25,10 @@ public class LoginPage extends GenericPage implements IsHidden {
       // Normal Behavior
     }
     driver.manage().deleteAllCookies();
+  }
+
+  public void login(String login, String password) {
+    retryOnCondition(() -> tryLogin(login, password), this::refreshPage);
   }
 
   private void tryLogin(String login, String password) {

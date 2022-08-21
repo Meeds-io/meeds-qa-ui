@@ -251,6 +251,7 @@ Feature: Tasks
     And Task name 'taskE' is not displayed in project details
     And Tasks number '0' is displayed in the column To Do
 
+  @ignored
   Scenario: CAP270 - [NF] [US_Sharedlabels_02]: Manage labels in Project (Delete labels)
     Given I am authenticated as admin
     And I create the first random user if not existing

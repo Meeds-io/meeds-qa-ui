@@ -10,16 +10,6 @@ public class RedactorRoleStepDefinitions {
   @Steps
   private RedactorRoleSteps redactorRoleSteps;
 
-  @And("^I set as a redactor$")
-  public void setRedactor() {
-    redactorRoleSteps.setRedactor();
-  }
-
-  @And("^I set as a space manager$")
-  public void setAsSpaceManager() {
-    redactorRoleSteps.setAsSpaceManager();
-  }
-
   @Then("^\"write a short message\" drawer  is visible$")
   public void checkPostDrawer() {
     redactorRoleSteps.checkPostDrawer();
@@ -29,5 +19,15 @@ public class RedactorRoleStepDefinitions {
   public void dotsbtn() {
     redactorRoleSteps.ThreeDotsMenu();
 
+  }
+
+  @And("^I set as a space manager$")
+  public void setAsSpaceManager() {
+    redactorRoleSteps.setAsSpaceManager();
+  }
+
+  @And("^I set as a redactor$")
+  public void setRedactor() {
+    redactorRoleSteps.setRedactor();
   }
 }

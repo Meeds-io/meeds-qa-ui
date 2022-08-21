@@ -16,6 +16,7 @@
  */
 package io.meeds.qa.ui.utils;
 
+import static io.meeds.qa.ui.utils.Utils.isParallelTesting;
 import static io.meeds.qa.ui.utils.Utils.releaseCurrentWindow;
 import static io.meeds.qa.ui.utils.Utils.switchToCurrentWindow;
 
@@ -32,6 +33,10 @@ public class SwitchToWindowAspect {
 
   @Around("execution(* *(..)) && @annotation(io.meeds.qa.ui.utils.SwitchToWindow)")
   public Object around(ProceedingJoinPoint point) throws Throwable {
+    if (!isParallelTesting()) {
+      return point.proceed();
+    }
+
     Object object = point.getThis();
     WebDriver driver = getDriver(object);
     String reason = object.getClass().getSimpleName() + "." + point.getSignature().getName();
@@ -45,8 +50,7 @@ public class SwitchToWindowAspect {
 
   private WebDriver getDriver(Object object) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
     Method driverMethod = object.getClass().getMethod("getDriver");
-    WebDriver driver = (WebDriver) driverMethod.invoke(object);
-    return driver;
+    return (WebDriver) driverMethod.invoke(object);
   }
 
 }

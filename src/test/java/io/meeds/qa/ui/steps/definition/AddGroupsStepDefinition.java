@@ -9,26 +9,10 @@ import net.thucydides.core.annotations.Steps;
 public class AddGroupsStepDefinition {
 
   @Steps
-  HomeSteps      homeSteps;
-
-  @Steps
   AddGroupsSteps addGroupsSteps;
 
-  @Given("^I open the group '(.*)'$")
-  public void openGroup(String group) {
-    addGroupsSteps.openGroup(group);
-  }
-
-  @Given("^I select the group '(.*)'$")
-  public void selectGroup(String group) {
-    addGroupsSteps.selectGroup(group);
-  }
-
-  @Given("^I add the role '(.*)' to the (.*) created user$")
-  public void addMemberInGroup(String role, String userPrefix) {
-    String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
-    addGroupsSteps.addMemberInGroup(role, userLastName);
-  }
+  @Steps
+  HomeSteps      homeSteps;
 
   @Given("^I add the role '(.*)' to the dedicated user to be an administrator$")
   public void addAdminUserInGroup(String role) {
@@ -39,6 +23,12 @@ public class AddGroupsStepDefinition {
     addGroupsSteps.addMemberInGroup(role, fullName);
   }
 
+  @Given("^I add the role '(.*)' to the (.*) created user$")
+  public void addMemberInGroup(String role, String userPrefix) {
+    String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
+    addGroupsSteps.addMemberInGroup(role, userLastName);
+  }
+
   @Given("^I add the role '(.*)' to the dedicated user to the selected role$")
   public void addUserInGroup(String role) {
     String firstAdminFirstName = Serenity.sessionVariableCalled("firstAdminFirstName");
@@ -46,6 +36,16 @@ public class AddGroupsStepDefinition {
 
     String fullName = firstAdminFirstName + " " + firstAdminLastName;
     addGroupsSteps.addMemberInGroup(role, fullName);
+  }
+
+  @Given("^I open the group '(.*)'$")
+  public void openGroup(String group) {
+    addGroupsSteps.openGroup(group);
+  }
+
+  @Given("^I select the group '(.*)'$")
+  public void selectGroup(String group) {
+    addGroupsSteps.selectGroup(group);
   }
 
 }

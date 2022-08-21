@@ -8,13 +8,9 @@ import net.serenitybdd.core.Serenity;
 
 public class LoginSteps {
 
-  private LoginPage loginPage;
-
   private HomePage  homePage;
 
-  public void open() {
-    loginPage.open();
-  }
+  private LoginPage loginPage;
 
   public void authenticate(String username) {
     loginPage.open();
@@ -39,6 +35,10 @@ public class LoginSteps {
     logout();
     String password = Serenity.sessionVariableCalled(username + "-password");
     loginPage.login(username, password);
+  }
+
+  public void open() {
+    loginPage.open();
   }
 
 }

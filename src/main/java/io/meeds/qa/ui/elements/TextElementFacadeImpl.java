@@ -19,14 +19,6 @@ public class TextElementFacadeImpl extends BaseElementFacadeImpl implements Text
 
   static final Logger LOGGER = LoggerFactory.getLogger(TextElementFacadeImpl.class);
 
-  public TextElementFacadeImpl(WebDriver driver,
-                               ElementLocator locator,
-                               WebElement element,
-                               long timeoutInMilliseconds,
-                               long waitForTimeoutInMilliseconds) {
-    super(decorateDriver(driver), locator, element, timeoutInMilliseconds, waitForTimeoutInMilliseconds);
-  }
-
   @SuppressWarnings("unchecked")
   public static <T extends TextElementFacade> T wrapWebElementFacadeInTextElement(final WebDriver driver,
                                                                                   final WebElementFacade element,
@@ -39,6 +31,15 @@ public class TextElementFacadeImpl extends BaseElementFacadeImpl implements Text
                                          waitForTimeoutInMilliseconds);
   }
 
+  public TextElementFacadeImpl(WebDriver driver,
+                               ElementLocator locator,
+                               WebElement element,
+                               long timeoutInMilliseconds,
+                               long waitForTimeoutInMilliseconds) {
+    super(decorateDriver(driver), locator, element, timeoutInMilliseconds, waitForTimeoutInMilliseconds);
+  }
+
+  @Override
   public String getContent() {
     String textValue = null;
     try {
@@ -50,23 +51,6 @@ public class TextElementFacadeImpl extends BaseElementFacadeImpl implements Text
     }
     return textValue;
 
-  }
-
-  public void setTextValue(String value) {
-    setTextValue(value, null);
-  }
-
-  public void setTextValue(String value, Keys keys) {
-    try {
-      sendValueWithKeys(true, keys, value);
-    } catch (WebDriverException | IllegalArgumentException e) {
-      ExceptionLauncher.throwSerenityExeption(e,
-                                              String.format(
-                                                            "The element [%s] is not visible. "
-                                                                + "The new value [%s] cannot be entered.",
-                                                            this,
-                                                            value));
-    }
   }
 
   @Override
@@ -89,6 +73,23 @@ public class TextElementFacadeImpl extends BaseElementFacadeImpl implements Text
     element.sendKeys(value);
     if (keys != null) {
       element.sendKeys(keys);
+    }
+  }
+
+  public void setTextValue(String value) {
+    setTextValue(value, null);
+  }
+
+  public void setTextValue(String value, Keys keys) {
+    try {
+      sendValueWithKeys(true, keys, value);
+    } catch (WebDriverException | IllegalArgumentException e) {
+      ExceptionLauncher.throwSerenityExeption(e,
+                                              String.format(
+                                                            "The element [%s] is not visible. "
+                                                                + "The new value [%s] cannot be entered.",
+                                                            this,
+                                                            value));
     }
   }
 

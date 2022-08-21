@@ -22,18 +22,6 @@ import net.serenitybdd.core.Serenity;
 public class GalenTestBase extends GalenJavaTestBase {
 
   @Override
-  public WebDriver createDriver(Object[] args) {
-    WebDriver driver = Serenity.getWebdriverManager().getCurrentDriver();
-    return driver;
-  }
-
-  @Override
-  public WebDriver getDriver() {
-    WebDriver driver = Serenity.getWebdriverManager().getCurrentDriver();
-    return driver;
-  }
-
-  @Override
   public void checkLayout(String specPath, List<String> includedTags) throws IOException {
     checkLayout(specPath, new SectionFilter(includedTags, Collections.<String> emptyList()), new Properties(), null);
   }
@@ -48,8 +36,10 @@ public class GalenTestBase extends GalenJavaTestBase {
     generateReport(layoutReport, title);
   }
 
-  public void load(String uri) {
-    Serenity.getWebdriverManager().getCurrentDriver().get(uri);
+  @Override
+  public WebDriver createDriver(Object[] args) {
+    WebDriver driver = Serenity.getWebdriverManager().getCurrentDriver();
+    return driver;
   }
 
   private void generateReport(LayoutReport layoutReport, String testTitle) throws IOException {
@@ -65,6 +55,12 @@ public class GalenTestBase extends GalenJavaTestBase {
     new HtmlReportBuilder().build(tests, "target/site/serenity/galen-html-reports");
   }
 
+  @Override
+  public WebDriver getDriver() {
+    WebDriver driver = Serenity.getWebdriverManager().getCurrentDriver();
+    return driver;
+  }
+
   protected List<String> getFailedTestsList() {
     List<GalenTestInfo> testsResult = Serenity.sessionVariableCalled("tests");
     List<String> failedTests = new ArrayList<>();
@@ -73,6 +69,11 @@ public class GalenTestBase extends GalenJavaTestBase {
         failedTests.add(testResult.getName());
     }
     return failedTests;
+  }
+
+  @Override
+  public void load(String uri) {
+    Serenity.getWebdriverManager().getCurrentDriver().get(uri);
   }
 
 }

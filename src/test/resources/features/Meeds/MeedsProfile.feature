@@ -64,7 +64,6 @@ Feature: Search for User Informations in Profile page
     And Updated Profile Contact instantMessaging is displayed
     And Updated Profile Contact Url is displayed
 
-  @test
   Scenario: PROFILE-5 Kudos block
     Given I am authenticated as admin
 

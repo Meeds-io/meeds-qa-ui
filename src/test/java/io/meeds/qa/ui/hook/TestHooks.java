@@ -29,60 +29,12 @@ public class TestHooks {
 
   protected static final Map<String, String> USERS  = new HashMap<>();
 
-  @Steps
-  private ManageSpaceSteps                   manageSpaceSteps;
-
-  @Steps
-  private ManageSpaceStepDefinitions         manageSpaceStepDefinitions;
-
-  @Steps
-  private HomeSteps                          homeSteps;
-
-  @Steps
-  private LoginSteps                         loginSteps;
-
-  @Steps
-  private ManageBadgesSteps                  manageBadgesSteps;
-
-  @Steps
-  private AdminApplicationSteps              adminApplicationSteps;
-
-  private boolean                            adminLoggedIn;
-
-  @Before
-  public void initDatas() {
-    String adminPassword = System.getProperty("adminPassword");
-    Serenity.setSessionVariable("admin-password").to(adminPassword);
-    adminLoggedIn = false;
-
-    decorateDriver(Serenity.getDriver());
-
-    SPACES.entrySet().forEach(entry -> {
-      if (StringUtils.isNotBlank(entry.getValue())) {
-        Serenity.setSessionVariable(entry.getKey()).to(entry.getValue());
-      }
-    });
-    USERS.entrySet().forEach(entry -> {
-      if (StringUtils.isNotBlank(entry.getValue())) {
-        Serenity.setSessionVariable(entry.getKey()).to(entry.getValue());
-      }
-    });
-  }
-
-  @After
-  public void deleteDatas() {
-    homeSteps.refreshPage();
-    deleteGamificationBadges();
-    deleteAppCenterApplications();
-    cleanupBrowser();
+  public static void spaceWithPrefixCreated(String spaceNamePrefix, String spaceName) {
+    SPACES.put(spaceNamePrefix, spaceName);
   }
 
   public static void spaceWithPrefixDeleted(String spaceNamePrefix) {
     SPACES.put(spaceNamePrefix, null);
-  }
-
-  public static void spaceWithPrefixCreated(String spaceNamePrefix, String spaceName) {
-    SPACES.put(spaceNamePrefix, spaceName);
   }
 
   public static void userWithPrefixCreated(String userPrefix,
@@ -99,6 +51,46 @@ public class TestHooks {
     USERS.put(userName + "-password", password);
   }
 
+  @Steps
+  private AdminApplicationSteps              adminApplicationSteps;
+
+  private boolean                            adminLoggedIn;
+
+  @Steps
+  private HomeSteps                          homeSteps;
+
+  @Steps
+  private LoginSteps                         loginSteps;
+
+  @Steps
+  private ManageBadgesSteps                  manageBadgesSteps;
+
+  @Steps
+  private ManageSpaceStepDefinitions         manageSpaceStepDefinitions;
+
+  @Steps
+  private ManageSpaceSteps                   manageSpaceSteps;
+
+  private void cleanupBrowser() {
+    try {
+      WebDriver driver = Serenity.getDriver();
+      String currentUrl = driver.getCurrentUrl();
+      driver.manage().deleteAllCookies();
+      driver.get(currentUrl.split("/portal/")[0]);
+      closeAlertIfExists(driver);
+    } catch (Throwable e) { // NOSONAR
+      ExceptionLauncher.LOGGER.warn("Error while cleaning browser", e);
+    }
+  }
+
+  private void closeAlertIfExists(WebDriver driver) {
+    try {
+      driver.switchTo().alert().accept();
+    } catch (NoAlertPresentException e) {
+      // Normal Behavior
+    }
+  }
+
   private void deleteAppCenterApplications() {
     // cleanup created AppCenter applications
     List<String> appNames = Serenity.sessionVariableCalled("appCenterAppName");
@@ -111,6 +103,14 @@ public class TestHooks {
         }
       }
     }
+  }
+
+  @After
+  public void deleteDatas() {
+    homeSteps.refreshPage();
+    deleteGamificationBadges();
+    deleteAppCenterApplications();
+    cleanupBrowser();
   }
 
   private void deleteGamificationBadges() {
@@ -132,30 +132,30 @@ public class TestHooks {
     }
   }
 
+  @Before
+  public void initDatas() {
+    String adminPassword = System.getProperty("adminPassword");
+    Serenity.setSessionVariable("admin-password").to(adminPassword);
+    adminLoggedIn = false;
+
+    decorateDriver(Serenity.getDriver());
+
+    SPACES.entrySet().forEach(entry -> {
+      if (StringUtils.isNotBlank(entry.getValue())) {
+        Serenity.setSessionVariable(entry.getKey()).to(entry.getValue());
+      }
+    });
+    USERS.entrySet().forEach(entry -> {
+      if (StringUtils.isNotBlank(entry.getValue())) {
+        Serenity.setSessionVariable(entry.getKey()).to(entry.getValue());
+      }
+    });
+  }
+
   private void loginAsAdmin() {
     if (!adminLoggedIn) {
       loginSteps.logoutLogin("admin");
       adminLoggedIn = true;
-    }
-  }
-
-  private void cleanupBrowser() {
-    try {
-      WebDriver driver = Serenity.getDriver();
-      String currentUrl = driver.getCurrentUrl();
-      driver.manage().deleteAllCookies();
-      driver.get(currentUrl.split("/portal/")[0]);
-      closeAlertIfExists(driver);
-    } catch (Throwable e) { // NOSONAR
-      ExceptionLauncher.LOGGER.warn("Error while cleaning browser", e);
-    }
-  }
-
-  private void closeAlertIfExists(WebDriver driver) {
-    try {
-      driver.switchTo().alert().accept();
-    } catch (NoAlertPresentException e) {
-      // Normal Behavior
     }
   }
 

@@ -26,18 +26,8 @@ public class CustomWebDriverListener implements WebDriverListener {
   }
 
   @Override
-  public void beforeImplicitlyWait(Timeouts timeouts, Duration duration) {
-    switchToCurrentWindow(webDriver, null, "beforeImplicitlyWait");
-  }
-
-  @Override
-  public void afterImplicitlyWait(Timeouts timeouts, Duration duration) {
-    releaseCurrentWindow(webDriver, null, "afterImplicitlyWait");
-  }
-
-  @Override
-  public void beforeFindElement(WebDriver driver, By locator) {
-    switchToCurrentWindow(driver, locator, "beforeFindElement");
+  public void afterClick(WebElement element) {
+    releaseCurrentWindow(webDriver, element, "afterClick");
   }
 
   @Override
@@ -46,23 +36,33 @@ public class CustomWebDriverListener implements WebDriverListener {
   }
 
   @Override
-  public void beforeClick(WebElement element) {
-    switchToCurrentWindow(webDriver, element, "beforeClick");
-  }
-
-  @Override
-  public void afterClick(WebElement element) {
-    releaseCurrentWindow(webDriver, element, "afterClick");
-  }
-
-  @Override
-  public void beforeSendKeys(WebElement element, CharSequence... keysToSend) {
-    switchToCurrentWindow(webDriver, element, "beforeSendKeys");
+  public void afterImplicitlyWait(Timeouts timeouts, Duration duration) {
+    releaseCurrentWindow(webDriver, null, "afterImplicitlyWait");
   }
 
   @Override
   public void afterSendKeys(WebElement element, CharSequence... keysToSend) {
     releaseCurrentWindow(webDriver, null, "afterSendKeys");
+  }
+
+  @Override
+  public void beforeClick(WebElement element) {
+    switchToCurrentWindow(webDriver, element, "beforeClick");
+  }
+
+  @Override
+  public void beforeFindElement(WebDriver driver, By locator) {
+    switchToCurrentWindow(driver, locator, "beforeFindElement");
+  }
+
+  @Override
+  public void beforeImplicitlyWait(Timeouts timeouts, Duration duration) {
+    switchToCurrentWindow(webDriver, null, "beforeImplicitlyWait");
+  }
+
+  @Override
+  public void beforeSendKeys(WebElement element, CharSequence... keysToSend) {
+    switchToCurrentWindow(webDriver, element, "beforeSendKeys");
   }
 
   @Override

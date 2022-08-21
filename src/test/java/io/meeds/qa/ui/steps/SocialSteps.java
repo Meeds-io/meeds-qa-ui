@@ -5,13 +5,20 @@ import io.meeds.qa.ui.pages.page.factory.Social.SocialPage;
 public class SocialSteps {
   private SocialPage socialpage;
 
+  public void cancelUpdateActivityComment(String comment) {
+    socialpage.cancelUpdateActivityComment(comment);
+  }
+
+  public void checkSearchedUserWellMatched(String user) {
+    socialpage.checkSearchedUserWellMatched(user);
+  }
+
   public void commentActivity(String activity) {
     socialpage.CommentActivity(activity);
   }
 
-  public void goToPeopleMenu() {
-    socialpage.GoToPeopleMenu();
-
+  public void editComment() {
+    socialpage.editComment();
   }
 
   public void filterByMyConnections() {
@@ -19,23 +26,16 @@ public class SocialSteps {
     socialpage.filterByMyConnections();
   }
 
+  public void goToPeopleMenu() {
+    socialpage.GoToPeopleMenu();
+
+  }
+
   public void insertNameContact(String contact) {
     socialpage.insertNameContact(contact);
   }
 
-  public void editComment() {
-    socialpage.editComment();
-  }
-
-  public void checkSearchedUserWellMatched(String user) {
-    socialpage.checkSearchedUserWellMatched(user);
-  }
-
   public void updateActivityComment(String comment) {
     socialpage.updateActivityComment(comment);
-  }
-
-  public void cancelUpdateActivityComment(String comment) {
-    socialpage.cancelUpdateActivityComment(comment);
   }
 }

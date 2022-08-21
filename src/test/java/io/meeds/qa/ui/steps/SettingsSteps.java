@@ -6,148 +6,8 @@ public class SettingsSteps {
 
   private SettingsPage settingsPage;
 
-  public void applyEditGeneralNotifications() {
-    settingsPage.applyEditGeneralNotifications();
-
-  }
-
-  public void notifyMeOnSiteIsNotDisplayedInGeneralNotificationsSection() {
-    settingsPage.notifyMeOnSiteIsNotDisplayedInGeneralNotificationsSection();
-
-  }
-
-  public void notifyMeByEmailIsNotDisplayedInGeneralNotificationsSection() {
-    settingsPage.notifyMeByEmailIsNotDisplayedInGeneralNotificationsSection();
-
-  }
-
-  public void notifyMeOnMobileIsNotDisplayedInGeneralNotificationsSection() {
-    settingsPage.notifyMeOnMobileIsNotDisplayedInGeneralNotificationsSection();
-
-  }
-
-  public void enableDisableGeneralNotificationsViaMail() {
-    settingsPage.enableDisableGeneralNotificationsViaMail();
-
-  }
-
-  public void enableDisableGeneralNotificationsOnSite() {
-    settingsPage.enableDisableGeneralNotificationsOnSite();
-
-  }
-
-  public void enableDisableGeneralNotificationsOnMobile() {
-    settingsPage.enableDisableGeneralNotificationsOnMobile();
-
-  }
-
-  public void notifyMeByEmailIsDisplayedInGeneralNotificationsSection() {
-    settingsPage.notifyMeByEmailIsDisplayedInGeneralNotificationsSection();
-
-  }
-
-  public void notifyMeOnSiteIsDisplayedInGeneralNotificationsSection() {
-    settingsPage.notifyMeOnSiteIsDisplayedInGeneralNotificationsSection();
-
-  }
-
-  public void notifyMeOnMobileIsDisplayedInGeneralNotificationsSection() {
-    settingsPage.notifyMeOnMobileIsDisplayedInGeneralNotificationsSection();
-
-  }
-
-  public void dailyEmailIsDisplayedInGeneralNotificationsSection() {
-    settingsPage.dailyEmailIsDisplayedInGeneralNotificationsSection();
-
-  }
-
-  public void weeklyEmailIsDisplayedInGeneralNotificationsSection() {
-    settingsPage.weeklyEmailIsDisplayedInGeneralNotificationsSection();
-
-  }
-
-  public void noEmailIsDisplayedInGeneralNotificationsSection() {
-    settingsPage.noEmailIsDisplayedInGeneralNotificationsSection();
-
-  }
-
-  public void selectSendMeASummaryEmail(String mailSendingType) {
-    settingsPage.selectSendMeASummaryEmail(mailSendingType);
-
-  }
-
-  public void goToManageNotifications() {
-    settingsPage.goToManageNotifications();
-
-  }
-
-  public void goToEditGeneralNotifications() {
-    settingsPage.goToEditGeneralNotifications();
-
-  }
-
-  public void generalNotificationsSendingMailTypeIsWeekly() {
-    settingsPage.generalNotificationsSendingMailTypeIsWeekly();
-
-  }
-
-  public void generalNotificationsSendingMailTypeIsDaily() {
-    settingsPage.generalNotificationsSendingMailTypeIsDaily();
-
-  }
-
-  public void generalNotificationsSendingMailTypeIsNever() {
-    settingsPage.generalNotificationsSendingMailTypeIsNever();
-
-  }
-
-  public void editLanguage(String language) {
-    settingsPage.editLanguage(language);
-
-  }
-
-  public void cancelEditLanguage() {
-    settingsPage.cancelEditLanguage();
-
-  }
-
   public void acceptEditLanguage() {
     settingsPage.acceptEditLanguage();
-
-  }
-
-  public void checkThatLanguageIsDisplayed(String language) {
-    settingsPage.checkThatLanguageIsDisplayed(language);
-
-  }
-
-  public void checkThatSettingsPageIsOpened() {
-    settingsPage.checkThatSettingsPageIsOpened();
-
-  }
-
-  public void editTimeZone(String timeZone) {
-    settingsPage.editTimeZone(timeZone);
-
-  }
-
-  public void cancelEditTimeZone() {
-    settingsPage.cancelEditTimeZone();
-
-  }
-
-  public void acceptEditTimeZone() {
-    settingsPage.acceptEditTimeZone();
-
-  }
-
-  public void checkThatTimeZoneIsDisplayed(String timeZone) {
-    settingsPage.checkThatTimeZoneIsDisplayed(timeZone);
-
-  }
-
-  public void cancelEditPassword() {
-    settingsPage.cancelEditPassword();
 
   }
 
@@ -156,28 +16,63 @@ public class SettingsSteps {
 
   }
 
-  public void editPassword(String oldPassword, String password) {
-    settingsPage.editPassword(oldPassword, password);
+  public void acceptEditTimeZone() {
+    settingsPage.acceptEditTimeZone();
 
   }
 
-  public void enableDisableNotificationViaMail() {
-    settingsPage.enableDisableNotificationViaMail();
+  public void applyEditGeneralNotifications() {
+    settingsPage.applyEditGeneralNotifications();
 
   }
 
-  public void checkThatNotificationViaMailIsDisabled() {
-    settingsPage.checkThatNotificationViaMailIsDisabled();
+  public void cancelEditLanguage() {
+    settingsPage.cancelEditLanguage();
 
   }
 
-  public void checkThatNotificationViaMailIsEnabled() {
-    settingsPage.checkThatNotificationViaMailIsEnabled();
+  public void cancelEditPassword() {
+    settingsPage.cancelEditPassword();
 
   }
 
-  public void enableDisableNotificationOnMobile() {
-    settingsPage.enableDisableNotificationOnMobile();
+  public void cancelEditTimeZone() {
+    settingsPage.cancelEditTimeZone();
+
+  }
+
+  public void checkThatActivityStreamSectionIsDisplayed() {
+    settingsPage.checkThatActivityStreamSectionIsDisplayed();
+
+  }
+
+  public void checkThatConnectionsSectionIsDisplayed() {
+    settingsPage.checkThatConnectionsSectionIsDisplayed();
+
+  }
+
+  public void checkThatGeneralSectionIsDisplayed() {
+    settingsPage.checkThatGeneralSectionIsDisplayed();
+
+  }
+
+  public void checkThatKudosSectionIsDisplayed() {
+    settingsPage.checkThatKudosSectionIsDisplayed();
+
+  }
+
+  public void checkThatLanguageIsDisplayed(String language) {
+    settingsPage.checkThatLanguageIsDisplayed(language);
+
+  }
+
+  public void checkThatManageNotificationPageIsOpened() {
+    settingsPage.checkThatManageNotificationPageIsOpened();
+
+  }
+
+  public void checkThatNotesSectionIsDisplayed() {
+    settingsPage.checkThatNotesSectionIsDisplayed();
 
   }
 
@@ -191,11 +86,6 @@ public class SettingsSteps {
 
   }
 
-  public void enableDisableNotificationOnSite() {
-    settingsPage.enableDisableNotificationOnSite();
-
-  }
-
   public void checkThatNotificationOnSiteIsDisabled() {
     settingsPage.checkThatNotificationOnSiteIsDisabled();
 
@@ -206,18 +96,23 @@ public class SettingsSteps {
 
   }
 
-  public void checkThatManageNotificationPageIsOpened() {
-    settingsPage.checkThatManageNotificationPageIsOpened();
+  public void checkThatNotificationViaMailIsDisabled() {
+    settingsPage.checkThatNotificationViaMailIsDisabled();
 
   }
 
-  public void checkThatGeneralSectionIsDisplayed() {
-    settingsPage.checkThatGeneralSectionIsDisplayed();
+  public void checkThatNotificationViaMailIsEnabled() {
+    settingsPage.checkThatNotificationViaMailIsEnabled();
 
   }
 
-  public void checkThatConnectionsSectionIsDisplayed() {
-    settingsPage.checkThatConnectionsSectionIsDisplayed();
+  public void checkThatPerkStoreSectionIsDisplayed() {
+    settingsPage.checkThatPerkStoreSectionIsDisplayed();
+
+  }
+
+  public void checkThatSettingsPageIsOpened() {
+    settingsPage.checkThatSettingsPageIsOpened();
 
   }
 
@@ -226,13 +121,13 @@ public class SettingsSteps {
 
   }
 
-  public void checkThatActivityStreamSectionIsDisplayed() {
-    settingsPage.checkThatActivityStreamSectionIsDisplayed();
+  public void checkThatTasksSectionIsDisplayed() {
+    settingsPage.checkThatTasksSectionIsDisplayed();
 
   }
 
-  public void checkThatTasksSectionIsDisplayed() {
-    settingsPage.checkThatTasksSectionIsDisplayed();
+  public void checkThatTimeZoneIsDisplayed(String timeZone) {
+    settingsPage.checkThatTimeZoneIsDisplayed(timeZone);
 
   }
 
@@ -241,18 +136,123 @@ public class SettingsSteps {
 
   }
 
-  public void checkThatKudosSectionIsDisplayed() {
-    settingsPage.checkThatKudosSectionIsDisplayed();
+  public void dailyEmailIsDisplayedInGeneralNotificationsSection() {
+    settingsPage.dailyEmailIsDisplayedInGeneralNotificationsSection();
 
   }
 
-  public void checkThatNotesSectionIsDisplayed() {
-    settingsPage.checkThatNotesSectionIsDisplayed();
+  public void editLanguage(String language) {
+    settingsPage.editLanguage(language);
 
   }
 
-  public void checkThatPerkStoreSectionIsDisplayed() {
-    settingsPage.checkThatPerkStoreSectionIsDisplayed();
+  public void editPassword(String oldPassword, String password) {
+    settingsPage.editPassword(oldPassword, password);
+
+  }
+
+  public void editTimeZone(String timeZone) {
+    settingsPage.editTimeZone(timeZone);
+
+  }
+
+  public void enableDisableGeneralNotificationsOnMobile() {
+    settingsPage.enableDisableGeneralNotificationsOnMobile();
+
+  }
+
+  public void enableDisableGeneralNotificationsOnSite() {
+    settingsPage.enableDisableGeneralNotificationsOnSite();
+
+  }
+
+  public void enableDisableGeneralNotificationsViaMail() {
+    settingsPage.enableDisableGeneralNotificationsViaMail();
+
+  }
+
+  public void enableDisableNotificationOnMobile() {
+    settingsPage.enableDisableNotificationOnMobile();
+
+  }
+
+  public void enableDisableNotificationOnSite() {
+    settingsPage.enableDisableNotificationOnSite();
+
+  }
+
+  public void enableDisableNotificationViaMail() {
+    settingsPage.enableDisableNotificationViaMail();
+
+  }
+
+  public void generalNotificationsSendingMailTypeIsDaily() {
+    settingsPage.generalNotificationsSendingMailTypeIsDaily();
+
+  }
+
+  public void generalNotificationsSendingMailTypeIsNever() {
+    settingsPage.generalNotificationsSendingMailTypeIsNever();
+
+  }
+
+  public void generalNotificationsSendingMailTypeIsWeekly() {
+    settingsPage.generalNotificationsSendingMailTypeIsWeekly();
+
+  }
+
+  public void goToEditGeneralNotifications() {
+    settingsPage.goToEditGeneralNotifications();
+
+  }
+
+  public void goToManageNotifications() {
+    settingsPage.goToManageNotifications();
+
+  }
+
+  public void noEmailIsDisplayedInGeneralNotificationsSection() {
+    settingsPage.noEmailIsDisplayedInGeneralNotificationsSection();
+
+  }
+
+  public void notifyMeByEmailIsDisplayedInGeneralNotificationsSection() {
+    settingsPage.notifyMeByEmailIsDisplayedInGeneralNotificationsSection();
+
+  }
+
+  public void notifyMeByEmailIsNotDisplayedInGeneralNotificationsSection() {
+    settingsPage.notifyMeByEmailIsNotDisplayedInGeneralNotificationsSection();
+
+  }
+
+  public void notifyMeOnMobileIsDisplayedInGeneralNotificationsSection() {
+    settingsPage.notifyMeOnMobileIsDisplayedInGeneralNotificationsSection();
+
+  }
+
+  public void notifyMeOnMobileIsNotDisplayedInGeneralNotificationsSection() {
+    settingsPage.notifyMeOnMobileIsNotDisplayedInGeneralNotificationsSection();
+
+  }
+
+  public void notifyMeOnSiteIsDisplayedInGeneralNotificationsSection() {
+    settingsPage.notifyMeOnSiteIsDisplayedInGeneralNotificationsSection();
+
+  }
+
+  public void notifyMeOnSiteIsNotDisplayedInGeneralNotificationsSection() {
+    settingsPage.notifyMeOnSiteIsNotDisplayedInGeneralNotificationsSection();
+
+  }
+
+  public void selectSendMeASummaryEmail(String mailSendingType) {
+    settingsPage.selectSendMeASummaryEmail(mailSendingType);
+
+  }
+
+  public void weeklyEmailIsDisplayedInGeneralNotificationsSection() {
+    settingsPage.weeklyEmailIsDisplayedInGeneralNotificationsSection();
 
   }
 

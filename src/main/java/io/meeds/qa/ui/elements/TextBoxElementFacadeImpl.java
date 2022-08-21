@@ -24,14 +24,6 @@ public class TextBoxElementFacadeImpl extends BaseElementFacadeImpl implements T
 
   static final Logger LOGGER = LoggerFactory.getLogger(TextBoxElementFacadeImpl.class);
 
-  public TextBoxElementFacadeImpl(WebDriver driver,
-                                  ElementLocator locator,
-                                  WebElement element,
-                                  long timeoutInMilliseconds,
-                                  long waitForTimeoutInMilliseconds) {
-    super(decorateDriver(driver), locator, element, timeoutInMilliseconds, waitForTimeoutInMilliseconds);
-  }
-
   @SuppressWarnings("unchecked")
   public static <T extends TextBoxElementFacade> T wrapWebElementFacadeInTextBoxElement(final WebDriver driver,
                                                                                         final WebElementFacade element,
@@ -44,21 +36,27 @@ public class TextBoxElementFacadeImpl extends BaseElementFacadeImpl implements T
                                             waitForTimeoutInMilliseconds);
   }
 
-  public void setTextValue(String value) {
-    setTextValue(value, null);
+  public TextBoxElementFacadeImpl(WebDriver driver,
+                                  ElementLocator locator,
+                                  WebElement element,
+                                  long timeoutInMilliseconds,
+                                  long waitForTimeoutInMilliseconds) {
+    super(decorateDriver(driver), locator, element, timeoutInMilliseconds, waitForTimeoutInMilliseconds);
   }
 
-  public void setTextValue(String value, Keys keys) {
+  @Override
+  public String getTextBoxValue() {
+    waitForPageLoaded();
+    String textValue = null;
     try {
-      sendValueWithKeys(true, keys, value);
-    } catch (WebDriverException | IllegalArgumentException e) {
+      waitUntilVisible();
+      textValue = getValue();
+    } catch (Exception e) {
       ExceptionLauncher.throwSerenityExeption(e,
-                                              String.format(
-                                                            "The element [%s] is not visible. "
-                                                                + "The new value [%s] cannot be entered.",
-                                                            this,
-                                                            value));
+                                              String.format("Text can't be extracted from The element [%s]", this));
     }
+    return textValue;
+
   }
 
   @Override
@@ -86,17 +84,22 @@ public class TextBoxElementFacadeImpl extends BaseElementFacadeImpl implements T
     }
   }
 
-  public String getTextBoxValue() {
-    waitForPageLoaded();
-    String textValue = null;
-    try {
-      waitUntilVisible();
-      textValue = getValue();
-    } catch (Exception e) {
-      ExceptionLauncher.throwSerenityExeption(e,
-                                              String.format("Text can't be extracted from The element [%s]", this));
-    }
-    return textValue;
+  @Override
+  public void setTextValue(String value) {
+    setTextValue(value, null);
+  }
 
+  @Override
+  public void setTextValue(String value, Keys keys) {
+    try {
+      sendValueWithKeys(true, keys, value);
+    } catch (WebDriverException | IllegalArgumentException e) {
+      ExceptionLauncher.throwSerenityExeption(e,
+                                              String.format(
+                                                            "The element [%s] is not visible. "
+                                                                + "The new value [%s] cannot be entered.",
+                                                            this,
+                                                            value));
+    }
   }
 }

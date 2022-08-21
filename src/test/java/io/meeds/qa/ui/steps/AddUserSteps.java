@@ -18,20 +18,6 @@ public class AddUserSteps {
 
   private HomePage    homePage;
 
-  public void addUser(Map<String, String> userDetails) {
-    addUserPage.clickAddUserButton();
-    for (String fieldsName : userDetails.keySet()) {
-      addUserPage.setUserDetails(fieldsName, userDetails.get(fieldsName));
-    }
-    addUserPage.saveAddUserButton();
-  }
-
-  public void addRandomUser(String userName, String firstName, String lastName, String mail, String password) {
-    addUserPage.clickAddUserButton();
-    addUserPage.setRandomUserDetails(userName, firstName, lastName, mail, password);
-    addUserPage.saveAddUserButton();
-  }
-
   public void addRandomUser(String userPrefix, boolean waitSearchable) {
     if (StringUtils.isBlank(sessionVariableCalled(userPrefix + "UserName"))) {
       String userName = "user" + userPrefix + getRandomString();
@@ -57,40 +43,27 @@ public class AddUserSteps {
     }
   }
 
-  public void enterUserInformations(Map<String, String> userDetails) {
+  public void addRandomUser(String userName, String firstName, String lastName, String mail, String password) {
+    addUserPage.clickAddUserButton();
+    addUserPage.setRandomUserDetails(userName, firstName, lastName, mail, password);
+    addUserPage.saveAddUserButton();
+  }
+
+  public void addUser(Map<String, String> userDetails) {
     addUserPage.clickAddUserButton();
     for (String fieldsName : userDetails.keySet()) {
       addUserPage.setUserDetails(fieldsName, userDetails.get(fieldsName));
     }
-  }
-
-  public void saveAddingUser() {
     addUserPage.saveAddUserButton();
   }
 
-  public void enableDisableUser(String user) throws InterruptedException {
-    addUserPage.enableDisableUser(user);
-  }
-
-  public void searchForUsersByName(String fullName) {
-    addUserPage.searchForUsersByName(fullName);
-  }
-
-  public void searchForUsersByStatus(String status) {
-    addUserPage.searchForUsersByStatus(status);
-  }
-
-  public void isUserNameDisplayed(String user) {
-    addUserPage.isUserNameDisplayed(user);
+  public void checkPopupCantDeleteLoggedUser() {
+    addUserPage.checkPopupCantDeleteLoggedUser();
   }
 
   public void checkThatAddUserDrawerIsDisplayed() {
     addUserPage.clickAddUserButton();
     addUserPage.checkThatAddUserDrawerIsDisplayed();
-  }
-
-  public void deleteUser() {
-    addUserPage.deleteUser();
   }
 
   public void checkUserIsDeleted(String fullName) {
@@ -101,8 +74,35 @@ public class AddUserSteps {
     addUserPage.clickToDeleteUser();
   }
 
-  public void checkPopupCantDeleteLoggedUser() {
-    addUserPage.checkPopupCantDeleteLoggedUser();
+  public void deleteUser() {
+    addUserPage.deleteUser();
+  }
+
+  public void enableDisableUser(String user) throws InterruptedException {
+    addUserPage.enableDisableUser(user);
+  }
+
+  public void enterUserInformations(Map<String, String> userDetails) {
+    addUserPage.clickAddUserButton();
+    for (String fieldsName : userDetails.keySet()) {
+      addUserPage.setUserDetails(fieldsName, userDetails.get(fieldsName));
+    }
+  }
+
+  public void isUserNameDisplayed(String user) {
+    addUserPage.isUserNameDisplayed(user);
+  }
+
+  public void saveAddingUser() {
+    addUserPage.saveAddUserButton();
+  }
+
+  public void searchForUsersByName(String fullName) {
+    addUserPage.searchForUsersByName(fullName);
+  }
+
+  public void searchForUsersByStatus(String status) {
+    addUserPage.searchForUsersByStatus(status);
   }
 
 }

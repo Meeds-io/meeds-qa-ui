@@ -6,16 +6,16 @@ public class AddGroupsSteps {
 
   private AddGroupsPage addGroupsPage;
 
+  public void addMemberInGroup(String role, String member) {
+    addGroupsPage.addMemberInGroup(role, member);
+  }
+
   public void openGroup(String group) {
     addGroupsPage.openGroup(group);
   }
 
   public void selectGroup(String group) {
     addGroupsPage.selectGroup(group);
-  }
-
-  public void addMemberInGroup(String role, String member) {
-    addGroupsPage.addMemberInGroup(role, member);
   }
 
 }

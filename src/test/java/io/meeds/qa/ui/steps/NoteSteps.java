@@ -7,8 +7,28 @@ public class NoteSteps {
 
   private NotePage notePage;
 
-  public void clickAddNote() {
-    notePage.clickAddNotePageIcon();
+  public void accessNoteActivity(String noteTitle) {
+    notePage.clickNoteActivity(noteTitle);
+  }
+
+  public void addNote(String noteTitle, String noteContent) {
+    notePage.addNote(noteTitle, noteContent);
+  }
+
+  public void checkColorFavIcon() {
+    notePage.checkColorFavIcon();
+  }
+
+  public void checkColorStarIcon() {
+    notePage.checkColorStarIcon();
+  }
+
+  public void checkDeletedNote(String noteTitle) {
+    notePage.checkDeletedNote(noteTitle);
+  }
+
+  public void checkEditedNote(String noteTitleEdited, String noteContentEdited) {
+    notePage.checkNoteEditedDetails(noteTitleEdited, noteContentEdited);
   }
 
   public void checkNoteCreateForm() {
@@ -16,34 +36,25 @@ public class NoteSteps {
     notePage.checkNoteCreateFormOpened();
   }
 
-  public void addNote(String noteTitle, String noteContent) {
-    notePage.addNote(noteTitle, noteContent);
-  }
-
-  public void saveNote() {
-    notePage.saveNote();
-  }
-
-  public void saveAndPostNote() {
-    notePage.saveAndPostNote();
-  }
-
   public void checkNoteDetailsDisplay(String noteTitle, String noteContent) {
     notePage.checkNoteDetailsDisplay(noteTitle, noteContent);
   }
 
-  public void createNotePage(String noteTitle, String noteContent) {
-    switchToTabByIndex(1);
-    notePage.createNotePage(noteTitle, noteContent);
+  public void checkNoteEditForm() {
+    switchToTabByIndex(2);
+    notePage.checkNoteEditFormOpened();
+  }
+
+  public void clickAddNote() {
+    notePage.clickAddNotePageIcon();
   }
 
   public void clickEditNote() {
     notePage.clickEditNotePage();
   }
 
-  public void checkNoteEditForm() {
-    switchToTabByIndex(2);
-    notePage.checkNoteEditFormOpened();
+  public void clickThreeDotsIcon() {
+    notePage.clickThreeDotsIcon();
   }
 
   public void closeTheThirdWindow() {
@@ -52,52 +63,41 @@ public class NoteSteps {
     switchToTabByIndex(1);
   }
 
-  public void editNotePage(String noteTitleEdited, String noteContentEdited) {
-    notePage.editNotePage(noteTitleEdited, noteContentEdited);
-  }
-
-  public void checkEditedNote(String noteTitleEdited, String noteContentEdited) {
-    notePage.checkNoteEditedDetails(noteTitleEdited, noteContentEdited);
-  }
-
-  public void clickThreeDotsIcon() {
-    notePage.clickThreeDotsIcon();
+  public void createNotePage(String noteTitle, String noteContent) {
+    switchToTabByIndex(1);
+    notePage.createNotePage(noteTitle, noteContent);
   }
 
   public void deleteNote() {
     notePage.deleteNote();
   }
 
-  public void checkDeletedNote(String noteTitle) {
-    notePage.checkDeletedNote(noteTitle);
-  }
-
-  public void noteActivityDisplay(String noteTitle) {
-    notePage.isNoteActivityDisplayed(noteTitle);
-  }
-
-  public void accessNoteActivity(String noteTitle) {
-    notePage.clickNoteActivity(noteTitle);
+  public void editNotePage(String noteTitleEdited, String noteContentEdited) {
+    notePage.editNotePage(noteTitleEdited, noteContentEdited);
   }
 
   public void favoriteNote() {
     notePage.favoriteNote();
   }
 
-  public void checkColorStarIcon() {
-    notePage.checkColorStarIcon();
+  public void noteActivityDisplay(String noteTitle) {
+    notePage.isNoteActivityDisplayed(noteTitle);
   }
 
-  public void checkColorFavIcon() {
-    notePage.checkColorFavIcon();
+  public void saveAndPostNote() {
+    notePage.saveAndPostNote();
   }
 
-  public void unfavoriteNotePage() {
-    notePage.unfavoriteNotePage();
+  public void saveNote() {
+    notePage.saveNote();
   }
 
   public void switchToTabByIndex(int i) {
     Utils.switchToTabByIndex(notePage.getDriver(), 1);
+  }
+
+  public void unfavoriteNotePage() {
+    notePage.unfavoriteNotePage();
   }
 
 }

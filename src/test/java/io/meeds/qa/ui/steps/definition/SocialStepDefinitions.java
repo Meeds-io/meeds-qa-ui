@@ -16,9 +16,42 @@ public class SocialStepDefinitions {
   @Steps
   private StreamSteps streamSteps;
 
+  @When("^I set the new comment '(.*)' and I click on cancel button$")
+  public void cancelUpdateActivityComment(String comment) {
+    socialSteps.cancelUpdateActivityComment(comment);
+  }
+
+  @Given("The search result is well matched with the username entered of the first user")
+  public void checkSearchedFirstUserWellMatched() {
+    String firstUserName = Serenity.sessionVariableCalled("firstUserName");
+    socialSteps.checkSearchedUserWellMatched(firstUserName);
+  }
+
+  @Given("The search result is well matched with the username entered of the second user")
+  public void checkSearchedSecondUserWellMatched() {
+    String secondUserName = Serenity.sessionVariableCalled("secondUserName");
+    socialSteps.checkSearchedUserWellMatched(secondUserName);
+  }
+
+  @Given("^The search result is well matched with the username entered '(.*)'$")
+  public void checkSearchedUserWellMatched(String user) {
+    socialSteps.checkSearchedUserWellMatched(user);
+  }
+
   @And("^I add a comment in activity '(.*)'$")
   public void commentActivity(String activity) {
     socialSteps.commentActivity(activity);
+  }
+
+  @And("I Select the comment added and I click on edit button")
+  public void editComment() {
+    socialSteps.editComment();
+  }
+
+  @And("I click on People filter and I select My connections")
+  public void filterByMyConnections() {
+    socialSteps.filterByMyConnections();
+
   }
 
   @When("^I go to people page$")
@@ -26,10 +59,9 @@ public class SocialStepDefinitions {
     socialSteps.goToPeopleMenu();
   }
 
-  @And("I click on People filter and I select My connections")
-  public void filterByMyConnections() {
-    socialSteps.filterByMyConnections();
-
+  @When("^I hover on user name '(.*)' activity$")
+  public void hoverUserName(String user) {
+    streamSteps.hoverUserName(user);
   }
 
   @And("^I enter the contact name '(.*)'$")
@@ -55,40 +87,8 @@ public class SocialStepDefinitions {
     socialSteps.insertNameContact(fullName);
   }
 
-  @Given("^The search result is well matched with the username entered '(.*)'$")
-  public void checkSearchedUserWellMatched(String user) {
-    socialSteps.checkSearchedUserWellMatched(user);
-  }
-
-  @Given("The search result is well matched with the username entered of the first user")
-  public void checkSearchedFirstUserWellMatched() {
-    String firstUserName = Serenity.sessionVariableCalled("firstUserName");
-    socialSteps.checkSearchedUserWellMatched(firstUserName);
-  }
-
-  @Given("The search result is well matched with the username entered of the second user")
-  public void checkSearchedSecondUserWellMatched() {
-    String secondUserName = Serenity.sessionVariableCalled("secondUserName");
-    socialSteps.checkSearchedUserWellMatched(secondUserName);
-  }
-
-  @And("I Select the comment added and I click on edit button")
-  public void editComment() {
-    socialSteps.editComment();
-  }
-
   @When("^I set the new comment '(.*)' and I click on update button$")
   public void updateActivityComment(String comment) {
     socialSteps.updateActivityComment(comment);
-  }
-
-  @When("^I set the new comment '(.*)' and I click on cancel button$")
-  public void cancelUpdateActivityComment(String comment) {
-    socialSteps.cancelUpdateActivityComment(comment);
-  }
-
-  @When("^I hover on user name '(.*)' activity$")
-  public void hoverUserName(String user) {
-    streamSteps.hoverUserName(user);
   }
 }
