@@ -9,11 +9,11 @@ Feature: Spaces widget checking
   Scenario: US 3.3.2_(02) [BACK] Spaces requests to join: See All
     Given I am authenticated as admin
     And I create the fourth random user if not existing
-    And I create a random space with the fourth created user
-    And I create a random space with the fourth created user
-    And I create a random space with the fourth created user
-    And I create a random space with the fourth created user
-    And I create a random space with the fourth created user
+    And I create a random space with the fourth random user
+    And I create a random space with the fourth random user
+    And I create a random space with the fourth random user
+    And I create a random space with the fourth random user
+    And I create a random space with the fourth random user
     When I connect with the fourth created user
     Then the invitation number for spaces is '5'
     And The 'Spaces' badge is '5'

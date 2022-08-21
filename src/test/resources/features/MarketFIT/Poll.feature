@@ -12,7 +12,7 @@ Feature: Poll
 
     When I click on post in space
     And I click on Create Poll
-    And I created a simple poll with title 'Poll Test' and Choice One 'QA Test' and Choice Two 'DevJEE'
+    And I create a simple poll with title 'Poll Test' and Choice One 'QA Test' and Choice Two 'DevJEE'
     And I publish the Poll
     Then The Poll 'Poll Test' is displayed in stream page
 
@@ -53,10 +53,10 @@ Feature: Poll
 
     When I click on post in space
     And I click on Create Poll
-    And I created a simple poll with title 'Poll test' and Choice One 'Option 1' and Choice Two 'Option 2'
+    And I create a simple poll with title 'Poll test' and Choice One 'Option 1' and Choice Two 'Option 2'
     Then create poll drawer is closed
     When I click on Create Poll
-    And I created a simple poll with title ' edited' and Choice One ' edited' and Choice Two ' edited'
+    And I create a simple poll with title ' edited' and Choice One ' edited' and Choice Two ' edited'
     Then create poll drawer is closed
 
   @test
@@ -70,7 +70,7 @@ Feature: Poll
 
     When I click on post in space
     And I click on Create Poll
-    And I created a simple poll with title 'Poll 3 Test' and Choice One 'QA 3 Test' and Choice Two 'DevX'
+    And I create a simple poll with title 'Poll 3 Test' and Choice One 'QA 3 Test' and Choice Two 'DevX'
     And I add a short message 'Activity Poll' for the Poll
     And I publish the Poll
     Then The Poll 'Poll 3 Test' is displayed in stream page

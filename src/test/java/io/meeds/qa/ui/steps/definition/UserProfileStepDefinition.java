@@ -137,24 +137,6 @@ public class UserProfileStepDefinition {
     userProfileSteps.sentKudosUsersSectionIsDisplayed(userLastName);
   }
 
-  @Then("^Sent kudos by third user is displayed$")
-  public void sentKudosThirdUserSectionIsDisplayed() {
-    String thirdUserFirstName = Serenity.sessionVariableCalled("thirdUserFirstName");
-    String thirdUserLastName = Serenity.sessionVariableCalled("thirdUserLastName");
-
-    String thirdUserFullName = thirdUserFirstName + " " + thirdUserLastName;
-    userProfileSteps.sentKudosUsersSectionIsDisplayed(thirdUserFullName);
-  }
-
-  @Then("Sent kudos by second user is displayed")
-  public void sentKudosSecondUserSectionIsDisplayed() {
-    String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
-    String secondUserLastName = Serenity.sessionVariableCalled("secondUserLastName");
-
-    String secondUserFullName = secondUserFirstName + " " + secondUserLastName;
-    userProfileSteps.sentKudosUsersSectionIsDisplayed(secondUserFullName);
-  }
-
   @Then("Profile avatar is uploaded")
   public void isProfileAvatarUploaded() {
     userProfileSteps.isProfileAvatarUploaded();

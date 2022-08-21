@@ -51,11 +51,10 @@ Feature: Rules
     When I go to my profile
     Then My points augmented
 
-  @test
   Scenario: Join a space
     Given I am authenticated as admin
     And I create the first random user if not existing
-    And I create a random space with the first created user
+    And I create a random space with the first random user
     And I connect with the first created user
     And I check my points
     Then The 'Spaces' badge is '1'
@@ -65,8 +64,7 @@ Feature: Rules
     When I go to my profile
     Then My points augmented
 
-  @test
-  Scenario: Create new task
+  Scenario: Create a new task
     Given I am authenticated as admin
     And I check my points
     When I go To AppCenter Drawer

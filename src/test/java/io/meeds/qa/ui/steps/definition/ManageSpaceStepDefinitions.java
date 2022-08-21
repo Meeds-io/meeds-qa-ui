@@ -202,9 +202,7 @@ public class ManageSpaceStepDefinitions {
     setSessionVariable("randomSpaceName").to(randomSpaceName);
   }
 
-  @Given("^I create a random space with the (.*) created user$")
-  @And("^I create a random space with the (.*) user$")
-  @And("^I create a random space with the (.*) random user$")
+  @Given("^I create a random space with the (.*) random user$")
   public void addARandomSpaceWithRandomUserInvited(String userPrefix) {
     String randomSpaceName = "randomSpaceName" + getRandomNumber();
     String userFirstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");

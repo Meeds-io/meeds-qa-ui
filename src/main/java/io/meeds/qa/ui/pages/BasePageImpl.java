@@ -1,6 +1,7 @@
 package io.meeds.qa.ui.pages;
 
-import static io.meeds.qa.ui.utils.Utils.*;
+import static io.meeds.qa.ui.utils.Utils.MAX_WAIT_RETRIES;
+import static io.meeds.qa.ui.utils.Utils.decorateDriver;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoaded;
 import static org.junit.Assert.assertTrue;
 
@@ -25,7 +26,6 @@ import io.meeds.qa.ui.elements.TextElementFacadeImpl;
 import io.meeds.qa.ui.utils.ExceptionLauncher;
 import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.Serenity;
-import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.core.selectors.Selectors;
 import net.thucydides.core.pages.PageObject;
@@ -41,9 +41,6 @@ public class BasePageImpl extends PageObject implements BasePage {
   protected String              url;
 
   protected WebDriver           driver;
-
-  @FindBy(css = ".UISiteBody .v-progress-linear")
-  private BaseElementFacade     progressBar;
 
   public BasePageImpl() {
     this(null);
@@ -76,8 +73,8 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void waitForDrawerToOpen() {
-    findByXPathOrCSS(".v-navigation-drawer--open").waitUntilVisible();
     try {
+      findByXPathOrCSS(".v-navigation-drawer--open").waitUntilVisible();
       findByXPathOrCSS(".v-overlay").waitUntilVisible();
     } catch (Exception e) {
       LOGGER.warn("Overlay seems not displayed", e);
@@ -85,8 +82,8 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void waitForDrawerToClose() {
-    findByXPathOrCSS(".v-navigation-drawer--open").waitUntilNotVisible();
     try {
+      findByXPathOrCSS(".v-navigation-drawer--open").waitUntilNotVisible();
       findByXPathOrCSS(".v-overlay").waitUntilNotVisible();
     } catch (Exception e) {
       LOGGER.warn("Overlay seems not displayed", e);
@@ -169,18 +166,27 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void waitCKEditorLoading() {
-    BaseElementFacade richTextLoadingElement = findByXPathOrCSS("//*[contains(@class, 'loadingRing')]");
-    richTextLoadingElement.setImplicitTimeout(Duration.ofSeconds(0));
-    if (richTextLoadingElement.isDisplayed()) {
-      richTextLoadingElement.setImplicitTimeout(Duration.ofSeconds(5));
-      richTextLoadingElement.waitUntilNotVisible();
+    try {
+      BaseElementFacade richTextLoadingElement = findByXPathOrCSS("//*[contains(@class, 'loadingRing')]");
+      richTextLoadingElement.setImplicitTimeout(Duration.ofSeconds(0));
+      if (richTextLoadingElement.isCurrentlyVisible()) {
+        richTextLoadingElement.setImplicitTimeout(Duration.ofSeconds(5));
+        if (richTextLoadingElement.isVisibleAfterWaiting()) {
+          richTextLoadingElement.waitUntilNotVisible();
+        }
+      }
+    } catch (Exception e) {
+      ExceptionLauncher.LOGGER.debug("Can't wait for progress bar to finish loading", e);
     }
   }
 
   public void waitForProgressBar() {
     try {
-      progressBar.waitUntilVisible();
-      progressBar.waitUntilNotVisible();
+      if (!findByXPathOrCSS(".UISiteBody .v-progress-linear").isCurrentlyVisible()) {
+        waitFor(500).milliseconds(); // wait until action is considered
+                                     // (especially for search)
+      }
+      findByXPathOrCSS(".UISiteBody .v-progress-linear").waitUntilNotVisible();
     } catch (Exception e) {
       ExceptionLauncher.LOGGER.debug("Can't wait for progress bar to finish loading", e);
     }

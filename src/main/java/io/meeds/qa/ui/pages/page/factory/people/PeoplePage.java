@@ -157,36 +157,36 @@ public class PeoplePage extends GenericPage {
   }
 
   private BaseElementFacade getUserProfileButton(String user) {
-    return findByXPathOrCSS(String.format("//a[contains(@href,'%s')and contains(@class,'userFullname')]", user));
+    return findByXPathOrCSS(String.format("//a[contains(text(),'%s') and contains(@class,'userFullname')]", user));
   }
 
   private BaseElementFacade getUserButton(String user) {
     return findByXPathOrCSS(String
-                                  .format("//a[contains(@href,'%s')]//ancestor::*[contains(@class, 'peopleCardItem')]//button[contains(@class, 'peopleRelationshipButton')]",
+                                  .format("//a[contains(text(),'%s') and contains(@class,'userFullname')]//ancestor::*[contains(@class, 'peopleCardItem')]//button[contains(@class, 'peopleRelationshipButton')]",
                                           user));
   }
 
   private BaseElementFacade getConnectUserButton(String user) {
     return findByXPathOrCSS(String
-                                  .format("//a[contains(@href,'%s')]//ancestor::*[contains(@class, 'peopleCardItem')]//button[contains(@class, 'connectUserButton')]",
+                                  .format("//a[contains(text(),'%s') and contains(@class,'userFullname')]//ancestor::*[contains(@class, 'peopleCardItem')]//button[contains(@class, 'connectUserButton')]",
                                           user));
   }
 
   private BaseElementFacade getCancelRequestUserButton(String user) {
     return findByXPathOrCSS(String
-                                  .format("//a[contains(@href,'%s')]//ancestor::*[contains(@class, 'peopleCardItem')]//button[contains(@class, 'cancelRequestButton')]",
+                                  .format("//a[contains(text(),'%s') and contains(@class,'userFullname')]//ancestor::*[contains(@class, 'peopleCardItem')]//button[contains(@class, 'cancelRequestButton')]",
                                           user));
   }
 
   private BaseElementFacade getInvitationsRequestUserButton(String user) {
     return findByXPathOrCSS(String
-                                  .format("//a[contains(@href,'%s')]//ancestor::*[contains(@class, 'peopleCardItem')]//button[contains(@class, 'peopleButtonMenu')]",
+                                  .format("//a[contains(text(),'%s') and contains(@class,'userFullname')]//ancestor::*[contains(@class, 'peopleCardItem')]//button[contains(@class, 'peopleButtonMenu')]",
                                           user));
   }
 
   private BaseElementFacade getRefuseInvitationUserButton(String user) {
     return findByXPathOrCSS(String
-                                  .format("//a[contains(@href,'%s')]//ancestor::*[contains(@class, 'peopleCardItem')]//button[contains(@class, 'refuseToConnectButton')]",
+                                  .format("//a[contains(text(),'%s') and contains(@class,'userFullname')]//ancestor::*[contains(@class, 'peopleCardItem')]//button[contains(@class, 'refuseToConnectButton')]",
                                           user));
   }
 

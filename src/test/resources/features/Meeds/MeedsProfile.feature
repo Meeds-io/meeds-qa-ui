@@ -95,9 +95,8 @@ Feature: Search for User Informations in Profile page
     Then Received kudos by sixthkudos user is displayed
 
     When I go to Sent Kudos
-    Then Sent kudos by seventhkudos user is displayed
-    And Sent kudos by sixthkudos user is displayed
-    And I refresh the page
+    Then Sent kudos by user 'seventhkudos' is displayed
+    And Sent kudos by user 'sixthkudos' is displayed
 
   Scenario: : PROFILE-6 : Rawards Meeds block and its drawer
     Given I am authenticated as admin

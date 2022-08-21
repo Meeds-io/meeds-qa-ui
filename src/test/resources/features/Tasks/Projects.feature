@@ -186,7 +186,7 @@ Feature: Tasks - Projects
   Scenario: [NF] [US_GanttView_01]: Display Gantt tab in Space tasks projects
     Given I am authenticated as admin
     And I create the first random user if not existing
-    And I create a random space with the first user
+    And I create a random space with the first random user
     And I connect with the first created user
     Then The 'Spaces' badge is '1'
     When I click on spaces badge

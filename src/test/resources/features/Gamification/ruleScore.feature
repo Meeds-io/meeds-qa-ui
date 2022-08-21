@@ -2,8 +2,7 @@
 Feature: Check the rules score increase
   for different type of activity on the plf
 
-  @test
-  Scenario: Send Kudos
+  Scenario: Send a Kudos
     Given I am authenticated as admin
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing
@@ -18,14 +17,14 @@ Feature: Check the rules score increase
   @test
   Scenario: Receive a connection request
     Given I am authenticated as admin
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing
-    When I connect with the second created user
+    And I create the firstgami random user if not existing, no wait
+    And I create the secondgami random user if not existing
+    When I connect with the secondgami created user
     And I go to my profile
     And I check my points
-    And I connect with the first created user
-    And I connect to second user
-    And I connect with the second created user
+    And I connect with the firstgami created user
+    And I connect to secondgami user
+    And I connect with the secondgami created user
     When I go to my profile
     Then My points augmented
 
@@ -88,19 +87,17 @@ Feature: Check the rules score increase
     And I go to my profile
     Then My points augmented
 
-  # Relationship doesn't increase gamification points
-  # It seems a real bug to fix in product
-  @ignored
+  @test
   Scenario: Receive relationship request
     Given I am authenticated as admin
-    And I create the first random user if not existing, no wait
-    And I create the sixth random user if not existing
-    And I connect with the first created user
+    And I create the thirdgami random user if not existing, no wait
+    And I create the fourthgami random user if not existing
+    And I connect with the thirdgami created user
     And I go to my profile
     And I check my points
-    And I connect to sixth user
-    And I connect with the sixth created user
-    And I accept the connection invitation sent by 'first' user
-    And I connect with the first created user
+    And I connect to fourthgami user
+    And I connect with the fourthgami created user
+    And I accept the connection invitation sent by 'thirdgami' user
+    And I connect with the thirdgami created user
     And I go to my profile
     Then My points augmented

@@ -335,6 +335,7 @@ public class HomePage extends GenericPage {
   public void goToPeoplePage() {
     clickOnHamburgerMenu();
     clickOnElement(personnePageLink);
+    verifyPageLoaded();
   }
 
   public void searchedSpaceIsDisplayedInSideBarFilter(String space) {

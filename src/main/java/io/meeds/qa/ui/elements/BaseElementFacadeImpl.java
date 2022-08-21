@@ -267,13 +267,21 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
   @Override
   @SwitchToWindow
   public boolean isCurrentlyEnabled() {
-    return super.isCurrentlyEnabled();
+    try {
+      return super.isCurrentlyEnabled();
+    } catch (Exception e) {
+      return false;
+    }
   }
 
   @Override
   @SwitchToWindow
   public boolean isCurrentlyVisible() {
-    return super.isCurrentlyVisible();
+    try {
+      return super.isCurrentlyVisible();
+    } catch (Exception e) {
+      return false;
+    }
   }
 
   @Override
