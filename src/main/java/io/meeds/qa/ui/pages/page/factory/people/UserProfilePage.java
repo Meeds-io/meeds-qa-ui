@@ -360,6 +360,7 @@ public class UserProfilePage extends GenericPage {
 
   @SwitchToWindow
   public void sendKudos(String comment) {
+    waitCKEditorLoading();
     ckEditorFrameSendKudosDrawer.waitUntilVisible();
     ckEditorFrameSendKudosDrawer.clickOnElement();
     driver.switchTo().frame(ckEditorFrameSendKudosDrawer);

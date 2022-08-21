@@ -72,9 +72,6 @@ public class KudosPage extends GenericPage {
   @FindBy(xpath = "//body[contains(@class,'cke_editable_themed')]")
   private TextBoxElementFacade    KudosField;
 
-  @FindBy(xpath = "(//iframe[contains(@class,'cke_wysiwyg_frame')])[2]")
-  private BaseElementFacade       ckEditorFrameKudosFromDrawer;
-
   @FindBy(xpath = "//*[@data-cke-title='Rich Text Editor, kudosContent']/following::*[contains(@class,'cke_editable_themed')][1]")
   private TextBoxElementFacade    kudosFieldFromDrawer;
 
@@ -226,7 +223,7 @@ public class KudosPage extends GenericPage {
   @SwitchToWindow
   public void addActivityCommentKudosFromDrawer(String comment) {
     waitCKEditorLoading();
-    driver.switchTo().frame(ckEditorFrameKudosFromDrawer);
+    driver.switchTo().frame(ckEditorFrameKudos);
     try {
       kudosFieldFromDrawer.waitUntilVisible();
       kudosFieldFromDrawer.setTextValue(comment);

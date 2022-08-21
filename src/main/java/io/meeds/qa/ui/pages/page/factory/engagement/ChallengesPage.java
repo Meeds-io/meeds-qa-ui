@@ -179,6 +179,7 @@ public class ChallengesPage extends GenericPage {
 
   @SwitchToWindow
   public void addChallengeWithDescription(String description) {
+    waitCKEditorLoading();
     clickOnElement(ckEditorFrameChallenge);
     driver.switchTo().frame(ckEditorFrameChallenge);
     try {

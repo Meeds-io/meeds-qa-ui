@@ -25,7 +25,6 @@ Feature: Space widgets checking
     When I connect with the fifthnoconn created user
     Then the number of connection requests is '5'
 
-  @instable
   Scenario: US 3.3.4_(01) [BACK]Connections requests to join: See All
     Given I am authenticated as admin
 

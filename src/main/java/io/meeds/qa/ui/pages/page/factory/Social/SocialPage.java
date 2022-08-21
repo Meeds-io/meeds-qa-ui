@@ -27,7 +27,7 @@ public class SocialPage extends GenericPage {
   @FindBy(xpath = "//button[@class='btn ms-2 v-btn v-btn--contained theme--light v-size--default']")
   public static BaseElementFacade    cancelBtn;
 
-  @FindBy(xpath = "//iframe[contains(@class,'cke_wysiwyg_frame')]")
+  @FindBy(xpath = "//*[contains(@class, 'v-navigation-drawer--open')]//iframe[contains(@class,'cke_wysiwyg_frame')]")
   private BaseElementFacade          ckEditorFrameComment;
 
   @FindBy(xpath = "//body[contains(@class,'cke_editable_themed')]")
@@ -89,7 +89,7 @@ public class SocialPage extends GenericPage {
 
   @SwitchToWindow
   public void updateActivityComment(String comment) {
-
+    waitCKEditorLoading();
     ckEditorFrameComment.clickOnElement();
     driver.switchTo().frame(ckEditorFrameComment);
     try {
@@ -106,6 +106,7 @@ public class SocialPage extends GenericPage {
 
   @SwitchToWindow
   public void cancelUpdateActivityComment(String comment) {
+    waitCKEditorLoading();
     ckEditorFrameComment.clickOnElement();
     driver.switchTo().frame(ckEditorFrameComment);
     try {
