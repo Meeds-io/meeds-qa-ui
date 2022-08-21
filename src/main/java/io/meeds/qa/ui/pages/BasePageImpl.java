@@ -248,24 +248,28 @@ public class BasePageImpl extends PageObject implements BasePage {
     }
   }
 
+  @SwitchToWindow
   public void assertWebElementNotVisible(BaseElementFacade element) {
     assertTrue(String.format("Element %s is still visible after waiting", // NOSONAR
                              element),
                isWebElementNotVisible(element));
   }
 
+  @SwitchToWindow
   public void assertWebElementNotVisible(BaseElementFacade element, int maxRetries) {
     assertTrue(String.format("Element %s is still visible after waiting",
                              element),
                isWebElementNotVisible(element, maxRetries));
   }
 
+  @SwitchToWindow
   public void assertWebElementVisible(BaseElementFacade element) {
     assertTrue(String.format("Unable to locate a visible element %s",
                              element),
                isWebElementVisible(element));
   }
 
+  @SwitchToWindow
   public void assertWebElementVisible(BaseElementFacade element, int maxRetries) {
     assertTrue(String.format("Unable to locate a visible element %s",
                              element),
@@ -284,6 +288,7 @@ public class BasePageImpl extends PageObject implements BasePage {
     return isWebElementVisible(element, MAX_WAIT_RETRIES);
   }
 
+  @SwitchToWindow
   public boolean isWebElementVisible(BaseElementFacade element, long maxRetries) {
     verifyPageLoaded();
     element.setImplicitTimeout(DEFAULT_SHORT_WAIT_DURATION);

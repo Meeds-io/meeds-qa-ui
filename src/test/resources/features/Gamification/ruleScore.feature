@@ -2,6 +2,7 @@
 Feature: Check the rules score increase
   for different type of activity on the plf
 
+  @test
   Scenario: Send a Kudos
     Given I am authenticated as admin
     And I create the first random user if not existing, no wait

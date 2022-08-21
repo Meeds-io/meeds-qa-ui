@@ -27,22 +27,22 @@ public class CustomWebDriverListener implements WebDriverListener {
 
   @Override
   public void beforeImplicitlyWait(Timeouts timeouts, Duration duration) {
-//    switchToCurrentWindow(webDriver, null, "beforeImplicitlyWait");
+    switchToCurrentWindow(webDriver, null, "beforeImplicitlyWait");
   }
 
   @Override
   public void afterImplicitlyWait(Timeouts timeouts, Duration duration) {
-//    releaseCurrentWindow(webDriver, null, "afterImplicitlyWait");
+    releaseCurrentWindow(webDriver, null, "afterImplicitlyWait");
   }
 
   @Override
   public void beforeFindElement(WebDriver driver, By locator) {
-//    switchToCurrentWindow(driver, locator, "beforeFindElement");
+    switchToCurrentWindow(driver, locator, "beforeFindElement");
   }
 
   @Override
   public void afterFindElement(WebDriver driver, By locator, WebElement result) {
-//    releaseCurrentWindow(driver, locator, "afterFindElement");
+    releaseCurrentWindow(driver, locator, "afterFindElement");
   }
 
   @Override
@@ -66,25 +66,25 @@ public class CustomWebDriverListener implements WebDriverListener {
   }
 
   @Override
-  public void onError(Object target, Method method, Object[] args, InvocationTargetException e) {
+  public void onError(Object target, Method method, Object[] args, InvocationTargetException e) { // NOSONAR
     String methodName = method == null ? StringUtils.EMPTY : method.getName();
     switch (methodName) {
-//      case "findElement":
-//        By locator = Arrays.isNullOrEmpty(args) || !(args[0] instanceof By) ? null : (By) args[0];
-//        afterFindElement(webDriver,
-//                         locator,
-//                         null);
-//        break;
+      case "findElement":
+        By locator = Arrays.isNullOrEmpty(args) || !(args[0] instanceof By) ? null : (By) args[0];
+        afterFindElement(webDriver,
+                         locator,
+                         null);
+        break;
       case "click":
         WebElement clickElement = Arrays.isNullOrEmpty(args) || !(args[0] instanceof WebElement) ? null : (WebElement) args[0];
         afterClick(clickElement);
         break;
-//      case "implicitlyWait":
-//        Timeouts timeouts = Arrays.isNullOrEmpty(args) || !(args[0] instanceof Timeouts) ? null : (Timeouts) args[0];
-//        Duration duration = Arrays.isNullOrEmpty(args) || args.length < 2 || !(args[1] instanceof Duration) ? null
-//                                                                                                            : (Duration) args[1];
-//        afterImplicitlyWait(timeouts, duration);
-//        break;
+      case "implicitlyWait":
+        Timeouts timeouts = Arrays.isNullOrEmpty(args) || !(args[0] instanceof Timeouts) ? null : (Timeouts) args[0];
+        Duration duration = Arrays.isNullOrEmpty(args) || args.length < 2 || !(args[1] instanceof Duration) ? null
+                                                                                                            : (Duration) args[1];
+        afterImplicitlyWait(timeouts, duration);
+        break;
       case "sendKeys":
         WebElement sendKeysElement = Arrays.isNullOrEmpty(args) || !(args[0] instanceof WebElement) ? null : (WebElement) args[0];
         afterSendKeys(sendKeysElement, (CharSequence[]) null);

@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
+import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
@@ -155,9 +156,10 @@ public class ManageBadgesPage extends GenericPage {
 
   }
 
+  @SwitchToWindow
   public void isSuccessAlertDisplayed(String message) {
+    assertWebElementVisible(successAlert);
     Assert.assertTrue(successAlert.getText().contains(message));
-
   }
 
   public void fillForm(String name, String description, String score, String icon, String domain) {

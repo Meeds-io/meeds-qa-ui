@@ -114,6 +114,7 @@ public class ChallengesPage extends GenericPage {
     audienceSuggester.clickOnElement();
   }
 
+  @SwitchToWindow
   public void addProgramName(String programName) {
     programField.setTextValue(programName + " ");
     waitFor(100).milliseconds();
@@ -289,6 +290,7 @@ public class ChallengesPage extends GenericPage {
     createAnnouncement.clickOnElement();
   }
 
+  @SwitchToWindow
   public void assignChallengeToUser(String user) {
     assertWebElementVisible(assignLink);
     assignLink.clickOnElement();

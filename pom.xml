@@ -259,6 +259,12 @@
             <io.meeds.windowSwitch.lockFile>${project.build.directory}/switchWindow.lck</io.meeds.windowSwitch.lockFile>
             <io.meeds.parallel.tests>${parallel.tests}</io.meeds.parallel.tests>
             <io.meeds.forkNumber>${surefire.forkNumber}</io.meeds.forkNumber>
+            <properties>serenity.properties</properties>
+            <webdriver.remote.url>http://localhost:4444</webdriver.remote.url>
+            <webdriver.base.url>http://localhost:8080/</webdriver.base.url>
+            <webdriver.remote.driver>chrome</webdriver.remote.driver>
+            <cucumber.filter.tags>not @ignored and not @ignore and not @wip and not @skip</cucumber.filter.tags>
+            <adminPassword></adminPassword>
           </systemPropertyVariables>
         </configuration>
         <executions>

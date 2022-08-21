@@ -19,8 +19,15 @@ public class AddGroupsPage extends GenericPage {
   @FindBy(xpath = "//*[contains(@class,'drawerTitle') and contains(text(),'Add member in group')]")
   private BaseElementFacade    addMemberInGroupDrawerTitle;
 
-  @FindBy(xpath = "//*[@class='d-flex']//button[contains(@class,'btn-primary')]")
+  @FindBy(
+      xpath = "//*[@id='membershipFormDrawer' and contains(@class, 'v-navigation-drawer--open')]//button[contains(@class,'btn-primary')]"
+  )
   private BaseElementFacade    saveMemberAddedInGroup;
+
+  @FindBy(
+      xpath = "//*[@id='membershipFormDrawer' and contains(@class, 'v-navigation-drawer--open')]//button[contains(@class,'mdi-close')]"
+  )
+  private BaseElementFacade    closeDrawerButton;
 
   @FindBy(xpath = "//input[@id='userNameInput']")
   private TextBoxElementFacade inviteMemberInput;
@@ -30,20 +37,20 @@ public class AddGroupsPage extends GenericPage {
 
   private BaseElementFacade getSelectedMemberInDropDown(String userName) {
     return findByXPathOrCSS(String.format(
-                                     "//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
-                                     userName));
+                                          "//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
+                                          userName));
   }
 
   public BaseElementFacade groupOpenBtn(String group) {
     return findByXPathOrCSS(String
-                             .format("//*[@class='flex sm12 md4 flat']//*[@class='v-list-item__content']//*[contains(text(),'%s')]/preceding::i[@class='v-icon notranslate mdi mdi-menu-right theme--light'][1]",
-                                     group));
+                                  .format("//*[@class='flex sm12 md4 flat']//*[@class='v-list-item__content']//*[contains(text(),'%s')]/preceding::i[@class='v-icon notranslate mdi mdi-menu-right theme--light'][1]",
+                                          group));
   }
 
   public BaseElementFacade groupToSelect(String group) {
     return findByXPathOrCSS(String
-                             .format("//*[@class='flex sm12 md4 flat']//*[@class='v-list-item__content']//*[contains(text(),'%s')]",
-                                     group));
+                                  .format("//*[@class='flex sm12 md4 flat']//*[@class='v-list-item__content']//*[contains(text(),'%s')]",
+                                          group));
   }
 
   public void openGroup(String group) {
@@ -59,6 +66,10 @@ public class AddGroupsPage extends GenericPage {
     if (!addMemberInGroupBtn.isClickable() || !addMemberInGroupBtn.isVisible()) {
       refreshPage();
     }
+    if (closeDrawerButton.isCurrentlyVisible()) {
+      closeDrawerButton.clickOnElement();
+      waitForDrawerToClose();
+    }
     addMemberInGroupBtn.clickOnElement();
     selectedRoleField.selectByValue(role);
     selectedRoleField.clickOnElement();
@@ -73,6 +84,10 @@ public class AddGroupsPage extends GenericPage {
       clickOnElement(memberInDropDown);
       addMemberInGroupDrawerTitle.clickOnElement();
       saveMemberAddedInGroup.clickOnElement();
+    }
+    if (closeDrawerButton.isCurrentlyVisible()) {
+      closeDrawerButton.clickOnElement();
+      waitForDrawerToClose();
     }
   }
 

@@ -2132,6 +2132,7 @@ Feature: Activity Stream
     When I go to Stream page
     Then the activity 'Long Name Long Name Long Name Long Name Long Name Long Name Long Name' is displayed in activity stream
 
+  @test
   Scenario: CAP128 - [ActivityStream_US47][01]: Send a kudos from a comment
     Given I am authenticated as admin
     And I create the first random user if not existing, no wait
@@ -2259,6 +2260,7 @@ Feature: Activity Stream
     And Comment 'commenttestCAP220-1020' is not displayed in the drawer
     Then Check Four comment is displayed in comments drawer
 
+  @test
   Scenario: CAP129 - [ActivityStream_US47][02]: Send a kudos from a reply
 
     Given I am authenticated as admin

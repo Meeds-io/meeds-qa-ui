@@ -397,6 +397,7 @@ public class ManageSpacesPage extends GenericPage {
     verifyPageLoaded();
   }
 
+  @SwitchToWindow
   public void inviteUserToSpace(String user) {
     inviteUserInput.setTextValue(user + " ");
     inviteUserInput.sendKeys(Keys.BACK_SPACE);
@@ -653,9 +654,7 @@ public class ManageSpacesPage extends GenericPage {
       spaceHomePage.removeMember(user);
     }
     inviteUserButton.clickOnElement();
-    inviteUserInput.setTextValue(user + " ");
-    inviteUserInput.sendKeys(Keys.BACK_SPACE);
-    getSelectUserInDropDown(user).clickOnElement();
+    inviteUserToSpace(user);
     inviteUserButtonDrawer.clickOnElement();
   }
 

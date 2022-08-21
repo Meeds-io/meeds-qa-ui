@@ -54,8 +54,8 @@ public class PeopleStepDefinition {
 
   @Given("^I go to the (.*) user profile$")
   public void goToRandomUserProfile(String userPrefix) {
-    String userName = Serenity.sessionVariableCalled(userPrefix + "UserName");
-    peopleSteps.goToUserProfile(userName);
+    String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
+    peopleSteps.goToUserProfile(userLastName);
   }
 
   @Then("^Leaderboard Widget is displayed with title '(.*)'$")

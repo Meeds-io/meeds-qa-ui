@@ -1,5 +1,7 @@
 package io.meeds.qa.ui.pages.page.factory.people;
 
+import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
+
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 
@@ -140,8 +142,13 @@ public class PeoplePage extends GenericPage {
   }
 
   public void goToUserProfile(String user) {
-    searchPeopleInput.setTextValue(user);
-    getUserProfileButton(user).clickOnElement();
+    retryOnCondition(() -> {
+      searchPeopleInput.setTextValue(user);
+      getUserProfileButton(user).clickOnElement();
+    }, () -> {
+      waitFor(1).seconds(); // User may not have been indexed yet
+      this.refreshPage();
+    });
   }
 
   public void connectUserProfile() {

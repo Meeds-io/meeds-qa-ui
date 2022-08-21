@@ -116,7 +116,6 @@ public class KudosPage extends GenericPage {
     retryOnCondition(() -> {
       BaseElementFacade ckEditorFrameKudos = getCkEditorFrameKudos();
       ckEditorFrameKudos.waitUntilVisible();
-      ckEditorFrameKudos.clickOnElement();
       driver.switchTo().frame(ckEditorFrameKudos);
     }, () -> {
       driver.switchTo().defaultContent();
@@ -196,7 +195,6 @@ public class KudosPage extends GenericPage {
     retryOnCondition(() -> {
       BaseElementFacade ckEditorFrameKudos = getCkEditorFrameKudos();
       ckEditorFrameKudos.waitUntilVisible();
-      ckEditorFrameKudos.clickOnElement();
       driver.switchTo().frame(ckEditorFrameKudos);
     }, () -> {
       driver.switchTo().defaultContent();
@@ -223,7 +221,6 @@ public class KudosPage extends GenericPage {
     retryOnCondition(() -> {
       BaseElementFacade ckEditorFrameKudos = getCkEditorFrameKudos();
       ckEditorFrameKudos.waitUntilVisible();
-      ckEditorFrameKudos.clickOnElement();
       driver.switchTo().frame(ckEditorFrameKudos);
     }, () -> {
       driver.switchTo().defaultContent();
@@ -246,7 +243,6 @@ public class KudosPage extends GenericPage {
     retryOnCondition(() -> {
       BaseElementFacade ckEditorFrameKudos = getCkEditorFrameKudos();
       ckEditorFrameKudos.waitUntilVisible();
-      ckEditorFrameKudos.clickOnElement();
       driver.switchTo().frame(ckEditorFrameKudos);
     }, () -> {
       driver.switchTo().defaultContent();
@@ -279,7 +275,6 @@ public class KudosPage extends GenericPage {
     retryOnCondition(() -> {
       BaseElementFacade ckEditorFrameKudos = getCkEditorFrameKudos();
       ckEditorFrameKudos.waitUntilVisible();
-      ckEditorFrameKudos.clickOnElement();
       driver.switchTo().frame(ckEditorFrameKudos);
     }, () -> {
       driver.switchTo().defaultContent();

@@ -441,7 +441,6 @@ public class SpaceHomePage extends GenericPage {
     } finally {
       driver.switchTo().defaultContent();
     }
-
     Serenity.setSessionVariable("activity").to(activity);
   }
 
@@ -680,7 +679,6 @@ public class SpaceHomePage extends GenericPage {
   @SwitchToWindow
   public void enterCommentText(String comment) {
     driver.switchTo().frame(ckEditorFrameComment);
-
     try {
       ckEditorBodyComment.waitUntilVisible();
       ckEditorBodyComment.sendKeys(comment);
@@ -690,7 +688,6 @@ public class SpaceHomePage extends GenericPage {
     } finally {
       driver.switchTo().defaultContent();
     }
-
     Serenity.setSessionVariable("comment").to(comment);
   }
 

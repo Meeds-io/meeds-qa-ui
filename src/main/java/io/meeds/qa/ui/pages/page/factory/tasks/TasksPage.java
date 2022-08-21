@@ -637,10 +637,7 @@ public class TasksPage extends GenericPage {
   public void addProjectWithParticipant(String projectName, String lastName) {
     addProjectOrTask.clickOnElement();
     projectTitle.setTextValue(projectName);
-    addParticipantBtn.clickOnElement();
-    inviteProjectParticipantInput.setTextValue(lastName + " ");
-    inviteProjectParticipantInput.sendKeys(Keys.BACK_SPACE);
-    getProjectParticipant(lastName).clickOnElement();
+    addProjectParticipantInput(lastName);
     saveButton.clickOnElement();
   }
 
@@ -656,25 +653,32 @@ public class TasksPage extends GenericPage {
   public void addProjectWithFirstCreatedUserAsManger(String projectName, String fullName) {
     addProjectOrTask.clickOnElement();
     projectTitle.setTextValue(projectName);
-    addManagerBtn.clickOnElement();
-    inviteProjectManagerInput.setTextValue(fullName + " ");
-    inviteProjectManagerInput.sendKeys(Keys.BACK_SPACE);
-    getProjectManager(fullName).clickOnElement();
+    addProjectManagerInput(fullName);
     saveButton.clickOnElement();
   }
 
   public void addProjectWithManagerAndParticipant(String projectName, String manager, String participant) {
     addProjectOrTask.clickOnElement();
     projectTitle.setTextValue(projectName);
+    addProjectManagerInput(manager);
+    addProjectParticipantInput(participant);
+    saveButton.clickOnElement();
+  }
+
+  @SwitchToWindow
+  public void addProjectManagerInput(String manager) {
     addManagerBtn.clickOnElement();
     inviteProjectManagerInput.setTextValue(manager + " ");
     inviteProjectManagerInput.sendKeys(Keys.BACK_SPACE);
     getProjectManager(manager).clickOnElement();
+  }
+
+  @SwitchToWindow
+  public void addProjectParticipantInput(String participant) {
     addParticipantBtn.clickOnElement();
     inviteProjectParticipantInput.setTextValue(participant + " ");
     inviteProjectParticipantInput.sendKeys(Keys.BACK_SPACE);
     getProjectParticipant(participant).clickOnElement();
-    saveButton.clickOnElement();
   }
 
   public void closeProjectDrawer() {
@@ -722,10 +726,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void addSecondUserToProject(String lastName) {
-    addParticipantBtn.clickOnElement();
-    inviteProjectParticipantInput.setTextValue(lastName + " ");
-    inviteProjectParticipantInput.sendKeys(Keys.BACK_SPACE);
-    getProjectParticipant(lastName).clickOnElement();
+    addProjectParticipantInput(lastName);
   }
 
   public void addLabelToTask(String label) {
@@ -1504,6 +1505,7 @@ public class TasksPage extends GenericPage {
   @FindBy(xpath = "(//div[@name='taskAssignee']//input)[1]")
   private TextBoxElementFacade taskAssignUserInput;
 
+  @SwitchToWindow
   public void assignTaskToUser(String user) {
     assertWebElementVisible(taskAssignLink);
     taskAssignLink.clickOnElement();

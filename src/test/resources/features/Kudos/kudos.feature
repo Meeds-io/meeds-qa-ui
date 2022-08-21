@@ -11,6 +11,7 @@ Feature: Kudos
     And I save all changes
     Then The kudos settings saved with a kudos number equal to '8' and 'Semester' period type
 
+  @test
   Scenario: [EXISTANT-KUDOS 2] Sending and Receiving Kudos
     Given I am authenticated as admin
     And I create the firstkudos random user if not existing, no wait
@@ -42,6 +43,7 @@ Feature: Kudos
     Then the activity 'Kudos Post' is displayed in activity stream
     And kudos icon of the activity 'Kudos Post' is Disabled
 
+  @test
   Scenario: [EXISTANT-KUDOS 7] Sending Kudos from user profile
     Given I am authenticated as admin
     And I create the thirdkudos random user if not existing, no wait
@@ -55,6 +57,7 @@ Feature: Kudos
     And I go to My Profile page
     Then '1' kudos are received
 
+  @test
   Scenario: [ActivityStream_US51][01]: Edit a kudos activity
     Given I am authenticated as admin
     And I create the first random user if not existing, no wait

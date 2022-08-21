@@ -152,6 +152,7 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
   }
 
   @Override
+  @SwitchToWindow
   public WebElement getElement() {
     return retryOnCondition(() -> {
       try {
@@ -363,4 +364,15 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
     }
   }
 
+  @Override
+  @SwitchToWindow
+  public String getText() {
+    return super.getText();
+  }
+
+  @Override
+  @SwitchToWindow
+  public String getValue() {
+    return super.getValue();
+  }
 }

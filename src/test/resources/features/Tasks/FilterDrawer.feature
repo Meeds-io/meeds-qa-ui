@@ -143,12 +143,13 @@ Feature: Filter Drawer
     And Cancel button is displayed in the Filter drawer
     And Reset button is displayed in the Filter drawer
 
+  @test
   Scenario: Filter project
     Given I am authenticated as admin
     And I create the first random user if not existing, no wait
 
     When I connect with the first created user
-    And I go to the random space
+    And I create a random space
     And I go to the Tasks tab
     And I create the project 'test Project'
     And I search for the created project 'test project'

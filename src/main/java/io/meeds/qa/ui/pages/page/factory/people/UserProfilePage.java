@@ -358,10 +358,8 @@ public class UserProfilePage extends GenericPage {
   public void sendKudos(String comment) {
     waitCKEditorLoading();
     retryOnCondition(() -> {
-      BaseElementFacade ckEditorFrameSendKudosDrawer =
-                                                     findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//iframe[contains(@class,'cke_wysiwyg_frame')]");
+      BaseElementFacade ckEditorFrameSendKudosDrawer = findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//iframe[contains(@class,'cke_wysiwyg_frame')]");
       ckEditorFrameSendKudosDrawer.waitUntilVisible();
-      ckEditorFrameSendKudosDrawer.clickOnElement();
       driver.switchTo().frame(ckEditorFrameSendKudosDrawer);
     }, () -> {
       driver.switchTo().defaultContent();
