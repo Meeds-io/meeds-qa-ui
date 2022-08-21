@@ -363,6 +363,9 @@ public class UserProfilePage extends GenericPage {
       ckEditorFrameSendKudosDrawer.waitUntilVisible();
       ckEditorFrameSendKudosDrawer.clickOnElement();
       driver.switchTo().frame(ckEditorFrameSendKudosDrawer);
+    }, () -> {
+      driver.switchTo().defaultContent();
+      waitFor(500).milliseconds(); // Kudos Iframe seems very slow
     });
     try {
       sendKudosMessageContent.waitUntilVisible();
