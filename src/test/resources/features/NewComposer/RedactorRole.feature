@@ -8,8 +8,8 @@ Feature: Redactor Role
   @test
   Scenario: CAP112 [US-General-06] Add the redactor role for a space member
     Given I am authenticated as admin
-    And I create the first random user if not existing
-    And I create the second random user if not existing
+    And I create the first random user if not existing, no wait
+    And I create the second random user if not existing, no wait
     When I connect with the first created user
     And I go to the random space
     And I connect with the second created user

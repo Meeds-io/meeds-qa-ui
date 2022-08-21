@@ -83,7 +83,7 @@ Feature: Tasks - Projects
 
   Scenario: CAP17 - [Project_Card_US01]: check the display of users avatars with managing permissions
     Given I am authenticated as admin
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
     When I go To AppCenter Drawer

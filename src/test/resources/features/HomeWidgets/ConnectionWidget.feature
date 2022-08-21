@@ -8,10 +8,10 @@ Feature: Space widgets checking
 
   Scenario: US 3.3.3_(02) [BACK] No Connection requests number
     Given I am authenticated as admin
-    And I create the first random user if not existing
-    And I create the second random user if not existing
-    And I create the third random user if not existing
-    And I create the fourth random user if not existing
+    And I create the first random user if not existing, no wait
+    And I create the second random user if not existing, no wait
+    And I create the third random user if not existing, no wait
+    And I create the fourth random user if not existing, no wait
     And I create the fifth random user if not existing
     And I connect to fifth user
     And I connect with the first created user
@@ -28,11 +28,10 @@ Feature: Space widgets checking
   Scenario: US 3.3.4_(01) [BACK]Connections requests to join: See All
     Given I am authenticated as admin
 
-    And I create the first random user if not existing
-    And I create the second random user if not existing
-    And I create the third random user if not existing
-    And I create the fourth random user if not existing
-    And I refresh the page
+    And I create the first random user if not existing, no wait
+    And I create the second random user if not existing, no wait
+    And I create the third random user if not existing, no wait
+    And I create the fourth random user if not existing, no wait
     And I create the fifth random user if not existing
     And I connect to fifth user
     And I connect with the first created user
@@ -53,8 +52,8 @@ Feature: Space widgets checking
   @test
   Scenario:US 3.3.4_(02)[BACK]Connections requests : accept and reject
     Given I am authenticated as admin
-    And I create the first random user if not existing
-    And I create the second random user if not existing
+    And I create the first random user if not existing, no wait
+    And I create the second random user if not existing, no wait
     And I create the third random user if not existing
     And I connect to third user
     And I connect with the first created user
@@ -79,10 +78,10 @@ Feature: Space widgets checking
   @test
   Scenario: US_3.3.7 [BACK]Common Connections for users requests
     Given I am authenticated as admin
-    When I create the first random user if not existing
-    And I create the second random user if not existing
-    And I create the third random user if not existing
-    And I create the fourth random user if not existing
+    When I create the first random user if not existing, no wait
+    And I create the second random user if not existing, no wait
+    And I create the third random user if not existing, no wait
+    And I create the fourth random user if not existing, no wait
     And I create the fifth random user if not existing
     And I connect with the first created user
     And I connect to third user

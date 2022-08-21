@@ -65,6 +65,15 @@ public class ChallengesPage extends GenericPage {
   @FindBy(css = ".challengeQuickFilter")
   private BaseElementFacade    challengeQuickFilterSelectBox;
 
+  @FindBy(xpath = "//a[@class='challengeAssignBtn align-end']")
+  private BaseElementFacade    assignLink;
+
+  @FindBy(css = ".v-navigation-drawer--open .drawerFooter button.btn-primary")
+  private BaseElementFacade    createAnnouncement;
+
+  @FindBy(xpath = "(//div[@name='challengeSpaceAutocomplete']//input)[01]")
+  private TextBoxElementFacade assignAnnouncementInput;
+
   public ChallengesPage(WebDriver driver) {
     super(driver);
   }
@@ -102,27 +111,6 @@ public class ChallengesPage extends GenericPage {
     BaseElementFacade audienceSuggester = getSelectSpaceInDropDown(randomSpaceName);
     audienceSuggester.waitUntilVisible();
     audienceSuggester.clickOnElement();
-  }
-
-  private BaseElementFacade getSelectSpaceInDropDown(String spaceName) {
-    BaseElementFacade spaceSuggester = findByXPathOrCSS(String.format(
-                                                                      IDENTITY_SUGGESTER_ELEMENT,
-                                                                      spaceName));
-    spaceSuggester.setImplicitTimeout(Duration.ofSeconds(10));
-    spaceSuggester.resetTimeouts();
-    spaceSuggester.waitUntilVisible();
-    spaceSuggester.waitUntilClickable();
-    return spaceSuggester;
-  }
-
-  private BaseElementFacade getSelectDomainInDropDown(String programName) {
-    BaseElementFacade domainSelection = findByXPathOrCSS(String.format(
-                                                                       IDENTITY_SUGGESTER_ELEMENT,
-                                                                       programName));
-    domainSelection.setImplicitTimeout(Duration.ofSeconds(10));
-    domainSelection.waitUntilVisible();
-    domainSelection.waitUntilClickable();
-    return domainSelection;
   }
 
   public void addProgramName(String programName) {
@@ -199,11 +187,12 @@ public class ChallengesPage extends GenericPage {
     } finally {
       driver.switchTo().defaultContent();
     }
-    createButton.clickOnElement();
+    clickCreateChallengeButton();
   }
 
-  private BaseElementFacade getChallengeSuccessMessage(String message) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]", message));
+  public void clickCreateChallengeButton() {
+    createButton.clickOnElement();
+    waitForDrawerToClose();
   }
 
   public void checkSuccessMessage(String message) {
@@ -249,7 +238,7 @@ public class ChallengesPage extends GenericPage {
     } finally {
       driver.switchTo().defaultContent();
     }
-    createButton.clickOnElement();
+    clickCreateChallengeButton();
   }
 
   public void checkTitleDisplayOnCard(String title) {
@@ -279,17 +268,6 @@ public class ChallengesPage extends GenericPage {
     assertTrue(announcementHeaderDrawer.isVisibleAfterWaiting());
   }
 
-  @FindBy(xpath = "//a[@class='challengeAssignBtn align-end']")
-  private BaseElementFacade    assignLink;
-
-  @FindBy(
-      xpath = "(//*[@class='d-flex mr-2']//button[2])[2]"
-  )
-  private BaseElementFacade    createAnnouncement;
-
-  @FindBy(xpath = "(//div[@name='challengeSpaceAutocomplete']//input)[01]")
-  private TextBoxElementFacade assignAnnouncementInput;
-
   @SwitchToWindow
   public void addAnnouncementWithRandomDescription(String announcementDescription) {
     ckEditorFrameChallenge.clickOnElement();
@@ -300,14 +278,13 @@ public class ChallengesPage extends GenericPage {
     } finally {
       driver.switchTo().defaultContent();
     }
-    createAnnouncement.waitUntilVisible();
-    createAnnouncement.clickOnElement();
-
+    clickCreateAnnouncementButton();
   }
 
-  private BaseElementFacade getSelectWinnerInDropDown(String secondUserName) {
-    return findByXPathOrCSS(String.format(IDENTITY_SUGGESTER_ELEMENT,
-                                          secondUserName));
+  public void clickCreateAnnouncementButton() {
+    createAnnouncement.waitUntilVisible();
+    createAnnouncement.clickOnElement();
+    waitForDrawerToClose();
   }
 
   public void assignChallengeToUser(String user) {
@@ -327,6 +304,19 @@ public class ChallengesPage extends GenericPage {
                                        challengeName,
                                        announcementDescription).isVisibleAfterWaiting());
 
+  }
+
+  public void checkAchievementDescriptionOnAnnouncement(String description) {
+    assertTrue(getAchievementDescriptionOnAnnouncement(description).isVisibleAfterWaiting());
+  }
+
+  public void checkChallengeTitleOnAnnouncement(String name) {
+    assertTrue(getChallengeTitleOnAnnouncement(name).isVisibleAfterWaiting());
+  }
+
+  private BaseElementFacade getSelectWinnerInDropDown(String secondUserName) {
+    return findByXPathOrCSS(String.format(IDENTITY_SUGGESTER_ELEMENT,
+                                          secondUserName));
   }
 
   private BaseElementFacade getAnnouncementActivity(String posterPrefix,
@@ -353,16 +343,33 @@ public class ChallengesPage extends GenericPage {
                                           name));
   }
 
-  public void checkChallengeTitleOnAnnouncement(String name) {
-    assertTrue(getChallengeTitleOnAnnouncement(name).isVisibleAfterWaiting());
-  }
-
   private BaseElementFacade getAchievementDescriptionOnAnnouncement(String description) {
     return findByXPathOrCSS(String.format("//*[contains(@class,' postContent')]/*[contains(text(),'%s')]", description));
   }
 
-  public void checkAchievementDescriptionOnAnnouncement(String description) {
-    assertTrue(getAchievementDescriptionOnAnnouncement(description).isVisibleAfterWaiting());
+  private BaseElementFacade getChallengeSuccessMessage(String message) {
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]", message));
+  }
+
+  private BaseElementFacade getSelectSpaceInDropDown(String spaceName) {
+    BaseElementFacade spaceSuggester = findByXPathOrCSS(String.format(
+                                                                      IDENTITY_SUGGESTER_ELEMENT,
+                                                                      spaceName));
+    spaceSuggester.setImplicitTimeout(Duration.ofSeconds(10));
+    spaceSuggester.resetTimeouts();
+    spaceSuggester.waitUntilVisible();
+    spaceSuggester.waitUntilClickable();
+    return spaceSuggester;
+  }
+
+  private BaseElementFacade getSelectDomainInDropDown(String programName) {
+    BaseElementFacade domainSelection = findByXPathOrCSS(String.format(
+                                                                       IDENTITY_SUGGESTER_ELEMENT,
+                                                                       programName));
+    domainSelection.setImplicitTimeout(Duration.ofSeconds(10));
+    domainSelection.waitUntilVisible();
+    domainSelection.waitUntilClickable();
+    return domainSelection;
   }
 
 }

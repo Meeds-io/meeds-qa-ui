@@ -132,8 +132,9 @@ public class UserProfileStepDefinition {
   }
 
   @Then("^Sent kudos by user '(.*)' is displayed$")
-  public void sentKudosUsersSectionIsDisplayed(String user) {
-    userProfileSteps.sentKudosUsersSectionIsDisplayed(user);
+  public void sentKudosUsersSectionIsDisplayed(String userPrefix) {
+    String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
+    userProfileSteps.sentKudosUsersSectionIsDisplayed(userLastName);
   }
 
   @Then("^Sent kudos by third user is displayed$")
@@ -157,11 +158,6 @@ public class UserProfileStepDefinition {
   @Then("Profile avatar is uploaded")
   public void isProfileAvatarUploaded() {
     userProfileSteps.isProfileAvatarUploaded();
-  }
-
-  @Then("^Received kudos by user '(.*)' is displayed$")
-  public void receivedKudosUsersSectionIsDisplayed(String user) {
-    userProfileSteps.receivedKudosUsersSectionIsDisplayed(user);
   }
 
   @Then("Gained Cauris Section is displayed")
@@ -259,13 +255,10 @@ public class UserProfileStepDefinition {
     userProfileSteps.isProfileContactCompanyVisible(company);
   }
 
-  @Then("Received kudos by second user is displayed")
-  public void receivedKudosSecondUserSectionIsDisplayed() {
-    String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
-    String secondUserLastName = Serenity.sessionVariableCalled("secondUserLastName");
-
-    String secondUserFullName = secondUserFirstName + " " + secondUserLastName;
-    userProfileSteps.receivedKudosUsersSectionIsDisplayed(secondUserFullName);
+  @Then("Received kudos by (.*) user is displayed")
+  public void receivedKudosByRandomUserSectionIsDisplayed(String userPrefix) {
+    String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
+    userProfileSteps.receivedKudosUsersSectionIsDisplayed(userLastName);
   }
 
   @Given("^I update my profile work experiences$")

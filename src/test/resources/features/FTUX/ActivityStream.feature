@@ -4,7 +4,7 @@ Feature: Activity Stream
   @ignored
   Scenario: CAP01 - ActivityStream_US01: Activity topbar section
     Given I am authenticated as admin
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
     And I connect with the first created user
@@ -28,7 +28,7 @@ Feature: Activity Stream
   Scenario: CAP02 - ActivityStream_US03: new Activity body with text display
     Given I am authenticated as admin
 
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
     And I connect with the second created user
@@ -50,7 +50,7 @@ Feature: Activity Stream
   @ignored
   Scenario: CAP03 - [ActivityStream_US05][01]: Display first 10 created activities in new Activity Stream
     Given I am authenticated as admin
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
     And I connect with the first created user
@@ -127,7 +127,7 @@ Feature: Activity Stream
   Scenario: CAP04 - [ActivityStream_US05][02]: Display first 10 activities in new Activity Stream
     Given I am authenticated as admin
 
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
     And I connect with the first created user
@@ -290,7 +290,7 @@ Feature: Activity Stream
   Scenario: CAP05 - [ActivityStream_US05][03]: Display first 10 activities in new Activity Stream
     Given I am authenticated as admin
 
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
     And I connect with the first created user
@@ -412,8 +412,8 @@ Feature: Activity Stream
   Scenario: CAP100 - [ActivityStream_US38][04]: Cancel Delete comment with replies from the activity stream
     Given I am authenticated as admin
 
-    And I create the first random user if not existing
-    And I create the second random user if not existing
+    And I create the first random user if not existing, no wait
+    And I create the second random user if not existing, no wait
     And I create the third random user if not existing
 
     And I go to the random space
@@ -472,8 +472,8 @@ Feature: Activity Stream
   Scenario: CAP101 - [ActivityStream_US38][05]: Delete a reply from the activity stream
     Given I am authenticated as admin
 
-    And I create the first random user if not existing
-    And I create the second random user if not existing
+    And I create the first random user if not existing, no wait
+    And I create the second random user if not existing, no wait
     And I create the third random user if not existing
 
     And I go to the random space
@@ -556,8 +556,8 @@ Feature: Activity Stream
   Scenario: CAP102 - [ActivityStream_US38][06]: Cancel Delete a reply from the activity stream
     Given I am authenticated as admin
 
-    And I create the first random user if not existing
-    And I create the second random user if not existing
+    And I create the first random user if not existing, no wait
+    And I create the second random user if not existing, no wait
     And I create the third random user if not existing
 
     And I go to the random space
@@ -640,8 +640,8 @@ Feature: Activity Stream
   Scenario: CAP103 - [ActivityStream_US39][01]: Delete a simple comment from the comment drawer
     Given I am authenticated as admin
 
-    And I create the first random user if not existing
-    And I create the second random user if not existing
+    And I create the first random user if not existing, no wait
+    And I create the second random user if not existing, no wait
     And I create the third random user if not existing
 
     And I go to the random space
@@ -715,9 +715,9 @@ Feature: Activity Stream
   Scenario: CAP104 - [ActivityStream_US39][02]: Cancel Delete a simple comment from the comment drawer
     Given I am authenticated as admin
 
-    And I create the first random user if not existing
-    And I create the second random user if not existing
-    And I create the third random user if not existing
+    And I create the first random user if not existing, no wait
+    And I create the second random user if not existing, no wait
+    And I create the third random user if not existing, no wait
 
     And I go to the random space
 
@@ -787,8 +787,8 @@ Feature: Activity Stream
   Scenario: CAP105 - [ActivityStream_US39][03]: Delete comment with replies from the comment drawer
     Given I am authenticated as admin
 
-    And I create the first random user if not existing
-    And I create the second random user if not existing
+    And I create the first random user if not existing, no wait
+    And I create the second random user if not existing, no wait
     And I create the third random user if not existing
 
     And I go to the random space
@@ -887,8 +887,8 @@ Feature: Activity Stream
   Scenario: CAP106 - [ActivityStream_US39][04]: Cancel Delete comment with replies from the comments drawer
     Given I am authenticated as admin
 
-    And I create the first random user if not existing
-    And I create the second random user if not existing
+    And I create the first random user if not existing, no wait
+    And I create the second random user if not existing, no wait
     And I create the third random user if not existing
 
     And I go to the random space
@@ -986,8 +986,8 @@ Feature: Activity Stream
   Scenario: CAP107 - [ActivityStream_US39][05]: Delete a reply from comments drawer
     Given I am authenticated as admin
 
-    And I create the first random user if not existing
-    And I create the second random user if not existing
+    And I create the first random user if not existing, no wait
+    And I create the second random user if not existing, no wait
     And I create the third random user if not existing
 
     And I go to the random space
@@ -1092,8 +1092,8 @@ Feature: Activity Stream
   Scenario: CAP108 - [ActivityStream_US39][06]: Cancel Delete a reply from the comments drawer
     Given I am authenticated as admin
 
-    And I create the first random user if not existing
-    And I create the second random user if not existing
+    And I create the first random user if not existing, no wait
+    And I create the second random user if not existing, no wait
     And I create the third random user if not existing
 
     And I go to the random space
@@ -1201,7 +1201,7 @@ Feature: Activity Stream
   Scenario: CAP109 - [ActivityStream_US40][01]: Like my comment/reply from activity stream
     Given I am authenticated as admin
 
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
     When I connect with the first created user
@@ -1238,7 +1238,7 @@ Feature: Activity Stream
   Scenario: CAP110 - [ActivityStream_US40][02]: DisLike my comment/reply from activity stream
     Given I am authenticated as admin
 
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
     And I connect with the first created user
@@ -1273,8 +1273,8 @@ Feature: Activity Stream
   Scenario: CAP111 - [ActivityStream_US40][03]: Like comment/reply of other user from activity stream
     Given I am authenticated as admin
 
-    And I create the first random user if not existing
-    And I create the second random user if not existing
+    And I create the first random user if not existing, no wait
+    And I create the second random user if not existing, no wait
     And I create the third random user if not existing
 
     When I connect with the first created user
@@ -1317,8 +1317,8 @@ Feature: Activity Stream
   Scenario: CAP112 - [ActivityStream_US40][04]: DisLike comment/reply of other user from activity stream
     Given I am authenticated as admin
 
-    And I create the first random user if not existing
-    And I create the second random user if not existing
+    And I create the first random user if not existing, no wait
+    And I create the second random user if not existing, no wait
     And I create the third random user if not existing
 
     And I connect with the first created user
@@ -1357,7 +1357,7 @@ Feature: Activity Stream
   Scenario: CAP115 - [ActivityStream_US41][01 ]: Like my comment/reply from the comment drawer
     Given I am authenticated as admin
 
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
     When I connect with the first created user
@@ -1398,7 +1398,7 @@ Feature: Activity Stream
   Scenario: CAP116 - [ActivityStream_US41][02]: DisLike my comment/reply from the comments drawer
     Given I am authenticated as admin
 
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
     And I connect with the first created user
@@ -1435,7 +1435,7 @@ Feature: Activity Stream
   Scenario: CAP121 - [ActivityStream_IMPV14][01]: Display maximum only the last 2 comments/replies below each activity
     Given I am authenticated as admin
 
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
     When I connect with the first created user
@@ -1473,7 +1473,7 @@ Feature: Activity Stream
   Scenario: CAP122 - [ActivityStream_IMPV14][02]: Display maximum only the last 2 comments/replies below each activity
     Given I am authenticated as admin
 
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
     When I connect with the first created user
@@ -1512,11 +1512,10 @@ Feature: Activity Stream
     And In activity 'activityTestCAP122-122-02' with comment 'commenttestCAP122-104-02', the reply 'replyTestCAP122-103-02' is displayed
     And In activity 'activityTestCAP122-122-02' with comment 'commenttestCAP122-104-02', the reply 'replyTestCAP122-104-02' is displayed
 
-  @test
   Scenario: CAP123 - [ActivityStream_IMPV14][03]: Display maximum only the last 2 comments/replies below each activity
     Given I am authenticated as admin
 
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
     When I connect with the first created user
@@ -1583,7 +1582,7 @@ Feature: Activity Stream
   Scenario: CAP157 - [ActivityStream_IMPV15][01]: Internal Link opening behaviors inside comments
     Given I am authenticated as admin
 
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
     When I connect with the first created user
@@ -1614,7 +1613,7 @@ Feature: Activity Stream
   Scenario: CAP158 - [ActivityStream_IMPV15][02]: External Link opening behaviors inside comments
     Given I am authenticated as admin
 
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
     When I connect with the first created user
@@ -1645,7 +1644,7 @@ Feature: Activity Stream
   Scenario: CAP12 - [ActivityStream_US10][01]: Activity with text or link options (3 dots) (Author)
     Given I am authenticated as admin
 
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
     When I connect with the first created user
@@ -1677,8 +1676,8 @@ Feature: Activity Stream
   Scenario: CAP13 - [ActivityStream_US10][02]: Activity with text or link options (3 dots) (Space manager)
     Given I am authenticated as admin
 
-    And I create the first random user if not existing
-    And I create the second random user if not existing
+    And I create the first random user if not existing, no wait
+    And I create the second random user if not existing, no wait
     And I create the third random user if not existing
 
     When I connect with the first created user
@@ -1735,9 +1734,9 @@ Feature: Activity Stream
   Scenario: CAP97 - [ActivityStream_US38][01]: Delete a simple comment from the activity stream
     Given I am authenticated as admin
 
-    When I create the first random user if not existing
-    And I create the second random user if not existing
-    And I create the third random user if not existing
+    When I create the first random user if not existing, no wait
+    And I create the second random user if not existing, no wait
+    And I create the third random user if not existing, no wait
     And I create the fourth random user if not existing
     And I go to groups Management page
     And I open the group 'Platform'
@@ -1776,9 +1775,9 @@ Feature: Activity Stream
   Scenario: CAP99 - [ActivityStream_US38][03]: Delete comment with replies from the activity stream
     Given I am authenticated as admin
 
-    When I create the first random user if not existing
-    And I create the second random user if not existing
-    And I create the third random user if not existing
+    When I create the first random user if not existing, no wait
+    And I create the second random user if not existing, no wait
+    And I create the third random user if not existing, no wait
     And I create the fourth random user if not existing
     And I go to groups Management page
     And I open the group 'Platform'
@@ -1833,11 +1832,11 @@ Feature: Activity Stream
   Scenario: Cap155 - ActivityStream_US58: Mention a user in the comments
     Given I am authenticated as admin
 
-    When I create the first random user if not existing
-    And I create the second random user if not existing
-    And I create the third random user if not existing
-    And I create the fourth random user if not existing
-    And I create the fifth random user if not existing
+    When I create the first random user if not existing, no wait
+    And I create the second random user if not existing, no wait
+    And I create the third random user if not existing, no wait
+    And I create the fourth random user if not existing, no wait
+    And I create the fifth random user if not existing, no wait
     And I create the sixth random user if not existing
 
     And I connect with the first created user
@@ -1884,7 +1883,7 @@ Feature: Activity Stream
   Scenario: Cap146 - [ActivityStream_US40][01 ]: Notifications for comments to my activity
     Given I am authenticated as admin
 
-    When I create the first random user if not existing
+    When I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
     And I connect with the first created user
@@ -1915,7 +1914,7 @@ Feature: Activity Stream
   Scenario: Cap147 - [ActivityStream_US40][02]: Notifications for comment to my comment
     Given I am authenticated as admin
 
-    When I create the first random user if not existing
+    When I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
     And I connect with the first created user
@@ -1954,7 +1953,7 @@ Feature: Activity Stream
   Scenario: CAP20 - [ActivityStream_US10][09]: Activity with text or link options (3 dots) (Author delete the post)
     Given I am authenticated as admin
 
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
     When I connect with the first created user
@@ -1982,7 +1981,7 @@ Feature: Activity Stream
   Scenario: CAP21 - [ActivityStream_US10][10]: Activity with text or link options (3 dots) ( Author cancel delete post)
     Given I am authenticated as admin
 
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
     When I connect with the first created user
@@ -2010,9 +2009,9 @@ Feature: Activity Stream
   Scenario: CAP87 - [ActivityStream_US04][01]: Edit comment in Activity stream
     Given I am authenticated as admin
 
-    And I create the first random user if not existing
-    And I create the second random user if not existing
-    And I create the third random user if not existing
+    And I create the first random user if not existing, no wait
+    And I create the second random user if not existing, no wait
+    And I create the third random user if not existing, no wait
     And I create the fourth random user if not existing
 
     When I connect with the first created user
@@ -2067,9 +2066,9 @@ Feature: Activity Stream
   Scenario: CAP88 - [ActivityStream_US04.1][01]: Edit comment from the comment drawer
     Given I am authenticated as admin
 
-    And I create the first random user if not existing
-    And I create the second random user if not existing
-    And I create the third random user if not existing
+    And I create the first random user if not existing, no wait
+    And I create the second random user if not existing, no wait
+    And I create the third random user if not existing, no wait
     And I create the fourth random user if not existing
 
     When I connect with the first created user
@@ -2117,7 +2116,7 @@ Feature: Activity Stream
   @ignored
   Scenario: [ActivityStream_US32][02]: space note page
     Given I am authenticated as admin
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the second random user if not existing
     When I connect with the first created user
 
@@ -2135,8 +2134,8 @@ Feature: Activity Stream
 
   Scenario: CAP128 - [ActivityStream_US47][01]: Send a kudos from a comment
     Given I am authenticated as admin
-    And I create the first random user if not existing
-    And I create the second random user if not existing
+    And I create the first random user if not existing, no wait
+    And I create the second random user if not existing, no wait
     And I create the third random user if not existing
 
     And I connect with the first created user
@@ -2160,7 +2159,7 @@ Feature: Activity Stream
     Then the activity 'activitytestkudos' is displayed in activity stream
     When In comment 'activitytestkudoscomment', Kudos label should be black
     Then I click on the kudos button from the comment
-    And I sent to the comment activity a kudos message 'Test Auto comment Kudos'
+    And I send to the comment activity a kudos message 'Test Auto comment Kudos'
     Then In comment 'activitytestkudoscomment', Kudos label should be blue
     And I click on the kudos button number
     Then '1' kudos are displayed on the reaction drawer
@@ -2169,8 +2168,8 @@ Feature: Activity Stream
   Scenario: CAP129 - [ActivityStream_US47][03]: Send a kudos from the comments drawer
 
     Given I am authenticated as admin
-    And I create the first random user if not existing
-    And I create the second random user if not existing
+    And I create the first random user if not existing, no wait
+    And I create the second random user if not existing, no wait
     And I create the third random user if not existing
 
     And I connect with the first created user
@@ -2194,7 +2193,7 @@ Feature: Activity Stream
     And I open in activity 'activitytestkudos' the Comments drawer
     When In comment 'activitytestkudoscomment', Kudos label should be black
     Then I click on the kudos button from the comments drawer
-    And I sent to the comment activity a kudos message 'Test Auto comment Kudos' from comments drawer
+    And I send to the comment activity a kudos message 'Test Auto comment Kudos' from comments drawer
     Then In comment 'activitytestkudoscomment', Kudos label should be blue
     And I click on the kudos button number from the comments drawer
     And I close the comments drawer
@@ -2203,7 +2202,7 @@ Feature: Activity Stream
   Scenario: CAP220 - [ActivityStream_IMPV07][01]: Pagination in comments drawer
     Given I am authenticated as admin
 
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
     When I connect with the first created user
@@ -2263,9 +2262,9 @@ Feature: Activity Stream
   Scenario: CAP129 - [ActivityStream_US47][02]: Send a kudos from a reply
 
     Given I am authenticated as admin
-    And I create the first random user if not existing
-    And I create the second random user if not existing
-    And I create the third random user if not existing
+    And I create the first random user if not existing, no wait
+    And I create the second random user if not existing, no wait
+    And I create the third random user if not existing, no wait
     And I create the fourth random user if not existing
 
     And I connect with the first created user
@@ -2295,7 +2294,7 @@ Feature: Activity Stream
     Then the activity 'activitytestkudosCAP129' is displayed in activity stream
     And In reply 'activitytestkudosCAP129commentreply', Kudos label should be black
     When In reply 'activitytestkudosCAP129commentreply', I click on kudos button
-    And I sent to the comment activity a kudos message 'Test Auto reply Kudos'
+    And I send to the comment activity a kudos message 'Test Auto reply Kudos'
     Then In reply 'activitytestkudosCAP129commentreply', Kudos label should be blue
     When I click on the kudos button number
     Then '1' kudos are displayed on the reaction drawer
@@ -2304,9 +2303,9 @@ Feature: Activity Stream
   Scenario: CAP89 - [ActivityStream_US04][03]: Edit reply in Activity stream
     Given I am authenticated as admin
 
-    And I create the first random user if not existing
-    And I create the second random user if not existing
-    And I create the third random user if not existing
+    And I create the first random user if not existing, no wait
+    And I create the second random user if not existing, no wait
+    And I create the third random user if not existing, no wait
     And I create the fourth random user if not existing
 
     When I connect with the first created user
@@ -2358,8 +2357,8 @@ Feature: Activity Stream
   @ignored
   Scenario: [ActivityStream_US52][03]: Edit a kudos from a comment
     Given I am authenticated as admin
-    And I create the first random user if not existing
-    And I create the second random user if not existing
+    And I create the first random user if not existing, no wait
+    And I create the second random user if not existing, no wait
     And I create the third random user if not existing
 
     And I connect with the first created user
@@ -2383,17 +2382,17 @@ Feature: Activity Stream
     Then the activity 'activitytestkudos' is displayed in activity stream
     When In comment 'activitytestkudoscomment', Kudos label should be black
     And I click on the kudos button from the comment
-    And I sent to the comment activity a kudos message 'Test Auto comment Kudos'
+    And I send to the comment activity a kudos message 'Test Auto comment Kudos'
     And I click to edit the kudos text
-    And I set the new kudos comment text 'updated kudos message ' and I click on update button
-    Then the updated Kudos activity 'updated kudos message ' is displayed in stream page
+    And I set the new kudos comment text 'updated kudos message' and I click on update button
+    Then the updated Kudos activity 'updated kudos message' is displayed in stream page
 
   @ignored
   Scenario: [ActivityStream_US52][05]: Edit a kudos from a reply
     Given I am authenticated as admin
-    And I create the first random user if not existing
-    And I create the second random user if not existing
-    And I create the third random user if not existing
+    And I create the first random user if not existing, no wait
+    And I create the second random user if not existing, no wait
+    And I create the third random user if not existing, no wait
     And I create the fourth random user if not existing
 
     And I connect with the first created user
@@ -2424,17 +2423,17 @@ Feature: Activity Stream
     And In reply 'activitytestkudoscommentreply', Kudos label should be black
 
     When In reply 'activitytestkudoscommentreply', I click on kudos button
-    And I sent to the comment activity a kudos message 'Test Auto reply Kudos'
+    And I send to the comment activity a kudos message 'Test Auto reply Kudos'
     Then In reply 'activitytestkudoscommentreply', Kudos label should be blue
 
     When I click to edit the kudos from a reply comment
-    And I set the new kudos comment text 'updated kudos message ' and I click on update button
-    Then the updated Kudos activity 'updated kudos message ' is displayed in stream page
+    And I set the new kudos comment text 'updated kudos message' and I click on update button
+    Then the updated Kudos activity 'updated kudos message' is displayed in stream page
 
   @ignored
   Scenario: CAP132 - [ActivityStream_US52][01]: Edit a kudos comment from an activity
     Given I am authenticated as admin
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
     And I connect with the first created user
@@ -2448,7 +2447,7 @@ Feature: Activity Stream
     And I go to the random space
     Then the activity 'activitytestkudos' is displayed in activity stream
     Then I click on the kudos button from the Activity Stream
-    And I sent to the comment activity a kudos message 'Test Auto reply Kudos'
+    And I send to the comment activity a kudos message 'Test Auto reply Kudos'
     Then In activity 'activitytestkudos', I click on the comment 'Test Auto reply Kudos' three dots icon
     When In comment 'Test Auto reply Kudos', I click on edit button
     And I set the new kudos comment text 'updated Test Auto reply Kudos' and I click on update button

@@ -98,7 +98,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void refreshPage() {
-    driver.navigate().refresh();
+    driver.get(getCurrentUrl());
     try {
       driver.switchTo().alert().accept();
     } catch (NoAlertPresentException e) {

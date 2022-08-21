@@ -145,7 +145,7 @@ Feature: Filter Drawer
 
   Scenario: Filter project
     Given I am authenticated as admin
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
 
     When I connect with the first created user
     And I go to the random space

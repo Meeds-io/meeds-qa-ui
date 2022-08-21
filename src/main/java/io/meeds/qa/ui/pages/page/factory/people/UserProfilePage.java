@@ -60,7 +60,7 @@ public class UserProfilePage extends GenericPage {
   @FindBy(xpath = "//div[@id='profile-stats-portlet']//span[contains(text(),'Points')]//preceding::span[1]")
   private BaseElementFacade    myWeeklyPoint;
 
-  @FindBy(xpath = "//iframe[contains(@class,'cke_wysiwyg_frame')]")
+  @FindBy(xpath = "//*[contains(@class, 'v-navigation-drawer--open')]//iframe[contains(@class,'cke_wysiwyg_frame')]")
   private BaseElementFacade    ckEditorFrameSendKudosDrawer;
 
   @FindBy(xpath = "(//*[contains(@class,'v-input__icon--prepend')]//button)[1]")
@@ -354,6 +354,8 @@ public class UserProfilePage extends GenericPage {
   public void clickOnSendKudosBtn() {
     uiIconKudos.waitUntilVisible();
     uiIconKudos.clickOnElement();
+    waitForDrawerToOpen();
+    waitCKEditorLoading();
   }
 
   @SwitchToWindow
@@ -368,6 +370,7 @@ public class UserProfilePage extends GenericPage {
       driver.switchTo().defaultContent();
     }
     sendKudosButton.clickOnElement();
+    waitForDrawerToClose();
   }
 
   public void updateContactOtherInformations(String company,

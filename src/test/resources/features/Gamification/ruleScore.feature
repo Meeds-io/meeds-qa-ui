@@ -5,7 +5,7 @@ Feature: Check the rules score increase
   @test
   Scenario: Send Kudos
     Given I am authenticated as admin
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the second random user if not existing
     When I connect with the first created user
     And I go to my profile
@@ -18,7 +18,7 @@ Feature: Check the rules score increase
   @test
   Scenario: Receive a connection request
     Given I am authenticated as admin
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the second random user if not existing
     When I connect with the second created user
     And I go to my profile
@@ -31,7 +31,7 @@ Feature: Check the rules score increase
 
   Scenario: Like a comment (in space)
     Given I am authenticated as admin
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the second random user if not existing
     When I connect with the first created user
     And I go to the random space
@@ -57,7 +57,7 @@ Feature: Check the rules score increase
 
   Scenario: Receive a like on a post
     Given I am authenticated as admin
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the second random user if not existing
     And I connect with the first created user
     And I go to the random space
@@ -93,7 +93,7 @@ Feature: Check the rules score increase
   @ignored
   Scenario: Receive relationship request
     Given I am authenticated as admin
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the sixth random user if not existing
     And I connect with the first created user
     And I go to my profile

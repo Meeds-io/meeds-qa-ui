@@ -109,7 +109,7 @@ Feature: Tasks
 
   Scenario: Check tasks display in project
     Given I am authenticated as admin
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
     And I connect with the second created user
@@ -288,7 +288,7 @@ Feature: Tasks
 
   Scenario: CAP264 - [NF] [US_Sharedlabels_01]:All project members can use added labels
     Given I am authenticated as admin
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
     When I go To AppCenter Drawer
@@ -354,7 +354,7 @@ Feature: Tasks
   @ignored
   Scenario:[Task]: when click on notification, user is redirected under the specific project
     Given I am authenticated as admin
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
     When I connect with the second created user

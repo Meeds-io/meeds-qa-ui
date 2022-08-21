@@ -30,11 +30,9 @@ public class AddUserSteps {
     addUserPage.clickAddUserButton();
     addUserPage.setRandomUserDetails(userName, firstName, lastName, mail, password);
     addUserPage.saveAddUserButton();
-    // Wait for ElasticSearch index creation asynchronously
-    addUserPage.waitFor(3).seconds();
   }
 
-  public void addRandomUser(String userPrefix) {
+  public void addRandomUser(String userPrefix, boolean waitSearchable) {
     if (StringUtils.isBlank(sessionVariableCalled(userPrefix + "UserName"))) {
       String userName = "user" + userPrefix + getRandomString();
       String firstName = getRandomString(userPrefix);
@@ -51,6 +49,11 @@ public class AddUserSteps {
       setSessionVariable(userPrefix + "UserPassword").to(password);
       setSessionVariable(userName + "-password").to(password);
       TestHooks.userWithPrefixCreated(userPrefix, userName, firstName, lastName, email, password);
+
+      if (waitSearchable) {
+        // Wait for ElasticSearch index creation asynchronously
+        addUserPage.waitFor(3).seconds();
+      }
     }
   }
 

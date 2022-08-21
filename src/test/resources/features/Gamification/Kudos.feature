@@ -5,7 +5,7 @@ Feature: Kudos gamification
   @test
   Scenario: Receive Kudos
     Given I am authenticated as admin
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the second random user if not existing
     And I connect with the first created user
     When I go to my profile

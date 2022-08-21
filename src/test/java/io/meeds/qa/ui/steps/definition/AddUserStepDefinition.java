@@ -20,13 +20,18 @@ public class AddUserStepDefinition {
 
   @Given("^I create a dedicated user to be an administrator$")
   public void addRandomAdminUser() {
-    addUserSteps.addRandomUser("firstAdmin");
+    addUserSteps.addRandomUser("firstAdmin", true);
   }
 
   @Given("^I create the (.*) random user if not existing$")
   @And("^I create the (.*) random user$")
   public void addRandomUser(String prefix) {
-    addUserSteps.addRandomUser(prefix);
+    addUserSteps.addRandomUser(prefix, true);
+  }
+
+  @Given("^I create the (.*) random user if not existing, no wait$")
+  public void addRandomUserNoWait(String prefix) {
+    addUserSteps.addRandomUser(prefix, false);
   }
 
   @Given("^The following user is created$")
@@ -73,14 +78,9 @@ public class AddUserStepDefinition {
     addUserSteps.isUserNameDisplayed(user);
   }
 
-  @Given("^The first created user is displayed$")
-  public void isFirstUserNameDisplayed() {
-    addUserSteps.isUserNameDisplayed(sessionVariableCalled("firstUserName"));
-  }
-
-  @Given("^The second created user is displayed$")
-  public void isSecondUserNameDisplayed() {
-    addUserSteps.isUserNameDisplayed(sessionVariableCalled("secondUserName"));
+  @Given("^The (.*) created user is displayed$")
+  public void isFirstUserNameDisplayed(String userPrefix) {
+    addUserSteps.isUserNameDisplayed(sessionVariableCalled(userPrefix + "UserName"));
   }
 
   @Given("^I add the user$")

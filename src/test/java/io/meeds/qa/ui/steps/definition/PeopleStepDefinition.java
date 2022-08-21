@@ -18,8 +18,8 @@ public class PeopleStepDefinition {
 
   @Given("^I connect to (.*) user$")
   public void connectToUserWithPrefix(String userPrefix) {
-    String userName = Serenity.sessionVariableCalled(userPrefix + "UserName");
-    peopleSteps.connectToUser(userName);
+    String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
+    peopleSteps.connectToUser(userLastName);
   }
 
   @Given("^Pulldown Filter is displayed in People page$")
@@ -52,22 +52,10 @@ public class PeopleStepDefinition {
     peopleSteps.connectUserProfile();
   }
 
-  @Given("I go to the second user profile")
-  public void goToSecondUserProfile() {
-    String secondUserName = Serenity.sessionVariableCalled("secondUserName");
-    peopleSteps.goToUserProfile(secondUserName);
-  }
-
-  @Given("I go to the third user profile")
-  public void goToThirdUserProfile() {
-    String thirdUserName = Serenity.sessionVariableCalled("thirdUserName");
-    peopleSteps.goToUserProfile(thirdUserName);
-  }
-
-  @Given("I go to the first user profile")
-  public void goToFirstUserProfile() {
-    String firstUserName = Serenity.sessionVariableCalled("firstUserName");
-    peopleSteps.goToUserProfile(firstUserName);
+  @Given("^I go to the (.*) user profile$")
+  public void goToRandomUserProfile(String userPrefix) {
+    String userName = Serenity.sessionVariableCalled(userPrefix + "UserName");
+    peopleSteps.goToUserProfile(userName);
   }
 
   @Then("^Leaderboard Widget is displayed with title '(.*)'$")

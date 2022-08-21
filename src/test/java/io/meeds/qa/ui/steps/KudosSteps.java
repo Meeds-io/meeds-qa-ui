@@ -59,7 +59,7 @@ public class KudosSteps {
   }
 
   public void isKudosActivityVisible(String message) {
-    kudosPage.isKudosActivityVisible(message);
+    kudosPage.checkKudosActivityVisible(message);
   }
 
   public void editKudos() {

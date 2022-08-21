@@ -26,7 +26,7 @@ Feature: Challenges
 
   Scenario: Challenge_App_Admin_US01 Challenge App
     Given I am authenticated as admin
-    And I create the firstchgadm random user if not existing
+    And I create the firstchgadm random user if not existing, no wait
     And I create the secondchgadm random user if not existing
     And I create a random space
     And I connect with the firstchgadm created user
@@ -110,7 +110,7 @@ Feature: Challenges
 
   Scenario: Challenge_App_US01 Post the challenge on the space stream
     Given I am authenticated as admin
-    And I create the firstchgadm random user if not existing
+    And I create the firstchgadm random user if not existing, no wait
     And I create the secondchgadm random user if not existing
     And I go to groups Management page
     And I open the group 'Platform'

@@ -7,7 +7,7 @@ Feature: Social
   @activitystream
   Scenario: Comment on your friends activity
     Given I am authenticated as admin
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the second random user if not existing
     And I connect with the first created user
     And I go to the random space
@@ -26,7 +26,7 @@ Feature: Social
   @test
   Scenario: Search users in My connections tab
     Given I am authenticated as admin
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the second random user if not existing
     And I connect with the first created user
     And I connect to second user
@@ -44,7 +44,7 @@ Feature: Social
   @activitystream
   Scenario: Cancel edit comment
     Given I am authenticated as admin
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     When I connect with the first created user
     And I go to the random space
     And I click on post in space
@@ -62,8 +62,8 @@ Feature: Social
   @activitystream
   Scenario: [REPLY_05] The comment is displayed on the buttom of the comment reply section
     Given I am authenticated as admin
-    And I create the first random user if not existing
-    And I create the second random user if not existing
+    And I create the first random user if not existing, no wait
+    And I create the second random user if not existing, no wait
     And I create the third random user if not existing
 
     When I connect with the first created user

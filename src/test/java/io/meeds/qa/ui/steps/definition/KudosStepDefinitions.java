@@ -43,7 +43,7 @@ public class KudosStepDefinitions {
     kudoSteps.checkKudosSettings(val, semester);
   }
 
-  @When("^I sent to the activity '(.*)' a kudos message '(.*)'$")
+  @When("^I send to the activity '(.*)' a kudos message '(.*)'$")
   public void addActivityKudos(String activity, String kudos) {
     kudosPage.addActivityKudos(activity, kudos);
   }
@@ -88,12 +88,12 @@ public class KudosStepDefinitions {
     kudoSteps.editKudos();
   }
 
-  @When("^I sent to the comment activity a kudos message '(.*)'$")
+  @When("^I send to the comment activity a kudos message '(.*)'$")
   public void addActivityCommentKudos(String kudos) {
     kudosPage.addActivityCommentKudos(kudos);
   }
 
-  @When("^I sent to the comment activity a kudos message '(.*)' from comments drawer$")
+  @When("^I send to the comment activity a kudos message '(.*)' from comments drawer$")
   public void addActivityCommentKudosFromDrawer(String kudos) {
     kudoSteps.addActivityCommentKudosFromDrawer(kudos);
   }

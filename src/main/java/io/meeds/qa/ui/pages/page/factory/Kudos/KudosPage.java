@@ -66,7 +66,7 @@ public class KudosPage extends GenericPage {
   @FindBy(xpath = "//i[@class='v-icon notranslate dark-grey-color fa fa-edit theme--light']")
   public static BaseElementFacade editButton;
 
-  @FindBy(xpath = "//iframe[contains(@class,'cke_wysiwyg_frame')]")
+  @FindBy(xpath = "//*[contains(@class, 'v-navigation-drawer--open')]//iframe[contains(@class,'cke_wysiwyg_frame')]")
   private BaseElementFacade       ckEditorFrameKudos;
 
   @FindBy(xpath = "//body[contains(@class,'cke_editable_themed')]")
@@ -85,7 +85,7 @@ public class KudosPage extends GenericPage {
   private BaseElementFacade       sendKudosBtn;
 
   private BaseElementFacade getKudosActivityText(String message) {
-    return findByXPathOrCSS(String.format("//*[contains(@id,'Extactivity-content-extensions')]//*[@class='my-4']//*[contains(@class,'rich-editor-content')]//div[contains(text(),'%s')]",
+    return findByXPathOrCSS(String.format("//div[contains(@class,'activity-detail')]//descendant::*[contains(text(),'%s')]",
                                           message));
   }
 
@@ -115,7 +115,9 @@ public class KudosPage extends GenericPage {
   @SwitchToWindow
   public void addActivityKudos(String activity, String comment) {
     getKudosLink(activity).clickOnElement();
+    waitForDrawerToOpen();
     waitCKEditorLoading();
+    ckEditorFrameKudos.waitUntilVisible();
     ckEditorFrameKudos.clickOnElement();
     driver.switchTo().frame(ckEditorFrameKudos);
     try {
@@ -202,8 +204,8 @@ public class KudosPage extends GenericPage {
     verifyPageLoaded();
   }
 
-  public void isKudosActivityVisible(String message) {
-    assertTrue(getKudosActivityText(message).isVisibleAfterWaiting());
+  public void checkKudosActivityVisible(String message) {
+    assertWebElementVisible(getKudosActivityText(message));
   }
 
   @SwitchToWindow
