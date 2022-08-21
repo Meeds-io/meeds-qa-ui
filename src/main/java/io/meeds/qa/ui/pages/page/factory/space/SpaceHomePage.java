@@ -37,22 +37,22 @@ public class SpaceHomePage extends GenericPage {
   @FindBy(xpath = "//button[contains(@class,'primary--text font-weight-bold mb-1')]")
   private BaseElementFacade    viewallXcomments;
 
-  @FindBy(xpath = "(//*[contains(@class,'composerActions')]//*[@class='actionItemIcon'])[1]")
+  @FindBy(xpath = "//*[contains(@class,'createPollComposerIcon')]//ancestor::*[contains(@class, 'actionItem')]")
   private BaseElementFacade    createPollLink;
 
-  @FindBy(xpath = "(//div[@class='v-text-field__slot']//*[contains(@id,'input')])[1]")
+  @FindBy(xpath = "(//*[@id='createPollDrawer']//*[contains(@class, 'custom-poll-textarea')]//textarea)[1]")
   private TextBoxElementFacade titlePoll;
 
-  @FindBy(xpath = "(//div[@class='v-text-field__slot']//*[contains(@id,'input')])[2]")
+  @FindBy(xpath = "(//*[@id='createPollDrawer']//*[contains(@class, 'custom-poll-textarea')]//textarea)[2]")
   private TextBoxElementFacade choiceOnePoll;
 
-  @FindBy(xpath = "(//div[@class='v-text-field__slot']//*[contains(@id,'input')])[3]")
+  @FindBy(xpath = "(//*[@id='createPollDrawer']//*[contains(@class, 'custom-poll-textarea')]//textarea)[3]")
   private TextBoxElementFacade choiceTwoPoll;
 
-  @FindBy(xpath = "(//div[@class='v-text-field__slot']//*[contains(@id,'input')])[4]")
+  @FindBy(xpath = "(//*[@id='createPollDrawer']//*[contains(@class, 'custom-poll-textarea')]//textarea)[4]")
   private TextBoxElementFacade choiceThreePoll;
 
-  @FindBy(xpath = "//*[contains(@class,'no-box-shadow v-btn v-btn--contained')]")
+  @FindBy(xpath = "//*[@id='createPollDrawer']//*[contains(@class, 'drawerFooter')]//button[contains(@class, 'primary')]")
   private BaseElementFacade    buttonCreatePoll;
 
   @FindBy(xpath = "//iframe[contains(@class,'cke_wysiwyg_frame')]")
@@ -750,6 +750,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void createPoll(String pollTitle, String choiceOne, String choiceTow) {
+    waitForDrawerToOpen("#createPollDrawer", false);
     titlePoll.clickOnElement();
     titlePoll.setTextValue(pollTitle);
     choiceOnePoll.clickOnElement();
@@ -757,6 +758,7 @@ public class SpaceHomePage extends GenericPage {
     choiceTwoPoll.clickOnElement();
     choiceTwoPoll.setTextValue(choiceTow);
     buttonCreatePoll.clickOnElement();
+    waitForDrawerToClose("#createPollDrawer", false);
   }
 
   public void createPollWithOneChoice(String pollTitle, String choiceOne) {

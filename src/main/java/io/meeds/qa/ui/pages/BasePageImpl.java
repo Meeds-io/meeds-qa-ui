@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.time.Duration;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoAlertPresentException;
@@ -73,20 +74,34 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void waitForDrawerToOpen() {
+    waitForDrawerToOpen(null, true);
+  }
+
+  public void waitForDrawerToOpen(String drawerId, boolean withOverlay) {
+    String drawerSelector = StringUtils.isBlank(drawerId) ? ".v-navigation-drawer--open" : drawerId;
     try {
-      findByXPathOrCSS(".v-navigation-drawer--open").waitUntilVisible();
-      findByXPathOrCSS(".v-overlay").waitUntilVisible();
+      findByXPathOrCSS(drawerSelector).waitUntilVisible();
+      if (withOverlay) {
+        findByXPathOrCSS(".v-overlay").waitUntilVisible();
+      }
     } catch (Exception e) {
-      LOGGER.warn("Overlay seems not displayed", e);
+      LOGGER.debug("Overlay seems not displayed", e);
     }
   }
 
   public void waitForDrawerToClose() {
+    waitForDrawerToClose(null, true);
+  }
+
+  public void waitForDrawerToClose(String drawerId, boolean withOverlay) {
+    String drawerSelector = StringUtils.isBlank(drawerId) ? ".v-navigation-drawer--open" : drawerId;
     try {
-      findByXPathOrCSS(".v-navigation-drawer--open").waitUntilNotVisible();
-      findByXPathOrCSS(".v-overlay").waitUntilNotVisible();
+      findByXPathOrCSS(drawerSelector).waitUntilNotVisible();
+      if (withOverlay) {
+        findByXPathOrCSS(".v-overlay").waitUntilNotVisible();
+      }
     } catch (Exception e) {
-      LOGGER.warn("Overlay seems not displayed", e);
+      LOGGER.debug("Overlay seems not displayed", e);
     }
   }
 

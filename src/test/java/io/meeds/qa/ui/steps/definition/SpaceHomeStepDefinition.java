@@ -217,7 +217,7 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.clickCreatePoll();
   }
 
-  @When("^I created a simple poll with title '(.*)' and Choice One '(.*)' and Choice Two '(.*)'$")
+  @When("^I create a simple poll with title '(.*)' and Choice One '(.*)' and Choice Two '(.*)'$")
   public void createPoll(String pollTitle, String choiceOne, String choiceTow) {
     spaceHomeSteps.createPoll(pollTitle, choiceOne, choiceTow);
   }
