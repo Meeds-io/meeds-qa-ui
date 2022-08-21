@@ -1,17 +1,12 @@
 package io.meeds.qa.ui.steps;
 
-import static io.meeds.qa.ui.pages.page.factory.UnifiedSearchPage.ELEMENT_ICON_SEARCH;
-import static io.meeds.qa.ui.pages.page.factory.UnifiedSearchPage.ELEMENT_SEARCH_INPUT;
-
 import io.meeds.qa.ui.pages.page.factory.UnifiedSearchPage;
 
 public class ManageUnifiedSearchSteps {
   private UnifiedSearchPage unifiedSearchPage;
 
-  public void search(String element) {
-    ELEMENT_ICON_SEARCH.waitUntilVisible();
-    ELEMENT_ICON_SEARCH.clickOnElement();
-    ELEMENT_SEARCH_INPUT.setTextValue(element);
+  public void search(String text) {
+    unifiedSearchPage.search(text);
   }
 
   public boolean isSearchedUserNameVisible(String user) {
@@ -51,8 +46,7 @@ public class ManageUnifiedSearchSteps {
   }
 
   public void accessUnifiedSearchPage() {
-    ELEMENT_ICON_SEARCH.waitUntilVisible();
-    ELEMENT_ICON_SEARCH.clickOnElement();
+    unifiedSearchPage.openSearchApplication();
   }
 
   public void clickFavoriteBtn() {

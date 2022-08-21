@@ -12,11 +12,11 @@ public class UnifiedSearchPage extends GenericPage {
     super(driver);
   }
 
-  @FindBy(xpath = "//*[@title='Find any content from your communities']//i[contains(@class,'fa-search')]")
-  public static BaseElementFacade    ELEMENT_ICON_SEARCH;
+  @FindBy(xpath = "//*[@id='SearchApplication']//i[contains(@class,'fa-search')]//ancestor::button")
+  public static BaseElementFacade    toolbarSearchButton;
 
-  @FindBy(id = "searchInput")
-  public static TextBoxElementFacade ELEMENT_SEARCH_INPUT;
+  @FindBy(xpath = "//*[@id='SearchApplication']//input[@id = 'searchInput']")
+  public static TextBoxElementFacade searchInput;
 
   @FindBy(xpath = "//*[@class='v-responsive v-image appImage']")
   public static BaseElementFacade    ELEMENT_APPLICATION_SEARCH_PICTURE;
@@ -80,13 +80,17 @@ public class UnifiedSearchPage extends GenericPage {
     ELEMENT_ACCESS_TO_SEARCHED_ACTIVITY.clickOnElement();
   }
 
-  @FindBy(xpath = "//span[@class='subtitle-1' and contains(text(),'Favorites')]")
+  @FindBy(
+      xpath = "//*[contains(@class, 'searchConnectorsParent')]//i[contains(@class, 'fa-star')]//ancestor::*[contains(@class, 'v-chip--clickable')]"
+  )
   private BaseElementFacade favoritesBtn;
 
   public void clickFavoriteBtn() {
+    verifyPageLoaded();
     favoritesBtn.waitUntilVisible();
     favoritesBtn.waitUntilClickable();
     favoritesBtn.clickOnElement();
+    verifyPageLoaded();
   }
 
   public boolean isSearchedActivityTitleNotVisible(String activity) {
@@ -95,27 +99,40 @@ public class UnifiedSearchPage extends GenericPage {
 
   private BaseElementFacade getFavoriteIconSearchedActivity(String activity) {
     return findByXPathOrCSS(String.format(
-                                     "//div[@class='d-flex flex-column border-radius box-shadow v-card v-card--flat v-sheet theme--light']//div[@title='%s']//preceding::i[contains(@class,'fa-star')][01]",
-                                     activity));
+                                          "(//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'searchCard')]//*[contains(@class, 'fa-star')])[1]",
+                                          activity));
   }
 
   public void favoriteSearchedActivity(String activity) {
     getFavoriteIconSearchedActivity(activity).clickOnElement();
+    toolbarSearchButton.hover(); // A trick to hover outside user popover to be
+                                 // closed
   }
 
   @FindBy(xpath = "//span[@class='me-8' and contains(text(),'All')]")
   private BaseElementFacade shipFormAll;
 
   private BaseElementFacade getObjectFromDropDown(String object) {
-    return findByXPathOrCSS(String.format(
-                                     "//div[@class='v-input--selection-controls__input']//preceding::span[@class='subtitle-1'and contains(text(),'%s')]",
-                                     object));
+    return findByXPathOrCSS(String.format("//div[@class='v-input--selection-controls__input']//preceding::span[@class='subtitle-1'and contains(text(),'%s')]",
+                                          object));
   }
 
   public void selectDropDown(String object) {
     shipFormAll.clickOnElement();
     getObjectFromDropDown(object).clickOnElement();
 
+  }
+
+  public void openSearchApplication() {
+    toolbarSearchButton.waitUntilVisible();
+    toolbarSearchButton.clickOnElement();
+  }
+
+  public void search(String text) {
+    openSearchApplication();
+    searchInput.setTextValue(text);
+    waitFor(300).milliseconds(); // Wait for search to be used
+    verifyPageLoaded();
   }
 
 }

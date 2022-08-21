@@ -82,6 +82,7 @@ Feature: Favorite activities
     And The activity is displayed in the search 'activityFavs_US052'
     And The activity is displayed in the search 'activityFavs_US050'
 
+  @test
   Scenario: [Favs_US06][01] Manage favorites from the search card ( Bookmark an activity)
     Given I am authenticated as admin
     And I create the first random user if not existing

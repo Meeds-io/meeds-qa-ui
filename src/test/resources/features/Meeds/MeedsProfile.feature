@@ -39,8 +39,8 @@ Feature: Search for User Informations in Profile page
   Scenario: PROFILE-4 Contact information block_(01) : Add informations
     Given I am authenticated as admin
 
-    When I create the first random user if not existing, no wait
-    And I connect with the first created user
+    When I create the firstprofile random user if not existing, no wait
+    And I connect with the firstprofile created user
     And I go to My Profile page
     And I update my profile random basic informations
     Then In 'Contact information', Updated profile Contact Fullname is displayed
@@ -50,8 +50,8 @@ Feature: Search for User Informations in Profile page
   Scenario: PROFILE-4 Contact information block_(02) : Add informations
     Given I am authenticated as admin
 
-    When I create the first random user if not existing, no wait
-    And I connect with the first created user
+    When I create the secondprofile random user if not existing, no wait
+    And I connect with the secondprofile created user
     And I go to My Profile page
     And I update my profile random basic informations
     Then In 'Contact information', Updated profile Contact Fullname is displayed
@@ -108,9 +108,9 @@ Feature: Search for User Informations in Profile page
   Scenario: : PROFILE-7 : Work Experiences block and its drawer
     Given I am authenticated as admin
 
-    And I create the first random user if not existing, no wait
+    And I create the thirdprofile random user if not existing, no wait
 
-    When I connect with the first created user
+    When I connect with the thirdprofile created user
 
     And I go to My Profile page
 

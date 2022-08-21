@@ -1,7 +1,6 @@
 @poll
 Feature: Poll
 
-  @test
   Scenario: Poll_US05_(01) : Post a poll_simple case
     Given I am authenticated as admin
     And I create the first random user if not existing, no wait
@@ -42,7 +41,6 @@ Feature: Poll
     And I publish the Poll
     Then The Poll 'Poll 2 Test' is displayed in stream page
 
-  @test
   Scenario: Poll_US04_(01) : Edit a poll_edit informations
     Given I am authenticated as admin
     And I create the first random user if not existing, no wait
@@ -59,7 +57,6 @@ Feature: Poll
     And I create a simple poll with title ' edited' and Choice One ' edited' and Choice Two ' edited'
     Then create poll drawer is closed
 
-  @test
   Scenario: Poll_US05.1_(01) : Post a poll : create poll activity_with message
     Given I am authenticated as admin
     And I create the first random user if not existing, no wait
