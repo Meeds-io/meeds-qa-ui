@@ -80,11 +80,11 @@ public class ChallengesPage extends GenericPage {
   }
 
   public void checkAddChallengeBtn() {
-    assertTrue(addChallengeBtn.isVisibleAfterWaiting()); // NOSONAR
+    assertWebElementVisible(addChallengeBtn); // NOSONAR
   }
 
   public void checkAddChallengeBtnNotDispayed() {
-    assertTrue(addChallengeBtn.isNotVisibleAfterWaiting());
+    assertWebElementNotVisible(addChallengeBtn);
   }
 
   public void clickAddChallengeBtn() {
@@ -93,7 +93,7 @@ public class ChallengesPage extends GenericPage {
   }
 
   public void checkAddChallengeDrawer() {
-    assertTrue(headerChallengeDrawer.isVisibleAfterWaiting());
+    assertWebElementVisible(headerChallengeDrawer);
   }
 
   public void enterChallengeTitle(String challengeTitle) {
@@ -219,11 +219,11 @@ public class ChallengesPage extends GenericPage {
   }
 
   public void checkChallengeCardTitle(String title) {
-    assertTrue(getChallengeCardTitle(title).isVisibleAfterWaiting());
+    assertWebElementVisible(getChallengeCardTitle(title));
   }
 
   public void checkNoChallengeCardTitle(String title) {
-    assertTrue(getChallengeCardTitle(title).isNotVisibleAfterWaiting());
+    assertWebElementNotVisible(getChallengeCardTitle(title));
   }
 
   public void enterRandomChallengeTitle(String challengeName) {
@@ -245,22 +245,22 @@ public class ChallengesPage extends GenericPage {
   }
 
   public void checkTitleDisplayOnCard(String title) {
-    assertTrue(getChallengeCardTitle(title).isVisibleAfterWaiting());
+    assertWebElementVisible(getChallengeCardTitle(title));
   }
 
   public void checkThreeDotsIconDisplay(String title) {
-    assertTrue(getChallengeCardTitle(title).isVisibleAfterWaiting());
-    assertTrue(getChallengeCardThreeDots(title).isVisibleAfterWaiting());
+    assertWebElementVisible(getChallengeCardTitle(title));
+    assertWebElementVisible(getChallengeCardThreeDots(title));
   }
 
   public void checkAnnounceBtn(String title) {
-    assertTrue(getChallengeCardTitle(title).isVisibleAfterWaiting());
-    assertTrue(getChallengeCardAnnounceButton(title).isVisibleAfterWaiting());
+    assertWebElementVisible(getChallengeCardTitle(title));
+    assertWebElementVisible(getChallengeCardAnnounceButton(title));
   }
 
   public void checkDateField(String title) {
-    assertTrue(getChallengeCardTitle(title).isVisibleAfterWaiting());
-    assertTrue(getChallengeCardDate(title).isVisibleAfterWaiting());
+    assertWebElementVisible(getChallengeCardTitle(title));
+    assertWebElementVisible(getChallengeCardDate(title));
   }
 
   public void clickAnnounceBtn(String title) {
@@ -268,7 +268,7 @@ public class ChallengesPage extends GenericPage {
   }
 
   public void checkAnnouncementDrawer() {
-    assertTrue(announcementHeaderDrawer.isVisibleAfterWaiting());
+    assertWebElementVisible(announcementHeaderDrawer);
   }
 
   @SwitchToWindow
@@ -290,7 +290,7 @@ public class ChallengesPage extends GenericPage {
   }
 
   public void assignChallengeToUser(String user) {
-    assertTrue(assignLink.isVisibleAfterWaiting());
+    assertWebElementVisible(assignLink);
     assignLink.clickOnElement();
     assignAnnouncementInput.setTextValue(user + " ");
     assignAnnouncementInput.sendKeys(Keys.BACK_SPACE);
@@ -309,11 +309,11 @@ public class ChallengesPage extends GenericPage {
   }
 
   public void checkAchievementDescriptionOnAnnouncement(String description) {
-    assertTrue(getAchievementDescriptionOnAnnouncement(description).isVisibleAfterWaiting());
+    assertWebElementVisible(getAchievementDescriptionOnAnnouncement(description));
   }
 
   public void checkChallengeTitleOnAnnouncement(String name) {
-    assertTrue(getChallengeTitleOnAnnouncement(name).isVisibleAfterWaiting());
+    assertWebElementVisible(getChallengeTitleOnAnnouncement(name));
   }
 
   private BaseElementFacade getSelectWinnerInDropDown(String secondUserName) {

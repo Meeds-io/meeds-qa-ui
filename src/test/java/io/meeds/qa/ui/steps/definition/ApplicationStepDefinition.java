@@ -177,12 +177,6 @@ public class ApplicationStepDefinition {
 
   }
 
-  @Then("Star button for adding the created application to Favorites is displayed")
-  public void starButtonForCreatedRandomAppIsNotSelected() {
-    String randomApplicationTitle = Serenity.sessionVariableCalled("randomApplicationTitle");
-    applicationSteps.starButtonIsNotSelected(randomApplicationTitle);
-  }
-
   @Then("^The created application is not displayed in Favorites Applications$")
   public void checkThatCreatedApplicationIsNotDisplayedInFavoriteApps() {
     String randomApplicationTitle = Serenity.sessionVariableCalled("randomApplicationTitle");
@@ -234,26 +228,54 @@ public class ApplicationStepDefinition {
 
   }
 
-  @Then("^Star button for removing application '(.*)' from Favorites is displayed$")
+  @Then("^The application '(.*)' is bookmarked as my favorites$")
   public void starButtonIsSelected(String appTitle) {
     applicationSteps.starButtonIsSelected(appTitle);
   }
 
-  @Then("^Star button for removing the created application from Favorites is displayed$")
+  @Then("The application is bookmarked as my favorites")
   public void starButtonIsSelected() {
     String randomApplicationTitle = Serenity.sessionVariableCalled("randomApplicationTitle");
     applicationSteps.starButtonIsSelected(randomApplicationTitle);
   }
 
-  @Then("^Star button for adding application '(.*)' to Favorites is displayed$")
-  public void starButtonIsNotSelected(String appTitle) {
-    applicationSteps.starButtonIsNotSelected(appTitle);
-  }
-
-  @Then("^Star button for adding the first added application to Favorites is displayed$")
-  public void starButtonForFirstRandomAppIsNotSelected() {
+  @Then("The application is not bookmarked as my favorites")
+  public void starButtonForCreatedRandomAppIsNotSelected() {
     String randomApplicationTitle = Serenity.sessionVariableCalled("randomApplicationTitle");
     applicationSteps.starButtonIsNotSelected(randomApplicationTitle);
+  }
+
+  @Then("The application bookmark is disabled")
+  public void starButtonIsDisabled() {
+    String randomApplicationTitle = Serenity.sessionVariableCalled("randomApplicationTitle");
+    applicationSteps.starButtonIsDisabled(randomApplicationTitle);
+  }
+
+  @Then("I bookmark the random application")
+  public void bookmarkRandomApplication() {
+    String randomApplicationTitle = Serenity.sessionVariableCalled("randomApplicationTitle");
+    applicationSteps.bookmarkApplication(randomApplicationTitle);
+  }
+
+  @Then("I unbookmark the random application")
+  public void unbookmarkRandomApplication() {
+    String randomApplicationTitle = Serenity.sessionVariableCalled("randomApplicationTitle");
+    applicationSteps.unbookmarkApplication(randomApplicationTitle);
+  }
+
+  @Then("^I bookmark the application '(.*)'$")
+  public void bookmarkApplication(String appTitle) {
+    applicationSteps.bookmarkApplication(appTitle);
+  }
+
+  @Then("^I unbookmark the application '(.*)'$")
+  public void unbookmarkApplication(String appTitle) {
+    applicationSteps.unbookmarkApplication(appTitle);
+  }
+
+  @Then("^The application '(.*)' is not bookmarked as my favorites$")
+  public void starButtonIsNotSelected(String appTitle) {
+    applicationSteps.starButtonIsNotSelected(appTitle);
   }
 
   @Then("^Add Application '(.*)' To Favorites Btn Is Displayed$")

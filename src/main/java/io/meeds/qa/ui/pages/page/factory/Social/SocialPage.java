@@ -78,7 +78,7 @@ public class SocialPage extends GenericPage {
   }
 
   public void checkSearchedUserWellMatched(String user) {
-    assertTrue(getUserProfileButton(user).isVisibleAfterWaiting());
+    assertWebElementVisible(getUserProfileButton(user));
   }
 
   public void editComment() {

@@ -1,9 +1,6 @@
 package io.meeds.qa.ui.pages.page.factory.application;
 
-import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_APPCENTER_TASKS;
-import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_APPLICATIONS_TOPBAR;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
-import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +31,7 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void maxFavoriteAppsIsDisplayed() {
-    assertTrue(maxFavoriteApps.isVisibleAfterWaiting());
+    assertWebElementVisible(maxFavoriteApps);
   }
 
   public boolean isAppDisplayedInFavoriteList(String appName) {
@@ -106,12 +103,17 @@ public class ApplicationPage extends GenericPage {
   }
 
   private BaseElementFacade addToAppCenterFavoriteIsDisplayed(String app) {
-    return findByXPathOrCSS(String.format("(//*[@class='authorisedAppContent']//*[@class='appTitle']//div[contains(text(),'%s')]/following::*[contains(@class, 'applicationActions')]//*[@title='Add to favorites applications']//button)[1]",
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'userAuthorizedApplications')]//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'v-card')]//i[contains(@class, 'mdi-star')]",
                                           app));
   }
 
   private BaseElementFacade removeFromAppCenterFavoriteIsDisplayed(String app) {
-    return findByXPathOrCSS(String.format("(//*[@class='authorisedAppContent']//*[@class='appTitle']//div[contains(text(),'%s')]/following::*[contains(@class, 'applicationActions')]//*[@title='Remove from favorites']//button)[1]",
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'userAuthorizedApplications')]//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'v-card')]//i[contains(@class, 'mdi-star-outline')]",
+                                          app));
+  }
+
+  private BaseElementFacade disabledFavoriteIsDisplayed(String app) {
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'userAuthorizedApplications')]//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'v-card')]//i[contains(@class, 'mdi-star')]//ancestor::button[@disabled]",
                                           app));
   }
 
@@ -137,11 +139,15 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void starButtonIsNotSelected(String appTitle) {
-    assertTrue(addToAppCenterFavoriteIsDisplayed(appTitle).isVisibleAfterWaiting());
+    assertWebElementVisible(removeFromAppCenterFavoriteIsDisplayed(appTitle));
   }
 
   public void starButtonIsSelected(String appTitle) {
-    assertTrue(removeFromAppCenterFavoriteIsDisplayed(appTitle).isVisibleAfterWaiting());
+    assertWebElementVisible(addToAppCenterFavoriteIsDisplayed(appTitle));
+  }
+
+  public void starButtonIsDisabled(String appTitle) {
+    assertWebElementVisible(disabledFavoriteIsDisplayed(appTitle));
   }
 
   public void addRemoveApplicationToFavorites(String app) {
@@ -154,16 +160,16 @@ public class ApplicationPage extends GenericPage {
 
   public void checkThatAddApplicationBtnToFavoritesIsDisplayed(String app) {
     // Check that add application to favorites Button is displayed
-    assertTrue(addApplicationAFavoriteInApplicationCenter(app).isVisibleAfterWaiting());
+    assertWebElementVisible(addApplicationAFavoriteInApplicationCenter(app));
   }
 
   public void checkThatOpenApplicationButtonIsDisplayed(String app) {
     // Check that open application Button is displayed
-    assertTrue(ELEMENT_APPCENTER_ALL_APPLICATIONS_OPEN_APP_BTN(app).isVisibleAfterWaiting());
+    assertWebElementVisible(ELEMENT_APPCENTER_ALL_APPLICATIONS_OPEN_APP_BTN(app));
   }
 
   public void settingsPageIsOpened() {
-    assertTrue(settingsPage.isVisibleAfterWaiting());
+    assertWebElementVisible(settingsPage);
   }
 
   public void clickOnOpenApplicationButton(String app) {
@@ -175,23 +181,24 @@ public class ApplicationPage extends GenericPage {
   public void checkThatAppcenterApplicationIsDisplayed(String app) {
     // Check that AppCenter Application is displayed
     ELEMENT_APPLICATIONS_TOPBAR.clickOnElement();
-    assertTrue(ELEMENT_APPCENTER_APPLICATION_TITLE(app).isVisibleAfterWaiting());
+    assertWebElementVisible(ELEMENT_APPCENTER_APPLICATION_TITLE(app));
   }
 
   public void checkThatApplicationIsDisplayedInFavoriteApps(String app) {
     // Check that app is displayed in Favorite Applications
-    assertTrue(ELEMENT_FAVORITE_APPLICATION_TITLE(app).isVisibleAfterWaiting());
+    assertWebElementVisible(ELEMENT_FAVORITE_APPLICATION_TITLE(app));
   }
 
   public void checkThatApplicationIsNotDisplayedInFavoriteApps(String app) {
     // Check that app is not displayed in Favorite Applications
-    assertTrue(ELEMENT_FAVORITE_APPLICATION_TITLE(app).isNotVisibleAfterWaiting());
+    assertWebElementNotVisible(ELEMENT_FAVORITE_APPLICATION_TITLE(app));
   }
 
   public void checkThatAppcenterApplicationIsNotDisplayed(String app) {
     // Check that AppCenter Application app is not displayed
     ELEMENT_APPLICATIONS_TOPBAR.clickOnElement();
-    assertTrue(ELEMENT_APPCENTER_APPLICATION_TITLE(app).isNotVisibleAfterWaiting());
+    assertWebElementNotVisible(ELEMENT_APPCENTER_APPLICATION_TITLE(app));
+    closeDrawer();
   }
 
   public void goToTheAppcenterApplicationPage(String app) {
@@ -220,6 +227,16 @@ public class ApplicationPage extends GenericPage {
   public void clickOnTheAppLauncherIcon() {
     ELEMENT_APPLICATIONS_TOPBAR.waitUntilVisible();
     ELEMENT_APPLICATIONS_TOPBAR.clickOnElement();
+  }
+
+  public void bookmarkApplication(String appTitle) {
+    findByXPathOrCSS(String.format("//*[contains(@class, 'userAuthorizedApplications')]//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'v-card')]//i[contains(@class, 'mdi-star-outline')]//ancestor::button",
+                                   appTitle)).clickOnElement();
+  }
+
+  public void unbookmarkApplication(String appTitle) {
+    findByXPathOrCSS(String.format("//*[contains(@class, 'userAuthorizedApplications')]//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'v-card')]//i[contains(@class, 'mdi-star')]//ancestor::button",
+                                   appTitle)).clickOnElement();
   }
 
 }

@@ -23,14 +23,10 @@ public class ApplicationPage extends GenericPage {
 
   public final Map<String, BaseElementFacade>    MAPPING_FIELD_NAME_TO_BASEELEMENTFACADE_XPATH                = new HashMap<>();
 
-  public final Map<String, TextBoxElementFacade> MAPPING_FIELD_NAME_TO_TEXTBOXELEMENTFACADE_XPATH             = new HashMap<>();
-
   public final Map<String, TextBoxElementFacade> MAPPING_APPLICATION_FIELD_NAME_TO_TEXTBOXELEMENTFACADE_XPATH = new HashMap<>();
 
   public ApplicationPage(WebDriver driver) {
     super(driver);
-    MAPPING_FIELD_NAME_TO_TEXTBOXELEMENTFACADE_XPATH.put("Application title", titleAppInput);
-    MAPPING_FIELD_NAME_TO_TEXTBOXELEMENTFACADE_XPATH.put("Application url", urlAppInput);
     MAPPING_APPLICATION_FIELD_NAME_TO_TEXTBOXELEMENTFACADE_XPATH.put("Application title", titleAppInput);
     MAPPING_APPLICATION_FIELD_NAME_TO_TEXTBOXELEMENTFACADE_XPATH.put("Application url", urlAppInput);
     MAPPING_APPLICATION_FIELD_NAME_TO_TEXTBOXELEMENTFACADE_XPATH.put("Application description", applicationDescription);
@@ -101,18 +97,24 @@ public class ApplicationPage extends GenericPage {
     return findByXPathOrCSS(String.format("//td[contains(@class, 'tableAppTitle') and contains(text(),'%s')]", appTitle));
   }
 
+  private BaseElementFacade appTitleNoImageElement(String appTitle) {
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::tr//img[contains(@src, 'defaultApp.png')]",
+                                          appTitle));
+  }
+
   private BaseElementFacade appPermissionInApplicationsTable(String appTitle, String permission) {
-    return findByXPathOrCSS(String.format("//td[contains(text(),'%s')]/following::*[contains(@class,'permission')][1]//span[contains(text(),'%s')]",
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::tr//*[contains(text(),'%s')]",
                                           appTitle,
                                           permission));
   }
 
   private BaseElementFacade appUrlInApplicationsTable(String appUrl) {
-    return findByXPathOrCSS(String.format("//td[contains(@class,'appUrl') and contains(text(),'%s')]", appUrl));
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::tr",
+                                          appUrl));
   }
 
   private BaseElementFacade appDescriptionInApplicationsTable(String appDescription) {
-    return findByXPathOrCSS(String.format("//td[contains(@class,'tableAppDescription') and contains(text(),'%s')]",
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::tr",
                                           appDescription));
   }
 
@@ -130,16 +132,16 @@ public class ApplicationPage extends GenericPage {
     return findByXPathOrCSS(String.format("//td[contains(text(),'%s')]//following::i[contains(@class,'mdi-delete')]", appTitle));
   }
 
-  public void clickEditApp(String app) {
-    MAPPING_FIELD_NAME_TO_BASEELEMENTFACADE_XPATH.get(app).clickOnElement();
+  public void clickEditApp(String appTitle) {
+    MAPPING_FIELD_NAME_TO_BASEELEMENTFACADE_XPATH.get(appTitle).clickOnElement();
   }
 
   public void checkThatApplicationImageIsNotDisplayedInApplicationsTable(String appTitle) {
-    assertTrue(appTitleInApplicationsTable(appTitle).isVisibleAfterWaiting());
+    assertWebElementVisible(appTitleNoImageElement(appTitle));
   }
 
   public void checkThatApplicationImageIsDisplayedInDrawer(String image) {
-    assertTrue(getApplicationImageInDrawer(image).isVisibleAfterWaiting());
+    assertWebElementVisible(getApplicationImageInDrawer(image));
   }
 
   public void removeFileFromApplicationDrawer() {
@@ -147,15 +149,11 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void checkThatApplicationImageIsNotDisplayedInDrawer(String image) {
-    assertTrue(getApplicationImageInDrawer(image).isNotVisibleAfterWaiting());
+    assertWebElementNotVisible(getApplicationImageInDrawer(image));
   }
 
   public void goToEditTheApplication(String app) {
     editTheApplication(app).clickOnElement();
-  }
-
-  public void enterValueToField(String field, String value) {
-    MAPPING_FIELD_NAME_TO_TEXTBOXELEMENTFACADE_XPATH.get(field).setTextValue(value);
   }
 
   public void enterDataValueToField(String field, String value) {
@@ -163,11 +161,11 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void appTitleInApplicationsTableIsDisplayed(String appTitle) {
-    assertTrue(appTitleInApplicationsTable(appTitle).isVisibleAfterWaiting());
+    assertWebElementVisible(appTitleInApplicationsTable(appTitle));
   }
 
   public void appUrlInApplicationsTableIsDisplayed(String appUrl) {
-    assertTrue(appUrlInApplicationsTable(appUrl).isVisibleAfterWaiting());
+    assertWebElementVisible(appUrlInApplicationsTable(appUrl));
   }
 
   public void enterRandomAppDataTitleUrl(String title, String url) {
@@ -182,11 +180,11 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void appDescriptionInApplicationsTableIsDisplayed(String appDescription) {
-    assertTrue(appDescriptionInApplicationsTable(appDescription).isVisibleAfterWaiting());
+    assertWebElementVisible(appDescriptionInApplicationsTable(appDescription));
   }
 
   public void appPermissionInApplicationsTableIsDisplayed(String appTitle, String permission) {
-    assertTrue(appPermissionInApplicationsTable(appTitle, permission).isVisibleAfterWaiting());
+    assertWebElementVisible(appPermissionInApplicationsTable(appTitle, permission));
   }
 
   public void applicationDrawerTitleIsDisplayed(String title) {
@@ -256,6 +254,7 @@ public class ApplicationPage extends GenericPage {
 
   public void clickSaveAddApplication() {
     saveAddApplicationButton.clickOnElement();
+    waitForDrawerToClose();
   }
 
   public void clickActiveApp(String appTitle) {
@@ -301,16 +300,17 @@ public class ApplicationPage extends GenericPage {
   private void searchAppByTitle(String appTitle) {
     refreshPage();
     searchAppInput.setTextValue(appTitle);
+    // when searching
     waitForSearchToComplete();
   }
 
   private void waitForSearchToComplete() {
     try {
       findByXPathOrCSS("(//*[contains(@class, 'tableAppTitle')])[2]").waitUntilNotVisible();
-      waitFor(200).milliseconds(); // Wait until application finishes its
-                                   // display
     } catch (Exception e) {
       ExceptionLauncher.LOGGER.debug("Search on AppCenter hasn't finished loading at time", e);
     }
+    waitFor(500).milliseconds(); // Wait until application finishes its
+    // display
   }
 }

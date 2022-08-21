@@ -124,9 +124,16 @@ public class AdminApplicationStepDefinition {
     adminApplicationSteps.appDescriptionInApplicationsTableIsDisplayed(editedRandomApplicationDescription);
   }
 
-  @Then("^The image of the application '(.*)' is not displayed in Applications Table$")
-  public void checkThatApplicationImageIsNotDisplayedInApplicationsTable(String appTitle) {
-    adminApplicationSteps.checkThatApplicationImageIsNotDisplayedInApplicationsTable(appTitle);
+  @Then("The image of the application is not displayed in Applications Table")
+  public void checkThatApplicationImageIsNotDisplayedInApplicationsTable() {
+    String randomApplicationTitle = Serenity.sessionVariableCalled("randomApplicationTitle");
+    adminApplicationSteps.checkThatApplicationImageIsNotDisplayedInApplicationsTable(randomApplicationTitle);
+  }
+
+  @Then("The image of the second application is not displayed in Applications Table")
+  public void checkThatSecondApplicationImageIsNotDisplayedInApplicationsTable() {
+    String secondRandomApplicationTitle = Serenity.sessionVariableCalled("secondRandomApplicationTitle");
+    adminApplicationSteps.checkThatApplicationImageIsNotDisplayedInApplicationsTable(secondRandomApplicationTitle);
   }
 
   @Then("^Application '(.*)' with permission '(.*)' is displayed in Applications Table$")
@@ -153,7 +160,7 @@ public class AdminApplicationStepDefinition {
   @When("^I add a new application with the following data$")
   public void addNewApp(Map<String, String> appData) {
     adminApplicationSteps.enterApplicationValues(appData);
-    setCurrentlyTestingApplicationTitle(appData.get("title"));
+    setCurrentlyTestingApplicationTitle(appData);
   }
 
   @When("I add a new random application")
@@ -171,13 +178,17 @@ public class AdminApplicationStepDefinition {
   @When("^I add a new application with the title, the url and the description$")
   public void addNewAppWithDescription(Map<String, String> appData) {
     adminApplicationSteps.enterApplicationTitleUrlDescription(appData);
-    setCurrentlyTestingApplicationTitle(appData.get("title"));
+    String applicationTitle = appData.get("Application title");
+    setCurrentlyTestingApplicationTitle(applicationTitle);
+    Serenity.setSessionVariable("randomApplicationTitle").to(applicationTitle);
   }
 
   @When("^I add a new application with the title, the url and the description with image '(.*)'$")
-  public void enterApplicationTitleUrlDescriptionWithImage(String image, Map<String, String> applicationData) {
-    adminApplicationSteps.enterApplicationTitleUrlDescriptionWithImage(image, applicationData);
-    setCurrentlyTestingApplicationTitle(applicationData.get("title"));
+  public void enterApplicationTitleUrlDescriptionWithImage(String image, Map<String, String> appData) {
+    adminApplicationSteps.enterApplicationTitleUrlDescriptionWithImage(image, appData);
+    String applicationTitle = appData.get("Application title");
+    setCurrentlyTestingApplicationTitle(applicationTitle);
+    Serenity.setSessionVariable("randomApplicationTitle").to(applicationTitle);
   }
 
   @When("^I add a new random application with the title, the url and the description with image <(.*)>$")
@@ -362,6 +373,12 @@ public class AdminApplicationStepDefinition {
   @When("Edit application image is displayed {string} in drawer")
   public void applicationDrawerImageIsDisplayed(String image) {
     adminApplicationSteps.applicationDrawerImageIsDisplayed(image);
+  }
+
+  private void setCurrentlyTestingApplicationTitle(Map<String, String> appData) {
+    String applicationTitle = appData.get("Application title");
+    Serenity.setSessionVariable("randomApplicationTitle").to(applicationTitle);
+    setCurrentlyTestingApplicationTitle(applicationTitle);
   }
 
   private void setCurrentlyTestingApplicationTitle(String applicationTitle) {

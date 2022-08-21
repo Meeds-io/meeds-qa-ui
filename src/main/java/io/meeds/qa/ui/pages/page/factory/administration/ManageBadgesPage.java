@@ -223,7 +223,7 @@ public class ManageBadgesPage extends GenericPage {
                                                    String badgeScore,
                                                    String badgeDomain) {
     BaseElementFacade badgeElement = getBadgeNameInListOfBadges(badgeName, badgeDescription, badgeScore, badgeDomain);
-    assertTrue(badgeElement.isNotVisibleAfterWaiting());
+    assertWebElementNotVisible(badgeElement);
   }
 
 }

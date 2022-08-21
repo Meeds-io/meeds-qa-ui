@@ -478,6 +478,7 @@ public class SpaceHomePage extends GenericPage {
     spaceMembersFilterTextBox.waitUntilVisible();
     spaceMembersFilterTextBox.setTextValue(name);
     waitForProgressBar();
+    waitFor(500).milliseconds(); // Wait until UI refreshes
   }
 
   public void viewAllRepliesInCommentsDrawer(String comment) {

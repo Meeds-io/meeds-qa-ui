@@ -117,9 +117,21 @@ public class ApplicationSteps {
     applicationPage.starButtonIsSelected(appTitle);
   }
 
+  public void starButtonIsDisabled(String appTitle) {
+    applicationPage.starButtonIsDisabled(appTitle);
+  }
+
   public void checkThatAddApplicationBtnToFavoritesIsDisplayed(String app) {
 
     applicationPage.checkThatAddApplicationBtnToFavoritesIsDisplayed(app);
+  }
+
+  public void bookmarkApplication(String appTitle) {
+    applicationPage.bookmarkApplication(appTitle);
+  }
+
+  public void unbookmarkApplication(String appTitle) {
+    applicationPage.unbookmarkApplication(appTitle);
   }
 
   public boolean isAllApplicationsPageDisplayed() {
@@ -187,4 +199,5 @@ public class ApplicationSteps {
     // Challenges Application Page is displayed
     return elementChallengeApplicationPage.isVisibleAfterWaiting();
   }
+
 }

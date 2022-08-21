@@ -1,6 +1,7 @@
 package io.meeds.qa.ui.steps;
 
 import java.util.Map;
+import java.util.Map.Entry;
 
 import io.meeds.qa.ui.pages.page.factory.administration.ApplicationPage;
 
@@ -21,18 +22,17 @@ public class AdminApplicationSteps {
 
   public void enterApplicationValues(Map<String, String> applicationData) {
     applicationPage.clickAddApplicationButton();
-    for (String fieldsName : applicationData.keySet()) {
-      applicationPage.enterValueToField(fieldsName, applicationData.get(fieldsName));
+    for (Entry<String, String> field : applicationData.entrySet()) {
+      applicationPage.enterDataValueToField(field.getKey(), field.getValue());
     }
     applicationPage.clickSaveAddApplication();
   }
 
   public void enterApplicationTitleUrlDescriptionWithImage(String image, Map<String, String> applicationData) {
     applicationPage.clickAddApplicationButton();
-    for (String fieldsName : applicationData.keySet()) {
-      applicationPage.enterDataValueToField(fieldsName, applicationData.get(fieldsName));
+    for (Entry<String, String> field : applicationData.entrySet()) {
+      applicationPage.enterDataValueToField(field.getKey(), field.getValue());
     }
-
     applicationPage.addImageToApplication(image);
     applicationPage.clickSaveAddApplication();
   }

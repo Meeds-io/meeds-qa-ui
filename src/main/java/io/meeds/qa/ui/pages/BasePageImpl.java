@@ -201,6 +201,11 @@ public class BasePageImpl extends PageObject implements BasePage {
       if (!findByXPathOrCSS(".UISiteBody .v-progress-linear").isCurrentlyVisible()) {
         waitFor(500).milliseconds(); // wait until action is considered
                                      // (especially for search)
+        try {
+          findByXPathOrCSS(".UISiteBody .v-progress-linear").waitUntilVisible();
+        } catch (Exception e) {
+          ExceptionLauncher.LOGGER.debug("Can't wait for progress bar to start loading", e);
+        }
       }
       findByXPathOrCSS(".UISiteBody .v-progress-linear").waitUntilNotVisible();
     } catch (Exception e) {
@@ -244,19 +249,27 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void assertWebElementNotVisible(BaseElementFacade element) {
-    assertTrue(isWebElementNotVisible(element)); // NOSONAR
+    assertTrue(String.format("Element %s is still visible after waiting", // NOSONAR
+                             element),
+               isWebElementNotVisible(element));
   }
 
   public void assertWebElementNotVisible(BaseElementFacade element, int maxRetries) {
-    assertTrue(isWebElementNotVisible(element, maxRetries)); // NOSONAR
+    assertTrue(String.format("Element %s is still visible after waiting",
+                             element),
+               isWebElementNotVisible(element, maxRetries));
   }
 
   public void assertWebElementVisible(BaseElementFacade element) {
-    assertTrue(isWebElementVisible(element)); // NOSONAR
+    assertTrue(String.format("Unable to locate a visible element %s",
+                             element),
+               isWebElementVisible(element));
   }
 
   public void assertWebElementVisible(BaseElementFacade element, int maxRetries) {
-    assertTrue(isWebElementVisible(element, maxRetries)); // NOSONAR
+    assertTrue(String.format("Unable to locate a visible element %s",
+                             element),
+               isWebElementVisible(element, maxRetries));
   }
 
   public boolean isVisible(String xpathOrCss) {

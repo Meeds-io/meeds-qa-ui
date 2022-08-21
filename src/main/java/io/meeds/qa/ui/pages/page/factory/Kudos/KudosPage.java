@@ -127,7 +127,7 @@ public class KudosPage extends GenericPage {
       driver.switchTo().defaultContent();
     }
     driver.switchTo().defaultContent();
-    assertTrue(kudosButtonInDrawer.isVisibleAfterWaiting());
+    assertWebElementVisible(kudosButtonInDrawer);
     kudosButtonInDrawer.clickOnElement();
     verifyPageLoaded();
   }
@@ -172,7 +172,7 @@ public class KudosPage extends GenericPage {
   }
 
   public void threeDotsMenuSendKudos() {
-    assertTrue(sendKudosMenu.isVisibleAfterWaiting());
+    assertWebElementVisible(sendKudosMenu);
     sendKudosMenu.clickOnElement();
 
   }
@@ -225,7 +225,7 @@ public class KudosPage extends GenericPage {
     } finally {
       driver.switchTo().defaultContent();
     }
-    assertTrue(kudosButtonInDrawer.isVisibleAfterWaiting());
+    assertWebElementVisible(kudosButtonInDrawer);
     kudosButtonInDrawer.clickOnElement();
     verifyPageLoaded();
   }
@@ -244,7 +244,7 @@ public class KudosPage extends GenericPage {
     } finally {
       driver.switchTo().defaultContent();
     }
-    assertTrue(kudosButtonInDrawer.isVisibleAfterWaiting());
+    assertWebElementVisible(kudosButtonInDrawer);
     kudosButtonInDrawer.clickOnElement();
     verifyPageLoaded();
   }

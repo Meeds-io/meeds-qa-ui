@@ -73,7 +73,7 @@ public class AddUserPage extends GenericPage {
   }
 
   public void isUserNameDisplayed(String user) {
-    assertTrue(userNameDisplayed(user).isVisibleAfterWaiting());
+    assertWebElementVisible(userNameDisplayed(user));
   }
 
   Map<String, TextBoxElementFacade> MAPPING_CONTAINER_NAME_TO_BASEELEMENTFACADE_XPATH =
@@ -139,7 +139,7 @@ public class AddUserPage extends GenericPage {
   public void checkUserIsDeleted(String fullName) {
     searchUsersField.waitUntilVisible();
     searchUsersField.setTextValue(fullName);
-    assertTrue(deleteConfirmationButton.isNotVisibleAfterWaiting());
+    assertWebElementNotVisible(deleteConfirmationButton);
   }
 
   public void clickToDeleteUser() {
@@ -147,7 +147,7 @@ public class AddUserPage extends GenericPage {
   }
 
   public void checkPopupCantDeleteLoggedUser() {
-    assertTrue(popupCantDeleteLoggedUser.isVisibleAfterWaiting());
+    assertWebElementVisible(popupCantDeleteLoggedUser);
   }
 
 }

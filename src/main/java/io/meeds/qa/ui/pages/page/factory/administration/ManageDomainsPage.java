@@ -130,7 +130,7 @@ public class ManageDomainsPage extends GenericPage {
   }
 
   public void domainNameIsNotDisplayed(String domainName) {
-    assertTrue(getDomainNameInListOfDomains(domainName).isNotVisibleAfterWaiting());
+    assertWebElementNotVisible(getDomainNameInListOfDomains(domainName));
   }
 
   public void deleteDomain() {

@@ -23,7 +23,7 @@ public class NotePage extends GenericPage {
   }
 
   public void checkNoteCreateFormOpened() {
-    assertTrue(createNoteTab.isVisibleAfterWaiting());
+    assertWebElementVisible(createNoteTab);
   }
 
   @FindBy(xpath = "//iframe[contains(@class,'cke_wysiwyg_frame')]")
@@ -116,7 +116,7 @@ public class NotePage extends GenericPage {
   }
 
   public void checkNoteEditFormOpened() {
-    assertTrue(createNoteTab.isVisibleAfterWaiting());
+    assertWebElementVisible(createNoteTab);
   }
 
   @SwitchToWindow
@@ -163,11 +163,11 @@ public class NotePage extends GenericPage {
   public void deleteNote() {
     deleteNoteOption.clickOnElement();
     confirmationPopupDeleteButton.clickOnElement();
-    assertTrue(confirmationPopupDeleteButton.isNotVisibleAfterWaiting());
+    assertWebElementNotVisible(confirmationPopupDeleteButton);
   }
 
   public void checkDeletedNote(String title) {
-    assertTrue(noteTitleField(title).isNotVisibleAfterWaiting());
+    assertWebElementNotVisible(noteTitleField(title));
   }
 
   private BaseElementFacade getNoteActivityTitle(String noteTitle) {
@@ -175,7 +175,7 @@ public class NotePage extends GenericPage {
   }
 
   public void isNoteActivityDisplayed(String noteTitle) {
-    assertTrue(getNoteActivityTitle(noteTitle).isVisibleAfterWaiting());
+    assertWebElementVisible(getNoteActivityTitle(noteTitle));
   }
 
   public void clickNoteActivity(String noteTitle) {

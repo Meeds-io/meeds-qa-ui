@@ -1,8 +1,7 @@
 package io.meeds.qa.ui.pages.page.factory.people;
 
-import static org.junit.Assert.assertTrue;
+import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static io.meeds.qa.ui.utils.Utils.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -256,7 +255,6 @@ public class UserProfilePage extends GenericPage {
       put("Achievements", achievementsDrawer);
       put("badge details", badgesDrawer);
       put("Total point achievement", achievementsWeeklyPointInDrawer);
-
     }
   };
 
@@ -265,11 +263,11 @@ public class UserProfilePage extends GenericPage {
   }
 
   public void sentKudosUsersSectionIsDisplayed(String user) {
-    assertTrue(getSentKudosUsers(user).isVisibleAfterWaiting());
+    assertWebElementVisible(getSentKudosUsers(user));
   }
 
   public void receivedKudosUsersSectionIsDisplayed(String user) {
-    assertTrue(getReceivedKudosUsers(user).isVisibleAfterWaiting());
+    assertWebElementVisible(getReceivedKudosUsers(user));
   }
 
   public void removeWorkExperience(String jobTitle) {
@@ -284,10 +282,10 @@ public class UserProfilePage extends GenericPage {
   }
 
   public void checkWorkExperiencesSection(String jobTitle, String organization, String jobDetails, String usedSkills) {
-    assertTrue(getJobTitleWorkExperience(jobTitle).isVisibleAfterWaiting());
-    assertTrue(getOrganizationWorkExperience(organization).isVisibleAfterWaiting());
-    assertTrue(getJobDetailsWorkExperience(jobDetails).isVisibleAfterWaiting());
-    assertTrue(getUsedSkillsWorkExperience(usedSkills).isVisibleAfterWaiting());
+    assertWebElementVisible(getJobTitleWorkExperience(jobTitle));
+    assertWebElementVisible(getOrganizationWorkExperience(organization));
+    assertWebElementVisible(getJobDetailsWorkExperience(jobDetails));
+    assertWebElementVisible(getUsedSkillsWorkExperience(usedSkills));
   }
 
   public void openAchivementTab() {
@@ -303,19 +301,19 @@ public class UserProfilePage extends GenericPage {
   }
 
   public void profilePageIsDisplayed() {
-    assertTrue(profilePage.isVisibleAfterWaiting());
+    assertWebElementVisible(profilePage);
   }
 
   public void howToEarnPointsPageIsDisplayed() {
-    assertTrue(howToEarnPointsPage.isVisibleAfterWaiting());
+    assertWebElementVisible(howToEarnPointsPage);
   }
 
   public void sentKudosSectionIsDisplayed(String kudosNumber) {
-    assertTrue(getSentKudosNumber(kudosNumber).isVisibleAfterWaiting());
+    assertWebElementVisible(getSentKudosNumber(kudosNumber));
   }
 
   public void receivedKudosSectionIsDisplayed(String kudosNumber) {
-    assertTrue(getReceivedKudosNumber(kudosNumber).isVisibleAfterWaiting());
+    assertWebElementVisible(getReceivedKudosNumber(kudosNumber));
   }
 
   public void isProfileContactCompanyVisible(String company) {
@@ -360,7 +358,8 @@ public class UserProfilePage extends GenericPage {
   public void sendKudos(String comment) {
     waitCKEditorLoading();
     retryOnCondition(() -> {
-      BaseElementFacade ckEditorFrameSendKudosDrawer = findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//iframe[contains(@class,'cke_wysiwyg_frame')]");
+      BaseElementFacade ckEditorFrameSendKudosDrawer =
+                                                     findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//iframe[contains(@class,'cke_wysiwyg_frame')]");
       ckEditorFrameSendKudosDrawer.waitUntilVisible();
       ckEditorFrameSendKudosDrawer.clickOnElement();
       driver.switchTo().frame(ckEditorFrameSendKudosDrawer);
@@ -543,11 +542,11 @@ public class UserProfilePage extends GenericPage {
   }
 
   public void isSentKudosVisible() {
-    assertTrue(ELEMENT_CONTACT_SENT_KUDOS.isVisibleAfterWaiting());
+    assertWebElementVisible(ELEMENT_CONTACT_SENT_KUDOS);
   }
 
   public void isReceivedKudosVisible() {
-    assertTrue(ELEMENT_CONTACT_RECEIVED_KUDOS.isVisibleAfterWaiting());
+    assertWebElementVisible(ELEMENT_CONTACT_RECEIVED_KUDOS);
   }
 
   public void goToReceivedKudos() {
@@ -577,7 +576,7 @@ public class UserProfilePage extends GenericPage {
   }
 
   public void isGainedCaurisVisible() {
-    assertTrue(ELEMENT_CONTACT_GAINED_CAURIS.isVisibleAfterWaiting());
+    assertWebElementVisible(ELEMENT_CONTACT_GAINED_CAURIS);
   }
 
   public void clickConfirmConnect() {
@@ -585,11 +584,33 @@ public class UserProfilePage extends GenericPage {
   }
 
   public void checkWeeklyPointChart() {
-    assertTrue(weeklyChart.isVisibleAfterWaiting());
+    assertWebElementVisible(weeklyChart);
   }
 
   public void checkAchievementsDrawer() {
-    assertTrue(achievementsDrawer.isVisibleAfterWaiting());
+    assertWebElementVisible(achievementsDrawer);
+  }
+
+  public void isCoverVisible() {
+    // Check That User Cover is displayed in Profile Page
+    assertWebElementVisible(ELEMENT_PROFILE_COVER);
+  }
+
+  public void isProfileContactEmailVisible(String mail) {
+    assertWebElementVisible(ELEMENT_PROFILE_CONTACT_INFORMATION_EMAIL);
+    // Check That Profile Contact Email is displayed
+    Assert.assertEquals(ELEMENT_PROFILE_CONTACT_INFORMATION_EMAIL.getText(), mail);
+  }
+
+  public void isAvatarVisible() {
+    // Check That User Avatar is displayed in Profile Page
+    assertWebElementVisible(ELEMENT_PROFILE_AVATAR);
+  }
+
+  public void isProfileContactFullNameVisible(String title, String fullName) {
+    // Check That Profile Contact Fullname is displayed
+    Assert.assertEquals(ELEMENT_PROFILE_CONTACT_INFORMATION_TITLE.getText(), title);
+    Assert.assertEquals(ELEMENT_PROFILE_CONTACT_INFORMATION_FULLNAME.getText(), fullName);
   }
 
 }

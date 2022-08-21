@@ -270,37 +270,37 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void checkThatSpaceTopBarElementsAreDisplayed() {
-    assertTrue(addNewSpaceButton.isVisibleAfterWaiting());
+    assertWebElementVisible(addNewSpaceButton);
     assertTrue(showingSpacesSection.getText().contains("Showing"));
     assertTrue(showingSpacesSection.getText().contains("spaces"));
-    assertTrue(spacesFilterIcon.isVisibleAfterWaiting());
-    assertTrue(spacesFilterText.isVisibleAfterWaiting());
-    assertTrue(dropDownListSpaces.isVisibleAfterWaiting());
+    assertWebElementVisible(spacesFilterIcon);
+    assertWebElementVisible(spacesFilterText);
+    assertWebElementVisible(dropDownListSpaces);
     assertTrue(dropDownListSpaces.getText().contains("All spaces"));
   }
 
   public void checkThatSpaceDetailsInSearchResultsAreDisplayed(String spaceName, String members) {
-    assertTrue(spaceSearchDetailsCover.isVisibleAfterWaiting());
-    assertTrue(spaceSearchDetailsAvatar.isVisibleAfterWaiting());
-    assertTrue(spaceSearchDetailsInfo.isVisibleAfterWaiting());
-    assertTrue(spaceSearchDetailsThreeDots.isVisibleAfterWaiting());
-    assertTrue(spaceSearchDetailsLeaveButton.isVisibleAfterWaiting());
-    assertTrue(spaceSearchDetailsSpaceName(spaceName).isVisibleAfterWaiting());
-    assertTrue(spaceSearchDetailsSpaceMembers(members).isVisibleAfterWaiting());
+    assertWebElementVisible(spaceSearchDetailsCover);
+    assertWebElementVisible(spaceSearchDetailsAvatar);
+    assertWebElementVisible(spaceSearchDetailsInfo);
+    assertWebElementVisible(spaceSearchDetailsThreeDots);
+    assertWebElementVisible(spaceSearchDetailsLeaveButton);
+    assertWebElementVisible(spaceSearchDetailsSpaceName(spaceName));
+    assertWebElementVisible(spaceSearchDetailsSpaceMembers(members));
 
   }
 
   public void checkThatSpaceInSearchResultsIsNotDisplayed(String spaceName) {
-    assertTrue(spaceSearchDetailsSpaceName(spaceName).isNotVisibleAfterWaiting());
+    assertWebElementNotVisible(spaceSearchDetailsSpaceName(spaceName));
   }
 
   public void checkThatSpaceDetailsInSearchResultsAreDisplayedByOtherUser(String spaceName, String members) {
-    assertTrue(spaceSearchDetailsCover.isVisibleAfterWaiting());
-    assertTrue(spaceSearchDetailsAvatar.isVisibleAfterWaiting());
-    assertTrue(spaceSearchDetailsInfo.isVisibleAfterWaiting());
-    assertTrue(spaceSearchDetailsLeaveButton.isVisibleAfterWaiting());
-    assertTrue(spaceSearchDetailsSpaceName(spaceName).isVisibleAfterWaiting());
-    assertTrue(spaceSearchDetailsSpaceMembers(members).isVisibleAfterWaiting());
+    assertWebElementVisible(spaceSearchDetailsCover);
+    assertWebElementVisible(spaceSearchDetailsAvatar);
+    assertWebElementVisible(spaceSearchDetailsInfo);
+    assertWebElementVisible(spaceSearchDetailsLeaveButton);
+    assertWebElementVisible(spaceSearchDetailsSpaceName(spaceName));
+    assertWebElementVisible(spaceSearchDetailsSpaceMembers(members));
 
   }
 
@@ -506,7 +506,7 @@ public class ManageSpacesPage extends GenericPage {
 
   public void checkDisplayOfTwentySpaces() {
     assertTrue(spaceCardN20.isVisible());
-    assertTrue(spaceCardN21.isNotVisibleAfterWaiting());
+    assertWebElementNotVisible(spaceCardN21);
   }
 
   public void showMoreSpaces() {
@@ -515,7 +515,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void checkDisplayOfOtherSpaces() {
-    assertTrue(spaceCardN21.isVisibleAfterWaiting());
+    assertWebElementVisible(spaceCardN21);
   }
 
   public void clickOnSpaceSettingsTab() {
@@ -523,11 +523,11 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void checkGeneralSpaceSettings() {
-    assertTrue(editIconOfGeneralSpaceSettings.isVisibleAfterWaiting());
+    assertWebElementVisible(editIconOfGeneralSpaceSettings);
   }
 
   public void checkApplicationsSpaceSettings() {
-    assertTrue(arrowIconOfApplicationsSpaceSettings.isVisibleAfterWaiting());
+    assertWebElementVisible(arrowIconOfApplicationsSpaceSettings);
   }
 
   public void clickOnGeneralSpaceSettings() {
@@ -535,36 +535,36 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void checkAvatarSection() {
-    assertTrue(avatarSection.isVisibleAfterWaiting());
+    assertWebElementVisible(avatarSection);
   }
 
   public void checkNameSpaceSection() {
-    assertTrue(nameSpaceSection.isVisibleAfterWaiting());
+    assertWebElementVisible(nameSpaceSection);
   }
 
   public void checkDescriptionSpaceSection() {
-    assertTrue(descriptionSpaceSection.isVisibleAfterWaiting());
+    assertWebElementVisible(descriptionSpaceSection);
   }
 
   public void checkSpaceTemplateSection() {
-    assertTrue(spaceTemplateSection.isVisibleAfterWaiting());
+    assertWebElementVisible(spaceTemplateSection);
   }
 
   public void checkHiddenAndSwitchButtonSection() {
-    assertTrue(hiddenSection.isVisibleAfterWaiting());
-    assertTrue(switchButton.isVisibleAfterWaiting());
+    assertWebElementVisible(hiddenSection);
+    assertWebElementVisible(switchButton);
   }
 
   public void checkRegistrationSection() {
-    assertTrue(registrationSection.isVisibleAfterWaiting());
+    assertWebElementVisible(registrationSection);
   }
 
   public void checkCancelButton() {
-    assertTrue(cancelButton.isVisibleAfterWaiting());
+    assertWebElementVisible(cancelButton);
   }
 
   public void checkUpdateButton() {
-    assertTrue(spaceAppInstallerDrawer.isVisibleAfterWaiting());
+    assertWebElementVisible(spaceAppInstallerDrawer);
   }
 
   public void clickOnArrowIconAppSpaceSettings() {
@@ -572,15 +572,15 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void spaceAppSettingsIsOpened() {
-    assertTrue(spaceAppSettingsPage.isVisibleAfterWaiting());
+    assertWebElementVisible(spaceAppSettingsPage);
   }
 
   public void appCardIsDisplayed() {
-    assertTrue(appCard.isVisibleAfterWaiting());
+    assertWebElementVisible(appCard);
   }
 
   public void plusButtonIsDisplayed() {
-    assertTrue(plusButtonAppSpaceSettings.isVisibleAfterWaiting());
+    assertWebElementVisible(plusButtonAppSpaceSettings);
   }
 
   public void clickOn3dotsAppCard() {
@@ -588,15 +588,15 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void removeAppButtonIsDisplayed() {
-    assertTrue(removeAppButton.isVisibleAfterWaiting());
+    assertWebElementVisible(removeAppButton);
   }
 
   public void moveBeforeAppButtonIsDisplayed() {
-    assertTrue(moveBeforeAppButton.isVisibleAfterWaiting());
+    assertWebElementVisible(moveBeforeAppButton);
   }
 
   public void moveAfterAppButtonIsDisplayed() {
-    assertTrue(moveAfterAppButton.isVisibleAfterWaiting());
+    assertWebElementVisible(moveAfterAppButton);
   }
 
   public void clickOnPlusButton() {
@@ -608,7 +608,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void checkApplicationsAreDisplayed() {
-    assertTrue(addAppButton.isVisibleAfterWaiting());
+    assertWebElementVisible(addAppButton);
   }
 
   public void clickToAddApp(String application) {
@@ -616,7 +616,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void checkThatAppIsAdded(String application) {
-    assertTrue(getAppCardNameDisplayed(application).isVisibleAfterWaiting());
+    assertWebElementVisible(getAppCardNameDisplayed(application));
   }
 
   @FindBy(xpath = "//select[contains(@class,'input-block-level ignore-vuetify-classes my-3')]")

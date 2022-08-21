@@ -38,7 +38,7 @@ Feature: Administration settings
     Then Application image title 'cap02.png' is not displayed in the drawer
 
     When I click on Save in application drawer
-    Then The image of the application 'cap02.png' is not displayed in Applications Table
+    Then The image of the application is not displayed in Applications Table
 
     When I add a second random application with the title, the url and the description with image <cap03.png>
     And I search for the second random created application
@@ -51,7 +51,7 @@ Feature: Administration settings
     When I remove the uploaded image from application drawer
     Then Application image title 'cap03.png' is not displayed in the drawer
     When I click on Save in application drawer
-    Then The image of the application 'cap03.png' is not displayed in Applications Table
+    Then The image of the second application is not displayed in Applications Table
 
   Scenario: CAP55 - Edit the title ,URL, description field for an app
     Given I am authenticated as admin
@@ -75,10 +75,12 @@ Feature: Administration settings
 
     And I go to Administer application center Page
     When I add a new random application with the title, the url and the description
+    And I search for the random created application
     Then The added application with permission '*:/platform/users' is displayed in Applications Table
 
     When I connect with the first created user
 
     When I see All Applications
-    Then Star button for adding the first added application to Favorites is displayed
+    And I search for the random created application
+    Then The application is not bookmarked as my favorites
     And First added application is not displayed in Favorites Applications

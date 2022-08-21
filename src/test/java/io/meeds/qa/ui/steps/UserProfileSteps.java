@@ -1,7 +1,5 @@
 package io.meeds.qa.ui.steps;
 
-import static org.junit.Assert.assertTrue;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -108,8 +106,7 @@ public class UserProfileSteps {
   }
 
   public void isCoverVisible() {
-    // Check That User Cover is displayed in Profile Page
-    assertTrue(userProfilePage.ELEMENT_PROFILE_COVER.isVisibleAfterWaiting());
+    userProfilePage.isCoverVisible();
   }
 
   public void isProfileContactCompanyVisible(String company) {
@@ -145,9 +142,7 @@ public class UserProfileSteps {
   }
 
   public void isProfileContactFullNameVisible(String title, String fullName) {
-    // Check That Profile Contact Fullname is displayed
-    Assert.assertEquals(userProfilePage.ELEMENT_PROFILE_CONTACT_INFORMATION_TITLE.getText(), title);
-    Assert.assertEquals(userProfilePage.ELEMENT_PROFILE_CONTACT_INFORMATION_FULLNAME.getText(), fullName);
+    userProfilePage.isProfileContactFullNameVisible(title, fullName);
   }
 
   public void updateWorkExperiences(Map<String, String> workExperiences) throws InterruptedException {
@@ -166,10 +161,7 @@ public class UserProfileSteps {
   }
 
   public void isProfileContactEmailVisible(String mail) {
-    assertTrue(userProfilePage.ELEMENT_PROFILE_CONTACT_INFORMATION_EMAIL.isVisibleAfterWaiting());
-    Assert.assertEquals(userProfilePage.ELEMENT_PROFILE_CONTACT_INFORMATION_EMAIL.getText(), mail);
-    String contactEmail = userProfilePage.ELEMENT_PROFILE_CONTACT_INFORMATION_EMAIL.getText();
-    // Check That Profile Contact Email is displayed
+    userProfilePage.isProfileContactEmailVisible(mail);
   }
 
   public void openWeeklyPointsChart() {
@@ -187,8 +179,7 @@ public class UserProfileSteps {
   }
 
   public void isAvatarVisible() {
-    // Check That User Avatar is displayed in Profile Page
-    assertTrue(userProfilePage.ELEMENT_PROFILE_AVATAR.isVisibleAfterWaiting());
+    userProfilePage.isAvatarVisible();
   }
 
   public void isFullNameVisible(String fullName) {

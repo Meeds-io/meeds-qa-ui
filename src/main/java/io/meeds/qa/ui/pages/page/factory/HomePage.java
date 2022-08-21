@@ -247,7 +247,7 @@ public class HomePage extends GenericPage {
   }
 
   public void checkNoActivityDisplayed() {
-    assertTrue(contextBoxWelcomeActivity.isVisibleAfterWaiting());
+    assertWebElementVisible(contextBoxWelcomeActivity);
   }
 
   public void goToStreamPage() {
@@ -354,7 +354,7 @@ public class HomePage extends GenericPage {
   }
 
   public boolean isWalletPageOpened() {
-    assertTrue(walletApplication.isVisibleAfterWaiting());
+    assertWebElementVisible(walletApplication);
     return driver.getTitle().equals("Wallet");
   }
 
@@ -503,7 +503,7 @@ public class HomePage extends GenericPage {
   }
 
   public void checkNotExistingSpaceInvitation(String spaceName) {
-    assertTrue(checkSpaceFromDrawer(spaceName).isNotVisibleAfterWaiting());
+    assertWebElementNotVisible(checkSpaceFromDrawer(spaceName));
   }
 
   private BaseElementFacade getFavoriteIconActivity(String activity) {
@@ -525,7 +525,7 @@ public class HomePage extends GenericPage {
   }
 
   public void checkFavSuccessMessage(String message) {
-    assertTrue(getFavoriteSucessMessage(message).isVisibleAfterWaiting());
+    assertWebElementVisible(getFavoriteSucessMessage(message));
   }
 
   public void unbookmarkActivity(String activity) {
