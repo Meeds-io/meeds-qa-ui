@@ -200,7 +200,7 @@ public class ManageBadgesPage extends GenericPage {
     }
     searchBadgeInput.waitUntilVisible();
     searchBadgeInput.setTextValue(badgeName);
-
+    waitForSearchToLoad();
   }
 
   public void isBadgeDisplayedWithEnabledStatus(String badgeName,
@@ -208,8 +208,8 @@ public class ManageBadgesPage extends GenericPage {
                                                 String badgeScore,
                                                 String badgeDomain) {
     BaseElementFacade badgeElement = getBadgeNameInListOfBadges(badgeName, badgeDescription, badgeScore, badgeDomain);
-    badgeElement.waitUntilVisible();
-    Assert.assertTrue(badgeElement.getText().contains("Yes"));
+    assertWebElementVisible(badgeElement);
+    Assert.assertTrue(badgeElement.getText().contains("Yes")); // NOSONAR
   }
 
   public void isBadgeNotDisplayedWithEnabledStatus(String badgeName,
@@ -223,7 +223,11 @@ public class ManageBadgesPage extends GenericPage {
   @SwitchToWindow
   public void isSuccessAlertDisplayed(String message) {
     assertWebElementVisible(successAlert);
-    Assert.assertTrue(successAlert.getText().contains(message));
+    Assert.assertTrue(successAlert.getText().contains(message)); // NOSONAR
+  }
+
+  private void waitForSearchToLoad() {
+    findByXPathOrCSS("(//*[contains(@class, 'badge-table')]//tr)[3]").waitUntilNotVisible();
   }
 
 }
