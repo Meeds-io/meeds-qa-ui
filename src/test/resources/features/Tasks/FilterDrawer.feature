@@ -1,13 +1,12 @@
 @task
 Feature: Filter Drawer
 
-  @test
   Scenario: CAP110 - [Filter_Drawer_US03]:Group by Labels [Group and Sort" tab under project]
     Given I am authenticated as admin
 
     When I create a random space
     When I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
+    And I go to Tasks from AppCenter Drawer
     Then Tasks Application Page is displayed
     And I select 'Projects' tab
     And I search for the created project

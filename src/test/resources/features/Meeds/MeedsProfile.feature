@@ -3,7 +3,6 @@ Feature: Search for User Informations in Profile page
   As a user
   I want to check in Profile page all contact informations
 
-
   Scenario: PROFILE-1 : Integrate default user's avatar and cover
     Given I am authenticated as admin
 
@@ -115,7 +114,7 @@ Feature: Search for User Informations in Profile page
     And I go to My Profile page
 
     And I add my profile work experiences
-      | organization | eXo                                  |
+      | organization | Test                                 |
       | jobTitle     | QA Engineer                          |
       | jobDetails   | Tests Automation Consultant          |
       | usedSkills   | Serenity Cucumber Selenium Java Jira |
@@ -126,7 +125,7 @@ Feature: Search for User Informations in Profile page
       | jobDetails   | Java Jee Developer    |
       | usedSkills   | Java Jee Spring MVC   |
 
-    Then  Job title 'QA Engineer' and Organization 'eXo' and Job details 'Tests Automation Consultant' and Used skills 'Serenity Cucumber Selenium Java Jira' are displayed in Work experiences section
+    Then  Job title 'QA Engineer' and Organization 'Test' and Job details 'Tests Automation Consultant' and Used skills 'Serenity Cucumber Selenium Java Jira' are displayed in Work experiences section
     And Job title 'IT Engineer Developer' and Organization 'google' and Job details 'Java Jee Developer' and Used skills 'Java Jee Spring MVC' are displayed in Work experiences section
 
     And I remove my profile work experiences 'QA Engineer'

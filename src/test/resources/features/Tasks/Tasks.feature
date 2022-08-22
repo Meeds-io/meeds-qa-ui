@@ -170,6 +170,7 @@ Feature: Tasks
     And Project 'new project test' is displayed in Tasks App Center
     And Project 'second project test' is displayed in Tasks App Center
 
+  @test
   Scenario: Create Task with a new status
     Given I am authenticated as admin
     And I create the first random user if not existing
@@ -180,28 +181,28 @@ Feature: Tasks
     Then Tasks Application Page is displayed
 
     When I select 'Projects' tab
-    And I create the project 'eXoProject'
-    And I open the project 'eXoProject'
+    And I create the project 'TestProject'
+    And I open the project 'TestProject'
     And I click on three dots icon of the first status column
     And I click on Add Status Before option
-    And I Type a Status name 'exoQA'
+    And I Type a Status name 'TestStatus'
     And I click on Validate Name
     Then Status column 'To Do' is moved to the second position
-    And Status column 'exoQA' is moved to the first position
+    And Status column 'TestStatus' is moved to the first position
 
     When I click on plus Button To Add Task
     And I enter title for task 'Automation Test Task'
     And I click on save Button To Add Task
-    Then In column status 'exoQA' , Task name 'Automation Test Task' is displayed
+    Then In column status 'TestStatus' , Task name 'Automation Test Task' is displayed
 
     When I click on three dots icon of the fifth status column
     And I click on Add Status After option of the fifth status column
-    And I Type a Status name 'exoDev'
+    And I Type a Status name 'TestStatus2'
     And I click on Validate Name
     And I click on plus Button To Add Task of the sixth status column
     And I enter title for task 'Collaboration FT Task'
     And I click on save Button To Add Task
-    Then In column status 'exoDev' , Task name 'Collaboration FT Task' is displayed
+    Then In column status 'TestStatus2' , Task name 'Collaboration FT Task' is displayed
 
   @smoke
   Scenario: CAP269 - [US_Sharedlabels_02]: Manage labels in Project (Create labels)
