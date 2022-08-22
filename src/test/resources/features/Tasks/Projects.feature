@@ -3,7 +3,7 @@ Feature: Tasks - Projects
 
   Scenario: [User_UI_US18.1]: Add project with a description
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I connect with the first created user
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
@@ -12,19 +12,18 @@ Feature: Tasks - Projects
     And I add a new project with a description
     Then the project is created successfully and displayed on Projects tab
 
-  @failing
   Scenario: CAP47 - [Project_manager_US03.2]: Clone a project
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I connect with the first created user
-    And I create space project
+    And I create a random space
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
     When I select 'Projects' tab
     And I search for the created project
     And I open the created project
-    And The following task is created in the specific project
+    And I create the following task in selected project
       | taskName | task1414 |
     And I return to Projects tab
     And I clone the project
@@ -34,13 +33,13 @@ Feature: Tasks - Projects
 
   Scenario: CAP174 -[US_Filterfield_01]: Add Clear typed characters icon "Filter by project"
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I connect with the first created user
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
     When I select 'Projects' tab
-    And I add this project 'Project2'
+    And I create the project 'Project2'
     And I search for the project 'Project2'
     Then A clear button is displayed in the search field
     When I click on clear button
@@ -48,16 +47,13 @@ Feature: Tasks - Projects
     And The placeholder Filter by project should be displayed
     And The clear button is disappeared from the Filter by project field
 
-  Scenario: CAP15 - [Project_Card_US01]: check the display "Spaces Managers avatars"
+  Scenario: CAP15 [Project_Card_US01] check the display "Spaces Managers avatars"
     Given I am authenticated as admin
-    And I create the first random user
-    And I create random space with the first created user
+    And I create the first random user if not existing
+    And I create a random space
 
     When I connect with the first created user
-    Then The 'Spaces' badge is '1'
-    And I click on spaces badge
-    And I accept the invitation of the created space
-    And I close Space Drawer
+    And I go to the random space
 
     When I change user admin
 
@@ -72,9 +68,9 @@ Feature: Tasks - Projects
     Then Space manager 'Admin User' is displayed in Project Card
     And First Space member is not displayed in Project Card
 
-    When I go to the created space
+    When I go to the random space
     And I go to the Space Members tab
-    And I promote first member as a space manager
+    And I promote 'first' random user as a space manager
 
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
@@ -87,8 +83,8 @@ Feature: Tasks - Projects
 
   Scenario: CAP17 - [Project_Card_US01]: check the display of users avatars with managing permissions
     Given I am authenticated as admin
-    And I create the first random user
-    And I create the second random user
+    And I create the first random user if not existing, no wait
+    And I create the second random user if not existing
 
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
@@ -130,9 +126,9 @@ Feature: Tasks - Projects
     And I click on save project button
     Then Message Project Title is mandatory is displayed
 
-  Scenario: CAP290 - [Bug]: Project participant cannot open the edit status mode
+  Scenario: CAP290 - Project participant cannot open the edit status mode
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
 
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
@@ -165,10 +161,9 @@ Feature: Tasks - Projects
     When I click on Status name 'To Do'
     Then Status name 'To Do' Edit mode is not opened successfully
 
-
-  Scenario: CAP216 - [Bug]: Task card should be well displayed when task title is long
+  Scenario: CAP216 - Task card should be well displayed when task title is long
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
 
     When I connect with the first created user
     And I go To AppCenter Drawer
@@ -176,7 +171,7 @@ Feature: Tasks - Projects
     Then Tasks Application Page is displayed
 
     When I select 'Projects' tab
-    And I add this project 'teamcap216'
+    And I create the project 'teamcap216'
     And I open the project 'teamcap216'
     And The task is created in the specific project
       | taskName | testlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtaskname |
@@ -190,8 +185,8 @@ Feature: Tasks - Projects
   @ignored
   Scenario: [NF] [US_GanttView_01]: Display Gantt tab in Space tasks projects
     Given I am authenticated as admin
-    And I create the first random user
-    And I create space project with the first user
+    And I create the first random user if not existing
+    And I create a random space with the first random user
     And I connect with the first created user
     Then The 'Spaces' badge is '1'
     When I click on spaces badge
@@ -204,19 +199,19 @@ Feature: Tasks - Projects
     When I select 'Projects' tab
     And I search for the created project
     And I open the created project
-    And The following task is created in the specific project
+    And I create the following task in selected project
       | taskName | task1 |
     When I open the task 'task1'
     And I set task start date TODAY
     And I set task due date TOMORROW
     And I close task drawer
-    And The following task is created in the specific project
+    And I create the following task in selected project
       | taskName | task2 |
     When I open the task 'task2'
     And I set task start date TOMORROW
     And I set task due date Next week
     And I close task drawer
-    And The following task is created in the specific project
+    And I create the following task in selected project
       | taskName | task3 |
     When I open the task 'task3'
     And I set task start date TOMORROW
@@ -230,48 +225,48 @@ Feature: Tasks - Projects
     And The task name 'task3' should be displayed in PLAN view
 
   @smoke
-  @failing
+  @ignored
   Scenario: CAP16 - [Project_Card_US01]: check the display "project's creator avatar"
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I open the app center menu
     And I open all application page
     When I go to 'Tasks' application
     And I select 'Projects' tab
     And I click on add project button
     And I enter the project name 'projectCard1'
-    And I save add project
+    And I click on save project button
     And I search for the project 'projectCard1'
     Then The project 'projectCard1' was deleted successfully
 
-  @failing
+  @ignored
   Scenario: CAP43-[Project_manager_US02]:Delete a Project
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I open the app center menu
     And I open all application page
     When I go to 'Tasks' application
     And I select 'Projects' tab
     And I click on add project button
     And I enter the project name 'deleteProject'
-    And I save add project
+    And I click on save project button
     And I select the 'Delete' action for the project 'deleteProject'
     Then The 'confirmationDeleteProject' is displayed
     And I click on delete button
     And These projects are not displayed
       | deleteProject |
 
-  @failing
+  @ignored
   Scenario: CAP44 - [Project_manager_US02]: Cancel Deletion of Project
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I open the app center menu
     And I open all application page
     When I go to 'Tasks' application
     And I select 'Projects' tab
     And I click on add project button
     And I enter the project name 'cancelDelete'
-    And I save add project
+    And I click on save project button
     And I select the 'Delete' action for the project 'cancelDelete'
     And I click on cancel delete button
     And I search for the project 'cancelDelete'

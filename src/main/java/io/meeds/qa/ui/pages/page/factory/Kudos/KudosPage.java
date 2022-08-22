@@ -1,21 +1,22 @@
 package io.meeds.qa.ui.pages.page.factory.Kudos;
 
-import org.junit.Assert;
+import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
+import static org.junit.Assert.assertTrue;
+
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import net.serenitybdd.core.Serenity;
+import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class KudosPage extends GenericPage {
-  public KudosPage(WebDriver driver) {
-    super(driver);
-  }
+  @FindBy(xpath = "//i[@class='v-icon notranslate dark-grey-color fa fa-edit theme--light']")
+  public static BaseElementFacade editButton;
 
-  @FindBy(xpath = "//*[contains(@class,'HamburgerNavigationMenuLink')]")
-  public BaseElementFacade        menuBtn;
+  @FindBy(xpath = "//*[@class='v-list-item__title peopleActionItem']")
+  public static BaseElementFacade sendKudosMenu;
 
   @FindBy(xpath = "//i[contains(@class,'uiAdministrationIcon')]")
   private BaseElementFacade       addministrationMenu;
@@ -23,205 +24,161 @@ public class KudosPage extends GenericPage {
   @FindBy(xpath = "//i[contains(@class,'uiIcon uiIconToolbarNavItem uiAdministrationIcon')]")
   private BaseElementFacade       adminBtn;
 
-  @FindBy(xpath = "//a[@href='/portal/g/:platform:rewarding/rewardAdministration/kudosAdministration']")
-  private BaseElementFacade       kudosLink;
-
-  @FindBy(xpath = "//input[@name='kudosPerPeriod']")
-  private TextBoxElementFacade    kudosNumber;
-
-  @FindBy(xpath = "//i[@class='v-icon notranslate mdi mdi-menu-down theme--light']")
-  private BaseElementFacade       periodType;
-
-  @FindBy(xpath = "//*[contains(text(),'Semester')]")
-  private BaseElementFacade       semesterPeriod;
-
-  @FindBy(xpath = "//button[@class='btn btn-primary ignore-vuetify-classes mb-3']")
-  private BaseElementFacade       saveBtn;
+  @FindBy(xpath = "(//*[@id='activityCommentsDrawer']//*[@class='v-btn__content'])[3]")
+  private BaseElementFacade       closeKudosDrawer;
 
   @FindBy(xpath = "(//*[@class='v-select__selections'])[1]")
   private BaseElementFacade       displayedPeriodType;
 
-  @FindBy(xpath = "//*[@id=\"kudosMessage\"]")
-  private TextBoxElementFacade    kudosMessage;
-
-  @FindBy(xpath = "//body[contains(@class,'cke_editable_themed')]")
-  private TextBoxElementFacade    kudosField;
-
-  @FindBy(xpath = "//span[@class='v-btn__content' and contains(text(),'Send')]")
-  private BaseElementFacade       kudosButtonInDrawer;
-
-  @FindBy(xpath = "(//*[@id='activityCommentsDrawer']//*[@class='v-btn__content'])[3]")
-  private BaseElementFacade       closeKudosDrawer;
-
-  @FindBy(xpath = "//*[@class='v-list-item__title peopleActionItem']")
-  public static BaseElementFacade sendKudosMenu;
-
-  @FindBy(xpath = "//header[@id='peopleListToolbar']//input")
-  private TextBoxElementFacade    searchUsersField;
-
   @FindBy(xpath = "(//i[@class='v-icon notranslate icon-default-color fas fa-ellipsis-v theme--light'])[1]")
   private TextBoxElementFacade    dotsMenu;
-
-  @FindBy(xpath = "//i[@class='v-icon notranslate dark-grey-color fa fa-edit theme--light']")
-  public static BaseElementFacade editButton;
-
-  @FindBy(xpath = "//iframe[contains(@class,'cke_wysiwyg_frame')]")
-  private BaseElementFacade       ckEditorFrameKudos;
-
-  @FindBy(xpath = "//body[contains(@class,'cke_editable_themed')]")
-  private TextBoxElementFacade    KudosField;
-
-  @FindBy(xpath = "(//iframe[contains(@class,'cke_wysiwyg_frame')])[2]")
-  private BaseElementFacade       ckEditorFrameKudosFromDrawer;
-
-  @FindBy(xpath = "//*[@data-cke-title='Rich Text Editor, kudosContent']/following::*[contains(@class,'cke_editable_themed')][1]")
-  private TextBoxElementFacade    kudosFieldFromDrawer;
-
-  @FindBy(xpath = "//*[contains(@class,'v-navigation-drawer--open')]//button[@aria-label='Update']")
-  public BaseElementFacade        updateKudosButon;
-
-  @FindBy(xpath = "//button[@class='ignore-vuetify-classes btn btn-primary me-3']")
-  private BaseElementFacade       sendKudosBtn;
-
-  private BaseElementFacade getKudosActivityText(String message) {
-    return findByXpathOrCSS(String.format("//*[contains(@id,'Extactivity-content-extensions')]//*[@class='my-4']//*[contains(@class,'rich-editor-content')]//div[contains(text(),'%s')]",
-                                     message));
-  }
-
-  @FindBy(xpath = "(//*[@class='flex-grow-1 flex-shrink-1 overflow-hidden']//*[@class='v-icon notranslate primary--text mdi mdi-dots-vertical theme--light'])[2]")
-  private BaseElementFacade threedotsKudosComment;
 
   @FindBy(xpath = "//*[@class='v-list-item__title pl-3' and contains(text(),'Edit')]")
   private BaseElementFacade editKudosComment;
 
+  @FindBy(xpath = "//span[@class='v-btn__content' and contains(text(),'Send')]")
+  private BaseElementFacade       kudosButtonInDrawer;
+
   @FindBy(xpath = "//*[@class='cke_inner cke_reset']")
   private BaseElementFacade kudosCommentFilled;
+
+  @FindBy(xpath = "//body[contains(@class,'cke_editable_themed')]")
+  private TextBoxElementFacade    kudosField;
+
+  @FindBy(xpath = "//body[contains(@class,'cke_editable_themed')]")
+  private TextBoxElementFacade    KudosField;
+
+  @FindBy(xpath = "//*[@data-cke-title='Rich Text Editor, kudosContent']/following::*[contains(@class,'cke_editable_themed')][1]")
+  private TextBoxElementFacade    kudosFieldFromDrawer;
+
+  @FindBy(xpath = "//a[@href='/portal/g/:platform:rewarding/rewardAdministration/kudosAdministration']")
+  private BaseElementFacade       kudosLink;
+
+  @FindBy(xpath = "//*[@id=\"kudosMessage\"]")
+  private TextBoxElementFacade    kudosMessage;
+
+  @FindBy(xpath = "//input[@name='kudosPerPeriod']")
+  private TextBoxElementFacade    kudosNumber;
+
+  @FindBy(xpath = "//*[contains(@class,'HamburgerNavigationMenuLink')]")
+  public BaseElementFacade        menuBtn;
+
+  @FindBy(xpath = "//i[@class='v-icon notranslate mdi mdi-menu-down theme--light']")
+  private BaseElementFacade       periodType;
+
+  @FindBy(xpath = "//button[@class='btn btn-primary ignore-vuetify-classes mb-3']")
+  private BaseElementFacade       saveBtn;
+
+  @FindBy(xpath = "//header[@id='peopleListToolbar']//input")
+  private TextBoxElementFacade    searchUsersField;
+
+  @FindBy(xpath = "//*[contains(text(),'Semester')]")
+  private BaseElementFacade       semesterPeriod;
+
+  @FindBy(xpath = "//button[@class='ignore-vuetify-classes btn btn-primary me-3']")
+  private BaseElementFacade       sendKudosBtn;
+
+  @FindBy(
+      xpath = "(//*[@class='flex-grow-1 flex-shrink-1 overflow-hidden']//*[@class='v-icon notranslate primary--text mdi mdi-dots-vertical theme--light'])[2]"
+  )
+  private BaseElementFacade threedotsKudosComment;
+
+  @FindBy(
+      xpath = "(//*[@class='flex-grow-1 flex-shrink-1 overflow-hidden']//*[@class='v-icon notranslate primary--text mdi mdi-dots-vertical theme--light'])[3]"
+  )
+  private BaseElementFacade threedotsKudosReplyComment;
+
+  @FindBy(xpath = "//*[contains(@class,'v-navigation-drawer--open')]//button[@aria-label='Update']")
+  public BaseElementFacade        updateKudosButon;
 
   @FindBy(xpath = "//*[@class='v-btn__content' and contains(text(),'Update')]")
   private BaseElementFacade updateKudosComment;
 
-  @FindBy(xpath = "(//*[@class='flex-grow-1 flex-shrink-1 overflow-hidden']//*[@class='v-icon notranslate primary--text mdi mdi-dots-vertical theme--light'])[3]")
-  private BaseElementFacade threedotsKudosReplyComment;
-
-  private BaseElementFacade getKudosText(String kudos) {
-    return findByXpathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]", kudos));
+  public KudosPage(WebDriver driver) {
+    super(driver);
   }
 
-  private BaseElementFacade ELEMENT_kudos_LINK(String id) {
-    return findByXpathOrCSS(String.format("(//span[@class='mx-auto mt-1 mt-lg-0 ms-lg-2'])[3]", id));
-  }
-
-  public void addActivityKudos(String activityId, String comment) {
-    ELEMENT_kudos_LINK(activityId).clickOnElement();
-    ckEditorFrameKudos.clickOnElement();
-    driver.switchTo().frame(ckEditorFrameKudos);
-    kudosField.waitUntilVisible();
-    kudosField.setTextValue(comment);
-    driver.switchTo().defaultContent();
-    kudosButtonInDrawer.isVisibleAfterWaiting();
+  @SwitchToWindow
+  public void addActivityCommentKudos(String comment) {
+    waitCKEditorLoading();
+    retryOnCondition(() -> {
+      BaseElementFacade ckEditorFrameKudos = getCkEditorFrameKudos();
+      ckEditorFrameKudos.waitUntilVisible();
+      driver.switchTo().frame(ckEditorFrameKudos);
+    }, () -> {
+      driver.switchTo().defaultContent();
+      waitFor(500).milliseconds(); // Kudos Iframe seems very slow
+    });
+    try {
+      kudosField.waitUntilVisible();
+      kudosField.setTextValue(comment);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
+    assertWebElementVisible(kudosButtonInDrawer);
     kudosButtonInDrawer.clickOnElement();
-    ckEditorFrameKudos.isNotVisibleAfterWaiting();
+    verifyPageLoaded();
   }
 
-  private BaseElementFacade getLikeIcon(String activity) {
-    return findByXpathOrCSS(String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLink')])[1]", activity));
+  @SwitchToWindow
+  public void addActivityCommentKudosFromDrawer(String comment) {
+    waitCKEditorLoading();
+    retryOnCondition(() -> {
+      BaseElementFacade ckEditorFrameKudos = getCkEditorFrameKudos();
+      ckEditorFrameKudos.waitUntilVisible();
+      driver.switchTo().frame(ckEditorFrameKudos);
+    }, () -> {
+      driver.switchTo().defaultContent();
+      waitFor(500).milliseconds(); // Kudos Iframe seems very slow
+    });
+    try {
+      kudosFieldFromDrawer.waitUntilVisible();
+      kudosFieldFromDrawer.setTextValue(comment);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
+    assertWebElementVisible(kudosButtonInDrawer);
+    kudosButtonInDrawer.clickOnElement();
+    verifyPageLoaded();
   }
 
-  private BaseElementFacade getKudosiconsss(String activity) {
-    return findByXpathOrCSS(String.format("//i[contains(@class,'uiIconKudos')]", activity));
+  @SwitchToWindow
+  public void addActivityKudos(String activity, String comment) {
+    getKudosLink(activity).clickOnElement();
+    waitForDrawerToOpen();
+    waitCKEditorLoading();
+    retryOnCondition(() -> {
+      BaseElementFacade ckEditorFrameKudos = getCkEditorFrameKudos();
+      ckEditorFrameKudos.waitUntilVisible();
+      driver.switchTo().frame(ckEditorFrameKudos);
+    }, () -> {
+      driver.switchTo().defaultContent();
+      waitFor(500).milliseconds(); // Kudos Iframe seems very slow
+    });
+    try {
+      kudosField.waitUntilVisible();
+      kudosField.setTextValue(comment);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
+    driver.switchTo().defaultContent();
+    assertWebElementVisible(kudosButtonInDrawer);
+    kudosButtonInDrawer.clickOnElement();
+    verifyPageLoaded();
   }
 
-  public void goToKudosMenu() {
-    menuBtn.clickOnElement();
-    addministrationMenu.clickOnElement();
-    kudosLink.clickOnElement();
+  public void checkKudosActivityVisible(String message) {
+    assertWebElementVisible(getKudosActivityText(message));
   }
 
-  public void enterKudosNumber(String val) {
-    kudosNumber.clickOnElement();
-    kudosNumber.clear();
-    kudosNumber.setTextValue(val);
-  }
-
-  public void selectType() {
-    periodType.waitUntilVisible();
-    periodType.clickOnElement();
-    semesterPeriod.clickOnElement();
-
-  }
-
-  public void saveChange() {
-    saveBtn.clickOnElement();
+  public void checkKudosIconDisabled(String activityId) {
+    getKudosLink(activityId).isDisabled();
   }
 
   public void checkKudosSettings(String kudosNbr, String period) {
 
-    Assert.assertTrue(kudosNumber.getTextValue().contains(kudosNbr));
-    Assert.assertTrue(displayedPeriodType.getTextValue().contains(period));
-  }
-
-  public void sendMessage(String txt) {
-
-    kudosMessage.setTextValue(txt);
-    sendKudosBtn.clickOnElement();
-  }
-
-  public void checkKudosIcon(String activityId) {
-    ELEMENT_kudos_LINK(activityId).isDisabled();
-  }
-
-  public void threeDotsMenuSendKudos() {
-    sendKudosMenu.isVisibleAfterWaiting();
-    sendKudosMenu.clickOnElement();
-
-  }
-
-  public void searchForUsersByName(String fullName) {
-    searchUsersField.waitUntilVisible();
-    searchUsersField.setTextValue(fullName);
-  }
-
-  public void editKudos() {
-    dotsMenu.clickOnElement();
-    editButton.clickOnElement();
-
-  }
-
-  public void updateKudosMessage(String comment) {
-
-    ckEditorFrameKudos.clickOnElement();
-    driver.switchTo().frame(ckEditorFrameKudos);
-    KudosField.waitUntilVisible();
-    KudosField.clear();
-    KudosField.setTextValue(comment);
-    driver.switchTo().defaultContent();
-
-    updateKudosButon.clickOnElement();
-
-  }
-
-  public void isKudosActivityVisible(String message) {
-    getKudosActivityText(message).isVisibleAfterWaiting();
-  }
-
-  public void addActivityCommentKudos(String comment) {
-    driver.switchTo().frame(ckEditorFrameKudos);
-    kudosField.waitUntilVisible();
-    kudosField.setTextValue(comment);
-    driver.switchTo().defaultContent();
-    kudosButtonInDrawer.isVisibleAfterWaiting();
-    kudosButtonInDrawer.clickOnElement();
-    ckEditorFrameKudos.isNotVisibleAfterWaiting();
-  }
-
-  public void addActivityCommentKudosFromDrawer(String comment) {
-    driver.switchTo().frame(ckEditorFrameKudosFromDrawer);
-    kudosFieldFromDrawer.waitUntilVisible();
-    kudosFieldFromDrawer.setTextValue(comment);
-    driver.switchTo().defaultContent();
-    kudosButtonInDrawer.isVisibleAfterWaiting();
-    kudosButtonInDrawer.clickOnElement();
-    ckEditorFrameKudosFromDrawer.isNotVisibleAfterWaiting();
+    assertTrue(kudosNumber.getTextValue().contains(kudosNbr));
+    assertTrue(displayedPeriodType.getTextValue().contains(period));
   }
 
   public void clickEditKudos() {
@@ -234,14 +191,108 @@ public class KudosPage extends GenericPage {
     editKudosComment.clickOnElement();
   }
 
-  public void updateKudosCommentMessage(String comment) {
-    ckEditorFrameKudos.clickOnElement();
-    driver.switchTo().frame(ckEditorFrameKudos);
-    KudosField.waitUntilVisible();
-    KudosField.clear();
-    KudosField.setTextValue(comment);
-    driver.switchTo().defaultContent();
-    updateKudosComment.clickOnElement();
+  public void editKudos() {
+    dotsMenu.clickOnElement();
+    editButton.clickOnElement();
+
   }
 
+  public void enterKudosNumber(String val) {
+    kudosNumber.clickOnElement();
+    kudosNumber.clear();
+    kudosNumber.setTextValue(val);
+  }
+
+  private BaseElementFacade getCkEditorFrameKudos() {
+    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//iframe[contains(@class,'cke_wysiwyg_frame')]");
+  }
+
+  private BaseElementFacade getKudosActivityText(String message) {
+    return findByXPathOrCSS(String.format("//div[contains(@class,'activity-detail')]//descendant::*[contains(text(),'%s')]",
+                                          message));
+  }
+
+  private BaseElementFacade getKudosLink(String activity) {
+    return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'activity-detail')]//child::button[contains(@id, 'KudosActivity')]",
+                                          activity));
+  }
+
+  @SwitchToWindow
+  public void goToKudosMenu() {
+    menuBtn.clickOnElement();
+    addministrationMenu.clickOnElement();
+    kudosLink.clickOnElement();
+  }
+
+  public void saveChange() {
+    saveBtn.clickOnElement();
+  }
+
+  public void searchForUsersByName(String fullName) {
+    searchUsersField.waitUntilVisible();
+    searchUsersField.setTextValue(fullName);
+  }
+
+  public void selectType() {
+    periodType.waitUntilVisible();
+    periodType.clickOnElement();
+    semesterPeriod.clickOnElement();
+
+  }
+
+  public void sendMessage(String txt) {
+
+    kudosMessage.setTextValue(txt);
+    sendKudosBtn.clickOnElement();
+  }
+
+  public void threeDotsMenuSendKudos() {
+    assertWebElementVisible(sendKudosMenu);
+    sendKudosMenu.clickOnElement();
+
+  }
+
+  @SwitchToWindow
+  public void updateKudosCommentMessage(String comment) {
+    waitCKEditorLoading();
+    retryOnCondition(() -> {
+      BaseElementFacade ckEditorFrameKudos = getCkEditorFrameKudos();
+      ckEditorFrameKudos.waitUntilVisible();
+      driver.switchTo().frame(ckEditorFrameKudos);
+    }, () -> {
+      driver.switchTo().defaultContent();
+      waitFor(500).milliseconds(); // Kudos Iframe seems very slow
+    });
+    try {
+      KudosField.waitUntilVisible();
+      KudosField.clear();
+      KudosField.setTextValue(comment);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
+    updateKudosComment.clickOnElement();
+    verifyPageLoaded();
+  }
+
+  @SwitchToWindow
+  public void updateKudosMessage(String comment) {
+    waitCKEditorLoading();
+    retryOnCondition(() -> {
+      BaseElementFacade ckEditorFrameKudos = getCkEditorFrameKudos();
+      ckEditorFrameKudos.waitUntilVisible();
+      driver.switchTo().frame(ckEditorFrameKudos);
+    }, () -> {
+      driver.switchTo().defaultContent();
+      waitFor(500).milliseconds(); // Kudos Iframe seems very slow
+    });
+    try {
+      KudosField.waitUntilVisible();
+      KudosField.clear();
+      KudosField.setTextValue(comment);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
+    updateKudosButon.clickOnElement();
+    verifyPageLoaded();
+  }
 }

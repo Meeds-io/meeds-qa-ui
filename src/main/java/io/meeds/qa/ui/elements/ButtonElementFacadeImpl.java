@@ -1,5 +1,7 @@
 package io.meeds.qa.ui.elements;
 
+import static io.meeds.qa.ui.utils.Utils.decorateDriver;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
@@ -10,15 +12,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class ButtonElementFacadeImpl extends BaseElementFacadeImpl implements ButtonElementFacade {
 
-  static final Logger  LOGGER = LoggerFactory.getLogger(ButtonElementFacadeImpl.class);
-
-  public ButtonElementFacadeImpl(WebDriver driver,
-                                 ElementLocator locator,
-                                 WebElement element,
-                                 long timeoutInMilliseconds,
-                                 long waitForTimeoutInMilliseconds) {
-    super(driver, locator, element, timeoutInMilliseconds, waitForTimeoutInMilliseconds);
-  }
+  static final Logger LOGGER = LoggerFactory.getLogger(ButtonElementFacadeImpl.class);
 
   @SuppressWarnings("unchecked")
   public static <T extends ButtonElementFacade> T wrapWebElementFacadeInButtonElement(final WebDriver driver,
@@ -30,5 +24,13 @@ public class ButtonElementFacadeImpl extends BaseElementFacadeImpl implements Bu
                                            element,
                                            implicitTimeoutInMilliseconds,
                                            waitForTimeoutInMilliseconds);
+  }
+
+  public ButtonElementFacadeImpl(WebDriver driver,
+                                 ElementLocator locator,
+                                 WebElement element,
+                                 long timeoutInMilliseconds,
+                                 long waitForTimeoutInMilliseconds) {
+    super(decorateDriver(driver), locator, element, timeoutInMilliseconds, waitForTimeoutInMilliseconds);
   }
 }

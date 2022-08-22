@@ -4,8 +4,8 @@ Feature: Meeds stream
   @ignored
   Scenario: [STREAM-12] Activity Likers in drawer
     Given I am authenticated as admin
-    And I create the first random user
-    And I create random space with the first created user
+    And I create the first random user if not existing
+    And I create a random space with the first random user
     And I click on post in space
     And I enter an activity 'stream activité'
     And I publish the activity
@@ -25,8 +25,8 @@ Feature: Meeds stream
   @ignored
   Scenario:[STREAM-22]_(04) Space Popover : User is member of space
     Given I am authenticated as admin
-    And I create the first random user
-    And I create random space with the first created user
+    And I create the first random user if not existing
+    And I create a random space with the first random user
     And I click on post in space
     And I enter an activity 'stream activité'
     And I publish the activity
@@ -40,8 +40,8 @@ Feature: Meeds stream
   @ignored
   Scenario:[Streem]_(02) User popover new UI : Users are not connect
     Given I am authenticated as admin
-    And I create the first random user
-    And I create random space with the first created user
+    And I create the first random user if not existing
+    And I create a random space with the first random user
     And I click on post in space
     And I enter an activity 'stream activité'
     And I publish the activity

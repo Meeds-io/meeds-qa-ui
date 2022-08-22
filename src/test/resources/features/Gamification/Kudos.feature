@@ -4,8 +4,8 @@ Feature: Kudos gamification
   @smoke
   Scenario: Receive Kudos
     Given I am authenticated as admin
-    And I create the first random user
-    And I create the second random user
+    And I create the first random user if not existing, no wait
+    And I create the second random user if not existing
     And I connect with the first created user
     When I go to my profile
     And I check my points
@@ -20,7 +20,7 @@ Feature: Kudos gamification
   Scenario: Post activity (space stream)
     Given I am authenticated as admin
     And I check my points
-    When I create the space
+    When I go to the random space
     And I click on post in space
     And I enter an activity 'kudosPostActivity'
     And I publish the activity

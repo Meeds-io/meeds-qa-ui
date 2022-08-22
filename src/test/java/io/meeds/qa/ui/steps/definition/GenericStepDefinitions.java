@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.io.IOException;
 
 import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.WebDriver;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -16,23 +15,10 @@ import net.thucydides.core.annotations.Steps;
 
 public class GenericStepDefinitions {
   @Steps
-  GenericSteps genericSteps;
-
-  @Steps
   GalenSteps   galenSteps;
 
-  @When("Confirmation message is displayed '{}'")
-  public void checkConfirmMessage(String message) {
-    assertThat(genericSteps.inConfirmMessageDisplayed(message)).as(String.format("Confirm message %s should be displayed but it is not",
-                                                                                 message))
-                                                               .isTrue();
-  }
-
-  @When("success message is displayed")
-  public void checkSuccessMessage() {
-    assertThat(genericSteps.isSuccessMessageDisplayed()).as(String.format("Success message should be displayed but it is not"))
-                                                        .isTrue();
-  }
+  @Steps
+  GenericSteps genericSteps;
 
   @When("The button '{}' is displayed")
   public void checkButton(String button) {
@@ -41,24 +27,16 @@ public class GenericStepDefinitions {
                                                       .isTrue();
   }
 
-  @When("^I confirm$")
-  public void clickConfirm() {
-    genericSteps.clickConfirm();
+  @When("Confirmation message is displayed '{}'")
+  public void checkConfirmMessage(String message) {
+    assertThat(genericSteps.inConfirmMessageDisplayed(message)).as(String.format("Confirm message %s should be displayed but it is not",
+                                                                                 message))
+                                                               .isTrue();
   }
 
-  @When("^I click on 'OK' button$")
-  public void clickOkButton() {
-    genericSteps.clickOkButton();
-  }
-
-  @When("I wait '{int}' seconds")
-  public void waitInSeconds(int seconds) {
-    genericSteps.waitInSeconds(seconds);
-  }
-
-  @When("I close browser tab {int}")
-  public void closeBrowserTab(int tabIndex) {
-    genericSteps.closeBrowserTab(tabIndex);
+  @When("^The '(.*)' drawer is displayed$")
+  public void checkDrawerDisplayed(String title) throws IOException, InterruptedException {
+    genericSteps.checkDrawerDisplayed(title);
   }
 
   @When("^The '(.*)' is displayed$")
@@ -72,8 +50,7 @@ public class GenericStepDefinitions {
 
   @Then("The page {string} that contains {string} is displayed")
   public void checkPage(String pageUri, String content) {
-    WebDriver driver = Serenity.getWebdriverManager().getCurrentDriver();
-    String currentUrl = driver.getCurrentUrl();
+    String currentUrl = genericSteps.getCurrentUrl();
     assertThat(StringUtils.contains(currentUrl, pageUri)).as(String.format("Current URL '%s' doesn't end with '%s'",
                                                                            currentUrl,
                                                                            pageUri))
@@ -82,5 +59,31 @@ public class GenericStepDefinitions {
                                                                        currentUrl,
                                                                        content))
                                                      .isTrue();
+  }
+
+  @When("success message is displayed")
+  public void checkSuccessMessage() {
+    assertThat(genericSteps.isSuccessMessageDisplayed()).as(String.format("Success message should be displayed but it is not"))
+                                                        .isTrue();
+  }
+
+  @When("^I confirm$")
+  public void clickConfirm() {
+    genericSteps.clickConfirm();
+  }
+
+  @When("^I click on 'OK' button$")
+  public void clickOkButton() {
+    genericSteps.clickOkButton();
+  }
+
+  @When("I close browser tab {int}")
+  public void closeBrowserTab(int tabIndex) {
+    genericSteps.closeBrowserTab(tabIndex);
+  }
+
+  @When("I wait '{int}' seconds")
+  public void waitInSeconds(int seconds) {
+    genericSteps.waitInSeconds(seconds);
   }
 }

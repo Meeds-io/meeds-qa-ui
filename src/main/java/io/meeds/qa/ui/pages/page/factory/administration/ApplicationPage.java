@@ -1,5 +1,9 @@
 package io.meeds.qa.ui.pages.page.factory.administration;
 
+import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,71 +15,48 @@ import org.openqa.selenium.WebElement;
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import net.serenitybdd.core.annotations.findby.By;
+import io.meeds.qa.ui.utils.ExceptionLauncher;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class ApplicationPage extends GenericPage {
 
-  public final Map<String, BaseElementFacade>    MAPPING_FIELD_NAME_TO_BASEELEMENTFACADE_XPATH                = new HashMap<>();
-
-  public final Map<String, TextBoxElementFacade> MAPPING_FIELD_NAME_TO_TEXTBOXELEMENTFACADE_XPATH             = new HashMap<>();
-
-  public final Map<String, TextBoxElementFacade> MAPPING_APPLICATION_FIELD_NAME_TO_TEXTBOXELEMENTFACADE_XPATH = new HashMap<>();
-
-  public ApplicationPage(WebDriver driver) {
-    super(driver);
-    MAPPING_FIELD_NAME_TO_TEXTBOXELEMENTFACADE_XPATH.put("Application title", titleAppInput);
-    MAPPING_FIELD_NAME_TO_TEXTBOXELEMENTFACADE_XPATH.put("Application url", urlAppInput);
-    MAPPING_APPLICATION_FIELD_NAME_TO_TEXTBOXELEMENTFACADE_XPATH.put("Application title", titleAppInput);
-    MAPPING_APPLICATION_FIELD_NAME_TO_TEXTBOXELEMENTFACADE_XPATH.put("Application url", urlAppInput);
-    MAPPING_APPLICATION_FIELD_NAME_TO_TEXTBOXELEMENTFACADE_XPATH.put("Application description", applicationDescription);
-  }
-
   @FindBy(xpath = "//button[contains(@class,'addApplicationBtn')]")
   private BaseElementFacade    addApplicationButton;
-
-  @FindBy(xpath = "//input[@name='title']")
-  private TextBoxElementFacade titleAppInput;
-
-  @FindBy(xpath = "//*[@class='appLauncherDrawerTitle' and text()='Edit application']/following::*[@name='title']")
-  private TextBoxElementFacade editApplicationDrawerTitle;
 
   @FindBy(xpath = "//*[@name='description']")
   private TextBoxElementFacade applicationDescription;
 
-  @FindBy(xpath = "//*[@class='appLauncherDrawerTitle' and text()='Edit application']/following::input[@type='url'][1]")
-  private TextBoxElementFacade editApplicationDrawerUrl;
+  @FindBy(xpath = "//div[@class='btn']")
+  private BaseElementFacade    cancelDeleteButton;
 
-  @FindBy(xpath = "//*[@class='appLauncherDrawerTitle' and text()='Edit application']/following::*[@class='imageTitle']")
+  @FindBy(xpath = "//button[contains(@class,'closeBindingModal')]")
+  private BaseElementFacade    closeDeletePopupButton;
+
+  @FindBy(xpath = "//div[@id='deleteBtn']")
+  private BaseElementFacade    confirmDelete;
+
+  @FindBy(xpath = "//*[@class='appLauncherDrawerTitle']/following::*[@class='imageTitle']")
   private BaseElementFacade    editApplicationDrawerImage;
 
   @FindBy(
-      xpath = "//*[@class='appLauncherDrawerTitle' and text()='Edit application']/following::*[@for='permissions']/following::*[@class='item' and contains(text(),'/platform/users')]"
+      xpath = "(//*[contains(@class, 'appCenterDrawer')]//*[@for='permissions']/following::*[@class='item'])[1]"
   )
-  private TextBoxElementFacade editApplicationDrawerPermissionsUsers;
+  private TextBoxElementFacade editApplicationDrawerPermissionsFirst;
 
   @FindBy(
-      xpath = "//*[@class='appLauncherDrawerTitle' and text()='Edit application']/following::*[@for='permissions']/following::*[@class='item' and contains(text(),'/platform/externals')]"
+      xpath = "(//*[contains(@class, 'appCenterDrawer')]//*[@for='permissions']/following::*[@class='item'])[2]"
   )
-  private BaseElementFacade    editApplicationDrawerPermissionsExternals;
+  private BaseElementFacade    editApplicationDrawerPermissionsSecond;
 
-  @FindBy(
-      xpath = "(//*[@class='appLauncherDrawerTitle' and text()='Edit application']/following::*[@class='row applicationProperties']//input[@aria-checked='true'])[1]"
-  )
-  private TextBoxElementFacade editApplicationDrawerMandatoryEnabled;
+  @FindBy(xpath = "//*[@class='appLauncherDrawerTitle']/following::*[@name='title']")
+  private TextBoxElementFacade editApplicationDrawerTitle;
 
-  @FindBy(
-      xpath = "(//*[@class='appLauncherDrawerTitle' and text()='Edit application']/following::*[@class='row applicationProperties']//input[@aria-checked='true'])[2]"
-  )
-  private TextBoxElementFacade editApplicationDrawerActiveEnabled;
+  @FindBy(xpath = "//*[@class='appLauncherDrawerTitle']/following::input[@type='url'][1]")
+  private TextBoxElementFacade editApplicationDrawerUrl;
 
-  @FindBy(
-      xpath = "(//*[@class='appLauncherDrawerTitle' and text()='Edit application']/following::*[@class='row applicationProperties']//input[@aria-checked='true'])[3]"
-  )
-  private TextBoxElementFacade editApplicationDrawerMobileEnabled;
+  public final Map<String, TextBoxElementFacade> MAPPING_APPLICATION_FIELD_NAME_TO_TEXTBOXELEMENTFACADE_XPATH = new HashMap<>();
 
-  @FindBy(xpath = "//input[@name='url']")
-  private TextBoxElementFacade urlAppInput;
+  public final Map<String, BaseElementFacade>    MAPPING_FIELD_NAME_TO_BASEELEMENTFACADE_XPATH                = new HashMap<>();
 
   @FindBy(xpath = "//*[contains(@class,'remove-file')]//i")
   private TextBoxElementFacade removeFileInApplicationDrawerButton;
@@ -86,97 +67,174 @@ public class ApplicationPage extends GenericPage {
   @FindBy(xpath = "//div[contains(@class,'appSearch')]//input")
   private TextBoxElementFacade searchAppInput;
 
-  @FindBy(xpath = "//div[@id='deleteBtn']")
-  private BaseElementFacade    confirmDelete;
+  @FindBy(xpath = "//input[@name='title']")
+  private TextBoxElementFacade titleAppInput;
 
-  @FindBy(xpath = "//div[@class='btn']")
-  private BaseElementFacade    cancelDeleteButton;
+  @FindBy(xpath = "//input[@name='url']")
+  private TextBoxElementFacade urlAppInput;
 
-  @FindBy(xpath = "//button[contains(@class,'closeBindingModal')]")
-  private BaseElementFacade    closeDeletePopupButton;
-
-  private BaseElementFacade getActiveButton(String appTitle) {
-    return findByXpathOrCSS(String.format("(//td[contains(text(),'%s')]/..//input)[2]/..", appTitle));
+  public ApplicationPage(WebDriver driver) {
+    super(driver);
+    MAPPING_APPLICATION_FIELD_NAME_TO_TEXTBOXELEMENTFACADE_XPATH.put("Application title", titleAppInput);
+    MAPPING_APPLICATION_FIELD_NAME_TO_TEXTBOXELEMENTFACADE_XPATH.put("Application url", urlAppInput);
+    MAPPING_APPLICATION_FIELD_NAME_TO_TEXTBOXELEMENTFACADE_XPATH.put("Application description", applicationDescription);
   }
 
-  private BaseElementFacade getApplicationImageInDrawer(String image) {
-    return findByXpathOrCSS(String.format("//*[@class='imageTitle' and contains(text(),'%s')]", image));
-  }
-
-  private BaseElementFacade editTheApplication(String appTitle) {
-    return findByXpathOrCSS(String.format("//td[contains(text(),'%s')]/..//i[contains(@class,'mdi-pencil')]", appTitle));
-  }
-
-  private BaseElementFacade appTitleInApplicationsTable(String appTitle) {
-    return findByXpathOrCSS(String.format("//td[contains(@class,'tableAppTitle') and contains(text(),'%s')]", appTitle));
-  }
-
-  private BaseElementFacade appPermissionInApplicationsTable(String appTitle, String permission) {
-    return findByXpathOrCSS(String.format("//td[contains(text(),'%s')]/following::*[contains(@class,'permission')][1]//span[contains(text(),'%s')]",
-                                     appTitle,
-                                     permission));
-  }
-
-  private BaseElementFacade appUrlInApplicationsTable(String appUrl) {
-    return findByXpathOrCSS(String.format("//td[contains(@class,'appUrl') and contains(text(),'%s')]", appUrl));
+  public void addImageToApplication(String image) {
+    WebElement elem =
+                    getDriver().findElement(org.openqa.selenium.By.xpath("//*[contains(@class,'uploadImage')]//*[@id='imageFile']"));
+    String js = "arguments[0].style.height='auto'; arguments[0].style.visibility='visible';";
+    ((JavascriptExecutor) getDriver()).executeScript(js, elem);
+    upload(UPLOAD_DIRECTORY_PATH + image).fromLocalMachine().to(elem);
   }
 
   private BaseElementFacade appDescriptionInApplicationsTable(String appDescription) {
-    return findByXpathOrCSS(String.format("//td[contains(@class,'tableAppDescription') and contains(text(),'%s')]", appDescription));
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::tr",
+                                          appDescription));
   }
 
-  private BaseElementFacade getMandatoryApplication(String appTitle) {
-    return findByXpathOrCSS(String.format("//*[@class='text-md-center tableAppTitle' and contains(text(),'%s')]/following::*[@class='v-input--selection-controls__input'][1]",
-                                     appTitle));
+  public void appDescriptionInApplicationsTableIsDisplayed(String appDescription) {
+    assertWebElementVisible(appDescriptionInApplicationsTable(appDescription));
   }
 
-  private BaseElementFacade getActiveApplication(String appTitle) {
-    return findByXpathOrCSS(String.format("//*[@class='text-md-center tableAppTitle' and contains(text(),'%s')]/following::*[@class='v-input--selection-controls__input'][2]",
-                                     appTitle));
+  public void applicationDrawerEnabledButtonsAreIsDisplayed() {
+    assertWebElementVisible(findByXPathOrCSS("(//*[contains(@class, 'appCenterDrawer')]//*[contains(@class, 'applicationProperties')]//input[@aria-checked='true'])[1]//ancestor::*[contains(@class, 'v-input')]"));
+    assertWebElementVisible(findByXPathOrCSS("(//*[contains(@class, 'appCenterDrawer')]//*[contains(@class, 'applicationProperties')]//input[@aria-checked='true'])[2]//ancestor::*[contains(@class, 'v-input')]"));
+    assertWebElementVisible(findByXPathOrCSS("(//*[contains(@class, 'appCenterDrawer')]//*[contains(@class, 'applicationProperties')]//input[@aria-checked='true'])[3]//ancestor::*[contains(@class, 'v-input')]"));
   }
 
-  private BaseElementFacade getDeleteButton(String appTitle) {
-    return findByXpathOrCSS(String.format("//td[contains(text(),'%s')]//following::i[contains(@class,'mdi-delete')]", appTitle));
+  public void applicationDrawerImageIsDisplayed(String image) {
+    Assert.assertEquals(editApplicationDrawerImage.getText(), image);
   }
 
-  public void clickEditApp(String app) {
-    MAPPING_FIELD_NAME_TO_BASEELEMENTFACADE_XPATH.get(app).clickOnElement();
+  public void applicationDrawerPermissionsIsDisplayed(String firstPermission, String secondPermission) {
+    String firstValue = editApplicationDrawerPermissionsFirst.getAttribute("data-value");
+    assertEquals(firstPermission, firstValue);
+    assertTrue(editApplicationDrawerPermissionsFirst.getTextValue().contains(firstPermission));
+    String secondValue = editApplicationDrawerPermissionsSecond.getAttribute("data-value");
+    assertEquals(secondPermission, secondValue);
+    assertTrue(editApplicationDrawerPermissionsSecond.getTextValue().contains(secondPermission));
   }
 
-  public void checkThatApplicationImageIsNotDisplayedInApplicationsTable(String appTitle) {
-    appTitleInApplicationsTable(appTitle).isVisibleAfterWaiting();
+  public void applicationDrawerTitleIsDisplayed(String title) {
+    Assert.assertEquals(editApplicationDrawerTitle.getTextValue(), title);
+  }
+
+  public void applicationDrawerUrlIsDisplayed(String url) {
+    Assert.assertEquals(editApplicationDrawerUrl.getTextValue(), url);
+  }
+
+  private BaseElementFacade appPermissionInApplicationsTable(String appTitle, String permission) {
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::tr//*[contains(text(),'%s')]",
+                                          appTitle,
+                                          permission));
+  }
+
+  public void appPermissionInApplicationsTableIsDisplayed(String appTitle, String permission) {
+    assertWebElementVisible(appPermissionInApplicationsTable(appTitle, permission));
+  }
+
+  private BaseElementFacade appTitleInApplicationsTable(String appTitle) {
+    return findByXPathOrCSS(String.format("//td[contains(@class, 'tableAppTitle') and contains(text(),'%s')]", appTitle));
+  }
+
+  public void appTitleInApplicationsTableIsDisplayed(String appTitle) {
+    assertWebElementVisible(appTitleInApplicationsTable(appTitle));
+  }
+
+  private BaseElementFacade appTitleNoImageElement(String appTitle) {
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::tr//img[contains(@src, 'defaultApp.png')]",
+                                          appTitle));
+  }
+
+  private BaseElementFacade appUrlInApplicationsTable(String appUrl) {
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::tr",
+                                          appUrl));
+  }
+
+  public void appUrlInApplicationsTableIsDisplayed(String appUrl) {
+    assertWebElementVisible(appUrlInApplicationsTable(appUrl));
   }
 
   public void checkThatApplicationImageIsDisplayedInDrawer(String image) {
-    getApplicationImageInDrawer(image).isVisibleAfterWaiting();
+    assertWebElementVisible(getApplicationImageInDrawer(image));
   }
 
-  public void removeFileFromApplicationDrawer() {
-    removeFileInApplicationDrawerButton.clickOnElement();
+  public void checkThatApplicationImageIsNotDisplayedInApplicationsTable(String appTitle) {
+    assertWebElementVisible(appTitleNoImageElement(appTitle));
   }
 
   public void checkThatApplicationImageIsNotDisplayedInDrawer(String image) {
-    getApplicationImageInDrawer(image).isNotVisibleAfterWaiting();
+    assertWebElementNotVisible(getApplicationImageInDrawer(image));
   }
 
-  public void goToEditTheApplication(String app) {
-    editTheApplication(app).clickOnElement();
+  public void clickActiveApp(String appTitle) {
+    searchAppByTitle(appTitle);
+    getActiveButton(appTitle).clickOnElement();
   }
 
-  public void enterValueToField(String field, String value) {
-    MAPPING_FIELD_NAME_TO_TEXTBOXELEMENTFACADE_XPATH.get(field).setTextValue(value);
+  public void clickAddApplicationButton() {
+    addApplicationButton.waitUntilVisible();
+    addApplicationButton.clickOnElement();
+  }
+
+  public void clickCancelDelete() {
+    cancelDeleteButton.waitUntilVisible();
+    cancelDeleteButton.clickOnElement();
+  }
+
+  public void clickCloseDeletePopup() {
+    closeDeletePopupButton.clickOnElement();
+  }
+
+  public void clickEditApp(String appTitle) {
+    MAPPING_FIELD_NAME_TO_BASEELEMENTFACADE_XPATH.get(appTitle).clickOnElement();
+  }
+
+  public void clickSaveAddApplication() {
+    saveAddApplicationButton.clickOnElement();
+    waitForDrawerToClose();
+  }
+
+  public void deleteApp(String appTitle, boolean confirm) {
+    getDeleteButton(appTitle).clickOnElement();
+    if (confirm) {
+      confirmDelete.clickOnElement();
+    }
+  }
+
+  public void disableMandatoryApplication(String appTitle) {
+    searchAppByTitle(appTitle);
+    retryOnCondition(() -> {
+      BaseElementFacade mandatoryApplication = getMandatoryApplication(appTitle);
+      if (mandatoryApplication.findByXPath("//input").getAttribute("aria-checked").equals("true")) {
+        clickOnElement(mandatoryApplication);
+      }
+    });
+  }
+
+  private BaseElementFacade editTheApplication(String appTitle) {
+    return findByXPathOrCSS(String.format("//td[contains(text(),'%s')]/..//i[contains(@class,'mdi-pencil')]", appTitle));
+  }
+
+  public void enableDisableActiveApplication(String appTitle) {
+    BaseElementFacade activeApplicationSwitchButton = getActiveApplication(appTitle);
+    activeApplicationSwitchButton.waitUntilVisible();
+    activeApplicationSwitchButton.clickOnElement();
+  }
+
+  public void enableMandatoryApplication(String appTitle) {
+    searchAppByTitle(appTitle);
+    retryOnCondition(() -> {
+      BaseElementFacade mandatoryApplication = getMandatoryApplication(appTitle);
+      if (mandatoryApplication.findByXPath("//input").getAttribute("aria-checked").equals("false")) {
+        clickOnElement(mandatoryApplication);
+      }
+    });
   }
 
   public void enterDataValueToField(String field, String value) {
     MAPPING_APPLICATION_FIELD_NAME_TO_TEXTBOXELEMENTFACADE_XPATH.get(field).setTextValue(value);
-  }
-
-  public void appTitleInApplicationsTableIsDisplayed(String appTitle) {
-    appTitleInApplicationsTable(appTitle).isVisibleAfterWaiting();
-  }
-
-  public void appUrlInApplicationsTableIsDisplayed(String appUrl) {
-    appUrlInApplicationsTable(appUrl).isVisibleAfterWaiting();
   }
 
   public void enterRandomAppDataTitleUrl(String title, String url) {
@@ -190,106 +248,35 @@ public class ApplicationPage extends GenericPage {
     applicationDescription.setTextValue(desc);
   }
 
-  public void appDescriptionInApplicationsTableIsDisplayed(String appDescription) {
-    appDescriptionInApplicationsTable(appDescription).isVisibleAfterWaiting();
+  private BaseElementFacade getActiveApplication(String appTitle) {
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'tableAppTitle') and contains(text(),'%s')]/following::*[@class='v-input--selection-controls__input'][2]",
+                                          appTitle));
   }
 
-  public void appPermissionInApplicationsTableIsDisplayed(String appTitle, String permission) {
-    appPermissionInApplicationsTable(appTitle, permission).isVisibleAfterWaiting();
+  private BaseElementFacade getActiveButton(String appTitle) {
+    return findByXPathOrCSS(String.format("(//td[contains(text(),'%s')]/..//input)[2]/..", appTitle));
   }
 
-  public void applicationDrawerTitleIsDisplayed(String title) {
-    Assert.assertEquals(editApplicationDrawerTitle.getTextValue(), title);
+  private BaseElementFacade getApplicationImageInDrawer(String image) {
+    return findByXPathOrCSS(String.format("//*[@class='imageTitle' and contains(text(),'%s')]", image));
   }
 
-  public void applicationDrawerUrlIsDisplayed(String url) {
-    Assert.assertEquals(editApplicationDrawerUrl.getTextValue(), url);
+  private BaseElementFacade getDeleteButton(String appTitle) {
+    return findByXPathOrCSS(String.format("//td[contains(text(),'%s')]//following::i[contains(@class,'mdi-delete')]", appTitle));
   }
 
-  public void applicationDrawerImageIsDisplayed(String image) {
-    Assert.assertEquals(editApplicationDrawerImage.getText(), image);
+  private BaseElementFacade getMandatoryApplication(String appTitle) {
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'tableAppTitle') and contains(text(),'%s')]/following::*[@class='v-input--selection-controls__input'][1]",
+                                          appTitle));
   }
 
-  public void applicationDrawerEnabledButtonsAreIsDisplayed() {
-    editApplicationDrawerMandatoryEnabled.isVisibleAfterWaiting();
-    editApplicationDrawerMobileEnabled.isVisibleAfterWaiting();
-    editApplicationDrawerActiveEnabled.isVisibleAfterWaiting();
-
-  }
-
-  public void enableMandatoryApplication(String appTitle) {
-    BaseElementFacade mandatoryApplication = getMandatoryApplication(appTitle);
-    if (mandatoryApplication.findByXpath("//input").getAttribute("aria-checked").equals("false")) {
-      setCheckbox(mandatoryApplication, true);
-    }
-  }
-
-  public void disableMandatoryApplication(String appTitle) {
-    BaseElementFacade mandatoryApplication = getMandatoryApplication(appTitle);
-    if (mandatoryApplication.findByXpath("//input").getAttribute("aria-checked").equals("true")) {
-      setCheckbox(mandatoryApplication, true);
-    }
-  }
-
-  public void enableDisableActiveApplication(String appTitle) {
-
-    getActiveApplication(appTitle).waitUntilVisible();
-    getActiveApplication(appTitle).clickOnElement();
-  }
-
-  public void applicationDrawerPermissionsIsDisplayed(String firstPermission, String secondPermission) {
-    Assert.assertTrue(editApplicationDrawerPermissionsUsers.getTextValue().contains(firstPermission));
-    Assert.assertTrue(editApplicationDrawerPermissionsExternals.getTextValue().contains(secondPermission));
-  }
-
-  public void clickAddApplicationButton() {
-    addApplicationButton.waitUntilVisible();
-    addApplicationButton.clickOnElement();
-  }
-
-  public void addImageToApplication(String image) {
-    WebElement elem = getDriver().findElement(By.xpath("//*[contains(@class,'uploadImage')]//*[@id='imageFile']"));
-    String js = "arguments[0].style.height='auto'; arguments[0].style.visibility='visible';";
-    ((JavascriptExecutor) getDriver()).executeScript(js, elem);
-    upload(UPLOAD_DIRECTORY_PATH + image).fromLocalMachine().to(elem);
-  }
-
-  public void clickSaveAddApplication() {
-    saveAddApplicationButton.clickOnElement();
-  }
-
-  public void clickActiveApp(String appTitle) {
-    searchAppInput.clear();
-    searchAppInput.setTextValue(appTitle);
-    getActiveButton(appTitle).clickOnElement();
-  }
-
-  public void deleteApp(String appTitle, boolean confirm) {
-    searchAppInput.clear();
-    searchAppInput.setTextValue(appTitle);
-    getDeleteButton(appTitle).clickOnElement();
-    if (confirm)
-      confirmDelete.clickOnElement();
-  }
-
-  public void clickCancelDelete() {
-    cancelDeleteButton.waitUntilVisible();
-    cancelDeleteButton.clickOnElement();
-  }
-
-  public void searchApp(String appTitle) {
-    searchAppInput.clear();
-    searchAppInput.setTextValue(appTitle);
+  public void goToEditTheApplication(String app) {
+    editTheApplication(app).clickOnElement();
   }
 
   public boolean isAppExists(String appTitle) {
-    searchAppInput.clear();
-    searchAppInput.setTextValue(appTitle);
+    searchAppByTitle(appTitle);
     return getActiveButton(appTitle).isCurrentlyVisible();
-  }
-
-  public void clickCloseDeletePopup() {
-    closeDeletePopupButton.clickOnElement();
   }
 
   public boolean isPopupConfirmDeleteDisplayed() {
@@ -300,5 +287,30 @@ public class ApplicationPage extends GenericPage {
   public boolean isPopupConfirmDeleteNotDisplayed() {
     return confirmDelete.isNotVisibleAfterWaiting() && cancelDeleteButton.isNotVisibleAfterWaiting()
         && closeDeletePopupButton.isNotVisibleAfterWaiting();
+  }
+
+  public void removeFileFromApplicationDrawer() {
+    removeFileInApplicationDrawerButton.clickOnElement();
+  }
+
+  public void searchApp(String appTitle) {
+    searchAppByTitle(appTitle);
+  }
+
+  private void searchAppByTitle(String appTitle) {
+    refreshPage();
+    searchAppInput.setTextValue(appTitle);
+    // when searching
+    waitForSearchToComplete();
+  }
+
+  private void waitForSearchToComplete() {
+    try {
+      findByXPathOrCSS("(//*[contains(@class, 'tableAppTitle')])[2]").waitUntilNotVisible();
+    } catch (Exception e) {
+      ExceptionLauncher.LOGGER.debug("Search on AppCenter hasn't finished loading at time", e);
+    }
+    waitFor(500).milliseconds(); // Wait until application finishes its
+    // display
   }
 }

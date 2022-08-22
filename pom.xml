@@ -46,6 +46,7 @@
 
     <org.assertj.version>3.22.0</org.assertj.version>
     <logback.version>1.2.11</logback.version>
+    <org.aspectj.version>1.8.8</org.aspectj.version>
 
     <galen-java-support.version>2.4.4</galen-java-support.version>
 
@@ -55,7 +56,7 @@
     <failsafe.rerunFailingTestsCount>0</failsafe.rerunFailingTestsCount>
     <parallel.tests>1</parallel.tests>
     <!-- One of [SCENARIO, FEATURE]. SCENARIO generates one runner per scenario.  FEATURE generates a runner per feature. -->
-    <parallel.scheme></parallel.scheme>
+    <parallel.scheme>SCENARIO</parallel.scheme>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -163,6 +164,12 @@
     </dependency>
 
     <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjrt</artifactId>
+      <version>${org.aspectj.version}</version>
+    </dependency>
+
+    <dependency>
       <groupId>com.galenframework</groupId>
       <artifactId>galen-java-support</artifactId>
       <version>${galen-java-support.version}</version>
@@ -201,6 +208,10 @@
   <build>
     <plugins>
       <plugin>
+        <groupId>com.jcabi</groupId>
+        <artifactId>jcabi-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
         <groupId>com.github.temyers</groupId>
         <artifactId>cucumber-jvm-parallel-plugin</artifactId>
         <version>${cucumber-jvm-parallel-plugin.version}</version>
@@ -226,17 +237,34 @@
         </executions>
       </plugin>
       <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+      <plugin>
         <artifactId>maven-failsafe-plugin</artifactId>
         <configuration>
           <includes>
-            <include>**/*.java</include>
+            <include>io/meeds/qa/ui/it/*.java</include>
           </includes>
+          <threadCount>${parallel.tests}</threadCount>
+          <threadCountClasses>${parallel.tests}</threadCountClasses>
           <forkCount>${parallel.tests}</forkCount>
           <reuseForks>true</reuseForks>
-          <parallel>all</parallel>
-          <useUnlimitedThreads>true</useUnlimitedThreads>
+          <parallel>classes</parallel>
+          <perCoreThreadCount>false</perCoreThreadCount>
           <systemPropertyVariables>
             <io.meeds.space.template>crowdFunding</io.meeds.space.template>
+            <io.meeds.windowSwitch.lockFile>${project.build.directory}/switchWindow.lck</io.meeds.windowSwitch.lockFile>
+            <io.meeds.parallel.tests>${parallel.tests}</io.meeds.parallel.tests>
+            <io.meeds.forkNumber>${surefire.forkNumber}</io.meeds.forkNumber>
+            <properties>serenity.properties</properties>
+            <webdriver.remote.url>http://localhost:4444</webdriver.remote.url>
+            <webdriver.base.url>http://localhost:8080/</webdriver.base.url>
+            <webdriver.remote.driver>chrome</webdriver.remote.driver>
+            <cucumber.filter.tags>not @ignored and not @ignore and not @wip and not @skip</cucumber.filter.tags>
+            <adminPassword></adminPassword>
           </systemPropertyVariables>
         </configuration>
         <executions>

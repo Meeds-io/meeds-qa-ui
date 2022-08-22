@@ -2,10 +2,10 @@
 Feature: Check the rules score increase
   for different type of activity on the plf
 
-  Scenario: Send Kudos
+  Scenario: Send a Kudos
     Given I am authenticated as admin
-    And I create the first random user
-    And I create the second random user
+    And I create the first random user if not existing, no wait
+    And I create the second random user if not existing
     When I connect with the first created user
     And I go to my profile
     And I check my points
@@ -16,33 +16,29 @@ Feature: Check the rules score increase
 
   Scenario: Receive a connection request
     Given I am authenticated as admin
-    And I create the first random user
-    And I create the second random user
-    When I connect with the second created user
+    And I create the firstgami random user if not existing, no wait
+    And I create the secondgami random user if not existing
+    When I connect with the secondgami created user
     And I go to my profile
     And I check my points
-    And I connect with the first created user
-    And I connect to second user
-    And I connect with the second created user
+    And I connect with the firstgami created user
+    And I connect to secondgami user
+    And I connect with the secondgami created user
     When I go to my profile
     Then My points augmented
 
   Scenario: Like a comment (in space)
     Given I am authenticated as admin
-    And I create the first random user
-    And I create the second random user
+    And I create the first random user if not existing, no wait
+    And I create the second random user if not existing
     When I connect with the first created user
-    And I create random space with the second created user
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'CommentPost'
     And I publish the activity
     And the activity 'CommentPost' is displayed in activity stream
     And I connect with the second created user
-    Then The 'Spaces' badge is '1'
-    When I click on spaces badge
-    And I accept the invitation of the created space
-    And I refresh the page
-    When I go to the created space
+    And I go to the random space
     And the activity 'CommentPost' is displayed in activity stream
     And I add in activity 'CommentPost' a comment 'commenttest'
     And I open in activity 'CommentPost' the Comments drawer
@@ -51,7 +47,7 @@ Feature: Check the rules score increase
     When I connect with the first created user
     And I go to my profile
     And I check my points
-    And I go to the created space
+    And I go to the random space
     And Activity Comment 'commenttest' is displayed in activity stream
     And I like the activity comment 'commenttest'
     And I go to my profile
@@ -59,22 +55,17 @@ Feature: Check the rules score increase
 
   Scenario: Receive a like on a post
     Given I am authenticated as admin
-    And I create the first random user
-    And I create the second random user
+    And I create the first random user if not existing, no wait
+    And I create the second random user if not existing
     And I connect with the first created user
-    And I create random space with the second created user
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'PostToBeLiked'
     And I publish the activity
     And the activity 'PostToBeLiked' is displayed in activity stream
     And I go to my profile
     And I check my points
-    And I connect with the second created user
-    Then The 'Spaces' badge is '1'
-    When I click on spaces badge
-    And I accept the invitation of the created space
-    And I refresh the page
-    When I go to the created space
+    And I go to the random space
     And the activity 'PostToBeLiked' is displayed in activity stream
     And I like the activity 'PostToBeLiked'
     And I connect with the first created user
@@ -83,11 +74,11 @@ Feature: Check the rules score increase
 
   Scenario: Create a new wiki page
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
     And I connect with the first created user
     And I go to my profile
     And I check my points
-    And I create a space with full template
+    And I go to the random space
     And I go to notes application of the space
     And I click to add note
     Then Create note form is opened successfully in new tab
@@ -95,18 +86,16 @@ Feature: Check the rules score increase
     And I go to my profile
     Then My points augmented
 
-  # Relationship doesn't increase gamification points
-  # It seems a real bug to fix in product
   Scenario: Receive relationship request
     Given I am authenticated as admin
-    And I create the first random user
-    And I create the sixth random user
-    And I connect with the first created user
+    And I create the thirdgami random user if not existing, no wait
+    And I create the fourthgami random user if not existing
+    And I connect with the thirdgami created user
     And I go to my profile
     And I check my points
-    And I connect to sixth user
-    And I connect with the sixth created user
-    And I accept the connection invitation sent by 'first' user
-    And I connect with the first created user
+    And I connect to fourthgami user
+    And I connect with the fourthgami created user
+    And I accept the connection invitation sent by 'thirdgami' user
+    And I connect with the thirdgami created user
     And I go to my profile
     Then My points augmented

@@ -1,7 +1,10 @@
 package io.meeds.qa.ui.elements;
 
+import static io.meeds.qa.ui.utils.Utils.decorateDriver;
+import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoaded;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
@@ -12,8 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.meeds.qa.ui.utils.ExceptionLauncher;
-import net.serenitybdd.core.annotations.findby.By;
-import net.serenitybdd.core.exceptions.SerenityManagedException;
+import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.pages.DefaultTimeouts;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.core.pages.WebElementFacadeImpl;
@@ -21,38 +23,23 @@ import net.serenitybdd.core.selectors.Selectors;
 import net.thucydides.core.ThucydidesSystemProperty;
 import net.thucydides.core.guice.Injectors;
 import net.thucydides.core.util.EnvironmentVariables;
+import net.thucydides.core.webdriver.exceptions.ElementNotFoundAfterTimeoutError;
 import net.thucydides.core.webdriver.javascript.JavascriptExecutorFacade;
 
 public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseElementFacade {
 
   static final Logger  LOGGER = LoggerFactory.getLogger(BaseElementFacadeImpl.class);
 
-  ExceptionLauncher    exceptionLauncher;
-
-  protected WebDriver  driver;
-
-  protected WebElement webElement;
-
-  public BaseElementFacadeImpl(WebDriver driver,
-                               ElementLocator locator,
-                               WebElement element,
-                               long implicitTimeoutInMilliseconds,
-                               long waitForTimeoutInMilliseconds) {
-    super(driver, locator, element, implicitTimeoutInMilliseconds, waitForTimeoutInMilliseconds);
-    this.driver = driver;
-    exceptionLauncher = new ExceptionLauncher();
-  }
-
   /**
    * This method has the goal of creating a BaseElementFacade instance from a
    * WebElementFacade instance. Consequently, it would have the access to the
    * BaseElementFacade interface methods
-   * @param driver 
-   * @param element 
-   * @param implicitTimeoutInMilliseconds 
-   * @param waitForTimeoutInMilliseconds 
-   * @param <T> 
    *
+   * @param driver {@link WebDriver}
+   * @param element {@link WebElementFacade}
+   * @param implicitTimeoutInMilliseconds configured implicit timeout
+   * @param waitForTimeoutInMilliseconds configured general timeout
+   * @param <T> type of return which extends {@link BaseElementFacade}
    * @return a wrapped BaseElementFacade of the webElementFacade
    */
   @SuppressWarnings("unchecked")
@@ -67,19 +54,62 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
                                          waitForTimeoutInMilliseconds);
   }
 
+  protected WebDriver  driver;
+
+  protected WebElement webElement;
+
+  public BaseElementFacadeImpl(WebDriver driver,
+                               ElementLocator locator,
+                               WebElement element,
+                               long implicitTimeoutInMilliseconds,
+                               long waitForTimeoutInMilliseconds) {
+    super(decorateDriver(driver), locator, element, implicitTimeoutInMilliseconds, waitForTimeoutInMilliseconds);
+    this.driver = decorateDriver(driver);
+  }
+
   /**********************************************************
    * Methods for finding element facade inside of this element
    **********************************************************/
 
   protected void checkXpathFormat(String xpath) {
     if (!Selectors.isXPath(xpath)) {
-      exceptionLauncher.throwSerenityExeption(new Exception(),
+      ExceptionLauncher.throwSerenityExeption(new Exception(),
                                               String.format("The format for the xpath [%s] is not correct.", xpath));
     }
   }
 
-  protected WebElementFacade getWebElementFacadeByXpath(String xpath) {
-    return findBy(String.format(".%s", xpath));
+  @Override
+  public void click() {
+    clickOnCurrentElement();
+  }
+
+  public void clickOnCurrentElement() {
+    retryOnCondition(this::clickOnCurrentElementWindowSwitch);
+  }
+
+  @SwitchToWindow
+  public void clickOnCurrentElementWindowSwitch() {
+    waitUntilVisible();
+    super.click();
+  }
+
+  /*********************************************************************************************************/
+
+  @Override
+  public void clickOnElement() {
+    LOGGER.debug("clicking on the element [{}]", this);
+    try {
+      resetTimeouts();
+      waitForPageLoaded();
+      clickOnCurrentElement();
+      resetTimeouts();
+      waitForPageLoaded();
+    } catch (WebDriverException e) {
+      throw new ElementClickInterceptedException(String.format("[%s] The element [%s] cannot be clicked.",
+                                                               driver.getWindowHandle(),
+                                                               this),
+                                                 e);
+    }
   }
 
   protected long defaultWait() {
@@ -90,24 +120,7 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
                                                                            (int) DefaultTimeouts.DEFAULT_WAIT_FOR_TIMEOUT.toMillis());
   }
 
-  public <T extends BaseElementFacade> T findByXpath(String xpath) {
-    checkXpathFormat(xpath);
-    WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
-    return BaseElementFacadeImpl.wrapWebElementFacade(driver,
-                                                      nestedElement,
-                                                      timeoutInMilliseconds(),
-                                                      defaultWait());
-  }
-
-  public <T extends TextElementFacade> T findTextElementByXpath(String xpath) {
-    checkXpathFormat(xpath);
-    WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
-    return TextElementFacadeImpl.wrapWebElementFacadeInTextElement(driver,
-                                                                   nestedElement,
-                                                                   timeoutInMilliseconds(),
-                                                                   defaultWait());
-  }
-
+  @Override
   public <T extends ButtonElementFacade> T findButtonElementByXpath(String xpath) {
     checkXpathFormat(xpath);
     WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
@@ -118,50 +131,136 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
                                                                        defaultWait());
   }
 
-  /*********************************************************************************************************/
+  @Override
+  public <T extends BaseElementFacade> T findByXPath(String xpath) {
+    checkXpathFormat(xpath);
+    WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
+    return BaseElementFacadeImpl.wrapWebElementFacade(driver,
+                                                      nestedElement,
+                                                      timeoutInMilliseconds(),
+                                                      defaultWait());
+  }
 
-  public void clickOnElement() {
-    LOGGER.debug("clicking on the element [{}]", this);
-    try {
-      resetTimeouts();
-      waitForPageLoaded();
-      waitUntilClickable();
-      click();
-      resetTimeouts();
-      waitForPageLoaded();
-    } catch (WebDriverException e) {
-      throw new ElementClickInterceptedException(String.format("The element [%s] cannot be clicked.", this), e);
+  @Override
+  public <T extends TextElementFacade> T findTextElementByXPath(String xpath) {
+    checkXpathFormat(xpath);
+    WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
+    return TextElementFacadeImpl.wrapWebElementFacadeInTextElement(driver,
+                                                                   nestedElement,
+                                                                   timeoutInMilliseconds(),
+                                                                   defaultWait());
+  }
+
+  @SwitchToWindow
+  public WebElement getCurrentElement() {
+    return super.getElement();
+  }
+
+  @Override
+  public WebDriver getDriver() {
+    return driver;
+  }
+
+  @Override
+  @SwitchToWindow
+  public WebElement getElement() {
+    return retryOnCondition(() -> {
+      try {
+        return super.getElement();
+      } catch (Throwable e) {
+        LOGGER.debug("Can't find element {}. Procees after switching window.", this, e);
+        return getCurrentElement();
+      }
+    });
+  }
+
+  @Override
+  public String getFoundBy() {
+    WebElement element = getElement();
+    if (element instanceof WebElementFacadeImpl) {
+      return ((WebElementFacadeImpl) element).getFoundBy();
+    } else {
+      return null;
     }
   }
 
-  public boolean isVisibleAfterWaiting() {
-    LOGGER.debug("Checking if the element [{}] is visible ", this);
+  @Override
+  public ElementLocator getLocator() {
+    WebElement element = getElement();
+    if (element instanceof WebElementFacadeImpl) {
+      return ((WebElementFacadeImpl) element).getLocator();
+    } else {
+      return null;
+    }
+  }
+
+  @Override
+  @SwitchToWindow
+  public String getText() {
+    return super.getText();
+  }
+
+  @Override
+  @SwitchToWindow
+  public String getValue() {
+    return super.getValue();
+  }
+
+  protected WebElementFacade getWebElementFacadeByXpath(String xpath) {
+    return findBy(String.format(".%s", xpath));
+  }
+
+  @Override
+  public void hover() {
+    Actions action = new Actions(driver);
+    action.moveToElement(this).build().perform();
+  }
+
+  @Override
+  public void hover(String xpath) {
+    Actions action = new Actions(driver);
+    WebElement we = driver.findElement(By.xpath(xpath));
+    action.moveToElement(we).build().perform();
+  }
+
+  @Override
+  @SwitchToWindow
+  public boolean isClickable() {
     try {
-      waitUntilVisible();
-    } catch (Exception e) {
+      return super.isClickable();
+    } catch (Throwable e) {
       return false;
     }
-    LOGGER.debug("The element [{}] is visible ", this);
-    return true;
   }
 
-  public boolean isNotVisibleAfterWaiting() {
-    LOGGER.debug("Checking if the element [{}] is not visible ", this);
+  @Override
+  @SwitchToWindow
+  public boolean isCurrentlyEnabled() {
     try {
-      waitUntilNotVisible();
-    } catch (Exception e) {
+      return super.isCurrentlyEnabled();
+    } catch (Throwable e) {
       return false;
     }
-    LOGGER.debug("The element [{}] is not visible ", this);
-    return true;
   }
 
+  @Override
+  @SwitchToWindow
+  public boolean isCurrentlyVisible() {
+    try {
+      return super.isCurrentlyVisible();
+    } catch (Throwable e) {
+      return false;
+    }
+  }
+
+  @Override
+  @SwitchToWindow
   public boolean isDisabledAfterWaiting() {
 
     LOGGER.debug("Checking if the element [{}] is disabled ", this);
     try {
       waitUntilDisabled();
-    } catch (Exception e) {
+    } catch (Throwable e) {
       return false;
     }
     LOGGER.debug("The element [{}] isdisabled ", this);
@@ -169,11 +268,22 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
 
   }
 
+  @Override
+  @SwitchToWindow
+  public boolean isDisplayed() {
+    try {
+      return super.isDisplayed();
+    } catch (Throwable e) {
+      return false;
+    }
+  }
+
+  @Override
   public boolean isEnabledAfterWaiting() {
     LOGGER.debug("Checking if the element [{}] is enabled ", this);
     try {
       waitUntilEnabled();
-    } catch (Exception e) {
+    } catch (Throwable e) {
       return false;
     }
     LOGGER.debug("The element [{}] is enabled ", this);
@@ -181,20 +291,59 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
   }
 
   @Override
-  public boolean isDisplayed() {
+  @SwitchToWindow
+  public boolean isNotVisibleAfterWaiting() {
+    LOGGER.debug("Checking if the element [{}] is not visible ", this);
     try {
-      return super.isDisplayed();
-    } catch (Exception e) {
+      waitUntilNotVisible();
+    } catch (Throwable e) {
+      return false;
+    }
+    LOGGER.debug("The element [{}] is not visible ", this);
+    return true;
+  }
+
+  @Override
+  @SwitchToWindow
+  public boolean isPresent() {
+    try {
+      WebElement element = getElement();
+      return element != null && element.isDisplayed();
+    } catch (Throwable e) {
       return false;
     }
   }
 
-  public void scrollToTheRight() {
-    JavascriptExecutorFacade javascriptExecutorFacade = new JavascriptExecutorFacade(driver);
-    javascriptExecutorFacade.executeScript("arguments[0].scrollBy(300, 0);", this);
-
+  @Override
+  @SwitchToWindow
+  public boolean isSelected() {
+    return super.isSelected();
   }
 
+  @Override
+  @SwitchToWindow
+  public boolean isVisible() {
+    try {
+      return super.isVisible();
+    } catch (Throwable e) {
+      return false;
+    }
+  }
+
+  @Override
+  @SwitchToWindow
+  public boolean isVisibleAfterWaiting() {
+    LOGGER.debug("Checking if the element [{}] is visible ", this);
+    try {
+      waitUntilVisible();
+    } catch (Throwable e) {
+      return false;
+    }
+    LOGGER.debug("The element [{}] is visible ", this);
+    return true;
+  }
+
+  @Override
   public void scrollDown() {
 
     JavascriptExecutorFacade javascriptExecutorFacade = new JavascriptExecutorFacade(driver);
@@ -202,15 +351,41 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
 
   }
 
+  @Override
+  public void scrollToTheRight() {
+    JavascriptExecutorFacade javascriptExecutorFacade = new JavascriptExecutorFacade(driver);
+    javascriptExecutorFacade.executeScript("arguments[0].scrollBy(300, 0);", this);
+
+  }
+
+  @Override
   public void scrollToWebElement() {
     JavascriptExecutorFacade javascriptExecutorFacade = new JavascriptExecutorFacade(driver);
     javascriptExecutorFacade.executeScript("arguments[0].scrollIntoView();", this);
 
   }
 
-  public void hover(String xpath) {
-    Actions action = new Actions(driver);
-    WebElement we = driver.findElement(By.xpath(xpath));
-    action.moveToElement(we).build().perform();
+  @Override
+  @SwitchToWindow
+  public WebElementFacade waitUntilClickable() {
+    return super.waitUntilClickable();
+  }
+
+  @Override
+  @SwitchToWindow
+  public WebElementFacade waitUntilNotVisible() {
+    return super.waitUntilNotVisible();
+  }
+
+  @Override
+  @SwitchToWindow
+  public WebElementFacade waitUntilPresent() {
+    return super.waitUntilPresent();
+  }
+
+  @Override
+  @SwitchToWindow
+  public WebElementFacade waitUntilVisible() {
+    return super.waitUntilVisible();
   }
 }

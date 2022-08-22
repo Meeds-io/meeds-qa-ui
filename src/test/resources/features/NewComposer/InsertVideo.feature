@@ -4,10 +4,9 @@ Feature: Insert videos
   I want to publish videos via the new composer
   In order to share them with my collaborators
 
-  @failing
   Scenario: CAP15-[US-InsertVideo-01]:Post a message with a video link
     Given I am authenticated as admin
-    And I create the space
+    And I go to the random space
     When I click on post in space
     And I enter an activity 'https://www.youtube.com/watch?v=9UMxZofMNbA'
     And I wait '5' seconds

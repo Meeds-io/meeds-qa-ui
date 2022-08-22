@@ -6,39 +6,38 @@ public class ManageDomainsSteps {
 
   private ManageDomainsPage manageDomainsPage;
 
-  public void goToManageDomainMenu() {
-    manageDomainsPage.goToManageDomainMenu();
-  }
-
   public void addDomain(String name, String description) {
     manageDomainsPage.addDomain();
     manageDomainsPage.fillForm(name, description);
+  }
+
+  public void checkAlertPublishingActivity(String alert) {
+    manageDomainsPage.checkTitlePageAutomaticTranslation(alert);
+  }
+
+  public void checkTitlePageAutomaticTranslation(String title) {
+    manageDomainsPage.checkTitlePageAutomaticTranslation(title);
   }
 
   public void confirmDomain() {
     manageDomainsPage.confirmDomain();
   }
 
-  public void isDomainNameDisplayedInSearchResults(String domainName) {
-    manageDomainsPage.insertDomainNameInSearchField(domainName);
-    manageDomainsPage.checkTheDomainNameDisplay(domainName);
-  }
-
-  public void editDomainName(String name) {
-    manageDomainsPage.editDomainName(name);
+  public void confirmDomainDeletion() {
+    manageDomainsPage.confirmDomainDeletion();
   }
 
   public void deleteDomain() {
     manageDomainsPage.deleteDomain();
   }
 
-  public void confirmDomainDeletion() {
-    manageDomainsPage.confirmDomainDeletion();
-  }
-
   public void domainNameIsNotDisplayed(String domainName) {
     manageDomainsPage.insertDomainNameInSearchField(domainName);
     manageDomainsPage.domainNameIsNotDisplayed(domainName);
+  }
+
+  public void editDomainName(String name) {
+    manageDomainsPage.editDomainName(name);
   }
 
   public void goToAdministration() {
@@ -49,12 +48,13 @@ public class ManageDomainsSteps {
     manageDomainsPage.goToAutomaticTranslation();
   }
 
-  public void checkTitlePageAutomaticTranslation(String title) {
-    manageDomainsPage.checkTitlePageAutomaticTranslation(title);
+  public void goToManageDomainMenu() {
+    manageDomainsPage.goToManageDomainMenu();
   }
 
-  public void checkAlertPublishingActivity(String alert) {
-    manageDomainsPage.checkTitlePageAutomaticTranslation(alert);
+  public void isDomainNameDisplayedInSearchResults(String domainName) {
+    manageDomainsPage.insertDomainNameInSearchField(domainName);
+    manageDomainsPage.checkTheDomainNameDisplay(domainName);
   }
 
   public void searchDomain(String domainName) {

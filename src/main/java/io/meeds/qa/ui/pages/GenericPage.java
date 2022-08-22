@@ -1,6 +1,7 @@
 package io.meeds.qa.ui.pages;
 
 import static io.meeds.qa.ui.utils.Utils.switchToTabByIndex;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
@@ -9,10 +10,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import io.meeds.qa.ui.elements.BaseElementFacade;
-import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class GenericPage extends BasePageImpl {
+
+  public static final String UPLOAD_DIRECTORY_PATH = System.getProperty("user.dir") + File.separator + "src"
+      + File.separator + "test" + File.separator + "resources" + File.separator + "DataFiles" + File.separator;
+
+  @FindBy(xpath = "//div[contains(@class,'alert-success')]")
+  private BaseElementFacade  successMessagePopup;
 
   public GenericPage() {
     this(null);
@@ -23,22 +29,43 @@ public class GenericPage extends BasePageImpl {
     url = "genericPage";
   }
 
-  @FindBy(xpath = "//div[contains(@class,'alert-success')]")
-  private BaseElementFacade  successMessagePopup;
+  public void checkDrawerDisplayed(String title) {
+    assertTrue(findByXPathOrCSS(String.format("//*[contains(@class, 'drawerTitle') and contains(text(),'%s')]",
+                                              title)).isVisibleAfterWaiting());
+  }
 
-  public static final String UPLOAD_DIRECTORY_PATH = System.getProperty("user.dir") + File.separator + "src"
-      + File.separator + "test" + File.separator + "resources" + File.separator + "DataFiles" + File.separator;
+  public void clickConfirm() {
+    getButton("Confirm").clickOnElement();
+  }
 
-  private BaseElementFacade getConfirmMessage(String message) {
-    return findByXpathOrCSS(String.format("//span[contains(text(),\"%s\")]", message));
+  public void clickOkButton() {
+    getOKButton("OK").clickOnElement();
+  }
+
+  public void closeBrowserTab(int index) {
+    switchToTabByIndex(driver, index);
+    driver.close();
+    if (index > 0) {
+      switchToTabByIndex(driver, index - 1);
+    }
+  }
+
+  public boolean containsContent(String content) {
+    WebElement element = getDriver().findElement(By.xpath(String.format("//*[contains(text(),'%s')]",
+                                                                        content)));
+    return element != null && element.isDisplayed();
   }
 
   private BaseElementFacade getButton(String buttonName) {
-    return findByXpathOrCSS(String.format("//a[contains(text(),'%s')]", buttonName));
+    return findByXPathOrCSS(String.format("//a[contains(text(),'%s')]", buttonName));
+  }
+
+  private BaseElementFacade getConfirmMessage(String message) {
+    return findByXPathOrCSS(String.format("//span[contains(text(),\"%s\")]", message));
   }
 
   private BaseElementFacade getOKButton(String buttonName) {
-    return findByXpathOrCSS(String.format("//button[contains(text(),'%s')]", buttonName));
+    return findByXPathOrCSS(String.format("//button[contains(text(),'%s')]", buttonName));
   }
 
   public boolean inConfirmMessageDisplayed(String message) {
@@ -51,36 +78,6 @@ public class GenericPage extends BasePageImpl {
 
   public boolean isSuccessMessageDisplayed() {
     return successMessagePopup.isVisibleAfterWaiting();
-  }
-
-  public void clickConfirm() {
-    getButton("Confirm").clickOnElement();
-  }
-
-  public void clickOkButton() {
-    getOKButton("OK").clickOnElement();
-  }
-
-  public boolean containsContent(String content) {
-    WebElement element = getDriver().findElement(By.xpath(String.format("//*[contains(text(),'%s')]",
-                                                                        content)));
-    return element != null && element.isDisplayed();
-  }
-
-  public void clickOnElement(BaseElementFacade element) {
-    element.resetTimeouts();
-    element.waitUntilEnabled();
-    element.waitUntilClickable();
-    element.clickOnElement();
-    verifyPageLoaded();
-  }
-
-  public void closeBrowserTab(int index) {
-    switchToTabByIndex(index);
-    Serenity.getWebdriverManager().getCurrentDriver().close();
-    if (index > 0) {
-      switchToTabByIndex(index - 1);
-    }
   }
 
 }

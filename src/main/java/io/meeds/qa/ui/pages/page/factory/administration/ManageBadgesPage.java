@@ -7,53 +7,46 @@ import org.openqa.selenium.WebElement;
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import net.serenitybdd.core.Serenity;
-import net.serenitybdd.core.annotations.findby.By;
+import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class ManageBadgesPage extends GenericPage {
 
-  @FindBy(xpath = "//*[contains(@class,'HamburgerNavigationMenuLink')]")
-  private BaseElementFacade    menuBtn;
+  @FindBy(xpath = "//button[@class='btn btn-primary']")
+  private BaseElementFacade    addBadgeBtn;
 
   @FindBy(xpath = "//i[contains(@class,'uiIcon uiIconToolbarNavItem uiAdministrationIcon')]")
   private BaseElementFacade    adminBtn;
 
+  @FindBy(xpath = "(//*[@id='badgeDescription'])[1]")
+  private TextBoxElementFacade badgeDescription;
+
   @FindBy(xpath = "//a[@href='/portal/g/:platform:administrators/gamification/badges']")
   private BaseElementFacade    badgeLink;
-
-  @FindBy(xpath = "//*[@class='alert alert-success']")
-  private BaseElementFacade    successAlert;
-
-  @FindBy(xpath = "//button[@class='btn btn-primary']")
-  private BaseElementFacade    addBadgeBtn;
-
-  @FindBy(xpath = "//a[@class='uiIconClose pull-right']")
-  private BaseElementFacade    closeFormBtn;
 
   @FindBy(xpath = "(//input[@id='titleInput'])[1]")
   private TextBoxElementFacade badgeName;
 
-  @FindBy(xpath = "//input[@name='keyword']")
-  private TextBoxElementFacade searchBadgeInput;
-
-  @FindBy(xpath = "(//*[@id='badgeDescription'])[1]")
-  private TextBoxElementFacade badgeDescription;
-
   @FindBy(xpath = "(//*[@id='neededScoreInput'])[1]")
   private TextBoxElementFacade badgeScore;
 
-  @FindBy(xpath = "(//*[@id='domainSelectboxGroup']//select)[1]")
-  private TextBoxElementFacade selectBadgeDomain;
+  @FindBy(xpath = "//a[@class='uiIconClose pull-right']")
+  private BaseElementFacade    closeFormBtn;
 
   @FindBy(xpath = "(//button[@class='btn-primary pull-right'])[1]")
   private BaseElementFacade    confirmAddBadgeBtn;
 
-  @FindBy(xpath = "(//input[@id='titleInput'])[2]")
-  private TextBoxElementFacade editBadgeName;
+  @FindBy(xpath = "(//button[@class='btn-primary pull-right'])[3]")
+  private BaseElementFacade    confirmDeleteBadgeBtn;
+
+  @FindBy(xpath = "(//button[@class='btn-primary pull-right'])[2]")
+  private BaseElementFacade    confirmEditBadgeBtn;
 
   @FindBy(xpath = "(//*[@id='badgeDescription'])[2]")
   private TextBoxElementFacade editBadgeDescription;
+
+  @FindBy(xpath = "(//input[@id='titleInput'])[2]")
+  private TextBoxElementFacade editBadgeName;
 
   @FindBy(xpath = "(//*[@id='neededScoreInput'])[2]")
   private TextBoxElementFacade editBadgeScore;
@@ -61,47 +54,20 @@ public class ManageBadgesPage extends GenericPage {
   @FindBy(xpath = "(//*[@id='domainSelectboxGroup']//select)[2]")
   private TextBoxElementFacade editSelectBadgeDomain;
 
-  @FindBy(xpath = "(//button[@class='btn-primary pull-right'])[2]")
-  private BaseElementFacade    confirmEditBadgeBtn;
+  @FindBy(xpath = "//*[contains(@class,'HamburgerNavigationMenuLink')]")
+  private BaseElementFacade    menuBtn;
 
-  @FindBy(xpath = "(//button[@class='btn-primary pull-right'])[3]")
-  private BaseElementFacade    confirmDeleteBadgeBtn;
+  @FindBy(xpath = "//input[@name='keyword']")
+  private TextBoxElementFacade searchBadgeInput;
 
-  @FindBy(xpath = "//*[@class='msg' and contains(text(),'Are you sure you want to delete this badge ?')]")
-  private BaseElementFacade    confirmDeleteBadgeMessage;
+  @FindBy(xpath = "(//*[@id='domainSelectboxGroup']//select)[1]")
+  private TextBoxElementFacade selectBadgeDomain;
 
-  public void goToManageBadgesMenu() {
-    menuBtn.clickOnElement();
-    adminBtn.clickOnElement();
-    badgeLink.clickOnElement();
-
-  }
-
-  public void clickOnAddBadge() {
-    addBadgeBtn.clickOnElement();
-
-  }
-
-  public void addBadgeName(String name) {
-    badgeName.setTextValue(name);
-
-  }
+  @FindBy(xpath = "//*[@class='alert alert-success']")
+  private BaseElementFacade    successAlert;
 
   public void addBadgeDescription(String description) {
     badgeDescription.setTextValue(description);
-
-  }
-
-  public void addBadgeScore(String score) {
-    badgeScore.setTextValue(score);
-
-  }
-
-  public void addBadgeIcon(String icon) {
-    WebElement elem = getDriver().findElement(By.xpath("//input[@id='iconInput']"));
-    String js = "arguments[0].style.height='auto'; arguments[0].style.visibility='visible';";
-    ((JavascriptExecutor) getDriver()).executeScript(js, elem);
-    upload(UPLOAD_DIRECTORY_PATH + icon).fromLocalMachine().to(elem);
 
   }
 
@@ -110,10 +76,51 @@ public class ManageBadgesPage extends GenericPage {
 
   }
 
-  public void editBadgeName(String name) {
-    editBadgeName.waitUntilVisible();
-    editBadgeName.clear();
-    editBadgeName.setTextValue(name);
+  public void addBadgeIcon(String icon) {
+    WebElement elem = getDriver().findElement(org.openqa.selenium.By.xpath("//input[@id='iconInput']"));
+    String js = "arguments[0].style.height='auto'; arguments[0].style.visibility='visible';";
+    ((JavascriptExecutor) getDriver()).executeScript(js, elem);
+    upload(UPLOAD_DIRECTORY_PATH + icon).fromLocalMachine().to(elem);
+
+  }
+
+  public void addBadgeName(String name) {
+    badgeName.setTextValue(name);
+
+  }
+
+  public void addBadgeScore(String score) {
+    badgeScore.setTextValue(score);
+
+  }
+
+  public void clickOnAddBadge() {
+    addBadgeBtn.clickOnElement();
+
+  }
+
+  public void clickOnDeleteBadge(String badgeName) {
+    getBadgeDeleteButton(badgeName).clickOnElement();
+
+  }
+
+  public void clickOnEditBadge(String badgeName) {
+    getBadgeEditButton(badgeName).clickOnElement();
+
+  }
+
+  public void confirmAdditionNewBadge() {
+    confirmAddBadgeBtn.clickOnElement();
+
+  }
+
+  public void confirmDeletionBadge() {
+    confirmDeleteBadgeBtn.waitUntilClickable();
+    confirmDeleteBadgeBtn.clickOnElement();
+  }
+
+  public void confirmEditBadge() {
+    confirmEditBadgeBtn.clickOnElement();
 
   }
 
@@ -124,6 +131,19 @@ public class ManageBadgesPage extends GenericPage {
 
   }
 
+  public void editBadgeDomain(String domain) {
+    editSelectBadgeDomain.waitUntilVisible();
+    editSelectBadgeDomain.selectByVisibleText(domain);
+
+  }
+
+  public void editBadgeName(String name) {
+    editBadgeName.waitUntilVisible();
+    editBadgeName.clear();
+    editBadgeName.setTextValue(name);
+
+  }
+
   public void editBadgeScore(String score) {
     editBadgeScore.waitUntilVisible();
     editBadgeScore.clear();
@@ -131,40 +151,8 @@ public class ManageBadgesPage extends GenericPage {
 
   }
 
-  public void editBadgeDomain(String domain) {
-    editSelectBadgeDomain.waitUntilVisible();
-    editSelectBadgeDomain.selectByVisibleText(domain);
-
-  }
-
-  public void confirmEditBadge() {
-    confirmEditBadgeBtn.clickOnElement();
-
-  }
-
-  public void confirmDeletionBadge() {
-    confirmDeleteBadgeMessage.isVisibleAfterWaiting();
-    confirmDeleteBadgeBtn.clickOnElement();
-
-  }
-
-  public void clickOnEditBadge(String badgeName) {
-    getBadgeEditButton(badgeName).clickOnElement();
-
-  }
-
-  public void clickOnDeleteBadge(String badgeName) {
-    getBadgeDeleteButton(badgeName).clickOnElement();
-
-  }
-
-  public void isSuccessAlertDisplayed(String message) {
-    Assert.assertTrue(successAlert.getText().contains(message));
-
-  }
-
   public void fillForm(String name, String description, String score, String icon, String domain) {
-    closeFormBtn.isVisibleAfterWaiting();
+    closeFormBtn.waitUntilVisible();
     addBadgeName(name);
     addBadgeDescription(description);
     addBadgeScore(score);
@@ -173,20 +161,15 @@ public class ManageBadgesPage extends GenericPage {
 
   }
 
-  public void confirmAdditionNewBadge() {
-    confirmAddBadgeBtn.clickOnElement();
+  private BaseElementFacade getBadgeDeleteButton(String badgeName) {
+    return findByXPathOrCSS(String.format("//*[@id='iconInputGroup']//img/following::*[@class='badge-title-col']/div[contains(text(),'%s')]/following::*[@class='uiIconDelete uiIconLightGray'][1]",
+                                          badgeName));
 
   }
 
   private BaseElementFacade getBadgeEditButton(String badgeName) {
-    return findByXpathOrCSS(String.format("//*[@id='iconInputGroup']//img/following::*[@class='badge-title-col']/div[contains(text(),'%s')]/following::*[@class='uiIconEdit uiIconLightGray'][1]",
-                                     badgeName));
-
-  }
-
-  private BaseElementFacade getBadgeDeleteButton(String badgeName) {
-    return findByXpathOrCSS(String.format("//*[@id='iconInputGroup']//img/following::*[@class='badge-title-col']/div[contains(text(),'%s')]/following::*[@class='uiIconDelete uiIconLightGray'][1]",
-                                     badgeName));
+    return findByXPathOrCSS(String.format("//*[@id='iconInputGroup']//img/following::*[@class='badge-title-col']/div[contains(text(),'%s')]/following::*[@class='uiIconEdit uiIconLightGray'][1]",
+                                          badgeName));
 
   }
 
@@ -194,11 +177,19 @@ public class ManageBadgesPage extends GenericPage {
                                                        String badgeDescription,
                                                        String badgeScore,
                                                        String badgeDomain) {
-    return findByXpathOrCSS(String.format("//*[@id='iconInputGroup']//img/following::*[@class='badge-title-col']/div[contains(text(),'%s')]/following::*[@class='badge-desc-col']/div[contains(text(),'%s')]/following::*[@class='badge-needed-score-col']/div/div[contains(text(),'%s')]/following::*[contains(text(),'%s')]/following::*[@class='badge-status-col']//*[@class='slider round']",
-                                     badgeName,
-                                     badgeDescription,
-                                     badgeScore,
-                                     badgeDomain));
+    return findByXPathOrCSS(String.format("//*[@id='iconInputGroup']//img/following::*[@class='badge-title-col']/div[contains(text(),'%s')]/following::*[@class='badge-desc-col']/div[contains(text(),'%s')]/following::*[@class='badge-needed-score-col']/div/div[contains(text(),'%s')]/following::*[contains(text(),'%s')]/following::*[@class='badge-status-col']//*[@class='slider round']",
+                                          badgeName,
+                                          badgeDescription,
+                                          badgeScore,
+                                          badgeDomain));
+
+  }
+
+  @SwitchToWindow
+  public void goToManageBadgesMenu() {
+    menuBtn.clickOnElement();
+    adminBtn.clickOnElement();
+    badgeLink.clickOnElement();
 
   }
 
@@ -216,17 +207,23 @@ public class ManageBadgesPage extends GenericPage {
                                                 String badgeDescription,
                                                 String badgeScore,
                                                 String badgeDomain) {
-    getBadgeNameInListOfBadges(badgeName, badgeDescription, badgeScore, badgeDomain).isVisibleAfterWaiting();
-    Assert.assertTrue(getBadgeNameInListOfBadges(badgeName, badgeDescription, badgeScore, badgeDomain).getText().contains("Yes"));
-
+    BaseElementFacade badgeElement = getBadgeNameInListOfBadges(badgeName, badgeDescription, badgeScore, badgeDomain);
+    badgeElement.waitUntilVisible();
+    Assert.assertTrue(badgeElement.getText().contains("Yes"));
   }
 
   public void isBadgeNotDisplayedWithEnabledStatus(String badgeName,
                                                    String badgeDescription,
                                                    String badgeScore,
                                                    String badgeDomain) {
-    getBadgeNameInListOfBadges(badgeName, badgeDescription, badgeScore, badgeDomain).isNotVisibleAfterWaiting();
+    BaseElementFacade badgeElement = getBadgeNameInListOfBadges(badgeName, badgeDescription, badgeScore, badgeDomain);
+    assertWebElementNotVisible(badgeElement);
+  }
 
+  @SwitchToWindow
+  public void isSuccessAlertDisplayed(String message) {
+    assertWebElementVisible(successAlert);
+    Assert.assertTrue(successAlert.getText().contains(message));
   }
 
 }

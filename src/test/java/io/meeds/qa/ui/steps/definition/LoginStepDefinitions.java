@@ -34,10 +34,10 @@ public class LoginStepDefinitions {
     logOutLogin("admin");
   }
 
-  @Given("^I connect with the (.*) created user$")
-  public void logoutLoginUser(String userPrefix) {
-    String userName = Serenity.sessionVariableCalled(userPrefix + "UserName");
-    logOutLogin(userName);
+  @Given("^I connect with the dedicated user to be an administrator$")
+  public void logOutLoginFirstAdminUser() {
+    String firstAdminName = Serenity.sessionVariableCalled("firstAdminName");
+    logOutLogin(firstAdminName);
   }
 
   @Given("I connect with the first created user with the edited password")
@@ -46,10 +46,10 @@ public class LoginStepDefinitions {
     logOutLogin(firstUserName);
   }
 
-  @Given("^I connect with the dedicated user to be an administrator$")
-  public void logOutLoginFirstAdminUser() {
-    String firstAdminName = Serenity.sessionVariableCalled("firstAdminName");
-    logOutLogin(firstAdminName);
+  @Given("^I connect with the (.*) created user$")
+  public void logoutLoginUser(String userPrefix) {
+    String userName = Serenity.sessionVariableCalled(userPrefix + "UserName");
+    logOutLogin(userName);
   }
 
 }

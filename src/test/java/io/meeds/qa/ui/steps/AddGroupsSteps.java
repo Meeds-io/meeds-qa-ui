@@ -1,13 +1,14 @@
 package io.meeds.qa.ui.steps;
 
-import io.meeds.qa.ui.pages.page.factory.HomePage;
 import io.meeds.qa.ui.pages.page.factory.administration.AddGroupsPage;
 
 public class AddGroupsSteps {
 
   private AddGroupsPage addGroupsPage;
 
-  private HomePage      homePage;
+  public void addMemberInGroup(String role, String member) {
+    addGroupsPage.addMemberInGroup(role, member);
+  }
 
   public void openGroup(String group) {
     addGroupsPage.openGroup(group);
@@ -15,10 +16,6 @@ public class AddGroupsSteps {
 
   public void selectGroup(String group) {
     addGroupsPage.selectGroup(group);
-  }
-
-  public void addMemberInGroup(String role, String member) {
-    addGroupsPage.addMemberInGroup(role, member);
   }
 
 }

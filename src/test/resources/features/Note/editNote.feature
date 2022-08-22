@@ -6,12 +6,12 @@ Feature: Edit Note
   @note @ignored
   Scenario: Open edit Note page in new tab
     Given I am authenticated as admin
-    And I create a space with full template
+    And I go to the random space
     And I go to notes application of the space
 
     When I click to add note
     And I create note page with title 'testA' and content 'testA'
-    Then Note tile 'testA' and content 'testA' are displayed successfully
+    Then Note title 'testA' and content 'testA' are displayed successfully
 
     When I click to edit note
     Then Edit note form is opened successfully in new tab
@@ -21,12 +21,12 @@ Feature: Edit Note
   @note @ignored
   Scenario: edit note
     Given I am authenticated as admin
-    And I create a space with full template
+    And I go to the random space
     And I go to notes application of the space
 
     When I click to add note
     And I create note page with title 'testA' and content 'testA'
-    Then Note tile 'testA' and content 'testA' are displayed successfully
+    Then Note title 'testA' and content 'testA' are displayed successfully
 
     When I click to edit note
     Then Edit note form is opened successfully in new tab

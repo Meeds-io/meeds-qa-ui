@@ -7,6 +7,18 @@ import net.serenitybdd.core.annotations.ImplementedBy;
 @ImplementedBy(TextBoxElementFacadeImpl.class)
 public interface TextBoxElementFacade extends BaseElementFacade {
 
+  /*
+   * This method returns the text value of the WebElement
+   * @param newValue String to fill the textBox field with.
+   */
+  public String getTextBoxValue();
+
+  /*
+   * This method changes the text value of the WebElement
+   * @param newValue String to fill the textBox field with.
+   */
+  public void setTextValue(String newValue);
+
   /**
    * This method changes the text value of the WebElement followed by some
    * Keys.<br>
@@ -20,17 +32,5 @@ public interface TextBoxElementFacade extends BaseElementFacade {
    *          specific field.
    */
   public void setTextValue(String newValue, Keys keys);
-
-  /*
-   * This method changes the text value of the WebElement
-   * @param newValue String to fill the textBox field with.
-   */
-  public void setTextValue(String newValue);
-
-  /*
-   * This method returns the text value of the WebElement
-   * @param newValue String to fill the textBox field with.
-   */
-  public String getTextBoxValue();
 
 }

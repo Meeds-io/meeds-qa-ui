@@ -1,41 +1,24 @@
 package io.meeds.qa.ui.steps;
 
-import static io.meeds.qa.ui.pages.page.factory.UnifiedSearchPage.ELEMENT_ICON_SEARCH;
-import static io.meeds.qa.ui.pages.page.factory.UnifiedSearchPage.ELEMENT_SEARCH_INPUT;
-
 import io.meeds.qa.ui.pages.page.factory.UnifiedSearchPage;
 
 public class ManageUnifiedSearchSteps {
   private UnifiedSearchPage unifiedSearchPage;
 
-  public void search(String element) {
-    ELEMENT_ICON_SEARCH.waitUntilVisible();
-    ELEMENT_ICON_SEARCH.clickOnElement();
-    ELEMENT_SEARCH_INPUT.setTextValue(element);
+  public void accessUnifiedSearchPage() {
+    unifiedSearchPage.openSearchApplication();
   }
 
-  public boolean isSearchedUserNameVisible(String user) {
-    return unifiedSearchPage.isSearchedUserNameVisible(user);
+  public void clickFavoriteBtn() {
+    unifiedSearchPage.clickFavoriteBtn();
   }
 
-  public boolean isSearchedApplicationNameVisible(String appName) {
-    return unifiedSearchPage.isSearchedApplicationNameVisible(appName);
+  public void favoriteSearchedActivity(String activity) {
+    unifiedSearchPage.favoriteSearchedActivity(activity);
   }
 
-  public boolean isSearchedApplicationDescriptionVisible(String appDesc) {
-    return unifiedSearchPage.isSearchedApplicationDescriptionVisible(appDesc);
-  }
-
-  public boolean isSearchedApplicationPictureVisible() {
-    return unifiedSearchPage.isSearchedApplicationPictureVisible();
-  }
-
-  public boolean isSearchedActivityTitleVisible(String activity) {
-    return unifiedSearchPage.isSearchedActivityTitleVisible(activity);
-  }
-
-  public boolean isSearchedSpaceNameVisible(String space) {
-    return unifiedSearchPage.isSearchedSpaceNameVisible(space);
+  public void goToTheSearchedActivity() {
+    unifiedSearchPage.goToTheSearchedActivity();
   }
 
   public void goToTheSearchedApplication(String appName) {
@@ -46,25 +29,36 @@ public class ManageUnifiedSearchSteps {
     unifiedSearchPage.goToTheSearchedSpace(space);
   }
 
-  public void goToTheSearchedActivity() {
-    unifiedSearchPage.goToTheSearchedActivity();
+  public void isSearchedActivityTitleNotVisible(String activity) {
+    unifiedSearchPage.isSearchedActivityTitleNotVisible(activity);
   }
 
-  public void accessUnifiedSearchPage() {
-    ELEMENT_ICON_SEARCH.waitUntilVisible();
-    ELEMENT_ICON_SEARCH.clickOnElement();
+  public void isSearchedActivityTitleVisible(String activity) {
+    unifiedSearchPage.isSearchedActivityTitleVisible(activity);
   }
 
-  public void clickFavoriteBtn() {
-    unifiedSearchPage.clickFavoriteBtn();
+  public void isSearchedApplicationDescriptionVisible(String appDesc) {
+    unifiedSearchPage.isSearchedApplicationDescriptionVisible(appDesc);
   }
 
-  public boolean isSearchedActivityTitleNotVisible(String activity) {
-    return unifiedSearchPage.isSearchedActivityTitleNotVisible(activity);
+  public void isSearchedApplicationNameVisible(String appName) {
+    unifiedSearchPage.isSearchedApplicationNameVisible(appName);
   }
 
-  public void favoriteSearchedActivity(String activity) {
-    unifiedSearchPage.favoriteSearchedActivity(activity);
+  public void isSearchedApplicationPictureVisible() {
+    unifiedSearchPage.isSearchedApplicationPictureVisible();
+  }
+
+  public void isSearchedSpaceNameVisible(String space) {
+    unifiedSearchPage.isSearchedSpaceNameVisible(space);
+  }
+
+  public void isSearchedUserNameVisible(String user) {
+    unifiedSearchPage.isSearchedUserNameVisible(user);
+  }
+
+  public void search(String text) {
+    unifiedSearchPage.search(text);
   }
 
   public void selectDropDown(String object) {

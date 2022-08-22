@@ -8,17 +8,12 @@ import net.serenitybdd.core.Serenity;
 
 public class LoginSteps {
 
-  private LoginPage loginPage;
-
   private HomePage  homePage;
 
-  public void open() {
-    loginPage.open();
-  }
+  private LoginPage loginPage;
 
   public void authenticate(String username) {
-    loginPage.clearCookies();
-    loginPage.refreshPage();
+    loginPage.open();
     String password = Serenity.sessionVariableCalled(username + "-password");
     loginPage.login(username, password);
   }
@@ -28,7 +23,7 @@ public class LoginSteps {
   }
 
   public boolean isLoggedIn() {
-    String currentUrl = Serenity.getWebdriverManager().getCurrentDriver().getCurrentUrl();
+    String currentUrl = loginPage.getCurrentUrl();
     return StringUtils.contains(currentUrl, "/portal") && !StringUtils.contains(currentUrl, "/login");
   }
 
@@ -40,6 +35,10 @@ public class LoginSteps {
     logout();
     String password = Serenity.sessionVariableCalled(username + "-password");
     loginPage.login(username, password);
+  }
+
+  public void open() {
+    loginPage.open();
   }
 
 }

@@ -12,7 +12,7 @@ Feature: Search for User Informations in Profile page
     Then User Cover is displayed in Profile Page
     And User Avatar is displayed in Profile Page
 
-  Scenario: PROFILE-2 : User avatar and cover block_(01)
+  Scenario: PROFILE-2 User avatar and cover block_(01)
     Given I am authenticated as admin
 
     When I go to My Profile page
@@ -22,7 +22,7 @@ Feature: Search for User Informations in Profile page
     And User Fullname 'Admin User' is displayed in Profile Page
     And User Job '' is displayed in Profile Page
 
-  Scenario: PROFILE-2 : User avatar and cover block_(02)
+  Scenario: PROFILE-2 User avatar and cover block_(02)
     Given I am authenticated as admin
 
     When I go to My Profile page
@@ -30,30 +30,28 @@ Feature: Search for User Informations in Profile page
     Then Profile Contact Fullname 'Contact information' is displayed in 'Admin User'
     And Profile Contact Email 'admin@localhost' is displayed
 
-    When I create the first random user
+    When I create the first random user if not existing, no wait
     And I connect with the first created user
     And I go to My Profile page
 
     Then User Job '' is displayed in Profile Page
 
-  @failing
   Scenario: PROFILE-4 Contact information block_(01) : Add informations
     Given I am authenticated as admin
 
-    When I create the first random user
-    And I connect with the first created user
+    When I create the firstprofile random user if not existing, no wait
+    And I connect with the firstprofile created user
     And I go to My Profile page
     And I update my profile random basic informations
     Then In 'Contact information', Updated profile Contact Fullname is displayed
     And Updated Profile Contact Email is displayed
     And Updated Profile Contact Job is displayed
 
-  @failing
   Scenario: PROFILE-4 Contact information block_(02) : Add informations
     Given I am authenticated as admin
 
-    When I create the first random user
-    And I connect with the first created user
+    When I create the secondprofile random user if not existing, no wait
+    And I connect with the secondprofile created user
     And I go to My Profile page
     And I update my profile random basic informations
     Then In 'Contact information', Updated profile Contact Fullname is displayed
@@ -66,38 +64,37 @@ Feature: Search for User Informations in Profile page
     And Updated Profile Contact instantMessaging is displayed
     And Updated Profile Contact Url is displayed
 
-  Scenario: PROFILE-5 : Kudos block
+  Scenario: PROFILE-5 Kudos block
     Given I am authenticated as admin
 
-    When I create the first random user
-    And I create the second random user
-    And I create the third random user
+    When I create the fifthkudos random user if not existing, no wait
+    And I create the sixthkudos random user if not existing, no wait
+    And I create the seventhkudos random user if not existing
 
-    When I connect with the first created user
+    When I connect with the fifthkudos created user
 
-    And I go to the second user profile
+    And I go to the sixthkudos user profile
     And I send kudos with message 'Message for kudos'
 
-    And I go to the third user profile
+    And I go to the seventhkudos user profile
     And I send kudos with message 'Message for kudos'
 
-    When I connect with the second created user
+    When I connect with the sixthkudos created user
 
-    And I go to the first user profile
+    And I go to the fifthkudos user profile
     And I send kudos with message 'Message for kudos'
 
-    When I connect with the first created user
+    When I connect with the fifthkudos created user
     And  I go to My Profile page
     Then '2' kudos are sent
     And '1' kudos are received
 
     When I go to Received Kudos
-    Then Received kudos by second user is displayed
+    Then Received kudos by sixthkudos user is displayed
 
     When I go to Sent Kudos
-    Then Sent kudos by third user is displayed
-    And Sent kudos by second user is displayed
-    And I refresh the page
+    Then Sent kudos by user 'seventhkudos' is displayed
+    And Sent kudos by user 'sixthkudos' is displayed
 
   Scenario: : PROFILE-6 : Rawards Meeds block and its drawer
     Given I am authenticated as admin
@@ -111,9 +108,9 @@ Feature: Search for User Informations in Profile page
   Scenario: : PROFILE-7 : Work Experiences block and its drawer
     Given I am authenticated as admin
 
-    And I create the first random user
+    And I create the thirdprofile random user if not existing, no wait
 
-    When I connect with the first created user
+    When I connect with the thirdprofile created user
 
     And I go to My Profile page
 
@@ -138,7 +135,7 @@ Feature: Search for User Informations in Profile page
   Scenario: : PROFILE-9 : Achievement Drawer in Points
     Given I am authenticated as admin
 
-    And I create the first random user
+    And I create the first random user if not existing, no wait
 
     When I connect with the first created user
 

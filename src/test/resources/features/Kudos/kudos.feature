@@ -13,34 +13,29 @@ Feature: Kudos
 
   Scenario: [EXISTANT-KUDOS 2] Sending and Receiving Kudos
     Given I am authenticated as admin
-    And I create the first random user
-    And I create the second random user
-    When I connect with the second created user
-    And I create random space with the first created user
-    And I go to the created space
+    And I create the firstkudos random user if not existing, no wait
+    And I create the secondkudos random user if not existing
+    When I connect with the secondkudos created user
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'Kudos Post activity'
     And I publish the activity
     Then the activity 'Kudos Post activity' is displayed in activity stream
 
-    And I connect with the first created user
-    Then The 'Spaces' badge is '1'
-    When I click on spaces badge
-    And I accept the invitation of the created space
-    And I refresh the page
-    When I go to the created space
-    And I sent to the activity 'Kudos Post activity' a kudos message 'Test Auto Kudos Module'
+    And I connect with the firstkudos created user
+    When I go to the random space
+    And I send to the activity 'Kudos Post activity' a kudos message 'Test Auto Kudos Module'
 
-    And I connect with the second created user
+    And I connect with the secondkudos created user
     And I go to My Profile page
     Then '1' kudos are received
 
   Scenario: [EXISTANT-KUDOS 5] check that user cannot send kudos to himself
     Given I am authenticated as admin
-    And I create the first random user
+    And I create the first random user if not existing
 
     When I connect with the first created user
-    And I create the space
+    And I go to the random space
     When I click on post in space
     And I enter an activity 'Kudos Post'
     And I publish the activity
@@ -49,21 +44,21 @@ Feature: Kudos
 
   Scenario: [EXISTANT-KUDOS 7] Sending Kudos from user profile
     Given I am authenticated as admin
-    And I create the first random user
-    And I create the second random user
+    And I create the thirdkudos random user if not existing, no wait
+    And I create the fourthkudos random user if not existing
 
-    When I connect with the second created user
-    And I go to the first user profile
+    When I connect with the fourthkudos created user
+    And I go to the thirdkudos user profile
     And I send kudos with message 'Message for kudos'
 
-    And I connect with the first created user
+    And I connect with the thirdkudos created user
     And I go to My Profile page
     Then '1' kudos are received
 
   Scenario: [ActivityStream_US51][01]: Edit a kudos activity
     Given I am authenticated as admin
-    And I create the first random user
-    And I create the second random user
+    And I create the first random user if not existing, no wait
+    And I create the second random user if not existing
     When I connect with the first created user
 
     And I search for second user card
@@ -72,5 +67,5 @@ Feature: Kudos
     And I go to Stream page
     Then the kudos activity UI 'Message for kudos' is displayed in stream page
     And I click on three dots menu click on the edit button
-    And I set the new kudos 'updated kudos message ' and I click on update button
-    Then the updated Kudos activity 'updated kudos message ' is displayed in stream page
+    And I set the new kudos 'updated kudos message' and I click on update button
+    Then the updated Kudos activity 'updated kudos message' is displayed in stream page

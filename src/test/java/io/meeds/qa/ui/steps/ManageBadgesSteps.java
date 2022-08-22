@@ -6,29 +6,9 @@ public class ManageBadgesSteps {
 
   private ManageBadgesPage manageBadgesPage;
 
-  public void goToManageBadgesMenu() {
-    manageBadgesPage.goToManageBadgesMenu();
-
-  }
-
-  public void isSuccessAlertDisplayed(String message) {
-    manageBadgesPage.isSuccessAlertDisplayed(message);
-
-  }
-
   public void addBadge(String name, String description, String score, String icon, String domain) {
     manageBadgesPage.clickOnAddBadge();
     manageBadgesPage.fillForm(name, description, score, icon, domain);
-
-  }
-
-  public void clickOnEditBadge(String badgeName) {
-    manageBadgesPage.clickOnEditBadge(badgeName);
-
-  }
-
-  public void confirmDeletionBadge() {
-    manageBadgesPage.confirmDeletionBadge();
 
   }
 
@@ -37,8 +17,23 @@ public class ManageBadgesSteps {
 
   }
 
-  public void editBadgeName(String name) {
-    manageBadgesPage.editBadgeName(name);
+  public void clickOnEditBadge(String badgeName) {
+    manageBadgesPage.clickOnEditBadge(badgeName);
+
+  }
+
+  public void confirmAdditionNewBadge() {
+    manageBadgesPage.confirmAdditionNewBadge();
+
+  }
+
+  public void confirmDeletionBadge() {
+    manageBadgesPage.confirmDeletionBadge();
+
+  }
+
+  public void confirmEditBadge() {
+    manageBadgesPage.confirmEditBadge();
 
   }
 
@@ -47,18 +42,23 @@ public class ManageBadgesSteps {
 
   }
 
-  public void editBadgeScore(String score) {
-    manageBadgesPage.editBadgeScore(score);
-
-  }
-
   public void editBadgeDomain(String domain) {
     manageBadgesPage.editBadgeDomain(domain);
 
   }
 
-  public void confirmEditBadge() {
-    manageBadgesPage.confirmEditBadge();
+  public void editBadgeName(String name) {
+    manageBadgesPage.editBadgeName(name);
+
+  }
+
+  public void editBadgeScore(String score) {
+    manageBadgesPage.editBadgeScore(score);
+
+  }
+
+  public void goToManageBadgesMenu() {
+    manageBadgesPage.goToManageBadgesMenu();
 
   }
 
@@ -83,8 +83,8 @@ public class ManageBadgesSteps {
 
   }
 
-  public void confirmAdditionNewBadge() {
-    manageBadgesPage.confirmAdditionNewBadge();
+  public void isSuccessAlertDisplayed(String message) {
+    manageBadgesPage.isSuccessAlertDisplayed(message);
 
   }
 
