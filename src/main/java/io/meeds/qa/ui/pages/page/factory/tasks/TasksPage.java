@@ -468,8 +468,10 @@ public class TasksPage extends GenericPage {
   }
 
   public void addLabelToTask(String label) {
-    labelTask.clickOnElement();
-    getAddLabelToTask(label).clickOnElement();
+    retryOnCondition(() -> {
+      labelTask.clickOnElement();
+      getAddLabelToTask(label).clickOnElement();
+    });
   }
 
   public void addNewCommentInTask() {
@@ -1186,8 +1188,7 @@ public class TasksPage extends GenericPage {
   }
 
   private BaseElementFacade getAddLabelToTask(String label) {
-    return findByXPathOrCSS(
-                            String.format("//*[contains(@class,'v-list')]//*[contains(@class,'v-chip v-chip--label')]//*[contains(@class,'v-chip__content') and contains(text(),'%s')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class,'v-list')]//*[contains(text(), '%s')]//ancestor::*[contains(@class,'v-chip')]",
                                           label));
   }
 
@@ -1225,7 +1226,7 @@ public class TasksPage extends GenericPage {
 
   private BaseElementFacade getLabelInEditTaskDrawer(String label) {
     return findByXPathOrCSS(
-                            String.format("//*[contains(@class,'v-chip__content')]//*[contains(@class,'pe-2') and contains(text(),'%s')]",
+                            String.format("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'v-chip')]",
                                           label));
   }
 
@@ -1263,8 +1264,7 @@ public class TasksPage extends GenericPage {
   }
 
   private BaseElementFacade getRemoveLabelTaskButton(String label) {
-    return findByXPathOrCSS(
-                            String.format("//*[contains(@class,'v-chip__content')]//*[contains(@class,'pe-2') and contains(text(),'%s')]/following::button[1]",
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'v-chip')]//button",
                                           label));
   }
 
@@ -1435,7 +1435,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void labelIsDisplayedInTaskDrawer(String label) {
-    assertWebElementNotVisible(getLabelInEditTaskDrawer(label));
+    assertWebElementVisible(getLabelInEditTaskDrawer(label));
     assertWebElementNotVisible(getRemoveLabelTaskButton(label));
   }
 

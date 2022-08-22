@@ -1,5 +1,7 @@
 package io.meeds.qa.ui.pages.page.factory;
 
+import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
+
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.BaseElementFacade;
@@ -9,24 +11,24 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class UnifiedSearchPage extends GenericPage {
   @FindBy(xpath = "(//*[@class='v-list-item__content']//*[@class='v-list-item__title'])[1]")
-  public static BaseElementFacade    ELEMENT_ACCESS_TO_SEARCHED_ACTIVITY;
+  private BaseElementFacade    elementAccessToSearchedActivity;
 
   @FindBy(xpath = "//*[@class='v-responsive v-image appImage']")
-  public static BaseElementFacade    ELEMENT_APPLICATION_SEARCH_PICTURE;
+  private BaseElementFacade    elementApplicationSearchPicture;
 
   @FindBy(xpath = "//*[@id='SearchApplication']//input[@id = 'searchInput']")
-  public static TextBoxElementFacade searchInput;
+  private TextBoxElementFacade searchInput;
 
   @FindBy(xpath = "//*[@id='SearchApplication']//i[contains(@class,'fa-search')]//ancestor::button")
-  public static BaseElementFacade    toolbarSearchButton;
+  private BaseElementFacade    toolbarSearchButton;
 
   @FindBy(
       xpath = "//*[contains(@class, 'searchConnectorsParent')]//i[contains(@class, 'fa-star')]//ancestor::*[contains(@class, 'v-chip--clickable')]"
   )
-  private BaseElementFacade favoritesBtn;
+  private BaseElementFacade    favoritesBtn;
 
   @FindBy(xpath = "//span[@class='me-8' and contains(text(),'All')]")
-  private BaseElementFacade shipFormAll;
+  private BaseElementFacade    shipFormAll;
 
   public UnifiedSearchPage(WebDriver driver) {
     super(driver);
@@ -40,23 +42,25 @@ public class UnifiedSearchPage extends GenericPage {
     verifyPageLoaded();
   }
 
-  private BaseElementFacade ELEMENT_ACTIVITY_SEARCH_TITLE(String activity) {
-    return findByXPathOrCSS(String.format("//*[@class='searchMatchExcerpt' and text()='%s']", activity));
+  private BaseElementFacade getActivitySearchTitle(String activity) {
+    return findByXPathOrCSS(String.format("//*[contains(text(), '%s') or contains(@title, '%s')]//ancestor::*[contains(@class, 'searchCard')]",
+                                          activity,
+                                          activity));
   }
 
-  private BaseElementFacade ELEMENT_APPLICATION_SEARCH_DESCRIPTION(String appDesc) {
+  private BaseElementFacade getApplicationSearchDescription(String appDesc) {
     return findByXPathOrCSS(String.format("//*[@title='%s']", appDesc));
   }
 
-  private BaseElementFacade ELEMENT_APPLICATION_SEARCH_TITLE(String appName) {
+  private BaseElementFacade getApplicationSearchTitle(String appName) {
     return findByXPathOrCSS(String.format("//*[@title='%s']", appName));
   }
 
-  private BaseElementFacade ELEMENT_SPACE_SEARCH_TITLE(String space) {
+  private BaseElementFacade getSpaceSearchTitle(String space) {
     return findByXPathOrCSS(String.format("//*[@class='spaceCardFront']//*[contains(text(),'%s')]", space));
   }
 
-  private BaseElementFacade ELEMENT_USER_SEARCH_TITLE(String user) {
+  private BaseElementFacade getUserSearchTitle(String user) {
     return findByXPathOrCSS(String.format("//*[@id='searchDialog']//a[@title='%s']", user));
   }
 
@@ -78,43 +82,49 @@ public class UnifiedSearchPage extends GenericPage {
   }
 
   public void goToTheSearchedActivity() {
-    ELEMENT_ACCESS_TO_SEARCHED_ACTIVITY.clickOnElement();
+    elementAccessToSearchedActivity.clickOnElement();
   }
 
   public void goToTheSearchedApplication(String appName) {
-    ELEMENT_APPLICATION_SEARCH_TITLE(appName).clickOnElement();
+    getApplicationSearchTitle(appName).clickOnElement();
   }
 
   public void goToTheSearchedSpace(String space) {
-    ELEMENT_SPACE_SEARCH_TITLE(space).clickOnElement();
+    getSpaceSearchTitle(space).clickOnElement();
   }
 
-  public boolean isSearchedActivityTitleNotVisible(String activity) {
-    return ELEMENT_ACTIVITY_SEARCH_TITLE(activity).isNotVisibleAfterWaiting();
+  public void isSearchedActivityTitleNotVisible(String activity) {
+    retryOnCondition(() -> assertWebElementNotVisible(getActivitySearchTitle(activity)), () -> {
+      waitFor(1).seconds(); // The element can be not indexed yet
+      refreshPage();
+    });
   }
 
-  public boolean isSearchedActivityTitleVisible(String activity) {
-    return ELEMENT_ACTIVITY_SEARCH_TITLE(activity).isVisibleAfterWaiting();
+  public void isSearchedActivityTitleVisible(String activity) {
+    retryOnCondition(() -> assertWebElementVisible(getActivitySearchTitle(activity)), () -> {
+      waitFor(1).seconds(); // The element can be not indexed yet
+      refreshPage();
+    });
   }
 
-  public boolean isSearchedApplicationDescriptionVisible(String appDesc) {
-    return ELEMENT_APPLICATION_SEARCH_DESCRIPTION(appDesc).isVisibleAfterWaiting();
+  public void isSearchedApplicationDescriptionVisible(String appDesc) {
+    assertWebElementVisible(getApplicationSearchDescription(appDesc));
   }
 
-  public boolean isSearchedApplicationNameVisible(String appName) {
-    return ELEMENT_APPLICATION_SEARCH_TITLE(appName).isVisibleAfterWaiting();
+  public void isSearchedApplicationNameVisible(String appName) {
+    assertWebElementVisible(getApplicationSearchTitle(appName));
   }
 
-  public boolean isSearchedApplicationPictureVisible() {
-    return ELEMENT_APPLICATION_SEARCH_PICTURE.isVisibleAfterWaiting();
+  public void isSearchedApplicationPictureVisible() {
+    assertWebElementVisible(elementApplicationSearchPicture);
   }
 
-  public boolean isSearchedSpaceNameVisible(String space) {
-    return ELEMENT_SPACE_SEARCH_TITLE(space).isVisibleAfterWaiting();
+  public void isSearchedSpaceNameVisible(String space) {
+    assertWebElementVisible(getSpaceSearchTitle(space));
   }
 
-  public boolean isSearchedUserNameVisible(String user) {
-    return ELEMENT_USER_SEARCH_TITLE(user).isVisibleAfterWaiting();
+  public void isSearchedUserNameVisible(String user) {
+    assertWebElementVisible(getUserSearchTitle(user));
   }
 
   public void openSearchApplication() {

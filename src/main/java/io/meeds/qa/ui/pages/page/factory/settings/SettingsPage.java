@@ -236,7 +236,7 @@ public class SettingsPage extends GenericPage {
 
   public void checkThatSettingsPageIsOpened() {
     // Check that Settings Page is opened
-    assertWebElementVisible(findByXPathOrCSS("//*[@id=UserSettingLanguage]"));
+    assertWebElementVisible(findByXPathOrCSS("#UserSettingLanguage"));
   }
 
   public void checkThatSpacesSectionIsDisplayed() {
@@ -267,7 +267,7 @@ public class SettingsPage extends GenericPage {
 
   public void editLanguage(String language) {
     // Select language and change it
-    findByXPathOrCSS("(//*[@class='uiIconEdit uiIconLightBlue pb-2'])[1]").clickOnElement();
+    findByXPathOrCSS("#UserSettingLanguage button").clickOnElement();
 
     ELEMENT_CHANGE_LANGUAGE(language).waitUntilClickable();
     ELEMENT_CHANGE_LANGUAGE(language).clickOnElement();

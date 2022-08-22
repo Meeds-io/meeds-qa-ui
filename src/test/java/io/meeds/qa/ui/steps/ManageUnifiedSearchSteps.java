@@ -29,32 +29,32 @@ public class ManageUnifiedSearchSteps {
     unifiedSearchPage.goToTheSearchedSpace(space);
   }
 
-  public boolean isSearchedActivityTitleNotVisible(String activity) {
-    return unifiedSearchPage.isSearchedActivityTitleNotVisible(activity);
+  public void isSearchedActivityTitleNotVisible(String activity) {
+    unifiedSearchPage.isSearchedActivityTitleNotVisible(activity);
   }
 
-  public boolean isSearchedActivityTitleVisible(String activity) {
-    return unifiedSearchPage.isSearchedActivityTitleVisible(activity);
+  public void isSearchedActivityTitleVisible(String activity) {
+    unifiedSearchPage.isSearchedActivityTitleVisible(activity);
   }
 
-  public boolean isSearchedApplicationDescriptionVisible(String appDesc) {
-    return unifiedSearchPage.isSearchedApplicationDescriptionVisible(appDesc);
+  public void isSearchedApplicationDescriptionVisible(String appDesc) {
+    unifiedSearchPage.isSearchedApplicationDescriptionVisible(appDesc);
   }
 
-  public boolean isSearchedApplicationNameVisible(String appName) {
-    return unifiedSearchPage.isSearchedApplicationNameVisible(appName);
+  public void isSearchedApplicationNameVisible(String appName) {
+    unifiedSearchPage.isSearchedApplicationNameVisible(appName);
   }
 
-  public boolean isSearchedApplicationPictureVisible() {
-    return unifiedSearchPage.isSearchedApplicationPictureVisible();
+  public void isSearchedApplicationPictureVisible() {
+    unifiedSearchPage.isSearchedApplicationPictureVisible();
   }
 
-  public boolean isSearchedSpaceNameVisible(String space) {
-    return unifiedSearchPage.isSearchedSpaceNameVisible(space);
+  public void isSearchedSpaceNameVisible(String space) {
+    unifiedSearchPage.isSearchedSpaceNameVisible(space);
   }
 
-  public boolean isSearchedUserNameVisible(String user) {
-    return unifiedSearchPage.isSearchedUserNameVisible(user);
+  public void isSearchedUserNameVisible(String user) {
+    unifiedSearchPage.isSearchedUserNameVisible(user);
   }
 
   public void search(String text) {
