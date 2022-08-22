@@ -306,24 +306,32 @@ public class SpaceHomeSteps {
     spaceHomePage.isActivityNameUserSpaceDisplayed(activity, user, space);
   }
 
-  public boolean isActivityVisible(String activity) {
-    return spaceHomePage.isActivityVisible(activity);
+  public void checkActivityVisible(String activity) {
+    spaceHomePage.checkActivityVisible(activity);
   }
 
-  public boolean isConfirmationPopupNotDisplayed() {
-    return spaceHomePage.isConfirmationPopupNotDisplayed();
+  public void checkActivityNotVisible(String activity) {
+    spaceHomePage.checkActivityNotVisible(activity);
   }
 
-  public boolean isLinkPreviewVisible() {
-    return spaceHomePage.isLinkPreviewVisible();
+  public void checkConfirmationPopupVisible() {
+    spaceHomePage.checkConfirmationPopupVisible();
+  }
+
+  public void checkConfirmationPopupNotVisible() {
+    spaceHomePage.checkConfirmationPopupNotVisible();
+  }
+
+  public void checkLinkPreviewVisible() {
+    spaceHomePage.checkLinkPreviewVisible();
   }
 
   public void isMentionedUserDisplayedInPost(String activity, String user) {
     spaceHomePage.isMentionedUserDisplayedInPost(activity, user);
   }
 
-  public boolean isSharedVideoDisplayed(String videoLink) {
-    return spaceHomePage.isSharedVideoDisplayed(videoLink);
+  public void checkVideoActivityVisible(String videoLink) {
+    spaceHomePage.checkVideoActivityVisible(videoLink);
   }
 
   public void isUserPopoverDisplayed(String user) {

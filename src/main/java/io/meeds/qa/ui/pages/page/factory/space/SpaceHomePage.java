@@ -964,24 +964,32 @@ public class SpaceHomePage extends GenericPage {
     assertWebElementVisible(getActivityNameUserSpace(activity, user, space));
   }
 
-  public boolean isActivityVisible(String activity) {
-    return isWebElementVisible(getActivityText(activity));
+  public void checkActivityVisible(String activity) {
+    assertWebElementVisible(getActivityText(activity));
   }
 
-  public boolean isConfirmationPopupNotDisplayed() {
-    return isNotVisible(CONFIRMATION_BUTTON_TO_DELETE_ACTIVITY_SELECTOR);
+  public void checkActivityNotVisible(String activity) {
+    assertWebElementNotVisible(getActivityText(activity));
   }
 
-  public boolean isLinkPreviewVisible() {
-    return isVisible("//*[contains(@id,'Extactivity-content-extensions')]//following::*[@src]//following::*[@class='my-4']//*[contains(@class,'font-weight-bold')]");
+  public void checkConfirmationPopupVisible() {
+    assertWebElementVisible(findByXPathOrCSS(CONFIRMATION_BUTTON_TO_DELETE_ACTIVITY_SELECTOR));
+  }
+
+  public void checkConfirmationPopupNotVisible() {
+    assertWebElementNotVisible(findByXPathOrCSS(CONFIRMATION_BUTTON_TO_DELETE_ACTIVITY_SELECTOR));
+  }
+
+  public void checkLinkPreviewVisible() {
+    assertWebElementVisible(findByXPathOrCSS("//*[contains(@id,'Extactivity-content-extensions')]//following::*[@src]//following::*[@class='my-4']//*[contains(@class,'font-weight-bold')]"));
   }
 
   public void isMentionedUserDisplayedInPost(String activity, String user) {
     assertWebElementVisible(getUserMentionedInPost(activity, user));
   }
 
-  public boolean isSharedVideoDisplayed(String videoLink) {
-    return isWebElementVisible(getSharedVideoPreview(videoLink));
+  public void checkVideoActivityVisible(String videoLink) {
+    assertWebElementVisible(getSharedVideoPreview(videoLink));
   }
 
   public void isUserPopoverDisplayed(String user) {

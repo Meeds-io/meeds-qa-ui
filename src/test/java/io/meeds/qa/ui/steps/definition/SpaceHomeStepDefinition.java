@@ -1,7 +1,5 @@
 package io.meeds.qa.ui.steps.definition;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.apache.commons.lang3.StringUtils;
 
 import io.cucumber.java.en.And;
@@ -43,10 +41,10 @@ public class SpaceHomeStepDefinition {
     Serenity.setSessionVariable("activity").to(activity);
   }
 
-  @When("^I enter an activity '(.*)' mentioning the second user$")
-  public void addActivityMentioningSecondUser(String activity) {
-    String secondUserName = Serenity.sessionVariableCalled("secondUserName");
-    String newActivity = activity + " @" + secondUserName;
+  @When("^I enter an activity '(.*)' mentioning the (.*) user$")
+  public void addActivityMentioningRandomUser(String activity, String userPrefix) {
+    String userName = Serenity.sessionVariableCalled(userPrefix + "UserName");
+    String newActivity = activity + " @" + userName;
     spaceHomeSteps.addActivity(newActivity);
   }
 
@@ -87,10 +85,8 @@ public class SpaceHomeStepDefinition {
   @When("^the activity '(.*)' is displayed in activity stream$")
   @Then("^the activity '(.*)' is displayed in stream page$")
   @And("^The Poll '(.*)' is displayed in stream page$")
-  public void checkActivity(String activity) {
-    assertThat(spaceHomeSteps.isActivityVisible(activity))
-                                                          .as("The activity with expected content isn't displayed in activity stream")
-                                                          .isTrue();
+  public void checkActivityVisible(String activity) {
+    spaceHomeSteps.checkActivityVisible(activity);
   }
 
   @Then("^Activity Comment '(.*)' is displayed in activity stream$")
@@ -111,10 +107,8 @@ public class SpaceHomeStepDefinition {
   @And("^the activity '(.*)' is no more displayed in the activity stream$")
   @Then("^the activity '(.*)' is not displayed in activity stream$")
   @When("^the activity '(.*)' is not displayed in stream page$")
-  public void checkActivityIsNotVisible(String activity) {
-    assertThat(spaceHomeSteps.isActivityVisible(activity))
-                                                          .as("Activity is displayed in activity stream")
-                                                          .isFalse();
+  public void checkActivityNotVisible(String activity) {
+    spaceHomeSteps.checkActivityNotVisible(activity);
   }
 
   @Then("^The activity page is opened '(.*)'$")
@@ -137,21 +131,19 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.checkCommentReplyNotDisplayed(activity, comment, reply);
   }
 
-  @Then("^The confirmation popup is displayed$")
+  @Then("The confirmation popup is displayed")
   public void checkConfirmationPopupIsVisible() {
-    assertThat(spaceHomeSteps.isConfirmationPopupNotDisplayed()).isFalse();
+    spaceHomeSteps.checkConfirmationPopupVisible();
   }
 
-  @Then("^the confirmation popup is not displayed$")
+  @Then("the confirmation popup is not displayed")
   public void checkConfirmationPopupNotVisible() {
-    assertThat(spaceHomeSteps.isConfirmationPopupNotDisplayed()).isTrue();
+    spaceHomeSteps.checkConfirmationPopupNotVisible();
   }
 
   @Then("^the video '(.*)' is displayed in the activity stream$")
   public void checkDisplayVideo(String videoLink) {
-    assertThat(spaceHomeSteps.isSharedVideoDisplayed(videoLink))
-                                                                .as("shared video link should be displayed but it is not")
-                                                                .isTrue();
+    spaceHomeSteps.checkVideoActivityVisible(videoLink);
   }
 
   @Then("^First comment '(.*)' is displayed in activity stream$")
@@ -188,7 +180,7 @@ public class SpaceHomeStepDefinition {
 
   @Then("The link is displayed with the preview")
   public void checkPreviewLink() {
-    assertThat(spaceHomeSteps.isLinkPreviewVisible()).as("The link preview is not displayed").isTrue();
+    spaceHomeSteps.checkLinkPreviewVisible();
   }
 
   @Then("^Second comment '(.*)' is displayed in activity stream$")
@@ -309,12 +301,12 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.clickOnKudosNumberButtonFromTheCommentsDrawer();
   }
 
-  @Then("I click on the second user Popover")
-  public void clickOnTheSecondUserPopover() {
-    String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
-    String secondUserLastName = Serenity.sessionVariableCalled("secondUserLastName");
+  @Then("^I click on the (.*) user Popover$")
+  public void clickOnTheRandomUserPopover(String userPrefix) {
+    String userFirstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");
+    String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
 
-    String fullName = secondUserFirstName + " " + secondUserLastName;
+    String fullName = userFirstName + " " + userLastName;
     spaceHomeSteps.clickOnTheUserPopover(fullName);
   }
 
@@ -496,12 +488,12 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.hoverOnLikeIconCommentsDrawer(comment);
   }
 
-  @When("^In post '(.*)', I mouse over the mentioned second user$")
-  public void hoverOnMentionedSecondUserInPost(String activity) {
-    String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
-    String secondUserLastName = Serenity.sessionVariableCalled("secondUserLastName");
+  @When("^In post '(.*)', I mouse over the mentioned (.*) user$")
+  public void hoverOnMentionedRandomUserInPost(String activity, String userPrefix) {
+    String userFirstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");
+    String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
 
-    String fullName = secondUserFirstName + " " + secondUserLastName;
+    String fullName = userFirstName + " " + userLastName;
     spaceHomeSteps.hoverOnMentionedUserInPost(activity, fullName);
   }
 
@@ -515,10 +507,10 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.linkIsOpenedNewTab(link);
   }
 
-  @Then("^The activity '(.*)' posted by the second user in the created space is displayed with its timestamp in activity stream$")
-  @And("^The activity '(.*)' posted by the second user in the created space is displayed with its timestamp in streams page$")
-  public void isActivityNamePostedBySecondUserSpaceDisplayed(String activity) {
-    String user = Serenity.sessionVariableCalled("secondUserName");
+  @Then("^The activity '(.*)' posted by the (.*) user in the created space is displayed with its timestamp in activity stream$")
+  @And("^The activity '(.*)' posted by the (.*) user in the created space is displayed with its timestamp in streams page$")
+  public void isActivityNamePostedByRandomUserSpaceDisplayed(String activity, String userPrefix) {
+    String user = Serenity.sessionVariableCalled(userPrefix + "UserName");
     String space = Serenity.sessionVariableCalled("randomSpaceName");
 
     spaceHomeSteps.isActivityNameUserSpaceDisplayed(activity, user, space);
@@ -530,12 +522,12 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.isActivityNameUserSpaceDisplayed(activity, user, space);
   }
 
-  @When("^In post '(.*)', the mentioned second user is displayed$")
-  public void isMentionedSecondUserDisplayedInPost(String activity) {
-    String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
-    String secondUserLastName = Serenity.sessionVariableCalled("secondUserLastName");
+  @When("^In post '(.*)', the mentioned (.*) user is displayed$")
+  public void isMentionedRandomUserDisplayedInPost(String activity, String userPrefix) {
+    String userFirstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");
+    String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
 
-    String fullName = secondUserFirstName + " " + secondUserLastName;
+    String fullName = userFirstName + " " + userLastName;
     spaceHomeSteps.isMentionedUserDisplayedInPost(activity, fullName);
   }
 
@@ -544,12 +536,12 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.isMentionedUserDisplayedInPost(activity, user);
   }
 
-  @Then("User Popover of the second user is displayed")
-  public void isSecondUserPopoverDisplayed() {
-    String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
-    String secondUserLastName = Serenity.sessionVariableCalled("secondUserLastName");
+  @Then("User Popover of the (.*) user is displayed")
+  public void isRandomUserPopoverDisplayed(String userPrefix) {
+    String userFirstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");
+    String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
 
-    String fullName = secondUserFirstName + " " + secondUserLastName;
+    String fullName = userFirstName + " " + userLastName;
     spaceHomeSteps.isUserPopoverDisplayed(fullName);
   }
 

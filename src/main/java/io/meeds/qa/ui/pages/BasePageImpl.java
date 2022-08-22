@@ -211,15 +211,18 @@ public class BasePageImpl extends PageObject implements BasePage {
       boolean visible = false;
       int retry = 0;
       do {
-        waitFor(500).milliseconds();
         ckEditorBody.sendKeys(Keys.BACK_SPACE);
+        waitFor(1).seconds();
         driver.switchTo().defaultContent();
-        BaseElementFacade suggesterElement =
-                                           findByXPathOrCSS(String.format("//*[contains(@class, 'atwho-view')]//*[contains(text(), '%s')]",
-                                                                          user.substring(0, user.length() - retry - 1)));
-        suggesterElement.setImplicitTimeout(Duration.ofSeconds(1));
-        visible = suggesterElement.isVisibleAfterWaiting();
-        driver.switchTo().frame(ckEditorFrame);
+        try {
+          BaseElementFacade suggesterElement =
+                                             findByXPathOrCSS(String.format("//*[contains(@class, 'atwho-view')]//*[contains(text(), '%s')]",
+                                                                            user.substring(0, user.length() - retry - 1)));
+          suggesterElement.setImplicitTimeout(Duration.ofSeconds(1));
+          visible = suggesterElement.isVisibleAfterWaiting();
+        } finally {
+          driver.switchTo().frame(ckEditorFrame);
+        }
       } while (!visible && retry++ < 5);
       ckEditorBody.sendKeys(Keys.ENTER);
     } finally {
