@@ -17,8 +17,7 @@ Feature: Task user ui
     Then These projects are displayed
       | manageProject |
     And These projects are not displayed
-      | ilyes    |
-      | eXo Auto |
+      | Test Auto |
     And The project 'manageProject' was deleted successfully
 
   @ignored

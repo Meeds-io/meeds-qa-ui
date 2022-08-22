@@ -916,7 +916,11 @@ public class TasksPage extends GenericPage {
   }
 
   public void clickOnValidateStatusName() {
+    String currentStatusName = statusField.getValue();
     validateStatusName.clickOnElement();
+    // Wait until column is added
+    retryOnCondition(() -> getStatusColumn(currentStatusName).waitUntilVisible(),
+                     () -> waitFor(2).seconds());
   }
 
   public void clickPlusIcon() {
