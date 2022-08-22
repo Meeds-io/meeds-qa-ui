@@ -28,7 +28,7 @@ Feature: Search for User Informations in Profile page
     When I go to My Profile page
 
     Then Profile Contact Fullname 'Contact information' is displayed in 'Admin User'
-    And Profile Contact Email 'admin@localhost' is displayed
+    And Profile Contact Email 'admin@localhost.com' is displayed
 
     When I create the first random user if not existing, no wait
     And I connect with the first created user
