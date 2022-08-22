@@ -120,21 +120,8 @@ public class ManageSpacesPage extends GenericPage {
   @FindBy(xpath = "//*[@class='v-toolbar__title ps-0']")
   private BaseElementFacade    spaceAppSettingsPage;
 
-
   @FindBy(xpath = "//*[@class='spaceAvatar']")
   private BaseElementFacade    spaceAvatar;
-
-  @FindBy(xpath = "//*[@class='SpaceApplicationCard my-1 mx-auto mx-sm-1 col']")
-  private BaseElementFacade    appCard;
-
-  @FindBy(xpath = "//*[@class='v-icon notranslate mdi mdi-plus theme--light']")
-  private BaseElementFacade    plusButtonAppSpaceSettings;
-
-  @FindBy(xpath = "(//*[@class='v-icon notranslate mdi mdi-dots-vertical theme--light'])[2]")
-  private BaseElementFacade    button3dotAppCard;
-
-  @FindBy(xpath = "//div[@class='v-list-item__title' and contains(text(),'Remove')]")
-  private BaseElementFacade    removeAppButton;
 
   @FindBy(xpath = "//*[@class='flex fill-height column']")
   private TextBoxElementFacade spaceBanner;
@@ -661,25 +648,6 @@ public class ManageSpacesPage extends GenericPage {
     String js = "arguments[0].style.height='auto'; arguments[0].style.visibility='visible';";
     ((JavascriptExecutor) getDriver()).executeScript(js, elem);
     upload(UPLOAD_DIRECTORY_PATH + fileName).fromLocalMachine().to(elem);
-  }
-
-  @FindBy(xpath = "//*[@class='ignore-vuetify-classes btn btn-primary me-2' and contains(text(),'Yes')]")
-  private BaseElementFacade yesBtn;
-
-  private BaseElementFacade getApplicationToRemove(String appName) {
-    return findByXpathOrCSS(String.format("//*[contains(@class,'SpaceApplicationCardTitle' )and contains(text(),'%s')]//following::*[@class='v-icon notranslate mdi mdi-dots-vertical theme--light']",
-                                          appName));
-  }
-
-  private BaseElementFacade getRemoveOption(String appName) {
-    return findByXpathOrCSS(String.format("//*[contains(@class,'SpaceApplicationCardTitle' )and contains(text(),'%s')]//following::*[@class='v-icon notranslate mdi mdi-dots-vertical theme--light']//following::*[@class='v-list-item__title' and contains(text(),'Remove')]",
-                                          appName));
-  }
-
-  public void removeApplication(String appName) {
-    getApplicationToRemove(appName).clickOnElement();
-    getRemoveOption(appName).clickOnElement();
-    yesBtn.clickOnElement();
   }
 
 }

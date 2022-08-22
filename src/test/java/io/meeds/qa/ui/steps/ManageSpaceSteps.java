@@ -299,8 +299,4 @@ public class ManageSpaceSteps {
     manageSpacesPage.uploadSpaceBanner(fileName);
   }
 
-  public void removeApplication(String appName){
-    manageSpacesPage.removeApplication(appName);
-  }
-
 }

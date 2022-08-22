@@ -22,11 +22,6 @@ public class ManageSpaceStepDefinitions {
 
   private ManageSpacesPage manageSpacesPage;
 
-<<<<<<< HEAD
-=======
-  String                   spaceTemplate = System.getProperty("io.meeds.space.template");
-
->>>>>>> 5707212... Adapt space application management test case
   @Steps
   private ManageSpaceSteps manageSpaceSteps;
 
@@ -42,17 +37,10 @@ public class ManageSpaceStepDefinitions {
     homeSteps.acceptRandomSpaceInvitation(randomSpaceName);
   }
 
-<<<<<<< HEAD
   @When("^I accept the invitation of the third created space$")
   public void acceptThirdRandomSpace() {
     String thirdRandomSpaceName = sessionVariableCalled("thirdRandomSpaceName");
     homeSteps.acceptRandomSpaceInvitation(thirdRandomSpaceName);
-=======
-  @Given("^The created space details are displayed in spaces page search results with '(.*)'$")
-  public void checkThatSpaceDetailsInSearchResultsAreDisplayedByOtherUser(String members) {
-    manageSpaceSteps.checkThatSpaceDetailsInSearchResultsAreDisplayedByOtherUser(sessionVariableCalled("randomSpaceName"),
-                                                                                 members);
->>>>>>> 5707212... Adapt space application management test case
   }
 
   @Given("I create a random space")
@@ -397,11 +385,6 @@ public class ManageSpaceStepDefinitions {
   @Given("^I upload the Space banner '(.*)'$")
   public void uploadSpaceBanner(String fileName) {
     manageSpaceSteps.uploadSpaceBanner(fileName);
-  }
-
-  @And("^I remove application '(.*)' from the list application$")
-  public void removeApplication(String appName) {
-    manageSpaceSteps.removeApplication(appName);
   }
 
 }
