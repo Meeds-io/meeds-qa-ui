@@ -1,10 +1,7 @@
-# new feature
-# Tags: optional
-
+@note
+@ignored
 Feature: Actions available for note
 
-  @ignored
-  @note
   Scenario: CAP02: DeleteNote_US02: Delete note UX  improvement
 
     Given I am authenticated as admin

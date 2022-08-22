@@ -1,6 +1,7 @@
 @task
 Feature: Filter Drawer
 
+  @test
   Scenario: CAP110 - [Filter_Drawer_US03]:Group by Labels [Group and Sort" tab under project]
     Given I am authenticated as admin
 
@@ -17,6 +18,7 @@ Feature: Filter Drawer
     And The following task with label 'testlabel110-1' is created in the specific project
       | taskName | task110-2 |
 
+    Then I refresh the page
     Then Task name 'task110-1' is displayed in project details
     And Task name 'task110-2' is displayed in project details
     And Tasks number '2' is displayed in the column To Do
