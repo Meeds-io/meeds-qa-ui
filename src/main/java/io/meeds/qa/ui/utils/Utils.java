@@ -46,8 +46,7 @@ public class Utils {
 
   private static final int           TIMEOUT_CHECK_INTERVAL = 100;
 
-  private static final int           TIMEOUT_MILLISECONDS   = Integer.parseInt(System.getProperty("io.meeds.windowSwitch.timeout",
-                                                                                                  "20000"));
+  private static final int           TIMEOUT_MILLISECONDS   = PARALLEL_TESTS * 5000;
 
   private static String              windowId;
 

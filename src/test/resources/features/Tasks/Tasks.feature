@@ -287,7 +287,6 @@ Feature: Tasks
     And Label 'label4' is displayed in edit project drawer
     And Label 'label5' is displayed in edit project drawer
 
-  @test
   Scenario: CAP264 - [NF] [US_Sharedlabels_01]:All project members can use added labels
     Given I am authenticated as admin
     And I create the first random user if not existing, no wait

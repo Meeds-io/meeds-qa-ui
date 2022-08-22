@@ -1394,6 +1394,7 @@ public class TasksPage extends GenericPage {
                                                              tab));
     clickOnElement(tabLink);
     verifyPageLoaded();
+    waitFor(300).milliseconds(); // Wait for Tab switch
   }
 
   public void greenInformationIconIsDisplayed() {
