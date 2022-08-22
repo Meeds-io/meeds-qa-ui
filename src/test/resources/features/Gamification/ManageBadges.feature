@@ -1,5 +1,6 @@
 @gamification
 @badge
+@standardConfigurationOnly
 Feature: Badges Management
   As an administrator user
   I can manage badges list
