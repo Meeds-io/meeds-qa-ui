@@ -1,4 +1,6 @@
 @gamification
+@rules
+@standardConfigurationOnly
 Feature: Rules
 
   Scenario: Comment a post

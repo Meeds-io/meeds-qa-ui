@@ -1,4 +1,6 @@
 @gamification
+@rules
+@standardConfigurationOnly
 Feature: Check the rules score increase
   for different type of activity on the plf
 
