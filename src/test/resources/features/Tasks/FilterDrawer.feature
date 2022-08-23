@@ -6,7 +6,7 @@ Feature: Filter Drawer
 
     When I create a random space
     When I go To AppCenter Drawer
-    And I go to Tasks from AppCenter Drawer
+    And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
     And I select 'Projects' tab
     And I search for the created project
