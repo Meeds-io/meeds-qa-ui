@@ -141,8 +141,7 @@ Feature: Tasks
     And I create the first random user if not existing
     And I connect with the first created user
 
-    And I go to the random space
-    And I refresh the page
+    And I create a random space
     And I go to Tasks in space tab
     And I create the project 'new project test'
     Then the project is created successfully and displayed on Tasks Space tab
@@ -169,7 +168,6 @@ Feature: Tasks
     And Project 'new project test' is displayed in Tasks App Center
     And Project 'second project test' is displayed in Tasks App Center
 
-  @test
   Scenario: Create Task with a new status
     Given I am authenticated as admin
     And I create the first random user if not existing
