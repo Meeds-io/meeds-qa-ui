@@ -136,7 +136,6 @@ Feature: Tasks
     And I set task due date TODAY
     And I close task drawer
 
-  @ignored
   Scenario: CAP188 - [Lost Projects] check that project isn't lost after renaming space name
     Given I am authenticated as admin
     And I create the first random user if not existing
@@ -252,7 +251,6 @@ Feature: Tasks
     And Task name 'taskE' is not displayed in project details
     And Tasks number '0' is displayed in the column To Do
 
-  @ignored
   Scenario: CAP270 - [NF] [US_Sharedlabels_02]: Manage labels in Project (Delete labels)
     Given I am authenticated as admin
     And I create the first random user if not existing
@@ -353,7 +351,6 @@ Feature: Tasks
     And Label 'label6' is displayed in edit task drawer and x icon is not displayed
     And I close task drawer
 
-  @ignored
   Scenario:[Task]: when click on notification, user is redirected under the specific project
     Given I am authenticated as admin
     And I create the first random user if not existing, no wait
