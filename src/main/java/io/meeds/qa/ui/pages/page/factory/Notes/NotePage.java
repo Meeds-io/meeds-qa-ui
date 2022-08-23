@@ -65,7 +65,6 @@ public class NotePage extends GenericPage {
   public void addNote(String noteTitle, String noteContent) {
     noteTileTextBox.setTextValue(noteTitle);
     ckEditorFrameNote.waitUntilVisible();
-    ckEditorFrameNote.clickOnElement();
     driver.switchTo().frame(ckEditorFrameNote);
     try {
       noteContentTextBox.waitUntilVisible();
@@ -128,7 +127,6 @@ public class NotePage extends GenericPage {
   public void createNotePage(String noteTitle, String noteContent) {
     noteTileTextBox.setTextValue(noteTitle);
     ckEditorFrameNote.waitUntilVisible();
-    ckEditorFrameNote.clickOnElement();
     driver.switchTo().frame(ckEditorFrameNote);
     try {
       noteContentTextBox.waitUntilVisible();
@@ -153,7 +151,6 @@ public class NotePage extends GenericPage {
   public void editNotePage(String noteTitleEdited, String noteContentEdited) {
     noteTileTextBox.setTextValue(noteTitleEdited);
     ckEditorFrameNote.waitUntilVisible();
-    ckEditorFrameNote.clickOnElement();
     driver.switchTo().frame(ckEditorFrameNote);
     try {
       noteContentTextBox.waitUntilVisible();

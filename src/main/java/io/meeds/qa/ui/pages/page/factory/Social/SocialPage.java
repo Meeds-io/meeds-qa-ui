@@ -48,7 +48,7 @@ public class SocialPage extends GenericPage {
   @SwitchToWindow
   public void cancelUpdateActivityComment(String comment) {
     waitCKEditorLoading();
-    ckEditorFrameComment.clickOnElement();
+    ckEditorFrameComment.waitUntilVisible();
     driver.switchTo().frame(ckEditorFrameComment);
     try {
       commentField.waitUntilVisible();
@@ -104,7 +104,7 @@ public class SocialPage extends GenericPage {
   @SwitchToWindow
   public void updateActivityComment(String comment) {
     waitCKEditorLoading();
-    ckEditorFrameComment.clickOnElement();
+    ckEditorFrameComment.waitUntilVisible();
     driver.switchTo().frame(ckEditorFrameComment);
     try {
       commentField.waitUntilVisible();

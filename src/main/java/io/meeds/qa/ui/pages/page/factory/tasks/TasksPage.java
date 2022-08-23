@@ -520,7 +520,9 @@ public class TasksPage extends GenericPage {
   public void addProjectWithDescription(String projectName, String description) {
     addProjectOrTask.clickOnElement();
     projectTitle.setTextValue(projectName);
-    ckEditorFrameTask.clickOnElement();
+
+    waitCKEditorLoading();
+    ckEditorFrameTask.waitUntilVisible();
     driver.switchTo().frame(ckEditorFrameTask);
     try {
       projectDescriptionField.waitUntilVisible();
@@ -748,6 +750,9 @@ public class TasksPage extends GenericPage {
   @SwitchToWindow
   public void checkUpdatedDescription(String Description) {
     taskDescriptionField.clickOnElement();
+
+    waitCKEditorLoading();
+    ckEditorFrameDescription.waitUntilVisible();
     driver.switchTo().frame(ckEditorFrameDescription);
     try {
       assertEquals(settaskDescription.getText(), Description);
@@ -1002,7 +1007,8 @@ public class TasksPage extends GenericPage {
 
   @SwitchToWindow
   public void commentTask(String comment) {
-    ckEditorFrameTask.clickOnElement();
+    waitCKEditorLoading();
+    ckEditorFrameTask.waitUntilVisible();
     driver.switchTo().frame(ckEditorFrameTask);
     try {
       taskCommentContentTextBox.waitUntilVisible();
@@ -1068,6 +1074,9 @@ public class TasksPage extends GenericPage {
   @SwitchToWindow
   public void editDescriptionForTask(String newDescription) {
     taskDescriptionField.clickOnElement();
+
+    waitCKEditorLoading();
+    switchToFrameTaskUser.waitUntilVisible();
     driver.switchTo().frame(switchToFrameTaskUser);
     try {
       taskDescriptionBodyField.waitUntilVisible();
@@ -1097,7 +1106,9 @@ public class TasksPage extends GenericPage {
     projectThreeDotsButton.clickOnElement();
     editProjectButton.clickOnElement();
     projectTitle.setTextValue(newProjectName);
-    ckEditorFrameTask.clickOnElement();
+
+    waitCKEditorLoading();
+    ckEditorFrameTask.waitUntilVisible();
     driver.switchTo().frame(ckEditorFrameTask);
     try {
       projectDescriptionField.waitUntilVisible();
@@ -1121,6 +1132,9 @@ public class TasksPage extends GenericPage {
   @SwitchToWindow
   public void enterDescriptionForTask(String description) {
     taskDescriptionField.clickOnElement();
+
+    waitCKEditorLoading();
+    switchToFrameTask.waitUntilVisible();
     driver.switchTo().frame(switchToFrameTask);
     try {
       taskDescriptionBodyField.waitUntilVisible();
@@ -1138,7 +1152,9 @@ public class TasksPage extends GenericPage {
   @SwitchToWindow
   public void enterProjectDescriptionWithoutTheTitle(String description) {
     addProjectOrTask.clickOnElement();
-    ckEditorFrameTask.clickOnElement();
+
+    waitCKEditorLoading();
+    ckEditorFrameTask.waitUntilVisible();
     driver.switchTo().frame(ckEditorFrameTask);
     try {
       projectDescriptionField.waitUntilVisible();
@@ -1153,7 +1169,9 @@ public class TasksPage extends GenericPage {
   public void enterProjectTitleAndDescription(String projectName, String description) {
     addProjectOrTask.clickOnElement();
     projectTitle.setTextValue(projectName);
-    ckEditorFrameTask.clickOnElement();
+
+    waitCKEditorLoading();
+    ckEditorFrameTask.waitUntilVisible();
     driver.switchTo().frame(ckEditorFrameTask);
     try {
       projectDescriptionField.waitUntilVisible();
@@ -1170,7 +1188,8 @@ public class TasksPage extends GenericPage {
 
   @SwitchToWindow
   public void enterTaskComment(String comment) {
-    ckEditorFrameTask.clickOnElement();
+    waitCKEditorLoading();
+    ckEditorFrameTask.waitUntilVisible();
     driver.switchTo().frame(ckEditorFrameTask);
     try {
       taskCommentContentTextBox.waitUntilVisible();
@@ -1463,6 +1482,9 @@ public class TasksPage extends GenericPage {
   @SwitchToWindow
   public void maxCharsNumberMessageIsDisplayed() {
     commentsDrawerSection.clickOnElement();
+
+    waitCKEditorLoading();
+    ckEditorFrameTask.waitUntilVisible();
     driver.switchTo().frame(ckEditorFrameTask);
     try {
       assertWebElementVisible(commentTaskMaxCharsMsg);
@@ -1603,6 +1625,9 @@ public class TasksPage extends GenericPage {
   @SwitchToWindow
   public void setTaskDescription(String Description) {
     taskDescriptionField.clickOnElement();
+
+    waitCKEditorLoading();
+    ckEditorFrameDescription.waitUntilVisible();
     driver.switchTo().frame(ckEditorFrameDescription);
     try {
       settaskDescription.sendKeys(Description);
@@ -1727,8 +1752,11 @@ public class TasksPage extends GenericPage {
   @SwitchToWindow
   public void updateTaskDescription(String description) {
     taskDescriptionField.clickOnElement();
+
+    waitCKEditorLoading();
+    ckEditorFrameDescription.waitUntilVisible();
+    driver.switchTo().frame(ckEditorFrameDescription);
     try {
-      driver.switchTo().frame(ckEditorFrameDescription);
       settaskDescription.sendKeys(" " + description);
     } finally {
       driver.switchTo().defaultContent();

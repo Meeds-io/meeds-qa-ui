@@ -81,7 +81,7 @@ public class ChallengesPage extends GenericPage {
 
   @SwitchToWindow
   public void addAnnouncementWithRandomDescription(String announcementDescription) {
-    ckEditorFrameChallenge.clickOnElement();
+    ckEditorFrameChallenge.waitUntilVisible();
     driver.switchTo().frame(ckEditorFrameChallenge);
     try {
       challengeDescriptionField.waitUntilVisible();
@@ -96,7 +96,7 @@ public class ChallengesPage extends GenericPage {
   public void addChallengeWithDescription(String description) {
     waitCKEditorLoading();
     retryOnCondition(() -> {
-      clickOnElement(ckEditorFrameChallenge);
+      ckEditorFrameChallenge.waitUntilVisible();
       driver.switchTo().frame(ckEditorFrameChallenge);
     }, driver.switchTo()::defaultContent);
     try {
@@ -111,7 +111,6 @@ public class ChallengesPage extends GenericPage {
   @SwitchToWindow
   public void addChallengeWithRandomDescription(String challengeDescription) {
     ckEditorFrameChallenge.waitUntilVisible();
-    ckEditorFrameChallenge.clickOnElement();
     driver.switchTo().frame(ckEditorFrameChallenge);
     try {
       challengeDescriptionField.waitUntilVisible();

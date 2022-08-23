@@ -214,16 +214,18 @@ public class SpaceHomePage extends GenericPage {
     waitCKEditorLoading();
 
     ckEditorFrame.waitUntilVisible();
-    ckEditorFrame.clickOnElement();
     driver.switchTo().frame(ckEditorFrame);
 
     try {
       if (activity.contains("https")) {
+        // A workaround to the fact that the preview isn't triggered only by a Paste Event
         activityContentTextBox.sendKeys(activity);
         activityContentTextBox.sendKeys(Keys.CONTROL + "a" + "x");
         driver.switchTo().defaultContent();
         closeActivityComposerDrawer();
         clickPostIcon();
+        waitForDrawerToOpen();
+        ckEditorFrame.waitUntilVisible();
         driver.switchTo().frame(ckEditorFrame);
         activityContentTextBox.sendKeys(Keys.CONTROL + "v");
         activityLinkPreview.waitUntilVisible();
@@ -245,7 +247,7 @@ public class SpaceHomePage extends GenericPage {
 
     getCommentElementLink(activityId).clickOnElement();
 
-    clickOnCommentRichText();
+    waitOnCommentRichText();
     driver.switchTo().frame(ckEditorFrameComment);
     try {
       ckEditorBodyComment.waitUntilVisible();
@@ -263,7 +265,7 @@ public class SpaceHomePage extends GenericPage {
     String activityId = getActivityId(activity);
     getCommentReply(comment, activityId).clickOnElement();
 
-    clickOnCommentRichText();
+    waitOnCommentRichText();
     driver.switchTo().frame(ckEditorFrameComment);
     try {
       ckEditorBodyComment.waitUntilVisible();
@@ -407,11 +409,9 @@ public class SpaceHomePage extends GenericPage {
     getCommentElementLink(activityId).clickOnElement();
   }
 
-  private void clickOnCommentRichText() {
+  private void waitOnCommentRichText() {
     waitCKEditorLoading();
-
     ckEditorFrameComment.waitUntilVisible();
-    ckEditorFrameComment.clickOnElement();
   }
 
   public void clickOnCommentsDrawerFirstPage() {
@@ -633,6 +633,7 @@ public class SpaceHomePage extends GenericPage {
 
   @SwitchToWindow
   public void enterActivityText(String activity) {
+    ckEditorFrame.waitUntilVisible();
     driver.switchTo().frame(ckEditorFrame);
     try {
       activityContentTextBox.waitUntilVisible();
@@ -651,7 +652,7 @@ public class SpaceHomePage extends GenericPage {
 
     getCommentElementLink(activityId).clickOnElement();
 
-    clickOnCommentRichText();
+    waitOnCommentRichText();
     driver.switchTo().frame(ckEditorFrameComment);
     try {
       if (comment.contains("https")) {
@@ -660,7 +661,7 @@ public class SpaceHomePage extends GenericPage {
         driver.navigate().refresh();
         getCommentElementLink(activityId).clickOnElement();
         ckEditorFrameComment.waitUntilVisible();
-        clickOnCommentRichText();
+        waitOnCommentRichText();
         driver.switchTo().frame(ckEditorFrameComment);
 
         ckEditorBodyComment.waitUntilVisible();
@@ -682,6 +683,7 @@ public class SpaceHomePage extends GenericPage {
 
   @SwitchToWindow
   public void enterCommentText(String comment) {
+    ckEditorFrameComment.waitUntilVisible();
     driver.switchTo().frame(ckEditorFrameComment);
     try {
       ckEditorBodyComment.waitUntilVisible();
@@ -1175,6 +1177,7 @@ public class SpaceHomePage extends GenericPage {
 
   @SwitchToWindow
   public void updateCommentText(String comment) {
+    ckEditorFrameComment.waitUntilVisible();
     driver.switchTo().frame(ckEditorFrameComment);
 
     try {
@@ -1189,6 +1192,7 @@ public class SpaceHomePage extends GenericPage {
 
   @SwitchToWindow
   public void userIsMentionedInCommentEntered(String user) {
+    ckEditorFrameComment.waitUntilVisible();
     driver.switchTo().frame(ckEditorFrameComment);
     try {
       assertWebElementVisible(getMentionedUserInCommentEntered(user));
@@ -1199,6 +1203,7 @@ public class SpaceHomePage extends GenericPage {
 
   @SwitchToWindow
   public void userIsNotMentionedInCommentEntered(String user) {
+    ckEditorFrameComment.waitUntilVisible();
     driver.switchTo().frame(ckEditorFrameComment);
     try {
       assertWebElementNotVisible(getMentionedUserInCommentEntered(user), 2);

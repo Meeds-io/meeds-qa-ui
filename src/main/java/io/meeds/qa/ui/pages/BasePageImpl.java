@@ -200,7 +200,6 @@ public class BasePageImpl extends PageObject implements BasePage {
     waitCKEditorLoading();
     retryOnCondition(() -> {
       ckEditorFrame.waitUntilVisible();
-      ckEditorFrame.clickOnElement();
       driver.switchTo().frame(ckEditorFrame);
     }, driver.switchTo()::defaultContent);
     try {
