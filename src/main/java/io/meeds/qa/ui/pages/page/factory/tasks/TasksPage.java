@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import net.serenitybdd.core.Serenity;
 import org.junit.Assert;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -1786,5 +1787,42 @@ public class TasksPage extends GenericPage {
   public void viewAllCommentsTaskButton() {
     viewAllCommentsTaskButton.waitUntilVisible();
     viewAllCommentsTaskButton.clickOnElement();
+  }
+
+  private BaseElementFacade getProjectMenuIcon(String projectName) {
+    return findByXPathOrCSS(String.format("//span[contains(text(),'%s')]/..//i[contains(@class,'uiIconVerticalDots')]",
+            projectName));
+  }
+
+  private BaseElementFacade getProjectAction(String projectName, String action) {
+    return findByXPathOrCSS(String.format(
+            "(//span[contains(@class,'projectCardTitle') and contains(text(),'%s')]//following::div[@role='menu']//span[contains(text(),'%s')])[1]",
+            projectName, action));
+  }
+
+  @FindBy(xpath = "//button[contains(text(),'Delete')]")
+  private BaseElementFacade deleteButton;
+
+  @FindBy(xpath = "//button[contains(text(),'Cancel')]")
+  private TextBoxElementFacade cancelButton;
+
+  public void clickProjectAction(String projectName, String projectAction) {
+    Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
+    setInSearchProjectField(projectName);
+    getProjectMenuIcon(projectName).clickOnElement();
+    getProjectAction(projectName, projectAction).clickOnElement();
+    if (projectAction.equals("Delete") && !projectName.equals("deleteProject")
+            && !projectName.equals("cancelDelete")) {
+      deleteButton.clickOnElement();
+      deleteButton.waitUntilNotVisible();
+    }
+  }
+
+  public void clickCancel() {
+    cancelButton.clickOnElement();
+  }
+
+  public boolean isProjectCardVisible(String projectName) {
+    return getProjectCard(projectName).isVisibleAfterWaiting();
   }
 }

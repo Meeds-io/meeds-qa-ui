@@ -1,5 +1,7 @@
 package io.meeds.qa.ui.steps;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import io.meeds.qa.ui.pages.page.factory.tasks.TasksPage;
@@ -838,5 +840,23 @@ public class TasksSteps {
 
   public void viewAllCommentsTaskButton() {
     tasksPage.viewAllCommentsTaskButton();
+  }
+
+  public void clickProjectAction(String projectName, String projectAction) {
+    tasksPage.clickProjectAction(projectName,projectAction);
+  }
+
+  public void clickCancel() {
+    tasksPage.clickCancel();
+  }
+
+  public List<String> checkListOfElement(List<String> listOfProject) {
+    List<String> missingValues = new ArrayList<>();
+    for (String projectName : listOfProject) {
+      if (!tasksPage.isProjectCardVisible(projectName)) {
+        missingValues.add(projectName);
+      }
+    }
+    return missingValues;
   }
 }

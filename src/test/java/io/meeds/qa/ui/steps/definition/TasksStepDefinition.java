@@ -4,6 +4,7 @@ import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
@@ -1234,4 +1235,26 @@ public class TasksStepDefinition {
   public void viewAllCommentsTaskButton() {
     tasksSteps.viewAllCommentsTaskButton();
   }
+
+  @When("^I select the '(.*)' action for the project '(.*)'")
+  public void selectActionProject(String action, String projectName) {
+    tasksSteps.clickProjectAction(projectName, action);
+  }
+
+  @When("^I click on cancel delete button$")
+  public void clickCancel() {
+    tasksSteps.clickCancel();
+  }
+
+  @When("^These projects are displayed$")
+  public void checkProjectCard(List<String> listOfProject) {
+    assertThat(tasksSteps.checkListOfElement(listOfProject))
+            .as(String.format("The project %s is not displayed", tasksSteps.checkListOfElement(listOfProject))).isEmpty();
+  }
+
+  @When("^The project '(.*)' was deleted successfully")
+  public void clickProjectAction(String projectName) {
+    tasksSteps.clickProjectAction(projectName, "Delete");
+  }
+
 }

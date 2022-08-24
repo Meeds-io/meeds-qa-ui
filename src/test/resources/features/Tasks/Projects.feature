@@ -256,7 +256,7 @@ Feature: Tasks - Projects
     And These projects are not displayed
       | deleteProject |
 
-  @ignored
+  @anis
   Scenario: CAP44 - [Project_manager_US02]: Cancel Deletion of Project
     Given I am authenticated as admin
     And I create the first random user if not existing
