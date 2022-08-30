@@ -9,6 +9,13 @@ import io.meeds.qa.ui.pages.GenericPage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class SettingsPage extends GenericPage {
+
+  private static final String NOTIFICATION_SWITCH_BUTTON_XPATH          =
+                                                               "(//*[@id='UserSettingNotifications']//*[contains(@class, 'v-input--switch')]//input)[%s]";
+
+  private static final String NOTIFICATION_SWITCH_BUTTON_BY_STATE_XPATH = NOTIFICATION_SWITCH_BUTTON_XPATH
+      + "//self::*[@aria-checked='%s']//ancestor::*[contains(@class, 'v-input')]";
+
   @FindBy(
       xpath = "(//button[@class='btn btn-primary v-btn v-btn--contained theme--light v-size--default']//*[@class='v-btn__content'])[1]"
   )
@@ -190,43 +197,32 @@ public class SettingsPage extends GenericPage {
 
   public void checkThatNotificationOnMobileIsDisabled() {
     // Notification On Mobile is disabled
-    Assert.assertEquals(findByXPathOrCSS("(//*[@class='v-input--selection-controls__input']//input)[2]").getAttribute("aria-checked"),
-                        "false");
-
+    checkNotificationSwitchButtonState(2, false);
   }
 
   public void checkThatNotificationOnMobileIsEnabled() {
     // Notification On Mobile is enabled
-    Assert.assertEquals(findByXPathOrCSS("(//*[@class='v-input--selection-controls__input']//input)[2]").getAttribute("aria-checked"),
-                        "true");
-
+    checkNotificationSwitchButtonState(2, true);
   }
 
   public void checkThatNotificationOnSiteIsDisabled() {
     // Notification On Site is disabled
-    Assert.assertEquals(findByXPathOrCSS("(//*[@class='v-input--selection-controls__input']//input)[3]").getAttribute("aria-checked"),
-                        "false");
-
+    checkNotificationSwitchButtonState(3, false);
   }
 
   public void checkThatNotificationOnSiteIsEnabled() {
     // Notification On Site is enabled
-    Assert.assertEquals(findByXPathOrCSS("(//*[@class='v-input--selection-controls__input']//input)[3]").getAttribute("aria-checked"),
-                        "true");
-
+    checkNotificationSwitchButtonState(3, true);
   }
 
   public void checkThatNotificationViaMailIsDisabled() {
     // Notification Via Mail is disabled
-    Assert.assertTrue(findByXPathOrCSS("(//*[@class='v-input--selection-controls__input']//input)[1]").getAttribute("aria-checked")
-                                                                                                      .contains("false"));
+    checkNotificationSwitchButtonState(1, false);
   }
 
   public void checkThatNotificationViaMailIsEnabled() {
     // Notification Via Mail is enabled
-    Assert.assertEquals(findByXPathOrCSS("(//*[@class='v-input--selection-controls__input']//input)[1]").getAttribute("aria-checked"),
-                        "true");
-
+    checkNotificationSwitchButtonState(1, true);
   }
 
   public void checkThatPerkStoreSectionIsDisplayed() {
@@ -308,30 +304,16 @@ public class SettingsPage extends GenericPage {
     return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]", timeZone));
   }
 
-  public void enableDisableGeneralNotificationsOnMobile() {
-    findByXPathOrCSS("(//*[@class='v-input--selection-controls__input'])[2]").clickOnElement();
-  }
-
-  public void enableDisableGeneralNotificationsOnSite() {
-    findByXPathOrCSS("(//*[@class='v-input--selection-controls__input'])[3]").clickOnElement();
-
-  }
-
-  public void enableDisableGeneralNotificationsViaMail() {
-    findByXPathOrCSS("(//*[@class='v-input--selection-controls__input'])[1]").clickOnElement();
-
-  }
-
   public void enableDisableNotificationOnMobile() {
-    findByXPathOrCSS("(//*[@class='v-input--selection-controls__input'])[2]").click();
+    clickOnNotificationSwitchButton(2);
   }
 
   public void enableDisableNotificationOnSite() {
-    findByXPathOrCSS("(//*[@class='v-input--selection-controls__input'])[3]").click();
+    clickOnNotificationSwitchButton(3);
   }
 
   public void enableDisableNotificationViaMail() {
-    findByXPathOrCSS("(//*[@class='v-input--selection-controls__input'])[1]").click();
+    clickOnNotificationSwitchButton(1);
   }
 
   public void generalNotificationsSendingMailTypeIsDaily() {
@@ -440,6 +422,24 @@ public class SettingsPage extends GenericPage {
   public void weeklyEmailIsDisplayedInGeneralNotificationsSection() {
     // Check that Weeky Email is displayed in General Notifications Section
     Assert.assertTrue(ELEMENT_GENERAL_NOTIFICATIONS_SECTION.getText().contains("Weekly digest email notification"));
+  }
+
+  private void clickOnNotificationSwitchButton(int switchButtonIndex) {
+    BaseElementFacade element = findByXPathOrCSS(String.format(NOTIFICATION_SWITCH_BUTTON_XPATH, String.valueOf(switchButtonIndex)));
+    boolean beforeClickState = Boolean.parseBoolean(element.getAttribute("aria-checked"));
+    element.findByXPath("//ancestor::*[contains(@class, 'v-input')]").clickOnElement();
+
+    boolean expectedNewState = !beforeClickState;
+    element = findByXPathOrCSS(String.format(NOTIFICATION_SWITCH_BUTTON_BY_STATE_XPATH,
+                                             String.valueOf(switchButtonIndex),
+                                             String.valueOf(expectedNewState)));
+    element.waitUntilVisible();
+  }
+
+  private void checkNotificationSwitchButtonState(int switchButtonIndex, boolean expectedState) {
+    assertWebElementVisible(findByXPathOrCSS(String.format(NOTIFICATION_SWITCH_BUTTON_BY_STATE_XPATH,
+                                                           String.valueOf(switchButtonIndex),
+                                                           String.valueOf(expectedState))));
   }
 
   public enum mailSendingType {

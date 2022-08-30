@@ -156,21 +156,6 @@ public class SettingsSteps {
 
   }
 
-  public void enableDisableGeneralNotificationsOnMobile() {
-    settingsPage.enableDisableGeneralNotificationsOnMobile();
-
-  }
-
-  public void enableDisableGeneralNotificationsOnSite() {
-    settingsPage.enableDisableGeneralNotificationsOnSite();
-
-  }
-
-  public void enableDisableGeneralNotificationsViaMail() {
-    settingsPage.enableDisableGeneralNotificationsViaMail();
-
-  }
-
   public void enableDisableNotificationOnMobile() {
     settingsPage.enableDisableNotificationOnMobile();
 
