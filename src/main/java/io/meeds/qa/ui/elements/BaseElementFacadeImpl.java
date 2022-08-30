@@ -23,7 +23,6 @@ import net.serenitybdd.core.selectors.Selectors;
 import net.thucydides.core.ThucydidesSystemProperty;
 import net.thucydides.core.guice.Injectors;
 import net.thucydides.core.util.EnvironmentVariables;
-import net.thucydides.core.webdriver.exceptions.ElementNotFoundAfterTimeoutError;
 import net.thucydides.core.webdriver.javascript.JavascriptExecutorFacade;
 
 public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseElementFacade {

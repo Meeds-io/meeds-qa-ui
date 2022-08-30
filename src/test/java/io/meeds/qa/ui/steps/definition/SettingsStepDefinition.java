@@ -177,27 +177,6 @@ public class SettingsStepDefinition {
     settingsSteps.editPassword(firstUserPassword, firstUserEditedPassword);
   }
 
-  @When("^I enable General notifications On Mobile$")
-  @And("^I disable General notifications On Mobile$")
-  public void enableDisableGeneralNotificationsOnMobile() {
-    settingsSteps.enableDisableGeneralNotificationsOnMobile();
-
-  }
-
-  @When("^I enable General notifications On Site$")
-  @And("^I disable General notifications On Site$")
-  public void enableDisableGeneralNotificationsOnSite() {
-    settingsSteps.enableDisableGeneralNotificationsOnSite();
-
-  }
-
-  @When("^I enable General notifications Via Mail$")
-  @And("^I disable General notifications Via Mail$")
-  public void enableDisableGeneralNotificationsViaMail() {
-    settingsSteps.enableDisableGeneralNotificationsViaMail();
-
-  }
-
   @When("I enable notification on Mobile")
   @And("I disable notification on Mobile")
   public void enableDisableNotificationOnMobile() {
