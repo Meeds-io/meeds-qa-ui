@@ -47,7 +47,7 @@ Feature: Space widgets checking
     When I click on connections badge
     Then the drawer with '3' connections is opened
     And I click on see all
-    And the 'People' page is opened
+    And The 'People' page is opened
 
   Scenario:US 3.3.4_(02)[BACK]Connections requests : accept and reject
     Given I am authenticated as admin
