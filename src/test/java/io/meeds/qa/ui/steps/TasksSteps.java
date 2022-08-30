@@ -842,21 +842,13 @@ public class TasksSteps {
     tasksPage.viewAllCommentsTaskButton();
   }
 
-  public void clickProjectAction(String projectName, String projectAction) {
-    tasksPage.clickProjectAction(projectName,projectAction);
-  }
+  public void clickCancel() {tasksPage.clickCancel();}
 
-  public void clickCancel() {
-    tasksPage.clickCancel();
-  }
+  public void clickDelete() {tasksPage.clickDelete();}
 
-  public List<String> checkListOfElement(List<String> listOfProject) {
-    List<String> missingValues = new ArrayList<>();
-    for (String projectName : listOfProject) {
-      if (!tasksPage.isProjectCardVisible(projectName)) {
-        missingValues.add(projectName);
-      }
-    }
-    return missingValues;
-  }
+  public void clickDeleteProjectButton() {tasksPage.clickDeleteProjectButton();}
+
+
+
+
 }

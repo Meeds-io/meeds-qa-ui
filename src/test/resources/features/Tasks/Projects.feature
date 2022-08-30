@@ -256,20 +256,22 @@ Feature: Tasks - Projects
     And These projects are not displayed
       | deleteProject |
 
-  @anis
   Scenario: CAP44 - [Project_manager_US02]: Cancel Deletion of Project
     Given I am authenticated as admin
-    And I create the first random user if not existing
+    And I create a random space
     And I open the app center menu
     And I open all application page
     When I go to 'Tasks' application
     And I select 'Projects' tab
-    And I click on add project button
-    And I enter the project name 'cancelDelete'
-    And I click on save project button
-    And I select the 'Delete' action for the project 'cancelDelete'
-    And I click on cancel delete button
-    And I search for the project 'cancelDelete'
-    Then These projects are displayed
-      | cancelDelete |
-    And The project 'cancelDelete' was deleted successfully
+    And I search for the created project
+    And I click on three dots project button
+    And I click on delete project button
+    And I click on cancel to not confirm project deletion
+    And The random created project with description 'No description available' is displayed in Project Card
+    And I click on three dots project button
+    And I click on delete project button
+    And I click on delete to confirm project deletion
+    And the project is deleted successfully from Projects tab
+
+
+

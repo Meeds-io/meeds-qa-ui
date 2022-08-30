@@ -1236,25 +1236,19 @@ public class TasksStepDefinition {
     tasksSteps.viewAllCommentsTaskButton();
   }
 
-  @When("^I select the '(.*)' action for the project '(.*)'")
-  public void selectActionProject(String action, String projectName) {
-    tasksSteps.clickProjectAction(projectName, action);
+  @When("^I click on delete project button$")
+  public void clickDeleteProjectButton() {
+    tasksSteps.clickDeleteProjectButton();
   }
 
-  @When("^I click on cancel delete button$")
+  @When("^I click on cancel to not confirm project deletion$")
   public void clickCancel() {
     tasksSteps.clickCancel();
   }
 
-  @When("^These projects are displayed$")
-  public void checkProjectCard(List<String> listOfProject) {
-    assertThat(tasksSteps.checkListOfElement(listOfProject))
-            .as(String.format("The project %s is not displayed", tasksSteps.checkListOfElement(listOfProject))).isEmpty();
-  }
-
-  @When("^The project '(.*)' was deleted successfully")
-  public void clickProjectAction(String projectName) {
-    tasksSteps.clickProjectAction(projectName, "Delete");
+  @When("^I click on delete to confirm project deletion$")
+  public void clickDelete() {
+    tasksSteps.clickDelete();
   }
 
 }

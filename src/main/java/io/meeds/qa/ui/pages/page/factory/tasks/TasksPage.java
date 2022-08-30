@@ -455,6 +455,12 @@ public class TasksPage extends GenericPage {
   )
   private BaseElementFacade        viewAttachmentsLink;
 
+  @FindBy(xpath = "//button[contains(text(),'Cancel')]")
+  private TextBoxElementFacade cancelButton;
+
+  @FindBy(xpath = "//button[contains(text(),'Delete')]")
+  private BaseElementFacade deleteButton;
+
   public TasksPage(WebDriver driver) {
     super(driver);
   }
@@ -1789,40 +1795,15 @@ public class TasksPage extends GenericPage {
     viewAllCommentsTaskButton.clickOnElement();
   }
 
-  private BaseElementFacade getProjectMenuIcon(String projectName) {
-    return findByXPathOrCSS(String.format("//span[contains(text(),'%s')]/..//i[contains(@class,'uiIconVerticalDots')]",
-            projectName));
-  }
-
-  private BaseElementFacade getProjectAction(String projectName, String action) {
-    return findByXPathOrCSS(String.format(
-            "(//span[contains(@class,'projectCardTitle') and contains(text(),'%s')]//following::div[@role='menu']//span[contains(text(),'%s')])[1]",
-            projectName, action));
-  }
-
-  @FindBy(xpath = "//button[contains(text(),'Delete')]")
-  private BaseElementFacade deleteButton;
-
-  @FindBy(xpath = "//button[contains(text(),'Cancel')]")
-  private TextBoxElementFacade cancelButton;
-
-  public void clickProjectAction(String projectName, String projectAction) {
-    Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
-    setInSearchProjectField(projectName);
-    getProjectMenuIcon(projectName).clickOnElement();
-    getProjectAction(projectName, projectAction).clickOnElement();
-    if (projectAction.equals("Delete") && !projectName.equals("deleteProject")
-            && !projectName.equals("cancelDelete")) {
-      deleteButton.clickOnElement();
-      deleteButton.waitUntilNotVisible();
-    }
+  public void clickDeleteProjectButton()  {
+    deleteProjectButton.clickOnElement();
   }
 
   public void clickCancel() {
     cancelButton.clickOnElement();
   }
 
-  public boolean isProjectCardVisible(String projectName) {
-    return getProjectCard(projectName).isVisibleAfterWaiting();
+  public void clickDelete() {
+    deleteButton.clickOnElement();
   }
 }

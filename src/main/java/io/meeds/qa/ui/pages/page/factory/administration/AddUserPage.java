@@ -33,7 +33,7 @@ public class AddUserPage extends GenericPage {
   private TextBoxElementFacade lastNameField;
 
   Map<String, TextBoxElementFacade> MAPPING_CONTAINER_NAME_TO_BASEELEMENTFACADE_XPATH =
-                                                                                      new HashMap<>() {
+                                                                                      new HashMap() {
                                                                                         {
                                                                                           put("UserName", userNameField);
                                                                                           put("FirstName", firstNameField);
