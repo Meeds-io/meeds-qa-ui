@@ -80,7 +80,7 @@ Feature: Edit sections in Settings page
   Scenario: : SETTINGS-8 : Notifications section (Disable Notifications)
     Given I am authenticated as admin
 
-    When I create the first random user if not existing
+    When I create the first random user if not existing, no wait
     And I connect with the first created user
     And I go to Settings page
     Then Settings Page Is Opened
