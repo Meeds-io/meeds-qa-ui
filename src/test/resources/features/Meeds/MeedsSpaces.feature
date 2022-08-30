@@ -113,75 +113,8 @@ Feature: Meeds Space
     And I 'Request to Join'
     And I go to spaces page
     When I click on 'Sent Requests' number
-    Then The 'twoRequestSent' is displayed
     And I refuse the send request to the first space
-    Then The 'oneRequestSent' is displayed
     And I change user
       | login    | aymen.khalfi |
       | password | aymen2020    |
     And The First space was deleted successfully
-
-  @ignored
-  Scenario: [SPACES-3]Spaces Card UI and UX
-    Given I am authenticated with the user with the credentials
-      | login    | aymen.khalfi |
-      | password | aymen2020    |
-    And I create the space with user 'firas.mejri'
-    And I go to spaces page
-    And I search the space 'spaceWithCoverAvatar'
-    When The 'spaceCardManager' is displayed
-    And I click on space 'spaceWithCoverAvatar' menu
-    And The 'spaceActionManager' is displayed
-    And I click on space 'spaceWithCoverAvatar' info icon
-    And The 'spaceCardDescription' is displayed
-    And I change user
-      | login    | firas.mejri |
-      | password | mejri2020   |
-    And I go to First Space
-    And I 'Accept'
-    And I go to spaces page
-    And I search the first space
-    And I click on first space menu
-    Then The 'spaceActionNotManager' is displayed
-    And I change user
-      | login    | firas.bouseha |
-      | password | firas2020     |
-    And I go to spaces page
-    And I search the space 'spaceWithCoverAvatar'
-    Then The 'spaceNotMember' is displayed
-
-  @ignored
-  Scenario:[SPACES-1]Topbar spaces section_(01)
-    Given I am authenticated with the user with the credentials
-      | login    | aymen.khalfi |
-      | password | aymen2020    |
-    And I go to spaces page
-    And The 'spaceTopBar' is displayed
-
-  @ignored
-  Scenario:[SPACES-1]Topbar spaces section_(02):Filter pulldown
-    Given I am authenticated as admin
-    And I create the space with user 'firas.mejri'
-    And I change user
-      | login    | firas.mejri |
-      | password | mejri2020   |
-    And I go to First Space
-    And I 'Accept'
-    And I go to spaces page
-    When I select the filter 'My spaces'
-    Then The 'mySpaces' is displayed
-
-  @ignored
-  Scenario:[SPACES-1] Topbar spaces section_(03): Filter spaces field
-    Given I am authenticated as admin
-    And I create the space
-    And I create the second space
-    And I create the third space
-    And I go to spaces page
-    And I select the filter 'My spaces'
-    When I search the space '3'
-    Then The 'onlyTopbar03' is displayed
-    And I search the space 'topbar'
-    Then The 'listSpaces' is displayed
-    And The First space was deleted successfully
-    And The Second space was deleted successfully

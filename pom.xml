@@ -48,8 +48,6 @@
     <logback.version>1.2.11</logback.version>
     <org.aspectj.version>1.8.8</org.aspectj.version>
 
-    <galen-java-support.version>2.4.4</galen-java-support.version>
-
     <version.surefire.plugin>3.0.0-M7</version.surefire.plugin>
     <cucumber-jvm-parallel-plugin.version>5.0.0</cucumber-jvm-parallel-plugin.version>
 
@@ -169,41 +167,6 @@
       <version>${org.aspectj.version}</version>
     </dependency>
 
-    <dependency>
-      <groupId>com.galenframework</groupId>
-      <artifactId>galen-java-support</artifactId>
-      <version>${galen-java-support.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.seleniumhq.selenium</groupId>
-          <artifactId>selenium-java</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.seleniumhq.selenium</groupId>
-          <artifactId>selenium-support</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.seleniumhq.selenium</groupId>
-          <artifactId>selenium-server</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.seleniumhq.selenium</groupId>
-          <artifactId>selenium-firefox-driver</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>com.beust</groupId>
-          <artifactId>jcommander</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.yaml</groupId>
-          <artifactId>snakeyaml</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-simple</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
   </dependencies>
   <build>
     <plugins>

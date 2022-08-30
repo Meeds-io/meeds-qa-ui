@@ -251,7 +251,6 @@ Feature: Tasks - Projects
     And I enter the project name 'deleteProject'
     And I click on save project button
     And I select the 'Delete' action for the project 'deleteProject'
-    Then The 'confirmationDeleteProject' is displayed
     And I click on delete button
     And These projects are not displayed
       | deleteProject |
