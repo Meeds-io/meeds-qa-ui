@@ -774,18 +774,19 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.viewAllRepliesInCommentsDrawer(comment);
   }
 
-  @When("^I click likers number of the activity '(.*)'$")
+  @When("^I click on likers number of the activity '(.*)'$")
   public void openActivityReactionsDrawer(String activity) {
     spaceHomeSteps.openActivityReactionsDrawer(activity);
   }
 
-  @Then("The likers list should be displayed")
-  public void checkReactionsDrawerDisplay() {
-    spaceHomeSteps.checkReactionsDrawerDisplay();
+  @Then("^The (.*) user is displayed in likers$")
+  public void checkReactionsDrawerDisplay(String userPrefix) {
+    String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
+    spaceHomeSteps.checkUserDisplayedInReactionsDrawer(userLastName);
   }
 
-  @When("^I go to the profile page of the (.*) random user$")
-  public void goToUserProfile(String prefix) {
-    spaceHomeSteps.goToUserProfile(prefix);
+  @When("^I open user profile of (.*) user from likers drawer$")
+  public void goToUserProfileFromLikersDrawer(String prefix) {
+    spaceHomeSteps.goToUserProfileFromLikersDrawer(prefix);
   }
 }

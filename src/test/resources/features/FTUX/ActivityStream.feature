@@ -2262,21 +2262,20 @@ Feature: Activity Stream
   @test
   Scenario: [STREAM-12] Activity Likers in drawer
     Given I am authenticated as admin
-    And I create the first random user if not existing
-    And I create a random space with the first random user
+    And I create the first random user if not existing, no wait
+    And I go to the random space
     And I click on post in space
     And I enter an activity 'stream activité'
     And I publish the activity
     And I connect with the first created user
     And I go to the random space
-    And I 'Accept'
     And I like the activity 'stream activité'
     And I change user admin
     And I go to the random space
     And I like the activity 'stream activité'
-    When I click likers number of the activity 'stream activité'
-    Then The likers list should be displayed
-    And I go to the profile page of the first random user
+    When I click on likers number of the activity 'stream activité'
+    Then The first user is displayed in likers
+    And I open user profile of first user from likers drawer
     And The 'Profile' page is opened
 
   Scenario: CAP129 - [ActivityStream_US47][02]: Send a kudos from a reply

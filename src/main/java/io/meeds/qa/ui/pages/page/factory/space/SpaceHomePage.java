@@ -1221,14 +1221,15 @@ public class SpaceHomePage extends GenericPage {
 
   public void openActivityReactionsDrawer(String activity) {
     getReactionActivityLink(activity).clickOnElement();
-  }
-
-  public void checkReactionsDrawerDisplay() {
     waitForDrawerToOpen();
   }
 
-  public void goToUserProfile(String user) {
-    getUserElementFromReactionsDrawer(user).clickOnElement();
+  public void checkUserDisplayedInReactionsDrawer(String userLastName) {
+    assertWebElementVisible(getUserElementFromReactionsDrawer(userLastName));
+  }
+
+  public void goToUserProfileFromLikersDrawer(String userLastName) {
+    getUserElementFromReactionsDrawer(userLastName).clickOnElement();
   }
 
   private BaseElementFacade getReactionActivityLink(String activity) {

@@ -501,11 +501,11 @@ public class SpaceHomeSteps {
     spaceHomePage.openActivityReactionsDrawer(activity);
   }
 
-  public void checkReactionsDrawerDisplay() {
-    spaceHomePage.checkReactionsDrawerDisplay();
+  public void checkUserDisplayedInReactionsDrawer(String userLastName) {
+    spaceHomePage.checkUserDisplayedInReactionsDrawer(userLastName);
   }
 
-  public void goToUserProfile(String prefix) {
-    spaceHomePage.goToUserProfile(prefix);
+  public void goToUserProfileFromLikersDrawer(String prefix) {
+    spaceHomePage.goToUserProfileFromLikersDrawer(prefix);
   }
 }
