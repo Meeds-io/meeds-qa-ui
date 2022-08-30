@@ -8,14 +8,10 @@ import org.apache.commons.lang3.StringUtils;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.meeds.qa.ui.steps.GalenSteps;
 import io.meeds.qa.ui.steps.GenericSteps;
-import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 
 public class GenericStepDefinitions {
-  @Steps
-  GalenSteps   galenSteps;
 
   @Steps
   GenericSteps genericSteps;
@@ -37,15 +33,6 @@ public class GenericStepDefinitions {
   @When("^The '(.*)' drawer is displayed$")
   public void checkDrawerDisplayed(String title) throws IOException, InterruptedException {
     genericSteps.checkDrawerDisplayed(title);
-  }
-
-  @When("^The '(.*)' is displayed$")
-  public void checkPage(String template) throws IOException, InterruptedException {
-    Serenity.setSessionVariable("templateName").to(template);
-    galenSteps.checkPage("/specs/" + template + ".spec");
-    assertThat(galenSteps.getListOfFails()).as(String.format("These pages %s is displayed with errors",
-                                                             galenSteps.getListOfFails()))
-                                           .isEmpty();
   }
 
   @Then("The page {string} that contains {string} is displayed")

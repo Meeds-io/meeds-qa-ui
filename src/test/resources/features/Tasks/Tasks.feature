@@ -410,21 +410,6 @@ Feature: Tasks
     And I clear browsing data cache and cookies
     Then I check that grouping 'assignee' is selected
 
-  @smoke
-  @ignored
-  Scenario: CAP33 - [Filter_Drawer_US09]: "Sort And Filter" drawer - Check "Group and Sort" tab
-    Given I am authenticated as admin
-    And I open the app center menu
-    And I open all application page
-    When I go to 'Tasks' application
-    And I select 'Tasks' tab
-    And I click on filter tasks button in Tasks Tab
-    Then The 'groupAndSortDrawer' is displayed
-    And I select the 'Filter' filter type
-    Then The 'FilterDrawer' is displayed
-    And I select the 'Labels' filter type
-    Then The 'LabelsDrawer' is displayed
-
   Scenario: CAP341 [TASK]: when refresh task drawer, the description should not be lost
     Given I am authenticated as admin
     And I create the first random user if not existing
