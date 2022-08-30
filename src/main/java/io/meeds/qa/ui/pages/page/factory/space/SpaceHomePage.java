@@ -1,22 +1,21 @@
 package io.meeds.qa.ui.pages.page.factory.space;
 
-import static org.junit.Assert.assertTrue;
-
-import java.time.Duration;
-import java.util.Set;
-
-import org.apache.commons.lang3.StringUtils;
-import org.junit.Assert;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.interactions.Actions;
-
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
 import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.annotations.findby.FindBy;
+import org.apache.commons.lang3.StringUtils;
+import org.junit.Assert;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
+
+import java.time.Duration;
+import java.util.Set;
+
+import static org.junit.Assert.assertTrue;
 
 public class SpaceHomePage extends GenericPage {
   private static final String  CONFIRMATION_BUTTON_TO_DELETE_ACTIVITY_SELECTOR = "//*[contains(text(),'Yes')]";
@@ -1218,6 +1217,29 @@ public class SpaceHomePage extends GenericPage {
 
   public void viewAllRepliesInCommentsDrawer(String comment) {
     getCommentsDrawerViewAllReplies(comment).clickOnElement();
+  }
+
+  public void openActivityReactionsDrawer(String activity) {
+    getReactionActivityLink(activity).clickOnElement();
+    waitForDrawerToOpen();
+  }
+
+  public void checkUserDisplayedInReactionsDrawer(String userLastName) {
+    assertWebElementVisible(getUserElementFromReactionsDrawer(userLastName));
+  }
+
+  public void goToUserProfileFromLikersDrawer(String userLastName) {
+    getUserElementFromReactionsDrawer(userLastName).clickOnElement();
+  }
+
+  private BaseElementFacade getReactionActivityLink(String activity) {
+    return findByXPathOrCSS(String
+            .format("//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'activity-detail')]//*[contains(@class,'likersNumber')]", activity));
+  }
+
+  private BaseElementFacade getUserElementFromReactionsDrawer(String userLastName) {
+    return findByXPathOrCSS(
+            String.format("//*[@class='likers-list']//*[contains(text(),'%s')]", userLastName));
   }
 
 }

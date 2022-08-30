@@ -496,4 +496,16 @@ public class SpaceHomeSteps {
   public void viewAllRepliesInCommentsDrawer(String comment) {
     spaceHomePage.viewAllRepliesInCommentsDrawer(comment);
   }
+
+  public void openActivityReactionsDrawer(String activity) {
+    spaceHomePage.openActivityReactionsDrawer(activity);
+  }
+
+  public void checkUserDisplayedInReactionsDrawer(String userLastName) {
+    spaceHomePage.checkUserDisplayedInReactionsDrawer(userLastName);
+  }
+
+  public void goToUserProfileFromLikersDrawer(String prefix) {
+    spaceHomePage.goToUserProfileFromLikersDrawer(prefix);
+  }
 }

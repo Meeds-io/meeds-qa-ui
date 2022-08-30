@@ -2259,6 +2259,24 @@ Feature: Activity Stream
     And Comment 'commenttestCAP220-1020' is not displayed in the drawer
     Then Check Four comment is displayed in comments drawer
 
+  Scenario: [STREAM-12] Activity Likers in drawer
+    Given I am authenticated as admin
+    And I create the first random user if not existing, no wait
+    And I go to the random space
+    And I click on post in space
+    And I enter an activity 'stream activité'
+    And I publish the activity
+    And I connect with the first created user
+    And I go to the random space
+    And I like the activity 'stream activité'
+    And I change user admin
+    And I go to the random space
+    And I like the activity 'stream activité'
+    When I click on likers number of the activity 'stream activité'
+    Then The first user is displayed in activity likers drawer
+    And I open user profile of first user from activity likers drawer
+    And The 'Profile' page is opened
+
   Scenario: CAP129 - [ActivityStream_US47][02]: Send a kudos from a reply
 
     Given I am authenticated as admin

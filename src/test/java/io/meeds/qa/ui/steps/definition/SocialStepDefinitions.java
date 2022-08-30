@@ -4,7 +4,6 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.meeds.qa.ui.steps.SocialSteps;
-import io.meeds.qa.ui.steps.StreamSteps;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 
@@ -12,9 +11,6 @@ public class SocialStepDefinitions {
 
   @Steps
   private SocialSteps socialSteps;
-
-  @Steps
-  private StreamSteps streamSteps;
 
   @When("^I set the new comment '(.*)' and I click on cancel button$")
   public void cancelUpdateActivityComment(String comment) {
@@ -59,11 +55,6 @@ public class SocialStepDefinitions {
     socialSteps.goToPeopleMenu();
   }
 
-  @When("^I hover on user name '(.*)' activity$")
-  public void hoverUserName(String user) {
-    streamSteps.hoverUserName(user);
-  }
-
   @And("^I enter the contact name '(.*)'$")
   public void insertNameContact(String user) {
     socialSteps.insertNameContact(user);
@@ -91,4 +82,5 @@ public class SocialStepDefinitions {
   public void updateActivityComment(String comment) {
     socialSteps.updateActivityComment(comment);
   }
+
 }

@@ -20,7 +20,7 @@ Feature: Spaces widget checking
     When I click on spaces badge
     Then the drawer with '3' spaces is opened
     When I click on see all
-    And the 'Invitations Sent' page is opened
+    And The 'Invitations Sent' page is opened
 
   @ignored
   @smoke
