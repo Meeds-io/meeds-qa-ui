@@ -2259,7 +2259,6 @@ Feature: Activity Stream
     And Comment 'commenttestCAP220-1020' is not displayed in the drawer
     Then Check Four comment is displayed in comments drawer
 
-  @test
   Scenario: [STREAM-12] Activity Likers in drawer
     Given I am authenticated as admin
     And I create the first random user if not existing, no wait
