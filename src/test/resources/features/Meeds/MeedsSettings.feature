@@ -76,7 +76,6 @@ Feature: Edit sections in Settings page
 
     Then I connect with the first created user
 
-  @test
   Scenario: : SETTINGS-8 : Notifications section (Disable Notifications)
     Given I am authenticated as admin
 
