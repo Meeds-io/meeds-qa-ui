@@ -779,13 +779,13 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.openActivityReactionsDrawer(activity);
   }
 
-  @Then("^The (.*) user is displayed in likers$")
+  @Then("^The (.*) user is displayed in activity likers drawer$")
   public void checkReactionsDrawerDisplay(String userPrefix) {
     String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
     spaceHomeSteps.checkUserDisplayedInReactionsDrawer(userLastName);
   }
 
-  @When("^I open user profile of (.*) user from likers drawer$")
+  @When("^I open user profile of (.*) user from activity likers drawer$")
   public void goToUserProfileFromLikersDrawer(String prefix) {
     spaceHomeSteps.goToUserProfileFromLikersDrawer(prefix);
   }

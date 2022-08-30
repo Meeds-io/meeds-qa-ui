@@ -2273,8 +2273,8 @@ Feature: Activity Stream
     And I go to the random space
     And I like the activity 'stream activité'
     When I click on likers number of the activity 'stream activité'
-    Then The first user is displayed in likers
-    And I open user profile of first user from likers drawer
+    Then The first user is displayed in activity likers drawer
+    And I open user profile of first user from activity likers drawer
     And The 'Profile' page is opened
 
   Scenario: CAP129 - [ActivityStream_US47][02]: Send a kudos from a reply
