@@ -98,7 +98,7 @@ Feature: Meeds Space
     And The space home page is not visible
 
   @ignored
-  Scenario: [SPACES-4.2]Spaces Sent Requests
+  Scenario: [SPACES-4.2] Spaces Sent Requests
     Given I am authenticated with the user with the credentials
       | login    | aymen.khalfi |
       | password | aymen2020    |

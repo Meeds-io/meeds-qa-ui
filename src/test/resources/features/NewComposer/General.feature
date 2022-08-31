@@ -16,7 +16,7 @@ Feature: General new composer
     And I click on Update
     And the activity 'activité CAP97 edited' is displayed in activity stream
 
-  Scenario: CAP109-[US-General-07]:update posts - text update with normal Link (space case)
+  Scenario: CAP109-[US-General-07]update posts - text update with normal Link (space case)
     Given I am authenticated as admin
     And I go to the random space
     When I click on post in space
@@ -30,7 +30,7 @@ Feature: General new composer
     Then the activity 'modifier le lien' is displayed in activity stream
     And The link is displayed with the preview
 
-  Scenario: CAP110 - [US-General-07] : update posts - text update with video Link (space case)
+  Scenario: CAP110 - [US-General-07] update posts - text update with video Link (space case)
     Given I am authenticated as admin
     And I go to the random space
     When I click on post in space

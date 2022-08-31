@@ -2,7 +2,7 @@
 Feature: Meeds Search
 
   @ignored
-  Scenario:[SEARCH-2.1]People cards view
+  Scenario: [SEARCH-2.1]People cards view
     Given I am authenticated as admin
     When I go to Person Page
     And I search the user 'First Name'

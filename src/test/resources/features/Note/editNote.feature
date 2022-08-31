@@ -1,7 +1,7 @@
 @note
-@ignored
 Feature: Edit Note
 
+  @ignored
   Scenario: Open edit Note page in new tab
     Given I am authenticated as admin
     And I go to the random space
@@ -16,6 +16,7 @@ Feature: Edit Note
     And I close the third window
     And I close the second window
 
+  @ignored
   Scenario: edit note
     Given I am authenticated as admin
     And I go to the random space

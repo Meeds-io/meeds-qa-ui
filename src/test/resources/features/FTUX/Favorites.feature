@@ -1,7 +1,7 @@
 @favorite
 Feature: Favorite activities
 
-  Scenario: [Favs_US03]: Bookmark an activity
+  Scenario: [Favs_US03] Bookmark an activity
     Given I am authenticated as admin
     And I create the first random user if not existing
     And I connect with the first created user
@@ -14,7 +14,7 @@ Feature: Favorite activities
     When I favorite the activity posted in the space
     Then The favorite success message 'Favorite added successfully. Find it easily from the search' should be displayed
 
-  Scenario: [Favs_US04]: Remove the Bookmark for an activity
+  Scenario: [Favs_US04] Remove the Bookmark for an activity
     Given I am authenticated as admin
     And I create the first random user if not existing
     And I connect with the first created user
@@ -29,7 +29,7 @@ Feature: Favorite activities
     And I unbookmark the favorite activity posted in the space
     Then The favorite success message 'The item has been removed from favorites successfully.' should be displayed
 
-  Scenario: [Favs_US05][01]: Search by favorites (Filter by favorite button)
+  Scenario: [Favs_US05][01] Search by favorites (Filter by favorite button)
     Given I am authenticated as admin
     And I create the first random user if not existing
     And I connect with the first created user
@@ -54,7 +54,7 @@ Feature: Favorite activities
     And The activity is not displayed in the search 'act1'
     And The activity is not displayed in the search 'act2'
 
-  Scenario:  [Favs_US05][02]: Search by favorites (Filter by keyword and favorite button)
+  Scenario:  [Favs_US05][02] Search by favorites (Filter by keyword and favorite button)
     Given I am authenticated as admin
     And I create the first random user if not existing
     And I connect with the first created user
@@ -127,7 +127,7 @@ Feature: Favorite activities
     And The activity is not displayed in the search 'activityFavs_US06_02_0'
 
   @ignored
-  Scenario: [Fav_US13][01]: Bookmark a note from it's details
+  Scenario: [Fav_US13][01] Bookmark a note from it's details
     Given I am authenticated as admin
     And I create the first random user if not existing
     And I go to the random space
@@ -151,7 +151,7 @@ Feature: Favorite activities
     Then The star icon of note activity should be yellow
 
   @ignored
-  Scenario: [Fav_US13][02]: Bookmark a note from it's activity
+  Scenario: [Fav_US13][02] Bookmark a note from it's activity
     Given I am authenticated as admin
     And I go to the random space
     And I go to notes application of the space
@@ -171,7 +171,7 @@ Feature: Favorite activities
     And The star icon of the note details page should be yellow
 
   @ignored
-  Scenario: [Fav_US14][01]: Remove the bookmark for a note from it's details
+  Scenario: [Fav_US14][01] Remove the bookmark for a note from it's details
     Given I am authenticated as admin
     And I create the first random user if not existing
     And I go to the random space
@@ -195,7 +195,7 @@ Feature: Favorite activities
     Then The star icon of note activity should be grey
 
   @ignored
-  Scenario:[Fav_US14][02]: Remove the bookmark for a note from it's activity
+  Scenario: [Fav_US14][02] Remove the bookmark for a note from it's activity
     Given I am authenticated as admin
     And I go to the random space
     And I go to notes application of the space
@@ -215,7 +215,7 @@ Feature: Favorite activities
     Then The star icon of the note page should be grey
 
   @ignored
-  Scenario:[Fav_US15][01]: Search by favorites and notes
+  Scenario: [Fav_US15][01] Search by favorites and notes
     Given I am authenticated as admin
     And I go to the random space
     And I go to notes application of the space

@@ -1,7 +1,7 @@
 @task
 Feature: Filter Drawer
 
-  Scenario: CAP110 - [Filter_Drawer_US03]:Group by Labels [Group and Sort" tab under project]
+  Scenario: CAP110 - [Filter_Drawer_US03]Group by Labels [Group and Sort" tab under project]
     Given I am authenticated as admin
 
     When I create a random space
@@ -35,7 +35,7 @@ Feature: Filter Drawer
     And Task label 'testlabel110-1' related to task name 'task110-1' is displayed in project details
     And Task label 'testlabel110-1' related to task name 'task110-2' is displayed in project details
 
-  Scenario: CAP113 - [Filter_Drawer_US03]:Sort by Title ["Group and Sort" tab under project]
+  Scenario: CAP113 - [Filter_Drawer_US03]Sort by Title ["Group and Sort" tab under project]
     Given I am authenticated as admin
 
     When I create a random space
@@ -113,7 +113,7 @@ Feature: Filter Drawer
     And Task 'task111-2' is marked as completed and displayed in Completed section
     And Task 'task111-3' is not marked as completed and displayed in Uncompleted section
 
-  Scenario: CAP53 - [Filter_Drawer_US01]: Filter button in a project
+  Scenario: CAP53 - [Filter_Drawer_US01] Filter button in a project
     Given I am authenticated as admin
 
     When I create a random space

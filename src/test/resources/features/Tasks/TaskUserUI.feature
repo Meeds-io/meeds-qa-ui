@@ -3,7 +3,7 @@
 Feature: Task user ui
 
   @ignored
-  Scenario: CAP123-[User_UI_US02.6]:Filter by button " I Manage" in Projects tab
+  Scenario: CAP123 [User_UI_US02.6] Filter by button " I Manage" in Projects tab
     Given I am authenticated as admin
     And I open the app center menu
     And I open all application page
@@ -21,7 +21,7 @@ Feature: Task user ui
     And The project 'manageProject' was deleted successfully
 
   @ignored
-  Scenario:CAP35-[User_UI_US20]:Edit a Project
+  Scenario: CAP35 [User_UI_US20] Edit a Project
     Given I am authenticated as admin
     And I open the app center menu
     And I open all application page
@@ -39,7 +39,7 @@ Feature: Task user ui
     And The old project name is not displayed
     And The updated project was deleted successfully
 
-  Scenario: CAP37 - [User_UI_US18.1]: Check message when project title contains less than 3 characters
+  Scenario: CAP37 - [User_UI_US18.1] Check message when project title contains less than 3 characters
     Given I am authenticated as admin
     And I open the app center menu
     And I open all application page

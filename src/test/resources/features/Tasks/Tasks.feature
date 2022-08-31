@@ -2,7 +2,7 @@
 Feature: Tasks
 
   @smoke
-  Scenario: CAP81 - [User_UI_US22]: Mark as completed for "TASKS" in a Project (Manager case)
+  Scenario: CAP81 - [User_UI_US22] Mark as completed for "TASKS" in a Project (Manager case)
     Given I am authenticated as admin
     And I create the first random user if not existing
     And I connect with the first created user
@@ -21,7 +21,7 @@ Feature: Tasks
     And Tasks number '0' is displayed in the column To Do
 
   @smoke
-  Scenario: CAP176 - [US_Filterfield_01]: Add Clear typed characters icon (Filter by task under TASKS tab)
+  Scenario: CAP176 - [US_Filterfield_01] Add Clear typed characters icon (Filter by task under TASKS tab)
     Given I am authenticated as admin
     And I create the first random user if not existing
     And I connect with the first created user
@@ -39,7 +39,7 @@ Feature: Tasks
     And The clear button is disappeared from Filter by task field
 
   @smoke
-  Scenario: CAP94_[Add_Task_Drawer_US04]: (3 dots menu-Delete action) "Tasks TAB"
+  Scenario: CAP94_[Add_Task_Drawer_US04] (3 dots menu-Delete action) "Tasks TAB"
     Given I am authenticated as admin
 
     When I go To AppCenter Drawer
@@ -56,7 +56,7 @@ Feature: Tasks
     And I close task drawer
     Then Task '<TestE>' is deleted successfully
 
-  Scenario: CAP82 - [User_UI_US22]: Mark as completed for "TASKS" in a Project (Participant case)
+  Scenario: CAP82 - [User_UI_US22] Mark as completed for "TASKS" in a Project (Participant case)
     Given I am authenticated as admin
     And I create the first random user if not existing
 
@@ -83,7 +83,7 @@ Feature: Tasks
     And Tasks number '0' is displayed in the column To Do
 
   @smoke
-  Scenario: CAP95 - [Add_Task_Drawer_US04]: 3 dots menu (Delete action) "Task under project"
+  Scenario: CAP95 - [Add_Task_Drawer_US04] 3 dots menu (Delete action) "Task under project"
     Given I am authenticated as admin
     And I create the first random user if not existing
     And I connect with the first created user
@@ -202,7 +202,7 @@ Feature: Tasks
     Then In column status 'TestStatus2' , Task name 'Collaboration FT Task' is displayed
 
   @smoke
-  Scenario: CAP269 - [US_Sharedlabels_02]: Manage labels in Project (Create labels)
+  Scenario: CAP269 - [US_Sharedlabels_02] Manage labels in Project (Create labels)
     Given I am authenticated as admin
     And I create the first random user if not existing
     And I connect with the first created user
@@ -249,7 +249,7 @@ Feature: Tasks
     And Task name 'taskE' is not displayed in project details
     And Tasks number '0' is displayed in the column To Do
 
-  Scenario: CAP270 - [NF] [US_Sharedlabels_02]: Manage labels in Project (Delete labels)
+  Scenario: CAP270 - [NF] [US_Sharedlabels_02] Manage labels in Project (Delete labels)
     Given I am authenticated as admin
     And I create the first random user if not existing
     And I connect with the first created user
@@ -284,7 +284,7 @@ Feature: Tasks
     And Label 'label4' is displayed in edit project drawer
     And Label 'label5' is displayed in edit project drawer
 
-  Scenario: CAP264 - [NF] [US_Sharedlabels_01]:All project members can use added labels
+  Scenario: CAP264 - [NF] [US_Sharedlabels_01]All project members can use added labels
     Given I am authenticated as admin
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing
@@ -349,7 +349,7 @@ Feature: Tasks
     And Label 'label6' is displayed in edit task drawer and x icon is not displayed
     And I close task drawer
 
-  Scenario:[Task]: when click on notification, user is redirected under the specific project
+  Scenario:[Task] when click on notification, user is redirected under the specific project
     Given I am authenticated as admin
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing
@@ -374,7 +374,7 @@ Feature: Tasks
     Then First user with the task comment 'Start working on it' is displayed in task comments drawer
 
   @smoke
-  Scenario: CAP190 -[IMP] [US_SortGroupeBy_01]: Memorize Group and Sort filters (Group by)
+  Scenario: CAP190 -[IMP] [US_SortGroupeBy_01] Memorize Group and Sort filters (Group by)
     Given I am authenticated as admin
     And  I create the first random user if not existing
     And  I connect with the first created user
@@ -410,7 +410,7 @@ Feature: Tasks
     And I clear browsing data cache and cookies
     Then I check that grouping 'assignee' is selected
 
-  Scenario: CAP341 [TASK]: when refresh task drawer, the description should not be lost
+  Scenario: CAP341 [TASK] when refresh task drawer, the description should not be lost
     Given I am authenticated as admin
     And I create the first random user if not existing
 
@@ -445,7 +445,7 @@ Feature: Tasks
     When I refresh the page
     Then The edit description in the task 'Edit Automation Test Task' is displayed
 
-  Scenario: [IMP] [US_ChangesDrawer_01]: Display last Update and Changes drawer
+  Scenario: [IMP] [US_ChangesDrawer_01] Display last Update and Changes drawer
     Given I am authenticated as admin
     And  I create the first random user if not existing
     And  I connect with the first created user

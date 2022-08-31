@@ -507,7 +507,7 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.linkIsOpenedNewTab(link);
   }
 
-  @Then("^The activity '(.*)' posted by the (.*) user in the created space is displayed with its timestamp in activity stream$")
+  @Then("^The activity '(.*)' posted by the (.*) user in the created space is displayed with its timestamp in space stream page$")
   @And("^The activity '(.*)' posted by the (.*) user in the created space is displayed with its timestamp in streams page$")
   public void isActivityNamePostedByRandomUserSpaceDisplayed(String activity, String userPrefix) {
     String user = Serenity.sessionVariableCalled(userPrefix + "UserName");
@@ -566,6 +566,7 @@ public class SpaceHomeStepDefinition {
   }
 
   @When("^I like the activity comment '(.*)'$")
+  @And("^I unlike the activity comment '(.*)'$")
   public void likeActivityComment(String activityComment) {
     spaceHomeSteps.likeActivityComment(activityComment);
   }

@@ -1,7 +1,7 @@
 @task
 Feature: Tasks - Projects
 
-  Scenario: [User_UI_US18.1]: Add project with a description
+  Scenario: [User_UI_US18.1] Add project with a description
     Given I am authenticated as admin
     And I create the first random user if not existing
     And I connect with the first created user
@@ -12,7 +12,7 @@ Feature: Tasks - Projects
     And I add a new project with a description
     Then the project is created successfully and displayed on Projects tab
 
-  Scenario: CAP47 - [Project_manager_US03.2]: Clone a project
+  Scenario: CAP47 - [Project_manager_US03.2] Clone a project
     Given I am authenticated as admin
     And I create the first random user if not existing
     And I connect with the first created user
@@ -31,7 +31,7 @@ Feature: Tasks - Projects
     And I open the cloned project
     Then task 'Copy of task1414' is cloned successfully
 
-  Scenario: CAP174 -[US_Filterfield_01]: Add Clear typed characters icon "Filter by project"
+  Scenario: CAP174 -[US_Filterfield_01] Add Clear typed characters icon "Filter by project"
     Given I am authenticated as admin
     And I create the first random user if not existing
     And I connect with the first created user
@@ -81,7 +81,7 @@ Feature: Tasks - Projects
     Then User avatar 'admin' is displayed in Project Card
     And Avatar of the first created user is displayed in Project Card
 
-  Scenario: CAP17 - [Project_Card_US01]: check the display of users avatars with managing permissions
+  Scenario: CAP17 - [Project_Card_US01] check the display of users avatars with managing permissions
     Given I am authenticated as admin
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing
@@ -98,7 +98,7 @@ Feature: Tasks - Projects
     And Avatar of the first created user is displayed in Project Card
     And Avatar of the second created user is not displayed in Project Card
 
-  Scenario: CAP19 - [User_UI_US09]: Project's Tasks "BOARD" view
+  Scenario: CAP19 - [User_UI_US09] Project's Tasks "BOARD" view
     Given I am authenticated as admin
 
     When I go To AppCenter Drawer
@@ -115,7 +115,7 @@ Feature: Tasks - Projects
     And Status column 'Waiting On' is displayed in the third position
     And Status column 'Done' is displayed in the last position
 
-  Scenario: CAP36 [User_UI_US18.1]: Check  message when  Project title is empty
+  Scenario: CAP36 [User_UI_US18.1] Check  message when  Project title is empty
     Given I am authenticated as admin
 
     When I go To AppCenter Drawer
@@ -181,9 +181,8 @@ Feature: Tasks - Projects
     When I hover on task's title 'testlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtaskname'
     Then Task tooltip is displayed 'testlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtaskname'
 
-
   @ignored
-  Scenario: [NF] [US_GanttView_01]: Display Gantt tab in Space tasks projects
+  Scenario: [US_GanttView_01] Display Gantt tab in Space tasks projects
     Given I am authenticated as admin
     And I create the first random user if not existing
     And I create a random space with the first random user
@@ -226,7 +225,7 @@ Feature: Tasks - Projects
 
   @smoke
   @ignored
-  Scenario: CAP16 - [Project_Card_US01]: check the display "project's creator avatar"
+  Scenario: CAP16 - [Project_Card_US01] check the display "project's creator avatar"
     Given I am authenticated as admin
     And I create the first random user if not existing
     And I open the app center menu
@@ -240,7 +239,7 @@ Feature: Tasks - Projects
     Then The project 'projectCard1' was deleted successfully
 
   @ignored
-  Scenario: CAP43-[Project_manager_US02]:Delete a Project
+  Scenario: CAP43 [Project_manager_US02] Delete a Project
     Given I am authenticated as admin
     And I create the first random user if not existing
     And I open the app center menu
@@ -256,7 +255,7 @@ Feature: Tasks - Projects
       | deleteProject |
 
   @ignored
-  Scenario: CAP44 - [Project_manager_US02]: Cancel Deletion of Project
+  Scenario: CAP44 - [Project_manager_US02] Cancel Deletion of Project
     Given I am authenticated as admin
     And I create the first random user if not existing
     And I open the app center menu
