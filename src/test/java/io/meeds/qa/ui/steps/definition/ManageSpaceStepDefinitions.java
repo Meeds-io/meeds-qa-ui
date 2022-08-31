@@ -1,11 +1,5 @@
 package io.meeds.qa.ui.steps.definition;
 
-import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
-import static net.serenitybdd.core.Serenity.setSessionVariable;
-
-import org.apache.commons.lang3.StringUtils;
-
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -15,6 +9,11 @@ import io.meeds.qa.ui.steps.HomeSteps;
 import io.meeds.qa.ui.steps.ManageSpaceSteps;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
+import org.apache.commons.lang3.StringUtils;
+
+import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 public class ManageSpaceStepDefinitions {
   @Steps
@@ -218,9 +217,9 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.checkUpdateButton();
   }
 
-  @Given("^I click on 3dot icon of application card$")
-  public void clickOn3dotsAppCard() {
-    manageSpaceSteps.clickOn3dotsAppCard();
+  @Given("^I click on three dots icon of '(.*)' application$")
+  public void clickOnThreedotsAppCard(String appName) {
+    manageSpaceSteps.clickOnThreeDotsAppCard(appName);
   }
 
   @Given("^I click on arrow icon of application space settings$")
@@ -309,14 +308,14 @@ public class ManageSpaceStepDefinitions {
     manageSpacesPage.isSpacePageOpened(space);
   }
 
-  @Given("^Move after application button is displayed$")
-  public void moveAfterAppButtonIsDisplayed() {
-    manageSpaceSteps.moveAfterAppButtonIsDisplayed();
+  @Given("^Move after option of the application '(.*)' is displayed$")
+  public void moveAfterAppButtonIsDisplayed(String appName) {
+    manageSpaceSteps.moveAfterAppButtonIsDisplayed(appName);
   }
 
-  @Given("^Move before application button is displayed$")
-  public void moveBeforeAppButtonIsDisplayed() {
-    manageSpaceSteps.moveBeforeAppButtonIsDisplayed();
+  @Given("^Move before option of the application '(.*)' is displayed$")
+  public void moveBeforeAppButtonIsDisplayed(String appName){
+    manageSpaceSteps.moveBeforeAppButtonIsDisplayed(appName);
   }
 
   @Given("^Plus button is displayed$")
@@ -336,9 +335,9 @@ public class ManageSpaceStepDefinitions {
     homeSteps.rejectRandomSpaceInvitation(randomSpaceName);
   }
 
-  @Given("^Remove application button is displayed$")
-  public void removeAppButtonIsDisplayed() {
-    manageSpaceSteps.removeAppButtonIsDisplayed();
+  @Given("^Remove option of '(.*)' application is displayed$")
+  public void removeAppButtonIsDisplayed(String appName) {
+    manageSpaceSteps.removeAppButtonIsDisplayed(appName);
   }
 
   @Given("^I search the space '(.*)'$")

@@ -49,10 +49,9 @@ Feature: Meeds Space
     And I check that cancel button is displayed
     And I check that update button is displayed
 
-
   Scenario: [SPC_MNG-8] Spaces applications management
     Given I am authenticated as admin
-    When I go to the random space
+    When I create a random space
     When I click on space settings tab
     Then I check that general settings section is displayed with his edit icon
     And I check that Applications section is displayed with his edit icon
@@ -62,10 +61,10 @@ Feature: Meeds Space
     And Application card is displayed
     And Plus button is displayed
 
-    When I click on 3dot icon of application card
-    Then Remove application button is displayed
-    And Move before application button is displayed
-    And Move after application button is displayed
+    When I click on three dots icon of 'Notes' application
+    Then Remove option of 'Notes' application is displayed
+    And Move before option of the application 'Notes' is displayed
+    And Move after option of the application 'Notes' is displayed
     And I remove application 'Notes' from the list application
 
     When I click on plus button to add application

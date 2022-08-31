@@ -3,13 +3,18 @@ Feature: Users Management
   As an administrator
   I want to check that i can manage the users
 
-
   Scenario: [USR_MNG-1.1] Users Grid
     Given I am authenticated as admin
 
+<<<<<<< HEAD
     When I create the first random user if not existing
     And I create the second random user if not existing
     And I search for second created user
+=======
+    When I create the first random user if not existing, no wait
+    And I create the second random user if not existing, no wait
+    And I search for the second random user
+>>>>>>> Fix steps ,methods and xpath
     When I disable the second created User Status
     And I refresh the page
     And I search for 'ENABLED' Users

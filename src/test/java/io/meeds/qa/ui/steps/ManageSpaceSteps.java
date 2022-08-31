@@ -176,8 +176,8 @@ public class ManageSpaceSteps {
     manageSpacesPage.checkUpdateButton();
   }
 
-  public void clickOn3dotsAppCard() {
-    manageSpacesPage.clickOn3dotsAppCard();
+  public void clickOnThreeDotsAppCard(String appName) {
+    manageSpacesPage.clickOnThreeDotsAppCard(appName);
   }
 
   public void clickOnArrowIconAppSpaceSettings() {
@@ -255,20 +255,20 @@ public class ManageSpaceSteps {
     manageSpacesPage.isSpaceBannerUpdated();
   }
 
-  public void moveAfterAppButtonIsDisplayed() {
-    manageSpacesPage.moveAfterAppButtonIsDisplayed();
+  public void moveAfterAppButtonIsDisplayed(String appName) {
+    manageSpacesPage.moveAfterAppButtonIsDisplayed(appName);
   }
 
-  public void moveBeforeAppButtonIsDisplayed() {
-    manageSpacesPage.moveBeforeAppButtonIsDisplayed();
+  public void moveBeforeAppButtonIsDisplayed(String appName) {
+    manageSpacesPage.moveBeforeAppButtonIsDisplayed(appName);
   }
 
   public void plusButtonIsDisplayed() {
     manageSpacesPage.plusButtonIsDisplayed();
   }
 
-  public void removeAppButtonIsDisplayed() {
-    manageSpacesPage.removeAppButtonIsDisplayed();
+  public void removeAppButtonIsDisplayed(String appName) {
+    manageSpacesPage.removeAppButtonIsDisplayed(appName);
   }
 
   public void searchSpace(String spaceName) {
