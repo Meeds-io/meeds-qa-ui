@@ -1192,6 +1192,7 @@ Feature: Activity Stream
     And Tooltip Remove Like on 'commenttest115' is displayed in comments drawer
     And I close the comments drawer
 
+  @test
   Scenario: CAP116 - [ActivityStream_US41][02] DisLike my comment/reply from the comments drawer
     Given I am authenticated as admin
 

@@ -363,6 +363,7 @@ public class SpaceHomeStepDefinition {
   }
 
   @When("^In comments drawer, I like the activity comment '(.*)'$")
+  @And("^In comments drawer, I unlike the activity comment '(.*)'$")
   public void commentsDrawerlikeActivityComment(String activityComment) {
     spaceHomeSteps.commentsDrawerlikeActivityComment(activityComment);
   }
