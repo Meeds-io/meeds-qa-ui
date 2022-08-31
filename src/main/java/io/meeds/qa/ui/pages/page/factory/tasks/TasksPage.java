@@ -343,6 +343,9 @@ public class TasksPage extends GenericPage {
   @FindBy(xpath = "//div[@id='projectBoardToolbar']//input")
   private TextBoxElementFacade     searchProjectInput;
 
+  @FindBy(xpath = "//*[@class='v-toolbar__content']//*[@placeholder='Filter by name or description']")
+  private TextBoxElementFacade     searchSpaceInput;
+
   @FindBy(xpath = "//*[@id='TasksListToolbar']//*[@class='v-text-field__slot']//input")
   private BaseElementFacade        searchTaskName;
 
@@ -1575,6 +1578,12 @@ public class TasksPage extends GenericPage {
 
   public void setInSearchProjectField(String project) {
     searchProjectInput.setTextValue(project);
+    waitFor(1).seconds();
+    verifyPageLoaded();
+  }
+
+  public void setInSearchSpaceField(String space) {
+    searchSpaceInput.setTextValue(space);
     waitFor(1).seconds();
     verifyPageLoaded();
   }

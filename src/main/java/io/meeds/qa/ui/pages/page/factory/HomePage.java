@@ -141,6 +141,9 @@ public class HomePage extends GenericPage {
   @FindBy(xpath = "//*[@id='walletBalance']//*[contains(@class,'big-number')]")
   private BaseElementFacade                           walletBalanceNumber;
 
+  @FindBy(xpath = "//* [@class='spaceCardFront']//*[contains(@class,'fa-star')]")
+  private BaseElementFacade                             favoriteIconInSpacePage ;
+
   public HomePage(WebDriver driver) {
     super(driver);
     MAPPING_CONTAINER_NAME_TO_BASEELEMENTFACADE_XPATH.put("Statistique", profileStatsPortlet);
@@ -552,6 +555,19 @@ public class HomePage extends GenericPage {
     clickOnElement(getFavoriteIconActivity(activity));
   }
 
+  public void checkFavIconInSpaceCard() {
+    assertWebElementVisible(favoriteIconInSpacePage);
+  }
+
+  public void favoriteSpaceInSpacePage() {
+    favoriteIconInSpacePage.clickOnElement();
+  }
+
+  public void unbookmarkFavoriteSpaceInSpacePage() {
+    favoriteIconInSpacePage.clickOnElement();
+  }
+
+
   private void waitUntilAppCenterSearchFinishes(boolean isAdminUI) {
     if (isAdminUI) {
       findByXPathOrCSS("(//*[contains(@class, 'listApplications')]//tr)[3]").waitUntilNotVisible();
@@ -559,5 +575,7 @@ public class HomePage extends GenericPage {
       findByXPathOrCSS("(//*[contains(@class, 'userAuthorizedApplications')]//*[contains(@class, 'authorizedApplication')])[2]").waitUntilNotVisible();
     }
   }
+
+
 
 }

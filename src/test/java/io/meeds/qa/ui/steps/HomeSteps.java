@@ -290,4 +290,16 @@ public class HomeSteps {
   public void unbookmarkActivity(String activity) {
     homePage.unbookmarkActivity(activity);
   }
+
+  public void checkFavIconInSpaceCard() {
+    homePage.checkFavIconInSpaceCard();
+  }
+
+  public void favoriteSpaceInSpacePage() {
+    homePage.favoriteSpaceInSpacePage();
+  }
+
+  public void unbookmarkFavoriteSpaceInSpacePage() {
+    homePage.unbookmarkFavoriteSpaceInSpacePage();
+  }
 }

@@ -460,4 +460,19 @@ public class HomeStepDefinition {
     homeSteps.unbookmarkActivity(oldActiviyy);
   }
 
+  @Then("The favorite icon should be displayed in space card")
+  public void checkFavIconInSpaceCard() {
+    homeSteps.checkFavIconInSpaceCard();
+  }
+
+  @Then("I favorite the space")
+  public void favoriteSpaceInSpacePage() {
+    homeSteps.favoriteSpaceInSpacePage();
+  }
+
+  @Then("I unbookmark the favorite space")
+  public void unbookmarkFavoriteSpaceInSpacePage() {
+    homeSteps.unbookmarkFavoriteSpaceInSpacePage();
+  }
+
 }

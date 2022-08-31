@@ -132,6 +132,22 @@ Feature: Favorite activities
     And The activity is not displayed in the search 'activityFavs_US06_02_1'
     And The activity is not displayed in the search 'activityFavs_US06_02_0'
 
+
+  Scenario: SpaceFav_US01.11: Bookmark a space as a favorite (space page)
+    Given I am authenticated as admin
+    And I create the first random user if not existing
+    And I create a random space
+    And I connect with the first created user
+    And I go to the random space
+    And I 'Join'
+    When I go to spaces page
+    And I search for the created space
+    Then The favorite icon should be displayed in space card
+    When I favorite the space
+    Then The message 'Favorite added successfully. Find it easily from the search' should be displayed
+    When I unbookmark the favorite space
+    Then The message 'The item has been removed from favorites successfully.' should be displayed
+
   @ignored
   Scenario: [Fav_US13][01] Bookmark a note from it's details
     Given I am authenticated as admin

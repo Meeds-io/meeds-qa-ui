@@ -716,6 +716,10 @@ public class TasksSteps {
     tasksPage.setInSearchProjectField(project);
   }
 
+  public void setInSearchSpaceField(String space) {
+    tasksPage.setInSearchSpaceField(space);
+  }
+
   public void setProjectTitle(String projectTitle) {
     tasksPage.setProjectTitle(projectTitle);
   }
