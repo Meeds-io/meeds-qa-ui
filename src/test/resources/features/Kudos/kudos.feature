@@ -59,6 +59,7 @@ Feature: Kudos
     Given I am authenticated as admin
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing
+
     When I connect with the first created user
 
     And I search for second user card

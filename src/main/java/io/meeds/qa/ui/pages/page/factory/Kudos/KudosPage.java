@@ -36,20 +36,14 @@ public class KudosPage extends GenericPage {
   @FindBy(xpath = "//*[@class='v-list-item__title pl-3' and contains(text(),'Edit')]")
   private BaseElementFacade editKudosComment;
 
-  @FindBy(xpath = "//span[@class='v-btn__content' and contains(text(),'Send')]")
+  @FindBy(xpath = "//*[@id = 'activityKudosDrawer']//*[contains(@class, 'drawerFooter')]//button[contains(@class, 'btn-primary')]")
   private BaseElementFacade       kudosButtonInDrawer;
 
   @FindBy(xpath = "//*[@class='cke_inner cke_reset']")
   private BaseElementFacade kudosCommentFilled;
 
-  @FindBy(xpath = "//body[contains(@class,'cke_editable_themed')]")
+  @FindBy(xpath = "//body[contains(@class,'cke_editable')]")
   private TextBoxElementFacade    kudosField;
-
-  @FindBy(xpath = "//body[contains(@class,'cke_editable_themed')]")
-  private TextBoxElementFacade    KudosField;
-
-  @FindBy(xpath = "//*[@data-cke-title='Rich Text Editor, kudosContent']/following::*[contains(@class,'cke_editable_themed')][1]")
-  private TextBoxElementFacade    kudosFieldFromDrawer;
 
   @FindBy(xpath = "//a[@href='/portal/g/:platform:rewarding/rewardAdministration/kudosAdministration']")
   private BaseElementFacade       kudosLink;
@@ -88,18 +82,13 @@ public class KudosPage extends GenericPage {
   )
   private BaseElementFacade threedotsKudosReplyComment;
 
-  @FindBy(xpath = "//*[contains(@class,'v-navigation-drawer--open')]//button[@aria-label='Update']")
-  public BaseElementFacade        updateKudosButon;
-
-  @FindBy(xpath = "//*[@class='v-btn__content' and contains(text(),'Update')]")
-  private BaseElementFacade updateKudosComment;
-
   public KudosPage(WebDriver driver) {
     super(driver);
   }
 
   @SwitchToWindow
-  public void addActivityCommentKudos(String comment) {
+  public void sendKudosMessageFromOpenedDrawer(String kudosMessage) {
+    waitForDrawerToOpen("#activityKudosDrawer", false);
     waitCKEditorLoading();
     retryOnCondition(() -> {
       BaseElementFacade ckEditorFrameKudos = getCkEditorFrameKudos();
@@ -111,53 +100,7 @@ public class KudosPage extends GenericPage {
     });
     try {
       kudosField.waitUntilVisible();
-      kudosField.setTextValue(comment);
-    } finally {
-      driver.switchTo().defaultContent();
-    }
-    assertWebElementVisible(kudosButtonInDrawer);
-    kudosButtonInDrawer.clickOnElement();
-    verifyPageLoaded();
-  }
-
-  @SwitchToWindow
-  public void addActivityCommentKudosFromDrawer(String comment) {
-    waitCKEditorLoading();
-    retryOnCondition(() -> {
-      BaseElementFacade ckEditorFrameKudos = getCkEditorFrameKudos();
-      ckEditorFrameKudos.waitUntilVisible();
-      driver.switchTo().frame(ckEditorFrameKudos);
-    }, () -> {
-      driver.switchTo().defaultContent();
-      waitFor(500).milliseconds(); // Kudos Iframe seems very slow
-    });
-    try {
-      kudosFieldFromDrawer.waitUntilVisible();
-      kudosFieldFromDrawer.setTextValue(comment);
-    } finally {
-      driver.switchTo().defaultContent();
-    }
-    assertWebElementVisible(kudosButtonInDrawer);
-    kudosButtonInDrawer.clickOnElement();
-    verifyPageLoaded();
-  }
-
-  @SwitchToWindow
-  public void addActivityKudos(String activity, String comment) {
-    getKudosLink(activity).clickOnElement();
-    waitForDrawerToOpen();
-    waitCKEditorLoading();
-    retryOnCondition(() -> {
-      BaseElementFacade ckEditorFrameKudos = getCkEditorFrameKudos();
-      ckEditorFrameKudos.waitUntilVisible();
-      driver.switchTo().frame(ckEditorFrameKudos);
-    }, () -> {
-      driver.switchTo().defaultContent();
-      waitFor(500).milliseconds(); // Kudos Iframe seems very slow
-    });
-    try {
-      kudosField.waitUntilVisible();
-      kudosField.setTextValue(comment);
+      kudosField.setTextValue(kudosMessage);
     } finally {
       driver.switchTo().defaultContent();
     }
@@ -165,6 +108,12 @@ public class KudosPage extends GenericPage {
     assertWebElementVisible(kudosButtonInDrawer);
     kudosButtonInDrawer.clickOnElement();
     verifyPageLoaded();
+    waitForDrawerToClose("#activityKudosDrawer", false);
+  }
+
+  public void addActivityKudos(String activity, String comment) {
+    getKudosLink(activity).clickOnElement();
+    sendKudosMessageFromOpenedDrawer(comment);
   }
 
   public void checkKudosActivityVisible(String message) {
@@ -194,7 +143,6 @@ public class KudosPage extends GenericPage {
   public void editKudos() {
     dotsMenu.clickOnElement();
     editButton.clickOnElement();
-
   }
 
   public void enterKudosNumber(String val) {
@@ -204,7 +152,7 @@ public class KudosPage extends GenericPage {
   }
 
   private BaseElementFacade getCkEditorFrameKudos() {
-    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//iframe[contains(@class,'cke_wysiwyg_frame')]");
+    return findByXPathOrCSS("//*[@id='activityKudosDrawer']//iframe[contains(@class,'cke_wysiwyg_frame')]");
   }
 
   private BaseElementFacade getKudosActivityText(String message) {
@@ -249,50 +197,6 @@ public class KudosPage extends GenericPage {
   public void threeDotsMenuSendKudos() {
     assertWebElementVisible(sendKudosMenu);
     sendKudosMenu.clickOnElement();
-
   }
 
-  @SwitchToWindow
-  public void updateKudosCommentMessage(String comment) {
-    waitCKEditorLoading();
-    retryOnCondition(() -> {
-      BaseElementFacade ckEditorFrameKudos = getCkEditorFrameKudos();
-      ckEditorFrameKudos.waitUntilVisible();
-      driver.switchTo().frame(ckEditorFrameKudos);
-    }, () -> {
-      driver.switchTo().defaultContent();
-      waitFor(500).milliseconds(); // Kudos Iframe seems very slow
-    });
-    try {
-      KudosField.waitUntilVisible();
-      KudosField.clear();
-      KudosField.setTextValue(comment);
-    } finally {
-      driver.switchTo().defaultContent();
-    }
-    updateKudosComment.clickOnElement();
-    verifyPageLoaded();
-  }
-
-  @SwitchToWindow
-  public void updateKudosMessage(String comment) {
-    waitCKEditorLoading();
-    retryOnCondition(() -> {
-      BaseElementFacade ckEditorFrameKudos = getCkEditorFrameKudos();
-      ckEditorFrameKudos.waitUntilVisible();
-      driver.switchTo().frame(ckEditorFrameKudos);
-    }, () -> {
-      driver.switchTo().defaultContent();
-      waitFor(500).milliseconds(); // Kudos Iframe seems very slow
-    });
-    try {
-      KudosField.waitUntilVisible();
-      KudosField.clear();
-      KudosField.setTextValue(comment);
-    } finally {
-      driver.switchTo().defaultContent();
-    }
-    updateKudosButon.clickOnElement();
-    verifyPageLoaded();
-  }
 }

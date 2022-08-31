@@ -1192,7 +1192,6 @@ Feature: Activity Stream
     And Tooltip Remove Like on 'commenttest115' is displayed in comments drawer
     And I close the comments drawer
 
-  @test
   Scenario: CAP116 - [ActivityStream_US41][02] DisLike my comment/reply from the comments drawer
     Given I am authenticated as admin
 
@@ -1933,30 +1932,29 @@ Feature: Activity Stream
     And I connect with the first created user
     And I go to the random space
     And I click on post in space
-    And I enter an activity 'activitytestkudos'
+    And I enter an activity 'activitytestkudosCAP128'
     And I publish the activity
-    Then the activity 'activitytestkudos' is displayed in activity stream
+    Then the activity 'activitytestkudosCAP128' is displayed in activity stream
 
     When I connect with the third created user
     And I go to the random space
-    Then the activity 'activitytestkudos' is displayed in activity stream
+    Then the activity 'activitytestkudosCAP128' is displayed in activity stream
 
-    When I add in activity 'activitytestkudos' a comment 'activitytestkudoscomment'
-    And I open in activity 'activitytestkudos' the Comments drawer
-    Then Activity Comment 'activitytestkudoscomment' is displayed in Comments drawer
-    And Activity Comment 'activitytestkudoscomment' is displayed in activity stream
+    When I add in activity 'activitytestkudosCAP128' a comment 'activitytestkudoscommentCAP128'
+    And I open in activity 'activitytestkudosCAP128' the Comments drawer
+    Then Activity Comment 'activitytestkudoscommentCAP128' is displayed in Comments drawer
+    And Activity Comment 'activitytestkudoscommentCAP128' is displayed in activity stream
 
     When I connect with the second created user
     And I go to the random space
-    Then the activity 'activitytestkudos' is displayed in activity stream
-    When In comment 'activitytestkudoscomment', Kudos label should be black
+    Then the activity 'activitytestkudosCAP128' is displayed in activity stream
+    When In comment 'activitytestkudoscommentCAP128', Kudos label should be black
     Then I click on the kudos button from the comment
-    And I send to the comment activity a kudos message 'Test Auto comment Kudos'
-    Then In comment 'activitytestkudoscomment', Kudos label should be blue
+    And I send to the comment activity a kudos message 'Test Auto comment Kudos CAP128'
+    Then In comment 'activitytestkudoscommentCAP128', Kudos label should be blue
     And I click on the kudos button number
     Then '1' kudos are displayed on the reaction drawer
 
-  @ignored
   Scenario: CAP129 - [ActivityStream_US47][03] Send a kudos from the comments drawer
 
     Given I am authenticated as admin
@@ -1967,28 +1965,27 @@ Feature: Activity Stream
     And I connect with the first created user
     And I go to the random space
     And I click on post in space
-    And I enter an activity 'activitytestkudos'
+    And I enter an activity 'activitytestkudosCAP129'
     And I publish the activity
-    Then the activity 'activitytestkudos' is displayed in activity stream
+    Then the activity 'activitytestkudosCAP129' is displayed in activity stream
 
     When I connect with the third created user
     And I go to the random space
-    Then the activity 'activitytestkudos' is displayed in activity stream
-    When I add in activity 'activitytestkudos' a comment 'activitytestkudoscomment'
-    And Activity Comment 'activitytestkudoscomment' is displayed in activity stream
-    And I open in activity 'activitytestkudos' the Comments drawer
-    Then Activity Comment 'activitytestkudoscomment' is displayed in Comments drawer
+    Then the activity 'activitytestkudosCAP129' is displayed in activity stream
+    When I add in activity 'activitytestkudosCAP129' a comment 'activitytestkudoscommentCAP129'
+    And Activity Comment 'activitytestkudoscommentCAP129' is displayed in activity stream
+    And I open in activity 'activitytestkudosCAP129' the Comments drawer
+    Then Activity Comment 'activitytestkudoscommentCAP129' is displayed in Comments drawer
 
     When I connect with the second created user
     And I go to the random space
-    Then the activity 'activitytestkudos' is displayed in activity stream
-    And I open in activity 'activitytestkudos' the Comments drawer
-    When In comment 'activitytestkudoscomment', Kudos label should be black
-    Then I click on the kudos button from the comments drawer
-    And I send to the comment activity a kudos message 'Test Auto comment Kudos' from comments drawer
-    Then In comment 'activitytestkudoscomment', Kudos label should be blue
+    Then the activity 'activitytestkudosCAP129' is displayed in activity stream
+    And I open in activity 'activitytestkudosCAP129' the Comments drawer
+    And In comment 'activitytestkudoscommentCAP129', Kudos label should be black
+    When I click on the kudos button from the comments drawer
+    And I send to the comment activity a kudos message 'Test Auto comment Kudos'
+    Then In comment 'activitytestkudoscommentCAP129', Kudos label should be blue
     And I click on the kudos button number from the comments drawer
-    And I close the comments drawer
     Then '1' kudos are displayed on the reaction drawer
 
   Scenario: CAP220 - [ActivityStream_IMPV07][01] Pagination in comments drawer
@@ -2073,7 +2070,7 @@ Feature: Activity Stream
 
     Given I am authenticated as admin
     And I create the first random user if not existing, no wait
-    And I create the second random user if not existing, no wait
+    And I create the sixth random user if not existing, no wait
     And I create the third random user if not existing, no wait
     And I create the fourth random user if not existing
 
@@ -2099,7 +2096,7 @@ Feature: Activity Stream
     When I add a reply 'activitytestkudosCAP129commentreply' to comment 'activitytestkudosCAP129comment' in activity 'activitytestkudosCAP129'
     Then In activity 'activitytestkudosCAP129' with comment 'activitytestkudosCAP129comment', the reply 'activitytestkudosCAP129commentreply' is displayed
 
-    When I connect with the second created user
+    When I connect with the sixth created user
     And I go to the random space
     Then the activity 'activitytestkudosCAP129' is displayed in activity stream
     And In reply 'activitytestkudosCAP129commentreply', Kudos label should be black
@@ -2163,35 +2160,34 @@ Feature: Activity Stream
     And I open in activity 'activitycap87' the Comments drawer
     Then Fourth comment 'commenttestupdated104' is displayed in comments drawer
 
-  @ignored
   Scenario: [ActivityStream_US52][03] Edit a kudos from a comment
     Given I am authenticated as admin
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing, no wait
-    And I create the third random user if not existing
+    And I create the fourth random user if not existing
 
-    And I connect with the first created user
+    And I connect with the fourth created user
     And I go to the random space
     And I click on post in space
-    And I enter an activity 'activitytestkudos'
+    And I enter an activity 'activitytestkudosUS52'
     And I publish the activity
-    Then the activity 'activitytestkudos' is displayed in activity stream
-
-    When I connect with the third created user
-    And I go to the random space
-    Then the activity 'activitytestkudos' is displayed in activity stream
-
-    When I add in activity 'activitytestkudos' a comment 'activitytestkudoscomment'
-    And I open in activity 'activitytestkudos' the Comments drawer
-    Then Activity Comment 'activitytestkudoscomment' is displayed in Comments drawer
-    And Activity Comment 'activitytestkudoscomment' is displayed in activity stream
+    Then the activity 'activitytestkudosUS52' is displayed in activity stream
 
     When I connect with the second created user
     And I go to the random space
-    Then the activity 'activitytestkudos' is displayed in activity stream
-    When In comment 'activitytestkudoscomment', Kudos label should be black
+    Then the activity 'activitytestkudosUS52' is displayed in activity stream
+
+    When I add in activity 'activitytestkudosUS52' a comment 'activitytestkudoscommentUS52'
+    And I open in activity 'activitytestkudosUS52' the Comments drawer
+    Then Activity Comment 'activitytestkudoscommentUS52' is displayed in Comments drawer
+    And Activity Comment 'activitytestkudoscommentUS52' is displayed in activity stream
+
+    When I connect with the fourth created user
+    And I go to the random space
+    Then the activity 'activitytestkudosUS52' is displayed in activity stream
+    When In comment 'activitytestkudoscommentUS52', Kudos label should be black
     And I click on the kudos button from the comment
-    And I send to the comment activity a kudos message 'Test Auto comment Kudos'
+    And I send to the comment activity a kudos message 'Test Auto comment Kudos US52'
     And I click to edit the kudos text
     And I set the new kudos comment text 'updated kudos message' and I click on update button
     Then the updated Kudos activity 'updated kudos message' is displayed in stream page
@@ -2206,33 +2202,33 @@ Feature: Activity Stream
     And I connect with the first created user
     And I go to the random space
     And I click on post in space
-    And I enter an activity 'activitytestkudos'
+    And I enter an activity 'activitytestkudosUS52_05'
     And I publish the activity
-    Then the activity 'activitytestkudos' is displayed in activity stream
+    Then the activity 'activitytestkudosUS52_05' is displayed in activity stream
 
     When I connect with the third created user
     And I go to the random space
-    Then the activity 'activitytestkudos' is displayed in activity stream
+    Then the activity 'activitytestkudosUS52_05' is displayed in activity stream
 
-    When I add in activity 'activitytestkudos' a comment 'activitytestkudoscomment'
-    And I open in activity 'activitytestkudos' the Comments drawer
-    Then Activity Comment 'activitytestkudoscomment' is displayed in Comments drawer
-    And Activity Comment 'activitytestkudoscomment' is displayed in activity stream
+    When I add in activity 'activitytestkudosUS52_05' a comment 'activitytestkudoscommentUS52_05'
+    And I open in activity 'activitytestkudosUS52_05' the Comments drawer
+    Then Activity Comment 'activitytestkudoscommentUS52_05' is displayed in Comments drawer
+    And Activity Comment 'activitytestkudoscommentUS52_05' is displayed in activity stream
 
     When I connect with the fourth created user
     And I go to the random space
-    Then the activity 'activitytestkudos' is displayed in activity stream
-    When I add a reply 'activitytestkudoscommentreply' to comment 'activitytestkudoscomment' in activity 'activitytestkudos'
-    Then In activity 'activitytestkudos' with comment 'activitytestkudoscomment', the reply 'activitytestkudoscommentreply' is displayed
+    Then the activity 'activitytestkudosUS52_05' is displayed in activity stream
+    When I add a reply 'activitytestkudoscommentreplyUS52_05' to comment 'activitytestkudoscommentUS52_05' in activity 'activitytestkudosUS52_05'
+    Then In activity 'activitytestkudoUS52_05s' with comment 'activitytestkudoscommentUS52_05', the reply 'activitytestkudoscommentreplyUS52_05' is displayed
 
     When I connect with the second created user
     And I go to the random space
-    Then the activity 'activitytestkudos' is displayed in activity stream
-    And In reply 'activitytestkudoscommentreply', Kudos label should be black
+    Then the activity 'activitytestkudosUS52_05' is displayed in activity stream
+    And In reply 'activitytestkudoscommentreplyUS52_05', Kudos label should be black
 
-    When In reply 'activitytestkudoscommentreply', I click on kudos button
-    And I send to the comment activity a kudos message 'Test Auto reply Kudos'
-    Then In reply 'activitytestkudoscommentreply', Kudos label should be blue
+    When In reply 'activitytestkudoscommentreplyUS52_05', I click on kudos button
+    And I send to the comment activity a kudos message 'Test Auto reply Kudos US52_05'
+    Then In reply 'activitytestkudoscommentreplyUS52_05', Kudos label should be blue
 
     When I click to edit the kudos from a reply comment
     And I set the new kudos comment text 'updated kudos message' and I click on update button
@@ -2241,24 +2237,24 @@ Feature: Activity Stream
   Scenario: CAP132 - [ActivityStream_US52][01] Edit a kudos comment from an activity
     Given I am authenticated as admin
     And I create the first random user if not existing, no wait
-    And I create the second random user if not existing
+    And I create the fifth random user if not existing
 
     And I connect with the first created user
     And I go to the random space
     And I click on post in space
-    And I enter an activity 'activitytestkudos'
+    And I enter an activity 'activitytestkudosUS52_01'
     And I publish the activity
-    Then the activity 'activitytestkudos' is displayed in activity stream
+    Then the activity 'activitytestkudosUS52_01' is displayed in activity stream
 
-    When I connect with the second created user
+    When I connect with the fifth created user
     And I go to the random space
-    Then the activity 'activitytestkudos' is displayed in activity stream
-    Then I click on the kudos button from the Activity Stream
-    And I send to the comment activity a kudos message 'Test Auto reply Kudos'
-    Then In activity 'activitytestkudos', I click on the comment 'Test Auto reply Kudos' three dots icon
-    When In comment 'Test Auto reply Kudos', I click on edit button
-    And I set the new kudos comment text 'updated Test Auto reply Kudos' and I click on update button
-    Then the updated Kudos activity 'updated Test Auto reply Kudos' is displayed in stream page
+    Then the activity 'activitytestkudosUS52_01' is displayed in activity stream
+    Then I click on the kudos button on first displayed Activity
+    And I send to the comment activity a kudos message 'Test Auto reply Kudos US52_01'
+    Then In activity 'activitytestkudosUS52_01', I click on the comment 'Test Auto reply Kudos US52_01' three dots icon
+    When In comment 'Test Auto reply Kudos US52_01', I click on edit button
+    And I set the new kudos comment text 'updated Test Auto reply Kudos US52_01' and I click on update button
+    Then the updated Kudos activity 'updated Test Auto reply Kudos US52_01' is displayed in stream page
 
   @smoke
   @ignored

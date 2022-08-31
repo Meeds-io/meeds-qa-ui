@@ -2,17 +2,20 @@ package io.meeds.qa.ui.steps;
 
 import io.meeds.qa.ui.pages.page.factory.HomePage;
 import io.meeds.qa.ui.pages.page.factory.Kudos.KudosPage;
-import io.meeds.qa.ui.pages.page.factory.people.UserProfilePage;
+import io.meeds.qa.ui.pages.page.factory.space.SpaceHomePage;
 
 public class KudosSteps {
-  private HomePage        homePage;
+  private HomePage  homePage;
 
-  private KudosPage       kudosPage;
+  private KudosPage kudosPage;
+  private SpaceHomePage spaceHomePage;
 
-  private UserProfilePage userProfile;
+  public void addActivityKudos(String activity, String comment) {
+    kudosPage.addActivityKudos(activity, comment);
+  }
 
-  public void addActivityCommentKudosFromDrawer(String kudos) {
-    kudosPage.addActivityCommentKudosFromDrawer(kudos);
+  public void addActivityCommentKudos(String kudos) {
+    kudosPage.sendKudosMessageFromOpenedDrawer(kudos);
   }
 
   public void checkKudosIconDisabled(String activityId) {
@@ -51,7 +54,7 @@ public class KudosSteps {
     kudosPage.saveChange();
   }
 
-  public void SearchUserCard(String user) {
+  public void searchUserCard(String user) {
     homePage.refreshPage();
     homePage.goToPeoplePage();
     kudosPage.searchForUsersByName(user);
@@ -67,15 +70,12 @@ public class KudosSteps {
 
   public void threeDotsMenuSendKudos(String kudosMessage) {
     kudosPage.threeDotsMenuSendKudos();
-    userProfile.sendKudos(kudosMessage);
-  }
-
-  public void updateKudosCommentMessage(String kudos) {
-    kudosPage.updateKudosCommentMessage(kudos);
+    kudosPage.sendKudosMessageFromOpenedDrawer(kudosMessage);
   }
 
   public void updateKudosMessage(String kudos) {
-    kudosPage.updateKudosMessage(kudos);
+    spaceHomePage.updateCommentText(kudos);
+    spaceHomePage.updateComment();
   }
 
 }

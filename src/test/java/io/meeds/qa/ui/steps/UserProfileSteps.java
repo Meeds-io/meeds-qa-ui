@@ -6,11 +6,14 @@ import java.util.Map;
 
 import org.junit.Assert;
 
+import io.meeds.qa.ui.pages.page.factory.Kudos.KudosPage;
 import io.meeds.qa.ui.pages.page.factory.people.UserProfilePage;
 
 public class UserProfileSteps {
 
   private UserProfilePage userProfilePage;
+
+  private KudosPage       kudosPage;
 
   public void checkAchievementsDrawer() {
     userProfilePage.checkAchievementsDrawer();
@@ -63,7 +66,7 @@ public class UserProfileSteps {
 
   public void isFullNameVisible(String fullName) {
     // Check That User Fullname is displayed in Profile Page
-    Assert.assertEquals(userProfilePage.ELEMENT_PROFILE_FULLNAME.getText(), fullName);
+    Assert.assertEquals(userProfilePage.ELEMENT_PROFILE_FULLNAME.getText(), fullName); // NOSONAR
   }
 
   public void isGainedCaurisVisible() {
@@ -154,7 +157,7 @@ public class UserProfileSteps {
 
   public void sendKudos(String kudosMessage) {
     userProfilePage.clickOnSendKudosBtn();
-    userProfilePage.sendKudos(kudosMessage);
+    kudosPage.sendKudosMessageFromOpenedDrawer(kudosMessage);
   }
 
   public void sentKudosSectionIsDisplayed(String kudosNumber) {

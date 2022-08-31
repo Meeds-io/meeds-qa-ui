@@ -67,7 +67,7 @@ Feature: Search for User Informations in Profile page
     Given I am authenticated as admin
 
     When I create the fifthkudos random user if not existing, no wait
-    And I create the sixthkudos random user if not existing, no wait
+    And I create the sixthkudos random user if not existing
     And I create the seventhkudos random user if not existing
 
     When I connect with the fifthkudos created user

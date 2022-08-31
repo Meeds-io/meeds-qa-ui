@@ -276,7 +276,7 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.clickOnReplyKudos(reply);
   }
 
-  @Then("I click on the kudos button from the Activity Stream")
+  @Then("I click on the kudos button on first displayed Activity")
   public void clickOnTheKudosButtonFromTheActivityStream() {
     spaceHomeSteps.clickKudosFromActivityStream();
   }

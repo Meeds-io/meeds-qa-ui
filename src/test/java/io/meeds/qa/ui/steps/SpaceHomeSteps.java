@@ -458,11 +458,11 @@ public class SpaceHomeSteps {
   }
 
   public void replyKudosLabelIsBlack(String comment) {
-    spaceHomePage.replyKudosLabelIsBlack(comment);
+    spaceHomePage.kudosLabelIsBlack(comment);
   }
 
   public void replykudosLabelIsBlue(String comment) {
-    spaceHomePage.replyKudosLabelIsBlue(comment);
+    spaceHomePage.kudosLabelIsBlue(comment);
   }
 
   public void tooltipActivityStreamIsDisplayed(String comment) {

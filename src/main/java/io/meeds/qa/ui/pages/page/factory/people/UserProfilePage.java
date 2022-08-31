@@ -463,28 +463,6 @@ public class UserProfilePage extends GenericPage {
     }
   }
 
-  @SwitchToWindow
-  public void sendKudos(String comment) {
-    waitCKEditorLoading();
-    retryOnCondition(() -> {
-      BaseElementFacade ckEditorFrameSendKudosDrawer =
-                                                     findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//iframe[contains(@class,'cke_wysiwyg_frame')]");
-      ckEditorFrameSendKudosDrawer.waitUntilVisible();
-      driver.switchTo().frame(ckEditorFrameSendKudosDrawer);
-    }, () -> {
-      driver.switchTo().defaultContent();
-      waitFor(500).milliseconds(); // Kudos Iframe seems very slow
-    });
-    try {
-      sendKudosMessageContent.waitUntilVisible();
-      sendKudosMessageContent.setTextValue(comment);
-    } finally {
-      driver.switchTo().defaultContent();
-    }
-    sendKudosButton.clickOnElement();
-    waitForDrawerToClose();
-  }
-
   public void sentKudosSectionIsDisplayed(String kudosNumber) {
     assertWebElementVisible(getSentKudosNumber(kudosNumber));
   }

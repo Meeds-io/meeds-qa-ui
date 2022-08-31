@@ -110,7 +110,7 @@ public class SpaceHomePage extends GenericPage {
   @FindBy(xpath = "//i[contains(@class,'mdi-chevron-right')]")
   private BaseElementFacade    goToRightTabs;
 
-  @FindBy(xpath = "//*[@id='activityCommentsDrawer']//*[contains(@id,'Extactivity-footer-comment-action')]")
+  @FindBy(xpath = "//*[@id='activityCommentsDrawer']//*[contains(@id,'KudosActivity') and not(@disabled='disabled')]")
   private BaseElementFacade    kudosButtonFromCommentsDrawerToCommentActivity;
 
   @FindBy(
@@ -120,9 +120,6 @@ public class SpaceHomePage extends GenericPage {
 
   @FindBy(xpath = "(//button[contains(@id,'KudusCountLinkcomment') and @style=''])[1]")
   private BaseElementFacade    kudosButtonNumberToCommentActivity;
-
-  @FindBy(xpath = "(//div[@class='d-flex flex-lg-row flex-column'])[4]")
-  private BaseElementFacade    kudosButtonToActivityStream;
 
   @FindBy(
       xpath = "//div[contains(@class,'white border-radius')][1]//div[contains(@class,'v-list flex')]//div[contains(@class,'d-inline-flex')][1]//div[@role='button']//span[@class='v-btn__content'][last()]"
@@ -195,7 +192,7 @@ public class SpaceHomePage extends GenericPage {
   @FindBy(xpath = "//*[contains(@class,'v-navigation-drawer--open')]//button[@aria-label='Update']")
   private BaseElementFacade    updateActivityButton;
 
-  @FindBy(xpath = "//*[contains(@class,'drawerContent')]//*[@class='v-btn__content' and contains(text(),'Update')]")
+  @FindBy(xpath = "//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(),'Update')]")
   private BaseElementFacade    updateButtonInDrawer;
 
   @FindBy(xpath = "//button[contains(@class,'primary--text font-weight-bold mb-1')]")
@@ -444,11 +441,13 @@ public class SpaceHomePage extends GenericPage {
 
   public void clickOnkudosButtonFromCommentsDrawerToCommentActivity() {
     kudosButtonFromCommentsDrawerToCommentActivity.clickOnElement();
+    waitForDrawerToOpen("#activityKudosDrawer", false);
   }
 
   public void clickOnKudosButtonNumberFromCommentsDrawerToCommentActivity() {
     assertWebElementVisible(kudosButtonNumberFromCommentsDrawerToCommentActivity);
     kudosButtonNumberFromCommentsDrawerToCommentActivity.clickOnElement();
+    waitForDrawerToOpen(".v-navigation-drawer--open .kudos-list", false);
   }
 
   public void clickOnKudosButtonNumberToCommentActivity() {
@@ -456,7 +455,9 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void clickOnkudosButtonToActivityStream() {
-    kudosButtonToActivityStream.clickOnElement();
+    BaseElementFacade firstActivityKudosButton =
+                                               findByXPathOrCSS("(//*[contains(@class, 'activity-detail')])[1]//*[contains(@class, 'activity-footer-actions')]//*[contains(@id, 'KudosActivity')]");
+    firstActivityKudosButton.clickOnElement();
   }
 
   public void clickOnkudosButtonToCommentActivity() {
@@ -478,7 +479,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void clickOnReplyKudos(String reply) {
-    getBlackKudosCommentReplyIcon(reply).clickOnElement();
+    getBlackKudosCommentIcon(reply).clickOnElement();
   }
 
   public void clickOnTheUserPopover(String user) {
@@ -509,8 +510,10 @@ public class SpaceHomePage extends GenericPage {
   public void closeCommentsDrawer() {
     BaseElementFacade closeDrawerButton =
                                         findByXPathOrCSS("//*[@id='activityCommentsDrawer']//*[contains(@class, 'drawerIcons')]//button[contains(@class, 'mdi-close')]");
-    clickOnElement(closeDrawerButton);
-    closeDrawerButton.waitUntilNotVisible();
+    if (closeDrawerButton.isCurrentlyVisible()) {
+      clickOnElement(closeDrawerButton);
+      closeDrawerButton.waitUntilNotVisible();
+    }
   }
 
   public void closeDocumentsDrawer() {
@@ -734,23 +737,18 @@ public class SpaceHomePage extends GenericPage {
                                           activity));
   }
 
-  private BaseElementFacade getBlackKudosCommentReplyIcon(String activityComment) {
+  private BaseElementFacade getBlackKudosCommentIcon(String activityComment) {
     return findByXPathOrCSS(String.format("(//*[contains(text(),'%s')]//ancestor::*[contains(@id, 'ActivityCommment')])[1]/*[1]//button[contains(@id,'KudosActivity') and not(contains(@class,'primary--text'))]",
                                           activityComment));
   }
 
   private BaseElementFacade getBlueKudosCommentIcon(String activityComment) {
-    return findByXPathOrCSS(String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'KudosActivity') and contains(@class,'v-size--x-small primary--text')])[1]",
-                                          activityComment));
-  }
-
-  private BaseElementFacade getBlueKudosCommentReplyIcon(String activityComment) {
     return findByXPathOrCSS(String.format("(//*[contains(text(),'%s')]//ancestor::*[contains(@id, 'ActivityCommment')])[1]/*[1]//button[contains(@id,'KudosActivity') and contains(@class,'primary--text')]",
                                           activityComment));
   }
 
   private BaseElementFacade getBlueLikeCommentIcon(String activityComment) {
-    return findByXPathOrCSS(String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLinkcomment') and contains(@class,'v-size--x-small primary--text')])[1]",
+    return findByXPathOrCSS(String.format("//*[contains(@class,'activity-detail')]//div[contains(text(),'%s')]//ancestor::*[contains(@class, 'v-list-item')]//button[contains(@id,'LikeLinkcomment') and contains(@class,'primary--text')]",
                                           activityComment));
   }
 
@@ -775,7 +773,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private BaseElementFacade getCommentsDrawerBlueLikeCommentIcon(String activityComment) {
-    return findByXPathOrCSS(String.format("(//*[contains(@class,'drawerContent')]//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLinkcomment') and contains(@class,'v-size--x-small primary--text')])[1]",
+    return findByXPathOrCSS(String.format("//*[contains(@class,'drawerContent')]//div[contains(text(),'%s')]//ancestor::*[contains(@class, 'v-list-item')]//button[contains(@id,'LikeLinkcomment') and contains(@class,'primary--text')]",
                                           activityComment));
   }
 
@@ -872,12 +870,12 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private BaseElementFacade getLikeCommentIcon(String activityComment) {
-    return findByXPathOrCSS(String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLinkcomment')])[1]",
+    return findByXPathOrCSS(String.format("//div[contains(text(),'%s')]//ancestor::*[contains(@class, 'v-list-item')]//button[contains(@id,'LikeLinkcomment')]",
                                           activityComment));
   }
 
   private BaseElementFacade getLikeIcon(String activity) {
-    return findByXPathOrCSS(String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLink')])[1]",
+    return findByXPathOrCSS(String.format("//div[contains(text(),'%s')]//ancestor::*[contains(@class, 'activity-detail')]//*[contains(@class, 'activity-footer-actions')]//button[contains(@id,'LikeLink')]",
                                           activity));
   }
 
@@ -998,10 +996,12 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void kudosLabelIsBlack(String comment) {
+    assertWebElementVisible(getBlackKudosCommentIcon(comment));
     assertWebElementNotVisible(getBlueKudosCommentIcon(comment));
   }
 
   public void kudosLabelIsBlue(String comment) {
+    assertWebElementNotVisible(getBlackKudosCommentIcon(comment));
     assertWebElementVisible(getBlueKudosCommentIcon(comment));
   }
 
@@ -1022,8 +1022,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void likeLabelIsBlack(String comment) {
-    BaseElementFacade element = getBlueLikeCommentIcon(comment);
-    assertWebElementNotVisible(element);
+    assertWebElementNotVisible(getBlueLikeCommentIcon(comment));
   }
 
   public void likeLabelIsBlue(String comment) {
@@ -1145,15 +1144,6 @@ public class SpaceHomePage extends GenericPage {
     assertWebElementNotVisible(getReplyBox(comment, reply, true));
   }
 
-  public void replyKudosLabelIsBlack(String comment) {
-    assertWebElementVisible(getBlackKudosCommentReplyIcon(comment));
-    assertWebElementNotVisible(getBlueKudosCommentReplyIcon(comment));
-  }
-
-  public void replyKudosLabelIsBlue(String comment) {
-    assertWebElementVisible(getBlueKudosCommentReplyIcon(comment));
-  }
-
   public void searchMember(String name) {
     spaceMembersFilterTextBox.waitUntilVisible();
     spaceMembersFilterTextBox.setTextValue(name);
@@ -1178,14 +1168,12 @@ public class SpaceHomePage extends GenericPage {
   public void updateCommentText(String comment) {
     ckEditorFrameComment.waitUntilVisible();
     driver.switchTo().frame(ckEditorFrameComment);
-
     try {
       ckEditorBodyComment.clear();
       ckEditorBodyComment.sendKeys(comment);
     } finally {
       driver.switchTo().defaultContent();
     }
-
     Serenity.setSessionVariable("comment").to(comment);
   }
 

@@ -190,10 +190,8 @@ public class PeoplePage extends GenericPage {
     retryOnCondition(() -> {
       searchPeopleInput.setTextValue(user);
       getUserProfileButton(user).clickOnElement();
-    }, () -> {
-      waitFor(1).seconds(); // User may not have been indexed yet
-      this.refreshPage();
-    });
+    }, () -> waitFor(1).seconds() // User may not have been indexed yet
+    );
   }
 
 }
