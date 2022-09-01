@@ -1624,7 +1624,6 @@ Feature: Activity Stream
     And In activity 'activityTest99' with comment 'commenttest99', the reply 'replyTest101' is not displayed
     And In activity 'activityTest99' with comment 'commenttest99', the reply 'replyTest102' is not displayed
 
-  @test
   Scenario: Cap155 - ActivityStream_US58: Mention a user in the comments
     Given I am authenticated as admin
 
@@ -1960,7 +1959,7 @@ Feature: Activity Stream
 
     Given I am authenticated as admin
     And I create the first random user if not existing, no wait
-    And I create the second random user if not existing, no wait
+    And I create the sixth random user if not existing, no wait
     And I create the third random user if not existing
 
     And I connect with the first created user
@@ -1978,7 +1977,7 @@ Feature: Activity Stream
     And I open in activity 'activitytestkudosCAP129' the Comments drawer
     Then Activity Comment 'activitytestkudoscommentCAP129' is displayed in Comments drawer
 
-    When I connect with the second created user
+    When I connect with the sixth created user
     And I go to the random space
     Then the activity 'activitytestkudosCAP129' is displayed in activity stream
     And I open in activity 'activitytestkudosCAP129' the Comments drawer
