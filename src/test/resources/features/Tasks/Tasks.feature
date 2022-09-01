@@ -202,7 +202,7 @@ Feature: Tasks
     Then In column status 'TestStatus2' , Task name 'Collaboration FT Task' is displayed
 
   @smoke
-  Scenario: CAP269 - [US_Sharedlabels_02] Manage labels in Project (Create labels)
+  Scenario: CAP269 - [US_Sharedlabels_02] Manage labels in Project
     Given I am authenticated as admin
     And I create the first random user if not existing
     And I connect with the first created user
@@ -220,6 +220,17 @@ Feature: Tasks
     And I click on Edit project button
     And I enter four label 'label2' 'label3' 'label4' 'label5' in the project
     Then Label 'label2' is displayed in edit project drawer
+    And Label 'label3' is displayed in edit project drawer
+    And Label 'label4' is displayed in edit project drawer
+    And Label 'label5' is displayed in edit project drawer
+
+    When I Remove Label 'label2' in edit project drawer
+    Then Label 'label2' is Not displayed in edit project drawer
+    And I close the project drawer
+    And I click on three dots project button
+    And I click on Edit project button
+    Then Label 'label2' is Not displayed in edit project drawer
+    And Label 'label1' is displayed in edit project drawer
     And Label 'label3' is displayed in edit project drawer
     And Label 'label4' is displayed in edit project drawer
     And Label 'label5' is displayed in edit project drawer
@@ -248,41 +259,6 @@ Feature: Tasks
     When I close task drawer
     And Task name 'taskE' is not displayed in project details
     And Tasks number '0' is displayed in the column To Do
-
-  Scenario: CAP270 - [NF] [US_Sharedlabels_02] Manage labels in Project (Delete labels)
-    Given I am authenticated as admin
-    And I create the first random user if not existing
-    And I connect with the first created user
-
-    When I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
-    And I create the project 'project test labels'
-    And I click on three dots project button
-    And I click on Edit project button
-    And I enter label 'label1' in the project
-    Then Label 'label1' is displayed in edit project drawer
-
-    When I close the project drawer
-    And I click on three dots project button
-    And I click on Edit project button
-    And I enter four label 'label2' 'label3' 'label4' 'label5' in the project
-    Then Label 'label2' is displayed in edit project drawer
-    And Label 'label3' is displayed in edit project drawer
-    And Label 'label4' is displayed in edit project drawer
-    And Label 'label5' is displayed in edit project drawer
-
-    When I close the project drawer
-    And I click on three dots project button
-    And I click on Edit project button
-    And I Remove Label 'label2' in edit project drawer
-    And I close the project drawer
-    And I click on three dots project button
-    And I click on Edit project button
-    Then Label 'label2' is Not displayed in edit project drawer
-    And Label 'label1' is displayed in edit project drawer
-    And Label 'label3' is displayed in edit project drawer
-    And Label 'label4' is displayed in edit project drawer
-    And Label 'label5' is displayed in edit project drawer
 
   Scenario: CAP264 - [NF] [US_Sharedlabels_01]All project members can use added labels
     Given I am authenticated as admin

@@ -46,7 +46,6 @@ public class ManageSpaceStepDefinitions {
     String randomSpaceName = "randomSpaceName" + getRandomNumber();
     homeSteps.goToManageSpacesPage();
     manageSpaceSteps.addSpaceWithRegistration(randomSpaceName, "Open");
-    setSessionVariable("randomSpaceName").to(randomSpaceName);
   }
 
   @Given("^I create a random space with the (.*) random user$")
