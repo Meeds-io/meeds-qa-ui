@@ -1,6 +1,7 @@
 package io.meeds.qa.ui.hook;
 
 import static io.meeds.qa.ui.utils.Utils.decorateDriver;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,16 +26,22 @@ import net.thucydides.core.annotations.Steps;
 
 public class TestHooks {
 
-  protected static final Map<String, String> SPACES = new HashMap<>();
+  protected static final Map<String, String> SPACES      = new HashMap<>();
 
-  protected static final Map<String, String> USERS  = new HashMap<>();
+  protected static final Map<String, String> SPACES_URLS = new HashMap<>();
 
-  public static void spaceWithPrefixCreated(String spaceNamePrefix, String spaceName) {
+  protected static final Map<String, String> USERS       = new HashMap<>();
+
+  public static void spaceWithPrefixCreated(String spaceNamePrefix, String spaceName, String spaceUrl) {
     SPACES.put(spaceNamePrefix, spaceName);
+    SPACES_URLS.put(spaceNamePrefix, spaceUrl);
+    setSessionVariable(spaceNamePrefix).to(spaceName);
+    setSessionVariable(spaceNamePrefix + "-url").to(spaceUrl);
   }
 
   public static void spaceWithPrefixDeleted(String spaceNamePrefix) {
-    SPACES.put(spaceNamePrefix, null);
+    SPACES.remove(spaceNamePrefix);
+    SPACES_URLS.remove(spaceNamePrefix);
   }
 
   public static void userWithPrefixCreated(String userPrefix,
@@ -52,24 +59,24 @@ public class TestHooks {
   }
 
   @Steps
-  private AdminApplicationSteps              adminApplicationSteps;
+  private AdminApplicationSteps      adminApplicationSteps;
 
-  private boolean                            adminLoggedIn;
-
-  @Steps
-  private HomeSteps                          homeSteps;
+  private boolean                    adminLoggedIn;
 
   @Steps
-  private LoginSteps                         loginSteps;
+  private HomeSteps                  homeSteps;
 
   @Steps
-  private ManageBadgesSteps                  manageBadgesSteps;
+  private LoginSteps                 loginSteps;
 
   @Steps
-  private ManageSpaceStepDefinitions         manageSpaceStepDefinitions;
+  private ManageBadgesSteps          manageBadgesSteps;
 
   @Steps
-  private ManageSpaceSteps                   manageSpaceSteps;
+  private ManageSpaceStepDefinitions manageSpaceStepDefinitions;
+
+  @Steps
+  private ManageSpaceSteps           manageSpaceSteps;
 
   private void cleanupBrowser() {
     try {
@@ -143,6 +150,11 @@ public class TestHooks {
     SPACES.entrySet().forEach(entry -> {
       if (StringUtils.isNotBlank(entry.getValue())) {
         Serenity.setSessionVariable(entry.getKey()).to(entry.getValue());
+      }
+    });
+    SPACES_URLS.entrySet().forEach(entry -> {
+      if (StringUtils.isNotBlank(entry.getValue())) {
+        Serenity.setSessionVariable(entry.getKey() + "-url").to(entry.getValue());
       }
     });
     USERS.entrySet().forEach(entry -> {

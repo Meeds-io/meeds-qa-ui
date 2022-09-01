@@ -1624,6 +1624,7 @@ Feature: Activity Stream
     And In activity 'activityTest99' with comment 'commenttest99', the reply 'replyTest101' is not displayed
     And In activity 'activityTest99' with comment 'commenttest99', the reply 'replyTest102' is not displayed
 
+  @test
   Scenario: Cap155 - ActivityStream_US58: Mention a user in the comments
     Given I am authenticated as admin
 
@@ -1635,7 +1636,7 @@ Feature: Activity Stream
     And I create the sixth random user if not existing
 
     And I connect with the first created user
-    And I go to the random space
+    And I create a random space
     And I click on post in space
     And I enter an activity 'activityTest155'
     And I publish the activity
@@ -1667,10 +1668,10 @@ Feature: Activity Stream
     When I enter a comment 'comTest155' with mentioning the fourth user
     Then Fourth User is mentioned in the comment
 
-    When I enter a comment 'comTest155' with mentioning the fifth user
+    When I enter a comment 'comTest155' with attempting to mention the fifth user
     Then Fifth User is not mentioned in the comment
 
-    When I enter a comment 'comTest155' with mentioning the sixth user
+    When I enter a comment 'comTest155' with attempting to mention the sixth user
     Then Sixth User is not mentioned in the comment
     And I close the comments drawer
 

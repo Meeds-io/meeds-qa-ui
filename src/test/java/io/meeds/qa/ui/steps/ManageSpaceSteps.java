@@ -23,18 +23,25 @@ public class ManageSpaceSteps {
 
   public void addOrGoToSpace(String spaceNamePrefix) {
     String spaceName = sessionVariableCalled(spaceNamePrefix);
+    String spaceUrl = sessionVariableCalled(spaceNamePrefix + "-url");
+    if (StringUtils.isNotBlank(spaceUrl)) {
+      homePage.openUrl(spaceUrl);
+      homePage.verifyPageLoaded();
+      if (StringUtils.equals(homePage.getCurrentUrl(), spaceUrl)) {
+        return;
+      }
+    }
     if (!manageSpacesPage.getCurrentUrl().contains("/spaces")) {
       homePage.goToSpacesPage();
     }
     if (StringUtils.isBlank(spaceName)) {
       spaceName = Utils.getRandomString(spaceNamePrefix);
-      setSessionVariable(spaceNamePrefix).to(spaceName);
       if (findSpaceCard(spaceName)) {
         goOrJoinToSpace(spaceName);
       } else {
         addSpaceWithRegistration(spaceName, "Open");
       }
-      TestHooks.spaceWithPrefixCreated(spaceNamePrefix, spaceName);
+      TestHooks.spaceWithPrefixCreated(spaceNamePrefix, spaceName, homePage.getCurrentUrl());
     } else if (findSpaceCard(spaceName)) {
       goOrJoinToSpace(spaceName);
     } else {
@@ -59,6 +66,9 @@ public class ManageSpaceSteps {
     manageSpacesPage.checkSpaceRegistration(registration);
     manageSpacesPage.clickSecondProcessButton();
     manageSpacesPage.clickAddSpaceButton();
+    String spaceNamePrefix = "randomSpaceName";
+    setSessionVariable(spaceNamePrefix).to(spaceName);
+    setSessionVariable(spaceNamePrefix + "-url").to(manageSpacesPage.getCurrentUrl());
   }
 
   public void addUserToSpace(String user) {

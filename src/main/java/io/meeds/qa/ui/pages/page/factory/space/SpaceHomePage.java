@@ -617,9 +617,12 @@ public class SpaceHomePage extends GenericPage {
     buttonCreatePoll.clickOnElement();
   }
 
-  @SwitchToWindow
   public void enterActivityCommentWithUser(String comment, String user) {
-    mentionUserWithContent(ckEditorFrameComment, ckEditorBodyComment, comment, user);
+    mentionUserWithContent(ckEditorFrameComment, ckEditorBodyComment, comment, user, true);
+  }
+
+  public void enterActivityCommentWithUserNoMention(String comment, String user) {
+    mentionUserWithContent(ckEditorFrameComment, ckEditorBodyComment, comment, user, false);
   }
 
   @SwitchToWindow

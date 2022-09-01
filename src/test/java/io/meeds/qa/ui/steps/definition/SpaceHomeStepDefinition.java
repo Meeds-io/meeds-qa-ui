@@ -449,6 +449,12 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.enterActivityCommentWithUser(comment, lastName);
   }
 
+  @When("^I enter a comment '(.*)' with attempting to mention the (.*) user$")
+  public void enterActivityCommentWithRandomUserNoMention(String comment, String userPrefix) {
+    String lastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
+    spaceHomeSteps.enterActivityCommentWithUserNoMention(comment, lastName);
+  }
+
   @When("^I insert text '(.*)'$")
   public void enterActivityText(String activity) {
     spaceHomeSteps.enterActivityText(activity);

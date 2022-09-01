@@ -481,7 +481,7 @@ public class TasksPage extends GenericPage {
 
   @SwitchToWindow
   public void addNewCommentInTaskWithMentioningTheFirstUserInTask(String comment, String user) {
-    mentionUserWithContent(ckEditorFrameTaskMentioningUser, taskCommentContentTextBox, comment, user);
+    mentionUserWithContent(ckEditorFrameTaskMentioningUser, taskCommentContentTextBox, comment, user, true);
     commentTaskButton.waitUntilVisible();
     commentTaskButton.clickOnElement();
     goBackToTaskDrawerFromComments.waitUntilVisible();

@@ -30,6 +30,7 @@ import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.core.selectors.Selectors;
+import net.thucydides.core.annotations.WhenPageOpens;
 import net.thucydides.core.pages.PageObject;
 
 public class BasePageImpl extends PageObject implements BasePage {
@@ -196,7 +197,8 @@ public class BasePageImpl extends PageObject implements BasePage {
   public void mentionUserWithContent(BaseElementFacade ckEditorFrame,
                                      TextBoxElementFacade ckEditorBody,
                                      String content,
-                                     String user) {
+                                     String user,
+                                     boolean shouldExists) {
     waitCKEditorLoading();
     retryOnCondition(() -> {
       ckEditorFrame.waitUntilVisible();
@@ -209,20 +211,24 @@ public class BasePageImpl extends PageObject implements BasePage {
 
       boolean visible = false;
       int retry = 0;
+      int maxRetries = shouldExists ? 5 : 3;
+      Duration retryWaitTime = shouldExists ? Duration.ofSeconds(1) : Duration.ofMillis(300);
       do {
         ckEditorBody.sendKeys(Keys.BACK_SPACE);
-        waitFor(1).seconds();
+        if (shouldExists) {
+          waitFor(1).seconds();
+        }
         driver.switchTo().defaultContent();
         try {
           BaseElementFacade suggesterElement =
                                              findByXPathOrCSS(String.format("//*[contains(@class, 'atwho-view')]//*[contains(text(), '%s')]",
                                                                             user.substring(0, user.length() - retry - 1)));
-          suggesterElement.setImplicitTimeout(Duration.ofSeconds(1));
+          suggesterElement.setImplicitTimeout(retryWaitTime);
           visible = suggesterElement.isVisibleAfterWaiting();
         } finally {
           driver.switchTo().frame(ckEditorFrame);
         }
-      } while (!visible && retry++ < 5);
+      } while (!visible && retry++ < maxRetries);
       ckEditorBody.sendKeys(Keys.ENTER);
     } finally {
       driver.switchTo().defaultContent();
@@ -240,6 +246,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   @Override
+  @WhenPageOpens
   public void verifyPageLoaded() {
     waitForPageLoaded();
   }

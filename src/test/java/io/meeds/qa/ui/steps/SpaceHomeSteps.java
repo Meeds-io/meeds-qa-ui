@@ -270,6 +270,10 @@ public class SpaceHomeSteps {
     spaceHomePage.enterActivityCommentWithUser(comment, user);
   }
 
+  public void enterActivityCommentWithUserNoMention(String comment, String user) {
+    spaceHomePage.enterActivityCommentWithUserNoMention(comment, user);
+  }
+
   public void enterActivityText(String activity) {
     spaceHomePage.enterActivityText(activity);
   }
