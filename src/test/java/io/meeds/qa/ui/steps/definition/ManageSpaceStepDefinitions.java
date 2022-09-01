@@ -1,19 +1,21 @@
 package io.meeds.qa.ui.steps.definition;
 
+import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
+
+import org.apache.commons.lang3.StringUtils;
+
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.java.en.And;
 import io.meeds.qa.ui.hook.TestHooks;
 import io.meeds.qa.ui.pages.page.factory.space.ManageSpacesPage;
 import io.meeds.qa.ui.steps.HomeSteps;
 import io.meeds.qa.ui.steps.ManageSpaceSteps;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
-import org.apache.commons.lang3.StringUtils;
-
-import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
-import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 public class ManageSpaceStepDefinitions {
   @Steps
@@ -308,16 +310,6 @@ public class ManageSpaceStepDefinitions {
     manageSpacesPage.isSpacePageOpened(space);
   }
 
-  @Given("^Move after option of the application '(.*)' is displayed$")
-  public void moveAfterAppButtonIsDisplayed(String appName) {
-    manageSpaceSteps.moveAfterAppButtonIsDisplayed(appName);
-  }
-
-  @Given("^Move before option of the application '(.*)' is displayed$")
-  public void moveBeforeAppButtonIsDisplayed(String appName){
-    manageSpaceSteps.moveBeforeAppButtonIsDisplayed(appName);
-  }
-
   @Given("^Plus button is displayed$")
   public void plusButtonIsDisplayed() {
     manageSpaceSteps.plusButtonIsDisplayed();
@@ -335,9 +327,9 @@ public class ManageSpaceStepDefinitions {
     homeSteps.rejectRandomSpaceInvitation(randomSpaceName);
   }
 
-  @Given("^Remove option of '(.*)' application is displayed$")
-  public void removeAppButtonIsDisplayed(String appName) {
-    manageSpaceSteps.removeAppButtonIsDisplayed(appName);
+  @Given("^'(.*)' option of the application '(.*)' is displayed$")
+  public void checkOptionFromApplicationMenuIsDisplayed(String option , String appName) {
+    manageSpaceSteps.checkOptionFromApplicationMenuIsDisplayed(option , appName);
   }
 
   @Given("^I search the space '(.*)'$")
@@ -386,4 +378,15 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.uploadSpaceBanner(fileName);
   }
 
+  @And("^I confirm to remove the application$")
+  public void confirmRemoveApplication() {
+    manageSpaceSteps.confirmRemoveApplication();
+  }
+
+  @And("^I click on '(.*)' option from application '(.*)' menu$")
+  public void removeApplication(String option , String appName) {
+    manageSpaceSteps.clickOptionApplicationCard(option ,appName);
+  }
+
 }
+

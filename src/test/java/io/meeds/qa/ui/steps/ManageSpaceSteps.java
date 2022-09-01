@@ -255,20 +255,12 @@ public class ManageSpaceSteps {
     manageSpacesPage.isSpaceBannerUpdated();
   }
 
-  public void moveAfterAppButtonIsDisplayed(String appName) {
-    manageSpacesPage.moveAfterAppButtonIsDisplayed(appName);
-  }
-
-  public void moveBeforeAppButtonIsDisplayed(String appName) {
-    manageSpacesPage.moveBeforeAppButtonIsDisplayed(appName);
-  }
-
   public void plusButtonIsDisplayed() {
     manageSpacesPage.plusButtonIsDisplayed();
   }
 
-  public void removeAppButtonIsDisplayed(String appName) {
-    manageSpacesPage.removeAppButtonIsDisplayed(appName);
+  public void checkOptionFromApplicationMenuIsDisplayed(String option , String appName) {
+    manageSpacesPage.checkOptionFromApplicationMenuIsDisplayed(option ,appName);
   }
 
   public void searchSpace(String spaceName) {
@@ -297,6 +289,15 @@ public class ManageSpaceSteps {
 
   public void uploadSpaceBanner(String fileName) {
     manageSpacesPage.uploadSpaceBanner(fileName);
+  }
+
+
+  public void confirmRemoveApplication(){
+    manageSpacesPage.confirmRemoveApplication();
+  }
+
+  public void clickOptionApplicationCard (String option , String appName){
+    manageSpacesPage.clickOptionApplicationCard(option,appName);
   }
 
 }

@@ -161,7 +161,7 @@ public class ManageSpacesPage extends GenericPage {
   @FindBy(xpath = "//*[contains(@class,'spaceToolbarIcons')]//button[contains(@class,'spaceMenuIcon')]")
   private TextBoxElementFacade spaceSearchDetailsThreeDots;
 
-  @FindBy(xpath = "//*[@class='v-slide-group__content v-tabs-bar__content']/a[5]")
+  @FindBy(xpath = "//*[@id='UITopBarContainerParent']//*[contains(@class, 'spaceMenuParent')]//a[contains(text(),'Settings')]")
   private BaseElementFacade    spaceSettingsTab;
 
   @FindBy(xpath = "//*[@class='v-input__icon v-input__icon--prepend-inner']//i")
@@ -193,6 +193,9 @@ public class ManageSpacesPage extends GenericPage {
 
   @FindBy(xpath = "//*[@class='v-input--selection-controls__input']/following::label[contains(text(),'Validation')]")
   private BaseElementFacade    validationRadioBtn;
+
+  @FindBy(xpath = "//*[contains(@class, 'v-dialog--active')]//button[contains(@class, 'btn-primary')]")
+  private BaseElementFacade removeConfirmationButton;
 
   public ManageSpacesPage(WebDriver driver) {
     super(driver);
@@ -650,4 +653,28 @@ public class ManageSpacesPage extends GenericPage {
     upload(UPLOAD_DIRECTORY_PATH + fileName).fromLocalMachine().to(elem);
   }
 
+  public void confirmRemoveApplication() {
+    removeConfirmationButton.clickOnElement();
+  }
+
+  public void checkOptionFromApplicationMenuIsDisplayed(String option , String appName) {
+    assertWebElementVisible(getOptionFromApplicationMenu(appName,option));
+  }
+
+  public void clickOptionApplicationCard(String appName , String option){
+    getApplicationThreeDotsMenu(appName).clickOnElement();
+    getOptionFromApplicationMenu(option,appName);
+    getOptionFromApplicationMenu(option,appName).clickOnElement();
+  }
+
+  private BaseElementFacade getApplicationThreeDotsMenu(String appName) {
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@Class,'SpaceApplicationCard')]//*[contains(@Class, 'mdi-dots-vertical')]//ancestor::button",
+            appName));
+  }
+
+  private BaseElementFacade getOptionFromApplicationMenu(String appName , String option) {
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@class,'SpaceApplicationCard')]//ancestor::*[contains(@class,'v-list--dense')]//*[contains(text(),'%s')]",appName,option));
+  }
+
 }
+

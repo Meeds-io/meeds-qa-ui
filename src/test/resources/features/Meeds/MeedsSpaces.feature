@@ -62,10 +62,11 @@ Feature: Meeds Space
     And Plus button is displayed
 
     When I click on three dots icon of 'Notes' application
-    Then Remove option of 'Notes' application is displayed
-    And Move before option of the application 'Notes' is displayed
-    And Move after option of the application 'Notes' is displayed
-    And I remove application 'Notes' from the list application
+    Then 'Remove' option of the application 'Notes' is displayed
+    And 'Move before' option of the application 'Notes' is displayed
+    And 'Move after' option of the application 'Notes' is displayed
+    And I click on 'Remove' option from application 'Notes' menu
+    And  I confirm to remove the application
 
     When I click on plus button to add application
     Then I check that space application installer drawer is displayed
