@@ -141,9 +141,6 @@ public class SpaceHomePage extends GenericPage {
   @FindBy(xpath = "//a[contains(@href,'/notes') and @tabindex='0']")
   private BaseElementFacade    notesTab;
 
-  @FindBy(css = ".activityComposer .openLink")
-  private BaseElementFacade    postIcon;
-
   @FindBy(xpath = "//div[@class='progress']")
   private BaseElementFacade    progressDownloadBar;
 
@@ -487,9 +484,11 @@ public class SpaceHomePage extends GenericPage {
   public void clickPostIcon() {
     if (activityTab.getAttribute("aria-selected").equals("false")) {
       goToSpecificTab("Stream");
+      waitFor(500).milliseconds();
     }
     verifyPageLoaded();
-    postIcon.clickOnElement();
+    BaseElementFacade activityPostLink = findByXPathOrCSS(".activityComposer .openLink");
+    activityPostLink.clickOnElement();
   }
 
   public void clickYesbutton() {

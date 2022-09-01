@@ -259,9 +259,9 @@ public class HomeStepDefinition {
     homeSteps.favoriteActivity(oldActiviyy);
   }
 
-  @When("^First searched space is not displayed in Side Bar Filter$")
-  public void firstSearchedSpaceIsNotDisplayedInSideBarFilter() {
-    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
+  @When("^(.*) searched space is not displayed in Side Bar Filter$")
+  public void randomSearchedSpaceIsNotDisplayedInSideBarFilter(String spacePrefix) {
+    String randomSpaceName = Serenity.sessionVariableCalled(spacePrefix.toLowerCase() + "RandomSpaceName");
     homeSteps.searchedSpaceIsNotDisplayedInSideBarFilter(randomSpaceName);
   }
 
@@ -430,10 +430,10 @@ public class HomeStepDefinition {
     homeSteps.searchSpaceInSideBarFilter(space);
   }
 
-  @When("^Second searched space is displayed in Side Bar Filter$")
-  public void secondSearchedSpaceIsDisplayedInSideBarFilter() {
-    String secondRandomSpaceName = Serenity.sessionVariableCalled("secondRandomSpaceName");
-    homeSteps.searchedSpaceIsDisplayedInSideBarFilter(secondRandomSpaceName);
+  @When("^(.*) searched space is displayed in Side Bar Filter$")
+  public void randomSearchedSpaceIsDisplayedInSideBarFilter(String spacePrefix) {
+    String randomSpaceName = Serenity.sessionVariableCalled(spacePrefix.toLowerCase() + "RandomSpaceName");
+    homeSteps.searchedSpaceIsDisplayedInSideBarFilter(randomSpaceName);
   }
 
   @Then(
