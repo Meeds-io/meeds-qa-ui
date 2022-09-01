@@ -153,7 +153,7 @@ public class HomeStepDefinition {
                                                    .isEmpty();
   }
 
-  @When("The 'Spaces' badge is '{}'")
+  @When("^The Spaces badge is '(.*)'$")
   public void checkSpaceBadge(String badgeNumber) {
     homeSteps.checkSpacesBadge(badgeNumber);
   }

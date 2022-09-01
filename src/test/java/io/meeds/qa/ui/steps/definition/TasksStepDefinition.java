@@ -131,6 +131,16 @@ public class TasksStepDefinition {
     tasksSteps.addProjectWithManagerAndParticipant(randomSpaceName, firstUserFullName, secondUserFullName);
   }
 
+  @Then("^I add the random project with first user as the participant$")
+  public void addProjectWithFirstUserAsParticipant() {
+    String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
+    String firstUserLastName = Serenity.sessionVariableCalled("firstUserLastName");
+    String firstUserFullName = firstUserFirstName + " " + firstUserLastName;
+    String randomSpaceName = "randomSpaceName" + getRandomNumber();
+    Serenity.setSessionVariable("randomSpaceName").to(randomSpaceName);
+    tasksSteps.addProjectWithFirstUserAsParticipant(randomSpaceName, firstUserFullName);
+  }
+
   @Then("^I create the project '(.*)' with the manager '(.*)'$")
   public void addProjectWithManager(String projectName, String fullName) {
     tasksSteps.addProjectWithManager(projectName, fullName);
@@ -1039,6 +1049,12 @@ public class TasksStepDefinition {
   public void secondRandomUserAvatarIsDisplayedInProjectCard() {
     String secondUserName = Serenity.sessionVariableCalled("secondUserName");
     tasksSteps.userAvatarIsNotDisplayedInProjectCard(secondUserName);
+  }
+
+  @Then("^Avatar of the first created user is not displayed in Project Card$")
+  public void firstRandomUserAvatarIsDisplayedInProjectCard() {
+    String firstUserName = Serenity.sessionVariableCalled("firstUserName");
+    tasksSteps.userAvatarIsNotDisplayedInProjectCard(firstUserName);
   }
 
   @When("^I select '(.*)' from Sort By Filter section$")

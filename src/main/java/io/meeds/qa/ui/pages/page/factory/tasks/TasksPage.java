@@ -565,6 +565,13 @@ public class TasksPage extends GenericPage {
     saveButton.clickOnElement();
   }
 
+  public void addProjectWithFirstUserAsParticipant(String projectName, String participant) {
+    addProjectOrTask.clickOnElement();
+    projectTitle.setTextValue(projectName);
+    addProjectParticipantInput(participant);
+    saveButton.clickOnElement();
+  }
+
   public void addProjectWithParticipant(String projectName, String lastName) {
     addProjectOrTask.clickOnElement();
     projectTitle.setTextValue(projectName);

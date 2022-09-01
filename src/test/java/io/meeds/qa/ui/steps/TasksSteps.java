@@ -58,6 +58,10 @@ public class TasksSteps {
     tasksPage.addProjectWithManagerAndParticipant(projectName, manager, participant);
   }
 
+  public void addProjectWithFirstUserAsParticipant(String projectName, String participant) {
+    tasksPage.addProjectWithFirstUserAsParticipant(projectName, participant);
+  }
+
   public void addProjectWithParticipant(String projectName, String lastName) {
     tasksPage.addProjectWithParticipant(projectName, lastName);
 
