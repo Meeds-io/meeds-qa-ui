@@ -104,6 +104,7 @@ Feature: Search for User Informations in Profile page
     Then Sent Kudos Section is displayed
     Then Gained Cauris Section is displayed
 
+  @test
   Scenario: : PROFILE-7 : Work Experiences block and its drawer
     Given I am authenticated as admin
 
@@ -118,6 +119,7 @@ Feature: Search for User Informations in Profile page
       | jobTitle     | QA Engineer                          |
       | jobDetails   | Tests Automation Consultant          |
       | usedSkills   | Serenity Cucumber Selenium Java Jira |
+    Then  Job title 'QA Engineer' and Organization 'Test' and Job details 'Tests Automation Consultant' and Used skills 'Serenity Cucumber Selenium Java Jira' are displayed in Work experiences section
 
     And I add my profile work experiences
       | organization | google                |

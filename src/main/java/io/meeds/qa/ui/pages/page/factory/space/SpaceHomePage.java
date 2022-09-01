@@ -1,21 +1,22 @@
 package io.meeds.qa.ui.pages.page.factory.space;
 
-import io.meeds.qa.ui.elements.BaseElementFacade;
-import io.meeds.qa.ui.elements.TextBoxElementFacade;
-import io.meeds.qa.ui.pages.GenericPage;
-import io.meeds.qa.ui.utils.SwitchToWindow;
-import net.serenitybdd.core.Serenity;
-import net.serenitybdd.core.annotations.findby.FindBy;
+import static org.junit.Assert.assertTrue;
+
+import java.time.Duration;
+import java.util.Set;
+
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 
-import java.time.Duration;
-import java.util.Set;
-
-import static org.junit.Assert.assertTrue;
+import io.meeds.qa.ui.elements.BaseElementFacade;
+import io.meeds.qa.ui.elements.TextBoxElementFacade;
+import io.meeds.qa.ui.pages.GenericPage;
+import io.meeds.qa.ui.utils.SwitchToWindow;
+import net.serenitybdd.core.Serenity;
+import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class SpaceHomePage extends GenericPage {
   private static final String  CONFIRMATION_BUTTON_TO_DELETE_ACTIVITY_SELECTOR = "//*[contains(text(),'Yes')]";
@@ -113,17 +114,13 @@ public class SpaceHomePage extends GenericPage {
   @FindBy(xpath = "//*[@id='activityCommentsDrawer']//*[contains(@id,'KudosActivity') and not(@disabled='disabled')]")
   private BaseElementFacade    kudosButtonFromCommentsDrawerToCommentActivity;
 
-  @FindBy(
-      xpath = "//*[@id='activityCommentsDrawer']//*[contains(@id,'Extactivity-footer-comment-action')]//div[@class='d-inline-flex']//button[contains(@class,'primary--text font-weight')][1]"
-  )
+  @FindBy(xpath = "//*[@id='activityCommentsDrawer']//*[contains(@id,'Extactivity-footer-comment-action')]//div[@class='d-inline-flex']//button[contains(@class,'primary--text font-weight')][1]")
   private BaseElementFacade    kudosButtonNumberFromCommentsDrawerToCommentActivity;
 
   @FindBy(xpath = "(//button[contains(@id,'KudusCountLinkcomment') and @style=''])[1]")
   private BaseElementFacade    kudosButtonNumberToCommentActivity;
 
-  @FindBy(
-      xpath = "//div[contains(@class,'white border-radius')][1]//div[contains(@class,'v-list flex')]//div[contains(@class,'d-inline-flex')][1]//div[@role='button']//span[@class='v-btn__content'][last()]"
-  )
+  @FindBy(xpath = "//div[contains(@class,'white border-radius')][1]//div[contains(@class,'v-list flex')]//div[contains(@class,'d-inline-flex')][1]//div[@role='button']//span[@class='v-btn__content'][last()]")
   private BaseElementFacade    kudosButtonToCommentActivity;
 
   @FindBy(xpath = "//*[contains(@class,'v-btn--block v-btn--contained theme--light')]//span")
@@ -214,7 +211,8 @@ public class SpaceHomePage extends GenericPage {
 
     try {
       if (activity.contains("https")) {
-        // A workaround to the fact that the preview isn't triggered only by a Paste Event
+        // A workaround to the fact that the preview isn't triggered only by a
+        // Paste Event
         activityContentTextBox.sendKeys(activity);
         activityContentTextBox.sendKeys(Keys.CONTROL + "a" + "x");
         driver.switchTo().defaultContent();
@@ -276,16 +274,12 @@ public class SpaceHomePage extends GenericPage {
 
   public void addDescriptionLess1000CharsInThePoll(String choiceThree) {
     choiceThreePoll.waitUntilVisible();
-    Actions action = new Actions(driver);
-    action.keyDown(choiceThreePoll, Keys.CONTROL).sendKeys("a").build().perform();
-    choiceThreePoll.sendKeys(Keys.DELETE);
-    choiceThreePoll.clickOnElement();
-    choiceThreePoll.sendKeys(choiceThree);
+    choiceThreePoll.setTextValue(choiceThree);
   }
 
   public void addOptionThreeInThePoll(String choiceThree) {
     choiceThreePoll.clickOnElement();
-    choiceThreePoll.sendKeys(choiceThree);
+    choiceThreePoll.setTextValue(choiceThree);
   }
 
   public void addOptionTwoInThePoll(String choiceTow) {
@@ -521,9 +515,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void commentIsDisplayedInDrawer(String commentsNumber, String comment) {
-    assertTrue(String.format("Comment '%s' should be displayed in drawer with drawer title '%s'",
-                             comment,
-                             commentsNumber),
+    assertTrue(String.format("Comment '%s' should be displayed in drawer with drawer title '%s'", comment, commentsNumber),
                getDrawerCommentsNumberAndNames(commentsNumber, comment).isDisplayed());
   }
 
@@ -554,11 +546,8 @@ public class SpaceHomePage extends GenericPage {
 
   public void createPoll(String pollTitle, String choiceOne, String choiceTow) {
     waitForDrawerToOpen("#createPollDrawer", false);
-    titlePoll.clickOnElement();
     titlePoll.setTextValue(pollTitle);
-    choiceOnePoll.clickOnElement();
     choiceOnePoll.setTextValue(choiceOne);
-    choiceTwoPoll.clickOnElement();
     choiceTwoPoll.setTextValue(choiceTow);
     buttonCreatePoll.clickOnElement();
     waitForDrawerToClose("#createPollDrawer", false);
@@ -880,8 +869,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private BaseElementFacade getMentionedUserInCommentEntered(String user) {
-    return findByXPathOrCSS(String.format("//*[@class='atwho-inserted']//*[contains(text(),'%s')]",
-                                          user));
+    return findByXPathOrCSS(String.format("//*[@class='atwho-inserted']//*[contains(text(),'%s')]", user));
   }
 
   private BaseElementFacade getNormalLinkPreview(String link) {
@@ -899,8 +887,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private BaseElementFacade getReplyBox(String comment, String reply, boolean inDrawer) {
-    String parentXPath = inDrawer ? "//*[@id='activityCommentsDrawer']"
-                                  : "//*[contains(@class,'activity-detail')]";
+    String parentXPath = inDrawer ? "//*[@id='activityCommentsDrawer']" : "//*[contains(@class,'activity-detail')]";
     String replyXPath = parentXPath
         + String.format("//*[contains(@class,'activity-comment')]//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@class,'activity-comment') and contains(@id, 'ActivityCommment_')]//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@class,'activity-comment') and contains(@id, 'ActivityCommment_')][1]",
                         comment,
@@ -933,17 +920,17 @@ public class SpaceHomePage extends GenericPage {
 
   public void goToSpecificTab(String tabName) {
     switch (tabName) {
-      case "Members":
-        if (!membersTab.isVisible())
-          goToLeftTabs.waitUntilVisible();
-        membersTab.sendKeys(Keys.ENTER);
-        break;
-      case "Activité":
-      case "Stream":
-        if (!activityTab.isVisible())
-          goToLeftTabs.clickOnElement();
-        activityTab.sendKeys(Keys.ENTER);
-        break;
+    case "Members":
+      if (!membersTab.isVisible())
+        goToLeftTabs.waitUntilVisible();
+      membersTab.sendKeys(Keys.ENTER);
+      break;
+    case "Activité":
+    case "Stream":
+      if (!activityTab.isVisible())
+        goToLeftTabs.clickOnElement();
+      activityTab.sendKeys(Keys.ENTER);
+      break;
     }
   }
 
@@ -1221,13 +1208,12 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private BaseElementFacade getReactionActivityLink(String activity) {
-    return findByXPathOrCSS(String
-            .format("//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'activity-detail')]//*[contains(@class,'likersNumber')]", activity));
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'activity-detail')]//*[contains(@class,'likersNumber')]",
+                                          activity));
   }
 
   private BaseElementFacade getUserElementFromReactionsDrawer(String userLastName) {
-    return findByXPathOrCSS(
-            String.format("//*[@class='likers-list']//*[contains(text(),'%s')]", userLastName));
+    return findByXPathOrCSS(String.format("//*[@class='likers-list']//*[contains(text(),'%s')]", userLastName));
   }
 
 }

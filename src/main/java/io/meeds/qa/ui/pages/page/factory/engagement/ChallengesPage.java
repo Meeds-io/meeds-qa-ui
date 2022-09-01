@@ -333,7 +333,7 @@ public class ChallengesPage extends GenericPage {
     endDateField.clickOnElement();
     waitFor(200).milliseconds();
     BaseElementFacade endDateNextWeek =
-                                      findByXPathOrCSS("(//*[contains(@class,'v-date-picker-table__current')])[2]/following::td[7]");
+                                      findByXPathOrCSS("//*[contains(@class,'menuable__content__active')]//*[contains(@class,'v-date-picker-table__current')]/following::td[7]");
     endDateNextWeek.waitUntilVisible();
     clickOnElement(endDateNextWeek);
     endDateNextWeek.waitUntilNotVisible();
@@ -345,7 +345,7 @@ public class ChallengesPage extends GenericPage {
     endDateField.clickOnElement();
     waitFor(200).milliseconds();
     BaseElementFacade endDateTomorrow =
-                                      findByXPathOrCSS("(//*[contains(@class,'v-date-picker-table__current')])[2]/following::td[1]");
+                                      findByXPathOrCSS("//*[contains(@class,'menuable__content__active')]//*[contains(@class,'v-date-picker-table__current')]/following::td[1]");
     endDateTomorrow.waitUntilVisible();
     clickOnElement(endDateTomorrow);
     endDateTomorrow.waitUntilNotVisible();
@@ -356,7 +356,7 @@ public class ChallengesPage extends GenericPage {
     startDateField.waitUntilVisible();
     startDateField.clickOnElement();
     waitFor(200).milliseconds();
-    BaseElementFacade startDateToday = findByXPathOrCSS("(//*[contains(@class,'v-date-picker-table__current')])[1]");
+    BaseElementFacade startDateToday = findByXPathOrCSS("//*[contains(@class,'menuable__content__active')]//*[contains(@class,'v-date-picker-table__current')]");
     startDateToday.waitUntilVisible();
     clickOnElement(startDateToday);
     startDateToday.waitUntilNotVisible();
@@ -368,7 +368,7 @@ public class ChallengesPage extends GenericPage {
     startDateField.clickOnElement();
     waitFor(200).milliseconds();
     BaseElementFacade startDateTomorrow =
-                                        findByXPathOrCSS("(//*[contains(@class,'v-date-picker-table__current')])[1]/following::td[1]");
+                                        findByXPathOrCSS("//*[contains(@class,'menuable__content__active')]//*[contains(@class,'v-date-picker-table__current')]/following::td[1]");
     startDateTomorrow.waitUntilVisible();
     clickOnElement(startDateTomorrow);
     startDateTomorrow.waitUntilNotVisible();
