@@ -15,7 +15,6 @@ Feature: Challenges
     Then Challenge Application Page is displayed
     And Add challenge button should be displayed
 
-  @test
   Scenario: [Challenge_App_US02][01] First screen of the App ( not manager of any space)
     Given I connect as admin if random users doesn't exists
       | sixth  |

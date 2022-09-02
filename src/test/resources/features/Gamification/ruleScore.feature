@@ -18,6 +18,8 @@ Feature: Check the rules score increase
     When I go to my profile
     Then My points augmented
 
+  # Instable Use Case
+  @skip
   Scenario: Receive a connection request
     Given I connect as admin if random users doesn't exists
       | firstgami  |
@@ -98,6 +100,8 @@ Feature: Check the rules score increase
     And I go to my profile
     Then My points augmented
 
+  # Instable Use Case
+  @skip
   Scenario: Receive relationship request
     Given I connect as admin if random users doesn't exists
       | thirdgami  |

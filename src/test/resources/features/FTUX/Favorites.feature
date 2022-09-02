@@ -31,7 +31,6 @@ Feature: Favorite activities
     And I unbookmark the favorite activity posted in the space
     Then The favorite success message 'The item has been removed from favorites successfully.' should be displayed
 
-  @test
   Scenario: [Favs_US05][01] Search by favorites (Filter by favorite button)
     Given I connect as admin if random users doesn't exists
       | first  |

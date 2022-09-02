@@ -84,11 +84,6 @@ public class TasksPage extends GenericPage {
   )
   private TextBoxElementFacade     alertMessageAfterStatusMoved;
 
-  @FindBy(
-      xpath = "//*[@class='v-alert v-sheet theme--dark success']//*[@class='v-alert__content' and contains(text(),'Task successfully deleted')] "
-  )
-  private TextBoxElementFacade     alertMessageAfterTaskDeleted;
-
   @FindBy(xpath = "//*[@class='uiIcon uiBackIcon']")
   private BaseElementFacade        arrowBackButton;
 
@@ -591,7 +586,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkAlertMessageAfterDeleteTask() {
-    assertWebElementVisible(alertMessageAfterTaskDeleted);
+    assertWebElementVisible(findByXPathOrCSS("//*[contains(@class, 'v-alert')]//*[contains(text(),'Task successfully deleted')]"));
   }
 
   public void checkAlertMessageAfterMarkTaskAsCompleted() {
@@ -1490,11 +1485,15 @@ public class TasksPage extends GenericPage {
   }
 
   public void openTaskCard(String task) {
+    closeDrawerIfDisplayed();
     openTask(task).clickOnElement();
+    waitForDrawerToOpen();
   }
 
   public void openTaskDrawer(String taskName) {
+    closeDrawerIfDisplayed();
     getTaskName(taskName).clickOnElement();
+    waitForDrawerToOpen();
   }
 
   public void openTaskInTasksTab(String taskName) {

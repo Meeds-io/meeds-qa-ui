@@ -94,6 +94,12 @@ public class BasePageImpl extends PageObject implements BasePage {
     waitForDrawerToClose();
   }
 
+  public void closeDrawerIfDisplayed() {
+    if (findByXPathOrCSS(".v-navigation-drawer--open").isDisplayedNoWait()) {
+      closeDrawer();
+    }
+  }
+
   public <T extends ButtonElementFacade> T findButtonElementByXpath(String xpath) {
     if (!Selectors.isXPath(xpath)) {
       ExceptionLauncher.throwSerenityExeption(new Exception(), String.format(XPATH_FORMAT_ERROR_MESSAGE, xpath));

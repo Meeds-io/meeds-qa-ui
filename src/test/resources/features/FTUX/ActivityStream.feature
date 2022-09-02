@@ -52,7 +52,6 @@ Feature: Activity Stream
     When I click on the second user Popover
     Then The profile page is displayed
 
-  @test
   Scenario: CAP04 - [ActivityStream_US05] Display 10 activities in Activity Stream
     Given I connect as admin if random users doesn't exists
       | first  |
@@ -217,7 +216,6 @@ Feature: Activity Stream
     And the activity 'act30updated' is displayed in stream page
     And the activity 'act10' is not displayed in stream page
 
-  @test
   Scenario: CAP100 - [ActivityStream_US38][04] Cancel Delete comment with replies from the activity stream
     Given I connect as admin if random space and random users doesn't exists
       | first  |

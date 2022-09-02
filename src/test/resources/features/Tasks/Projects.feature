@@ -52,7 +52,7 @@ Feature: Tasks - Projects
 
   Scenario: CAP15 [Project_Card_US01] check the display "Spaces Managers avatars"
     Given I am authenticated as admin
-    And I create the first random user if not existing, no wait
+    And I create the first random user if not existing
     And I create a random space
 
     When I connect with the first created user
