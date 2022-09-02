@@ -35,26 +35,24 @@ public class ApplicationStepDefinition {
 
   @Then("^The application '(.*)' is not displayed in application list$")
   public void checkApplicationNotVisible(String appName) {
-    assertThat(applicationSteps.isApplicationVisible(appName)).as("The disabled application is displayed").isFalse();
+    applicationSteps.checkApplicationIsNotVisible(appName);
   }
 
   @Then("^The application '(.*)' is displayed in application list$")
   public void checkApplicationVisible(String appName) {
-    assertThat(applicationSteps.isApplicationVisible(appName)).as("The active application is not displayed").isTrue();
+    applicationSteps.checkApplicationIsVisible(appName);
   }
 
   @Then("The random application is not displayed in application list")
   public void checkRandomApplicationNotVisible() {
     String randomApplicationTitle = Serenity.sessionVariableCalled("randomApplicationTitle");
-    assertThat(applicationSteps.isApplicationVisible(randomApplicationTitle)).as("The disabled application is displayed")
-                                                                             .isFalse();
+    applicationSteps.checkApplicationIsNotVisible(randomApplicationTitle);
   }
 
   @Then("The random application is displayed in application list")
   public void checkRandomApplicationVisible() {
     String randomApplicationTitle = Serenity.sessionVariableCalled("randomApplicationTitle");
-    assertThat(applicationSteps.isApplicationVisible(randomApplicationTitle)).as("The active application is not displayed")
-                                                                             .isTrue();
+    applicationSteps.checkApplicationIsVisible(randomApplicationTitle);
   }
 
   @Then("^Add Application '(.*)' To Favorites Btn Is Displayed$")

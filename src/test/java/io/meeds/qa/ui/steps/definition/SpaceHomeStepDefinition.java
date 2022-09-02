@@ -276,7 +276,7 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.clickOnReplyKudos(reply);
   }
 
-  @Then("I click on the kudos button from the Activity Stream")
+  @Then("I click on the kudos button on first displayed Activity")
   public void clickOnTheKudosButtonFromTheActivityStream() {
     spaceHomeSteps.clickKudosFromActivityStream();
   }
@@ -363,6 +363,7 @@ public class SpaceHomeStepDefinition {
   }
 
   @When("^In comments drawer, I like the activity comment '(.*)'$")
+  @And("^In comments drawer, I unlike the activity comment '(.*)'$")
   public void commentsDrawerlikeActivityComment(String activityComment) {
     spaceHomeSteps.commentsDrawerlikeActivityComment(activityComment);
   }
@@ -448,6 +449,12 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.enterActivityCommentWithUser(comment, lastName);
   }
 
+  @When("^I enter a comment '(.*)' with attempting to mention the (.*) user$")
+  public void enterActivityCommentWithRandomUserNoMention(String comment, String userPrefix) {
+    String lastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
+    spaceHomeSteps.enterActivityCommentWithUserNoMention(comment, lastName);
+  }
+
   @When("^I insert text '(.*)'$")
   public void enterActivityText(String activity) {
     spaceHomeSteps.enterActivityText(activity);
@@ -507,7 +514,7 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.linkIsOpenedNewTab(link);
   }
 
-  @Then("^The activity '(.*)' posted by the (.*) user in the created space is displayed with its timestamp in activity stream$")
+  @Then("^The activity '(.*)' posted by the (.*) user in the created space is displayed with its timestamp in space stream page$")
   @And("^The activity '(.*)' posted by the (.*) user in the created space is displayed with its timestamp in streams page$")
   public void isActivityNamePostedByRandomUserSpaceDisplayed(String activity, String userPrefix) {
     String user = Serenity.sessionVariableCalled(userPrefix + "UserName");
@@ -566,6 +573,7 @@ public class SpaceHomeStepDefinition {
   }
 
   @When("^I like the activity comment '(.*)'$")
+  @And("^I unlike the activity comment '(.*)'$")
   public void likeActivityComment(String activityComment) {
     spaceHomeSteps.likeActivityComment(activityComment);
   }

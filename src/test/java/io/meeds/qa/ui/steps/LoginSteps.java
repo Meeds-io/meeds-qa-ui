@@ -1,5 +1,9 @@
 package io.meeds.qa.ui.steps;
 
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 
 import io.meeds.qa.ui.pages.page.factory.HomePage;
@@ -13,9 +17,22 @@ public class LoginSteps {
   private LoginPage loginPage;
 
   public void authenticate(String username) {
-    loginPage.open();
     String password = Serenity.sessionVariableCalled(username + "-password");
     loginPage.login(username, password);
+  }
+
+  public void authenticateIfUsersNotExists(String username, List<String> userPrefixes) {
+    authenticateIfRandomSpaceAndUsersNotExists(username, null, userPrefixes);
+  }
+
+  public void authenticateIfRandomSpaceAndUsersNotExists(String username, String spacePrefix, List<String> userPrefixes) {
+    boolean spaceDoesntExist = StringUtils.isBlank(spacePrefix) || StringUtils.isBlank(sessionVariableCalled(spacePrefix));
+    boolean userDoesntExist = userPrefixes.stream()
+                                          .anyMatch(userPrefix -> StringUtils.isBlank(sessionVariableCalled(userPrefix
+                                              + "UserName")));
+    if (userDoesntExist || spaceDoesntExist) {
+      authenticate(username);
+    }
   }
 
   public boolean isHomePageDisplayed() {
@@ -38,7 +55,7 @@ public class LoginSteps {
   }
 
   public void open() {
-    loginPage.open();
+    loginPage.openLoginPage();
   }
 
 }

@@ -197,8 +197,12 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void deleteApp(String appTitle, boolean confirm) {
-    getDeleteButton(appTitle).clickOnElement();
-    if (confirm) {
+    BaseElementFacade deleteButton = getDeleteButton(appTitle);
+    if (deleteButton.isDisplayedNoWait()) {
+      deleteButton.clickOnElement();
+      waitFor(100).milliseconds();
+    }
+    if (confirm && confirmDelete.isVisible()) {
       confirmDelete.clickOnElement();
     }
   }

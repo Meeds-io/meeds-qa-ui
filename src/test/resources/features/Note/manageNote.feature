@@ -1,8 +1,8 @@
 @note
-@ignored
 Feature: Actions available for note
 
-  Scenario: CAP02: DeleteNote_US02: Delete note UX  improvement
+  @ignored
+  Scenario: CAP02 [DeleteNote_US02] Delete note UX  improvement
 
     Given I am authenticated as admin
 

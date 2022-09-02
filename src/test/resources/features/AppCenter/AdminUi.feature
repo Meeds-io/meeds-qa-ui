@@ -16,7 +16,7 @@ Feature: UI app administration
     And Edit application permissions '/platform/analytics' and '/platform/administrators' are displayed in drawer
     And I refresh the page
 
-  Scenario: CAP79-[Admin_UI_US07][02]:Delete an app
+  Scenario: CAP79-[Admin_UI_US07][02]Delete an app
     Given I am authenticated as admin
     And I go to Administer application center Page
     When I add a new random application
@@ -27,7 +27,7 @@ Feature: UI app administration
     And I search for the random created application
     Then The random application is not displayed in application list
 
-  Scenario: CAP80-[Admin_UI_US07][03]:Cancel button /close icon
+  Scenario: CAP80-[Admin_UI_US07][03]Cancel button /close icon
     Given I am authenticated as admin
     And I go to Administer application center Page
     When I add a new random application
@@ -41,7 +41,7 @@ Feature: UI app administration
     And I click on close popup delete application
     Then Delete popup is not displayed
 
-  Scenario: CAP72 - [Admin_UI_US06][02]: Applications table/ Editable fields(Mandatory option)
+  Scenario: CAP72 - [Admin_UI_US06][02] Applications table/ Editable fields(Mandatory option)
     Given I am authenticated as admin
 
     When I create the first random user if not existing
@@ -71,7 +71,7 @@ Feature: UI app administration
     When I search for the random created application
     Then The application bookmark is disabled
 
-  Scenario: CAP71 - [Admin_UI_US06][01]: Applications table/ Editable fields (Active option)
+  Scenario: CAP71 - [Admin_UI_US06][01] Applications table/ Editable fields (Active option)
     Given I am authenticated as admin
 
     And I create the first random user if not existing

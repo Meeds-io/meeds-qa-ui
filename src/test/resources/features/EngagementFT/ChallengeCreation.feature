@@ -16,7 +16,9 @@ Feature: Challenges
     And Add challenge button should be displayed
 
   Scenario: [Challenge_App_US02][01] First screen of the App ( not manager of any space)
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | sixth  |
+
     And I create the sixth random user if not existing
     And I connect with the sixth created user
     When I go To AppCenter Drawer

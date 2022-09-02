@@ -67,7 +67,7 @@ Feature: Search for User Informations in Profile page
     Given I am authenticated as admin
 
     When I create the fifthkudos random user if not existing, no wait
-    And I create the sixthkudos random user if not existing, no wait
+    And I create the sixthkudos random user if not existing
     And I create the seventhkudos random user if not existing
 
     When I connect with the fifthkudos created user
@@ -118,6 +118,7 @@ Feature: Search for User Informations in Profile page
       | jobTitle     | QA Engineer                          |
       | jobDetails   | Tests Automation Consultant          |
       | usedSkills   | Serenity Cucumber Selenium Java Jira |
+    Then  Job title 'QA Engineer' and Organization 'Test' and Job details 'Tests Automation Consultant' and Used skills 'Serenity Cucumber Selenium Java Jira' are displayed in Work experiences section
 
     And I add my profile work experiences
       | organization | google                |
@@ -132,7 +133,8 @@ Feature: Search for User Informations in Profile page
     And I remove my profile work experiences 'IT Engineer Developer'
 
   Scenario: : PROFILE-9 : Achievement Drawer in Points
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
 
     And I create the first random user if not existing, no wait
 

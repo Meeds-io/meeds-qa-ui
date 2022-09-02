@@ -1,6 +1,7 @@
 package io.meeds.qa.ui.hook;
 
 import static io.meeds.qa.ui.utils.Utils.decorateDriver;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import java.util.HashMap;
 import java.util.List;
@@ -8,8 +9,6 @@ import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.WebDriver;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -20,21 +19,28 @@ import io.meeds.qa.ui.steps.ManageBadgesSteps;
 import io.meeds.qa.ui.steps.ManageSpaceSteps;
 import io.meeds.qa.ui.steps.definition.ManageSpaceStepDefinitions;
 import io.meeds.qa.ui.utils.ExceptionLauncher;
+import io.meeds.qa.ui.utils.Utils;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 
 public class TestHooks {
 
-  protected static final Map<String, String> SPACES = new HashMap<>();
+  protected static final Map<String, String> SPACES      = new HashMap<>();
 
-  protected static final Map<String, String> USERS  = new HashMap<>();
+  protected static final Map<String, String> SPACES_URLS = new HashMap<>();
 
-  public static void spaceWithPrefixCreated(String spaceNamePrefix, String spaceName) {
+  protected static final Map<String, String> USERS       = new HashMap<>();
+
+  public static void spaceWithPrefixCreated(String spaceNamePrefix, String spaceName, String spaceUrl) {
     SPACES.put(spaceNamePrefix, spaceName);
+    SPACES_URLS.put(spaceNamePrefix, spaceUrl);
+    setSessionVariable(spaceNamePrefix).to(spaceName);
+    setSessionVariable(spaceNamePrefix + "-url").to(spaceUrl);
   }
 
   public static void spaceWithPrefixDeleted(String spaceNamePrefix) {
-    SPACES.put(spaceNamePrefix, null);
+    SPACES.remove(spaceNamePrefix);
+    SPACES_URLS.remove(spaceNamePrefix);
   }
 
   public static void userWithPrefixCreated(String userPrefix,
@@ -52,43 +58,62 @@ public class TestHooks {
   }
 
   @Steps
-  private AdminApplicationSteps              adminApplicationSteps;
+  private AdminApplicationSteps      adminApplicationSteps;
 
-  private boolean                            adminLoggedIn;
-
-  @Steps
-  private HomeSteps                          homeSteps;
+  private boolean                    adminLoggedIn;
 
   @Steps
-  private LoginSteps                         loginSteps;
+  private HomeSteps                  homeSteps;
 
   @Steps
-  private ManageBadgesSteps                  manageBadgesSteps;
+  private LoginSteps                 loginSteps;
 
   @Steps
-  private ManageSpaceStepDefinitions         manageSpaceStepDefinitions;
+  private ManageBadgesSteps          manageBadgesSteps;
 
   @Steps
-  private ManageSpaceSteps                   manageSpaceSteps;
+  private ManageSpaceStepDefinitions manageSpaceStepDefinitions;
 
-  private void cleanupBrowser() {
-    try {
-      WebDriver driver = Serenity.getDriver();
-      String currentUrl = driver.getCurrentUrl();
-      driver.manage().deleteAllCookies();
-      driver.get(currentUrl.split("/portal/")[0]);
-      closeAlertIfExists(driver);
-    } catch (Throwable e) { // NOSONAR
-      ExceptionLauncher.LOGGER.warn("Error while cleaning browser", e);
+  @Steps
+  private ManageSpaceSteps           manageSpaceSteps;
+
+  @Before
+  public void initDatas() {
+    String adminPassword = System.getProperty("adminPassword");
+    Serenity.setSessionVariable("admin-password").to(adminPassword);
+    adminLoggedIn = false;
+
+    if (Utils.isParallelTesting()) {
+      decorateDriver(Serenity.getDriver());
     }
+
+    SPACES.entrySet().forEach(entry -> {
+      if (StringUtils.isNotBlank(entry.getValue())) {
+        Serenity.setSessionVariable(entry.getKey()).to(entry.getValue());
+      }
+    });
+    SPACES_URLS.entrySet().forEach(entry -> {
+      if (StringUtils.isNotBlank(entry.getValue())) {
+        Serenity.setSessionVariable(entry.getKey() + "-url").to(entry.getValue());
+      }
+    });
+    USERS.entrySet().forEach(entry -> {
+      if (StringUtils.isNotBlank(entry.getValue())) {
+        Serenity.setSessionVariable(entry.getKey()).to(entry.getValue());
+      }
+    });
   }
 
-  private void closeAlertIfExists(WebDriver driver) {
+  @After
+  public void deleteDatas() {
+    homeSteps.refreshPage();
     try {
-      driver.switchTo().alert().accept();
-    } catch (NoAlertPresentException e) {
-      // Normal Behavior
+      deleteGamificationBadges();
+      deleteAppCenterApplications();
+    } catch (Exception e) {
+      ExceptionLauncher.LOGGER.warn("Error while deleting previously created data", e);
     }
+    cleanupBrowser();
   }
 
   private void deleteAppCenterApplications() {
@@ -103,14 +128,6 @@ public class TestHooks {
         }
       }
     }
-  }
-
-  @After
-  public void deleteDatas() {
-    homeSteps.refreshPage();
-    deleteGamificationBadges();
-    deleteAppCenterApplications();
-    cleanupBrowser();
   }
 
   private void deleteGamificationBadges() {
@@ -132,24 +149,12 @@ public class TestHooks {
     }
   }
 
-  @Before
-  public void initDatas() {
-    String adminPassword = System.getProperty("adminPassword");
-    Serenity.setSessionVariable("admin-password").to(adminPassword);
-    adminLoggedIn = false;
-
-    decorateDriver(Serenity.getDriver());
-
-    SPACES.entrySet().forEach(entry -> {
-      if (StringUtils.isNotBlank(entry.getValue())) {
-        Serenity.setSessionVariable(entry.getKey()).to(entry.getValue());
-      }
-    });
-    USERS.entrySet().forEach(entry -> {
-      if (StringUtils.isNotBlank(entry.getValue())) {
-        Serenity.setSessionVariable(entry.getKey()).to(entry.getValue());
-      }
-    });
+  private void cleanupBrowser() {
+    try {
+      Serenity.getDriver().manage().deleteAllCookies();
+    } catch (Throwable e) { // NOSONAR
+      ExceptionLauncher.LOGGER.warn("Error while cleaning browser", e);
+    }
   }
 
   private void loginAsAdmin() {

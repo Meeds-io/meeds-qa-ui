@@ -2,8 +2,9 @@
 Feature: Tasks
 
   @smoke
-  Scenario: CAP81 - [User_UI_US22]: Mark as completed for "TASKS" in a Project (Manager case)
-    Given I am authenticated as admin
+  Scenario: CAP81 - [User_UI_US22] Mark as completed for "TASKS" in a Project (Manager case)
+    Given I connect as admin if random users doesn't exists
+      | first  |
     And I create the first random user if not existing
     And I connect with the first created user
     And I create a random space
@@ -21,8 +22,9 @@ Feature: Tasks
     And Tasks number '0' is displayed in the column To Do
 
   @smoke
-  Scenario: CAP176 - [US_Filterfield_01]: Add Clear typed characters icon (Filter by task under TASKS tab)
-    Given I am authenticated as admin
+  Scenario: CAP176 - [US_Filterfield_01] Add Clear typed characters icon (Filter by task under TASKS tab)
+    Given I connect as admin if random users doesn't exists
+      | first  |
     And I create the first random user if not existing
     And I connect with the first created user
     When I go To AppCenter Drawer
@@ -39,7 +41,7 @@ Feature: Tasks
     And The clear button is disappeared from Filter by task field
 
   @smoke
-  Scenario: CAP94_[Add_Task_Drawer_US04]: (3 dots menu-Delete action) "Tasks TAB"
+  Scenario: CAP94_[Add_Task_Drawer_US04] (3 dots menu-Delete action) "Tasks TAB"
     Given I am authenticated as admin
 
     When I go To AppCenter Drawer
@@ -56,7 +58,7 @@ Feature: Tasks
     And I close task drawer
     Then Task '<TestE>' is deleted successfully
 
-  Scenario: CAP82 - [User_UI_US22]: Mark as completed for "TASKS" in a Project (Participant case)
+  Scenario: CAP82 - [User_UI_US22] Mark as completed for "TASKS" in a Project (Participant case)
     Given I am authenticated as admin
     And I create the first random user if not existing
 
@@ -83,8 +85,9 @@ Feature: Tasks
     And Tasks number '0' is displayed in the column To Do
 
   @smoke
-  Scenario: CAP95 - [Add_Task_Drawer_US04]: 3 dots menu (Delete action) "Task under project"
-    Given I am authenticated as admin
+  Scenario: CAP95 - [Add_Task_Drawer_US04] 3 dots menu (Delete action) "Task under project"
+    Given I connect as admin if random users doesn't exists
+      | first  |
     And I create the first random user if not existing
     And I connect with the first created user
 
@@ -108,7 +111,9 @@ Feature: Tasks
     Then Task name 'taskessai' is not displayed in project details
 
   Scenario: Check tasks display in project
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
+      | second  |
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
@@ -202,7 +207,7 @@ Feature: Tasks
     Then In column status 'TestStatus2' , Task name 'Collaboration FT Task' is displayed
 
   @smoke
-  Scenario: CAP269 - [US_Sharedlabels_02]: Manage labels in Project (Create labels)
+  Scenario: CAP269 - [US_Sharedlabels_02] Manage labels in Project
     Given I am authenticated as admin
     And I create the first random user if not existing
     And I connect with the first created user
@@ -220,6 +225,17 @@ Feature: Tasks
     And I click on Edit project button
     And I enter four label 'label2' 'label3' 'label4' 'label5' in the project
     Then Label 'label2' is displayed in edit project drawer
+    And Label 'label3' is displayed in edit project drawer
+    And Label 'label4' is displayed in edit project drawer
+    And Label 'label5' is displayed in edit project drawer
+
+    When I Remove Label 'label2' in edit project drawer
+    Then Label 'label2' is Not displayed in edit project drawer
+    And I close the project drawer
+    And I click on three dots project button
+    And I click on Edit project button
+    Then Label 'label2' is Not displayed in edit project drawer
+    And Label 'label1' is displayed in edit project drawer
     And Label 'label3' is displayed in edit project drawer
     And Label 'label4' is displayed in edit project drawer
     And Label 'label5' is displayed in edit project drawer
@@ -249,42 +265,7 @@ Feature: Tasks
     And Task name 'taskE' is not displayed in project details
     And Tasks number '0' is displayed in the column To Do
 
-  Scenario: CAP270 - [NF] [US_Sharedlabels_02]: Manage labels in Project (Delete labels)
-    Given I am authenticated as admin
-    And I create the first random user if not existing
-    And I connect with the first created user
-
-    When I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
-    And I create the project 'project test labels'
-    And I click on three dots project button
-    And I click on Edit project button
-    And I enter label 'label1' in the project
-    Then Label 'label1' is displayed in edit project drawer
-
-    When I close the project drawer
-    And I click on three dots project button
-    And I click on Edit project button
-    And I enter four label 'label2' 'label3' 'label4' 'label5' in the project
-    Then Label 'label2' is displayed in edit project drawer
-    And Label 'label3' is displayed in edit project drawer
-    And Label 'label4' is displayed in edit project drawer
-    And Label 'label5' is displayed in edit project drawer
-
-    When I close the project drawer
-    And I click on three dots project button
-    And I click on Edit project button
-    And I Remove Label 'label2' in edit project drawer
-    And I close the project drawer
-    And I click on three dots project button
-    And I click on Edit project button
-    Then Label 'label2' is Not displayed in edit project drawer
-    And Label 'label1' is displayed in edit project drawer
-    And Label 'label3' is displayed in edit project drawer
-    And Label 'label4' is displayed in edit project drawer
-    And Label 'label5' is displayed in edit project drawer
-
-  Scenario: CAP264 - [NF] [US_Sharedlabels_01]:All project members can use added labels
+  Scenario: CAP264 - [NF] [US_Sharedlabels_01]All project members can use added labels
     Given I am authenticated as admin
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing
@@ -349,8 +330,10 @@ Feature: Tasks
     And Label 'label6' is displayed in edit task drawer and x icon is not displayed
     And I close task drawer
 
-  Scenario:[Task]: when click on notification, user is redirected under the specific project
-    Given I am authenticated as admin
+  Scenario:[Task] when click on notification, user is redirected under the specific project
+    Given I connect as admin if random users doesn't exists
+      | first  |
+      | second  |
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
@@ -374,8 +357,9 @@ Feature: Tasks
     Then First user with the task comment 'Start working on it' is displayed in task comments drawer
 
   @smoke
-  Scenario: CAP190 -[IMP] [US_SortGroupeBy_01]: Memorize Group and Sort filters (Group by)
-    Given I am authenticated as admin
+  Scenario: CAP190 -[IMP] [US_SortGroupeBy_01] Memorize Group and Sort filters (Group by)
+    Given I connect as admin if random users doesn't exists
+      | first  |
     And  I create the first random user if not existing
     And  I connect with the first created user
     When I go To AppCenter Drawer
@@ -410,7 +394,7 @@ Feature: Tasks
     And I clear browsing data cache and cookies
     Then I check that grouping 'assignee' is selected
 
-  Scenario: CAP341 [TASK]: when refresh task drawer, the description should not be lost
+  Scenario: CAP341 [TASK] when refresh task drawer, the description should not be lost
     Given I am authenticated as admin
     And I create the first random user if not existing
 
@@ -445,8 +429,9 @@ Feature: Tasks
     When I refresh the page
     Then The edit description in the task 'Edit Automation Test Task' is displayed
 
-  Scenario: [IMP] [US_ChangesDrawer_01]: Display last Update and Changes drawer
-    Given I am authenticated as admin
+  Scenario: [IMP] [US_ChangesDrawer_01] Display last Update and Changes drawer
+    Given I connect as admin if random users doesn't exists
+      | first  |
     And  I create the first random user if not existing
     And  I connect with the first created user
     When I go To AppCenter Drawer
@@ -473,7 +458,8 @@ Feature: Tasks
     Then I check that a new second level drawer Changes is opened
 
   Scenario: Description update should not be lost due to cloning task and assigning it or changing its status
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
     And I create the first random user if not existing
     And I connect with the first created user
 

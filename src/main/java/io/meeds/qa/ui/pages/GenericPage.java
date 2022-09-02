@@ -17,9 +17,6 @@ public class GenericPage extends BasePageImpl {
   public static final String UPLOAD_DIRECTORY_PATH = System.getProperty("user.dir") + File.separator + "src"
       + File.separator + "test" + File.separator + "resources" + File.separator + "DataFiles" + File.separator;
 
-  @FindBy(xpath = "//div[contains(@class,'alert-success')]")
-  private BaseElementFacade  successMessagePopup;
-
   public GenericPage() {
     this(null);
   }
@@ -77,7 +74,7 @@ public class GenericPage extends BasePageImpl {
   }
 
   public boolean isSuccessMessageDisplayed() {
-    return successMessagePopup.isVisibleAfterWaiting();
+    return findByXPathOrCSS("//div[contains(@class,'alert-success')]").isVisibleAfterWaiting();
   }
 
 }

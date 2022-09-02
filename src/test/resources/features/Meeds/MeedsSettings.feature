@@ -2,8 +2,7 @@ Feature: Edit sections in Settings page
   As a user
   I want to edit in Settings page many sections
 
- @ignored
-  Scenario: : SETTINGS-5 : Language and its drawer
+  Scenario: [SETTINGS-5] Language and its drawer
     Given I am authenticated as admin
 
     And I go to Settings page
@@ -25,7 +24,7 @@ Feature: Edit sections in Settings page
     Then Language 'English / English' is displayed
 
   @ignored
-  Scenario: : SETTINGS-6 : TimeZone view and drawer
+  Scenario: [SETTINGS-6] TimeZone view and drawer
     Given I am authenticated as admin
 
     And I go to Settings page
@@ -47,8 +46,9 @@ Feature: Edit sections in Settings page
     Then Time zone '(GMT +01:00) Central European Time' is displayed
 
   @ignored
-  Scenario: : SETTINGS-7 : Security on settings
-    Given I am authenticated as admin
+  Scenario: [SETTINGS-7] Security on settings
+    Given I connect as admin if random users doesn't exists
+      | first  |
 
     And I create the first random user if not existing
     And I connect with the first created user
@@ -77,7 +77,8 @@ Feature: Edit sections in Settings page
     Then I connect with the first created user
 
   Scenario: : SETTINGS-8 : Notifications section (Disable Notifications)
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
 
     When I create the first random user if not existing, no wait
     And I connect with the first created user

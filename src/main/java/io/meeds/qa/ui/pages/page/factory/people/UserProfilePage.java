@@ -1,6 +1,5 @@
 package io.meeds.qa.ui.pages.page.factory.people;
 
-import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.HashMap;
@@ -15,199 +14,196 @@ import org.openqa.selenium.interactions.Actions;
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class UserProfilePage extends GenericPage {
   @FindBy(xpath = "//aside[contains(@class,'achievementsDrawer')]")
-  private BaseElementFacade    achievementsDrawer;
+  private BaseElementFacade      achievementsDrawer;
 
   @FindBy(xpath = "//aside[contains(@class,'achievementsDrawer')]//div[contains(text(),'Points')]")
-  private BaseElementFacade    achievementsWeeklyPointInDrawer;
+  private BaseElementFacade      achievementsWeeklyPointInDrawer;
 
-  @FindBy(
-      xpath = "//*[@id='ProfileWorkExperience']//button[@class='v-icon notranslate my-auto v-icon--link mdi mdi-plus theme--light']"
-  )
-  public BaseElementFacade     ADD_WORK_EXPERIENCES;
+  @FindBy(xpath = "//*[@id='ProfileWorkExperience']//button[@class='v-icon notranslate my-auto v-icon--link mdi mdi-plus theme--light']")
+  public BaseElementFacade       addWorkExperiences;
 
   @FindBy(xpath = "//div[@id='badgesOverview']//div[contains(@class,'BadgeItemAvatar')]")
-  private BaseElementFacade    badgePortlet;
+  private BaseElementFacade      badgePortlet;
 
   @FindBy(xpath = "//aside[contains(@class,'badgesDrawer')]")
-  private BaseElementFacade    badgesDrawer;
+  private BaseElementFacade      badgesDrawer;
 
   @FindBy(xpath = "//*[contains(@class,'achievementsDrawer')]//button[contains(@class,'mdi-close')]")
-  private BaseElementFacade    closeAchievementsDrawerButton;
+  private BaseElementFacade      closeAchievementsDrawerButton;
 
   @FindBy(xpath = "//*[contains(@class,'drawerParent profileWorkExperiencesDrawer')]//*[contains(@class,'mdi mdi-close')]")
-  public BaseElementFacade     closeWorkExperiencesDrawerBtn;
+  public BaseElementFacade       closeWorkExperiencesDrawerBtn;
 
   @FindBy(xpath = "//button[contains(@class,'acceptToConnectButton')]")
-  private BaseElementFacade    confirmConnection;
+  private BaseElementFacade      confirmConnection;
 
   @FindBy(xpath = "//*[@id='ProfileWorkExperience']//button[contains(@class,'v-btn--outlined')]//span//i")
-  public BaseElementFacade     EDIT_WORK_EXPERIENCES;
+  public BaseElementFacade       editWorkExperiences;
 
   @FindBy(xpath = "(//*[@class='v-card__text d-flex positionField py-0']//input)[2]")
-  private BaseElementFacade    ELEMENT_CONTACT_COMPANY_TITLE_EDIT_BTN;
+  private BaseElementFacade      ELEMENT_CONTACT_COMPANY_TITLE_EDIT_BTN;
 
   @FindBy(xpath = "(//*[@class='layout column']//*[@class='d-flex']//button)[5]")
-  private BaseElementFacade    ELEMENT_CONTACT_EDIT_SAVE_BTN;
+  private BaseElementFacade      ELEMENT_CONTACT_EDIT_SAVE_BTN;
 
   @FindBy(xpath = "(//*[@class='v-card__text d-flex emailField py-0']//input)[1]")
-  private BaseElementFacade    ELEMENT_CONTACT_EMAIL_EDIT_BTN;
+  private BaseElementFacade      ELEMENT_CONTACT_EMAIL_EDIT_BTN;
 
   @FindBy(xpath = "(//*[@class='v-card__text d-flex fullnameFields py-0']//input)[1]")
-  private BaseElementFacade    ELEMENT_CONTACT_FIRST_NAME_EDIT_BTN;
+  private BaseElementFacade      ELEMENT_CONTACT_FIRST_NAME_EDIT_BTN;
 
   @FindBy(xpath = "(//*[@id='WalletOverview']//div)[8]")
-  private BaseElementFacade    ELEMENT_CONTACT_GAINED_CAURIS;
+  private BaseElementFacade      ELEMENT_CONTACT_GAINED_CAURIS;
 
   @FindBy(xpath = "//*[@id='ProfileContactInformation']//*[@class='uiIconEdit uiIconLightBlue pb-2']")
-  private BaseElementFacade    ELEMENT_CONTACT_INFORMATIONS_EDIT_BTN;
+  private BaseElementFacade      ELEMENT_CONTACT_INFORMATIONS_EDIT_BTN;
 
   @FindBy(xpath = "//*[@class='v-card__text d-flex positionField py-0'][8]/following::input[2]")
-  private BaseElementFacade    ELEMENT_CONTACT_INSTANT_MESSAGING_TITLE_EDIT_BTN;
+  private BaseElementFacade      ELEMENT_CONTACT_INSTANT_MESSAGING_TITLE_EDIT_BTN;
 
   @FindBy(xpath = "//*[@class='v-card__text d-flex positionField py-0'][8]/following::select[2]")
-  private BaseElementFacade    ELEMENT_CONTACT_INSTANT_MESSAGING_TYPE_SELECT_EDIT_BTN;
+  private BaseElementFacade      ELEMENT_CONTACT_INSTANT_MESSAGING_TYPE_SELECT_EDIT_BTN;
 
   @FindBy(xpath = "(//*[@class='v-card__text d-flex positionField py-0']//input)[1]")
-  private BaseElementFacade    ELEMENT_CONTACT_JOB_TITLE_EDIT_BTN;
+  private BaseElementFacade      ELEMENT_CONTACT_JOB_TITLE_EDIT_BTN;
 
   @FindBy(xpath = "(//*[@class='v-card__text d-flex fullnameFields py-0']//input)[2]")
-  private BaseElementFacade    ELEMENT_CONTACT_LAST_NAME_EDIT_BTN;
+  private BaseElementFacade      ELEMENT_CONTACT_LAST_NAME_EDIT_BTN;
 
   @FindBy(xpath = "//*[@class='v-card__text d-flex positionField py-0'][8]/following::input[1]")
-  private BaseElementFacade    ELEMENT_CONTACT_PHONE_TITLE_EDIT_BTN;
+  private BaseElementFacade      ELEMENT_CONTACT_PHONE_TITLE_EDIT_BTN;
 
   @FindBy(xpath = "//*[@class='v-card__text d-flex positionField py-0'][8]/following::select[1]")
-  private BaseElementFacade    ELEMENT_CONTACT_PHONE_TYPE_SELECT_EDIT_BTN;
+  private BaseElementFacade      ELEMENT_CONTACT_PHONE_TYPE_SELECT_EDIT_BTN;
 
   @FindBy(xpath = "//*[@id='kudosOverviewCardsParent']//*[@class='kudosOverviewCard col'][1]/div/div[2]")
-  private BaseElementFacade    ELEMENT_CONTACT_RECEIVED_KUDOS;
+  private BaseElementFacade      ELEMENT_CONTACT_RECEIVED_KUDOS;
 
   @FindBy(xpath = "//*[@id='kudosOverviewCardsParent']//*[@class='kudosOverviewCard col'][2]/div/div[2]")
-  private BaseElementFacade    ELEMENT_CONTACT_SENT_KUDOS;
+  private BaseElementFacade      ELEMENT_CONTACT_SENT_KUDOS;
 
   @FindBy(xpath = "//*[@class='v-card__text d-flex positionField py-0'][8]/following::input[3]")
-  private BaseElementFacade    ELEMENT_CONTACT_URL_TITLE_EDIT_BTN;
+  private BaseElementFacade      ELEMENT_CONTACT_URL_TITLE_EDIT_BTN;
 
   @FindBy(xpath = "(//*[@id='ProfileHeader']//*[@class='v-image__image v-image__image--cover'])[2]")
-  public BaseElementFacade     ELEMENT_PROFILE_AVATAR;
+  public BaseElementFacade       ELEMENT_PROFILE_AVATAR;
 
   @FindBy(xpath = "(//*[@id='ProfileContactInformation']//*[@class='flex d-flex']//div[2])[4]")
-  private BaseElementFacade    ELEMENT_PROFILE_CONTACT_INFORMATION_COMPANY;
+  private BaseElementFacade      ELEMENT_PROFILE_CONTACT_INFORMATION_COMPANY;
 
   @FindBy(xpath = "(//*[@id='ProfileContactInformation']//*[@class='flex d-flex']//div[2])[2]")
-  public BaseElementFacade     ELEMENT_PROFILE_CONTACT_INFORMATION_EMAIL;
+  public BaseElementFacade       ELEMENT_PROFILE_CONTACT_INFORMATION_EMAIL;
 
   @FindBy(xpath = "(//*[@id='ProfileContactInformation']//*[@class='flex d-flex']//div[2])[1]")
-  public BaseElementFacade     ELEMENT_PROFILE_CONTACT_INFORMATION_FULLNAME;
+  public BaseElementFacade       ELEMENT_PROFILE_CONTACT_INFORMATION_FULLNAME;
 
   @FindBy(xpath = "(//*[@id='ProfileContactInformation']//*[@class='flex d-flex']//div[2])[6]")
-  private BaseElementFacade    ELEMENT_PROFILE_CONTACT_INFORMATION_INSTANT_MESSAGING;
+  private BaseElementFacade      ELEMENT_PROFILE_CONTACT_INFORMATION_INSTANT_MESSAGING;
 
   @FindBy(xpath = "(//*[@id='ProfileContactInformation']//*[@class='flex d-flex']//div[2])[3]")
-  public BaseElementFacade     ELEMENT_PROFILE_CONTACT_INFORMATION_JOBTITLE;
+  public BaseElementFacade       ELEMENT_PROFILE_CONTACT_INFORMATION_JOBTITLE;
 
   @FindBy(xpath = "(//*[@id='ProfileContactInformation']//*[@class='flex d-flex']//div[2])[5]")
-  private BaseElementFacade    ELEMENT_PROFILE_CONTACT_INFORMATION_PHONE;
+  private BaseElementFacade      ELEMENT_PROFILE_CONTACT_INFORMATION_PHONE;
 
   @FindBy(xpath = "//*[@id='ProfileContactInformation']//*[@class='text-header-title text-sub-title']")
-  public BaseElementFacade     ELEMENT_PROFILE_CONTACT_INFORMATION_TITLE;
+  public BaseElementFacade       ELEMENT_PROFILE_CONTACT_INFORMATION_TITLE;
 
   @FindBy(xpath = "(//*[@id='ProfileContactInformation']//*[@class='flex d-flex']//div[2])[7]")
-  private BaseElementFacade    ELEMENT_PROFILE_CONTACT_INFORMATION_URL;
+  private BaseElementFacade      ELEMENT_PROFILE_CONTACT_INFORMATION_URL;
 
   @FindBy(xpath = "(//*[@id='ProfileHeader']//*[@class='v-image__image v-image__image--cover'])[1]")
-  public BaseElementFacade     ELEMENT_PROFILE_COVER;
+  public BaseElementFacade       ELEMENT_PROFILE_COVER;
 
   @FindBy(xpath = "(//*[@class='profileHeader']/div/div/div)[1]")
-  public BaseElementFacade     ELEMENT_PROFILE_FULLNAME;
+  public BaseElementFacade       ELEMENT_PROFILE_FULLNAME;
 
   @FindBy(xpath = "(//*[@class='profileHeader']/div/div/div)[2]")
-  public BaseElementFacade     ELEMENT_PROFILE_JOB;
+  public BaseElementFacade       ELEMENT_PROFILE_JOB;
 
   @FindBy(xpath = "//*[contains(@class,'uiIconTrash')]")
-  private BaseElementFacade    ELEMENT_REMOVE_WORK_EXPERIENCE;
-
-  @FindBy(xpath = "(//*[contains(@id,'DatePicker')])[2]//input")
-  private TextBoxElementFacade ELEMENT_WORK_EXPERIENCES_END_DATE;
-
-  @FindBy(
-      xpath = "(//*[contains(@class,'v-date-picker-table__current v-btn--active ')])[1]/preceding::*[@class='v-btn__content'][1]"
-  )
-  private TextBoxElementFacade ELEMENT_WORK_EXPERIENCES_END_DATE_TOMORROW_DAY;
+  private BaseElementFacade      ELEMENT_REMOVE_WORK_EXPERIENCE;
 
   @FindBy(xpath = "//*[@class='v-expansion-panel-content']//textarea")
-  private TextBoxElementFacade ELEMENT_WORK_EXPERIENCES_JOB_DETAILS;
+  private TextBoxElementFacade   elementWorkExperiencesJobDetails;
 
   @FindBy(xpath = "(//*[@class='v-expansion-panel-content']//input)[2]")
-  private TextBoxElementFacade ELEMENT_WORK_EXPERIENCES_JOB_TITLE;
+  private TextBoxElementFacade   elementWorkExperiencesJobTitle;
 
   @FindBy(xpath = "(//*[@class='v-expansion-panel-content']//input)[1]")
-  private TextBoxElementFacade ELEMENT_WORK_EXPERIENCES_ORGANIZATION;
+  private TextBoxElementFacade   elementWorkExperiencesOrganization;
 
   @FindBy(xpath = "(//*[contains(@id,'DatePicker')])[1]//input")
-  private TextBoxElementFacade ELEMENT_WORK_EXPERIENCES_START_DATE;
+  private TextBoxElementFacade   elementWorkExperiencesStartDate;
 
-  @FindBy(
-      xpath = "(//*[contains(@class,'v-date-picker-table__current v-btn--active ')])[1]/preceding::*[@class='v-btn__content'][2]"
-  )
-  private TextBoxElementFacade ELEMENT_WORK_EXPERIENCES_START_DATE_TOMORROW_DAY;
+  @FindBy(xpath = "(//*[contains(@id,'DatePicker')])[2]//input")
+  private TextBoxElementFacade   elementWorkExperiencesEndDate;
+
+  @FindBy(xpath = "(//*[contains(@class, 'profileWorkExperiencesDates')]//*[contains(@class, 'datePickerComponent')])[1]//*[contains(@class,'menuable__content__active')]//*[contains(@class,'v-date-picker-header')]//button[1]")
+  private TextBoxElementFacade   elementWorkExperiencesStartDateGoToPreviousMonth;
+
+  @FindBy(xpath = "((//*[contains(@class, 'profileWorkExperiencesDates')]//*[contains(@class, 'datePickerComponent')])[1]//*[contains(@class,'menuable__content__active')]//*[contains(@class,'v-date-picker-table')]//td)[1]//button")
+  private TextBoxElementFacade   elementWorkExperiencesStartDateFirstMonthDay;
+
+  @FindBy(xpath = "(//*[contains(@class, 'profileWorkExperiencesDates')]//*[contains(@class, 'datePickerComponent')])[2]//*[contains(@class,'menuable__content__active')]//*[contains(@class,'v-date-picker-table__current')]")
+  private TextBoxElementFacade   elementWorkExperiencesEndDateToday;
 
   @FindBy(xpath = "(//*[@class='v-expansion-panel-content']//input)[3]")
-  private TextBoxElementFacade ELEMENT_WORK_EXPERIENCES_USED_SKILLS;
+  private TextBoxElementFacade   elementWorkExperiencesUsedSkills;
 
   @FindBy(xpath = "//*[@id='GamificationEarnPoints']//*[@id='uiHowEarnPoint']//*[contains(text(),'How can I earn points?')]")
-  public BaseElementFacade     howToEarnPointsPage;
+  public BaseElementFacade       howToEarnPointsPage;
 
   @FindBy(id = "kudosMessage")
-  private TextBoxElementFacade kudosMessage;
+  private TextBoxElementFacade   kudosMessage;
 
   Map<String, BaseElementFacade> MAPPING_FIELD_NAME_TO_TEXTELEMENT_XPATH = new HashMap<>() {
-    {
-      put("Weekly points", getUserStat("Points"));
-      put("Weekly rank", getUserStat("Rank"));
-      put("Achievements", achievementsDrawer);
-      put("badge details", badgesDrawer);
-      put("Total point achievement", achievementsWeeklyPointInDrawer);
-    }
-  };
+                                                                           {
+                                                                             put("Weekly points", getUserStat("Points"));
+                                                                             put("Weekly rank", getUserStat("Rank"));
+                                                                             put("Achievements", achievementsDrawer);
+                                                                             put("badge details", badgesDrawer);
+                                                                             put("Total point achievement",
+                                                                                 achievementsWeeklyPointInDrawer);
+                                                                           }
+                                                                         };
 
   @FindBy(xpath = "//div[@id='profile-stats-portlet']//span[contains(text(),'Points')]//preceding::span[1]")
-  private BaseElementFacade    myWeeklyPoint;
+  private BaseElementFacade      myWeeklyPoint;
 
   @FindBy(xpath = "//*[@id='ProfileHeader']")
-  private BaseElementFacade    profilePage;
+  private BaseElementFacade      profilePage;
 
   @FindBy(xpath = "//*[@class='btn btn-primary v-btn v-btn--contained theme--light v-size--default']")
-  public BaseElementFacade     SAVE_WORK_EXPERIENCES;
+  public BaseElementFacade       saveWorkExperiences;
 
   @FindBy(xpath = "//*[contains(@class,'drawerFooter ')]//*[contains(text(),'Send')]")
-  private BaseElementFacade    sendKudosButton;
+  private BaseElementFacade      sendKudosButton;
 
   @FindBy(xpath = "//body[contains(@class,'cke_editable_themed')]")
-  private TextBoxElementFacade sendKudosMessageContent;
+  private TextBoxElementFacade   sendKudosMessageContent;
 
   @FindBy(xpath = "//i[contains(@class,'uiIconKudos')]")
-  private BaseElementFacade    uiIconKudos;
+  private BaseElementFacade      uiIconKudos;
 
   @FindBy(xpath = "//*[@class='v-image v-responsive theme--light']//*[@class='v-responsive__content']")
-  private BaseElementFacade    uploadedProfileAvatar;
+  private BaseElementFacade      uploadedProfileAvatar;
 
   @FindBy(xpath = "//*[@class='v-image v-responsive theme--light']//*[@class='v-responsive__content' and @style='width: 860px;']")
-  private BaseElementFacade    uploadedProfileAvatarWidth;
+  private BaseElementFacade      uploadedProfileAvatarWidth;
 
   @FindBy(xpath = "(//*[contains(@class,'v-input__icon--prepend')]//button)[1]")
-  private BaseElementFacade    uploadProfileAvatarBtn;
+  private BaseElementFacade      uploadProfileAvatarBtn;
 
   @FindBy(xpath = "//*[contains(@class,'changeAvatarButton')]//*[@class='v-input__prepend-outer']//button/following::input[1]")
-  private BaseElementFacade    uploadProfileAvatarInput;
+  private BaseElementFacade      uploadProfileAvatarInput;
 
   @FindBy(xpath = "//*[@id='echartUserPoints']")
-  private BaseElementFacade    weeklyChart;
+  private BaseElementFacade      weeklyChart;
 
   public UserProfilePage(WebDriver driver) {
     super(driver);
@@ -404,85 +400,63 @@ public class UserProfilePage extends GenericPage {
 
   public void removeWorkExperience(String jobTitle) {
     // Remove Work Experience
-    EDIT_WORK_EXPERIENCES.waitUntilVisible();
-    EDIT_WORK_EXPERIENCES.clickOnElement();
+    editWorkExperiences.waitUntilVisible();
+    editWorkExperiences.clickOnElement();
     openWorkExperience(jobTitle).clickOnElement();
     ELEMENT_REMOVE_WORK_EXPERIENCE.clickOnElement();
     JavascriptExecutor executor = (JavascriptExecutor) driver;
-    executor.executeScript("arguments[0].click();", SAVE_WORK_EXPERIENCES);
-    SAVE_WORK_EXPERIENCES.waitUntilNotVisible();
+    executor.executeScript("arguments[0].click();", saveWorkExperiences);
+    saveWorkExperiences.waitUntilNotVisible();
   }
 
   public void selectInstantMessagingType(String instantMessagingType, String... option) {
     switch (instantMessagingType) {
-      case "SKYPE":
-        // Select SKYPE option
-        ELEMENT_CONTACT_INSTANT_MESSAGING_TYPE_SELECT_EDIT_BTN.selectByValue("skype");
-        break;
-      case "MSN":
-        // Select MSN option
-        ELEMENT_CONTACT_INSTANT_MESSAGING_TYPE_SELECT_EDIT_BTN.selectByValue("msn");
-        break;
-      case "GITHUB":
-        // Select GITHUB option
-        ELEMENT_CONTACT_INSTANT_MESSAGING_TYPE_SELECT_EDIT_BTN.selectByValue("github");
-        break;
-      case "FACEBOOK":
-        // Select FACEBOOK option
-        ELEMENT_CONTACT_INSTANT_MESSAGING_TYPE_SELECT_EDIT_BTN.selectByValue("facebook");
-        break;
-      case "OTHER":
-        // Select OTHER option
-        ELEMENT_CONTACT_INSTANT_MESSAGING_TYPE_SELECT_EDIT_BTN.selectByValue("other");
-        break;
+    case "SKYPE":
+      // Select SKYPE option
+      ELEMENT_CONTACT_INSTANT_MESSAGING_TYPE_SELECT_EDIT_BTN.selectByValue("skype");
+      break;
+    case "MSN":
+      // Select MSN option
+      ELEMENT_CONTACT_INSTANT_MESSAGING_TYPE_SELECT_EDIT_BTN.selectByValue("msn");
+      break;
+    case "GITHUB":
+      // Select GITHUB option
+      ELEMENT_CONTACT_INSTANT_MESSAGING_TYPE_SELECT_EDIT_BTN.selectByValue("github");
+      break;
+    case "FACEBOOK":
+      // Select FACEBOOK option
+      ELEMENT_CONTACT_INSTANT_MESSAGING_TYPE_SELECT_EDIT_BTN.selectByValue("facebook");
+      break;
+    case "OTHER":
+      // Select OTHER option
+      ELEMENT_CONTACT_INSTANT_MESSAGING_TYPE_SELECT_EDIT_BTN.selectByValue("other");
+      break;
 
-      default:
-        // No option in the list.Please select correct option.
-        break;
+    default:
+      // No option in the list.Please select correct option.
+      break;
     }
   }
 
   public void selectPhoneType(String phoneType, String... option) {
     switch (phoneType) {
-      case "WORK":
-        // Select WORK option
-        ELEMENT_CONTACT_PHONE_TYPE_SELECT_EDIT_BTN.selectByValue("work");
-        break;
-      case "HOME":
-        // Select HOME option
-        ELEMENT_CONTACT_PHONE_TYPE_SELECT_EDIT_BTN.selectByValue("home");
-        break;
-      case "OTHER":
-        // Select OTHER option
-        ELEMENT_CONTACT_PHONE_TYPE_SELECT_EDIT_BTN.selectByValue("other");
-        break;
+    case "WORK":
+      // Select WORK option
+      ELEMENT_CONTACT_PHONE_TYPE_SELECT_EDIT_BTN.selectByValue("work");
+      break;
+    case "HOME":
+      // Select HOME option
+      ELEMENT_CONTACT_PHONE_TYPE_SELECT_EDIT_BTN.selectByValue("home");
+      break;
+    case "OTHER":
+      // Select OTHER option
+      ELEMENT_CONTACT_PHONE_TYPE_SELECT_EDIT_BTN.selectByValue("other");
+      break;
 
-      default:
-        // No option in the list.Please select correct option.
-        break;
+    default:
+      // No option in the list.Please select correct option.
+      break;
     }
-  }
-
-  @SwitchToWindow
-  public void sendKudos(String comment) {
-    waitCKEditorLoading();
-    retryOnCondition(() -> {
-      BaseElementFacade ckEditorFrameSendKudosDrawer =
-                                                     findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//iframe[contains(@class,'cke_wysiwyg_frame')]");
-      ckEditorFrameSendKudosDrawer.waitUntilVisible();
-      driver.switchTo().frame(ckEditorFrameSendKudosDrawer);
-    }, () -> {
-      driver.switchTo().defaultContent();
-      waitFor(500).milliseconds(); // Kudos Iframe seems very slow
-    });
-    try {
-      sendKudosMessageContent.waitUntilVisible();
-      sendKudosMessageContent.setTextValue(comment);
-    } finally {
-      driver.switchTo().defaultContent();
-    }
-    sendKudosButton.clickOnElement();
-    waitForDrawerToClose();
   }
 
   public void sentKudosSectionIsDisplayed(String kudosNumber) {
@@ -565,41 +539,29 @@ public class UserProfilePage extends GenericPage {
 
   }
 
-  public void updateWorkExperiences(String organization,
-                                    String jobTitle,
-                                    String jobDetails,
-                                    String usedSkills) throws InterruptedException {
+  public void updateWorkExperiences(String organization, String jobTitle, String jobDetails, String usedSkills) {
     // Add work experience
-    // Thread.sleep(3000);
-    EDIT_WORK_EXPERIENCES.waitUntilVisible();
-    EDIT_WORK_EXPERIENCES.clickOnElement();
-    if (ADD_WORK_EXPERIENCES.isNotVisibleAfterWaiting()) {
-      closeWorkExperiencesDrawerBtn.waitUntilVisible();
+    editWorkExperiences.clickOnElement();
+    waitForDrawerToOpen(".profileWorkExperiencesDrawer.v-navigation-drawer--open", true);
+    if (!addWorkExperiences.isCurrentlyVisible()) {
       closeWorkExperiencesDrawerBtn.clickOnElement();
-      EDIT_WORK_EXPERIENCES.waitUntilVisible();
-      EDIT_WORK_EXPERIENCES.clickOnElement();
+      editWorkExperiences.clickOnElement();
     }
-    ADD_WORK_EXPERIENCES.waitUntilVisible();
-    ADD_WORK_EXPERIENCES.clickOnElement();
-    ELEMENT_WORK_EXPERIENCES_ORGANIZATION.waitUntilVisible();
-    ELEMENT_WORK_EXPERIENCES_ORGANIZATION.sendKeys(organization);
-    ELEMENT_WORK_EXPERIENCES_JOB_TITLE.sendKeys(jobTitle);
-    ELEMENT_WORK_EXPERIENCES_JOB_DETAILS.sendKeys(jobDetails);
-    ELEMENT_WORK_EXPERIENCES_USED_SKILLS.sendKeys(usedSkills);
+    addWorkExperiences.clickOnElement();
+    elementWorkExperiencesOrganization.setTextValue(organization);
+    elementWorkExperiencesJobTitle.setTextValue(jobTitle);
+    elementWorkExperiencesJobDetails.setTextValue(jobDetails);
+    elementWorkExperiencesUsedSkills.setTextValue(usedSkills);
 
-    ELEMENT_WORK_EXPERIENCES_START_DATE.waitUntilVisible();
-    ELEMENT_WORK_EXPERIENCES_START_DATE.clickOnElement();
-    ELEMENT_WORK_EXPERIENCES_START_DATE_TOMORROW_DAY.clickOnElement();
+    elementWorkExperiencesStartDate.clickOnElement();
+    elementWorkExperiencesStartDateGoToPreviousMonth.clickOnElement();
+    elementWorkExperiencesStartDateFirstMonthDay.clickOnElement();
 
-    ELEMENT_WORK_EXPERIENCES_END_DATE.waitUntilVisible();
-    ELEMENT_WORK_EXPERIENCES_END_DATE.clickOnElement();
-    ELEMENT_WORK_EXPERIENCES_END_DATE_TOMORROW_DAY.clickOnElement();
+    elementWorkExperiencesEndDate.clickOnElement();
+    elementWorkExperiencesEndDateToday.clickOnElement();
 
-    // Thread.sleep(3000);
-    SAVE_WORK_EXPERIENCES.waitUntilVisible();
-    JavascriptExecutor executor = (JavascriptExecutor) driver;
-    executor.executeScript("arguments[0].click();", SAVE_WORK_EXPERIENCES);
-    SAVE_WORK_EXPERIENCES.waitUntilNotVisible();
+    saveWorkExperiences.clickOnElement();
+    waitForDrawerToClose(".profileWorkExperiencesDrawer.v-navigation-drawer--open", true);
   }
 
   public void uploadProfileAvatar(String fileName) {

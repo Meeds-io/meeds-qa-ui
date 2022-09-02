@@ -42,7 +42,7 @@ Feature: To be able to access applications
     When I remove Application 'appCenterCAP07' From Favorites
     Then AppCenter Application 'appCenterCAP07' is removed From Favorites
 
-  Scenario: CAP19 - [User_UI_US12][02]: Design V6-Open button of an external app card
+  Scenario: CAP19 - [User_UI_US12][02] Design V6-Open button of an external app card
     Given I am authenticated as admin
 
     When I see All Applications
@@ -51,7 +51,7 @@ Feature: To be able to access applications
     When I click on 'Tasks' Application Open Button
     Then Tasks Application Page is displayed
 
-  Scenario: CAP34 - [User_UI_US021][02]: Check the display of Mandatory apps when its no longer considered as mandatory app
+  Scenario: CAP34 - [User_UI_US021][02] Check the display of Mandatory apps when its no longer considered as mandatory app
     Given I am authenticated as admin
     When I go to Administer application center Page
     And I add a new application with the following data

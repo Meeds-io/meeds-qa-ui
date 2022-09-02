@@ -4,33 +4,23 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.meeds.qa.ui.pages.page.factory.Kudos.KudosPage;
-import io.meeds.qa.ui.pages.page.factory.space.SpaceHomePage;
 import io.meeds.qa.ui.steps.KudosSteps;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 
 public class KudosStepDefinitions {
-  private KudosPage     kudosPage;
 
   @Steps
   private KudosSteps    kudoSteps;
 
-  private SpaceHomePage spaceHomePage;
-
   @When("^I send to the comment activity a kudos message '(.*)'$")
   public void addActivityCommentKudos(String kudos) {
-    kudosPage.addActivityCommentKudos(kudos);
-  }
-
-  @When("^I send to the comment activity a kudos message '(.*)' from comments drawer$")
-  public void addActivityCommentKudosFromDrawer(String kudos) {
-    kudoSteps.addActivityCommentKudosFromDrawer(kudos);
+    kudoSteps.addActivityCommentKudos(kudos);
   }
 
   @When("^I send to the activity '(.*)' a kudos message '(.*)'$")
   public void addActivityKudos(String activity, String kudos) {
-    kudosPage.addActivityKudos(activity, kudos);
+    kudoSteps.addActivityKudos(activity, kudos);
   }
 
   @And("^the kudos activity UI '(.*)' is displayed in stream page$")
@@ -80,17 +70,17 @@ public class KudosStepDefinitions {
   }
 
   @And("I search for second user card")
-  public void SearchSecondUserCard() {
+  public void searchSecondUserCard() {
     String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
     String secondUserLastName = Serenity.sessionVariableCalled("secondUserLastName");
 
     String fullName = secondUserFirstName + " " + secondUserLastName;
-    kudoSteps.SearchUserCard(fullName);
+    kudoSteps.searchUserCard(fullName);
   }
 
   @And("I search for '{}' card")
-  public void SearchUserCard(String user) {
-    kudoSteps.SearchUserCard(user);
+  public void searchUserCard(String user) {
+    kudoSteps.searchUserCard(user);
   }
 
   @And("I select type period per semester")
@@ -104,10 +94,6 @@ public class KudosStepDefinitions {
   }
 
   @Given("^I set the new kudos comment text '(.*)' and I click on update button$")
-  public void updateKudosCommentMessage(String kudos) {
-    kudoSteps.updateKudosCommentMessage(kudos);
-  }
-
   @And("^I set the new kudos '(.*)' and I click on update button$")
   public void updateKudosMessage(String kudos) {
     kudoSteps.updateKudosMessage(kudos);

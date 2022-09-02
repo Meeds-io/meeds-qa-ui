@@ -270,6 +270,10 @@ public class SpaceHomeSteps {
     spaceHomePage.enterActivityCommentWithUser(comment, user);
   }
 
+  public void enterActivityCommentWithUserNoMention(String comment, String user) {
+    spaceHomePage.enterActivityCommentWithUserNoMention(comment, user);
+  }
+
   public void enterActivityText(String activity) {
     spaceHomePage.enterActivityText(activity);
   }
@@ -458,11 +462,11 @@ public class SpaceHomeSteps {
   }
 
   public void replyKudosLabelIsBlack(String comment) {
-    spaceHomePage.replyKudosLabelIsBlack(comment);
+    spaceHomePage.kudosLabelIsBlack(comment);
   }
 
   public void replykudosLabelIsBlue(String comment) {
-    spaceHomePage.replyKudosLabelIsBlue(comment);
+    spaceHomePage.kudosLabelIsBlue(comment);
   }
 
   public void tooltipActivityStreamIsDisplayed(String comment) {

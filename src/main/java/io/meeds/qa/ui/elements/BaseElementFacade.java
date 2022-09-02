@@ -64,6 +64,23 @@ public interface BaseElementFacade extends WebElementFacade {
   @Override
   boolean isDisplayed();
 
+  /**
+   * this method will check if element is displayed or not with a given implicit
+   * wait time in milliseconds
+   * 
+   * @param implicitWaitInMillis wait time in milliseconds
+   * @return true if displayed else false
+   */
+  boolean isDisplayed(long implicitWaitInMillis);
+
+  /**
+   * this method will check if element is displayed or not without implicit
+   * timeout
+   * 
+   * @return true if displayed else false
+   */
+  boolean isDisplayedNoWait();
+
   public boolean isEnabledAfterWaiting();
 
   /**

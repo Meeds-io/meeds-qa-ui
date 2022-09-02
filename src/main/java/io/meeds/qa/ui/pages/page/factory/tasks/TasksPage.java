@@ -84,11 +84,6 @@ public class TasksPage extends GenericPage {
   )
   private TextBoxElementFacade     alertMessageAfterStatusMoved;
 
-  @FindBy(
-      xpath = "//*[@class='v-alert v-sheet theme--dark success']//*[@class='v-alert__content' and contains(text(),'Task successfully deleted')] "
-  )
-  private TextBoxElementFacade     alertMessageAfterTaskDeleted;
-
   @FindBy(xpath = "//*[@class='uiIcon uiBackIcon']")
   private BaseElementFacade        arrowBackButton;
 
@@ -481,7 +476,7 @@ public class TasksPage extends GenericPage {
 
   @SwitchToWindow
   public void addNewCommentInTaskWithMentioningTheFirstUserInTask(String comment, String user) {
-    mentionUserWithContent(ckEditorFrameTaskMentioningUser, taskCommentContentTextBox, comment, user);
+    mentionUserInCKEditor(ckEditorFrameTaskMentioningUser, taskCommentContentTextBox, comment, user, true);
     commentTaskButton.waitUntilVisible();
     commentTaskButton.clickOnElement();
     goBackToTaskDrawerFromComments.waitUntilVisible();
@@ -503,17 +498,13 @@ public class TasksPage extends GenericPage {
   @SwitchToWindow
   public void addProjectManagerInput(String manager) {
     addManagerBtn.clickOnElement();
-    inviteProjectManagerInput.setTextValue(manager + " ");
-    inviteProjectManagerInput.sendKeys(Keys.BACK_SPACE);
-    getProjectManager(manager).clickOnElement();
+    mentionInField(inviteProjectManagerInput, manager, 5);
   }
 
   @SwitchToWindow
   public void addProjectParticipantInput(String participant) {
     addParticipantBtn.clickOnElement();
-    inviteProjectParticipantInput.setTextValue(participant + " ");
-    inviteProjectParticipantInput.sendKeys(Keys.BACK_SPACE);
-    getProjectParticipant(participant).clickOnElement();
+    mentionInField(inviteProjectParticipantInput, participant, 5);
   }
 
   @SwitchToWindow
@@ -545,8 +536,7 @@ public class TasksPage extends GenericPage {
     addProjectOrTask.clickOnElement();
     projectTitle.setTextValue(projectName);
     addManagerBtn.clickOnElement();
-    inviteProjectManagerInput.setTextValue(fullName);
-    getProjectManager(fullName).clickOnElement();
+    mentionInField(inviteProjectManagerInput, fullName, 5);
     saveButton.clickOnElement();
   }
 
@@ -584,9 +574,7 @@ public class TasksPage extends GenericPage {
   public void assignTaskToUser(String user) {
     assertWebElementVisible(taskAssignLink);
     taskAssignLink.clickOnElement();
-    taskAssignUserInput.setTextValue(user + " ");
-    taskAssignUserInput.sendKeys(Keys.BACK_SPACE);
-    getSelectUserInDropDown(user).clickOnElement();
+    mentionInField(taskAssignUserInput, user, 5);
   }
 
   public void boardViewIsDisplayedByDefault() {
@@ -598,7 +586,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkAlertMessageAfterDeleteTask() {
-    assertWebElementVisible(alertMessageAfterTaskDeleted);
+    assertWebElementVisible(findByXPathOrCSS("//*[contains(@class, 'v-alert')]//*[contains(text(),'Task successfully deleted')]"));
   }
 
   public void checkAlertMessageAfterMarkTaskAsCompleted() {
@@ -1269,18 +1257,6 @@ public class TasksPage extends GenericPage {
                             String.format("//*[contains(@id,'userAvatar') and contains(@href,'%s')]", userName));
   }
 
-  private BaseElementFacade getProjectManager(String fullName) {
-    return findByXPathOrCSS(
-                            String.format("//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
-                                          fullName));
-  }
-
-  private BaseElementFacade getProjectParticipant(String fullName) {
-    return findByXPathOrCSS(
-                            String.format("//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
-                                          fullName));
-  }
-
   private BaseElementFacade getRemoveLabelButton(String label) {
     return findByXPathOrCSS(String.format("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'projectLabelsName')]//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'v-chip')]//button[contains(text(), 'close')]",
                                           label));
@@ -1289,12 +1265,6 @@ public class TasksPage extends GenericPage {
   private BaseElementFacade getRemoveLabelTaskButton(String label) {
     return findByXPathOrCSS(String.format("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'v-chip')]//button",
                                           label));
-  }
-
-  private BaseElementFacade getSelectUserInDropDown(String firstUserName) {
-    return findByXPathOrCSS(String.format(
-                                          "//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
-                                          firstUserName));
   }
 
   private BaseElementFacade getStatusColumn(String statusColumn) {
@@ -1515,11 +1485,15 @@ public class TasksPage extends GenericPage {
   }
 
   public void openTaskCard(String task) {
+    closeDrawerIfDisplayed();
     openTask(task).clickOnElement();
+    waitForDrawerToOpen();
   }
 
   public void openTaskDrawer(String taskName) {
+    closeDrawerIfDisplayed();
     getTaskName(taskName).clickOnElement();
+    waitForDrawerToOpen();
   }
 
   public void openTaskInTasksTab(String taskName) {

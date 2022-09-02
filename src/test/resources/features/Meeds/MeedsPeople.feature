@@ -4,7 +4,7 @@ Feature: Search for Contacts in People page
   I want to check in People page all contacts informations
 
   @ignored
-  Scenario: : PEOPLE-6 : Integrate the Suggestions widget in People App
+  Scenario: : PEOPLE-6 - Integrate the Suggestions widget in People App
     Given I am authenticated as admin
     And I create a dedicated user to be an administrator
     And I go to groups Management page
