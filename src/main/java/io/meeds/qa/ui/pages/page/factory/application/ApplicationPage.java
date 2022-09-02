@@ -194,8 +194,12 @@ public class ApplicationPage extends GenericPage {
     return MAPPING_FIELD_NAME_TO_BASEELEMENTFACADE_XPATH.get(appName).isVisibleAfterWaiting();
   }
 
-  public boolean isApplicationVisible(String application) {
-    return getApplication(application).isVisibleAfterWaiting();
+  public void checkApplicationIsVisible(String application) {
+    assertWebElementVisible(getApplication(application));
+  }
+
+  public void checkApplicationIsNotVisible(String application) {
+    assertWebElementNotVisible(getApplication(application));
   }
 
   public boolean isAppNotDisplayedInFavoriteList(String appName) {

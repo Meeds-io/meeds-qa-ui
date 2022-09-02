@@ -2,11 +2,8 @@ package io.meeds.qa.ui.pages.page.factory.space;
 
 import static org.junit.Assert.assertTrue;
 
-import java.time.Duration;
-
 import org.junit.Assert;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -528,8 +525,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void isSpaceBannerUpdated() {
-    spaceBannerUpdated.waitUntilVisible();
-    Assert.assertEquals(spaceBannerUpdated.getAttribute("style"), "width: 420px;");
+    assertWebElementVisible(spaceBannerUpdated);
   }
 
   public boolean isSpaceCardDisplayed(String space) {

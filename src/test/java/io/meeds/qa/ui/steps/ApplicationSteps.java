@@ -118,8 +118,12 @@ public class ApplicationSteps {
     return missingValues;
   }
 
-  public boolean isApplicationVisible(String applicationName) {
-    return applicationPage.isApplicationVisible(applicationName);
+  public void checkApplicationIsVisible(String applicationName) {
+    applicationPage.checkApplicationIsVisible(applicationName);
+  }
+
+  public void checkApplicationIsNotVisible(String applicationName) {
+    applicationPage.checkApplicationIsNotVisible(applicationName);
   }
 
   public List<String> isAppNotDisplayedInFavoriteList(List<String> listOfApp) {
@@ -196,5 +200,6 @@ public class ApplicationSteps {
   public void unbookmarkApplication(String appTitle) {
     applicationPage.unbookmarkApplication(appTitle);
   }
+
 
 }
