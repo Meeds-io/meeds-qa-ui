@@ -567,7 +567,6 @@ public class HomePage extends GenericPage {
     favoriteIconInSpacePage.clickOnElement();
   }
 
-
   private void waitUntilAppCenterSearchFinishes(boolean isAdminUI) {
     if (isAdminUI) {
       findByXPathOrCSS("(//*[contains(@class, 'listApplications')]//tr)[3]").waitUntilNotVisible();
