@@ -1,8 +1,8 @@
 package io.meeds.qa.ui.pages.page.factory.space;
 
+import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION_MILLIS;
 import static org.junit.Assert.assertTrue;
 
-import java.time.Duration;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;

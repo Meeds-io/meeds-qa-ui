@@ -283,14 +283,8 @@ public class ApplicationPage extends GenericPage {
     return getActiveButton(appTitle).isCurrentlyVisible();
   }
 
-  public boolean isPopupConfirmDeleteDisplayed() {
-    return confirmDelete.isVisibleAfterWaiting() && cancelDeleteButton.isVisibleAfterWaiting()
-        && closeDeletePopupButton.isVisibleAfterWaiting();
-  }
-
-  public boolean isPopupConfirmDeleteNotDisplayed() {
-    return confirmDelete.isNotVisibleAfterWaiting() && cancelDeleteButton.isNotVisibleAfterWaiting()
-        && closeDeletePopupButton.isNotVisibleAfterWaiting();
+  public void checkPopupDeleteNotVisible() {
+    assertWebElementNotVisible(confirmDelete);
   }
 
   public void removeFileFromApplicationDrawer() {

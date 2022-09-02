@@ -1,6 +1,8 @@
 package io.meeds.qa.ui.pages;
 
 import static io.meeds.qa.ui.utils.Utils.MAX_WAIT_RETRIES;
+import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION;
+import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION_MILLIS;
 import static io.meeds.qa.ui.utils.Utils.decorateDriver;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoaded;
@@ -34,10 +36,6 @@ import net.thucydides.core.annotations.WhenPageOpens;
 import net.thucydides.core.pages.PageObject;
 
 public class BasePageImpl extends PageObject implements BasePage {
-
-  public static final int      SHORT_WAIT_DURATION_MILLIS = 300;
-
-  public static final Duration SHORT_WAIT_DURATION        = Duration.ofMillis(SHORT_WAIT_DURATION_MILLIS);
 
   static final Logger          LOGGER                     = LoggerFactory.getLogger(BasePageImpl.class);
 

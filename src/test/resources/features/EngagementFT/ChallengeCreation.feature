@@ -27,6 +27,7 @@ Feature: Challenges
     And Add challenge button should not be displayed
 
   @skip
+  @ignored
   Scenario: Challenge_App_Admin_US01 Challenge App
     Given I am authenticated as admin
     And I create the firstchgadm random user if not existing, no wait
@@ -85,6 +86,7 @@ Feature: Challenges
     And Add challenge button should be displayed
 
   @skip
+  @ignored
   Scenario: Challenge_App_Admin_US02 Challenge CARD
     Given I am authenticated as admin
     And I create the firstchgadm random user if not existing
@@ -113,6 +115,7 @@ Feature: Challenges
     And Date indication should be displayed on the challenge card
 
   @skip
+  @ignored
   Scenario: Challenge_App_US01 Post the challenge on the space stream
     Given I am authenticated as admin
     And I create the firstchgadm random user if not existing, no wait
