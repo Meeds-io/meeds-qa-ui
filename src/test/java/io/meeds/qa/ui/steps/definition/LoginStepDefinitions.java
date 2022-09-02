@@ -38,7 +38,6 @@ public class LoginStepDefinitions {
   @Given("^I change user (.*)$")
   public void logOutLogin(String username) {
     authenticate(username);
-    assertThat(loginSteps.isHomePageDisplayed()).as("The home page should be loaded, but it did not !").isTrue();
   }
 
   @Given("^I connect with admin$")
