@@ -65,23 +65,17 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   @SwitchToWindow
   public void assertWebElementNotVisible(BaseElementFacade element, int maxRetries) {
-    assertTrue(String.format("Element %s is still visible after waiting",
-                             element),
-               isWebElementNotVisible(element, maxRetries));
+    assertTrue(String.format("Element %s is still visible after waiting", element), isWebElementNotVisible(element, maxRetries));
   }
 
   @SwitchToWindow
   public void assertWebElementVisible(BaseElementFacade element) {
-    assertTrue(String.format("Unable to locate a visible element %s",
-                             element),
-               isWebElementVisible(element));
+    assertTrue(String.format("Unable to locate a visible element %s", element), isWebElementVisible(element));
   }
 
   @SwitchToWindow
   public void assertWebElementVisible(BaseElementFacade element, int maxRetries) {
-    assertTrue(String.format("Unable to locate a visible element %s",
-                             element),
-               isWebElementVisible(element, maxRetries));
+    assertTrue(String.format("Unable to locate a visible element %s", element), isWebElementVisible(element, maxRetries));
   }
 
   public void clickOnElement(BaseElementFacade element) {
@@ -102,8 +96,7 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   public <T extends ButtonElementFacade> T findButtonElementByXpath(String xpath) {
     if (!Selectors.isXPath(xpath)) {
-      ExceptionLauncher.throwSerenityExeption(new Exception(),
-                                              String.format(XPATH_FORMAT_ERROR_MESSAGE, xpath));
+      ExceptionLauncher.throwSerenityExeption(new Exception(), String.format(XPATH_FORMAT_ERROR_MESSAGE, xpath));
     }
     WebElementFacade nestedElement = getWebElementFacadeByXpathOrCSS(xpath);
 
@@ -125,8 +118,7 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   public <T extends TextBoxElementFacade> T findTextBoxElementByXpath(String xpath) {
     if (!Selectors.isXPath(xpath)) {
-      ExceptionLauncher.throwSerenityExeption(new Exception(),
-                                              String.format(XPATH_FORMAT_ERROR_MESSAGE, xpath));
+      ExceptionLauncher.throwSerenityExeption(new Exception(), String.format(XPATH_FORMAT_ERROR_MESSAGE, xpath));
     }
     WebElementFacade nestedElement = getWebElementFacadeByXpathOrCSS(xpath);
 
@@ -138,8 +130,7 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   public <T extends TextElementFacade> T findTextElementByXpath(String xpath) {
     if (!Selectors.isXPath(xpath)) {
-      ExceptionLauncher.throwSerenityExeption(new Exception(),
-                                              String.format(XPATH_FORMAT_ERROR_MESSAGE, xpath));
+      ExceptionLauncher.throwSerenityExeption(new Exception(), String.format(XPATH_FORMAT_ERROR_MESSAGE, xpath));
     }
     WebElementFacade nestedElement = getWebElementFacadeByXpathOrCSS(xpath);
 
@@ -180,9 +171,9 @@ public class BasePageImpl extends PageObject implements BasePage {
     boolean notVisible = false;
     int retry = 0;
     do {
-      notVisible = element.isNotVisibleAfterWaiting();
+      notVisible = !element.isDisplayed(SHORT_WAIT_DURATION_MILLIS);
     } while (!notVisible && retry++ < maxRetries);
-    return notVisible;
+    return notVisible || element.isNotVisibleAfterWaiting();
   }
 
   public boolean isWebElementVisible(BaseElementFacade element) {
@@ -196,9 +187,9 @@ public class BasePageImpl extends PageObject implements BasePage {
     boolean visible = false;
     int retry = 0;
     do {
-      visible = element.isVisibleAfterWaiting();
+      visible = element.isDisplayed(SHORT_WAIT_DURATION_MILLIS);
     } while (!visible && retry++ < maxRetries);
-    return visible;
+    return visible || element.isCurrentlyVisible();
   }
 
   @SwitchToWindow
@@ -291,10 +282,8 @@ public class BasePageImpl extends PageObject implements BasePage {
   public void waitCKEditorLoading() {
     try {
       BaseElementFacade richTextLoadingElement = findByXPathOrCSS("//*[contains(@class, 'loadingRing')]");
-      if (richTextLoadingElement.isDisplayedNoWait()) {
-        if (richTextLoadingElement.isVisibleAfterWaiting()) {
-          richTextLoadingElement.waitUntilNotVisible();
-        }
+      if (richTextLoadingElement.isDisplayed(200)) {
+        richTextLoadingElement.waitUntilNotVisible();
       }
     } catch (Exception e) {
       ExceptionLauncher.LOGGER.debug("Can't wait for progress bar to finish loading", e);
@@ -325,9 +314,7 @@ public class BasePageImpl extends PageObject implements BasePage {
     wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState === 'complete' "
         + " && (!document.getElementById('TopbarLoadingContainer') || !!document.querySelector('.TopbarLoadingContainer.hidden'))"
         + " && !!document.querySelector('.v-navigation-drawer--open')"
-        + " && !document.querySelector('.v-navigation-drawer--open .v-progress-linear')")
-                                                            .toString()
-                                                            .equals("true"));
+        + " && !document.querySelector('.v-navigation-drawer--open .v-progress-linear')").toString().equals("true"));
   }
 
   public void waitForDrawerToOpen() {

@@ -1090,7 +1090,9 @@ public class SpaceHomePage extends GenericPage {
   public void publishActivity() {
     publishActivityButton.clickOnElement();
     try {
-      newActivityButton.clickOnElement();
+      if (newActivityButton.isDisplayed(SHORT_WAIT_DURATION_MILLIS)) {
+        newActivityButton.clickOnElement();
+      }
       verifyPageLoaded();
     } catch (Exception e) {
       refreshPage();
