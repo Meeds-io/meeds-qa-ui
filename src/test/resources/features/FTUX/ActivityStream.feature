@@ -1589,17 +1589,18 @@ Feature: Activity Stream
     Then Delete button related to activity 'activity-CAP13' is displayed
     And Copy link button related to activity 'activity-CAP13' is displayed
 
+  @test
   Scenario: CAP97 - [ActivityStream_US38][01] Delete a simple comment from the activity stream
     Given I am authenticated as admin
 
-    When I create the first random user if not existing, no wait
+    When I create the firstadm random user if not existing, no wait
     And I create the second random user if not existing, no wait
     And I create the third random user if not existing, no wait
     And I create the fourth random user if not existing
     And I go to groups Management page
     And I open the group 'Platform'
     And I select the group 'Administration'
-    And I add the role '*' to the first created user
+    And I add the role '*' to the firstadm created user
 
     When I connect with the second created user
     And I go to the random space
@@ -1618,7 +1619,7 @@ Feature: Activity Stream
     Then Activity Comment 'commenttest97' is displayed in Comments drawer
     And Activity Comment 'commenttest97' is displayed in activity stream
 
-    When I connect with the first created user
+    When I connect with the firstadm created user
     And I go to the random space
     Then the activity 'activityTest97' is displayed in activity stream
     And Activity Comment 'commenttest97' is displayed in activity stream
@@ -1633,14 +1634,14 @@ Feature: Activity Stream
   Scenario: CAP99 - [ActivityStream_US38][03] Delete comment with replies from the activity stream
     Given I am authenticated as admin
 
-    When I create the first random user if not existing, no wait
+    When I create the firstadm random user if not existing, no wait
     And I create the second random user if not existing, no wait
     And I create the third random user if not existing, no wait
     And I create the fourth random user if not existing
     And I go to groups Management page
     And I open the group 'Platform'
     And I select the group 'Administration'
-    And I add the role '*' to the first created user
+    And I add the role '*' to the firstadm created user
 
     When I connect with the second created user
     And I go to the random space
@@ -1670,7 +1671,7 @@ Feature: Activity Stream
     When I add a reply 'replyTest102' to comment 'commenttest99' in activity 'activityTest99'
     Then In activity 'activityTest99' with comment 'commenttest99', the reply 'replyTest102' is displayed
 
-    When I connect with the first created user
+    When I connect with the firstadm created user
     And I go to the random space
     Then the activity 'activityTest99' is displayed in activity stream
     And Activity Comment 'commenttest99' is displayed in activity stream

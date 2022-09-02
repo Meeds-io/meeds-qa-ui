@@ -19,6 +19,7 @@ import io.meeds.qa.ui.steps.ManageBadgesSteps;
 import io.meeds.qa.ui.steps.ManageSpaceSteps;
 import io.meeds.qa.ui.steps.definition.ManageSpaceStepDefinitions;
 import io.meeds.qa.ui.utils.ExceptionLauncher;
+import io.meeds.qa.ui.utils.Utils;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 
@@ -82,7 +83,9 @@ public class TestHooks {
     Serenity.setSessionVariable("admin-password").to(adminPassword);
     adminLoggedIn = false;
 
-    decorateDriver(Serenity.getDriver());
+    if (Utils.isParallelTesting()) {
+      decorateDriver(Serenity.getDriver());
+    }
 
     SPACES.entrySet().forEach(entry -> {
       if (StringUtils.isNotBlank(entry.getValue())) {
