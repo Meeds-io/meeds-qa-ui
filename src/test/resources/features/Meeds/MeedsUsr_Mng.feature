@@ -8,9 +8,7 @@ Feature: Users Management
     Given I am authenticated as admin
 
     When I create the first random user if not existing
-    And I refresh the page
     And I create the second random user if not existing
-    And I refresh the page
     And I search for second created user
     When I disable the second created User Status
     And I refresh the page
@@ -19,20 +17,12 @@ Feature: Users Management
     When I search for 'DISABLED' Users
     Then The second created user is displayed
 
-  Scenario: [USR_MNG-1.2] Add User drawer
-    Given I am authenticated as admin
-
-    When I go to Add Users page
-
-    Then Add Users drawer is opened
-
   @ignored
   Scenario: [USR_MNG-1.5] Delete User
     Given I am authenticated as admin
 
     When I create the firsttodelete random user if not existing
 
-    And I refresh the page
     Then I search for the firsttodelete random user
     And I delete user
 

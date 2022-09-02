@@ -133,7 +133,8 @@ Feature: Search for User Informations in Profile page
     And I remove my profile work experiences 'IT Engineer Developer'
 
   Scenario: : PROFILE-9 : Achievement Drawer in Points
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
 
     And I create the first random user if not existing, no wait
 

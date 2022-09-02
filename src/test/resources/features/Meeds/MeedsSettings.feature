@@ -47,7 +47,8 @@ Feature: Edit sections in Settings page
 
   @ignored
   Scenario: [SETTINGS-7] Security on settings
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
 
     And I create the first random user if not existing
     And I connect with the first created user
@@ -76,7 +77,8 @@ Feature: Edit sections in Settings page
     Then I connect with the first created user
 
   Scenario: : SETTINGS-8 : Notifications section (Disable Notifications)
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
 
     When I create the first random user if not existing, no wait
     And I connect with the first created user

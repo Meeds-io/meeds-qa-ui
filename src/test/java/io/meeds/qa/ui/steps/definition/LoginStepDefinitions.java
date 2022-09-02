@@ -2,6 +2,8 @@ package io.meeds.qa.ui.steps.definition;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
+
 import io.cucumber.java.en.Given;
 import io.meeds.qa.ui.steps.LoginSteps;
 import net.serenitybdd.core.Serenity;
@@ -13,9 +15,19 @@ public class LoginStepDefinitions {
   private LoginSteps loginSteps;
 
   @Given("^I am authenticated as (.*)$")
-  public void login(String username) {
+  public void authenticate(String username) {
     loginSteps.authenticate(username);
     assertThat(loginSteps.isHomePageDisplayed()).as("The home page should be loaded, but it did not !").isTrue();
+  }
+
+  @Given("^I connect as (.*) if random users doesn't exists$")
+  public void authenticateIfUsersNotExists(String username, List<String> userPrefixes) {
+    loginSteps.authenticateIfUsersNotExists("admin", userPrefixes);
+  }
+
+  @Given("^I connect as (.*) if random space and random users doesn't exists$")
+  public void authenticateIfRandomSpaceAndUsersNotExists(String username, List<String> userPrefixes) {
+    loginSteps.authenticateIfRandomSpaceAndUsersNotExists(username, "randomSpaceName", userPrefixes);
   }
 
   @Given("I logout")
@@ -25,7 +37,7 @@ public class LoginStepDefinitions {
 
   @Given("^I change user (.*)$")
   public void logOutLogin(String username) {
-    loginSteps.logoutLogin(username);
+    authenticate(username);
     assertThat(loginSteps.isHomePageDisplayed()).as("The home page should be loaded, but it did not !").isTrue();
   }
 
@@ -49,7 +61,7 @@ public class LoginStepDefinitions {
   @Given("^I connect with the (.*) created user$")
   public void logoutLoginUser(String userPrefix) {
     String userName = Serenity.sessionVariableCalled(userPrefix + "UserName");
-    logOutLogin(userName);
+    authenticate(userName);
   }
 
 }

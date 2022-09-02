@@ -2,6 +2,7 @@ package io.meeds.qa.ui.pages.page.factory;
 
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 
@@ -28,7 +29,15 @@ public class LoginPage extends GenericPage implements IsHidden {
   }
 
   public void login(String login, String password) {
+    openLoginPage();
     retryOnCondition(() -> tryLogin(login, password), this::refreshPage);
+  }
+
+  public void openLoginPage() {
+    while (!StringUtils.contains(driver.getCurrentUrl(), "/portal/login")) {
+      clearCookies();
+      open();
+    }
   }
 
   private void tryLogin(String login, String password) {

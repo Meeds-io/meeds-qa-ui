@@ -2,7 +2,8 @@
 Feature: Favorite activities
 
   Scenario: [Favs_US03] Bookmark an activity
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
     And I create the first random user if not existing
     And I connect with the first created user
     And I go to the random space
@@ -15,7 +16,8 @@ Feature: Favorite activities
     Then The favorite success message 'Favorite added successfully. Find it easily from the search' should be displayed
 
   Scenario: [Favs_US04] Remove the Bookmark for an activity
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
     And I create the first random user if not existing
     And I connect with the first created user
     And I go to the random space
@@ -31,7 +33,8 @@ Feature: Favorite activities
 
   @test
   Scenario: [Favs_US05][01] Search by favorites (Filter by favorite button)
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
     And I create the first random user if not existing
     And I connect with the first created user
     And I go to the random space
@@ -56,7 +59,8 @@ Feature: Favorite activities
     And The activity is not displayed in the search 'act2'
 
   Scenario:  [Favs_US05][02] Search by favorites (Filter by keyword and favorite button)
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
     And I create the first random user if not existing
     And I connect with the first created user
     And I go to the random space
@@ -84,7 +88,8 @@ Feature: Favorite activities
     And The activity is displayed in the search 'activityFavs_US050'
 
   Scenario: [Favs_US06][01] Manage favorites from the search card ( Bookmark an activity)
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
     And I create the first random user if not existing
     And I connect with the first created user
     And I go to the random space
@@ -105,7 +110,8 @@ Feature: Favorite activities
     And The activity is not displayed in the search 'activityFavs_US06_01_0'
 
   Scenario: [Favs_US06][02] Manage favorites from the search card ( UnBookmark an activity)
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
     And I create the first random user if not existing
     And I connect with the first created user
     And I go to the random space

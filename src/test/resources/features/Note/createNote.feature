@@ -4,7 +4,8 @@ Feature: Create Note
   @ignored
   Scenario: CAP01 [ManageNote][01] Open Create note page in new tab
 
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
     And I create the first random user if not existing
     When I connect with the first created user
 

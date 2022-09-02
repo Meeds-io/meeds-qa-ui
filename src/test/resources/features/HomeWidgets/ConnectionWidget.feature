@@ -7,7 +7,12 @@ Feature: Space widgets checking
   In order to validate the page
 
   Scenario: US 3.3.3_(02) [BACK] No Connection requests number
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | firstnoconn  |
+      | secondnoconn  |
+      | thirdnoconn  |
+      | fourthnoconn  |
+      | fifthnoconn  |
     And I create the firstnoconn random user if not existing, no wait
     And I create the secondnoconn random user if not existing, no wait
     And I create the thirdnoconn random user if not existing, no wait
@@ -26,7 +31,12 @@ Feature: Space widgets checking
     Then the number of connection requests is '5'
 
   Scenario: US 3.3.4_(01) [BACK]Connections requests to join: See All
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | firstconn  |
+      | secondconn  |
+      | thirdconn  |
+      | fourthconn  |
+      | fifthconn  |
 
     And I create the firstconn random user if not existing, no wait
     And I create the secondconn random user if not existing, no wait
@@ -50,7 +60,10 @@ Feature: Space widgets checking
     And The 'People' page is opened
 
   Scenario:US 3.3.4_(02)[BACK]Connections requests : accept and reject
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | firstrequ  |
+      | secondrequ  |
+      | thirdrequ  |
     And I create the firstrequ random user if not existing, no wait
     And I create the secondrequ random user if not existing, no wait
     And I create the thirdrequ random user if not existing
@@ -75,7 +88,12 @@ Feature: Space widgets checking
     Then The badge isn't displayed
 
   Scenario: US_3.3.7 [BACK]Common Connections for users requests
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | firstcommconn  |
+      | secondcommconn  |
+      | thirdcommconn  |
+      | fourthcommconn  |
+      | fifthcommconn  |
     When I create the firstcommconn random user if not existing, no wait
     And I create the secondcommconn random user if not existing, no wait
     And I create the thirdcommconn random user if not existing, no wait

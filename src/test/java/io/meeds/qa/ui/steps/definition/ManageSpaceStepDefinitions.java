@@ -4,6 +4,8 @@ import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import org.apache.commons.lang3.StringUtils;
+
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -268,6 +270,13 @@ public class ManageSpaceStepDefinitions {
   @Given("I go to the random space")
   public void goToRandomSpace() {
     manageSpaceSteps.addOrGoToSpace("randomSpaceName");
+  }
+
+  @Given("I go to the random space if not existing")
+  public void goToRandomSpaceIfNotExisting() {
+    if (StringUtils.isBlank(sessionVariableCalled("randomSpaceName"))) {
+      manageSpaceSteps.addOrGoToSpace("randomSpaceName");
+    }
   }
 
   @Given("^I go to the (.*) random space$")

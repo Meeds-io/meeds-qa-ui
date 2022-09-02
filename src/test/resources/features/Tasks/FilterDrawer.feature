@@ -145,7 +145,8 @@ Feature: Filter Drawer
     And Reset button is displayed in the Filter drawer
 
   Scenario: Filter project
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
     And I create the first random user if not existing, no wait
 
     When I connect with the first created user

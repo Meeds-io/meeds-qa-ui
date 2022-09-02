@@ -2,9 +2,10 @@
 Feature: Poll
 
   Scenario: Poll_US05_(01) : Post a poll_simple case
-    Given I am authenticated as admin
+    Given I connect as admin if random space and random users doesn't exists
+      | first  |
     And I create the first random user if not existing, no wait
-    And I go to the random space
+    And I go to the random space if not existing
 
     When I connect with the first created user
     Then I go to the random space
@@ -16,9 +17,10 @@ Feature: Poll
     Then The Poll 'Poll Test' is displayed in stream page
 
   Scenario: Poll_US05_(02) : Post a poll_all options
-    Given I am authenticated as admin
+    Given I connect as admin if random space and random users doesn't exists
+      | first  |
     And I create the first random user if not existing, no wait
-    And I go to the random space
+    And I go to the random space if not existing
 
     When I connect with the first created user
     Then I go to the random space
@@ -42,9 +44,10 @@ Feature: Poll
     Then The Poll 'Poll 2 Test' is displayed in stream page
 
   Scenario: Poll_US04_(01) : Edit a poll_edit informations
-    Given I am authenticated as admin
+    Given I connect as admin if random space and random users doesn't exists
+      | first  |
     And I create the first random user if not existing, no wait
-    And I go to the random space
+    And I go to the random space if not existing
 
     When I connect with the first created user
     Then I go to the random space
@@ -58,9 +61,10 @@ Feature: Poll
     Then create poll drawer is closed
 
   Scenario: Poll_US05.1_(01) : Post a poll : create poll activity_with message
-    Given I am authenticated as admin
+    Given I connect as admin if random space and random users doesn't exists
+      | first  |
     And I create the first random user if not existing, no wait
-    And I go to the random space
+    And I go to the random space if not existing
 
     When I connect with the first created user
     Then I go to the random space

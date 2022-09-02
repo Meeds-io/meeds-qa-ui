@@ -3,7 +3,8 @@ Feature: Tasks
 
   @smoke
   Scenario: CAP81 - [User_UI_US22] Mark as completed for "TASKS" in a Project (Manager case)
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
     And I create the first random user if not existing
     And I connect with the first created user
     And I create a random space
@@ -22,7 +23,8 @@ Feature: Tasks
 
   @smoke
   Scenario: CAP176 - [US_Filterfield_01] Add Clear typed characters icon (Filter by task under TASKS tab)
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
     And I create the first random user if not existing
     And I connect with the first created user
     When I go To AppCenter Drawer
@@ -84,7 +86,8 @@ Feature: Tasks
 
   @smoke
   Scenario: CAP95 - [Add_Task_Drawer_US04] 3 dots menu (Delete action) "Task under project"
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
     And I create the first random user if not existing
     And I connect with the first created user
 
@@ -108,7 +111,9 @@ Feature: Tasks
     Then Task name 'taskessai' is not displayed in project details
 
   Scenario: Check tasks display in project
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
+      | second  |
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
@@ -326,7 +331,9 @@ Feature: Tasks
     And I close task drawer
 
   Scenario:[Task] when click on notification, user is redirected under the specific project
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
+      | second  |
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
@@ -351,7 +358,8 @@ Feature: Tasks
 
   @smoke
   Scenario: CAP190 -[IMP] [US_SortGroupeBy_01] Memorize Group and Sort filters (Group by)
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
     And  I create the first random user if not existing
     And  I connect with the first created user
     When I go To AppCenter Drawer
@@ -422,7 +430,8 @@ Feature: Tasks
     Then The edit description in the task 'Edit Automation Test Task' is displayed
 
   Scenario: [IMP] [US_ChangesDrawer_01] Display last Update and Changes drawer
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
     And  I create the first random user if not existing
     And  I connect with the first created user
     When I go To AppCenter Drawer
@@ -449,7 +458,8 @@ Feature: Tasks
     Then I check that a new second level drawer Changes is opened
 
   Scenario: Description update should not be lost due to cloning task and assigning it or changing its status
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
     And I create the first random user if not existing
     And I connect with the first created user
 

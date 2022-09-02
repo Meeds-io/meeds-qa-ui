@@ -4,7 +4,8 @@
 Feature: Rules
 
   Scenario: Comment a post
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
     And I create the first random user if not existing
     And I connect with the first created user
     When I go to my profile

@@ -5,7 +5,9 @@ Feature: Check the rules score increase
   for different type of activity on the plf
 
   Scenario: Send a Kudos
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
+      | second  |
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing
     When I connect with the first created user
@@ -17,7 +19,9 @@ Feature: Check the rules score increase
     Then My points augmented
 
   Scenario: Receive a connection request
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | firstgami  |
+      | secondgami  |
     And I create the firstgami random user if not existing, no wait
     And I create the secondgami random user if not existing
     When I connect with the secondgami created user
@@ -30,7 +34,9 @@ Feature: Check the rules score increase
     Then My points augmented
 
   Scenario: Like a comment (in space)
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
+      | second  |
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing
     When I connect with the first created user
@@ -56,7 +62,9 @@ Feature: Check the rules score increase
     Then My points augmented
 
   Scenario: Receive a like on a post
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
+      | second  |
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing
     And I connect with the first created user
@@ -76,7 +84,8 @@ Feature: Check the rules score increase
 
   @ignored
   Scenario: Create a new wiki page
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
     And I create the first random user if not existing
     And I connect with the first created user
     And I go to my profile
@@ -90,7 +99,9 @@ Feature: Check the rules score increase
     Then My points augmented
 
   Scenario: Receive relationship request
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | thirdgami  |
+      | fourthgami  |
     And I create the thirdgami random user if not existing, no wait
     And I create the fourthgami random user if not existing
     And I connect with the thirdgami created user
