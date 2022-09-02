@@ -447,12 +447,6 @@ public class ManageSpacesPage extends GenericPage {
                             String.format("//a[contains(@title,'%s')]//following::i[contains(@class,'uiIconTrash')]", spaceName));
   }
 
-  private BaseElementFacade getSelectUserInDropDown(String userName) {
-    return findByXPathOrCSS(String.format(
-                                          "//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
-                                          userName));
-  }
-
   private BaseElementFacade getSpaceAction(String action) {
     try {
       BaseElementFacade webElementFacade = findByXPathOrCSS(String.format("//a[@title='%s']", action));
@@ -524,9 +518,7 @@ public class ManageSpacesPage extends GenericPage {
 
   @SwitchToWindow
   public void inviteUserToSpace(String user) {
-    inviteUserInput.setTextValue(user + " ");
-    inviteUserInput.sendKeys(Keys.BACK_SPACE);
-    getSelectUserInDropDown(user).clickOnElement();
+    mentionInField(inviteUserInput, user, 5);
   }
 
   public boolean isLoadMoreButtonDisplayed() {

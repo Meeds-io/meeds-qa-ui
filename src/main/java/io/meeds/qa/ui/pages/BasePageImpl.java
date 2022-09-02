@@ -87,8 +87,14 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void closeDrawer() {
-    findByXPathOrCSS(".v-navigation-drawer--open .drawerHeader button.mdi-close")
-                                                                                 .clickOnElement();
+    BaseElementFacade closeIcon = findByXPathOrCSS(".v-navigation-drawer--open .drawerHeader button.mdi-close");
+    try {
+      if (closeIcon.isCurrentlyVisible()) {
+        closeIcon.clickOnElement();
+      }
+    } catch (Exception e) {
+      LOGGER.debug("Error when closing task drawer by button, it may be already closed", e);
+    }
     waitForDrawerToClose();
   }
 
@@ -194,11 +200,11 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   @SwitchToWindow
-  public void mentionUserWithContent(BaseElementFacade ckEditorFrame,
-                                     TextBoxElementFacade ckEditorBody,
-                                     String content,
-                                     String user,
-                                     boolean shouldExists) {
+  public boolean mentionUserInCKEditor(BaseElementFacade ckEditorFrame,
+                                       TextBoxElementFacade ckEditorBody,
+                                       String content,
+                                       String user,
+                                       boolean shouldExists) {
     waitCKEditorLoading();
     retryOnCondition(() -> {
       ckEditorFrame.waitUntilVisible();
@@ -229,10 +235,39 @@ public class BasePageImpl extends PageObject implements BasePage {
           driver.switchTo().frame(ckEditorFrame);
         }
       } while (!visible && retry++ < maxRetries);
-      ckEditorBody.sendKeys(Keys.ENTER);
+      if (visible) {
+        ckEditorBody.sendKeys(Keys.ENTER);
+      }
+      return visible;
     } finally {
       driver.switchTo().defaultContent();
     }
+  }
+
+  @SwitchToWindow
+  public boolean mentionInField(TextBoxElementFacade inputField, String user, int maxRetries) {
+    inputField.waitUntilVisible();
+    inputField.setTextValue(user + "x");
+    inputField.sendKeys(Keys.BACK_SPACE);
+
+    boolean visible = false;
+    int retry = 0;
+    Duration retryWaitTime = Duration.ofSeconds(1);
+    BaseElementFacade suggesterElement;
+    do {
+      inputField.sendKeys(Keys.BACK_SPACE);
+      waitFor(300).milliseconds();
+      waitSuggesterToLoad();
+      suggesterElement =
+                       findByXPathOrCSS(String.format("//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
+                                                      user.substring(0, user.length() - retry - 1)));
+      suggesterElement.setImplicitTimeout(retryWaitTime);
+      visible = suggesterElement.isVisibleAfterWaiting();
+    } while (!visible && retry++ < maxRetries);
+    if (visible) {
+      suggesterElement.clickOnElement();
+    }
+    return visible;
   }
 
   public void refreshPage() {
@@ -322,6 +357,17 @@ public class BasePageImpl extends PageObject implements BasePage {
       findByXPathOrCSS(".UISiteBody .v-progress-linear").waitUntilNotVisible();
     } catch (Exception e) {
       ExceptionLauncher.LOGGER.debug("Can't wait for progress bar to finish loading", e);
+    }
+  }
+
+  private void waitSuggesterToLoad() {
+    try {
+      BaseElementFacade progressBar = findByXPathOrCSS(".identitySuggester .v-progress-linear");
+      if (progressBar.isCurrentlyVisible()) {
+        progressBar.waitUntilNotVisible();
+      }
+    } catch (Exception e) {
+      LOGGER.debug("Error while waiting for suggester progressbar", e);
     }
   }
 

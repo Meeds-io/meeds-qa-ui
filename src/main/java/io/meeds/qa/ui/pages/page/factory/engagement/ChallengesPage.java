@@ -3,9 +3,6 @@ package io.meeds.qa.ui.pages.page.factory.engagement;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static org.junit.Assert.assertTrue;
 
-import java.time.Duration;
-
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.BaseElementFacade;
@@ -24,9 +21,6 @@ public class ChallengesPage extends GenericPage {
 
   private static final String  CHALLENGE_CARD_TITLE_XPATH           = "//*[contains(text(),'%s')]"
       + "//ancestor::*[contains(@class, 'cardOfChallenge')]";
-
-  private static final String  IDENTITY_SUGGESTER_ELEMENT           = "//div[contains(@class,'identitySuggestionMenuItemText') "
-      + "and contains(text(),'%s')]";
 
   @FindBy(css = ".challenges-application .addChallengeButton button.btn-primary")
   private BaseElementFacade    addChallengeBtn;
@@ -67,9 +61,7 @@ public class ChallengesPage extends GenericPage {
   @FindBy(css = ".challengeDrawer.v-navigation-drawer--open")
   private BaseElementFacade    headerChallengeDrawer;
 
-  @FindBy(
-      xpath = "(//*[contains(@class, 'v-navigation-drawer--open')]//div[contains(@class, 'v-select__selections')]//input)[02]"
-  )
+  @FindBy(xpath = "(//*[contains(@class, 'v-navigation-drawer--open')]//div[contains(@class, 'v-select__selections')]//input)[02]")
   private TextBoxElementFacade programField;
 
   @FindBy(xpath = "(//*[contains(@id,'DatePicker')])[1]//input")
@@ -123,35 +115,19 @@ public class ChallengesPage extends GenericPage {
 
   @SwitchToWindow
   public void addProgramName(String programName) {
-    programField.setTextValue(programName + " ");
-    waitFor(100).milliseconds();
-    programField.sendKeys(Keys.BACK_SPACE);
-    waitFor(100).milliseconds();
-    BaseElementFacade programSuggester = getSelectDomainInDropDown(programName);
-    programSuggester.clickOnElement();
+    mentionInField(programField, programName, 5);
   }
 
   @SwitchToWindow
   public void addSpaceAudience(String randomSpaceName) {
-    audienceSpaceField.waitUntilVisible();
-    audienceSpaceField.setTextValue(randomSpaceName + " ");
-    waitFor(100).milliseconds();
-    audienceSpaceField.sendKeys(Keys.BACK_SPACE);
-    waitFor(200).milliseconds();
-    audienceSpaceField.sendKeys(Keys.BACK_SPACE);
-    waitFor(200).milliseconds();
-    BaseElementFacade audienceSuggester = getSelectSpaceInDropDown(randomSpaceName);
-    audienceSuggester.waitUntilVisible();
-    audienceSuggester.clickOnElement();
+    mentionInField(audienceSpaceField, randomSpaceName, 5);
   }
 
   @SwitchToWindow
   public void assignChallengeToUser(String user) {
     assertWebElementVisible(assignLink);
     assignLink.clickOnElement();
-    assignAnnouncementInput.setTextValue(user + " ");
-    assignAnnouncementInput.sendKeys(Keys.BACK_SPACE);
-    getSelectWinnerInDropDown(user).clickOnElement();
+    mentionInField(assignAnnouncementInput, user, 5);
   }
 
   public void checkAchievementDescriptionOnAnnouncement(String description) {
@@ -179,11 +155,11 @@ public class ChallengesPage extends GenericPage {
                                         String winnerPrefix,
                                         String challengeName,
                                         String announcementDescription) {
-    assertTrue(getAnnouncementActivity(posterPrefix,
-                                       winnerPrefix,
-                                       challengeName,
-                                       announcementDescription).isVisibleAfterWaiting());
-
+    BaseElementFacade announcementActivityElement = getAnnouncementActivity(posterPrefix,
+                                                                            winnerPrefix,
+                                                                            challengeName,
+                                                                            announcementDescription);
+    assertWebElementVisible(announcementActivityElement);
   }
 
   public void checkAnnouncementDrawer() {
@@ -294,32 +270,6 @@ public class ChallengesPage extends GenericPage {
                                           name));
   }
 
-  private BaseElementFacade getSelectDomainInDropDown(String programName) {
-    BaseElementFacade domainSelection = findByXPathOrCSS(String.format(
-                                                                       IDENTITY_SUGGESTER_ELEMENT,
-                                                                       programName));
-    domainSelection.setImplicitTimeout(Duration.ofSeconds(10));
-    domainSelection.waitUntilVisible();
-    domainSelection.waitUntilClickable();
-    return domainSelection;
-  }
-
-  private BaseElementFacade getSelectSpaceInDropDown(String spaceName) {
-    BaseElementFacade spaceSuggester = findByXPathOrCSS(String.format(
-                                                                      IDENTITY_SUGGESTER_ELEMENT,
-                                                                      spaceName));
-    spaceSuggester.setImplicitTimeout(Duration.ofSeconds(10));
-    spaceSuggester.resetTimeouts();
-    spaceSuggester.waitUntilVisible();
-    spaceSuggester.waitUntilClickable();
-    return spaceSuggester;
-  }
-
-  private BaseElementFacade getSelectWinnerInDropDown(String secondUserName) {
-    return findByXPathOrCSS(String.format(IDENTITY_SUGGESTER_ELEMENT,
-                                          secondUserName));
-  }
-
   @SwitchToWindow
   public void selectChallengesFilter(String value) {
     challengeQuickFilterSelectBox.clickOnElement();
@@ -356,7 +306,8 @@ public class ChallengesPage extends GenericPage {
     startDateField.waitUntilVisible();
     startDateField.clickOnElement();
     waitFor(200).milliseconds();
-    BaseElementFacade startDateToday = findByXPathOrCSS("//*[contains(@class,'menuable__content__active')]//*[contains(@class,'v-date-picker-table__current')]");
+    BaseElementFacade startDateToday =
+                                     findByXPathOrCSS("//*[contains(@class,'menuable__content__active')]//*[contains(@class,'v-date-picker-table__current')]");
     startDateToday.waitUntilVisible();
     clickOnElement(startDateToday);
     startDateToday.waitUntilNotVisible();

@@ -48,27 +48,15 @@ public class AddGroupsPage extends GenericPage {
     selectedRoleField.selectByValue(role);
     selectedRoleField.clickOnElement();
     inviteMemberInput.setTextValue(member);
-    BaseElementFacade progressBar = findByXPathOrCSS(".membershipUserField .identitySuggester .v-progress-linear");
-    progressBar.waitUntilVisible();
-    progressBar.waitUntilNotVisible();
-
-    BaseElementFacade memberInDropDown = getSelectedMemberInDropDown(member);
-    if (memberInDropDown.isCurrentlyVisible() || memberInDropDown.isVisibleAfterWaiting()) {
-      memberInDropDown.waitUntilClickable();
-      clickOnElement(memberInDropDown);
+    boolean found = mentionInField(inviteMemberInput, member, 1);
+    if (found) {
       addMemberInGroupDrawerTitle.clickOnElement();
       saveMemberAddedInGroup.clickOnElement();
     }
     if (closeDrawerButton.isCurrentlyVisible()) {
       closeDrawerButton.clickOnElement();
-      waitForDrawerToClose();
     }
-  }
-
-  private BaseElementFacade getSelectedMemberInDropDown(String userName) {
-    return findByXPathOrCSS(String.format(
-                                          "//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
-                                          userName));
+    waitForDrawerToClose();
   }
 
   public BaseElementFacade groupOpenBtn(String group) {

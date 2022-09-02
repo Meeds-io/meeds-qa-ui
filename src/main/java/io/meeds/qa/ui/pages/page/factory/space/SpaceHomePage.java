@@ -501,11 +501,10 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void closeCommentsDrawer() {
-    BaseElementFacade closeDrawerButton =
-                                        findByXPathOrCSS("//*[@id='activityCommentsDrawer']//*[contains(@class, 'drawerIcons')]//button[contains(@class, 'mdi-close')]");
+    BaseElementFacade closeDrawerButton = findByXPathOrCSS("//*[@id='activityCommentsDrawer']//*[contains(@class, 'drawerIcons')]//button[contains(@class, 'mdi-close')]");
     if (closeDrawerButton.isCurrentlyVisible()) {
-      clickOnElement(closeDrawerButton);
-      closeDrawerButton.waitUntilNotVisible();
+      closeDrawerButton.clickOnElement();
+      waitForDrawerToClose("#activityCommentsDrawer", true);
     }
   }
 
@@ -617,11 +616,11 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void enterActivityCommentWithUser(String comment, String user) {
-    mentionUserWithContent(ckEditorFrameComment, ckEditorBodyComment, comment, user, true);
+    mentionUserInCKEditor(ckEditorFrameComment, ckEditorBodyComment, comment, user, true);
   }
 
   public void enterActivityCommentWithUserNoMention(String comment, String user) {
-    mentionUserWithContent(ckEditorFrameComment, ckEditorBodyComment, comment, user, false);
+    mentionUserInCKEditor(ckEditorFrameComment, ckEditorBodyComment, comment, user, false);
   }
 
   @SwitchToWindow
