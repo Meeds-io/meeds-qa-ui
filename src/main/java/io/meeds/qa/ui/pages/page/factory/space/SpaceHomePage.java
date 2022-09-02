@@ -519,11 +519,10 @@ public class SpaceHomePage extends GenericPage {
 
   public void commentIsNotDisplayedInDrawer(String commentsNumber, String comment) {
     BaseElementFacade element = getDrawerCommentsNumberAndNames(commentsNumber, comment);
-    element.setImplicitTimeout(Duration.ofMillis(200));
     Assert.assertFalse(String.format("Comment '%s' shouldn't be displayed in drawer with drawer title '%s'",
                                      comment,
                                      commentsNumber),
-                       element.isDisplayed());
+                       element.isDisplayed(SHORT_WAIT_DURATION_MILLIS));
   }
 
   public void commentNameIsNotDisplayedInDrawer(String comment) {

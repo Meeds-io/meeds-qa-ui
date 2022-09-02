@@ -4,6 +4,8 @@ import static io.meeds.qa.ui.utils.Utils.decorateDriver;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoaded;
 
+import java.time.Duration;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.WebDriver;
@@ -275,6 +277,22 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
     } catch (Throwable e) {
       return false;
     }
+  }
+
+  @Override
+  public boolean isDisplayed(long implicitWaitInMillis) {
+    Duration defaultTimeout = getImplicitTimeout();
+    setImplicitTimeout(Duration.ofMillis(implicitWaitInMillis));
+    try {
+      return isDisplayed();
+    } finally {
+      setImplicitTimeout(defaultTimeout);
+    }
+  }
+
+  @Override
+  public boolean isDisplayedNoWait() {
+    return isDisplayed(0);
   }
 
   @Override

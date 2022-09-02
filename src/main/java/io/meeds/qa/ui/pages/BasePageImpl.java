@@ -35,15 +35,17 @@ import net.thucydides.core.pages.PageObject;
 
 public class BasePageImpl extends PageObject implements BasePage {
 
-  private static final Duration DEFAULT_SHORT_WAIT_DURATION = Duration.ofMillis(300);
+  public static final int      SHORT_WAIT_DURATION_MILLIS = 300;
 
-  static final Logger           LOGGER                      = LoggerFactory.getLogger(BasePageImpl.class);
+  public static final Duration SHORT_WAIT_DURATION        = Duration.ofMillis(SHORT_WAIT_DURATION_MILLIS);
 
-  private static final String   XPATH_FORMAT_ERROR_MESSAGE  = "The format for the xpath [%s] is not correct.";
+  static final Logger          LOGGER                     = LoggerFactory.getLogger(BasePageImpl.class);
 
-  protected WebDriver           driver;
+  private static final String  XPATH_FORMAT_ERROR_MESSAGE = "The format for the xpath [%s] is not correct.";
 
-  protected String              url;
+  protected WebDriver          driver;
+
+  protected String             url;
 
   public BasePageImpl() {
     this(null);
@@ -89,7 +91,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   public void closeDrawer() {
     BaseElementFacade closeIcon = findByXPathOrCSS(".v-navigation-drawer--open .drawerHeader button.mdi-close");
     try {
-      if (closeIcon.isCurrentlyVisible()) {
+      if (closeIcon.isDisplayedNoWait()) {
         closeIcon.clickOnElement();
       }
     } catch (Exception e) {
@@ -174,7 +176,7 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   public boolean isWebElementNotVisible(BaseElementFacade element, long maxRetries) {
     verifyPageLoaded();
-    element.setImplicitTimeout(DEFAULT_SHORT_WAIT_DURATION);
+    element.setImplicitTimeout(SHORT_WAIT_DURATION);
     boolean notVisible = false;
     int retry = 0;
     do {
@@ -190,7 +192,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   @SwitchToWindow
   public boolean isWebElementVisible(BaseElementFacade element, long maxRetries) {
     verifyPageLoaded();
-    element.setImplicitTimeout(DEFAULT_SHORT_WAIT_DURATION);
+    element.setImplicitTimeout(SHORT_WAIT_DURATION);
     boolean visible = false;
     int retry = 0;
     do {
@@ -289,9 +291,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   public void waitCKEditorLoading() {
     try {
       BaseElementFacade richTextLoadingElement = findByXPathOrCSS("//*[contains(@class, 'loadingRing')]");
-      richTextLoadingElement.setImplicitTimeout(Duration.ofSeconds(0));
-      if (richTextLoadingElement.isCurrentlyVisible()) {
-        richTextLoadingElement.setImplicitTimeout(Duration.ofSeconds(5));
+      if (richTextLoadingElement.isDisplayedNoWait()) {
         if (richTextLoadingElement.isVisibleAfterWaiting()) {
           richTextLoadingElement.waitUntilNotVisible();
         }
@@ -307,13 +307,16 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   public void waitForDrawerToClose(String drawerId, boolean withOverlay) {
     String drawerSelector = StringUtils.isBlank(drawerId) ? ".v-navigation-drawer--open" : drawerId;
-    try {
-      findByXPathOrCSS(drawerSelector).waitUntilNotVisible();
-      if (withOverlay) {
-        findByXPathOrCSS(".v-overlay").waitUntilNotVisible();
+    BaseElementFacade drawerElement = findByXPathOrCSS(drawerSelector);
+    if (drawerElement.isDisplayedNoWait()) {
+      try {
+        drawerElement.waitUntilNotVisible();
+        if (withOverlay) {
+          findByXPathOrCSS(".v-overlay").waitUntilNotVisible();
+        }
+      } catch (Exception e) {
+        LOGGER.debug("Overlay seems not displayed", e);
       }
-    } catch (Exception e) {
-      LOGGER.debug("Overlay seems not displayed", e);
     }
   }
 
@@ -345,16 +348,17 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   public void waitForProgressBar() {
     try {
-      if (!findByXPathOrCSS(".UISiteBody .v-progress-linear").isCurrentlyVisible()) {
+      BaseElementFacade progressBar = findByXPathOrCSS(".UISiteBody .v-progress-linear");
+      if (!progressBar.isDisplayed(SHORT_WAIT_DURATION_MILLIS)) {
         waitFor(500).milliseconds(); // wait until action is considered
                                      // (especially for search)
-        try {
-          findByXPathOrCSS(".UISiteBody .v-progress-linear").waitUntilVisible();
+        try { // NOSONAR
+          progressBar.waitUntilVisible();
         } catch (Exception e) {
           ExceptionLauncher.LOGGER.debug("Can't wait for progress bar to start loading", e);
         }
       }
-      findByXPathOrCSS(".UISiteBody .v-progress-linear").waitUntilNotVisible();
+      progressBar.waitUntilNotVisible();
     } catch (Exception e) {
       ExceptionLauncher.LOGGER.debug("Can't wait for progress bar to finish loading", e);
     }
@@ -363,7 +367,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   private void waitSuggesterToLoad() {
     try {
       BaseElementFacade progressBar = findByXPathOrCSS(".identitySuggester .v-progress-linear");
-      if (progressBar.isCurrentlyVisible()) {
+      if (progressBar.isDisplayedNoWait()) {
         progressBar.waitUntilNotVisible();
       }
     } catch (Exception e) {

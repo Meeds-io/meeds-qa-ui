@@ -521,7 +521,8 @@ public class HomePage extends GenericPage {
   }
 
   public void searchApplicationCenter(String app) {
-    boolean isAdminUI = findByXPathOrCSS("//*[contains(@class, 'listApplications')]//tr").isCurrentlyVisible();
+    BaseElementFacade adminUiElement = findByXPathOrCSS("//*[contains(@class, 'listApplications')]//tr");
+    boolean isAdminUI = adminUiElement.isDisplayedNoWait();
     searchApplicationCenterInput.setTextValue(app);
     waitUntilAppCenterSearchFinishes(isAdminUI);
   }

@@ -450,8 +450,7 @@ public class ManageSpacesPage extends GenericPage {
   private BaseElementFacade getSpaceAction(String action) {
     try {
       BaseElementFacade webElementFacade = findByXPathOrCSS(String.format("//a[@title='%s']", action));
-      webElementFacade.setImplicitTimeout(Duration.ofSeconds(0));
-      return webElementFacade.isDisplayed() ? webElementFacade : null;
+      return webElementFacade.isDisplayedNoWait() ? webElementFacade : null;
     } catch (RuntimeException e) {
       return null;
     }
@@ -535,8 +534,7 @@ public class ManageSpacesPage extends GenericPage {
       BaseElementFacade webElementFacade =
                                          findByXPathOrCSS(String.format("//*[contains(@class, 'spaceDisplayName') and contains(@href, ':%s/')]",
                                                                         space.toLowerCase()));
-      webElementFacade.setImplicitTimeout(Duration.ofSeconds(0));
-      return webElementFacade.isDisplayed();
+      return webElementFacade.isDisplayedNoWait();
     } catch (RuntimeException e) {
       return false;
     }
@@ -547,8 +545,7 @@ public class ManageSpacesPage extends GenericPage {
       BaseElementFacade webElementFacade =
                                          findByXPathOrCSS(String.format("//*[contains(@class, 'spaceDisplayName') and contains(@href, ':%s/')]//ancestor::*[contains(@class, 'spaceCardItem')]//*[contains(text(), 'Join')]//ancestor::button",
                                                                         space.toLowerCase()));
-      webElementFacade.setImplicitTimeout(Duration.ofSeconds(0));
-      return webElementFacade.isDisplayed();
+      return webElementFacade.isDisplayedNoWait();
     } catch (RuntimeException e) {
       return false;
     }
@@ -558,8 +555,7 @@ public class ManageSpacesPage extends GenericPage {
   public boolean isSpaceMenuDisplayed() {
     try {
       BaseElementFacade webElementFacade = findByXPathOrCSS("//*[contains(@class, 'v-tab--active')]");
-      webElementFacade.setImplicitTimeout(Duration.ofSeconds(0));
-      return webElementFacade.isDisplayed();
+      return webElementFacade.isDisplayedNoWait();
     } catch (RuntimeException e) {
       return false;
     }
