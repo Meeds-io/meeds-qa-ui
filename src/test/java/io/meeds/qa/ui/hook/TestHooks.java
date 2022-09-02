@@ -9,8 +9,6 @@ import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.WebDriver;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -78,71 +76,6 @@ public class TestHooks {
   @Steps
   private ManageSpaceSteps           manageSpaceSteps;
 
-  private void cleanupBrowser() {
-    try {
-      WebDriver driver = Serenity.getDriver();
-      String currentUrl = driver.getCurrentUrl();
-      driver.manage().deleteAllCookies();
-      driver.get(currentUrl.split("/portal/")[0]);
-      closeAlertIfExists(driver);
-    } catch (Throwable e) { // NOSONAR
-      ExceptionLauncher.LOGGER.warn("Error while cleaning browser", e);
-    }
-  }
-
-  private void closeAlertIfExists(WebDriver driver) {
-    try {
-      driver.switchTo().alert().accept();
-    } catch (NoAlertPresentException e) {
-      // Normal Behavior
-    }
-  }
-
-  private void deleteAppCenterApplications() {
-    // cleanup created AppCenter applications
-    List<String> appNames = Serenity.sessionVariableCalled("appCenterAppName");
-    if (CollectionUtils.isNotEmpty(appNames)) {
-      loginAsAdmin();
-      homeSteps.goToAppCenterAdminSetupPage();
-      for (String appName : appNames) {
-        if (adminApplicationSteps.isAppExists(appName)) {
-          adminApplicationSteps.deleteApp(appName, true);
-        }
-      }
-    }
-  }
-
-  @After
-  public void deleteDatas() {
-    homeSteps.refreshPage();
-    try {
-      deleteGamificationBadges();
-      deleteAppCenterApplications();
-    } catch (Exception e) {
-      ExceptionLauncher.LOGGER.warn("Error while deleting previously created data", e);
-    }
-    cleanupBrowser();
-  }
-
-  private void deleteGamificationBadges() {
-    String badgeName = Serenity.sessionVariableCalled("badgeName");
-    String updatedBadgeName = Serenity.sessionVariableCalled("updatedBadgeName");
-
-    if (badgeName != null && !badgeName.isEmpty()) {
-      loginAsAdmin();
-      manageBadgesSteps.goToManageBadgesMenu();
-      manageBadgesSteps.clickOnDeleteBadge(badgeName);
-      manageBadgesSteps.confirmDeletionBadge();
-    }
-
-    if (updatedBadgeName != null && !updatedBadgeName.isEmpty()) {
-      loginAsAdmin();
-      manageBadgesSteps.goToManageBadgesMenu();
-      manageBadgesSteps.clickOnDeleteBadge(updatedBadgeName);
-      manageBadgesSteps.confirmDeletionBadge();
-    }
-  }
-
   @Before
   public void initDatas() {
     String adminPassword = System.getProperty("adminPassword");
@@ -166,6 +99,59 @@ public class TestHooks {
         Serenity.setSessionVariable(entry.getKey()).to(entry.getValue());
       }
     });
+  }
+
+  @After
+  public void deleteDatas() {
+    homeSteps.refreshPage();
+    try {
+      deleteGamificationBadges();
+      deleteAppCenterApplications();
+    } catch (Exception e) {
+      ExceptionLauncher.LOGGER.warn("Error while deleting previously created data", e);
+    }
+    cleanupBrowser();
+  }
+
+  private void deleteAppCenterApplications() {
+    // cleanup created AppCenter applications
+    List<String> appNames = Serenity.sessionVariableCalled("appCenterAppName");
+    if (CollectionUtils.isNotEmpty(appNames)) {
+      loginAsAdmin();
+      homeSteps.goToAppCenterAdminSetupPage();
+      for (String appName : appNames) {
+        if (adminApplicationSteps.isAppExists(appName)) {
+          adminApplicationSteps.deleteApp(appName, true);
+        }
+      }
+    }
+  }
+
+  private void deleteGamificationBadges() {
+    String badgeName = Serenity.sessionVariableCalled("badgeName");
+    String updatedBadgeName = Serenity.sessionVariableCalled("updatedBadgeName");
+
+    if (badgeName != null && !badgeName.isEmpty()) {
+      loginAsAdmin();
+      manageBadgesSteps.goToManageBadgesMenu();
+      manageBadgesSteps.clickOnDeleteBadge(badgeName);
+      manageBadgesSteps.confirmDeletionBadge();
+    }
+
+    if (updatedBadgeName != null && !updatedBadgeName.isEmpty()) {
+      loginAsAdmin();
+      manageBadgesSteps.goToManageBadgesMenu();
+      manageBadgesSteps.clickOnDeleteBadge(updatedBadgeName);
+      manageBadgesSteps.confirmDeletionBadge();
+    }
+  }
+
+  private void cleanupBrowser() {
+    try {
+      Serenity.getDriver().manage().deleteAllCookies();
+    } catch (Throwable e) { // NOSONAR
+      ExceptionLauncher.LOGGER.warn("Error while cleaning browser", e);
+    }
   }
 
   private void loginAsAdmin() {
