@@ -142,7 +142,7 @@ public class HomePage extends GenericPage {
   private BaseElementFacade                           walletBalanceNumber;
 
   @FindBy(xpath = "//* [@class='spaceCardFront']//*[contains(@class,'fa-star')]")
-  private BaseElementFacade                             favoriteIconInSpacePage ;
+  private BaseElementFacade                           favoriteIconInSpacePage ;
 
   public HomePage(WebDriver driver) {
     super(driver);
