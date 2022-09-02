@@ -1589,7 +1589,6 @@ Feature: Activity Stream
     Then Delete button related to activity 'activity-CAP13' is displayed
     And Copy link button related to activity 'activity-CAP13' is displayed
 
-  @test
   Scenario: CAP97 - [ActivityStream_US38][01] Delete a simple comment from the activity stream
     Given I am authenticated as admin
 
