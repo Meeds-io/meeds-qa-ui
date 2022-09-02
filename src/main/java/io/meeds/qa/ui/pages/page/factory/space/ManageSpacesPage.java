@@ -391,16 +391,19 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   @SwitchToWindow
-  public void clickSpaceActionToJoin() {
+  public boolean clickSpaceActionToJoin() {
     BaseElementFacade spaceAction = getSpaceAction("Join");
     if (spaceAction != null) {
       clickOnElement(spaceAction);
+      return true;
     } else {
       spaceAction = getSpaceAction("Accept");
       if (spaceAction != null) {
         clickOnElement(spaceAction);
+        return true;
       }
     }
+    return false;
   }
 
   public void clickToAddApp(String application) {

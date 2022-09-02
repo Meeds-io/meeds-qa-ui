@@ -29,6 +29,12 @@ public class ManageSpaceSteps {
       homePage.verifyPageLoaded();
       if (StringUtils.equals(homePage.getCurrentUrl(), spaceUrl)) {
         return;
+      } else if (!manageSpacesPage.isSpaceMenuDisplayed()) {
+        boolean joined = manageSpacesPage.clickSpaceActionToJoin();
+        if (joined) {
+          homePage.verifyPageLoaded();
+          return;
+        }
       }
     }
     if (!manageSpacesPage.getCurrentUrl().contains("/spaces")) {
