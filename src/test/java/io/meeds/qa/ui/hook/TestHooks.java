@@ -115,8 +115,12 @@ public class TestHooks {
   @After
   public void deleteDatas() {
     homeSteps.refreshPage();
-    deleteGamificationBadges();
-    deleteAppCenterApplications();
+    try {
+      deleteGamificationBadges();
+      deleteAppCenterApplications();
+    } catch (Exception e) {
+      ExceptionLauncher.LOGGER.warn("Error while deleting previously created data", e);
+    }
     cleanupBrowser();
   }
 

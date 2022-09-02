@@ -107,7 +107,6 @@ Feature: Tasks
     When I close task drawer
     Then Task name 'taskessai' is not displayed in project details
 
-  @test
   Scenario: Check tasks display in project
     Given I am authenticated as admin
     And I create the first random user if not existing, no wait
