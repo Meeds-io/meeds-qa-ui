@@ -576,6 +576,4 @@ public class HomePage extends GenericPage {
     }
   }
 
-
-
 }
