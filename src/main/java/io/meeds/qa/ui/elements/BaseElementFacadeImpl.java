@@ -1,5 +1,6 @@
 package io.meeds.qa.ui.elements;
 
+import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION_MILLIS;
 import static io.meeds.qa.ui.utils.Utils.decorateDriver;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoaded;
@@ -236,22 +237,8 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
 
   @Override
   @SwitchToWindow
-  public boolean isCurrentlyEnabled() {
-    try {
-      return super.isCurrentlyEnabled();
-    } catch (Throwable e) {
-      return false;
-    }
-  }
-
-  @Override
-  @SwitchToWindow
   public boolean isCurrentlyVisible() {
-    try {
-      return super.isCurrentlyVisible();
-    } catch (Throwable e) {
-      return false;
-    }
+    return isDisplayedNoWait();
   }
 
   @Override
@@ -310,25 +297,19 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
   @Override
   @SwitchToWindow
   public boolean isNotVisibleAfterWaiting() {
-    LOGGER.debug("Checking if the element [{}] is not visible ", this);
-    try {
-      waitUntilNotVisible();
-    } catch (Throwable e) {
-      return false;
-    }
-    LOGGER.debug("The element [{}] is not visible ", this);
-    return true;
+    boolean notVisible = false;
+    long retry = 0;
+    long maxRetries = getImplicitTimeoutInMilliseconds() / SHORT_WAIT_DURATION_MILLIS;
+    do {
+      notVisible = !isDisplayed(SHORT_WAIT_DURATION_MILLIS);
+    } while (!notVisible && ++retry < maxRetries);
+    return notVisible;
   }
 
   @Override
   @SwitchToWindow
   public boolean isPresent() {
-    try {
-      WebElement element = getElement();
-      return element != null && element.isDisplayed();
-    } catch (Throwable e) {
-      return false;
-    }
+    return isDisplayedNoWait();
   }
 
   @Override
@@ -340,24 +321,19 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
   @Override
   @SwitchToWindow
   public boolean isVisible() {
-    try {
-      return super.isVisible();
-    } catch (Throwable e) {
-      return false;
-    }
+    return isDisplayed(SHORT_WAIT_DURATION_MILLIS);
   }
 
   @Override
   @SwitchToWindow
   public boolean isVisibleAfterWaiting() {
-    LOGGER.debug("Checking if the element [{}] is visible ", this);
-    try {
-      waitUntilVisible();
-    } catch (Throwable e) {
-      return false;
-    }
-    LOGGER.debug("The element [{}] is visible ", this);
-    return true;
+    boolean visible = false;
+    long retry = 0;
+    long maxRetries = getImplicitTimeoutInMilliseconds() / SHORT_WAIT_DURATION_MILLIS;
+    do {
+      visible = isDisplayed(SHORT_WAIT_DURATION_MILLIS);
+    } while (!visible && ++retry < maxRetries);
+    return visible;
   }
 
   @Override

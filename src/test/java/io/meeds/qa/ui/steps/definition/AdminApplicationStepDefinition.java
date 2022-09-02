@@ -102,12 +102,7 @@ public class AdminApplicationStepDefinition {
 
   @Then("Delete popup is not displayed")
   public void checkPopupDeleteNotVisible() {
-    assertThat(adminApplicationSteps.isPopupConfirmDeleteNotDisplayed()).as("Delete popup still displayed").isTrue();
-  }
-
-  @Then("Delete popup is displayed")
-  public void checkPopupDeleteVisible() {
-    assertThat(adminApplicationSteps.isPopupConfirmDeleteDisplayed()).as("Delete popup is not displayed").isTrue();
+    adminApplicationSteps.checkPopupDeleteNotVisible();
   }
 
   @Then("^Application image title '(.*)' is displayed in the drawer$")

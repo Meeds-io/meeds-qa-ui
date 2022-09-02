@@ -157,12 +157,8 @@ public class AdminApplicationSteps {
     return applicationPage.isAppExists(appTitle);
   }
 
-  public boolean isPopupConfirmDeleteDisplayed() {
-    return applicationPage.isPopupConfirmDeleteDisplayed();
-  }
-
-  public boolean isPopupConfirmDeleteNotDisplayed() {
-    return applicationPage.isPopupConfirmDeleteNotDisplayed();
+  public void checkPopupDeleteNotVisible() {
+    applicationPage.checkPopupDeleteNotVisible();
   }
 
   public void openEditDrawerApp(String appName) {

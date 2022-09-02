@@ -44,9 +44,13 @@ public class Utils {
 
   private static final Random        RANDOM                 = new Random();
 
-  private static final int           TIMEOUT_CHECK_INTERVAL = 100;
+  private static final int           TIMEOUT_CHECK_INTERVAL     = 100;
 
-  private static final int           TIMEOUT_MILLISECONDS   = PARALLEL_TESTS * 5000;
+  private static final int           TIMEOUT_MILLISECONDS       = PARALLEL_TESTS * 5000;
+
+  public static final int            SHORT_WAIT_DURATION_MILLIS = 300;
+
+  public static final Duration       SHORT_WAIT_DURATION        = Duration.ofMillis(SHORT_WAIT_DURATION_MILLIS);
 
   private static String              windowId;
 
