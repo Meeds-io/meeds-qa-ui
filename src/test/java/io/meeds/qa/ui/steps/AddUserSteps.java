@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -51,8 +52,8 @@ public class AddUserSteps {
 
   public void addUser(Map<String, String> userDetails) {
     addUserPage.clickAddUserButton();
-    for (String fieldsName : userDetails.keySet()) {
-      addUserPage.setUserDetails(fieldsName, userDetails.get(fieldsName));
+    for (Entry<String, String> field : userDetails.entrySet()) {
+      addUserPage.setUserDetails(field.getKey(), field.getValue());
     }
     addUserPage.saveAddUserButton();
   }
@@ -78,14 +79,14 @@ public class AddUserSteps {
     addUserPage.deleteUser();
   }
 
-  public void enableDisableUser(String user) throws InterruptedException {
+  public void enableDisableUser(String user) {
     addUserPage.enableDisableUser(user);
   }
 
   public void enterUserInformations(Map<String, String> userDetails) {
     addUserPage.clickAddUserButton();
-    for (String fieldsName : userDetails.keySet()) {
-      addUserPage.setUserDetails(fieldsName, userDetails.get(fieldsName));
+    for (Entry<String, String> field : userDetails.entrySet()) {
+      addUserPage.setUserDetails(field.getKey(), field.getValue());
     }
   }
 
@@ -97,8 +98,8 @@ public class AddUserSteps {
     addUserPage.saveAddUserButton();
   }
 
-  public void searchForUsersByName(String fullName) {
-    addUserPage.searchForUsersByName(fullName);
+  public void searchForUsersByName(String userName) {
+    addUserPage.searchForUsersByName(userName);
   }
 
   public void searchForUsersByStatus(String status) {

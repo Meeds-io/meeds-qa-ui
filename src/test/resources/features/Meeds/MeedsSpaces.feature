@@ -35,7 +35,7 @@ Feature: Meeds Space
   Scenario: [SPC_MNG-7] General Space Settings
     Given I am authenticated as admin
     When I go to the random space
-    When I click on space settings tab
+    When I go to Settings in space tab
     Then I check that general settings section is displayed with his edit icon
     And I check that Applications section is displayed with his edit icon
 
@@ -52,7 +52,7 @@ Feature: Meeds Space
   Scenario: [SPC_MNG-8] Spaces applications management
     Given I am authenticated as admin
     When I create a random space
-    When I click on space settings tab
+    When I go to Settings in space tab
     Then I check that general settings section is displayed with his edit icon
     And I check that Applications section is displayed with his edit icon
 

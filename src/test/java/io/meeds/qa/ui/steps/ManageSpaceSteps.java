@@ -192,10 +192,6 @@ public class ManageSpaceSteps {
     manageSpacesPage.clickOnPlusButton();
   }
 
-  public void clickOnSpaceSettingsTab() {
-    manageSpacesPage.clickOnSpaceSettingsTab();
-  }
-
   public void clickSpaceAction(String action) {
     manageSpacesPage.clickSpaceAction(action);
   }
@@ -259,8 +255,8 @@ public class ManageSpaceSteps {
     manageSpacesPage.plusButtonIsDisplayed();
   }
 
-  public void checkOptionFromApplicationMenuIsDisplayed(String option , String appName) {
-    manageSpacesPage.checkOptionFromApplicationMenuIsDisplayed(option ,appName);
+  public void checkOptionFromApplicationMenuIsDisplayed(String appName, String option) {
+    manageSpacesPage.checkOptionFromApplicationMenuIsDisplayed(appName, option);
   }
 
   public void searchSpace(String spaceName) {
@@ -296,8 +292,8 @@ public class ManageSpaceSteps {
     manageSpacesPage.confirmRemoveApplication();
   }
 
-  public void clickOptionApplicationCard (String option , String appName){
-    manageSpacesPage.clickOptionApplicationCard(option,appName);
+  public void clickOptionApplicationCard(String appName, String option) {
+    manageSpacesPage.clickOptionApplicationCard(appName, option);
   }
 
 }

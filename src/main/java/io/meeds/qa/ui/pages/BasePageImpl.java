@@ -341,8 +341,6 @@ public class BasePageImpl extends PageObject implements BasePage {
     try {
       BaseElementFacade progressBar = findByXPathOrCSS(".UISiteBody .v-progress-linear");
       if (!progressBar.isDisplayed(SHORT_WAIT_DURATION_MILLIS)) {
-        waitFor(500).milliseconds(); // wait until action is considered
-                                     // (especially for search)
         try { // NOSONAR
           progressBar.waitUntilVisible();
         } catch (Exception e) {

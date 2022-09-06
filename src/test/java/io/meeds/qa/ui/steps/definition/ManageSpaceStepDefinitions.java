@@ -239,11 +239,6 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.clickOnPlusButton();
   }
 
-  @Given("^I click on space settings tab$")
-  public void clickOnSpaceSettingsTab() {
-    manageSpaceSteps.clickOnSpaceSettingsTab();
-  }
-
   @Given("^I click to add application '(.*)'$")
   public void clickToAddApp(String application) {
     manageSpaceSteps.clickToAddApp(application);
@@ -329,7 +324,7 @@ public class ManageSpaceStepDefinitions {
 
   @Given("^'(.*)' option of the application '(.*)' is displayed$")
   public void checkOptionFromApplicationMenuIsDisplayed(String option , String appName) {
-    manageSpaceSteps.checkOptionFromApplicationMenuIsDisplayed(option , appName);
+    manageSpaceSteps.checkOptionFromApplicationMenuIsDisplayed(appName, option);
   }
 
   @Given("^I search the space '(.*)'$")
@@ -384,8 +379,8 @@ public class ManageSpaceStepDefinitions {
   }
 
   @And("^I click on '(.*)' option from application '(.*)' menu$")
-  public void removeApplication(String option , String appName) {
-    manageSpaceSteps.clickOptionApplicationCard(option ,appName);
+  public void removeApplication(String option, String appName) {
+    manageSpaceSteps.clickOptionApplicationCard(appName, option);
   }
 
 }

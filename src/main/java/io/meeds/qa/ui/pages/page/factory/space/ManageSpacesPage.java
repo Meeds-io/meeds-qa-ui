@@ -18,183 +18,180 @@ public class ManageSpacesPage extends GenericPage {
   private static BaseElementFacade spaceTemplateFilter;
 
   @FindBy(xpath = "(//*[@class='d-flex flex-no-wrap']//i[@class='v-icon notranslate mdi mdi-plus theme--light'])[1]")
-  private BaseElementFacade    addAppButton;
+  private BaseElementFacade        addAppButton;
 
   @FindBy(xpath = "//button[contains(@class,'addNewSpaceButton')]")
-  private BaseElementFacade    addNewSpaceButton;
+  private BaseElementFacade        addNewSpaceButton;
 
   @FindBy(xpath = "(//aside[contains(@class,'spaceFormDrawer')]//button[contains(@class,'btn-primary')])[3]")
-  private BaseElementFacade    addSpaceButton;
+  private BaseElementFacade        addSpaceButton;
 
   @FindBy(xpath = "//*[@class='SpaceApplicationCard my-1 mx-auto mx-sm-1 col']")
-  private BaseElementFacade    appCard;
+  private BaseElementFacade        appCard;
 
   @FindBy(xpath = "//i[@class='v-icon notranslate text-sub-title fa fa-caret-right theme--light']")
-  private BaseElementFacade    arrowIconAppSpaceSettings;
+  private BaseElementFacade        arrowIconAppSpaceSettings;
 
   @FindBy(xpath = "//i[@class='v-icon notranslate text-sub-title fa fa-caret-right theme--light']")
-  private BaseElementFacade    arrowIconOfApplicationsSpaceSettings;
+  private BaseElementFacade        arrowIconOfApplicationsSpaceSettings;
 
   @FindBy(xpath = "//*[@class='v-avatar spaceAvatar mx-auto mb-6 mt-2 rounded-0 spaceAvatarHoverEdit']")
-  private BaseElementFacade    avatarSection;
+  private BaseElementFacade        avatarSection;
 
   @FindBy(xpath = "(//*[@class='v-icon notranslate mdi mdi-dots-vertical theme--light'])[2]")
-  private BaseElementFacade    button3dotAppCard;
+  private BaseElementFacade        button3dotAppCard;
 
   @FindBy(xpath = "//button[@class='btn me-2 v-btn v-btn--contained theme--light v-size--default']")
-  private BaseElementFacade    cancelButton;
+  private BaseElementFacade        cancelButton;
 
   @FindBy(xpath = "//*[@class='v-input--selection-controls__input']/following::label[contains(text(),'Closed')]")
-  private BaseElementFacade    closedRadioBtn;
+  private BaseElementFacade        closedRadioBtn;
 
   @FindBy(xpath = "//*[@for='description']")
-  private BaseElementFacade    descriptionSpaceSection;
+  private BaseElementFacade        descriptionSpaceSection;
 
   @FindBy(xpath = "//select[contains(@class,'selectSpacesFilter')]")
-  private BaseElementFacade    dropDownListSpaces;
+  private BaseElementFacade        dropDownListSpaces;
 
   @FindBy(xpath = "//i[@class='uiIconEdit uiIconLightBlue pb-2']")
-  private BaseElementFacade    editIconOfGeneralSpaceSettings;
+  private BaseElementFacade        editIconOfGeneralSpaceSettings;
 
   @FindBy(xpath = "(//aside[contains(@class,'spaceFormDrawer')]//button[contains(@class,'btn-primary')])[1]")
-  private BaseElementFacade    firstProcessButton;
+  private BaseElementFacade        firstProcessButton;
 
   @FindBy(xpath = "//i[contains(@class,'mdi-chevron-right')]")
-  private BaseElementFacade    goToSpaceRightTabs;
+  private BaseElementFacade        goToSpaceRightTabs;
 
   @FindBy(xpath = "//*[@for='hidden']")
-  private BaseElementFacade    hiddenSection;
+  private BaseElementFacade        hiddenSection;
 
   @FindBy(xpath = "//*[@class='uiIconInviteUser ms-2 me-1']")
-  private BaseElementFacade    inviteUserButton;
+  private BaseElementFacade        inviteUserButton;
 
   @FindBy(xpath = "//*[@class='btn btn-primary v-btn v-btn--contained theme--light v-size--default']")
-  private BaseElementFacade    inviteUserButtonDrawer;
+  private BaseElementFacade        inviteUserButtonDrawer;
 
   @FindBy(xpath = "(//div[@name='inviteMembers']//input)[1]")
-  private TextBoxElementFacade inviteUserInput;
+  private TextBoxElementFacade     inviteUserInput;
 
   @FindBy(xpath = "(//div[contains(text(), 'Move after')])[2]")
-  private BaseElementFacade    moveAfterAppButton;
+  private BaseElementFacade        moveAfterAppButton;
 
   @FindBy(xpath = "//div[contains(text(), 'Move before')]")
-  private BaseElementFacade    moveBeforeAppButton;
+  private BaseElementFacade        moveBeforeAppButton;
 
   @FindBy(xpath = "//*[@for='name']")
-  private BaseElementFacade    nameSpaceSection;
+  private BaseElementFacade        nameSpaceSection;
 
   @FindBy(xpath = "//button[contains(text(),'OK')]")
-  private TextBoxElementFacade okButton;
+  private TextBoxElementFacade     okButton;
 
   @FindBy(xpath = "//*[@class='v-input--selection-controls__input']/following::label[contains(text(),'Open')]")
-  private BaseElementFacade    openRadioBtn;
+  private BaseElementFacade        openRadioBtn;
 
   @FindBy(xpath = "//*[@class='v-icon notranslate mdi mdi-plus theme--light']")
-  private BaseElementFacade    plusButtonAppSpaceSettings;
+  private BaseElementFacade        plusButtonAppSpaceSettings;
 
   @FindBy(xpath = "//div[contains(@class,'v-input--selection-controls v-input--radio-group')]")
-  private BaseElementFacade    registrationSection;
+  private BaseElementFacade        registrationSection;
 
   @FindBy(xpath = "(//div[contains(text(), 'Remove')])[2]")
-  private BaseElementFacade    removeAppButton;
+  private BaseElementFacade        removeAppButton;
 
   @FindBy(xpath = "//div[contains(@class,'inputSpacesFilter')]//input")
-  private TextBoxElementFacade searchSpaceInput;
+  private TextBoxElementFacade     searchSpaceInput;
 
   @FindBy(xpath = "(//aside[contains(@class,'spaceFormDrawer')]//button[contains(@class,'btn-primary')])[2]")
-  private BaseElementFacade    secondProcessButton;
+  private BaseElementFacade        secondProcessButton;
 
   @FindBy(xpath = "//select")
-  private BaseElementFacade    selectSpaceFilter;
+  private BaseElementFacade        selectSpaceFilter;
 
   @FindBy(xpath = "//*[@id='spacesListToolbar']//*[@class='text-sub-title ms-3 d-none d-sm-flex']")
-  private BaseElementFacade    showingSpacesSection;
+  private BaseElementFacade        showingSpacesSection;
 
   @FindBy(xpath = "//*[@id='spacesListFooter']//button")
-  private BaseElementFacade    showMoreButton;
+  private BaseElementFacade        showMoreButton;
 
   @FindBy(xpath = "//div[@class='v-list-item__content drawerTitle align-start text-header-title text-truncate']")
-  private BaseElementFacade    spaceAppInstallerDrawer;
+  private BaseElementFacade        spaceAppInstallerDrawer;
 
   @FindBy(xpath = "//*[@class='v-toolbar__title ps-0']")
-  private BaseElementFacade    spaceAppSettingsPage;
+  private BaseElementFacade        spaceAppSettingsPage;
 
   @FindBy(xpath = "//*[@class='spaceAvatar']")
-  private BaseElementFacade    spaceAvatar;
+  private BaseElementFacade        spaceAvatar;
 
   @FindBy(xpath = "//*[@class='flex fill-height column']")
-  private TextBoxElementFacade spaceBanner;
+  private TextBoxElementFacade     spaceBanner;
 
   @FindBy(xpath = "//*[@id='SpaceHeader']//*[@class='v-responsive__content']")
-  private TextBoxElementFacade spaceBannerUpdated;
+  private TextBoxElementFacade     spaceBannerUpdated;
 
   @FindBy(xpath = "(//*[contains(@class, 'spaceCardFlip')])[20]")
-  private BaseElementFacade    spaceCardN20;
+  private BaseElementFacade        spaceCardN20;
 
   @FindBy(xpath = "(//*[contains(@class, 'spaceCardFlip')])[21]")
-  private BaseElementFacade    spaceCardN21;
-
-  @FindBy(xpath = "(//a[contains(@href,'/settings')])")
-  private BaseElementFacade    spaceCommunitySettingsTab;
-
-  private SpaceHomePage        spaceHomePage;
+  private BaseElementFacade        spaceCardN21;
 
   @FindBy(xpath = "(//a[contains(@href,'/members') and @tabindex='0'])")
-  private BaseElementFacade    spaceMembersTab;
+  private BaseElementFacade        spaceMembersTab;
 
   @FindBy(name = "name")
-  private TextBoxElementFacade spaceNameInput;
+  private TextBoxElementFacade     spaceNameInput;
 
   @FindBy(xpath = "(//*[@class='spaceCardFront']//*[@class='v-responsive__content'])[2]")
-  private TextBoxElementFacade spaceSearchDetailsAvatar;
+  private TextBoxElementFacade     spaceSearchDetailsAvatar;
 
   @FindBy(xpath = "(//*[@class='spaceCardFront']//*[@class='v-image__image v-image__image--cover'])[1]")
-  private TextBoxElementFacade spaceSearchDetailsCover;
+  private TextBoxElementFacade     spaceSearchDetailsCover;
 
   @FindBy(xpath = "//*[contains(@class,'spaceToolbarIcons')]//*[contains(@class,'spaceInfoIcon')]")
-  private TextBoxElementFacade spaceSearchDetailsInfo;
+  private TextBoxElementFacade     spaceSearchDetailsInfo;
 
   @FindBy(xpath = "//*[contains(@class,'spaceMembershipButtonText') and contains(text(),'Leave')]")
-  private TextBoxElementFacade spaceSearchDetailsLeaveButton;
+  private TextBoxElementFacade     spaceSearchDetailsLeaveButton;
 
   @FindBy(xpath = "//*[contains(@class,'spaceToolbarIcons')]//button[contains(@class,'spaceMenuIcon')]")
-  private TextBoxElementFacade spaceSearchDetailsThreeDots;
+  private TextBoxElementFacade     spaceSearchDetailsThreeDots;
 
-  @FindBy(xpath = "//*[@id='UITopBarContainerParent']//*[contains(@class, 'spaceMenuParent')]//a[contains(text(),'Settings')]")
-  private BaseElementFacade    spaceSettingsTab;
+  @FindBy(xpath = "//*[@id='UITopBarContainerParent']//*[contains(@class, 'spaceMenuParent')]//a[contains(@href,'/settings')]")
+  private BaseElementFacade        spaceSettingsTab;
 
   @FindBy(xpath = "//*[@class='v-input__icon v-input__icon--prepend-inner']//i")
-  private BaseElementFacade    spacesFilterIcon;
+  private BaseElementFacade        spacesFilterIcon;
 
   @FindBy(xpath = "//input[@placeholder='Filter by name or description']")
-  private BaseElementFacade    spacesFilterText;
+  private BaseElementFacade        spacesFilterText;
 
   @FindBy(xpath = "//*[@id='UISiteBody']")
-  private BaseElementFacade    spacesPage;
+  private BaseElementFacade        spacesPage;
 
   @FindBy(xpath = "(//a[contains(@href,'/tasks')])")
-  private BaseElementFacade    spaceTasksTab;
+  private BaseElementFacade        spaceTasksTab;
 
   @FindBy(xpath = "//*[@for='spaceTemplate']")
-  private BaseElementFacade    spaceTemplateSection;
+  private BaseElementFacade        spaceTemplateSection;
 
   @FindBy(xpath = "//*[contains(@class,'drawerContent ')]//input[contains(@id,'input') and @type='checkbox']")
-  private BaseElementFacade    switchButton;
+  private BaseElementFacade        switchButton;
 
   @FindBy(xpath = "//button[@class='btn btn-primary v-btn v-btn--contained theme--light v-size--default']")
-  private BaseElementFacade    updateButton;
+  private BaseElementFacade        updateButton;
 
   @FindBy(xpath = "(//*[@class='flex fill-height column']//button)[1]")
-  private TextBoxElementFacade uploadSpaceBannerButton;
+  private TextBoxElementFacade     uploadSpaceBannerButton;
 
   @FindBy(xpath = "//*[@for='inviteMembers']")
-  private TextBoxElementFacade usersLabel;
+  private TextBoxElementFacade     usersLabel;
 
   @FindBy(xpath = "//*[@class='v-input--selection-controls__input']/following::label[contains(text(),'Validation')]")
-  private BaseElementFacade    validationRadioBtn;
+  private BaseElementFacade        validationRadioBtn;
 
   @FindBy(xpath = "//*[contains(@class, 'v-dialog--active')]//button[contains(@class, 'btn-primary')]")
-  private BaseElementFacade removeConfirmationButton;
+  private BaseElementFacade        removeConfirmationButton;
+
+  private SpaceHomePage            spaceHomePage;
 
   public ManageSpacesPage(WebDriver driver) {
     super(driver);
@@ -243,7 +240,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void checkDisplayOfTwentySpaces() {
-    assertTrue(spaceCardN20.isVisible());
+    assertWebElementVisible(spaceCardN20);
     assertWebElementNotVisible(spaceCardN21);
   }
 
@@ -270,21 +267,21 @@ public class ManageSpacesPage extends GenericPage {
 
   public void checkSpaceRegistration(String registration) {
     switch (registration) {
-      case "Open":
-        // Select Open
-        openRadioBtn.clickOnElement();
-        break;
-      case "Validation":
-        // Select Validation
-        validationRadioBtn.clickOnElement();
-        break;
-      case "Closed":
-        // Select Closed
-        closedRadioBtn.clickOnElement();
-        break;
-      default:
-        // Do nothing
-        break;
+    case "Open":
+      // Select Open
+      openRadioBtn.clickOnElement();
+      break;
+    case "Validation":
+      // Select Validation
+      validationRadioBtn.clickOnElement();
+      break;
+    case "Closed":
+      // Select Closed
+      closedRadioBtn.clickOnElement();
+      break;
+    default:
+      // Do nothing
+      break;
     }
   }
 
@@ -368,10 +365,6 @@ public class ManageSpacesPage extends GenericPage {
     plusButtonAppSpaceSettings.clickOnElement();
   }
 
-  public void clickOnSpaceSettingsTab() {
-    spaceSettingsTab.clickOnElement();
-  }
-
   public void clickSecondProcessButton() {
     secondProcessButton.clickOnElement();
   }
@@ -445,8 +438,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   private BaseElementFacade getDeleteSpaceButton(String spaceName) {
-    return findByXPathOrCSS(
-                            String.format("//a[contains(@title,'%s')]//following::i[contains(@class,'uiIconTrash')]", spaceName));
+    return findByXPathOrCSS(String.format("//a[contains(@title,'%s')]//following::i[contains(@class,'uiIconTrash')]", spaceName));
   }
 
   private BaseElementFacade getSpaceAction(String action) {
@@ -459,8 +451,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   private BaseElementFacade getSpaceElement(String space) {
-    return findByXPathOrCSS(String.format("//*[contains(@class, 'brandingContainer space')]//*[contains(text(),'%s')]",
-                                          space));
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'brandingContainer space')]//*[contains(text(),'%s')]", space));
   }
 
   private BaseElementFacade getSpaceFirstNavigationTab() {
@@ -485,8 +476,10 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void goToSettingsTab() {
-    goToSpaceRightTabs.clickOnElement();
-    spaceCommunitySettingsTab.clickOnElement();
+    if (!spaceSettingsTab.isDisplayedNoWait()) {
+      goToSpaceRightTabs.clickOnElement();
+    }
+    spaceSettingsTab.clickOnElement();
   }
 
   public void goToSpaceHomeViaSpaceAvatar() {
@@ -655,8 +648,8 @@ public class ManageSpacesPage extends GenericPage {
     removeConfirmationButton.clickOnElement();
   }
 
-  public void checkOptionFromApplicationMenuIsDisplayed(String option , String appName) {
-    assertWebElementVisible(getOptionFromApplicationMenu(appName,option));
+  public void checkOptionFromApplicationMenuIsDisplayed(String appName, String option) {
+    assertWebElementVisible(getOptionFromApplicationMenu(appName, option));
   }
 
   public void clickOnThreeDotsAppCard(String appName) {
@@ -669,12 +662,13 @@ public class ManageSpacesPage extends GenericPage {
 
   private BaseElementFacade getApplicationThreeDotsMenu(String appName) {
     return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@Class,'SpaceApplicationCard')]//*[contains(@Class, 'mdi-dots-vertical')]//ancestor::button",
-            appName));
+                                          appName));
   }
 
-  private BaseElementFacade getOptionFromApplicationMenu(String appName , String option) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@class,'SpaceApplicationCard')]//ancestor::*[contains(@class,'v-list--dense')]//*[contains(text(),'%s')]",appName,option));
+  private BaseElementFacade getOptionFromApplicationMenu(String appName, String option) {
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@class,'SpaceApplicationCard')]//ancestor::*[contains(@class,'v-list--dense')]//*[contains(text(),'%s')]",
+                                          appName,
+                                          option));
   }
 
 }
-
