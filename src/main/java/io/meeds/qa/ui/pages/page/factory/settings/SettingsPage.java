@@ -109,7 +109,7 @@ public class SettingsPage extends GenericPage {
     // Accept editing language
     ELEMENT_APPLY_CHANGE_LANGUAGE_BUTTON.waitUntilClickable();
     ELEMENT_APPLY_CHANGE_LANGUAGE_BUTTON.clickOnElement();
-
+    waitForDrawerToClose();
   }
 
   public void acceptEditPassword() {
@@ -123,20 +123,20 @@ public class SettingsPage extends GenericPage {
     // Accept editing time zone
     ELEMENT_APPLY_CHANGE_TIMEZONE_BUTTON.waitUntilClickable();
     ELEMENT_APPLY_CHANGE_TIMEZONE_BUTTON.clickOnElement();
-
+    waitForDrawerToClose();
   }
 
   public void applyEditGeneralNotifications() {
     ELEMENT_APPLY_EDIT_GENERAL_NOTIFICATIONS_BUTTON.waitUntilClickable();
     ELEMENT_APPLY_EDIT_GENERAL_NOTIFICATIONS_BUTTON.clickOnElement();
-    driver.navigate().refresh();
+    refreshPage();
   }
 
   public void cancelEditLanguage() {
     // Cancel editing language
     ELEMENT_CANCEL_CHANGE_LANGUAGE_BUTTON.waitUntilClickable();
     ELEMENT_CANCEL_CHANGE_LANGUAGE_BUTTON.clickOnElement();
-
+    waitForDrawerToClose();
   }
 
   public void cancelEditPassword() {
@@ -150,7 +150,7 @@ public class SettingsPage extends GenericPage {
     // Cancel editing time zone
     ELEMENT_CANCEL_CHANGE_TIMEZONE_BUTTON.waitUntilClickable();
     ELEMENT_CANCEL_CHANGE_TIMEZONE_BUTTON.clickOnElement();
-
+    waitForDrawerToClose();
   }
 
   public void checkThatActivityStreamSectionIsDisplayed() {

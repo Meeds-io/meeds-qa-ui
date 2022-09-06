@@ -8,12 +8,10 @@ public class SettingsSteps {
 
   public void acceptEditLanguage() {
     settingsPage.acceptEditLanguage();
-
   }
 
   public void acceptEditPassword() {
     settingsPage.acceptEditPassword();
-
   }
 
   public void acceptEditTimeZone() {

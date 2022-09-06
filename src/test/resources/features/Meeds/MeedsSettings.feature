@@ -24,6 +24,8 @@ Feature: Edit sections in Settings page
 
     Then Language 'English / English' is displayed
 
+  # Default timezone for some servers may be different from (GMT +01:00) Central European Standard Time
+  @standardConfigurationOnly
   Scenario: [SETTINGS-6] TimeZone view and drawer
     Given I am authenticated as admin
 
