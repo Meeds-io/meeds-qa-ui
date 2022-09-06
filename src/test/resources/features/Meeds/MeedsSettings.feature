@@ -23,6 +23,7 @@ Feature: Edit sections in Settings page
     And I accept editing language
 
     Then Language 'English / English' is displayed
+
   @ignored
   Scenario: [SETTINGS-6] TimeZone view and drawer
     Given I am authenticated as admin
