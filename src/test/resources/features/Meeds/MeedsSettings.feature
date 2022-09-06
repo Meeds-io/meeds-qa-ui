@@ -1,3 +1,4 @@
+@settings
 Feature: Edit sections in Settings page
   As a user
   I want to edit in Settings page many sections
@@ -23,7 +24,8 @@ Feature: Edit sections in Settings page
 
     Then Language 'English / English' is displayed
 
-  @ignored
+  # Default timezone for some servers may be different from (GMT +01:00) Central European Standard Time
+  @standardConfigurationOnly
   Scenario: [SETTINGS-6] TimeZone view and drawer
     Given I am authenticated as admin
 
@@ -33,17 +35,17 @@ Feature: Edit sections in Settings page
     When I click on Edit time zone and I change it '+02:00'
     And I cancel editing time zone
 
-    Then Time zone '(GMT +01:00) Central European Time' is displayed
+    Then Time zone '(GMT +01:00) Central European Standard Time' is displayed
 
     When I click on Edit time zone and I change it '+02:00'
     And I accept editing language
 
-    Then Time zone '(GMT +02:00) Central African Time' is displayed
+    Then Time zone '(GMT +02:00) Central Africa Time' is displayed
 
     When I click on Edit time zone and I change it '+01:00'
     And I accept editing language
 
-    Then Time zone '(GMT +01:00) Central European Time' is displayed
+    Then Time zone '(GMT +01:00) Central European Standard Time' is displayed
 
   @ignored
   Scenario: [SETTINGS-7] Security on settings

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.When;
 import io.meeds.qa.ui.steps.AddUserSteps;
 import io.meeds.qa.ui.steps.HomeSteps;
 import net.thucydides.core.annotations.Steps;
@@ -71,14 +72,9 @@ public class AddUserStepDefinition {
     addUserSteps.deleteUser();
   }
 
-  @And("^I disable the second created User Status$")
-  public void enableDisableSecondUser() throws InterruptedException {
-    addUserSteps.enableDisableUser(sessionVariableCalled("secondUserName"));
-  }
-
   @Given("^I enable User Status '(.*)'$")
   @And("^I disable User Status '(.*)'$")
-  public void enableDisableUser(String user) throws InterruptedException {
+  public void enableDisableUser(String user) {
     addUserSteps.enableDisableUser(user);
   }
 
@@ -110,23 +106,13 @@ public class AddUserStepDefinition {
 
   @Given("^I search for the (.*) random user$")
   public void searchForCreatedUser(String userPrefix) {
-    addUserSteps.searchForUsersByName(sessionVariableCalled(userPrefix + "UserName"));
+    String userName = sessionVariableCalled(userPrefix + "UserName");
+    addUserSteps.searchForUsersByName(userName);
   }
 
-  @Given("^I search for second created user$")
-  public void searchForSecondCreatedUser() {
-    addUserSteps.searchForUsersByName(sessionVariableCalled("secondUserFirstName") + " "
-        + sessionVariableCalled("secondUserLastName"));
-  }
-
-  @Given("^I search for created user '(.*)'$")
-  public void searchForUser(String fullName) {
-    addUserSteps.searchForUsersByName(fullName);
-  }
-
-  @Given("^I search for user '/.*/'$")
-  public void searchForUsersByName(String fullName) {
-    addUserSteps.searchForUsersByName(fullName);
+  @Given("^I search for user '(.*)'$")
+  public void searchForUser(String user) {
+    addUserSteps.searchForUsersByName(user);
   }
 
   @Given("^I search for '(.*)' Users$")

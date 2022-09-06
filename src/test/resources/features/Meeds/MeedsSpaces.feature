@@ -35,7 +35,7 @@ Feature: Meeds Space
   Scenario: [SPC_MNG-7] General Space Settings
     Given I am authenticated as admin
     When I go to the random space
-    When I click on space settings tab
+    When I go to Settings in space tab
     Then I check that general settings section is displayed with his edit icon
     And I check that Applications section is displayed with his edit icon
 
@@ -49,11 +49,10 @@ Feature: Meeds Space
     And I check that cancel button is displayed
     And I check that update button is displayed
 
-  @ignored
   Scenario: [SPC_MNG-8] Spaces applications management
     Given I am authenticated as admin
-    When I go to the random space
-    When I click on space settings tab
+    When I create a random space
+    When I go to Settings in space tab
     Then I check that general settings section is displayed with his edit icon
     And I check that Applications section is displayed with his edit icon
 
@@ -62,17 +61,19 @@ Feature: Meeds Space
     And Application card is displayed
     And Plus button is displayed
 
-    When I click on 3dot icon of application card
-    Then Remove application button is displayed
-    And Move before application button is displayed
-    And Move after application button is displayed
+    When I click on three dots icon of 'Notes' application
+    Then 'Remove' option of the application 'Notes' is displayed
+    And 'Move before' option of the application 'Notes' is displayed
+    And 'Move after' option of the application 'Notes' is displayed
+    And I click on 'Remove' option from application 'Notes' menu
+    And  I confirm to remove the application
 
     When I click on plus button to add application
     Then I check that space application installer drawer is displayed
     And I check that applications are displayed
+    And I click to add application 'Notes'
+    Then I check that application 'Notes' is added to applications page
 
-    When I click to add application 'Wallet'
-    Then I check that application 'Wallet' is added to applications page
 
   @ignored
   Scenario: [SPACES-4.1] Spaces Invitations
