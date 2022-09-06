@@ -3,7 +3,6 @@ Feature: Users Management
   As an administrator
   I want to check that i can manage the users
 
-  @test
   Scenario: [USR_MNG-1.1] Users Grid
     Given I am authenticated as admin
 
