@@ -6,7 +6,6 @@ import org.junit.Assert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
@@ -642,9 +641,8 @@ public class ManageSpacesPage extends GenericPage {
 
   public void uploadSpaceBanner(String fileName) {
     spaceBanner.waitUntilVisible();
-    Actions builder = new Actions(driver);
-    WebElement spaceBanner = driver.findElement(org.openqa.selenium.By.xpath("//*[@class='flex fill-height column']"));
-    builder.moveToElement(spaceBanner).build().perform();
+    BaseElementFacade spaceBannerButton = findByXPathOrCSS("//*[@class='flex fill-height column']");
+    spaceBannerButton.clickOnElement();
     uploadSpaceBannerButton.waitUntilVisible();
     WebElement elem =
                     getDriver().findElement(org.openqa.selenium.By.xpath("//*[@class='v-input__prepend-outer']//button/following::input[1]"));
@@ -661,10 +659,12 @@ public class ManageSpacesPage extends GenericPage {
     assertWebElementVisible(getOptionFromApplicationMenu(appName,option));
   }
 
-  public void clickOptionApplicationCard(String appName , String option){
+  public void clickOnThreeDotsAppCard(String appName) {
     getApplicationThreeDotsMenu(appName).clickOnElement();
-    getOptionFromApplicationMenu(option,appName);
-    getOptionFromApplicationMenu(option,appName).clickOnElement();
+  }
+
+  public void clickOptionApplicationCard(String appName, String option) {
+    getOptionFromApplicationMenu(appName, option).clickOnElement();
   }
 
   private BaseElementFacade getApplicationThreeDotsMenu(String appName) {
