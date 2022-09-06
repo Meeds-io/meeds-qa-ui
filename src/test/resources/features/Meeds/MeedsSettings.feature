@@ -27,10 +27,6 @@ Feature: Edit sections in Settings page
 <<<<<<< HEAD
   @ignored
   Scenario: [SETTINGS-6] TimeZone view and drawer
-=======
-
-  Scenario: : SETTINGS-6 : TimeZone view and drawer
->>>>>>> Fix conflits and adapt test cases
     Given I am authenticated as admin
 
     And I go to Settings page
