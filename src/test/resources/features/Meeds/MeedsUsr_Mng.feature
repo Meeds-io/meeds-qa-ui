@@ -6,8 +6,8 @@ Feature: Users Management
   Scenario: [USR_MNG-1.1] Users Grid
     Given I am authenticated as admin
 
-    When I create the first random user if not existing
-    And I create the seconddisabled random user if not existing
+    When I create the seconddisabled random user if not existing
+    And I create the first random user if not existing
     And I search for the seconddisabled random user
     When I disable User Status 'seconddisabled'
     And I search for 'ENABLED' Users
