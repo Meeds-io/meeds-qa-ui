@@ -22,7 +22,7 @@ public class ChallengesPage extends GenericPage {
   private static final String  CHALLENGE_CARD_TITLE_XPATH           = "//*[contains(text(),'%s')]"
       + "//ancestor::*[contains(@class, 'cardOfChallenge')]";
 
-  @FindBy(css = ".challenges-application .addChallengeButton button.btn-primary")
+  @FindBy(css = ".challenges-application .v-toolbar button.btn-primary")
   private BaseElementFacade    addChallengeBtn;
 
   @FindBy(css = "#announcementDrawer.v-navigation-drawer--open")

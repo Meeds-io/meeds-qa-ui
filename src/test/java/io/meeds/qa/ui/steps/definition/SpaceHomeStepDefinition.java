@@ -30,8 +30,7 @@ public class SpaceHomeStepDefinition {
 
   @When("^I add in activity '(.*)' a comment '(.*)'$")
   public void addActivityComment(String activity, String comment) {
-    spaceHomePage.getActivityId(activity);
-    spaceHomePage.addActivityComment(spaceHomePage.getActivityId(activity), comment);
+    spaceHomePage.addActivityComment(activity, comment);
   }
 
   @When("^I enter an activity more than 1300 characters$")
@@ -68,8 +67,7 @@ public class SpaceHomeStepDefinition {
   @When("^I add in activity '(.*)' an internal link '(.*)' as a comment$")
   public void addInternalLinkComment(String activity, String comment) {
     String currentUrl = spaceHomePage.getCurrentUrl().split("portal")[0];
-    spaceHomePage.getActivityId(activity);
-    spaceHomePage.addActivityComment(spaceHomePage.getActivityId(activity), currentUrl + comment);
+    spaceHomePage.addActivityComment(activity, currentUrl + comment);
   }
 
   @When("^I added the second choice '(.*)' in the poll$")
@@ -225,8 +223,7 @@ public class SpaceHomeStepDefinition {
 
   @When("^I click on comment button related to activity '(.*)'$")
   public void clickOnCommentActivity(String activity) {
-    spaceHomePage.getActivityId(activity);
-    spaceHomePage.clickOnCommentActivityButton(spaceHomePage.getActivityId(activity));
+    spaceHomePage.clickOnCommentActivityButton(activity);
   }
 
   @When("^I go to the comments drawer first page$")
@@ -462,7 +459,7 @@ public class SpaceHomeStepDefinition {
 
   @When("^In activity '(.*)' I enter the link '(.*)' as comment$")
   public void enterCommentLink(String activity, String link) {
-    spaceHomePage.enterCommentLink(spaceHomePage.getActivityId(activity), link);
+    spaceHomePage.enterCommentLink(activity, link);
   }
 
   @When("^I insert text '(.*)' as comment$")
@@ -615,8 +612,7 @@ public class SpaceHomeStepDefinition {
 
   @When("^I open in activity '(.*)' the Comments drawer$")
   public void openCommentsDrawer(String activity) {
-    spaceHomePage.getActivityId(activity);
-    spaceHomePage.openCommentsDrawer(spaceHomePage.getActivityId(activity));
+    spaceHomePage.openCommentsDrawer(activity);
   }
 
   @When("^I click to delete from the dropdownActivitymenu$")

@@ -37,13 +37,15 @@ import net.thucydides.core.pages.PageObject;
 
 public class BasePageImpl extends PageObject implements BasePage {
 
-  static final Logger          LOGGER                     = LoggerFactory.getLogger(BasePageImpl.class);
+  private static final Logger LOGGER                      = LoggerFactory.getLogger(BasePageImpl.class);
 
-  private static final String  XPATH_FORMAT_ERROR_MESSAGE = "The format for the xpath [%s] is not correct.";
+  private static final String OPNENED_DRAWER_CSS_SELECTOR = ".v-navigation-drawer--open";
 
-  protected WebDriver          driver;
+  private static final String XPATH_FORMAT_ERROR_MESSAGE  = "The format for the xpath [%s] is not correct.";
 
-  protected String             url;
+  protected WebDriver         driver;
+
+  protected String            url;
 
   public BasePageImpl() {
     this(null);
@@ -93,7 +95,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void closeDrawerIfDisplayed() {
-    if (findByXPathOrCSS(".v-navigation-drawer--open").isDisplayedNoWait()) {
+    if (findByXPathOrCSS(OPNENED_DRAWER_CSS_SELECTOR).isDisplayedNoWait()) {
       closeDrawer();
     }
   }
@@ -299,7 +301,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void waitForDrawerToClose(String drawerId, boolean withOverlay) {
-    String drawerSelector = StringUtils.isBlank(drawerId) ? ".v-navigation-drawer--open" : drawerId;
+    String drawerSelector = StringUtils.isBlank(drawerId) ? OPNENED_DRAWER_CSS_SELECTOR : drawerId;
     BaseElementFacade drawerElement = findByXPathOrCSS(drawerSelector);
     if (drawerElement.isDisplayedNoWait()) {
       try {
@@ -326,7 +328,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void waitForDrawerToOpen(String drawerId, boolean withOverlay) {
-    String drawerSelector = StringUtils.isBlank(drawerId) ? ".v-navigation-drawer--open" : drawerId;
+    String drawerSelector = StringUtils.isBlank(drawerId) ? OPNENED_DRAWER_CSS_SELECTOR : drawerId;
     try {
       findByXPathOrCSS(drawerSelector).waitUntilVisible();
       if (withOverlay) {
