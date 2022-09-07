@@ -8,6 +8,7 @@ Feature: Users Management
 
     When I create the seconddisabled random user if not existing
     And I create the first random user if not existing
+    And I go to Add Users page
     And I search for the seconddisabled random user
     When I disable User Status 'seconddisabled'
     And I search for 'ENABLED' Users
@@ -17,7 +18,6 @@ Feature: Users Management
     And I search for the seconddisabled random user
     Then The seconddisabled created user is displayed
     When I enable User Status 'seconddisabled'
-    And I refresh the page
     And I search for 'ENABLED' Users
     And I search for the seconddisabled random user
     Then The seconddisabled created user is displayed

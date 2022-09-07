@@ -12,9 +12,6 @@ public class AddGroupsPage extends GenericPage {
   @FindBy(xpath = "//*[contains(@class,'addNewMembershipButton')]")
   private BaseElementFacade    addMemberInGroupBtn;
 
-  @FindBy(xpath = "//*[contains(@class,'drawerTitle') and contains(text(),'Add member in group')]")
-  private BaseElementFacade    addMemberInGroupDrawerTitle;
-
   @FindBy(
       xpath = "//*[@id='membershipFormDrawer' and contains(@class, 'v-navigation-drawer--open')]//button[contains(@class,'mdi-close')]"
   )
@@ -48,10 +45,14 @@ public class AddGroupsPage extends GenericPage {
     selectedRoleField.selectByValue(role);
     selectedRoleField.clickOnElement();
     inviteMemberInput.setTextValue(member);
-    boolean found = mentionInField(inviteMemberInput, member, 1);
+    boolean found = mentionInField(inviteMemberInput, member, 3);
     if (found) {
-      addMemberInGroupDrawerTitle.clickOnElement();
-      saveMemberAddedInGroup.clickOnElement();
+      try {
+        saveMemberAddedInGroup.clickOnElement();
+      } catch (Exception e) {
+        findByXPathOrCSS("//*[contains(@class,'drawerTitle')]").clickOnElement();
+        saveMemberAddedInGroup.clickOnElement();
+      }
     }
     if (closeDrawerButton.isCurrentlyVisible()) {
       closeDrawerButton.clickOnElement();
