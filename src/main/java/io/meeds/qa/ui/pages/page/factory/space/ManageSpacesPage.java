@@ -506,7 +506,6 @@ public class ManageSpacesPage extends GenericPage {
   public void insertSpaceNameInSearchField(String spaceName) {
     searchSpaceInput.waitUntilVisible();
     searchSpaceInput.setTextValue(spaceName);
-
     waitForProgressBar();
   }
 

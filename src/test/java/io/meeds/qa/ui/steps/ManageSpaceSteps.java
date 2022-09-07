@@ -263,6 +263,10 @@ public class ManageSpaceSteps {
     manageSpacesPage.insertSpaceNameInSearchField(spaceName);
   }
 
+  public void searchRandomSpace(String space) {
+    manageSpacesPage.insertSpaceNameInSearchField(space);
+  }
+
   public void selectFilter(String filter) {
     manageSpacesPage.selectFilter(filter);
   }

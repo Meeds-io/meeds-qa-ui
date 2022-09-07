@@ -1067,12 +1067,6 @@ public class TasksStepDefinition {
     tasksSteps.setInSearchProjectField(randomSpaceName);
   }
 
-  @When("^I search for the created space$")
-  public void setInSearchRandomSpaceField() {
-    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
-    tasksSteps.setInSearchSpaceField(randomSpaceName);
-  }
-
   @When("^I enter the project name '(.*)'$")
   public void setProjectTitle(String projectTitle) {
     tasksSteps.setProjectTitle(projectTitle);

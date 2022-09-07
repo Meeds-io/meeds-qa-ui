@@ -332,6 +332,12 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.searchSpace(spaceName);
   }
 
+  @When("^I search for the created space$")
+  public void setInSearchRandomSpaceField() {
+    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
+    manageSpaceSteps.searchRandomSpace(randomSpaceName);
+  }
+
   @Given("^The second created space name is displayed$")
   public void secondRandomSpaceNameIsDisplayed() {
     String secondRandomSpaceName = sessionVariableCalled("secondRandomSpaceName");

@@ -132,7 +132,6 @@ Feature: Favorite activities
     And The activity is not displayed in the search 'activityFavs_US06_02_1'
     And The activity is not displayed in the search 'activityFavs_US06_02_0'
 
-
   Scenario: SpaceFav_US01.11: Bookmark a space as a favorite (space page)
     Given I am authenticated as admin
     And I create the first random user if not existing
