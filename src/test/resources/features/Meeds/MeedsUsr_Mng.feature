@@ -3,7 +3,6 @@ Feature: Users Management
   As an administrator
   I want to check that i can manage the users
 
-  @test
   Scenario: [USR_MNG-1.1] Users Grid
     Given I am authenticated as admin
 
@@ -19,7 +18,6 @@ Feature: Users Management
     And I search for the seconddisabled random user
     Then The seconddisabled created user is displayed
     When I enable User Status 'seconddisabled'
-    And I refresh the page
     And I search for 'ENABLED' Users
     And I search for the seconddisabled random user
     Then The seconddisabled created user is displayed

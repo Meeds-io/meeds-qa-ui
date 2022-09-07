@@ -1027,7 +1027,6 @@ public class TasksPage extends GenericPage {
 
   public void confirmDeleteTaskFromTasksBord() {
     confirmationPopupDeleteButton.clickOnElement();
-    assertWebElementNotVisible(confirmationPopupDeleteButton);
   }
 
   public void confirmFilter() {

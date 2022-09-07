@@ -72,8 +72,7 @@ public class AddUserPage extends GenericPage {
   }
 
   public void checkUserIsDeleted(String fullName) {
-    searchUsersField.waitUntilVisible();
-    searchUsersField.setTextValue(fullName);
+    searchForUserByName(fullName);
     assertWebElementNotVisible(deleteConfirmationButton);
   }
 
@@ -103,17 +102,24 @@ public class AddUserPage extends GenericPage {
   }
 
   public void isUserNameDisplayed(String user) {
-    assertWebElementVisible(userNameDisplayed(user));
+    assertWebElementVisible(getUserElement(user));
   }
 
   public void saveAddUserButton() {
     saveAddUserButton.clickOnElement();
   }
 
-  public void searchForUsersByName(String userName) {
-    searchUsersField.waitUntilVisible();
-    searchUsersField.setTextValue(userName);
-    waitForProgressBar();
+  public void searchForUserByName(String userName) {
+    searchForUserByName(userName, 1);
+  }
+
+  public void searchForUserByName(String userName, int tentatives) {
+    int retry = 0;
+    do {
+      searchUsersField.waitUntilVisible();
+      searchUsersField.setTextValue(userName);
+      waitForProgressBar();
+    } while (++retry < tentatives && !getUserElement(userName).isDisplayedNoWait());
   }
 
   public void searchForUsersByStatus(String status) {
@@ -135,7 +141,7 @@ public class AddUserPage extends GenericPage {
     mappingBaseElementXPath.get(userDetails).setTextValue(fieldValue);
   }
 
-  public BaseElementFacade userNameDisplayed(String user) {
+  public BaseElementFacade getUserElement(String user) {
     return findByXPathOrCSS(String.format("//*[@class='v-data-table__wrapper']//*[@class='text-center' and contains(text(),'%s')][1]",
                                           user));
   }

@@ -99,7 +99,7 @@ public class AddUserSteps {
   }
 
   public void searchForUsersByName(String userName) {
-    addUserPage.searchForUsersByName(userName);
+    addUserPage.searchForUserByName(userName, 3);
   }
 
   public void searchForUsersByStatus(String status) {
