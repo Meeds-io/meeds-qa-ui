@@ -6,7 +6,6 @@ import java.util.Map;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
 import io.meeds.qa.ui.steps.AddUserSteps;
 import io.meeds.qa.ui.steps.HomeSteps;
 import net.thucydides.core.annotations.Steps;
@@ -74,8 +73,8 @@ public class AddUserStepDefinition {
 
   @Given("^I enable User Status '(.*)'$")
   @And("^I disable User Status '(.*)'$")
-  public void enableDisableUser(String user) {
-    addUserSteps.enableDisableUser(user);
+  public void enableDisableUser(String userPrefix) {
+    addUserSteps.enableDisableUser(sessionVariableCalled(userPrefix + "UserName"));
   }
 
   @Given("^I enter the user's informations$")
