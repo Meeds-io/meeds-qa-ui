@@ -26,7 +26,7 @@
   </parent>
   <groupId>io.meeds.qa</groupId>
   <artifactId>meeds-qa-ui</artifactId>
-  <version>1.0.x-SNAPSHOT</version>
+  <version>1.0.x-meed-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Meeds Test Suite</name>
   <description>Meeds Automatic Test Suite</description>
