@@ -140,12 +140,14 @@ Feature: Favorite activities
     And I go to the random space
     And I 'Join'
     When I go to spaces page
-    And I search for the created space
+    And  I search for the random space
     Then The favorite icon should be displayed in space card
-    When I favorite the space
+    When I bookmark the random space as favorite from space card
     Then The message 'Favorite added successfully. Find it easily from the search' should be displayed
-    When I unbookmark the favorite space
+    And  I check that the random space is bookmarked as favorite from space card
+    When I unfavorite the random space from space card
     Then The message 'The item has been removed from favorites successfully.' should be displayed
+    And I check that the random space is unbookmarked from space card
 
   @ignored
   Scenario: [Fav_US13][01] Bookmark a note from it's details

@@ -332,10 +332,30 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.searchSpace(spaceName);
   }
 
-  @When("^I search for the created space$")
+  @When("^I search for the random space$")
   public void setInSearchRandomSpaceField() {
     String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
-    manageSpaceSteps.searchRandomSpace(randomSpaceName);
+    manageSpaceSteps.searchSpace(randomSpaceName);
+  }
+
+  @Then("The favorite icon should be displayed in space card")
+  public void checkFavIconInSpaceCard() {
+    manageSpaceSteps.checkFavIconInSpaceCard();
+  }
+  @Then("I bookmark the random space as favorite from space card")
+  @When("I unfavorite the random space from space card")
+  public void clickOnSpaceBookmarkIconFromSpaceCard() {
+    manageSpaceSteps.clickOnSpaceBookmarkIconFromSpaceCard();
+  }
+
+  @When("I check that the random space is bookmarked as favorite from space card")
+  public void checkSpaceBookmarkedFromSpaceCard() {
+    manageSpaceSteps.checkSpaceBookmarkedFromSpaceCard();
+  }
+
+  @When("I check that the random space is unbookmarked from space card")
+  public void checkSpaceUnBookmarkFromSpaceCard() {
+    manageSpaceSteps.checkSpaceUnBookmarkFromSpaceCard();
   }
 
   @Given("^The second created space name is displayed$")
@@ -388,6 +408,5 @@ public class ManageSpaceStepDefinitions {
   public void removeApplication(String option, String appName) {
     manageSpaceSteps.clickOptionApplicationCard(appName, option);
   }
-
 }
 

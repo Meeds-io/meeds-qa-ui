@@ -509,6 +509,22 @@ public class ManageSpacesPage extends GenericPage {
     waitForProgressBar();
   }
 
+  public void checkFavIconInSpaceCard() {
+    assertWebElementVisible(findByXPathOrCSS("//* [@class='spaceCardFront']//*[contains(@class,'fa-star')]"));
+  }
+
+  public void clickOnSpaceBookmarkIconFromSpaceCard() {
+    findByXPathOrCSS("//* [@class='spaceCardFront']//*[contains(@class,'fa-star')]").clickOnElement();
+  }
+
+  public void checkSpaceBookmarkStatusFromSpaceCard( boolean ShouldBeBookmarked) {
+    if (ShouldBeBookmarked) {
+      assertWebElementVisible(findByXPathOrCSS("//* [@class='spaceCardFront']//*[contains(@class,'fas fa-star')]"));
+    } else {
+        assertWebElementVisible(findByXPathOrCSS("//* [@class='spaceCardFront']//*[contains(@class,'far fa-star')]"));
+    }
+  }
+
   @SwitchToWindow
   public void inviteUserToSpace(String user) {
     mentionInField(inviteUserInput, user, 5);
@@ -669,5 +685,4 @@ public class ManageSpacesPage extends GenericPage {
                                           appName,
                                           option));
   }
-
 }

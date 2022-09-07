@@ -141,9 +141,6 @@ public class HomePage extends GenericPage {
   @FindBy(xpath = "//*[@id='walletBalance']//*[contains(@class,'big-number')]")
   private BaseElementFacade                           walletBalanceNumber;
 
-  @FindBy(xpath = "//* [@class='spaceCardFront']//*[contains(@class,'fa-star')]")
-  private BaseElementFacade                           favoriteIconInSpacePage ;
-
   public HomePage(WebDriver driver) {
     super(driver);
     MAPPING_CONTAINER_NAME_TO_BASEELEMENTFACADE_XPATH.put("Statistique", profileStatsPortlet);
@@ -553,18 +550,6 @@ public class HomePage extends GenericPage {
 
   public void unbookmarkActivity(String activity) {
     clickOnElement(getFavoriteIconActivity(activity));
-  }
-
-  public void checkFavIconInSpaceCard() {
-    assertWebElementVisible(favoriteIconInSpacePage);
-  }
-
-  public void favoriteSpaceInSpacePage() {
-    favoriteIconInSpacePage.clickOnElement();
-  }
-
-  public void unbookmarkFavoriteSpaceInSpacePage() {
-    favoriteIconInSpacePage.clickOnElement();
   }
 
   private void waitUntilAppCenterSearchFinishes(boolean isAdminUI) {

@@ -17,9 +17,9 @@ public class ManageSpaceSteps {
 
   private static final String SPACE_TEMPLATE = System.getProperty("io.meeds.space.template");
 
-  private HomePage            homePage;
+  private HomePage homePage;
 
-  private ManageSpacesPage    manageSpacesPage;
+  private ManageSpacesPage manageSpacesPage;
 
   public void addOrGoToSpace(String spaceNamePrefix) {
     String spaceName = sessionVariableCalled(spaceNamePrefix);
@@ -263,8 +263,20 @@ public class ManageSpaceSteps {
     manageSpacesPage.insertSpaceNameInSearchField(spaceName);
   }
 
-  public void searchRandomSpace(String space) {
-    manageSpacesPage.insertSpaceNameInSearchField(space);
+  public void checkFavIconInSpaceCard() {
+    manageSpacesPage.checkFavIconInSpaceCard();
+  }
+
+  public void clickOnSpaceBookmarkIconFromSpaceCard() {
+    manageSpacesPage.clickOnSpaceBookmarkIconFromSpaceCard();
+  }
+
+  public void checkSpaceBookmarkedFromSpaceCard() {
+    manageSpacesPage.checkSpaceBookmarkStatusFromSpaceCard(true);
+  }
+
+  public void checkSpaceUnBookmarkFromSpaceCard() {
+    manageSpacesPage.checkSpaceBookmarkStatusFromSpaceCard(false);
   }
 
   public void selectFilter(String filter) {
@@ -292,7 +304,7 @@ public class ManageSpaceSteps {
   }
 
 
-  public void confirmRemoveApplication(){
+  public void confirmRemoveApplication() {
     manageSpacesPage.confirmRemoveApplication();
   }
 
