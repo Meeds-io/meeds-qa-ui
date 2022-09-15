@@ -9,7 +9,7 @@ Feature: SideBar
     When I connect with the first created user
     And I go to the first random space
     And I go to the second random space
-    And I hover on Recent spaces
+    And I access to Recent spaces
     And I search for the second created space in Side Bar Filter
     Then Second searched space is displayed in Side Bar Filter
     And First searched space is not displayed in Side Bar Filter

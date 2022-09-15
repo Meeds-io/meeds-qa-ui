@@ -1,6 +1,8 @@
 @challenge
 Feature: Challenges
 
+  @skip
+  @ignored
   Scenario: [Challenge_App_US02][02] First screen of the App ( manager of a space+ admin)
     Given I am authenticated as admin
     And I create the fifthchgadm random user if not existing
@@ -15,6 +17,8 @@ Feature: Challenges
     Then Challenge Application Page is displayed
     And Add challenge button should be displayed
 
+  @skip
+  @ignored
   Scenario: [Challenge_App_US02][01] First screen of the App ( not manager of any space)
     Given I connect as admin if random users doesn't exists
       | sixth  |

@@ -16,7 +16,7 @@ public class ManageDomainsPage extends GenericPage {
   @FindBy(xpath = "//button[@class='btn btn-primary']")
   private BaseElementFacade       addDomainBtn;
 
-  @FindBy(xpath = "//i[contains(@class,'uiIcon uiIconToolbarNavItem uiAdministrationIcon')]")
+  @FindBy(xpath = "//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'uiArrowRightIcon')]")
   private BaseElementFacade       adminBtn;
 
   @FindBy(xpath = "//a[@href='/portal/g/:platform:administrators/automatic-translation']")
