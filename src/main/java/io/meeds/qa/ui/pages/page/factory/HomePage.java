@@ -77,7 +77,7 @@ public class HomePage extends GenericPage {
   @FindBy(id = "profile-stats-portlet")
   private BaseElementFacade                           profileStatsPortlet;
 
-  @FindBy(xpath = "//*[contains(@class,'spacesNavigationTitle')]//*[contains(@class,'titleLabel')]")
+  @FindBy(xpath = "//*[contains(@class,'spacesNavigationTitle')]//*[contains(@class,'uiArrowRightIcon')]")
   private BaseElementFacade                           recentSpacesBtn;
 
   @FindBy(xpath = "//*[@class='v-text-field__slot']//input")
@@ -425,11 +425,11 @@ public class HomePage extends GenericPage {
     });
   }
 
-  public void hoverOnRecentSpaces() {
+  public void accessToRecentSpaces() {
     clickOnHamburgerMenu();
     retryOnCondition(() -> {
       recentSpacesBtn.waitUntilVisible();
-      recentSpacesBtn.hover("//*[contains(@class,'spacesNavigationTitle')]//*[contains(@class,'titleLabel')]");
+      clickOnElement(recentSpacesBtn);
       waitFor(300).milliseconds(); // Wait until drawer 'open' animation
                                    // finishes
     }, () -> {

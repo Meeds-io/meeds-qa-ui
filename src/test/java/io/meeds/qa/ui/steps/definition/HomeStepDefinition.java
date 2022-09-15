@@ -333,9 +333,9 @@ public class HomeStepDefinition {
     homeSteps.goToTasksPage();
   }
 
-  @When("^I hover on Recent spaces$")
-  public void hoverOnRecentSpaces() {
-    homeSteps.hoverOnRecentSpaces();
+  @When("^I access to Recent spaces$")
+  public void accessToRecentSpaces() {
+    homeSteps.accessToRecentSpaces();
   }
 
   @And("^I mouse over the stream icon in sidebar menu$")

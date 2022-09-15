@@ -196,8 +196,8 @@ public class HomeSteps {
     homePage.goToTasksPage();
   }
 
-  public void hoverOnRecentSpaces() {
-    homePage.hoverOnRecentSpaces();
+  public void accessToRecentSpaces() {
+    homePage.accessToRecentSpaces();
   }
 
   public void hoverOnStreamIcon() {
