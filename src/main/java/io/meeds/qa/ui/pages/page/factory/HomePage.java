@@ -141,6 +141,9 @@ public class HomePage extends GenericPage {
   @FindBy(xpath = "//*[@id='walletBalance']//*[contains(@class,'big-number')]")
   private BaseElementFacade                           walletBalanceNumber;
 
+  @FindBy(xpath = "//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'uiArrowRightIcon')]")
+  private BaseElementFacade arrowAdminMenu ;
+
   public HomePage(WebDriver driver) {
     super(driver);
     MAPPING_CONTAINER_NAME_TO_BASEELEMENTFACADE_XPATH.put("Statistique", profileStatsPortlet);
@@ -334,7 +337,7 @@ public class HomePage extends GenericPage {
   @SwitchToWindow
   public void goToAddGroups() {
     if (!StringUtils.contains(driver.getCurrentUrl(), "groupsManagement")) {
-      hoverOnAdministrationMenu();
+      accessToAdministrationMenu();
       clickOnElement(findByXPathOrCSS("//a[contains(@href, 'groupsManagement')]"));
     }
   }
@@ -342,14 +345,14 @@ public class HomePage extends GenericPage {
   @SwitchToWindow
   public void goToAddUser() {
     if (!StringUtils.contains(driver.getCurrentUrl(), "usersManagement")) {
-      hoverOnAdministrationMenu();
+      accessToAdministrationMenu();
       clickOnElement(findByXPathOrCSS("//a[contains(@href, 'usersManagement')]"));
     }
   }
 
   @SwitchToWindow
   public void goToAppCenterAdminSetupPage() {
-    hoverOnAdministrationMenu();
+    accessToAdministrationMenu();
     clickOnElement(findByXPathOrCSS("//a[contains(@href,'appCenterAdminSetup')]"));
   }
 
@@ -405,11 +408,11 @@ public class HomePage extends GenericPage {
     clickOnElement(tasksSnapshotPageButton);
   }
 
-  public void hoverOnAdministrationMenu() {
+  public void accessToAdministrationMenu() {
     clickOnHamburgerMenu();
     retryOnCondition(() -> {
       administrationMenu.waitUntilVisible();
-      administrationMenu.hover("//*[contains(@class,'administrationTitle')]//*[contains(@class,'titleLabel')]");
+      clickOnElement(arrowAdminMenu);
       waitFor(300).milliseconds(); // Wait until drawer 'open' animation
       // finishes
       BaseElementFacade administrationMenuElement = findByXPathOrCSS("#AdministrationHamburgerNavigation");
