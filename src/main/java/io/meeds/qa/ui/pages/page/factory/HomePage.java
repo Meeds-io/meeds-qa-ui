@@ -142,7 +142,7 @@ public class HomePage extends GenericPage {
   private BaseElementFacade                           walletBalanceNumber;
 
   @FindBy(xpath = "//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'uiArrowRightIcon')]")
-  private BaseElementFacade arrowAdminMenu ;
+  private BaseElementFacade arrowAdminstrationMenu ;
 
   public HomePage(WebDriver driver) {
     super(driver);
@@ -412,7 +412,7 @@ public class HomePage extends GenericPage {
     clickOnHamburgerMenu();
     retryOnCondition(() -> {
       administrationMenu.waitUntilVisible();
-      clickOnElement(arrowAdminMenu);
+      clickOnElement(arrowAdminstrationMenu);
       waitFor(300).milliseconds(); // Wait until drawer 'open' animation
       // finishes
       BaseElementFacade administrationMenuElement = findByXPathOrCSS("#AdministrationHamburgerNavigation");
