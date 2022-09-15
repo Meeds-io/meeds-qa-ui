@@ -18,7 +18,7 @@ public class KudosPage extends GenericPage {
   @FindBy(xpath = "//*[@class='v-list-item__title peopleActionItem']")
   public static BaseElementFacade sendKudosMenu;
 
-  @FindBy(xpath = "//i[contains(@class,'uiAdministrationIcon')]")
+  @FindBy(xpath = "//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'uiArrowRightIcon')]")
   private BaseElementFacade       addministrationMenu;
 
   @FindBy(xpath = "//i[contains(@class,'uiIcon uiIconToolbarNavItem uiAdministrationIcon')]")
