@@ -77,8 +77,11 @@ public class HomePage extends GenericPage {
   @FindBy(id = "profile-stats-portlet")
   private BaseElementFacade                           profileStatsPortlet;
 
-  @FindBy(xpath = "//*[contains(@class,'spacesNavigationTitle')]//*[contains(@class,'uiArrowRightIcon')]")
+  @FindBy(xpath = "//*[contains(@class,'spacesNavigationTitle')]//*[contains(@class,'fa fa-arrow')]")
   private BaseElementFacade                           recentSpacesBtn;
+
+  @FindBy(xpath = "//*[contains(@class,'spacesNavigationTitle')]//*[contains(@class,'titleIcon')]")
+  private BaseElementFacade                           recentSpacesIcon;
 
   @FindBy(xpath = "//*[@class='v-text-field__slot']//input")
   private TextBoxElementFacade                        searchApplicationCenterInput;
@@ -141,8 +144,11 @@ public class HomePage extends GenericPage {
   @FindBy(xpath = "//*[@id='walletBalance']//*[contains(@class,'big-number')]")
   private BaseElementFacade                           walletBalanceNumber;
 
-  @FindBy(xpath = "//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'uiArrowRightIcon')]")
+  @FindBy(xpath = "//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'fa fa-arrow')]")
   private BaseElementFacade arrowAdminstrationMenu ;
+
+  @FindBy(xpath = "//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'titleIcon')]")
+  private  BaseElementFacade administrationIcon ;
 
   public HomePage(WebDriver driver) {
     super(driver);
@@ -412,6 +418,8 @@ public class HomePage extends GenericPage {
     clickOnHamburgerMenu();
     retryOnCondition(() -> {
       administrationMenu.waitUntilVisible();
+      administrationIcon.hover();
+      arrowAdminstrationMenu.waitUntilVisible();
       clickOnElement(arrowAdminstrationMenu);
       waitFor(300).milliseconds(); // Wait until drawer 'open' animation
       // finishes
@@ -428,6 +436,7 @@ public class HomePage extends GenericPage {
   public void accessToRecentSpaces() {
     clickOnHamburgerMenu();
     retryOnCondition(() -> {
+      recentSpacesIcon.hover();
       recentSpacesBtn.waitUntilVisible();
       clickOnElement(recentSpacesBtn);
       waitFor(300).milliseconds(); // Wait until drawer 'open' animation
