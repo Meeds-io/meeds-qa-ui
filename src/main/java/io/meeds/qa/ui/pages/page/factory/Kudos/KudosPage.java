@@ -18,8 +18,11 @@ public class KudosPage extends GenericPage {
   @FindBy(xpath = "//*[@class='v-list-item__title peopleActionItem']")
   public static BaseElementFacade sendKudosMenu;
 
-  @FindBy(xpath = "//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'uiArrowRightIcon')]")
+  @FindBy(xpath = "//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'fa fa-arrow')]")
   private BaseElementFacade       addministrationMenu;
+
+  @FindBy(xpath = "//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'titleIcon')]")
+  private BaseElementFacade      administrationIcon ;
 
   @FindBy(xpath = "//i[contains(@class,'uiIcon uiIconToolbarNavItem uiAdministrationIcon')]")
   private BaseElementFacade       adminBtn;
@@ -168,6 +171,8 @@ public class KudosPage extends GenericPage {
   @SwitchToWindow
   public void goToKudosMenu() {
     menuBtn.clickOnElement();
+    administrationIcon.hover();
+    addministrationMenu.waitUntilVisible();
     addministrationMenu.clickOnElement();
     kudosLink.clickOnElement();
   }
