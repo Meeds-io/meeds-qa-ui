@@ -16,9 +16,11 @@ public class ManageDomainsPage extends GenericPage {
   @FindBy(xpath = "//button[@class='btn btn-primary']")
   private BaseElementFacade       addDomainBtn;
 
-  @FindBy(xpath = "//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'uiArrowRightIcon')]")
+  @FindBy(xpath = "//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'fa fa-arrow')]")
   private BaseElementFacade       adminBtn;
 
+  @FindBy(xpath = "//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'titleIcon')]")
+  private BaseElementFacade       adminIcon;
   @FindBy(xpath = "//a[@href='/portal/g/:platform:administrators/automatic-translation']")
   private BaseElementFacade       automaticTranslation;
 
@@ -149,6 +151,8 @@ public class ManageDomainsPage extends GenericPage {
   @SwitchToWindow
   public void goToManageDomainMenu() {
     menuBtn.clickOnElement();
+    adminIcon.hover();
+    adminBtn.waitUntilVisible();
     adminBtn.clickOnElement();
     domainLink.clickOnElement();
   }
