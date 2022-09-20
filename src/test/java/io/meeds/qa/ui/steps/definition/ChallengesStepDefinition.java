@@ -179,4 +179,14 @@ public class ChallengesStepDefinition {
     challengesSteps.selectStartDateTomorrow();
   }
 
+  @Then("Engagement application center is displayed")
+  public void isEngagementAppOpened() {
+    challengesSteps.isEngagementAppOpened();
+  }
+
+  @When("^I select engagement (.*) tab$")
+  public void selectEngagementTab(String tab) {
+    challengesSteps.selectEngagementTab(tab);
+  }
+
 }

@@ -14,7 +14,7 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class ApplicationPage extends GenericPage {
 
-  @FindBy(xpath = "//*[@href='/portal/meeds/challenges']//*[@class='appLauncherImage']")
+  @FindBy(xpath = "//*[@href='/portal/meeds/contributions']//*[@class='appLauncherImage']")
   public static BaseElementFacade challengeApplication;
 
   @FindBy(xpath = "//*[@class='userAuthorizedApplications']")
