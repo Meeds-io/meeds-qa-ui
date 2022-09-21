@@ -12,7 +12,7 @@ Feature: Challenges
     And I connect with the fifthchgadm created user
     And I create a random space
     When I go To AppCenter Drawer
-    And I go to Challenges AppCenter Application
+    And I go to contributions AppCenter Application
     Then Engagement application center is displayed
     When I select engagement Challenges tab
     Then Add challenge button should be displayed
@@ -25,7 +25,7 @@ Feature: Challenges
     And I create the sixth random user if not existing
     And I connect with the sixth created user
     When I go To AppCenter Drawer
-    And I go to Challenges AppCenter Application
+    And I go to contributions AppCenter Application
     Then Engagement application center is displayed
     And Add challenge button should not be displayed
 
@@ -51,7 +51,7 @@ Feature: Challenges
     And I promote 'secondchgadm' random user as a space manager
     And I connect with the firstchgadm created user
     And I go To AppCenter Drawer
-    And I go to Challenges AppCenter Application
+    And I go to contributions AppCenter Application
     Then Engagement application center is displayed
     When I select engagement Challenges tab
     And I click on the button add challenge
@@ -71,7 +71,7 @@ Feature: Challenges
     When I connect with the secondchgadm created user
     And I go to the random space
     And I go To AppCenter Drawer
-    And I go to Challenges AppCenter Application
+    And I go to contributions AppCenter Application
     Then Engagement application center is displayed
     When I select engagement Challenges tab
     And  I click on the button add challenge
@@ -102,7 +102,7 @@ Feature: Challenges
     And I connect with the firstchgadm created user
     And I create a random space
     And I go To AppCenter Drawer
-    And I go to Challenges AppCenter Application
+    And I go to contributions AppCenter Application
     Then Engagement application center is displayed
     When I select engagement Challenges tab
     And I click on the button add challenge
@@ -136,7 +136,7 @@ Feature: Challenges
     And I go to the random space
     And I connect with the firstchgadm created user
     And I go To AppCenter Drawer
-    And I go to Challenges AppCenter Application
+    And I go to contributions AppCenter Application
     Then Engagement application center is displayed
     When I select engagement Challenges tab
     And I click on the button add challenge
