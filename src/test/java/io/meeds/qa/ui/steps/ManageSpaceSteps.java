@@ -296,4 +296,21 @@ public class ManageSpaceSteps {
     manageSpacesPage.clickOptionApplicationCard(appName, option);
   }
 
+  public void checkFavIconInSpaceCard() {
+    manageSpacesPage.checkFavIconInSpaceCard();
+  }
+
+  public void clickOnSpaceBookmarkIconFromSpaceCard() {
+    manageSpacesPage.clickOnSpaceBookmarkIconFromSpaceCard();
+  }
+
+  public void checkSpaceBookmarkedFromSpaceCard() {
+    manageSpacesPage.checkSpaceBookmarkStatusFromSpaceCard(true);
+  }
+
+  public void checkSpaceUnBookmarkFromSpaceCard() {
+    manageSpacesPage.checkSpaceBookmarkStatusFromSpaceCard(false);
+  }
+
+
 }

@@ -251,3 +251,20 @@ Feature: Favorite activities
     And I select an object from the drop-down menu 'Notes'
     Then The activity is displayed in the search 'Note5'
     And The activity is displayed in the search 'Note6'
+
+  Scenario: SpaceFav_US01.11: Bookmark a space as a favorite (space page)
+    Given I am authenticated as admin
+    And I create the first random user if not existing
+    And I create a random space
+    And I connect with the first created user
+    And I go to the random space
+    And I 'Join'
+    When I go to spaces page
+    And  I search for the random space
+    Then The favorite icon should be displayed in space card
+    When I bookmark the random space as favorite from space card
+    Then The message 'Favorite added successfully. Find it easily from the search' should be displayed
+    And  I check that the random space is bookmarked as favorite from space card
+    When I unfavorite the random space from space card
+    Then The message 'The item has been removed from favorites successfully.' should be displayed
+    And I check that the random space is unbookmarked from space card
