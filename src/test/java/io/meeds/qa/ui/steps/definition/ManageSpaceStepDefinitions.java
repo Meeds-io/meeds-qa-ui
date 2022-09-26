@@ -383,5 +383,32 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.clickOptionApplicationCard(appName, option);
   }
 
+  @When("^I search for the random space$")
+  public void setInSearchRandomSpaceField() {
+    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
+    manageSpaceSteps.searchSpace(randomSpaceName);
+  }
+
+  @Then("The favorite icon should be displayed in space card")
+  public void checkFavIconInSpaceCard() {
+    manageSpaceSteps.checkFavIconInSpaceCard();
+  }
+
+  @Then("I bookmark the random space as favorite from space card")
+  @When("I unfavorite the random space from space card")
+  public void clickOnSpaceBookmarkIconFromSpaceCard() {
+    manageSpaceSteps.clickOnSpaceBookmarkIconFromSpaceCard();
+  }
+
+  @When("I check that the random space is bookmarked as favorite from space card")
+  public void checkSpaceBookmarkedFromSpaceCard() {
+    manageSpaceSteps.checkSpaceBookmarkedFromSpaceCard();
+  }
+
+  @When("I check that the random space is unbookmarked from space card")
+  public void checkSpaceUnBookmarkFromSpaceCard() {
+    manageSpaceSteps.checkSpaceUnBookmarkFromSpaceCard();
+  }
+
 }
 
