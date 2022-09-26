@@ -506,7 +506,6 @@ public class ManageSpacesPage extends GenericPage {
   public void insertSpaceNameInSearchField(String spaceName) {
     searchSpaceInput.waitUntilVisible();
     searchSpaceInput.setTextValue(spaceName);
-
     waitForProgressBar();
   }
 
@@ -669,6 +668,22 @@ public class ManageSpacesPage extends GenericPage {
     return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@class,'SpaceApplicationCard')]//ancestor::*[contains(@class,'v-list--dense')]//*[contains(text(),'%s')]",
                                           appName,
                                           option));
+  }
+
+  public void checkFavIconInSpaceCard() {
+    assertWebElementVisible(findByXPathOrCSS("//* [@class='spaceCardFront']//*[contains(@class,'fa-star')]"));
+  }
+
+  public void clickOnSpaceBookmarkIconFromSpaceCard() {
+    findByXPathOrCSS("//* [@class='spaceCardFront']//*[contains(@class,'fa-star')]").clickOnElement();
+  }
+
+  public void checkSpaceBookmarkStatusFromSpaceCard( boolean ShouldBeBookmarked) {
+    if (ShouldBeBookmarked) {
+      assertWebElementVisible(findByXPathOrCSS("//* [@class='spaceCardFront']//*[contains(@class,'fas fa-star')]"));
+    } else {
+      assertWebElementVisible(findByXPathOrCSS("//* [@class='spaceCardFront']//*[contains(@class,'far fa-star')]"));
+    }
   }
 
 }
