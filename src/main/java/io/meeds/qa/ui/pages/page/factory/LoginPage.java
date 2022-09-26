@@ -41,6 +41,7 @@ public class LoginPage extends GenericPage implements IsHidden {
     int i = 0;
     while (!StringUtils.contains(driver.getCurrentUrl(), "/portal/login") && i++ < maxRetries) {
       clearCookies();
+      refreshPage();
       open();
     }
     if (i >= maxRetries) {
