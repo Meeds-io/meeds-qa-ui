@@ -300,9 +300,18 @@ public class ManageSpaceSteps {
     manageSpacesPage.checkFavIconInSpaceCard();
   }
 
+  public void checkFavIconInSpacePopoverFromTopbar() {
+    manageSpacesPage.checkFavIconInSpacePopoverFromTopbar();
+  }
+
   public void clickOnSpaceBookmarkIconFromSpaceCard() {
     manageSpacesPage.clickOnSpaceBookmarkIconFromSpaceCard();
   }
+
+  public void clickOnSpaceBookmarkIconFromTopbarSpacePopover() {
+    manageSpacesPage.clickOnSpaceBookmarkIconFromTopbarSpacePopover();
+  }
+
 
   public void checkSpaceBookmarkedFromSpaceCard() {
     manageSpacesPage.checkSpaceBookmarkStatusFromSpaceCard(true);
@@ -311,6 +320,19 @@ public class ManageSpaceSteps {
   public void checkSpaceUnBookmarkFromSpaceCard() {
     manageSpacesPage.checkSpaceBookmarkStatusFromSpaceCard(false);
   }
+
+  public void checkSpaceBookmarkedFromTopbarSpacePopover() {
+    manageSpacesPage.checkSpaceBookmarkStatusFromTopbarSpacePopover(true);
+  }
+
+  public void checkSpaceUnBookmarkFromTopbarSpacePopover() {
+    manageSpacesPage.checkSpaceBookmarkStatusFromTopbarSpacePopover(false);
+  }
+
+  public void hoverOnSpaceName(String SpaceName) {
+    manageSpacesPage.hoverOnSpaceName(SpaceName);
+  }
+
 
 
 }

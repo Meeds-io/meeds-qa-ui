@@ -191,6 +191,11 @@ public class ManageSpacesPage extends GenericPage {
   @FindBy(xpath = "//*[contains(@class, 'v-dialog--active')]//button[contains(@class, 'btn-primary')]")
   private BaseElementFacade        removeConfirmationButton;
 
+  private BaseElementFacade getSpaceName(String fullName)
+  {
+    return findByXPathOrCSS(String.format("//div[contains(@class,'logoTitle') and contains(text(),'%s')]", fullName));
+  }
+
   private SpaceHomePage            spaceHomePage;
 
   public ManageSpacesPage(WebDriver driver) {
@@ -674,8 +679,16 @@ public class ManageSpacesPage extends GenericPage {
     assertWebElementVisible(findByXPathOrCSS("//* [@class='spaceCardFront']//*[contains(@class,'fa-star')]"));
   }
 
+  public void checkFavIconInSpacePopoverFromTopbar() {
+    assertWebElementVisible(findByXPathOrCSS("//*[contains(@class,'v-card')]//*[contains(@class,'fa-star')]"));
+  }
+
   public void clickOnSpaceBookmarkIconFromSpaceCard() {
     findByXPathOrCSS("//* [@class='spaceCardFront']//*[contains(@class,'fa-star')]").clickOnElement();
+  }
+
+  public void clickOnSpaceBookmarkIconFromTopbarSpacePopover() {
+    findByXPathOrCSS("//*[contains(@class,'v-card')]//*[contains(@class,'fa-star')]").clickOnElement();
   }
 
   public void checkSpaceBookmarkStatusFromSpaceCard( boolean ShouldBeBookmarked) {
@@ -686,4 +699,15 @@ public class ManageSpacesPage extends GenericPage {
     }
   }
 
-}
+    public void checkSpaceBookmarkStatusFromTopbarSpacePopover( boolean ShouldBeBookmarked){
+      if (ShouldBeBookmarked) {
+        assertWebElementVisible(findByXPathOrCSS("//*[contains(@class,'v-card')]//*[contains(@class,'fas fa-star')]"));
+      } else {
+        assertWebElementVisible(findByXPathOrCSS("//*[contains(@class,'v-card')]//*[contains(@class,'far fa-star')]"));
+      }
+    }
+
+    public void hoverOnSpaceName (String SpaceName){
+      getSpaceName(SpaceName).hover();
+    }
+  }
