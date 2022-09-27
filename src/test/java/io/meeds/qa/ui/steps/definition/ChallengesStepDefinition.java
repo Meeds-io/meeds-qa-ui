@@ -39,8 +39,8 @@ public class ChallengesStepDefinition {
 
   @And("^I assign the announcement to the (.*) user$")
   public void assignChallengeToRandomUser(String userPrefix) {
-    String userName = Serenity.sessionVariableCalled(userPrefix + "UserName");
-    challengesSteps.assignChallengeToUser(userName);
+    String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
+    challengesSteps.assignChallengeToUser(userLastName);
   }
 
   @And("^Achievement description should be displayed on the announcement activity$")
