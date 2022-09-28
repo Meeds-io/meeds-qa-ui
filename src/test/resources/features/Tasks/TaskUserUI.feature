@@ -8,7 +8,7 @@ Feature: Task user ui
     And I open the app center menu
     And I open all application page
     When I go to 'Tasks' application
-    And I select 'Projects' tab
+    And I select projects tab
     And I click on add project button
     And I enter the project name 'manageProject'
     And I click on save project button
@@ -26,7 +26,7 @@ Feature: Task user ui
     And I open the app center menu
     And I open all application page
     When I go to 'Tasks' application
-    And I select 'Projects' tab
+    And I select projects tab
     And I click on add project button
     And I enter the project name in Task application
     And I click on save project button
@@ -44,7 +44,7 @@ Feature: Task user ui
     And I open the app center menu
     And I open all application page
     When I go to 'Tasks' application
-    And I select 'Projects' tab
+    And I select projects tab
     And I click on add project button
     And I enter the project name 'pr'
     And I click on save project button

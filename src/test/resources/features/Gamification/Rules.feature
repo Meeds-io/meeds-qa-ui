@@ -72,7 +72,7 @@ Feature: Rules
     And I check my points
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
-    And I select 'Tasks' tab
+    And I select tasks tab
     And I create the following task
       | taskName | taskgamification |
     And I go to my profile
@@ -82,14 +82,14 @@ Feature: Rules
     Given I am authenticated as admin
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
-    And I select 'Tasks' tab
+    And I select tasks tab
     And I create the following task
       | taskName | taskcompleted |
     And I go to my profile
     And I check my points
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
-    And I select 'Tasks' tab
+    And I select tasks tab
     And I start the search for Task 'taskcompleted'
     And I mark the task as completed
     And I go to my profile

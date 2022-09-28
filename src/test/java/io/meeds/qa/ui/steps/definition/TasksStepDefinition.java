@@ -821,9 +821,14 @@ public class TasksStepDefinition {
     tasksSteps.goToProjectDetailsList();
   }
 
-  @When("^I select '(.*)' tab$")
-  public void goToTab(String tab) {
-    tasksSteps.goToTab(tab);
+  @When("I select projects tab")
+  public void goToProjectsTab() {
+    tasksSteps.goToProjectsTab();
+  }
+
+  @When("I select tasks tab")
+  public void goToTasksTab() {
+    tasksSteps.goToTasksTab();
   }
 
   @When("^Next to max chars number a green information icon is displayed$")
