@@ -9,7 +9,7 @@ Feature: Tasks - Projects
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
-    When I select 'Projects' tab
+    When I select projects tab
     And I add a new project with a description
     Then the project is created successfully and displayed on Projects tab
 
@@ -22,7 +22,7 @@ Feature: Tasks - Projects
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
-    When I select 'Projects' tab
+    When I select projects tab
     And I search for the created project
     And I open the created project
     And I create the following task in selected project
@@ -41,7 +41,7 @@ Feature: Tasks - Projects
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
-    When I select 'Projects' tab
+    When I select projects tab
     And I create the project 'Project2'
     And I search for the project 'Project2'
     Then A clear button is displayed in the search field
@@ -64,7 +64,7 @@ Feature: Tasks - Projects
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
 
-    When I select 'Projects' tab
+    When I select projects tab
     And I search for the created space
     Then First project name with description 'No description available' is displayed in Project Card
     When I hover on project manager icon
@@ -79,7 +79,7 @@ Feature: Tasks - Projects
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
 
-    When I select 'Projects' tab
+    When I select projects tab
     And I search for the created space
     Then User avatar 'admin' is displayed in Project Card
     And Avatar of the first created user is displayed in Project Card
@@ -93,7 +93,7 @@ Feature: Tasks - Projects
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
 
-    When I select 'Projects' tab
+    When I select projects tab
     And I add the random project with first user as the manager and second user as the participant
     And I search for the created project
     Then The random created project with description 'No description available' is displayed in Project Card
@@ -108,7 +108,7 @@ Feature: Tasks - Projects
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
 
-    When I select 'Projects' tab
+    When I select projects tab
     And I add a new project
     And I open the added project
     Then The project name is displayed in project details
@@ -137,7 +137,7 @@ Feature: Tasks - Projects
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
 
-    When I select 'Projects' tab
+    When I select projects tab
     And I create the random project with the first created user as participant
     And I search for the created project
     Then The random created project with description 'No description available' is displayed in Project Card
@@ -154,7 +154,7 @@ Feature: Tasks - Projects
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
 
-    When I select 'Projects' tab
+    When I select projects tab
     And I search for the created project
     Then The random created project with description 'No description available' is displayed in Project Card
 
@@ -174,7 +174,7 @@ Feature: Tasks - Projects
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
 
-    When I select 'Projects' tab
+    When I select projects tab
     And I create the project 'teamcap216'
     And I open the project 'teamcap216'
     And The task is created in the specific project
@@ -199,7 +199,7 @@ Feature: Tasks - Projects
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
-    When I select 'Projects' tab
+    When I select projects tab
     And I search for the created project
     And I open the created project
     And I create the following task in selected project
@@ -234,7 +234,7 @@ Feature: Tasks - Projects
     And I open the app center menu
     And I open all application page
     When I go to 'Tasks' application
-    And I select 'Projects' tab
+    And I select projects tab
     And I click on add project button
     And I enter the project name 'projectCard1'
     And I click on save project button
@@ -247,7 +247,7 @@ Feature: Tasks - Projects
     And I open the app center menu
     And I open all application page
     When I go to 'Tasks' application
-    And I select 'Projects' tab
+    And I select projects tab
     And I click on add project button
     And I enter the project name 'deleteProject'
     And I click on save project button
@@ -262,7 +262,7 @@ Feature: Tasks - Projects
     And I open the app center menu
     And I open all application page
     When I go to 'Tasks' application
-    And I select 'Projects' tab
+    And I select projects tab
     And I click on add project button
     And I enter the project name 'cancelDelete'
     And I click on save project button

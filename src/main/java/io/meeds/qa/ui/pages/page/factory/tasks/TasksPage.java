@@ -313,7 +313,7 @@ public class TasksPage extends GenericPage {
   @FindBy(xpath = "//*[contains(@class,'uiIconVerticalDots')]")
   private BaseElementFacade        projectThreeDotsButton;
 
-  @FindBy(xpath = "//*[@placeholder='Project title']")
+  @FindBy(xpath = "//*[contains(@class, 'projectInputTitle')]")
   private TextBoxElementFacade     projectTitle;
 
   @FindBy(xpath = "//*[contains(@class,'addProjectTitle ')]//input")
@@ -1380,13 +1380,12 @@ public class TasksPage extends GenericPage {
     projectDetailsListButton.clickOnElement();
   }
 
-  public void goToTab(String tab) {
-    BaseElementFacade tabLink =
-                              findByXPathOrCSS(String.format("//*[contains(@class, 'tasksMenuParent')]//a[contains(text(), '%s')]",
-                                                             tab));
-    clickOnElement(tabLink);
-    verifyPageLoaded();
-    waitFor(300).milliseconds(); // Wait for Tab switch
+  public void goToProjectsTab() {
+    goToTab(1);
+  }
+
+  public void goToTasksTab() {
+    goToTab(2);
   }
 
   public void greenInformationIconIsDisplayed() {
@@ -1476,6 +1475,15 @@ public class TasksPage extends GenericPage {
 
   public void openProject(String project) {
     getProjectCard(project).clickOnElement();
+  }
+
+  private void goToTab(int tabIndex) {
+    BaseElementFacade tabLink =
+        findByXPathOrCSS(String.format("//*[contains(@class, 'tasksMenuParent')]//*[@role='tab'][%s]",
+                                       tabIndex));
+    clickOnElement(tabLink);
+    verifyPageLoaded();
+    waitFor(300).milliseconds(); // Wait for Tab switch
   }
 
   private BaseElementFacade openTask(String projectName) {

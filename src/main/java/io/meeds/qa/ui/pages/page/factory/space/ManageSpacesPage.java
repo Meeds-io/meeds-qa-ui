@@ -86,7 +86,7 @@ public class ManageSpacesPage extends GenericPage {
   @FindBy(xpath = "//button[contains(text(),'OK')]")
   private TextBoxElementFacade     okButton;
 
-  @FindBy(xpath = "//*[@class='v-input--selection-controls__input']/following::label[contains(text(),'Open')]")
+  @FindBy(xpath = "//*[contains(@class,'v-navigation-drawer--open')]//input[@value='open']//ancestor::*[contains(@class,'v-radio')]")
   private BaseElementFacade        openRadioBtn;
 
   @FindBy(xpath = "//*[@class='v-icon notranslate mdi mdi-plus theme--light']")
