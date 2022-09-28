@@ -8,7 +8,7 @@ Feature: Filter Drawer
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
-    And I select 'Projects' tab
+    And I select projects tab
     And I search for the created project
     And I open the created project
     And The following task with label 'testlabel110-1' is created in the specific project
@@ -42,7 +42,7 @@ Feature: Filter Drawer
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
-    And I select 'Projects' tab
+    And I select projects tab
     And I search for the created project
     And I open the created project
     And I create the following task in selected project
@@ -74,7 +74,7 @@ Feature: Filter Drawer
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
-    And I select 'Projects' tab
+    And I select projects tab
     And I search for the created project
     And I open the created project
     And I create the following task in selected project
@@ -120,7 +120,7 @@ Feature: Filter Drawer
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
-    And I select 'Projects' tab
+    And I select projects tab
     And I search for the created project
     And I open the created project
     And I create the following task in selected project

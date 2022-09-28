@@ -580,8 +580,12 @@ public class TasksSteps {
     tasksPage.goToProjectDetailsList();
   }
 
-  public void goToTab(String tab) {
-    tasksPage.goToTab(tab);
+  public void goToProjectsTab() {
+    tasksPage.goToProjectsTab();
+  }
+
+  public void goToTasksTab() {
+    tasksPage.goToTasksTab();
   }
 
   public void greenInformationIconIsDisplayed() {
