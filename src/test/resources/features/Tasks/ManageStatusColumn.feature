@@ -9,7 +9,7 @@ Feature: Project manager deletes, moves after/before a status column
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
-    When I select 'Projects' tab
+    When I select projects tab
     And I add a new project
     And I open the added project
     And I click on three dots icon of the first status column
@@ -25,7 +25,7 @@ Feature: Project manager deletes, moves after/before a status column
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
-    When I select 'Projects' tab
+    When I select projects tab
     And I add a new project
     And I open the added project
     And I click on three dots icon of the first status column
@@ -43,7 +43,7 @@ Feature: Project manager deletes, moves after/before a status column
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
-    When I select 'Projects' tab
+    When I select projects tab
     And I add a new project
     And I open the added project
     And I click on three dots icon of the last status column
