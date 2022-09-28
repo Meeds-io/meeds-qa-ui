@@ -22,6 +22,7 @@ Feature: Edit sections in Settings page
     When I click on Edit language and I change it 'English'
     And I accept editing language
 
+    When I refresh the page
     Then Language 'English / English' is displayed
 
   # Default timezone for some servers may be different from (GMT +01:00) Central European Standard Time

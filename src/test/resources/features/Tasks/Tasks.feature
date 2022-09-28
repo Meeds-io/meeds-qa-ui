@@ -11,7 +11,7 @@ Feature: Tasks
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
-    When I select 'Projects' tab
+    When I select projects tab
     And I search for the created project
     And I open the created project
     And I create the following task in selected project
@@ -30,7 +30,7 @@ Feature: Tasks
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
-    When I select 'Tasks' tab
+    When I select tasks tab
     And I create the following task
       | taskName | task1 |
     And I start the search for Task 'task1'
@@ -47,7 +47,7 @@ Feature: Tasks
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
-    When I select 'Tasks' tab
+    When I select tasks tab
     And I create the following task
       | taskName | testE |
     When I open the created task 'testE'
@@ -66,7 +66,7 @@ Feature: Tasks
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
 
-    When I select 'Projects' tab
+    When I select projects tab
     And I create the random project with the first created user as participant
     And I connect with the first created user
 
@@ -74,7 +74,7 @@ Feature: Tasks
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
 
-    When I select 'Projects' tab
+    When I select projects tab
     And I search for the created project
     And I open the created project
     And I create the following task in selected project
@@ -95,7 +95,7 @@ Feature: Tasks
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
 
-    When I select 'Projects' tab
+    When I select projects tab
     And I create the project 'newtestessai'
     And I open the project 'newtestessai'
     And The task is created in the specific project
@@ -127,7 +127,7 @@ Feature: Tasks
     And I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
-    When I select 'Projects' tab
+    When I select projects tab
     And I search for the created project
     And I open the created project
     And I create the following task in selected project
@@ -182,7 +182,7 @@ Feature: Tasks
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
 
-    When I select 'Projects' tab
+    When I select projects tab
     And I create the project 'TestProject'
     And I open the project 'TestProject'
     And I click on three dots icon of the first status column
@@ -251,7 +251,7 @@ Feature: Tasks
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
 
-    When I select 'Projects' tab
+    When I select projects tab
     And I search for the created project
     And I open the created project
     And I create the following task in selected project
@@ -274,7 +274,7 @@ Feature: Tasks
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
 
-    When I select 'Projects' tab
+    When I select projects tab
     And I create the random project with the first created user as participant
     And I click on three dots project button
     And I click on Edit project button
@@ -292,7 +292,7 @@ Feature: Tasks
     And I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
     And Tasks Application Page is displayed
-    And I select 'Projects' tab
+    And I select projects tab
     And I search for the created project
     And I open the created project
     And I create the following task in selected project
@@ -303,7 +303,7 @@ Feature: Tasks
     And I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
     And Tasks Application Page is displayed
-    And I select 'Projects' tab
+    And I select projects tab
     And I search for the created project
     And I open the created project
     And Task name 'newtask' is displayed in project details
@@ -342,7 +342,7 @@ Feature: Tasks
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
 
-    When I select 'Projects' tab
+    When I select projects tab
     And I create the project 'Test Compagne' with the first created user as manager
     And I open the project 'Test Compagne'
     And The task is created in the specific project
@@ -401,10 +401,10 @@ Feature: Tasks
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
     Then Tasks Application Page is displayed
-    And I select 'Projects' tab
+    And I select projects tab
     And I create the random project with the first created user as participant
 
-    When I select 'Projects' tab
+    When I select projects tab
     And I search for the created project
     And I open the created project
     And I click on plus Button To Add Task
@@ -420,7 +420,7 @@ Feature: Tasks
     And I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
     And Tasks Application Page is displayed
-    And I select 'Projects' tab
+    And I select projects tab
     And I search for the created project
     And I open the created project
     And I open the task 'Test Tasks'

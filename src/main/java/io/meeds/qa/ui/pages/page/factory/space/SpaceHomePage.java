@@ -147,7 +147,7 @@ public class SpaceHomePage extends GenericPage {
   @FindBy(xpath = "//*[contains(@class,'uiIcon uiIconMemberAdmin')]")
   private BaseElementFacade    promoteAsManagerBtn;
 
-  @FindBy(xpath = "//*[contains(@class,'v-navigation-drawer--open')]//button[@aria-label='Post']")
+  @FindBy(xpath = "//*[contains(@class,'v-navigation-drawer--open')]//*[contains(@class, 'drawerFooter')]//button[contains(@class, 'primary')]")
   private BaseElementFacade    publishActivityButton;
 
   @FindBy(xpath = "//*[contains(@class,'drawerContent ')]//button//span[contains(text(),'Comment')]")
