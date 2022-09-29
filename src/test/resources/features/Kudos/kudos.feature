@@ -77,3 +77,30 @@ Feature: Kudos
     And I click on three dots menu click on the edit button
     And I set the new kudos 'updated kudos message' and I click on update button
     Then the updated Kudos activity 'updated kudos message' is displayed in stream page
+
+  Scenario: [ActivityStreamKudos_US11] Send a kudos to someone different from the activity author
+    Given I connect as admin if random users doesn't exists
+      | first  |
+      | second |
+      | third   |
+    And I create the first random user
+    And I create the second random user
+    And I create the third random user
+
+    When I connect with the first created user
+    And I go to the random space
+    And I click on post in space
+    And I enter an activity 'Kudos Post activity'
+    And I publish the activity
+    Then the activity 'Kudos Post activity' is displayed in activity stream
+
+    And I connect with the second created user
+    And I go to the random space
+
+    And I connect with the third created user
+    When I go to the random space
+    And I send to the activity 'Kudos Post activity' a kudos message 'bien bien bien' to second created user
+
+    And I connect with the second created user
+    And I go to My Profile page
+    Then '1' kudos are received
