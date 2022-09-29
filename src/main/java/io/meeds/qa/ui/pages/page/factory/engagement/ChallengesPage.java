@@ -28,7 +28,7 @@ public class ChallengesPage extends GenericPage {
   @FindBy(css = "#announcementDrawer.v-navigation-drawer--open")
   private BaseElementFacade    announcementHeaderDrawer;
 
-  @FindBy(xpath = "(//div[@name='challengeSpaceAutocomplete']//input)[01]")
+  @FindBy(xpath = "//*[contains(@content-class,'identitySuggester')]")
   private TextBoxElementFacade assignAnnouncementInput;
 
   @FindBy(xpath = "//*[@id='EngagementCenterAssignmentBtn']")
@@ -130,6 +130,7 @@ public class ChallengesPage extends GenericPage {
   public void assignChallengeToUser(String user) {
     assertWebElementVisible(assignLink);
     assignLink.clickOnElement();
+    assertWebElementVisible(assignAnnouncementInput);
     mentionInField(assignAnnouncementInput, user, 5);
   }
 
