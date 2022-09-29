@@ -152,7 +152,7 @@ Feature: Challenges
     And I select engagement Challenges tab
     And I click on the announce button
     Then The announcement drawer should be displayed
-    And I assign the announcement to the secondchgadm user
+    And I assign the announcement to the 'secondchgadm' user
     And I create announcement with random description
     Then The message 'Announcement created successfully.' should be displayed
     When I connect with the secondchgadm created user

@@ -37,7 +37,7 @@ public class ChallengesStepDefinition {
     challengesSteps.addProgramName(programName);
   }
 
-  @And("^I assign the announcement to the (.*) user$")
+  @And("^I assign the announcement to the '(.*)' user$")
   public void assignChallengeToRandomUser(String userPrefix) {
     String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
     challengesSteps.assignChallengeToUser(userLastName);
