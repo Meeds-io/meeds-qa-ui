@@ -275,7 +275,7 @@ Feature: Favorite activities
     And I create a random space
     And I connect with the first created user
     And I go to the random space
-    And I hover on SpaceName
+    And I hover on space name from top bar
     Then The favorite icon should be displayed in space popover from topbar
     When I bookmark the random space as favorite from topbar space popover
     Then The message 'Favorite added successfully. Find it easily from the search' should be displayed

@@ -312,7 +312,6 @@ public class ManageSpaceSteps {
     manageSpacesPage.clickOnSpaceBookmarkIconFromTopbarSpacePopover();
   }
 
-
   public void checkSpaceBookmarkedFromSpaceCard() {
     manageSpacesPage.checkSpaceBookmarkStatusFromSpaceCard(true);
   }
@@ -329,8 +328,8 @@ public class ManageSpaceSteps {
     manageSpacesPage.checkSpaceBookmarkStatusFromTopbarSpacePopover(false);
   }
 
-  public void hoverOnSpaceName(String SpaceName) {
-    manageSpacesPage.hoverOnSpaceName(SpaceName);
+  public void hoverOnSpaceName() {
+    manageSpacesPage.hoverOnSpaceName();
   }
 
 

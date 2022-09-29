@@ -191,10 +191,10 @@ public class ManageSpacesPage extends GenericPage {
   @FindBy(xpath = "//*[contains(@class, 'v-dialog--active')]//button[contains(@class, 'btn-primary')]")
   private BaseElementFacade        removeConfirmationButton;
 
-  private BaseElementFacade getSpaceName(String fullName)
-  {
-    return findByXPathOrCSS(String.format("//div[contains(@class,'logoTitle') and contains(text(),'%s')]", fullName));
-  }
+  private BaseElementFacade spaceName()
+    {
+       return findByXPathOrCSS("//*[contains(@class,'UITopBarContainerItem')]//*[contains(@class,'logoTitle')]");
+     }
 
   private SpaceHomePage            spaceHomePage;
 
@@ -707,7 +707,7 @@ public class ManageSpacesPage extends GenericPage {
       }
     }
 
-    public void hoverOnSpaceName (String SpaceName){
-      getSpaceName(SpaceName).hover();
-    }
+    public void hoverOnSpaceName () {
+         spaceName().hover();
+      }
   }

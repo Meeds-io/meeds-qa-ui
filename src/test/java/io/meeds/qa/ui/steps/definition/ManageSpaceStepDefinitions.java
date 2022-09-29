@@ -431,10 +431,9 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.checkSpaceUnBookmarkFromTopbarSpacePopover();
   }
 
-  @When("^I hover on SpaceName$")
+  @When("^I hover on space name from top bar$")
   public void hoverOnSpaceName() {
-    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
-    manageSpaceSteps.hoverOnSpaceName(randomSpaceName);
+    manageSpaceSteps.hoverOnSpaceName();
   }
 
 
