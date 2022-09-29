@@ -331,7 +331,4 @@ public class ManageSpaceSteps {
   public void hoverOnSpaceName() {
     manageSpacesPage.hoverOnSpaceName();
   }
-
-
-
 }
