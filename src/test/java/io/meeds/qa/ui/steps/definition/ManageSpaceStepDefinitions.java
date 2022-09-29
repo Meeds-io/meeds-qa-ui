@@ -394,10 +394,21 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.checkFavIconInSpaceCard();
   }
 
+  @Then("The favorite icon should be displayed in space popover from topbar")
+  public void checkFavIconInSpacePopoverFromTopbar() {
+    manageSpaceSteps.checkFavIconInSpacePopoverFromTopbar();
+  }
+
   @Then("I bookmark the random space as favorite from space card")
   @When("I unfavorite the random space from space card")
   public void clickOnSpaceBookmarkIconFromSpaceCard() {
     manageSpaceSteps.clickOnSpaceBookmarkIconFromSpaceCard();
+  }
+
+  @Then("I bookmark the random space as favorite from topbar space popover")
+  @When("I unfavorite the random space from topbar space popover")
+  public void clickOnSpaceBookmarkIconFromTopbarSpacePopover() {
+    manageSpaceSteps.clickOnSpaceBookmarkIconFromTopbarSpacePopover();
   }
 
   @When("I check that the random space is bookmarked as favorite from space card")
@@ -405,10 +416,26 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.checkSpaceBookmarkedFromSpaceCard();
   }
 
+  @When("I check that the random space is bookmarked as favorite from topbar space popover")
+  public void checkSpaceBookmarkedFromTopbarSpacePopover() {
+    manageSpaceSteps.checkSpaceBookmarkedFromTopbarSpacePopover();
+  }
+
   @When("I check that the random space is unbookmarked from space card")
   public void checkSpaceUnBookmarkFromSpaceCard() {
     manageSpaceSteps.checkSpaceUnBookmarkFromSpaceCard();
   }
+
+  @When("I check that the random space is unbookmarked from topbar space popover")
+  public void checkSpaceUnBookmarkFromTopbarSpacePopover() {
+    manageSpaceSteps.checkSpaceUnBookmarkFromTopbarSpacePopover();
+  }
+
+  @When("^I hover on space name from top bar$")
+  public void hoverOnSpaceName() {
+    manageSpaceSteps.hoverOnSpaceName();
+  }
+
 
 }
 
