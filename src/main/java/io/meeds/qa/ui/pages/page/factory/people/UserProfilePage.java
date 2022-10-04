@@ -146,7 +146,7 @@ public class UserProfilePage extends GenericPage {
   @FindBy(xpath = "(//*[contains(@class, 'profileWorkExperiencesDates')]//*[contains(@class, 'datePickerComponent')])[1]//*[contains(@class,'menuable__content__active')]//*[contains(@class,'v-date-picker-header')]//button[1]")
   private TextBoxElementFacade   elementWorkExperiencesStartDateGoToPreviousMonth;
 
-  @FindBy(xpath = "((//*[contains(@class, 'profileWorkExperiencesDates')]//*[contains(@class, 'datePickerComponent')])[1]//*[contains(@class,'menuable__content__active')]//*[contains(@class,'v-date-picker-table')]//td)[1]//button")
+  @FindBy(xpath = "(//*[contains(@class, 'profileWorkExperiencesDates')]//*[contains(@class, 'datePickerComponent')])[1]//*[contains(@class,'menuable__content__active')]//*[contains(@class,'v-date-picker-table')]//td//*[text() = '1']")
   private TextBoxElementFacade   elementWorkExperiencesStartDateFirstMonthDay;
 
   @FindBy(xpath = "(//*[contains(@class, 'profileWorkExperiencesDates')]//*[contains(@class, 'datePickerComponent')])[2]//*[contains(@class,'menuable__content__active')]//*[contains(@class,'v-date-picker-table__current')]")
