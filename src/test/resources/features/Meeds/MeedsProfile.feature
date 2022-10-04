@@ -104,7 +104,6 @@ Feature: Search for User Informations in Profile page
     Then Sent Kudos Section is displayed
     Then Gained Cauris Section is displayed
 
-  @test
   Scenario: : PROFILE-7 : Work Experiences block and its drawer
     Given I am authenticated as admin
 
