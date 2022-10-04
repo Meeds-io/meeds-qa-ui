@@ -146,9 +146,6 @@ public class UserProfilePage extends GenericPage {
   @FindBy(xpath = "(//*[contains(@class, 'profileWorkExperiencesDates')]//*[contains(@class, 'datePickerComponent')])[1]//*[contains(@class,'menuable__content__active')]//*[contains(@class,'v-date-picker-header')]//button[1]")
   private TextBoxElementFacade   elementWorkExperiencesStartDateGoToPreviousMonth;
 
-  @FindBy(xpath = "(//*[contains(@class, 'profileWorkExperiencesDates')]//*[contains(@class, 'datePickerComponent')])[1]//*[contains(@class,'menuable__content__active')]//*[contains(@class,'v-date-picker-table')]//td//*[text() = '1']")
-  private TextBoxElementFacade   elementWorkExperiencesStartDateFirstMonthDay;
-
   @FindBy(xpath = "(//*[contains(@class, 'profileWorkExperiencesDates')]//*[contains(@class, 'datePickerComponent')])[2]//*[contains(@class,'menuable__content__active')]//*[contains(@class,'v-date-picker-table__current')]")
   private TextBoxElementFacade   elementWorkExperiencesEndDateToday;
 
@@ -555,7 +552,11 @@ public class UserProfilePage extends GenericPage {
 
     elementWorkExperiencesStartDate.clickOnElement();
     elementWorkExperiencesStartDateGoToPreviousMonth.clickOnElement();
+    waitFor(200).milliseconds(); // Wait until animation finishes
+    BaseElementFacade elementWorkExperiencesStartDateFirstMonthDay =
+                                                                   findByXPathOrCSS("(//*[contains(@class, 'profileWorkExperiencesDates')]//*[contains(@class, 'datePickerComponent')])[1]//*[contains(@class,'menuable__content__active')]//*[contains(@class,'v-date-picker-table')]//td//*[text() = '1']//ancestor::button");
     elementWorkExperiencesStartDateFirstMonthDay.clickOnElement();
+    waitFor(200).milliseconds(); // Wait until animation finishes
 
     elementWorkExperiencesEndDate.clickOnElement();
     elementWorkExperiencesEndDateToday.clickOnElement();
