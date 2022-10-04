@@ -5,6 +5,8 @@ Feature: Edit sections in Settings page
 
   Scenario: [SETTINGS-5] Language and its drawer
     Given I am authenticated as admin
+    And I create the firstlang random user if not existing
+    And I connect with the firstlang created user
 
     And I go to Settings page
     Then Settings Page Is Opened
