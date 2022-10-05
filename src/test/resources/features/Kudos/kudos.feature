@@ -90,16 +90,16 @@ Feature: Kudos
     When I connect with the first created user
     And I go to the random space
     And I click on post in space
-    And I enter an activity 'Kudos Post activity'
+    And I enter an activity 'Bonjour Team'
     And I publish the activity
-    Then the activity 'Kudos Post activity' is displayed in activity stream
+    Then the activity 'Bonjour Team' is displayed in activity stream
 
     And I connect with the second created user
     And I go to the random space
 
     And I connect with the third created user
     When I go to the random space
-    And I send to the activity 'Kudos Post activity' a kudos message 'bien bien bien' to second created user
+    And I send to the activity 'Bonjour Team' a kudos message 'bien bien bien' to second created user
 
     And I connect with the second created user
     And I go to My Profile page
