@@ -27,29 +27,6 @@ Feature: Edit sections in Settings page
     When I refresh the page
     Then Language 'English / English' is displayed
 
-  # Default timezone for some servers may be different from (GMT +01:00) Central European Standard Time
-  @standardConfigurationOnly
-  Scenario: [SETTINGS-6] TimeZone view and drawer
-    Given I am authenticated as admin
-
-    And I go to Settings page
-    Then Settings Page Is Opened
-
-    When I click on Edit time zone and I change it '+02:00'
-    And I cancel editing time zone
-
-    Then Time zone '(GMT +01:00) Central European Standard Time' is displayed
-
-    When I click on Edit time zone and I change it '+02:00'
-    And I accept editing language
-
-    Then Time zone '(GMT +02:00) Central Africa Time' is displayed
-
-    When I click on Edit time zone and I change it '+01:00'
-    And I accept editing language
-
-    Then Time zone '(GMT +01:00) Central European Standard Time' is displayed
-
   @ignored
   Scenario: [SETTINGS-7] Security on settings
     Given I connect as admin if random users doesn't exists
