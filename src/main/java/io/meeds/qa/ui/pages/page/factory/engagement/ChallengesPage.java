@@ -132,6 +132,7 @@ public class ChallengesPage extends GenericPage {
     assignLink.clickOnElement();
     assertWebElementVisible(findByXPathOrCSS("//*[contains(@content-class,'identitySuggester')]"));
     findByXPathOrCSS("//*[contains(@content-class,'identitySuggesterContent')]").sendKeys(user);
+    waitFor(300).milliseconds();
     selectUser(user).clickOnElement();
   }
 
