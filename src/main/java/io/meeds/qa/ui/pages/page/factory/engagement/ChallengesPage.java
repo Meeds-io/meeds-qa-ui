@@ -130,8 +130,9 @@ public class ChallengesPage extends GenericPage {
   public void assignChallengeToUser(String user) {
     assertWebElementVisible(assignLink);
     assignLink.clickOnElement();
-    assertWebElementVisible(assignAnnouncementInput);
-    mentionInField(assignAnnouncementInput, user, 5);
+    assertWebElementVisible(findByXPathOrCSS("//*[contains(@content-class,'identitySuggester')]"));
+    findByXPathOrCSS("//*[contains(@content-class,'identitySuggesterContent')]").sendKeys(user);
+    selectUser(user).clickOnElement();
   }
 
   public void checkAchievementDescriptionOnAnnouncement(String description) {
@@ -348,4 +349,8 @@ public class ChallengesPage extends GenericPage {
     return findByXPathOrCSS(String.format("//*[@id='engagementCenterTabs']//*[contains(text(),'%s')]", tab));
   }
 
+  private BaseElementFacade selectUser(String user)
+  {
+    return findByXPathOrCSS(String.format("//*[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]", user));
+  }
 }
