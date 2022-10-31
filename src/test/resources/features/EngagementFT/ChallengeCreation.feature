@@ -1,7 +1,7 @@
 @challenge
 Feature: Challenges
 
-  @standardConfigurationOnly @test
+  @standardConfigurationOnly
   Scenario: [Challenge_App_US02][02] First screen of the App ( manager of a space+ admin)
     Given I am authenticated as admin
     And I create the fifthchgadm random user if not existing
@@ -17,7 +17,7 @@ Feature: Challenges
     When I select engagement Challenges tab
     Then Add challenge button should be displayed
 
-  @standardConfigurationOnly @test
+  @standardConfigurationOnly
   Scenario: [Challenge_App_US02][01] First screen of the App ( not manager of any space)
     Given I connect as admin if random users doesn't exists
       | sixth  |
@@ -29,7 +29,8 @@ Feature: Challenges
     Then Engagement application center is displayed
     And Add challenge button should not be displayed
 
-  @standardConfigurationOnly @test
+  @skip
+  @ignored
   Scenario: Challenge_App_Admin_US01 Challenge App
     Given I am authenticated as admin
     And I create the firstchgadm random user if not existing, no wait
@@ -91,7 +92,7 @@ Feature: Challenges
     And The challenge card title 'challenge2' should be displayed
     And Add challenge button should be displayed
 
-  @standardConfigurationOnly @test
+  @standardConfigurationOnly
   Scenario: Challenge_App_Admin_US02 Challenge CARD
     Given I am authenticated as admin
     And I create the firstchgadm random user if not existing
@@ -121,7 +122,8 @@ Feature: Challenges
     And Announce button should be displayed on the challenge card
     And Date indication should be displayed on the challenge card
 
-  @standardConfigurationOnly @test
+  @skip
+  @ignored
   Scenario: Challenge_App_US01 Post the challenge on the space stream
     Given I am authenticated as admin
     And I create the firstchgadm random user if not existing, no wait
