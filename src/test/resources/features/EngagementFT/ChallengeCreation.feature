@@ -160,3 +160,41 @@ Feature: Challenges
     When I connect with the secondchgadm created user
     And I go to the random space
     Then The announcement activity with random description and random challenge title is posted by the 'firstchgadm' with winner name 'secondchgadm'
+
+  @standardConfigurationOnly
+  @test
+  Scenario: Engagement_Center_App: Challenges textual filter
+    Given I am authenticated as admin
+    And I create the firstchgadm random user if not existing, no wait
+    And I go to groups Management page
+    And I open the group 'Platform'
+    When I select the group 'Administration'
+    And I add the role 'member' to the firstchgadm created user
+    And I connect with the firstchgadm created user
+    And I create a random space
+    And I go To AppCenter Drawer
+    And I go to contributions AppCenter Application
+    Then Engagement application center is displayed
+    When I select engagement Challenges tab
+    When I click on the button add challenge
+    Then The drawer add challenge should be displayed
+    And I enter the challenge title 'automation'
+    And I select a space audience
+    And I select the program 'Social'
+    And I select today for start date
+    And I select tomorrow for end date
+    And I add challenge with random description
+    Then The message 'New challenge created successfully.' should be displayed
+    And I refresh the page
+    When I click on the button add challenge
+    Then The drawer add challenge should be displayed
+    And I enter the challenge title 'accessibility'
+    And I select a space audience
+    And I select the program 'Feedbacks'
+    And I select today for start date
+    And I select tomorrow for end date
+    And I add challenge with random description
+    Then The message 'New challenge created successfully.' should be displayed
+    When I search for the challenge 'accessibility'
+    Then The challenge card title 'accessibility' should be displayed
+    And The challenge card title 'automation' should not be displayed
