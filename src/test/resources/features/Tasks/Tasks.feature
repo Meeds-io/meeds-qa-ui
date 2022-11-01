@@ -356,7 +356,7 @@ Feature: Tasks
     And I click on the notification that mentione first user in a task in Project 'Test Compagne' project
     Then First user with the task comment 'Start working on it' is displayed in task comments drawer
 
-  @smoke @test
+  @smoke
   Scenario: CAP190 -[IMP] [US_SortGroupeBy_01] Memorize Group and Sort filters (Group by)
     Given I connect as admin if random users doesn't exists
       | first  |
