@@ -356,7 +356,7 @@ Feature: Tasks
     And I click on the notification that mentione first user in a task in Project 'Test Compagne' project
     Then First user with the task comment 'Start working on it' is displayed in task comments drawer
 
-  @smoke
+  @smoke @test
   Scenario: CAP190 -[IMP] [US_SortGroupeBy_01] Memorize Group and Sort filters (Group by)
     Given I connect as admin if random users doesn't exists
       | first  |
@@ -381,14 +381,15 @@ Feature: Tasks
     Then I exit from project
     And I create the project 'project02'
     And I open the project 'project02'
+    And I refresh the page
     And I click on Filter button
     Then I check that grouping 'none' is selected
     And I close Sort And Filter drawer
     Then I exit from project
     And I open the project 'project01'
+    And I refresh the page
     And I click on Filter button
     Then I check that grouping 'assignee' is selected
-    And I refresh the page
     And I click on Filter button
     Then I check that grouping 'assignee' is selected
     And I clear browsing data cache and cookies
