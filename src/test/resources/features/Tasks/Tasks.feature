@@ -381,11 +381,13 @@ Feature: Tasks
     Then I exit from project
     And I create the project 'project02'
     And I open the project 'project02'
+    And I refresh the page
     And I click on Filter button
     Then I check that grouping 'none' is selected
     And I close Sort And Filter drawer
     Then I exit from project
     And I open the project 'project01'
+    And I refresh the page
     And I click on Filter button
     Then I check that grouping 'assignee' is selected
     And I refresh the page
