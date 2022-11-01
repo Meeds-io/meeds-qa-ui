@@ -390,6 +390,7 @@ Feature: Tasks
     And I refresh the page
     And I click on Filter button
     Then I check that grouping 'assignee' is selected
+    And I refresh the page
     And I click on Filter button
     Then I check that grouping 'assignee' is selected
     And I clear browsing data cache and cookies
