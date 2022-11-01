@@ -14,8 +14,8 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class ApplicationPage extends GenericPage {
 
-  @FindBy(xpath = "//*[@href='/portal/meeds/challenges']//*[@class='appLauncherImage']")
-  public static BaseElementFacade challengeApplication;
+  @FindBy(xpath = "//*[@href='/portal/meeds/contributions']//*[@class='appLauncherImage']")
+  public static BaseElementFacade contributionsApplication;
 
   @FindBy(xpath = "//*[@class='userAuthorizedApplications']")
   public static BaseElementFacade ELEMENT_APPCENTER_ALL_APPLICATIONS_PAGE;
@@ -171,9 +171,9 @@ public class ApplicationPage extends GenericPage {
     getApplication(application).clickOnElement();
   }
 
-  public void goToChallengeApplication() {
-    challengeApplication.waitUntilVisible();
-    challengeApplication.clickOnElement();
+  public void goToContributionsApplication() {
+    contributionsApplication.waitUntilVisible();
+    contributionsApplication.clickOnElement();
   }
 
   public void goToTasksAppCenterApplication() {

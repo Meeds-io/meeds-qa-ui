@@ -1,8 +1,7 @@
 @challenge
 Feature: Challenges
 
-  @skip
-  @ignored
+  @standardConfigurationOnly
   Scenario: [Challenge_App_US02][02] First screen of the App ( manager of a space+ admin)
     Given I am authenticated as admin
     And I create the fifthchgadm random user if not existing
@@ -13,12 +12,12 @@ Feature: Challenges
     And I connect with the fifthchgadm created user
     And I create a random space
     When I go To AppCenter Drawer
-    And I go to Challenge Application
-    Then Challenge Application Page is displayed
-    And Add challenge button should be displayed
+    And I go to contributions AppCenter Application
+    Then Engagement application center is displayed
+    When I select engagement Challenges tab
+    Then Add challenge button should be displayed
 
-  @skip
-  @ignored
+  @standardConfigurationOnly
   Scenario: [Challenge_App_US02][01] First screen of the App ( not manager of any space)
     Given I connect as admin if random users doesn't exists
       | sixth  |
@@ -26,8 +25,8 @@ Feature: Challenges
     And I create the sixth random user if not existing
     And I connect with the sixth created user
     When I go To AppCenter Drawer
-    And I go to Challenge Application
-    Then Challenge Application Page is displayed
+    And I go to contributions AppCenter Application
+    Then Engagement application center is displayed
     And Add challenge button should not be displayed
 
   @skip
@@ -53,9 +52,10 @@ Feature: Challenges
     And I promote 'secondchgadm' random user as a space manager
     And I connect with the firstchgadm created user
     And I go To AppCenter Drawer
-    And I go to Challenge Application
-    Then Challenge Application Page is displayed
-    When I click on the button add challenge
+    And I go to contributions AppCenter Application
+    Then Engagement application center is displayed
+    When I select engagement Challenges tab
+    And I click on the button add challenge
     Then The drawer add challenge should be displayed
     When I enter the challenge title 'challengeStartTomorrow1'
     And I select a space audience
@@ -65,15 +65,17 @@ Feature: Challenges
     And I add challenge with description 'challengeStartTomorrowDescription1'
     Then The message 'New challenge created successfully.' should be displayed
     And I refresh the page
+    And I select engagement Challenges tab
     And The challenge card title 'challengeStartTomorrow1' should not be displayed
     And I filter challenges by value 'NOT_STARTED'
     And The challenge card title 'challengeStartTomorrow1' should be displayed
     When I connect with the secondchgadm created user
     And I go to the random space
     And I go To AppCenter Drawer
-    And I go to Challenge Application
-    Then Challenge Application Page is displayed
-    When I click on the button add challenge
+    And I go to contributions AppCenter Application
+    Then Engagement application center is displayed
+    When I select engagement Challenges tab
+    And  I click on the button add challenge
     And I enter the challenge title 'challenge2'
     And I select a space audience
     And I select the program 'Teamwork'
@@ -82,6 +84,7 @@ Feature: Challenges
     And I add challenge with description 'description2'
     Then The message 'New challenge created successfully.' should be displayed
     When I refresh the page
+    And I select engagement Challenges tab
     Then The challenge card title 'challengeStartTomorrow1' should not be displayed
     And The challenge card title 'challenge2' should be displayed
     And I filter challenges by value 'ALL'
@@ -89,8 +92,7 @@ Feature: Challenges
     And The challenge card title 'challenge2' should be displayed
     And Add challenge button should be displayed
 
-  @skip
-  @ignored
+  @standardConfigurationOnly
   Scenario: Challenge_App_Admin_US02 Challenge CARD
     Given I am authenticated as admin
     And I create the firstchgadm random user if not existing
@@ -101,9 +103,10 @@ Feature: Challenges
     And I connect with the firstchgadm created user
     And I create a random space
     And I go To AppCenter Drawer
-    And I go to Challenge Application
-    Then Challenge Application Page is displayed
-    When I click on the button add challenge
+    And I go to contributions AppCenter Application
+    Then Engagement application center is displayed
+    When I select engagement Challenges tab
+    And I click on the button add challenge
     Then The drawer add challenge should be displayed
     And I enter a random challenge title
     And I select a space audience
@@ -113,6 +116,7 @@ Feature: Challenges
     And I add challenge with random description
     Then The message 'New challenge created successfully.' should be displayed
     And I refresh the page
+    And I select engagement Challenges tab
     Then The challenge title should be displayed on the card
     And Three dots icon should be displayed on the challenge card
     And Announce button should be displayed on the challenge card
@@ -134,9 +138,10 @@ Feature: Challenges
     And I go to the random space
     And I connect with the firstchgadm created user
     And I go To AppCenter Drawer
-    And I go to Challenge Application
-    Then Challenge Application Page is displayed
-    When I click on the button add challenge
+    And I go to contributions AppCenter Application
+    Then Engagement application center is displayed
+    When I select engagement Challenges tab
+    And I click on the button add challenge
     Then The drawer add challenge should be displayed
     And I enter a random challenge title
     And I select a space audience
@@ -146,9 +151,10 @@ Feature: Challenges
     And I add challenge with random description
     Then The message 'New challenge created successfully.' should be displayed
     And I refresh the page
+    And I select engagement Challenges tab
     And I click on the announce button
     Then The announcement drawer should be displayed
-    And I assign the announcement to the secondchgadm user
+    And I assign the announcement to the 'secondchgadm' user
     And I create announcement with random description
     Then The message 'Announcement created successfully.' should be displayed
     When I connect with the secondchgadm created user

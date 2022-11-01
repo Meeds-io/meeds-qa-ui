@@ -155,14 +155,9 @@ public class ApplicationStepDefinition {
     applicationSteps.goToApplication(application);
   }
 
-  @And("^I go to Challenge Application$")
-  public void goToChallengeApplication() {
-    applicationSteps.goToChallengeApplication();
-  }
-
-  @When("^I go to Challenges AppCenter Application$")
-  public void goToChallengesAppCenterApplication() {
-    applicationSteps.goToChallengesAppCenterApplication();
+  @When("^I go to contributions AppCenter Application$")
+  public void goToContributionsAppCenterApplication() {
+    applicationSteps.goToContributionsAppCenterApplication();
   }
 
   @When("I go to Perk Store AppCenter Application")

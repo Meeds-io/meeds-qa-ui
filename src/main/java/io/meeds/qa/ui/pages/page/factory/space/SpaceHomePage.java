@@ -1080,7 +1080,7 @@ public class SpaceHomePage extends GenericPage {
                                                                name));
     threeDots.clickOnElement();
     BaseElementFacade promoteAsAdminButton =
-                                           findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'peopleCardItem')]//*[contains(@class, 'uiIconMemberAdmin')]//ancestor::*[contains(@class, 'v-list-item')]",
+                                           findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'peopleCardItem')]//ancestor::*[contains(@class, 'v-list-item')]//*[contains(@class, 'uiIconMemberAdmin')]",
                                                                           name));
     promoteAsAdminButton.clickOnElement();
   }
