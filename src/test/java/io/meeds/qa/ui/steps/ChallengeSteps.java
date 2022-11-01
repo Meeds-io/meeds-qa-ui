@@ -127,4 +127,13 @@ public class ChallengeSteps {
     challengesPage.selectStartDateTomorrow();
   }
 
+  public void isEngagementAppOpened() {
+    challengesPage.isEngagementAppOpened();
+  }
+
+  public void selectEngagementTab(String tab) {
+    challengesPage.selectEngagementTab(tab);
+
+  }
+
 }

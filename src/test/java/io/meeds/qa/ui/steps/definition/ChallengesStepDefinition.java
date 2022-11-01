@@ -37,7 +37,7 @@ public class ChallengesStepDefinition {
     challengesSteps.addProgramName(programName);
   }
 
-  @And("^I assign the announcement to the (.*) user$")
+  @And("^I assign the announcement to the '(.*)' user$")
   public void assignChallengeToRandomUser(String userPrefix) {
     String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
     challengesSteps.assignChallengeToUser(userLastName);
@@ -177,6 +177,16 @@ public class ChallengesStepDefinition {
   @And("I select tomorrow for start date")
   public void selectStartDateTomorrow() {
     challengesSteps.selectStartDateTomorrow();
+  }
+
+  @Then("Engagement application center is displayed")
+  public void isEngagementAppOpened() {
+    challengesSteps.isEngagementAppOpened();
+  }
+
+  @When("^I select engagement (.*) tab$")
+  public void selectEngagementTab(String tab) {
+    challengesSteps.selectEngagementTab(tab);
   }
 
 }

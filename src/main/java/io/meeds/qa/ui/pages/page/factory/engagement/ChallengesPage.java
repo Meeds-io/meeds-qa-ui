@@ -22,16 +22,16 @@ public class ChallengesPage extends GenericPage {
   private static final String  CHALLENGE_CARD_TITLE_XPATH           = "//*[contains(text(),'%s')]"
       + "//ancestor::*[contains(@class, 'cardOfChallenge')]";
 
-  @FindBy(css = ".challenges-application .v-toolbar button.btn-primary")
+  @FindBy(xpath = "//*[@id='engagementCenterAddChallengeBtn']")
   private BaseElementFacade    addChallengeBtn;
 
   @FindBy(css = "#announcementDrawer.v-navigation-drawer--open")
   private BaseElementFacade    announcementHeaderDrawer;
 
-  @FindBy(xpath = "(//div[@name='challengeSpaceAutocomplete']//input)[01]")
+  @FindBy(xpath = "//*[contains(@content-class,'identitySuggester')]")
   private TextBoxElementFacade assignAnnouncementInput;
 
-  @FindBy(xpath = "//a[@class='challengeAssignBtn align-end']")
+  @FindBy(xpath = "//*[@id='EngagementCenterAssignmentBtn']")
   private BaseElementFacade    assignLink;
 
   @FindBy(xpath = "(//*[contains(@class, 'v-navigation-drawer--open')]//div[@name='challengeSpaceAutocomplete']//input)[01]")
@@ -43,7 +43,7 @@ public class ChallengesPage extends GenericPage {
   @FindBy(css = ".challengeQuickFilter")
   private BaseElementFacade    challengeQuickFilterSelectBox;
 
-  @FindBy(css = ".v-navigation-drawer--open .challenge-title textarea")
+  @FindBy(xpath = "//*[@id='EngagementCenterChallengeDrawerTitleTextArea']")
   private TextBoxElementFacade challengeTitleField;
 
   @FindBy(css = ".v-navigation-drawer--open iframe.cke_wysiwyg_frame")
@@ -55,17 +55,20 @@ public class ChallengesPage extends GenericPage {
   @FindBy(css = ".v-navigation-drawer--open .drawerFooter button.btn-primary")
   private BaseElementFacade    createButton;
 
-  @FindBy(xpath = "(//*[contains(@id,'DatePicker')])[2]//input")
+  @FindBy(xpath = "//*[@id='engagementCenterChallengeEndDatePicker']")
   private TextBoxElementFacade endDateField;
 
-  @FindBy(css = ".challengeDrawer.v-navigation-drawer--open")
+  @FindBy(xpath = "//*[@id='EngagementCenterChallengeDrawer']")
   private BaseElementFacade    headerChallengeDrawer;
 
   @FindBy(xpath = "(//*[contains(@class, 'v-navigation-drawer--open')]//div[contains(@class, 'v-select__selections')]//input)[02]")
   private TextBoxElementFacade programField;
 
-  @FindBy(xpath = "(//*[contains(@id,'DatePicker')])[1]//input")
+  @FindBy(xpath = "//*[@id='engagementCenterChallengeStartDatePicker']")
   private TextBoxElementFacade startDateField;
+
+  @FindBy(xpath="//*[@id='EngagementCenterApplication']")
+  public BaseElementFacade engagementCenterApplication ;
 
   public ChallengesPage(WebDriver driver) {
     super(driver);
@@ -127,7 +130,10 @@ public class ChallengesPage extends GenericPage {
   public void assignChallengeToUser(String user) {
     assertWebElementVisible(assignLink);
     assignLink.clickOnElement();
-    mentionInField(assignAnnouncementInput, user, 5);
+    assertWebElementVisible(findByXPathOrCSS("//*[contains(@content-class,'identitySuggester')]"));
+    findByXPathOrCSS("//*[contains(@content-class,'identitySuggesterContent')]").sendKeys(user);
+    waitFor(300).milliseconds();
+    selectUser(user).clickOnElement();
   }
 
   public void checkAchievementDescriptionOnAnnouncement(String description) {
@@ -326,4 +332,26 @@ public class ChallengesPage extends GenericPage {
     startDateField.waitUntilClickable();
   }
 
+  public void checkAddChallengeBtnNotDisplayed() {
+    assertWebElementNotVisible(addChallengeBtn);
+  }
+
+  public void isEngagementAppOpened() {
+    assertWebElementVisible(engagementCenterApplication);
+  }
+
+  public void selectEngagementTab(String tab) {
+    clickOnElement(getEngagementTab(tab));
+    verifyPageLoaded();
+    waitFor(300).milliseconds(); // Wait for Tab switch
+  }
+
+  private BaseElementFacade getEngagementTab(String tab) {
+    return findByXPathOrCSS(String.format("//*[@id='engagementCenterTabs']//*[contains(text(),'%s')]", tab));
+  }
+
+  private BaseElementFacade selectUser(String user)
+  {
+    return findByXPathOrCSS(String.format("//*[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]", user));
+  }
 }
