@@ -106,6 +106,10 @@ public class SpaceHomeSteps {
     spaceHomePage.clickDeleteActivityButton(activity);
   }
 
+  public void clickPinActivityButton(String activity) {
+    spaceHomePage.clickPinActivityButton(activity);
+  }
+
   public void clickKudosFromActivityStream() {
     spaceHomePage.clickOnkudosButtonToActivityStream();
   }
@@ -230,6 +234,14 @@ public class SpaceHomeSteps {
     spaceHomePage.deleteActivityButtonIsDisplayed(activity);
   }
 
+  public void pinActivityButtonIsDisplayed(String activity) {
+    spaceHomePage.pinActivityButtonIsDisplayed(activity);
+  }
+
+  public void unPinActivityButtonIsDisplayed(String activity) {
+    spaceHomePage.unPinActivityButtonIsDisplayed(activity);
+  }
+
   public void deleteComment(String comment) {
     spaceHomePage.deleteComment(comment);
   }
@@ -312,6 +324,10 @@ public class SpaceHomeSteps {
 
   public void checkActivityVisible(String activity) {
     spaceHomePage.checkActivityVisible(activity);
+  }
+
+  public void checkActivityPinned(String activity) {
+    spaceHomePage.checkActivityPinned(activity);
   }
 
   public void checkActivityNotVisible(String activity) {

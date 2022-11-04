@@ -87,6 +87,11 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.checkActivityVisible(activity);
   }
 
+  @Then("^the activity '(.*)' is pinned in stream page$")
+  public void checkActivityPinned(String activity) {
+    spaceHomeSteps.checkActivityPinned(activity);
+  }
+
   @Then("^Activity Comment '(.*)' is displayed in activity stream$")
   public void checkActivityComment(String comment) {
     spaceHomeSteps.checkActivityComment(comment);
@@ -214,6 +219,11 @@ public class SpaceHomeStepDefinition {
   @When("^I click on Delete button related to activity '(.*)'$")
   public void clickDeleteActivityButton(String activity) {
     spaceHomeSteps.clickDeleteActivityButton(activity);
+  }
+
+  @When("^I click on Pin button related to activity '(.*)'$")
+  public void clickPinActivityButton(String activity) {
+    spaceHomeSteps.clickPinActivityButton(activity);
   }
 
   @When("^I click on comment '(.*)'$")
@@ -393,6 +403,16 @@ public class SpaceHomeStepDefinition {
   @When("^Delete button related to activity '(.*)' is displayed$")
   public void deleteActivityButtonIsDisplayed(String activity) {
     spaceHomeSteps.deleteActivityButtonIsDisplayed(activity);
+  }
+
+  @When("^Pin button related to activity '(.*)' is displayed$")
+  public void pinActivityButtonIsDisplayed(String activity) {
+    spaceHomeSteps.pinActivityButtonIsDisplayed(activity);
+  }
+
+  @When("^Unpin button related to activity '(.*)' is displayed$")
+  public void unPinActivityButtonIsDisplayed(String activity) {
+    spaceHomeSteps.unPinActivityButtonIsDisplayed(activity);
   }
 
   @When("^In comment '(.*)', I click on delete button$")
