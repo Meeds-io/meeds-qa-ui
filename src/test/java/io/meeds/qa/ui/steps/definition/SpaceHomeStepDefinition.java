@@ -87,7 +87,7 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.checkActivityVisible(activity);
   }
 
-  @Then("^the activity '(.*)' is pinned in stream page$")
+  @Then("^the activity '(.*)' is pinned in space stream$")
   public void checkActivityPinned(String activity) {
     spaceHomeSteps.checkActivityPinned(activity);
   }
