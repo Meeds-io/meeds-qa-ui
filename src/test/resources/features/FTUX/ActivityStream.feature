@@ -2451,7 +2451,7 @@ Feature: Activity Stream
     Then Pin button related to activity 'PinTest' is displayed
     Given I click on Pin button related to activity 'PinTest'
     Then The message 'This activity has been pinned to the space stream.' should be displayed
-    And the activity 'PinTest' is pinned in space stream
+    And The activity 'PinTest' is pinned in space stream
     Given I go to Stream page
     Then the activity 'PinTest' is displayed in stream page
     Given I click on three dots button related to activity 'PinTest'
@@ -2482,27 +2482,6 @@ Feature: Activity Stream
     Given I click on Pin button related to activity 'PinTest'
     Then The message 'This activity has been pinned to the space stream.' should be displayed
     Given I go to the random space
-    Then the activity 'PinTest' is pinned in space stream
+    Then The activity 'PinTest' is pinned in space stream
     Given I click on three dots button related to activity 'PinTest'
     Then Unpin button related to activity 'PinTest' is displayed
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

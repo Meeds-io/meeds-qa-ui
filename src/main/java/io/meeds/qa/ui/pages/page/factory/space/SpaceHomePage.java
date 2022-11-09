@@ -706,12 +706,12 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private BaseElementFacade getPinActivityIcon(String activity) {
-    return findByXPathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Pin')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[contains(@class,'mdi mdi-pin')]" ,
             activity));
   }
 
   private BaseElementFacade getUnpinActivityIcon(String activity) {
-    return findByXPathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Unpin')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[contains(@class,'mdi-pin-off')]",
             activity));
   }
 
