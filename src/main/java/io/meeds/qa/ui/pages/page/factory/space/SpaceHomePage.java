@@ -387,6 +387,10 @@ public class SpaceHomePage extends GenericPage {
     geDeleteActivityIcon(activity).clickOnElement();
   }
 
+  public void clickPinActivityButton(String activity) {
+    getPinActivityIcon(activity).clickOnElement();
+  }
+
   public void clickOnActivityComment(String comment) {
     getCommentTitleActivityStream(comment).clickOnElement();
   }
@@ -569,6 +573,14 @@ public class SpaceHomePage extends GenericPage {
     assertWebElementVisible(geDeleteActivityIcon(activity));
   }
 
+  public void pinActivityButtonIsDisplayed(String activity) {
+    assertWebElementVisible(getPinActivityIcon(activity));
+  }
+
+  public void unPinActivityButtonIsDisplayed(String activity) {
+    assertWebElementVisible(getUnpinActivityIcon(activity));
+  }
+
   public void deleteComment(String comment) {
     getDeleteCommentLabel(comment).clickOnElement();
   }
@@ -693,6 +705,16 @@ public class SpaceHomePage extends GenericPage {
                                           activity));
   }
 
+  private BaseElementFacade getPinActivityIcon(String activity) {
+    return findByXPathOrCSS(String.format("//*[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[contains(@class,'mdi mdi-pin')]" ,
+            activity));
+  }
+
+  private BaseElementFacade getUnpinActivityIcon(String activity) {
+    return findByXPathOrCSS(String.format("//*[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[contains(@class,'mdi-pin-off')]",
+            activity));
+  }
+
   private BaseElementFacade geEditActivityIcon(String activity) {
     return findByXPathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Edit')][1]",
                                           activity));
@@ -713,6 +735,11 @@ public class SpaceHomePage extends GenericPage {
   private BaseElementFacade getActivityText(String activity) {
     return findByXPathOrCSS(String.format("//div[contains(@class,'activity-detail')]//descendant::*[contains(text(),'%s')]",
                                           activity));
+  }
+
+  private BaseElementFacade getPinnedActivity(String activity) {
+    return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'pinnedActivity')]",
+            activity));
   }
 
   private BaseElementFacade getBlackKudosCommentIcon(String activityComment) {
@@ -950,6 +977,10 @@ public class SpaceHomePage extends GenericPage {
 
   public void checkActivityVisible(String activity) {
     assertWebElementVisible(getActivityText(activity));
+  }
+
+  public void checkActivityPinned(String activity) {
+    assertWebElementVisible(getPinnedActivity(activity));
   }
 
   public void checkActivityNotVisible(String activity) {
