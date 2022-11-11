@@ -11,7 +11,7 @@ Feature: Meeds Space
     Then I check that only 20 spaces are displayed
     When I click on Show more button
     Then I check that other spaces are displayed
-
+  @exo
   Scenario: [SPACES-4] Spaces Request
     Given I am authenticated as admin
     And I create the first random user if not existing
