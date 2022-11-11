@@ -28,6 +28,7 @@ Feature: Space widgets checking
     And I connect with the fourthnoconn created user
     And I connect to fifthnoconn user
     When I connect with the fifthnoconn created user
+    And I go to Stream page
     Then the number of connection requests is '5'
 
   Scenario: US 3.3.4_(01) [BACK]Connections requests to join: See All
@@ -53,6 +54,7 @@ Feature: Space widgets checking
     And I connect with the fourthconn created user
     And I connect to fifthconn user
     When I connect with the fifthconn created user
+    And I go to Stream page
     Then The 'Connections' badge is '5'
     When I click on connections badge
     Then the drawer with '3' connections is opened
@@ -74,6 +76,7 @@ Feature: Space widgets checking
     And I connect to thirdrequ user
 
     When I connect with the thirdrequ created user
+    And I go to Stream page
     Then The 'Connections' badge is '3'
     When I click on connections badge
     And I accept the following connection invitation
@@ -106,12 +109,14 @@ Feature: Space widgets checking
     And I connect to thirdcommconn user
     And I connect to fourthcommconn user
     And I connect with the thirdcommconn created user
+    And I go to Stream page
     Then The 'Connections' badge is '2'
     When I click on connections badge
     And I accept the following connection invitation from random user
       | firstcommconn |
       | secondcommconn |
     And I connect with the fourthcommconn created user
+    And I go to Stream page
     Then The 'Connections' badge is '2'
     When I click on connections badge
     And I accept the following connection invitation from random user
@@ -122,6 +127,7 @@ Feature: Space widgets checking
     And I connect with the fifthcommconn created user
     And I connect to firstcommconn user
     And I connect with the firstcommconn created user
+    And I go to Stream page
     Then The 'Connections' badge is '2'
     When I click on connections badge
     Then the drawer with '2' connections is opened
