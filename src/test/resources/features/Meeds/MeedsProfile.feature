@@ -131,7 +131,7 @@ Feature: Search for User Informations in Profile page
 
     And I remove my profile work experiences 'QA Engineer'
     And I remove my profile work experiences 'IT Engineer Developer'
-  @exo
+
   Scenario: : PROFILE-9 : Achievement Drawer in Points
     Given I connect as admin if random users doesn't exists
       | first  |

@@ -4,7 +4,7 @@ Feature: Spaces widget checking
   As a user
   I want to check the spaces in home page
   In order to validate the page
-  @exo
+
   @smoke
   Scenario: US 3.3.2_(02) [BACK] Spaces requests to join: See All
     Given I am authenticated as admin

@@ -5,7 +5,7 @@ Feature: Space widgets checking
   As a user
   I want to check the connections in home page
   In order to validate the page
-  @exo
+
   Scenario: US 3.3.3_(02) [BACK] No Connection requests number
     Given I connect as admin if random users doesn't exists
       | firstnoconn  |
@@ -30,7 +30,7 @@ Feature: Space widgets checking
     When I connect with the fifthnoconn created user
     And I go to Stream page
     Then the number of connection requests is '5'
-  @exo
+
   Scenario: US 3.3.4_(01) [BACK]Connections requests to join: See All
     Given I connect as admin if random users doesn't exists
       | firstconn  |
@@ -60,7 +60,7 @@ Feature: Space widgets checking
     Then the drawer with '3' connections is opened
     And I click on see all
     And The 'People' page is opened
-  @exo
+
   Scenario:US 3.3.4_(02)[BACK]Connections requests : accept and reject
     Given I connect as admin if random users doesn't exists
       | firstrequ  |
@@ -89,7 +89,7 @@ Feature: Space widgets checking
       | firstrequ |
       | secondrequ |
     Then The badge isn't displayed
-  @exo
+
   Scenario: US_3.3.7 [BACK]Common Connections for users requests
     Given I connect as admin if random users doesn't exists
       | firstcommconn  |

@@ -22,7 +22,7 @@ Feature: Social
     And I open in activity 'CommentPost' the Comments drawer
     Then Activity Comment 'commenttest' is displayed in Comments drawer
     And Activity Comment 'commenttest' is displayed in activity stream
-  @exo
+
   Scenario: Search users in My connections tab
     Given I connect as admin if random users doesn't exists
       | first  |
