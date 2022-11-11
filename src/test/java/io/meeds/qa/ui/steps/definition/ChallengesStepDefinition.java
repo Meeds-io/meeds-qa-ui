@@ -189,4 +189,9 @@ public class ChallengesStepDefinition {
     challengesSteps.selectEngagementTab(tab);
   }
 
+  @When("^I search for the challenge '(.*)'$")
+  public void filterChallenge(String challengeTitle) {
+    challengesSteps.filterChallenge(challengeTitle);
+  }
+
 }

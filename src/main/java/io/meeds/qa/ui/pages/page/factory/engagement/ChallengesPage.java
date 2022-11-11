@@ -67,6 +67,9 @@ public class ChallengesPage extends GenericPage {
   @FindBy(xpath = "//*[@id='engagementCenterChallengeStartDatePicker']")
   private TextBoxElementFacade startDateField;
 
+  @FindBy(xpath = "//*[@id='EngagementCenterApplicationSearchFilter']")
+  private TextBoxElementFacade textualFilter;
+
   @FindBy(xpath="//*[@id='EngagementCenterApplication']")
   public BaseElementFacade engagementCenterApplication ;
 
@@ -346,6 +349,10 @@ public class ChallengesPage extends GenericPage {
     waitFor(300).milliseconds(); // Wait for Tab switch
   }
 
+  public void filterChallenge(String challengeTitle) {
+    searchChallengeByTitle(challengeTitle);
+  }
+
   private BaseElementFacade getEngagementTab(String tab) {
     return findByXPathOrCSS(String.format("//*[@id='engagementCenterTabs']//*[contains(text(),'%s')]", tab));
   }
@@ -354,4 +361,12 @@ public class ChallengesPage extends GenericPage {
   {
     return findByXPathOrCSS(String.format("//*[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]", user));
   }
+
+  private void searchChallengeByTitle(String challengeTitle) {
+    refreshPage();
+    textualFilter.setTextValue(challengeTitle);
+    // when searching
+    waitForProgressBar();
+  }
+
 }
