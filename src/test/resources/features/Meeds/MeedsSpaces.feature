@@ -20,6 +20,7 @@ Feature: Meeds Space
     And I create a third random space with the first created user as member
 
     When I connect with the first created user
+    And I go to Stream page
     Then The 'Spaces' badge is '3'
     When I click on spaces badge
     And I accept the invitation of the first created space

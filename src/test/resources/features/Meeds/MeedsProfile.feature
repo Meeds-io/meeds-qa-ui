@@ -135,13 +135,10 @@ Feature: Search for User Informations in Profile page
   Scenario: : PROFILE-9 : Achievement Drawer in Points
     Given I connect as admin if random users doesn't exists
       | first  |
-
     And I create the first random user if not existing, no wait
-
     When I connect with the first created user
-
+    And I go to Stream page
     And I open Weekly Points Chart
     Then The weekly point chart is displayed
-
     When I open achievement tab
     Then The achievements drawer is displayed

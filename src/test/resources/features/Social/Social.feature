@@ -32,6 +32,7 @@ Feature: Social
     And I connect with the first created user
     And I connect to second user
     And I connect with the second created user
+    And I go to Stream page
     Then The 'Connections' badge is '1'
     When I click on connections badge
     And I accept the following connection invitation from random user
