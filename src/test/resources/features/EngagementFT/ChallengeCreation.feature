@@ -162,7 +162,6 @@ Feature: Challenges
     Then The announcement activity with random description and random challenge title is posted by the 'firstchgadm' with winner name 'secondchgadm'
 
   @standardConfigurationOnly
-  @test
   Scenario: Engagement_Center_App: Challenges textual filter
     Given I am authenticated as admin
     And I create the firstchgadm random user if not existing, no wait
