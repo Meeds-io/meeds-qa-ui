@@ -136,4 +136,7 @@ public class ChallengeSteps {
 
   }
 
+  public void filterChallenge(String challengeTitle) {
+    challengesPage.filterChallenge(challengeTitle);
+  }
 }
