@@ -33,4 +33,11 @@ public class ProgramsSteps {
     programsPage.checkProgramCardDisplay(programName);
   }
 
+  public void editProgramWithDescription(String programName, String newProgramName, String newProgramDescription) {
+    programsPage.editProgramWithDescription(programName, newProgramName, newProgramDescription);
+  }
+
+  public void checkProgramTitleUpdateOnCard(String newProgramName) {
+    programsPage.checkProgramTitleUpdateOnCard(newProgramName);
+  }
 }
