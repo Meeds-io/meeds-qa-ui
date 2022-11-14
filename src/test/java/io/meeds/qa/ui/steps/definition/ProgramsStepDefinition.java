@@ -59,4 +59,19 @@ public class ProgramsStepDefinition {
     programsSteps.checkProgramCardDisplay(programName);
   }
 
+  @And("^I edit the created program$")
+  public void editProgramWithDescription() {
+    String programName = Serenity.sessionVariableCalled("programName");
+    String newProgramName = "newProgramName" + getRandomNumber();
+    String newProgramDescription = "newProgramDescription" + getRandomNumber();
+    Serenity.setSessionVariable("newProgramName").to(newProgramName);
+    Serenity.setSessionVariable("newProgramDescription").to(newProgramDescription);
+    programsSteps.editProgramWithDescription(programName, newProgramName, newProgramDescription);
+  }
+
+  @And("^The program title should be updated on the card$")
+  public void checkProgramTitleUpdateOnCard() {
+    String newProgramName = Serenity.sessionVariableCalled("newProgramName");
+    programsSteps.checkProgramTitleUpdateOnCard(newProgramName);
+  }
 }

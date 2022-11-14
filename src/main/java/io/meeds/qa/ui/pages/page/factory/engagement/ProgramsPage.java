@@ -1,6 +1,5 @@
 package io.meeds.qa.ui.pages.page.factory.engagement;
 
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -108,8 +107,35 @@ public class ProgramsPage extends GenericPage {
     assertWebElementNotVisible(getProgramCardTitle(title));
   }
 
+  public void editProgramWithDescription(String programName, String newProgramName, String newProgramDescription) {
+    assertWebElementVisible(getProgramCard(programName));
+    programThreeDotsButton.clickOnElement();
+    editProgramButton.clickOnElement();
+    programTitleField.setTextValue(newProgramName);
+    waitCKEditorLoading();
+    ckEditorFrameProgram.waitUntilVisible();
+    driver.switchTo().frame(ckEditorFrameProgram);
+    try {
+      programDescriptionField.waitUntilVisible();
+      programDescriptionField.setTextValue(newProgramDescription);
+    } finally {
+      driver.switchTo().defaultContent();
+    }
+
+    saveButton.clickOnElement();
+  }
+
+  public void checkProgramTitleUpdateOnCard(String title) {
+    assertWebElementVisible(getProgramCardTitle(title));
+  }
+
   private BaseElementFacade getProgramCardTitle(String title) {
     return findByXPathOrCSS(String.format(programCardTitle, title));
+  }
+
+  private BaseElementFacade getProgramCard(String programName) {
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@class,'engagement-center-card')]",
+                                          programName));
   }
 
 }
