@@ -988,7 +988,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void pinnedActivityDisappears(String activity) {
-    getPinnedActivity(activity).isNotVisibleAfterWaiting();
+    assertWebElementNotVisible(getPinnedActivity(activity));
   }
 
   public void checkActivityNotVisible(String activity) {
