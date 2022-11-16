@@ -2485,3 +2485,35 @@ Feature: Activity Stream
     Then The activity 'PinTest' is pinned in space stream
     Given I click on three dots button related to activity 'PinTest'
     Then Unpin button related to activity 'PinTest' is displayed
+
+  Scenario: PinActivity_US03: Unpin an activity
+    Given I am authenticated as admin
+    And I create the first random user if not existing, no wait
+    And I create a random space
+    When I connect with the first created user
+    Then I go to the random space
+    Given I am authenticated as admin
+    And I go to the random space
+    And I go to 'Members' tab
+    And I enter the contact name of the first user
+    Then The search result is well matched with the username entered of the first user
+    And I click on three dots menu
+    And I set as a redactor
+    Given I go to 'Stream' tab
+    And I click on post in space
+    And I enter an activity 'PinTest'
+    When I publish the activity
+    Then the activity 'PinTest' is displayed in activity stream
+    When I connect with the first created user
+    And I go to Stream page
+    And I click on three dots button related to activity 'PinTest'
+    Then Pin button related to activity 'PinTest' is displayed
+    Given I click on Pin button related to activity 'PinTest'
+    Then The message 'This activity has been pinned to the space stream.' should be displayed
+    Given I go to the random space
+    Then The activity 'PinTest' is pinned in space stream
+    Given I click on three dots button related to activity 'PinTest'
+    Then Unpin button related to activity 'PinTest' is displayed
+    Given I click to the Unpin button related to activity 'PinTest'
+    Then The message 'This activity has been unpinned.' should be displayed
+    And The activity 'PinTest' should be not pinned in space stream
