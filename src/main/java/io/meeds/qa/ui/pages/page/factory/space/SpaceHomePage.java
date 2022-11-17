@@ -391,6 +391,10 @@ public class SpaceHomePage extends GenericPage {
     getPinActivityIcon(activity).clickOnElement();
   }
 
+  public void clickUnpinActivityButton(String activity) {
+    getUnpinActivityIcon(activity).clickOnElement();
+  }
+
   public void clickOnActivityComment(String comment) {
     getCommentTitleActivityStream(comment).clickOnElement();
   }
@@ -981,6 +985,10 @@ public class SpaceHomePage extends GenericPage {
 
   public void checkActivityPinned(String activity) {
     assertWebElementVisible(getPinnedActivity(activity));
+  }
+
+  public void pinnedActivityDisappears(String activity) {
+    assertWebElementNotVisible(getPinnedActivity(activity));
   }
 
   public void checkActivityNotVisible(String activity) {
