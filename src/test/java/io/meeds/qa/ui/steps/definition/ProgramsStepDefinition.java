@@ -74,4 +74,11 @@ public class ProgramsStepDefinition {
     String newProgramName = Serenity.sessionVariableCalled("newProgramName");
     programsSteps.checkProgramTitleUpdateOnCard(newProgramName);
   }
+
+  @And("^I delete the created program$")
+  public void deleteCreatedProgram() {
+    String programName = Serenity.sessionVariableCalled("programName");
+    programsSteps.deleteCreatedProgram(programName);
+  }
+
 }
