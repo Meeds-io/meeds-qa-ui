@@ -40,4 +40,8 @@ public class ProgramsSteps {
   public void checkProgramTitleUpdateOnCard(String newProgramName) {
     programsPage.checkProgramTitleUpdateOnCard(newProgramName);
   }
+
+  public void deleteCreatedProgram(String programName) {
+    programsPage.deleteCreatedProgram(programName);
+  }
 }
