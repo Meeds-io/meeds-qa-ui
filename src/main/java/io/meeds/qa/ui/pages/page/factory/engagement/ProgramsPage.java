@@ -129,6 +129,13 @@ public class ProgramsPage extends GenericPage {
     assertWebElementVisible(getProgramCardTitle(title));
   }
 
+  public void deleteCreatedProgram(String programName) {
+    assertWebElementVisible(getProgramCard(programName));
+    programThreeDotsButton.clickOnElement();
+    deleteProgramButton.clickOnElement();
+    yesConfirmButton.clickOnElement();
+  }
+
   private BaseElementFacade getProgramCardTitle(String title) {
     return findByXPathOrCSS(String.format(programCardTitle, title));
   }
