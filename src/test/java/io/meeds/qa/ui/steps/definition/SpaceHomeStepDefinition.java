@@ -92,6 +92,11 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.checkActivityPinned(activity);
   }
 
+  @Then("^The activity '(.*)' should be not pinned in space stream$")
+  public void pinnedActivityDisappears(String activity) {
+    spaceHomeSteps.pinnedActivityDisappears(activity);
+  }
+
   @Then("^Activity Comment '(.*)' is displayed in activity stream$")
   public void checkActivityComment(String comment) {
     spaceHomeSteps.checkActivityComment(comment);
@@ -224,6 +229,11 @@ public class SpaceHomeStepDefinition {
   @When("^I click on Pin button related to activity '(.*)'$")
   public void clickPinActivityButton(String activity) {
     spaceHomeSteps.clickPinActivityButton(activity);
+  }
+
+  @When("^I click to the Unpin button related to activity '(.*)'$")
+  public void clickUnpinActivityButton(String activity) {
+    spaceHomeSteps.clickUnpinActivityButton(activity);
   }
 
   @When("^I click on comment '(.*)'$")

@@ -110,6 +110,10 @@ public class SpaceHomeSteps {
     spaceHomePage.clickPinActivityButton(activity);
   }
 
+  public void clickUnpinActivityButton(String activity) {
+    spaceHomePage.clickUnpinActivityButton(activity);
+  }
+
   public void clickKudosFromActivityStream() {
     spaceHomePage.clickOnkudosButtonToActivityStream();
   }
@@ -328,6 +332,10 @@ public class SpaceHomeSteps {
 
   public void checkActivityPinned(String activity) {
     spaceHomePage.checkActivityPinned(activity);
+  }
+
+  public void pinnedActivityDisappears(String activity) {
+    spaceHomePage.pinnedActivityDisappears(activity);
   }
 
   public void checkActivityNotVisible(String activity) {
