@@ -823,4 +823,9 @@ public class SpaceHomeStepDefinition {
   public void goToUserProfileFromLikersDrawer(String prefix) {
     spaceHomeSteps.goToUserProfileFromLikersDrawer(prefix);
   }
+
+  @When("^I select Pinned activities from the filter proposed")
+  public void selectPinnedActivity() {
+    spaceHomeSteps.selectPinnedActivity();
+  }
 }
