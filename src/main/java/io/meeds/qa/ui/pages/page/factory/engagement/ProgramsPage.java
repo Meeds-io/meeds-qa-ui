@@ -51,6 +51,9 @@ public class ProgramsPage extends GenericPage {
   @FindBy(xpath = "//*[@class='v-card__actions']//button[contains(@class,'btn btn-primary')]")
   private BaseElementFacade    yesConfirmButton;
 
+  @FindBy(xpath = "//*[@id='EngagementCenterApplicationCProgramsQuickFilter']")
+  private BaseElementFacade    programQuickFilterSelectBox;
+
   public void clickAddProgramBtn() {
     clickOnElement(addProgramBtn);
   }
@@ -134,6 +137,22 @@ public class ProgramsPage extends GenericPage {
     programThreeDotsButton.clickOnElement();
     deleteProgramButton.clickOnElement();
     yesConfirmButton.clickOnElement();
+  }
+
+  @SwitchToWindow
+  public void selectProgramsFilter(String value) {
+    programQuickFilterSelectBox.clickOnElement();
+    programQuickFilterSelectBox.selectByValue(value);
+    programQuickFilterSelectBox.clickOnElement();
+    verifyPageLoaded();
+  }
+
+  public void enterProgramTitle(String programTitle) {
+    programTitleField.setTextValue(programTitle);
+  }
+
+  public void checkProgramCardTitle(String title) {
+    assertWebElementVisible(getProgramCardTitle(title));
   }
 
   private BaseElementFacade getProgramCardTitle(String title) {
