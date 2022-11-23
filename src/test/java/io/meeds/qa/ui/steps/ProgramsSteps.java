@@ -44,4 +44,17 @@ public class ProgramsSteps {
   public void deleteCreatedProgram(String programName) {
     programsPage.deleteCreatedProgram(programName);
   }
+
+  public void selectProgramsFilter(String value) {
+    programsPage.selectProgramsFilter(value);
+  }
+
+  public void enterProgramTitle(String programTitle) {
+    programsPage.enterProgramTitle(programTitle);
+  }
+
+  public void checkProgramCardTitle(String title) {
+    programsPage.checkProgramCardTitle(title);
+  }
+
 }
