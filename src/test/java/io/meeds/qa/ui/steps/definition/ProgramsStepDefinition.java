@@ -81,4 +81,19 @@ public class ProgramsStepDefinition {
     programsSteps.deleteCreatedProgram(programName);
   }
 
+  @And("^I filter programs by value '(.*)'$")
+  public void selectProgramsFilter(String value) {
+    programsSteps.selectProgramsFilter(value);
+  }
+
+  @And("^I enter the program title '(.*)'$")
+  public void enterProgramTitle(String programTitle) {
+    programsSteps.enterProgramTitle(programTitle);
+  }
+
+  @Then("^The program card title '(.*)' should be displayed$")
+  public void checkProgramCardTitle(String title) {
+    programsSteps.checkProgramCardTitle(title);
+  }
+
 }
