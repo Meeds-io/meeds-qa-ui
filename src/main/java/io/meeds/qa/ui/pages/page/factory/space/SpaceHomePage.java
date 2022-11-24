@@ -1260,9 +1260,9 @@ public class SpaceHomePage extends GenericPage {
     return findByXPathOrCSS(String.format("//*[@class='likers-list']//*[contains(text(),'%s')]", userLastName));
   }
 
-  public void selectPinnedActivity() {
+  public void selectPinnedActivity(String filter) {
     WebElement staticDropdown= findByXPathOrCSS("//*[contains(@class,'ignore-vuetify-classes')]");
     Select dropdown = new Select(staticDropdown);
-    dropdown.selectByVisibleText("Pinned activities");
+    dropdown.selectByVisibleText(filter);
   }
 }

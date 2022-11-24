@@ -2541,8 +2541,9 @@ Feature: Activity Stream
     And the activity 'act1' is displayed in stream page
     And the activity 'act2' is displayed in stream page
     And the activity 'PinTest' is displayed in stream page
-    When I select Pinned activities from the filter proposed
+    When I select 'Pinned activities' from the filter proposed
     And the activity 'PinTest' is displayed in stream page
     Then the activity 'act0' is not displayed in stream page
     And the activity 'act1' is not displayed in stream page
     And the activity 'act2' is not displayed in stream page
+    When I select 'All' from the filter proposed
