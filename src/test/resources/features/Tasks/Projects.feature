@@ -185,13 +185,13 @@ Feature: Tasks - Projects
     When I hover on task's title 'testlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtaskname'
     Then Task tooltip is displayed 'testlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtaskname'
 
-  @ignored
-  Scenario: [US_GanttView_01] Display Gantt tab in Space tasks projects
+  Scenario: [NF] [US_GanttView_01]: Display Gantt tab in Space tasks projects
     Given I am authenticated as admin
     And I create the first random user if not existing
     And I create a random space with the first random user
     And I connect with the first created user
-    Then The 'Spaces' badge is '1'
+    And I go to Stream page
+    Then The Spaces badge is '1'
     When I click on spaces badge
     And I accept the invitation of the created space project
     And I refresh the page
@@ -228,47 +228,46 @@ Feature: Tasks - Projects
     And The task name 'task3' should be displayed in PLAN view
 
   @smoke
-  @ignored
-  Scenario: CAP16 - [Project_Card_US01] check the display "project's creator avatar"
+  Scenario: CAP16 - [Project_Card_US01]: check the display "project's creator avatar"
     Given I am authenticated as admin
-    And I open the app center menu
-    And I open all application page
-    When I go to 'Tasks' application
-    And I select projects tab
-    And I click on add project button
-    And I enter the project name 'projectCard1'
-    And I click on save project button
-    And I search for the project 'projectCard1'
-    Then The project 'projectCard1' was deleted successfully
+    And I create the first random user if not existing
+    When I go To AppCenter Drawer
+    And I go to Tasks AppCenter Application
+    Then Tasks Application Page is displayed
+    When I select projects tab
+    And I add the random project with first user as the participant
+    And I search for the created project
+    Then The random created project with description 'No description available' is displayed in Project Card
+    When I hover on project manager icon
+    Then User avatar 'admin' is displayed in Project Card
+    And Avatar of the first created user is not displayed in Project Card
 
-  @ignored
-  Scenario: CAP43 [Project_manager_US02] Delete a Project
+  Scenario: CAP43-[Project_manager_US02]:Delete a Project
     Given I am authenticated as admin
+    And I create a random space
     And I open the app center menu
     And I open all application page
     When I go to 'Tasks' application
     And I select projects tab
-    And I click on add project button
-    And I enter the project name 'deleteProject'
-    And I click on save project button
-    And I select the 'Delete' action for the project 'deleteProject'
-    And I click on delete button
-    And These projects are not displayed
-      | deleteProject |
+    And I search for the created project
+    And I click on three dots project button
+    And I click on delete project button
+    And I click on delete to confirm project deletion
+    Then the project is deleted successfully from Projects tab
 
-  @ignored
-  Scenario: CAP44 - [Project_manager_US02] Cancel Deletion of Project
+  Scenario: CAP44 - [Project_manager_US02]: Cancel Deletion of Project
     Given I am authenticated as admin
+    And I create a random space
     And I open the app center menu
     And I open all application page
     When I go to 'Tasks' application
     And I select projects tab
-    And I click on add project button
-    And I enter the project name 'cancelDelete'
-    And I click on save project button
-    And I select the 'Delete' action for the project 'cancelDelete'
-    And I click on cancel delete button
-    And I search for the project 'cancelDelete'
-    Then These projects are displayed
-      | cancelDelete |
-    And The project 'cancelDelete' was deleted successfully
+    And I search for the created project
+    And I click on three dots project button
+    And I click on delete project button
+    And I click on cancel to not confirm project deletion
+    And The random created project with description 'No description available' is displayed in Project Card
+    And I click on three dots project button
+    And I click on delete project button
+    And I click on delete to confirm project deletion
+    And the project is deleted successfully from Projects tab
