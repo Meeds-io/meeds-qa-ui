@@ -2517,3 +2517,33 @@ Feature: Activity Stream
     Given I click to the Unpin button related to activity 'PinTest'
     Then The message 'This activity has been unpinned.' should be displayed
     And The activity 'PinTest' should be not pinned in space stream
+
+  Scenario: PinActivity_US04: Pinned activities filter
+    Given I am authenticated as admin
+    And I create a random space
+    And I go to the random space
+    And I click on post in space
+    And I enter an activity 'PinTest'
+    When I publish the activity
+    Then the activity 'PinTest' is displayed in activity stream
+    When I post '2' activities
+    And I refresh the page
+    Then the activity 'act0' is displayed in activity stream
+    And the activity 'act1' is displayed in activity stream
+    And the activity 'act2' is displayed in activity stream
+    Given I click on three dots button related to activity 'PinTest'
+    Then Pin button related to activity 'PinTest' is displayed
+    Given I click on Pin button related to activity 'PinTest'
+    Then The message 'This activity has been pinned to the space stream.' should be displayed
+    And The activity 'PinTest' is pinned in space stream
+    Given I go to Stream page
+    Then the activity 'act0' is displayed in stream page
+    And the activity 'act1' is displayed in stream page
+    And the activity 'act2' is displayed in stream page
+    And the activity 'PinTest' is displayed in stream page
+    When I select 'Pinned activities' from the filter proposed
+    And the activity 'PinTest' is displayed in stream page
+    Then the activity 'act0' is not displayed in stream page
+    And the activity 'act1' is not displayed in stream page
+    And the activity 'act2' is not displayed in stream page
+    When I select 'All' from the filter proposed
