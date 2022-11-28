@@ -536,4 +536,8 @@ public class SpaceHomeSteps {
   public void goToUserProfileFromLikersDrawer(String prefix) {
     spaceHomePage.goToUserProfileFromLikersDrawer(prefix);
   }
+
+  public void selectPinnedActivity(String filter) {
+    spaceHomePage.selectPinnedActivity(filter);
+  }
 }

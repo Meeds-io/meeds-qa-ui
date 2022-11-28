@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 import io.meeds.qa.ui.elements.BaseElementFacade;
@@ -17,6 +18,7 @@ import io.meeds.qa.ui.pages.GenericPage;
 import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.annotations.findby.FindBy;
+import org.openqa.selenium.support.ui.Select;
 
 public class SpaceHomePage extends GenericPage {
   private static final String  CONFIRMATION_BUTTON_TO_DELETE_ACTIVITY_SELECTOR = "//*[contains(text(),'Yes')]";
@@ -1258,4 +1260,9 @@ public class SpaceHomePage extends GenericPage {
     return findByXPathOrCSS(String.format("//*[@class='likers-list']//*[contains(text(),'%s')]", userLastName));
   }
 
+  public void selectPinnedActivity(String filter) {
+    WebElement staticDropdown= findByXPathOrCSS("//*[contains(@class,'ignore-vuetify-classes')]");
+    Select dropdown = new Select(staticDropdown);
+    dropdown.selectByVisibleText(filter);
+  }
 }
