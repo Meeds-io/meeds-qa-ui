@@ -1,4 +1,4 @@
-@task
+@task1
 Feature: Tasks - Projects
 
   Scenario: [User_UI_US18.1] Add project with a description
