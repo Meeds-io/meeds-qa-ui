@@ -444,6 +444,12 @@ public class TasksPage extends GenericPage {
   @FindBy(xpath = "//*[@class='ViewAllCommentLabel']")
   private BaseElementFacade        viewAllCommentsTaskButton;
 
+  @FindBy(xpath = "//*[@class='v-card__actions']//button[contains(@class,'btn ms-2')]")
+  private TextBoxElementFacade cancelButton;
+
+  @FindBy(xpath = "//*[@class='v-card__actions']//button[contains(@class,'btn btn-primary')]")
+  private BaseElementFacade deleteButton;
+
   @FindBy(
       xpath = "//div[@class='attachmentsList']//a[@class='viewAllAttachments primary--text font-weight-bold text-decoration-underline']"
   )
@@ -1047,7 +1053,6 @@ public class TasksPage extends GenericPage {
     deleteProjectButton.clickOnElement();
     confirmationPopupDeleteButton.clickOnElement();
     assertWebElementNotVisible(confirmationPopupDeleteButton);
-
   }
 
   public void deleteProjectButtonIsDisplayed() {
@@ -1767,5 +1772,24 @@ public class TasksPage extends GenericPage {
   public void viewAllCommentsTaskButton() {
     viewAllCommentsTaskButton.waitUntilVisible();
     viewAllCommentsTaskButton.clickOnElement();
+  }
+
+  public void addProjectWithFirstUserAsParticipant(String projectName, String participant) {
+    addProjectOrTask.clickOnElement();
+    projectTitle.setTextValue(projectName);
+    addProjectParticipantInput(participant);
+    saveButton.clickOnElement();
+  }
+
+  public void clickDeleteProjectButton()  {
+    deleteProjectButton.clickOnElement();
+  }
+
+  public void clickDelete() {
+    deleteButton.clickOnElement();
+  }
+
+  public void clickCancel() {
+    cancelButton.clickOnElement();
   }
 }
