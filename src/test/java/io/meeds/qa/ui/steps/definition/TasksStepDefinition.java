@@ -1239,4 +1239,35 @@ public class TasksStepDefinition {
   public void viewAllCommentsTaskButton() {
     tasksSteps.viewAllCommentsTaskButton();
   }
+
+  @Then("^I add the random project with first user as the participant$")
+  public void addProjectWithFirstUserAsParticipant() {
+    String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
+    String firstUserLastName = Serenity.sessionVariableCalled("firstUserLastName");
+    String firstUserFullName = firstUserFirstName + " " + firstUserLastName;
+    String randomSpaceName = "randomSpaceName" + getRandomNumber();
+    Serenity.setSessionVariable("randomSpaceName").to(randomSpaceName);
+    tasksSteps.addProjectWithFirstUserAsParticipant(randomSpaceName, firstUserFullName);
+  }
+
+  @Then("^Avatar of the first created user is not displayed in Project Card$")
+  public void firstRandomUserAvatarIsDisplayedInProjectCard() {
+    String firstUserName = Serenity.sessionVariableCalled("firstUserName");
+    tasksSteps.userAvatarIsNotDisplayedInProjectCard(firstUserName);
+  }
+
+  @When("^I click on delete project button$")
+  public void clickDeleteProjectButton() {
+    tasksSteps.clickDeleteProjectButton();
+  }
+
+  @When("^I click on delete to confirm project deletion$")
+  public void clickDelete() {
+    tasksSteps.clickDelete();
+  }
+
+  @When("^I click on cancel to not confirm project deletion$")
+  public void clickCancel() {
+    tasksSteps.clickCancel();
+  }
 }

@@ -843,4 +843,14 @@ public class TasksSteps {
   public void viewAllCommentsTaskButton() {
     tasksPage.viewAllCommentsTaskButton();
   }
+  public void addProjectWithFirstUserAsParticipant(String projectName, String participant) {
+    tasksPage.addProjectWithFirstUserAsParticipant(projectName, participant);
+  }
+
+  public void clickDeleteProjectButton() { tasksPage.clickDeleteProjectButton();}
+
+  public void clickCancel() {tasksPage.clickCancel();}
+
+  public void clickDelete() {tasksPage.clickDelete();}
+
 }
