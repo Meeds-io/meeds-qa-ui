@@ -399,7 +399,7 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.checkFavIconInSpacePopoverFromTopbar();
   }
 
-  @Then("The favorite icon should be displayed from Third Navigation Level")
+  @Then("The favorite icon should be displayed on space details panel")
   public void checkFavIconInThirdNavigationLevel() {
     manageSpaceSteps.checkFavIconInThirdNavigationLevel();
   }
@@ -456,7 +456,4 @@ public class ManageSpaceStepDefinitions {
   public void hoverOnSpaceName() {
     manageSpaceSteps.hoverOnSpaceName();
   }
-
-
 }
-

@@ -467,18 +467,17 @@ public class HomeStepDefinition {
   }
 
   @And("^The arrow is displayed when hovering on searched space in Side Bar Filter$")
-  public void isRowDisplayedAfterHoveringOnSpaceName() {
-    homeSteps.isRowDisplayedAfterHoveringOnSpaceName();
+  public void isArrowDisplayedAfterHoveringOnSpaceName() {
+    homeSteps.isArrowDisplayedAfterHoveringOnSpaceName();
   }
 
-  @And("^I click on the row which is displayed when hovering on searched space in Side Bar Filter$")
-  public void clickOnRowIcon() {
-    homeSteps.clickOnRowIcon();
+  @And("^I click on the arrow displayed when hovering the searched space in Side Bar Filter$")
+  public void clickOnArrowIcon()  {
+    homeSteps.clickOnArrowIcon() ;
   }
 
-  @And("^The third level Navigation displayed which contain space details panel$")
+  @And("^The third level Navigation should display the space details panel$")
   public void isThirdLevelNavigationDisplayed() {
     homeSteps.isThirdLevelNavigationDisplayed();
   }
-
 }

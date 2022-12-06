@@ -295,16 +295,15 @@ public class HomeSteps {
     homePage.hoverSearchedSpaceInSideBarFilter(space);
   }
 
-  public void isRowDisplayedAfterHoveringOnSpaceName() {
-    homePage.isRowDisplayedAfterHoveringOnSpaceName();
+  public void isArrowDisplayedAfterHoveringOnSpaceName() {
+    homePage.isArrowDisplayedAfterHoveringOnSpaceName();
   }
 
-  public void clickOnRowIcon() {
-    homePage.clickOnRowIcon();
+  public void clickOnArrowIcon(){
+    homePage.clickOnArrowIcon();
   }
 
   public void isThirdLevelNavigationDisplayed() {
     homePage.isThirdLevelNavigationDisplayed();
   }
-
 }

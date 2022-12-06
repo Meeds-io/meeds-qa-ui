@@ -714,8 +714,8 @@ public class ManageSpacesPage extends GenericPage {
       }
     }
 
-   public void checkSpaceBookmarkStatusFromFromThirdNavigationLevel( boolean ShouldBeBookmarked){
-    if (ShouldBeBookmarked) {
+   public void checkSpaceBookmarkStatusFromFromThirdNavigationLevel( boolean shouldBeBookmarked){
+    if (shouldBeBookmarked) {
       assertWebElementVisible(findByXPathOrCSS("//*[contains(@class,'HamburgerMenuThirdLevelParent')]//*[contains(@class,'fas fa-star')]"));
     } else {
       assertWebElementVisible(findByXPathOrCSS("//*[contains(@class,'HamburgerMenuThirdLevelParent')]//*[contains(@class,'far fa-star')]"));
