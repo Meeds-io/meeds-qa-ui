@@ -444,10 +444,10 @@ public class TasksPage extends GenericPage {
   @FindBy(xpath = "//*[@class='ViewAllCommentLabel']")
   private BaseElementFacade        viewAllCommentsTaskButton;
 
-  @FindBy(xpath = "//button[contains(text(),'Cancel')]")
+  @FindBy(xpath = "//*[contains(@class, 'uiPopup')]//*[contains(text(),'Cancel')]")
   private TextBoxElementFacade cancelButton;
 
-  @FindBy(xpath = "//button[contains(text(),'Delete')]")
+  @FindBy(xpath = "//*[contains(@class, 'uiPopup')]//*[contains(text(),'Delete')]")
   private BaseElementFacade deleteButton;
 
   @FindBy(
