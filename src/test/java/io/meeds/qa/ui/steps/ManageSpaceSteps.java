@@ -304,12 +304,20 @@ public class ManageSpaceSteps {
     manageSpacesPage.checkFavIconInSpacePopoverFromTopbar();
   }
 
+  public void checkFavIconInThirdNavigationLevel() {
+    manageSpacesPage.checkFavIconInThirdNavigationLevel();
+  }
+
   public void clickOnSpaceBookmarkIconFromSpaceCard() {
     manageSpacesPage.clickOnSpaceBookmarkIconFromSpaceCard();
   }
 
   public void clickOnSpaceBookmarkIconFromTopbarSpacePopover() {
     manageSpacesPage.clickOnSpaceBookmarkIconFromTopbarSpacePopover();
+  }
+
+  public void clickOnSpaceBookmarkIconFromThirdNavigationLevel() {
+    manageSpacesPage.clickOnSpaceBookmarkIconFromThirdNavigationLevel();
   }
 
   public void checkSpaceBookmarkedFromSpaceCard() {
@@ -326,6 +334,14 @@ public class ManageSpaceSteps {
 
   public void checkSpaceUnBookmarkFromTopbarSpacePopover() {
     manageSpacesPage.checkSpaceBookmarkStatusFromTopbarSpacePopover(false);
+  }
+
+  public void checkSpaceBookmarkThirdNavigationLevel() {
+    manageSpacesPage.checkSpaceBookmarkStatusFromFromThirdNavigationLevel(true);
+  }
+
+  public void checkSpaceUnBookmarkFromThirdNavigationLevel() {
+    manageSpacesPage.checkSpaceBookmarkStatusFromFromThirdNavigationLevel(false);
   }
 
   public void hoverOnSpaceName() {

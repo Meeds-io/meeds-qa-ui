@@ -290,4 +290,21 @@ public class HomeSteps {
   public void unbookmarkActivity(String activity) {
     homePage.unbookmarkActivity(activity);
   }
+
+  public void hoverSearchedSpaceInSideBarFilter(String space) {
+    homePage.hoverSearchedSpaceInSideBarFilter(space);
+  }
+
+  public void isRowDisplayedAfterHoveringOnSpaceName() {
+    homePage.isRowDisplayedAfterHoveringOnSpaceName();
+  }
+
+  public void clickOnRowIcon() {
+    homePage.clickOnRowIcon();
+  }
+
+  public void isThirdLevelNavigationDisplayed() {
+    homePage.isThirdLevelNavigationDisplayed();
+  }
+
 }

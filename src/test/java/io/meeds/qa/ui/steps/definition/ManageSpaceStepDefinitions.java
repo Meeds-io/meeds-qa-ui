@@ -399,6 +399,11 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.checkFavIconInSpacePopoverFromTopbar();
   }
 
+  @Then("The favorite icon should be displayed from Third Navigation Level")
+  public void checkFavIconInThirdNavigationLevel() {
+    manageSpaceSteps.checkFavIconInThirdNavigationLevel();
+  }
+
   @Then("I bookmark the random space as favorite from space card")
   @When("I unfavorite the random space from space card")
   public void clickOnSpaceBookmarkIconFromSpaceCard() {
@@ -411,6 +416,12 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.clickOnSpaceBookmarkIconFromTopbarSpacePopover();
   }
 
+  @Then("I bookmark the random space as favorite from Third Navigation Level")
+  @When("I unfavorite the random space from Third Navigation Level")
+  public void clickOnSpaceBookmarkIconFromThirdNavigationLevel() {
+    manageSpaceSteps.clickOnSpaceBookmarkIconFromThirdNavigationLevel();
+  }
+
   @When("I check that the random space is bookmarked as favorite from space card")
   public void checkSpaceBookmarkedFromSpaceCard() {
     manageSpaceSteps.checkSpaceBookmarkedFromSpaceCard();
@@ -421,6 +432,11 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.checkSpaceBookmarkedFromTopbarSpacePopover();
   }
 
+  @When("I check that the random space is bookmarked as favorite from Third Navigation Level")
+  public void checkSpaceBookmarkThirdNavigationLevel() {
+    manageSpaceSteps.checkSpaceBookmarkThirdNavigationLevel();
+  }
+
   @When("I check that the random space is unbookmarked from space card")
   public void checkSpaceUnBookmarkFromSpaceCard() {
     manageSpaceSteps.checkSpaceUnBookmarkFromSpaceCard();
@@ -429,6 +445,11 @@ public class ManageSpaceStepDefinitions {
   @When("I check that the random space is unbookmarked from topbar space popover")
   public void checkSpaceUnBookmarkFromTopbarSpacePopover() {
     manageSpaceSteps.checkSpaceUnBookmarkFromTopbarSpacePopover();
+  }
+
+  @When("I check that the random space is unbookmarked from Third Navigation Level")
+  public void checkSpaceUnBookmarkFromThirdNavigationLevel() {
+    manageSpaceSteps.checkSpaceUnBookmarkFromThirdNavigationLevel();
   }
 
   @When("^I hover on space name from top bar$")
