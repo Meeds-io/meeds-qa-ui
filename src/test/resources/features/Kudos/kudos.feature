@@ -83,24 +83,24 @@ Feature: Kudos
       | first  |
       | second |
       | third   |
-    And I create the first random user
-    And I create the second random user
-    And I create the third random user
+    And I create the fifthkudos random user if not existing, no wait
+    And I create the sixthkudos random user if not existing
+    And I create the seventeenthkudos random user if not existing
 
-    When I connect with the first created user
+    When I connect with the fifthkudos created user
     And I go to the random space
     And I click on post in space
-    And I enter an activity 'Bonjour Team'
+    And I enter an activity 'Hello Team'
     And I publish the activity
-    Then the activity 'Bonjour Team' is displayed in activity stream
+    Then the activity 'Hello Team' is displayed in activity stream
 
-    And I connect with the second created user
+    And I connect with the sixthkudos created user
     And I go to the random space
 
-    And I connect with the third created user
+    And I connect with the seventeenthkudos created user
     When I go to the random space
-    And I send to the activity 'Bonjour Team' a kudos message 'bien bien bien' to second created user
+    And I send to the activity 'Hello Team' a kudos message 'Good Good Good' to sixthkudos created user
 
-    And I connect with the second created user
+    And I connect with the sixthkudos created user
     And I go to My Profile page
     Then '1' kudos are received
