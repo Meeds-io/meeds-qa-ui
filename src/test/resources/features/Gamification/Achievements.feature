@@ -17,4 +17,4 @@ Feature: Achievements gamification
     And I go to my profile
     When I open achievement tab
     And I open How To Earn Point Page
-    Then The page 'gamification-earn-points' that contains 'Social activities' is displayed
+    Then The page 'contributions/programs' is displayed
