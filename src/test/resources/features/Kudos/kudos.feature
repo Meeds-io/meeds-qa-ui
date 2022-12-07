@@ -1,4 +1,4 @@
-@kudos
+@kudos1
 Feature: Kudos
   As an administrator I can modify kudos parameters
 
