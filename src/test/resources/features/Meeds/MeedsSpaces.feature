@@ -21,10 +21,10 @@ Feature: Meeds Space
 
     When I connect with the first created user
     And I go to Stream page
-    Then The 'Spaces' badge is '3'
+    Then The Spaces badge is '3'
     When I click on spaces badge
     And I accept the invitation of the first created space
-    Then The 'Spaces' badge is '2'
+    Then The Spaces badge is '2'
     And I reject the invitation of the second created space
     And I refresh the page
     And I click on space invitation widget

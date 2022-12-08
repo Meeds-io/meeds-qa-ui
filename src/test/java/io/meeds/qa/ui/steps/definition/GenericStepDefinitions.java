@@ -45,6 +45,20 @@ public class GenericStepDefinitions {
 
   }
 
+  @Then("The page {string} that contains {string} is displayed")
+  public void checkPage(String pageUri ,  String content) {
+    String currentUrl = genericSteps.getCurrentUrl();
+    assertThat(StringUtils.contains(currentUrl, pageUri)).as(String.format("Current URL '%s' doesn't end with '%s'",
+                    currentUrl,
+                    pageUri))
+            .isTrue();
+
+    assertThat(genericSteps.containsContent(content)).as(String.format("Current Page '%s' doesn't contain '%s'",
+                    currentUrl,
+                    content))
+            .isTrue();
+  }
+
   @When("success message is displayed")
   public void checkSuccessMessage() {
     assertThat(genericSteps.isSuccessMessageDisplayed()).as(String.format("Success message should be displayed but it is not"))
