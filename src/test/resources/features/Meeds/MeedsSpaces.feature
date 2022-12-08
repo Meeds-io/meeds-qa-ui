@@ -11,7 +11,7 @@ Feature: Meeds Space
     Then I check that only 20 spaces are displayed
     When I click on Show more button
     Then I check that other spaces are displayed
-
+  @exo
   Scenario: [SPACES-4] Spaces Request
     Given I am authenticated as admin
     And I create the first random user if not existing
@@ -21,10 +21,10 @@ Feature: Meeds Space
 
     When I connect with the first created user
     And I go to Stream page
-    Then The 'Spaces' badge is '3'
+    Then The Spaces badge is '3'
     When I click on spaces badge
     And I accept the invitation of the first created space
-    Then The 'Spaces' badge is '2'
+    Then The Spaces badge is '2'
     And I reject the invitation of the second created space
     And I refresh the page
     And I click on space invitation widget
