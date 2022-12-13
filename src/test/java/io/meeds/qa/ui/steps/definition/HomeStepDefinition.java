@@ -460,4 +460,24 @@ public class HomeStepDefinition {
     homeSteps.unbookmarkActivity(oldActiviyy);
   }
 
+  @And("^I hover on the (.*) searched Space In side bar filter$")
+  public void hoverSearchedSpaceInSideBarFilter(String spacePrefix) {
+    String spaceName = Serenity.sessionVariableCalled(spacePrefix + "RandomSpaceName");
+    homeSteps.hoverSearchedSpaceInSideBarFilter(spaceName);
+  }
+
+  @And("^The arrow is displayed when hovering on searched space in Side Bar Filter$")
+  public void isArrowDisplayedAfterHoveringOnSpaceName() {
+    homeSteps.isArrowDisplayedAfterHoveringOnSpaceName();
+  }
+
+  @And("^I click on the arrow displayed when hovering the searched space in Side Bar Filter$")
+  public void clickOnArrowIcon()  {
+    homeSteps.clickOnArrowIcon() ;
+  }
+
+  @And("^The third level Navigation should display the space details panel$")
+  public void isThirdLevelNavigationDisplayed() {
+    homeSteps.isThirdLevelNavigationDisplayed();
+  }
 }
