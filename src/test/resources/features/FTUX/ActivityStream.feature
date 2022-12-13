@@ -2463,7 +2463,7 @@ Feature: Activity Stream
     And I create a random space
     When I connect with the first created user
     Then I go to the random space
-    Given I am authenticated as admin
+    And I change user admin
     And I go to the random space
     And I go to 'Members' tab
     And I enter the contact name of the first user
@@ -2492,7 +2492,7 @@ Feature: Activity Stream
     And I create a random space
     When I connect with the first created user
     Then I go to the random space
-    Given I am authenticated as admin
+    And I change user admin
     And I go to the random space
     And I go to 'Members' tab
     And I enter the contact name of the first user
