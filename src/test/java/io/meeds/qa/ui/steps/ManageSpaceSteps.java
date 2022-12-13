@@ -337,11 +337,11 @@ public class ManageSpaceSteps {
   }
 
   public void checkSpaceBookmarkThirdNavigationLevel() {
-    manageSpacesPage.checkSpaceBookmarkStatusFromFromThirdNavigationLevel(true);
+    manageSpacesPage.checkSpaceBookmarkStatusFromThirdNavigationLevel(true);
   }
 
   public void checkSpaceUnBookmarkFromThirdNavigationLevel() {
-    manageSpacesPage.checkSpaceBookmarkStatusFromFromThirdNavigationLevel(false);
+    manageSpacesPage.checkSpaceBookmarkStatusFromThirdNavigationLevel(false);
   }
 
   public void hoverOnSpaceName() {
