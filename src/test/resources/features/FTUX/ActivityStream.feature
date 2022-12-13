@@ -2457,7 +2457,7 @@ Feature: Activity Stream
     Given I click on three dots button related to activity 'PinTest'
     Then Unpin button related to activity 'PinTest' is displayed
 
-  @test
+
   Scenario: PinActivity_US01: Space host or redactor can pin an activity (from General Stream -  Space redactor Case)
     Given I am authenticated as admin
     And I create the first random user if not existing, no wait
@@ -2487,7 +2487,6 @@ Feature: Activity Stream
     Given I click on three dots button related to activity 'PinTest'
     Then Unpin button related to activity 'PinTest' is displayed
 
-  @test
   Scenario: PinActivity_US03: Unpin an activity
     Given I am authenticated as admin
     And I create the first random user if not existing, no wait
