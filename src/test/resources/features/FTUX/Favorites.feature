@@ -284,3 +284,25 @@ Feature: Favorite activities
     Then The message 'The item has been removed from favorites successfully.' should be displayed
     And I check that the random space is unbookmarked from topbar space popover
 
+  Scenario: LeftNav_US02.2: Bookmark space from the left menu (desktop)
+    Given I am authenticated as admin
+    And I go to the first random space
+    And I go to the second random space
+    And I access to Recent spaces
+    And I search for the second created space in Side Bar Filter
+    Then Second searched space is displayed in Side Bar Filter
+    When I hover on the second searched Space In side bar filter
+    Then The arrow is displayed when hovering on searched space in Side Bar Filter
+    When I click on the arrow displayed when hovering the searched space in Side Bar Filter
+    Then The third level Navigation should display the space details panel
+    And The favorite icon should be displayed on space details panel
+    When I bookmark the random space as favorite from Third Navigation Level
+    Then The message 'Favorite added successfully. Find it easily from the search' should be displayed
+    And I check that the random space is bookmarked as favorite from Third Navigation Level
+    When I unfavorite the random space from Third Navigation Level
+    Then The message 'The item has been removed from favorites successfully.' should be displayed
+    And I check that the random space is unbookmarked from Third Navigation Level
+
+
+
+

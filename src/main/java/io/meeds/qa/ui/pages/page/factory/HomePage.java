@@ -150,6 +150,13 @@ public class HomePage extends GenericPage {
   @FindBy(xpath = "//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'titleIcon')]")
   private  BaseElementFacade administrationIcon ;
 
+  @FindBy(xpath = "//*[contains(@class,'recentSpacesWrapper')]//*[contains(@class,'clickable fa fa-arrow')]")
+  private  BaseElementFacade spaceArrowIcon;
+
+  @FindBy(xpath = "//*[contains(@class,'HamburgerMenuThirdLevelParent')]")
+  private  BaseElementFacade thirdLevelNavigation;
+
+
   public HomePage(WebDriver driver) {
     super(driver);
     MAPPING_CONTAINER_NAME_TO_BASEELEMENTFACADE_XPATH.put("Statistique", profileStatsPortlet);
@@ -338,6 +345,11 @@ public class HomePage extends GenericPage {
     return findByXPathOrCSS(
                             String.format("//div[contains(@class,'profileCard')]//*[contains(text(),'Spaces')]/preceding::*[@class='v-btn__content' and contains(text(),'%s')][1]",
                                           number));
+  }
+
+  private BaseElementFacade searchedSpaceInSideBarFilterHover(String space) {
+    return findByXPathOrCSS(String.format("//*[contains(@class,'recentSpacesWrapper')]//*[@class='v-list-item__content']//*[contains(text(), '%s')]",
+            space));
   }
 
   @SwitchToWindow
@@ -572,4 +584,19 @@ public class HomePage extends GenericPage {
     }
   }
 
+  public void hoverSearchedSpaceInSideBarFilter(String space) {
+    searchedSpaceInSideBarFilterHover(space).hover();
+  }
+
+  public void isArrowDisplayedAfterHoveringOnSpaceName() {
+    Assert.assertTrue(spaceArrowIcon.isDisplayed());
+  }
+
+  public void clickOnArrowIcon()  {
+    spaceArrowIcon.clickOnElement();
+  }
+
+  public void isThirdLevelNavigationDisplayed() {
+    Assert.assertTrue(thirdLevelNavigation.isDisplayed());
+  }
 }

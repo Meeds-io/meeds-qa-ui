@@ -682,12 +682,20 @@ public class ManageSpacesPage extends GenericPage {
     assertWebElementVisible(findByXPathOrCSS("//*[contains(@class,'v-card')]//*[contains(@class,'fa-star')]"));
   }
 
+  public void checkFavIconInThirdNavigationLevel() {
+    assertWebElementVisible(findByXPathOrCSS("//*[contains(@class,'HamburgerMenuThirdLevelParent')]//*[contains(@class,'fa-star')]"));
+  }
+
   public void clickOnSpaceBookmarkIconFromSpaceCard() {
     findByXPathOrCSS("//* [@class='spaceCardFront']//*[contains(@class,'fa-star')]").clickOnElement();
   }
 
   public void clickOnSpaceBookmarkIconFromTopbarSpacePopover() {
     findByXPathOrCSS("//*[contains(@class,'v-card')]//*[contains(@class,'fa-star')]").clickOnElement();
+  }
+
+  public void clickOnSpaceBookmarkIconFromThirdNavigationLevel() {
+    findByXPathOrCSS("//*[contains(@class,'HamburgerMenuThirdLevelParent')]//*[contains(@class,'fa-star')]").clickOnElement();
   }
 
   public void checkSpaceBookmarkStatusFromSpaceCard( boolean ShouldBeBookmarked) {
@@ -705,6 +713,14 @@ public class ManageSpacesPage extends GenericPage {
         assertWebElementVisible(findByXPathOrCSS("//*[contains(@class,'v-card')]//*[contains(@class,'far fa-star')]"));
       }
     }
+
+   public void checkSpaceBookmarkStatusFromThirdNavigationLevel( boolean shouldBeBookmarked){
+    if (shouldBeBookmarked) {
+      assertWebElementVisible(findByXPathOrCSS("//*[contains(@class,'HamburgerMenuThirdLevelParent')]//*[contains(@class,'fas fa-star')]"));
+    } else {
+      assertWebElementVisible(findByXPathOrCSS("//*[contains(@class,'HamburgerMenuThirdLevelParent')]//*[contains(@class,'far fa-star')]"));
+    }
+  }
 
     public void hoverOnSpaceName () {
       spaceName().hover();
