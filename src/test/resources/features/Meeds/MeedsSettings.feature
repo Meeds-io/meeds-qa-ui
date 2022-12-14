@@ -58,6 +58,7 @@ Feature: Edit sections in Settings page
 
     Then I connect with the first created user
 
+  @ignored
   Scenario: : SETTINGS-8 : Notifications section (Disable Notifications)
     Given I connect as admin if random users doesn't exists
       | first  |
