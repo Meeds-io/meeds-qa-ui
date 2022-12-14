@@ -284,6 +284,7 @@ Feature: Favorite activities
     Then The message 'The item has been removed from favorites successfully.' should be displayed
     And I check that the random space is unbookmarked from topbar space popover
 
+  @ignored
   Scenario: LeftNav_US02.2: Bookmark space from the left menu (desktop)
     Given I am authenticated as admin
     And I go to the first random space
