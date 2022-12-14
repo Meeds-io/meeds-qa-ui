@@ -2,7 +2,7 @@
 
 Feature: Programs
 
-  @standardConfigurationOnly
+  @standardConfigurationOnly  @ignored
   Scenario: [Engagement][Program][US] : Add an enabled program
     Given I am authenticated as admin
     And I go To AppCenter Drawer
@@ -18,7 +18,7 @@ Feature: Programs
     And I filter programs by value 'ENABLED'
     Then The program title should be displayed on the card
 
-  @standardConfigurationOnly
+  @standardConfigurationOnly  @ignored
   Scenario: [Engagement][Program][US] : Add a disabled program
     Given I am authenticated as admin
     And I go To AppCenter Drawer
@@ -34,7 +34,7 @@ Feature: Programs
     And I filter programs by value 'DISABLED'
     Then The program title should be displayed on the card
 
-  @standardConfigurationOnly
+  @standardConfigurationOnly  @ignored
   Scenario: [Engagement][Program][US] : Edit program
     Given I am authenticated as admin
     And I go To AppCenter Drawer
@@ -51,7 +51,7 @@ Feature: Programs
     Then The message 'Program updated successfully.' should be displayed
     And The program title should be updated on the card
 
-  @standardConfigurationOnly
+  @standardConfigurationOnly  @ignored
   Scenario: [Program][US04] Delete program
     Given I am authenticated as admin
     And I go To AppCenter Drawer
@@ -68,7 +68,7 @@ Feature: Programs
     Then The message 'Program has been removed successfully.' should be displayed
     And The program card should not be displayed
 
-  @standardConfigurationOnly
+  @standardConfigurationOnly  @ignored
   Scenario:[Engagement][Program][US] : Quick filter on program
     Given I am authenticated as admin
     And I go To AppCenter Drawer
