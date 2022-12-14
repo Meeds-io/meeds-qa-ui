@@ -5,6 +5,7 @@ Feature: Badges Management
   As an administrator user
   I can manage badges list
 
+  @ignored
   Scenario: Add badge
     Given I am authenticated as admin
 
@@ -15,6 +16,7 @@ Feature: Badges Management
     Then Success alert 'Badge added successfully' is displayed
     And The new badge is added successfully and is displayed with random name, description 'badgeDescription', score '500', domain 'Social', and enabled status in badges list
 
+  @ignored
   Scenario: Edit badge
     Given I am authenticated as admin
 
@@ -36,6 +38,7 @@ Feature: Badges Management
     Then Success alert 'Badge updated successfully' is displayed
     And The badge has been updated successfully and is displayed with random name, description 'badgeDescriptionUpdated', score '50', domain 'Feedback', and enabled status in badges list
 
+  @ignored
   Scenario: Delete badge
     Given I am authenticated as admin
 
@@ -53,6 +56,7 @@ Feature: Badges Management
     Then Success alert 'Badge deleted successfully' is displayed
     And The deleted badge with random name, description 'deletedDescription', score '300', domain 'Social' is no longer displayed in badges list
 
+  @ignored
   Scenario: Search badge
     Given I am authenticated as admin
 

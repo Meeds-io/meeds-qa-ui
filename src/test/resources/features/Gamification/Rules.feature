@@ -54,6 +54,7 @@ Feature: Rules
     When I go to my profile
     Then My points augmented
 
+  @ignored
   Scenario: Join a space
     Given I am authenticated as admin
     And I create the first random user if not existing

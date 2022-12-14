@@ -92,7 +92,7 @@ Feature: Challenges
     And The challenge card title 'challenge2' should be displayed
     And Add challenge button should be displayed
 
-  @standardConfigurationOnly
+  @standardConfigurationOnly @ignored
   Scenario: Challenge_App_Admin_US02 Challenge CARD
     Given I am authenticated as admin
     And I create the firstchgadm random user if not existing
@@ -161,7 +161,7 @@ Feature: Challenges
     And I go to the random space
     Then The announcement activity with random description and random challenge title is posted by the 'firstchgadm' with winner name 'secondchgadm'
 
-  @standardConfigurationOnly
+  @standardConfigurationOnly @ignored
   Scenario: Engagement_Center_App: Challenges textual filter
     Given I am authenticated as admin
     And I create the firstchgadm random user if not existing, no wait
