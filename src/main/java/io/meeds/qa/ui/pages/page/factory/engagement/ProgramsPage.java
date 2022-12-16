@@ -54,6 +54,9 @@ public class ProgramsPage extends GenericPage {
   @FindBy(xpath = "//*[@id='EngagementCenterApplicationCProgramsQuickFilter']")
   private BaseElementFacade    programQuickFilterSelectBox;
 
+  @FindBy(xpath = "(//*[contains(@class, 'v-navigation-drawer--open')]//*[@name='programSpaceAutocomplete']//input)[01]")
+  private TextBoxElementFacade audienceSpaceField;
+
   public void clickAddProgramBtn() {
     clickOnElement(addProgramBtn);
   }
@@ -80,7 +83,6 @@ public class ProgramsPage extends GenericPage {
     } finally {
       driver.switchTo().defaultContent();
     }
-    clickCreateProgramButton();
   }
 
   public void selectStatusSwitcher() {
@@ -99,7 +101,6 @@ public class ProgramsPage extends GenericPage {
       driver.switchTo().defaultContent();
     }
     selectStatusSwitcher();
-    clickCreateProgramButton();
   }
 
   public void checkProgramTitleDisplayOnCard(String title) {
@@ -145,6 +146,12 @@ public class ProgramsPage extends GenericPage {
     programQuickFilterSelectBox.selectByValue(value);
     programQuickFilterSelectBox.clickOnElement();
     verifyPageLoaded();
+  }
+
+  @SwitchToWindow
+  public void addSpaceAudience(String randomSpaceName) {
+    mentionInField(audienceSpaceField, randomSpaceName, 5);
+    clickCreateProgramButton();
   }
 
   public void enterProgramTitle(String programTitle) {
