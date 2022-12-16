@@ -57,4 +57,8 @@ public class ProgramsSteps {
     programsPage.checkProgramCardTitle(title);
   }
 
+  public void addSpaceAudience(String randomSpaceName) {
+    programsPage.addSpaceAudience(randomSpaceName);
+  }
+
 }
