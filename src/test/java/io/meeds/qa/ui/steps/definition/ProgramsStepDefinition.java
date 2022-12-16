@@ -96,4 +96,10 @@ public class ProgramsStepDefinition {
     programsSteps.checkProgramCardTitle(title);
   }
 
+  @And("^I add an audience space$")
+  public void addAudienceSpace() {
+    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
+    programsSteps.addSpaceAudience(randomSpaceName);
+  }
+
 }
