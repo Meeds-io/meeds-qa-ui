@@ -15,7 +15,7 @@ public class ManageBadgesPage extends GenericPage {
   @FindBy(xpath = "//button[@class='btn btn-primary']")
   private BaseElementFacade    addBadgeBtn;
 
-  @FindBy(xpath = "//i[contains(@class,'uiIcon uiIconToolbarNavItem uiAdministrationIcon')]")
+  @FindBy(xpath = "//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'fa fa-arrow')]")
   private BaseElementFacade    adminBtn;
 
   @FindBy(xpath = "(//*[@id='badgeDescription'])[1]")
@@ -65,6 +65,9 @@ public class ManageBadgesPage extends GenericPage {
 
   @FindBy(xpath = "//*[@class='alert alert-success']")
   private BaseElementFacade    successAlert;
+
+  @FindBy(xpath = "//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'titleIcon')]")
+  private BaseElementFacade       adminIcon;
 
   public void addBadgeDescription(String description) {
     badgeDescription.setTextValue(description);
@@ -188,9 +191,10 @@ public class ManageBadgesPage extends GenericPage {
   @SwitchToWindow
   public void goToManageBadgesMenu() {
     menuBtn.clickOnElement();
+    adminIcon.hover();
+    adminBtn.waitUntilVisible();
     adminBtn.clickOnElement();
     badgeLink.clickOnElement();
-
   }
 
   public void insertBadgeNameInSearchField(String badgeName) {
