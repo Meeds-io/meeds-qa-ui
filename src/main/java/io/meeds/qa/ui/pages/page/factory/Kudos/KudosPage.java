@@ -85,6 +85,11 @@ public class KudosPage extends GenericPage {
   )
   private BaseElementFacade threedotsKudosReplyComment;
 
+  private BaseElementFacade chooseAnotherUser(String user)
+  {
+    return findByXPathOrCSS(String.format("//*[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]", user));
+  }
+
   public KudosPage(WebDriver driver) {
     super(driver);
   }
@@ -204,4 +209,13 @@ public class KudosPage extends GenericPage {
     sendKudosMenu.clickOnElement();
   }
 
+  public void addActivityKudosToSomeoneDifferent(String activity, String message, String user) {
+    getKudosLink(activity).clickOnElement();
+    findByXPathOrCSS("//*[contains (@class, 'v-icon notranslate v-chip')]").clickOnElement();
+    assertWebElementVisible(findByXPathOrCSS("//*[contains(@content-class,'identitySuggesterContent')]"));
+    findByXPathOrCSS("//*[contains(@content-class,'identitySuggesterContent')]").clickOnElement();
+    findByXPathOrCSS("//*[contains(@content-class,'identitySuggesterContent')]").sendKeys(user);
+    chooseAnotherUser(user).clickOnElement();
+    sendKudosMessageFromOpenedDrawer(message);
+  }
 }
