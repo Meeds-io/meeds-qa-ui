@@ -98,4 +98,12 @@ public class KudosStepDefinitions {
   public void updateKudosMessage(String kudos) {
     kudoSteps.updateKudosMessage(kudos);
   }
+
+  @When("^I send to the activity '(.*)' a kudos message '(.*)' to (.*) created user$")
+  public void addActivityKudosToSomeoneDifferent(String activity, String message, String userPrefix) {
+    String secondUserFirstName = Serenity.sessionVariableCalled(userPrefix+ "UserFirstName");
+    String secondUserLastName = Serenity.sessionVariableCalled(userPrefix+ "UserLastName");
+    String fullName =  secondUserFirstName + " " + secondUserLastName;
+    kudoSteps.addActivityKudosToSomeoneDifferent(activity, message, fullName);
+  }
 }
