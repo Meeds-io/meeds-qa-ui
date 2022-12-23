@@ -78,4 +78,7 @@ public class KudosSteps {
     spaceHomePage.updateComment();
   }
 
+  public void addActivityKudosToSomeoneDifferent(String activity, String message, String user) {
+    kudosPage.addActivityKudosToSomeoneDifferent(activity, message, user);
+  }
 }
