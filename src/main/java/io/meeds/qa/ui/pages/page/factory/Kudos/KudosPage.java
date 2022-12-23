@@ -85,7 +85,7 @@ public class KudosPage extends GenericPage {
   )
   private BaseElementFacade threedotsKudosReplyComment;
 
-  private BaseElementFacade choseAnotherUser(String user)
+  private BaseElementFacade chooseAnotherUser(String user)
   {
     return findByXPathOrCSS(String.format("//*[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]", user));
   }
@@ -215,7 +215,7 @@ public class KudosPage extends GenericPage {
     assertWebElementVisible(findByXPathOrCSS("//*[contains(@content-class,'identitySuggesterContent')]"));
     findByXPathOrCSS("//*[contains(@content-class,'identitySuggesterContent')]").clickOnElement();
     findByXPathOrCSS("//*[contains(@content-class,'identitySuggesterContent')]").sendKeys(user);
-    choseAnotherUser(user).clickOnElement();
+    chooseAnotherUser(user).clickOnElement();
     sendKudosMessageFromOpenedDrawer(message);
   }
 }
