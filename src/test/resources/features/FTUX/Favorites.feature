@@ -334,5 +334,5 @@ Feature: Favorite activities
     When I select 'My favorite spaces' from the filter proposed
     And the activity 'Test1' is displayed in stream page
     Then the activity 'Test2' is not displayed in stream page
-
+    And I select 'All' from the filter proposed
 
