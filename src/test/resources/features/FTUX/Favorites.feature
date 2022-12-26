@@ -303,7 +303,7 @@ Feature: Favorite activities
     When I unfavorite the random space from Third Navigation Level
     Then The message 'The item has been removed from favorites successfully.' should be displayed
     And I check that the random space is unbookmarked from Third Navigation Level
-  @exo
+
   Scenario: StreamFiltering_US04.2: Filter my stream by favorite spaces
     Given I am authenticated as admin
     And I go to the ninety random space
@@ -311,13 +311,11 @@ Feature: Favorite activities
     And I enter an activity 'Test1'
     When I publish the activity
     Then the activity 'Test1' is displayed in activity stream
-
     When I go to the ninetyone random space
     And I click on post in space
     And I enter an activity 'Test2'
     And I publish the activity
     Then the activity 'Test2' is displayed in activity stream
-
     When I access to Recent spaces
     And I search for the ninety created space in Side Bar Filter
     Then Ninety searched space is displayed in Side Bar Filter
@@ -330,7 +328,6 @@ Feature: Favorite activities
     Then The message 'Favorite added successfully. Find it easily from the search' should be displayed
     And I check that the random space is bookmarked as favorite from Third Navigation Level
     And I refresh the page
-
     Given I go to Stream page
     Then the activity 'Test1' is displayed in stream page
     And the activity 'Test2' is displayed in stream page
