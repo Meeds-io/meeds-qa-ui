@@ -1,7 +1,7 @@
 @kudos
 Feature: Kudos
   As an administrator I can modify kudos parameters
-
+  @ignored
   Scenario: [EXISTANT-KUDOS 3] Select the number of Kudos that a user is allowed to send per period
     Given I am authenticated as admin
     When I go to administration then reward then kudos
@@ -77,7 +77,7 @@ Feature: Kudos
     And I set the new kudos 'updated kudos message' and I click on update button
     Then the updated Kudos activity 'updated kudos message' is displayed in stream page
 
-  @exo
+
   Scenario: [ActivityStreamKudos_US11] Send a kudos to someone different from the activity author
     Given I connect as admin if random users doesn't exists
       | first  |
