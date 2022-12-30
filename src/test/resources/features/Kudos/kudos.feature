@@ -1,7 +1,7 @@
 @kudos
 Feature: Kudos
   As an administrator I can modify kudos parameters
-  @ignored
+
   Scenario: [EXISTANT-KUDOS 3] Select the number of Kudos that a user is allowed to send per period
     Given I am authenticated as admin
     When I go to administration then reward then kudos
