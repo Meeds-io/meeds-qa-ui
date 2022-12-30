@@ -13,7 +13,7 @@ Feature: Domains Management
 
   Scenario: Edit domain
     Given I am authenticated as admin
-    And I go to administration then I select manage domains
+    When I go to administration then I select manage domains
     And I add new Domain with random name and random description
     And I confirm the addition of the new domain
     Then The random domain is added successfully and its name is displayed in the domain list
@@ -22,7 +22,7 @@ Feature: Domains Management
 
   Scenario: Delete domain
     Given I am authenticated as admin
-    And I go to administration then I select manage domains
+    When I go to administration then I select manage domains
     And I add new Domain with random name and random description
     And I confirm the addition of the new domain
     And I refresh the page
