@@ -304,6 +304,35 @@ Feature: Favorite activities
     Then The message 'The item has been removed from favorites successfully.' should be displayed
     And I check that the random space is unbookmarked from Third Navigation Level
 
-
-
+  Scenario: StreamFiltering_US04.2: Filter my stream by favorite spaces
+    Given I am authenticated as admin
+    And I go to the ninety random space
+    And I click on post in space
+    And I enter an activity 'Test1'
+    When I publish the activity
+    Then the activity 'Test1' is displayed in activity stream
+    When I go to the ninetyone random space
+    And I click on post in space
+    And I enter an activity 'Test2'
+    And I publish the activity
+    Then the activity 'Test2' is displayed in activity stream
+    When I access to Recent spaces
+    And I search for the ninety created space in Side Bar Filter
+    Then Ninety searched space is displayed in Side Bar Filter
+    When I hover on the ninety searched Space In side bar filter
+    Then The arrow is displayed when hovering on searched space in Side Bar Filter
+    When I click on the arrow displayed when hovering the searched space in Side Bar Filter
+    Then The third level Navigation should display the space details panel
+    And The favorite icon should be displayed on space details panel
+    When I bookmark the random space as favorite from Third Navigation Level
+    Then The message 'Favorite added successfully. Find it easily from the search' should be displayed
+    And I check that the random space is bookmarked as favorite from Third Navigation Level
+    And I refresh the page
+    Given I go to Stream page
+    Then the activity 'Test1' is displayed in stream page
+    And the activity 'Test2' is displayed in stream page
+    When I select 'My favorite spaces' from the filter proposed
+    And the activity 'Test1' is displayed in stream page
+    Then the activity 'Test2' is not displayed in stream page
+    And I select 'All' from the filter proposed
 
