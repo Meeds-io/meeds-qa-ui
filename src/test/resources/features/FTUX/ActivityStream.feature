@@ -2491,7 +2491,7 @@ Feature: Activity Stream
     Given I click on three dots button related to activity 'PinTest'
     Then Unpin button related to activity 'PinTest' is displayed
 
-  @exo
+
   Scenario: PinActivity_US03: Unpin an activity
     Given I connect as admin if random users doesn't exists
       | first  |
