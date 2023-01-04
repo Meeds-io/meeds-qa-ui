@@ -2459,16 +2459,20 @@ Feature: Activity Stream
 
   @exo
   Scenario: PinActivity_US01: Space host or redactor can pin an activity (from General Stream -  Space redactor Case)
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
+      | second  |
     And I create the first random user if not existing, no wait
-    And I create a random space
+    And I create the second random user if not existing, no wait
     When I connect with the first created user
+    And I create a random space
+    And I connect with the second created user
     Then I go to the random space
-    When I am authenticated as admin
+    And I connect with the first created user
     And I go to the random space
     And I go to 'Members' tab
-    And I enter the contact name of the first user
-    Then The search result is well matched with the username entered of the first user
+    And I enter the contact name of the second user
+    Then The search result is well matched with the username entered of the second user
     And I click on three dots menu
     And I set as a redactor
     Given I go to 'Stream' tab
@@ -2476,7 +2480,7 @@ Feature: Activity Stream
     And I enter an activity 'PinTest'
     When I publish the activity
     Then the activity 'PinTest' is displayed in activity stream
-    When I connect with the first created user
+    When I connect with the second created user
     And I go to Stream page
     And I click on three dots button related to activity 'PinTest'
     Then Pin button related to activity 'PinTest' is displayed
@@ -2487,7 +2491,7 @@ Feature: Activity Stream
     Given I click on three dots button related to activity 'PinTest'
     Then Unpin button related to activity 'PinTest' is displayed
 
-  @exo
+
   Scenario: PinActivity_US03: Unpin an activity
     Given I am authenticated as admin
     And I create the first random user if not existing, no wait
