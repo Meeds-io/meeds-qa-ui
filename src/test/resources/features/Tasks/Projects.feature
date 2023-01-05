@@ -228,7 +228,7 @@ Feature: Tasks - Projects
     Then The task name 'task1' should be displayed in PLAN view
     And The task name 'task2' should be displayed in PLAN view
     And The task name 'task3' should be displayed in PLAN view
-
+  @exo
   @smoke
   Scenario: CAP16 - [Project_Card_US01]: check the display "project's creator avatar"
     Given I am authenticated as admin
