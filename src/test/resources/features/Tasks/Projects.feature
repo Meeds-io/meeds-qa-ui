@@ -188,7 +188,8 @@ Feature: Tasks - Projects
 
   @exo
   Scenario: [NF] [US_GanttView_01]: Display Gantt tab in Space tasks projects
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
     And I create the first random user if not existing
     And I create a random space with the first random user
     And I connect with the first created user
