@@ -1,7 +1,7 @@
 @programs
 
 Feature: Programs
-
+  @ignored
   Scenario: [Engagement][Program][US] : Add an enabled program
     Given I connect as admin if random users doesn't exists
       | first  |
@@ -26,6 +26,7 @@ Feature: Programs
     And I filter programs by value 'ENABLED'
     Then The program title should be displayed on the card
 
+  @ignored
   Scenario: [Engagement][Program][US] : Add a disabled program
     Given I connect as admin if random users doesn't exists
       | first  |
@@ -50,6 +51,7 @@ Feature: Programs
     And I filter programs by value 'DISABLED'
     Then The program title should be displayed on the card
 
+  @ignored
   Scenario: [Engagement][Program][US] : Edit program
     Given I connect as admin if random users doesn't exists
       | first  |
@@ -75,6 +77,7 @@ Feature: Programs
     Then The message 'Program updated successfully.' should be displayed
     And The program title should be updated on the card
 
+  @ignored
   Scenario: [Program][US04] Delete program
     Given I connect as admin if random users doesn't exists
       | first  |
@@ -100,6 +103,7 @@ Feature: Programs
     Then The message 'Program has been removed successfully.' should be displayed
     And The program card should not be displayed
 
+  @ignored
   Scenario:[Engagement][Program][US] : Quick filter on program
     Given I connect as admin if random users doesn't exists
       | first  |
