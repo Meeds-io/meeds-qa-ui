@@ -3,7 +3,14 @@
 Feature: Programs
 
   Scenario: [Engagement][Program][US] : Add an enabled program
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
+    And I create the firstadm random user if not existing
+    And I go to groups Management page
+    And I open the group 'Platform'
+    When I select the group 'Administration'
+    And I add the role '*' to the firstadm created user
+    And I connect with the firstadm created user
     And I create a random space
     And I go To AppCenter Drawer
     And I go to contributions AppCenter Application
@@ -20,7 +27,14 @@ Feature: Programs
     Then The program title should be displayed on the card
 
   Scenario: [Engagement][Program][US] : Add a disabled program
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
+    And I create the firstadm random user if not existing
+    And I go to groups Management page
+    And I open the group 'Platform'
+    When I select the group 'Administration'
+    And I add the role '*' to the firstadm created user
+    And I connect with the firstadm created user
     And I create a random space
     And I go To AppCenter Drawer
     And I go to contributions AppCenter Application
@@ -37,7 +51,14 @@ Feature: Programs
     Then The program title should be displayed on the card
 
   Scenario: [Engagement][Program][US] : Edit program
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
+    And I create the firstadm random user if not existing
+    And I go to groups Management page
+    And I open the group 'Platform'
+    When I select the group 'Administration'
+    And I add the role '*' to the firstadm created user
+    And I connect with the firstadm created user
     And I create a random space
     And I go To AppCenter Drawer
     And I go to contributions AppCenter Application
@@ -55,7 +76,14 @@ Feature: Programs
     And The program title should be updated on the card
 
   Scenario: [Program][US04] Delete program
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
+    And I create the firstadm random user if not existing
+    And I go to groups Management page
+    And I open the group 'Platform'
+    When I select the group 'Administration'
+    And I add the role '*' to the firstadm created user
+    And I connect with the firstadm created user
     And I create a random space
     And I go To AppCenter Drawer
     And I go to contributions AppCenter Application
@@ -73,7 +101,14 @@ Feature: Programs
     And The program card should not be displayed
 
   Scenario:[Engagement][Program][US] : Quick filter on program
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
+    And I create the firstadm random user if not existing
+    And I go to groups Management page
+    And I open the group 'Platform'
+    When I select the group 'Administration'
+    And I add the role '*' to the firstadm created user
+    And I connect with the firstadm created user
     And I create a random space
     And I go To AppCenter Drawer
     And I go to contributions AppCenter Application
