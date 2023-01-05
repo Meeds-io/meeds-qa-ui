@@ -186,7 +186,7 @@ Feature: Tasks - Projects
     When I hover on task's title 'testlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtaskname'
     Then Task tooltip is displayed 'testlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtaskname'
 
-  @exo
+
   Scenario: [NF] [US_GanttView_01]: Display Gantt tab in Space tasks projects
     Given I connect as admin if random users doesn't exists
       | first  |
