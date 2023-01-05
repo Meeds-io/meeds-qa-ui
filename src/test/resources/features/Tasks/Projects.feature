@@ -186,7 +186,7 @@ Feature: Tasks - Projects
     When I hover on task's title 'testlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtaskname'
     Then Task tooltip is displayed 'testlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtaskname'
 
-  @ignored
+  @exo
   Scenario: [NF] [US_GanttView_01]: Display Gantt tab in Space tasks projects
     Given I am authenticated as admin
     And I create the first random user if not existing
@@ -228,7 +228,7 @@ Feature: Tasks - Projects
     Then The task name 'task1' should be displayed in PLAN view
     And The task name 'task2' should be displayed in PLAN view
     And The task name 'task3' should be displayed in PLAN view
-  @exo
+
   @smoke
   Scenario: CAP16 - [Project_Card_US01]: check the display "project's creator avatar"
     Given I am authenticated as admin
