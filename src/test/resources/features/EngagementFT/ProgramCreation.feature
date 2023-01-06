@@ -74,7 +74,7 @@ Feature: Programs
     Then The message 'New program created successfully' should be displayed
     And The program title should be displayed on the card
     And I edit the created program
-    Then The message 'Program updated successfully' should be displayed
+    Then The message 'Program successfully updated' should be displayed
     And The program title should be updated on the card
 
 
@@ -100,7 +100,7 @@ Feature: Programs
     Then The message 'New program created successfully' should be displayed
     And The program title should be displayed on the card
     And I delete the created program
-    Then The message 'Program has been removed successfully' should be displayed
+    Then The message 'Program has been successfully removed' should be displayed
     And The program card should not be displayed
 
 
