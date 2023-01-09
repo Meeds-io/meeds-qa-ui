@@ -189,10 +189,10 @@ Feature: Tasks - Projects
 
   Scenario: [NF] [US_GanttView_01]: Display Gantt tab in Space tasks projects
     Given I connect as admin if random users doesn't exists
-      | first  |
-    And I create the first random user if not existing
-    And I create a random space with the first random user
-    And I connect with the first created user
+      | fifty  |
+    And I create the fifty random user if not existing
+    And I create a random space with the fifty random user
+    And I connect with the fifty created user
     And I go to Stream page
     Then The Spaces badge is '1'
     When I click on spaces badge
