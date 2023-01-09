@@ -193,6 +193,7 @@ Feature: Tasks - Projects
     And I create a random space
     When I connect with the sixty created user
     Then I go to the random space
+    When I go to Stream page
     Then The Spaces badge is '1'
     When I click on spaces badge
     And I accept the invitation of the created space project
