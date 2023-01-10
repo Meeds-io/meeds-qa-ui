@@ -78,13 +78,11 @@ Feature: Kudos
     And I set the new kudos 'updated kudos message' and I click on update button
     Then the updated Kudos activity 'updated kudos message' is displayed in stream page
 
-
-  @exo
   Scenario: [ActivityStreamKudos_US11] Send a kudos to someone different from the activity author
     Given I connect as admin if random users doesn't exists
       | fortyonekudos |
       | fortytwokudos |
-      | fortythreethkudos  |
+      | fortythreethkudos |
     And I create the fortyonekudos random user if not existing, no wait
     And I create the fortytwokudos random user if not existing
     And I create the fortythreethkudos random user if not existing
@@ -127,7 +125,5 @@ Feature: Kudos
     When I go to the random space
     And I send to the activity 'Hello Team' a kudos message 'Good Good Good' to fiftythreethkudos created user
     Then A message should be displayed on behalf of the suggestor 'Not found in space'
-
-
 
 
