@@ -82,7 +82,8 @@ public class KudosSteps {
     kudosPage.addActivityKudosToSomeoneDifferent(activity, message, user);
   }
 
-  public void getMessageNotFoundUserInSpace(String Message) {
-    kudosPage.getMessageNotFoundUserInSpace(Message);
+  public void addKudosToSomeoneDifferent(String activity, String message, String user) {
+    kudosPage.addKudosToSomeoneDifferent(activity, message, user);
   }
+
 }

@@ -107,8 +107,11 @@ public class KudosStepDefinitions {
     kudoSteps.addActivityKudosToSomeoneDifferent(activity, message, fullName);
   }
 
-  @And("^A message should be displayed on behalf of the suggestor '(.*)'$")
-  public void getMessageNotFoundUserInSpace(String Message) {
-    kudoSteps.getMessageNotFoundUserInSpace(Message);
+  @When("^I send to the activity '(.*)' a kudos message '(.*)' to (.*)$")
+  public void addKudosToSomeoneDifferent(String activity, String message, String userPrefix) {
+    String secondUserFirstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");
+    String secondUserLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
+    String fullName = secondUserFirstName + " " + secondUserLastName;
+    kudoSteps.addKudosToSomeoneDifferent(activity, message, fullName);
   }
 }

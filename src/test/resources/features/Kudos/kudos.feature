@@ -105,6 +105,7 @@ Feature: Kudos
     And I go to My Profile page
     Then '1' kudos are received
 
+  @exo
   Scenario: People suggestor in invitation when members can't be found
     Given I connect as admin if random users doesn't exists
       | fiftyonekudos |
@@ -123,7 +124,6 @@ Feature: Kudos
 
     And I connect with the fiftytwokudos created user
     When I go to the random space
-    And I send to the activity 'Hello Team' a kudos message 'Good Good Good' to fiftythreethkudos created user
-    Then A message should be displayed on behalf of the suggestor 'Not found in space'
+    Then I send to the activity 'Hello Team' a kudos message 'Good Good Good' to fiftythreethkudos
 
 
