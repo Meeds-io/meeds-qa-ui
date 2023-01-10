@@ -112,6 +112,6 @@ public class KudosStepDefinitions {
     String secondUserFirstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");
     String secondUserLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
     String fullName = secondUserFirstName + " " + secondUserLastName;
-    kudoSteps.addKudosToSomeoneDifferent(activity, message, fullName);
+    kudoSteps.addKudosToSomeoneDifferent(activity, fullName, message);
   }
 }
