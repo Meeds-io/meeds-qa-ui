@@ -106,4 +106,9 @@ public class KudosStepDefinitions {
     String fullName =  secondUserFirstName + " " + secondUserLastName;
     kudoSteps.addActivityKudosToSomeoneDifferent(activity, message, fullName);
   }
+
+  @And("^A message should be displayed on behalf of the suggestor '(.*)'$")
+  public void getMessageNotFoundUserInSpace(String Message) {
+    kudoSteps.getMessageNotFoundUserInSpace(Message);
+  }
 }

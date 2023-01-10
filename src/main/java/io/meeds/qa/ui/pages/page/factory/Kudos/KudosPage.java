@@ -90,6 +90,10 @@ public class KudosPage extends GenericPage {
     return findByXPathOrCSS(String.format("//*[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]", user));
   }
 
+  private BaseElementFacade getNotFoundUserInSpaceMessage(String message) {
+    return findByXPathOrCSS(String.format("//*[contains(@class,'v-select-list')]//*[contains(text() ,'%s')]", message));
+  }
+
   public KudosPage(WebDriver driver) {
     super(driver);
   }
@@ -217,5 +221,9 @@ public class KudosPage extends GenericPage {
     findByXPathOrCSS("//*[contains(@content-class,'identitySuggesterContent')]").sendKeys(user);
     chooseAnotherUser(user).clickOnElement();
     sendKudosMessageFromOpenedDrawer(message);
+  }
+
+  public void getMessageNotFoundUserInSpace(String message) {
+    assertWebElementVisible(getNotFoundUserInSpaceMessage(message));
   }
 }
