@@ -223,7 +223,7 @@ public class KudosPage extends GenericPage {
     sendKudosMessageFromOpenedDrawer(message);
   }
 
-  public void addKudosToSomeoneDifferent(String activity, String message, String user) {
+  public void addKudosToSomeoneDifferent(String activity, String user, String message) {
     getKudosLink(activity).clickOnElement();
     findByXPathOrCSS("//*[contains (@class, 'v-icon notranslate v-chip')]").clickOnElement();
     assertWebElementVisible(findByXPathOrCSS("//*[contains(@content-class,'identitySuggesterContent')]"));

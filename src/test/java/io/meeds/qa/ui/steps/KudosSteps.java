@@ -82,8 +82,8 @@ public class KudosSteps {
     kudosPage.addActivityKudosToSomeoneDifferent(activity, message, user);
   }
 
-  public void addKudosToSomeoneDifferent(String activity, String message, String user) {
-    kudosPage.addKudosToSomeoneDifferent(activity, message, user);
+  public void addKudosToSomeoneDifferent(String activity, String user, String message) {
+    kudosPage.addKudosToSomeoneDifferent(activity, user, message);
   }
 
 }

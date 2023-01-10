@@ -124,6 +124,6 @@ Feature: Kudos
 
     And I connect with the fiftytwokudos created user
     When I go to the random space
-    Then I send to the activity 'Hello Team' a kudos message 'Good Good Good' to fiftythreethkudos
+    Then I send to the activity 'Hello Team' a kudos to fiftythreethkudos to 'Not found in space'
 
 
