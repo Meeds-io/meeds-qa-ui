@@ -105,7 +105,7 @@ Feature: Kudos
     And I go to My Profile page
     Then '1' kudos are received
 
-  @exo
+
   Scenario: People suggestor in invitation when members can't be found
     Given I connect as admin if random users doesn't exists
       | fiftyonekudos |
