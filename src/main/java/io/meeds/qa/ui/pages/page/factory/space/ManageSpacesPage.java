@@ -437,7 +437,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   private BaseElementFacade getAppCardNameDrawer(String application) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@class,'d-flex ')]//following::*[@class='SpaceApplicationCardAction']",
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@class,'d-flex')]//ancestor::*[@class='SpaceApplicationCardAction']",
                                           application));
   }
 
