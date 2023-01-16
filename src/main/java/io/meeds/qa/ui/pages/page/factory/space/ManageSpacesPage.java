@@ -119,7 +119,7 @@ public class ManageSpacesPage extends GenericPage {
   @FindBy(xpath = "//*[@class='v-toolbar__title ps-0']")
   private BaseElementFacade        spaceAppSettingsPage;
 
-  @FindBy(xpath = "//*[@class='spaceAvatar']")
+  @FindBy(xpath = "//*[@id='UserHomePortalLink']")
   private BaseElementFacade        spaceAvatar;
 
   @FindBy(xpath = "//*[@class='flex fill-height column']")
