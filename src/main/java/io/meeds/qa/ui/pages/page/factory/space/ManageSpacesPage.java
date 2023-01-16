@@ -20,7 +20,7 @@ public class ManageSpacesPage extends GenericPage {
   @FindBy(xpath = "(//*[@class='d-flex flex-no-wrap']//i[@class='v-icon notranslate mdi mdi-plus theme--light'])[1]")
   private BaseElementFacade        addAppButton;
 
-  @FindBy(xpath = "//button[contains(@class,'addNewSpaceButton')]")
+  @FindBy(xpath = "//button[contains(@class,'btn-primary')]")
   private BaseElementFacade        addNewSpaceButton;
 
   @FindBy(xpath = "(//aside[contains(@class,'spaceFormDrawer')]//button[contains(@class,'btn-primary')])[3]")
@@ -119,7 +119,7 @@ public class ManageSpacesPage extends GenericPage {
   @FindBy(xpath = "//*[@class='v-toolbar__title ps-0']")
   private BaseElementFacade        spaceAppSettingsPage;
 
-  @FindBy(xpath = "//*[@class='spaceAvatar']")
+  @FindBy(xpath = "//*[@id='UserHomePortalLink']")
   private BaseElementFacade        spaceAvatar;
 
   @FindBy(xpath = "//*[@class='flex fill-height column']")
