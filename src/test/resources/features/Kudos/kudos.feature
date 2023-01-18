@@ -78,12 +78,11 @@ Feature: Kudos
     And I set the new kudos 'updated kudos message' and I click on update button
     Then the updated Kudos activity 'updated kudos message' is displayed in stream page
 
-
   Scenario: [ActivityStreamKudos_US11] Send a kudos to someone different from the activity author
     Given I connect as admin if random users doesn't exists
-      | first  |
-      | second |
-      | third   |
+      | fortyonekudos |
+      | fortytwokudos |
+      | fortythreethkudos |
     And I create the fortyonekudos random user if not existing, no wait
     And I create the fortytwokudos random user if not existing
     And I create the fortythreethkudos random user if not existing
@@ -105,3 +104,26 @@ Feature: Kudos
     And I connect with the fortytwokudos created user
     And I go to My Profile page
     Then '1' kudos are received
+
+
+  Scenario: People suggestor in invitation when members can't be found
+    Given I connect as admin if random users doesn't exists
+      | fiftyonekudos |
+      | fiftytwokudos |
+      | fiftythreethkudos |
+    And I create the fiftyonekudos random user if not existing, no wait
+    And I create the fiftytwokudos random user if not existing
+    And I create the fiftythreethkudos random user if not existing
+
+    When I connect with the fiftyonekudos created user
+    And I go to the random space
+    And I click on post in space
+    And I enter an activity 'Hello Team'
+    And I publish the activity
+    Then the activity 'Hello Team' is displayed in activity stream
+
+    And I connect with the fiftytwokudos created user
+    When I go to the random space
+    Then I send to the activity 'Hello Team' a kudos to fiftythreethkudos to 'Not found in space'
+
+
