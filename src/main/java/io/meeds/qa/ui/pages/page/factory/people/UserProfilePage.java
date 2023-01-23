@@ -89,40 +89,40 @@ public class UserProfilePage extends GenericPage {
   @FindBy(xpath = "//*[@class='v-card__text d-flex positionField py-0'][8]/following::input[3]")
   private BaseElementFacade      ELEMENT_CONTACT_URL_TITLE_EDIT_BTN;
 
-  @FindBy(xpath = "(//*[@id='ProfileHeader']//*[@class='v-image__image v-image__image--cover'])[2]")
+  @FindBy(xpath = "(//*[@id='profileAvatar']")
   public BaseElementFacade       ELEMENT_PROFILE_AVATAR;
 
-  @FindBy(xpath = "(//*[@id='ProfileContactInformation']//*[@class='flex d-flex']//div[2])[4]")
+  @FindBy(xpath = "//*[@id='profileContactUserCompany']")
   private BaseElementFacade      ELEMENT_PROFILE_CONTACT_INFORMATION_COMPANY;
 
-  @FindBy(xpath = "(//*[@id='ProfileContactInformation']//*[@class='flex d-flex']//div[2])[2]")
+  @FindBy(xpath = "//*[@id='profileContactUserEmail']")
   public BaseElementFacade       ELEMENT_PROFILE_CONTACT_INFORMATION_EMAIL;
 
-  @FindBy(xpath = "(//*[@id='ProfileContactInformation']//*[@class='flex d-flex']//div[2])[1]")
+  @FindBy(xpath = "//*[@id='profileContactUserFullname']")
   public BaseElementFacade       ELEMENT_PROFILE_CONTACT_INFORMATION_FULLNAME;
 
-  @FindBy(xpath = "(//*[@id='ProfileContactInformation']//*[@class='flex d-flex']//div[2])[6]")
+  @FindBy(xpath = "//*[@id='profileContactIms']")
   private BaseElementFacade      ELEMENT_PROFILE_CONTACT_INFORMATION_INSTANT_MESSAGING;
 
-  @FindBy(xpath = "(//*[@id='ProfileContactInformation']//*[@class='flex d-flex']//div[2])[3]")
+  @FindBy(xpath = "//*[@id='profileContactUserPosition']")
   public BaseElementFacade       ELEMENT_PROFILE_CONTACT_INFORMATION_JOBTITLE;
 
-  @FindBy(xpath = "(//*[@id='ProfileContactInformation']//*[@class='flex d-flex']//div[2])[5]")
+  @FindBy(xpath = "//*[@id='profileContactPhones']")
   private BaseElementFacade      ELEMENT_PROFILE_CONTACT_INFORMATION_PHONE;
 
-  @FindBy(xpath = "//*[@id='ProfileContactInformation']//*[@class='text-header-title text-sub-title']")
+  @FindBy(xpath = "//*[@id='ProfileContactInformation']//*[contains(@class,'profileContactTitle')]")
   public BaseElementFacade       ELEMENT_PROFILE_CONTACT_INFORMATION_TITLE;
 
-  @FindBy(xpath = "(//*[@id='ProfileContactInformation']//*[@class='flex d-flex']//div[2])[7]")
+  @FindBy(xpath = "//*[@id='profileContactUrls']")
   private BaseElementFacade      ELEMENT_PROFILE_CONTACT_INFORMATION_URL;
 
   @FindBy(xpath = "(//*[@id='ProfileHeader']//*[@class='v-image__image v-image__image--cover'])[1]")
   public BaseElementFacade       ELEMENT_PROFILE_COVER;
 
-  @FindBy(xpath = "(//*[@class='profileHeader']/div/div/div)[1]")
+  @FindBy(xpath = "//*[@id='profileContactUserFullname']")
   public BaseElementFacade       ELEMENT_PROFILE_FULLNAME;
 
-  @FindBy(xpath = "(//*[@class='profileHeader']/div/div/div)[2]")
+  @FindBy(xpath = "//*[@id='profileContactUserPosition']")
   public BaseElementFacade       ELEMENT_PROFILE_JOB;
 
   @FindBy(xpath = "//*[contains(@class,'uiIconTrash')]")
