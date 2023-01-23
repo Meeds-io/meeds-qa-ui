@@ -89,7 +89,7 @@ public class UserProfilePage extends GenericPage {
   @FindBy(xpath = "//*[@class='v-card__text d-flex positionField py-0'][8]/following::input[3]")
   private BaseElementFacade      ELEMENT_CONTACT_URL_TITLE_EDIT_BTN;
 
-  @FindBy(xpath = "(//*[@id='profileAvatar']")
+  @FindBy(xpath = "//*[@id='profileAvatar']")
   public BaseElementFacade       ELEMENT_PROFILE_AVATAR;
 
   @FindBy(xpath = "//*[@id='profileContactUserCompany']")
