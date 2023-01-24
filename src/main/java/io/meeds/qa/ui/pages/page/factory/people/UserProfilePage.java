@@ -122,7 +122,7 @@ public class UserProfilePage extends GenericPage {
   @FindBy(xpath = "//*[@id='profileContactUserFullname']")
   public BaseElementFacade       ELEMENT_PROFILE_FULLNAME;
 
-  @FindBy(xpath = "//*[@id='profileContactUserPosition']")
+  @FindBy(xpath = "//*[@id='profileHeaderUserPosition']")
   public BaseElementFacade       ELEMENT_PROFILE_JOB;
 
   @FindBy(xpath = "//*[contains(@class,'uiIconTrash')]")

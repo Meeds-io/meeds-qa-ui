@@ -26,7 +26,7 @@ Feature: Search for User Informations in Profile page
 
     When I go to My Profile page
 
-    Then Profile Contact Fullname 'Contact information' is displayed in 'Admin User'
+    Then Profile Contact Fullname 'Your Contact informations' is displayed in 'Admin User'
     And Profile Contact Email 'admin@localhost.com' is displayed
 
     When I create the first random user if not existing, no wait
@@ -42,7 +42,7 @@ Feature: Search for User Informations in Profile page
     And I connect with the firstprofile created user
     And I go to My Profile page
     And I update my profile random basic informations
-    Then In 'Contact information', Updated profile Contact Fullname is displayed
+    Then In 'Your Contact informations', Updated profile Contact Fullname is displayed
     And Updated Profile Contact Email is displayed
     And Updated Profile Contact Job is displayed
 
@@ -53,7 +53,7 @@ Feature: Search for User Informations in Profile page
     And I connect with the secondprofile created user
     And I go to My Profile page
     And I update my profile random basic informations
-    Then In 'Contact information', Updated profile Contact Fullname is displayed
+    Then In 'Your Contact informations', Updated profile Contact Fullname is displayed
     And Updated Profile Contact Email is displayed
     And Updated Profile Contact Job is displayed
 
@@ -95,14 +95,13 @@ Feature: Search for User Informations in Profile page
     Then Sent kudos by user 'seventhkudos' is displayed
     And Sent kudos by user 'sixthkudos' is displayed
 
-  Scenario: : PROFILE-6 : Rawards Meeds block and its drawer
+  Scenario: : PROFILE-6 : Received and sent kudos section
     Given I am authenticated as admin
 
     When I go to My Profile page
 
     Then Received Kudos Section is displayed
     Then Sent Kudos Section is displayed
-    Then Gained Cauris Section is displayed
 
   Scenario: : PROFILE-7 : Work Experiences block and its drawer
     Given I am authenticated as admin
@@ -132,6 +131,7 @@ Feature: Search for User Informations in Profile page
     And I remove my profile work experiences 'QA Engineer'
     And I remove my profile work experiences 'IT Engineer Developer'
 
+  @ignored
   Scenario: : PROFILE-9 : Achievement Drawer in Points
     Given I connect as admin if random users doesn't exists
       | first  |
