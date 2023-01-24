@@ -193,8 +193,8 @@ public class UserProfileStepDefinition {
   @Then("^Updated Profile Contact Phone is displayed$")
   public void isProfileContactRandomPhoneVisible() {
     String phoneType = "Work";
-    String phone = Serenity.sessionVariableCalled("phone");
-    String phoneInformation = phoneType + ": " + phone;
+    String Phones = Serenity.sessionVariableCalled("Phones");
+    String phoneInformation = phoneType + ": " + Phones;
     userProfileSteps.refreshPage();
     userProfileSteps.isProfileContactPhoneVisible(phoneInformation);
   }

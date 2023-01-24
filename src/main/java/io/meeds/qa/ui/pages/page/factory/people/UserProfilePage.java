@@ -47,7 +47,7 @@ public class UserProfilePage extends GenericPage {
   @FindBy(xpath = "(//*[@class='v-card__text d-flex positionField py-0']//input)[2]")
   private BaseElementFacade      ELEMENT_CONTACT_COMPANY_TITLE_EDIT_BTN;
 
-  @FindBy(xpath = "(//*[@class='layout column']//*[@class='d-flex']//button)[5]")
+  @FindBy(xpath = "//*[contains(@class,'btn-primary')]")
   private BaseElementFacade      ELEMENT_CONTACT_EDIT_SAVE_BTN;
 
   @FindBy(xpath = "(//*[@class='v-card__text d-flex emailField py-0']//input)[1]")
@@ -107,7 +107,7 @@ public class UserProfilePage extends GenericPage {
   @FindBy(xpath = "//*[@id='profileContactUserPosition']")
   public BaseElementFacade       ELEMENT_PROFILE_CONTACT_INFORMATION_JOBTITLE;
 
-  @FindBy(xpath = "//*[@id='profileContactPhones']")
+  @FindBy(xpath = "//*[@class='flex d-flex']//ancestor::*[contains(@class,'profileContactPhone')]")
   private BaseElementFacade      ELEMENT_PROFILE_CONTACT_INFORMATION_PHONE;
 
   @FindBy(xpath = "//*[@id='ProfileContactInformation']//*[contains(@class,'profileContactTitle')]")

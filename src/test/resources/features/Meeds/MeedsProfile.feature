@@ -19,9 +19,7 @@ Feature: Search for User Informations in Profile page
     Then User Cover is displayed in Profile Page
     And User Avatar is displayed in Profile Page
     And User Fullname 'Admin User' is displayed in Profile Page
-    And I add my profile work experiences
-      | organization | Test company        |
-      | jobTitle     | Automation Engineer |
+
     And User Job 'Automation Engineer' is displayed in Profile Page
 
   Scenario: PROFILE-2 User avatar and cover block_(02)
@@ -38,6 +36,7 @@ Feature: Search for User Informations in Profile page
 
     Then User Job '' is displayed in Profile Page
 
+
   Scenario: PROFILE-4 Contact information block_(01) : Add informations
     Given I am authenticated as admin
 
@@ -45,9 +44,11 @@ Feature: Search for User Informations in Profile page
     And I connect with the firstprofile created user
     And I go to My Profile page
     And I update my profile random basic informations
+    And I refresh the page
     Then In 'Your contact informations', Updated profile Contact Fullname is displayed
     And Updated Profile Contact Email is displayed
     And Updated Profile Contact Job is displayed
+
 
   Scenario: PROFILE-4 Contact information block_(02) : Add informations
     Given I am authenticated as admin
