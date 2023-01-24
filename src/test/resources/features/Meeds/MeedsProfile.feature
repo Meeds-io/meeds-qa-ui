@@ -19,14 +19,17 @@ Feature: Search for User Informations in Profile page
     Then User Cover is displayed in Profile Page
     And User Avatar is displayed in Profile Page
     And User Fullname 'Admin User' is displayed in Profile Page
-    And User Job '' is displayed in Profile Page
+    And I add my profile work experiences
+      | organization | Test company        |
+      | jobTitle     | Automation Engineer |
+    And User Job 'Automation Engineer' is displayed in Profile Page
 
   Scenario: PROFILE-2 User avatar and cover block_(02)
     Given I am authenticated as admin
 
     When I go to My Profile page
 
-    Then Profile Contact Fullname 'Your Contact informations' is displayed in 'Admin User'
+    Then Profile Contact Fullname 'Your contact informations' is displayed in 'Admin User'
     And Profile Contact Email 'admin@localhost.com' is displayed
 
     When I create the first random user if not existing, no wait
@@ -42,7 +45,7 @@ Feature: Search for User Informations in Profile page
     And I connect with the firstprofile created user
     And I go to My Profile page
     And I update my profile random basic informations
-    Then In 'Your Contact informations', Updated profile Contact Fullname is displayed
+    Then In 'Your contact informations', Updated profile Contact Fullname is displayed
     And Updated Profile Contact Email is displayed
     And Updated Profile Contact Job is displayed
 
@@ -53,7 +56,7 @@ Feature: Search for User Informations in Profile page
     And I connect with the secondprofile created user
     And I go to My Profile page
     And I update my profile random basic informations
-    Then In 'Your Contact informations', Updated profile Contact Fullname is displayed
+    Then In 'Your contact informations', Updated profile Contact Fullname is displayed
     And Updated Profile Contact Email is displayed
     And Updated Profile Contact Job is displayed
 
