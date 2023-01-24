@@ -107,7 +107,7 @@ public class UserProfilePage extends GenericPage {
   @FindBy(xpath = "//*[@id='profileContactUserPosition']")
   public BaseElementFacade       ELEMENT_PROFILE_CONTACT_INFORMATION_JOBTITLE;
 
-  @FindBy(xpath = "//*[@class='flex d-flex']//ancestor::*[contains(@class,'profileContactPhone')]")
+  @FindBy(xpath = "//*[@id='profileContactPhones']")
   private BaseElementFacade      ELEMENT_PROFILE_CONTACT_INFORMATION_PHONE;
 
   @FindBy(xpath = "//*[@id='ProfileContactInformation']//*[contains(@class,'profileContactTitle')]")
