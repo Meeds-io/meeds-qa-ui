@@ -23,7 +23,7 @@ public class UserProfilePage extends GenericPage {
   @FindBy(xpath = "//aside[contains(@class,'achievementsDrawer')]//div[contains(text(),'Points')]")
   private BaseElementFacade      achievementsWeeklyPointInDrawer;
 
-  @FindBy(xpath = "//*[@id='ProfileWorkExperience']//button[@class='v-icon notranslate my-auto v-icon--link mdi mdi-plus theme--light']")
+  @FindBy(xpath = "//*[@id='ProfileWorkExperience']//*[contains(@class,' fa-plus')]")
   public BaseElementFacade       addWorkExperiences;
 
   @FindBy(xpath = "//div[@id='badgesOverview']//div[contains(@class,'BadgeItemAvatar')]")
@@ -41,7 +41,7 @@ public class UserProfilePage extends GenericPage {
   @FindBy(xpath = "//button[contains(@class,'acceptToConnectButton')]")
   private BaseElementFacade      confirmConnection;
 
-  @FindBy(xpath = "//*[@id='ProfileWorkExperience']//button[contains(@class,'v-btn--outlined')]//span//i")
+  @FindBy(xpath = "//*[@id='ProfileWorkExperience']//*[contains(@class,'uiIconEdit')]")
   public BaseElementFacade       editWorkExperiences;
 
   @FindBy(xpath = "(//*[@class='v-card__text d-flex positionField py-0']//input)[2]")
@@ -101,19 +101,19 @@ public class UserProfilePage extends GenericPage {
   @FindBy(xpath = "//*[@id='profileContactUserFullname']")
   public BaseElementFacade       ELEMENT_PROFILE_CONTACT_INFORMATION_FULLNAME;
 
-  @FindBy(xpath = "//*[@id='profileContactIms']")
+  @FindBy(xpath = "//*[contains(@class,'profileContactIm')]")
   private BaseElementFacade      ELEMENT_PROFILE_CONTACT_INFORMATION_INSTANT_MESSAGING;
 
   @FindBy(xpath = "//*[@id='profileContactUserPosition']")
   public BaseElementFacade       ELEMENT_PROFILE_CONTACT_INFORMATION_JOBTITLE;
 
-  @FindBy(xpath = "//*[@id='profileContactPhones']")
+  @FindBy(xpath = "//*[contains(@class,'profileContactPhone')]")
   private BaseElementFacade      ELEMENT_PROFILE_CONTACT_INFORMATION_PHONE;
 
   @FindBy(xpath = "//*[@id='ProfileContactInformation']//*[contains(@class,'profileContactTitle')]")
   public BaseElementFacade       ELEMENT_PROFILE_CONTACT_INFORMATION_TITLE;
 
-  @FindBy(xpath = "//*[@id='profileContactUrls']")
+  @FindBy(xpath = "//*[contains(@class,'profileContactUrl')]")
   private BaseElementFacade      ELEMENT_PROFILE_CONTACT_INFORMATION_URL;
 
   @FindBy(xpath = "(//*[@id='ProfileHeader']//*[@class='v-image__image v-image__image--cover'])[1]")
@@ -175,7 +175,7 @@ public class UserProfilePage extends GenericPage {
   @FindBy(xpath = "//*[@id='ProfileHeader']")
   private BaseElementFacade      profilePage;
 
-  @FindBy(xpath = "//*[@class='btn btn-primary v-btn v-btn--contained theme--light v-size--default']")
+  @FindBy(xpath = "//*[contains(@class,'drawerFooter')]//button[contains(@class,'btn-primary')]")
   public BaseElementFacade       saveWorkExperiences;
 
   @FindBy(xpath = "//*[contains(@class,'drawerFooter ')]//*[contains(text(),'Send')]")
@@ -233,12 +233,11 @@ public class UserProfilePage extends GenericPage {
   }
 
   private BaseElementFacade getJobDetailsWorkExperience(String jobDetails) {
-    return findByXPathOrCSS(String.format("//*[@class='v-timeline-item__body']//*[contains(@class,'font-weight-light') and contains(text(),'%s')]",
-                                          jobDetails));
+    return findByXPathOrCSS(String.format("//*[contains(@class,'v-timeline-item')]//*[contains (text(),'%s')]", jobDetails));
   }
 
   private BaseElementFacade getJobTitleWorkExperience(String jobTitle) {
-    return findByXPathOrCSS(String.format("//*[@class='v-timeline-item__body']//*[@class='text-color' and contains(text(),'%s')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class,'v-timeline-item')]//*[contains (text(),'%s')]",
                                           jobTitle));
   }
 
@@ -247,7 +246,7 @@ public class UserProfilePage extends GenericPage {
   }
 
   private BaseElementFacade getOrganizationWorkExperience(String organization) {
-    return findByXPathOrCSS(String.format("//*[@class='v-timeline-item__body']//*[@class='text-sub-title' and contains(text(),'%s')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class,'v-timeline-item')]//*[contains (text(),'%s')]",
                                           organization));
   }
 
@@ -272,7 +271,7 @@ public class UserProfilePage extends GenericPage {
   }
 
   private BaseElementFacade getUsedSkillsWorkExperience(String UsedSkill) {
-    return findByXPathOrCSS(String.format("//*[@class='v-timeline-item__body']//*[contains(@class,'font-weight-bold') and contains(text(),'%s')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class,'v-timeline-item')]//*[contains (text(),'%s')]",
                                           UsedSkill));
   }
 
@@ -545,6 +544,34 @@ public class UserProfilePage extends GenericPage {
       editWorkExperiences.clickOnElement();
     }
     addWorkExperiences.clickOnElement();
+    elementWorkExperiencesOrganization.setTextValue(organization);
+    elementWorkExperiencesJobTitle.setTextValue(jobTitle);
+    elementWorkExperiencesJobDetails.setTextValue(jobDetails);
+    elementWorkExperiencesUsedSkills.setTextValue(usedSkills);
+
+    elementWorkExperiencesStartDate.clickOnElement();
+    elementWorkExperiencesStartDateGoToPreviousMonth.clickOnElement();
+    waitFor(200).milliseconds(); // Wait until animation finishes
+    BaseElementFacade elementWorkExperiencesStartDateFirstMonthDay =
+                                                                   findByXPathOrCSS("(//*[contains(@class, 'profileWorkExperiencesDates')]//*[contains(@class, 'datePickerComponent')])[1]//*[contains(@class,'menuable__content__active')]//*[contains(@class,'v-date-picker-table')]//td//*[text() = '1']//ancestor::button");
+    elementWorkExperiencesStartDateFirstMonthDay.clickOnElement();
+    waitFor(200).milliseconds(); // Wait until animation finishes
+
+    elementWorkExperiencesEndDate.clickOnElement();
+    elementWorkExperiencesEndDateToday.clickOnElement();
+
+    saveWorkExperiences.clickOnElement();
+    waitForDrawerToClose(".profileWorkExperiencesDrawer.v-navigation-drawer--open", true);
+  }
+
+  public void addWorkExperiences(String organization, String jobTitle, String jobDetails, String usedSkills) {
+    // Add work experience
+    addWorkExperiences.clickOnElement();
+    waitForDrawerToOpen(".profileWorkExperiencesDrawer.v-navigation-drawer--open", true);
+    if (!addWorkExperiences.isCurrentlyVisible()) {
+      closeWorkExperiencesDrawerBtn.clickOnElement();
+      editWorkExperiences.clickOnElement();
+    }
     elementWorkExperiencesOrganization.setTextValue(organization);
     elementWorkExperiencesJobTitle.setTextValue(jobTitle);
     elementWorkExperiencesJobDetails.setTextValue(jobDetails);

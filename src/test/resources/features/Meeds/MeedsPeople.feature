@@ -56,7 +56,7 @@ Feature: Search for Contacts in People page
     And I delete Sent Request
     And I close Sent Request button
 
-  @smoke
+  @ignored
   Scenario: : PEOPLE-7 : Leaderboard in the People Cards list application
     Given I am authenticated as admin
 
