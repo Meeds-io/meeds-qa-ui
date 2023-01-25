@@ -346,9 +346,13 @@ public class UserProfileStepDefinition {
   }
 
   @Given("^I update my profile work experiences$")
-  @And("^I add my profile work experiences$")
   public void updateWorkExperiences(Map<String, String> workExperiences) throws InterruptedException {
     userProfileSteps.updateWorkExperiences(workExperiences);
+  }
+
+  @And("^I add my profile work experiences$")
+  public void addWorkExperiences(Map<String, String> workExperiences) throws InterruptedException {
+    userProfileSteps.addWorkExperiences(workExperiences);
   }
 
   @Then("^I upload the Profile avatar '(.*)'$")

@@ -191,6 +191,13 @@ public class UserProfileSteps {
                                           workExperiences.get("usedSkills"));
   }
 
+  public void addWorkExperiences(Map<String, String> workExperiences) throws InterruptedException {
+    userProfilePage.addWorkExperiences(workExperiences.get("organization"),
+                                       workExperiences.get("jobTitle"),
+                                       workExperiences.get("jobDetails"),
+                                       workExperiences.get("usedSkills"));
+  }
+
   public void uploadProfileAvatar(String fileName) {
     userProfilePage.uploadProfileAvatar(fileName);
   }

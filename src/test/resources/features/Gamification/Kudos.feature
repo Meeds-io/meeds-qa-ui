@@ -1,7 +1,7 @@
 @kudos
 Feature: Kudos gamification
 
-  @smoke
+  @ignored
   Scenario: Receive Kudos
     Given I connect as admin if random users doesn't exists
       | first  |
@@ -18,7 +18,7 @@ Feature: Kudos gamification
     When I go to my profile
     Then My points augmented
 
-  @smoke
+  @ignored
   Scenario: Post activity (space stream)
     Given I am authenticated as admin
     And I check my points

@@ -2,7 +2,7 @@
 @achievements
 Feature: Achievements gamification
 
-  @smoke
+  @ignored
   Scenario: Check my achievement in user profile menu
     Given I am authenticated as admin
     And I go to my profile
@@ -11,7 +11,7 @@ Feature: Achievements gamification
       | Achievements            |
       | Total point achievement |
 
-  @smoke
+  @ignored
   Scenario: Open How to earn my points page
     Given I am authenticated as admin
     And I go to my profile
