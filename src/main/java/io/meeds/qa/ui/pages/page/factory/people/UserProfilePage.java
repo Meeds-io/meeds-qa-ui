@@ -41,7 +41,7 @@ public class UserProfilePage extends GenericPage {
   @FindBy(xpath = "//button[contains(@class,'acceptToConnectButton')]")
   private BaseElementFacade      confirmConnection;
 
-  @FindBy(xpath = "//*[@id='ProfileWorkExperience']//*[contains(@class,'uiIconEdit')]")
+  @FindBy(xpath = "//*[@id='ProfileWorkExperience']//*[contains(@class,'fa-edit')]")
   public BaseElementFacade       editWorkExperiences;
 
   @FindBy(xpath = "(//*[@class='v-card__text d-flex positionField py-0']//input)[2]")
@@ -59,7 +59,7 @@ public class UserProfilePage extends GenericPage {
   @FindBy(xpath = "(//*[@id='WalletOverview']//div)[8]")
   private BaseElementFacade      ELEMENT_CONTACT_GAINED_CAURIS;
 
-  @FindBy(xpath = "//*[@id='ProfileContactInformation']//*[@class='uiIconEdit uiIconLightBlue pb-2']")
+  @FindBy(xpath = "//*[@id='profileContactEditButton']")
   private BaseElementFacade      ELEMENT_CONTACT_INFORMATIONS_EDIT_BTN;
 
   @FindBy(xpath = "//*[@class='v-card__text d-flex positionField py-0'][8]/following::input[2]")
