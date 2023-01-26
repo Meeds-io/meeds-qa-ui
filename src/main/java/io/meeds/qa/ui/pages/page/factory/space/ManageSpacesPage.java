@@ -640,7 +640,7 @@ public class ManageSpacesPage extends GenericPage {
 
   public void uploadSpaceBanner(String fileName) {
     spaceBanner.waitUntilVisible();
-    BaseElementFacade spaceBannerButton = findByXPathOrCSS("//*[@id='spaceAvatarImg']//*[contains(@class,'fa-file-image')]");
+    BaseElementFacade spaceBannerButton = findByXPathOrCSS("//*[@id='spaceBannerEditButton']//*[contains(@class,'fa-file-image')]");
     spaceBannerButton.hover();
     spaceBannerButton.clickOnElement();
     waitForDrawerToOpen();
