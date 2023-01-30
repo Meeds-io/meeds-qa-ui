@@ -20,7 +20,7 @@ Feature: Spaces Management
     And The created space name is displayed
     And First created space Tabs are displayed in order
 
-  @ignored
+
   Scenario: SPC_MNG-3 : Home space page banner
     Given I am authenticated as admin
 
