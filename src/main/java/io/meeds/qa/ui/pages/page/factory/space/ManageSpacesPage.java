@@ -179,7 +179,7 @@ public class ManageSpacesPage extends GenericPage {
   @FindBy(xpath = "//button[@class='btn btn-primary v-btn v-btn--contained theme--light v-size--default']")
   private BaseElementFacade        updateButton;
 
-  @FindBy(xpath = "//*[contains(@class,'fa-camera')]")
+  @FindBy(css = "#spaceBannerEditButton")
   private TextBoxElementFacade     uploadSpaceBannerButton;
 
   @FindBy(xpath = "//*[@for='inviteMembers']")
@@ -640,17 +640,17 @@ public class ManageSpacesPage extends GenericPage {
 
   public void uploadSpaceBanner(String fileName) {
     spaceBanner.waitUntilVisible();
-    BaseElementFacade spaceBannerButton = findByXPathOrCSS("//*[@id='spaceBannerEditButton']//*[contains(@class,'fa-file-image')]");
-    spaceBannerButton.hover();
-    spaceBannerButton.clickOnElement();
-    waitForDrawerToOpen();
+    BaseElementFacade spaceBannerImage = findByXPathOrCSS("#SpaceHeader .v-image");
+    spaceBannerImage.clickOnElement();
     uploadSpaceBannerButton.waitUntilVisible();
-    WebElement elem =
-                    getDriver().findElement(org.openqa.selenium.By.xpath("//*[@class='v-input__prepend-outer']//button/following::input[1]"));
-    String js = "arguments[0].style.height='auto'; arguments[0].style.visibility='visible';";
-    ((JavascriptExecutor) getDriver()).executeScript(js, elem);
-    upload(UPLOAD_DIRECTORY_PATH + fileName).fromLocalMachine().to(elem);
-    applyButtonBanner.clickOnElement();
+    uploadSpaceBannerButton.clickOnElement();
+    waitForDrawerToOpen();
+    BaseElementFacade fileInput = findByXPathOrCSS(".v-navigation-drawer--open input[type=file]");
+    upload(UPLOAD_DIRECTORY_PATH + fileName).fromLocalMachine().to(fileInput);
+    waitForProgressBar();
+    BaseElementFacade imageApplyButton = findByXPathOrCSS("#imageCropDrawerApply");
+    imageApplyButton.clickOnElement();
+    waitForDrawerToClose();
   }
 
   public void confirmRemoveApplication() {
