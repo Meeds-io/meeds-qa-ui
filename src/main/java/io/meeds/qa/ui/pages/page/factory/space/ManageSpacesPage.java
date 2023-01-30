@@ -122,7 +122,7 @@ public class ManageSpacesPage extends GenericPage {
   @FindBy(xpath = "//*[@id='UserHomePortalLink']")
   private BaseElementFacade        spaceAvatar;
 
-  @FindBy(xpath = "//*[@class='flex fill-height column']")
+  @FindBy(xpath = "//*[@id='spaceAvatarImg']")
   private TextBoxElementFacade     spaceBanner;
 
   @FindBy(xpath = "//*[@id='SpaceHeader']//*[@class='v-responsive__content']")
@@ -179,7 +179,7 @@ public class ManageSpacesPage extends GenericPage {
   @FindBy(xpath = "//button[@class='btn btn-primary v-btn v-btn--contained theme--light v-size--default']")
   private BaseElementFacade        updateButton;
 
-  @FindBy(xpath = "(//*[@class='flex fill-height column']//button)[1]")
+  @FindBy(css = "#spaceBannerEditButton")
   private TextBoxElementFacade     uploadSpaceBannerButton;
 
   @FindBy(xpath = "//*[@for='inviteMembers']")
@@ -190,6 +190,9 @@ public class ManageSpacesPage extends GenericPage {
 
   @FindBy(xpath = "//*[contains(@class, 'v-dialog--active')]//button[contains(@class, 'btn-primary')]")
   private BaseElementFacade        removeConfirmationButton;
+
+  @FindBy(xpath = "//*[contains(@class,'drawerFooter')]//*[contains(@class,'btn-primary')]")
+  private BaseElementFacade applyButtonBanner;
 
   private BaseElementFacade spaceName() {
     return findByXPathOrCSS("//*[contains(@class,'UITopBarContainerItem')]//*[contains(@class,'logoTitle')]");
@@ -637,14 +640,17 @@ public class ManageSpacesPage extends GenericPage {
 
   public void uploadSpaceBanner(String fileName) {
     spaceBanner.waitUntilVisible();
-    BaseElementFacade spaceBannerButton = findByXPathOrCSS("//*[@class='flex fill-height column']");
-    spaceBannerButton.clickOnElement();
+    BaseElementFacade spaceBannerImage = findByXPathOrCSS("#SpaceHeader .v-image");
+    spaceBannerImage.clickOnElement();
     uploadSpaceBannerButton.waitUntilVisible();
-    WebElement elem =
-                    getDriver().findElement(org.openqa.selenium.By.xpath("//*[@class='v-input__prepend-outer']//button/following::input[1]"));
-    String js = "arguments[0].style.height='auto'; arguments[0].style.visibility='visible';";
-    ((JavascriptExecutor) getDriver()).executeScript(js, elem);
-    upload(UPLOAD_DIRECTORY_PATH + fileName).fromLocalMachine().to(elem);
+    uploadSpaceBannerButton.clickOnElement();
+    waitForDrawerToOpen();
+    BaseElementFacade fileInput = findByXPathOrCSS(".v-navigation-drawer--open input[type=file]");
+    upload(UPLOAD_DIRECTORY_PATH + fileName).fromLocalMachine().to(fileInput);
+    waitForProgressBar();
+    BaseElementFacade imageApplyButton = findByXPathOrCSS("#imageCropDrawerApply");
+    imageApplyButton.clickOnElement();
+    waitForDrawerToClose();
   }
 
   public void confirmRemoveApplication() {
