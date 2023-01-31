@@ -15,7 +15,6 @@ import org.openqa.selenium.WebDriver;
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -275,7 +274,7 @@ public class HomePage extends GenericPage {
 
   public void confirmationForChangeSiteHomeLink() {
     clickOnElement(confirmationForChangeSiteHomeLink);
-    driver.navigate().refresh();
+    getDriver().navigate().refresh();
   }
 
   public void deactivateSwitcher() {
@@ -352,23 +351,20 @@ public class HomePage extends GenericPage {
             space));
   }
 
-  @SwitchToWindow
   public void goToAddGroups() {
-    if (!StringUtils.contains(driver.getCurrentUrl(), "groupsManagement")) {
+    if (!StringUtils.contains(getDriver().getCurrentUrl(), "groupsManagement")) {
       accessToAdministrationMenu();
       clickOnElement(findByXPathOrCSS("//a[contains(@href, 'groupsManagement')]"));
     }
   }
 
-  @SwitchToWindow
   public void goToAddUser() {
-    if (!StringUtils.contains(driver.getCurrentUrl(), "usersManagement")) {
+    if (!StringUtils.contains(getDriver().getCurrentUrl(), "usersManagement")) {
       accessToAdministrationMenu();
       clickOnElement(findByXPathOrCSS("//a[contains(@href, 'usersManagement')]"));
     }
   }
 
-  @SwitchToWindow
   public void goToAppCenterAdminSetupPage() {
     accessToAdministrationMenu();
     clickOnElement(findByXPathOrCSS("//a[contains(@href,'appCenterAdminSetup')]"));
@@ -380,11 +376,11 @@ public class HomePage extends GenericPage {
 
   public void goToHomePage() {
     try {
-      driver.switchTo().alert().accept();
+      getDriver().switchTo().alert().accept();
     } catch (NoAlertPresentException e) {
       // Normal Behavior
     }
-    driver.get(driver.getCurrentUrl().split("/portal/")[0]);
+    getDriver().get(getDriver().getCurrentUrl().split("/portal/")[0]);
     verifyPageLoaded();
   }
 
@@ -416,7 +412,7 @@ public class HomePage extends GenericPage {
 
   public void goToStreamPage() {
     if (!hamburgerNavigationMenuLink.isClickable()) {
-      driver.navigate().refresh();
+      getDriver().navigate().refresh();
     }
     clickOnHamburgerMenu();
     clickOnElement(streamPageLink);
@@ -461,7 +457,6 @@ public class HomePage extends GenericPage {
     });
   }
 
-  @SwitchToWindow
   public void hoverOnStreamIcon() {
     waitFor(300).milliseconds(); // Wait until drawer 'open' animation finishes
     streamPageLink.hover("//a[@href='/portal/meeds/stream']");
@@ -494,7 +489,7 @@ public class HomePage extends GenericPage {
   }
 
   public boolean isPageOpened(String page) {
-    return driver.getTitle().equals(page);
+    return getDriver().getTitle().equals(page);
   }
 
   public boolean isSpacesBadgeWithNumberVisible(String number) {
@@ -503,11 +498,11 @@ public class HomePage extends GenericPage {
 
   public boolean isWalletPageOpened() {
     assertWebElementVisible(walletApplication);
-    return driver.getTitle().equals("Wallet");
+    return getDriver().getTitle().equals("Wallet");
   }
 
   public boolean isWidgetWithNumberVisible(String widget, String number) {
-    driver.navigate().refresh();
+    getDriver().navigate().refresh();
     return getProfileWidgetContent(widget, number).isVisibleAfterWaiting();
   }
 

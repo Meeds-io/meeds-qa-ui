@@ -8,7 +8,6 @@ import org.openqa.selenium.WebDriver;
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class KudosPage extends GenericPage {
@@ -98,25 +97,24 @@ public class KudosPage extends GenericPage {
     super(driver);
   }
 
-  @SwitchToWindow
   public void sendKudosMessageFromOpenedDrawer(String kudosMessage) {
     waitForDrawerToOpen("#activityKudosDrawer", false);
     waitCKEditorLoading();
     retryOnCondition(() -> {
       BaseElementFacade ckEditorFrameKudos = getCkEditorFrameKudos();
       ckEditorFrameKudos.waitUntilVisible();
-      driver.switchTo().frame(ckEditorFrameKudos);
+      getDriver().switchTo().frame(ckEditorFrameKudos);
     }, () -> {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
       waitFor(500).milliseconds(); // Kudos Iframe seems very slow
     });
     try {
       kudosField.waitUntilVisible();
       kudosField.setTextValue(kudosMessage);
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
-    driver.switchTo().defaultContent();
+    getDriver().switchTo().defaultContent();
     assertWebElementVisible(kudosButtonInDrawer);
     kudosButtonInDrawer.clickOnElement();
     verifyPageLoaded();
@@ -177,7 +175,6 @@ public class KudosPage extends GenericPage {
                                           activity));
   }
 
-  @SwitchToWindow
   public void goToKudosMenu() {
     menuBtn.clickOnElement();
     administrationIcon.hover();

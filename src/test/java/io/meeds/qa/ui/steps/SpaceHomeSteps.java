@@ -436,6 +436,7 @@ public class SpaceHomeSteps {
   }
 
   public void postManyActivities(String activityNumber, String activityPrefix) {
+    spaceHomePage.refreshPage();
     for (int i = 0; i < Integer.parseInt(activityNumber) + 1; i++) {
       String activity = activityPrefix + i;
       spaceHomePage.clickPostIcon();

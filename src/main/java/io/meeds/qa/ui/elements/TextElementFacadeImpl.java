@@ -1,6 +1,5 @@
 package io.meeds.qa.ui.elements;
 
-import static io.meeds.qa.ui.utils.Utils.decorateDriver;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 
 import org.openqa.selenium.Keys;
@@ -12,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.meeds.qa.ui.utils.ExceptionLauncher;
-import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class TextElementFacadeImpl extends BaseElementFacadeImpl implements TextElementFacade {
@@ -36,7 +34,7 @@ public class TextElementFacadeImpl extends BaseElementFacadeImpl implements Text
                                WebElement element,
                                long timeoutInMilliseconds,
                                long waitForTimeoutInMilliseconds) {
-    super(decorateDriver(driver), locator, element, timeoutInMilliseconds, waitForTimeoutInMilliseconds);
+    super(driver, locator, element, timeoutInMilliseconds, waitForTimeoutInMilliseconds);
   }
 
   @Override
@@ -65,7 +63,6 @@ public class TextElementFacadeImpl extends BaseElementFacadeImpl implements Text
     });
   }
 
-  @SwitchToWindow
   public void sendValueWithKeysOnElement(WebElement element, boolean clear, Keys keys, CharSequence... value) {
     if (clear) {
       element.clear();

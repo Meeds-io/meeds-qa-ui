@@ -13,7 +13,6 @@ import org.openqa.selenium.interactions.Actions;
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class TasksPage extends GenericPage {
@@ -480,7 +479,6 @@ public class TasksPage extends GenericPage {
     addNewCommentInTask.clickOnElement();
   }
 
-  @SwitchToWindow
   public void addNewCommentInTaskWithMentioningTheFirstUserInTask(String comment, String user) {
     mentionUserInCKEditor(ckEditorFrameTaskMentioningUser, taskCommentContentTextBox, comment, user, true);
     commentTaskButton.waitUntilVisible();
@@ -501,31 +499,28 @@ public class TasksPage extends GenericPage {
     saveButton.clickOnElement();
   }
 
-  @SwitchToWindow
   public void addProjectManagerInput(String manager) {
     addManagerBtn.clickOnElement();
     mentionInField(inviteProjectManagerInput, manager, 5);
   }
 
-  @SwitchToWindow
   public void addProjectParticipantInput(String participant) {
     addParticipantBtn.clickOnElement();
     mentionInField(inviteProjectParticipantInput, participant, 5);
   }
 
-  @SwitchToWindow
   public void addProjectWithDescription(String projectName, String description) {
     addProjectOrTask.clickOnElement();
     projectTitle.setTextValue(projectName);
 
     waitCKEditorLoading();
     ckEditorFrameTask.waitUntilVisible();
-    driver.switchTo().frame(ckEditorFrameTask);
+    getDriver().switchTo().frame(ckEditorFrameTask);
     try {
       projectDescriptionField.waitUntilVisible();
       projectDescriptionField.setTextValue(description);
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
 
     saveButton.clickOnElement();
@@ -576,7 +571,6 @@ public class TasksPage extends GenericPage {
     taskAssignMe.clickOnElement();
   }
 
-  @SwitchToWindow
   public void assignTaskToUser(String user) {
     assertWebElementVisible(taskAssignLink);
     taskAssignLink.clickOnElement();
@@ -741,17 +735,16 @@ public class TasksPage extends GenericPage {
     assertFalse(filterByTask.getText().contains(typedTask));
   }
 
-  @SwitchToWindow
   public void checkUpdatedDescription(String Description) {
     taskDescriptionField.clickOnElement();
 
     waitCKEditorLoading();
     ckEditorFrameDescription.waitUntilVisible();
-    driver.switchTo().frame(ckEditorFrameDescription);
+    getDriver().switchTo().frame(ckEditorFrameDescription);
     try {
       assertEquals(settaskDescription.getText(), Description);
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
   }
 
@@ -999,16 +992,15 @@ public class TasksPage extends GenericPage {
     assertWebElementVisible(commentsDrawerSection);
   }
 
-  @SwitchToWindow
   public void commentTask(String comment) {
     waitCKEditorLoading();
     ckEditorFrameTask.waitUntilVisible();
-    driver.switchTo().frame(ckEditorFrameTask);
+    getDriver().switchTo().frame(ckEditorFrameTask);
     try {
       taskCommentContentTextBox.waitUntilVisible();
       taskCommentContentTextBox.setTextValue(comment);
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
 
     commentTaskButton.waitUntilVisible();
@@ -1044,7 +1036,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void deleteCookies() {
-    driver.manage().deleteAllCookies();
+    getDriver().manage().deleteAllCookies();
   }
 
   public void deleteProject(String projectName) {
@@ -1063,18 +1055,17 @@ public class TasksPage extends GenericPage {
     assertWebElementVisible(deleteTaskOption);
   }
 
-  @SwitchToWindow
   public void editDescriptionForTask(String newDescription) {
     taskDescriptionField.clickOnElement();
 
     waitCKEditorLoading();
     switchToFrameTaskUser.waitUntilVisible();
-    driver.switchTo().frame(switchToFrameTaskUser);
+    getDriver().switchTo().frame(switchToFrameTaskUser);
     try {
       taskDescriptionBodyField.waitUntilVisible();
       taskDescriptionBodyField.setTextValue(newDescription);
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
 
     updateButtonDescription.clickOnElement();
@@ -1092,7 +1083,6 @@ public class TasksPage extends GenericPage {
     saveButton.clickOnElement();
   }
 
-  @SwitchToWindow
   public void editProjectNameWithDescription(String projectName, String newProjectName, String newDescription) {
     assertWebElementVisible(getProjectCard(projectName));
     projectThreeDotsButton.clickOnElement();
@@ -1101,12 +1091,12 @@ public class TasksPage extends GenericPage {
 
     waitCKEditorLoading();
     ckEditorFrameTask.waitUntilVisible();
-    driver.switchTo().frame(ckEditorFrameTask);
+    getDriver().switchTo().frame(ckEditorFrameTask);
     try {
       projectDescriptionField.waitUntilVisible();
       projectDescriptionField.setTextValue(newDescription);
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
 
     saveButton.clickOnElement();
@@ -1121,18 +1111,17 @@ public class TasksPage extends GenericPage {
     assertWebElementVisible(editTaskDrawerSection);
   }
 
-  @SwitchToWindow
   public void enterDescriptionForTask(String description) {
     taskDescriptionField.clickOnElement();
 
     waitCKEditorLoading();
     switchToFrameTask.waitUntilVisible();
-    driver.switchTo().frame(switchToFrameTask);
+    getDriver().switchTo().frame(switchToFrameTask);
     try {
       taskDescriptionBodyField.waitUntilVisible();
       taskDescriptionBodyField.setTextValue(description);
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
   }
 
@@ -1141,35 +1130,33 @@ public class TasksPage extends GenericPage {
     labelTask.sendKeys(Keys.ENTER);
   }
 
-  @SwitchToWindow
   public void enterProjectDescriptionWithoutTheTitle(String description) {
     addProjectOrTask.clickOnElement();
 
     waitCKEditorLoading();
     ckEditorFrameTask.waitUntilVisible();
-    driver.switchTo().frame(ckEditorFrameTask);
+    getDriver().switchTo().frame(ckEditorFrameTask);
     try {
       projectDescriptionField.waitUntilVisible();
       projectDescriptionField.setTextValue(description);
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
 
   }
 
-  @SwitchToWindow
   public void enterProjectTitleAndDescription(String projectName, String description) {
     addProjectOrTask.clickOnElement();
     projectTitle.setTextValue(projectName);
 
     waitCKEditorLoading();
     ckEditorFrameTask.waitUntilVisible();
-    driver.switchTo().frame(ckEditorFrameTask);
+    getDriver().switchTo().frame(ckEditorFrameTask);
     try {
       projectDescriptionField.waitUntilVisible();
       projectDescriptionField.setTextValue(description);
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
 
   }
@@ -1178,16 +1165,15 @@ public class TasksPage extends GenericPage {
     statusField.sendKeys(status);
   }
 
-  @SwitchToWindow
   public void enterTaskComment(String comment) {
     waitCKEditorLoading();
     ckEditorFrameTask.waitUntilVisible();
-    driver.switchTo().frame(ckEditorFrameTask);
+    getDriver().switchTo().frame(ckEditorFrameTask);
     try {
       taskCommentContentTextBox.waitUntilVisible();
       taskCommentContentTextBox.setTextValue(comment);
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
 
   }
@@ -1407,7 +1393,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void hoverOnTheChangesTimestamp() {
-    Actions actions = new Actions(driver);
+    Actions actions = new Actions(getDriver());
     actions.moveToElement(timesTamp).perform();
   }
 
@@ -1452,17 +1438,16 @@ public class TasksPage extends GenericPage {
     assertWebElementVisible(maxCharsCountInfo);
   }
 
-  @SwitchToWindow
   public void maxCharsNumberMessageIsDisplayed() {
     commentsDrawerSection.clickOnElement();
 
     waitCKEditorLoading();
     ckEditorFrameTask.waitUntilVisible();
-    driver.switchTo().frame(ckEditorFrameTask);
+    getDriver().switchTo().frame(ckEditorFrameTask);
     try {
       assertWebElementVisible(commentTaskMaxCharsMsg);
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
 
   }
@@ -1473,7 +1458,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void openFilterDrawer() {
-    driver.navigate().refresh();
+    getDriver().navigate().refresh();
     filterDrawerButton.waitUntilVisible();
     filterDrawerButton.clickOnElement();
   }
@@ -1608,17 +1593,16 @@ public class TasksPage extends GenericPage {
     markTaskCompletedInDrawer.clickOnElement();
   }
 
-  @SwitchToWindow
-  public void setTaskDescription(String Description) {
+  public void setTaskDescription(String description) {
     taskDescriptionField.clickOnElement();
 
     waitCKEditorLoading();
     ckEditorFrameDescription.waitUntilVisible();
-    driver.switchTo().frame(ckEditorFrameDescription);
+    getDriver().switchTo().frame(ckEditorFrameDescription);
     try {
-      settaskDescription.sendKeys(Description);
+      settaskDescription.sendKeys(description);
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
 
   }
@@ -1735,17 +1719,16 @@ public class TasksPage extends GenericPage {
     Assert.assertEquals(taskTooltip.getText(), task);
   }
 
-  @SwitchToWindow
   public void updateTaskDescription(String description) {
     taskDescriptionField.clickOnElement();
 
     waitCKEditorLoading();
     ckEditorFrameDescription.waitUntilVisible();
-    driver.switchTo().frame(ckEditorFrameDescription);
+    getDriver().switchTo().frame(ckEditorFrameDescription);
     try {
       settaskDescription.sendKeys(" " + description);
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
   }
 

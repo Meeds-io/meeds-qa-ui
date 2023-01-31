@@ -1,14 +1,12 @@
 package io.meeds.qa.ui.pages.page.factory.engagement;
 
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
-import static org.junit.Assert.assertTrue;
 
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class ChallengesPage extends GenericPage {
@@ -77,59 +75,53 @@ public class ChallengesPage extends GenericPage {
     super(driver);
   }
 
-  @SwitchToWindow
   public void addAnnouncementWithRandomDescription(String announcementDescription) {
     ckEditorFrameChallenge.waitUntilVisible();
-    driver.switchTo().frame(ckEditorFrameChallenge);
+    getDriver().switchTo().frame(ckEditorFrameChallenge);
     try {
       challengeDescriptionField.waitUntilVisible();
       challengeDescriptionField.setTextValue(announcementDescription);
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
     clickCreateAnnouncementButton();
   }
 
-  @SwitchToWindow
   public void addChallengeWithDescription(String description) {
     waitCKEditorLoading();
     retryOnCondition(() -> {
       ckEditorFrameChallenge.waitUntilVisible();
-      driver.switchTo().frame(ckEditorFrameChallenge);
-    }, driver.switchTo()::defaultContent);
+      getDriver().switchTo().frame(ckEditorFrameChallenge);
+    }, getDriver().switchTo()::defaultContent);
     try {
       challengeDescriptionField.waitUntilVisible();
       challengeDescriptionField.setTextValue(description);
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
     clickCreateChallengeButton();
   }
 
-  @SwitchToWindow
   public void addChallengeWithRandomDescription(String challengeDescription) {
     ckEditorFrameChallenge.waitUntilVisible();
-    driver.switchTo().frame(ckEditorFrameChallenge);
+    getDriver().switchTo().frame(ckEditorFrameChallenge);
     try {
       challengeDescriptionField.waitUntilVisible();
       challengeDescriptionField.setTextValue(challengeDescription);
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
     clickCreateChallengeButton();
   }
 
-  @SwitchToWindow
   public void addProgramName(String programName) {
     mentionInField(programField, programName, 5);
   }
 
-  @SwitchToWindow
   public void addSpaceAudience(String randomSpaceName) {
     mentionInField(audienceSpaceField, randomSpaceName, 5);
   }
 
-  @SwitchToWindow
   public void assignChallengeToUser(String user) {
     assertWebElementVisible(assignLink);
     assignLink.clickOnElement();
@@ -279,7 +271,6 @@ public class ChallengesPage extends GenericPage {
                                           name));
   }
 
-  @SwitchToWindow
   public void selectChallengesFilter(String value) {
     challengeQuickFilterSelectBox.clickOnElement();
     challengeQuickFilterSelectBox.selectByValue(value);

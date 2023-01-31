@@ -1,6 +1,5 @@
 package io.meeds.qa.ui.elements;
 
-import static io.meeds.qa.ui.utils.Utils.decorateDriver;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoaded;
 
@@ -17,7 +16,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.meeds.qa.ui.utils.ExceptionLauncher;
-import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class TextBoxElementFacadeImpl extends BaseElementFacadeImpl implements TextBoxElementFacade {
@@ -41,7 +39,7 @@ public class TextBoxElementFacadeImpl extends BaseElementFacadeImpl implements T
                                   WebElement element,
                                   long timeoutInMilliseconds,
                                   long waitForTimeoutInMilliseconds) {
-    super(decorateDriver(driver), locator, element, timeoutInMilliseconds, waitForTimeoutInMilliseconds);
+    super(driver, locator, element, timeoutInMilliseconds, waitForTimeoutInMilliseconds);
   }
 
   @Override
@@ -68,7 +66,6 @@ public class TextBoxElementFacadeImpl extends BaseElementFacadeImpl implements T
     retryOnCondition(() -> sendValueWithKeysOnElement(clear, keys, value));
   }
 
-  @SwitchToWindow
   public void sendValueWithKeysOnElement(boolean clear, Keys keys, CharSequence... value) {
     if (clear) {
       clear();

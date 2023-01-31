@@ -5,7 +5,6 @@ import org.junit.Assert;
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class NotePage extends GenericPage {
@@ -61,16 +60,15 @@ public class NotePage extends GenericPage {
   @FindBy(xpath = "//*[@class='v-icon notranslate clickable fas fa-ellipsis-v theme--light']")
   private BaseElementFacade threeDotsIcon;
 
-  @SwitchToWindow
   public void addNote(String noteTitle, String noteContent) {
     noteTileTextBox.setTextValue(noteTitle);
     ckEditorFrameNote.waitUntilVisible();
-    driver.switchTo().frame(ckEditorFrameNote);
+    getDriver().switchTo().frame(ckEditorFrameNote);
     try {
       noteContentTextBox.waitUntilVisible();
       noteContentTextBox.setTextValue(noteContent);
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
   }
 
@@ -123,16 +121,15 @@ public class NotePage extends GenericPage {
     threeDotsIcon.clickOnElement();
   }
 
-  @SwitchToWindow
   public void createNotePage(String noteTitle, String noteContent) {
     noteTileTextBox.setTextValue(noteTitle);
     ckEditorFrameNote.waitUntilVisible();
-    driver.switchTo().frame(ckEditorFrameNote);
+    getDriver().switchTo().frame(ckEditorFrameNote);
     try {
       noteContentTextBox.waitUntilVisible();
       noteContentTextBox.setTextValue(noteContent);
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
 
     saveButton.waitUntilVisible();
@@ -147,16 +144,15 @@ public class NotePage extends GenericPage {
     assertWebElementNotVisible(confirmationPopupDeleteButton);
   }
 
-  @SwitchToWindow
   public void editNotePage(String noteTitleEdited, String noteContentEdited) {
     noteTileTextBox.setTextValue(noteTitleEdited);
     ckEditorFrameNote.waitUntilVisible();
-    driver.switchTo().frame(ckEditorFrameNote);
+    getDriver().switchTo().frame(ckEditorFrameNote);
     try {
       noteContentTextBox.waitUntilVisible();
       noteContentTextBox.setTextValue(noteContentEdited);
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
 
     saveButton.waitUntilVisible();

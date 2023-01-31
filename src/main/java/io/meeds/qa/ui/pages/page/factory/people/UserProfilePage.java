@@ -284,7 +284,7 @@ public class UserProfilePage extends GenericPage {
   }
 
   public void goToSentKudos() {
-    driver.navigate().refresh();
+    getDriver().navigate().refresh();
     ELEMENT_CONTACT_SENT_KUDOS.clickOnElement();
   }
 
@@ -400,7 +400,7 @@ public class UserProfilePage extends GenericPage {
     editWorkExperiences.clickOnElement();
     openWorkExperience(jobTitle).clickOnElement();
     ELEMENT_REMOVE_WORK_EXPERIENCE.clickOnElement();
-    JavascriptExecutor executor = (JavascriptExecutor) driver;
+    JavascriptExecutor executor = (JavascriptExecutor) getDriver();
     executor.executeScript("arguments[0].click();", saveWorkExperiences);
     saveWorkExperiences.waitUntilNotVisible();
   }
@@ -488,7 +488,7 @@ public class UserProfilePage extends GenericPage {
       $(ELEMENT_CONTACT_JOB_TITLE_EDIT_BTN).clear();
       $(ELEMENT_CONTACT_JOB_TITLE_EDIT_BTN).sendKeys(job);
     }
-    JavascriptExecutor executor = (JavascriptExecutor) driver;
+    JavascriptExecutor executor = (JavascriptExecutor) getDriver();
     executor.executeScript("arguments[0].click();", ELEMENT_CONTACT_EDIT_SAVE_BTN);
     ELEMENT_CONTACT_EDIT_SAVE_BTN.waitUntilNotVisible();
   }
@@ -594,7 +594,7 @@ public class UserProfilePage extends GenericPage {
 
   public void uploadProfileAvatar(String fileName) {
     ELEMENT_PROFILE_AVATAR.waitUntilVisible();
-    Actions builder = new Actions(driver);
+    Actions builder = new Actions(getDriver());
     builder.moveToElement(ELEMENT_PROFILE_AVATAR).build().perform();
     uploadProfileAvatarBtn.waitUntilVisible();
     WebElement elem =

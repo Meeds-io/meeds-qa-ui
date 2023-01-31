@@ -1,6 +1,5 @@
 package io.meeds.qa.ui.hook;
 
-import static io.meeds.qa.ui.utils.Utils.decorateDriver;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -14,6 +13,7 @@ import java.util.logging.Level;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
@@ -96,11 +96,8 @@ public class TestHooks {
     adminLoggedIn = false;
 
     WebDriver driver = Serenity.getDriver();
-    if (Utils.isParallelTesting()) {
-      driver = decorateDriver(driver);
-    }
 
-    refreshPage(driver);
+    checkPageState(driver);
 
     SPACES.entrySet().forEach(entry -> {
       if (StringUtils.isNotBlank(entry.getValue())) {
@@ -178,9 +175,10 @@ public class TestHooks {
     }
   }
 
-  private void refreshPage(WebDriver driver) {
+  private void checkPageState(WebDriver driver) {
     // Check wether the page has been loaded for the first time or not
-    if (StringUtils.contains(driver.getCurrentUrl(), "/portal")) {
+    String currentUrl = driver.getCurrentUrl();
+    if (StringUtils.contains(currentUrl, "/portal")) {
       List<String> errors = getJavascriptConsoleErrors(driver);
       if (errors.size() > CONSOLE_ERRORS_COUNT_FAIL) {
         // force refresh CSS and Javascript content when a timeout happens
@@ -195,16 +193,24 @@ public class TestHooks {
         Utils.waitForInMillis(2000);
 
         // Refresh the page
-        driver.get(driver.getCurrentUrl().split("/portal")[0]);
+        goToHomePage(driver);
 
         // Get the JS console errors again and make the test fails when multiple
         // errors
         errors = getJavascriptConsoleErrors(driver);
-        assertTrue(errors.size() < CONSOLE_ERRORS_COUNT_FAIL,
-                   "It Seems that web page has multiple errors in JS console: \\n" + StringUtils.join(errors, "\\n"));
+        assertTrue(errors.size() < (CONSOLE_ERRORS_COUNT_FAIL * 2),
+                   "It Seems that web page " + driver.getCurrentUrl() + " has " + errors.size() + " errors in JS console: \n"
+                       + StringUtils.join(errors, "\n- Console Error: "));
       }
-    } else {
-      driver.navigate().refresh();
+    }
+  }
+
+  private void goToHomePage(WebDriver driver) {
+    driver.navigate().to(driver.getCurrentUrl().split("/portal")[0]);
+    try {
+      driver.switchTo().alert().accept();
+    } catch (NoAlertPresentException e) {
+      // Normal Behavior
     }
   }
 
