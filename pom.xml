@@ -243,7 +243,7 @@
             <webdriver.base.url>http://localhost:8080/</webdriver.base.url>
             <webdriver.remote.driver>chrome</webdriver.remote.driver>
             <cucumber.filter.tags>not @ignored and not @ignore and not @wip and not @skip</cucumber.filter.tags>
-            <adminPassword></adminPassword>
+            <adminPassword>Test1234@</adminPassword>
           </systemPropertyVariables>
         </configuration>
         <executions>

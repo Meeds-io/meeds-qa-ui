@@ -2,13 +2,22 @@ package io.meeds.qa.ui.hook;
 
 import static io.meeds.qa.ui.utils.Utils.decorateDriver;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.logging.LogEntries;
+import org.openqa.selenium.logging.LogEntry;
+import org.openqa.selenium.logging.LogType;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -22,14 +31,17 @@ import io.meeds.qa.ui.utils.ExceptionLauncher;
 import io.meeds.qa.ui.utils.Utils;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
+import net.thucydides.core.webdriver.javascript.JavascriptExecutorFacade;
 
 public class TestHooks {
 
-  protected static final Map<String, String> SPACES      = new HashMap<>();
+  private static final int                   CONSOLE_ERRORS_COUNT_FAIL = 5;
 
-  protected static final Map<String, String> SPACES_URLS = new HashMap<>();
+  protected static final Map<String, String> SPACES                    = new HashMap<>();
 
-  protected static final Map<String, String> USERS       = new HashMap<>();
+  protected static final Map<String, String> SPACES_URLS               = new HashMap<>();
+
+  protected static final Map<String, String> USERS                     = new HashMap<>();
 
   public static void spaceWithPrefixCreated(String spaceNamePrefix, String spaceName, String spaceUrl) {
     SPACES.put(spaceNamePrefix, spaceName);
@@ -78,14 +90,17 @@ public class TestHooks {
   private ManageSpaceSteps           manageSpaceSteps;
 
   @Before
-  public void initDatas() {
+  public void initDatas() { // NOSONAR
     String adminPassword = System.getProperty("adminPassword");
     Serenity.setSessionVariable("admin-password").to(adminPassword);
     adminLoggedIn = false;
 
+    WebDriver driver = Serenity.getDriver();
     if (Utils.isParallelTesting()) {
-      decorateDriver(Serenity.getDriver());
+      driver = decorateDriver(driver);
     }
+
+    refreshPage(driver);
 
     SPACES.entrySet().forEach(entry -> {
       if (StringUtils.isNotBlank(entry.getValue())) {
@@ -161,6 +176,69 @@ public class TestHooks {
       loginSteps.logoutLogin("admin");
       adminLoggedIn = true;
     }
+  }
+
+  private void refreshPage(WebDriver driver) {
+    // Check wether the page has been loaded for the first time or not
+    if (StringUtils.contains(driver.getCurrentUrl(), "/portal")) {
+      List<String> errors = getJavascriptConsoleErrors(driver);
+      if (errors.size() > CONSOLE_ERRORS_COUNT_FAIL) {
+        // force refresh CSS and Javascript content when a timeout happens
+        // while loading the page such as Nginx timeout when the page has been
+        // loaded for the whole first time. This will avoid opening a new
+        // window on each test scenario execution
+        JavascriptExecutorFacade javascriptExecutorFacade = new JavascriptExecutorFacade(driver);
+        reloadPageJavascript(javascriptExecutorFacade);
+        reloadPageCSS(javascriptExecutorFacade);
+
+        // Refresh the page
+        driver.get(driver.getCurrentUrl().split("/portal")[0]);
+
+        // Get the JS console errors again and make the test fails when multiple
+        // errors
+        errors = getJavascriptConsoleErrors(driver);
+        assertTrue(errors.size() < CONSOLE_ERRORS_COUNT_FAIL,
+                   "It Seems that web page has multiple errors in JS console: \\n" + StringUtils.join(errors, "\\n"));
+      }
+    } else {
+      driver.navigate().refresh();
+    }
+  }
+
+  private void reloadPageJavascript(JavascriptExecutorFacade javascriptExecutorFacade) {
+    javascriptExecutorFacade.executeScript("const elements = document.getElementsByTagName('script');"
+        + "for (let i = 0; i < elements.length; i++) {"
+        + "  if(elements[i].src) {"
+        + "    elements[i].src = elements[i].src.indexOf('?') > 0 ? `${elements[i].src}&update=${Date.now()}`:`${elements[i].src}?update=${Date.now()}`"
+        + "  }"
+        + "}");
+  }
+
+  private void reloadPageCSS(JavascriptExecutorFacade javascriptExecutorFacade) {
+    javascriptExecutorFacade.executeScript("const elements = document.getElementsByTagName('link');"
+        + "for (let i = 0; i < elements.length; i++) {"
+        + "  if(elements[i].href) {"
+        + "    elements[i].href = elements[i].href.indexOf('?') > 0 ? `${elements[i].href}&update=${Date.now()}`:`${elements[i].href}?update=${Date.now()}`"
+        + "  }"
+        + "}");
+  }
+
+  private List<String> getJavascriptConsoleErrors(WebDriver driver) {
+    List<String> errors = null;
+    LogEntries logEntries = driver.manage().logs().get(LogType.BROWSER);
+    if (logEntries != null) {
+      Iterator<LogEntry> logEntryIterator = logEntries.iterator();
+      while (logEntryIterator.hasNext()) {
+        LogEntry logEntry = logEntryIterator.next();
+        if (logEntry.getLevel() == Level.SEVERE) {
+          if (errors == null) {
+            errors = new ArrayList<>();
+          }
+          errors.add(logEntry.getMessage());
+        }
+      }
+    }
+    return errors == null ? Collections.emptyList() : errors;
   }
 
 }
