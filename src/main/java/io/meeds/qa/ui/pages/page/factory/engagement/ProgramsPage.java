@@ -6,7 +6,6 @@ import org.openqa.selenium.WebDriver;
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import org.openqa.selenium.WebElement;
 
@@ -73,32 +72,30 @@ public class ProgramsPage extends GenericPage {
     programTitleField.setTextValue(programTitle);
   }
 
-  @SwitchToWindow
   public void addProgramWithRandomDescription(String programDescription) {
     ckEditorFrameProgram.waitUntilVisible();
-    driver.switchTo().frame(ckEditorFrameProgram);
+    getDriver().switchTo().frame(ckEditorFrameProgram);
     try {
       programDescriptionField.waitUntilVisible();
       programDescriptionField.setTextValue(programDescription);
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
   }
 
   public void selectStatusSwitcher() {
-    WebElement checkbox = driver.findElement(By.xpath("//*[@class='v-input--selection-controls__ripple primary--text']"));
+    WebElement checkbox = getDriver().findElement(By.xpath("//*[@class='v-input--selection-controls__ripple primary--text']"));
     checkbox.click();
   }
 
-  @SwitchToWindow
   public void addDisabledProgramWithRandomDescription(String disabledProgramDescription) {
     ckEditorFrameProgram.waitUntilVisible();
-    driver.switchTo().frame(ckEditorFrameProgram);
+    getDriver().switchTo().frame(ckEditorFrameProgram);
     try {
       programDescriptionField.waitUntilVisible();
       programDescriptionField.setTextValue(disabledProgramDescription);
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
     selectStatusSwitcher();
   }
@@ -118,12 +115,12 @@ public class ProgramsPage extends GenericPage {
     programTitleField.setTextValue(newProgramName);
     waitCKEditorLoading();
     ckEditorFrameProgram.waitUntilVisible();
-    driver.switchTo().frame(ckEditorFrameProgram);
+    getDriver().switchTo().frame(ckEditorFrameProgram);
     try {
       programDescriptionField.waitUntilVisible();
       programDescriptionField.setTextValue(newProgramDescription);
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
 
     saveButton.clickOnElement();
@@ -140,7 +137,6 @@ public class ProgramsPage extends GenericPage {
     yesConfirmButton.clickOnElement();
   }
 
-  @SwitchToWindow
   public void selectProgramsFilter(String value) {
     programQuickFilterSelectBox.clickOnElement();
     programQuickFilterSelectBox.selectByValue(value);
@@ -148,7 +144,6 @@ public class ProgramsPage extends GenericPage {
     verifyPageLoaded();
   }
 
-  @SwitchToWindow
   public void addSpaceAudience(String randomSpaceName) {
     mentionInField(audienceSpaceField, randomSpaceName, 5);
     clickCreateProgramButton();

@@ -38,34 +38,24 @@
   </scm>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <serenity.version>3.3.0</serenity.version>
-    <cucumber.version>7.4.1</cucumber.version>
+    <serenity.version>3.5.1</serenity.version>
 
     <junit-jupiter.version>5.8.2</junit-jupiter.version>
     <junit-platform.version>1.8.2</junit-platform.version>
 
-    <org.assertj.version>3.22.0</org.assertj.version>
+    <org.assertj.version>3.23.1</org.assertj.version>
     <logback.version>1.2.11</logback.version>
     <org.aspectj.version>1.8.8</org.aspectj.version>
 
-    <version.surefire.plugin>3.0.0-M7</version.surefire.plugin>
+    <cucumber.filter.tags>not @ignored and not @ignore and not @wip and not @skip and not @standardConfigurationOnly</cucumber.filter.tags>
     <cucumber-jvm-parallel-plugin.version>5.0.0</cucumber-jvm-parallel-plugin.version>
 
     <failsafe.rerunFailingTestsCount>0</failsafe.rerunFailingTestsCount>
-    <parallel.tests>1</parallel.tests>
     <!-- One of [SCENARIO, FEATURE]. SCENARIO generates one runner per scenario.  FEATURE generates a runner per feature. -->
     <parallel.scheme>SCENARIO</parallel.scheme>
   </properties>
   <dependencyManagement>
     <dependencies>
-      <!--  cucumber -->
-      <dependency>
-        <groupId>io.cucumber</groupId>
-        <artifactId>cucumber-bom</artifactId>
-        <version>${cucumber.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
       <!--  junit -->
       <dependency>
         <groupId>org.junit</groupId>
@@ -118,27 +108,8 @@
     </dependency>
 
     <dependency>
-      <groupId>io.cucumber</groupId>
-      <artifactId>cucumber-java</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>io.cucumber</groupId>
-      <artifactId>cucumber-junit</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>io.cucumber</groupId>
-      <artifactId>cucumber-junit-platform-engine</artifactId>
-    </dependency>
-
-    <dependency>
       <groupId>org.junit.platform</groupId>
       <artifactId>junit-platform-launcher</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -150,15 +121,15 @@
     </dependency>
 
     <dependency>
-      <groupId>org.assertj</groupId>
-      <artifactId>assertj-core</artifactId>
-      <version>${org.assertj.version}</version>
-    </dependency>
-
-    <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
       <version>${logback.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>${org.assertj.version}</version>
     </dependency>
 
     <dependency>
@@ -166,27 +137,7 @@
       <artifactId>aspectjrt</artifactId>
       <version>${org.aspectj.version}</version>
     </dependency>
-
   </dependencies>
-
-  <profiles>
-    <profile>
-      <id>parallel</id>
-      <activation>
-        <property>
-          <name>parallel.tests</name>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>com.jcabi</groupId>
-            <artifactId>jcabi-maven-plugin</artifactId>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
 
   <build>
     <plugins>
@@ -224,25 +175,20 @@
       <plugin>
         <artifactId>maven-failsafe-plugin</artifactId>
         <configuration>
+          <runOrder>alphabetical</runOrder>
           <includes>
+            <!--include>**/*TestSuite.java</include-->
             <include>io/meeds/qa/ui/it/*.java</include>
           </includes>
-          <threadCount>${parallel.tests}</threadCount>
-          <threadCountClasses>${parallel.tests}</threadCountClasses>
-          <forkCount>${parallel.tests}</forkCount>
-          <reuseForks>true</reuseForks>
-          <parallel>classes</parallel>
-          <perCoreThreadCount>false</perCoreThreadCount>
           <systemPropertyVariables>
             <io.meeds.space.template>crowdFunding</io.meeds.space.template>
             <io.meeds.windowSwitch.lockFile>${project.build.directory}/switchWindow.lck</io.meeds.windowSwitch.lockFile>
-            <io.meeds.parallel.tests>${parallel.tests}</io.meeds.parallel.tests>
             <io.meeds.forkNumber>${surefire.forkNumber}</io.meeds.forkNumber>
             <properties>serenity.properties</properties>
             <webdriver.remote.url>http://localhost:4444</webdriver.remote.url>
             <webdriver.base.url>http://localhost:8080/</webdriver.base.url>
             <webdriver.remote.driver>chrome</webdriver.remote.driver>
-            <cucumber.filter.tags>not @ignored and not @ignore and not @wip and not @skip</cucumber.filter.tags>
+            <cucumber.filter.tags>${cucumber.filter.tags}</cucumber.filter.tags>
             <adminPassword>Test1234@</adminPassword>
           </systemPropertyVariables>
         </configuration>
@@ -259,6 +205,11 @@
         <groupId>net.serenity-bdd.maven.plugins</groupId>
         <artifactId>serenity-maven-plugin</artifactId>
         <version>${serenity.version}</version>
+        <configuration>
+          <systemPropertyVariables>
+            <cucumber.filter.tags>${cucumber.filter.tags}</cucumber.filter.tags>
+          </systemPropertyVariables>
+        </configuration>
         <executions>
           <execution>
             <id>serenity-reports</id>

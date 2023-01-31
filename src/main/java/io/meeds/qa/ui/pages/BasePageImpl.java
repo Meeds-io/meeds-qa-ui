@@ -3,7 +3,6 @@ package io.meeds.qa.ui.pages;
 import static io.meeds.qa.ui.utils.Utils.MAX_WAIT_RETRIES;
 import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION;
 import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION_MILLIS;
-import static io.meeds.qa.ui.utils.Utils.decorateDriver;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoaded;
 import static org.junit.Assert.assertTrue;
@@ -28,7 +27,6 @@ import io.meeds.qa.ui.elements.TextBoxElementFacadeImpl;
 import io.meeds.qa.ui.elements.TextElementFacade;
 import io.meeds.qa.ui.elements.TextElementFacadeImpl;
 import io.meeds.qa.ui.utils.ExceptionLauncher;
-import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.core.selectors.Selectors;
@@ -43,8 +41,6 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   private static final String XPATH_FORMAT_ERROR_MESSAGE  = "The format for the xpath [%s] is not correct.";
 
-  protected WebDriver         driver;
-
   protected String            url;
 
   public BasePageImpl() {
@@ -52,28 +48,23 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public BasePageImpl(WebDriver driver) {
-    super(decorateDriver(driver));
-    this.driver = getDriver();
+    super(driver);
   }
 
-  @SwitchToWindow
   public void assertWebElementNotVisible(BaseElementFacade element) {
     assertTrue(String.format("Element %s is still visible after waiting", // NOSONAR
                              element),
                isWebElementNotVisible(element));
   }
 
-  @SwitchToWindow
   public void assertWebElementNotVisible(BaseElementFacade element, int maxRetries) {
     assertTrue(String.format("Element %s is still visible after waiting", element), isWebElementNotVisible(element, maxRetries));
   }
 
-  @SwitchToWindow
   public void assertWebElementVisible(BaseElementFacade element) {
     assertTrue(String.format("Unable to locate a visible element %s", element), isWebElementVisible(element));
   }
 
-  @SwitchToWindow
   public void assertWebElementVisible(BaseElementFacade element, int maxRetries) {
     assertTrue(String.format("Unable to locate a visible element %s", element), isWebElementVisible(element, maxRetries));
   }
@@ -147,7 +138,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public String getCurrentUrl() {
-    return driver.getCurrentUrl();
+    return getDriver().getCurrentUrl();
   }
 
   /**********************************************************
@@ -186,7 +177,6 @@ public class BasePageImpl extends PageObject implements BasePage {
     return isWebElementVisible(element, MAX_WAIT_RETRIES);
   }
 
-  @SwitchToWindow
   public boolean isWebElementVisible(BaseElementFacade element, long maxRetries) {
     verifyPageLoaded();
     element.setImplicitTimeout(SHORT_WAIT_DURATION);
@@ -198,7 +188,6 @@ public class BasePageImpl extends PageObject implements BasePage {
     return visible || element.isCurrentlyVisible();
   }
 
-  @SwitchToWindow
   public boolean mentionUserInCKEditor(BaseElementFacade ckEditorFrame,
                                        TextBoxElementFacade ckEditorBody,
                                        String content,
@@ -207,8 +196,8 @@ public class BasePageImpl extends PageObject implements BasePage {
     waitCKEditorLoading();
     retryOnCondition(() -> {
       ckEditorFrame.waitUntilVisible();
-      driver.switchTo().frame(ckEditorFrame);
-    }, driver.switchTo()::defaultContent);
+      getDriver().switchTo().frame(ckEditorFrame);
+    }, getDriver().switchTo()::defaultContent);
     try {
       ckEditorBody.waitUntilVisible();
       ckEditorBody.setTextValue(content + ' ' + '@' + user + "x");
@@ -223,7 +212,7 @@ public class BasePageImpl extends PageObject implements BasePage {
         if (shouldExists) {
           waitFor(1).seconds();
         }
-        driver.switchTo().defaultContent();
+        getDriver().switchTo().defaultContent();
         try {
           BaseElementFacade suggesterElement =
                                              findByXPathOrCSS(String.format("//*[contains(@class, 'atwho-view')]//*[contains(text(), '%s')]",
@@ -231,7 +220,7 @@ public class BasePageImpl extends PageObject implements BasePage {
           suggesterElement.setImplicitTimeout(retryWaitTime);
           visible = suggesterElement.isVisibleAfterWaiting();
         } finally {
-          driver.switchTo().frame(ckEditorFrame);
+          getDriver().switchTo().frame(ckEditorFrame);
         }
       } while (!visible && retry++ < maxRetries);
       if (visible) {
@@ -239,11 +228,10 @@ public class BasePageImpl extends PageObject implements BasePage {
       }
       return visible;
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
   }
 
-  @SwitchToWindow
   public boolean mentionInField(TextBoxElementFacade inputField, String user, int maxRetries) {
     inputField.waitUntilVisible();
     inputField.setTextValue(user + "x");
@@ -270,9 +258,9 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void refreshPage() {
-    driver.get(getCurrentUrl());
+    getDriver().get(getCurrentUrl());
     try {
-      driver.switchTo().alert().accept();
+      getDriver().switchTo().alert().accept();
     } catch (NoAlertPresentException e) {
       // Normal Behavior
     }

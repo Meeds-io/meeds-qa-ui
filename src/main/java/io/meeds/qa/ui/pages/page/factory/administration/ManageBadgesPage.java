@@ -7,7 +7,6 @@ import org.openqa.selenium.WebElement;
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class ManageBadgesPage extends GenericPage {
@@ -188,7 +187,6 @@ public class ManageBadgesPage extends GenericPage {
 
   }
 
-  @SwitchToWindow
   public void goToManageBadgesMenu() {
     menuBtn.clickOnElement();
     adminIcon.hover();
@@ -200,7 +198,7 @@ public class ManageBadgesPage extends GenericPage {
   public void insertBadgeNameInSearchField(String badgeName) {
     searchBadgeInput.waitUntilVisible();
     if (searchBadgeInput.isNotVisibleAfterWaiting()) {
-      driver.navigate().refresh();
+      getDriver().navigate().refresh();
     }
     searchBadgeInput.waitUntilVisible();
     searchBadgeInput.setTextValue(badgeName);
@@ -224,7 +222,6 @@ public class ManageBadgesPage extends GenericPage {
     assertWebElementNotVisible(badgeElement);
   }
 
-  @SwitchToWindow
   public void isSuccessAlertDisplayed(String message) {
     assertWebElementVisible(successAlert);
     Assert.assertTrue(successAlert.getText().contains(message)); // NOSONAR

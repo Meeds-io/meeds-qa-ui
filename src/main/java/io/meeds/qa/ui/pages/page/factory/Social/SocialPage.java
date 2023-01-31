@@ -3,7 +3,6 @@ package io.meeds.qa.ui.pages.page.factory.Social;
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class SocialPage extends GenericPage {
@@ -45,17 +44,16 @@ public class SocialPage extends GenericPage {
   @FindBy(xpath = "//a[@id='CommentLink1']")
   private BaseElementFacade          commentLink;
 
-  @SwitchToWindow
   public void cancelUpdateActivityComment(String comment) {
     waitCKEditorLoading();
     ckEditorFrameComment.waitUntilVisible();
-    driver.switchTo().frame(ckEditorFrameComment);
+    getDriver().switchTo().frame(ckEditorFrameComment);
     try {
       commentField.waitUntilVisible();
       commentField.clear();
       commentField.setTextValue(comment);
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
     cancelBtn.clickOnElement();
     closeCommentsDrawer.clickOnElement();
@@ -101,17 +99,16 @@ public class SocialPage extends GenericPage {
 
   }
 
-  @SwitchToWindow
   public void updateActivityComment(String comment) {
     waitCKEditorLoading();
     ckEditorFrameComment.waitUntilVisible();
-    driver.switchTo().frame(ckEditorFrameComment);
+    getDriver().switchTo().frame(ckEditorFrameComment);
     try {
       commentField.waitUntilVisible();
       commentField.clear();
       commentField.setTextValue(comment);
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
 
     updateButon.clickOnElement();

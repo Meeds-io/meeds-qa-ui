@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class AddGroupsPage extends GenericPage {
@@ -32,7 +31,6 @@ public class AddGroupsPage extends GenericPage {
     super(driver);
   }
 
-  @SwitchToWindow
   public void addMemberInGroup(String role, String member) {
     if (!addMemberInGroupBtn.isClickable() || !addMemberInGroupBtn.isVisible()) {
       refreshPage();

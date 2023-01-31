@@ -1,7 +1,6 @@
 package io.meeds.qa.ui.elements;
 
 import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION_MILLIS;
-import static io.meeds.qa.ui.utils.Utils.decorateDriver;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoaded;
 
@@ -18,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.meeds.qa.ui.utils.ExceptionLauncher;
-import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.pages.DefaultTimeouts;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.core.pages.WebElementFacadeImpl;
@@ -31,6 +29,8 @@ import net.thucydides.core.webdriver.javascript.JavascriptExecutorFacade;
 public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseElementFacade {
 
   static final Logger  LOGGER = LoggerFactory.getLogger(BaseElementFacadeImpl.class);
+
+  private final WebDriver driver;
 
   /**
    * This method has the goal of creating a BaseElementFacade instance from a
@@ -56,8 +56,6 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
                                          waitForTimeoutInMilliseconds);
   }
 
-  protected WebDriver  driver;
-
   protected WebElement webElement;
 
   public BaseElementFacadeImpl(WebDriver driver,
@@ -65,8 +63,8 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
                                WebElement element,
                                long implicitTimeoutInMilliseconds,
                                long waitForTimeoutInMilliseconds) {
-    super(decorateDriver(driver), locator, element, implicitTimeoutInMilliseconds, waitForTimeoutInMilliseconds);
-    this.driver = decorateDriver(driver);
+    super(driver, locator, element, implicitTimeoutInMilliseconds, waitForTimeoutInMilliseconds);
+    this.driver = driver;
   }
 
   /**********************************************************
@@ -82,33 +80,23 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
 
   @Override
   public void click() {
-    clickOnCurrentElement();
-  }
-
-  public void clickOnCurrentElement() {
-    retryOnCondition(this::clickOnCurrentElementWindowSwitch);
-  }
-
-  @SwitchToWindow
-  public void clickOnCurrentElementWindowSwitch() {
-    waitUntilVisible();
-    super.click();
+    clickOnElement();
   }
 
   /*********************************************************************************************************/
 
   @Override
   public void clickOnElement() {
-    LOGGER.debug("clicking on the element [{}]", this);
     try {
       resetTimeouts();
       waitForPageLoaded();
-      clickOnCurrentElement();
+      waitUntilVisible();
+      super.click();
       resetTimeouts();
       waitForPageLoaded();
     } catch (WebDriverException e) {
       throw new ElementClickInterceptedException(String.format("[%s] The element [%s] cannot be clicked.",
-                                                               driver.getWindowHandle(),
+                                                               getDriver().getWindowHandle(),
                                                                this),
                                                  e);
     }
@@ -127,7 +115,7 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
     checkXpathFormat(xpath);
     WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
 
-    return ButtonElementFacadeImpl.wrapWebElementFacadeInButtonElement(driver,
+    return ButtonElementFacadeImpl.wrapWebElementFacadeInButtonElement(getDriver(),
                                                                        nestedElement,
                                                                        timeoutInMilliseconds(),
                                                                        defaultWait());
@@ -137,7 +125,7 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
   public <T extends BaseElementFacade> T findByXPath(String xpath) {
     checkXpathFormat(xpath);
     WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
-    return BaseElementFacadeImpl.wrapWebElementFacade(driver,
+    return BaseElementFacadeImpl.wrapWebElementFacade(getDriver(),
                                                       nestedElement,
                                                       timeoutInMilliseconds(),
                                                       defaultWait());
@@ -147,13 +135,12 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
   public <T extends TextElementFacade> T findTextElementByXPath(String xpath) {
     checkXpathFormat(xpath);
     WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
-    return TextElementFacadeImpl.wrapWebElementFacadeInTextElement(driver,
+    return TextElementFacadeImpl.wrapWebElementFacadeInTextElement(getDriver(),
                                                                    nestedElement,
                                                                    timeoutInMilliseconds(),
                                                                    defaultWait());
   }
 
-  @SwitchToWindow
   public WebElement getCurrentElement() {
     return super.getElement();
   }
@@ -164,13 +151,11 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
   }
 
   @Override
-  @SwitchToWindow
   public WebElement getElement() {
     return retryOnCondition(() -> {
       try {
         return super.getElement();
       } catch (Throwable e) {
-        LOGGER.debug("Can't find element {}. Procees after switching window.", this, e);
         return getCurrentElement();
       }
     });
@@ -196,37 +181,24 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
     }
   }
 
-  @Override
-  @SwitchToWindow
-  public String getText() {
-    return super.getText();
-  }
-
-  @Override
-  @SwitchToWindow
-  public String getValue() {
-    return super.getValue();
-  }
-
   protected WebElementFacade getWebElementFacadeByXpath(String xpath) {
     return findBy(String.format(".%s", xpath));
   }
 
   @Override
   public void hover() {
-    Actions action = new Actions(driver);
+    Actions action = new Actions(getDriver());
     action.moveToElement(this).build().perform();
   }
 
   @Override
   public void hover(String xpath) {
-    Actions action = new Actions(driver);
-    WebElement we = driver.findElement(By.xpath(xpath));
+    Actions action = new Actions(getDriver());
+    WebElement we = getDriver().findElement(By.xpath(xpath));
     action.moveToElement(we).build().perform();
   }
 
   @Override
-  @SwitchToWindow
   public boolean isClickable() {
     try {
       return super.isClickable();
@@ -236,28 +208,22 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
   }
 
   @Override
-  @SwitchToWindow
   public boolean isCurrentlyVisible() {
     return isDisplayedNoWait();
   }
 
   @Override
-  @SwitchToWindow
   public boolean isDisabledAfterWaiting() {
-
-    LOGGER.debug("Checking if the element [{}] is disabled ", this);
     try {
       waitUntilDisabled();
     } catch (Throwable e) {
       return false;
     }
-    LOGGER.debug("The element [{}] isdisabled ", this);
     return true;
 
   }
 
   @Override
-  @SwitchToWindow
   public boolean isDisplayed() {
     try {
       return super.isDisplayed();
@@ -284,18 +250,15 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
 
   @Override
   public boolean isEnabledAfterWaiting() {
-    LOGGER.debug("Checking if the element [{}] is enabled ", this);
     try {
       waitUntilEnabled();
     } catch (Throwable e) {
       return false;
     }
-    LOGGER.debug("The element [{}] is enabled ", this);
     return true;
   }
 
   @Override
-  @SwitchToWindow
   public boolean isNotVisibleAfterWaiting() {
     boolean notVisible = false;
     long retry = 0;
@@ -307,25 +270,16 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
   }
 
   @Override
-  @SwitchToWindow
   public boolean isPresent() {
     return isDisplayedNoWait();
   }
 
   @Override
-  @SwitchToWindow
-  public boolean isSelected() {
-    return super.isSelected();
-  }
-
-  @Override
-  @SwitchToWindow
   public boolean isVisible() {
     return isDisplayed(SHORT_WAIT_DURATION_MILLIS);
   }
 
   @Override
-  @SwitchToWindow
   public boolean isVisibleAfterWaiting() {
     boolean visible = false;
     long retry = 0;
@@ -339,46 +293,22 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
   @Override
   public void scrollDown() {
 
-    JavascriptExecutorFacade javascriptExecutorFacade = new JavascriptExecutorFacade(driver);
+    JavascriptExecutorFacade javascriptExecutorFacade = new JavascriptExecutorFacade(getDriver());
     javascriptExecutorFacade.executeScript("arguments[0].scrollBy(0, 200);", this);
 
   }
 
   @Override
   public void scrollToTheRight() {
-    JavascriptExecutorFacade javascriptExecutorFacade = new JavascriptExecutorFacade(driver);
+    JavascriptExecutorFacade javascriptExecutorFacade = new JavascriptExecutorFacade(getDriver());
     javascriptExecutorFacade.executeScript("arguments[0].scrollBy(300, 0);", this);
 
   }
 
   @Override
   public void scrollToWebElement() {
-    JavascriptExecutorFacade javascriptExecutorFacade = new JavascriptExecutorFacade(driver);
+    JavascriptExecutorFacade javascriptExecutorFacade = new JavascriptExecutorFacade(getDriver());
     javascriptExecutorFacade.executeScript("arguments[0].scrollIntoView();", this);
 
-  }
-
-  @Override
-  @SwitchToWindow
-  public WebElementFacade waitUntilClickable() {
-    return super.waitUntilClickable();
-  }
-
-  @Override
-  @SwitchToWindow
-  public WebElementFacade waitUntilNotVisible() {
-    return super.waitUntilNotVisible();
-  }
-
-  @Override
-  @SwitchToWindow
-  public WebElementFacade waitUntilPresent() {
-    return super.waitUntilPresent();
-  }
-
-  @Override
-  @SwitchToWindow
-  public WebElementFacade waitUntilVisible() {
-    return super.waitUntilVisible();
   }
 }

@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class ManageDomainsPage extends GenericPage {
@@ -148,7 +147,6 @@ public class ManageDomainsPage extends GenericPage {
     automaticTranslation.clickOnElement();
   }
 
-  @SwitchToWindow
   public void goToManageDomainMenu() {
     menuBtn.clickOnElement();
     adminIcon.hover();
@@ -160,7 +158,7 @@ public class ManageDomainsPage extends GenericPage {
   public void insertDomainNameInSearchField(String domainName) {
     searchDomainInput.waitUntilVisible();
     if (searchDomainInput.isNotVisibleAfterWaiting()) {
-      driver.navigate().refresh();
+      getDriver().navigate().refresh();
     }
     searchDomainInput.waitUntilVisible();
     searchDomainInput.setTextValue(domainName);

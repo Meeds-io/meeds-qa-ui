@@ -10,7 +10,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import io.meeds.qa.ui.elements.BaseElementFacade;
-import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class GenericPage extends BasePageImpl {
 
@@ -40,10 +39,10 @@ public class GenericPage extends BasePageImpl {
   }
 
   public void closeBrowserTab(int index) {
-    switchToTabByIndex(driver, index);
-    driver.close();
+    switchToTabByIndex(getDriver(), index);
+    getDriver().close();
     if (index > 0) {
-      switchToTabByIndex(driver, index - 1);
+      switchToTabByIndex(getDriver(), index - 1);
     }
   }
 

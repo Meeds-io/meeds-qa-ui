@@ -328,7 +328,7 @@ public class SettingsPage extends GenericPage {
   }
 
   public void goToEditGeneralNotifications() {
-    JavascriptExecutor js = (JavascriptExecutor) driver;
+    JavascriptExecutor js = (JavascriptExecutor) getDriver();
 
     try {
       ELEMENT_EDIT_NOTIFICATIONS_GENERAL.waitUntilClickable();

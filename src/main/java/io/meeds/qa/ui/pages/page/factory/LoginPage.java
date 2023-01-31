@@ -21,11 +21,11 @@ public class LoginPage extends GenericPage implements IsHidden {
 
   public void clearCookies() {
     try {
-      driver.switchTo().alert().accept();
+      getDriver().switchTo().alert().accept();
     } catch (NoAlertPresentException e) {
       // Normal Behavior
     }
-    driver.manage().deleteAllCookies();
+    getDriver().manage().deleteAllCookies();
   }
 
   public void login(String login, String password) {
@@ -39,7 +39,7 @@ public class LoginPage extends GenericPage implements IsHidden {
 
     int maxRetries = 3;
     int i = 0;
-    while (!StringUtils.contains(driver.getCurrentUrl(), "/portal/login") && i++ < maxRetries) {
+    while (!StringUtils.contains(getDriver().getCurrentUrl(), "/portal/login") && i++ < maxRetries) {
       clearCookies();
       refreshPage();
       open();

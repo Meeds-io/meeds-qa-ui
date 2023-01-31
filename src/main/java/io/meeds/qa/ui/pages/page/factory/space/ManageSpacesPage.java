@@ -10,7 +10,6 @@ import org.openqa.selenium.WebElement;
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class ManageSpacesPage extends GenericPage {
@@ -376,7 +375,6 @@ public class ManageSpacesPage extends GenericPage {
     secondProcessButton.clickOnElement();
   }
 
-  @SwitchToWindow
   public void clickSpaceAction(String action) {
     BaseElementFacade spaceFirstNavigationTab = getSpaceFirstNavigationTab();
     if (spaceFirstNavigationTab.isPresent()) {
@@ -389,7 +387,6 @@ public class ManageSpacesPage extends GenericPage {
     }
   }
 
-  @SwitchToWindow
   public boolean clickSpaceActionToJoin() {
     BaseElementFacade spaceAction = getSpaceAction("Join");
     if (spaceAction != null) {
@@ -516,7 +513,6 @@ public class ManageSpacesPage extends GenericPage {
     waitForProgressBar();
   }
 
-  @SwitchToWindow
   public void inviteUserToSpace(String user) {
     mentionInField(inviteUserInput, user, 5);
   }
@@ -551,7 +547,6 @@ public class ManageSpacesPage extends GenericPage {
     }
   }
 
-  @SwitchToWindow
   public boolean isSpaceMenuDisplayed() {
     try {
       BaseElementFacade webElementFacade = findByXPathOrCSS("//*[contains(@class, 'v-tab--active')]");

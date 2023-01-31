@@ -15,7 +15,6 @@ import org.openqa.selenium.interactions.Actions;
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import io.meeds.qa.ui.utils.SwitchToWindow;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import org.openqa.selenium.support.ui.Select;
@@ -201,12 +200,11 @@ public class SpaceHomePage extends GenericPage {
     super(driver);
   }
 
-  @SwitchToWindow
   public void addActivity(String activity) {
     waitCKEditorLoading();
 
     ckEditorFrame.waitUntilVisible();
-    driver.switchTo().frame(ckEditorFrame);
+    getDriver().switchTo().frame(ckEditorFrame);
 
     try {
       if (activity.contains("https")) {
@@ -214,12 +212,12 @@ public class SpaceHomePage extends GenericPage {
         // Paste Event
         activityContentTextBox.sendKeys(activity);
         activityContentTextBox.sendKeys(Keys.CONTROL + "a" + "x");
-        driver.switchTo().defaultContent();
+        getDriver().switchTo().defaultContent();
         closeActivityComposerDrawer();
         clickPostIcon();
         waitForDrawerToOpen();
         ckEditorFrame.waitUntilVisible();
-        driver.switchTo().frame(ckEditorFrame);
+        getDriver().switchTo().frame(ckEditorFrame);
         activityContentTextBox.sendKeys(Keys.CONTROL + "v");
         activityLinkPreview.waitUntilVisible();
       } else if (activity.contains("lien")) {
@@ -231,39 +229,37 @@ public class SpaceHomePage extends GenericPage {
         Serenity.setSessionVariable("activity").to(activity);
       }
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
   }
 
-  @SwitchToWindow
   public void addActivityComment(String activity, String comment) {
 
     getActivityCommentButton(activity).clickOnElement();
 
     waitOnCommentRichText();
-    driver.switchTo().frame(ckEditorFrameComment);
+    getDriver().switchTo().frame(ckEditorFrameComment);
     try {
       ckEditorBodyComment.waitUntilVisible();
       ckEditorBodyComment.setTextValue(comment);
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
 
     commentButtonInDrawer.clickOnElement();
     closeCommentsDrawer();
   }
 
-  @SwitchToWindow
   public void addCommentReply(String reply, String comment, String activity) {
     getCommentReply(activity, comment).clickOnElement();
 
     waitOnCommentRichText();
-    driver.switchTo().frame(ckEditorFrameComment);
+    getDriver().switchTo().frame(ckEditorFrameComment);
     try {
       ckEditorBodyComment.waitUntilVisible();
       ckEditorBodyComment.setTextValue(reply);
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
 
     replyButtonInDrawer.clickOnElement();
@@ -386,7 +382,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void clickDeleteActivityButton(String activity) {
-    geDeleteActivityIcon(activity).clickOnElement();
+    getDeleteActivityIcon(activity).clickOnElement();
   }
 
   public void clickPinActivityButton(String activity) {
@@ -576,7 +572,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void deleteActivityButtonIsDisplayed(String activity) {
-    assertWebElementVisible(geDeleteActivityIcon(activity));
+    assertWebElementVisible(getDeleteActivityIcon(activity));
   }
 
   public void pinActivityButtonIsDisplayed(String activity) {
@@ -611,7 +607,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void editActivityButtonIsDisplayed(String activity) {
-    assertWebElementVisible(geEditActivityIcon(activity));
+    assertWebElementVisible(getEditActivityIcon(activity));
   }
 
   public void editComment(String comment) {
@@ -640,10 +636,9 @@ public class SpaceHomePage extends GenericPage {
     mentionUserInCKEditor(ckEditorFrameComment, ckEditorBodyComment, comment, user, false);
   }
 
-  @SwitchToWindow
   public void enterActivityText(String activity) {
     ckEditorFrame.waitUntilVisible();
-    driver.switchTo().frame(ckEditorFrame);
+    getDriver().switchTo().frame(ckEditorFrame);
     try {
       activityContentTextBox.waitUntilVisible();
       activityContentTextBox.sendKeys(activity);
@@ -651,27 +646,26 @@ public class SpaceHomePage extends GenericPage {
       activityContentTextBox.sendKeys(Keys.BACK_SPACE);
       waitFor(100).milliseconds();
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
     Serenity.setSessionVariable("activity").to(activity);
   }
 
-  @SwitchToWindow
   public void enterCommentLink(String activity, String comment) {
 
     getActivityCommentButton(activity).clickOnElement();
 
     waitOnCommentRichText();
-    driver.switchTo().frame(ckEditorFrameComment);
+    getDriver().switchTo().frame(ckEditorFrameComment);
     try {
       if (comment.contains("https")) {
         ckEditorBodyComment.sendKeys(comment);
         ckEditorBodyComment.sendKeys(Keys.CONTROL + "a" + "x");
-        driver.navigate().refresh();
+        getDriver().navigate().refresh();
         getActivityCommentButton(activity).clickOnElement();
         ckEditorFrameComment.waitUntilVisible();
         waitOnCommentRichText();
-        driver.switchTo().frame(ckEditorFrameComment);
+        getDriver().switchTo().frame(ckEditorFrameComment);
 
         ckEditorBodyComment.waitUntilVisible();
         ckEditorBodyComment.clickOnElement();
@@ -685,15 +679,14 @@ public class SpaceHomePage extends GenericPage {
         Serenity.setSessionVariable("comment").to(comment);
       }
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
 
   }
 
-  @SwitchToWindow
   public void enterCommentText(String comment) {
     ckEditorFrameComment.waitUntilVisible();
-    driver.switchTo().frame(ckEditorFrameComment);
+    getDriver().switchTo().frame(ckEditorFrameComment);
     try {
       ckEditorBodyComment.waitUntilVisible();
       ckEditorBodyComment.sendKeys(comment);
@@ -701,12 +694,12 @@ public class SpaceHomePage extends GenericPage {
       ckEditorBodyComment.sendKeys(Keys.BACK_SPACE);
       waitFor(100).milliseconds();
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
     Serenity.setSessionVariable("comment").to(comment);
   }
 
-  private BaseElementFacade geDeleteActivityIcon(String activity) {
+  private BaseElementFacade getDeleteActivityIcon(String activity) {
     return findByXPathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Delete')]",
                                           activity));
   }
@@ -721,8 +714,8 @@ public class SpaceHomePage extends GenericPage {
             activity));
   }
 
-  private BaseElementFacade geEditActivityIcon(String activity) {
-    return findByXPathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Edit')][1]",
+  private BaseElementFacade getEditActivityIcon(String activity) {
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::div[contains(@class,'contentBox')]//*[contains(@class, 'activity-head')]//*[contains(@class, 'v-menu')]//*[contains(@class,'fa-edit')]",
                                           activity));
   }
 
@@ -843,7 +836,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private BaseElementFacade getDropDownActivityMenu(String activity) {
-    return findByXPathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::i[contains(@class,'v-icon notranslate')][1]",
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::div[contains(@class,'contentBox')]//*[contains(@class, 'activity-head')]//*[contains(@class,'fa-ellipsis-v')]",
                                           activity));
   }
 
@@ -1056,20 +1049,20 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void linkIsOpenedNewTab(String link) {
-    Set<String> windowHandles = driver.getWindowHandles();
+    Set<String> windowHandles = getDriver().getWindowHandles();
     try {
       boolean tabFound = windowHandles.size() > 1 && windowHandles.stream().anyMatch(windowId -> {
-        driver.switchTo().window(windowId);
-        String currentUrl = driver.getCurrentUrl();
+        getDriver().switchTo().window(windowId);
+        String currentUrl = getDriver().getCurrentUrl();
         boolean found = currentUrl.contains(link);
         if (!currentUrl.contains("/portal")) {
-          driver.close();
+          getDriver().close();
         }
         return found;
       });
       assertTrue(tabFound);
     } finally {
-      driver.switchTo().window(windowHandles.iterator().next());
+      getDriver().switchTo().window(windowHandles.iterator().next());
     }
   }
 
@@ -1088,7 +1081,7 @@ public class SpaceHomePage extends GenericPage {
 
   public void openDeleteActivityMenu(String activity) {
     getDropDownActivityMenu(activity).clickOnElement();
-    geDeleteActivityIcon(activity).clickOnElement();
+    getDeleteActivityIcon(activity).clickOnElement();
   }
 
   public void openDeleteCommentMenu(String activity, String comment) {
@@ -1097,12 +1090,12 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void openEditActivityMenu(String activity) {
-    getDropDownActivityMenu(activity).clickOnElement();
-    geEditActivityIcon(activity).clickOnElement();
+    openThreeDotsActivityMenu(activity);
+    getEditActivityIcon(activity).clickOnElement();
   }
 
   public void openLinkInNewTab(String link) {
-    Actions newTab = new Actions(driver);
+    Actions newTab = new Actions(getDriver());
     newTab.keyDown(Keys.CONTROL).click(getCommentTitleActivityStream(link)).keyUp(Keys.CONTROL).build().perform();
   }
 
@@ -1195,38 +1188,35 @@ public class SpaceHomePage extends GenericPage {
     closeCommentsDrawer();
   }
 
-  @SwitchToWindow
   public void updateCommentText(String comment) {
     ckEditorFrameComment.waitUntilVisible();
-    driver.switchTo().frame(ckEditorFrameComment);
+    getDriver().switchTo().frame(ckEditorFrameComment);
     try {
       ckEditorBodyComment.clear();
       ckEditorBodyComment.sendKeys(comment);
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
     Serenity.setSessionVariable("comment").to(comment);
   }
 
-  @SwitchToWindow
   public void userIsMentionedInCommentEntered(String user) {
     ckEditorFrameComment.waitUntilVisible();
-    driver.switchTo().frame(ckEditorFrameComment);
+    getDriver().switchTo().frame(ckEditorFrameComment);
     try {
       assertWebElementVisible(getMentionedUserInCommentEntered(user));
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
   }
 
-  @SwitchToWindow
   public void userIsNotMentionedInCommentEntered(String user) {
     ckEditorFrameComment.waitUntilVisible();
-    driver.switchTo().frame(ckEditorFrameComment);
+    getDriver().switchTo().frame(ckEditorFrameComment);
     try {
       assertWebElementNotVisible(getMentionedUserInCommentEntered(user), 2);
     } finally {
-      driver.switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
   }
 
