@@ -191,6 +191,9 @@ public class TestHooks {
         reloadPageJavascript(javascriptExecutorFacade);
         reloadPageCSS(javascriptExecutorFacade);
 
+        // Wait 2 seconds for assets to reload
+        Utils.waitForInMillis(2000);
+
         // Refresh the page
         driver.get(driver.getCurrentUrl().split("/portal")[0]);
 

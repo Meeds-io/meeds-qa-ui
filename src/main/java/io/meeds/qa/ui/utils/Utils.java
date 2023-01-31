@@ -290,7 +290,7 @@ public class Utils {
     }
   }
 
-  private static void waitForInMillis(long timeInMilliseconds) {
+  public static void waitForInMillis(long timeInMilliseconds) {
     try {
       Thread.sleep(timeInMilliseconds);
     } catch (InterruptedException e) {
