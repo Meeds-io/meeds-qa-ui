@@ -13,6 +13,7 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.BaseElementFacade;
+import io.meeds.qa.ui.elements.BaseElementFacadeImpl;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -45,9 +46,6 @@ public class HomePage extends GenericPage {
 
   @FindBy(xpath = "(//*[@class='lastUpdatedTime'])[1]")
   private BaseElementFacade                           firstNotificationTimeStamp;
-
-  @FindBy(xpath = "//*[contains(@class,'HamburgerNavigationMenuLink')]")
-  private BaseElementFacade                           hamburgerNavigationMenuLink;
 
   @FindBy(xpath = "//a[@href='/portal/meeds/stream']//div[@class='v-list-item__icon']")
   private BaseElementFacade                           homeIcon;
@@ -228,7 +226,14 @@ public class HomePage extends GenericPage {
   }
 
   private void clickOnHamburgerMenu() {
-    retryOnCondition(hamburgerNavigationMenuLink::clickOnElement, this::refreshPage);
+    retryOnCondition(() -> {
+      BaseElementFacadeImpl overlay = findByXPathOrCSS(".v-overlay--active");
+      if (overlay.isDisplayed()) {
+        overlay.clickOnElement();
+      }
+      getHamburgerNavigationMenu().waitUntilClickable();
+      getHamburgerNavigationMenu().clickOnElement();
+    }, this::refreshPage);
   }
 
   public void clickOnHomeIcon() {
@@ -411,9 +416,6 @@ public class HomePage extends GenericPage {
   }
 
   public void goToStreamPage() {
-    if (!hamburgerNavigationMenuLink.isClickable()) {
-      getDriver().navigate().refresh();
-    }
     clickOnHamburgerMenu();
     clickOnElement(streamPageLink);
   }
@@ -433,12 +435,7 @@ public class HomePage extends GenericPage {
       // finishes
       BaseElementFacade administrationMenuElement = findByXPathOrCSS("#AdministrationHamburgerNavigation");
       administrationMenuElement.waitUntilVisible();
-    }, () -> {
-      if (!hamburgerNavigationMenuLink.isVisible()) {
-        this.refreshPage();
-        this.clickOnHamburgerIcon();
-      }
-    });
+    }, this::clickOnHamburgerMenu);
   }
 
   public void accessToRecentSpaces() {
@@ -449,12 +446,7 @@ public class HomePage extends GenericPage {
       clickOnElement(recentSpacesBtn);
       waitFor(300).milliseconds(); // Wait until drawer 'open' animation
                                    // finishes
-    }, () -> {
-      if (!hamburgerNavigationMenuLink.isVisible()) {
-        this.refreshPage();
-        this.clickOnHamburgerIcon();
-      }
-    });
+    }, this::clickOnHamburgerMenu);
   }
 
   public void hoverOnStreamIcon() {
@@ -471,7 +463,7 @@ public class HomePage extends GenericPage {
   }
 
   public boolean isHomePageDisplayed() {
-    return hamburgerNavigationMenuLink.isVisibleAfterWaiting();
+    return getHamburgerNavigationMenu().isVisibleAfterWaiting();
   }
 
   public boolean isNoConnectionsBadge() {
@@ -507,11 +499,9 @@ public class HomePage extends GenericPage {
   }
 
   public void logout() {
-    if (hamburgerNavigationMenuLink.isPresent()) {
-      clickOnHamburgerMenu();
-      logOutMenu.clickOnElement();
-      verifyPageLoaded();
-    }
+    clickOnHamburgerMenu();
+    logOutMenu.clickOnElement();
+    verifyPageLoaded();
   }
 
   public void openAllApplicationPage() {
@@ -594,4 +584,9 @@ public class HomePage extends GenericPage {
   public void isThirdLevelNavigationDisplayed() {
     Assert.assertTrue(thirdLevelNavigation.isDisplayed());
   }
+
+  private BaseElementFacade getHamburgerNavigationMenu() {
+    return findByXPathOrCSS(".HamburgerNavigationMenuLink");
+  }
+
 }

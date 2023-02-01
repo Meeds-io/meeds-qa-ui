@@ -17,24 +17,35 @@ public class TextElementFacadeImpl extends BaseElementFacadeImpl implements Text
 
   static final Logger LOGGER = LoggerFactory.getLogger(TextElementFacadeImpl.class);
 
-  @SuppressWarnings("unchecked")
-  public static <T extends TextElementFacade> T wrapWebElementFacadeInTextElement(final WebDriver driver,
-                                                                                  final WebElementFacade element,
-                                                                                  final long implicitTimeoutInMilliseconds,
-                                                                                  final long waitForTimeoutInMilliseconds) {
-    return (T) new TextElementFacadeImpl(driver,
-                                         null,
-                                         element,
-                                         implicitTimeoutInMilliseconds,
-                                         waitForTimeoutInMilliseconds);
+  public static TextElementFacadeImpl wrapWebElementFacadeInTextElement(final WebDriver driver,
+                                                                        final WebElementFacade element,
+                                                                        final ElementLocator locator,
+                                                                        final String xPathOrCSSSelector,
+                                                                        final long implicitTimeoutInMilliseconds,
+                                                                        final long waitForTimeoutInMilliseconds) {
+    return new TextElementFacadeImpl(driver,
+                                     locator,
+                                     xPathOrCSSSelector,
+                                     element,
+                                     implicitTimeoutInMilliseconds,
+                                     waitForTimeoutInMilliseconds);
   }
 
+  public TextElementFacadeImpl(WebDriver driver,
+                               ElementLocator locator,
+                               String xPathOrCSSSelector,
+                               WebElement element,
+                               long timeoutInMilliseconds,
+                               long waitForTimeoutInMilliseconds) {
+    super(driver, locator, xPathOrCSSSelector, element, timeoutInMilliseconds, waitForTimeoutInMilliseconds);
+  }
+  
   public TextElementFacadeImpl(WebDriver driver,
                                ElementLocator locator,
                                WebElement element,
                                long timeoutInMilliseconds,
                                long waitForTimeoutInMilliseconds) {
-    super(driver, locator, element, timeoutInMilliseconds, waitForTimeoutInMilliseconds);
+    super(driver, locator, null, element, timeoutInMilliseconds, waitForTimeoutInMilliseconds);
   }
 
   @Override

@@ -366,6 +366,7 @@ Feature: Activity Stream
     And In activity 'activityTestCAP101-101' with comment 'commenttestCAP101-101', the reply 'replyTestCAP101-102' is displayed
     And In activity 'activityTestCAP101-101' with comment 'commenttestCAP101-100', the reply 'replyTestCAP101-104' is displayed
 
+  @test
   Scenario: CAP102 - [ActivityStream_US38][06] Cancel Delete a reply from the activity stream
     Given I connect as admin if random space and random users doesn't exists
       | first  |
@@ -1153,7 +1154,7 @@ Feature: Activity Stream
     When In comment 'commenttest111', I hover on Like icon
     Then Tooltip Remove Like on 'commenttest111' is displayed in activity stream
 
-  Scenario: CAP112 - [ActivityStream_US40][04] DisLike comment/reply of other user from activity stream
+  Scenario: CAP112 [ActivityStream_US40][04] DisLike comment/reply of other user from activity stream
     Given I connect as admin if random users doesn't exists
       | first  |
       | second  |
@@ -2457,8 +2458,7 @@ Feature: Activity Stream
     Given I click on three dots button related to activity 'PinTest'
     Then Unpin button related to activity 'PinTest' is displayed
 
-
-  Scenario: PinActivity_US01: Space host or redactor can pin an activity (from General Stream -  Space redactor Case)
+  Scenario: Pin Activity US01: Space host or redactor can pin an activity (from General Stream -  Space redactor Case)
     Given I connect as admin if random users doesn't exists
       | first  |
       | second  |
@@ -2491,8 +2491,7 @@ Feature: Activity Stream
     Given I click on three dots button related to activity 'PinTest'
     Then Unpin button related to activity 'PinTest' is displayed
 
-
-  Scenario: PinActivity_US03: Unpin an activity
+  Scenario: Pin Activity US03: Unpin an activity
     Given I connect as admin if random users doesn't exists
       | first  |
       | second  |
@@ -2528,7 +2527,7 @@ Feature: Activity Stream
     Then The message 'This activity has been unpinned.' should be displayed
     And The activity 'PinTest' should be not pinned in space stream
 
-  Scenario: PinActivity_US04: Pinned activities filter
+  Scenario: Pin Activity US04: Pinned activities filter
     Given I am authenticated as admin
     And I create a random space
     And I go to the random space

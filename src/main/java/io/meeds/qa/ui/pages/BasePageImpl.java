@@ -20,11 +20,9 @@ import org.slf4j.LoggerFactory;
 
 import io.meeds.qa.ui.elements.BaseElementFacade;
 import io.meeds.qa.ui.elements.BaseElementFacadeImpl;
-import io.meeds.qa.ui.elements.ButtonElementFacade;
 import io.meeds.qa.ui.elements.ButtonElementFacadeImpl;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacadeImpl;
-import io.meeds.qa.ui.elements.TextElementFacade;
 import io.meeds.qa.ui.elements.TextElementFacadeImpl;
 import io.meeds.qa.ui.utils.ExceptionLauncher;
 import net.serenitybdd.core.Serenity;
@@ -91,7 +89,7 @@ public class BasePageImpl extends PageObject implements BasePage {
     }
   }
 
-  public <T extends ButtonElementFacade> T findButtonElementByXpath(String xpath) {
+  public ButtonElementFacadeImpl findButtonElementByXpath(String xpath) {
     if (!Selectors.isXPath(xpath)) {
       ExceptionLauncher.throwSerenityExeption(new Exception(), String.format(XPATH_FORMAT_ERROR_MESSAGE, xpath));
     }
@@ -99,21 +97,26 @@ public class BasePageImpl extends PageObject implements BasePage {
 
     return ButtonElementFacadeImpl.wrapWebElementFacadeInButtonElement(getDriver(),
                                                                        nestedElement,
+                                                                       null,
+                                                                       xpath,
                                                                        getImplicitWaitTimeout().toMillis(),
                                                                        getWaitForTimeout().toMillis());
   }
 
   @Override
-  public <T extends BaseElementFacade> T findByXPathOrCSS(String xpathOrCSSSelector) {
+  @SuppressWarnings("unchecked")
+  public BaseElementFacadeImpl findByXPathOrCSS(String xpathOrCSSSelector) {
     WebElementFacade nestedElement = getWebElementFacadeByXpathOrCSS(xpathOrCSSSelector);
 
     return BaseElementFacadeImpl.wrapWebElementFacade(getDriver(),
                                                       nestedElement,
+                                                      null,
+                                                      xpathOrCSSSelector,
                                                       getImplicitWaitTimeout().toMillis(),
                                                       getWaitForTimeout().toMillis());
   }
 
-  public <T extends TextBoxElementFacade> T findTextBoxElementByXpath(String xpath) {
+  public TextBoxElementFacadeImpl findTextBoxElementByXpath(String xpath) {
     if (!Selectors.isXPath(xpath)) {
       ExceptionLauncher.throwSerenityExeption(new Exception(), String.format(XPATH_FORMAT_ERROR_MESSAGE, xpath));
     }
@@ -121,11 +124,13 @@ public class BasePageImpl extends PageObject implements BasePage {
 
     return TextBoxElementFacadeImpl.wrapWebElementFacadeInTextBoxElement(getDriver(),
                                                                          nestedElement,
+                                                                         null,
+                                                                         xpath,
                                                                          getImplicitWaitTimeout().toMillis(),
                                                                          getWaitForTimeout().toMillis());
   }
 
-  public <T extends TextElementFacade> T findTextElementByXpath(String xpath) {
+  public TextElementFacadeImpl findTextElementByXpath(String xpath) {
     if (!Selectors.isXPath(xpath)) {
       ExceptionLauncher.throwSerenityExeption(new Exception(), String.format(XPATH_FORMAT_ERROR_MESSAGE, xpath));
     }
@@ -133,6 +138,8 @@ public class BasePageImpl extends PageObject implements BasePage {
 
     return TextElementFacadeImpl.wrapWebElementFacadeInTextElement(getDriver(),
                                                                    nestedElement,
+                                                                   null,
+                                                                   xpath,
                                                                    getImplicitWaitTimeout().toMillis(),
                                                                    getWaitForTimeout().toMillis());
   }
@@ -179,10 +186,16 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   public boolean isWebElementVisible(BaseElementFacade element, long maxRetries) {
     verifyPageLoaded();
-    element.setImplicitTimeout(SHORT_WAIT_DURATION);
     boolean visible = false;
     int retry = 0;
     do {
+      String selector = element.getXPathOrCSSSelector();
+      if (StringUtils.isNotBlank(selector)) {
+        element = findByXPathOrCSS(selector);
+      } else if (element instanceof BaseElementFacadeImpl elementFacade && elementFacade.getFoundBy() != null) {
+        element = findByXPathOrCSS(elementFacade.getFoundBy());
+      }
+      element.setImplicitTimeout(SHORT_WAIT_DURATION);
       visible = element.isDisplayed(SHORT_WAIT_DURATION_MILLIS);
     } while (!visible && retry++ < maxRetries);
     return visible || element.isCurrentlyVisible();

@@ -230,6 +230,7 @@ Feature: Tasks - Projects
     And The task name 'task3' should be displayed in PLAN view
 
   @smoke
+  @test
   Scenario: CAP16 - [Project_Card_US01]: check the display "project's creator avatar"
     Given I am authenticated as admin
     And I create the first random user if not existing

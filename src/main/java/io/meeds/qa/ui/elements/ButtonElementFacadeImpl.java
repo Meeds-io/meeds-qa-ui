@@ -15,10 +15,13 @@ public class ButtonElementFacadeImpl extends BaseElementFacadeImpl implements Bu
   @SuppressWarnings("unchecked")
   public static <T extends ButtonElementFacade> T wrapWebElementFacadeInButtonElement(final WebDriver driver,
                                                                                       final WebElementFacade element,
+                                                                                      final ElementLocator locator,
+                                                                                      final String xPathOrCSSSelector,
                                                                                       final long implicitTimeoutInMilliseconds,
                                                                                       final long waitForTimeoutInMilliseconds) {
     return (T) new ButtonElementFacadeImpl(driver,
-                                           null,
+                                           locator,
+                                           xPathOrCSSSelector,
                                            element,
                                            implicitTimeoutInMilliseconds,
                                            waitForTimeoutInMilliseconds);
@@ -26,9 +29,18 @@ public class ButtonElementFacadeImpl extends BaseElementFacadeImpl implements Bu
 
   public ButtonElementFacadeImpl(WebDriver driver,
                                  ElementLocator locator,
+                                 String xPathOrCSSSelector,
                                  WebElement element,
                                  long timeoutInMilliseconds,
                                  long waitForTimeoutInMilliseconds) {
-    super(driver, locator, element, timeoutInMilliseconds, waitForTimeoutInMilliseconds);
+    super(driver, locator, xPathOrCSSSelector, element, timeoutInMilliseconds, waitForTimeoutInMilliseconds);
+  }
+
+  public ButtonElementFacadeImpl(WebDriver driver,
+                                 ElementLocator locator,
+                                 WebElement element,
+                                 long timeoutInMilliseconds,
+                                 long waitForTimeoutInMilliseconds) {
+    super(driver, locator, null, element, timeoutInMilliseconds, waitForTimeoutInMilliseconds);
   }
 }

@@ -22,16 +22,27 @@ public class TextBoxElementFacadeImpl extends BaseElementFacadeImpl implements T
 
   static final Logger LOGGER = LoggerFactory.getLogger(TextBoxElementFacadeImpl.class);
 
-  @SuppressWarnings("unchecked")
-  public static <T extends TextBoxElementFacade> T wrapWebElementFacadeInTextBoxElement(final WebDriver driver,
-                                                                                        final WebElementFacade element,
-                                                                                        final long implicitTimeoutInMilliseconds,
-                                                                                        final long waitForTimeoutInMilliseconds) {
-    return (T) new TextBoxElementFacadeImpl(driver,
-                                            null,
-                                            element,
-                                            implicitTimeoutInMilliseconds,
-                                            waitForTimeoutInMilliseconds);
+  public static TextBoxElementFacadeImpl wrapWebElementFacadeInTextBoxElement(final WebDriver driver,
+                                                                              final WebElementFacade element,
+                                                                              final ElementLocator locator,
+                                                                              final String xPathOrCSSSelector,
+                                                                              final long implicitTimeoutInMilliseconds,
+                                                                              final long waitForTimeoutInMilliseconds) {
+    return new TextBoxElementFacadeImpl(driver,
+                                        locator,
+                                        xPathOrCSSSelector,
+                                        element,
+                                        implicitTimeoutInMilliseconds,
+                                        waitForTimeoutInMilliseconds);
+  }
+
+  public TextBoxElementFacadeImpl(WebDriver driver,
+                                  ElementLocator locator,
+                                  String xPathOrCSSSelector,
+                                  WebElement element,
+                                  long timeoutInMilliseconds,
+                                  long waitForTimeoutInMilliseconds) {
+    super(driver, locator, xPathOrCSSSelector, element, timeoutInMilliseconds, waitForTimeoutInMilliseconds);
   }
 
   public TextBoxElementFacadeImpl(WebDriver driver,
@@ -39,7 +50,7 @@ public class TextBoxElementFacadeImpl extends BaseElementFacadeImpl implements T
                                   WebElement element,
                                   long timeoutInMilliseconds,
                                   long waitForTimeoutInMilliseconds) {
-    super(driver, locator, element, timeoutInMilliseconds, waitForTimeoutInMilliseconds);
+    super(driver, locator, null, element, timeoutInMilliseconds, waitForTimeoutInMilliseconds);
   }
 
   @Override

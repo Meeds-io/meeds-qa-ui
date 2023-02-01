@@ -28,7 +28,11 @@ import net.thucydides.core.webdriver.javascript.JavascriptExecutorFacade;
 
 public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseElementFacade {
 
-  static final Logger  LOGGER = LoggerFactory.getLogger(BaseElementFacadeImpl.class);
+  static final Logger     LOGGER = LoggerFactory.getLogger(BaseElementFacadeImpl.class);
+
+  protected final String  xPathOrCSSSelector;
+
+  protected WebElement    webElement;
 
   private final WebDriver driver;
 
@@ -39,32 +43,43 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
    *
    * @param driver {@link WebDriver}
    * @param element {@link WebElementFacade}
+   * @param locator {@link ElementLocator}
+   * @param xPathOrCSSSelector used xPath or CSS selector to find element
    * @param implicitTimeoutInMilliseconds configured implicit timeout
    * @param waitForTimeoutInMilliseconds configured general timeout
-   * @param <T> type of return which extends {@link BaseElementFacade}
-   * @return a wrapped BaseElementFacade of the webElementFacade
+   * @return a wrapped {@link BaseElementFacadeImpl} of the webElementFacade
    */
-  @SuppressWarnings("unchecked")
-  public static <T extends BaseElementFacade> T wrapWebElementFacade(final WebDriver driver,
-                                                                     final WebElementFacade element,
-                                                                     final long implicitTimeoutInMilliseconds,
-                                                                     final long waitForTimeoutInMilliseconds) {
-    return (T) new BaseElementFacadeImpl(driver,
-                                         null,
-                                         element,
-                                         implicitTimeoutInMilliseconds,
-                                         waitForTimeoutInMilliseconds);
+  public static BaseElementFacadeImpl wrapWebElementFacade(final WebDriver driver,
+                                                           final WebElementFacade element,
+                                                           final ElementLocator locator,
+                                                           final String xPathOrCSSSelector,
+                                                           final long implicitTimeoutInMilliseconds,
+                                                           final long waitForTimeoutInMilliseconds) {
+    return new BaseElementFacadeImpl(driver,
+                                     locator,
+                                     xPathOrCSSSelector,
+                                     element,
+                                     implicitTimeoutInMilliseconds,
+                                     waitForTimeoutInMilliseconds);
   }
 
-  protected WebElement webElement;
+  public BaseElementFacadeImpl(WebDriver driver,
+                               ElementLocator locator,
+                               String xPathOrCSSSelector,
+                               WebElement element,
+                               long implicitTimeoutInMilliseconds,
+                               long waitForTimeoutInMilliseconds) {
+    super(driver, locator, element, implicitTimeoutInMilliseconds, waitForTimeoutInMilliseconds);
+    this.driver = driver;
+    this.xPathOrCSSSelector = xPathOrCSSSelector;
+  }
 
   public BaseElementFacadeImpl(WebDriver driver,
                                ElementLocator locator,
                                WebElement element,
                                long implicitTimeoutInMilliseconds,
                                long waitForTimeoutInMilliseconds) {
-    super(driver, locator, element, implicitTimeoutInMilliseconds, waitForTimeoutInMilliseconds);
-    this.driver = driver;
+    this(driver, locator, null, element, implicitTimeoutInMilliseconds, waitForTimeoutInMilliseconds);
   }
 
   /**********************************************************
@@ -117,26 +132,34 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
 
     return ButtonElementFacadeImpl.wrapWebElementFacadeInButtonElement(getDriver(),
                                                                        nestedElement,
+                                                                       null,
+                                                                       xpath,
                                                                        timeoutInMilliseconds(),
                                                                        defaultWait());
   }
 
   @Override
-  public <T extends BaseElementFacade> T findByXPath(String xpath) {
+  @SuppressWarnings("unchecked")
+  public BaseElementFacadeImpl findByXPath(String xpath) {
     checkXpathFormat(xpath);
     WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
     return BaseElementFacadeImpl.wrapWebElementFacade(getDriver(),
                                                       nestedElement,
+                                                      null,
+                                                      xpath,
                                                       timeoutInMilliseconds(),
                                                       defaultWait());
   }
 
   @Override
-  public <T extends TextElementFacade> T findTextElementByXPath(String xpath) {
-    checkXpathFormat(xpath);
-    WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
+  @SuppressWarnings("unchecked")
+  public TextElementFacadeImpl findTextElementByXPath(String xPath) {
+    checkXpathFormat(xPath);
+    WebElementFacade nestedElement = getWebElementFacadeByXpath(xPath);
     return TextElementFacadeImpl.wrapWebElementFacadeInTextElement(getDriver(),
                                                                    nestedElement,
+                                                                   null,
+                                                                   xPath,
                                                                    timeoutInMilliseconds(),
                                                                    defaultWait());
   }
@@ -155,7 +178,7 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
     return retryOnCondition(() -> {
       try {
         return super.getElement();
-      } catch (Throwable e) {
+      } catch (Throwable e) { // NOSONAR
         return getCurrentElement();
       }
     });
@@ -164,8 +187,8 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
   @Override
   public String getFoundBy() {
     WebElement element = getElement();
-    if (element instanceof WebElementFacadeImpl) {
-      return ((WebElementFacadeImpl) element).getFoundBy();
+    if (element instanceof WebElementFacadeImpl elementFacade) {
+      return elementFacade.getFoundBy();
     } else {
       return null;
     }
@@ -174,8 +197,8 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
   @Override
   public ElementLocator getLocator() {
     WebElement element = getElement();
-    if (element instanceof WebElementFacadeImpl) {
-      return ((WebElementFacadeImpl) element).getLocator();
+    if (element instanceof WebElementFacadeImpl elementFacade) {
+      return elementFacade.getLocator();
     } else {
       return null;
     }
@@ -202,7 +225,7 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
   public boolean isClickable() {
     try {
       return super.isClickable();
-    } catch (Throwable e) {
+    } catch (Throwable e) { // NOSONAR
       return false;
     }
   }
@@ -216,7 +239,7 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
   public boolean isDisabledAfterWaiting() {
     try {
       waitUntilDisabled();
-    } catch (Throwable e) {
+    } catch (Throwable e) { // NOSONAR
       return false;
     }
     return true;
@@ -227,7 +250,7 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
   public boolean isDisplayed() {
     try {
       return super.isDisplayed();
-    } catch (Throwable e) {
+    } catch (Throwable e) { // NOSONAR
       return false;
     }
   }
@@ -252,7 +275,7 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
   public boolean isEnabledAfterWaiting() {
     try {
       waitUntilEnabled();
-    } catch (Throwable e) {
+    } catch (Throwable e) { // NOSONAR
       return false;
     }
     return true;
@@ -310,5 +333,10 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
     JavascriptExecutorFacade javascriptExecutorFacade = new JavascriptExecutorFacade(getDriver());
     javascriptExecutorFacade.executeScript("arguments[0].scrollIntoView();", this);
 
+  }
+
+  @Override
+  public String getXPathOrCSSSelector() {
+    return xPathOrCSSSelector;
   }
 }
