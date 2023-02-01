@@ -85,6 +85,7 @@ Feature: Tasks
     And Tasks number '0' is displayed in the column To Do
 
   @smoke
+  @standardConfigurationOnly
   Scenario: CAP95 - [Add_Task_Drawer_US04] 3 dots menu (Delete action) "Task under project"
     Given I connect as admin if random users doesn't exists
       | first  |

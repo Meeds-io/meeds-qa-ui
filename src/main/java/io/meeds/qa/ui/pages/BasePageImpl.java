@@ -191,7 +191,9 @@ public class BasePageImpl extends PageObject implements BasePage {
     do {
       element.setImplicitTimeout(SHORT_WAIT_DURATION);
       visible = element.isDisplayed(SHORT_WAIT_DURATION_MILLIS);
-      if (!visible) {
+      if (visible) {
+        return true;
+      } else {
         String selector = element.getXPathOrCSSSelector();
         if (StringUtils.isNotBlank(selector)) {
           element = findByXPathOrCSS(selector);
@@ -199,8 +201,8 @@ public class BasePageImpl extends PageObject implements BasePage {
           element = findByXPathOrCSS(((BaseElementFacadeImpl) element).getFoundBy());
         }
       }
-    } while (!visible && retry++ < maxRetries);
-    return visible || element.isCurrentlyVisible();
+    } while (retry++ < maxRetries);
+    return element.isVisibleAfterWaiting();
   }
 
   public boolean mentionUserInCKEditor(BaseElementFacade ckEditorFrame,
