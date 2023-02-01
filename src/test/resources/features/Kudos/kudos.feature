@@ -45,7 +45,7 @@ Feature: Kudos
     Then the activity 'Kudos Post' is displayed in activity stream
     And kudos icon of the activity 'Kudos Post' is Disabled
 
-  Scenario: [EXISTANT-KUDOS 7] Sending Kudos from user profile
+  Scenario: EXISTANT-KUDOS 7: Sending Kudos from user profile
     Given I connect as admin if random users doesn't exists
       | thirdkudos  |
       | fourthkudos  |

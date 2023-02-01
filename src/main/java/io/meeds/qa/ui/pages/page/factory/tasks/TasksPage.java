@@ -1385,7 +1385,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void hoverOnProjectManagerIcon() {
-    projectCardUserFullName.hover("//div[@style='height: 28px; min-width: 28px; width: 28px;']//img[contains(@src,'/portal/rest/v1/social/users/default-image/avatar')]");
+    projectCardUserFullName.hover("//*[contains(@class, 'spaceAdminContainer')]//*[contains(@class, 'profile-popover')]");
   }
 
   public void hoverOnTaskName(String task) {

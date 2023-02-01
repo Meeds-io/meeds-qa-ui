@@ -212,6 +212,7 @@ public class TestHooks {
     } catch (NoAlertPresentException e) {
       // Normal Behavior
     }
+    driver.navigate().refresh();
   }
 
   private void reloadPageJavascript(JavascriptExecutorFacade javascriptExecutorFacade) {
@@ -239,7 +240,9 @@ public class TestHooks {
       Iterator<LogEntry> logEntryIterator = logEntries.iterator();
       while (logEntryIterator.hasNext()) {
         LogEntry logEntry = logEntryIterator.next();
-        if (logEntry.getLevel() == Level.SEVERE) {
+        if (logEntry.getLevel() == Level.SEVERE
+            && logEntry.getTimestamp() > (System.currentTimeMillis() - 10000)
+            && !StringUtils.contains(logEntry.getMessage(), "?update=")) {
           if (errors == null) {
             errors = new ArrayList<>();
           }

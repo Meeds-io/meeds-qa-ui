@@ -118,4 +118,6 @@ public interface BaseElementFacade extends WebElementFacade {
    * This method will scroll up or down until it reaches the web element
    */
   public void scrollToWebElement();
+
+  public String getXPathOrCSSSelector();
 }
