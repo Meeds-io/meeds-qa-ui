@@ -187,8 +187,8 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
   @Override
   public String getFoundBy() {
     WebElement element = getElement();
-    if (element instanceof WebElementFacadeImpl elementFacade) {
-      return elementFacade.getFoundBy();
+    if (element instanceof WebElementFacadeImpl) {
+      return ((BaseElementFacadeImpl)element).getFoundBy();
     } else {
       return null;
     }
@@ -197,8 +197,8 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
   @Override
   public ElementLocator getLocator() {
     WebElement element = getElement();
-    if (element instanceof WebElementFacadeImpl elementFacade) {
-      return elementFacade.getLocator();
+    if (element instanceof WebElementFacadeImpl) {
+      return ((BaseElementFacadeImpl)element).getLocator();
     } else {
       return null;
     }
