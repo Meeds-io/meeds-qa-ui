@@ -366,7 +366,6 @@ Feature: Activity Stream
     And In activity 'activityTestCAP101-101' with comment 'commenttestCAP101-101', the reply 'replyTestCAP101-102' is displayed
     And In activity 'activityTestCAP101-101' with comment 'commenttestCAP101-100', the reply 'replyTestCAP101-104' is displayed
 
-  @test
   Scenario: CAP102 - [ActivityStream_US38][06] Cancel Delete a reply from the activity stream
     Given I connect as admin if random space and random users doesn't exists
       | first  |
