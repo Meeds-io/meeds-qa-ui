@@ -189,14 +189,16 @@ public class BasePageImpl extends PageObject implements BasePage {
     boolean visible = false;
     int retry = 0;
     do {
-      String selector = element.getXPathOrCSSSelector();
-      if (StringUtils.isNotBlank(selector)) {
-        element = findByXPathOrCSS(selector);
-      } else if (element instanceof BaseElementFacadeImpl && ((BaseElementFacadeImpl)element).getFoundBy() != null) {
-        element = findByXPathOrCSS(((BaseElementFacadeImpl)element).getFoundBy());
-      }
       element.setImplicitTimeout(SHORT_WAIT_DURATION);
       visible = element.isDisplayed(SHORT_WAIT_DURATION_MILLIS);
+      if (!visible) {
+        String selector = element.getXPathOrCSSSelector();
+        if (StringUtils.isNotBlank(selector)) {
+          element = findByXPathOrCSS(selector);
+        } else if (element instanceof BaseElementFacadeImpl && ((BaseElementFacadeImpl) element).getFoundBy() != null) {
+          element = findByXPathOrCSS(((BaseElementFacadeImpl) element).getFoundBy());
+        }
+      }
     } while (!visible && retry++ < maxRetries);
     return visible || element.isCurrentlyVisible();
   }
