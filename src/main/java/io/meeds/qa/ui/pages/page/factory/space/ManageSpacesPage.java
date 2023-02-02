@@ -381,7 +381,7 @@ public class ManageSpacesPage extends GenericPage {
       clickOnElement(spaceFirstNavigationTab);
     } else {
       BaseElementFacade spaceAction = getSpaceAction(action);
-      if (spaceAction != null) {
+      if (spaceAction != null && spaceAction.isVisibleAfterWaiting()) {
         clickOnElement(spaceAction);
       }
     }
@@ -594,10 +594,10 @@ public class ManageSpacesPage extends GenericPage {
       selectSpaceFilter.select().byValue("all");
   }
 
-  public void selectTemplate(String value) {
+  public void selectTemplate(int index) {
     spaceTemplateFilter.waitUntilVisible();
     spaceTemplateFilter.clickOnElement();
-    spaceTemplateFilter.selectByValue(value);
+    spaceTemplateFilter.selectByIndex(index);
   }
 
   public void setSpaceName(String spaceName) {

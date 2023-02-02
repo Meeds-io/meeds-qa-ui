@@ -292,9 +292,12 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   public void waitCKEditorLoading() {
     try {
-      BaseElementFacade richTextLoadingElement = findByXPathOrCSS("//*[contains(@class, 'loadingRing')]");
-      if (richTextLoadingElement.isDisplayed(200)) {
-        richTextLoadingElement.waitUntilNotVisible();
+      BaseElementFacade iframeElement = findByXPathOrCSS("//iframe");
+      if (!iframeElement.isDisplayedNoWait()) {
+        BaseElementFacade richTextLoadingElement = findByXPathOrCSS("//*[contains(@class, 'loadingRing')]");
+        if (richTextLoadingElement.isDisplayedNoWait()) {
+          richTextLoadingElement.waitUntilNotVisible();
+        }
       }
     } catch (Exception e) {
       ExceptionLauncher.LOGGER.debug("Can't wait for progress bar to finish loading", e);

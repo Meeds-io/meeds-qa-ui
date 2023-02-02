@@ -211,7 +211,8 @@ public class SpaceHomePage extends GenericPage {
         // A workaround to the fact that the preview isn't triggered only by a
         // Paste Event
         activityContentTextBox.sendKeys(activity);
-        activityContentTextBox.sendKeys(Keys.CONTROL + "a" + "x");
+        activityContentTextBox.sendKeys(Keys.CONTROL + "a");
+        activityContentTextBox.sendKeys(Keys.CONTROL + "x");
         getDriver().switchTo().defaultContent();
         closeActivityComposerDrawer();
         clickPostIcon();
@@ -234,8 +235,8 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void addActivityComment(String activity, String comment) {
-
     getActivityCommentButton(activity).clickOnElement();
+    waitForDrawerToOpen();
 
     waitOnCommentRichText();
     getDriver().switchTo().frame(ckEditorFrameComment);
@@ -251,7 +252,9 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void addCommentReply(String reply, String comment, String activity) {
-    getCommentReply(activity, comment).clickOnElement();
+    BaseElementFacade commentReplyButton = getCommentReply(activity, comment);
+    clickOnElement(commentReplyButton);
+    waitForDrawerToOpen();
 
     waitOnCommentRichText();
     getDriver().switchTo().frame(ckEditorFrameComment);
@@ -503,6 +506,7 @@ public class SpaceHomePage extends GenericPage {
   public void closeActivityComposerDrawer() {
     closeActivityComposerDrawerBtn.waitUntilVisible();
     closeActivityComposerDrawerBtn.clickOnElement();
+    waitForDrawerToClose();
   }
 
   public void closeCommentsDrawer() {

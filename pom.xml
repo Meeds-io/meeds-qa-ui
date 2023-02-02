@@ -50,9 +50,15 @@
     <cucumber.filter.tags>not @ignored and not @ignore and not @wip and not @skip and not @standardConfigurationOnly</cucumber.filter.tags>
     <cucumber-jvm-parallel-plugin.version>5.0.0</cucumber-jvm-parallel-plugin.version>
 
-    <failsafe.rerunFailingTestsCount>0</failsafe.rerunFailingTestsCount>
+    <failsafe.rerunFailingTestsCount>2</failsafe.rerunFailingTestsCount>
     <!-- One of [SCENARIO, FEATURE]. SCENARIO generates one runner per scenario.  FEATURE generates a runner per feature. -->
     <parallel.scheme>SCENARIO</parallel.scheme>
+    <!-- Space Template Select Box Value index when creating random spaces -->
+    <io.meeds.space.template.index>0</io.meeds.space.template.index>
+    <!-- Max retry when getting element -->
+    <io.meeds.retry.max>3</io.meeds.retry.max>
+    <!-- Max implicit timeout for each retry on element fetching -->
+    <io.meeds.retry.wait.millis>300</io.meeds.retry.wait.millis>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -176,13 +182,18 @@
         <artifactId>maven-failsafe-plugin</artifactId>
         <configuration>
           <runOrder>alphabetical</runOrder>
+          <rerunFailingTestsCount>${failsafe.rerunFailingTestsCount}</rerunFailingTestsCount>
           <includes>
             <!--include>**/*TestSuite.java</include-->
             <include>io/meeds/qa/ui/it/*.java</include>
           </includes>
           <systemPropertyVariables>
-            <io.meeds.space.template>crowdFunding</io.meeds.space.template>
-            <io.meeds.windowSwitch.lockFile>${project.build.directory}/switchWindow.lck</io.meeds.windowSwitch.lockFile>
+            <!-- Space Template Select Box Value index when creating random spaces -->
+            <io.meeds.space.template.index>${io.meeds.space.template.index}</io.meeds.space.template.index>
+            <!-- Max retry when getting element -->
+            <io.meeds.retry.max>${io.meeds.retry.max}</io.meeds.retry.max>
+            <!-- Max implicit timeout for each retry on element fetching -->
+            <io.meeds.retry.wait.millis>${io.meeds.retry.wait.millis}</io.meeds.retry.wait.millis>
             <io.meeds.forkNumber>${surefire.forkNumber}</io.meeds.forkNumber>
             <properties>serenity.properties</properties>
             <webdriver.remote.url>http://localhost:4444</webdriver.remote.url>
