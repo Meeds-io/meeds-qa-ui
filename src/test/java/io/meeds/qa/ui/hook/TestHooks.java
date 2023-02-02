@@ -176,6 +176,12 @@ public class TestHooks {
   }
 
   private void checkPageState(WebDriver driver) {
+    try {
+      driver.switchTo().alert().accept();
+      driver.navigate().refresh();
+    } catch (Throwable e) { // NOSONAR
+      // Normal Behavior
+    }
     // Check wether the page has been loaded for the first time or not
     String currentUrl = driver.getCurrentUrl();
     if (StringUtils.contains(currentUrl, "/portal")) {
