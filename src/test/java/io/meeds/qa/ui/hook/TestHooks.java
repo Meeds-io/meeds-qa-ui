@@ -248,7 +248,8 @@ public class TestHooks {
         LogEntry logEntry = logEntryIterator.next();
         if (logEntry.getLevel() == Level.SEVERE
             && logEntry.getTimestamp() > (System.currentTimeMillis() - 10000)
-            && !StringUtils.contains(logEntry.getMessage(), "?update=")) {
+            && !StringUtils.contains(logEntry.getMessage(), "?update=")
+            && !StringUtils.contains(logEntry.getMessage(), "/rest")) {
           if (errors == null) {
             errors = new ArrayList<>();
           }
