@@ -337,7 +337,7 @@ public class BasePageImpl extends PageObject implements BasePage {
     try {
       findByXPathOrCSS(drawerSelector).waitUntilVisible();
       if (withOverlay) {
-        findByXPathOrCSS(".v-overlay").waitUntilVisible();
+        findByXPathOrCSS(".v-overlay--active").waitUntilVisible();
       }
     } catch (Exception e) {
       LOGGER.debug("Overlay seems not displayed", e);

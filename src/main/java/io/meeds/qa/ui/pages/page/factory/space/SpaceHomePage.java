@@ -234,7 +234,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void addActivityComment(String activity, String comment) {
-
+    waitForDrawerToOpen();
     getActivityCommentButton(activity).clickOnElement();
 
     waitOnCommentRichText();
@@ -251,7 +251,9 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void addCommentReply(String reply, String comment, String activity) {
-    getCommentReply(activity, comment).clickOnElement();
+    waitForDrawerToOpen();
+    BaseElementFacade commentReplyButton = getCommentReply(activity, comment);
+    clickOnElement(commentReplyButton);
 
     waitOnCommentRichText();
     getDriver().switchTo().frame(ckEditorFrameComment);

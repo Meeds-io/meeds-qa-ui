@@ -22,7 +22,7 @@ public class Utils {
 
   private static final Random  RANDOM                     = new Random();
 
-  public static final int      SHORT_WAIT_DURATION_MILLIS = 300;
+  public static final int      SHORT_WAIT_DURATION_MILLIS = Integer.parseInt(System.getProperty("io.meeds.retry.wait.millis", "300"));
 
   public static final Duration SHORT_WAIT_DURATION        = Duration.ofMillis(SHORT_WAIT_DURATION_MILLIS);
 

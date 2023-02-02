@@ -15,7 +15,7 @@ import io.meeds.qa.ui.utils.Utils;
 
 public class ManageSpaceSteps {
 
-  private static final String SPACE_TEMPLATE = System.getProperty("io.meeds.space.template");
+  private static final int SPACE_TEMPLATE_INDEX = Integer.parseInt(System.getProperty("io.meeds.space.template.index", "0"));
 
   private HomePage            homePage;
 
@@ -67,7 +67,7 @@ public class ManageSpaceSteps {
   public void addSpaceWithRegistration(String spaceName, String registration) {
     manageSpacesPage.openSpaceFormDrawer();
     manageSpacesPage.setSpaceName(spaceName);
-    manageSpacesPage.selectTemplate(SPACE_TEMPLATE);
+    manageSpacesPage.selectTemplate(SPACE_TEMPLATE_INDEX);
     manageSpacesPage.clickFirstProcessButton();
     manageSpacesPage.checkSpaceRegistration(registration);
     manageSpacesPage.clickSecondProcessButton();
