@@ -61,6 +61,7 @@
     <io.meeds.retry.wait.millis>300</io.meeds.retry.wait.millis>
     <!-- Loading Page wait timeout -->
     <io.meeds.page.loading.wait>10</io.meeds.page.loading.wait>
+    <version.surefire.plugin>3.0.0-M8</version.surefire.plugin>
   </properties>
   <dependencyManagement>
     <dependencies>
