@@ -80,10 +80,10 @@ public class UserProfilePage extends GenericPage {
   @FindBy(xpath = "//*[@class='v-card__text d-flex positionField py-0'][8]/following::select[1]")
   private BaseElementFacade      ELEMENT_CONTACT_PHONE_TYPE_SELECT_EDIT_BTN;
 
-  @FindBy(xpath = "//*[@id='kudosOverviewCardsParent']//*[@class='kudosOverviewCard col'][1]/div/div[2]")
+  @FindBy(xpath = "//*[@id='kudosOverviewCardsParent']//*[@class='kudosOverviewCard col'][1]//*[contains(@class, 'kudosOverviewCount')]")
   private BaseElementFacade      ELEMENT_CONTACT_RECEIVED_KUDOS;
 
-  @FindBy(xpath = "//*[@id='kudosOverviewCardsParent']//*[@class='kudosOverviewCard col'][2]/div/div[2]")
+  @FindBy(xpath = "//*[@id='kudosOverviewCardsParent']//*[@class='kudosOverviewCard col'][2]//*[contains(@class, 'kudosOverviewCount')]")
   private BaseElementFacade      ELEMENT_CONTACT_SENT_KUDOS;
 
   @FindBy(xpath = "//*[@class='v-card__text d-flex positionField py-0'][8]/following::input[3]")
