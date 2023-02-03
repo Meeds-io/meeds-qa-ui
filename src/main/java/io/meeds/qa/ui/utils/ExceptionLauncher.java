@@ -21,13 +21,9 @@ public class ExceptionLauncher {
                                        param instanceof Exception ? ((Exception) param).getMessage()
                                                                   : String.valueOf(param));
       }
-      System.getLogger("ExceptionLauncher").log(Level.WARNING, message);
-      System.getLogger("ExceptionLauncher").log(Level.ERROR, message);
-      System.err.println(message);
+      System.err.printf(message);
     } else {
-      System.getLogger("ExceptionLauncher").log(Level.WARNING, message);
-      System.getLogger("ExceptionLauncher").log(Level.ERROR, message);
-      System.err.println(message);
+      System.err.printf(message);
     }
   }
 
