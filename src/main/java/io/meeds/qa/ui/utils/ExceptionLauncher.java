@@ -1,5 +1,7 @@
 package io.meeds.qa.ui.utils;
 
+import java.lang.System.Logger.Level;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,9 +21,9 @@ public class ExceptionLauncher {
                                        param instanceof Exception ? ((Exception) param).getMessage()
                                                                   : String.valueOf(param));
       }
-      System.out.println(message); // NOSONAR
+      System.getLogger("ExceptionLauncher").log(Level.INFO, message);
     } else {
-      System.out.println(message); // NOSONAR
+      System.getLogger("ExceptionLauncher").log(Level.INFO, message);
     }
   }
 
