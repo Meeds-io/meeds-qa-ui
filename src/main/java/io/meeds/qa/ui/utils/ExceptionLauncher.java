@@ -12,6 +12,19 @@ public class ExceptionLauncher {
     throw new SerenityManagedException(errorMsg, e);
   }
 
+  public static final void displayMessageInStandardOutput(String message, Object... parameters) {
+    if (parameters != null) {
+      for (Object param : parameters) {
+        message = message.replaceFirst("\\{\\}",
+                                       param instanceof Exception ? ((Exception) param).getMessage()
+                                                                  : String.valueOf(param));
+      }
+      System.out.println(message); // NOSONAR
+    } else {
+      System.out.println(message); // NOSONAR
+    }
+  }
+
   private ExceptionLauncher() {
     // Utils class
   }
