@@ -1,7 +1,5 @@
 package io.meeds.qa.ui.utils;
 
-import java.lang.System.Logger.Level;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,19 +10,6 @@ public class ExceptionLauncher {
 
   public static final void throwSerenityExeption(Exception e, String errorMsg) {
     throw new SerenityManagedException(errorMsg, e);
-  }
-
-  public static final void displayMessageInStandardOutput(String message, Object... parameters) {
-    if (parameters != null) {
-      for (Object param : parameters) {
-        message = message.replaceFirst("\\{\\}",
-                                       param instanceof Exception ? ((Exception) param).getMessage()
-                                                                  : String.valueOf(param));
-      }
-      System.err.printf(message);
-    } else {
-      System.err.printf(message);
-    }
   }
 
   private ExceptionLauncher() {

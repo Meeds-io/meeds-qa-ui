@@ -226,7 +226,7 @@ public class TestHooks {
   private void warmUp(WebDriver driver) {
     File warmUpFile = new File(WARMUP_FILE_PATH);
     if (warmUpFile.exists()) {
-      // Warmup already proceeded. Execute test scenario.
+      ExceptionLauncher.LOGGER.debug("Warmup already proceeded. Execute test scenario.");
       return;
     }
     try {
@@ -235,29 +235,29 @@ public class TestHooks {
       }
     } catch (IOException e) {
       // Will attempt to warmup again next time
-      ExceptionLauncher.displayMessageInStandardOutput("[WARMUP] Error creating warmup file {}. Proceed to execute Test scenario without warmup. Error: {}",
-                                                       WARMUP_FILE_PATH,
-                                                       e);
+      ExceptionLauncher.LOGGER.warn("Error creating warmup file {}. Proceed to execute Test scenario without warmup.",
+                                    WARMUP_FILE_PATH,
+                                    e);
       return;
     }
 
-    ExceptionLauncher.displayMessageInStandardOutput("[WARMUP] ---- Start warmup phase with {} retries and wait time of {} seconds",
-                                                     MAX_WARM_UP_RETRIES,
-                                                     MAX_WARM_UP_STEP_WAIT);
+    ExceptionLauncher.LOGGER.info("---- Start warmup phase with {} retries and wait time of {} seconds",
+                                  MAX_WARM_UP_RETRIES,
+                                  MAX_WARM_UP_STEP_WAIT);
     long start = System.currentTimeMillis();
     int retryCount = 1;
     boolean homePageDisplayed = false;
     do {
-      ExceptionLauncher.displayMessageInStandardOutput("[WARMUP] ---- {}/{} Warmup step",
-                                                       retryCount,
-                                                       MAX_WARM_UP_RETRIES);
+      ExceptionLauncher.LOGGER.info("---- {}/{} Warmup step",
+                                    retryCount,
+                                    MAX_WARM_UP_RETRIES);
       try {
         driver.navigate().to(System.getProperty("webdriver.base.url"));
         Utils.waitForPageLoaded();
         loginSteps.authenticate("admin");
         Utils.waitForPageLoaded();
       } catch (Exception e) {
-        ExceptionLauncher.displayMessageInStandardOutput("[WARMUP] Error authenticating admin user.  Error: {}", e);
+        ExceptionLauncher.LOGGER.warn("Error authenticating admin user", e);
       }
       homePageDisplayed = isHomePageDisplayed();
       if (!homePageDisplayed) {
@@ -265,8 +265,7 @@ public class TestHooks {
         genericSteps.waitInSeconds(MAX_WARM_UP_STEP_WAIT);
       }
     } while (!homePageDisplayed && retryCount++ < MAX_WARM_UP_RETRIES);
-    ExceptionLauncher.displayMessageInStandardOutput("[WARMUP] ---- End warmup phase within {} seconds",
-                                                     (System.currentTimeMillis() - start) / 1000);
+    ExceptionLauncher.LOGGER.info("---- End warmup phase in {} seconds", (System.currentTimeMillis() - start) / 1000);
   }
 
   private void goToHomePage(WebDriver driver) {
