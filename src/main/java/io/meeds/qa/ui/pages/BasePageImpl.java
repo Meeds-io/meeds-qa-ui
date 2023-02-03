@@ -71,7 +71,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   public void closeDrawer() {
     BaseElementFacade closeIcon = findByXPathOrCSS(".v-navigation-drawer--open .drawerHeader button.mdi-close");
     try {
-      if (closeIcon.isDisplayedNoWait()) {
+      while (closeIcon.isDisplayedNoWait()) {
         closeIcon.clickOnElement();
       }
     } catch (Exception e) {

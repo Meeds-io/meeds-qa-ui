@@ -34,7 +34,9 @@ public class LoginPage extends GenericPage implements IsHidden {
   }
 
   public void login(String login, String password) {
-    if (!StringUtils.equals(getLastLoggedInUser(), login)) {
+    if (StringUtils.equals(getLastLoggedInUser(), login)) {
+      closeDrawerIfDisplayed();
+    } else {
       openLoginPage();
       retryOnCondition(() -> tryLogin(login, password), this::refreshPage);
       getDriver().manage().addCookie(new Cookie(LAST_LOGGED_IN_USER_COOKIE_NAME, login, "/"));
