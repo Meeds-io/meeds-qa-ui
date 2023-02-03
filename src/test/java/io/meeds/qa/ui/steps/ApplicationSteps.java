@@ -1,11 +1,19 @@
 package io.meeds.qa.ui.steps;
 
-import java.util.ArrayList;
+import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_APPCENTER_ALL_APPLICATIONS_PAGE;
+import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_APPCENTER_PERK_STORE;
+import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_APPCENTER_SEE_ALL_APPLICATIONS;
+import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_APPCENTER_WALLET;
+import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_APPLICATIONS_TOPBAR;
+import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_NOTES_APPLICATION_PAGE;
+import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_PERK_STORE_APPLICATION_PAGE;
+import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_TASKS_APPLICATION_PAGE;
+import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.contributionsApplication;
+import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.elementChallengeApplicationPage;
+
 import java.util.List;
 
 import io.meeds.qa.ui.pages.page.factory.application.ApplicationPage;
-
-import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.*;
 
 public class ApplicationSteps {
 
@@ -95,13 +103,8 @@ public class ApplicationSteps {
     return ELEMENT_APPCENTER_ALL_APPLICATIONS_PAGE.isVisibleAfterWaiting();
   }
 
-  public List<String> isAppDisplayedInFavoriteList(List<String> listOfApp) {
-    List<String> missingValues = new ArrayList<>();
-    for (String appName : listOfApp) {
-      if (!applicationPage.isAppDisplayedInFavoriteList(appName))
-        missingValues.add(appName);
-    }
-    return missingValues;
+  public boolean isAppDisplayedInFavoriteList(List<String> listOfApp) {
+    return listOfApp.stream().allMatch(appName -> applicationPage.isAppDisplayedInFavoriteList(appName));
   }
 
   public void checkApplicationIsVisible(String applicationName) {
@@ -112,13 +115,8 @@ public class ApplicationSteps {
     applicationPage.checkApplicationIsNotVisible(applicationName);
   }
 
-  public List<String> isAppNotDisplayedInFavoriteList(List<String> listOfApp) {
-    List<String> missingValues = new ArrayList<>();
-    for (String appName : listOfApp) {
-      if (!applicationPage.isAppNotDisplayedInFavoriteList(appName))
-        missingValues.add(appName);
-    }
-    return missingValues;
+  public boolean isAppNotDisplayedInFavoriteList(List<String> listOfApp) {
+    return listOfApp.stream().noneMatch(appName -> applicationPage.isAppDisplayedInFavoriteList(appName));
   }
 
   public boolean isChallengePageOpened() {
@@ -137,11 +135,6 @@ public class ApplicationSteps {
   public boolean isPerkStorePageOpened() {
     // Perk Store Application Page is displayed
     return ELEMENT_PERK_STORE_APPLICATION_PAGE.isVisibleAfterWaiting();
-  }
-
-  public boolean isSendFeedbackPageOpened() {
-    // Send Feedback Application Page is displayed
-    return ELEMENT_SEND_FEEDBACK_APPLICATION_PAGE.isVisibleAfterWaiting();
   }
 
   public boolean isTasksPageOpened() {

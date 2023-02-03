@@ -1,7 +1,5 @@
 package io.meeds.qa.ui.steps.definition;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -14,19 +12,21 @@ import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 
 public class AdminApplicationStepDefinition {
+
+  public static final Random RANDOM = new Random();
+
+  @Steps
+  private AdminApplicationSteps adminApplicationSteps;
+
   public static String getRandomString() {
     char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
     StringBuilder sb = new StringBuilder();
-    Random random = new Random();
     for (int i = 0; i < 6; i++) {
-      char c = chars[random.nextInt(chars.length)];
+      char c = chars[RANDOM.nextInt(chars.length)];
       sb.append(c);
     }
     return sb.toString();
   }
-
-  @Steps
-  private AdminApplicationSteps adminApplicationSteps;
 
   @When("^I add a new application with the following data$")
   public void addNewApp(Map<String, String> appData) {
@@ -166,12 +166,12 @@ public class AdminApplicationStepDefinition {
   }
 
   @When("^I disable Mandatory '(.*)' for application$")
-  public void disableMandatoryApplication(String appTitle) throws InterruptedException {
+  public void disableMandatoryApplication(String appTitle) {
     adminApplicationSteps.disableMandatoryApplication(appTitle);
   }
 
   @When("^I disable Mandatory for the created application$")
-  public void disableMandatoryRandomApplication() throws InterruptedException {
+  public void disableMandatoryRandomApplication() {
     String randomApplicationTitle = Serenity.sessionVariableCalled("randomApplicationTitle");
     adminApplicationSteps.disableMandatoryApplication(randomApplicationTitle);
   }
@@ -212,12 +212,12 @@ public class AdminApplicationStepDefinition {
   }
 
   @When("^I enable Mandatory '(.*)' for application$")
-  public void enableMandatoryApplication(String appTitle) throws InterruptedException {
+  public void enableMandatoryApplication(String appTitle) {
     adminApplicationSteps.enableMandatoryApplication(appTitle);
   }
 
   @When("^I enable Mandatory for the created application$")
-  public void enableMandatoryRandomApplication() throws InterruptedException {
+  public void enableMandatoryRandomApplication() {
     String randomApplicationTitle = Serenity.sessionVariableCalled("randomApplicationTitle");
     adminApplicationSteps.enableMandatoryApplication(randomApplicationTitle);
   }

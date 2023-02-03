@@ -26,6 +26,8 @@ public class Utils {
 
   public static final Duration SHORT_WAIT_DURATION        = Duration.ofMillis(SHORT_WAIT_DURATION_MILLIS);
 
+  public static int            pageLoadingWait            = 120;
+
   public static String getRandomNumber() {
     char[] chars = "0123456789".toCharArray();
     StringBuilder sb = new StringBuilder();
@@ -105,12 +107,13 @@ public class Utils {
 
   public static void waitForPageLoaded() {
     try {
-      WebDriverWait wait = new WebDriverWait(Serenity.getDriver(), Duration.ofSeconds(10));
+      WebDriverWait wait = new WebDriverWait(Serenity.getDriver(), Duration.ofSeconds(pageLoadingWait));
       wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState === 'complete' "
           + " && (!document.getElementById('TopbarLoadingContainer') || !!document.querySelector('.TopbarLoadingContainer.hidden'))"
           + " && !document.querySelector('.v-navigation-drawer--open .v-progress-linear')")
                                                               .toString()
                                                               .equals("true"));
+      pageLoadingWait = Math.max(pageLoadingWait / 2, 10);
     } catch (TimeoutException | JsonException e) {
       Serenity.getDriver().navigate().refresh();
       waitForPageLoaded();

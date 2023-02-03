@@ -83,4 +83,4 @@ Feature: Administration settings
     When I see All Applications
     And I search for the random created application
     Then The application is not bookmarked as my favorites
-    And First added application is not displayed in Favorites Applications
+    And The created application is not displayed in Favorites Applications
