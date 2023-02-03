@@ -38,14 +38,16 @@ import net.thucydides.core.webdriver.javascript.JavascriptExecutorFacade;
 
 public class TestHooks {
 
+  protected static final String              WARMUP_FILE_PATH          = System.getProperty("io.meeds.warmUp.file",
+                                                                                            "warmUpFile.tmp");
+
+  private static final int                   WARM_UP_PAGE_LOADING_WAIT = 120;
+
   private static final int                   MAX_WARM_UP_STEP_WAIT     = 5;
 
   private static final int                   MAX_WARM_UP_RETRIES       = 100;
 
   private static final int                   CONSOLE_ERRORS_COUNT_FAIL = 5;
-
-  protected static final String              WARMUP_FILE_PATH          =
-                                                              System.getProperty("io.meeds.warmUp.file", "lockFile");
 
   protected static final Map<String, String> SPACES                    = new HashMap<>();
 
@@ -82,8 +84,6 @@ public class TestHooks {
   @Steps
   private AdminApplicationSteps      adminApplicationSteps;
 
-  private boolean                    adminLoggedIn;
-
   @Steps
   private HomeSteps                  homeSteps;
 
@@ -106,7 +106,6 @@ public class TestHooks {
   public void initDatas() { // NOSONAR
     String adminPassword = System.getProperty("adminPassword");
     Serenity.setSessionVariable("admin-password").to(adminPassword);
-    adminLoggedIn = false;
 
     WebDriver driver = Serenity.getDriver();
 
@@ -138,7 +137,6 @@ public class TestHooks {
     } catch (Exception e) {
       ExceptionLauncher.LOGGER.warn("Error while deleting previously created data", e);
     }
-    cleanupBrowser();
   }
 
   private void deleteAppCenterApplications() {
@@ -174,19 +172,8 @@ public class TestHooks {
     }
   }
 
-  private void cleanupBrowser() {
-    try {
-      Serenity.getDriver().manage().deleteAllCookies();
-    } catch (Throwable e) { // NOSONAR
-      ExceptionLauncher.LOGGER.warn("Error while cleaning browser", e);
-    }
-  }
-
   private void loginAsAdmin() {
-    if (!adminLoggedIn) {
-      loginSteps.logoutLogin("admin");
-      adminLoggedIn = true;
-    }
+    loginSteps.authenticate("admin");
   }
 
   private void checkPageState(WebDriver driver) {
@@ -253,9 +240,9 @@ public class TestHooks {
                                     MAX_WARM_UP_RETRIES);
       try {
         driver.navigate().to(System.getProperty("webdriver.base.url"));
-        Utils.waitForPageLoaded();
-        loginSteps.authenticate("admin");
-        Utils.waitForPageLoaded();
+        Utils.waitForPageLoaded(WARM_UP_PAGE_LOADING_WAIT);
+        loginAsAdmin();
+        Utils.waitForPageLoaded(WARM_UP_PAGE_LOADING_WAIT);
       } catch (Exception e) {
         ExceptionLauncher.LOGGER.warn("Error authenticating admin user", e);
       }
@@ -279,7 +266,11 @@ public class TestHooks {
   }
 
   private boolean isHomePageDisplayed() {
-    return loginSteps.isHomePageDisplayed();
+    try {
+      return loginSteps.isHomePageDisplayed();
+    } catch (Exception e) {
+      return false;
+    }
   }
 
   private void reloadPageStaticResources(WebDriver driver) {

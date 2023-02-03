@@ -46,16 +46,7 @@ public class LoginSteps {
 
   public void logout() {
     homePage.logout();
-  }
-
-  public void logoutLogin(String username) {
-    logout();
-    String password = Serenity.sessionVariableCalled(username + "-password");
-    loginPage.login(username, password);
-  }
-
-  public void open() {
-    loginPage.openLoginPage();
+    loginPage.logout();
   }
 
 }

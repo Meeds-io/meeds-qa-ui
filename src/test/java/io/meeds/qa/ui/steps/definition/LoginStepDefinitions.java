@@ -42,7 +42,7 @@ public class LoginStepDefinitions {
 
   @Given("^I connect with admin$")
   public void logOutLoginadmin() {
-    logOutLogin("admin");
+    authenticate("admin");
   }
 
   @Given("^I connect with the dedicated user to be an administrator$")

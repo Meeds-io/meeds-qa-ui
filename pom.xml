@@ -59,6 +59,8 @@
     <io.meeds.retry.max>3</io.meeds.retry.max>
     <!-- Max implicit timeout for each retry on element fetching -->
     <io.meeds.retry.wait.millis>300</io.meeds.retry.wait.millis>
+    <!-- Loading Page wait timeout -->
+    <io.meeds.page.loading.wait>10</io.meeds.page.loading.wait>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -194,6 +196,7 @@
             <io.meeds.retry.max>${io.meeds.retry.max}</io.meeds.retry.max>
             <!-- Max implicit timeout for each retry on element fetching -->
             <io.meeds.warmUp.file>${project.build.directory}/warmUp.tmp</io.meeds.warmUp.file>
+            <io.meeds.page.loading.wait>${io.meeds.page.loading.wait}</io.meeds.page.loading.wait>
             <io.meeds.retry.wait.millis>${io.meeds.retry.wait.millis}</io.meeds.retry.wait.millis>
             <io.meeds.forkNumber>${surefire.forkNumber}</io.meeds.forkNumber>
             <properties>serenity.properties</properties>

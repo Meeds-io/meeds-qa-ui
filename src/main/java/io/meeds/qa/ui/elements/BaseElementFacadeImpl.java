@@ -304,13 +304,13 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
 
   @Override
   public boolean isVisibleAfterWaiting() {
-    boolean visible = false;
+    Boolean visible = false;
     long retry = 0;
     long maxRetries = getImplicitTimeoutInMilliseconds() / SHORT_WAIT_DURATION_MILLIS;
     do {
       visible = isDisplayed(SHORT_WAIT_DURATION_MILLIS);
-    } while (!visible && ++retry < maxRetries);
-    return visible;
+    } while (visible != null && !visible.booleanValue() && ++retry < maxRetries);
+    return visible != null && visible.booleanValue();
   }
 
   @Override
