@@ -1,7 +1,6 @@
 @favorite
 Feature: Favorite activities
 
-  @test
   Scenario: [Favs_US03] Bookmark an activity
     Given I connect as admin if random users doesn't exists
       | first  |

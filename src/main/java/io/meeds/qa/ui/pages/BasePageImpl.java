@@ -26,7 +26,6 @@ import io.meeds.qa.ui.elements.TextBoxElementFacadeImpl;
 import io.meeds.qa.ui.elements.TextElementFacadeImpl;
 import io.meeds.qa.ui.utils.ExceptionLauncher;
 import net.serenitybdd.core.Serenity;
-import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.core.selectors.Selectors;
 import net.thucydides.core.annotations.WhenPageOpens;
@@ -41,12 +40,6 @@ public class BasePageImpl extends PageObject implements BasePage {
   private static final String XPATH_FORMAT_ERROR_MESSAGE  = "The format for the xpath [%s] is not correct.";
 
   protected String            url;
-
-  @FindBy(xpath = "//body")
-  public static BaseElementFacade bodyElement;
-
-  @FindBy(css = ".v-navigation-drawer--open")
-  public static BaseElementFacade openedDrawerElement;
 
   public BasePageImpl() {
     this(null);
@@ -79,16 +72,18 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void closeDrawerIfDisplayed() {
+    BaseElementFacadeImpl openedDrawerElement = findByXPathOrCSS(".v-navigation-drawer--open");
     if (openedDrawerElement.isDisplayedNoWait()) {
-      bodyElement.sendKeys(Keys.ESCAPE);
+      findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
       closeAlertIfOpened();
       waitForDrawerToClose();
     }
   }
 
   public void closeAllDrawers() {
+    BaseElementFacadeImpl openedDrawerElement = findByXPathOrCSS(".v-navigation-drawer--open");
     while (openedDrawerElement.isDisplayedNoWait()) {
-      bodyElement.sendKeys(Keys.ESCAPE);
+      findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
       closeAlertIfOpened();
       waitForDrawerToClose();
     }
