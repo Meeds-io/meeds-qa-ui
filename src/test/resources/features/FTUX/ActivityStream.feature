@@ -26,7 +26,6 @@ Feature: Activity Stream
     When I click on the second user Popover
     Then The profile page is displayed
 
-  @test
   Scenario: CAP04 - [ActivityStream_US05] Display 10 activities in Activity Stream
     Given I connect as admin if random users doesn't exists
       | first  |
@@ -1951,7 +1950,6 @@ Feature: Activity Stream
     And I click on the kudos button number from the comments drawer
     Then '1' kudos are displayed on the reaction drawer
 
-  @test
   Scenario: CAP220 - [ActivityStream_IMPV07][01] Pagination in comments drawer
     Given I connect as admin if random users doesn't exists
       | first  |
@@ -2393,7 +2391,6 @@ Feature: Activity Stream
     Then The message 'This activity has been unpinned.' should be displayed
     And The activity 'PinTest' should be not pinned in space stream
 
-  @test
   Scenario: Pin Activity US04: Pinned activities filter
     Given I am authenticated as admin
     And I create a random space

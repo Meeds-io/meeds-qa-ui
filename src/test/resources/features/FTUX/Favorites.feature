@@ -31,7 +31,6 @@ Feature: Favorite activities
     And I unbookmark the favorite activity posted in the space
     Then The favorite success message 'The item has been removed from favorites successfully.' should be displayed
 
-  @test
   Scenario: [Favs_US05][01] Search by favorites (Filter by favorite button)
     Given I connect as admin if random users doesn't exists
       | first  |
@@ -285,7 +284,6 @@ Feature: Favorite activities
     Then The message 'The item has been removed from favorites successfully.' should be displayed
     And I check that the random space is unbookmarked from topbar space popover
 
-  @test
   Scenario: Left Nav US02.2: Bookmark space from the left menu (desktop)
     Given I am authenticated as admin
     And I go to the seven random space
@@ -305,7 +303,6 @@ Feature: Favorite activities
     Then The message 'The item has been removed from favorites successfully.' should be displayed
     And I check that the random space is unbookmarked from Third Navigation Level
 
-  @test
   Scenario: StreamFiltering_US04.2: Filter my stream by favorite spaces
     Given I am authenticated as admin
     And I go to the ninety random space

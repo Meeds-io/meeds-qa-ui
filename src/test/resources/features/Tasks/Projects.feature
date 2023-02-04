@@ -112,7 +112,7 @@ Feature: Tasks - Projects
     When I select projects tab
     And I add a new project
     And I open the added project
-    Then The project name is displayed in project details
+    Then The created project name is displayed in project details
     And Board view is displayed by default
     And Status column 'To Do' is displayed in the first position
     And Status column 'In Progress' is displayed in the second position

@@ -953,13 +953,16 @@ public class TasksStepDefinition {
     tasksSteps.projectIsDisplayedInTasksAppCenter(projectName);
   }
 
-  @When("^The project name is displayed in project details$")
+  @When("The created project name is displayed in project details")
+  public void randomProjectNameIsDisplayedInProjectDetails() {
+    String randomProjectName = Serenity.sessionVariableCalled("projectName");
+    tasksSteps.projectNameIsDisplayedInProjectDetails(randomProjectName);
+  }
+
+  @When("The project name is displayed in project details")
   public void projectNameIsDisplayedInProjectDetails() {
-    String projectName = Serenity.sessionVariableCalled("projectName");
-    if (StringUtils.isBlank(projectName)) {
-      projectName = Serenity.sessionVariableCalled("randomSpaceName");
-    }
-    tasksSteps.projectNameIsDisplayedInProjectDetails(projectName);
+    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
+    tasksSteps.projectNameIsDisplayedInProjectDetails(randomSpaceName);
   }
 
   @When("^The project '(.*)' is displayed in project details$")
