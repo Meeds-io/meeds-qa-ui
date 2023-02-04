@@ -209,19 +209,19 @@ Feature: Tasks - Projects
     When I open the task 'task1'
     And I set task start date TODAY
     And I set task due date TOMORROW
-    And I close task drawer
+    And I close the opened drawer
     And I create the following task in selected project
       | taskName | task2 |
     When I open the task 'task2'
     And I set task start date TOMORROW
     And I set task due date Next week
-    And I close task drawer
+    And I close the opened drawer
     And I create the following task in selected project
       | taskName | task3 |
     When I open the task 'task3'
     And I set task start date TOMORROW
     And I set task due date TOMORROW
-    And I close task drawer
+    And I close the opened drawer
     And I go to the PLAN view
     And I refresh the page
     And I go to the PLAN view

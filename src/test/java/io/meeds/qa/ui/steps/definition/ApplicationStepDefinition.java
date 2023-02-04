@@ -134,11 +134,6 @@ public class ApplicationStepDefinition {
     applicationSteps.clickOnTheAppLauncherIcon();
   }
 
-  @When("I close AppCenter Drawer")
-  public void closeAppCenterDrawer() {
-    applicationSteps.closeAppCenterDrawer();
-  }
-
   @Then("^I go to '(.*)' application$")
   public void goToApplication(String application) {
     applicationSteps.goToApplication(application);

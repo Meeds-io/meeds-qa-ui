@@ -137,6 +137,7 @@ public class TestHooks {
     } catch (Exception e) {
       ExceptionLauncher.LOGGER.warn("Error while deleting previously created data", e);
     }
+    genericSteps.closeAllDrawers();
   }
 
   private void deleteAppCenterApplications() {

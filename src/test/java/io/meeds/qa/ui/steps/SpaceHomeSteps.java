@@ -90,10 +90,6 @@ public class SpaceHomeSteps {
     spaceHomePage.checkThirdCommentInDrawer(comment);
   }
 
-  public void clickCloseActivityDrawerbutton() {
-    spaceHomePage.clickCloseActivityDrawerbutton();
-  }
-
   public void clickCreatePoll() {
     spaceHomePage.clickCreatePoll();
   }
@@ -180,14 +176,6 @@ public class SpaceHomeSteps {
 
   public void clickPostIcon() {
     spaceHomePage.clickPostIcon();
-  }
-
-  public void closeCommentsDrawer() {
-    spaceHomePage.closeCommentsDrawer();
-  }
-
-  public void closeWriteMessageDrawer() {
-    spaceHomePage.closeActivityComposerDrawer();
   }
 
   public void commentIsDisplayedInDrawer(String commentsNumber, String comment) {

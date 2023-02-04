@@ -284,8 +284,8 @@ Feature: Favorite activities
     Then The message 'The item has been removed from favorites successfully.' should be displayed
     And I check that the random space is unbookmarked from topbar space popover
 
-
-  Scenario: LeftNav_US02.2: Bookmark space from the left menu (desktop)
+  @test
+  Scenario: Left Nav US02.2: Bookmark space from the left menu (desktop)
     Given I am authenticated as admin
     And I go to the seven random space
     And I go to the nine random space
@@ -304,6 +304,7 @@ Feature: Favorite activities
     Then The message 'The item has been removed from favorites successfully.' should be displayed
     And I check that the random space is unbookmarked from Third Navigation Level
 
+  @test
   Scenario: StreamFiltering_US04.2: Filter my stream by favorite spaces
     Given I am authenticated as admin
     And I go to the ninety random space

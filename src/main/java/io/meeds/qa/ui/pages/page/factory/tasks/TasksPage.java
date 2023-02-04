@@ -229,9 +229,6 @@ public class TasksPage extends GenericPage {
   @FindBy(xpath = "//div[@class='drawerTitle']/button[@type='button']")
   private BaseElementFacade        goBackIcon;
 
-  @FindBy(xpath = "//*[@class='uiIcon uiArrowBAckIcon']")
-  private BaseElementFacade        goBackToTaskDrawerFromComments;
-
   @FindBy(xpath = "//*[contains(@class,'filterTasksDrawer ')]//*[contains(@class,'v-tab') and contains(text(),'Group and Sort')]")
   private BaseElementFacade        groupAndSortTab;
 
@@ -483,9 +480,7 @@ public class TasksPage extends GenericPage {
     mentionUserInCKEditor(ckEditorFrameTaskMentioningUser, taskCommentContentTextBox, comment, user, true);
     commentTaskButton.waitUntilVisible();
     commentTaskButton.clickOnElement();
-    goBackToTaskDrawerFromComments.waitUntilVisible();
-    goBackToTaskDrawerFromComments.clickOnElement();
-    closeDrawer();
+    closeDrawerIfDisplayed();
   }
 
   public void addOtherCommentInTask() {
@@ -959,27 +954,6 @@ public class TasksPage extends GenericPage {
     cloneoption.clickOnElement();
   }
 
-  public void closeEditTaskDrawer() {
-    closeDrawer();
-  }
-
-  public void closeEditTaskDrawerSimpleProject() {
-    closeDrawer();
-  }
-
-  public void closeProjectDrawer() {
-    closeDrawer();
-  }
-
-  public void closeSortAndFilterDrawer() {
-    closeDrawer();
-  }
-
-  public void closeTaskCommentsDrawer() {
-    goBackToTaskDrawerFromComments.waitUntilVisible();
-    goBackToTaskDrawerFromComments.clickOnElement();
-  }
-
   public void colorPaletteIsDisplayed() {
     assertWebElementVisible(colorPalette);
   }
@@ -1005,9 +979,7 @@ public class TasksPage extends GenericPage {
 
     commentTaskButton.waitUntilVisible();
     commentTaskButton.clickOnElement();
-    goBackToTaskDrawerFromComments.waitUntilVisible();
-    goBackToTaskDrawerFromComments.clickOnElement();
-    closeDrawer();
+    closeDrawerIfDisplayed();
   }
 
   public void commentTaskWithUser(String user, String comment) {
@@ -1586,7 +1558,7 @@ public class TasksPage extends GenericPage {
 
   public void setTaskCompletedInDrawer() {
     markTaskCompletedInDrawer.clickOnElement();
-    closeDrawer();
+    closeDrawerIfDisplayed();
   }
 
   public void setTaskCompletedInDrawerWithoutClosingIt() {

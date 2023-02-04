@@ -490,7 +490,7 @@ Feature: Activity Stream
 
     When I open in activity 'activityTestCAP103-103' the Comments drawer
     Then '1 comment', only 'commenttestCAP103-103' is displayed in Comments drawer
-    And I close the comments drawer
+    And I close the opened drawer
 
     When I connect with the second created user
 
@@ -506,7 +506,7 @@ Feature: Activity Stream
     Then the confirmation popup is not displayed
     And Comment 'commenttestCAP103-103' is not displayed in the drawer
     And No comments displayed in the drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Comment 'commenttestCAP103-103' is not displayed in activity 'activityTestCAP103-103'
 
     When I connect with the first created user
@@ -517,7 +517,7 @@ Feature: Activity Stream
     When I open in activity 'activityTestCAP103-103' the Comments drawer
     Then Comment 'commenttestCAP103-103' is not displayed in the drawer
     And No comments displayed in the drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Comment 'commenttestCAP103-103' is not displayed in activity 'activityTestCAP103-103'
 
     When I connect with the third created user
@@ -528,7 +528,7 @@ Feature: Activity Stream
     When I open in activity 'activityTestCAP103-103' the Comments drawer
     Then Comment 'commenttestCAP103-103' is not displayed in the drawer
     And No comments displayed in the drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Comment 'commenttestCAP104-CAP103-103' is not displayed in activity 'activityTestCAP103-103'
 
   Scenario: CAP104 - [ActivityStream_US39][02] Cancel Delete a simple comment from the comment drawer
@@ -568,7 +568,7 @@ Feature: Activity Stream
 
     When I open in activity 'activityTestCAP104-104' the Comments drawer
     Then '1 comment', only 'commenttestCAP104-104' is displayed in Comments drawer
-    And I close the comments drawer
+    And I close the opened drawer
 
     When I connect with the second created user
 
@@ -583,7 +583,7 @@ Feature: Activity Stream
     And I click on Cancel button
     Then the confirmation popup is not displayed
     And '1 comment', only 'commenttestCAP104-104' is displayed in Comments drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Activity Comment 'commenttestCAP104-104' is displayed in activity stream
 
     When I connect with the first created user
@@ -593,7 +593,7 @@ Feature: Activity Stream
 
     When I open in activity 'activityTestCAP104-104' the Comments drawer
     Then '1 comment', only 'commenttestCAP104-104' is displayed in Comments drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Activity Comment 'commenttestCAP104-104' is displayed in activity stream
 
     When I connect with the third created user
@@ -603,7 +603,7 @@ Feature: Activity Stream
 
     When I open in activity 'activityTestCAP104-104' the Comments drawer
     Then '1 comment', only 'commenttestCAP104-104' is displayed in Comments drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Activity Comment 'commenttestCAP104-104' is displayed in activity stream
 
   Scenario: CAP105 - [ActivityStream_US39][03] Delete comment with replies from the comment drawer
@@ -654,7 +654,7 @@ Feature: Activity Stream
 
     When I open in activity 'activityTestCAP105-105' the Comments drawer
     Then '1 comment', only 'commenttestCAP105-105' is displayed in Comments drawer
-    And I close the comments drawer
+    And I close the opened drawer
     And I add a reply 'replyTest103' to comment 'commenttestCAP105-105' in activity 'activityTestCAP105-105'
 
     When I connect with the second created user
@@ -678,7 +678,7 @@ Feature: Activity Stream
     And The reply 'replyTest101' is not displayed in the drawer
     And The reply 'replyTest102' is not displayed in the drawer
     And The reply 'replyTest103' is not displayed in the drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Comment 'commenttestCAP105-105' is not displayed in activity 'activityTestCAP105-105'
 
     When I connect with the first created user
@@ -692,7 +692,7 @@ Feature: Activity Stream
     And The reply 'replyTest101' is not displayed in the drawer
     And The reply 'replyTest102' is not displayed in the drawer
     And The reply 'replyTest103' is not displayed in the drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Comment 'commenttestCAP105-105' is not displayed in activity 'activityTestCAP105-105'
 
     When I connect with the third created user
@@ -706,7 +706,7 @@ Feature: Activity Stream
     And The reply 'replyTest101' is not displayed in the drawer
     And The reply 'replyTest102' is not displayed in the drawer
     And The reply 'replyTest103' is not displayed in the drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Comment 'commenttestCAP105-105' is not displayed in activity 'activityTestCAP105-105'
 
   Scenario: CAP106 - [ActivityStream_US39][04] Cancel Delete comment with replies from the comments drawer
@@ -757,7 +757,7 @@ Feature: Activity Stream
 
     When I open in activity 'activityTestCAP106-106' the Comments drawer
     Then '1 comment', only 'commenttestCAP106-106' is displayed in Comments drawer
-    And I close the comments drawer
+    And I close the opened drawer
     And I add a reply 'replyTestCAP106-103' to comment 'commenttestCAP106-106' in activity 'activityTestCAP106-106'
 
     When I connect with the second created user
@@ -780,7 +780,7 @@ Feature: Activity Stream
     And In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-101' is displayed in the drawer
     And In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-102' is displayed in the drawer
     And In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-103' is displayed in the drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Activity Comment 'commenttestCAP106-106' is displayed in activity stream
 
     When I connect with the first created user
@@ -794,7 +794,7 @@ Feature: Activity Stream
     Then In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-101' is displayed in the drawer
     And In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-102' is displayed in the drawer
     And In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-103' is displayed in the drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Activity Comment 'commenttestCAP106-106' is displayed in activity stream
 
     When I connect with the third created user
@@ -808,7 +808,7 @@ Feature: Activity Stream
     Then In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-101' is displayed in the drawer
     And In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-102' is displayed in the drawer
     And In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-103' is displayed in the drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Activity Comment 'commenttestCAP106-106' is displayed in activity stream
 
   Scenario: CAP107 - [ActivityStream_US39][05] Delete a reply from comments drawer
@@ -859,7 +859,7 @@ Feature: Activity Stream
 
     When I open in activity 'activityTestCAP107-107' the Comments drawer
     Then '1 comment', only 'commenttestCAP107-107' is displayed in Comments drawer
-    And I close the comments drawer
+    And I close the opened drawer
     And I add a reply 'replyTestCAP107-103' to comment 'commenttestCAP107-107' in activity 'activityTestCAP107-107'
 
     When I connect with the first created user
@@ -882,7 +882,7 @@ Feature: Activity Stream
     And In comment 'commenttestCAP107-107', the reply 'replyTestCAP107-101' is displayed in the drawer
     And In comment 'commenttestCAP107-107', the reply 'replyTestCAP107-103' is displayed in the drawer
     And The reply 'replyTestCAP107-102' is not displayed in the drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Activity Comment 'commenttestCAP107-107' is displayed in activity stream
     And In activity 'activityTestCAP107-107' with comment 'commenttestCAP107-107', the reply 'replyTestCAP107-101' is displayed
     And In activity 'activityTestCAP107-107' with comment 'commenttestCAP107-107', the reply 'replyTestCAP107-103' is displayed
@@ -898,7 +898,7 @@ Feature: Activity Stream
     And In comment 'commenttestCAP107-107', the reply 'replyTestCAP107-101' is displayed in the drawer
     And In comment 'commenttestCAP107-107', the reply 'replyTestCAP107-103' is displayed in the drawer
     And The reply 'replyTestCAP107-102' is not displayed in the drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Activity Comment 'commenttestCAP107-107' is displayed in activity stream
     And In activity 'activityTestCAP107-107' with comment 'commenttestCAP107-107', the reply 'replyTestCAP107-101' is displayed
     And In activity 'activityTestCAP107-107' with comment 'commenttestCAP107-107', the reply 'replyTestCAP107-103' is displayed
@@ -914,7 +914,7 @@ Feature: Activity Stream
     And In comment 'commenttestCAP107-107', the reply 'replyTestCAP107-101' is displayed in the drawer
     And In comment 'commenttestCAP107-107', the reply 'replyTestCAP107-103' is displayed in the drawer
     And The reply 'replyTestCAP107-102' is not displayed in the drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Activity Comment 'commenttestCAP107-107' is displayed in activity stream
     And In activity 'activityTestCAP107-107' with comment 'commenttestCAP107-107', the reply 'replyTestCAP107-101' is displayed
     And In activity 'activityTestCAP107-107' with comment 'commenttestCAP107-107', the reply 'replyTestCAP107-103' is displayed
@@ -968,7 +968,7 @@ Feature: Activity Stream
 
     When I open in activity 'activityTestCAP108-108' the Comments drawer
     Then '1 comment', only 'commenttestCAP108-108' is displayed in Comments drawer
-    And I close the comments drawer
+    And I close the opened drawer
     And I add a reply 'replyTestCAP108-103' to comment 'commenttestCAP108-108' in activity 'activityTestCAP108-108'
 
     When I connect with the first created user
@@ -991,7 +991,7 @@ Feature: Activity Stream
     And In comment 'commenttestCAP108-108', the reply 'replyTestCAP108-101' is displayed in the drawer
     And In comment 'commenttestCAP108-108', the reply 'replyTestCAP108-102' is displayed in the drawer
     And In comment 'commenttestCAP108-108', the reply 'replyTestCAP108-103' is displayed in the drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Activity Comment 'commenttestCAP108-108' is displayed in activity stream
     And In activity 'activityTestCAP108-108' with comment 'commenttestCAP108-108', the reply 'replyTestCAP108-101' is not displayed
     And In activity 'activityTestCAP108-108' with comment 'commenttestCAP108-108', the reply 'replyTestCAP108-102' is displayed
@@ -1008,7 +1008,7 @@ Feature: Activity Stream
     Then In comment 'commenttestCAP108-108', the reply 'replyTestCAP108-101' is displayed in the drawer
     And In comment 'commenttestCAP108-108', the reply 'replyTestCAP108-102' is displayed in the drawer
     And In comment 'commenttestCAP108-108', the reply 'replyTestCAP108-103' is displayed in the drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Activity Comment 'commenttestCAP108-108' is displayed in activity stream
     And In activity 'activityTestCAP108-108' with comment 'commenttestCAP108-108', the reply 'replyTestCAP108-101' is not displayed
     And In activity 'activityTestCAP108-108' with comment 'commenttestCAP108-108', the reply 'replyTestCAP108-102' is displayed
@@ -1025,7 +1025,7 @@ Feature: Activity Stream
     Then In comment 'commenttestCAP108-108', the reply 'replyTestCAP108-101' is displayed in the drawer
     And In comment 'commenttestCAP108-108', the reply 'replyTestCAP108-102' is displayed in the drawer
     And In comment 'commenttestCAP108-108', the reply 'replyTestCAP108-103' is displayed in the drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Activity Comment 'commenttestCAP108-108' is displayed in activity stream
     And In activity 'activityTestCAP108-108' with comment 'commenttestCAP108-108', the reply 'replyTestCAP108-101' is not displayed
     And In activity 'activityTestCAP108-108' with comment 'commenttestCAP108-108', the reply 'replyTestCAP108-102' is displayed
@@ -1236,7 +1236,7 @@ Feature: Activity Stream
 
     When In comments drawer, in comment 'commenttest115', I hover on Like icon
     And Tooltip Remove Like on 'commenttest115' is displayed in comments drawer
-    And I close the comments drawer
+    And I close the opened drawer
 
   Scenario: CAP116 - [ActivityStream_US41][02] DisLike my comment/reply from the comments drawer
     Given I connect as admin if random users doesn't exists
@@ -1274,7 +1274,7 @@ Feature: Activity Stream
     When In comments drawer, I unlike the activity comment 'commenttestCAP116-116'
     Then In comments drawer, Like label in comment 'commenttestCAP116-116' should be black
     And In comments drawer, on comment 'commenttestCAP116-116', '(0)' like is displayed
-    And I close the comments drawer
+    And I close the opened drawer
 
   Scenario: CAP121 - [ActivityStream_IMPV14][01] Display maximum only the last 2 comments/replies below each activity
     Given I connect as admin if random users doesn't exists
@@ -1418,7 +1418,7 @@ Feature: Activity Stream
     And In comment 'commenttestCAP123-104', the reply 'replyTestCAP123-106' is displayed in the drawer
     And In comment 'commenttestCAP123-104', the reply 'replyTestCAP123-104' is not displayed in the drawer
 
-    When I close the comments drawer
+    When I close the opened drawer
     And I click on View All replies related to the comment 'commenttestCAP123-104' in activity stream
     Then In comment 'commenttestCAP123-104', the reply 'replyTestCAP123-105' is displayed in the drawer
     And In comment 'commenttestCAP123-104', the reply 'replyTestCAP123-106' is displayed in the drawer
@@ -1427,7 +1427,7 @@ Feature: Activity Stream
     And In comment 'commenttestCAP123-103', the reply 'replyTestCAP123-101' is not displayed in the drawer
     And In comment 'commenttestCAP123-103', the reply 'replyTestCAP123-102' is displayed in the drawer
     And In comment 'commenttestCAP123-103', the reply 'replyTestCAP123-103' is displayed in the drawer
-    And I close the comments drawer
+    And I close the opened drawer
 
   Scenario: CAP157 - [ActivityStream_IMPV15][01] Internal Link opening behaviors inside comments
     Given I connect as admin if random users doesn't exists
@@ -1741,7 +1741,7 @@ Feature: Activity Stream
 
     When I enter a comment 'comTest155' with attempting to mention the sixth user
     Then Sixth User is not mentioned in the comment
-    And I close the comments drawer
+    And I close the opened drawer
 
   Scenario: Cap146 - [ActivityStream_US40][01] Notifications for comments to my activity
     Given I connect as admin if random users doesn't exists

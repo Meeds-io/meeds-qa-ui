@@ -58,15 +58,6 @@ public class SpaceHomePage extends GenericPage {
   @FindBy(xpath = "//iframe[contains(@class,'cke_wysiwyg_frame')]")
   private BaseElementFacade    ckEditorFrameComment;
 
-  @FindBy(xpath = "//*[contains(@class,'drawerTitle')]/following::*[contains(@class,'mdi-close')]")
-  private BaseElementFacade    closeActivityComposerDrawerBtn;
-
-  @FindBy(xpath = "//*[contains(@class,'drawerHeader')]//*[contains(@class,'mdi-close')]")
-  private BaseElementFacade    closeActivityDrawerbutton;
-
-  @FindBy(xpath = "//*[@id='attachment']//*[contains(@class,'attachments-drawer')]//*[contains(@class,'mdi mdi-close')]")
-  private BaseElementFacade    closeDocumentsDrawerBtn;
-
   @FindBy(xpath = "//*[contains(@class,'drawerContent')]//*[@class='v-btn__content' and contains(text(),'Comment')]")
   private BaseElementFacade    commentButtonInDrawer;
 
@@ -82,17 +73,14 @@ public class SpaceHomePage extends GenericPage {
   @FindBy(xpath = "//*[contains(@class,'createPollComposerIcon')]//ancestor::*[contains(@class, 'actionItem')]")
   private BaseElementFacade    createPollLink;
 
-  @FindBy(xpath = "//a[contains(@href,'documents') and @tabindex='0']")
-  private BaseElementFacade    documentTab;
-
   @FindBy(xpath = "(//*[@id='activityCommentsDrawer']//*[contains(@id,'Extactivity-content-extensions')]//p//div)[8]")
   private BaseElementFacade    eighthCommentInDrawer;
 
   @FindBy(xpath = "//div[contains(@class,'contentBox')]//*[contains(@class,'postContent ')]//div")
-  private BaseElementFacade    ELEMENT_ACTIVITY_TITLE;
+  private BaseElementFacade    activityTitle;
 
   @FindBy(xpath = "//*[contains(@id,'activity-comment-detail')]//*[contains(@id,'Extactivity-content-extensions')]//p//div")
-  private BaseElementFacade    ELEMENT_COMMENT_TITLE;
+  private BaseElementFacade    commentTitle;
 
   @FindBy(xpath = "(//*[@id='activityCommentsDrawer']//*[contains(@id,'Extactivity-content-extensions')]//p//div)[5]")
   private BaseElementFacade    fifthCommentInDrawer;
@@ -214,7 +202,7 @@ public class SpaceHomePage extends GenericPage {
         activityContentTextBox.sendKeys(Keys.CONTROL + "a");
         activityContentTextBox.sendKeys(Keys.CONTROL + "x");
         getDriver().switchTo().defaultContent();
-        closeActivityComposerDrawer();
+        closeDrawerIfDisplayed();
         clickPostIcon();
         waitForDrawerToOpen();
         ckEditorFrame.waitUntilVisible();
@@ -248,7 +236,7 @@ public class SpaceHomePage extends GenericPage {
     }
 
     commentButtonInDrawer.clickOnElement();
-    closeCommentsDrawer();
+    closeDrawerIfDisplayed();
   }
 
   public void addCommentReply(String reply, String comment, String activity) {
@@ -266,7 +254,7 @@ public class SpaceHomePage extends GenericPage {
     }
 
     replyButtonInDrawer.clickOnElement();
-    closeCommentsDrawer();
+    closeDrawerIfDisplayed();
   }
 
   public void addDescriptionLess1000CharsInThePoll(String choiceThree) {
@@ -289,12 +277,12 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void checkActivityComment(String comment) {
-    Assert.assertEquals(ELEMENT_COMMENT_TITLE.getText(), comment);
+    Assert.assertEquals(commentTitle.getText(), comment);
   }
 
   public void checkActivityCommentInDrawer(String comment) {
     Assert.assertEquals(commentTitleInDrawer.getText(), comment);
-    closeCommentsDrawer();
+    closeDrawerIfDisplayed();
   }
 
   public void checkActivityCommentNotDisplayed(String activity, String comment) {
@@ -302,7 +290,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void checkActivityTitle(String activity) {
-    Assert.assertEquals(ELEMENT_ACTIVITY_TITLE.getText(), activity);
+    Assert.assertEquals(activityTitle.getText(), activity);
   }
 
   public void checkCommentReplyDisplayed(String activity, String comment, String reply) {
@@ -319,7 +307,7 @@ public class SpaceHomePage extends GenericPage {
 
   public void checkFirstCommentInDrawer(String comment) {
     Assert.assertEquals(firstCommentInDrawer.getText(), comment);
-    closeCommentsDrawer();
+    closeDrawerIfDisplayed();
   }
 
   public void checkFourCommentIsDisplayedInDrawer() {
@@ -327,12 +315,12 @@ public class SpaceHomePage extends GenericPage {
     assertWebElementVisible(secondCommentInDrawer);
     assertWebElementVisible(thirdCommentInDrawer);
     assertWebElementVisible(fourthCommentInDrawer);
-    closeCommentsDrawer();
+    closeDrawerIfDisplayed();
   }
 
   public void checkFourthCommentInDrawer(String comment) {
     assertWebElementVisible(fourthCommentInDrawer);
-    closeCommentsDrawer();
+    closeDrawerIfDisplayed();
   }
 
   public void checkSecondActivityComment(String comment) {
@@ -341,12 +329,12 @@ public class SpaceHomePage extends GenericPage {
 
   public void checkSecondCommentInDrawer(String comment) {
     assertWebElementVisible(secondCommentInDrawer);
-    closeCommentsDrawer();
+    closeDrawerIfDisplayed();
   }
 
   public void checkSixthPositionInDrawer(String comment) {
     assertWebElementVisible(sixthPositionInDrawer);
-    closeCommentsDrawer();
+    closeDrawerIfDisplayed();
   }
 
   public void checkTenCommentIsDisplayedInDrawer() {
@@ -360,20 +348,16 @@ public class SpaceHomePage extends GenericPage {
     assertWebElementVisible(eighthCommentInDrawer);
     assertWebElementVisible(ninthCommentInDrawer);
     assertWebElementVisible(tenthCommentInDrawer);
-    closeCommentsDrawer();
+    closeDrawerIfDisplayed();
   }
 
   public void checkThirdCommentInDrawer(String comment) {
     assertWebElementVisible(thirdCommentInDrawer);
-    closeCommentsDrawer();
+    closeDrawerIfDisplayed();
   }
 
   public void clickApplyDownload() {
     applyDownloadButton.clickOnElement();
-  }
-
-  public void clickCloseActivityDrawerbutton() {
-    closeActivityDrawerbutton.clickOnElement();
   }
 
   public void clickCreatePoll() {
@@ -501,25 +485,6 @@ public class SpaceHomePage extends GenericPage {
 
   public void clickYesbutton() {
     findByXPathOrCSS(CONFIRMATION_BUTTON_TO_DELETE_ACTIVITY_SELECTOR).clickOnElement();
-  }
-
-  public void closeActivityComposerDrawer() {
-    closeActivityComposerDrawerBtn.waitUntilVisible();
-    closeActivityComposerDrawerBtn.clickOnElement();
-    waitForDrawerToClose();
-  }
-
-  public void closeCommentsDrawer() {
-    BaseElementFacade closeDrawerButton =
-                                        findByXPathOrCSS("//*[@id='activityCommentsDrawer']//*[contains(@class, 'drawerIcons')]//button[contains(@class, 'mdi-close')]");
-    if (closeDrawerButton.isCurrentlyVisible()) {
-      closeDrawerButton.clickOnElement();
-      waitForDrawerToClose("#activityCommentsDrawer", true);
-    }
-  }
-
-  public void closeDocumentsDrawer() {
-    closeDocumentsDrawerBtn.clickOnElement();
   }
 
   public void commentIsDisplayedInDrawer(String commentsNumber, String comment) {
@@ -1144,7 +1109,7 @@ public class SpaceHomePage extends GenericPage {
 
   public void publishComment() {
     commentButtonInDrawer.clickOnElement();
-    closeCommentsDrawer();
+    closeDrawerIfDisplayed();
   }
 
   public void removeMember(String name) {
@@ -1189,7 +1154,7 @@ public class SpaceHomePage extends GenericPage {
 
   public void updateComment() {
     updateButtonInDrawer.clickOnElement();
-    closeCommentsDrawer();
+    closeDrawerIfDisplayed();
   }
 
   public void updateCommentText(String comment) {

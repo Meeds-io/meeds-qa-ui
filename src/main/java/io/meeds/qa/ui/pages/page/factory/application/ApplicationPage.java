@@ -112,7 +112,7 @@ public class ApplicationPage extends GenericPage {
     // Check that AppCenter Application app is not displayed
     ELEMENT_APPLICATIONS_TOPBAR.clickOnElement();
     assertWebElementNotVisible(getAppCenterApplicationElement(app));
-    closeDrawer();
+    closeDrawerIfDisplayed();
   }
 
   public void checkThatApplicationIsDisplayedInFavoriteApps(String app) {

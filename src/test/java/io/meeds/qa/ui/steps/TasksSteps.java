@@ -428,30 +428,6 @@ public class TasksSteps {
     tasksPage.clonetaskinspaceproject();
   }
 
-  public void closeEditTaskDrawer() {
-    tasksPage.closeEditTaskDrawer();
-  }
-
-  public void closeEditTaskDrawerSimpleProject() {
-    tasksPage.closeEditTaskDrawerSimpleProject();
-  }
-
-  public void closeProjectDrawer() {
-    tasksPage.closeProjectDrawer();
-  }
-
-  public void closeSortAndFilterDrawer() {
-    tasksPage.closeSortAndFilterDrawer();
-  }
-
-  public void closetaskCommentsDrawer() {
-    tasksPage.closeTaskCommentsDrawer();
-  }
-
-  public void closeTaskDrawer() {
-    tasksPage.closeDrawer();
-  }
-
   public void colorPaletteIsDisplayed() {
     tasksPage.colorPaletteIsDisplayed();
   }

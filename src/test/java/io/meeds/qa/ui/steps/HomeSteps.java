@@ -128,10 +128,6 @@ public class HomeSteps {
     homePage.clickWalletWidget();
   }
 
-  public void closeSpaceDrawer() {
-    homePage.closeSpaceDrawer();
-  }
-
   public void commentActivityNotificationIsDisplayed(String message, String activity, String comment) {
     homePage.commentActivityNotificationIsDisplayed(message, activity, comment);
   }

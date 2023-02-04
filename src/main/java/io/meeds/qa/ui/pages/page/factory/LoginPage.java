@@ -25,17 +25,13 @@ public class LoginPage extends GenericPage implements IsHidden {
   }
 
   public void clearCookies() {
-    try {
-      getDriver().switchTo().alert().accept();
-    } catch (NoAlertPresentException e) {
-      // Normal Behavior
-    }
+    closeAlertIfOpened();
     getDriver().manage().deleteAllCookies();
   }
 
   public void login(String login, String password) {
     if (StringUtils.equals(getLastLoggedInUser(), login)) {
-      closeDrawerIfDisplayed();
+      closeAllDrawers();
     } else {
       openLoginPage();
       retryOnCondition(() -> tryLogin(login, password), this::refreshPage);

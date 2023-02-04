@@ -45,4 +45,12 @@ public class GenericSteps {
     genericPage.waitFor(seconds).seconds();
   }
 
+  public void closeDrawerIfDisplayed() {
+    genericPage.closeDrawerIfDisplayed();
+  }
+
+  public void closeAllDrawers() {
+    genericPage.closeAllDrawers();
+  }
+
 }

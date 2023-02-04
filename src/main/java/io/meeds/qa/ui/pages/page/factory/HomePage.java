@@ -29,9 +29,6 @@ public class HomePage extends GenericPage {
   @FindBy(id = "appcenterLauncherButton")
   private BaseElementFacade                           appCenterButton;
 
-  @FindBy(xpath = "//aside[contains(@class,'spaceDrawer')]//button[contains(@class,'closeIcon')]")
-  private BaseElementFacade                           closeSpaceDrawerButton;
-
   @FindBy(xpath = "//*[@class='ignore-vuetify-classes btn btn-primary me-2']")
   private BaseElementFacade                           confirmationForChangeSiteHomeLink;
 
@@ -260,10 +257,6 @@ public class HomePage extends GenericPage {
     clickOnElement(walletBalanceNumber);
   }
 
-  public void closeSpaceDrawer() {
-    clickOnElement(closeSpaceDrawerButton);
-  }
-
   public void commentActivityNotificationIsDisplayed(String message, String activity, String comment) {
     if (firstNotificationContent.getText().contains(message)) {
       Assert.assertTrue(firstNotificationContent.getText().contains(message)); // NOSONAR
@@ -380,11 +373,7 @@ public class HomePage extends GenericPage {
   }
 
   public void goToHomePage() {
-    try {
-      getDriver().switchTo().alert().accept();
-    } catch (NoAlertPresentException e) {
-      // Normal Behavior
-    }
+    closeAlertIfOpened();
     getDriver().get(getDriver().getCurrentUrl().split("/portal/")[0]);
     verifyPageLoaded();
   }

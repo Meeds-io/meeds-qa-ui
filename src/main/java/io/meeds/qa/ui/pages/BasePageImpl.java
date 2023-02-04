@@ -26,6 +26,7 @@ import io.meeds.qa.ui.elements.TextBoxElementFacadeImpl;
 import io.meeds.qa.ui.elements.TextElementFacadeImpl;
 import io.meeds.qa.ui.utils.ExceptionLauncher;
 import net.serenitybdd.core.Serenity;
+import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.core.selectors.Selectors;
 import net.thucydides.core.annotations.WhenPageOpens;
@@ -40,6 +41,12 @@ public class BasePageImpl extends PageObject implements BasePage {
   private static final String XPATH_FORMAT_ERROR_MESSAGE  = "The format for the xpath [%s] is not correct.";
 
   protected String            url;
+
+  @FindBy(xpath = "//body")
+  public static BaseElementFacade bodyElement;
+
+  @FindBy(css = ".v-navigation-drawer--open")
+  public static BaseElementFacade openedDrawerElement;
 
   public BasePageImpl() {
     this(null);
@@ -71,21 +78,19 @@ public class BasePageImpl extends PageObject implements BasePage {
     element.clickOnElement();
   }
 
-  public void closeDrawer() {
-    BaseElementFacade closeIcon = findByXPathOrCSS(".v-navigation-drawer--open .drawerHeader button.mdi-close");
-    try {
-      while (closeIcon.isDisplayedNoWait()) {
-        closeIcon.clickOnElement();
-      }
-    } catch (Exception e) {
-      LOGGER.debug("Error when closing task drawer by button, it may be already closed", e);
+  public void closeDrawerIfDisplayed() {
+    if (openedDrawerElement.isDisplayedNoWait()) {
+      bodyElement.sendKeys(Keys.ESCAPE);
+      closeAlertIfOpened();
+      waitForDrawerToClose();
     }
-    waitForDrawerToClose();
   }
 
-  public void closeDrawerIfDisplayed() {
-    if (findByXPathOrCSS(OPNENED_DRAWER_CSS_SELECTOR).isDisplayedNoWait()) {
-      closeDrawer();
+  public void closeAllDrawers() {
+    while (openedDrawerElement.isDisplayedNoWait()) {
+      bodyElement.sendKeys(Keys.ESCAPE);
+      closeAlertIfOpened();
+      waitForDrawerToClose();
     }
   }
 
@@ -276,12 +281,16 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   public void refreshPage() {
     getDriver().get(getCurrentUrl());
+    closeAlertIfOpened();
+    verifyPageLoaded();
+  }
+
+  public void closeAlertIfOpened() {
     try {
       getDriver().switchTo().alert().accept();
     } catch (NoAlertPresentException e) {
       // Normal Behavior
     }
-    verifyPageLoaded();
   }
 
   @Override
@@ -309,6 +318,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void waitForDrawerToClose(String drawerId, boolean withOverlay) {
+    closeAlertIfOpened();
     String drawerSelector = StringUtils.isBlank(drawerId) ? OPNENED_DRAWER_CSS_SELECTOR : drawerId;
     BaseElementFacade drawerElement = findByXPathOrCSS(drawerSelector);
     if (drawerElement.isDisplayedNoWait()) {

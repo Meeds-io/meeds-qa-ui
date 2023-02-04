@@ -64,10 +64,6 @@ public class ApplicationSteps {
     applicationPage.clickOnTheAppLauncherIcon();
   }
 
-  public void closeAppCenterDrawer() {
-    applicationPage.closeDrawer();
-  }
-
   public void goToApplication(String applicationName) {
     applicationPage.goToApplication(applicationName);
   }

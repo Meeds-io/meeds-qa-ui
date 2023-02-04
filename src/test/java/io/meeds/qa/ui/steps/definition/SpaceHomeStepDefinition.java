@@ -342,21 +342,6 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.clickPostIcon();
   }
 
-  @Then("^I close activity drawer$")
-  public void closeActivityDrawer() {
-    spaceHomeSteps.clickCloseActivityDrawerbutton();
-  }
-
-  @Then("^I close the comments drawer$")
-  public void closeCommentsDrawer() {
-    spaceHomeSteps.closeCommentsDrawer();
-  }
-
-  @Then("I close the Write message drawer")
-  public void closeWriteMessageDrawer() {
-    spaceHomeSteps.closeWriteMessageDrawer();
-  }
-
   @Then("^'(.*)' among them '(.*)' are displayed in Comments drawer$")
   @And("^'(.*)', only '(.*)' is displayed in Comments drawer$")
   public void commentIsDisplayedInDrawer(String commentsNumber, String comment) {
