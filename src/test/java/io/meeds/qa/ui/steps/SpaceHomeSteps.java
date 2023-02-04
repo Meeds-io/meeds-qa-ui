@@ -429,17 +429,9 @@ public class SpaceHomeSteps {
       String activity = activityPrefix + i;
       spaceHomePage.clickPostIcon();
       spaceHomePage.addActivity(activity);
-      spaceHomePage.publishActivity();
+      spaceHomePage.publishActivity(false);
     }
-  }
-
-  public void postThirtyActivities(String activityNumber) {
-    for (int i = 0; i < Integer.parseInt(activityNumber) + 1; i++) {
-      String activity = "act" + i;
-      spaceHomePage.clickPostIcon();
-      spaceHomePage.addActivity(activity);
-      spaceHomePage.publishActivity();
-    }
+    spaceHomePage.refreshStream();
   }
 
   public void promoteSpaceMemberAsManager(String name) {
@@ -447,7 +439,7 @@ public class SpaceHomeSteps {
   }
 
   public void publishActicity() {
-    spaceHomePage.publishActivity();
+    spaceHomePage.publishActivity(true);
   }
 
   public void publishActivityInArabicLanguage() {

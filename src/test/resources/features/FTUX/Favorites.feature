@@ -31,31 +31,32 @@ Feature: Favorite activities
     And I unbookmark the favorite activity posted in the space
     Then The favorite success message 'The item has been removed from favorites successfully.' should be displayed
 
+  @test
   Scenario: [Favs_US05][01] Search by favorites (Filter by favorite button)
     Given I connect as admin if random users doesn't exists
       | first  |
     And I create the first random user if not existing
     And I connect with the first created user
     And I go to the random space
-    When I post '2' activities
+    When I post '3' activities with prefix 'act_Fav_US05_01_'
     And I refresh the page
-    Then the activity 'act0' is displayed in activity stream
-    And the activity 'act1' is displayed in activity stream
-    And the activity 'act2' is displayed in activity stream
-    When I bookmark the activity 'act1'
+    Then the activity 'act_Fav_US05_01_0' is displayed in activity stream
+    And the activity 'act_Fav_US05_01_1' is displayed in activity stream
+    And the activity 'act_Fav_US05_01_2' is displayed in activity stream
+    When I bookmark the activity 'act_Fav_US05_01_1'
     Then The favorite success message 'Favorite added successfully. Find it easily from the search' should be displayed
-    When I bookmark the activity 'act2'
+    When I bookmark the activity 'act_Fav_US05_01_2'
     Then The favorite success message 'Favorite added successfully. Find it easily from the search' should be displayed
     When I go to Stream page
     And I access to the unified search page
     When I click on the favorite button
-    Then The activity is displayed in the search 'act1'
-    And The activity is displayed in the search 'act2'
-    And The activity is not displayed in the search 'act0'
+    Then The activity is displayed in the search 'act_Fav_US05_01_1'
+    And The activity is displayed in the search 'act_Fav_US05_01_2'
+    And The activity is not displayed in the search 'act_Fav_US05_01_0'
     When I click on the favorite button
-    Then The activity is not displayed in the search 'act0'
-    And The activity is not displayed in the search 'act1'
-    And The activity is not displayed in the search 'act2'
+    Then The activity is not displayed in the search 'act_Fav_US05_01_0'
+    And The activity is not displayed in the search 'act_Fav_US05_01_1'
+    And The activity is not displayed in the search 'act_Fav_US05_01_2'
 
   Scenario:  [Favs_US05][02] Search by favorites (Filter by keyword and favorite button)
     Given I connect as admin if random users doesn't exists

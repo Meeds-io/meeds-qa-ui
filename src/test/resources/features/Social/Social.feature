@@ -8,7 +8,7 @@ Feature: Social
       | first  |
       | second  |
     And I create the first random user if not existing, no wait
-    And I create the second random user if not existing
+    And I create the second random user if not existing, no wait
     And I connect with the first created user
     And I go to the random space
     And I click on post in space

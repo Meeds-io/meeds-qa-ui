@@ -3,6 +3,8 @@ package io.meeds.qa.ui.pages.page.factory.space;
 import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION_MILLIS;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
@@ -13,6 +15,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 import io.meeds.qa.ui.elements.BaseElementFacade;
+import io.meeds.qa.ui.elements.BaseElementFacadeImpl;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
 import net.serenitybdd.core.Serenity;
@@ -222,38 +225,54 @@ public class SpaceHomePage extends GenericPage {
     }
   }
 
+  public void addActivityComments(String activity, List<String> comments) {
+    getActivityCommentButton(activity).clickOnElement();
+    waitForDrawerToOpen();
+
+    Iterator<String> commentsIterator = comments.iterator();
+    while (commentsIterator.hasNext()) {
+      String comment = commentsIterator.next();
+      waitOnCommentRichText();
+      addActivityCommentEditorContent(comment);
+      if (commentsIterator.hasNext()) {
+        waitFor(100).milliseconds(); // Wait for CKEditor to completely close
+        BaseElementFacadeImpl addCommentInDrawerButton =
+                                                       findByXPathOrCSS(".v-navigation-drawer--open .drawerIcons > button:first-of-type");
+        addCommentInDrawerButton.clickOnElement();
+      }
+    }
+    closeDrawerIfDisplayed();
+  }
+
   public void addActivityComment(String activity, String comment) {
     getActivityCommentButton(activity).clickOnElement();
     waitForDrawerToOpen();
 
-    waitOnCommentRichText();
-    getDriver().switchTo().frame(ckEditorFrameComment);
-    try {
-      ckEditorBodyComment.waitUntilVisible();
-      ckEditorBodyComment.setTextValue(comment);
-    } finally {
-      getDriver().switchTo().defaultContent();
-    }
+    addActivityCommentEditorContent(comment);
+    closeDrawerIfDisplayed();
+  }
 
-    commentButtonInDrawer.clickOnElement();
+  public void addCommentReplies(List<String> replies, String comment, String activity) {
+    clickOnReplyToComment(comment, activity, false);
+    Iterator<String> repliesIterator = replies.iterator();
+    while (repliesIterator.hasNext()) {
+      String reply = repliesIterator.next();
+      waitOnCommentRichText();
+      addCommentReplyEditorContent(reply);
+      waitForDrawerToLoad();
+      if (repliesIterator.hasNext()) {
+        waitFor(100).milliseconds(); // Wait for CKEditor to completely close
+        clickOnReplyToComment(comment, activity, true);
+      }
+    }
     closeDrawerIfDisplayed();
   }
 
   public void addCommentReply(String reply, String comment, String activity) {
-    BaseElementFacade commentReplyButton = getCommentReply(activity, comment);
-    clickOnElement(commentReplyButton);
-    waitForDrawerToOpen();
+    clickOnReplyToComment(comment, activity, false);
 
     waitOnCommentRichText();
-    getDriver().switchTo().frame(ckEditorFrameComment);
-    try {
-      ckEditorBodyComment.waitUntilVisible();
-      ckEditorBodyComment.setTextValue(reply);
-    } finally {
-      getDriver().switchTo().defaultContent();
-    }
-
-    replyButtonInDrawer.clickOnElement();
+    addCommentReplyEditorContent(reply);
     closeDrawerIfDisplayed();
   }
 
@@ -735,8 +754,12 @@ public class SpaceHomePage extends GenericPage {
                                           comment));
   }
 
-  private BaseElementFacade getCommentReply(String activity, String comment) {
-    return getCommentFooterButton(comment, "CommentLink");
+  private BaseElementFacade getCommentReply(String activity, String comment, boolean drawer) {
+    if (drawer) {
+      return getCommentDrawerButton(comment, "CommentLink");
+    } else {
+      return getCommentFooterButton(comment, "CommentLink");
+    }
   }
 
   private BaseElementFacade getCommentsDrawerBlueLikeCommentIcon(String activityComment) {
@@ -857,6 +880,12 @@ public class SpaceHomePage extends GenericPage {
 
   private BaseElementFacade getCommentFooterButton(String comment, String buttonIdPart) {
     return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'v-list-item')]//*[contains(@id, 'Extactivity-comment-footer-action')]//button[contains(@id,'%s')]",
+                                          comment,
+                                          buttonIdPart));
+  }
+
+  private BaseElementFacade getCommentDrawerButton(String comment, String buttonIdPart) {
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'v-list-item')]//*[contains(@id, 'Extactivity-comment-footer-action')]//button[contains(@id,'%s')]",
                                           comment,
                                           buttonIdPart));
   }
@@ -1088,17 +1117,23 @@ public class SpaceHomePage extends GenericPage {
     promoteAsAdminButton.clickOnElement();
   }
 
-  public void publishActivity() {
+  public void publishActivity(boolean refreshStream) {
     publishActivityButton.clickOnElement();
     try {
       waitForDrawerToClose();
-      if (newActivityButton.isDisplayed(SHORT_WAIT_DURATION_MILLIS)) {
-        newActivityButton.clickOnElement();
-      } else {
-        refreshPage();
+      if (refreshStream) {
+        refreshStream();
       }
       verifyPageLoaded();
     } catch (Exception e) {
+      refreshPage();
+    }
+  }
+
+  public void refreshStream() {
+    if (newActivityButton.isDisplayed(SHORT_WAIT_DURATION_MILLIS)) {
+      newActivityButton.clickOnElement();
+    } else {
       refreshPage();
     }
   }
@@ -1224,4 +1259,34 @@ public class SpaceHomePage extends GenericPage {
     Select dropdown = new Select(staticDropdown);
     dropdown.selectByVisibleText(filter);
   }
+
+  private void addActivityCommentEditorContent(String comment) {
+    waitOnCommentRichText();
+    getDriver().switchTo().frame(ckEditorFrameComment);
+    try {
+      ckEditorBodyComment.waitUntilVisible();
+      ckEditorBodyComment.setTextValue(comment);
+    } finally {
+      getDriver().switchTo().defaultContent();
+    }
+    commentButtonInDrawer.clickOnElement();
+  }
+
+  private void addCommentReplyEditorContent(String reply) {
+    getDriver().switchTo().frame(ckEditorFrameComment);
+    try {
+      ckEditorBodyComment.waitUntilVisible();
+      ckEditorBodyComment.setTextValue(reply);
+    } finally {
+      getDriver().switchTo().defaultContent();
+    }
+    replyButtonInDrawer.clickOnElement();
+  }
+
+  private void clickOnReplyToComment(String comment, String activity, boolean inDrawer) {
+    BaseElementFacade commentReplyButton = getCommentReply(activity, comment, inDrawer);
+    clickOnElement(commentReplyButton);
+    waitForDrawerToOpen();
+  }
+
 }
