@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -23,6 +24,7 @@ import org.openqa.selenium.logging.LogType;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.meeds.qa.ui.steps.AddUserSteps;
 import io.meeds.qa.ui.steps.AdminApplicationSteps;
 import io.meeds.qa.ui.steps.GenericSteps;
 import io.meeds.qa.ui.steps.HomeSteps;
@@ -101,6 +103,9 @@ public class TestHooks {
 
   @Steps
   private ManageSpaceSteps           manageSpaceSteps;
+
+  @Steps
+  AddUserSteps addUserSteps;
 
   @Before
   public void initDatas() { // NOSONAR
@@ -253,6 +258,22 @@ public class TestHooks {
         genericSteps.waitInSeconds(MAX_WARM_UP_STEP_WAIT);
       }
     } while (!homePageDisplayed && retryCount++ < MAX_WARM_UP_RETRIES);
+    String[] randomUsers = new String[] {
+        "first",
+        "second",
+        "third",
+        "fourth",
+        "fifth",
+        "sixth",
+        "eighteenth",
+        "firstkudos",
+        "secondkudos",
+        "thirdkudos",
+        "fourthkudos",
+        "fortyonekudos",
+    };
+    Arrays.stream(randomUsers).forEach(randomUser -> addUserSteps.addRandomUser(randomUser, false));
+    manageSpaceSteps.addOrGoToSpace("randomSpaceName");
     ExceptionLauncher.LOGGER.info("---- End warmup phase in {} seconds", (System.currentTimeMillis() - start) / 1000);
   }
 
