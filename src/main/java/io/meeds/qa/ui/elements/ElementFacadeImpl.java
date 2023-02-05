@@ -26,9 +26,9 @@ import net.thucydides.core.guice.Injectors;
 import net.thucydides.core.util.EnvironmentVariables;
 import net.thucydides.core.webdriver.javascript.JavascriptExecutorFacade;
 
-public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseElementFacade {
+public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFacade {
 
-  static final Logger     LOGGER = LoggerFactory.getLogger(BaseElementFacadeImpl.class);
+  static final Logger     LOGGER = LoggerFactory.getLogger(ElementFacadeImpl.class);
 
   protected final String  xPathOrCSSSelector;
 
@@ -47,15 +47,15 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
    * @param xPathOrCSSSelector used xPath or CSS selector to find element
    * @param implicitTimeoutInMilliseconds configured implicit timeout
    * @param waitForTimeoutInMilliseconds configured general timeout
-   * @return a wrapped {@link BaseElementFacadeImpl} of the webElementFacade
+   * @return a wrapped {@link ElementFacadeImpl} of the webElementFacade
    */
-  public static BaseElementFacadeImpl wrapWebElementFacade(final WebDriver driver,
+  public static ElementFacadeImpl wrapWebElementFacade(final WebDriver driver,
                                                            final WebElementFacade element,
                                                            final ElementLocator locator,
                                                            final String xPathOrCSSSelector,
                                                            final long implicitTimeoutInMilliseconds,
                                                            final long waitForTimeoutInMilliseconds) {
-    return new BaseElementFacadeImpl(driver,
+    return new ElementFacadeImpl(driver,
                                      locator,
                                      xPathOrCSSSelector,
                                      element,
@@ -63,7 +63,7 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
                                      waitForTimeoutInMilliseconds);
   }
 
-  public BaseElementFacadeImpl(WebDriver driver,
+  public ElementFacadeImpl(WebDriver driver,
                                ElementLocator locator,
                                String xPathOrCSSSelector,
                                WebElement element,
@@ -74,7 +74,7 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
     this.xPathOrCSSSelector = xPathOrCSSSelector;
   }
 
-  public BaseElementFacadeImpl(WebDriver driver,
+  public ElementFacadeImpl(WebDriver driver,
                                ElementLocator locator,
                                WebElement element,
                                long implicitTimeoutInMilliseconds,
@@ -140,10 +140,10 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
 
   @Override
   @SuppressWarnings("unchecked")
-  public BaseElementFacadeImpl findByXPath(String xpath) {
+  public ElementFacadeImpl findByXPath(String xpath) {
     checkXpathFormat(xpath);
     WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
-    return BaseElementFacadeImpl.wrapWebElementFacade(getDriver(),
+    return ElementFacadeImpl.wrapWebElementFacade(getDriver(),
                                                       nestedElement,
                                                       null,
                                                       xpath,
@@ -188,7 +188,7 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
   public String getFoundBy() {
     WebElement element = getElement();
     if (element instanceof WebElementFacadeImpl) {
-      return ((BaseElementFacadeImpl)element).getFoundBy();
+      return ((ElementFacadeImpl)element).getFoundBy();
     } else {
       return null;
     }
@@ -198,7 +198,7 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
   public ElementLocator getLocator() {
     WebElement element = getElement();
     if (element instanceof WebElementFacadeImpl) {
-      return ((BaseElementFacadeImpl)element).getLocator();
+      return ((ElementFacadeImpl)element).getLocator();
     } else {
       return null;
     }

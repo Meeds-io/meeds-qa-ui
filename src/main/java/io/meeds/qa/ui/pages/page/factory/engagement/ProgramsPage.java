@@ -3,7 +3,7 @@ package io.meeds.qa.ui.pages.page.factory.engagement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import io.meeds.qa.ui.elements.BaseElementFacade;
+import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -18,40 +18,40 @@ public class ProgramsPage extends GenericPage {
       + "//ancestor::*[contains(@class,'engagement-center-card')]";
 
   @FindBy(xpath = "//*[@id='engagementCenterAddProgramBtn']")
-  private BaseElementFacade    addProgramBtn;
+  private ElementFacade    addProgramBtn;
 
   @FindBy(xpath = "//*[@id='EngagementCenterProgramDrawerForm']")
-  private BaseElementFacade    headerProgramDrawer;
+  private ElementFacade    headerProgramDrawer;
 
   @FindBy(xpath = "//*[@id='EngagementCenterProgramDrawerTitleTextArea']")
   private TextBoxElementFacade programTitleField;
 
   @FindBy(css = ".v-navigation-drawer--open iframe.cke_wysiwyg_frame")
-  private BaseElementFacade    ckEditorFrameProgram;
+  private ElementFacade    ckEditorFrameProgram;
 
   @FindBy(css = "body.cke_editable_themed")
   private TextBoxElementFacade programDescriptionField;
 
   @FindBy(css = ".v-navigation-drawer--open .drawerFooter button.btn-primary")
-  private BaseElementFacade    createButton;
+  private ElementFacade    createButton;
 
   @FindBy(xpath = "//button[contains(@class,'pull-right')]")
-  private BaseElementFacade    programThreeDotsButton;
+  private ElementFacade    programThreeDotsButton;
 
   @FindBy(xpath = "//*[contains(@class,'fas fa-edit')]")
-  private BaseElementFacade    editProgramButton;
+  private ElementFacade    editProgramButton;
 
   @FindBy(css = ".v-navigation-drawer--open .drawerFooter button.btn-primary")
-  private BaseElementFacade    saveButton;
+  private ElementFacade    saveButton;
 
   @FindBy(xpath = "//*[contains(@class,'fas fa-trash-alt')]")
-  private BaseElementFacade    deleteProgramButton;
+  private ElementFacade    deleteProgramButton;
 
   @FindBy(xpath = "//*[@class='v-card__actions']//button[contains(@class,'btn btn-primary')]")
-  private BaseElementFacade    yesConfirmButton;
+  private ElementFacade    yesConfirmButton;
 
   @FindBy(xpath = "//*[@id='EngagementCenterApplicationCProgramsQuickFilter']")
-  private BaseElementFacade    programQuickFilterSelectBox;
+  private ElementFacade    programQuickFilterSelectBox;
 
   @FindBy(xpath = "(//*[contains(@class, 'v-navigation-drawer--open')]//*[@name='programSpaceAutocomplete']//input)[01]")
   private TextBoxElementFacade audienceSpaceField;
@@ -157,11 +157,11 @@ public class ProgramsPage extends GenericPage {
     assertWebElementVisible(getProgramCardTitle(title));
   }
 
-  private BaseElementFacade getProgramCardTitle(String title) {
+  private ElementFacade getProgramCardTitle(String title) {
     return findByXPathOrCSS(String.format(programCardTitle, title));
   }
 
-  private BaseElementFacade getProgramCard(String programName) {
+  private ElementFacade getProgramCard(String programName) {
     return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@class,'engagement-center-card')]",
                                           programName));
   }

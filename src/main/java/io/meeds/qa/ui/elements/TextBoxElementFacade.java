@@ -5,7 +5,7 @@ import org.openqa.selenium.Keys;
 import net.serenitybdd.core.annotations.ImplementedBy;
 
 @ImplementedBy(TextBoxElementFacadeImpl.class)
-public interface TextBoxElementFacade extends BaseElementFacade {
+public interface TextBoxElementFacade extends ElementFacade {
 
   /*
    * This method returns the text value of the WebElement

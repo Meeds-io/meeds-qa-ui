@@ -12,8 +12,8 @@ import org.junit.Assert;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 
-import io.meeds.qa.ui.elements.BaseElementFacade;
-import io.meeds.qa.ui.elements.BaseElementFacadeImpl;
+import io.meeds.qa.ui.elements.ElementFacade;
+import io.meeds.qa.ui.elements.ElementFacadeImpl;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -21,79 +21,79 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class HomePage extends GenericPage {
 
-  private static final Map<String, BaseElementFacade> MAPPING_CONTAINER_NAME_TO_BASEELEMENTFACADE_XPATH = new HashMap<>();
+  private static final Map<String, ElementFacade> MAPPING_CONTAINER_NAME_TO_BASEELEMENTFACADE_XPATH = new HashMap<>();
 
   @FindBy(xpath = "//i[contains(@class,'uiAdministrationIcon')]")
-  private BaseElementFacade                           administrationMenu;
+  private ElementFacade                           administrationMenu;
 
   @FindBy(id = "appcenterLauncherButton")
-  private BaseElementFacade                           appCenterButton;
+  private ElementFacade                           appCenterButton;
 
   @FindBy(xpath = "//*[@class='ignore-vuetify-classes btn btn-primary me-2']")
-  private BaseElementFacade                           confirmationForChangeSiteHomeLink;
+  private ElementFacade                           confirmationForChangeSiteHomeLink;
 
   @FindBy(xpath = "(//div[contains(@class,'profileCard')]//*[@aria-label='Badge'])[2]")
-  private BaseElementFacade                           connectionsBadge;
+  private ElementFacade                           connectionsBadge;
 
   @FindBy(xpath = "//*[@id='ActivityContextBoxWelcomeActivity']")
-  private BaseElementFacade                           contextBoxWelcomeActivity;
+  private ElementFacade                           contextBoxWelcomeActivity;
 
   @FindBy(xpath = "(//*[contains(@class,'drawerContent')]//*[@class='contentSmall'])[1]")
-  private BaseElementFacade                           firstNotificationContent;
+  private ElementFacade                           firstNotificationContent;
 
   @FindBy(xpath = "(//*[@class='lastUpdatedTime'])[1]")
-  private BaseElementFacade                           firstNotificationTimeStamp;
+  private ElementFacade                           firstNotificationTimeStamp;
 
   @FindBy(xpath = "//a[@href='/portal/meeds/stream']//div[@class='v-list-item__icon']")
-  private BaseElementFacade                           homeIcon;
+  private ElementFacade                           homeIcon;
 
   @FindBy(xpath = "//*[@id='UserHomePortalLink']")
-  private BaseElementFacade                           homePageButton;
+  private ElementFacade                           homePageButton;
 
   @FindBy(xpath = "//i[contains(@class,'logoutIcon')]")
-  private BaseElementFacade                           logOutMenu;
+  private ElementFacade                           logOutMenu;
 
   @FindBy(xpath = "//a[@href='/portal/meeds/profile']")
-  private BaseElementFacade                           myProfileButton;
+  private ElementFacade                           myProfileButton;
 
   @FindBy(xpath = "//a[@href='/portal/meeds/profile']")
-  private BaseElementFacade                           myProfilePageLink;
+  private ElementFacade                           myProfilePageLink;
 
   @FindBy(id = "NotificationPopoverPortlet")
-  private BaseElementFacade                           notificationIcon;
+  private ElementFacade                           notificationIcon;
 
   @FindBy(xpath = "//a[@href='/portal/meeds/spaces']")
-  private BaseElementFacade                           openSpacesPageLink;
+  private ElementFacade                           openSpacesPageLink;
 
   @FindBy(xpath = "//i[contains(@class,'uiIconPeople')]")
-  private BaseElementFacade                           personnePageLink;
+  private ElementFacade                           personnePageLink;
 
   @FindBy(id = "profile-stats-portlet")
-  private BaseElementFacade                           profileStatsPortlet;
+  private ElementFacade                           profileStatsPortlet;
 
   @FindBy(xpath = "//*[contains(@class,'spacesNavigationTitle')]//*[contains(@class,'fa fa-arrow')]")
-  private BaseElementFacade                           recentSpacesBtn;
+  private ElementFacade                           recentSpacesBtn;
 
   @FindBy(xpath = "//*[contains(@class,'spacesNavigationTitle')]//*[contains(@class,'titleIcon')]")
-  private BaseElementFacade                           recentSpacesIcon;
+  private ElementFacade                           recentSpacesIcon;
 
   @FindBy(xpath = "//*[@class='v-text-field__slot']//input")
   private TextBoxElementFacade                        searchApplicationCenterInput;
 
   @FindBy(xpath = "(//*[contains(@class,'drawerContent')]//*[@class='contentSmall'])[2]")
-  private BaseElementFacade                           secondNotificationContent;
+  private ElementFacade                           secondNotificationContent;
 
   @FindBy(xpath = "(//*[@class='lastUpdatedTime'])[2]")
-  private BaseElementFacade                           secondNotificationTimeStamp;
+  private ElementFacade                           secondNotificationTimeStamp;
 
   @FindBy(xpath = "//aside[contains(@class,'v-navigation-drawer')]//span[contains(text(),'See all')]")
-  private BaseElementFacade                           seeAllLink;
+  private ElementFacade                           seeAllLink;
 
   @FindBy(xpath = "//*[contains(@class,'selectSpacesFilter')]")
-  private BaseElementFacade                           selectSpacesFilter;
+  private ElementFacade                           selectSpacesFilter;
 
   @FindBy(xpath = "//i[contains(@class,'settingsIcon')]")
-  private BaseElementFacade                           settingsPageLink;
+  private ElementFacade                           settingsPageLink;
 
   @FindBy(xpath = "//*[contains(@class,'recentSpacesTitle')]//*[contains(@class,'recentSpacesTitleLabel')]")
   private TextBoxElementFacade                        sideBarFilterSpaces;
@@ -106,49 +106,49 @@ public class HomePage extends GenericPage {
   @FindBy(
       xpath = "//*[@class='v-card v-card--flat v-sheet theme--light']//div[@class='headline text-color font-weight-bold pa-1']"
   )
-  private BaseElementFacade                           spaceInvitaitationWidget;
+  private ElementFacade                           spaceInvitaitationWidget;
 
   @FindBy(xpath = "(//div[contains(@class,'profileCard')]//*[@aria-label='Badge'])[1]")
-  private BaseElementFacade                           spacesBadge;
+  private ElementFacade                           spacesBadge;
 
   @FindBy(xpath = "//i[contains(@class,'uiIconStream')]")
-  private BaseElementFacade                           streamPageLink;
+  private ElementFacade                           streamPageLink;
 
   @FindBy(xpath = "//*[@id='StreamPage']")
-  private BaseElementFacade                           streamPageView;
+  private ElementFacade                           streamPageView;
 
   @FindBy(xpath = "(//*[@class='providersTableRow']//*[@class='center actionContainer']/div)[1]")
-  private BaseElementFacade                           switcherButton;
+  private ElementFacade                           switcherButton;
 
   @FindBy(id = "tasks")
-  private BaseElementFacade                           tasksContainer;
+  private ElementFacade                           tasksContainer;
 
   @FindBy(xpath = "//*[@id='tasks']//*[@class='body-1 text-uppercase color-title px-0']")
-  private BaseElementFacade                           tasksSnapshotPageButton;
+  private ElementFacade                           tasksSnapshotPageButton;
 
   @FindBy(xpath = "//a[contains(@class,'seeAllApplicationsBtn')]")
-  private BaseElementFacade                           viewAllApplicationLink;
+  private ElementFacade                           viewAllApplicationLink;
 
   @FindBy(xpath = "//*[@id='WalletApp']")
-  private BaseElementFacade                           walletApplication;
+  private ElementFacade                           walletApplication;
 
   @FindBy(id = "walletBalance")
-  private BaseElementFacade                           walletBalance;
+  private ElementFacade                           walletBalance;
 
   @FindBy(xpath = "//*[@id='walletBalance']//*[contains(@class,'big-number')]")
-  private BaseElementFacade                           walletBalanceNumber;
+  private ElementFacade                           walletBalanceNumber;
 
   @FindBy(xpath = "//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'fa fa-arrow')]")
-  private BaseElementFacade arrowAdminstrationMenu ;
+  private ElementFacade arrowAdminstrationMenu ;
 
   @FindBy(xpath = "//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'titleIcon')]")
-  private  BaseElementFacade administrationIcon ;
+  private  ElementFacade administrationIcon ;
 
   @FindBy(xpath = "//*[contains(@class,'recentSpacesWrapper')]//*[contains(@class,'clickable fa fa-arrow')]")
-  private  BaseElementFacade spaceArrowIcon;
+  private  ElementFacade spaceArrowIcon;
 
   @FindBy(xpath = "//*[contains(@class,'HamburgerMenuThirdLevelParent')]")
-  private  BaseElementFacade thirdLevelNavigation;
+  private  ElementFacade thirdLevelNavigation;
 
 
   public HomePage(WebDriver driver) {
@@ -190,7 +190,7 @@ public class HomePage extends GenericPage {
     assertWebElementNotVisible(checkSpaceFromDrawer(spaceName));
   }
 
-  private BaseElementFacade checkSpaceFromDrawer(String spaceName) {
+  private ElementFacade checkSpaceFromDrawer(String spaceName) {
     return findByXPathOrCSS(String.format("//aside[contains(@class,'spaceDrawer ')]//descendant::div[contains(text(),'%s')]//following::i[contains(@class,'mdi-checkbox-marked')]",
                                           spaceName));
   }
@@ -224,7 +224,7 @@ public class HomePage extends GenericPage {
 
   private void clickOnHamburgerMenu() {
     retryOnCondition(() -> {
-      BaseElementFacadeImpl overlay = findByXPathOrCSS(".v-overlay--active");
+      ElementFacade overlay = findByXPathOrCSS(".v-overlay--active");
       if (overlay.isDisplayed()) {
         overlay.clickOnElement();
       }
@@ -284,33 +284,33 @@ public class HomePage extends GenericPage {
     clickOnElement(getFavoriteIconActivity(activity));
   }
 
-  private BaseElementFacade getAcceptIconConnectionFromDrawer(String spaceName) {
+  private ElementFacade getAcceptIconConnectionFromDrawer(String spaceName) {
     return findByXPathOrCSS(String.format("//aside[contains(@class,'connectionsDrawer ')]//descendant::div[contains(text(),'%s')]//following::i[contains(@class,'mdi-checkbox-marked')]",
                                           spaceName));
   }
 
-  private BaseElementFacade getAcceptIconSpaceFromDrawer(String spaceName) {
+  private ElementFacade getAcceptIconSpaceFromDrawer(String spaceName) {
     return findByXPathOrCSS(String.format("//aside[contains(@class,'spaceDrawer ')]//descendant::div[contains(text(),'%s')]//following::i[contains(@class,'mdi-checkbox-marked')]",
                                           spaceName));
   }
 
-  private BaseElementFacade getConnectionsBadge() {
+  private ElementFacade getConnectionsBadge() {
     return findByXPathOrCSS("//div[contains(@class,'profileCard')]//*[contains(text(),'Connections')]/preceding::*[@class='v-btn__content'][1]");
   }
 
-  private BaseElementFacade getConnectionsBadgeWithNumber(String number) {
+  private ElementFacade getConnectionsBadgeWithNumber(String number) {
     return findByXPathOrCSS(
                             String.format("//div[contains(@class,'profileCard')]//*[contains(text(),'Connections')]/preceding::*[@class='v-btn__content' and contains(text(),'%s')][1]",
                                           number));
   }
 
-  private BaseElementFacade getFavoriteIconActivity(String activity) {
+  private ElementFacade getFavoriteIconActivity(String activity) {
     return findByXPathOrCSS(String.format(
                                           "//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::i[contains(@class,'fa-star')][01]",
                                           activity));
   }
 
-  private BaseElementFacade getFavoriteSucessMessage(String message) {
+  private ElementFacade getFavoriteSucessMessage(String message) {
     return findByXPathOrCSS(String.format("//div[@class='v-alert__content']//*[contains(text(),'%s')]", message));
   }
 
@@ -322,29 +322,29 @@ public class HomePage extends GenericPage {
     return findAll("//aside[contains(@class,'spaceDrawer ')]//div[@role='list']//descendant::div[@role='listitem']");
   }
 
-  private BaseElementFacade getProfileWidgetContent(String widget, String number) {
+  private ElementFacade getProfileWidgetContent(String widget, String number) {
     return findByXPathOrCSS(String.format("//div[contains(@class,'profileCard')]//div[contains(@class,'mx-0')]//span[text()='%s']/../..//span[text()='%s']",
                                           widget,
                                           number));
   }
 
-  private BaseElementFacade getRejectIconConnectionFromDrawer(String spaceName) {
+  private ElementFacade getRejectIconConnectionFromDrawer(String spaceName) {
     return findByXPathOrCSS(String.format("//aside[contains(@class,'connectionsDrawer')]//descendant::div[contains(text(),'%s')]//following::i[contains(@class,'mdi-close-circle')]",
                                           spaceName));
   }
 
-  private BaseElementFacade getRejectIconSpaceFromDrawer(String spaceName) {
+  private ElementFacade getRejectIconSpaceFromDrawer(String spaceName) {
     return findByXPathOrCSS(String.format("//aside[contains(@class,'spaceDrawer ')]//descendant::div[contains(text(),'%s')]//following::i[contains(@class,'mdi-close-circle')]",
                                           spaceName));
   }
 
-  private BaseElementFacade getSpacesBadgeWithNumber(String number) {
+  private ElementFacade getSpacesBadgeWithNumber(String number) {
     return findByXPathOrCSS(
                             String.format("//div[contains(@class,'profileCard')]//*[contains(text(),'Spaces')]/preceding::*[@class='v-btn__content' and contains(text(),'%s')][1]",
                                           number));
   }
 
-  private BaseElementFacade searchedSpaceInSideBarFilterHover(String space) {
+  private ElementFacade searchedSpaceInSideBarFilterHover(String space) {
     return findByXPathOrCSS(String.format("//*[contains(@class,'recentSpacesWrapper')]//*[@class='v-list-item__content']//*[contains(text(), '%s')]",
             space));
   }
@@ -422,7 +422,7 @@ public class HomePage extends GenericPage {
       clickOnElement(arrowAdminstrationMenu);
       waitFor(300).milliseconds(); // Wait until drawer 'open' animation
       // finishes
-      BaseElementFacade administrationMenuElement = findByXPathOrCSS("#AdministrationHamburgerNavigation");
+      ElementFacade administrationMenuElement = findByXPathOrCSS("#AdministrationHamburgerNavigation");
       administrationMenuElement.waitUntilVisible();
     }, this::clickOnHamburgerMenu);
   }
@@ -502,7 +502,7 @@ public class HomePage extends GenericPage {
   }
 
   public void openConnectionRequestDrawer() {
-    BaseElementFacade badgeButton = findByXPathOrCSS("#profile-stats-connectionsCount .v-badge button");
+    ElementFacade badgeButton = findByXPathOrCSS("#profile-stats-connectionsCount .v-badge button");
     clickOnElement(badgeButton);
   }
 
@@ -519,7 +519,7 @@ public class HomePage extends GenericPage {
   }
 
   public void searchApplicationCenter(String app) {
-    BaseElementFacade adminUiElement = findByXPathOrCSS("//*[contains(@class, 'listApplications')]//tr");
+    ElementFacade adminUiElement = findByXPathOrCSS("//*[contains(@class, 'listApplications')]//tr");
     boolean isAdminUI = adminUiElement.isDisplayedNoWait();
     searchApplicationCenterInput.setTextValue(app);
     waitUntilAppCenterSearchFinishes(isAdminUI);
@@ -574,7 +574,7 @@ public class HomePage extends GenericPage {
     Assert.assertTrue(thirdLevelNavigation.isDisplayed());
   }
 
-  private BaseElementFacade getHamburgerNavigationMenu() {
+  private ElementFacade getHamburgerNavigationMenu() {
     return findByXPathOrCSS(".HamburgerNavigationMenuLink");
   }
 

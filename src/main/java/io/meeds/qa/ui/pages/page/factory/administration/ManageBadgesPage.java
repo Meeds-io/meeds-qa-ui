@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
-import io.meeds.qa.ui.elements.BaseElementFacade;
+import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -12,16 +12,16 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 public class ManageBadgesPage extends GenericPage {
 
   @FindBy(xpath = "//button[@class='btn btn-primary']")
-  private BaseElementFacade    addBadgeBtn;
+  private ElementFacade    addBadgeBtn;
 
   @FindBy(xpath = "//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'fa fa-arrow')]")
-  private BaseElementFacade    adminBtn;
+  private ElementFacade    adminBtn;
 
   @FindBy(xpath = "(//*[@id='badgeDescription'])[1]")
   private TextBoxElementFacade badgeDescription;
 
   @FindBy(xpath = "//a[@href='/portal/g/:platform:administrators/gamification/badges']")
-  private BaseElementFacade    badgeLink;
+  private ElementFacade    badgeLink;
 
   @FindBy(xpath = "(//input[@id='titleInput'])[1]")
   private TextBoxElementFacade badgeName;
@@ -30,16 +30,16 @@ public class ManageBadgesPage extends GenericPage {
   private TextBoxElementFacade badgeScore;
 
   @FindBy(xpath = "//a[@class='uiIconClose pull-right']")
-  private BaseElementFacade    closeFormBtn;
+  private ElementFacade    closeFormBtn;
 
   @FindBy(xpath = "(//button[@class='btn-primary pull-right'])[1]")
-  private BaseElementFacade    confirmAddBadgeBtn;
+  private ElementFacade    confirmAddBadgeBtn;
 
   @FindBy(xpath = "(//button[@class='btn-primary pull-right'])[3]")
-  private BaseElementFacade    confirmDeleteBadgeBtn;
+  private ElementFacade    confirmDeleteBadgeBtn;
 
   @FindBy(xpath = "(//button[@class='btn-primary pull-right'])[2]")
-  private BaseElementFacade    confirmEditBadgeBtn;
+  private ElementFacade    confirmEditBadgeBtn;
 
   @FindBy(xpath = "(//*[@id='badgeDescription'])[2]")
   private TextBoxElementFacade editBadgeDescription;
@@ -54,7 +54,7 @@ public class ManageBadgesPage extends GenericPage {
   private TextBoxElementFacade editSelectBadgeDomain;
 
   @FindBy(xpath = "//*[contains(@class,'HamburgerNavigationMenuLink')]")
-  private BaseElementFacade    menuBtn;
+  private ElementFacade    menuBtn;
 
   @FindBy(xpath = "//input[@name='keyword']")
   private TextBoxElementFacade searchBadgeInput;
@@ -63,10 +63,10 @@ public class ManageBadgesPage extends GenericPage {
   private TextBoxElementFacade selectBadgeDomain;
 
   @FindBy(xpath = "//*[@class='alert alert-success']")
-  private BaseElementFacade    successAlert;
+  private ElementFacade    successAlert;
 
   @FindBy(xpath = "//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'titleIcon')]")
-  private BaseElementFacade       adminIcon;
+  private ElementFacade       adminIcon;
 
   public void addBadgeDescription(String description) {
     badgeDescription.setTextValue(description);
@@ -163,19 +163,19 @@ public class ManageBadgesPage extends GenericPage {
 
   }
 
-  private BaseElementFacade getBadgeDeleteButton(String badgeName) {
+  private ElementFacade getBadgeDeleteButton(String badgeName) {
     return findByXPathOrCSS(String.format("//*[@id='iconInputGroup']//img/following::*[@class='badge-title-col']/div[contains(text(),'%s')]/following::*[@class='uiIconDelete uiIconLightGray'][1]",
                                           badgeName));
 
   }
 
-  private BaseElementFacade getBadgeEditButton(String badgeName) {
+  private ElementFacade getBadgeEditButton(String badgeName) {
     return findByXPathOrCSS(String.format("//*[@id='iconInputGroup']//img/following::*[@class='badge-title-col']/div[contains(text(),'%s')]/following::*[@class='uiIconEdit uiIconLightGray'][1]",
                                           badgeName));
 
   }
 
-  private BaseElementFacade getBadgeNameInListOfBadges(String badgeName,
+  private ElementFacade getBadgeNameInListOfBadges(String badgeName,
                                                        String badgeDescription,
                                                        String badgeScore,
                                                        String badgeDomain) {
@@ -209,7 +209,7 @@ public class ManageBadgesPage extends GenericPage {
                                                 String badgeDescription,
                                                 String badgeScore,
                                                 String badgeDomain) {
-    BaseElementFacade badgeElement = getBadgeNameInListOfBadges(badgeName, badgeDescription, badgeScore, badgeDomain);
+    ElementFacade badgeElement = getBadgeNameInListOfBadges(badgeName, badgeDescription, badgeScore, badgeDomain);
     assertWebElementVisible(badgeElement);
     Assert.assertTrue(badgeElement.getText().contains("Yes")); // NOSONAR
   }
@@ -218,7 +218,7 @@ public class ManageBadgesPage extends GenericPage {
                                                    String badgeDescription,
                                                    String badgeScore,
                                                    String badgeDomain) {
-    BaseElementFacade badgeElement = getBadgeNameInListOfBadges(badgeName, badgeDescription, badgeScore, badgeDomain);
+    ElementFacade badgeElement = getBadgeNameInListOfBadges(badgeName, badgeDescription, badgeScore, badgeDomain);
     assertWebElementNotVisible(badgeElement);
   }
 

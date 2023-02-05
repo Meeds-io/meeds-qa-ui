@@ -4,31 +4,31 @@ import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 
 import org.openqa.selenium.WebDriver;
 
-import io.meeds.qa.ui.elements.BaseElementFacade;
+import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class UnifiedSearchPage extends GenericPage {
   @FindBy(xpath = "(//*[@class='v-list-item__content']//*[@class='v-list-item__title'])[1]")
-  private BaseElementFacade    elementAccessToSearchedActivity;
+  private ElementFacade    elementAccessToSearchedActivity;
 
   @FindBy(xpath = "//*[@class='v-responsive v-image appImage']")
-  private BaseElementFacade    elementApplicationSearchPicture;
+  private ElementFacade    elementApplicationSearchPicture;
 
   @FindBy(xpath = "//*[@id='SearchApplication']//input[@id = 'searchInput']")
   private TextBoxElementFacade searchInput;
 
   @FindBy(xpath = "//*[@id='SearchApplication']//i[contains(@class,'fa-search')]//ancestor::button")
-  private BaseElementFacade    toolbarSearchButton;
+  private ElementFacade    toolbarSearchButton;
 
   @FindBy(
       xpath = "//*[contains(@class, 'searchConnectorsParent')]//i[contains(@class, 'fa-star')]//ancestor::*[contains(@class, 'v-chip--clickable')]"
   )
-  private BaseElementFacade    favoritesBtn;
+  private ElementFacade    favoritesBtn;
 
   @FindBy(xpath = "//span[@class='me-8' and contains(text(),'All')]")
-  private BaseElementFacade    shipFormAll;
+  private ElementFacade    shipFormAll;
 
   public UnifiedSearchPage(WebDriver driver) {
     super(driver);
@@ -42,25 +42,25 @@ public class UnifiedSearchPage extends GenericPage {
     verifyPageLoaded();
   }
 
-  private BaseElementFacade getActivitySearchTitle(String activity) {
+  private ElementFacade getActivitySearchTitle(String activity) {
     return findByXPathOrCSS(String.format("//*[contains(text(), '%s') or contains(@title, '%s')]//ancestor::*[contains(@class, 'searchCard')]",
                                           activity,
                                           activity));
   }
 
-  private BaseElementFacade getApplicationSearchDescription(String appDesc) {
+  private ElementFacade getApplicationSearchDescription(String appDesc) {
     return findByXPathOrCSS(String.format("//*[@title='%s']", appDesc));
   }
 
-  private BaseElementFacade getApplicationSearchTitle(String appName) {
+  private ElementFacade getApplicationSearchTitle(String appName) {
     return findByXPathOrCSS(String.format("//*[@title='%s']", appName));
   }
 
-  private BaseElementFacade getSpaceSearchTitle(String space) {
+  private ElementFacade getSpaceSearchTitle(String space) {
     return findByXPathOrCSS(String.format("//*[@class='spaceCardFront']//*[contains(text(),'%s')]", space));
   }
 
-  private BaseElementFacade getUserSearchTitle(String user) {
+  private ElementFacade getUserSearchTitle(String user) {
     return findByXPathOrCSS(String.format("//*[@id='searchDialog']//a[@title='%s']", user));
   }
 
@@ -70,13 +70,13 @@ public class UnifiedSearchPage extends GenericPage {
                                  // closed
   }
 
-  private BaseElementFacade getFavoriteIconSearchedActivity(String activity) {
+  private ElementFacade getFavoriteIconSearchedActivity(String activity) {
     return findByXPathOrCSS(String.format(
                                           "(//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'searchCard')]//*[contains(@class, 'fa-star')])[1]",
                                           activity));
   }
 
-  private BaseElementFacade getObjectFromDropDown(String object) {
+  private ElementFacade getObjectFromDropDown(String object) {
     return findByXPathOrCSS(String.format("//div[@class='v-input--selection-controls__input']//preceding::span[@class='subtitle-1'and contains(text(),'%s')]",
                                           object));
   }

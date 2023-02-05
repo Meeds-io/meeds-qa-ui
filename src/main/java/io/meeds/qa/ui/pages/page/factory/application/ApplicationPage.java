@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
 
-import io.meeds.qa.ui.elements.BaseElementFacade;
+import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -15,57 +15,57 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 public class ApplicationPage extends GenericPage {
 
   @FindBy(xpath = "//*[@href='/portal/meeds/contributions']//*[@class='appLauncherImage']")
-  public static BaseElementFacade contributionsApplication;
+  public static ElementFacade contributionsApplication;
 
   @FindBy(xpath = "//*[@class='userAuthorizedApplications']")
-  public static BaseElementFacade ELEMENT_APPCENTER_ALL_APPLICATIONS_PAGE;
+  public static ElementFacade ELEMENT_APPCENTER_ALL_APPLICATIONS_PAGE;
 
   @FindBy(xpath = "//*[@href='/portal/meeds/perkstore']//*[@class='appLauncherImage']")
-  public static BaseElementFacade ELEMENT_APPCENTER_PERK_STORE;
+  public static ElementFacade ELEMENT_APPCENTER_PERK_STORE;
 
   @FindBy(xpath = "(//*[contains(@class,'drawerParent appCenterDrawer')]//*[@class='v-btn__content'])[2]")
-  public static BaseElementFacade ELEMENT_APPCENTER_SEE_ALL_APPLICATIONS;
+  public static ElementFacade ELEMENT_APPCENTER_SEE_ALL_APPLICATIONS;
 
   @FindBy(xpath = "//*[@href='/portal/meeds/tasks']//*[@class='appLauncherImage']")
-  public static BaseElementFacade ELEMENT_APPCENTER_TASKS;
+  public static ElementFacade ELEMENT_APPCENTER_TASKS;
 
   @FindBy(xpath = "//*[@href='/portal/meeds/wallet']//*[@class='appLauncherImage']")
-  public static BaseElementFacade ELEMENT_APPCENTER_WALLET;
+  public static ElementFacade ELEMENT_APPCENTER_WALLET;
 
   @FindBy(xpath = "//*[@id='appcenterLauncherButton']")
-  public static BaseElementFacade ELEMENT_APPLICATIONS_TOPBAR;
+  public static ElementFacade ELEMENT_APPLICATIONS_TOPBAR;
 
   @FindBy(xpath = "(//*[contains(@class,'drawerParent appCenterDrawer')]//*[@class='v-btn__content'])[1]")
-  public static BaseElementFacade ELEMENT_CLOSE_APPCENTER_DRAWER;
+  public static ElementFacade ELEMENT_CLOSE_APPCENTER_DRAWER;
 
   @FindBy(xpath = "//*[@id='UIForumPortlet']")
-  public static BaseElementFacade ELEMENT_FORUMS_APPLICATION_PAGE;
+  public static ElementFacade ELEMENT_FORUMS_APPLICATION_PAGE;
 
   @FindBy(xpath = "//*[@id='UIWikiPortlet']")
-  public static BaseElementFacade ELEMENT_NOTES_APPLICATION_PAGE;
+  public static ElementFacade ELEMENT_NOTES_APPLICATION_PAGE;
 
   @FindBy(xpath = "//*[@id='PerkStoreApp']")
-  public static BaseElementFacade ELEMENT_PERK_STORE_APPLICATION_PAGE;
+  public static ElementFacade ELEMENT_PERK_STORE_APPLICATION_PAGE;
 
   @FindBy(xpath = "//*[@id='TasksManagementPortlet']")
-  public static BaseElementFacade ELEMENT_TASKS_APPLICATION_PAGE;
+  public static ElementFacade ELEMENT_TASKS_APPLICATION_PAGE;
 
   @FindBy(xpath = "//*[@id='WalletApp']")
-  public static BaseElementFacade ELEMENT_WALLET_APPLICATION_PAGE;
+  public static ElementFacade ELEMENT_WALLET_APPLICATION_PAGE;
 
   @FindBy(xpath = "//*[@id='ChallengesApplication']")
-  public static BaseElementFacade elementChallengeApplicationPage;
+  public static ElementFacade elementChallengeApplicationPage;
 
   @FindBy(xpath = "//*[@id='UISiteBody']")
-  public static BaseElementFacade elementChallengesApplicationPage;
+  public static ElementFacade elementChallengesApplicationPage;
 
-  private static final Map<String, BaseElementFacade> MAPPING_FIELD_NAME_TO_BASEELEMENTFACADE_XPATH = new HashMap<>();
+  private static final Map<String, ElementFacade> MAPPING_FIELD_NAME_TO_BASEELEMENTFACADE_XPATH = new HashMap<>();
 
   @FindBy(xpath = "//*[@class='drawer filterSpacesDrawer open']//*[@class='btn reset']")
-  public static BaseElementFacade settingsPage;
+  public static ElementFacade settingsPage;
 
   @FindBy(xpath = "//*[@class='maxFavorite']//span[contains(text(),'You can’t set more than 12 favorites')]")
-  private BaseElementFacade                           maxFavoriteApps;
+  private ElementFacade                           maxFavoriteApps;
 
   @FindBy(xpath = "//div[contains(@class,'appSearch')]//input")
   private TextBoxElementFacade                        searchAppInput;
@@ -74,7 +74,7 @@ public class ApplicationPage extends GenericPage {
     super(driver);
   }
 
-  private BaseElementFacade addApplicationAFavoriteInApplicationCenter(String app) {
+  private ElementFacade addApplicationAFavoriteInApplicationCenter(String app) {
     return findByXPathOrCSS(String.format("(//*[@class='authorisedAppContent']//*[contains (@class,'appTitle') and contains(text(),'%s')]/following::*[contains(@class, 'applicationActions')]//i[contains(@class, 'mdi-star')])[01]",
                                           app));
   }
@@ -83,11 +83,11 @@ public class ApplicationPage extends GenericPage {
     searchAppInput.setTextValue(app);
 
     // Add/ Remove the application To Favorites
-    BaseElementFacade appAsFavoriteInApplicationCenter = addApplicationAFavoriteInApplicationCenter(app);
+    ElementFacade appAsFavoriteInApplicationCenter = addApplicationAFavoriteInApplicationCenter(app);
     clickOnElement(appAsFavoriteInApplicationCenter);
   }
 
-  private BaseElementFacade addToAppCenterFavoriteIsDisplayed(String app) {
+  private ElementFacade addToAppCenterFavoriteIsDisplayed(String app) {
     return findByXPathOrCSS(String.format("//*[contains(@class, 'userAuthorizedApplications')]//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'v-card')]//i[contains(@class, 'mdi-star')]",
                                           app));
   }
@@ -141,25 +141,25 @@ public class ApplicationPage extends GenericPage {
     ELEMENT_APPLICATIONS_TOPBAR.clickOnElement();
   }
 
-  private BaseElementFacade disabledFavoriteIsDisplayed(String app) {
+  private ElementFacade disabledFavoriteIsDisplayed(String app) {
     return findByXPathOrCSS(String.format("//*[contains(@class, 'userAuthorizedApplications')]//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'v-card')]//i[contains(@class, 'mdi-star')]//ancestor::button[@disabled]",
                                           app));
   }
 
-  private BaseElementFacade getAppCenterAllApplicationsButton(String app) {
+  private ElementFacade getAppCenterAllApplicationsButton(String app) {
     return findByXPathOrCSS(String.format("(//*[@class='authorisedAppContent']//*[contains (@class,'appTitle') and contains(text(),'%s')]/following::*[contains(@class, 'applicationActions')]//a)[01]",
                                           app));
   }
 
-  private BaseElementFacade getAppCenterApplicationElement(String app) {
+  private ElementFacade getAppCenterApplicationElement(String app) {
     return findByXPathOrCSS(String.format("//*[@class='appLauncherTitle' and contains(text(),'%s')]", app));
   }
 
-  private BaseElementFacade getApplication(String appName) {
+  private ElementFacade getApplication(String appName) {
     return findByXPathOrCSS(String.format("//div[@class='authorisedAppContent']//div[contains(text(),'%s')]", appName));
   }
 
-  private BaseElementFacade getFavoriteApplicationElement(String app) {
+  private ElementFacade getFavoriteApplicationElement(String app) {
     return findByXPathOrCSS(String.format("//*[@class='userFavoriteApplications']//*[contains(@class, 'favoriteApplication')]//*[contains(text(),'%s') ]",
                                           app));
   }
@@ -215,7 +215,7 @@ public class ApplicationPage extends GenericPage {
     assertWebElementVisible(maxFavoriteApps);
   }
 
-  private BaseElementFacade removeFromAppCenterFavoriteIsDisplayed(String app) {
+  private ElementFacade removeFromAppCenterFavoriteIsDisplayed(String app) {
     return findByXPathOrCSS(String.format("//*[contains(@class, 'userAuthorizedApplications')]//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'v-card')]//i[contains(@class, 'mdi-star-outline')]",
                                           app));
   }

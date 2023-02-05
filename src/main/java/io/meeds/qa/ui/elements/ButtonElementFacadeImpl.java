@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import net.serenitybdd.core.pages.WebElementFacade;
 
-public class ButtonElementFacadeImpl extends BaseElementFacadeImpl implements ButtonElementFacade {
+public class ButtonElementFacadeImpl extends ElementFacadeImpl implements ButtonElementFacade {
 
   static final Logger LOGGER = LoggerFactory.getLogger(ButtonElementFacadeImpl.class);
 

@@ -7,7 +7,7 @@ import org.openqa.selenium.Cookie;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 
-import io.meeds.qa.ui.elements.BaseElementFacade;
+import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
 import net.serenitybdd.markers.IsHidden;
@@ -63,11 +63,11 @@ public class LoginPage extends GenericPage implements IsHidden {
 
   private void tryLogin(String login, String password) {
     verifyPageLoaded();
-    TextBoxElementFacade loginTextBox = findTextBoxElementByXpath("//*[@id='username']");
+    TextBoxElementFacade loginTextBox = findTextBoxByXPathOrCSS("//*[@id='username']");
     loginTextBox.setTextValue(login);
-    TextBoxElementFacade passwordTextbox = findTextBoxElementByXpath("//*[@id='password']");
+    TextBoxElementFacade passwordTextbox = findTextBoxByXPathOrCSS("//*[@id='password']");
     passwordTextbox.setTextValue(password);
-    BaseElementFacade loginButton = findByXPathOrCSS("//*[contains(@class, 'loginButton')]//button");
+    ElementFacade loginButton = findByXPathOrCSS("//*[contains(@class, 'loginButton')]//button");
     clickOnElement(loginButton);
   }
 

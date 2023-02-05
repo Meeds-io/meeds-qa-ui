@@ -5,14 +5,14 @@ import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
 
-import io.meeds.qa.ui.elements.BaseElementFacade;
+import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class AddUserPage extends GenericPage {
   @FindBy(xpath = "//*[@id='userFormDrawer']//*[contains(@class,'drawerTitle ')]")
-  private BaseElementFacade                 addUserDrawer;
+  private ElementFacade                 addUserDrawer;
 
   @FindBy(xpath = "//div[contains(@class,'confirmPasswordField')]//input")
   private TextBoxElementFacade              confirmPasswordField;
@@ -39,10 +39,10 @@ public class AddUserPage extends GenericPage {
   private TextBoxElementFacade              popupCantDeleteLoggedUser;
 
   @FindBy(xpath = "//*[contains(@class,'selectUsersFilter')]")
-  private BaseElementFacade                 pullDownFilterUserStatus;
+  private ElementFacade                 pullDownFilterUserStatus;
 
   @FindBy(xpath = "//aside[@id='userFormDrawer']//button[contains(@class,'btn-primary')]")
-  private BaseElementFacade                 saveAddUserButton;
+  private ElementFacade                 saveAddUserButton;
 
   @FindBy(xpath = "//input[@placeholder='Filter by name or email']")
   private TextBoxElementFacade              searchUsersField;
@@ -89,13 +89,13 @@ public class AddUserPage extends GenericPage {
     deleteConfirmationButton.clickOnElement();
   }
 
-  public BaseElementFacade disableEnableStatusButton(String user) {
+  public ElementFacade disableEnableStatusButton(String user) {
     return findByXPathOrCSS(String.format("//*[@class='text-center' and contains(text(),'%s')]/following::*[@class='switch']",
                                           user));
   }
 
   public void enableDisableUser(String user) {
-    BaseElementFacade element = disableEnableStatusButton(user);
+    ElementFacade element = disableEnableStatusButton(user);
     element.waitUntilVisible();
     element.clickOnElement();
     waitForProgressBar();
@@ -141,7 +141,7 @@ public class AddUserPage extends GenericPage {
     mappingBaseElementXPath.get(userDetails).setTextValue(fieldValue);
   }
 
-  public BaseElementFacade getUserElement(String user) {
+  public ElementFacade getUserElement(String user) {
     return findByXPathOrCSS(String.format("//*[@class='v-data-table__wrapper']//*[@class='text-center' and contains(text(),'%s')][1]",
                                           user));
   }

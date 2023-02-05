@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
-import io.meeds.qa.ui.elements.BaseElementFacade;
+import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -18,76 +18,76 @@ public class SettingsPage extends GenericPage {
       + "//self::*[@aria-checked='%s']//ancestor::*[contains(@class, 'v-input')]";
 
   @FindBy(xpath = "(//button[@class='btn btn-primary v-btn v-btn--contained theme--light v-size--default']//*[@class='v-btn__content'])[1]")
-  private BaseElementFacade    ELEMENT_APPLY_CHANGE_LANGUAGE_BUTTON;
+  private ElementFacade    ELEMENT_APPLY_CHANGE_LANGUAGE_BUTTON;
 
   @FindBy(xpath = "(//*[@class='btn btn-primary v-btn v-btn--contained theme--light v-size--default'])[2]")
-  private BaseElementFacade    ELEMENT_APPLY_CHANGE_TIMEZONE_BUTTON;
+  private ElementFacade    ELEMENT_APPLY_CHANGE_TIMEZONE_BUTTON;
 
   @FindBy(xpath = "(//button[@class='btn btn-primary v-btn v-btn--contained theme--light v-size--default']//*[@class='v-btn__content'])[1]")
-  private BaseElementFacade    ELEMENT_APPLY_EDIT_GENERAL_NOTIFICATIONS_BUTTON;
+  private ElementFacade    ELEMENT_APPLY_EDIT_GENERAL_NOTIFICATIONS_BUTTON;
 
   @FindBy(xpath = "(//button[@class='btn me-2 v-btn v-btn--contained theme--light v-size--default']//*[@class='v-btn__content'])[1]")
-  private BaseElementFacade    ELEMENT_CANCEL_CHANGE_LANGUAGE_BUTTON;
+  private ElementFacade    ELEMENT_CANCEL_CHANGE_LANGUAGE_BUTTON;
 
   @FindBy(xpath = "(//button[@class='btn me-2 v-btn v-btn--contained theme--light v-size--default']//*[@class='v-btn__content'])[1]")
-  private BaseElementFacade    ELEMENT_CANCEL_CHANGE_TIMEZONE_BUTTON;
+  private ElementFacade    ELEMENT_CANCEL_CHANGE_TIMEZONE_BUTTON;
 
   @FindBy(xpath = "(//input[@type='password'])[3]/following::*[@class='v-btn__content'][1]")
-  private BaseElementFacade    ELEMENT_CANCEL_EDIT_PASSWORD;
+  private ElementFacade    ELEMENT_CANCEL_EDIT_PASSWORD;
 
   @FindBy(xpath = "(//input[@type='password'])[3]/following::*[@class='v-btn__content'][2]")
-  private BaseElementFacade    ELEMENT_CONFIRM_EDIT_PASSWORD;
+  private ElementFacade    ELEMENT_CONFIRM_EDIT_PASSWORD;
 
   @FindBy(xpath = "(//*[@class='uiIconEdit uiIconLightBlue pb-2'])[1]")
-  private BaseElementFacade    ELEMENT_EDIT_NOTIFICATIONS_GENERAL;
+  private ElementFacade    ELEMENT_EDIT_NOTIFICATIONS_GENERAL;
 
   @FindBy(xpath = "//*[@class='v-list-item__action']//*[@data-original-title='Edit password']//button")
-  private BaseElementFacade    ELEMENT_EDIT_PASSWORD;
+  private ElementFacade    ELEMENT_EDIT_PASSWORD;
 
   @FindBy(xpath = "(//*[@class='uiIconEdit uiIconLightBlue pb-2'])[2]")
-  private BaseElementFacade    ELEMENT_EDIT_TIME_ZONE;
+  private ElementFacade    ELEMENT_EDIT_TIME_ZONE;
 
   @FindBy(xpath = "(//*[@class='v-list-item__content pa-0'])[1]")
-  private BaseElementFacade    ELEMENT_GENERAL_NOTIFICATIONS_SECTION;
+  private ElementFacade    ELEMENT_GENERAL_NOTIFICATIONS_SECTION;
 
   @FindBy(xpath = "//select[@name='EMAIL_DIGEST']")
-  private BaseElementFacade    ELEMENT_GENERAL_NOTIFICATIONS_SELECT_MAIL_SENDING_TYPE;
+  private ElementFacade    ELEMENT_GENERAL_NOTIFICATIONS_SELECT_MAIL_SENDING_TYPE;
 
   @FindBy(xpath = "(//*[@class='v-list-item__subtitle text-sub-title text-capitalize font-italic'])[1]")
-  private BaseElementFacade    ELEMENT_LANGUAGE_TXT;
+  private ElementFacade    ELEMENT_LANGUAGE_TXT;
 
   @FindBy(xpath = "(//*[contains(text(),'Activity Stream')]")
-  private BaseElementFacade    ELEMENT_MANAGE_NOTIFICATION_ACTIVITYSTREAM_SECTION;
+  private ElementFacade    ELEMENT_MANAGE_NOTIFICATION_ACTIVITYSTREAM_SECTION;
 
   @FindBy(xpath = "(//*[contains(text(),'Connections')]")
-  private BaseElementFacade    ELEMENT_MANAGE_NOTIFICATION_CONNECTIONS_SECTION;
+  private ElementFacade    ELEMENT_MANAGE_NOTIFICATION_CONNECTIONS_SECTION;
 
   @FindBy(xpath = "(//*[contains(text(),'Connections')]")
-  private BaseElementFacade    ELEMENT_MANAGE_NOTIFICATION_GENERAL_SECTION;
+  private ElementFacade    ELEMENT_MANAGE_NOTIFICATION_GENERAL_SECTION;
 
   @FindBy(xpath = "(///div[@class='v-list-item__content']//*[contains(text(),'Kudos')]")
-  private BaseElementFacade    ELEMENT_MANAGE_NOTIFICATION_KUDOS_SECTION;
+  private ElementFacade    ELEMENT_MANAGE_NOTIFICATION_KUDOS_SECTION;
 
   @FindBy(xpath = "(//div[@class='v-list-item__content']//*[contains(text(),'Notes')]")
-  private BaseElementFacade    ELEMENT_MANAGE_NOTIFICATION_NOTES_SECTION;
+  private ElementFacade    ELEMENT_MANAGE_NOTIFICATION_NOTES_SECTION;
 
   @FindBy(xpath = "(//*[contains(text(),'Manage notifications')]")
-  private BaseElementFacade    ELEMENT_MANAGE_NOTIFICATION_PAGE;
+  private ElementFacade    ELEMENT_MANAGE_NOTIFICATION_PAGE;
 
   @FindBy(xpath = "(//*[contains(text(),'Perk store')]")
-  private BaseElementFacade    ELEMENT_MANAGE_NOTIFICATION_PERKSTORE_SECTION;
+  private ElementFacade    ELEMENT_MANAGE_NOTIFICATION_PERKSTORE_SECTION;
 
   @FindBy(xpath = "(//*[contains(text(),'Spaces')]")
-  private BaseElementFacade    ELEMENT_MANAGE_NOTIFICATION_SPACES_SECTION;
+  private ElementFacade    ELEMENT_MANAGE_NOTIFICATION_SPACES_SECTION;
 
   @FindBy(xpath = "(//*[contains(text(),'My Tasks')]")
-  private BaseElementFacade    ELEMENT_MANAGE_NOTIFICATION_TASKS_SECTION;
+  private ElementFacade    ELEMENT_MANAGE_NOTIFICATION_TASKS_SECTION;
 
   @FindBy(xpath = "(//div[@class='v-list-item__content']//*[contains(text(),'Wallet')]")
-  private BaseElementFacade    ELEMENT_MANAGE_NOTIFICATION_WALLET_SECTION;
+  private ElementFacade    ELEMENT_MANAGE_NOTIFICATION_WALLET_SECTION;
 
   @FindBy(xpath = "(//*[@class='v-list-item__action'])[7]//button")
-  private BaseElementFacade    ELEMENT_MANAGE_NOTIFICATIONS;
+  private ElementFacade    ELEMENT_MANAGE_NOTIFICATIONS;
 
   @FindBy(xpath = "(//input[@type='password'])[2]")
   private TextBoxElementFacade ELEMENT_NEW_PASSWORD;
@@ -99,7 +99,7 @@ public class SettingsPage extends GenericPage {
   private TextBoxElementFacade ELEMENT_OLD_PASSWORD;
 
   @FindBy(xpath = "(//*[@class='v-list-item__subtitle text-sub-title text-capitalize font-italic'])[2]")
-  private BaseElementFacade    ELEMENT_TIMEZONE_TXT;
+  private ElementFacade    ELEMENT_TIMEZONE_TXT;
 
   public SettingsPage(WebDriver driver) {
     super(driver);
@@ -289,11 +289,11 @@ public class SettingsPage extends GenericPage {
 
   }
 
-  private BaseElementFacade ELEMENT_CHANGE_LANGUAGE(String language) {
+  private ElementFacade ELEMENT_CHANGE_LANGUAGE(String language) {
     return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]", language));
   }
 
-  private BaseElementFacade ELEMENT_CHANGE_TIMEZONE(String timeZone) {
+  private ElementFacade ELEMENT_CHANGE_TIMEZONE(String timeZone) {
     return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]", timeZone));
   }
 
@@ -418,7 +418,7 @@ public class SettingsPage extends GenericPage {
   }
 
   private void clickOnNotificationSwitchButton(int switchButtonIndex) {
-    BaseElementFacade element = findByXPathOrCSS(String.format(NOTIFICATION_SWITCH_BUTTON_XPATH,
+    ElementFacade element = findByXPathOrCSS(String.format(NOTIFICATION_SWITCH_BUTTON_XPATH,
                                                                String.valueOf(switchButtonIndex)));
     boolean beforeClickState = Boolean.parseBoolean(element.getAttribute("aria-checked"));
     element.findByXPath("//ancestor::*[contains(@class, 'v-input')]").clickOnElement();

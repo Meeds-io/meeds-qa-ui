@@ -5,50 +5,50 @@ import static org.junit.Assert.assertTrue;
 
 import org.openqa.selenium.WebDriver;
 
-import io.meeds.qa.ui.elements.BaseElementFacade;
+import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class KudosPage extends GenericPage {
   @FindBy(xpath = "//i[@class='v-icon notranslate dark-grey-color fa fa-edit theme--light']")
-  public static BaseElementFacade editButton;
+  public static ElementFacade editButton;
 
   @FindBy(xpath = "//*[@class='v-list-item__title peopleActionItem']")
-  public static BaseElementFacade sendKudosMenu;
+  public static ElementFacade sendKudosMenu;
 
   @FindBy(xpath = "//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'fa fa-arrow')]")
-  private BaseElementFacade       addministrationMenu;
+  private ElementFacade       addministrationMenu;
 
   @FindBy(xpath = "//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'titleIcon')]")
-  private BaseElementFacade      administrationIcon ;
+  private ElementFacade      administrationIcon ;
 
   @FindBy(xpath = "//i[contains(@class,'uiIcon uiIconToolbarNavItem uiAdministrationIcon')]")
-  private BaseElementFacade       adminBtn;
+  private ElementFacade       adminBtn;
 
   @FindBy(xpath = "(//*[@id='activityCommentsDrawer']//*[@class='v-btn__content'])[3]")
-  private BaseElementFacade       closeKudosDrawer;
+  private ElementFacade       closeKudosDrawer;
 
   @FindBy(xpath = "(//*[@class='v-select__selections'])[1]")
-  private BaseElementFacade       displayedPeriodType;
+  private ElementFacade       displayedPeriodType;
 
   @FindBy(xpath = "(//i[@class='v-icon notranslate icon-default-color fas fa-ellipsis-v theme--light'])[1]")
   private TextBoxElementFacade    dotsMenu;
 
   @FindBy(xpath = "//*[@class='v-list-item__title pl-3' and contains(text(),'Edit')]")
-  private BaseElementFacade editKudosComment;
+  private ElementFacade editKudosComment;
 
   @FindBy(xpath = "//*[@id = 'activityKudosDrawer']//*[contains(@class, 'drawerFooter')]//button[contains(@class, 'btn-primary')]")
-  private BaseElementFacade       kudosButtonInDrawer;
+  private ElementFacade       kudosButtonInDrawer;
 
   @FindBy(xpath = "//*[@class='cke_inner cke_reset']")
-  private BaseElementFacade kudosCommentFilled;
+  private ElementFacade kudosCommentFilled;
 
   @FindBy(xpath = "//body[contains(@class,'cke_editable')]")
   private TextBoxElementFacade    kudosField;
 
   @FindBy(xpath = "//a[@href='/portal/g/:platform:rewarding/rewardAdministration/kudosAdministration']")
-  private BaseElementFacade       kudosLink;
+  private ElementFacade       kudosLink;
 
   @FindBy(xpath = "//*[@id=\"kudosMessage\"]")
   private TextBoxElementFacade    kudosMessage;
@@ -57,39 +57,39 @@ public class KudosPage extends GenericPage {
   private TextBoxElementFacade    kudosNumber;
 
   @FindBy(xpath = "//*[contains(@class,'HamburgerNavigationMenuLink')]")
-  public BaseElementFacade        menuBtn;
+  public ElementFacade        menuBtn;
 
   @FindBy(xpath = "//i[@class='v-icon notranslate mdi mdi-menu-down theme--light']")
-  private BaseElementFacade       periodType;
+  private ElementFacade       periodType;
 
   @FindBy(xpath = "//button[@class='btn btn-primary ignore-vuetify-classes mb-3']")
-  private BaseElementFacade       saveBtn;
+  private ElementFacade       saveBtn;
 
   @FindBy(xpath = "//header[@id='peopleListToolbar']//input")
   private TextBoxElementFacade    searchUsersField;
 
   @FindBy(xpath = "//*[contains(text(),'Semester')]")
-  private BaseElementFacade       semesterPeriod;
+  private ElementFacade       semesterPeriod;
 
   @FindBy(xpath = "//button[@class='ignore-vuetify-classes btn btn-primary me-3']")
-  private BaseElementFacade       sendKudosBtn;
+  private ElementFacade       sendKudosBtn;
 
   @FindBy(
       xpath = "(//*[@class='flex-grow-1 flex-shrink-1 overflow-hidden']//*[@class='v-icon notranslate primary--text mdi mdi-dots-vertical theme--light'])[2]"
   )
-  private BaseElementFacade threedotsKudosComment;
+  private ElementFacade threedotsKudosComment;
 
   @FindBy(
       xpath = "(//*[@class='flex-grow-1 flex-shrink-1 overflow-hidden']//*[@class='v-icon notranslate primary--text mdi mdi-dots-vertical theme--light'])[3]"
   )
-  private BaseElementFacade threedotsKudosReplyComment;
+  private ElementFacade threedotsKudosReplyComment;
 
-  private BaseElementFacade chooseAnotherUser(String user)
+  private ElementFacade chooseAnotherUser(String user)
   {
     return findByXPathOrCSS(String.format("//*[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]", user));
   }
 
-  private BaseElementFacade getNotFoundUserInSpaceMessage(String message) {
+  private ElementFacade getNotFoundUserInSpaceMessage(String message) {
     return findByXPathOrCSS(String.format("//*[contains(@class,'v-select-list')]//*[contains(text() ,'%s')]", message));
   }
 
@@ -101,7 +101,7 @@ public class KudosPage extends GenericPage {
     waitForDrawerToOpen("#activityKudosDrawer", false);
     waitCKEditorLoading();
     retryOnCondition(() -> {
-      BaseElementFacade ckEditorFrameKudos = getCkEditorFrameKudos();
+      ElementFacade ckEditorFrameKudos = getCkEditorFrameKudos();
       ckEditorFrameKudos.waitUntilVisible();
       getDriver().switchTo().frame(ckEditorFrameKudos);
     }, () -> {
@@ -161,16 +161,16 @@ public class KudosPage extends GenericPage {
     kudosNumber.setTextValue(val);
   }
 
-  private BaseElementFacade getCkEditorFrameKudos() {
+  private ElementFacade getCkEditorFrameKudos() {
     return findByXPathOrCSS("//*[@id='activityKudosDrawer']//iframe[contains(@class,'cke_wysiwyg_frame')]");
   }
 
-  private BaseElementFacade getKudosActivityText(String message) {
+  private ElementFacade getKudosActivityText(String message) {
     return findByXPathOrCSS(String.format("//div[contains(@class,'activity-detail')]//descendant::*[contains(text(),'%s')]",
                                           message));
   }
 
-  private BaseElementFacade getKudosLink(String activity) {
+  private ElementFacade getKudosLink(String activity) {
     return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'activity-detail')]//child::button[contains(@id, 'KudosActivity')]",
                                           activity));
   }

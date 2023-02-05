@@ -2,7 +2,7 @@ package io.meeds.qa.ui.pages.page.factory.Notes;
 
 import org.junit.Assert;
 
-import io.meeds.qa.ui.elements.BaseElementFacade;
+import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -10,22 +10,22 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 public class NotePage extends GenericPage {
 
   @FindBy(xpath = "(//*[@class='v-icon notranslate clickable add-note-click fas fa-plus theme--light'])[1]")
-  private BaseElementFacade addNotePageIcon;
+  private ElementFacade addNotePageIcon;
 
   @FindBy(xpath = "//iframe[contains(@class,'cke_wysiwyg_frame')]")
-  private BaseElementFacade    ckEditorFrameNote;
+  private ElementFacade    ckEditorFrameNote;
 
   @FindBy(xpath = "//*[contains(@class,'fa-star theme--light yellow--text')]")
-  private BaseElementFacade colorStarIcon;
+  private ElementFacade colorStarIcon;
 
   @FindBy(xpath = "//*[@class='ignore-vuetify-classes btn btn-primary me-2']")
-  private BaseElementFacade confirmationPopupDeleteButton;
+  private ElementFacade confirmationPopupDeleteButton;
 
   @FindBy(xpath = "//*[@id='notesEditor']")
-  public BaseElementFacade  createNoteTab;
+  public ElementFacade  createNoteTab;
 
   @FindBy(xpath = "//*[contains(@class,'mdi mdi-trash-can-outline')]")
-  private BaseElementFacade deleteNoteOption;
+  private ElementFacade deleteNoteOption;
 
   @FindBy(xpath = "//*[contains(@class,'notes-application-content')]")
   private TextBoxElementFacade displayedNoteContent;
@@ -34,13 +34,13 @@ public class NotePage extends GenericPage {
   private TextBoxElementFacade displayedNoteTitle;
 
   @FindBy(xpath = "//*[@class='v-icon notranslate clickable edit-note-click fas fa-edit theme--light']")
-  private BaseElementFacade editNotePageIcon;
+  private ElementFacade editNotePageIcon;
 
   @FindBy(xpath = "//i[contains(@class,'v-icon notranslate mx-auto')]")
-  private BaseElementFacade favoriteIconNote;
+  private ElementFacade favoriteIconNote;
 
   @FindBy(xpath = "//div[@class='d-flex flex-lg-row flex-column']//i[contains(@class,'v-icon notranslate mx-auto far fa-star')]")
-  private BaseElementFacade greyFavStar;
+  private ElementFacade greyFavStar;
 
   @FindBy(xpath = "//body[contains(@class,'notesContent')]")
   private TextBoxElementFacade noteContentTextBox;
@@ -58,7 +58,7 @@ public class NotePage extends GenericPage {
   private TextBoxElementFacade saveButton;
 
   @FindBy(xpath = "//*[@class='v-icon notranslate clickable fas fa-ellipsis-v theme--light']")
-  private BaseElementFacade threeDotsIcon;
+  private ElementFacade threeDotsIcon;
 
   public void addNote(String noteTitle, String noteContent) {
     noteTileTextBox.setTextValue(noteTitle);
@@ -165,7 +165,7 @@ public class NotePage extends GenericPage {
     favoriteIconNote.clickOnElement();
   }
 
-  private BaseElementFacade getNoteActivityTitle(String noteTitle) {
+  private ElementFacade getNoteActivityTitle(String noteTitle) {
     return findByXPathOrCSS(String.format("//*[contains(@class,'font-weight-bold')]//div[contains(text(),'%s')]", noteTitle));
   }
 
@@ -173,7 +173,7 @@ public class NotePage extends GenericPage {
     assertWebElementVisible(getNoteActivityTitle(noteTitle));
   }
 
-  private BaseElementFacade noteTitleField(String title) {
+  private ElementFacade noteTitleField(String title) {
     return findByXPathOrCSS(String.format("//*[contains(@class,'notes-title')]/span[ contains(text(),'%s')]", title));
   }
 

@@ -1,6 +1,6 @@
 package io.meeds.qa.ui.pages;
 
-import io.meeds.qa.ui.elements.BaseElementFacade;
+import io.meeds.qa.ui.elements.ElementFacade;
 
 public interface BasePage {
 
@@ -10,7 +10,7 @@ public interface BasePage {
    *
    * @param xpath: xpath of the element
    */
-  <T extends BaseElementFacade> T findByXPathOrCSS(String xpath);
+  <T extends ElementFacade> T findByXPathOrCSS(String xpath);
 
   /**
    * Method to verify the presence of all the elements that has the

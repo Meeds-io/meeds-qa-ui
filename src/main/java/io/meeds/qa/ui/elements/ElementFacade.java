@@ -5,8 +5,8 @@ import org.openqa.selenium.WebDriver;
 import net.serenitybdd.core.annotations.ImplementedBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-@ImplementedBy(BaseElementFacadeImpl.class)
-public interface BaseElementFacade extends WebElementFacade {
+@ImplementedBy(ElementFacadeImpl.class)
+public interface ElementFacade extends WebElementFacade {
 
   /**
    * Wrapper which is meant to click on a clickable element.
@@ -27,7 +27,7 @@ public interface BaseElementFacade extends WebElementFacade {
    *
    * @return BaseElementFacade instance of the found element
    */
-  public <T extends BaseElementFacade> T findByXPath(String xpath);
+  public <T extends ElementFacade> T findByXPath(String xpath);
 
   /**
    * Method to find an element inside an element using the xpath and to wrapp it

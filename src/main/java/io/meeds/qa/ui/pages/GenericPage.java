@@ -9,7 +9,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import io.meeds.qa.ui.elements.BaseElementFacade;
+import io.meeds.qa.ui.elements.ElementFacade;
 
 public class GenericPage extends BasePageImpl {
 
@@ -52,15 +52,15 @@ public class GenericPage extends BasePageImpl {
     return element != null && element.isDisplayed();
   }
 
-  private BaseElementFacade getButton(String buttonName) {
+  private ElementFacade getButton(String buttonName) {
     return findByXPathOrCSS(String.format("//a[contains(text(),'%s')]", buttonName));
   }
 
-  private BaseElementFacade getConfirmMessage(String message) {
+  private ElementFacade getConfirmMessage(String message) {
     return findByXPathOrCSS(String.format("//span[contains(text(),\"%s\")]", message));
   }
 
-  private BaseElementFacade getOKButton(String buttonName) {
+  private ElementFacade getOKButton(String buttonName) {
     return findByXPathOrCSS(String.format("//button[contains(text(),'%s')]", buttonName));
   }
 

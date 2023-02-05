@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import io.meeds.qa.ui.utils.ExceptionLauncher;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-public class TextElementFacadeImpl extends BaseElementFacadeImpl implements TextElementFacade {
+public class TextElementFacadeImpl extends ElementFacadeImpl implements TextElementFacade {
 
   static final Logger LOGGER = LoggerFactory.getLogger(TextElementFacadeImpl.class);
 

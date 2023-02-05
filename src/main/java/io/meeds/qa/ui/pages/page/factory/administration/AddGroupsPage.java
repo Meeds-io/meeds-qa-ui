@@ -2,19 +2,19 @@ package io.meeds.qa.ui.pages.page.factory.administration;
 
 import org.openqa.selenium.WebDriver;
 
-import io.meeds.qa.ui.elements.BaseElementFacade;
+import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class AddGroupsPage extends GenericPage {
   @FindBy(xpath = "//*[contains(@class,'addNewMembershipButton')]")
-  private BaseElementFacade    addMemberInGroupBtn;
+  private ElementFacade    addMemberInGroupBtn;
 
   @FindBy(
       xpath = "//*[@id='membershipFormDrawer' and contains(@class, 'v-navigation-drawer--open')]//button[contains(@class,'mdi-close')]"
   )
-  private BaseElementFacade    closeDrawerButton;
+  private ElementFacade    closeDrawerButton;
 
   @FindBy(xpath = "//input[@id='userNameInput']")
   private TextBoxElementFacade inviteMemberInput;
@@ -22,10 +22,14 @@ public class AddGroupsPage extends GenericPage {
   @FindBy(
       xpath = "//*[@id='membershipFormDrawer' and contains(@class, 'v-navigation-drawer--open')]//button[contains(@class,'btn-primary')]"
   )
-  private BaseElementFacade    saveMemberAddedInGroup;
+  private ElementFacade    saveMemberAddedInGroup;
 
   @FindBy(xpath = "//*[contains(@class,'membershipNameField')]//select")
-  private BaseElementFacade    selectedRoleField;
+  private ElementFacade    selectedRoleField;
+
+  private ElementFacade addMemberInGroupBtn() {
+    return findByXPathOrCSS(url);
+  }
 
   public AddGroupsPage(WebDriver driver) {
     super(driver);
@@ -58,13 +62,13 @@ public class AddGroupsPage extends GenericPage {
     waitForDrawerToClose();
   }
 
-  public BaseElementFacade groupOpenBtn(String group) {
+  public ElementFacade groupOpenBtn(String group) {
     return findByXPathOrCSS(String
                                   .format("//*[@class='flex sm12 md4 flat']//*[@class='v-list-item__content']//*[contains(text(),'%s')]/preceding::i[@class='v-icon notranslate mdi mdi-menu-right theme--light'][1]",
                                           group));
   }
 
-  public BaseElementFacade groupToSelect(String group) {
+  public ElementFacade groupToSelect(String group) {
     return findByXPathOrCSS(String
                                   .format("//*[@class='flex sm12 md4 flat']//*[@class='v-list-item__content']//*[contains(text(),'%s')]",
                                           group));

@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 import io.meeds.qa.ui.utils.ExceptionLauncher;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-public class TextBoxElementFacadeImpl extends BaseElementFacadeImpl implements TextBoxElementFacade {
+public class TextBoxElementFacadeImpl extends ElementFacadeImpl implements TextBoxElementFacade {
 
   static final Logger LOGGER = LoggerFactory.getLogger(TextBoxElementFacadeImpl.class);
 

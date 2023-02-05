@@ -2,7 +2,7 @@ package io.meeds.qa.ui.pages.page.factory.administration;
 
 import static org.junit.Assert.assertTrue;
 
-import io.meeds.qa.ui.elements.BaseElementFacade;
+import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -10,42 +10,42 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 public class ManageDomainsPage extends GenericPage {
 
   @FindBy(xpath = "//*[contains(@class,'HamburgerNavigationMenuLink')]")
-  public static BaseElementFacade menuBtn;
+  public static ElementFacade menuBtn;
 
   @FindBy(xpath = "//button[@class='btn btn-primary']")
-  private BaseElementFacade       addDomainBtn;
+  private ElementFacade       addDomainBtn;
 
   @FindBy(xpath = "//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'fa fa-arrow')]")
-  private BaseElementFacade       adminBtn;
+  private ElementFacade       adminBtn;
 
   @FindBy(xpath = "//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'titleIcon')]")
-  private BaseElementFacade       adminIcon;
+  private ElementFacade       adminIcon;
   @FindBy(xpath = "//a[@href='/portal/g/:platform:administrators/automatic-translation']")
-  private BaseElementFacade       automaticTranslation;
+  private ElementFacade       automaticTranslation;
 
   @FindBy(xpath = "//button[@class='btn cancel pull-right']")
-  public BaseElementFacade        closeConfirmDeletionPopup;
+  public ElementFacade        closeConfirmDeletionPopup;
 
   @FindBy(xpath = "//a[@class='uiIconClose pull-right']")
-  private BaseElementFacade       closeFormBtn;
+  private ElementFacade       closeFormBtn;
 
   @FindBy(xpath = "//button[@class='btn-primary pull-right']")
-  private BaseElementFacade       confirmBtn;
+  private ElementFacade       confirmBtn;
 
   @FindBy(xpath = "(//button[@class='btn-primary pull-right'])[2]")
-  private BaseElementFacade       confirmChangesBtn;
+  private ElementFacade       confirmChangesBtn;
 
   @FindBy(xpath = "(//button[@class='btn-primary pull-right'])[2]")
-  public BaseElementFacade        confirmDeletionBtn;
+  public ElementFacade        confirmDeletionBtn;
 
   @FindBy(xpath = "//i[@class='uiIconDelete uiIconLightGray']")
-  public BaseElementFacade        deleteBtn;
+  public ElementFacade        deleteBtn;
 
   @FindBy(xpath = "//*[@id='domainDescription']")
   private TextBoxElementFacade    domainDescription;
 
   @FindBy(xpath = "//a[@href='/portal/g/:platform:administrators/gamification/domains']")
-  private BaseElementFacade       domainLink;
+  private ElementFacade       domainLink;
 
   @FindBy(xpath = "//input[@id='titleInput']")
   private TextBoxElementFacade    domainName;
@@ -80,7 +80,7 @@ public class ManageDomainsPage extends GenericPage {
   }
 
   public void checkTheDomainNameDisplay(String domainName) {
-    BaseElementFacade domainElement = getDomainNameInListOfDomains(domainName);
+    ElementFacade domainElement = getDomainNameInListOfDomains(domainName);
     domainElement.waitUntilVisible();
     domainElement.clickOnElement();
   }
@@ -124,17 +124,17 @@ public class ManageDomainsPage extends GenericPage {
     addDomainDescription(description);
   }
 
-  private BaseElementFacade getAlertPublishingActivity(String alert) {
+  private ElementFacade getAlertPublishingActivity(String alert) {
     return findByXPathOrCSS(
                             String.format("//*[@class='v-btn__content' and contains(text(),'%s')]", alert));
   }
 
-  private BaseElementFacade getDomainNameInListOfDomains(String domainName) {
+  private ElementFacade getDomainNameInListOfDomains(String domainName) {
     return findByXPathOrCSS(String.format("//table[@class='uiGrid table table-hover domain-table']//*[not(@class='domain-desc-col')]/div[contains(text(),'%s')]",
                                           domainName));
   }
 
-  public BaseElementFacade getTitlePage(String title) {
+  public ElementFacade getTitlePage(String title) {
     return findByXPathOrCSS(String.format("//*[@class='row']//h4[@class='font-weight-bold' and contains(text(),'%s')]", title));
   }
 

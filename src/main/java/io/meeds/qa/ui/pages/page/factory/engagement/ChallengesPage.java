@@ -4,7 +4,7 @@ import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 
 import org.openqa.selenium.WebDriver;
 
-import io.meeds.qa.ui.elements.BaseElementFacade;
+import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -21,16 +21,16 @@ public class ChallengesPage extends GenericPage {
       + "//ancestor::*[contains(@class, 'cardOfChallenge')]";
 
   @FindBy(xpath = "//*[@id='engagementCenterAddChallengeBtn']")
-  private BaseElementFacade    addChallengeBtn;
+  private ElementFacade    addChallengeBtn;
 
   @FindBy(css = "#announcementDrawer.v-navigation-drawer--open")
-  private BaseElementFacade    announcementHeaderDrawer;
+  private ElementFacade    announcementHeaderDrawer;
 
   @FindBy(xpath = "//*[contains(@content-class,'identitySuggester')]")
   private TextBoxElementFacade assignAnnouncementInput;
 
   @FindBy(xpath = "//*[@id='EngagementCenterAssignmentBtn']")
-  private BaseElementFacade    assignLink;
+  private ElementFacade    assignLink;
 
   @FindBy(xpath = "(//*[contains(@class, 'v-navigation-drawer--open')]//div[@name='challengeSpaceAutocomplete']//input)[01]")
   private TextBoxElementFacade audienceSpaceField;
@@ -39,25 +39,25 @@ public class ChallengesPage extends GenericPage {
   private TextBoxElementFacade challengeDescriptionField;
 
   @FindBy(css = ".challengeQuickFilter")
-  private BaseElementFacade    challengeQuickFilterSelectBox;
+  private ElementFacade    challengeQuickFilterSelectBox;
 
   @FindBy(xpath = "//*[@id='EngagementCenterChallengeDrawerTitleTextArea']")
   private TextBoxElementFacade challengeTitleField;
 
   @FindBy(css = ".v-navigation-drawer--open iframe.cke_wysiwyg_frame")
-  private BaseElementFacade    ckEditorFrameChallenge;
+  private ElementFacade    ckEditorFrameChallenge;
 
   @FindBy(css = ".v-navigation-drawer--open .drawerFooter button.btn-primary")
-  private BaseElementFacade    createAnnouncement;
+  private ElementFacade    createAnnouncement;
 
   @FindBy(css = ".v-navigation-drawer--open .drawerFooter button.btn-primary")
-  private BaseElementFacade    createButton;
+  private ElementFacade    createButton;
 
   @FindBy(xpath = "//*[@id='engagementCenterChallengeEndDatePicker']")
   private TextBoxElementFacade endDateField;
 
   @FindBy(xpath = "//*[@id='EngagementCenterChallengeDrawer']")
-  private BaseElementFacade    headerChallengeDrawer;
+  private ElementFacade    headerChallengeDrawer;
 
   @FindBy(xpath = "(//*[contains(@class, 'v-navigation-drawer--open')]//div[contains(@class, 'v-select__selections')]//input)[02]")
   private TextBoxElementFacade programField;
@@ -69,7 +69,7 @@ public class ChallengesPage extends GenericPage {
   private TextBoxElementFacade textualFilter;
 
   @FindBy(xpath="//*[@id='EngagementCenterApplication']")
-  public BaseElementFacade engagementCenterApplication ;
+  public ElementFacade engagementCenterApplication ;
 
   public ChallengesPage(WebDriver driver) {
     super(driver);
@@ -156,7 +156,7 @@ public class ChallengesPage extends GenericPage {
                                         String winnerPrefix,
                                         String challengeName,
                                         String announcementDescription) {
-    BaseElementFacade announcementActivityElement = getAnnouncementActivity(posterPrefix,
+    ElementFacade announcementActivityElement = getAnnouncementActivity(posterPrefix,
                                                                             winnerPrefix,
                                                                             challengeName,
                                                                             announcementDescription);
@@ -223,11 +223,11 @@ public class ChallengesPage extends GenericPage {
     challengeTitleField.setTextValue(challengeName);
   }
 
-  private BaseElementFacade getAchievementDescriptionOnAnnouncement(String description) {
+  private ElementFacade getAchievementDescriptionOnAnnouncement(String description) {
     return findByXPathOrCSS(String.format("//*[contains(@class,' postContent')]/*[contains(text(),'%s')]", description));
   }
 
-  private BaseElementFacade getAnnouncementActivity(String posterPrefix,
+  private ElementFacade getAnnouncementActivity(String posterPrefix,
                                                     String winnerPrefix,
                                                     String challengeName,
                                                     String announcementDescription) {
@@ -246,27 +246,27 @@ public class ChallengesPage extends GenericPage {
                                           announcementDescription));
   }
 
-  private BaseElementFacade getChallengeCardAnnounceButton(String title) {
+  private ElementFacade getChallengeCardAnnounceButton(String title) {
     return findByXPathOrCSS(String.format(CHALLENGE_CARD_TITLE_XPATH + CHALLENGE_CARD_ANNOUNCE_BUTTON_XPATH, title));
   }
 
-  private BaseElementFacade getChallengeCardDate(String title) {
+  private ElementFacade getChallengeCardDate(String title) {
     return findByXPathOrCSS(String.format(CHALLENGE_CARD_TITLE_XPATH + CHALLENGE_CARD_DATE_XPATH, title));
   }
 
-  private BaseElementFacade getChallengeCardThreeDots(String title) {
+  private ElementFacade getChallengeCardThreeDots(String title) {
     return findByXPathOrCSS(String.format(CHALLENGE_CARD_TITLE_XPATH + CHALLENGE_CARD_THREE_DOTS_XPATH, title));
   }
 
-  private BaseElementFacade getChallengeCardTitle(String title) {
+  private ElementFacade getChallengeCardTitle(String title) {
     return findByXPathOrCSS(String.format(CHALLENGE_CARD_TITLE_XPATH, title));
   }
 
-  private BaseElementFacade getChallengeSuccessMessage(String message) {
+  private ElementFacade getChallengeSuccessMessage(String message) {
     return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]", message));
   }
 
-  private BaseElementFacade getChallengeTitleOnAnnouncement(String name) {
+  private ElementFacade getChallengeTitleOnAnnouncement(String name) {
     return findByXPathOrCSS(String.format("//*[@class='caption text-wrap text-break rich-editor-content reset-style-box text-light-color text-truncate-3']/a[contains(text(),'%s')]",
                                           name));
   }
@@ -282,7 +282,7 @@ public class ChallengesPage extends GenericPage {
     endDateField.waitUntilVisible();
     endDateField.clickOnElement();
     waitFor(200).milliseconds();
-    BaseElementFacade endDateNextWeek =
+    ElementFacade endDateNextWeek =
                                       findByXPathOrCSS("//*[contains(@class,'menuable__content__active')]//*[contains(@class,'v-date-picker-table__current')]/following::td[7]");
     endDateNextWeek.waitUntilVisible();
     clickOnElement(endDateNextWeek);
@@ -294,7 +294,7 @@ public class ChallengesPage extends GenericPage {
     endDateField.waitUntilVisible();
     endDateField.clickOnElement();
     waitFor(200).milliseconds();
-    BaseElementFacade endDateTomorrow =
+    ElementFacade endDateTomorrow =
                                       findByXPathOrCSS("//*[contains(@class,'menuable__content__active')]//*[contains(@class,'v-date-picker-table__current')]/following::td[1]");
     endDateTomorrow.waitUntilVisible();
     clickOnElement(endDateTomorrow);
@@ -306,7 +306,7 @@ public class ChallengesPage extends GenericPage {
     startDateField.waitUntilVisible();
     startDateField.clickOnElement();
     waitFor(200).milliseconds();
-    BaseElementFacade startDateToday =
+    ElementFacade startDateToday =
                                      findByXPathOrCSS("//*[contains(@class,'menuable__content__active')]//*[contains(@class,'v-date-picker-table__current')]");
     startDateToday.waitUntilVisible();
     clickOnElement(startDateToday);
@@ -318,7 +318,7 @@ public class ChallengesPage extends GenericPage {
     startDateField.waitUntilVisible();
     startDateField.clickOnElement();
     waitFor(200).milliseconds();
-    BaseElementFacade startDateTomorrow =
+    ElementFacade startDateTomorrow =
                                         findByXPathOrCSS("//*[contains(@class,'menuable__content__active')]//*[contains(@class,'v-date-picker-table__current')]/following::td[1]");
     startDateTomorrow.waitUntilVisible();
     clickOnElement(startDateTomorrow);
@@ -344,11 +344,11 @@ public class ChallengesPage extends GenericPage {
     searchChallengeByTitle(challengeTitle);
   }
 
-  private BaseElementFacade getEngagementTab(String tab) {
+  private ElementFacade getEngagementTab(String tab) {
     return findByXPathOrCSS(String.format("//*[@id='engagementCenterTabs']//*[contains(text(),'%s')]", tab));
   }
 
-  private BaseElementFacade selectUser(String user)
+  private ElementFacade selectUser(String user)
   {
     return findByXPathOrCSS(String.format("//*[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]", user));
   }
