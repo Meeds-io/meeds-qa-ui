@@ -18,10 +18,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.meeds.qa.ui.elements.ElementFacade;
-import io.meeds.qa.ui.elements.ElementFacadeImpl;
 import io.meeds.qa.ui.elements.ButtonElementFacade;
 import io.meeds.qa.ui.elements.ButtonElementFacadeImpl;
+import io.meeds.qa.ui.elements.ElementFacade;
+import io.meeds.qa.ui.elements.ElementFacadeImpl;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacadeImpl;
 import io.meeds.qa.ui.elements.TextElementFacade;
@@ -73,12 +73,11 @@ public class BasePageImpl extends PageObject implements BasePage {
     element.clickOnElement();
   }
 
-  public void closeDrawerIfDisplayed() {
-    ElementFacade openedDrawerElement = findByXPathOrCSS(".v-navigation-drawer--open");
-    if (openedDrawerElement.isDisplayedNoWait()) {
-      findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
-      closeAlertIfOpened();
-      waitForDrawerToClose();
+  public void closeAlertIfOpened() {
+    try {
+      getDriver().switchTo().alert().accept();
+    } catch (NoAlertPresentException e) {
+      // Normal Behavior
     }
   }
 
@@ -91,17 +90,13 @@ public class BasePageImpl extends PageObject implements BasePage {
     }
   }
 
-  @Override
-  @SuppressWarnings("unchecked")
-  public ElementFacade findByXPathOrCSS(String xpathOrCSSSelector) {
-    WebElementFacade nestedElement = getWebElementFacadeByXPathOrCSS(xpathOrCSSSelector);
-
-    return ElementFacadeImpl.wrapWebElementFacade(getDriver(),
-                                                      nestedElement,
-                                                      null,
-                                                      xpathOrCSSSelector,
-                                                      getImplicitWaitTimeout().toMillis(),
-                                                      getWaitForTimeout().toMillis());
+  public void closeDrawerIfDisplayed() {
+    ElementFacade openedDrawerElement = findByXPathOrCSS(".v-navigation-drawer--open");
+    if (openedDrawerElement.isDisplayedNoWait()) {
+      findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
+      closeAlertIfOpened();
+      waitForDrawerToClose();
+    }
   }
 
   public ButtonElementFacade findButtonByXPathOrCSS(String xpath) {
@@ -115,6 +110,19 @@ public class BasePageImpl extends PageObject implements BasePage {
                                                                        xpath,
                                                                        getImplicitWaitTimeout().toMillis(),
                                                                        getWaitForTimeout().toMillis());
+  }
+
+  @Override
+  @SuppressWarnings("unchecked")
+  public ElementFacade findByXPathOrCSS(String xpathOrCSSSelector) {
+    WebElementFacade nestedElement = getWebElementFacadeByXPathOrCSS(xpathOrCSSSelector);
+
+    return ElementFacadeImpl.wrapWebElementFacade(getDriver(),
+                                                  nestedElement,
+                                                  null,
+                                                  xpathOrCSSSelector,
+                                                  getImplicitWaitTimeout().toMillis(),
+                                                  getWaitForTimeout().toMillis());
   }
 
   public TextBoxElementFacade findTextBoxByXPathOrCSS(String xpathOrCSSSelector) {
@@ -147,15 +155,6 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   public String getCurrentUrl() {
     return getDriver().getCurrentUrl();
-  }
-
-  /**********************************************************
-   * Methods for finding element facade in the page
-   **********************************************************/
-
-  private WebElementFacade getWebElementFacadeByXPathOrCSS(String xpath) {
-    verifyPageLoaded();
-    return findBy(xpath);
   }
 
   public boolean isNotVisible(String xpathOrCss) {
@@ -206,6 +205,31 @@ public class BasePageImpl extends PageObject implements BasePage {
     return element.isVisibleAfterWaiting();
   }
 
+  public boolean mentionInField(TextBoxElementFacade inputField, String user, int maxRetries) {
+    inputField.waitUntilVisible();
+    inputField.setTextValue(user + "x");
+    inputField.sendKeys(Keys.BACK_SPACE);
+
+    boolean visible = false;
+    int retry = 0;
+    Duration retryWaitTime = Duration.ofSeconds(1);
+    ElementFacade suggesterElement;
+    do {
+      inputField.sendKeys(Keys.BACK_SPACE);
+      waitFor(300).milliseconds();
+      waitSuggesterToLoad();
+      suggesterElement =
+                       findByXPathOrCSS(String.format("//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
+                                                      user.substring(0, user.length() - retry - 1)));
+      suggesterElement.setImplicitTimeout(retryWaitTime);
+      visible = suggesterElement.isVisibleAfterWaiting();
+    } while (!visible && retry++ < maxRetries);
+    if (visible) {
+      suggesterElement.clickOnElement();
+    }
+    return visible;
+  }
+
   public boolean mentionUserInCKEditor(ElementFacade ckEditorFrame,
                                        TextBoxElementFacade ckEditorBody,
                                        String content,
@@ -233,8 +257,8 @@ public class BasePageImpl extends PageObject implements BasePage {
         getDriver().switchTo().defaultContent();
         try {
           ElementFacade suggesterElement =
-                                             findByXPathOrCSS(String.format("//*[contains(@class, 'atwho-view')]//*[contains(text(), '%s')]",
-                                                                            user.substring(0, user.length() - retry - 1)));
+                                         findByXPathOrCSS(String.format("//*[contains(@class, 'atwho-view')]//*[contains(text(), '%s')]",
+                                                                        user.substring(0, user.length() - retry - 1)));
           suggesterElement.setImplicitTimeout(retryWaitTime);
           visible = suggesterElement.isVisibleAfterWaiting();
         } finally {
@@ -250,46 +274,12 @@ public class BasePageImpl extends PageObject implements BasePage {
     }
   }
 
-  public boolean mentionInField(TextBoxElementFacade inputField, String user, int maxRetries) {
-    inputField.waitUntilVisible();
-    inputField.setTextValue(user + "x");
-    inputField.sendKeys(Keys.BACK_SPACE);
-
-    boolean visible = false;
-    int retry = 0;
-    Duration retryWaitTime = Duration.ofSeconds(1);
-    ElementFacade suggesterElement;
-    do {
-      inputField.sendKeys(Keys.BACK_SPACE);
-      waitFor(300).milliseconds();
-      waitSuggesterToLoad();
-      suggesterElement =
-                       findByXPathOrCSS(String.format("//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
-                                                      user.substring(0, user.length() - retry - 1)));
-      suggesterElement.setImplicitTimeout(retryWaitTime);
-      visible = suggesterElement.isVisibleAfterWaiting();
-    } while (!visible && retry++ < maxRetries);
-    if (visible) {
-      suggesterElement.clickOnElement();
-    }
-    return visible;
-  }
-
   public void refreshPage() {
     getDriver().get(getCurrentUrl());
     closeAlertIfOpened();
     verifyPageLoaded();
   }
 
-  public void closeAlertIfOpened() {
-    try {
-      getDriver().switchTo().alert().accept();
-    } catch (NoAlertPresentException e) {
-      // Normal Behavior
-    }
-  }
-
-  @Override
   @WhenPageOpens
   public void verifyPageLoaded() {
     waitForPageLoaded();
@@ -369,6 +359,15 @@ public class BasePageImpl extends PageObject implements BasePage {
     } catch (Exception e) {
       ExceptionLauncher.LOGGER.debug("Can't wait for progress bar to finish loading", e);
     }
+  }
+
+  /**********************************************************
+   * Methods for finding element facade in the page
+   **********************************************************/
+
+  private WebElementFacade getWebElementFacadeByXPathOrCSS(String xpath) {
+    verifyPageLoaded();
+    return findBy(xpath);
   }
 
   private void waitSuggesterToLoad() {

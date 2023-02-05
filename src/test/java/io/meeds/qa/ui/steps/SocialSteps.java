@@ -1,41 +1,36 @@
 package io.meeds.qa.ui.steps;
 
-import io.meeds.qa.ui.pages.page.factory.Social.SocialPage;
+import io.meeds.qa.ui.pages.page.factory.space.SpaceHomePage;
 
 public class SocialSteps {
-  private SocialPage socialpage;
+  private SpaceHomePage spaceHomePage;
 
   public void cancelUpdateActivityComment(String comment) {
-    socialpage.cancelUpdateActivityComment(comment);
+    spaceHomePage.cancelUpdateActivityComment(comment);
   }
 
   public void checkSearchedUserWellMatched(String user) {
-    socialpage.checkSearchedUserWellMatched(user);
-  }
-
-  public void commentActivity(String activity) {
-    socialpage.CommentActivity(activity);
+    spaceHomePage.checkSearchedUserWellMatched(user);
   }
 
   public void editComment() {
-    socialpage.editComment();
+    spaceHomePage.editComment();
   }
 
   public void filterByMyConnections() {
 
-    socialpage.filterByMyConnections();
+    spaceHomePage.filterByMyConnections();
   }
 
   public void goToPeopleMenu() {
-    socialpage.GoToPeopleMenu();
-
+    spaceHomePage.goToPeopleMenu();
   }
 
   public void insertNameContact(String contact) {
-    socialpage.insertNameContact(contact);
+    spaceHomePage.insertNameContact(contact);
   }
 
   public void updateActivityComment(String comment) {
-    socialpage.updateActivityComment(comment);
+    spaceHomePage.updateActivityComment(comment);
   }
 }

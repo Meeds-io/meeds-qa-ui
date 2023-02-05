@@ -6,10 +6,10 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import org.apache.commons.lang3.StringUtils;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.java.en.And;
 import io.meeds.qa.ui.hook.TestHooks;
 import io.meeds.qa.ui.pages.page.factory.space.ManageSpacesPage;
 import io.meeds.qa.ui.steps.HomeSteps;
@@ -109,6 +109,21 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.checkDisplayOfTwentySpaces();
   }
 
+  @Then("The favorite icon should be displayed in space card")
+  public void checkFavIconInSpaceCard() {
+    manageSpaceSteps.checkFavIconInSpaceCard();
+  }
+
+  @Then("The favorite icon should be displayed in space popover from topbar")
+  public void checkFavIconInSpacePopoverFromTopbar() {
+    manageSpaceSteps.checkFavIconInSpacePopoverFromTopbar();
+  }
+
+  @Then("The favorite icon should be displayed on space details panel")
+  public void checkFavIconInThirdNavigationLevel() {
+    manageSpaceSteps.checkFavIconInThirdNavigationLevel();
+  }
+
   @When("The first created space is not displayed in Spaces Requests section")
   public void checkFirstRandomDisplaySpaceInvitation() {
     String randomSpaceName = sessionVariableCalled("randomSpaceName");
@@ -130,6 +145,11 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.checkNameSpaceSection();
   }
 
+  @Given("^'(.*)' option of the application '(.*)' is displayed$")
+  public void checkOptionFromApplicationMenuIsDisplayed(String option, String appName) {
+    manageSpaceSteps.checkOptionFromApplicationMenuIsDisplayed(appName, option);
+  }
+
   @Given("^I check that registration section is displayed$")
   public void checkRegistrationSection() {
     manageSpaceSteps.checkRegistrationSection();
@@ -146,9 +166,39 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.checkSpaceAppInstallerDrawerIsDisplayed();
   }
 
+  @When("I check that the random space is bookmarked as favorite from space card")
+  public void checkSpaceBookmarkedFromSpaceCard() {
+    manageSpaceSteps.checkSpaceBookmarkedFromSpaceCard();
+  }
+
+  @When("I check that the random space is bookmarked as favorite from topbar space popover")
+  public void checkSpaceBookmarkedFromTopbarSpacePopover() {
+    manageSpaceSteps.checkSpaceBookmarkedFromTopbarSpacePopover();
+  }
+
+  @When("I check that the random space is bookmarked as favorite from Third Navigation Level")
+  public void checkSpaceBookmarkThirdNavigationLevel() {
+    manageSpaceSteps.checkSpaceBookmarkThirdNavigationLevel();
+  }
+
   @Given("^I check that space template section is displayed$")
   public void checkSpaceTemplateSection() {
     manageSpaceSteps.checkSpaceTemplateSection();
+  }
+
+  @When("I check that the random space is unbookmarked from space card")
+  public void checkSpaceUnBookmarkFromSpaceCard() {
+    manageSpaceSteps.checkSpaceUnBookmarkFromSpaceCard();
+  }
+
+  @When("I check that the random space is unbookmarked from Third Navigation Level")
+  public void checkSpaceUnBookmarkFromThirdNavigationLevel() {
+    manageSpaceSteps.checkSpaceUnBookmarkFromThirdNavigationLevel();
+  }
+
+  @When("I check that the random space is unbookmarked from topbar space popover")
+  public void checkSpaceUnBookmarkFromTopbarSpacePopover() {
+    manageSpaceSteps.checkSpaceUnBookmarkFromTopbarSpacePopover();
   }
 
   @Given("^I check that application '(.*)' is added to applications page$")
@@ -219,11 +269,6 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.checkUpdateButton();
   }
 
-  @Given("^I click on three dots icon of '(.*)' application$")
-  public void clickOnThreedotsAppCard(String appName) {
-    manageSpaceSteps.clickOnThreeDotsAppCard(appName);
-  }
-
   @Given("^I click on arrow icon of application space settings$")
   public void clickOnArrowIconAppSpaceSettings() {
     manageSpaceSteps.clickOnArrowIconAppSpaceSettings();
@@ -239,9 +284,37 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.clickOnPlusButton();
   }
 
+  @Then("I bookmark the random space as favorite from space card")
+  @When("I unfavorite the random space from space card")
+  public void clickOnSpaceBookmarkIconFromSpaceCard() {
+    manageSpaceSteps.clickOnSpaceBookmarkIconFromSpaceCard();
+  }
+
+  @Then("I bookmark the random space as favorite from Third Navigation Level")
+  @When("I unfavorite the random space from Third Navigation Level")
+  public void clickOnSpaceBookmarkIconFromThirdNavigationLevel() {
+    manageSpaceSteps.clickOnSpaceBookmarkIconFromThirdNavigationLevel();
+  }
+
+  @Then("I bookmark the random space as favorite from topbar space popover")
+  @When("I unfavorite the random space from topbar space popover")
+  public void clickOnSpaceBookmarkIconFromTopbarSpacePopover() {
+    manageSpaceSteps.clickOnSpaceBookmarkIconFromTopbarSpacePopover();
+  }
+
+  @Given("^I click on three dots icon of '(.*)' application$")
+  public void clickOnThreedotsAppCard(String appName) {
+    manageSpaceSteps.clickOnThreeDotsAppCard(appName);
+  }
+
   @Given("^I click to add application '(.*)'$")
   public void clickToAddApp(String application) {
     manageSpaceSteps.clickToAddApp(application);
+  }
+
+  @And("^I confirm to remove the application$")
+  public void confirmRemoveApplication() {
+    manageSpaceSteps.confirmRemoveApplication();
   }
 
   @Given("^The First space was deleted successfully$")
@@ -295,6 +368,11 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.goToTasksTab();
   }
 
+  @When("^I hover on space name from top bar$")
+  public void hoverOnSpaceName() {
+    manageSpaceSteps.hoverOnSpaceName();
+  }
+
   @Given("^Space banner is changed successfully$")
   public void isSpaceBannerUpdated() {
     manageSpaceSteps.isSpaceBannerUpdated();
@@ -322,9 +400,9 @@ public class ManageSpaceStepDefinitions {
     homeSteps.rejectRandomSpaceInvitation(randomSpaceName);
   }
 
-  @Given("^'(.*)' option of the application '(.*)' is displayed$")
-  public void checkOptionFromApplicationMenuIsDisplayed(String option , String appName) {
-    manageSpaceSteps.checkOptionFromApplicationMenuIsDisplayed(appName, option);
+  @And("^I click on '(.*)' option from application '(.*)' menu$")
+  public void removeApplication(String option, String appName) {
+    manageSpaceSteps.clickOptionApplicationCard(appName, option);
   }
 
   @Given("^I search the space '(.*)'$")
@@ -346,6 +424,12 @@ public class ManageSpaceStepDefinitions {
   @Given("^I '(.*)'$")
   public void sendRequestToJoin(String action) {
     manageSpaceSteps.clickSpaceAction(action);
+  }
+
+  @When("^I search for the random space$")
+  public void setInSearchRandomSpaceField() {
+    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
+    manageSpaceSteps.searchSpace(randomSpaceName);
   }
 
   @Given("^I click on Show more button$")
@@ -371,89 +455,5 @@ public class ManageSpaceStepDefinitions {
   @Given("^I upload the Space banner '(.*)'$")
   public void uploadSpaceBanner(String fileName) {
     manageSpaceSteps.uploadSpaceBanner(fileName);
-  }
-
-  @And("^I confirm to remove the application$")
-  public void confirmRemoveApplication() {
-    manageSpaceSteps.confirmRemoveApplication();
-  }
-
-  @And("^I click on '(.*)' option from application '(.*)' menu$")
-  public void removeApplication(String option, String appName) {
-    manageSpaceSteps.clickOptionApplicationCard(appName, option);
-  }
-
-  @When("^I search for the random space$")
-  public void setInSearchRandomSpaceField() {
-    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
-    manageSpaceSteps.searchSpace(randomSpaceName);
-  }
-
-  @Then("The favorite icon should be displayed in space card")
-  public void checkFavIconInSpaceCard() {
-    manageSpaceSteps.checkFavIconInSpaceCard();
-  }
-
-  @Then("The favorite icon should be displayed in space popover from topbar")
-  public void checkFavIconInSpacePopoverFromTopbar() {
-    manageSpaceSteps.checkFavIconInSpacePopoverFromTopbar();
-  }
-
-  @Then("The favorite icon should be displayed on space details panel")
-  public void checkFavIconInThirdNavigationLevel() {
-    manageSpaceSteps.checkFavIconInThirdNavigationLevel();
-  }
-
-  @Then("I bookmark the random space as favorite from space card")
-  @When("I unfavorite the random space from space card")
-  public void clickOnSpaceBookmarkIconFromSpaceCard() {
-    manageSpaceSteps.clickOnSpaceBookmarkIconFromSpaceCard();
-  }
-
-  @Then("I bookmark the random space as favorite from topbar space popover")
-  @When("I unfavorite the random space from topbar space popover")
-  public void clickOnSpaceBookmarkIconFromTopbarSpacePopover() {
-    manageSpaceSteps.clickOnSpaceBookmarkIconFromTopbarSpacePopover();
-  }
-
-  @Then("I bookmark the random space as favorite from Third Navigation Level")
-  @When("I unfavorite the random space from Third Navigation Level")
-  public void clickOnSpaceBookmarkIconFromThirdNavigationLevel() {
-    manageSpaceSteps.clickOnSpaceBookmarkIconFromThirdNavigationLevel();
-  }
-
-  @When("I check that the random space is bookmarked as favorite from space card")
-  public void checkSpaceBookmarkedFromSpaceCard() {
-    manageSpaceSteps.checkSpaceBookmarkedFromSpaceCard();
-  }
-
-  @When("I check that the random space is bookmarked as favorite from topbar space popover")
-  public void checkSpaceBookmarkedFromTopbarSpacePopover() {
-    manageSpaceSteps.checkSpaceBookmarkedFromTopbarSpacePopover();
-  }
-
-  @When("I check that the random space is bookmarked as favorite from Third Navigation Level")
-  public void checkSpaceBookmarkThirdNavigationLevel() {
-    manageSpaceSteps.checkSpaceBookmarkThirdNavigationLevel();
-  }
-
-  @When("I check that the random space is unbookmarked from space card")
-  public void checkSpaceUnBookmarkFromSpaceCard() {
-    manageSpaceSteps.checkSpaceUnBookmarkFromSpaceCard();
-  }
-
-  @When("I check that the random space is unbookmarked from topbar space popover")
-  public void checkSpaceUnBookmarkFromTopbarSpacePopover() {
-    manageSpaceSteps.checkSpaceUnBookmarkFromTopbarSpacePopover();
-  }
-
-  @When("I check that the random space is unbookmarked from Third Navigation Level")
-  public void checkSpaceUnBookmarkFromThirdNavigationLevel() {
-    manageSpaceSteps.checkSpaceUnBookmarkFromThirdNavigationLevel();
-  }
-
-  @When("^I hover on space name from top bar$")
-  public void hoverOnSpaceName() {
-    manageSpaceSteps.hoverOnSpaceName();
   }
 }

@@ -9,10 +9,10 @@ import net.thucydides.core.annotations.Steps;
 public class AddGroupsStepDefinition {
 
   @Steps
-  AddGroupsSteps addGroupsSteps;
+  private AddGroupsSteps addGroupsSteps;
 
   @Steps
-  HomeSteps      homeSteps;
+  private HomeSteps      homeSteps;
 
   @Given("^I add the role '(.*)' to the dedicated user to be an administrator$")
   public void addAdminUserInGroup(String role) {

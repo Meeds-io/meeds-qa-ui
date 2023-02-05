@@ -11,33 +11,6 @@ Feature: Search for User Informations in Profile page
     Then User Cover is displayed in Profile Page
     And User Avatar is displayed in Profile Page
 
-  @ignored
-  Scenario: PROFILE-2 User avatar and cover block_(01)
-    Given I am authenticated as admin
-
-    When I go to My Profile page
-
-    Then User Cover is displayed in Profile Page
-    And User Avatar is displayed in Profile Page
-    And User Fullname 'Admin User' is displayed in Profile Page
-    And User Job '' is displayed in Profile Page
-
-  @ignored
-  Scenario: PROFILE-2 User avatar and cover block_(02)
-    Given I am authenticated as admin
-
-    When I go to My Profile page
-
-    Then Profile Contact Fullname 'Your contact informations' is displayed in 'Admin User'
-    And Profile Contact Email 'admin@localhost.com' is displayed
-
-    When I create the first random user if not existing, no wait
-    And I connect with the first created user
-    And I go to My Profile page
-
-    Then User Job '' is displayed in Profile Page
-
-
   Scenario: PROFILE-4 Contact information block_(01) : Add informations
     Given I am authenticated as admin
 
@@ -49,7 +22,6 @@ Feature: Search for User Informations in Profile page
     Then In 'Your contact informations', Updated profile Contact Fullname is displayed
     And Updated Profile Contact Email is displayed
     And Updated Profile Contact Job is displayed
-
 
   Scenario: PROFILE-4 Contact information block_(02) : Add informations
     Given I am authenticated as admin
@@ -135,15 +107,3 @@ Feature: Search for User Informations in Profile page
 
     And I remove my profile work experiences 'QA Engineer'
     And I remove my profile work experiences 'IT Engineer Developer'
-
-  @ignored
-  Scenario: : PROFILE-9 : Achievement Drawer in Points
-    Given I connect as admin if random users doesn't exists
-      | first  |
-    And I create the first random user if not existing, no wait
-    When I connect with the first created user
-    And I go to Stream page
-    And I open Weekly Points Chart
-    Then The weekly point chart is displayed
-    When I open achievement tab
-    Then The achievements drawer is displayed

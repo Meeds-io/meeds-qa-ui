@@ -92,23 +92,6 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.cancelDeleteComment();
   }
 
-  @When("^the activity '(.*)' is displayed in activity stream$")
-  @Then("^the activity '(.*)' is displayed in stream page$")
-  @And("^The Poll '(.*)' is displayed in stream page$")
-  public void checkActivityVisible(String activity) {
-    spaceHomeSteps.checkActivityVisible(activity);
-  }
-
-  @Then("^The activity '(.*)' is pinned in space stream$")
-  public void checkActivityPinned(String activity) {
-    spaceHomeSteps.checkActivityPinned(activity);
-  }
-
-  @Then("^The activity '(.*)' should be not pinned in space stream$")
-  public void pinnedActivityDisappears(String activity) {
-    spaceHomeSteps.pinnedActivityDisappears(activity);
-  }
-
   @Then("^Activity Comment '(.*)' is displayed in activity stream$")
   public void checkActivityComment(String comment) {
     spaceHomeSteps.checkActivityComment(comment);
@@ -131,14 +114,26 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.checkActivityNotVisible(activity);
   }
 
+  @Then("^The activity '(.*)' is pinned in space stream$")
+  public void checkActivityPinned(String activity) {
+    spaceHomeSteps.checkActivityPinned(activity);
+  }
+
   @Then("^The activity page is opened '(.*)'$")
   public void checkActivityTitle(String activity) {
     spaceHomeSteps.checkActivityTitle(activity);
   }
 
-  @Then("^Comment '(.*)' is displayed in comments drawer at the sixth position$")
-  public void checkCommentInDrawerSixthPosition(String comment) {
-    spaceHomeSteps.checkSixthPositionInDrawer(comment);
+  @When("^the activity '(.*)' is displayed in activity stream$")
+  @Then("^the activity '(.*)' is displayed in stream page$")
+  @And("^The Poll '(.*)' is displayed in stream page$")
+  public void checkActivityVisible(String activity) {
+    spaceHomeSteps.checkActivityVisible(activity);
+  }
+
+  @Then("^Comment is displayed in comments drawer at the sixth position$")
+  public void checkCommentInDrawerSixthPosition() {
+    spaceHomeSteps.checkSixthPositionInDrawer();
   }
 
   @When("^In activity '(.*)' with comment '(.*)', the reply '(.*)' is displayed$")
@@ -181,9 +176,9 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.checkFourCommentIsDisplayedInDrawer();
   }
 
-  @Then("^Fourth comment '(.*)' is displayed in comments drawer$")
-  public void checkFourthCommentInDrawer(String comment) {
-    spaceHomeSteps.checkFourthCommentInDrawer(comment);
+  @Then("^Fourth comment is displayed in comments drawer$")
+  public void checkFourthCommentInDrawer() {
+    spaceHomeSteps.checkFourthCommentInDrawer();
   }
 
   @Then("^Internal link '(.*)' is displayed in activity stream as a comment$")
@@ -203,14 +198,20 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.checkLinkPreviewVisible();
   }
 
-  @Then("^Second comment '(.*)' is displayed in activity stream$")
-  public void checkSecondActivityComment(String comment) {
-    spaceHomeSteps.checkSecondActivityComment(comment);
+  @Then("^The (.*) user is displayed in activity likers drawer$")
+  public void checkReactionsDrawerDisplay(String userPrefix) {
+    String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
+    spaceHomeSteps.checkUserDisplayedInReactionsDrawer(userLastName);
   }
 
-  @Then("^Second comment '(.*)' is displayed in comments drawer$")
-  public void checkSecondCommentInDrawer(String comment) {
-    spaceHomeSteps.checkSecondCommentInDrawer(comment);
+  @Then("^Second comment is displayed in activity stream$")
+  public void checkSecondActivityComment() {
+    spaceHomeSteps.checkSecondActivityComment();
+  }
+
+  @Then("^Second comment is displayed in comments drawer$")
+  public void checkSecondCommentInDrawer() {
+    spaceHomeSteps.checkSecondCommentInDrawer();
   }
 
   @Then("Check Ten comment is displayed in comments drawer")
@@ -218,9 +219,9 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.checkTenCommentIsDisplayedInDrawer();
   }
 
-  @Then("^Third comment '(.*)' is displayed in comments drawer$")
-  public void checkThirdCommentInDrawer(String comment) {
-    spaceHomeSteps.checkThirdCommentInDrawer(comment);
+  @Then("^Third comment is displayed in comments drawer$")
+  public void checkThirdCommentInDrawer() {
+    spaceHomeSteps.checkThirdCommentInDrawer();
   }
 
   @When("^I click on Create Poll$")
@@ -236,16 +237,6 @@ public class SpaceHomeStepDefinition {
   @When("^I click on Delete button related to activity '(.*)'$")
   public void clickDeleteActivityButton(String activity) {
     spaceHomeSteps.clickDeleteActivityButton(activity);
-  }
-
-  @When("^I click on Pin button related to activity '(.*)'$")
-  public void clickPinActivityButton(String activity) {
-    spaceHomeSteps.clickPinActivityButton(activity);
-  }
-
-  @When("^I click to the Unpin button related to activity '(.*)'$")
-  public void clickUnpinActivityButton(String activity) {
-    spaceHomeSteps.clickUnpinActivityButton(activity);
   }
 
   @When("^I click on comment '(.*)'$")
@@ -349,9 +340,19 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.clickOnViewallXcomments();
   }
 
+  @When("^I click on Pin button related to activity '(.*)'$")
+  public void clickPinActivityButton(String activity) {
+    spaceHomeSteps.clickPinActivityButton(activity);
+  }
+
   @When("I click on post in space")
   public void clickPostIcon() {
     spaceHomeSteps.clickPostIcon();
+  }
+
+  @When("^I click to the Unpin button related to activity '(.*)'$")
+  public void clickUnpinActivityButton(String activity) {
+    spaceHomeSteps.clickUnpinActivityButton(activity);
   }
 
   @Then("^'(.*)' among them '(.*)' are displayed in Comments drawer$")
@@ -410,16 +411,6 @@ public class SpaceHomeStepDefinition {
   @When("^Delete button related to activity '(.*)' is displayed$")
   public void deleteActivityButtonIsDisplayed(String activity) {
     spaceHomeSteps.deleteActivityButtonIsDisplayed(activity);
-  }
-
-  @When("^Pin button related to activity '(.*)' is displayed$")
-  public void pinActivityButtonIsDisplayed(String activity) {
-    spaceHomeSteps.pinActivityButtonIsDisplayed(activity);
-  }
-
-  @When("^Unpin button related to activity '(.*)' is displayed$")
-  public void unPinActivityButtonIsDisplayed(String activity) {
-    spaceHomeSteps.unPinActivityButtonIsDisplayed(activity);
   }
 
   @When("^In comment '(.*)', I click on delete button$")
@@ -507,6 +498,11 @@ public class SpaceHomeStepDefinition {
   @Then("^I go to '(.*)' tab$")
   public void goToTab(String tabName) {
     spaceHomeSteps.goToSpecificTab(tabName);
+  }
+
+  @When("^I open user profile of (.*) user from activity likers drawer$")
+  public void goToUserProfileFromLikersDrawer(String prefix) {
+    spaceHomeSteps.goToUserProfileFromLikersDrawer(prefix);
   }
 
   @When("^In comment '(.*)', I hover on Like icon$")
@@ -637,6 +633,11 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.normalLinkPreviewIsVisible(link);
   }
 
+  @When("^I click on likers number of the activity '(.*)'$")
+  public void openActivityReactionsDrawer(String activity) {
+    spaceHomeSteps.openActivityReactionsDrawer(activity);
+  }
+
   @When("^I open in activity '(.*)' the Comments drawer$")
   public void openCommentsDrawer(String activity) {
     spaceHomePage.openCommentsDrawer(activity);
@@ -678,6 +679,16 @@ public class SpaceHomeStepDefinition {
   @When("^I click on three dots button related to activity '(.*)'$")
   public void openThreeDotsActivityMenu(String activity) {
     spaceHomeSteps.openThreeDotsActivityMenu(activity);
+  }
+
+  @When("^Pin button related to activity '(.*)' is displayed$")
+  public void pinActivityButtonIsDisplayed(String activity) {
+    spaceHomeSteps.pinActivityButtonIsDisplayed(activity);
+  }
+
+  @Then("^The activity '(.*)' should be not pinned in space stream$")
+  public void pinnedActivityDisappears(String activity) {
+    spaceHomeSteps.pinnedActivityDisappears(activity);
   }
 
   @When("^Create Poll Button is Enabled$")
@@ -768,6 +779,11 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.replykudosLabelIsBlue(comment);
   }
 
+  @When("^I select '(.*)' from the filter proposed$")
+  public void selectPinnedActivity(String filter) {
+    spaceHomeSteps.selectPinnedActivity(filter);
+  }
+
   @When("^Tooltip Like on '(.*)' is displayed in activity stream$")
   @And("^Tooltip Remove Like on '(.*)' is displayed in activity stream$")
   public void tooltipActivityStreamIsDisplayed(String comment) {
@@ -778,6 +794,11 @@ public class SpaceHomeStepDefinition {
   @And("^Tooltip Remove Like on '(.*)' is displayed in comments drawer$")
   public void tooltipCommentsDrawerIsDisplayed(String comment) {
     spaceHomeSteps.tooltipCommentsDrawerIsDisplayed(comment);
+  }
+
+  @When("^Unpin button related to activity '(.*)' is displayed$")
+  public void unPinActivityButtonIsDisplayed(String activity) {
+    spaceHomeSteps.unPinActivityButtonIsDisplayed(activity);
   }
 
   @When("^I click on update comment$")
@@ -798,26 +819,5 @@ public class SpaceHomeStepDefinition {
   @Then("^I click on View All replies related to the comment '(.*)'$")
   public void viewAllRepliesInCommentsDrawer(String comment) {
     spaceHomeSteps.viewAllRepliesInCommentsDrawer(comment);
-  }
-
-  @When("^I click on likers number of the activity '(.*)'$")
-  public void openActivityReactionsDrawer(String activity) {
-    spaceHomeSteps.openActivityReactionsDrawer(activity);
-  }
-
-  @Then("^The (.*) user is displayed in activity likers drawer$")
-  public void checkReactionsDrawerDisplay(String userPrefix) {
-    String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
-    spaceHomeSteps.checkUserDisplayedInReactionsDrawer(userLastName);
-  }
-
-  @When("^I open user profile of (.*) user from activity likers drawer$")
-  public void goToUserProfileFromLikersDrawer(String prefix) {
-    spaceHomeSteps.goToUserProfileFromLikersDrawer(prefix);
-  }
-
-  @When("^I select '(.*)' from the filter proposed$")
-  public void selectPinnedActivity(String filter) {
-    spaceHomeSteps.selectPinnedActivity(filter);
   }
 }

@@ -13,542 +13,120 @@ import org.openqa.selenium.interactions.Actions;
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class TasksPage extends GenericPage {
-
-  @FindBy(xpath = "//*[@class='v-label theme--light'and text()='Assignee']")
-  private static ElementFacade assigneeRadioButton;
-
-  @FindBy(xpath = "//*[contains(@class,'filterTasksDrawer ')]//*[contains(@class,'v-tab--active') and @aria-selected='true']")
-  private ElementFacade        activeTabFilterDrawer;
-
-  @FindBy(xpath = "//div[@id='attachmentIntegration']//button[contains(@class,'v-btn v-btn--flat')]")
-  private ElementFacade        addAttachmentLink;
-
-  @FindBy(xpath = "//*[@class='editManager']//*[@class='editManager']//i[contains(@class,'uiIconProject')]")
-  private TextBoxElementFacade     addManagerBtn;
-
-  @FindBy(xpath = "//*[@class='ViewAllCommentText']")
-  private ElementFacade        addNewCommentInTask;
-
-  @FindBy(xpath = "//button[contains(@class,'addCommentBtn')]")
-  private ElementFacade        addOtherCommentInTask;
-
-  @FindBy(xpath = "//*[@class='editParticipant']//i[@class='fas fa-plus']")
-  private TextBoxElementFacade     addParticipantBtn;
-
-  @FindBy(xpath = "//*[contains(@class, 'tasksToolbar')]//button[contains(@class, 'btn-primary')]")
-  private ElementFacade        addProjectOrTask;
-
-  @FindBy(xpath = "(//*[contains(@class,'uiIcon uiIconRotateRight')])[2]")
-  private ElementFacade        addStatusafteroption;
-
-  @FindBy(xpath = "(//*[contains(@class,'uiIconRotateLeft')])[1]")
-  private ElementFacade        addStatusBeforeoption;
-
-  @FindBy(css = ".tasksViewBoardRowContainer .tasksViewHeader .uiIconSocSimplePlus")
-  private ElementFacade        addTaskInProjectButton;
-
-  @FindBy(xpath = "//*[contains(text(),'Task successfully marked as archived')]")
-  private TextBoxElementFacade     alertMessageAfterMarkTaskAsCompleted;
-
-  @FindBy(
-      xpath = "//*[@class='v-alert v-sheet theme--dark success']//*[@class='v-alert__content' and contains(text(),'Project successfully cloned')]"
-  )
-  private TextBoxElementFacade     alertMessageAfterProjectClone;
-
-  @FindBy(
-      xpath = "//*[@class='v-alert v-sheet theme--dark success']//*[@class='v-alert__content' and contains(text(),'Project successfully created')]"
-  )
-  private TextBoxElementFacade     alertMessageAfterProjectCreation;
-
-  @FindBy(
-      xpath = "//*[@class='v-alert v-sheet theme--dark success']//*[@class='v-alert__content' and contains(text(),'Project successfully deleted')]"
-  )
-  private TextBoxElementFacade     alertMessageAfterProjectDeletion;
-
-  @FindBy(
-      xpath = "//*[@class='v-alert v-sheet theme--dark success']//*[@class='v-alert__content' and contains(text(),'Project successfully updated')]"
-  )
-  private TextBoxElementFacade     alertMessageAfterProjectUpdate;
-
-  @FindBy(
-      xpath = "//*[@class='v-alert v-sheet theme--dark success']//*[@class='v-alert__content' and contains(text(),'Status successfully deleted')]"
-  )
-  private TextBoxElementFacade     alertMessageAfterStatusDeletion;
-
-  @FindBy(
-      xpath = "//*[@class='v-alert v-sheet theme--dark success']//*[@class='v-alert__content' and contains(text(),'Status successfully moved')]"
-  )
-  private TextBoxElementFacade     alertMessageAfterStatusMoved;
-
-  @FindBy(xpath = "//*[@class='uiIcon uiBackIcon']")
-  private ElementFacade        arrowBackButton;
-
-  @FindBy(xpath = "//*[@class='uiIcon uiBackIcon']")
-  private ElementFacade        backButtonProject;
-
-  @FindBy(xpath = "//*[@class='uiIcon uiArrowBAckIcon']")
-  private ElementFacade        backDrawer;
-
-  @FindBy(xpath = "//*[contains(@class,'filterSortTasksDrawer')]//following::*[contains(text(),'Cancel')][1]")
-  private ElementFacade        cancelFilterButton;
-
-  @FindBy(xpath = "//a[@title='Change location']")
-  private ElementFacade        changeLocationLink;
-
-  @FindBy(xpath = "//*[@class='ps-2' and text()='Changes']")
-  private ElementFacade        checkChangesDrawer;
-
-  @FindBy(xpath = "//*[contains(text(),'Edit task')]")
-  private ElementFacade        checkEditTaskDrawer;
-
-  @FindBy(xpath = "//*[@class='cke_wysiwyg_frame cke_reset']")
-  private ElementFacade        ckEditorFrameDescription;
-
-  @FindBy(xpath = "//iframe[contains(@class,'cke_wysiwyg_frame')]")
-  private ElementFacade        ckEditorFrameTask;
-
-  @FindBy(xpath = "(//iframe[contains(@class,'cke_wysiwyg_frame')])[2]")
-  private ElementFacade        ckEditorFrameTaskMentioningUser;
-
-  @FindBy(xpath = "//*[@id='ProjectListToolbar']//button[contains(@class,' mdi-close theme')]")
-  private TextBoxElementFacade     clearButtonInFilterByProject;
-
-  @FindBy(xpath = "//*[@id='TasksListToolbar']//button[contains(@class,' mdi-close theme')]")
-  private TextBoxElementFacade     clearButtonInFilterByTask;
-
-  @FindBy(xpath = "//*[contains (@class, 'uiIconCloneNode')]")
-  private ElementFacade        cloneoption;
-
-  @FindBy(xpath = "//*[contains(@class,'uiIconCloneNode ')]")
-  private ElementFacade        cloneProjectButton;
-
-  @FindBy(xpath = "//*[contains(@class,'projectColorPicker')]")
-  private ElementFacade        colorPalette;
-
-  @FindBy(xpath = "//*[contains(@class,'v-list-item__content drawerTitle')]//span[contains(text(),'Comments')]")
-  private ElementFacade        commentsDrawerSection;
-
-  @FindBy(xpath = "//*[contains(@class,'newCommentEditor')]//button")
-  private ElementFacade        commentTaskButton;
-
-  @FindBy(xpath = "//body[contains(@class,'cke_editable_themed') and contains(text(),\"Please don't exceed 1250 characters\")]")
-  private TextBoxElementFacade     commentTaskMaxCharsMsg;
-
-  @FindBy(xpath = "//*[@class='ignore-vuetify-classes btn btn-primary me-2']")
-  private ElementFacade        confirmationPopupCloneButton;
-
-  @FindBy(xpath = "//*[@class='ignore-vuetify-classes btn btn-primary me-2']")
-  private ElementFacade        confirmationPopupDeleteButton;
-
-  @FindBy(xpath = "//*[@class='btn btn-primary v-btn v-btn--contained theme--light v-size--default']")
-  private ElementFacade        confirmButtonDrawer;
-
-  @FindBy(xpath = "//*[contains(@class,'filterSortTasksDrawer')]//following::*[contains(text(),'Confirm')]")
-  private ElementFacade        confirmFilterButton;
-
-  @FindBy(xpath = "//*[contains(@class,'uiIconTrash ')]")
-  private ElementFacade        deleteProjectButton;
-
-  @FindBy(xpath = "//*[contains(@class,'uiIconDelete')]")
-  private ElementFacade        deleteStatusIcon;
-
-  @FindBy(xpath = "//*[contains(@class,'uiIconTrash ')]")
-  private ElementFacade        deleteTaskOption;
-
-  @FindBy(xpath = "//*[contains(@class ,'flex document-timeline-header ')]//button[contains(@class,'v-btn v-btn--flat')]")
-  private ElementFacade        documentButton;
-
-  @FindBy(xpath = "//span[contains(text(),'Select Folder')]")
-  private ElementFacade        drawerTitle;
-
-  @FindBy(xpath = "//i[contains(@class,'uiIconEcmsOnlyOfficeOpen ')]")
-  private ElementFacade        editIcon;
-
-  @FindBy(xpath = "//*[contains(@class,'uiIconEdit ')]")
-  private ElementFacade        editProjectButton;
-
-  @FindBy(xpath = "//*[contains(@class,'drawerTitle') and contains(text(),'Edit Project')]")
-  private TextBoxElementFacade     editProjectDrawer;
-
-  @FindBy(xpath = "//*[@class='drawerTitleAndProject d-flex']//span[contains(text(),'Edit task')]")
-  private ElementFacade        editTaskDrawerSection;
-
-  @FindBy(xpath = "//*[@id='task-Drawer']//*[@id='task-name']")
-  private ElementFacade        ELEMENT_DRAWER_TASK_NAME;
-
-  @FindBy(xpath = "(//*[contains(@id,'DatePicker')])[2]//input")
-  private TextBoxElementFacade     ELEMENT_TASK_DUE_DATE;
-
-  @FindBy(
-      xpath = "((//div[@class='v-picker__actions v-card__actions']//div[contains(@class,'d-flex flex-wrap')])[02]//button)[03]"
-  )
-  private TextBoxElementFacade     ELEMENT_TASK_DUE_DATE_NEXT_WEEK;
-
-  @FindBy(xpath = "(//*[contains(@class,'v-date-picker-table__current')])[2]")
-  private TextBoxElementFacade     ELEMENT_TASK_DUE_DATE_TODAY;
-
-  @FindBy(xpath = "(//*[contains(@class,'v-date-picker-table__current')])[2]/following::td[1]")
-  private TextBoxElementFacade     ELEMENT_TASK_DUE_DATE_TOMORROW;
-
-  @FindBy(xpath = "(//*[contains(@id,'DatePicker')])[1]//input")
-  private TextBoxElementFacade     ELEMENT_TASK_START_DATE;
-
-  @FindBy(xpath = "(//*[contains(@class,'v-date-picker-table__current')])[1]")
-  private TextBoxElementFacade     ELEMENT_TASK_START_DATE_TODAY;
-
-  @FindBy(xpath = "(//*[contains(@class,'v-date-picker-table__current')])[1]/following::td[1]")
-  private TextBoxElementFacade     ELEMENT_TASK_START_DATE_TOMORROW;
-
-  @FindBy(xpath = "(//*[@class='d-flex tasksViewHeaderLeft']/following::*[contains(@class,'uiIconVerticalDots')][1])[5]")
-  private ElementFacade        fifthColumnThreeDotsIcon;
-
-  @FindBy(xpath = "//button[contains(@class,'filterTasksSetting v-btn')]")
-  private ElementFacade        filterButton;
-
-  @FindBy(xpath = "//input[@placeholder='Filter by project']")
-  private TextBoxElementFacade     filterByProject;
-
-  @FindBy(xpath = "//input[@placeholder='Filter by task']")
-  private TextBoxElementFacade     filterByTask;
-
-  @FindBy(xpath = "//button[contains(@class,'filterTasksSetting')]//span[contains(@class,'d-sm-inline')]")
-  private ElementFacade        filterDrawerButton;
-
-  @FindBy(xpath = "//*[contains(@class,'filterTasksDrawer ')]//*[contains(@class,'v-tab') and contains(text(),'Filter')]")
-  private ElementFacade        filterTab;
-
-  @FindBy(xpath = "(//*[contains(@class,'drawerContent')]//*[@class='contentSmall'])[1]")
-  private ElementFacade        firstNotificationContent;
-
-  @FindBy(xpath = "(//*[contains(@id,'task-board')]//*[contains(@class,'statusName')])[1]")
-  private ElementFacade        firstStatusColumn;
-
-  @FindBy(xpath = "//div[@class='drawerTitle']/button[@type='button']")
-  private ElementFacade        goBackIcon;
-
-  @FindBy(xpath = "//*[contains(@class,'filterTasksDrawer ')]//*[contains(@class,'v-tab') and contains(text(),'Group and Sort')]")
-  private ElementFacade        groupAndSortTab;
-
-  @FindBy(xpath = "//*[@class='uiIconMessageLength']")
-  private ElementFacade        informationIcon;
-
-  @FindBy(xpath = "//*[@class='editManager']//input[@content-class='identitySuggesterContent']")
-  private TextBoxElementFacade     inviteProjectManagerInput;
-
-  @FindBy(xpath = "//*[@class='editParticipant']//input[@content-class='identitySuggesterContent']")
-  private TextBoxElementFacade     inviteProjectParticipantInput;
-
-  @FindBy(xpath = "//*[contains(@class,'filterTasksDrawer ')]//*[contains(@class,'v-tab') and contains(text(),'Labels')]")
-  private ElementFacade        labelsTab;
-
-  @FindBy(xpath = "//*[@id='labelInput']")
-  private TextBoxElementFacade     labelTask;
-
-  @FindBy(xpath = "(//*[@class='d-flex tasksViewHeaderLeft']/following::*[contains(@class,'uiIconVerticalDots')][1])[4]")
-  private ElementFacade        lastColumnThreeDotsIcon;
-
-  @FindBy(xpath = "(//*[contains(@id,'task-board')]//*[contains(@class,'statusName')])[4]")
-  private ElementFacade        lastStatusColumn;
-
-  @FindBy(xpath = "//*[@class='tasksListItem']//*[@class='taskCheckBox']")
-  private ElementFacade        markTaskCompleted;
-
-  @FindBy(xpath = "//button[@id='check_btn']")
-  private ElementFacade        markTaskCompletedInDrawer;
-
-  @FindBy(xpath = "//*[contains(@class,'taskViewCard')]//*[@class='taskCheckBox']")
-  private ElementFacade        markTaskCompletedOnTaskCard;
-
-  @FindBy(xpath = "//*[@class='activityCharsCount' and contains(text(),'0 / 1250')]")
-  private ElementFacade        maxCharsCountInfo;
-
-  @FindBy(xpath = "//*[@class='activityCharsCount tooManyChars']")
-  private ElementFacade        more1250CharsCountInfo;
-
-  @FindBy(xpath = "//*[contains(@class,'uiIconArrowRight ')]")
-  private ElementFacade        moveStatusAfterIcon;
-
-  @FindBy(xpath = "//*[contains(@class,'uiIconArrowLeft ')]")
-  private ElementFacade        moveStatusBeforeIcon;
-
-  @FindBy(xpath = "//a[@class='taskTabGantt v-tab']")
-  private ElementFacade        planView;
-
-  @FindBy(xpath = "(//*[@title='Add Task'])[1]")
-  private ElementFacade        plusButtonToAddTask;
-
-  @FindBy(xpath = "(//*[@title='Add Task'])[6]")
-  private ElementFacade        PlusButtonToAddTaskOfTheSixthStatusColumn;
-
-  @FindBy(xpath = "(//div[@class='pe-0 v-list-item theme--light']//button[@type='button'])[7]")
-  private ElementFacade        plusIcon;
-
-  @FindBy(xpath = "(//div[contains(@class,'v-list-item__action drawerIcons')]//button)[7]")
-  private ElementFacade        plusIconProject;
-
-  @FindBy(xpath = "//div[@class='bar']")
-  private TextBoxElementFacade     progressDownloadBar;
-
-  @FindBy(xpath = "//*[@class='taskTabBoard v-tab v-tab--active']")
-  private ElementFacade        projectActiveBoardView;
-
-  @FindBy(
-      xpath = "(//*[contains(@class,'profile-popover')]//a[contains(@id,'userAvatar')]/following::div[contains(@class,'ms-2')])[2]"
-  )
-  private ElementFacade        projectCardUserFullName;
-
-  @FindBy(xpath = "//body[contains(@class,'cke_editable_themed')]")
-  private TextBoxElementFacade     projectDescriptionField;
-
-  @FindBy(xpath = "//*[@class='uiIcon uiIconList']")
-  private ElementFacade        projectDetailsListButton;
-
-  @FindBy(xpath = "//*[contains(@class,'uiIconVerticalDots')]")
-  private ElementFacade        projectThreeDotsButton;
-
-  @FindBy(xpath = "//*[contains(@class, 'projectInputTitle')]")
-  private TextBoxElementFacade     projectTitle;
-
-  @FindBy(xpath = "//*[contains(@class,'addProjectTitle ')]//input")
-  private TextBoxElementFacade     projectTitleInput;
-
-  @FindBy(css = "button.quickAddNewTaskButton")
-  private ElementFacade        quickAddTaskInProjectButton;
-
-  @FindBy(xpath = "//*[contains(@class,'editorContent commentEditorContainer')]//button")
-  private ElementFacade        replyTaskCommentButton;
-
-  @FindBy(xpath = "//*[contains(@class,'filterSortTasksDrawer')]//following::*[contains(text(),'Reset')]")
-  private ElementFacade        resetFilterButton;
-
-  @FindBy(xpath = "//*[@class='d-flex']//button[2]")
-  private ElementFacade        saveButton;
-
-  @FindBy(xpath = "(//*[@class='d-flex']//button[2])[2]")
-  private ElementFacade        saveButtonTask;
-
-  @FindBy(xpath = "(//*[@class='d-flex']//button[2])")
-  private ElementFacade        saveButtonTaskSpaceProject;
-
-  @FindBy(xpath = "//*[contains(@class, 'v-navigation-drawer--open')]//button[@id='saveDescriptionButton']")
-  private ElementFacade        saveDescriptionButton;
-
-  @FindBy(xpath = "//div[@id='projectBoardToolbar']//input")
-  private TextBoxElementFacade     searchProjectInput;
-
-  @FindBy(xpath = "//*[@id='TasksListToolbar']//*[@class='v-text-field__slot']//input")
-  private ElementFacade        searchTaskName;
-
-  @FindBy(xpath = "(//*[contains(@id,'task-board')]//*[contains(@class,'statusName')])[2]")
-  private ElementFacade        secondStatusColumn;
-
-  @FindBy(xpath = "//*[@role='button']//*[@class='v-input__icon v-input__icon--append']")
-  private ElementFacade        selectStatusSelector;
-
-  @FindBy(xpath = "//*[contains(@class,'cke_editable cke_editabl')]")
-  private TextBoxElementFacade     settaskDescription;
-
-  @FindBy(xpath = "//*[@placeholder='Display name']")
-  private TextBoxElementFacade     spaceNameTitle;
-
-  @FindBy(xpath = "//*[@placeholder='Enter a name for this status']")
-  private ElementFacade        statusField;
-
-  @FindBy(xpath = "//*[contains(@class,'drawerParent attachmentsListDrawer')]/following::*[@class='v-alert__content'][1]//span")
-  private TextBoxElementFacade     successMessage;
-
-  @FindBy(xpath = "(//iframe[contains(@class,'cke_wysiwyg_frame')])[2]")
-  private ElementFacade        switchToFrameTask;
-
-  @FindBy(xpath = "(//iframe[contains(@class,'cke_wysiwyg_frame')])")
-  private ElementFacade        switchToFrameTaskUser;
-
-  @FindBy(xpath = "(//*[@class='taskAssignBtn mt-n1'])")
-  private ElementFacade        taskAssignLink;
-
-  @FindBy(xpath = "(//*[@class='ms-4'])[1]")
-  private ElementFacade        taskAssignMe;
-
-  @FindBy(xpath = "(//div[@name='taskAssignee']//input)[1]")
-  private TextBoxElementFacade     taskAssignUserInput;
-
-  @FindBy(xpath = "//body[contains(@class,'cke_editable_themed')]")
-  private TextBoxElementFacade     taskCommentContentTextBox;
-
-  @FindBy(xpath = "//body[contains(@class,'cke_editable_themed')]")
-  private TextBoxElementFacade     taskDescriptionBodyField;
-
-  @FindBy(xpath = "//*[@id='taskDescriptionId']")
-  private TextBoxElementFacade     taskDescriptionField;
-
-  @FindBy(xpath = "//*[contains(@class,'taskCompleted')]//textarea")
-  private TextBoxElementFacade     taskMarkedAsCompletedInDrawer;
-
-  @FindBy(xpath = "//*[contains(@class, 'taskTitleAndMark')]//textarea")
-  private TextBoxElementFacade     taskNameField;
-
-  @FindBy(
-      xpath = "//*[@class='v-input__control']//i[@class='v-icon notranslate mdi mdi-flag-variant theme--light nonePriorityColor']"
-  )
-  private ElementFacade        taskPrioritySelector;
-
-  @FindBy(xpath = "//*[contains(@class, 'task-name')]//input")
-  private TextBoxElementFacade     taskQuickNameField;
-
-  @FindBy(xpath = "//*[contains(@class,'taskStatusName')]//*[@title='To Do']/following::*[@class='taskTitleEllipsis']")
-  private ElementFacade        tasksNameToDo;
-
-  @FindBy(xpath = "//*[contains(@class,'uiThreeDotsIcon')]")
-  private ElementFacade        taskThreeDotsOption;
-
-  @FindBy(css = "#TasksManagementPortlet .taskCard .taskTitleId .taskTitle")
-  private ElementFacade        taskTooltip;
-
-  @FindBy(xpath = "//*[@class='nameGroup' and contains (text(), 'Unassigned')]")
-  private ElementFacade        textAssignee;
-
-  @FindBy(xpath = "(//*[contains(@id,'task-board')]//*[contains(@class,'statusName')])[3]")
-  private ElementFacade        thirdStatusColumn;
-
-  @FindBy(xpath = "(//*[@class='d-flex tasksViewHeaderLeft']/following::*[contains(@class,'uiIconVerticalDots')][1])[1]")
-  private ElementFacade        threeDotsIcon;
-
-  @FindBy(xpath = "//*[contains(@class,'uiThreeDotsIcon')]")
-  private ElementFacade        threeDotsIconInEditTask;
-
-  @FindBy(xpath = "//*[@class='pe-2' and contains(text(),'Last Update')]")
-  private ElementFacade        timesTamp;
-
-  @FindBy(xpath = "//*[@placeholder='Enter a title for this task']")
-  private ElementFacade        titleForTaskField;
-
-  @FindBy(xpath = "//*[@class='lastUpdatedTask pb-3']")
-  private ElementFacade        toolTip;
-
-  @FindBy(xpath = "//*[@id='saveDescriptionButton']")
-  private ElementFacade        updateButtonDescription;
-
-  @FindBy(xpath = "//*[@class='btn btn-primary v-btn v-btn--contained theme--light v-size--default']")
-  private ElementFacade        updateNameSpaceButton;
-
-  @FindBy(xpath = " //*[contains(@class,'uiIcon40x40TickBlue')]")
-  private ElementFacade        validateStatusName;
-
-  @FindBy(xpath = "//*[@class='ViewAllCommentLabel']")
-  private ElementFacade        viewAllCommentsTaskButton;
-
-  @FindBy(xpath = "//*[@class='v-card__actions']//button[contains(@class,'btn ms-2')]")
-  private TextBoxElementFacade cancelButton;
-
-  @FindBy(xpath = "//*[@class='v-card__actions']//button[contains(@class,'btn btn-primary')]")
-  private ElementFacade deleteButton;
-
-  @FindBy(
-      xpath = "//div[@class='attachmentsList']//a[@class='viewAllAttachments primary--text font-weight-bold text-decoration-underline']"
-  )
-  private ElementFacade        viewAttachmentsLink;
 
   public TasksPage(WebDriver driver) {
     super(driver);
   }
 
   public void addFourLabelToProject(String label1, String label2, String label3, String label4) {
-    labelTask.sendKeys(label1 + Keys.ENTER + label2 + Keys.ENTER + label3 + Keys.ENTER + label4 + Keys.ENTER);
+    labelTaskElement().sendKeys(label1 + Keys.ENTER + label2 + Keys.ENTER + label3 + Keys.ENTER + label4 + Keys.ENTER);
   }
 
-  public void addLabelToProject(String label) {
-    labelTask.setTextValue(label);
-    labelTask.sendKeys(Keys.ENTER);
+  public void addLabel(String label) {
+    TextBoxElementFacade labelTaskElement = labelTaskElement();
+    labelTaskElement.setTextValue(label);
+    labelTaskElement.sendKeys(Keys.ENTER);
   }
 
   public void addLabelToTask(String label) {
     retryOnCondition(() -> {
-      labelTask.clickOnElement();
+      labelTaskElement().clickOnElement();
       getAddLabelToTask(label).clickOnElement();
     });
   }
 
   public void addNewCommentInTask() {
-    addNewCommentInTask.waitUntilVisible();
-    addNewCommentInTask.clickOnElement();
+    ElementFacade addNewCommentInTaskElement = addNewCommentInTaskElement();
+    addNewCommentInTaskElement.waitUntilVisible();
+    addNewCommentInTaskElement.clickOnElement();
   }
 
   public void addNewCommentInTaskWithMentioningTheFirstUserInTask(String comment, String user) {
-    mentionUserInCKEditor(ckEditorFrameTaskMentioningUser, taskCommentContentTextBox, comment, user, true);
-    commentTaskButton.waitUntilVisible();
-    commentTaskButton.clickOnElement();
+    mentionUserInCKEditor(ckEditorFrameTaskMentioningUserElement(), taskCommentContentTextBoxElement(), comment, user, true);
+    ElementFacade commentTaskButtonElement = commentTaskButtonElement();
+    commentTaskButtonElement.waitUntilVisible();
+    commentTaskButtonElement.clickOnElement();
     closeDrawerIfDisplayed();
   }
 
   public void addOtherCommentInTask() {
-    addOtherCommentInTask.waitUntilVisible();
-    addOtherCommentInTask.clickOnElement();
+    ElementFacade addOtherCommentInTaskElement = addOtherCommentInTaskElement();
+    addOtherCommentInTaskElement.waitUntilVisible();
+    addOtherCommentInTaskElement.clickOnElement();
   }
 
   public void addProject(String projectName) {
-    addProjectOrTask.clickOnElement();
-    projectTitle.setTextValue(projectName);
-    saveButton.clickOnElement();
+    addProjectOrTaskElement().clickOnElement();
+    projectTitleElement().setTextValue(projectName);
+    saveButtonElement().clickOnElement();
   }
 
   public void addProjectManagerInput(String manager) {
-    addManagerBtn.clickOnElement();
-    mentionInField(inviteProjectManagerInput, manager, 5);
+    addManagerBtnElement().clickOnElement();
+    mentionInField(inviteProjectManagerInputElement(), manager, 5);
   }
 
   public void addProjectParticipantInput(String participant) {
-    addParticipantBtn.clickOnElement();
-    mentionInField(inviteProjectParticipantInput, participant, 5);
+    addParticipantBtnElement().clickOnElement();
+    mentionInField(inviteProjectParticipantInputElement(), participant, 5);
   }
 
   public void addProjectWithDescription(String projectName, String description) {
-    addProjectOrTask.clickOnElement();
-    projectTitle.setTextValue(projectName);
+    addProjectOrTaskElement().clickOnElement();
+    projectTitleElement().setTextValue(projectName);
 
     waitCKEditorLoading();
-    ckEditorFrameTask.waitUntilVisible();
-    getDriver().switchTo().frame(ckEditorFrameTask);
+    ElementFacade ckEditorFrameTaskElement = ckEditorFrameTaskElement();
+    ckEditorFrameTaskElement.waitUntilVisible();
+    getDriver().switchTo().frame(ckEditorFrameTaskElement);
     try {
-      projectDescriptionField.waitUntilVisible();
-      projectDescriptionField.setTextValue(description);
+      TextBoxElementFacade projectDescriptionFieldElement = projectDescriptionFieldElement();
+      projectDescriptionFieldElement.waitUntilVisible();
+      projectDescriptionFieldElement.setTextValue(description);
     } finally {
       getDriver().switchTo().defaultContent();
     }
 
-    saveButton.clickOnElement();
+    saveButtonElement().clickOnElement();
   }
 
   public void addProjectWithFirstCreatedUserAsManger(String projectName, String fullName) {
-    addProjectOrTask.clickOnElement();
-    projectTitle.setTextValue(projectName);
+    addProjectOrTaskElement().clickOnElement();
+    projectTitleElement().setTextValue(projectName);
     addProjectManagerInput(fullName);
-    saveButton.clickOnElement();
+    saveButtonElement().clickOnElement();
+  }
+
+  public void addProjectWithFirstUserAsParticipant(String projectName, String participant) {
+    addProjectOrTaskElement().clickOnElement();
+    projectTitleElement().setTextValue(projectName);
+    addProjectParticipantInput(participant);
+    saveButtonElement().clickOnElement();
   }
 
   public void addProjectWithManager(String projectName, String fullName) {
-    addProjectOrTask.clickOnElement();
-    projectTitle.setTextValue(projectName);
-    addManagerBtn.clickOnElement();
-    mentionInField(inviteProjectManagerInput, fullName, 5);
-    saveButton.clickOnElement();
+    addProjectOrTaskElement().clickOnElement();
+    projectTitleElement().setTextValue(projectName);
+    addManagerBtnElement().clickOnElement();
+    mentionInField(inviteProjectManagerInputElement(), fullName, 5);
+    saveButtonElement().clickOnElement();
   }
 
   public void addProjectWithManagerAndParticipant(String projectName, String manager, String participant) {
-    addProjectOrTask.clickOnElement();
-    projectTitle.setTextValue(projectName);
+    addProjectOrTaskElement().clickOnElement();
+    projectTitleElement().setTextValue(projectName);
     addProjectManagerInput(manager);
     addProjectParticipantInput(participant);
-    saveButton.clickOnElement();
+    saveButtonElement().clickOnElement();
   }
 
   public void addProjectWithParticipant(String projectName, String lastName) {
-    addProjectOrTask.clickOnElement();
-    projectTitle.setTextValue(projectName);
+    addProjectOrTaskElement().clickOnElement();
+    projectTitleElement().setTextValue(projectName);
     addProjectParticipantInput(lastName);
-    saveButton.clickOnElement();
+    saveButtonElement().clickOnElement();
   }
 
   public void addSecondUserToProject(String lastName) {
@@ -556,28 +134,29 @@ public class TasksPage extends GenericPage {
   }
 
   public void addSixLabelToProject(String label1, String label2, String label3, String label4, String label5, String label6) {
-    labelTask.sendKeys(label1 + Keys.ENTER + label2 + Keys.ENTER + label3 + Keys.ENTER + label4 + Keys.ENTER + label5 + Keys.ENTER
+    labelTaskElement().sendKeys(label1 + Keys.ENTER + label2 + Keys.ENTER + label3 + Keys.ENTER + label4 + Keys.ENTER + label5
+        + Keys.ENTER
         + label6 + Keys.ENTER);
   }
 
   public void assignTaskToMe() {
-    assertWebElementVisible(taskAssignLink);
-    taskAssignLink.clickOnElement();
-    taskAssignMe.clickOnElement();
+    assertWebElementVisible(taskAssignLinkElement());
+    taskAssignLinkElement().clickOnElement();
+    taskAssignMeElement().clickOnElement();
   }
 
   public void assignTaskToUser(String user) {
-    assertWebElementVisible(taskAssignLink);
-    taskAssignLink.clickOnElement();
-    mentionInField(taskAssignUserInput, user, 5);
+    assertWebElementVisible(taskAssignLinkElement());
+    taskAssignLinkElement().clickOnElement();
+    mentionInField(taskAssignUserInputElement(), user, 5);
   }
 
   public void boardViewIsDisplayedByDefault() {
-    assertWebElementVisible(projectActiveBoardView);
+    assertWebElementVisible(projectActiveBoardViewElement());
   }
 
   public void cancelFilterButtonIsDisplayed() {
-    assertWebElementVisible(cancelFilterButton);
+    assertWebElementVisible(cancelFilterButtonElement());
   }
 
   public void checkAlertMessageAfterDeleteTask() {
@@ -585,11 +164,11 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkAlertMessageAfterMarkTaskAsCompleted() {
-    assertWebElementVisible(alertMessageAfterMarkTaskAsCompleted);
+    assertWebElementVisible(alertMessageAfterMarkTaskAsCompletedElement());
   }
 
   public void checkAlertMessageMoveStatusAfter() {
-    assertWebElementVisible(alertMessageAfterStatusMoved);
+    assertWebElementVisible(alertMessageAfterStatusMovedElement());
   }
 
   public void checkAttachmentDisplay(String attachmentName) {
@@ -598,7 +177,7 @@ public class TasksPage extends GenericPage {
 
   public void checkClonedProject(String projectName) {
     assertWebElementVisible(getProjectCard(projectName));
-    assertWebElementVisible(alertMessageAfterProjectClone);
+    assertWebElementVisible(alertMessageAfterProjectCloneElement());
   }
 
   public void checkClonedTask(String taskName) {
@@ -607,7 +186,7 @@ public class TasksPage extends GenericPage {
 
   public void checkDeletedProject(String projectName) {
     assertWebElementNotVisible(getProjectCard(projectName));
-    assertWebElementVisible(alertMessageAfterProjectDeletion);
+    assertWebElementVisible(alertMessageAfterProjectDeletionElement());
   }
 
   public void checkDeletedStatus(String statusColumn) {
@@ -623,19 +202,19 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkDisplayOfFilterByProject() {
-    assertWebElementVisible(filterByProject);
+    assertWebElementVisible(filterByProjectElement());
   }
 
   public void checkDisplayOfFilterByTask() {
-    assertWebElementVisible(filterByTask);
+    assertWebElementVisible(filterByTaskElement());
   }
 
   public void checkDrawerDisplay() {
-    assertWebElementVisible(drawerTitle);
+    assertWebElementVisible(drawerTitleElement());
   }
 
   public void checkFirstStatusColumn(String columnStatus) {
-    assertEquals(firstStatusColumn.getText(), columnStatus);
+    assertEquals(firstStatusColumnElement().getText(), columnStatus);
   }
 
   public void checkGroupingSelected(String groupingValue) {
@@ -644,28 +223,28 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkLastStatusColumn(String columnStatus) {
-    Assert.assertEquals(lastStatusColumn.getText(), columnStatus);
+    Assert.assertEquals(lastStatusColumnElement().getText(), columnStatus);
   }
 
   public void checkMessageEmptyProjectDisplay() {
-    assertEquals(projectTitle.getText(), "");
+    assertEquals(projectTitleElement().getText(), "");
   }
 
   public void checkMoveStatusAfterIconIsNotDisplayed() {
-    assertWebElementNotVisible(moveStatusAfterIcon);
+    assertWebElementNotVisible(moveStatusAfterIconElement());
   }
 
   public void checkMoveStatusBeforeIconIsNotDisplayed() {
-    assertWebElementNotVisible(moveStatusBeforeIcon);
+    assertWebElementNotVisible(moveStatusBeforeIconElement());
   }
 
   public void checkProject(String projectName) {
     assertWebElementVisible(getProjectCard(projectName));
-    assertWebElementVisible(alertMessageAfterProjectCreation);
+    assertWebElementVisible(alertMessageAfterProjectCreationElement());
   }
 
   public void checkProjectIsCreated() {
-    assertWebElementVisible(alertMessageAfterProjectCreation);
+    assertWebElementVisible(alertMessageAfterProjectCreationElement());
   }
 
   public void checkProjectNameIsDisplayedInProjectCard(String projectName, String description) {
@@ -675,15 +254,15 @@ public class TasksPage extends GenericPage {
 
   public void checkProjectNotDisplayed(String projectName) {
     assertWebElementNotVisible(getProjectCard(projectName));
-    assertWebElementNotVisible(alertMessageAfterProjectCreation);
+    assertWebElementNotVisible(alertMessageAfterProjectCreationElement());
   }
 
   public void checkSecondStatusColumn(String columnStatus) {
-    assertEquals(secondStatusColumn.getText(), columnStatus);
+    assertEquals(secondStatusColumnElement().getText(), columnStatus);
   }
 
   public void checkSuccessMessage(String message) {
-    assertTrue(successMessage.getText().contains(message));
+    assertTrue(successMessageElement().getText().contains(message));
   }
 
   public void checkTaskPriority(String taskPriority) {
@@ -695,49 +274,50 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkThatEditTaskDrawerIsDisplayed() {
-    String checkEditTaskDrawerText = checkEditTaskDrawer.getText();
+    String checkEditTaskDrawerText = checkEditTaskDrawerElement().getText();
     assertEquals("Edit task", checkEditTaskDrawerText);
   }
 
   public void checkThatSecondLevelDrawerChangesIsOpened() {
-    String checkChangesDrawerText = checkChangesDrawer.getText();
+    String checkChangesDrawerText = checkChangesDrawerElement().getText();
     assertEquals("Changes", checkChangesDrawerText);
   }
 
   public void checkThatTasksAreGroupedByAssignee() {
-    assertWebElementVisible(textAssignee);
+    assertWebElementVisible(textAssigneeElement());
   }
 
   public void checkTheTimestampUpdate() {
-    String timestampText = timesTamp.getText();
+    String timestampText = timesTampElement().getText();
     assertTrue(timestampText.contains("Last Update"));
   }
 
   public void checkThirdStatusColumn(String columnStatus) {
-    Assert.assertEquals(thirdStatusColumn.getText(), columnStatus);
+    Assert.assertEquals(thirdStatusColumnElement().getText(), columnStatus);
   }
 
   public void checkTooltipIsDisplayed() {
-    String toolText = toolTip.getAttribute("title");
+    String toolText = toolTipElement().getAttribute("title");
     assertEquals("Click to view all changes", toolText);
   }
 
   public void checkTypedProjectIsRemoved(String typedProject) {
-    assertFalse(filterByProject.getText().contains(typedProject));
+    assertFalse(filterByProjectElement().getText().contains(typedProject));
   }
 
   public void checkTypedTaskIsRemoved(String typedTask) {
-    assertFalse(filterByTask.getText().contains(typedTask));
+    assertFalse(filterByTaskElement().getText().contains(typedTask));
   }
 
-  public void checkUpdatedDescription(String Description) {
-    taskDescriptionField.clickOnElement();
+  public void checkUpdatedDescription(String description) {
+    taskDescriptionFieldElement().clickOnElement();
 
     waitCKEditorLoading();
-    ckEditorFrameDescription.waitUntilVisible();
-    getDriver().switchTo().frame(ckEditorFrameDescription);
+    ElementFacade ckEditorFrameDescriptionElement = ckEditorFrameDescriptionElement();
+    ckEditorFrameDescriptionElement.waitUntilVisible();
+    getDriver().switchTo().frame(ckEditorFrameDescriptionElement);
     try {
-      assertEquals(settaskDescription.getText(), Description);
+      assertEquals(settaskDescriptionElement().getText(), description);
     } finally {
       getDriver().switchTo().defaultContent();
     }
@@ -746,31 +326,31 @@ public class TasksPage extends GenericPage {
   public void checkUpdatedProject(String projectName, String description) {
     assertWebElementVisible(getProjectCard(projectName));
     assertWebElementVisible(getProjectCardDescription(description));
-    assertWebElementVisible(alertMessageAfterProjectUpdate);
+    assertWebElementVisible(alertMessageAfterProjectUpdateElement());
   }
 
   public void checkViewLinkAttachments() {
-    assertWebElementVisible(viewAttachmentsLink);
+    assertWebElementVisible(viewAttachmentsLinkElement());
   }
 
   public void clearButtonInFilterByTaskIsNotVisible() {
-    assertWebElementNotVisible(clearButtonInFilterByTask);
+    assertWebElementNotVisible(clearButtonInFilterByTaskElement());
   }
 
   public void clearButtonInFilterByTaskIsVisible() {
-    assertWebElementVisible(clearButtonInFilterByTask);
+    assertWebElementVisible(clearButtonInFilterByTaskElement());
   }
 
   public void clearButtonIsNotVisible() {
-    assertWebElementNotVisible(clearButtonInFilterByProject);
+    assertWebElementNotVisible(clearButtonInFilterByProjectElement());
   }
 
   public void clearButtonIsVisible() {
-    assertWebElementVisible(clearButtonInFilterByProject);
+    assertWebElementVisible(clearButtonInFilterByProjectElement());
   }
 
   public void clickAddProjectButton() {
-    addProjectOrTask.clickOnElement();
+    addProjectOrTaskElement().clickOnElement();
   }
 
   public void clickAddTaskButton() {
@@ -778,207 +358,227 @@ public class TasksPage extends GenericPage {
     if (addTaskButton.isCurrentlyVisible() && addTaskButton.isVisibleAfterWaiting() && addTaskButton.isClickable()) {
       addTaskButton.clickOnElement();
     } else {
-      addTaskInProjectButton.clickOnElement();
+      addTaskInProjectButtonElement().clickOnElement();
     }
   }
 
+  public void clickCancel() {
+    cancelButtonElement().clickOnElement();
+  }
+
   public void clickChangeLocation() {
-    changeLocationLink.clickOnElement();
+    changeLocationLinkElement().clickOnElement();
+  }
+
+  public void clickDelete() {
+    deleteButtonElement().clickOnElement();
+  }
+
+  public void clickDeleteProjectButton() {
+    deleteProjectButtonElement().clickOnElement();
   }
 
   public void clickDocButton() {
-    documentButton.clickOnElement();
+    documentButtonElement().clickOnElement();
   }
 
   public void clickFilterButton() {
-    filterButton.clickOnElement();
+    filterButtonElement().clickOnElement();
     waitForDrawerToOpen();
   }
 
   public void clickOnAddAttachmentLink() {
-    addAttachmentLink.waitUntilVisible();
-    addAttachmentLink.clickOnElement();
+    ElementFacade addAttachmentLinkElement = addAttachmentLinkElement();
+    addAttachmentLinkElement.waitUntilVisible();
+    addAttachmentLinkElement.clickOnElement();
   }
 
   public void clickOnAddStatusAfterOptionOfTheFifthStatusColumn() {
-    addStatusafteroption.clickOnElement();
+    addStatusafteroptionElement().clickOnElement();
   }
 
   public void clickOnAddStatusBeforeOption() {
-    addStatusBeforeoption.clickOnElement();
+    addStatusBeforeoptionElement().clickOnElement();
   }
 
   public void clickOnAssigneeRadioButton() {
-    assigneeRadioButton.clickOnElement();
+    assigneeRadioButtonElement().clickOnElement();
   }
 
   public void clickOnClearButton() {
-    clearButtonInFilterByProject.clickOnElement();
+    clearButtonInFilterByProjectElement().clickOnElement();
   }
 
   public void clickOnClearButtonInFilterByTask() {
-    clearButtonInFilterByTask.clickOnElement();
+    clearButtonInFilterByTaskElement().clickOnElement();
   }
 
   public void clickOnCommentReply(String comment) {
-    assertWebElementVisible(getTaskCommentReplyBtn(comment));
-    getTaskCommentReplyBtn(comment).clickOnElement();
+    ElementFacade taskCommentReplyBtn = getTaskCommentReplyBtn(comment);
+    assertWebElementVisible(taskCommentReplyBtn);
+    taskCommentReplyBtn.clickOnElement();
   }
 
   public void clickOnConfirmButton() {
-    confirmButtonDrawer.waitUntilVisible();
-    confirmButtonDrawer.clickOnElement();
+    ElementFacade confirmButtonDrawerElement = confirmButtonDrawerElement();
+    confirmButtonDrawerElement.waitUntilVisible();
+    confirmButtonDrawerElement.clickOnElement();
   }
 
   public void clickOnDeleteStatusIcon() {
-    deleteStatusIcon.clickOnElement();
+    deleteStatusIconElement().clickOnElement();
   }
 
   public void clickOnDeleteTaskOption() {
-    deleteTaskOption.clickOnElement();
+    deleteTaskOptionElement().clickOnElement();
   }
 
   public void clickOnEditProjectButton() {
-    editProjectButton.clickOnElement();
+    editProjectButtonElement().clickOnElement();
   }
 
   public void clickOnFifthColumnThreeDotsIcon() {
-    fifthColumnThreeDotsIcon.clickOnElement();
+    fifthColumnThreeDotsIconElement().clickOnElement();
   }
 
   public void clickOnLastColumnThreeDotsIcon() {
-    lastColumnThreeDotsIcon.clickOnElement();
+    lastColumnThreeDotsIconElement().clickOnElement();
   }
 
   public void clickOnMoveStatusAfterIcon() {
-    moveStatusAfterIcon.clickOnElement();
+    moveStatusAfterIconElement().clickOnElement();
   }
 
   public void clickOnMoveStatusBeforeIcon() {
-    moveStatusBeforeIcon.clickOnElement();
+    moveStatusBeforeIconElement().clickOnElement();
   }
 
-  public void ClickOnPlusButtonToAddTask() {
-    plusButtonToAddTask.clickOnElement();
+  public void clickOnPlusButtonToAddTask() {
+    plusButtonToAddTaskElement().clickOnElement();
   }
 
-  public void ClickOnPlusButtonToAddTaskOfTheSixthStatusColumn() {
-    PlusButtonToAddTaskOfTheSixthStatusColumn.clickOnElement();
+  public void clickOnPlusButtonToAddTaskOfTheSixthStatusColumn() {
+    plusButtonToAddTaskOfTheSixthStatusColumnElement().clickOnElement();
   }
 
   public void clickOnProjectThreeDotsButton() {
-    projectThreeDotsButton.clickOnElement();
+    projectThreeDotsButtonElement().clickOnElement();
   }
 
-  public void ClickOnSaveButtonToAddTask() {
-    saveButtonTask.clickOnElement();
+  public void clickOnSaveButtonToAddTask() {
+    saveButtonTaskElement().clickOnElement();
   }
 
   public void clickOnSaveButtonToAddTaskSpaceProject() {
-    saveButtonTaskSpaceProject.clickOnElement();
+    saveButtonTaskSpaceProjectElement().clickOnElement();
   }
 
   public void clickOnTaskThreeDotsOption() {
 
-    taskThreeDotsOption.clickOnElement();
+    taskThreeDotsOptionElement().clickOnElement();
   }
 
-  public void clickOnTheNotificationThatMentioneFirstUserInATaskInProject(String message, String ProjectName) {
-    firstNotificationContent.waitUntilVisible();
-    Assert.assertTrue(firstNotificationContent.getText().contains(message));
-    Assert.assertTrue(firstNotificationContent.getText().contains(ProjectName));
-    firstNotificationContent.clickOnElement();
+  public void clickOnTheNotificationThatMentioneFirstUserInATaskInProject(String message, String projectName) {
+    ElementFacade firstNotificationContentElement = firstNotificationContentElement();
+    firstNotificationContentElement.waitUntilVisible();
+    Assert.assertTrue(firstNotificationContentElement.getText().contains(message));
+    Assert.assertTrue(firstNotificationContentElement.getText().contains(projectName));
+    firstNotificationContentElement.clickOnElement();
   }
 
   public void clickOnTheTimestamp() {
-    timesTamp.clickOnElement();
+    timesTampElement().clickOnElement();
   }
 
   public void clickOnThreeDotsIcon() {
-    threeDotsIcon.clickOnElement();
+    threeDotsIconElement().clickOnElement();
   }
 
   public void clickOnUpDateButton() {
-    updateButtonDescription.clickOnElement();
+    updateButtonDescriptionElement().clickOnElement();
   }
 
   public void clickOnValidateStatusName() {
-    String currentStatusName = statusField.getValue();
-    validateStatusName.clickOnElement();
+    String currentStatusName = statusFieldElement().getValue();
+    validateStatusNameElement().clickOnElement();
     // Wait until column is added
     retryOnCondition(() -> getStatusColumn(currentStatusName).waitUntilVisible(),
                      () -> waitFor(2).seconds());
   }
 
   public void clickPlusIcon() {
-    plusIcon.clickOnElement();
+    plusIconElement().clickOnElement();
   }
 
   public void clickPlusIconProject() {
-    plusIconProject.clickOnElement();
+    plusIconProjectElement().clickOnElement();
   }
 
   public void clickQuickAddTaskButton() {
-    quickAddTaskInProjectButton.clickOnElement();
+    quickAddTaskInProjectButtonElement().clickOnElement();
   }
 
   public void clickSaveProjectButton() {
-    saveButton.clickOnElement();
+    saveButtonElement().clickOnElement();
   }
 
   public void clickStatusName(String statusColumn) {
-    getStatusColumn(statusColumn).waitUntilVisible();
-    getStatusColumn(statusColumn).clickOnElement();
+    ElementFacade statusColumnElement = getStatusColumn(statusColumn);
+    statusColumnElement.waitUntilVisible();
+    statusColumnElement.clickOnElement();
   }
 
   public void clickViewAttachmentLink() {
-    assertWebElementVisible(viewAttachmentsLink);
-    viewAttachmentsLink.clickOnElement();
+    assertWebElementVisible(viewAttachmentsLinkElement());
+    viewAttachmentsLinkElement().clickOnElement();
   }
 
   public void cloneProject(String projectName) {
     assertWebElementVisible(getProjectCard(projectName));
-    projectThreeDotsButton.clickOnElement();
-    cloneProjectButton.clickOnElement();
-    confirmationPopupCloneButton.clickOnElement();
-    assertWebElementNotVisible(confirmationPopupCloneButton);
+    projectThreeDotsButtonElement().clickOnElement();
+    cloneProjectButtonElement().clickOnElement();
+    confirmationPopupCloneButtonElement().clickOnElement();
+    assertWebElementNotVisible(confirmationPopupCloneButtonElement());
 
   }
 
   public void cloneProjectButtonIsDisplayed() {
-    assertWebElementVisible(cloneProjectButton);
+    assertWebElementVisible(cloneProjectButtonElement());
   }
 
   public void clonetaskinspaceproject() {
-    threeDotsIconInEditTask.clickOnElement();
-    cloneoption.clickOnElement();
+    threeDotsIconInEditTaskElement().clickOnElement();
+    cloneoptionElement().clickOnElement();
   }
 
   public void colorPaletteIsDisplayed() {
-    assertWebElementVisible(colorPalette);
+    assertWebElementVisible(colorPaletteElement());
   }
 
   public void commentButtonIsDisabled() {
-    commentTaskButton.isDisabledAfterWaiting();
+    commentTaskButtonElement().isDisabledAfterWaiting();
   }
 
   public void commentsDrawerIsDisplayed() {
-    assertWebElementVisible(commentsDrawerSection);
+    assertWebElementVisible(commentsDrawerSectionElement());
   }
 
   public void commentTask(String comment) {
     waitCKEditorLoading();
-    ckEditorFrameTask.waitUntilVisible();
-    getDriver().switchTo().frame(ckEditorFrameTask);
+    ElementFacade ckEditorFrameTaskElement = ckEditorFrameTaskElement();
+    ckEditorFrameTaskElement.waitUntilVisible();
+    getDriver().switchTo().frame(ckEditorFrameTaskElement);
     try {
-      taskCommentContentTextBox.waitUntilVisible();
-      taskCommentContentTextBox.setTextValue(comment);
+      TextBoxElementFacade taskCommentContentTextBoxElement = taskCommentContentTextBoxElement();
+      taskCommentContentTextBoxElement.waitUntilVisible();
+      taskCommentContentTextBoxElement.setTextValue(comment);
     } finally {
       getDriver().switchTo().defaultContent();
     }
 
-    commentTaskButton.waitUntilVisible();
-    commentTaskButton.clickOnElement();
+    ElementFacade commentTaskButtonElement = commentTaskButtonElement();
+    commentTaskButtonElement.waitUntilVisible();
+    commentTaskButtonElement.clickOnElement();
     closeDrawerIfDisplayed();
   }
 
@@ -987,24 +587,25 @@ public class TasksPage extends GenericPage {
   }
 
   public void completeTask() {
-    markTaskCompleted.clickOnElement();
+    markTaskCompletedElement().clickOnElement();
   }
 
   public void confirmDeleteStatusColumn() {
-    confirmationPopupDeleteButton.clickOnElement();
-    assertWebElementNotVisible(confirmationPopupDeleteButton);
+    ElementFacade confirmationPopupDeleteButtonElement = confirmationPopupDeleteButtonElement();
+    confirmationPopupDeleteButtonElement.clickOnElement();
+    assertWebElementNotVisible(confirmationPopupDeleteButtonElement);
   }
 
   public void confirmDeleteTaskFromTasksBord() {
-    confirmationPopupDeleteButton.clickOnElement();
+    confirmationPopupDeleteButtonElement().clickOnElement();
   }
 
   public void confirmFilter() {
-    confirmFilterButton.clickOnElement();
+    confirmFilterButtonElement().clickOnElement();
   }
 
   public void confirmFilterButtonIsDisplayed() {
-    assertWebElementVisible(confirmFilterButton);
+    assertWebElementVisible(confirmFilterButtonElement());
   }
 
   public void deleteCookies() {
@@ -1013,104 +614,107 @@ public class TasksPage extends GenericPage {
 
   public void deleteProject(String projectName) {
     assertWebElementVisible(getProjectCard(projectName));
-    projectThreeDotsButton.clickOnElement();
-    deleteProjectButton.clickOnElement();
-    confirmationPopupDeleteButton.clickOnElement();
-    assertWebElementNotVisible(confirmationPopupDeleteButton);
+    projectThreeDotsButtonElement().clickOnElement();
+    deleteProjectButtonElement().clickOnElement();
+    confirmationPopupDeleteButtonElement().clickOnElement();
+    assertWebElementNotVisible(confirmationPopupDeleteButtonElement());
   }
 
   public void deleteProjectButtonIsDisplayed() {
-    assertWebElementVisible(deleteProjectButton);
+    assertWebElementVisible(deleteProjectButtonElement());
   }
 
   public void deleteTaskOptionIsDisplayed() {
-    assertWebElementVisible(deleteTaskOption);
+    assertWebElementVisible(deleteTaskOptionElement());
   }
 
   public void editDescriptionForTask(String newDescription) {
-    taskDescriptionField.clickOnElement();
+    taskDescriptionFieldElement().clickOnElement();
 
     waitCKEditorLoading();
-    switchToFrameTaskUser.waitUntilVisible();
-    getDriver().switchTo().frame(switchToFrameTaskUser);
+    ElementFacade switchToFrameTaskUserElement = switchToFrameTaskUserElement();
+    switchToFrameTaskUserElement.waitUntilVisible();
+    getDriver().switchTo().frame(switchToFrameTaskUserElement);
     try {
-      taskDescriptionBodyField.waitUntilVisible();
-      taskDescriptionBodyField.setTextValue(newDescription);
+      TextBoxElementFacade taskDescriptionBodyFieldElement = taskDescriptionBodyFieldElement();
+      taskDescriptionBodyFieldElement.waitUntilVisible();
+      taskDescriptionBodyFieldElement.setTextValue(newDescription);
     } finally {
       getDriver().switchTo().defaultContent();
     }
 
-    updateButtonDescription.clickOnElement();
+    updateButtonDescriptionElement().clickOnElement();
     verifyPageLoaded();
   }
 
   public void editProjectButtonIsDisplayed() {
-    assertWebElementVisible(editProjectButton);
+    assertWebElementVisible(editProjectButtonElement());
   }
 
   public void editProjectName(String projectName) {
-    projectThreeDotsButton.clickOnElement();
-    editProjectButton.clickOnElement();
-    projectTitle.setTextValue(projectName);
-    saveButton.clickOnElement();
+    projectThreeDotsButtonElement().clickOnElement();
+    editProjectButtonElement().clickOnElement();
+    projectTitleElement().setTextValue(projectName);
+    saveButtonElement().clickOnElement();
   }
 
   public void editProjectNameWithDescription(String projectName, String newProjectName, String newDescription) {
     assertWebElementVisible(getProjectCard(projectName));
-    projectThreeDotsButton.clickOnElement();
-    editProjectButton.clickOnElement();
-    projectTitle.setTextValue(newProjectName);
+    projectThreeDotsButtonElement().clickOnElement();
+    editProjectButtonElement().clickOnElement();
+    projectTitleElement().setTextValue(newProjectName);
 
     waitCKEditorLoading();
-    ckEditorFrameTask.waitUntilVisible();
-    getDriver().switchTo().frame(ckEditorFrameTask);
+    ElementFacade ckEditorFrameTaskElement = ckEditorFrameTaskElement();
+    ckEditorFrameTaskElement.waitUntilVisible();
+    getDriver().switchTo().frame(ckEditorFrameTaskElement);
     try {
-      projectDescriptionField.waitUntilVisible();
-      projectDescriptionField.setTextValue(newDescription);
+      TextBoxElementFacade projectDescriptionFieldElement = projectDescriptionFieldElement();
+      projectDescriptionFieldElement.waitUntilVisible();
+      projectDescriptionFieldElement.setTextValue(newDescription);
     } finally {
       getDriver().switchTo().defaultContent();
     }
 
-    saveButton.clickOnElement();
+    saveButtonElement().clickOnElement();
   }
 
   public void editSpaceName(String spaceName) {
-    spaceNameTitle.setTextValue(spaceName);
-    updateNameSpaceButton.clickOnElement();
+    spaceNameTitleElement().setTextValue(spaceName);
+    updateNameSpaceButtonElement().clickOnElement();
   }
 
   public void editTaskDrawerIsDisplayed() {
-    assertWebElementVisible(editTaskDrawerSection);
+    assertWebElementVisible(editTaskDrawerSectionElement());
   }
 
   public void enterDescriptionForTask(String description) {
-    taskDescriptionField.clickOnElement();
+    taskDescriptionFieldElement().clickOnElement();
 
     waitCKEditorLoading();
-    switchToFrameTask.waitUntilVisible();
-    getDriver().switchTo().frame(switchToFrameTask);
+    ElementFacade switchToFrameTaskElement = switchToFrameTaskElement();
+    switchToFrameTaskElement.waitUntilVisible();
+    getDriver().switchTo().frame(switchToFrameTaskElement);
     try {
-      taskDescriptionBodyField.waitUntilVisible();
-      taskDescriptionBodyField.setTextValue(description);
+      TextBoxElementFacade taskDescriptionBodyFieldElement = taskDescriptionBodyFieldElement();
+      taskDescriptionBodyFieldElement.waitUntilVisible();
+      taskDescriptionBodyFieldElement.setTextValue(description);
     } finally {
       getDriver().switchTo().defaultContent();
     }
   }
 
-  public void enterLabelTask(String label) {
-    labelTask.setTextValue(label);
-    labelTask.sendKeys(Keys.ENTER);
-  }
-
   public void enterProjectDescriptionWithoutTheTitle(String description) {
-    addProjectOrTask.clickOnElement();
+    addProjectOrTaskElement().clickOnElement();
 
     waitCKEditorLoading();
-    ckEditorFrameTask.waitUntilVisible();
-    getDriver().switchTo().frame(ckEditorFrameTask);
+    ElementFacade ckEditorFrameTaskElement = ckEditorFrameTaskElement();
+    ckEditorFrameTaskElement.waitUntilVisible();
+    getDriver().switchTo().frame(ckEditorFrameTaskElement);
     try {
-      projectDescriptionField.waitUntilVisible();
-      projectDescriptionField.setTextValue(description);
+      TextBoxElementFacade projectDescriptionFieldElement = projectDescriptionFieldElement();
+      projectDescriptionFieldElement.waitUntilVisible();
+      projectDescriptionFieldElement.setTextValue(description);
     } finally {
       getDriver().switchTo().defaultContent();
     }
@@ -1118,15 +722,17 @@ public class TasksPage extends GenericPage {
   }
 
   public void enterProjectTitleAndDescription(String projectName, String description) {
-    addProjectOrTask.clickOnElement();
-    projectTitle.setTextValue(projectName);
+    addProjectOrTaskElement().clickOnElement();
+    projectTitleElement().setTextValue(projectName);
 
     waitCKEditorLoading();
-    ckEditorFrameTask.waitUntilVisible();
-    getDriver().switchTo().frame(ckEditorFrameTask);
+    ElementFacade ckEditorFrameTaskElement = ckEditorFrameTaskElement();
+    ckEditorFrameTaskElement.waitUntilVisible();
+    getDriver().switchTo().frame(ckEditorFrameTaskElement);
     try {
-      projectDescriptionField.waitUntilVisible();
-      projectDescriptionField.setTextValue(description);
+      TextBoxElementFacade projectDescriptionFieldElement = projectDescriptionFieldElement();
+      projectDescriptionFieldElement.waitUntilVisible();
+      projectDescriptionFieldElement.setTextValue(description);
     } finally {
       getDriver().switchTo().defaultContent();
     }
@@ -1134,16 +740,18 @@ public class TasksPage extends GenericPage {
   }
 
   public void enterStatusText(String status) {
-    statusField.sendKeys(status);
+    statusFieldElement().sendKeys(status);
   }
 
   public void enterTaskComment(String comment) {
     waitCKEditorLoading();
-    ckEditorFrameTask.waitUntilVisible();
-    getDriver().switchTo().frame(ckEditorFrameTask);
+    ElementFacade ckEditorFrameTaskElement = ckEditorFrameTaskElement();
+    ckEditorFrameTaskElement.waitUntilVisible();
+    getDriver().switchTo().frame(ckEditorFrameTaskElement);
     try {
-      taskCommentContentTextBox.waitUntilVisible();
-      taskCommentContentTextBox.setTextValue(comment);
+      TextBoxElementFacade taskCommentContentTextBoxElement = taskCommentContentTextBoxElement();
+      taskCommentContentTextBoxElement.waitUntilVisible();
+      taskCommentContentTextBoxElement.setTextValue(comment);
     } finally {
       getDriver().switchTo().defaultContent();
     }
@@ -1151,13 +759,623 @@ public class TasksPage extends GenericPage {
   }
 
   public void enterTitleForTask(String title) {
-    titleForTaskField.waitUntilVisible();
-    titleForTaskField.sendKeys(title);
+    ElementFacade titleForTaskFieldElement = titleForTaskFieldElement();
+    titleForTaskFieldElement.waitUntilVisible();
+    titleForTaskFieldElement.sendKeys(title);
   }
 
   public void exitFromTheFirstProject() {
-    backButtonProject.waitUntilVisible();
-    backButtonProject.clickOnElement();
+    ElementFacade backButtonProjectElement = backButtonProjectElement();
+    backButtonProjectElement.waitUntilVisible();
+    backButtonProjectElement.clickOnElement();
+  }
+
+  public void goBack() {
+    goBackIconElement().clickOnElement();
+  }
+
+  public void goToFilterTab() {
+    filterTabElement().clickOnElement();
+  }
+
+  public void goToGroupAndSortTab() {
+    groupAndSortTabElement().clickOnElement();
+  }
+
+  public void goToLabelsTab() {
+    labelsTabElement().clickOnElement();
+  }
+
+  public void goToPLanView() {
+    ElementFacade planViewElement = planViewElement();
+    planViewElement.waitUntilVisible();
+    planViewElement.clickOnElement();
+  }
+
+  public void goToProjectDetailsList() {
+    projectDetailsListButtonElement().clickOnElement();
+  }
+
+  public void goToProjectsTab() {
+    goToTab(1);
+  }
+
+  public void goToTasksTab() {
+    goToTab(2);
+  }
+
+  public void greenInformationIconIsDisplayed() {
+    ElementFacade informationIconElement = informationIconElement();
+    assertWebElementVisible(informationIconElement);
+    Assert.assertEquals(informationIconElement.getCssValue("color"), "rgba(46, 181, 140, 1)");
+  }
+
+  public void hoverOnProjectManagerIcon() {
+    projectCardUserFullNameElement().hover("//*[contains(@class, 'spaceAdminContainer')]//*[contains(@class, 'profile-popover')]");
+  }
+
+  public void hoverOnTaskName(String task) {
+    taskNameInProjectDetails(task).hover();
+  }
+
+  public void hoverOnTheChangesTimestamp() {
+    Actions actions = new Actions(getDriver());
+    actions.moveToElement(timesTampElement()).perform();
+  }
+
+  public void isFilterDrawerTabDisplayed(String tab) {
+    Assert.assertEquals(activeTabFilterDrawerElement().getText(), tab);
+  }
+
+  public void isLabelDisplayedInProjectDetails(String label, String times) {
+    assertWebElementVisible(getDisplayedLabel(label, times));
+  }
+
+  public void isSearchedTaskDisplayed(String taskName) {
+    Assert.assertEquals(taskNameElement().getValue(), taskName);
+  }
+
+  public boolean isStatusEditModeDisplayed(String statusColumn) {
+    return getStatusColumn(statusColumn).isNotVisibleAfterWaiting();
+  }
+
+  public void labelIsDisplayedInProjectDrawer(String label) {
+    assertWebElementVisible(getLabelInEditProjectDrawer(label));
+  }
+
+  public void labelIsDisplayedInTaskDrawer(String label) {
+    assertWebElementVisible(getLabelInEditTaskDrawer(label));
+    assertWebElementNotVisible(getRemoveLabelTaskButton(label));
+  }
+
+  public void labelIsNotDisplayedInProjectDrawer(String label) {
+    assertWebElementNotVisible(getLabelInEditProjectDrawer(label));
+  }
+
+  public void markTaskAsCompletedFromTaskCard() {
+    markTaskCompletedOnTaskCardElement().clickOnElement();
+  }
+
+  public void markTaskAsCompletedInProjectDetails(String taskName) {
+    getTaskToMarkAsCompleted(taskName).clickOnElement();
+  }
+
+  public void maxCharsCount1250InformationIsDisplayed() {
+    assertWebElementVisible(maxCharsCountInfoElement());
+  }
+
+  public void maxCharsNumberMessageIsDisplayed() {
+    commentsDrawerSectionElement().clickOnElement();
+
+    waitCKEditorLoading();
+    ElementFacade ckEditorFrameTaskElement = ckEditorFrameTaskElement();
+    ckEditorFrameTaskElement.waitUntilVisible();
+    getDriver().switchTo().frame(ckEditorFrameTaskElement);
+    try {
+      assertWebElementVisible(commentTaskMaxCharsMsgElement());
+    } finally {
+      getDriver().switchTo().defaultContent();
+    }
+
+  }
+
+  public void more1250CharsInformationIsDisplayed() {
+    assertWebElementVisible(more1250CharsCountInfoElement());
+    Assert.assertEquals(more1250CharsCountInfoElement().getCssValue("color"), "rgba(188, 67, 67, 1)");
+  }
+
+  public void openFilterDrawer() {
+    getDriver().navigate().refresh();
+    ElementFacade filterDrawerButtonElement = filterDrawerButtonElement();
+    filterDrawerButtonElement.waitUntilVisible();
+    filterDrawerButtonElement.clickOnElement();
+  }
+
+  public void openProject(String project) {
+    getProjectCard(project).clickOnElement();
+  }
+
+  public void openTaskCard(String task) {
+    closeDrawerIfDisplayed();
+    openTask(task).clickOnElement();
+    waitForDrawerToOpen();
+  }
+
+  public void openTaskDrawer(String taskName) {
+    closeDrawerIfDisplayed();
+    getTaskName(taskName).clickOnElement();
+    waitForDrawerToOpen();
+  }
+
+  public void openTaskInTasksTab(String taskName) {
+    ElementFacade taskTitleInTasksTab = getTaskTitleInTasksTab(taskName);
+    taskTitleInTasksTab.waitUntilVisible();
+    taskTitleInTasksTab.clickOnElement();
+  }
+
+  public void projectDrawerNotClosing() {
+    assertTrue(findByXPathOrCSS(".v-navigation-drawer--open").isVisible());
+  }
+
+  public void projectIsDisplayedInTasksAppCenter(String projectName) {
+    assertWebElementVisible(getProjectCard(projectName));
+  }
+
+  public void projectNameIsDisplayedInProjectDetails(String projectName) {
+    assertWebElementVisible(projectNameInProjectDetails(projectName));
+  }
+
+  public void redInformationIconIsDisplayed() {
+    assertWebElementVisible(informationIconElement());
+    Assert.assertEquals(informationIconElement().getCssValue("color"), "rgba(188, 67, 67, 1)");
+  }
+
+  public void removeLabelToProject(String label) {
+    // Labels are retrieved from Server, thus we should wait until it's loaded,
+    // in addition, no loading effect is visible in project drawer
+    retryOnCondition(() -> findByXPathOrCSS(".projectLabelsName .v-chip").waitUntilVisible());
+    getRemoveLabelButton(label).clickOnElement();
+  }
+
+  public void replyTaskCommentButtonIsDisabled() {
+    replyTaskCommentButtonElement().isDisabledAfterWaiting();
+  }
+
+  public void resetFilterButtonIsDisplayed() {
+    assertWebElementVisible(resetFilterButtonElement());
+  }
+
+  public void returnToProjectsTab() {
+    arrowBackButtonElement().clickOnElement();
+  }
+
+  public void saveAddingProject() {
+    saveButtonElement().clickOnElement();
+  }
+
+  public void saveAddTaskButton() {
+    saveButtonElement().clickOnElement();
+  }
+
+  public void saveQuickTask() {
+    taskQuickNameFieldElement().sendKeys(Keys.ENTER);
+  }
+
+  public void searchTask(String taskName) {
+    searchTaskNameElement().sendKeys(taskName);
+  }
+
+  public void selectFilterOption(String label) {
+    getFilterOption(label).clickOnElement();
+  }
+
+  public void setInSearchProjectField(String project) {
+    searchProjectInputElement().setTextValue(project);
+    waitFor(1).seconds();
+    verifyPageLoaded();
+  }
+
+  public void setProjectTitle(String projectTitle) {
+    projectTitleInputElement().setTextValue(projectTitle);
+  }
+
+  public void setQuickTaskName(String taskName) {
+    taskQuickNameFieldElement().setTextValue(taskName);
+  }
+
+  public void setTaskCompletedInDrawer() {
+    markTaskCompletedInDrawerElement().clickOnElement();
+    closeDrawerIfDisplayed();
+  }
+
+  public void setTaskCompletedInDrawerWithoutClosingIt() {
+    markTaskCompletedInDrawerElement().clickOnElement();
+  }
+
+  public void setTaskDescription(String description) {
+    taskDescriptionFieldElement().clickOnElement();
+
+    waitCKEditorLoading();
+    ElementFacade ckEditorFrameDescriptionElement = ckEditorFrameDescriptionElement();
+    ckEditorFrameDescriptionElement.waitUntilVisible();
+    getDriver().switchTo().frame(ckEditorFrameDescriptionElement);
+    try {
+      settaskDescriptionElement().sendKeys(description);
+    } finally {
+      getDriver().switchTo().defaultContent();
+    }
+
+  }
+
+  public void setTaskDueDateNextWeek() {
+    TextBoxElementFacade taskDueDateElement = taskDueDateElement();
+    taskDueDateElement.waitUntilVisible();
+    taskDueDateElement.clickOnElement();
+    taskDueDateNextWeekElement().clickOnElement();
+  }
+
+  public void setTaskDueDateToday() {
+    TextBoxElementFacade taskDueDateElement = taskDueDateElement();
+    taskDueDateElement.waitUntilVisible();
+    taskDueDateElement.clickOnElement();
+    taskDueDateTodayElement().clickOnElement();
+  }
+
+  public void setTaskDueDateTomorrow() {
+    TextBoxElementFacade taskDueDateElement = taskDueDateElement();
+    taskDueDateElement.waitUntilVisible();
+    taskDueDateElement.clickOnElement();
+    taskDueDateTomorrowElement().clickOnElement();
+  }
+
+  public void setTaskName(String taskName) {
+    taskNameFieldElement().setTextValue(taskName);
+  }
+
+  public void setTaskPriority(String taskPriority) {
+    assertWebElementVisible(taskPrioritySelectorElement());
+    taskPrioritySelectorElement().clickOnElement();
+    selectTaskPriority(taskPriority).clickOnElement();
+  }
+
+  public void setTaskStartDateToday() {
+    TextBoxElementFacade taskStartDateElement = taskStartDateElement();
+    taskStartDateElement.waitUntilVisible();
+    taskStartDateElement.clickOnElement();
+    taskStartDateTodayElement().clickOnElement();
+  }
+
+  public void setTaskStartDateTomorrow() {
+    TextBoxElementFacade taskStartDateElement = taskStartDateElement();
+    taskStartDateElement.waitUntilVisible();
+    taskStartDateElement.clickOnElement();
+    taskStartDateTomorrowElement().clickOnElement();
+  }
+
+  public void setTaskStatus(String taskStatus) {
+    assertWebElementVisible(selectStatusSelectorElement());
+    selectStatusSelectorElement().clickOnElement();
+    assertWebElementVisible(selectTaskStatus(taskStatus));
+    selectTaskStatus(taskStatus).clickOnElement();
+  }
+
+  public void switchToTASKSTab() {
+    backDrawerElement().clickOnElement();
+  }
+
+  public void taskAlertIsDisplayed(String message) {
+    assertWebElementVisible(getTaskAlert(message));
+  }
+
+  public void taskIsMarkedAndDisplayedInCompletedSection(String taskName) {
+    Assert.assertEquals(getCompletedTask(taskName).getText(), taskName);
+  }
+
+  public void taskIsNotMarkedAndDisplayedInUncompletedSection(String taskName) {
+    Assert.assertEquals(getUncompletedTask(taskName).getText(), taskName);
+  }
+
+  public void taskMarkedAsCompletedIsDisplayedInDrawer() {
+    assertWebElementVisible(taskMarkedAsCompletedInDrawerElement());
+  }
+
+  public void taskNameAndLabelIsDisplayedInProjectDetails(String label, String taskName) {
+    Assert.assertTrue(taskNameAndLabelAndNumberInProjectDetails(taskName).getText().contains(label));
+  }
+
+  public void taskNameIsDisplayedInDesiredColumn(String status, String taskName) {
+    Assert.assertTrue(getTaskStatusColumn(status).getText().contains(taskName));
+  }
+
+  public void taskNameIsDisplayedInProjectDetails(String taskName) {
+    ElementFacade taskElement = taskNameInProjectDetails(taskName);
+    assertWebElementVisible(taskElement);
+    Assert.assertEquals(taskElement.getText(), taskName);
+  }
+
+  public void taskNameIsNotDisplayedInProjectDetails(String taskName) {
+    ElementFacade taskElement = taskNameInProjectDetails(taskName);
+    assertWebElementNotVisible(taskElement);
+  }
+
+  public void taskNamePLanView(String taskName) {
+    getTaskNamePlanView(taskName).shouldBeVisible();
+  }
+
+  public void taskOrderInProjectDetails(String task, String number) {
+    Assert.assertTrue(getTaskOrder(number).getTextContent().contains(task));
+  }
+
+  public void tasksNumberToDo(String tasksNumber) {
+    assertWebElementVisible(getTasksNumberToDo(tasksNumber));
+  }
+
+  public void taskTooltipIsDisplayed(String task) {
+    Assert.assertEquals(taskTooltipElement().getText(), task);
+  }
+
+  public void updateTaskDescription(String description) {
+    taskDescriptionFieldElement().clickOnElement();
+
+    waitCKEditorLoading();
+    ElementFacade ckEditorFrameDescriptionElement = ckEditorFrameDescriptionElement();
+    ckEditorFrameDescriptionElement.waitUntilVisible();
+    getDriver().switchTo().frame(ckEditorFrameDescriptionElement);
+    try {
+      settaskDescriptionElement().sendKeys(" " + description);
+    } finally {
+      getDriver().switchTo().defaultContent();
+    }
+  }
+
+  public void userAvatarIsDisplayedInProjectCard(String userName) {
+    assertWebElementVisible(getProjectCardUserAvatar(userName));
+  }
+
+  public void userAvatarIsNotDisplayedInProjectCard(String userName) {
+    assertWebElementNotVisible(getProjectCardUserAvatar(userName));
+  }
+
+  public void userFullNameIsDisplayedInProjectCard(String name) {
+    Assert.assertEquals(projectCardUserFullNameElement().getText(), name);
+  }
+
+  public void userFullNameIsNotDisplayedInProjectCard(String name) {
+    Assert.assertNotEquals(projectCardUserFullNameElement().getText(), name);
+  }
+
+  public void verifyViewLinkAttachments() {
+    assertWebElementNotVisible(viewAttachmentsLinkElement());
+  }
+
+  public void viewAllCommentsTaskButton() {
+    ElementFacade viewAllCommentsTaskButtonElement = viewAllCommentsTaskButtonElement();
+    viewAllCommentsTaskButtonElement.waitUntilVisible();
+    viewAllCommentsTaskButtonElement.clickOnElement();
+  }
+
+  private ElementFacade activeTabFilterDrawerElement() {
+    return findByXPathOrCSS("//*[contains(@class,'filterTasksDrawer ')]//*[contains(@class,'v-tab--active') and @aria-selected='true']");
+  }
+
+  private ElementFacade addAttachmentLinkElement() {
+    return findByXPathOrCSS("//div[@id='attachmentIntegration']//button[contains(@class,'v-btn v-btn--flat')]");
+  }
+
+  private TextBoxElementFacade addManagerBtnElement() {
+    return findTextBoxByXPathOrCSS("//*[@class='editManager']//*[@class='editManager']//i[contains(@class,'uiIconProject')]");
+  }
+
+  private ElementFacade addNewCommentInTaskElement() {
+    return findByXPathOrCSS("//*[@class='ViewAllCommentText']");
+  }
+
+  private ElementFacade addOtherCommentInTaskElement() {
+    return findByXPathOrCSS("//button[contains(@class,'addCommentBtn')]");
+  }
+
+  private TextBoxElementFacade addParticipantBtnElement() {
+    return findTextBoxByXPathOrCSS("//*[@class='editParticipant']//i[@class='fas fa-plus']");
+  }
+
+  private ElementFacade addProjectOrTaskElement() {
+    return findByXPathOrCSS("//*[contains(@class, 'tasksToolbar')]//button[contains(@class, 'btn-primary')]");
+  }
+
+  private ElementFacade addStatusafteroptionElement() {
+    return findByXPathOrCSS("(//*[contains(@class,'uiIcon uiIconRotateRight')])[2]");
+  }
+
+  private ElementFacade addStatusBeforeoptionElement() {
+    return findByXPathOrCSS("(//*[contains(@class,'uiIconRotateLeft')])[1]");
+  }
+
+  private ElementFacade addTaskInProjectButtonElement() {
+    return findByXPathOrCSS(".tasksViewBoardRowContainer .tasksViewHeader .uiIconSocSimplePlus");
+  }
+
+  private TextBoxElementFacade alertMessageAfterMarkTaskAsCompletedElement() {
+    return findTextBoxByXPathOrCSS("//*[contains(text(),'Task successfully marked as archived')]");
+  }
+
+  private TextBoxElementFacade alertMessageAfterProjectCloneElement() {
+    return findTextBoxByXPathOrCSS("//*[@class='v-alert v-sheet theme--dark success']//*[@class='v-alert__content' and contains(text(),'Project successfully cloned')]");
+  }
+
+  private TextBoxElementFacade alertMessageAfterProjectCreationElement() {
+    return findTextBoxByXPathOrCSS("//*[@class='v-alert v-sheet theme--dark success']//*[@class='v-alert__content' and contains(text(),'Project successfully created')]");
+  }
+
+  private TextBoxElementFacade alertMessageAfterProjectDeletionElement() {
+    return findTextBoxByXPathOrCSS("//*[@class='v-alert v-sheet theme--dark success']//*[@class='v-alert__content' and contains(text(),'Project successfully deleted')]");
+  }
+
+  private TextBoxElementFacade alertMessageAfterProjectUpdateElement() {
+    return findTextBoxByXPathOrCSS("//*[@class='v-alert v-sheet theme--dark success']//*[@class='v-alert__content' and contains(text(),'Project successfully updated')]");
+  }
+
+  private TextBoxElementFacade alertMessageAfterStatusMovedElement() {
+    return findTextBoxByXPathOrCSS("//*[@class='v-alert v-sheet theme--dark success']//*[@class='v-alert__content' and contains(text(),'Status successfully moved')]");
+  }
+
+  private ElementFacade arrowBackButtonElement() {
+    return findByXPathOrCSS("//*[@class='uiIcon uiBackIcon']");
+  }
+
+  private ElementFacade assigneeRadioButtonElement() {
+    return findByXPathOrCSS("//*[@class='v-label theme--light'and text()='Assignee']");
+  }
+
+  private ElementFacade backButtonProjectElement() {
+    return findByXPathOrCSS("//*[@class='uiIcon uiBackIcon']");
+  }
+
+  private ElementFacade backDrawerElement() {
+    return findByXPathOrCSS("//*[@class='uiIcon uiArrowBAckIcon']");
+  }
+
+  private TextBoxElementFacade cancelButtonElement() {
+    return findTextBoxByXPathOrCSS("//*[@class='v-card__actions']//button[contains(@class,'btn ms-2')]");
+  }
+
+  private ElementFacade cancelFilterButtonElement() {
+    return findByXPathOrCSS("//*[contains(@class,'filterSortTasksDrawer')]//following::*[contains(text(),'Cancel')][1]");
+  }
+
+  private ElementFacade changeLocationLinkElement() {
+    return findByXPathOrCSS("//a[@title='Change location']");
+  }
+
+  private ElementFacade checkChangesDrawerElement() {
+    return findByXPathOrCSS("//*[@class='ps-2' and text()='Changes']");
+  }
+
+  private ElementFacade checkEditTaskDrawerElement() {
+    return findByXPathOrCSS("//*[contains(text(),'Edit task')]");
+  }
+
+  private ElementFacade ckEditorFrameDescriptionElement() {
+    return findByXPathOrCSS("//*[@class='cke_wysiwyg_frame cke_reset']");
+  }
+
+  private ElementFacade ckEditorFrameTaskElement() {
+    return findByXPathOrCSS("//iframe[contains(@class,'cke_wysiwyg_frame')]");
+  }
+
+  private ElementFacade ckEditorFrameTaskMentioningUserElement() {
+    return findByXPathOrCSS("(//iframe[contains(@class,'cke_wysiwyg_frame')])[2]");
+  }
+
+  private TextBoxElementFacade clearButtonInFilterByProjectElement() {
+    return findTextBoxByXPathOrCSS("//*[@id='ProjectListToolbar']//button[contains(@class,' mdi-close theme')]");
+  }
+
+  private TextBoxElementFacade clearButtonInFilterByTaskElement() {
+    return findTextBoxByXPathOrCSS("//*[@id='TasksListToolbar']//button[contains(@class,' mdi-close theme')]");
+  }
+
+  private ElementFacade cloneoptionElement() {
+    return findByXPathOrCSS("//*[contains (@class, 'uiIconCloneNode')]");
+  }
+
+  private ElementFacade cloneProjectButtonElement() {
+    return findByXPathOrCSS("//*[contains(@class,'uiIconCloneNode ')]");
+  }
+
+  private ElementFacade colorPaletteElement() {
+    return findByXPathOrCSS("//*[contains(@class,'projectColorPicker')]");
+  }
+
+  private ElementFacade commentsDrawerSectionElement() {
+    return findByXPathOrCSS("//*[contains(@class,'v-list-item__content drawerTitle')]//span[contains(text(),'Comments')]");
+  }
+
+  private ElementFacade commentTaskButtonElement() {
+    return findByXPathOrCSS("//*[contains(@class,'newCommentEditor')]//button");
+  }
+
+  private TextBoxElementFacade commentTaskMaxCharsMsgElement() {
+    return findTextBoxByXPathOrCSS(")]");
+  }
+
+  private ElementFacade confirmationPopupCloneButtonElement() {
+    return findByXPathOrCSS("//*[@class='ignore-vuetify-classes btn btn-primary me-2']");
+  }
+
+  private ElementFacade confirmationPopupDeleteButtonElement() {
+    return findByXPathOrCSS("//*[@class='ignore-vuetify-classes btn btn-primary me-2']");
+  }
+
+  private ElementFacade confirmButtonDrawerElement() {
+    return findByXPathOrCSS("//*[@class='btn btn-primary v-btn v-btn--contained theme--light v-size--default']");
+  }
+
+  private ElementFacade confirmFilterButtonElement() {
+    return findByXPathOrCSS("//*[contains(@class,'filterSortTasksDrawer')]//following::*[contains(text(),'Confirm')]");
+  }
+
+  private ElementFacade deleteButtonElement() {
+    return findByXPathOrCSS("//*[@class='v-card__actions']//button[contains(@class,'btn btn-primary')]");
+  }
+
+  private ElementFacade deleteProjectButtonElement() {
+    return findByXPathOrCSS("//*[contains(@class,'uiIconTrash ')]");
+  }
+
+  private ElementFacade deleteStatusIconElement() {
+    return findByXPathOrCSS("//*[contains(@class,'uiIconDelete')]");
+  }
+
+  private ElementFacade deleteTaskOptionElement() {
+    return findByXPathOrCSS("//*[contains(@class,'uiIconTrash ')]");
+  }
+
+  private ElementFacade documentButtonElement() {
+    return findByXPathOrCSS("//*[contains(@class ,'flex document-timeline-header ')]//button[contains(@class,'v-btn v-btn--flat')]");
+  }
+
+  private ElementFacade drawerTitleElement() {
+    return findByXPathOrCSS("//span[contains(text(),'Select Folder')]");
+  }
+
+  private ElementFacade editProjectButtonElement() {
+    return findByXPathOrCSS("//*[contains(@class,'uiIconEdit ')]");
+  }
+
+  private ElementFacade editTaskDrawerSectionElement() {
+    return findByXPathOrCSS("//*[@class='drawerTitleAndProject d-flex']//span[contains(text(),'Edit task')]");
+  }
+
+  private ElementFacade fifthColumnThreeDotsIconElement() {
+    return findByXPathOrCSS("(//*[@class='d-flex tasksViewHeaderLeft']/following::*[contains(@class,'uiIconVerticalDots')][1])[5]");
+  }
+
+  private ElementFacade filterButtonElement() {
+    return findByXPathOrCSS("//button[contains(@class,'filterTasksSetting v-btn')]");
+  }
+
+  private TextBoxElementFacade filterByProjectElement() {
+    return findTextBoxByXPathOrCSS("//input[@placeholder='Filter by project']");
+  }
+
+  private TextBoxElementFacade filterByTaskElement() {
+    return findTextBoxByXPathOrCSS("//input[@placeholder='Filter by task']");
+  }
+
+  private ElementFacade filterDrawerButtonElement() {
+    return findByXPathOrCSS("//button[contains(@class,'filterTasksSetting')]//span[contains(@class,'d-sm-inline')]");
+  }
+
+  private ElementFacade filterTabElement() {
+    return findByXPathOrCSS("//*[contains(@class,'filterTasksDrawer ')]//*[contains(@class,'v-tab') and contains(text(),'Filter')]");
+  }
+
+  private ElementFacade firstNotificationContentElement() {
+    return findByXPathOrCSS("(//*[contains(@class,'drawerContent')]//*[@class='contentSmall'])[1]");
+  }
+
+  private ElementFacade firstStatusColumnElement() {
+    return findByXPathOrCSS("(//*[contains(@id,'task-board')]//*[contains(@class,'statusName')])[1]");
   }
 
   private ElementFacade getAddLabelToTask(String label) {
@@ -1253,8 +1471,8 @@ public class TasksPage extends GenericPage {
 
   private ElementFacade getTaskName(String taskName) {
     ElementFacade taskInListView =
-                                     findByXPathOrCSS(String.format("//*[contains(@class, 'v-window-item--active')]//*[contains(@class, 'taskListItemView ')]/*[contains(@class, 'taskTitle ')]//*[contains(text(), '%s')]",
-                                                                    taskName));
+                                 findByXPathOrCSS(String.format("//*[contains(@class, 'v-window-item--active')]//*[contains(@class, 'taskListItemView ')]/*[contains(@class, 'taskTitle ')]//*[contains(text(), '%s')]",
+                                                                taskName));
     if (taskInListView.isCurrentlyVisible()) {
       return taskInListView;
     } else {
@@ -1318,134 +1536,77 @@ public class TasksPage extends GenericPage {
                                           taskName));
   }
 
-  public void goBack() {
-    goBackIcon.clickOnElement();
-  }
-
-  public void goToFilterTab() {
-    filterTab.clickOnElement();
-  }
-
-  public void goToGroupAndSortTab() {
-    groupAndSortTab.clickOnElement();
-  }
-
-  public void goToLabelsTab() {
-    labelsTab.clickOnElement();
-  }
-
-  public void goToPLanView() {
-    planView.waitUntilVisible();
-    planView.clickOnElement();
-  }
-
-  public void goToProjectDetailsList() {
-    projectDetailsListButton.clickOnElement();
-  }
-
-  public void goToProjectsTab() {
-    goToTab(1);
-  }
-
-  public void goToTasksTab() {
-    goToTab(2);
-  }
-
-  public void greenInformationIconIsDisplayed() {
-    assertWebElementVisible(informationIcon);
-    Assert.assertEquals(informationIcon.getCssValue("color"), "rgba(46, 181, 140, 1)");
-  }
-
-  public void hoverOnProjectManagerIcon() {
-    projectCardUserFullName.hover("//*[contains(@class, 'spaceAdminContainer')]//*[contains(@class, 'profile-popover')]");
-  }
-
-  public void hoverOnTaskName(String task) {
-    taskNameInProjectDetails(task).hover();
-  }
-
-  public void hoverOnTheChangesTimestamp() {
-    Actions actions = new Actions(getDriver());
-    actions.moveToElement(timesTamp).perform();
-  }
-
-  public void isFilterDrawerTabDisplayed(String tab) {
-    Assert.assertEquals(activeTabFilterDrawer.getText(), tab);
-  }
-
-  public void isLabelDisplayedInProjectDetails(String label, String times) {
-    assertWebElementVisible(getDisplayedLabel(label, times));
-  }
-
-  public void isSearchedTaskDisplayed(String taskName) {
-    Assert.assertEquals(ELEMENT_DRAWER_TASK_NAME.getValue(), taskName);
-  }
-
-  public boolean isStatusEditModeDisplayed(String statusColumn) {
-    return getStatusColumn(statusColumn).isNotVisibleAfterWaiting();
-  }
-
-  public void labelIsDisplayedInProjectDrawer(String label) {
-    assertWebElementVisible(getLabelInEditProjectDrawer(label));
-  }
-
-  public void labelIsDisplayedInTaskDrawer(String label) {
-    assertWebElementVisible(getLabelInEditTaskDrawer(label));
-    assertWebElementNotVisible(getRemoveLabelTaskButton(label));
-  }
-
-  public void labelIsNotDisplayedInProjectDrawer(String label) {
-    assertWebElementNotVisible(getLabelInEditProjectDrawer(label));
-  }
-
-  public void markTaskAsCompletedFromTaskCard() {
-    markTaskCompletedOnTaskCard.clickOnElement();
-  }
-
-  public void markTaskAsCompletedInProjectDetails(String taskName) {
-    getTaskToMarkAsCompleted(taskName).clickOnElement();
-  }
-
-  public void maxCharsCount1250InformationIsDisplayed() {
-    assertWebElementVisible(maxCharsCountInfo);
-  }
-
-  public void maxCharsNumberMessageIsDisplayed() {
-    commentsDrawerSection.clickOnElement();
-
-    waitCKEditorLoading();
-    ckEditorFrameTask.waitUntilVisible();
-    getDriver().switchTo().frame(ckEditorFrameTask);
-    try {
-      assertWebElementVisible(commentTaskMaxCharsMsg);
-    } finally {
-      getDriver().switchTo().defaultContent();
-    }
-
-  }
-
-  public void more1250CharsInformationIsDisplayed() {
-    assertWebElementVisible(more1250CharsCountInfo);
-    Assert.assertEquals(more1250CharsCountInfo.getCssValue("color"), "rgba(188, 67, 67, 1)");
-  }
-
-  public void openFilterDrawer() {
-    getDriver().navigate().refresh();
-    filterDrawerButton.waitUntilVisible();
-    filterDrawerButton.clickOnElement();
-  }
-
-  public void openProject(String project) {
-    getProjectCard(project).clickOnElement();
+  private ElementFacade goBackIconElement() {
+    return findByXPathOrCSS("//div[@class='drawerTitle']/button[@type='button']");
   }
 
   private void goToTab(int tabIndex) {
     ElementFacade tabLink =
-        findByXPathOrCSS(String.format("//*[contains(@class, 'tasksMenuParent')]//*[@role='tab'][%s]",
-                                       tabIndex));
+                          findByXPathOrCSS(String.format("//*[contains(@class, 'tasksMenuParent')]//*[@role='tab'][%s]",
+                                                         tabIndex));
     clickOnElement(tabLink);
     verifyPageLoaded();
     waitFor(300).milliseconds(); // Wait for Tab switch
+  }
+
+  private ElementFacade groupAndSortTabElement() {
+    return findByXPathOrCSS("//*[contains(@class,'filterTasksDrawer ')]//*[contains(@class,'v-tab') and contains(text(),'Group and Sort')]");
+  }
+
+  private ElementFacade informationIconElement() {
+    return findByXPathOrCSS("//*[@class='uiIconMessageLength']");
+  }
+
+  private TextBoxElementFacade inviteProjectManagerInputElement() {
+    return findTextBoxByXPathOrCSS("//*[@class='editManager']//input[@content-class='identitySuggesterContent']");
+  }
+
+  private TextBoxElementFacade inviteProjectParticipantInputElement() {
+    return findTextBoxByXPathOrCSS("//*[@class='editParticipant']//input[@content-class='identitySuggesterContent']");
+  }
+
+  private ElementFacade labelsTabElement() {
+    return findByXPathOrCSS("//*[contains(@class,'filterTasksDrawer ')]//*[contains(@class,'v-tab') and contains(text(),'Labels')]");
+  }
+
+  private TextBoxElementFacade labelTaskElement() {
+    return findTextBoxByXPathOrCSS("//*[@id='labelInput']");
+  }
+
+  private ElementFacade lastColumnThreeDotsIconElement() {
+    return findByXPathOrCSS("(//*[@class='d-flex tasksViewHeaderLeft']/following::*[contains(@class,'uiIconVerticalDots')][1])[4]");
+  }
+
+  private ElementFacade lastStatusColumnElement() {
+    return findByXPathOrCSS("(//*[contains(@id,'task-board')]//*[contains(@class,'statusName')])[4]");
+  }
+
+  private ElementFacade markTaskCompletedElement() {
+    return findByXPathOrCSS("//*[@class='tasksListItem']//*[@class='taskCheckBox']");
+  }
+
+  private ElementFacade markTaskCompletedInDrawerElement() {
+    return findByXPathOrCSS("//button[@id='check_btn']");
+  }
+
+  private ElementFacade markTaskCompletedOnTaskCardElement() {
+    return findByXPathOrCSS("//*[contains(@class,'taskViewCard')]//*[@class='taskCheckBox']");
+  }
+
+  private ElementFacade maxCharsCountInfoElement() {
+    return findByXPathOrCSS("//*[@class='activityCharsCount' and contains(text(),'0 / 1250')]");
+  }
+
+  private ElementFacade more1250CharsCountInfoElement() {
+    return findByXPathOrCSS("//*[@class='activityCharsCount tooManyChars']");
+  }
+
+  private ElementFacade moveStatusAfterIconElement() {
+    return findByXPathOrCSS("//*[contains(@class,'uiIconArrowRight ')]");
+  }
+
+  private ElementFacade moveStatusBeforeIconElement() {
+    return findByXPathOrCSS("//*[contains(@class,'uiIconArrowLeft ')]");
   }
 
   private ElementFacade openTask(String projectName) {
@@ -1453,29 +1614,40 @@ public class TasksPage extends GenericPage {
                             String.format("//span[contains(@class,'taskTitleEllipsis') and contains(text(),'%s')]", projectName));
   }
 
-  public void openTaskCard(String task) {
-    closeDrawerIfDisplayed();
-    openTask(task).clickOnElement();
-    waitForDrawerToOpen();
+  private ElementFacade planViewElement() {
+    return findByXPathOrCSS("//a[@class='taskTabGantt v-tab']");
   }
 
-  public void openTaskDrawer(String taskName) {
-    closeDrawerIfDisplayed();
-    getTaskName(taskName).clickOnElement();
-    waitForDrawerToOpen();
+  private ElementFacade plusButtonToAddTaskElement() {
+    return findByXPathOrCSS("(//*[@title='Add Task'])[1]");
   }
 
-  public void openTaskInTasksTab(String taskName) {
-    getTaskTitleInTasksTab(taskName).waitUntilVisible();
-    getTaskTitleInTasksTab(taskName).clickOnElement();
+  private ElementFacade plusButtonToAddTaskOfTheSixthStatusColumnElement() {
+    return findByXPathOrCSS("(//*[@title='Add Task'])[6]");
   }
 
-  public void projectDrawerNotClosing() {
-    assertTrue(findByXPathOrCSS(".v-navigation-drawer--open").isVisible());
+  private ElementFacade plusIconElement() {
+    return findByXPathOrCSS("(//div[@class='pe-0 v-list-item theme--light']//button[@type='button'])[7]");
   }
 
-  public void projectIsDisplayedInTasksAppCenter(String projectName) {
-    assertWebElementVisible(getProjectCard(projectName));
+  private ElementFacade plusIconProjectElement() {
+    return findByXPathOrCSS("(//div[contains(@class,'v-list-item__action drawerIcons')]//button)[7]");
+  }
+
+  private ElementFacade projectActiveBoardViewElement() {
+    return findByXPathOrCSS("//*[@class='taskTabBoard v-tab v-tab--active']");
+  }
+
+  private ElementFacade projectCardUserFullNameElement() {
+    return findByXPathOrCSS("(//*[contains(@class,'profile-popover')]//a[contains(@id,'userAvatar')]/following::div[contains(@class,'ms-2')])[2]");
+  }
+
+  private TextBoxElementFacade projectDescriptionFieldElement() {
+    return findTextBoxByXPathOrCSS("//body[contains(@class,'cke_editable_themed')]");
+  }
+
+  private ElementFacade projectDetailsListButtonElement() {
+    return findByXPathOrCSS("//*[@class='uiIcon uiIconList']");
   }
 
   private ElementFacade projectNameInProjectDetails(String projectName) {
@@ -1483,52 +1655,56 @@ public class TasksPage extends GenericPage {
                                           projectName));
   }
 
-  public void projectNameIsDisplayedInProjectDetails(String projectName) {
-    assertWebElementVisible(projectNameInProjectDetails(projectName));
+  private ElementFacade projectThreeDotsButtonElement() {
+    return findByXPathOrCSS("//*[contains(@class,'uiIconVerticalDots')]");
   }
 
-  public void redInformationIconIsDisplayed() {
-    assertWebElementVisible(informationIcon);
-    Assert.assertEquals(informationIcon.getCssValue("color"), "rgba(188, 67, 67, 1)");
+  private TextBoxElementFacade projectTitleElement() {
+    return findTextBoxByXPathOrCSS("//*[contains(@class, 'projectInputTitle')]");
   }
 
-  public void removeLabelToProject(String label) {
-    // Labels are retrieved from Server, thus we should wait until it's loaded,
-    // in addition, no loading effect is visible in project drawer
-    retryOnCondition(() -> findByXPathOrCSS(".projectLabelsName .v-chip").waitUntilVisible());
-    getRemoveLabelButton(label).clickOnElement();
+  private TextBoxElementFacade projectTitleInputElement() {
+    return findTextBoxByXPathOrCSS("//*[contains(@class,'addProjectTitle ')]//input");
   }
 
-  public void replyTaskCommentButtonIsDisabled() {
-    replyTaskCommentButton.isDisabledAfterWaiting();
+  private ElementFacade quickAddTaskInProjectButtonElement() {
+    return findByXPathOrCSS("button.quickAddNewTaskButton");
   }
 
-  public void resetFilterButtonIsDisplayed() {
-    assertWebElementVisible(resetFilterButton);
+  private ElementFacade replyTaskCommentButtonElement() {
+    return findByXPathOrCSS("//*[contains(@class,'editorContent commentEditorContainer')]//button");
   }
 
-  public void returnToProjectsTab() {
-    arrowBackButton.clickOnElement();
+  private ElementFacade resetFilterButtonElement() {
+    return findByXPathOrCSS("//*[contains(@class,'filterSortTasksDrawer')]//following::*[contains(text(),'Reset')]");
   }
 
-  public void saveAddingProject() {
-    saveButton.clickOnElement();
+  private ElementFacade saveButtonElement() {
+    return findByXPathOrCSS("//*[@class='d-flex']//button[2]");
   }
 
-  public void saveAddTaskButton() {
-    saveButton.clickOnElement();
+  private ElementFacade saveButtonTaskElement() {
+    return findByXPathOrCSS("(//*[@class='d-flex']//button[2])[2]");
   }
 
-  public void saveQuickTask() {
-    taskQuickNameField.sendKeys(Keys.ENTER);
+  private ElementFacade saveButtonTaskSpaceProjectElement() {
+    return findByXPathOrCSS("(//*[@class='d-flex']//button[2])");
   }
 
-  public void searchTask(String taskName) {
-    searchTaskName.sendKeys(taskName);
+  private TextBoxElementFacade searchProjectInputElement() {
+    return findTextBoxByXPathOrCSS("//div[@id='projectBoardToolbar']//input");
   }
 
-  public void selectFilterOption(String label) {
-    getFilterOption(label).clickOnElement();
+  private ElementFacade searchTaskNameElement() {
+    return findByXPathOrCSS("//*[@id='TasksListToolbar']//*[@class='v-text-field__slot']//input");
+  }
+
+  private ElementFacade secondStatusColumnElement() {
+    return findByXPathOrCSS("(//*[contains(@id,'task-board')]//*[contains(@class,'statusName')])[2]");
+  }
+
+  private ElementFacade selectStatusSelectorElement() {
+    return findByXPathOrCSS("//*[@role='button']//*[@class='v-input__icon v-input__icon--append']");
   }
 
   private ElementFacade selectTaskPriority(String taskPriority) {
@@ -1542,108 +1718,72 @@ public class TasksPage extends GenericPage {
                                           taskStatus));
   }
 
-  public void setInSearchProjectField(String project) {
-    searchProjectInput.setTextValue(project);
-    waitFor(1).seconds();
-    verifyPageLoaded();
+  private TextBoxElementFacade settaskDescriptionElement() {
+    return findTextBoxByXPathOrCSS("//*[contains(@class,'cke_editable cke_editabl')]");
   }
 
-  public void setProjectTitle(String projectTitle) {
-    projectTitleInput.setTextValue(projectTitle);
+  private TextBoxElementFacade spaceNameTitleElement() {
+    return findTextBoxByXPathOrCSS("//*[@placeholder='Display name']");
   }
 
-  public void setQuickTaskName(String taskName) {
-    taskQuickNameField.setTextValue(taskName);
+  private ElementFacade statusFieldElement() {
+    return findByXPathOrCSS("//*[@placeholder='Enter a name for this status']");
   }
 
-  public void setTaskCompletedInDrawer() {
-    markTaskCompletedInDrawer.clickOnElement();
-    closeDrawerIfDisplayed();
+  private TextBoxElementFacade successMessageElement() {
+    return findTextBoxByXPathOrCSS("//*[contains(@class,'drawerParent attachmentsListDrawer')]/following::*[@class='v-alert__content'][1]//span");
   }
 
-  public void setTaskCompletedInDrawerWithoutClosingIt() {
-    markTaskCompletedInDrawer.clickOnElement();
+  private ElementFacade switchToFrameTaskElement() {
+    return findByXPathOrCSS("(//iframe[contains(@class,'cke_wysiwyg_frame')])[2]");
   }
 
-  public void setTaskDescription(String description) {
-    taskDescriptionField.clickOnElement();
-
-    waitCKEditorLoading();
-    ckEditorFrameDescription.waitUntilVisible();
-    getDriver().switchTo().frame(ckEditorFrameDescription);
-    try {
-      settaskDescription.sendKeys(description);
-    } finally {
-      getDriver().switchTo().defaultContent();
-    }
-
+  private ElementFacade switchToFrameTaskUserElement() {
+    return findByXPathOrCSS("(//iframe[contains(@class,'cke_wysiwyg_frame')])");
   }
 
-  public void setTaskDueDateNextWeek() {
-    ELEMENT_TASK_DUE_DATE.waitUntilVisible();
-    ELEMENT_TASK_DUE_DATE.clickOnElement();
-    ELEMENT_TASK_DUE_DATE_NEXT_WEEK.clickOnElement();
+  private ElementFacade taskAssignLinkElement() {
+    return findByXPathOrCSS("(//*[@class='taskAssignBtn mt-n1'])");
   }
 
-  public void setTaskDueDateToday() {
-    ELEMENT_TASK_DUE_DATE.waitUntilVisible();
-    ELEMENT_TASK_DUE_DATE.clickOnElement();
-    ELEMENT_TASK_DUE_DATE_TODAY.clickOnElement();
+  private ElementFacade taskAssignMeElement() {
+    return findByXPathOrCSS("(//*[@class='ms-4'])[1]");
   }
 
-  public void setTaskDueDateTomorrow() {
-    ELEMENT_TASK_DUE_DATE.waitUntilVisible();
-    ELEMENT_TASK_DUE_DATE.clickOnElement();
-    ELEMENT_TASK_DUE_DATE_TOMORROW.clickOnElement();
+  private TextBoxElementFacade taskAssignUserInputElement() {
+    return findTextBoxByXPathOrCSS("(//div[@name='taskAssignee']//input)[1]");
   }
 
-  public void setTaskName(String taskName) {
-    taskNameField.setTextValue(taskName);
+  private TextBoxElementFacade taskCommentContentTextBoxElement() {
+    return findTextBoxByXPathOrCSS("//body[contains(@class,'cke_editable_themed')]");
   }
 
-  public void setTaskPriority(String taskPriority) {
-    assertWebElementVisible(taskPrioritySelector);
-    taskPrioritySelector.clickOnElement();
-    selectTaskPriority(taskPriority).clickOnElement();
+  private TextBoxElementFacade taskDescriptionBodyFieldElement() {
+    return findTextBoxByXPathOrCSS("//body[contains(@class,'cke_editable_themed')]");
   }
 
-  public void setTaskStartDateToday() {
-    ELEMENT_TASK_START_DATE.waitUntilVisible();
-    ELEMENT_TASK_START_DATE.clickOnElement();
-    ELEMENT_TASK_START_DATE_TODAY.clickOnElement();
+  private TextBoxElementFacade taskDescriptionFieldElement() {
+    return findTextBoxByXPathOrCSS("//*[@id='taskDescriptionId']");
   }
 
-  public void setTaskStartDateTomorrow() {
-    ELEMENT_TASK_START_DATE.waitUntilVisible();
-    ELEMENT_TASK_START_DATE.clickOnElement();
-    ELEMENT_TASK_START_DATE_TOMORROW.clickOnElement();
+  private TextBoxElementFacade taskDueDateElement() {
+    return findTextBoxByXPathOrCSS("(//*[contains(@id,'DatePicker')])[2]//input");
   }
 
-  public void setTaskStatus(String taskStatus) {
-    assertWebElementVisible(selectStatusSelector);
-    selectStatusSelector.clickOnElement();
-    assertWebElementVisible(selectTaskStatus(taskStatus));
-    selectTaskStatus(taskStatus).clickOnElement();
+  private TextBoxElementFacade taskDueDateNextWeekElement() {
+    return findTextBoxByXPathOrCSS("((//div[@class='v-picker__actions v-card__actions']//div[contains(@class,'d-flex flex-wrap')])[02]//button)[03]");
   }
 
-  public void switchToTASKSTab() {
-    backDrawer.clickOnElement();
+  private TextBoxElementFacade taskDueDateTodayElement() {
+    return findTextBoxByXPathOrCSS("(//*[contains(@class,'v-date-picker-table__current')])[2]");
   }
 
-  public void taskAlertIsDisplayed(String message) {
-    assertWebElementVisible(getTaskAlert(message));
+  private TextBoxElementFacade taskDueDateTomorrowElement() {
+    return findTextBoxByXPathOrCSS("(//*[contains(@class,'v-date-picker-table__current')])[2]/following::td[1]");
   }
 
-  public void taskIsMarkedAndDisplayedInCompletedSection(String taskName) {
-    Assert.assertEquals(getCompletedTask(taskName).getText(), taskName);
-  }
-
-  public void taskIsNotMarkedAndDisplayedInUncompletedSection(String taskName) {
-    Assert.assertEquals(getUncompletedTask(taskName).getText(), taskName);
-  }
-
-  public void taskMarkedAsCompletedIsDisplayedInDrawer() {
-    assertWebElementVisible(taskMarkedAsCompletedInDrawer);
+  private TextBoxElementFacade taskMarkedAsCompletedInDrawerElement() {
+    return findTextBoxByXPathOrCSS("//*[contains(@class,'taskCompleted')]//textarea");
   }
 
   private ElementFacade taskNameAndLabelAndNumberInProjectDetails(String taskName) {
@@ -1651,8 +1791,12 @@ public class TasksPage extends GenericPage {
                                           taskName));
   }
 
-  public void taskNameAndLabelIsDisplayedInProjectDetails(String label, String taskName) {
-    Assert.assertTrue(taskNameAndLabelAndNumberInProjectDetails(taskName).getText().contains(label));
+  private ElementFacade taskNameElement() {
+    return findByXPathOrCSS("//*[@id='task-Drawer']//*[@id='task-name']");
+  }
+
+  private TextBoxElementFacade taskNameFieldElement() {
+    return findTextBoxByXPathOrCSS("//*[contains(@class, 'taskTitleAndMark')]//textarea");
   }
 
   private ElementFacade taskNameInProjectDetails(String taskName) {
@@ -1660,91 +1804,79 @@ public class TasksPage extends GenericPage {
                                           taskName));
   }
 
-  public void taskNameIsDisplayedInDesiredColumn(String status, String taskName) {
-    Assert.assertTrue(getTaskStatusColumn(status).getText().contains(taskName));
+  private ElementFacade taskPrioritySelectorElement() {
+    return findByXPathOrCSS("//*[@class='v-input__control']//i[@class='v-icon notranslate mdi mdi-flag-variant theme--light nonePriorityColor']");
   }
 
-  public void taskNameIsDisplayedInProjectDetails(String taskName) {
-    ElementFacade taskElement = taskNameInProjectDetails(taskName);
-    assertWebElementVisible(taskElement);
-    Assert.assertEquals(taskElement.getText(), taskName);
+  private TextBoxElementFacade taskQuickNameFieldElement() {
+    return findTextBoxByXPathOrCSS("//*[contains(@class, 'task-name')]//input");
   }
 
-  public void taskNameIsNotDisplayedInProjectDetails(String taskName) {
-    ElementFacade taskElement = taskNameInProjectDetails(taskName);
-    assertWebElementNotVisible(taskElement);
+  private TextBoxElementFacade taskStartDateElement() {
+    return findTextBoxByXPathOrCSS("(//*[contains(@id,'DatePicker')])[1]//input");
   }
 
-  public void taskNamePLanView(String taskName) {
-    getTaskNamePlanView(taskName).shouldBeVisible();
+  private TextBoxElementFacade taskStartDateTodayElement() {
+    return findTextBoxByXPathOrCSS("(//*[contains(@class,'v-date-picker-table__current')])[1]");
   }
 
-  public void taskOrderInProjectDetails(String task, String number) {
-    Assert.assertTrue(getTaskOrder(number).getTextContent().contains(task));
+  private TextBoxElementFacade taskStartDateTomorrowElement() {
+    return findTextBoxByXPathOrCSS("(//*[contains(@class,'v-date-picker-table__current')])[1]/following::td[1]");
   }
 
-  public void tasksNumberToDo(String tasksNumber) {
-    assertWebElementVisible(getTasksNumberToDo(tasksNumber));
+  private ElementFacade taskThreeDotsOptionElement() {
+    return findByXPathOrCSS("//*[contains(@class,'uiThreeDotsIcon')]");
   }
 
-  public void taskTooltipIsDisplayed(String task) {
-    Assert.assertEquals(taskTooltip.getText(), task);
+  private ElementFacade taskTooltipElement() {
+    return findByXPathOrCSS("#TasksManagementPortlet .taskCard .taskTitleId .taskTitle");
   }
 
-  public void updateTaskDescription(String description) {
-    taskDescriptionField.clickOnElement();
-
-    waitCKEditorLoading();
-    ckEditorFrameDescription.waitUntilVisible();
-    getDriver().switchTo().frame(ckEditorFrameDescription);
-    try {
-      settaskDescription.sendKeys(" " + description);
-    } finally {
-      getDriver().switchTo().defaultContent();
-    }
+  private ElementFacade textAssigneeElement() {
+    return findByXPathOrCSS("//*[@class='nameGroup' and contains (text(), 'Unassigned')]");
   }
 
-  public void userAvatarIsDisplayedInProjectCard(String userName) {
-    assertWebElementVisible(getProjectCardUserAvatar(userName));
+  private ElementFacade thirdStatusColumnElement() {
+    return findByXPathOrCSS("(//*[contains(@id,'task-board')]//*[contains(@class,'statusName')])[3]");
   }
 
-  public void userAvatarIsNotDisplayedInProjectCard(String userName) {
-    assertWebElementNotVisible(getProjectCardUserAvatar(userName));
+  private ElementFacade threeDotsIconElement() {
+    return findByXPathOrCSS("(//*[@class='d-flex tasksViewHeaderLeft']/following::*[contains(@class,'uiIconVerticalDots')][1])[1]");
   }
 
-  public void userFullNameIsDisplayedInProjectCard(String name) {
-    Assert.assertEquals(projectCardUserFullName.getText(), name);
+  private ElementFacade threeDotsIconInEditTaskElement() {
+    return findByXPathOrCSS("//*[contains(@class,'uiThreeDotsIcon')]");
   }
 
-  public void userFullNameIsNotDisplayedInProjectCard(String name) {
-    Assert.assertNotEquals(projectCardUserFullName.getText(), name);
+  private ElementFacade timesTampElement() {
+    return findByXPathOrCSS("//*[@class='pe-2' and contains(text(),'Last Update')]");
   }
 
-  public void verifyViewLinkAttachments() {
-    assertWebElementNotVisible(viewAttachmentsLink);
+  private ElementFacade titleForTaskFieldElement() {
+    return findByXPathOrCSS("//*[@placeholder='Enter a title for this task']");
   }
 
-  public void viewAllCommentsTaskButton() {
-    viewAllCommentsTaskButton.waitUntilVisible();
-    viewAllCommentsTaskButton.clickOnElement();
+  private ElementFacade toolTipElement() {
+    return findByXPathOrCSS("//*[@class='lastUpdatedTask pb-3']");
   }
 
-  public void addProjectWithFirstUserAsParticipant(String projectName, String participant) {
-    addProjectOrTask.clickOnElement();
-    projectTitle.setTextValue(projectName);
-    addProjectParticipantInput(participant);
-    saveButton.clickOnElement();
+  private ElementFacade updateButtonDescriptionElement() {
+    return findByXPathOrCSS("//*[@id='saveDescriptionButton']");
   }
 
-  public void clickDeleteProjectButton()  {
-    deleteProjectButton.clickOnElement();
+  private ElementFacade updateNameSpaceButtonElement() {
+    return findByXPathOrCSS("//*[@class='btn btn-primary v-btn v-btn--contained theme--light v-size--default']");
   }
 
-  public void clickDelete() {
-    deleteButton.clickOnElement();
+  private ElementFacade validateStatusNameElement() {
+    return findByXPathOrCSS(" //*[contains(@class,'uiIcon40x40TickBlue')]");
   }
 
-  public void clickCancel() {
-    cancelButton.clickOnElement();
+  private ElementFacade viewAllCommentsTaskButtonElement() {
+    return findByXPathOrCSS("//*[@class='ViewAllCommentLabel']");
+  }
+
+  private ElementFacade viewAttachmentsLinkElement() {
+    return findByXPathOrCSS("//div[@class='attachmentsList']//a[@class='viewAllAttachments primary--text font-weight-bold text-decoration-underline']");
   }
 }

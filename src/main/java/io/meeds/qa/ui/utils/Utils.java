@@ -54,6 +54,16 @@ public class Utils {
     return sb.toString();
   }
 
+  public static String getTheRandomNumber() {
+    char[] chars = "0123456789".toCharArray();
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < 10; i++) {
+      char c = chars[RANDOM.nextInt(chars.length)];
+      sb.append(c);
+    }
+    return sb.toString();
+  }
+
   public static boolean isStaleElementException(Throwable e) {
     return e instanceof StaleElementReferenceException || (e.getCause() != null && isStaleElementException(e.getCause()));
   }

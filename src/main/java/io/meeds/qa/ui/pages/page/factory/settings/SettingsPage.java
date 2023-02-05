@@ -7,99 +7,14 @@ import org.openqa.selenium.WebDriver;
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class SettingsPage extends GenericPage {
 
-  private static final String  NOTIFICATION_SWITCH_BUTTON_XPATH          =
-                                                                "(//*[@id='UserSettingNotifications']//*[contains(@class, 'v-input--switch')]//input)[%s]";
+  private static final String NOTIFICATION_SWITCH_BUTTON_XPATH          =
+                                                               "(//*[@id='UserSettingNotifications']//*[contains(@class, 'v-input--switch')]//input)[%s]";
 
-  private static final String  NOTIFICATION_SWITCH_BUTTON_BY_STATE_XPATH = NOTIFICATION_SWITCH_BUTTON_XPATH
+  private static final String NOTIFICATION_SWITCH_BUTTON_BY_STATE_XPATH = NOTIFICATION_SWITCH_BUTTON_XPATH
       + "//self::*[@aria-checked='%s']//ancestor::*[contains(@class, 'v-input')]";
-
-  @FindBy(xpath = "(//button[@class='btn btn-primary v-btn v-btn--contained theme--light v-size--default']//*[@class='v-btn__content'])[1]")
-  private ElementFacade    ELEMENT_APPLY_CHANGE_LANGUAGE_BUTTON;
-
-  @FindBy(xpath = "(//*[@class='btn btn-primary v-btn v-btn--contained theme--light v-size--default'])[2]")
-  private ElementFacade    ELEMENT_APPLY_CHANGE_TIMEZONE_BUTTON;
-
-  @FindBy(xpath = "(//button[@class='btn btn-primary v-btn v-btn--contained theme--light v-size--default']//*[@class='v-btn__content'])[1]")
-  private ElementFacade    ELEMENT_APPLY_EDIT_GENERAL_NOTIFICATIONS_BUTTON;
-
-  @FindBy(xpath = "(//button[@class='btn me-2 v-btn v-btn--contained theme--light v-size--default']//*[@class='v-btn__content'])[1]")
-  private ElementFacade    ELEMENT_CANCEL_CHANGE_LANGUAGE_BUTTON;
-
-  @FindBy(xpath = "(//button[@class='btn me-2 v-btn v-btn--contained theme--light v-size--default']//*[@class='v-btn__content'])[1]")
-  private ElementFacade    ELEMENT_CANCEL_CHANGE_TIMEZONE_BUTTON;
-
-  @FindBy(xpath = "(//input[@type='password'])[3]/following::*[@class='v-btn__content'][1]")
-  private ElementFacade    ELEMENT_CANCEL_EDIT_PASSWORD;
-
-  @FindBy(xpath = "(//input[@type='password'])[3]/following::*[@class='v-btn__content'][2]")
-  private ElementFacade    ELEMENT_CONFIRM_EDIT_PASSWORD;
-
-  @FindBy(xpath = "(//*[@class='uiIconEdit uiIconLightBlue pb-2'])[1]")
-  private ElementFacade    ELEMENT_EDIT_NOTIFICATIONS_GENERAL;
-
-  @FindBy(xpath = "//*[@class='v-list-item__action']//*[@data-original-title='Edit password']//button")
-  private ElementFacade    ELEMENT_EDIT_PASSWORD;
-
-  @FindBy(xpath = "(//*[@class='uiIconEdit uiIconLightBlue pb-2'])[2]")
-  private ElementFacade    ELEMENT_EDIT_TIME_ZONE;
-
-  @FindBy(xpath = "(//*[@class='v-list-item__content pa-0'])[1]")
-  private ElementFacade    ELEMENT_GENERAL_NOTIFICATIONS_SECTION;
-
-  @FindBy(xpath = "//select[@name='EMAIL_DIGEST']")
-  private ElementFacade    ELEMENT_GENERAL_NOTIFICATIONS_SELECT_MAIL_SENDING_TYPE;
-
-  @FindBy(xpath = "(//*[@class='v-list-item__subtitle text-sub-title text-capitalize font-italic'])[1]")
-  private ElementFacade    ELEMENT_LANGUAGE_TXT;
-
-  @FindBy(xpath = "(//*[contains(text(),'Activity Stream')]")
-  private ElementFacade    ELEMENT_MANAGE_NOTIFICATION_ACTIVITYSTREAM_SECTION;
-
-  @FindBy(xpath = "(//*[contains(text(),'Connections')]")
-  private ElementFacade    ELEMENT_MANAGE_NOTIFICATION_CONNECTIONS_SECTION;
-
-  @FindBy(xpath = "(//*[contains(text(),'Connections')]")
-  private ElementFacade    ELEMENT_MANAGE_NOTIFICATION_GENERAL_SECTION;
-
-  @FindBy(xpath = "(///div[@class='v-list-item__content']//*[contains(text(),'Kudos')]")
-  private ElementFacade    ELEMENT_MANAGE_NOTIFICATION_KUDOS_SECTION;
-
-  @FindBy(xpath = "(//div[@class='v-list-item__content']//*[contains(text(),'Notes')]")
-  private ElementFacade    ELEMENT_MANAGE_NOTIFICATION_NOTES_SECTION;
-
-  @FindBy(xpath = "(//*[contains(text(),'Manage notifications')]")
-  private ElementFacade    ELEMENT_MANAGE_NOTIFICATION_PAGE;
-
-  @FindBy(xpath = "(//*[contains(text(),'Perk store')]")
-  private ElementFacade    ELEMENT_MANAGE_NOTIFICATION_PERKSTORE_SECTION;
-
-  @FindBy(xpath = "(//*[contains(text(),'Spaces')]")
-  private ElementFacade    ELEMENT_MANAGE_NOTIFICATION_SPACES_SECTION;
-
-  @FindBy(xpath = "(//*[contains(text(),'My Tasks')]")
-  private ElementFacade    ELEMENT_MANAGE_NOTIFICATION_TASKS_SECTION;
-
-  @FindBy(xpath = "(//div[@class='v-list-item__content']//*[contains(text(),'Wallet')]")
-  private ElementFacade    ELEMENT_MANAGE_NOTIFICATION_WALLET_SECTION;
-
-  @FindBy(xpath = "(//*[@class='v-list-item__action'])[7]//button")
-  private ElementFacade    ELEMENT_MANAGE_NOTIFICATIONS;
-
-  @FindBy(xpath = "(//input[@type='password'])[2]")
-  private TextBoxElementFacade ELEMENT_NEW_PASSWORD;
-
-  @FindBy(xpath = "(//input[@type='password'])[3]")
-  private TextBoxElementFacade ELEMENT_NEW_PASSWORD_CONFIRM;
-
-  @FindBy(xpath = "(//input[@type='password'])[1]")
-  private TextBoxElementFacade ELEMENT_OLD_PASSWORD;
-
-  @FindBy(xpath = "(//*[@class='v-list-item__subtitle text-sub-title text-capitalize font-italic'])[2]")
-  private ElementFacade    ELEMENT_TIMEZONE_TXT;
 
   public SettingsPage(WebDriver driver) {
     super(driver);
@@ -107,85 +22,76 @@ public class SettingsPage extends GenericPage {
 
   public void acceptEditLanguage() {
     // Accept editing language
-    ELEMENT_APPLY_CHANGE_LANGUAGE_BUTTON.waitUntilClickable();
-    ELEMENT_APPLY_CHANGE_LANGUAGE_BUTTON.clickOnElement();
+    ElementFacade applyChangeLanguageButtonElement = applyChangeLanguageButtonElement();
+    applyChangeLanguageButtonElement.waitUntilClickable();
+    applyChangeLanguageButtonElement.clickOnElement();
     waitForDrawerToClose();
   }
 
   public void acceptEditPassword() {
     // Accept editing password
-    ELEMENT_CONFIRM_EDIT_PASSWORD.waitUntilClickable();
-    ELEMENT_CONFIRM_EDIT_PASSWORD.clickOnElement();
+    ElementFacade confirmEditPasswordElement = confirmEditPasswordElement();
+    confirmEditPasswordElement.waitUntilClickable();
+    confirmEditPasswordElement.clickOnElement();
 
-  }
-
-  public void acceptEditTimeZone() {
-    // Accept editing time zone
-    ELEMENT_APPLY_CHANGE_TIMEZONE_BUTTON.waitUntilClickable();
-    ELEMENT_APPLY_CHANGE_TIMEZONE_BUTTON.clickOnElement();
-    waitForDrawerToClose();
   }
 
   public void applyEditGeneralNotifications() {
-    ELEMENT_APPLY_EDIT_GENERAL_NOTIFICATIONS_BUTTON.waitUntilClickable();
-    ELEMENT_APPLY_EDIT_GENERAL_NOTIFICATIONS_BUTTON.clickOnElement();
+    ElementFacade applyEditGeneralNotificationsButtonElement = applyEditGeneralNotificationsButtonElement();
+    applyEditGeneralNotificationsButtonElement.waitUntilClickable();
+    applyEditGeneralNotificationsButtonElement.clickOnElement();
     refreshPage();
   }
 
   public void cancelEditLanguage() {
     // Cancel editing language
-    ELEMENT_CANCEL_CHANGE_LANGUAGE_BUTTON.waitUntilClickable();
-    ELEMENT_CANCEL_CHANGE_LANGUAGE_BUTTON.clickOnElement();
+    ElementFacade cancelChangeLanguageButtonElement = cancelChangeLanguageButtonElement();
+    cancelChangeLanguageButtonElement.waitUntilClickable();
+    cancelChangeLanguageButtonElement.clickOnElement();
     waitForDrawerToClose();
   }
 
   public void cancelEditPassword() {
     // Cancel editing password
-    ELEMENT_CANCEL_EDIT_PASSWORD.waitUntilClickable();
-    ELEMENT_CANCEL_EDIT_PASSWORD.clickOnElement();
+    ElementFacade cancelEditPasswordElement = cancelEditPasswordElement();
+    cancelEditPasswordElement.waitUntilClickable();
+    cancelEditPasswordElement.clickOnElement();
 
-  }
-
-  public void cancelEditTimeZone() {
-    // Cancel editing time zone
-    ELEMENT_CANCEL_CHANGE_TIMEZONE_BUTTON.waitUntilClickable();
-    ELEMENT_CANCEL_CHANGE_TIMEZONE_BUTTON.clickOnElement();
-    waitForDrawerToClose();
   }
 
   public void checkThatActivityStreamSectionIsDisplayed() {
     // Check that Activity Stream Section Is Displayed
-    assertWebElementVisible(ELEMENT_MANAGE_NOTIFICATION_ACTIVITYSTREAM_SECTION);
+    assertWebElementVisible(manageNoticiationActivityStreamSectionElement());
   }
 
   public void checkThatConnectionsSectionIsDisplayed() {
     // Check that Connections Section Is Displayed
-    assertWebElementVisible(ELEMENT_MANAGE_NOTIFICATION_CONNECTIONS_SECTION);
+    assertWebElementVisible(manageNotificationConnectionsSectionElement());
   }
 
   public void checkThatGeneralSectionIsDisplayed() {
     // Check that General Section Is Displayed
-    assertWebElementVisible(ELEMENT_MANAGE_NOTIFICATION_GENERAL_SECTION);
+    assertWebElementVisible(manageNotificationGeneralSectionElement());
   }
 
   public void checkThatKudosSectionIsDisplayed() {
     // Check that Kudos Section Is Displayed
-    assertWebElementVisible(ELEMENT_MANAGE_NOTIFICATION_KUDOS_SECTION);
+    assertWebElementVisible(manageNotificationKudosSectionElement());
   }
 
   public void checkThatLanguageIsDisplayed(String language) {
     // Check that language is displayed
-    Assert.assertTrue(ELEMENT_LANGUAGE_TXT.getText().contains(language));
+    Assert.assertTrue(languageTextElement().getText().contains(language));
   }
 
   public void checkThatManageNotificationPageIsOpened() {
     // Check that Manage Notification Page is opened
-    assertWebElementVisible(ELEMENT_MANAGE_NOTIFICATION_PAGE);
+    assertWebElementVisible(manageNotificationPageElement());
   }
 
   public void checkThatNotesSectionIsDisplayed() {
     // Check that Notes Section Is Displayed
-    assertWebElementVisible(ELEMENT_MANAGE_NOTIFICATION_NOTES_SECTION);
+    assertWebElementVisible(manageNotificationNotesSectionElement());
   }
 
   public void checkThatNotificationOnMobileIsDisabled() {
@@ -220,7 +126,7 @@ public class SettingsPage extends GenericPage {
 
   public void checkThatPerkStoreSectionIsDisplayed() {
     // Check that Perk Store Section Is Displayed
-    assertWebElementVisible(ELEMENT_MANAGE_NOTIFICATION_PERKSTORE_SECTION);
+    assertWebElementVisible(manageNotificationPerkStoreSectionElement());
   }
 
   public void checkThatSettingsPageIsOpened() {
@@ -230,71 +136,48 @@ public class SettingsPage extends GenericPage {
 
   public void checkThatSpacesSectionIsDisplayed() {
     // Check that Connections Section Is Displayed
-    assertWebElementVisible(ELEMENT_MANAGE_NOTIFICATION_SPACES_SECTION);
+    assertWebElementVisible(manageNotificationSpacesSectionElement());
   }
 
   public void checkThatTasksSectionIsDisplayed() {
     // Check that Tasks Section Is Displayed
-    assertWebElementVisible(ELEMENT_MANAGE_NOTIFICATION_TASKS_SECTION);
-  }
-
-  public void checkThatTimeZoneIsDisplayed(String timeZone) {
-    // Check that time zone is displayed
-    Assert.assertEquals(ELEMENT_TIMEZONE_TXT.getText(), timeZone);
-
+    assertWebElementVisible(manageNotificationTasksSectionElement());
   }
 
   public void checkThatWalletSectionIsDisplayed() {
     // Check that Wallet Section Is Displayed
-    assertWebElementVisible(ELEMENT_MANAGE_NOTIFICATION_WALLET_SECTION);
+    assertWebElementVisible(manageNotificationWalletSectionElement());
   }
 
   public void dailyEmailIsDisplayedInGeneralNotificationsSection() {
     // Check that Daily Email is displayed in General Notifications Section
-    Assert.assertTrue(ELEMENT_GENERAL_NOTIFICATIONS_SECTION.getText().contains("Daily digest email notification"));
+    Assert.assertTrue(generalNotificationsSectionElement().getText().contains("Daily digest email notification"));
   }
 
   public void editLanguage(String language) {
     // Select language and change it
     findByXPathOrCSS("#UserSettingLanguage button").clickOnElement();
 
-    ELEMENT_CHANGE_LANGUAGE(language).waitUntilClickable();
-    ELEMENT_CHANGE_LANGUAGE(language).clickOnElement();
+    ElementFacade changeLanguageElement = changeLanguageElement(language);
+    changeLanguageElement.waitUntilClickable();
+    changeLanguageElement.clickOnElement();
 
   }
 
   public void editPassword(String oldPassword, String password) {
 
     // Go to Security Interface
-    ELEMENT_EDIT_PASSWORD.click();
+    editPasswordElement().click();
 
     // Enter the current password
-    ELEMENT_OLD_PASSWORD.setTextValue(oldPassword);
+    oldPasswordElement().setTextValue(oldPassword);
 
     // Enter the new password
-    ELEMENT_NEW_PASSWORD.setTextValue(password);
+    newPasswordElement().setTextValue(password);
 
     // Confirm the new password
-    ELEMENT_NEW_PASSWORD_CONFIRM.setTextValue(password);
+    newPasswordConfirmElement().setTextValue(password);
 
-  }
-
-  public void editTimeZone(String timeZone) {
-    // Select time zone and change it
-    ELEMENT_EDIT_TIME_ZONE.waitUntilClickable();
-    ELEMENT_EDIT_TIME_ZONE.clickOnElement();
-
-    ELEMENT_CHANGE_TIMEZONE(timeZone).waitUntilClickable();
-    ELEMENT_CHANGE_TIMEZONE(timeZone).clickOnElement();
-
-  }
-
-  private ElementFacade ELEMENT_CHANGE_LANGUAGE(String language) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]", language));
-  }
-
-  private ElementFacade ELEMENT_CHANGE_TIMEZONE(String timeZone) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]", timeZone));
   }
 
   public void enableDisableNotificationOnMobile() {
@@ -311,19 +194,19 @@ public class SettingsPage extends GenericPage {
 
   public void generalNotificationsSendingMailTypeIsDaily() {
     // Check that General Notifications Sending Mail Type is Daily
-    Assert.assertTrue(ELEMENT_GENERAL_NOTIFICATIONS_SELECT_MAIL_SENDING_TYPE.getText().contains("Daily"));
+    Assert.assertTrue(generalNotificationsSelectMailSendingTypeElement().getText().contains("Daily"));
 
   }
 
   public void generalNotificationsSendingMailTypeIsNever() {
     // Check that General Notifications Sending Mail Type is Never
-    Assert.assertTrue(ELEMENT_GENERAL_NOTIFICATIONS_SELECT_MAIL_SENDING_TYPE.getText().contains("Never"));
+    Assert.assertTrue(generalNotificationsSelectMailSendingTypeElement().getText().contains("Never"));
 
   }
 
   public void generalNotificationsSendingMailTypeIsWeekly() {
     // Check that General Notifications Sending Mail Type is Weekly
-    Assert.assertTrue(ELEMENT_GENERAL_NOTIFICATIONS_SELECT_MAIL_SENDING_TYPE.getText().contains("Weekly"));
+    Assert.assertTrue(generalNotificationsSelectMailSendingTypeElement().getText().contains("Weekly"));
 
   }
 
@@ -331,62 +214,63 @@ public class SettingsPage extends GenericPage {
     JavascriptExecutor js = (JavascriptExecutor) getDriver();
 
     try {
-      ELEMENT_EDIT_NOTIFICATIONS_GENERAL.waitUntilClickable();
-      ELEMENT_EDIT_NOTIFICATIONS_GENERAL.clickOnElement();
+      editGeneralNotificationsElement().waitUntilClickable();
+      editGeneralNotificationsElement().clickOnElement();
 
     } catch (Exception ex) {
-      js.executeScript("arguments[0].click();", ELEMENT_EDIT_NOTIFICATIONS_GENERAL);
+      js.executeScript("arguments[0].click();", editGeneralNotificationsElement());
     }
 
   }
 
   public void goToManageNotifications() {
-    clickOnElement(ELEMENT_MANAGE_NOTIFICATIONS);
+    clickOnElement(manageNotificationsElement());
   }
 
   public void noEmailIsDisplayedInGeneralNotificationsSection() {
     // Check that no Email is displayed in General Notifications Section
-    Assert.assertFalse(ELEMENT_GENERAL_NOTIFICATIONS_SECTION.getText().contains("Daily digest email notification"));
-    Assert.assertFalse(ELEMENT_GENERAL_NOTIFICATIONS_SECTION.getText().contains("Weekly digest email notification"));
+    ElementFacade generalNotificationsSectionElement = generalNotificationsSectionElement();
+    Assert.assertFalse(generalNotificationsSectionElement.getText().contains("Daily digest email notification"));
+    Assert.assertFalse(generalNotificationsSectionElement.getText().contains("Weekly digest email notification"));
   }
 
   public void notifyMeByEmailIsDisplayedInGeneralNotificationsSection() {
     // Check that Notify Me By Email is displayed in General Notifications
     // Section
-    Assert.assertTrue(ELEMENT_GENERAL_NOTIFICATIONS_SECTION.getText().contains("Notify me by email"));
+    Assert.assertTrue(generalNotificationsSectionElement().getText().contains("Notify me by email"));
 
   }
 
   public void notifyMeByEmailIsNotDisplayedInGeneralNotificationsSection() {
     // Check that Notify Me By Email is not displayed in General Notifications
     // Section
-    Assert.assertFalse(ELEMENT_GENERAL_NOTIFICATIONS_SECTION.getText().contains("Notify me by email"));
+    Assert.assertFalse(generalNotificationsSectionElement().getText().contains("Notify me by email"));
 
   }
 
   public void notifyMeOnMobileIsDisplayedInGeneralNotificationsSection() {
     // Check that Notify Me On Mobile is displayed in General Notifications
     // Section
-    Assert.assertTrue(ELEMENT_GENERAL_NOTIFICATIONS_SECTION.getText().contains("Notify me on mobile"));
+    Assert.assertTrue(generalNotificationsSectionElement().getText().contains("Notify me on mobile"));
   }
 
   public void notifyMeOnMobileIsNotDisplayedInGeneralNotificationsSection() {
     // Check that Notify Me On Mobile is not displayed in General Notifications
     // Section
-    Assert.assertFalse(ELEMENT_GENERAL_NOTIFICATIONS_SECTION.getText().contains("Notify me on mobile"));
+    Assert.assertFalse(generalNotificationsSectionElement().getText().contains("Notify me on mobile"));
   }
 
   public void notifyMeOnSiteIsDisplayedInGeneralNotificationsSection() {
     // Check that Notify Me on Site is displayed in General Notifications
     // Section
-    Assert.assertTrue(ELEMENT_GENERAL_NOTIFICATIONS_SECTION.getText().contains("Notify me on-site"));
+    Assert.assertTrue(generalNotificationsSectionElement().getText().contains("Notify me on-site"));
 
   }
 
   public void notifyMeOnSiteIsNotDisplayedInGeneralNotificationsSection() {
     // Check that Notify Me on Site is not displayed in General Notifications
     // Section
-    Assert.assertFalse(ELEMENT_GENERAL_NOTIFICATIONS_SECTION.getText().contains("Notify me on-site"));
+    Assert.assertFalse(generalNotificationsSectionElement().getText().contains("Notify me on-site"));
 
   }
 
@@ -395,15 +279,15 @@ public class SettingsPage extends GenericPage {
     switch (mailSendingType) {
     case "Daily":
       // Select Daily
-      ELEMENT_GENERAL_NOTIFICATIONS_SELECT_MAIL_SENDING_TYPE.selectByValue("Daily");
+      generalNotificationsSelectMailSendingTypeElement().selectByValue("Daily");
       break;
     case "Weekly":
       // Select Weekly
-      ELEMENT_GENERAL_NOTIFICATIONS_SELECT_MAIL_SENDING_TYPE.selectByValue("Weekly");
+      generalNotificationsSelectMailSendingTypeElement().selectByValue("Weekly");
       break;
     case "Never":
       // Select Never
-      ELEMENT_GENERAL_NOTIFICATIONS_SELECT_MAIL_SENDING_TYPE.selectByValue("Never");
+      generalNotificationsSelectMailSendingTypeElement().selectByValue("Never");
       break;
     default:
       // Do nothing
@@ -414,12 +298,38 @@ public class SettingsPage extends GenericPage {
 
   public void weeklyEmailIsDisplayedInGeneralNotificationsSection() {
     // Check that Weeky Email is displayed in General Notifications Section
-    Assert.assertTrue(ELEMENT_GENERAL_NOTIFICATIONS_SECTION.getText().contains("Weekly digest email notification"));
+    Assert.assertTrue(generalNotificationsSectionElement().getText().contains("Weekly digest email notification"));
+  }
+
+  private ElementFacade applyChangeLanguageButtonElement() {
+    return findByXPathOrCSS("(//button[@class='btn btn-primary v-btn v-btn--contained theme--light v-size--default']//*[@class='v-btn__content'])[1]");
+  }
+
+  private ElementFacade applyEditGeneralNotificationsButtonElement() {
+    return findByXPathOrCSS("(//button[@class='btn btn-primary v-btn v-btn--contained theme--light v-size--default']//*[@class='v-btn__content'])[1]");
+  }
+
+  private ElementFacade cancelChangeLanguageButtonElement() {
+    return findByXPathOrCSS("(//button[@class='btn me-2 v-btn v-btn--contained theme--light v-size--default']//*[@class='v-btn__content'])[1]");
+  }
+
+  private ElementFacade cancelEditPasswordElement() {
+    return findByXPathOrCSS("(//input[@type='password'])[3]/following::*[@class='v-btn__content'][1]");
+  }
+
+  private ElementFacade changeLanguageElement(String language) {
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]", language));
+  }
+
+  private void checkNotificationSwitchButtonState(int switchButtonIndex, boolean expectedState) {
+    assertWebElementVisible(findByXPathOrCSS(String.format(NOTIFICATION_SWITCH_BUTTON_BY_STATE_XPATH,
+                                                           String.valueOf(switchButtonIndex),
+                                                           String.valueOf(expectedState))));
   }
 
   private void clickOnNotificationSwitchButton(int switchButtonIndex) {
     ElementFacade element = findByXPathOrCSS(String.format(NOTIFICATION_SWITCH_BUTTON_XPATH,
-                                                               String.valueOf(switchButtonIndex)));
+                                                           String.valueOf(switchButtonIndex)));
     boolean beforeClickState = Boolean.parseBoolean(element.getAttribute("aria-checked"));
     element.findByXPath("//ancestor::*[contains(@class, 'v-input')]").clickOnElement();
 
@@ -430,10 +340,84 @@ public class SettingsPage extends GenericPage {
     element.waitUntilVisible();
   }
 
-  private void checkNotificationSwitchButtonState(int switchButtonIndex, boolean expectedState) {
-    assertWebElementVisible(findByXPathOrCSS(String.format(NOTIFICATION_SWITCH_BUTTON_BY_STATE_XPATH,
-                                                           String.valueOf(switchButtonIndex),
-                                                           String.valueOf(expectedState))));
+  private ElementFacade confirmEditPasswordElement() {
+    return findByXPathOrCSS("(//input[@type='password'])[3]/following::*[@class='v-btn__content'][2]");
+  }
+
+  private ElementFacade editGeneralNotificationsElement() {
+    return findByXPathOrCSS("(//*[@class='uiIconEdit uiIconLightBlue pb-2'])[1]");
+  }
+
+  private ElementFacade editPasswordElement() {
+    return findByXPathOrCSS("//*[@class='v-list-item__action']//*[@data-original-title='Edit password']//button");
+  }
+
+  private ElementFacade generalNotificationsSectionElement() {
+    return findByXPathOrCSS("(//*[@class='v-list-item__content pa-0'])[1]");
+  }
+
+  private ElementFacade generalNotificationsSelectMailSendingTypeElement() {
+    return findByXPathOrCSS("//select[@name='EMAIL_DIGEST']");
+  }
+
+  private ElementFacade languageTextElement() {
+    return findByXPathOrCSS("(//*[@class='v-list-item__subtitle text-sub-title text-capitalize font-italic'])[1]");
+  }
+
+  private ElementFacade manageNoticiationActivityStreamSectionElement() {
+    return findByXPathOrCSS("(//*[contains(text(),'Activity Stream')]");
+  }
+
+  private ElementFacade manageNotificationConnectionsSectionElement() {
+    return findByXPathOrCSS("(//*[contains(text(),'Connections')]");
+  }
+
+  private ElementFacade manageNotificationGeneralSectionElement() {
+    return findByXPathOrCSS("(//*[contains(text(),'Connections')]");
+  }
+
+  private ElementFacade manageNotificationKudosSectionElement() {
+    return findByXPathOrCSS("(///div[@class='v-list-item__content']//*[contains(text(),'Kudos')]");
+  }
+
+  private ElementFacade manageNotificationNotesSectionElement() {
+    return findByXPathOrCSS("(//div[@class='v-list-item__content']//*[contains(text(),'Notes')]");
+  }
+
+  private ElementFacade manageNotificationPageElement() {
+    return findByXPathOrCSS("(//*[contains(text(),'Manage notifications')]");
+  }
+
+  private ElementFacade manageNotificationPerkStoreSectionElement() {
+    return findByXPathOrCSS("(//*[contains(text(),'Perk store')]");
+  }
+
+  private ElementFacade manageNotificationsElement() {
+    return findByXPathOrCSS("(//*[@class='v-list-item__action'])[7]//button");
+  }
+
+  private ElementFacade manageNotificationSpacesSectionElement() {
+    return findByXPathOrCSS("(//*[contains(text(),'Spaces')]");
+  }
+
+  private ElementFacade manageNotificationTasksSectionElement() {
+    return findByXPathOrCSS("(//*[contains(text(),'My Tasks')]");
+  }
+
+  private ElementFacade manageNotificationWalletSectionElement() {
+    return findByXPathOrCSS("(//div[@class='v-list-item__content']//*[contains(text(),'Wallet')]");
+  }
+
+  private TextBoxElementFacade newPasswordConfirmElement() {
+    return findTextBoxByXPathOrCSS("(//input[@type='password'])[3]");
+  }
+
+  private TextBoxElementFacade newPasswordElement() {
+    return findTextBoxByXPathOrCSS("(//input[@type='password'])[2]");
+  }
+
+  private TextBoxElementFacade oldPasswordElement() {
+    return findTextBoxByXPathOrCSS("(//input[@type='password'])[1]");
   }
 
   public enum mailSendingType {

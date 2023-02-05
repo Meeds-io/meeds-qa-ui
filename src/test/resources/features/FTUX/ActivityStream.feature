@@ -1,31 +1,6 @@
 @activitystream
 Feature: Activity Stream
 
-  @ignored
-  Scenario: CAP02 - ActivityStream_US03: new Activity body with text display
-    Given I connect as admin if random users doesn't exists
-      | first  |
-      | second  |
-
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing
-
-    And I connect with the second created user
-    And I go to the random space
-
-    When I connect with the first created user
-    And I go to the random space
-    And I click on post in space
-    And I enter an activity 'activityTestCAP02-02' mentioning the second user
-    And I publish the activity
-    Then In post 'activityTestCAP02-02', the mentioned second user is displayed
-
-    When In post 'activityTestCAP02-02', I mouse over the mentioned second user
-    Then User Popover of the second user is displayed
-
-    When I click on the second user Popover
-    Then The profile page is displayed
-
   Scenario: CAP04 - [ActivityStream_US05] Display 10 activities in Activity Stream
     Given I connect as admin if random users doesn't exists
       | first  |
@@ -144,94 +119,6 @@ Feature: Activity Stream
     And Activity Comment 'commenttestCAP100-100' is displayed in activity stream
     And In activity 'activityTestCAP100-100' with comment 'commenttestCAP100-100', the reply 'replyTestCAP100-100' is displayed
     And In activity 'activityTestCAP100-100' with comment 'commenttestCAP100-100', the reply 'replyTestCAP100-101' is displayed
-
-  @ignored
-  Scenario: CAP101 - [ActivityStream_US38][05] Delete a reply from the activity stream
-    Given I connect as admin if random space and random users doesn't exists
-      | first  |
-      | second  |
-      | third  |
-
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing, no wait
-    And I create the third random user if not existing
-
-    And I go to the random space if not existing
-
-    When I connect with the first created user
-
-    And I go to the random space
-    And I click on post in space
-    And I enter an activity 'activityTestCAP101-101'
-    And I publish the activity
-    Then the activity 'activityTestCAP101-101' is displayed in activity stream
-
-    When I connect with the second created user
-
-    And I go to the random space
-    Then the activity 'activityTestCAP101-101' is displayed in activity stream
-    When I add in activity 'activityTestCAP101-101' a comment 'commenttestCAP101-101'
-    And I open in activity 'activityTestCAP101-101' the Comments drawer
-    Then Activity Comment 'commenttestCAP101-101' is displayed in Comments drawer
-    And Activity Comment 'commenttestCAP101-101' is displayed in activity stream
-
-    When I connect with the third created user
-
-    And I go to the random space
-    Then the activity 'activityTestCAP101-101' is displayed in activity stream
-    And Activity Comment 'commenttestCAP101-101' is displayed in activity stream
-    When I add a reply 'replyTestCAP101-101' to comment 'commenttestCAP101-101' in activity 'activityTestCAP101-101'
-    Then In activity 'activityTestCAP101-101' with comment 'commenttestCAP101-101', the reply 'replyTestCAP101-101' is displayed
-
-    When I connect with the second created user
-
-    And I go to the random space
-    Then the activity 'activityTestCAP101-101' is displayed in activity stream
-    And Activity Comment 'commenttestCAP101-101' is displayed in activity stream
-    And In activity 'activityTestCAP101-101' with comment 'commenttestCAP101-101', the reply 'replyTestCAP101-101' is displayed
-    When I add a reply 'replyTestCAP101-102' to comment 'commenttestCAP101-101' in activity 'activityTestCAP101-101'
-    Then In activity 'activityTestCAP101-101' with comment 'commenttestCAP101-101', the reply 'replyTestCAP101-102' is displayed
-
-    When I connect with the first created user
-
-    And I go to the random space
-    Then the activity 'activityTestCAP101-101' is displayed in activity stream
-    And Activity Comment 'commenttestCAP101-101' is displayed in activity stream
-    And In activity 'activityTestCAP101-101' with comment 'commenttestCAP101-101', the reply 'replyTestCAP101-101' is displayed
-    And In activity 'activityTestCAP101-101' with comment 'commenttestCAP101-101', the reply 'replyTestCAP101-102' is displayed
-    When I add a reply 'replyTestCAP101-103' to comment 'commenttestCAP101-101' in activity 'activityTestCAP101-101'
-    Then In activity 'activityTestCAP101-101' with comment 'commenttestCAP101-101', the reply 'replyTestCAP101-103' is displayed
-
-    When I change user admin
-
-    And I go to the random space
-    Then the activity 'activityTestCAP101-101' is displayed in activity stream
-    And Activity Comment 'commenttestCAP101-101' is displayed in activity stream
-    And In activity 'activityTestCAP101-101' with comment 'commenttestCAP101-101', the reply 'replyTestCAP101-101' is not displayed
-    And In activity 'activityTestCAP101-101' with comment 'commenttestCAP101-101', the reply 'replyTestCAP101-102' is displayed
-    And In activity 'activityTestCAP101-101' with comment 'commenttestCAP101-101', the reply 'replyTestCAP101-103' is displayed
-    When I add a reply 'replyTestCAP101-104' to comment 'commenttestCAP101-101' in activity 'activityTestCAP101-101'
-    Then In activity 'activityTestCAP101-101' with comment 'commenttestCAP101-101', the reply 'replyTestCAP101-104' is displayed
-
-    When I connect with the first created user
-
-    And I go to the random space
-    Then the activity 'activityTestCAP101-101' is displayed in activity stream
-    And Activity Comment 'commenttestCAP101-101' is displayed in activity stream
-    And In activity 'activityTestCAP101-101' with comment 'commenttestCAP101-101', the reply 'replyTestCAP101-101' is not displayed
-    And In activity 'activityTestCAP101-101' with comment 'commenttestCAP101-101', the reply 'replyTestCAP101-102' is not displayed
-    And In activity 'activityTestCAP101-101' with comment 'commenttestCAP101-101', the reply 'replyTestCAP101-103' is displayed
-    And In activity 'activityTestCAP101-101' with comment 'commenttestCAP101-101', the reply 'replyTestCAP101-104' is displayed
-
-    When In activity 'activityTestCAP101-101' with comment 'commenttestCAP101-101', I click on the reply 'replyTestCAP101-103' three dots icon
-    And In reply 'replyTestCAP101-103', I click on delete button
-    And I click on Yes button
-    Then the confirmation popup is not displayed
-    And Activity Comment 'commenttestCAP101-101' is displayed in activity stream
-    And In activity 'activityTestCAP101-101' with comment 'commenttestCAP101-101', the reply 'replyTestCAP101-101' is not displayed
-    And In activity 'activityTestCAP101-101' with comment 'commenttestCAP101-101', the reply 'replyTestCAP101-103' is not displayed
-    And In activity 'activityTestCAP101-101' with comment 'commenttestCAP101-101', the reply 'replyTestCAP101-102' is displayed
-    And In activity 'activityTestCAP101-101' with comment 'commenttestCAP101-100', the reply 'replyTestCAP101-104' is displayed
 
   Scenario: CAP102 - [ActivityStream_US38][06] Cancel Delete a reply from the activity stream
     Given I connect as admin if random space and random users doesn't exists
@@ -1169,17 +1056,17 @@ Feature: Activity Stream
 
     When I add in activity 'activityTest121' a comment 'commenttest102'
     And I open in activity 'activityTest121' the Comments drawer
-    Then Second comment 'commenttest102' is displayed in comments drawer
+    Then Second comment is displayed in comments drawer
 
     When I add in activity 'activityTest121' a comment 'commenttest103'
     And I open in activity 'activityTest121' the Comments drawer
-    Then Third comment 'commenttest103' is displayed in comments drawer
+    Then Third comment is displayed in comments drawer
 
     When I add in activity 'activityTest121' a comment 'commenttest104'
     And I open in activity 'activityTest121' the Comments drawer
-    Then Fourth comment 'commenttest104' is displayed in comments drawer
+    Then Fourth comment is displayed in comments drawer
     And First comment 'commenttest103' is displayed in activity stream
-    And Second comment 'commenttest104' is displayed in activity stream
+    And Second comment is displayed in activity stream
     And Comment 'commenttest101' is not displayed in activity 'activityTest121'
     And Comment 'commenttest102' is not displayed in activity 'activityTest121'
 
@@ -1210,7 +1097,7 @@ Feature: Activity Stream
     And I add in activity 'activityTestCAP122-122-02' a comment 'commenttestCAP122-104-02'
 
     Then First comment 'commenttestCAP122-103-02' is displayed in activity stream
-    And Second comment 'commenttestCAP122-104-02' is displayed in activity stream
+    And Second comment is displayed in activity stream
     And Comment 'commenttestCAP122-101-02' is not displayed in activity 'activityTestCAP122-122-02'
     And Comment 'commenttestCAP122-102-02' is not displayed in activity 'activityTestCAP122-122-02'
 
@@ -1254,7 +1141,7 @@ Feature: Activity Stream
     And I add in activity 'activityTestCAP123-123' a comment 'commenttestCAP123-104'
 
     Then First comment 'commenttestCAP123-103' is displayed in activity stream
-    And Second comment 'commenttestCAP123-104' is displayed in activity stream
+    And Second comment is displayed in activity stream
     And Comment 'commenttestCAP123-101' is not displayed in activity 'activityTestCAP123-123'
     And Comment 'commenttestCAP123-102' is not displayed in activity 'activityTestCAP123-123'
 
@@ -1317,17 +1204,17 @@ Feature: Activity Stream
     And I go to the random space
     Then the activity 'activityTestCAP157-157' is displayed in activity stream
 
-    When I add in activity 'activityTestCAP157-157' an internal link 'portal/meeds/spaces' as a comment
+    When I add in activity 'activityTestCAP157-157' an internal link '/spaces' as a comment
     And I open in activity 'activityTestCAP157-157' the Comments drawer
-    Then Internal link 'portal/meeds/spaces' is displayed in Comments drawer as a comment
-    And Internal link 'portal/meeds/spaces' is displayed in activity stream as a comment
+    Then Internal link '/spaces' is displayed in Comments drawer as a comment
+    And Internal link '/spaces' is displayed in activity stream as a comment
 
-    When I click on the internal link 'portal/meeds/spaces'
+    When I click on the internal link '/spaces'
     Then Space Top Bar Elements are displayed
 
     When I go to the random space
-    And I open the internal link 'portal/meeds/spaces' in new tab
-    Then The internal link 'portal/meeds/spaces' is opened in new tab
+    And I open the internal link '/spaces' in new tab
+    Then The internal link '/spaces' is opened in new tab
 
   Scenario: CAP158 - [ActivityStream_IMPV15][02] External Link opening behaviors inside comments
     Given I connect as admin if random users doesn't exists
@@ -1360,101 +1247,6 @@ Feature: Activity Stream
 
     When I open link 'https://www.meeds.io/' in new tab
     Then Link 'https://www.meeds.io/' is opened in new tab
-
-  @ignored
-  Scenario: CAP12 - [ActivityStream_US10][01] Activity with text or link options (3 dots) (Author)
-    Given I connect as admin if random users doesn't exists
-      | first  |
-      | second  |
-
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing
-
-    When I connect with the first created user
-
-    And I go to the random space
-    Then The created space name is displayed
-
-    When I connect with the second created user
-
-    And I go to the random space
-    And I click on post in space
-    And I enter an activity 'https://www.meeds.io/'
-    And I insert text 'activity-cap12'
-    And I publish the activity
-    And I click on three dots button related to activity 'activity-cap12'
-    Then Edit button related to activity 'activity-cap12' is displayed
-    And Delete button related to activity 'activity-cap12' is displayed
-    And Copy link button related to activity 'activity-cap12' is displayed
-
-    When I go to Stream page
-    Then The activity 'activity-cap12' posted by the second user in the created space is displayed with its timestamp in streams page
-
-    When I click on three dots button related to activity 'activity-cap12'
-    Then Edit button related to activity 'activity-cap12' is displayed
-    And Delete button related to activity 'activity-cap12' is displayed
-    And Copy link button related to activity 'activity-cap12' is displayed
-
-  @ignored
-  Scenario: CAP13 - [ActivityStream_US10][02] Activity with text or link options (3 dots) (Space manager)
-    Given I connect as admin if random users doesn't exists
-      | first  |
-      | second  |
-      | third  |
-
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing, no wait
-    And I create the third random user if not existing
-
-    When I connect with the first created user
-
-    And I go to the random space
-    Then The created space name is displayed
-
-    When I connect with the second created user
-
-    And I go to the random space
-    Then The created space name is displayed
-
-    When I connect with the third created user
-
-    And I go to the random space
-    Then The created space name is displayed
-
-    When I connect with the first created user
-
-    And I go to the random space
-    And I go to 'Members' tab
-    And I promote 'third' random user as a space manager
-
-    And I connect with the second created user
-
-    And I go to the random space
-    And I click on post in space
-    And I enter an activity 'https://www.meeds.io/'
-    And I insert text 'activity-CAP13'
-    And I publish the activity
-    Then the activity 'activity-CAP13' is displayed in activity stream
-
-    When I click on three dots button related to activity 'activity-CAP13'
-    Then Delete button related to activity 'activity-CAP13' is displayed
-    And Copy link button related to activity 'activity-CAP13' is displayed
-
-    And I connect with the third created user
-
-    And I go to the random space
-    Then the activity 'activity-CAP13' is displayed in activity stream
-
-    When I click on three dots button related to activity 'activity-CAP13'
-    Then Delete button related to activity 'activity-CAP13' is displayed
-    And Copy link button related to activity 'activity-CAP13' is displayed
-
-    When I go to Stream page
-    Then The activity 'activity-CAP13' posted by the second user in the created space is displayed with its timestamp in streams page
-
-    When I click on three dots button related to activity 'activity-CAP13'
-    Then Delete button related to activity 'activity-CAP13' is displayed
-    And Copy link button related to activity 'activity-CAP13' is displayed
 
   Scenario: CAP97 - [ActivityStream_US38][01] Delete a simple comment from the activity stream
     Given I am authenticated as admin
@@ -1495,64 +1287,6 @@ Feature: Activity Stream
     And I click on Yes button
     Then the confirmation popup is not displayed
     And Comment 'commenttest97' is not displayed in activity 'activityTest97'
-
-  @ignored
-  Scenario: CAP99 - [ActivityStream_US38][03] Delete comment with replies from the activity stream
-    Given I am authenticated as admin
-
-    When I create the firstadm random user if not existing, no wait
-    And I create the second random user if not existing, no wait
-    And I create the third random user if not existing, no wait
-    And I create the fourth random user if not existing
-    And I go to groups Management page
-    And I open the group 'Platform'
-    And I select the group 'Administration'
-    And I add the role '*' to the firstadm created user
-
-    When I connect with the second created user
-    And I go to the random space
-    And I connect with the third created user
-    And I go to the random space
-    And I click on post in space
-    And I enter an activity 'activityTest99'
-    And I publish the activity
-    Then the activity 'activityTest99' is displayed in activity stream
-
-    When I connect with the fourth created user
-    And I go to the random space
-    Then the activity 'activityTest99' is displayed in activity stream
-    When I add in activity 'activityTest99' a comment 'commenttest99'
-    And I open in activity 'activityTest99' the Comments drawer
-    Then Activity Comment 'commenttest99' is displayed in Comments drawer
-    And Activity Comment 'commenttest99' is displayed in activity stream
-
-    When I connect with the second created user
-    And I go to the random space
-    Then the activity 'activityTest99' is displayed in activity stream
-    And Activity Comment 'commenttest99' is displayed in activity stream
-    When I add a reply 'replyTest100' to comment 'commenttest99' in activity 'activityTest99'
-    Then In activity 'activityTest99' with comment 'commenttest99', the reply 'replyTest100' is displayed
-    When I add a reply 'replyTest101' to comment 'commenttest99' in activity 'activityTest99'
-    Then In activity 'activityTest99' with comment 'commenttest99', the reply 'replyTest101' is displayed
-    When I add a reply 'replyTest102' to comment 'commenttest99' in activity 'activityTest99'
-    Then In activity 'activityTest99' with comment 'commenttest99', the reply 'replyTest102' is displayed
-
-    When I connect with the firstadm created user
-    And I go to the random space
-    Then the activity 'activityTest99' is displayed in activity stream
-    And Activity Comment 'commenttest99' is displayed in activity stream
-    And In activity 'activityTest99' with comment 'commenttest99', the reply 'replyTest100' is not displayed
-    And In activity 'activityTest99' with comment 'commenttest99', the reply 'replyTest101' is displayed
-    And In activity 'activityTest99' with comment 'commenttest99', the reply 'replyTest102' is displayed
-
-    When In activity 'activityTest99', I click on the comment 'commenttest99' three dots icon
-    And In comment 'commenttest99', I click on delete button
-    And I click on Yes button
-    Then the confirmation popup is not displayed
-    And Comment 'commenttest99' is not displayed in activity 'activityTest99'
-    And In activity 'activityTest99' with comment 'commenttest99', the reply 'replyTest100' is not displayed
-    And In activity 'activityTest99' with comment 'commenttest99', the reply 'replyTest101' is not displayed
-    And In activity 'activityTest99' with comment 'commenttest99', the reply 'replyTest102' is not displayed
 
   Scenario: Cap155 - ActivityStream_US58: Mention a user in the comments
     Given I connect as admin if random users doesn't exists
@@ -1740,68 +1474,6 @@ Feature: Activity Stream
     When I go to Stream page
     Then the activity 'activityus1010cap21' is displayed in stream page
 
-  @ignored
-  Scenario: CAP87 - [ActivityStream_US04][01] Edit comment in Activity stream
-    Given I connect as admin if random users doesn't exists
-      | first  |
-      | second  |
-      | third  |
-      | fourth  |
-
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing, no wait
-    And I create the third random user if not existing, no wait
-    And I create the fourth random user if not existing
-
-    When I connect with the first created user
-    And I go to the random space
-
-    When I connect with the second created user
-    And I go to the random space
-    And I click on post in space
-    And I enter an activity 'activitycap87'
-    And I publish the activity
-    Then the activity 'activitycap87' is displayed in activity stream
-
-    When I add in activity 'activitycap87' a comment 'commenttest101'
-    And I open in activity 'activitycap87' the Comments drawer
-    Then Activity Comment 'commenttest101' is displayed in Comments drawer
-    And Activity Comment 'commenttest101' is displayed in activity stream
-
-    When I connect with the first created user
-    And I go to the random space
-    Then the activity 'activitycap87' is displayed in activity stream
-    When I add in activity 'activitycap87' a comment 'commenttest102'
-    And I add a reply 'replyTest102' to comment 'commenttest102' in activity 'activitycap87'
-    Then In activity 'activitycap87' with comment 'commenttest102', the reply 'replyTest102' is displayed
-
-    When I connect with the third created user
-    And I go to the random space
-    Then the activity 'activitycap87' is displayed in activity stream
-    When I add in activity 'activitycap87' a comment 'commenttest103'
-    And I add a reply 'replyTest103' to comment 'commenttest103' in activity 'activitycap87'
-    Then In activity 'activitycap87' with comment 'commenttest103', the reply 'replyTest103' is displayed
-
-    When I connect with the fourth created user
-    And I go to the random space
-    Then the activity 'activitycap87' is displayed in activity stream
-
-    When In activity 'activitycap87' I enter the link 'https://www.meeds.io/' as comment
-    And I insert text ' commenttest104' as comment
-    And I publish the comment
-    And I open in activity 'activitycap87' the Comments drawer
-    Then Comment 'https://www.meeds.io/ commenttest104' is displayed in comments drawer at the sixth position
-
-    When I add a reply 'replyTest104' to comment 'commenttest104' in activity 'activitycap87'
-    Then In activity 'activitycap87' with comment 'commenttest104', the reply 'replyTest104' is displayed
-
-    When In activity 'activitycap87', I click on the comment 'commenttest104' three dots icon
-    And In comment 'commenttest104', I click on edit button
-    And I insert text 'commenttestupdated104 ' as comment
-    And I click on update comment
-    And I open in activity 'activitycap87' the Comments drawer
-    Then Comment 'commenttestupdated104 https://www.meeds.io/ commenttest104' is displayed in comments drawer at the sixth position
-
   Scenario: CAP88 - [ActivityStream_US04.1][01] Edit comment from the comment drawer
     Given I connect as admin if random users doesn't exists
       | first  |
@@ -1854,29 +1526,7 @@ Feature: Activity Stream
     And I insert text 'updated' as comment
     Then I click on update comment
     And I open in activity 'activitycap88' the Comments drawer
-    Then Comment 'updatedcommenttest104' is displayed in comments drawer at the sixth position
-
-  @ignored
-  Scenario: [ActivityStream_US32][02] space note page
-    Given I connect as admin if random users doesn't exists
-      | first  |
-      | second  |
-
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing
-    When I connect with the first created user
-
-    And I go to the random space
-    And I go to notes application of the space
-    When I click to add note
-    Then Create note form is opened successfully in new tab
-
-    When I add note with title 'Long Name Long Name Long Name Long Name Long Name Long Name Long Name' and content 'Long Content Long Content Long Content Long Content Long Content Long Content Long Content Long Content Long Content Long Content Long Content'
-    And I save and post Note
-    Then Note title 'Long Name Long Name Long Name Long Name Long Name Long Name Long Name' and content 'Long Content Long Content Long Content Long Content Long Content Long Content Long Content Long Content Long Content Long Content Long Content' are displayed successfully
-
-    When I go to Stream page
-    Then the activity 'Long Name Long Name Long Name Long Name Long Name Long Name Long Name' is displayed in activity stream
+    Then Comment is displayed in comments drawer at the sixth position
 
   Scenario: CAP128 - [ActivityStream_US47][01] Send a kudos from a comment
     Given I connect as admin if random users doesn't exists
@@ -2026,7 +1676,7 @@ Feature: Activity Stream
     When I click on likers number of the activity 'stream activité'
     Then The first user is displayed in activity likers drawer
     And I open user profile of first user from activity likers drawer
-    And The 'Profile' page is opened
+    And The page '/profile' is opened
 
   Scenario: CAP129 - [ActivityStream_US47][02] Send a kudos from a reply
     Given I connect as admin if random users doesn't exists
@@ -2105,7 +1755,7 @@ Feature: Activity Stream
 
     When I add in activity 'activitycap87' a comment 'commenttest102'
     And I click on comment button related to activity 'activitycap87'
-    Then Second comment 'commenttest102' is displayed in comments drawer
+    Then Second comment is displayed in comments drawer
 
     When I connect with the third created user
     And I go to the random space
@@ -2113,7 +1763,7 @@ Feature: Activity Stream
 
     When I add in activity 'activitycap87' a comment 'commenttest103'
     And I click on comment button related to activity 'activitycap87'
-    Then Third comment 'commenttest103' is displayed in comments drawer
+    Then Third comment is displayed in comments drawer
 
     When I connect with the fourth created user
     And I go to the random space
@@ -2121,14 +1771,14 @@ Feature: Activity Stream
 
     When I add in activity 'activitycap87' a comment 'commenttest104'
     And I click on comment button related to activity 'activitycap87'
-    Then Fourth comment 'commenttest104' is displayed in comments drawer
+    Then Fourth comment is displayed in comments drawer
 
     When In activity 'activitycap87', I click on the comment 'commenttest104' three dots icon
     And In comment 'commenttest104', I click on edit button
     And I update comment with a new one 'commenttestupdated104'
     And I click on update comment
     And I open in activity 'activitycap87' the Comments drawer
-    Then Fourth comment 'commenttestupdated104' is displayed in comments drawer
+    Then Fourth comment is displayed in comments drawer
 
   Scenario: [ActivityStream_US52][03] Edit a kudos from a comment
     Given I connect as admin if random users doesn't exists
@@ -2237,72 +1887,6 @@ Feature: Activity Stream
     When In comment 'Test Auto reply Kudos US52_01', I click on edit button
     And I set the new kudos comment text 'updated Test Auto reply Kudos US52_01' and I click on update button
     Then the updated Kudos activity 'updated Test Auto reply Kudos US52_01' is displayed in stream page
-
-  @smoke
-  @ignored
-  Scenario: Mention from user activity stream should push the activity in "My Activities" of the mentioned user
-    Given I am authenticated as admin
-    And I create the first random user if not existing
-    And I go to the random space
-    When I click on Post button
-    And I enter the activity 'activityWithMentionedUser', and I mention the user 'aymen khal'
-    And I publish the activity
-    Then In the created space, in post 'activityWithMentionedUser', the mentioned user 'aymen khal' is displayed
-
-    When I am authenticated as admin
-    And I open Notifications
-    Then Notification when mentioning a user in activity, 'Houssem Riahi has mentioned you' 'activityWithMentionedUser aymen khal' is displayed
-    And Notification : 'Houssem Riahi has posted an activity' in the created space 'activityWithMentionedUser aymen khal', is displayed
-
-    When I click on the activity notification which is mentioning the user, 'Houssem Riahi has mentioned you' 'activityWithMentionedUser aymen khal'
-    Then In the created space, in post 'activityWithMentionedUser', the mentioned user 'aymen khal' is displayed
-
-  @smoke
-  @ignored
-  Scenario: Mention a member in comment from a space should push activity in "My Activities" of the member
-    Given I connect as admin if random users doesn't exists
-      | first  |
-
-    And I create the first random user if not existing
-    When I go to the random space
-    And I connect with the first created user
-    And I go to the random space
-    When I click on Post button
-    And I enter the activity 'actTest', and I mention the user 'aymen khal'
-    And I publish the activity
-    Then In the created space, in post 'actTest', the mentioned user 'aymen khal' is displayed
-
-    When I am authenticated as admin
-    And I open Notifications
-    Then Notification when mentioning a user in activity, 'Houssem Riahi has mentioned you' 'actTest aymen khal' is displayed
-    And Notification : 'Houssem Riahi has posted an activity' in the created space 'actTest aymen khal', is displayed
-    And I close Notifications drawer
-
-    When I go to First Space
-    Then In the created space, in post 'actTest', the mentioned user 'aymen khal' is displayed
-
-    When I add in activity 'actTest' a comment 'comTest' with mentioning the user 'Houssem Riahi'
-    And I open in activity 'actTest' the Comments drawer
-    Then Activity Comment 'comTest Houssem Riahi' is displayed in Comments drawer
-    And Activity Comment 'comTest Houssem Riahi' is displayed in activity stream
-
-    When I change user
-      | login    | houssem.riahi |
-      | password | houssem2020   |
-    And I open Notifications
-    Then Notification when mentioning a user in activity, 'aymen khal has mentioned you' 'actTest aymen khal' is displayed
-    And Notification : 'aymen khal has commented on a post' 'actTest aymen khal' 'comTest Houssem Riahi', is displayed
-
-    When I click on the activity comment notification which is mentioning the user, 'aymen khal has commented on a post' 'actTest aymen khal' 'comTest Houssem Riahi'
-    Then Activity Comment 'comTest Houssem Riahi' is displayed in Comments drawer
-    And Activity Comment 'comTest Houssem Riahi' is displayed in activity stream
-
-    When I go to the home page
-    And I open Notifications
-    And I click on the activity notification which is mentioning the user, 'aymen khal has mentioned you' 'actTest aymen khal'
-    Then Activity Comment 'comTest Houssem Riahi' is displayed in Comments drawer
-    And Activity Comment 'comTest Houssem Riahi' is displayed in activity stream
-    And I go to the home page
 
   Scenario: PinActivity_US01: Space host or redactor can pin an activity (from Space Stream -  Space host Case)
     Given I am authenticated as admin

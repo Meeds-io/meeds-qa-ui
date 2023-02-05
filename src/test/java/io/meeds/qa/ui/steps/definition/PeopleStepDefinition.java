@@ -11,11 +11,6 @@ public class PeopleStepDefinition {
   @Steps
   private PeopleSteps peopleSteps;
 
-  @Given("I add the first user suggestion")
-  public void addFirstUserSuggestion() {
-    peopleSteps.addFirstUserSuggestion();
-  }
-
   @Then("^Current User position and points on Leaderboard are displayed$")
   public void areCurrentUserPositionAndPointsOnLeaderboardDisplayed() {
     peopleSteps.areCurrentUserPositionAndPointsOnLeaderboardDisplayed();
@@ -54,11 +49,6 @@ public class PeopleStepDefinition {
   @Given("^Search Filter is displayed in People page$")
   public void checkThatFilterIsDisplayed() {
     peopleSteps.checkThatFilterIsDisplayed();
-  }
-
-  @Given("^First User Suggestion is not displayed$")
-  public void checkThatFirstUserSuggestionIsNotDisplayed() {
-    peopleSteps.checkThatFirstUserSuggestionIsNotDisplayed();
   }
 
   @Then("^Contact Fullname in People page is displayed$")
@@ -118,7 +108,7 @@ public class PeopleStepDefinition {
   }
 
   @Given("^I delete Sent Request$")
-  public void deleteSentRequest() throws InterruptedException {
+  public void deleteSentRequest() {
     peopleSteps.deleteSentRequest();
   }
 

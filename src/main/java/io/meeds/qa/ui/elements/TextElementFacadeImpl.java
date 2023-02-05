@@ -39,7 +39,7 @@ public class TextElementFacadeImpl extends ElementFacadeImpl implements TextElem
                                long waitForTimeoutInMilliseconds) {
     super(driver, locator, xPathOrCSSSelector, element, timeoutInMilliseconds, waitForTimeoutInMilliseconds);
   }
-  
+
   public TextElementFacadeImpl(WebDriver driver,
                                ElementLocator locator,
                                WebElement element,

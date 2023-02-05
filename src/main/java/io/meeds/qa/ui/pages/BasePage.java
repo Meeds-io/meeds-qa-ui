@@ -7,15 +7,10 @@ public interface BasePage {
   /**
    * Method to find an element that has the type BaseElementFacade using an
    * xpath.
-   *
-   * @param xpath: xpath of the element
+   * 
+   * @param  xpath : xpath of the element
+   * @param  <T>   an elemtn that inherits from {@link ElementFacade}
+   * @return       {@link ElementFacade} object
    */
   <T extends ElementFacade> T findByXPathOrCSS(String xpath);
-
-  /**
-   * Method to verify the presence of all the elements that has the
-   * annotation @findBy in a page. Note : this method is called by default from
-   * the currentPage method unless it is overrided inside of the page
-   */
-  void verifyPageLoaded();
 }

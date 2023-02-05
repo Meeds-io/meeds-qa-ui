@@ -1,5 +1,4 @@
 @programs
-
 Feature: Programs
 
   Scenario: [Engagement][Program][US] : Add an enabled program
@@ -13,7 +12,7 @@ Feature: Programs
     And I connect with the firstadm created user
     And I create a random space
     And I go To AppCenter Drawer
-    And I go to contributions AppCenter Application
+    And I go to 'Contributions' application
     Then Engagement application center is displayed
     When I select engagement Programs tab
     And I click on the button add program
@@ -26,7 +25,6 @@ Feature: Programs
     And I filter programs by value 'ENABLED'
     Then The program title should be displayed on the card
 
-
   Scenario: [Engagement][Program][US] : Add a disabled program
     Given I connect as admin if random users doesn't exists
       | first  |
@@ -38,7 +36,7 @@ Feature: Programs
     And I connect with the firstadm created user
     And I create a random space
     And I go To AppCenter Drawer
-    And I go to contributions AppCenter Application
+    And I go to 'Contributions' application
     Then Engagement application center is displayed
     When I select engagement Programs tab
     And I click on the button add program
@@ -51,7 +49,6 @@ Feature: Programs
     And I filter programs by value 'DISABLED'
     Then The program title should be displayed on the card
 
-
   Scenario: [Engagement][Program][US] : Edit program
     Given I connect as admin if random users doesn't exists
       | first  |
@@ -63,7 +60,7 @@ Feature: Programs
     And I connect with the firstadm created user
     And I create a random space
     And I go To AppCenter Drawer
-    And I go to contributions AppCenter Application
+    And I go to 'Contributions' application
     Then Engagement application center is displayed
     When I select engagement Programs tab
     And I click on the button add program
@@ -77,7 +74,6 @@ Feature: Programs
     Then The message 'Program successfully updated' should be displayed
     And The program title should be updated on the card
 
-
   Scenario: [Program][US04] Delete program
     Given I connect as admin if random users doesn't exists
       | first  |
@@ -89,7 +85,7 @@ Feature: Programs
     And I connect with the firstadm created user
     And I create a random space
     And I go To AppCenter Drawer
-    And I go to contributions AppCenter Application
+    And I go to 'Contributions' application
     Then Engagement application center is displayed
     When I select engagement Programs tab
     And I click on the button add program
@@ -103,7 +99,6 @@ Feature: Programs
     Then The message 'Program has been successfully removed' should be displayed
     And The program card should not be displayed
 
-
   Scenario:[Engagement][Program][US] : Quick filter on program
     Given I connect as admin if random users doesn't exists
       | first  |
@@ -115,7 +110,7 @@ Feature: Programs
     And I connect with the firstadm created user
     And I create a random space
     And I go To AppCenter Drawer
-    And I go to contributions AppCenter Application
+    And I go to 'Contributions' application
     Then Engagement application center is displayed
     When I select engagement Programs tab
     And I click on the button add program

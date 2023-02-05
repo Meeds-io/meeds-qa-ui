@@ -7,82 +7,30 @@ import org.openqa.selenium.WebDriver;
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class UnifiedSearchPage extends GenericPage {
-  @FindBy(xpath = "(//*[@class='v-list-item__content']//*[@class='v-list-item__title'])[1]")
-  private ElementFacade    elementAccessToSearchedActivity;
-
-  @FindBy(xpath = "//*[@class='v-responsive v-image appImage']")
-  private ElementFacade    elementApplicationSearchPicture;
-
-  @FindBy(xpath = "//*[@id='SearchApplication']//input[@id = 'searchInput']")
-  private TextBoxElementFacade searchInput;
-
-  @FindBy(xpath = "//*[@id='SearchApplication']//i[contains(@class,'fa-search')]//ancestor::button")
-  private ElementFacade    toolbarSearchButton;
-
-  @FindBy(
-      xpath = "//*[contains(@class, 'searchConnectorsParent')]//i[contains(@class, 'fa-star')]//ancestor::*[contains(@class, 'v-chip--clickable')]"
-  )
-  private ElementFacade    favoritesBtn;
-
-  @FindBy(xpath = "//span[@class='me-8' and contains(text(),'All')]")
-  private ElementFacade    shipFormAll;
-
   public UnifiedSearchPage(WebDriver driver) {
     super(driver);
   }
 
   public void clickFavoriteBtn() {
     verifyPageLoaded();
-    favoritesBtn.waitUntilVisible();
-    favoritesBtn.waitUntilClickable();
-    favoritesBtn.clickOnElement();
+    ElementFacade favoritesBtnElement = favoritesBtnElement();
+    favoritesBtnElement.waitUntilVisible();
+    favoritesBtnElement.waitUntilClickable();
+    favoritesBtnElement.clickOnElement();
     verifyPageLoaded();
-  }
-
-  private ElementFacade getActivitySearchTitle(String activity) {
-    return findByXPathOrCSS(String.format("//*[contains(text(), '%s') or contains(@title, '%s')]//ancestor::*[contains(@class, 'searchCard')]",
-                                          activity,
-                                          activity));
-  }
-
-  private ElementFacade getApplicationSearchDescription(String appDesc) {
-    return findByXPathOrCSS(String.format("//*[@title='%s']", appDesc));
-  }
-
-  private ElementFacade getApplicationSearchTitle(String appName) {
-    return findByXPathOrCSS(String.format("//*[@title='%s']", appName));
-  }
-
-  private ElementFacade getSpaceSearchTitle(String space) {
-    return findByXPathOrCSS(String.format("//*[@class='spaceCardFront']//*[contains(text(),'%s')]", space));
-  }
-
-  private ElementFacade getUserSearchTitle(String user) {
-    return findByXPathOrCSS(String.format("//*[@id='searchDialog']//a[@title='%s']", user));
   }
 
   public void favoriteSearchedActivity(String activity) {
     getFavoriteIconSearchedActivity(activity).clickOnElement();
-    toolbarSearchButton.hover(); // A trick to hover outside user popover to be
-                                 // closed
-  }
-
-  private ElementFacade getFavoriteIconSearchedActivity(String activity) {
-    return findByXPathOrCSS(String.format(
-                                          "(//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'searchCard')]//*[contains(@class, 'fa-star')])[1]",
-                                          activity));
-  }
-
-  private ElementFacade getObjectFromDropDown(String object) {
-    return findByXPathOrCSS(String.format("//div[@class='v-input--selection-controls__input']//preceding::span[@class='subtitle-1'and contains(text(),'%s')]",
-                                          object));
+    toolbarSearchButtonElement().hover(); // A trick to hover outside user
+                                          // popover to be
+    // closed
   }
 
   public void goToTheSearchedActivity() {
-    elementAccessToSearchedActivity.clickOnElement();
+    elementAccessToSearchedActivityElement().clickOnElement();
   }
 
   public void goToTheSearchedApplication(String appName) {
@@ -116,7 +64,7 @@ public class UnifiedSearchPage extends GenericPage {
   }
 
   public void isSearchedApplicationPictureVisible() {
-    assertWebElementVisible(elementApplicationSearchPicture);
+    assertWebElementVisible(elementApplicationSearchPictureElement());
   }
 
   public void isSearchedSpaceNameVisible(String space) {
@@ -128,21 +76,79 @@ public class UnifiedSearchPage extends GenericPage {
   }
 
   public void openSearchApplication() {
-    toolbarSearchButton.waitUntilVisible();
-    toolbarSearchButton.clickOnElement();
+    ElementFacade toolbarSearchButtonElement = toolbarSearchButtonElement();
+    toolbarSearchButtonElement.waitUntilVisible();
+    toolbarSearchButtonElement.clickOnElement();
   }
 
   public void search(String text) {
     openSearchApplication();
-    searchInput.setTextValue(text);
+    searchInputElement().setTextValue(text);
     waitFor(300).milliseconds(); // Wait for search to be used
     verifyPageLoaded();
   }
 
   public void selectDropDown(String object) {
-    shipFormAll.clickOnElement();
+    shipFormAllElement().clickOnElement();
     getObjectFromDropDown(object).clickOnElement();
 
+  }
+
+  private ElementFacade elementAccessToSearchedActivityElement() {
+    return findByXPathOrCSS("(//*[@class='v-list-item__content']//*[@class='v-list-item__title'])[1]");
+  }
+
+  private ElementFacade elementApplicationSearchPictureElement() {
+    return findByXPathOrCSS("//*[@class='v-responsive v-image appImage']");
+  }
+
+  private ElementFacade favoritesBtnElement() {
+    return findByXPathOrCSS("//*[contains(@class, 'searchConnectorsParent')]//i[contains(@class, 'fa-star')]//ancestor::*[contains(@class, 'v-chip--clickable')]");
+  }
+
+  private ElementFacade getActivitySearchTitle(String activity) {
+    return findByXPathOrCSS(String.format("//*[contains(text(), '%s') or contains(@title, '%s')]//ancestor::*[contains(@class, 'searchCard')]",
+                                          activity,
+                                          activity));
+  }
+
+  private ElementFacade getApplicationSearchDescription(String appDesc) {
+    return findByXPathOrCSS(String.format("//*[@title='%s']", appDesc));
+  }
+
+  private ElementFacade getApplicationSearchTitle(String appName) {
+    return findByXPathOrCSS(String.format("//*[@title='%s']", appName));
+  }
+
+  private ElementFacade getFavoriteIconSearchedActivity(String activity) {
+    return findByXPathOrCSS(String.format(
+                                          "(//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'searchCard')]//*[contains(@class, 'fa-star')])[1]",
+                                          activity));
+  }
+
+  private ElementFacade getObjectFromDropDown(String object) {
+    return findByXPathOrCSS(String.format("//div[@class='v-input--selection-controls__input']//preceding::span[@class='subtitle-1'and contains(text(),'%s')]",
+                                          object));
+  }
+
+  private ElementFacade getSpaceSearchTitle(String space) {
+    return findByXPathOrCSS(String.format("//*[@class='spaceCardFront']//*[contains(text(),'%s')]", space));
+  }
+
+  private ElementFacade getUserSearchTitle(String user) {
+    return findByXPathOrCSS(String.format("//*[@id='searchDialog']//a[@title='%s']", user));
+  }
+
+  private TextBoxElementFacade searchInputElement() {
+    return findTextBoxByXPathOrCSS("//*[@id='SearchApplication']//input[@id = 'searchInput']");
+  }
+
+  private ElementFacade shipFormAllElement() {
+    return findByXPathOrCSS("//span[@class='me-8' and contains(text(),'All')]");
+  }
+
+  private ElementFacade toolbarSearchButtonElement() {
+    return findByXPathOrCSS("//*[@id='SearchApplication']//i[contains(@class,'fa-search')]//ancestor::button");
   }
 
 }

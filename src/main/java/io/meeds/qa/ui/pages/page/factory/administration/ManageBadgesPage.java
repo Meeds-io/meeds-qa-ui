@@ -7,74 +7,16 @@ import org.openqa.selenium.WebElement;
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class ManageBadgesPage extends GenericPage {
 
-  @FindBy(xpath = "//button[@class='btn btn-primary']")
-  private ElementFacade    addBadgeBtn;
-
-  @FindBy(xpath = "//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'fa fa-arrow')]")
-  private ElementFacade    adminBtn;
-
-  @FindBy(xpath = "(//*[@id='badgeDescription'])[1]")
-  private TextBoxElementFacade badgeDescription;
-
-  @FindBy(xpath = "//a[@href='/portal/g/:platform:administrators/gamification/badges']")
-  private ElementFacade    badgeLink;
-
-  @FindBy(xpath = "(//input[@id='titleInput'])[1]")
-  private TextBoxElementFacade badgeName;
-
-  @FindBy(xpath = "(//*[@id='neededScoreInput'])[1]")
-  private TextBoxElementFacade badgeScore;
-
-  @FindBy(xpath = "//a[@class='uiIconClose pull-right']")
-  private ElementFacade    closeFormBtn;
-
-  @FindBy(xpath = "(//button[@class='btn-primary pull-right'])[1]")
-  private ElementFacade    confirmAddBadgeBtn;
-
-  @FindBy(xpath = "(//button[@class='btn-primary pull-right'])[3]")
-  private ElementFacade    confirmDeleteBadgeBtn;
-
-  @FindBy(xpath = "(//button[@class='btn-primary pull-right'])[2]")
-  private ElementFacade    confirmEditBadgeBtn;
-
-  @FindBy(xpath = "(//*[@id='badgeDescription'])[2]")
-  private TextBoxElementFacade editBadgeDescription;
-
-  @FindBy(xpath = "(//input[@id='titleInput'])[2]")
-  private TextBoxElementFacade editBadgeName;
-
-  @FindBy(xpath = "(//*[@id='neededScoreInput'])[2]")
-  private TextBoxElementFacade editBadgeScore;
-
-  @FindBy(xpath = "(//*[@id='domainSelectboxGroup']//select)[2]")
-  private TextBoxElementFacade editSelectBadgeDomain;
-
-  @FindBy(xpath = "//*[contains(@class,'HamburgerNavigationMenuLink')]")
-  private ElementFacade    menuBtn;
-
-  @FindBy(xpath = "//input[@name='keyword']")
-  private TextBoxElementFacade searchBadgeInput;
-
-  @FindBy(xpath = "(//*[@id='domainSelectboxGroup']//select)[1]")
-  private TextBoxElementFacade selectBadgeDomain;
-
-  @FindBy(xpath = "//*[@class='alert alert-success']")
-  private ElementFacade    successAlert;
-
-  @FindBy(xpath = "//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'titleIcon')]")
-  private ElementFacade       adminIcon;
-
   public void addBadgeDescription(String description) {
-    badgeDescription.setTextValue(description);
+    badgeDescriptionElement().setTextValue(description);
 
   }
 
   public void addBadgeDomain(String domain) {
-    selectBadgeDomain.selectByVisibleText(domain);
+    selectBadgeDomainElement().selectByVisibleText(domain);
 
   }
 
@@ -87,17 +29,17 @@ public class ManageBadgesPage extends GenericPage {
   }
 
   public void addBadgeName(String name) {
-    badgeName.setTextValue(name);
+    badgeNameElement().setTextValue(name);
 
   }
 
   public void addBadgeScore(String score) {
-    badgeScore.setTextValue(score);
+    badgeScoreElement().setTextValue(score);
 
   }
 
   public void clickOnAddBadge() {
-    addBadgeBtn.clickOnElement();
+    addBadgeBtnElement().clickOnElement();
 
   }
 
@@ -112,49 +54,54 @@ public class ManageBadgesPage extends GenericPage {
   }
 
   public void confirmAdditionNewBadge() {
-    confirmAddBadgeBtn.clickOnElement();
+    confirmAddBadgeBtnElement().clickOnElement();
 
   }
 
   public void confirmDeletionBadge() {
-    confirmDeleteBadgeBtn.waitUntilClickable();
-    confirmDeleteBadgeBtn.clickOnElement();
+    ElementFacade confirmDeleteBadgeBtnElement = confirmDeleteBadgeBtnElement();
+    confirmDeleteBadgeBtnElement.waitUntilClickable();
+    confirmDeleteBadgeBtnElement.clickOnElement();
   }
 
   public void confirmEditBadge() {
-    confirmEditBadgeBtn.clickOnElement();
+    confirmEditBadgeBtnElement().clickOnElement();
 
   }
 
   public void editBadgeDescription(String description) {
-    editBadgeDescription.waitUntilVisible();
-    editBadgeDescription.clear();
-    editBadgeDescription.setTextValue(description);
+    TextBoxElementFacade editBadgeDescriptionElement = editBadgeDescriptionElement();
+    editBadgeDescriptionElement.waitUntilVisible();
+    editBadgeDescriptionElement.clear();
+    editBadgeDescriptionElement.setTextValue(description);
 
   }
 
   public void editBadgeDomain(String domain) {
-    editSelectBadgeDomain.waitUntilVisible();
-    editSelectBadgeDomain.selectByVisibleText(domain);
+    TextBoxElementFacade editSelectBadgeDomainElement = editSelectBadgeDomainElement();
+    editSelectBadgeDomainElement.waitUntilVisible();
+    editSelectBadgeDomainElement.selectByVisibleText(domain);
 
   }
 
   public void editBadgeName(String name) {
-    editBadgeName.waitUntilVisible();
-    editBadgeName.clear();
-    editBadgeName.setTextValue(name);
+    TextBoxElementFacade editBadgeNameElement = editBadgeNameElement();
+    editBadgeNameElement.waitUntilVisible();
+    editBadgeNameElement.clear();
+    editBadgeNameElement.setTextValue(name);
 
   }
 
   public void editBadgeScore(String score) {
-    editBadgeScore.waitUntilVisible();
-    editBadgeScore.clear();
-    editBadgeScore.setTextValue(score);
+    TextBoxElementFacade editBadgeScoreElement = editBadgeScoreElement();
+    editBadgeScoreElement.waitUntilVisible();
+    editBadgeScoreElement.clear();
+    editBadgeScoreElement.setTextValue(score);
 
   }
 
   public void fillForm(String name, String description, String score, String icon, String domain) {
-    closeFormBtn.waitUntilVisible();
+    closeFormBtnElement().waitUntilVisible();
     addBadgeName(name);
     addBadgeDescription(description);
     addBadgeScore(score);
@@ -163,45 +110,24 @@ public class ManageBadgesPage extends GenericPage {
 
   }
 
-  private ElementFacade getBadgeDeleteButton(String badgeName) {
-    return findByXPathOrCSS(String.format("//*[@id='iconInputGroup']//img/following::*[@class='badge-title-col']/div[contains(text(),'%s')]/following::*[@class='uiIconDelete uiIconLightGray'][1]",
-                                          badgeName));
-
-  }
-
-  private ElementFacade getBadgeEditButton(String badgeName) {
-    return findByXPathOrCSS(String.format("//*[@id='iconInputGroup']//img/following::*[@class='badge-title-col']/div[contains(text(),'%s')]/following::*[@class='uiIconEdit uiIconLightGray'][1]",
-                                          badgeName));
-
-  }
-
-  private ElementFacade getBadgeNameInListOfBadges(String badgeName,
-                                                       String badgeDescription,
-                                                       String badgeScore,
-                                                       String badgeDomain) {
-    return findByXPathOrCSS(String.format("//*[@id='iconInputGroup']//img/following::*[@class='badge-title-col']/div[contains(text(),'%s')]/following::*[@class='badge-desc-col']/div[contains(text(),'%s')]/following::*[@class='badge-needed-score-col']/div/div[contains(text(),'%s')]/following::*[contains(text(),'%s')]/following::*[@class='badge-status-col']//*[@class='slider round']",
-                                          badgeName,
-                                          badgeDescription,
-                                          badgeScore,
-                                          badgeDomain));
-
-  }
-
   public void goToManageBadgesMenu() {
-    menuBtn.clickOnElement();
-    adminIcon.hover();
-    adminBtn.waitUntilVisible();
-    adminBtn.clickOnElement();
-    badgeLink.clickOnElement();
+    menuBtnElement().clickOnElement();
+    adminIconElement().hover();
+    ElementFacade adminBtnElement = adminBtnElement();
+    adminBtnElement.waitUntilVisible();
+    adminBtnElement.clickOnElement();
+    badgeLinkElement().clickOnElement();
   }
 
   public void insertBadgeNameInSearchField(String badgeName) {
-    searchBadgeInput.waitUntilVisible();
-    if (searchBadgeInput.isNotVisibleAfterWaiting()) {
-      getDriver().navigate().refresh();
+    TextBoxElementFacade searchBadgeInputElement = searchBadgeInputElement();
+    searchBadgeInputElement.waitUntilVisible();
+    if (searchBadgeInputElement.isNotVisibleAfterWaiting()) {
+      refreshPage();
     }
-    searchBadgeInput.waitUntilVisible();
-    searchBadgeInput.setTextValue(badgeName);
+    searchBadgeInputElement = searchBadgeInputElement();
+    searchBadgeInputElement.waitUntilVisible();
+    searchBadgeInputElement.setTextValue(badgeName);
     waitForSearchToLoad();
   }
 
@@ -223,8 +149,108 @@ public class ManageBadgesPage extends GenericPage {
   }
 
   public void isSuccessAlertDisplayed(String message) {
-    assertWebElementVisible(successAlert);
-    Assert.assertTrue(successAlert.getText().contains(message)); // NOSONAR
+    assertWebElementVisible(successAlertElement());
+    Assert.assertTrue(successAlertElement().getText().contains(message)); // NOSONAR
+  }
+
+  private ElementFacade addBadgeBtnElement() {
+    return findByXPathOrCSS("//button[@class='btn btn-primary']");
+  }
+
+  private ElementFacade adminBtnElement() {
+    return findByXPathOrCSS("//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'fa fa-arrow')]");
+  }
+
+  private ElementFacade adminIconElement() {
+    return findByXPathOrCSS("//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'titleIcon')]");
+  }
+
+  private TextBoxElementFacade badgeDescriptionElement() {
+    return findTextBoxByXPathOrCSS("(//*[@id='badgeDescription'])[1]");
+  }
+
+  private ElementFacade badgeLinkElement() {
+    return findByXPathOrCSS("//a[@href='/portal/g/:platform:administrators/gamification/badges']");
+  }
+
+  private TextBoxElementFacade badgeNameElement() {
+    return findTextBoxByXPathOrCSS("(//input[@id='titleInput'])[1]");
+  }
+
+  private TextBoxElementFacade badgeScoreElement() {
+    return findTextBoxByXPathOrCSS("(//*[@id='neededScoreInput'])[1]");
+  }
+
+  private ElementFacade closeFormBtnElement() {
+    return findByXPathOrCSS("//a[@class='uiIconClose pull-right']");
+  }
+
+  private ElementFacade confirmAddBadgeBtnElement() {
+    return findByXPathOrCSS("(//button[@class='btn-primary pull-right'])[1]");
+  }
+
+  private ElementFacade confirmDeleteBadgeBtnElement() {
+    return findByXPathOrCSS("(//button[@class='btn-primary pull-right'])[3]");
+  }
+
+  private ElementFacade confirmEditBadgeBtnElement() {
+    return findByXPathOrCSS("(//button[@class='btn-primary pull-right'])[2]");
+  }
+
+  private TextBoxElementFacade editBadgeDescriptionElement() {
+    return findTextBoxByXPathOrCSS("(//*[@id='badgeDescription'])[2]");
+  }
+
+  private TextBoxElementFacade editBadgeNameElement() {
+    return findTextBoxByXPathOrCSS("(//input[@id='titleInput'])[2]");
+  }
+
+  private TextBoxElementFacade editBadgeScoreElement() {
+    return findTextBoxByXPathOrCSS("(//*[@id='neededScoreInput'])[2]");
+  }
+
+  private TextBoxElementFacade editSelectBadgeDomainElement() {
+    return findTextBoxByXPathOrCSS("(//*[@id='domainSelectboxGroup']//select)[2]");
+  }
+
+  private ElementFacade getBadgeDeleteButton(String badgeName) {
+    return findByXPathOrCSS(String.format("//*[@id='iconInputGroup']//img/following::*[@class='badge-title-col']/div[contains(text(),'%s')]/following::*[@class='uiIconDelete uiIconLightGray'][1]",
+                                          badgeName));
+
+  }
+
+  private ElementFacade getBadgeEditButton(String badgeName) {
+    return findByXPathOrCSS(String.format("//*[@id='iconInputGroup']//img/following::*[@class='badge-title-col']/div[contains(text(),'%s')]/following::*[@class='uiIconEdit uiIconLightGray'][1]",
+                                          badgeName));
+
+  }
+
+  private ElementFacade getBadgeNameInListOfBadges(String badgeName,
+                                                   String badgeDescription,
+                                                   String badgeScore,
+                                                   String badgeDomain) {
+    return findByXPathOrCSS(String.format("//*[@id='iconInputGroup']//img/following::*[@class='badge-title-col']/div[contains(text(),'%s')]/following::*[@class='badge-desc-col']/div[contains(text(),'%s')]/following::*[@class='badge-needed-score-col']/div/div[contains(text(),'%s')]/following::*[contains(text(),'%s')]/following::*[@class='badge-status-col']//*[@class='slider round']",
+                                          badgeName,
+                                          badgeDescription,
+                                          badgeScore,
+                                          badgeDomain));
+
+  }
+
+  private ElementFacade menuBtnElement() {
+    return findByXPathOrCSS("//*[contains(@class,'HamburgerNavigationMenuLink')]");
+  }
+
+  private TextBoxElementFacade searchBadgeInputElement() {
+    return findTextBoxByXPathOrCSS("//input[@name='keyword']");
+  }
+
+  private TextBoxElementFacade selectBadgeDomainElement() {
+    return findTextBoxByXPathOrCSS("(//*[@id='domainSelectboxGroup']//select)[1]");
+  }
+
+  private ElementFacade successAlertElement() {
+    return findByXPathOrCSS("//*[@class='alert alert-success']");
   }
 
   private void waitForSearchToLoad() {

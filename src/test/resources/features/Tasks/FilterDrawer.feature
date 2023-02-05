@@ -6,8 +6,7 @@ Feature: Filter Drawer
 
     When I create a random space
     When I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
+    And I go to 'Tasks' application
     And I select projects tab
     And I search for the created project
     And I open the created project
@@ -40,8 +39,7 @@ Feature: Filter Drawer
 
     When I create a random space
     When I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
+    And I go to 'Tasks' application
     And I select projects tab
     And I search for the created project
     And I open the created project
@@ -72,8 +70,7 @@ Feature: Filter Drawer
 
     And I create a random space
     When I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
+    And I go to 'Tasks' application
     And I select projects tab
     And I search for the created project
     And I open the created project
@@ -118,8 +115,7 @@ Feature: Filter Drawer
 
     When I create a random space
     When I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
+    And I go to 'Tasks' application
     And I select projects tab
     And I search for the created project
     And I open the created project

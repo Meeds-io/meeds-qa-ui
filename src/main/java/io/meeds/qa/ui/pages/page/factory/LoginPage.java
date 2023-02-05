@@ -4,7 +4,6 @@ import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.Cookie;
-import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.ElementFacade;
@@ -29,6 +28,14 @@ public class LoginPage extends GenericPage implements IsHidden {
     getDriver().manage().deleteAllCookies();
   }
 
+  public String getLastLoggedInUser() {
+    if (lastLoggedInUser != null) {
+      return lastLoggedInUser;
+    }
+    Cookie cookie = getDriver().manage().getCookieNamed(LAST_LOGGED_IN_USER_COOKIE_NAME);
+    return cookie == null ? null : cookie.getValue();
+  }
+
   public void login(String login, String password) {
     if (StringUtils.equals(getLastLoggedInUser(), login)) {
       closeAllDrawers();
@@ -38,6 +45,10 @@ public class LoginPage extends GenericPage implements IsHidden {
       getDriver().manage().addCookie(new Cookie(LAST_LOGGED_IN_USER_COOKIE_NAME, login, "/"));
       lastLoggedInUser = login;
     }
+  }
+
+  public void logout() {
+    openLoginPage();
   }
 
   public void openLoginPage() {
@@ -53,14 +64,6 @@ public class LoginPage extends GenericPage implements IsHidden {
     }
   }
 
-  public String getLastLoggedInUser() {
-    if (lastLoggedInUser != null) {
-      return lastLoggedInUser;
-    }
-    Cookie cookie = getDriver().manage().getCookieNamed(LAST_LOGGED_IN_USER_COOKIE_NAME);
-    return cookie == null ? null : cookie.getValue();
-  }
-
   private void tryLogin(String login, String password) {
     verifyPageLoaded();
     TextBoxElementFacade loginTextBox = findTextBoxByXPathOrCSS("//*[@id='username']");
@@ -69,10 +72,6 @@ public class LoginPage extends GenericPage implements IsHidden {
     passwordTextbox.setTextValue(password);
     ElementFacade loginButton = findByXPathOrCSS("//*[contains(@class, 'loginButton')]//button");
     clickOnElement(loginButton);
-  }
-
-  public void logout() {
-    openLoginPage();
   }
 
 }

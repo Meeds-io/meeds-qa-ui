@@ -46,6 +46,10 @@ public class AdminApplicationSteps {
     applicationPage.appUrlInApplicationsTableIsDisplayed(appUrl);
   }
 
+  public void checkPopupDeleteNotVisible() {
+    applicationPage.checkPopupDeleteNotVisible();
+  }
+
   public void checkThatApplicationImageIsDisplayedInDrawer(String image) {
     applicationPage.checkThatApplicationImageIsDisplayedInDrawer(image);
   }
@@ -84,8 +88,8 @@ public class AdminApplicationSteps {
 
   public void editApplicationTitleUrlDescription(String appName, Map<String, String> applicationData) {
     applicationPage.goToEditTheApplication(appName);
-    for (String fieldsName : applicationData.keySet()) {
-      applicationPage.enterDataValueToField(fieldsName, applicationData.get(fieldsName));
+    for (Map.Entry<String, String> entry : applicationData.entrySet()) {
+      applicationPage.enterDataValueToField(entry.getKey(), applicationData.get(entry.getValue()));
     }
     applicationPage.clickSaveAddApplication();
   }
@@ -107,8 +111,8 @@ public class AdminApplicationSteps {
 
   public void enterApplicationTitleUrlDescription(Map<String, String> applicationData) {
     applicationPage.clickAddApplicationButton();
-    for (String fieldsName : applicationData.keySet()) {
-      applicationPage.enterDataValueToField(fieldsName, applicationData.get(fieldsName));
+    for (Map.Entry<String, String> entry : applicationData.entrySet()) {
+      applicationPage.enterDataValueToField(entry.getKey(), applicationData.get(entry.getValue()));
     }
     applicationPage.clickSaveAddApplication();
   }
@@ -155,14 +159,6 @@ public class AdminApplicationSteps {
 
   public boolean isAppExists(String appTitle) {
     return applicationPage.isAppExists(appTitle);
-  }
-
-  public void checkPopupDeleteNotVisible() {
-    applicationPage.checkPopupDeleteNotVisible();
-  }
-
-  public void openEditDrawerApp(String appName) {
-    applicationPage.clickEditApp(appName);
   }
 
   public void removeFileFromApplicationDrawer() {

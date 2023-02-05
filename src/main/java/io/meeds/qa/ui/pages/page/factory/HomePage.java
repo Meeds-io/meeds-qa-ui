@@ -3,159 +3,21 @@ package io.meeds.qa.ui.pages.page.factory;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static org.junit.Assert.assertTrue;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
-import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.ElementFacade;
-import io.meeds.qa.ui.elements.ElementFacadeImpl;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class HomePage extends GenericPage {
 
-  private static final Map<String, ElementFacade> MAPPING_CONTAINER_NAME_TO_BASEELEMENTFACADE_XPATH = new HashMap<>();
-
-  @FindBy(xpath = "//i[contains(@class,'uiAdministrationIcon')]")
-  private ElementFacade                           administrationMenu;
-
-  @FindBy(id = "appcenterLauncherButton")
-  private ElementFacade                           appCenterButton;
-
-  @FindBy(xpath = "//*[@class='ignore-vuetify-classes btn btn-primary me-2']")
-  private ElementFacade                           confirmationForChangeSiteHomeLink;
-
-  @FindBy(xpath = "(//div[contains(@class,'profileCard')]//*[@aria-label='Badge'])[2]")
-  private ElementFacade                           connectionsBadge;
-
-  @FindBy(xpath = "//*[@id='ActivityContextBoxWelcomeActivity']")
-  private ElementFacade                           contextBoxWelcomeActivity;
-
-  @FindBy(xpath = "(//*[contains(@class,'drawerContent')]//*[@class='contentSmall'])[1]")
-  private ElementFacade                           firstNotificationContent;
-
-  @FindBy(xpath = "(//*[@class='lastUpdatedTime'])[1]")
-  private ElementFacade                           firstNotificationTimeStamp;
-
-  @FindBy(xpath = "//a[@href='/portal/meeds/stream']//div[@class='v-list-item__icon']")
-  private ElementFacade                           homeIcon;
-
-  @FindBy(xpath = "//*[@id='UserHomePortalLink']")
-  private ElementFacade                           homePageButton;
-
-  @FindBy(xpath = "//i[contains(@class,'logoutIcon')]")
-  private ElementFacade                           logOutMenu;
-
-  @FindBy(xpath = "//a[@href='/portal/meeds/profile']")
-  private ElementFacade                           myProfileButton;
-
-  @FindBy(xpath = "//a[@href='/portal/meeds/profile']")
-  private ElementFacade                           myProfilePageLink;
-
-  @FindBy(id = "NotificationPopoverPortlet")
-  private ElementFacade                           notificationIcon;
-
-  @FindBy(xpath = "//a[@href='/portal/meeds/spaces']")
-  private ElementFacade                           openSpacesPageLink;
-
-  @FindBy(xpath = "//i[contains(@class,'uiIconPeople')]")
-  private ElementFacade                           personnePageLink;
-
-  @FindBy(id = "profile-stats-portlet")
-  private ElementFacade                           profileStatsPortlet;
-
-  @FindBy(xpath = "//*[contains(@class,'spacesNavigationTitle')]//*[contains(@class,'fa fa-arrow')]")
-  private ElementFacade                           recentSpacesBtn;
-
-  @FindBy(xpath = "//*[contains(@class,'spacesNavigationTitle')]//*[contains(@class,'titleIcon')]")
-  private ElementFacade                           recentSpacesIcon;
-
-  @FindBy(xpath = "//*[@class='v-text-field__slot']//input")
-  private TextBoxElementFacade                        searchApplicationCenterInput;
-
-  @FindBy(xpath = "(//*[contains(@class,'drawerContent')]//*[@class='contentSmall'])[2]")
-  private ElementFacade                           secondNotificationContent;
-
-  @FindBy(xpath = "(//*[@class='lastUpdatedTime'])[2]")
-  private ElementFacade                           secondNotificationTimeStamp;
-
-  @FindBy(xpath = "//aside[contains(@class,'v-navigation-drawer')]//span[contains(text(),'See all')]")
-  private ElementFacade                           seeAllLink;
-
-  @FindBy(xpath = "//*[contains(@class,'selectSpacesFilter')]")
-  private ElementFacade                           selectSpacesFilter;
-
-  @FindBy(xpath = "//i[contains(@class,'settingsIcon')]")
-  private ElementFacade                           settingsPageLink;
-
-  @FindBy(xpath = "//*[contains(@class,'recentSpacesTitle')]//*[contains(@class,'recentSpacesTitleLabel')]")
-  private TextBoxElementFacade                        sideBarFilterSpaces;
-
-  @FindBy(
-      xpath = "//*[contains(@class,'recentSpacesTitle')]//*[contains(@class,'recentSpacesTitleLabel')]//*[contains(@class,'v-input recentSpacesFilter')]//input"
-  )
-  private TextBoxElementFacade                        sideBarFilterSpacesInput;
-
-  @FindBy(
-      xpath = "//*[@class='v-card v-card--flat v-sheet theme--light']//div[@class='headline text-color font-weight-bold pa-1']"
-  )
-  private ElementFacade                           spaceInvitaitationWidget;
-
-  @FindBy(xpath = "(//div[contains(@class,'profileCard')]//*[@aria-label='Badge'])[1]")
-  private ElementFacade                           spacesBadge;
-
-  @FindBy(xpath = "//i[contains(@class,'uiIconStream')]")
-  private ElementFacade                           streamPageLink;
-
-  @FindBy(xpath = "//*[@id='StreamPage']")
-  private ElementFacade                           streamPageView;
-
-  @FindBy(xpath = "(//*[@class='providersTableRow']//*[@class='center actionContainer']/div)[1]")
-  private ElementFacade                           switcherButton;
-
-  @FindBy(id = "tasks")
-  private ElementFacade                           tasksContainer;
-
-  @FindBy(xpath = "//*[@id='tasks']//*[@class='body-1 text-uppercase color-title px-0']")
-  private ElementFacade                           tasksSnapshotPageButton;
-
-  @FindBy(xpath = "//a[contains(@class,'seeAllApplicationsBtn')]")
-  private ElementFacade                           viewAllApplicationLink;
-
-  @FindBy(xpath = "//*[@id='WalletApp']")
-  private ElementFacade                           walletApplication;
-
-  @FindBy(id = "walletBalance")
-  private ElementFacade                           walletBalance;
-
-  @FindBy(xpath = "//*[@id='walletBalance']//*[contains(@class,'big-number')]")
-  private ElementFacade                           walletBalanceNumber;
-
-  @FindBy(xpath = "//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'fa fa-arrow')]")
-  private ElementFacade arrowAdminstrationMenu ;
-
-  @FindBy(xpath = "//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'titleIcon')]")
-  private  ElementFacade administrationIcon ;
-
-  @FindBy(xpath = "//*[contains(@class,'recentSpacesWrapper')]//*[contains(@class,'clickable fa fa-arrow')]")
-  private  ElementFacade spaceArrowIcon;
-
-  @FindBy(xpath = "//*[contains(@class,'HamburgerMenuThirdLevelParent')]")
-  private  ElementFacade thirdLevelNavigation;
-
-
   public HomePage(WebDriver driver) {
     super(driver);
-    MAPPING_CONTAINER_NAME_TO_BASEELEMENTFACADE_XPATH.put("Statistique", profileStatsPortlet);
-    MAPPING_CONTAINER_NAME_TO_BASEELEMENTFACADE_XPATH.put("Taches", tasksContainer);
-    MAPPING_CONTAINER_NAME_TO_BASEELEMENTFACADE_XPATH.put("Wallet", walletBalance);
   }
 
   public void acceptConnectionInvitation(String userName) {
@@ -164,6 +26,32 @@ public class HomePage extends GenericPage {
 
   public void acceptSpaceInvitation(String spaceName) {
     clickOnElement(getAcceptIconSpaceFromDrawer(spaceName));
+  }
+
+  public void accessToAdministrationMenu() {
+    clickOnHamburgerMenu();
+    retryOnCondition(() -> {
+      administrationMenuElement().waitUntilVisible();
+      administrationIconElement().hover();
+      ElementFacade arrowAdminstrationMenuElement = arrowAdminstrationMenuElement();
+      arrowAdminstrationMenuElement.waitUntilVisible();
+      clickOnElement(arrowAdminstrationMenuElement);
+      waitFor(300).milliseconds(); // Wait until drawer 'open' animation
+      // finishes
+      ElementFacade administrationMenuElement = findByXPathOrCSS("#AdministrationHamburgerNavigation");
+      administrationMenuElement.waitUntilVisible();
+    }, this::clickOnHamburgerMenu);
+  }
+
+  public void accessToRecentSpaces() {
+    clickOnHamburgerMenu();
+    retryOnCondition(() -> {
+      recentSpacesIconElement().hover();
+      recentSpacesBtnElement().waitUntilVisible();
+      clickOnElement(recentSpacesBtnElement());
+      waitFor(300).milliseconds(); // Wait until drawer 'open' animation
+                                   // finishes
+    }, this::clickOnHamburgerMenu);
   }
 
   public void bookmarkActivity(String activity) {
@@ -183,43 +71,300 @@ public class HomePage extends GenericPage {
   }
 
   public void checkNoActivityDisplayed() {
-    assertWebElementVisible(contextBoxWelcomeActivity);
+    assertWebElementVisible(contextBoxWelcomeActivityElement());
   }
 
   public void checkNotExistingSpaceInvitation(String spaceName) {
     assertWebElementNotVisible(checkSpaceFromDrawer(spaceName));
   }
 
-  private ElementFacade checkSpaceFromDrawer(String spaceName) {
-    return findByXPathOrCSS(String.format("//aside[contains(@class,'spaceDrawer ')]//descendant::div[contains(text(),'%s')]//following::i[contains(@class,'mdi-checkbox-marked')]",
-                                          spaceName));
+  public void checkThatStreamPageIsDisplayed() {
+    assertWebElementVisible(streamPageViewElement());
   }
 
-  public void checkThatStreamPageIsDisplayed() {
-    assertWebElementVisible(streamPageView);
+  public void clickOnArrowIcon() {
+    spaceArrowIconElement().clickOnElement();
   }
 
   public void clickOnCommentActivityNotification(String message, String activity, String comment) {
-    if (firstNotificationContent.getText().contains(message)) {
-      Assert.assertTrue(firstNotificationContent.getText().contains(message));
-      Assert.assertTrue(firstNotificationContent.getText().contains(activity));
-      Assert.assertTrue(firstNotificationContent.getText().contains(comment));
-      clickOnElement(firstNotificationContent);
+    ElementFacade firstNotificationContentElement = firstNotificationContentElement();
+    if (firstNotificationContentElement.getText().contains(message)) {
+      Assert.assertTrue(firstNotificationContentElement.getText().contains(message));
+      Assert.assertTrue(firstNotificationContentElement.getText().contains(activity));
+      Assert.assertTrue(firstNotificationContentElement.getText().contains(comment));
+      clickOnElement(firstNotificationContentElement);
 
     } else {
-      Assert.assertTrue(secondNotificationContent.getText().contains(message));
-      Assert.assertTrue(secondNotificationContent.getText().contains(activity));
-      Assert.assertTrue(secondNotificationContent.getText().contains(comment));
-      clickOnElement(secondNotificationContent);
+      ElementFacade secondNotificationContentElement = secondNotificationContentElement();
+      Assert.assertTrue(secondNotificationContentElement.getText().contains(message));
+      Assert.assertTrue(secondNotificationContentElement.getText().contains(activity));
+      Assert.assertTrue(secondNotificationContentElement.getText().contains(comment));
+      clickOnElement(secondNotificationContentElement);
     }
   }
 
   public void clickOnConnectionsBagde() {
-    clickOnElement(connectionsBadge);
+    clickOnElement(connectionsBadgeElement());
   }
 
   public void clickOnHamburgerIcon() {
     clickOnHamburgerMenu();
+  }
+
+  public void clickOnHomeIcon() {
+    clickOnElement(homeIconElement());
+  }
+
+  public void clickOnHomePageButton() {
+    clickOnElement(homePageButtonElement());
+  }
+
+  public void clickOnSpaceInvitationWidget() {
+    clickOnElement(spaceInvitaitationWidgetElement());
+  }
+
+  public void clickOnSpacesBagde() {
+    clickOnElement(spacesBadgeElement());
+  }
+
+  public void clickSeeAll() {
+    clickOnElement(seeAllLinkElement());
+  }
+
+  public void commentActivityNotificationIsDisplayed(String message, String activity, String comment) {
+    ElementFacade firstNotificationContentElement = firstNotificationContentElement();
+    if (firstNotificationContentElement.getText().contains(message)) {
+      Assert.assertTrue(firstNotificationContentElement.getText().contains(message)); // NOSONAR
+      Assert.assertTrue(firstNotificationContentElement.getText().contains(activity));
+      Assert.assertTrue(firstNotificationContentElement.getText().contains(comment));
+
+    } else {
+      ElementFacade secondNotificationContentElement = secondNotificationContentElement();
+      Assert.assertTrue(secondNotificationContentElement.getText().contains(message));
+      Assert.assertTrue(secondNotificationContentElement.getText().contains(activity));
+      Assert.assertTrue(secondNotificationContentElement.getText().contains(comment));
+    }
+  }
+
+  public void confirmationForChangeSiteHomeLink() {
+    clickOnElement(confirmationForChangeSiteHomeLinkElement());
+    getDriver().navigate().refresh();
+  }
+
+  public void deactivateSwitcher() {
+    ElementFacade switcherButtonElement = switcherButtonElement();
+    assertTrue(switcherButtonElement.isVisible());
+    clickOnElement(switcherButtonElement);
+  }
+
+  public void favoriteActivity(String activity) {
+    clickOnElement(getFavoriteIconActivity(activity));
+  }
+
+  public void goToAddGroups() {
+    if (!StringUtils.contains(getDriver().getCurrentUrl(), "groupsManagement")) {
+      accessToAdministrationMenu();
+      clickOnElement(findByXPathOrCSS("//a[contains(@href, 'groupsManagement')]"));
+    }
+  }
+
+  public void goToAddUser() {
+    if (!StringUtils.contains(getDriver().getCurrentUrl(), "usersManagement")) {
+      accessToAdministrationMenu();
+      clickOnElement(findByXPathOrCSS("//a[contains(@href, 'usersManagement')]"));
+    }
+  }
+
+  public void goToAppCenterAdminSetupPage() {
+    accessToAdministrationMenu();
+    clickOnElement(findByXPathOrCSS("//a[contains(@href,'appCenterAdminSetup')]"));
+  }
+
+  public void goToHomePage() {
+    closeAlertIfOpened();
+    getDriver().get(getDriver().getCurrentUrl().split("/portal/")[0]);
+    verifyPageLoaded();
+  }
+
+  public void goToMyProfile() {
+    clickOnHamburgerMenu();
+    clickOnElement(myProfileButtonElement());
+  }
+
+  public void goToPeoplePage() {
+    clickOnHamburgerMenu();
+    clickOnElement(personnePageLinkElement());
+    verifyPageLoaded();
+  }
+
+  public void goToProfilePage() {
+    clickOnHamburgerMenu();
+    clickOnElement(myProfilePageLinkElement());
+  }
+
+  public void goToSettingsPage() {
+    clickOnHamburgerMenu();
+    clickOnElement(settingsPageLinkElement());
+  }
+
+  public void goToSpacesPage() {
+    clickOnHamburgerMenu();
+    clickOnElement(openSpacesPageLinkElement());
+  }
+
+  public void goToStreamPage() {
+    clickOnHamburgerMenu();
+    clickOnElement(streamPageLinkElement());
+  }
+
+  public void goToTasksPage() {
+    clickOnElement(tasksSnapshotPageButtonElement());
+  }
+
+  public void hoverOnStreamIcon() {
+    waitFor(300).milliseconds(); // Wait until drawer 'open' animation finishes
+    streamPageLinkElement().hover("//a[@href='/portal/meeds/stream']");
+  }
+
+  public void hoverSearchedSpaceInSideBarFilter(String space) {
+    searchedSpaceInSideBarFilterHover(space).hover();
+  }
+
+  public void isArrowDisplayedAfterHoveringOnSpaceName() {
+    Assert.assertTrue(spaceArrowIconElement().isDisplayed());
+  }
+
+  public boolean isConnectionsBadgeWithNumberVisible(String number) {
+    return getConnectionsBadgeWithNumber(number).isVisibleAfterWaiting();
+  }
+
+  public boolean isElementVisible(String elementName) {
+    switch (elementName) {
+    case "Statistique":
+      return profileStatsPortletElement().isVisibleAfterWaiting();
+    case "Taches":
+      return tasksContainerElement().isVisibleAfterWaiting();
+    case "Wallet":
+      return walletBalanceElement().isVisibleAfterWaiting();
+    default:
+      throw new IllegalStateException("Unrecognized element");
+    }
+  }
+
+  public boolean isHomePageDisplayed() {
+    return getHamburgerNavigationMenu().isVisibleAfterWaiting();
+  }
+
+  public boolean isNoConnectionsBadge() {
+    return !getConnectionsBadge().isVisible();
+  }
+
+  public boolean isNumberOfConnectionsInDrawer(int expectedNumber) {
+    int listOfSpaces = getListConnectionInDrawer().size();
+    return listOfSpaces == expectedNumber;
+  }
+
+  public boolean isNumberOfSpacesInDrawer(int expectedNumber) {
+    int listOfSpaces = getListSpaceInDrawer().size();
+    return listOfSpaces == expectedNumber;
+  }
+
+  public boolean isSpacesBadgeWithNumberVisible(String number) {
+    return getSpacesBadgeWithNumber(number).isVisibleAfterWaiting();
+  }
+
+  public void isThirdLevelNavigationDisplayed() {
+    Assert.assertTrue(thirdLevelNavigationElement().isDisplayed());
+  }
+
+  public boolean isWidgetWithNumberVisible(String widget, String number) {
+    getDriver().navigate().refresh();
+    return getProfileWidgetContent(widget, number).isVisibleAfterWaiting();
+  }
+
+  public void logout() {
+    clickOnHamburgerMenu();
+    logOutMenuElement().clickOnElement();
+    verifyPageLoaded();
+  }
+
+  public void openAllApplicationPage() {
+    clickOnElement(viewAllApplicationLinkElement());
+  }
+
+  public void openAppCenterMenu() {
+    clickOnElement(appCenterButtonElement());
+  }
+
+  public void openConnectionRequestDrawer() {
+    ElementFacade badgeButton = findByXPathOrCSS("#profile-stats-connectionsCount .v-badge button");
+    clickOnElement(badgeButton);
+  }
+
+  public void openNotifications() {
+    clickOnElement(notificationIconElement());
+  }
+
+  public void rejectConnexionInvitation(String userName) {
+    clickOnElement(getRejectIconConnectionFromDrawer(userName));
+  }
+
+  public void rejectSpaceInvitation(String spaceName) {
+    clickOnElement(getRejectIconSpaceFromDrawer(spaceName));
+  }
+
+  public void searchApplicationCenter(String app) {
+    ElementFacade adminUiElement = findByXPathOrCSS("//*[contains(@class, 'listApplications')]//tr");
+    boolean isAdminUI = adminUiElement.isDisplayedNoWait();
+    searchApplicationCenterInputElement().setTextValue(app);
+    waitUntilAppCenterSearchFinishes(isAdminUI);
+  }
+
+  public void searchedSpaceIsDisplayedInSideBarFilter(String space) {
+    assertWebElementVisible(findByXPathOrCSS(String.format("//*[contains(@class,'recentSpacesWrapper')]//*[@class='v-list-item__content']//*[contains(text(), '%s')]",
+                                                           space)));
+  }
+
+  public void searchedSpaceIsNotDisplayedInSideBarFilter(String space) {
+    assertWebElementNotVisible(findByXPathOrCSS(String.format("//*[contains(@class,'recentSpacesWrapper')]//*[@class='v-list-item__content']//*[contains(text(), '%s')]",
+                                                              space)),
+                               2);
+  }
+
+  public void searchSpaceInSideBarFilter(String space) {
+    clickOnElement(sideBarFilterSpacesElement());
+    TextBoxElementFacade sideBarFilterSpacesInputElement = sideBarFilterSpacesInputElement();
+    sideBarFilterSpacesInputElement.waitUntilVisible();
+    sideBarFilterSpacesInputElement.setTextValue(space);
+  }
+
+  public void selectAllOrMySpaces(String filter) {
+    selectSpacesFilterElement().selectByVisibleText(filter);
+  }
+
+  public void unbookmarkActivity(String activity) {
+    clickOnElement(getFavoriteIconActivity(activity));
+  }
+
+  private ElementFacade administrationIconElement() {
+    return findByXPathOrCSS("//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'titleIcon')]");
+  }
+
+  private ElementFacade administrationMenuElement() {
+    return findByXPathOrCSS("//i[contains(@class,'uiAdministrationIcon')]");
+  }
+
+  private ElementFacade appCenterButtonElement() {
+    return findByXPathOrCSS("#appcenterLauncherButton");
+  }
+
+  private ElementFacade arrowAdminstrationMenuElement() {
+    return findByXPathOrCSS("//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'fa fa-arrow')]");
+  }
+
+  private ElementFacade checkSpaceFromDrawer(String spaceName) {
+    return findByXPathOrCSS(String.format("//aside[contains(@class,'spaceDrawer ')]//descendant::div[contains(text(),'%s')]//following::i[contains(@class,'mdi-checkbox-marked')]",
+                                          spaceName));
   }
 
   private void clickOnHamburgerMenu() {
@@ -233,55 +378,20 @@ public class HomePage extends GenericPage {
     }, this::refreshPage);
   }
 
-  public void clickOnHomeIcon() {
-    clickOnElement(homeIcon);
+  private ElementFacade confirmationForChangeSiteHomeLinkElement() {
+    return findByXPathOrCSS("//*[@class='ignore-vuetify-classes btn btn-primary me-2']");
   }
 
-  public void clickOnHomePageButton() {
-    clickOnElement(homePageButton);
+  private ElementFacade connectionsBadgeElement() {
+    return findByXPathOrCSS("(//div[contains(@class,'profileCard')]//*[@aria-label='Badge'])[2]");
   }
 
-  public void clickOnSpaceInvitationWidget() {
-    clickOnElement(spaceInvitaitationWidget);
+  private ElementFacade contextBoxWelcomeActivityElement() {
+    return findByXPathOrCSS("//*[@id='ActivityContextBoxWelcomeActivity']");
   }
 
-  public void clickOnSpacesBagde() {
-    clickOnElement(spacesBadge);
-  }
-
-  public void clickSeeAll() {
-    clickOnElement(seeAllLink);
-  }
-
-  public void clickWalletWidget() {
-    clickOnElement(walletBalanceNumber);
-  }
-
-  public void commentActivityNotificationIsDisplayed(String message, String activity, String comment) {
-    if (firstNotificationContent.getText().contains(message)) {
-      Assert.assertTrue(firstNotificationContent.getText().contains(message)); // NOSONAR
-      Assert.assertTrue(firstNotificationContent.getText().contains(activity));
-      Assert.assertTrue(firstNotificationContent.getText().contains(comment));
-
-    } else {
-      Assert.assertTrue(secondNotificationContent.getText().contains(message));
-      Assert.assertTrue(secondNotificationContent.getText().contains(activity));
-      Assert.assertTrue(secondNotificationContent.getText().contains(comment));
-    }
-  }
-
-  public void confirmationForChangeSiteHomeLink() {
-    clickOnElement(confirmationForChangeSiteHomeLink);
-    getDriver().navigate().refresh();
-  }
-
-  public void deactivateSwitcher() {
-    assertTrue(switcherButton.isVisible());
-    clickOnElement(switcherButton);
-  }
-
-  public void favoriteActivity(String activity) {
-    clickOnElement(getFavoriteIconActivity(activity));
+  private ElementFacade firstNotificationContentElement() {
+    return findByXPathOrCSS("(//*[contains(@class,'drawerContent')]//*[@class='contentSmall'])[1]");
   }
 
   private ElementFacade getAcceptIconConnectionFromDrawer(String spaceName) {
@@ -314,6 +424,10 @@ public class HomePage extends GenericPage {
     return findByXPathOrCSS(String.format("//div[@class='v-alert__content']//*[contains(text(),'%s')]", message));
   }
 
+  private ElementFacade getHamburgerNavigationMenu() {
+    return findByXPathOrCSS(".HamburgerNavigationMenuLink");
+  }
+
   private List<WebElementFacade> getListConnectionInDrawer() {
     return findAll("//aside[contains(@class,'connectionsDrawer ')]//div[@role='list']//descendant::div[@role='listitem']");
   }
@@ -344,210 +458,121 @@ public class HomePage extends GenericPage {
                                           number));
   }
 
+  private ElementFacade homeIconElement() {
+    return findByXPathOrCSS("//a[@href='/portal/meeds/stream']//div[@class='v-list-item__icon']");
+  }
+
+  private ElementFacade homePageButtonElement() {
+    return findByXPathOrCSS("//*[@id='UserHomePortalLink']");
+  }
+
+  private ElementFacade logOutMenuElement() {
+    return findByXPathOrCSS("//i[contains(@class,'logoutIcon')]");
+  }
+
+  private ElementFacade myProfileButtonElement() {
+    return findByXPathOrCSS("//a[@href='/portal/meeds/profile']");
+  }
+
+  private ElementFacade myProfilePageLinkElement() {
+    return findByXPathOrCSS("//a[@href='/portal/meeds/profile']");
+  }
+
+  private ElementFacade notificationIconElement() {
+    return findByXPathOrCSS("#NotificationPopoverPortlet");
+  }
+
+  private ElementFacade openSpacesPageLinkElement() {
+    return findByXPathOrCSS("//a[@href='/portal/meeds/spaces']");
+  }
+
+  private ElementFacade personnePageLinkElement() {
+    return findByXPathOrCSS("//i[contains(@class,'uiIconPeople')]");
+  }
+
+  private ElementFacade profileStatsPortletElement() {
+    return findByXPathOrCSS("#profile-stats-portlet");
+  }
+
+  private ElementFacade recentSpacesBtnElement() {
+    return findByXPathOrCSS("//*[contains(@class,'spacesNavigationTitle')]//*[contains(@class,'fa fa-arrow')]");
+  }
+
+  private ElementFacade recentSpacesIconElement() {
+    return findByXPathOrCSS("//*[contains(@class,'spacesNavigationTitle')]//*[contains(@class,'titleIcon')]");
+  }
+
+  private TextBoxElementFacade searchApplicationCenterInputElement() {
+    return findTextBoxByXPathOrCSS("//*[@class='v-text-field__slot']//input");
+  }
+
   private ElementFacade searchedSpaceInSideBarFilterHover(String space) {
     return findByXPathOrCSS(String.format("//*[contains(@class,'recentSpacesWrapper')]//*[@class='v-list-item__content']//*[contains(text(), '%s')]",
-            space));
+                                          space));
   }
 
-  public void goToAddGroups() {
-    if (!StringUtils.contains(getDriver().getCurrentUrl(), "groupsManagement")) {
-      accessToAdministrationMenu();
-      clickOnElement(findByXPathOrCSS("//a[contains(@href, 'groupsManagement')]"));
-    }
+  private ElementFacade secondNotificationContentElement() {
+    return findByXPathOrCSS("(//*[contains(@class,'drawerContent')]//*[@class='contentSmall'])[2]");
   }
 
-  public void goToAddUser() {
-    if (!StringUtils.contains(getDriver().getCurrentUrl(), "usersManagement")) {
-      accessToAdministrationMenu();
-      clickOnElement(findByXPathOrCSS("//a[contains(@href, 'usersManagement')]"));
-    }
+  private ElementFacade seeAllLinkElement() {
+    return findByXPathOrCSS("//aside[contains(@class,'v-navigation-drawer')]//span[contains(text(),'See all')]");
   }
 
-  public void goToAppCenterAdminSetupPage() {
-    accessToAdministrationMenu();
-    clickOnElement(findByXPathOrCSS("//a[contains(@href,'appCenterAdminSetup')]"));
+  private ElementFacade selectSpacesFilterElement() {
+    return findByXPathOrCSS("//*[contains(@class,'selectSpacesFilter')]");
   }
 
-  public void goToAppCenterApplications() {
-    appCenterButton.clickOnElement();
+  private ElementFacade settingsPageLinkElement() {
+    return findByXPathOrCSS("//i[contains(@class,'settingsIcon')]");
   }
 
-  public void goToHomePage() {
-    closeAlertIfOpened();
-    getDriver().get(getDriver().getCurrentUrl().split("/portal/")[0]);
-    verifyPageLoaded();
+  private TextBoxElementFacade sideBarFilterSpacesElement() {
+    return findTextBoxByXPathOrCSS("//*[contains(@class,'recentSpacesTitle')]//*[contains(@class,'recentSpacesTitleLabel')]");
   }
 
-  public void goToMyProfile() {
-    clickOnHamburgerMenu();
-    clickOnElement(myProfileButton);
+  private TextBoxElementFacade sideBarFilterSpacesInputElement() {
+    return findTextBoxByXPathOrCSS("//*[contains(@class,'recentSpacesTitle')]//*[contains(@class,'recentSpacesTitleLabel')]//*[contains(@class,'v-input recentSpacesFilter')]//input");
   }
 
-  public void goToPeoplePage() {
-    clickOnHamburgerMenu();
-    clickOnElement(personnePageLink);
-    verifyPageLoaded();
+  private ElementFacade spaceArrowIconElement() {
+    return findByXPathOrCSS("//*[contains(@class,'recentSpacesWrapper')]//*[contains(@class,'clickable fa fa-arrow')]");
   }
 
-  public void goToProfilePage() {
-    clickOnHamburgerMenu();
-    clickOnElement(myProfilePageLink);
+  private ElementFacade spaceInvitaitationWidgetElement() {
+    return findByXPathOrCSS("//*[@class='v-card v-card--flat v-sheet theme--light']//div[@class='headline text-color font-weight-bold pa-1']");
   }
 
-  public void goToSettingsPage() {
-    clickOnHamburgerMenu();
-    clickOnElement(settingsPageLink);
+  private ElementFacade spacesBadgeElement() {
+    return findByXPathOrCSS("(//div[contains(@class,'profileCard')]//*[@aria-label='Badge'])[1]");
   }
 
-  public void goToSpacesPage() {
-    clickOnHamburgerMenu();
-    clickOnElement(openSpacesPageLink);
+  private ElementFacade streamPageLinkElement() {
+    return findByXPathOrCSS("//i[contains(@class,'uiIconStream')]");
   }
 
-  public void goToStreamPage() {
-    clickOnHamburgerMenu();
-    clickOnElement(streamPageLink);
+  private ElementFacade streamPageViewElement() {
+    return findByXPathOrCSS("//*[@id='StreamPage']");
   }
 
-  public void goToTasksPage() {
-    clickOnElement(tasksSnapshotPageButton);
+  private ElementFacade switcherButtonElement() {
+    return findByXPathOrCSS("(//*[@class='providersTableRow']//*[@class='center actionContainer']/div)[1]");
   }
 
-  public void accessToAdministrationMenu() {
-    clickOnHamburgerMenu();
-    retryOnCondition(() -> {
-      administrationMenu.waitUntilVisible();
-      administrationIcon.hover();
-      arrowAdminstrationMenu.waitUntilVisible();
-      clickOnElement(arrowAdminstrationMenu);
-      waitFor(300).milliseconds(); // Wait until drawer 'open' animation
-      // finishes
-      ElementFacade administrationMenuElement = findByXPathOrCSS("#AdministrationHamburgerNavigation");
-      administrationMenuElement.waitUntilVisible();
-    }, this::clickOnHamburgerMenu);
+  private ElementFacade tasksContainerElement() {
+    return findByXPathOrCSS("#tasks");
   }
 
-  public void accessToRecentSpaces() {
-    clickOnHamburgerMenu();
-    retryOnCondition(() -> {
-      recentSpacesIcon.hover();
-      recentSpacesBtn.waitUntilVisible();
-      clickOnElement(recentSpacesBtn);
-      waitFor(300).milliseconds(); // Wait until drawer 'open' animation
-                                   // finishes
-    }, this::clickOnHamburgerMenu);
+  private ElementFacade tasksSnapshotPageButtonElement() {
+    return findByXPathOrCSS("//*[@id='tasks']//*[@class='body-1 text-uppercase color-title px-0']");
   }
 
-  public void hoverOnStreamIcon() {
-    waitFor(300).milliseconds(); // Wait until drawer 'open' animation finishes
-    streamPageLink.hover("//a[@href='/portal/meeds/stream']");
+  private ElementFacade thirdLevelNavigationElement() {
+    return findByXPathOrCSS("//*[contains(@class,'HamburgerMenuThirdLevelParent')]");
   }
 
-  public boolean isConnectionsBadgeWithNumberVisible(String number) {
-    return getConnectionsBadgeWithNumber(number).isVisibleAfterWaiting();
-  }
-
-  public boolean isElementVisible(String elementName) {
-    return MAPPING_CONTAINER_NAME_TO_BASEELEMENTFACADE_XPATH.get(elementName).isVisibleAfterWaiting();
-  }
-
-  public boolean isHomePageDisplayed() {
-    return getHamburgerNavigationMenu().isVisibleAfterWaiting();
-  }
-
-  public boolean isNoConnectionsBadge() {
-    return !getConnectionsBadge().isVisible();
-  }
-
-  public boolean isNumberOfConnectionsInDrawer(int expectedNumber) {
-    int listOfSpaces = getListConnectionInDrawer().size();
-    return listOfSpaces == expectedNumber;
-  }
-
-  public boolean isNumberOfSpacesInDrawer(int expectedNumber) {
-    int listOfSpaces = getListSpaceInDrawer().size();
-    return listOfSpaces == expectedNumber;
-  }
-
-  public boolean isPageOpened(String page) {
-    return getDriver().getTitle().equals(page);
-  }
-
-  public boolean isSpacesBadgeWithNumberVisible(String number) {
-    return getSpacesBadgeWithNumber(number).isVisibleAfterWaiting();
-  }
-
-  public boolean isWalletPageOpened() {
-    assertWebElementVisible(walletApplication);
-    return getDriver().getTitle().equals("Wallet");
-  }
-
-  public boolean isWidgetWithNumberVisible(String widget, String number) {
-    getDriver().navigate().refresh();
-    return getProfileWidgetContent(widget, number).isVisibleAfterWaiting();
-  }
-
-  public void logout() {
-    clickOnHamburgerMenu();
-    logOutMenu.clickOnElement();
-    verifyPageLoaded();
-  }
-
-  public void openAllApplicationPage() {
-    clickOnElement(viewAllApplicationLink);
-  }
-
-  public void openAppCenterMenu() {
-    clickOnElement(appCenterButton);
-  }
-
-  public void openConnectionRequestDrawer() {
-    ElementFacade badgeButton = findByXPathOrCSS("#profile-stats-connectionsCount .v-badge button");
-    clickOnElement(badgeButton);
-  }
-
-  public void openNotifications() {
-    clickOnElement(notificationIcon);
-  }
-
-  public void rejectConnexionInvitation(String userName) {
-    clickOnElement(getRejectIconConnectionFromDrawer(userName));
-  }
-
-  public void rejectSpaceInvitation(String spaceName) {
-    clickOnElement(getRejectIconSpaceFromDrawer(spaceName));
-  }
-
-  public void searchApplicationCenter(String app) {
-    ElementFacade adminUiElement = findByXPathOrCSS("//*[contains(@class, 'listApplications')]//tr");
-    boolean isAdminUI = adminUiElement.isDisplayedNoWait();
-    searchApplicationCenterInput.setTextValue(app);
-    waitUntilAppCenterSearchFinishes(isAdminUI);
-  }
-
-  public void searchedSpaceIsDisplayedInSideBarFilter(String space) {
-    assertWebElementVisible(findByXPathOrCSS(String.format("//*[contains(@class,'recentSpacesWrapper')]//*[@class='v-list-item__content']//*[contains(text(), '%s')]",
-                                                           space)));
-  }
-
-  public void searchedSpaceIsNotDisplayedInSideBarFilter(String space) {
-    assertWebElementNotVisible(findByXPathOrCSS(String.format("//*[contains(@class,'recentSpacesWrapper')]//*[@class='v-list-item__content']//*[contains(text(), '%s')]",
-                                                              space)),
-                               2);
-  }
-
-  public void searchSpaceInSideBarFilter(String space) {
-    clickOnElement(sideBarFilterSpaces);
-    sideBarFilterSpacesInput.waitUntilVisible();
-    sideBarFilterSpacesInput.setTextValue(space);
-  }
-
-  public void selectAllOrMySpaces(String filter) {
-    selectSpacesFilter.selectByVisibleText(filter);
-  }
-
-  public void unbookmarkActivity(String activity) {
-    clickOnElement(getFavoriteIconActivity(activity));
+  private ElementFacade viewAllApplicationLinkElement() {
+    return findByXPathOrCSS("//a[contains(@class,'seeAllApplicationsBtn')]");
   }
 
   private void waitUntilAppCenterSearchFinishes(boolean isAdminUI) {
@@ -558,24 +583,8 @@ public class HomePage extends GenericPage {
     }
   }
 
-  public void hoverSearchedSpaceInSideBarFilter(String space) {
-    searchedSpaceInSideBarFilterHover(space).hover();
-  }
-
-  public void isArrowDisplayedAfterHoveringOnSpaceName() {
-    Assert.assertTrue(spaceArrowIcon.isDisplayed());
-  }
-
-  public void clickOnArrowIcon()  {
-    spaceArrowIcon.clickOnElement();
-  }
-
-  public void isThirdLevelNavigationDisplayed() {
-    Assert.assertTrue(thirdLevelNavigation.isDisplayed());
-  }
-
-  private ElementFacade getHamburgerNavigationMenu() {
-    return findByXPathOrCSS(".HamburgerNavigationMenuLink");
+  private ElementFacade walletBalanceElement() {
+    return findByXPathOrCSS("#walletBalance");
   }
 
 }

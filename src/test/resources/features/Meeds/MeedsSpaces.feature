@@ -3,6 +3,47 @@ Feature: Meeds Space
   As a user
   I want to check spaces page
 
+  Scenario: SPC_MNG-1 : Spaces avatar and title
+    Given I am authenticated as admin
+
+    When I go to the random space
+
+    Then Space Avatar is displayed
+    And The created space name is displayed
+
+  Scenario: SPC_MNG-2 : Space applications
+    Given I am authenticated as admin
+
+    When I go to the random space
+
+    Then Space Avatar is displayed
+    And The created space name is displayed
+    And First created space Tabs are displayed in order
+
+
+  Scenario: SPC_MNG-3 : Home space page banner
+    Given I am authenticated as admin
+
+    When I go to the random space
+
+    Then Space Avatar is displayed
+    And The created space name is displayed
+
+    When I upload the Space banner 'cap02.png'
+    And I go to the random space
+    Then Space banner is changed successfully
+
+  Scenario: SPC_MNG-4 : Clickable Space avatar
+    Given I am authenticated as admin
+
+    When I go to the random space
+
+    Then Space Avatar is displayed
+    And The created space name is displayed
+
+    When I go to space Home
+    Then First created space Tabs are displayed in order
+
   Scenario: [SPACES-2] Spaces Cards bloc
     Given I am authenticated as admin
 
@@ -32,24 +73,6 @@ Feature: Meeds Space
     And The first created space is not displayed in Spaces Requests section
     And The second created space is not displayed in Spaces Requests section
 
-  @ignored
-  Scenario: [SPC_MNG-7] General Space Settings
-    Given I am authenticated as admin
-    When I go to the random space
-    When I go to Settings in space tab
-    Then I check that general settings section is displayed with his edit icon
-    And I check that Applications section is displayed with his edit icon
-
-    When I click on edit general space settings
-    Then I check that avatar section is displayed
-    And I check that space name section is displayed
-    And I check that space description section is displayed
-    And I check that space template section is displayed
-    And I check that hidden section and switch button are displayed
-    And I check that registration section is displayed
-    And I check that cancel button is displayed
-    And I check that update button is displayed
-
   Scenario: [SPC_MNG-8] Spaces applications management
     Given I am authenticated as admin
     When I create a random space
@@ -74,49 +97,3 @@ Feature: Meeds Space
     And I check that applications are displayed
     And I click to add application 'Notes'
     Then I check that application 'Notes' is added to applications page
-
-
-  @ignored
-  Scenario: [SPACES-4.1] Spaces Invitations
-    Given I am authenticated with the user with the credentials
-      | login    | firas.mejri |
-      | password | mejri2020   |
-    And I delete Spaces invitations on the badge
-    When I log out
-    And I am authenticated with the user with the credentials
-      | login    | aymen.khalfi |
-      | password | aymen2020    |
-    And I create the space with user 'firas.mejri'
-    And I create the second space with user 'firas.mejri'
-    When I change user
-      | login    | firas.mejri |
-      | password | mejri2020   |
-    And I click on Spaces Invitations badge '2'
-    And I accept First Space Invitation on the badge
-    And I reject Second Space Invitation on the badge
-    Then I go to First Space
-    And The space home page is visible
-    Then I go to Second Space
-    And The space home page is not visible
-
-  @ignored
-  Scenario: [SPACES-4.2] Spaces Sent Requests
-    Given I am authenticated with the user with the credentials
-      | login    | aymen.khalfi |
-      | password | aymen2020    |
-    And I create the space with 'validation' access
-    And I create the second space with 'validation' access
-    And I change user
-      | login    | firas.mejri |
-      | password | mejri2020   |
-    And I go to First Space
-    And I 'Request to Join'
-    And I go to Second Space
-    And I 'Request to Join'
-    And I go to spaces page
-    When I click on 'Sent Requests' number
-    And I refuse the send request to the first space
-    And I change user
-      | login    | aymen.khalfi |
-      | password | aymen2020    |
-    And The First space was deleted successfully

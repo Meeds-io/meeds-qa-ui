@@ -34,11 +34,6 @@ public class SocialStepDefinitions {
     socialSteps.checkSearchedUserWellMatched(user);
   }
 
-  @And("^I add a comment in activity '(.*)'$")
-  public void commentActivity(String activity) {
-    socialSteps.commentActivity(activity);
-  }
-
   @And("I Select the comment added and I click on edit button")
   public void editComment() {
     socialSteps.editComment();

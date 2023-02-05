@@ -10,7 +10,6 @@ Feature: Tasks
     And I create a random space
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
     When I select projects tab
     And I search for the created project
     And I open the created project
@@ -29,7 +28,6 @@ Feature: Tasks
     And I connect with the first created user
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
     When I select tasks tab
     And I create the following task
       | taskName | task1 |
@@ -46,7 +44,6 @@ Feature: Tasks
 
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
     When I select tasks tab
     And I create the following task
       | taskName | testE |
@@ -64,7 +61,6 @@ Feature: Tasks
 
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
 
     When I select projects tab
     And I create the random project with the first created user as participant
@@ -72,7 +68,6 @@ Feature: Tasks
 
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
 
     When I select projects tab
     And I search for the created project
@@ -94,7 +89,6 @@ Feature: Tasks
 
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
 
     When I select projects tab
     And I create the project 'newtestessai'
@@ -127,7 +121,6 @@ Feature: Tasks
     When I connect with the second created user
     And I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
     When I select projects tab
     And I search for the created project
     And I open the created project
@@ -154,7 +147,6 @@ Feature: Tasks
 
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
     And Project 'new project test' is displayed in Tasks App Center
 
     When I go to the random space
@@ -170,7 +162,6 @@ Feature: Tasks
 
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
     And Project 'new project test' is displayed in Tasks App Center
     And Project 'second project test' is displayed in Tasks App Center
 
@@ -181,7 +172,6 @@ Feature: Tasks
 
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
 
     When I select projects tab
     And I create the project 'TestProject'
@@ -250,7 +240,6 @@ Feature: Tasks
 
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
 
     When I select projects tab
     And I search for the created project
@@ -273,7 +262,6 @@ Feature: Tasks
 
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
 
     When I select projects tab
     And I create the random project with the first created user as participant
@@ -292,7 +280,6 @@ Feature: Tasks
     When I connect with the first created user
     And I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
-    And Tasks Application Page is displayed
     And I select projects tab
     And I search for the created project
     And I open the created project
@@ -303,7 +290,6 @@ Feature: Tasks
     When I connect with the second created user
     And I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
-    And Tasks Application Page is displayed
     And I select projects tab
     And I search for the created project
     And I open the created project
@@ -341,7 +327,6 @@ Feature: Tasks
     When I connect with the second created user
     And I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
 
     When I select projects tab
     And I create the project 'Test Compagne' with the first created user as manager
@@ -365,7 +350,6 @@ Feature: Tasks
     And  I connect with the first created user
     When I go To AppCenter Drawer
     And  I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
     And I create the project 'project01'
     And I open the project 'project01'
     When I click on plus Button To Add Task
@@ -403,7 +387,6 @@ Feature: Tasks
 
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
     And I select projects tab
     And I create the random project with the first created user as participant
 
@@ -422,7 +405,6 @@ Feature: Tasks
     When I connect with the first created user
     And I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
-    And Tasks Application Page is displayed
     And I select projects tab
     And I search for the created project
     And I open the created project
@@ -439,7 +421,6 @@ Feature: Tasks
     And  I connect with the first created user
     When I go To AppCenter Drawer
     And  I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
     And I create the project 'project001'
     And I open the project 'project001'
     When I click on plus Button To Add Task
@@ -490,3 +471,14 @@ Feature: Tasks
     When I close the opened drawer
     And I open the task 'Automation Test Task'
     Then The update description 'Decription Task updated' is displayed in origin task
+
+  Scenario: CAP37 - [User_UI_US18.1] Check message when project title contains less than 3 characters
+    Given I am authenticated as admin
+    And I open the app center menu
+    And I open all application page
+    When I go to 'Tasks' application
+    And I select projects tab
+    And I click on add project button
+    And I enter the project name 'pr'
+    And I click on save project button
+    Then The 'Add Project' drawer is displayed

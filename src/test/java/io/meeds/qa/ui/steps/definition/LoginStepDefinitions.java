@@ -20,14 +20,14 @@ public class LoginStepDefinitions {
     assertTrue("The home page should be loaded, but it did not !", loginSteps.isHomePageDisplayed());
   }
 
-  @Given("^I connect as (.*) if random users doesn't exists$")
-  public void authenticateIfUsersNotExists(String username, List<String> userPrefixes) {
-    loginSteps.authenticateIfUsersNotExists("admin", userPrefixes);
-  }
-
   @Given("^I connect as (.*) if random space and random users doesn't exists$")
   public void authenticateIfRandomSpaceAndUsersNotExists(String username, List<String> userPrefixes) {
     loginSteps.authenticateIfRandomSpaceAndUsersNotExists(username, "randomSpaceName", userPrefixes);
+  }
+
+  @Given("^I connect as (.*) if random users doesn't exists$")
+  public void authenticateIfUsersNotExists(String username, List<String> userPrefixes) {
+    loginSteps.authenticateIfUsersNotExists("admin", userPrefixes);
   }
 
   @Given("I logout")

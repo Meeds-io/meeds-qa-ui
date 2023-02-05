@@ -31,6 +31,10 @@ public class HomeSteps {
 
   }
 
+  public void accessToRecentSpaces() {
+    homePage.accessToRecentSpaces();
+  }
+
   public void bookmarkActivity(String activity) {
     homePage.bookmarkActivity(activity);
   }
@@ -63,10 +67,6 @@ public class HomeSteps {
     }
   }
 
-  public boolean checkPage(String page) {
-    return homePage.isPageOpened(page);
-  }
-
   public void checkRandomDisplaySpaceInvitation(String space) {
     homePage.checkExistingSpaceInvitation(space);
   }
@@ -92,8 +92,8 @@ public class HomeSteps {
     homePage.checkThatStreamPageIsDisplayed();
   }
 
-  public boolean checkWalletPage() throws InterruptedException {
-    return homePage.isWalletPageOpened();
+  public void clickOnArrowIcon() {
+    homePage.clickOnArrowIcon();
   }
 
   public void clickOnCommentActivityNotification(String message, String activity, String comment) {
@@ -124,10 +124,6 @@ public class HomeSteps {
     homePage.clickSeeAll();
   }
 
-  public void clickWalletWidget() {
-    homePage.clickWalletWidget();
-  }
-
   public void commentActivityNotificationIsDisplayed(String message, String activity, String comment) {
     homePage.commentActivityNotificationIsDisplayed(message, activity, comment);
   }
@@ -154,10 +150,6 @@ public class HomeSteps {
 
   public void goToAppCenterAdminSetupPage() {
     homePage.goToAppCenterAdminSetupPage();
-  }
-
-  public void goToAppCenterApplications() {
-    homePage.goToAppCenterApplications();
   }
 
   public void goToHomePage() {
@@ -192,12 +184,16 @@ public class HomeSteps {
     homePage.goToTasksPage();
   }
 
-  public void accessToRecentSpaces() {
-    homePage.accessToRecentSpaces();
-  }
-
   public void hoverOnStreamIcon() {
     homePage.hoverOnStreamIcon();
+  }
+
+  public void hoverSearchedSpaceInSideBarFilter(String space) {
+    homePage.hoverSearchedSpaceInSideBarFilter(space);
+  }
+
+  public void isArrowDisplayedAfterHoveringOnSpaceName() {
+    homePage.isArrowDisplayedAfterHoveringOnSpaceName();
   }
 
   public boolean isConnectionsBadgeWithNumberVisible(String number) {
@@ -217,8 +213,16 @@ public class HomeSteps {
     return homePage.isNumberOfSpacesInDrawer(Integer.valueOf(number));
   }
 
+  public void isPageOpened(String uriPart) {
+    homePage.isPageOpened(uriPart);
+  }
+
   public boolean isSpacesBadgeWithNumberVisible(String number) {
     return homePage.isSpacesBadgeWithNumberVisible(number);
+  }
+
+  public void isThirdLevelNavigationDisplayed() {
+    homePage.isThirdLevelNavigationDisplayed();
   }
 
   public boolean isWidgetWithNumberVisible(String widget, String number) {
@@ -285,21 +289,5 @@ public class HomeSteps {
 
   public void unbookmarkActivity(String activity) {
     homePage.unbookmarkActivity(activity);
-  }
-
-  public void hoverSearchedSpaceInSideBarFilter(String space) {
-    homePage.hoverSearchedSpaceInSideBarFilter(space);
-  }
-
-  public void isArrowDisplayedAfterHoveringOnSpaceName() {
-    homePage.isArrowDisplayedAfterHoveringOnSpaceName();
-  }
-
-  public void clickOnArrowIcon(){
-    homePage.clickOnArrowIcon();
-  }
-
-  public void isThirdLevelNavigationDisplayed() {
-    homePage.isThirdLevelNavigationDisplayed();
   }
 }

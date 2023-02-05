@@ -11,7 +11,7 @@ import net.thucydides.core.annotations.Steps;
 public class KudosStepDefinitions {
 
   @Steps
-  private KudosSteps    kudoSteps;
+  private KudosSteps kudoSteps;
 
   @When("^I send to the comment activity a kudos message '(.*)'$")
   public void addActivityCommentKudos(String kudos) {
@@ -21,6 +21,22 @@ public class KudosStepDefinitions {
   @When("^I send to the activity '(.*)' a kudos message '(.*)'$")
   public void addActivityKudos(String activity, String kudos) {
     kudoSteps.addActivityKudos(activity, kudos);
+  }
+
+  @When("^I send to the activity '(.*)' a kudos message '(.*)' to (.*) created user$")
+  public void addActivityKudosToSomeoneDifferent(String activity, String message, String userPrefix) {
+    String secondUserFirstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");
+    String secondUserLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
+    String fullName = secondUserFirstName + " " + secondUserLastName;
+    kudoSteps.addActivityKudosToSomeoneDifferent(activity, message, fullName);
+  }
+
+  @When("^I send to the activity '(.*)' a kudos to (.*) to '(.*)'$")
+  public void addKudosToSomeoneDifferent(String activity, String userPrefix, String message) {
+    String secondUserFirstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");
+    String secondUserLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
+    String fullName = secondUserFirstName + " " + secondUserLastName;
+    kudoSteps.addKudosToSomeoneDifferent(activity, fullName, message);
   }
 
   @And("^the kudos activity UI '(.*)' is displayed in stream page$")
@@ -97,21 +113,5 @@ public class KudosStepDefinitions {
   @And("^I set the new kudos '(.*)' and I click on update button$")
   public void updateKudosMessage(String kudos) {
     kudoSteps.updateKudosMessage(kudos);
-  }
-
-  @When("^I send to the activity '(.*)' a kudos message '(.*)' to (.*) created user$")
-  public void addActivityKudosToSomeoneDifferent(String activity, String message, String userPrefix) {
-    String secondUserFirstName = Serenity.sessionVariableCalled(userPrefix+ "UserFirstName");
-    String secondUserLastName = Serenity.sessionVariableCalled(userPrefix+ "UserLastName");
-    String fullName =  secondUserFirstName + " " + secondUserLastName;
-    kudoSteps.addActivityKudosToSomeoneDifferent(activity, message, fullName);
-  }
-
-  @When("^I send to the activity '(.*)' a kudos to (.*) to '(.*)'$")
-  public void addKudosToSomeoneDifferent(String activity, String userPrefix, String message) {
-    String secondUserFirstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");
-    String secondUserLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
-    String fullName = secondUserFirstName + " " + secondUserLastName;
-    kudoSteps.addKudosToSomeoneDifferent(activity, fullName, message);
   }
 }

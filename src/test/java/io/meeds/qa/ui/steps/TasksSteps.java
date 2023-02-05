@@ -15,7 +15,7 @@ public class TasksSteps {
   }
 
   public void addLabelToProject(String label) {
-    tasksPage.addLabelToProject(label);
+    tasksPage.addLabel(label);
   }
 
   public void addLabelToTask(String label) {
@@ -46,6 +46,10 @@ public class TasksSteps {
 
   public void addProjectWithFirstCreatedUserAsManger(String projectName, String fullName) {
     tasksPage.addProjectWithFirstCreatedUserAsManger(projectName, fullName);
+  }
+
+  public void addProjectWithFirstUserAsParticipant(String projectName, String participant) {
+    tasksPage.addProjectWithFirstUserAsParticipant(projectName, participant);
   }
 
   public void addProjectWithManager(String projectName, String fullName) {
@@ -84,7 +88,7 @@ public class TasksSteps {
   public void addTaskWithLabelInProject(String label, Map<String, String> taskDetails) {
     tasksPage.clickAddTaskButton();
     tasksPage.setTaskName(taskDetails.get(TASK_NAME_PARAM));
-    tasksPage.enterLabelTask(label);
+    tasksPage.addLabel(label);
     tasksPage.saveAddTaskButton();
   }
 
@@ -251,8 +255,8 @@ public class TasksSteps {
     tasksPage.checkTypedTaskIsRemoved(typedTask);
   }
 
-  public void checkUpdatedDescription(String Description) {
-    tasksPage.checkUpdatedDescription(Description);
+  public void checkUpdatedDescription(String description) {
+    tasksPage.checkUpdatedDescription(description);
   }
 
   public void checkViewLinkAttachments() {
@@ -283,8 +287,20 @@ public class TasksSteps {
     tasksPage.clickAddProjectButton();
   }
 
+  public void clickCancel() {
+    tasksPage.clickCancel();
+  }
+
   public void clickChangeLocation() {
     tasksPage.clickChangeLocation();
+  }
+
+  public void clickDelete() {
+    tasksPage.clickDelete();
+  }
+
+  public void clickDeleteProjectButton() {
+    tasksPage.clickDeleteProjectButton();
   }
 
   public void clickDocButton() {
@@ -352,20 +368,20 @@ public class TasksSteps {
     tasksPage.clickOnMoveStatusBeforeIcon();
   }
 
-  public void ClickOnPlusButtonToAddTask() {
-    tasksPage.ClickOnPlusButtonToAddTask();
+  public void clickOnPlusButtonToAddTask() {
+    tasksPage.clickOnPlusButtonToAddTask();
   }
 
-  public void ClickOnPlusButtonToAddTaskOfTheSixthStatusColumn() {
-    tasksPage.ClickOnPlusButtonToAddTaskOfTheSixthStatusColumn();
+  public void clickOnPlusButtonToAddTaskOfTheSixthStatusColumn() {
+    tasksPage.clickOnPlusButtonToAddTaskOfTheSixthStatusColumn();
   }
 
   public void clickOnProjectThreeDotsButton() {
     tasksPage.clickOnProjectThreeDotsButton();
   }
 
-  public void ClickOnSaveButtonToAddTask() {
-    tasksPage.ClickOnSaveButtonToAddTask();
+  public void clickOnSaveButtonToAddTask() {
+    tasksPage.clickOnSaveButtonToAddTask();
   }
 
   public void clickOnSaveButtonToAddTaskSpaceProject() {
@@ -376,8 +392,8 @@ public class TasksSteps {
     tasksPage.clickOnTaskThreeDotsOption();
   }
 
-  public void clickOnTheNotificationThatMentioneFirstUserInATaskInProject(String message, String ProjectName) {
-    tasksPage.clickOnTheNotificationThatMentioneFirstUserInATaskInProject(message, ProjectName);
+  public void clickOnTheNotificationThatMentioneFirstUserInATaskInProject(String message, String projectName) {
+    tasksPage.clickOnTheNotificationThatMentioneFirstUserInATaskInProject(message, projectName);
   }
 
   public void clickOnTheTimestamp() {
@@ -708,8 +724,8 @@ public class TasksSteps {
     tasksPage.setTaskCompletedInDrawerWithoutClosingIt();
   }
 
-  public void setTaskDescription(String Description) {
-    tasksPage.setTaskDescription(Description);
+  public void setTaskDescription(String description) {
+    tasksPage.setTaskDescription(description);
   }
 
   public void setTaskDueDateNextWeek() {
@@ -792,8 +808,8 @@ public class TasksSteps {
     tasksPage.taskTooltipIsDisplayed(task);
   }
 
-  public void updateTaskDescription(String Description) {
-    tasksPage.updateTaskDescription(Description);
+  public void updateTaskDescription(String description) {
+    tasksPage.updateTaskDescription(description);
   }
 
   public void userAvatarIsDisplayedInProjectCard(String userName) {
@@ -819,14 +835,5 @@ public class TasksSteps {
   public void viewAllCommentsTaskButton() {
     tasksPage.viewAllCommentsTaskButton();
   }
-  public void addProjectWithFirstUserAsParticipant(String projectName, String participant) {
-    tasksPage.addProjectWithFirstUserAsParticipant(projectName, participant);
-  }
-
-  public void clickDeleteProjectButton() { tasksPage.clickDeleteProjectButton();}
-
-  public void clickCancel() {tasksPage.clickCancel();}
-
-  public void clickDelete() {tasksPage.clickDelete();}
 
 }

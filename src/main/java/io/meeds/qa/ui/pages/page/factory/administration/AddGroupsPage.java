@@ -5,59 +5,40 @@ import org.openqa.selenium.WebDriver;
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class AddGroupsPage extends GenericPage {
-  @FindBy(xpath = "//*[contains(@class,'addNewMembershipButton')]")
-  private ElementFacade    addMemberInGroupBtn;
-
-  @FindBy(
-      xpath = "//*[@id='membershipFormDrawer' and contains(@class, 'v-navigation-drawer--open')]//button[contains(@class,'mdi-close')]"
-  )
-  private ElementFacade    closeDrawerButton;
-
-  @FindBy(xpath = "//input[@id='userNameInput']")
-  private TextBoxElementFacade inviteMemberInput;
-
-  @FindBy(
-      xpath = "//*[@id='membershipFormDrawer' and contains(@class, 'v-navigation-drawer--open')]//button[contains(@class,'btn-primary')]"
-  )
-  private ElementFacade    saveMemberAddedInGroup;
-
-  @FindBy(xpath = "//*[contains(@class,'membershipNameField')]//select")
-  private ElementFacade    selectedRoleField;
-
-  private ElementFacade addMemberInGroupBtn() {
-    return findByXPathOrCSS(url);
-  }
-
   public AddGroupsPage(WebDriver driver) {
     super(driver);
   }
 
   public void addMemberInGroup(String role, String member) {
-    if (!addMemberInGroupBtn.isClickable() || !addMemberInGroupBtn.isVisible()) {
+    ElementFacade addMemberInGroupBtnElement = addMemberInGroupBtnElement();
+    if (!addMemberInGroupBtnElement.isClickable() || !addMemberInGroupBtnElement.isVisible()) {
       refreshPage();
     }
-    if (closeDrawerButton.isCurrentlyVisible()) {
-      closeDrawerButton.clickOnElement();
+    ElementFacade closeDrawerButtonElement = closeDrawerButtonElement();
+    if (closeDrawerButtonElement.isCurrentlyVisible()) {
+      closeDrawerButtonElement.clickOnElement();
       waitForDrawerToClose();
     }
-    addMemberInGroupBtn.clickOnElement();
-    selectedRoleField.selectByValue(role);
-    selectedRoleField.clickOnElement();
-    inviteMemberInput.setTextValue(member);
-    boolean found = mentionInField(inviteMemberInput, member, 3);
+    addMemberInGroupBtnElement.clickOnElement();
+    ElementFacade selectedRoleFieldElement = selectedRoleFieldElement();
+    selectedRoleFieldElement.selectByValue(role);
+    selectedRoleFieldElement.clickOnElement();
+    TextBoxElementFacade inviteMemberInputElement = inviteMemberInputElement();
+    inviteMemberInputElement.setTextValue(member);
+    boolean found = mentionInField(inviteMemberInputElement, member, 3);
     if (found) {
+      ElementFacade saveMemberAddedInGroupElement = saveMemberAddedInGroupElement();
       try {
-        saveMemberAddedInGroup.clickOnElement();
+        saveMemberAddedInGroupElement.clickOnElement();
       } catch (Exception e) {
         findByXPathOrCSS("//*[contains(@class,'drawerTitle')]").clickOnElement();
-        saveMemberAddedInGroup.clickOnElement();
+        saveMemberAddedInGroupElement.clickOnElement();
       }
     }
-    if (closeDrawerButton.isCurrentlyVisible()) {
-      closeDrawerButton.clickOnElement();
+    if (closeDrawerButtonElement.isCurrentlyVisible()) {
+      closeDrawerButtonElement.clickOnElement();
     }
     waitForDrawerToClose();
   }
@@ -80,6 +61,26 @@ public class AddGroupsPage extends GenericPage {
 
   public void selectGroup(String group) {
     groupToSelect(group).clickOnElement();
+  }
+
+  private ElementFacade addMemberInGroupBtnElement() {
+    return findByXPathOrCSS("//*[contains(@class,'addNewMembershipButton')]");
+  }
+
+  private ElementFacade closeDrawerButtonElement() {
+    return findByXPathOrCSS("//*[@id='membershipFormDrawer' and contains(@class, 'v-navigation-drawer--open')]//button[contains(@class,'mdi-close')]");
+  }
+
+  private TextBoxElementFacade inviteMemberInputElement() {
+    return findTextBoxByXPathOrCSS("//input[@id='userNameInput']");
+  }
+
+  private ElementFacade saveMemberAddedInGroupElement() {
+    return findByXPathOrCSS("//*[@id='membershipFormDrawer' and contains(@class, 'v-navigation-drawer--open')]//button[contains(@class,'btn-primary')]");
+  }
+
+  private ElementFacade selectedRoleFieldElement() {
+    return findByXPathOrCSS("//*[contains(@class,'membershipNameField')]//select");
   }
 
 }

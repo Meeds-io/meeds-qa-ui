@@ -28,69 +28,60 @@ import net.thucydides.core.webdriver.javascript.JavascriptExecutorFacade;
 
 public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFacade {
 
-  static final Logger     LOGGER = LoggerFactory.getLogger(ElementFacadeImpl.class);
-
-  protected final String  xPathOrCSSSelector;
-
-  protected WebElement    webElement;
-
-  private final WebDriver driver;
+  static final Logger LOGGER = LoggerFactory.getLogger(ElementFacadeImpl.class);
 
   /**
    * This method has the goal of creating a BaseElementFacade instance from a
    * WebElementFacade instance. Consequently, it would have the access to the
    * BaseElementFacade interface methods
    *
-   * @param driver {@link WebDriver}
-   * @param element {@link WebElementFacade}
-   * @param locator {@link ElementLocator}
-   * @param xPathOrCSSSelector used xPath or CSS selector to find element
-   * @param implicitTimeoutInMilliseconds configured implicit timeout
-   * @param waitForTimeoutInMilliseconds configured general timeout
-   * @return a wrapped {@link ElementFacadeImpl} of the webElementFacade
+   * @param  driver                        {@link WebDriver}
+   * @param  element                       {@link WebElementFacade}
+   * @param  locator                       {@link ElementLocator}
+   * @param  xPathOrCSSSelector            used xPath or CSS selector to find
+   *                                         element
+   * @param  implicitTimeoutInMilliseconds configured implicit timeout
+   * @param  waitForTimeoutInMilliseconds  configured general timeout
+   * @return                               a wrapped {@link ElementFacadeImpl}
+   *                                       of the webElementFacade
    */
   public static ElementFacadeImpl wrapWebElementFacade(final WebDriver driver,
-                                                           final WebElementFacade element,
-                                                           final ElementLocator locator,
-                                                           final String xPathOrCSSSelector,
-                                                           final long implicitTimeoutInMilliseconds,
-                                                           final long waitForTimeoutInMilliseconds) {
+                                                       final WebElementFacade element,
+                                                       final ElementLocator locator,
+                                                       final String xPathOrCSSSelector,
+                                                       final long implicitTimeoutInMilliseconds,
+                                                       final long waitForTimeoutInMilliseconds) {
     return new ElementFacadeImpl(driver,
-                                     locator,
-                                     xPathOrCSSSelector,
-                                     element,
-                                     implicitTimeoutInMilliseconds,
-                                     waitForTimeoutInMilliseconds);
+                                 locator,
+                                 xPathOrCSSSelector,
+                                 element,
+                                 implicitTimeoutInMilliseconds,
+                                 waitForTimeoutInMilliseconds);
   }
 
+  private final WebDriver driver;
+
+  protected WebElement    webElement;
+
+  protected final String  xPathOrCSSSelector;
+
   public ElementFacadeImpl(WebDriver driver,
-                               ElementLocator locator,
-                               String xPathOrCSSSelector,
-                               WebElement element,
-                               long implicitTimeoutInMilliseconds,
-                               long waitForTimeoutInMilliseconds) {
+                           ElementLocator locator,
+                           String xPathOrCSSSelector,
+                           WebElement element,
+                           long implicitTimeoutInMilliseconds,
+                           long waitForTimeoutInMilliseconds) {
     super(driver, locator, element, implicitTimeoutInMilliseconds, waitForTimeoutInMilliseconds);
     this.driver = driver;
     this.xPathOrCSSSelector = xPathOrCSSSelector;
   }
 
   public ElementFacadeImpl(WebDriver driver,
-                               ElementLocator locator,
-                               WebElement element,
-                               long implicitTimeoutInMilliseconds,
-                               long waitForTimeoutInMilliseconds) {
+                           ElementLocator locator,
+                           WebElement element,
+                           long implicitTimeoutInMilliseconds,
+                           long waitForTimeoutInMilliseconds) {
     this(driver, locator, null, element, implicitTimeoutInMilliseconds, waitForTimeoutInMilliseconds);
-  }
-
-  /**********************************************************
-   * Methods for finding element facade inside of this element
-   **********************************************************/
-
-  protected void checkXpathFormat(String xpath) {
-    if (!Selectors.isXPath(xpath)) {
-      ExceptionLauncher.throwSerenityExeption(new Exception(),
-                                              String.format("The format for the xpath [%s] is not correct.", xpath));
-    }
   }
 
   @Override
@@ -117,51 +108,17 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
     }
   }
 
-  protected long defaultWait() {
-    EnvironmentVariables environmentVariables = Injectors.getInjector()
-                                                         .getProvider(EnvironmentVariables.class)
-                                                         .get();
-    return ThucydidesSystemProperty.WEBDRIVER_WAIT_FOR_TIMEOUT.integerFrom(environmentVariables,
-                                                                           (int) DefaultTimeouts.DEFAULT_WAIT_FOR_TIMEOUT.toMillis());
-  }
-
-  @Override
-  public <T extends ButtonElementFacade> T findButtonElementByXpath(String xpath) {
-    checkXpathFormat(xpath);
-    WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
-
-    return ButtonElementFacadeImpl.wrapWebElementFacadeInButtonElement(getDriver(),
-                                                                       nestedElement,
-                                                                       null,
-                                                                       xpath,
-                                                                       timeoutInMilliseconds(),
-                                                                       defaultWait());
-  }
-
   @Override
   @SuppressWarnings("unchecked")
   public ElementFacadeImpl findByXPath(String xpath) {
     checkXpathFormat(xpath);
     WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
     return ElementFacadeImpl.wrapWebElementFacade(getDriver(),
-                                                      nestedElement,
-                                                      null,
-                                                      xpath,
-                                                      timeoutInMilliseconds(),
-                                                      defaultWait());
-  }
-
-  @Override
-  @SuppressWarnings("unchecked")
-  public TextElementFacadeImpl findTextElementByXPath(String xPath) {
-    checkXpathFormat(xPath);
-    WebElementFacade nestedElement = getWebElementFacadeByXpath(xPath);
-    return TextElementFacadeImpl.wrapWebElementFacadeInTextElement(getDriver(),
-                                                                   nestedElement,
-                                                                   null,
-                                                                   xPath,
-                                                                   timeoutInMilliseconds(),
-                                                                   defaultWait());
+                                                  nestedElement,
+                                                  null,
+                                                  xpath,
+                                                  timeoutInMilliseconds(),
+                                                  defaultWait());
   }
 
   public WebElement getCurrentElement() {
@@ -188,7 +145,7 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
   public String getFoundBy() {
     WebElement element = getElement();
     if (element instanceof WebElementFacadeImpl) {
-      return ((ElementFacadeImpl)element).getFoundBy();
+      return ((ElementFacadeImpl) element).getFoundBy();
     } else {
       return null;
     }
@@ -198,14 +155,15 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
   public ElementLocator getLocator() {
     WebElement element = getElement();
     if (element instanceof WebElementFacadeImpl) {
-      return ((ElementFacadeImpl)element).getLocator();
+      return ((ElementFacadeImpl) element).getLocator();
     } else {
       return null;
     }
   }
 
-  protected WebElementFacade getWebElementFacadeByXpath(String xpath) {
-    return findBy(String.format(".%s", xpath));
+  @Override
+  public String getXPathOrCSSSelector() {
+    return xPathOrCSSSelector;
   }
 
   @Override
@@ -335,8 +293,26 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
 
   }
 
-  @Override
-  public String getXPathOrCSSSelector() {
-    return xPathOrCSSSelector;
+  /**********************************************************
+   * Methods for finding element facade inside of this element
+   **********************************************************/
+
+  protected void checkXpathFormat(String xpath) {
+    if (!Selectors.isXPath(xpath)) {
+      ExceptionLauncher.throwSerenityExeption(new Exception(),
+                                              String.format("The format for the xpath [%s] is not correct.", xpath));
+    }
+  }
+
+  protected long defaultWait() {
+    EnvironmentVariables environmentVariables = Injectors.getInjector()
+                                                         .getProvider(EnvironmentVariables.class)
+                                                         .get();
+    return ThucydidesSystemProperty.WEBDRIVER_WAIT_FOR_TIMEOUT.integerFrom(environmentVariables,
+                                                                           (int) DefaultTimeouts.DEFAULT_WAIT_FOR_TIMEOUT.toMillis());
+  }
+
+  protected WebElementFacade getWebElementFacadeByXpath(String xpath) {
+    return findBy(String.format(".%s", xpath));
   }
 }

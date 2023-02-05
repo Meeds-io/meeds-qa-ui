@@ -52,6 +52,22 @@ public class GenericPage extends BasePageImpl {
     return element != null && element.isDisplayed();
   }
 
+  public boolean inConfirmMessageDisplayed(String message) {
+    return getConfirmMessage(message).isVisibleAfterWaiting();
+  }
+
+  public boolean isButtonDisplayed(String buttonName) {
+    return getButton(buttonName).isVisibleAfterWaiting();
+  }
+
+  public void isPageOpened(String uriPart) {
+    assertTrue(getDriver().getCurrentUrl().contains(uriPart));
+  }
+
+  public boolean isSuccessMessageDisplayed() {
+    return findByXPathOrCSS("//div[contains(@class,'alert-success')]").isVisibleAfterWaiting();
+  }
+
   private ElementFacade getButton(String buttonName) {
     return findByXPathOrCSS(String.format("//a[contains(text(),'%s')]", buttonName));
   }
@@ -62,18 +78,6 @@ public class GenericPage extends BasePageImpl {
 
   private ElementFacade getOKButton(String buttonName) {
     return findByXPathOrCSS(String.format("//button[contains(text(),'%s')]", buttonName));
-  }
-
-  public boolean inConfirmMessageDisplayed(String message) {
-    return getConfirmMessage(message).isVisibleAfterWaiting();
-  }
-
-  public boolean isButtonDisplayed(String buttonName) {
-    return getButton(buttonName).isVisibleAfterWaiting();
-  }
-
-  public boolean isSuccessMessageDisplayed() {
-    return findByXPathOrCSS("//div[contains(@class,'alert-success')]").isVisibleAfterWaiting();
   }
 
 }

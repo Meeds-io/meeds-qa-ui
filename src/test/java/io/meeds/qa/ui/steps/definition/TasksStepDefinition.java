@@ -21,13 +21,13 @@ import net.thucydides.core.annotations.Steps;
 public class TasksStepDefinition {
 
   @Steps
-  HomeSteps        homeSteps;
+  private HomeSteps        homeSteps;
 
   @Steps
-  ManageSpaceSteps manageSpaceSteps;
+  private ManageSpaceSteps manageSpaceSteps;
 
   @Steps
-  TasksSteps       tasksSteps;
+  private TasksSteps       tasksSteps;
 
   @When("^I accept the invitation of the created space project$")
   public void acceptRandomSpaceProject() {
@@ -128,6 +128,16 @@ public class TasksStepDefinition {
     String randomSpaceName = "randomSpaceName" + getRandomNumber();
     Serenity.setSessionVariable("randomSpaceName").to(randomSpaceName);
     tasksSteps.addProjectWithManagerAndParticipant(randomSpaceName, firstUserFullName, secondUserFullName);
+  }
+
+  @Then("^I add the random project with first user as the participant$")
+  public void addProjectWithFirstUserAsParticipant() {
+    String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
+    String firstUserLastName = Serenity.sessionVariableCalled("firstUserLastName");
+    String firstUserFullName = firstUserFirstName + " " + firstUserLastName;
+    String randomSpaceName = "randomSpaceName" + getRandomNumber();
+    Serenity.setSessionVariable("randomSpaceName").to(randomSpaceName);
+    tasksSteps.addProjectWithFirstUserAsParticipant(randomSpaceName, firstUserFullName);
   }
 
   @Then("^I create the project '(.*)' with the manager '(.*)'$")
@@ -426,6 +436,21 @@ public class TasksStepDefinition {
     tasksSteps.clickAddProjectButton();
   }
 
+  @When("^I click on cancel to not confirm project deletion$")
+  public void clickCancel() {
+    tasksSteps.clickCancel();
+  }
+
+  @When("^I click on delete to confirm project deletion$")
+  public void clickDelete() {
+    tasksSteps.clickDelete();
+  }
+
+  @When("^I click on delete project button$")
+  public void clickDeleteProjectButton() {
+    tasksSteps.clickDeleteProjectButton();
+  }
+
   @When("^I click on document button$")
   public void clickDocButton() {
     tasksSteps.clickDocButton();
@@ -499,12 +524,12 @@ public class TasksStepDefinition {
 
   @And("^I click on plus Button To Add Task$")
   public void ClickOnPlusButtonToAddTask() {
-    tasksSteps.ClickOnPlusButtonToAddTask();
+    tasksSteps.clickOnPlusButtonToAddTask();
   }
 
   @And("^I click on plus Button To Add Task of the sixth status column$")
   public void ClickOnPlusButtonToAddTaskOfTheSixthStatusColumn() {
-    tasksSteps.ClickOnPlusButtonToAddTaskOfTheSixthStatusColumn();
+    tasksSteps.clickOnPlusButtonToAddTaskOfTheSixthStatusColumn();
   }
 
   @When("^I click on three dots project button$")
@@ -514,7 +539,7 @@ public class TasksStepDefinition {
 
   @And("^I click on save Button To Add Task$")
   public void ClickOnSaveButtonToAddTask() {
-    tasksSteps.ClickOnSaveButtonToAddTask();
+    tasksSteps.clickOnSaveButtonToAddTask();
   }
 
   @And("^I click on save Button To Add Task in space project$")
@@ -760,6 +785,12 @@ public class TasksStepDefinition {
     tasksSteps.exitFromTheFirstProject();
   }
 
+  @Then("^Avatar of the first created user is not displayed in Project Card$")
+  public void firstRandomUserAvatarIsDisplayedInProjectCard() {
+    String firstUserName = Serenity.sessionVariableCalled("firstUserName");
+    tasksSteps.userAvatarIsNotDisplayedInProjectCard(firstUserName);
+  }
+
   @When("^I go back to edit task drawer$")
   public void goBack() {
     tasksSteps.goBack();
@@ -953,12 +984,6 @@ public class TasksStepDefinition {
     tasksSteps.projectIsDisplayedInTasksAppCenter(projectName);
   }
 
-  @When("The created project name is displayed in project details")
-  public void randomProjectNameIsDisplayedInProjectDetails() {
-    String randomProjectName = Serenity.sessionVariableCalled("projectName");
-    tasksSteps.projectNameIsDisplayedInProjectDetails(randomProjectName);
-  }
-
   @When("The project name is displayed in project details")
   public void projectNameIsDisplayedInProjectDetails() {
     String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
@@ -968,6 +993,12 @@ public class TasksStepDefinition {
   @When("^The project '(.*)' is displayed in project details$")
   public void projectNameIsDisplayedInProjectDetails(String projectName) {
     tasksSteps.projectNameIsDisplayedInProjectDetails(projectName);
+  }
+
+  @When("The created project name is displayed in project details")
+  public void randomProjectNameIsDisplayedInProjectDetails() {
+    String randomProjectName = Serenity.sessionVariableCalled("projectName");
+    tasksSteps.projectNameIsDisplayedInProjectDetails(randomProjectName);
   }
 
   @Then("^Avatar of the first created user is displayed in Project Card$")
@@ -1210,36 +1241,5 @@ public class TasksStepDefinition {
   @When("^I view all task comments$")
   public void viewAllCommentsTaskButton() {
     tasksSteps.viewAllCommentsTaskButton();
-  }
-
-  @Then("^I add the random project with first user as the participant$")
-  public void addProjectWithFirstUserAsParticipant() {
-    String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
-    String firstUserLastName = Serenity.sessionVariableCalled("firstUserLastName");
-    String firstUserFullName = firstUserFirstName + " " + firstUserLastName;
-    String randomSpaceName = "randomSpaceName" + getRandomNumber();
-    Serenity.setSessionVariable("randomSpaceName").to(randomSpaceName);
-    tasksSteps.addProjectWithFirstUserAsParticipant(randomSpaceName, firstUserFullName);
-  }
-
-  @Then("^Avatar of the first created user is not displayed in Project Card$")
-  public void firstRandomUserAvatarIsDisplayedInProjectCard() {
-    String firstUserName = Serenity.sessionVariableCalled("firstUserName");
-    tasksSteps.userAvatarIsNotDisplayedInProjectCard(firstUserName);
-  }
-
-  @When("^I click on delete project button$")
-  public void clickDeleteProjectButton() {
-    tasksSteps.clickDeleteProjectButton();
-  }
-
-  @When("^I click on delete to confirm project deletion$")
-  public void clickDelete() {
-    tasksSteps.clickDelete();
-  }
-
-  @When("^I click on cancel to not confirm project deletion$")
-  public void clickCancel() {
-    tasksSteps.clickCancel();
   }
 }

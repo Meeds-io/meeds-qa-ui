@@ -21,10 +21,6 @@ public class LoginSteps {
     loginPage.login(username, password);
   }
 
-  public void authenticateIfUsersNotExists(String username, List<String> userPrefixes) {
-    authenticateIfRandomSpaceAndUsersNotExists(username, null, userPrefixes);
-  }
-
   public void authenticateIfRandomSpaceAndUsersNotExists(String username, String spacePrefix, List<String> userPrefixes) {
     boolean spaceDoesntExist = StringUtils.isBlank(spacePrefix) || StringUtils.isBlank(sessionVariableCalled(spacePrefix));
     boolean userDoesntExist = userPrefixes.stream()
@@ -33,6 +29,10 @@ public class LoginSteps {
     if (userDoesntExist || spaceDoesntExist) {
       authenticate(username);
     }
+  }
+
+  public void authenticateIfUsersNotExists(String username, List<String> userPrefixes) {
+    authenticateIfRandomSpaceAndUsersNotExists(username, null, userPrefixes);
   }
 
   public boolean isHomePageDisplayed() {

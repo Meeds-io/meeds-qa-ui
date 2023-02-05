@@ -54,25 +54,11 @@ Feature: Rules
     When I go to my profile
     Then My points augmented
 
-  @ignored
-  Scenario: Join a space
-    Given I am authenticated as admin
-    And I create the first random user if not existing
-    And I create a random space with the first random user
-    And I connect with the first created user
-    And I check my points
-    Then The 'Spaces' badge is '1'
-    When I click on spaces badge
-    And I accept the invitation of the random space
-    And I close the opened drawer
-    When I go to my profile
-    Then My points augmented
-
   Scenario: Create a new task
     Given I am authenticated as admin
     And I check my points
     When I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
+    And I go to 'Tasks' application
     And I select tasks tab
     And I create the following task
       | taskName | taskgamification |
@@ -82,14 +68,14 @@ Feature: Rules
   Scenario: Complete assigned task
     Given I am authenticated as admin
     When I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
+    And I go to 'Tasks' application
     And I select tasks tab
     And I create the following task
       | taskName | taskcompleted |
     And I go to my profile
     And I check my points
     When I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
+    And I go to 'Tasks' application
     And I select tasks tab
     And I start the search for Task 'taskcompleted'
     And I mark the task as completed

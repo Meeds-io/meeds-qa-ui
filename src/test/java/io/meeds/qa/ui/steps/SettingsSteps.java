@@ -14,11 +14,6 @@ public class SettingsSteps {
     settingsPage.acceptEditPassword();
   }
 
-  public void acceptEditTimeZone() {
-    settingsPage.acceptEditTimeZone();
-
-  }
-
   public void applyEditGeneralNotifications() {
     settingsPage.applyEditGeneralNotifications();
 
@@ -31,11 +26,6 @@ public class SettingsSteps {
 
   public void cancelEditPassword() {
     settingsPage.cancelEditPassword();
-
-  }
-
-  public void cancelEditTimeZone() {
-    settingsPage.cancelEditTimeZone();
 
   }
 
@@ -124,11 +114,6 @@ public class SettingsSteps {
 
   }
 
-  public void checkThatTimeZoneIsDisplayed(String timeZone) {
-    settingsPage.checkThatTimeZoneIsDisplayed(timeZone);
-
-  }
-
   public void checkThatWalletSectionIsDisplayed() {
     settingsPage.checkThatWalletSectionIsDisplayed();
 
@@ -149,19 +134,12 @@ public class SettingsSteps {
 
   }
 
-  public void editTimeZone(String timeZone) {
-    settingsPage.editTimeZone(timeZone);
-
-  }
-
   public void enableDisableNotificationOnMobile() {
     settingsPage.enableDisableNotificationOnMobile();
-
   }
 
   public void enableDisableNotificationOnSite() {
     settingsPage.enableDisableNotificationOnSite();
-
   }
 
   public void enableDisableNotificationViaMail() {

@@ -13,10 +13,10 @@ import net.thucydides.core.annotations.Steps;
 public class AddUserStepDefinition {
 
   @Steps
-  AddUserSteps addUserSteps;
+  private AddUserSteps addUserSteps;
 
   @Steps
-  HomeSteps    homeSteps;
+  private HomeSteps    homeSteps;
 
   @Given("^I create a dedicated user to be an administrator$")
   public void addRandomAdminUser() {

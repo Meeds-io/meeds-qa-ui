@@ -17,8 +17,16 @@ public class GenericSteps {
     genericPage.clickOkButton();
   }
 
+  public void closeAllDrawers() {
+    genericPage.closeAllDrawers();
+  }
+
   public void closeBrowserTab(int tabIndex) {
     genericPage.closeBrowserTab(tabIndex);
+  }
+
+  public void closeDrawerIfDisplayed() {
+    genericPage.closeDrawerIfDisplayed();
   }
 
   public boolean containsContent(String content) {
@@ -37,20 +45,16 @@ public class GenericSteps {
     return genericPage.isButtonDisplayed(button);
   }
 
+  public void isPageOpened(String uriPart) {
+    genericPage.isPageOpened(uriPart);
+  }
+
   public boolean isSuccessMessageDisplayed() {
     return genericPage.isSuccessMessageDisplayed();
   }
 
   public void waitInSeconds(int seconds) {
     genericPage.waitFor(seconds).seconds();
-  }
-
-  public void closeDrawerIfDisplayed() {
-    genericPage.closeDrawerIfDisplayed();
-  }
-
-  public void closeAllDrawers() {
-    genericPage.closeAllDrawers();
   }
 
 }

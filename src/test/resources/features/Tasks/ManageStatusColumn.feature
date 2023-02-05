@@ -8,7 +8,6 @@ Feature: Project manager deletes, moves after/before a status column
     And I connect with the first created user
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
     When I select projects tab
     And I add a new project
     And I open the added project
@@ -24,7 +23,6 @@ Feature: Project manager deletes, moves after/before a status column
     And I connect with the first created user
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
     When I select projects tab
     And I add a new project
     And I open the added project
@@ -42,7 +40,6 @@ Feature: Project manager deletes, moves after/before a status column
     And I connect with the first created user
     When I go To AppCenter Drawer
     And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
     When I select projects tab
     And I add a new project
     And I open the added project

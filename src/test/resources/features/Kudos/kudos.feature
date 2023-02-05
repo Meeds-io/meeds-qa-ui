@@ -2,15 +2,6 @@
 Feature: Kudos
   As an administrator I can modify kudos parameters
 
-  @ignored
-  Scenario: [EXISTANT-KUDOS 3] Select the number of Kudos that a user is allowed to send per period
-    Given I am authenticated as admin
-    When I go to administration then reward then kudos
-    And  I enter a number of kudos'8'
-    And  I select type period per semester
-    And I save all changes
-    Then The kudos settings saved with a kudos number equal to '8' and 'Semester' period type
-
   Scenario: [EXISTANT-KUDOS 2] Sending and Receiving Kudos
     Given I connect as admin if random users doesn't exists
       | firstkudos  |

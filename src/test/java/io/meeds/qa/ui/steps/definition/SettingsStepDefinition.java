@@ -22,11 +22,6 @@ public class SettingsStepDefinition {
     settingsSteps.acceptEditPassword();
   }
 
-  @When("^I accept editing time zone$")
-  public void acceptEditTimeZone() {
-    settingsSteps.acceptEditTimeZone();
-  }
-
   @When("^I confirm the modification of General Notifications$")
   public void applyEditGeneralNotifications() {
     settingsSteps.applyEditGeneralNotifications();
@@ -40,11 +35,6 @@ public class SettingsStepDefinition {
   @When("I cancel editing password")
   public void cancelEditPassword() {
     settingsSteps.cancelEditPassword();
-  }
-
-  @When("I cancel editing time zone")
-  public void cancelEditTimeZone() {
-    settingsSteps.cancelEditTimeZone();
   }
 
   @And("^Activity Stream section is displayed$")
@@ -132,11 +122,6 @@ public class SettingsStepDefinition {
     settingsSteps.checkThatTasksSectionIsDisplayed();
   }
 
-  @Then("^Time zone '(.*)' is displayed$")
-  public void checkThatTimeZoneIsDisplayed(String timeZone) {
-    settingsSteps.checkThatTimeZoneIsDisplayed(timeZone);
-  }
-
   @And("^Wallet section is displayed$")
   public void checkThatWalletSectionIsDisplayed() {
     settingsSteps.checkThatWalletSectionIsDisplayed();
@@ -155,11 +140,6 @@ public class SettingsStepDefinition {
   @When("^I enter the old password '(.*)' and the new password '(.*)'$")
   public void editPassword(String oldPassword, String password) {
     settingsSteps.editPassword(oldPassword, password);
-  }
-
-  @When("^I click on Edit time zone and I change it '(.*)'$")
-  public void editTimeZone(String timeZone) {
-    settingsSteps.editTimeZone(timeZone);
   }
 
   @When("^I enter the edited password and the old password$")

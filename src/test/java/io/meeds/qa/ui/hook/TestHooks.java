@@ -105,7 +105,18 @@ public class TestHooks {
   private ManageSpaceSteps           manageSpaceSteps;
 
   @Steps
-  AddUserSteps addUserSteps;
+  AddUserSteps                       addUserSteps;
+
+  @After
+  public void deleteDatas() {
+    try {
+      deleteGamificationBadges();
+      deleteAppCenterApplications();
+    } catch (Exception e) {
+      ExceptionLauncher.LOGGER.warn("Error while deleting previously created data", e);
+    }
+    genericSteps.closeAllDrawers();
+  }
 
   @Before
   public void initDatas() { // NOSONAR
@@ -134,15 +145,38 @@ public class TestHooks {
     });
   }
 
-  @After
-  public void deleteDatas() {
+  private void checkPageState(WebDriver driver) {
     try {
-      deleteGamificationBadges();
-      deleteAppCenterApplications();
-    } catch (Exception e) {
-      ExceptionLauncher.LOGGER.warn("Error while deleting previously created data", e);
+      driver.switchTo().alert().accept();
+      driver.navigate().refresh();
+    } catch (Throwable e) { // NOSONAR
+      // Normal Behavior
     }
-    genericSteps.closeAllDrawers();
+    // Check wether the page has been loaded for the first time or not
+    String currentUrl = driver.getCurrentUrl();
+    if (StringUtils.contains(currentUrl, "/portal")) {
+      List<String> errors = getJavascriptConsoleErrors(driver);
+      if (errors.size() > CONSOLE_ERRORS_COUNT_FAIL) {
+        // force refresh CSS and Javascript content when a timeout happens
+        // while loading the page such as Nginx timeout when the page has been
+        // loaded for the whole first time. This will avoid opening a new
+        // window on each test scenario execution
+        reloadPageStaticResources(driver);
+
+        // Wait 2 seconds for assets to reload
+        Utils.waitForInMillis(2000);
+
+        // Refresh the page
+        goToHomePage(driver);
+
+        // Get the JS console errors again and make the test fails when multiple
+        // errors
+        errors = getJavascriptConsoleErrors(driver);
+        assertTrue(errors.size() < (CONSOLE_ERRORS_COUNT_FAIL * 2),
+                   "It Seems that web page " + driver.getCurrentUrl() + " has " + errors.size() + " errors in JS console: \n"
+                       + StringUtils.join(errors, "\n- Console Error: "));
+      }
+    }
   }
 
   private void deleteAppCenterApplications() {
@@ -178,42 +212,71 @@ public class TestHooks {
     }
   }
 
+  private List<String> getJavascriptConsoleErrors(WebDriver driver) {
+    List<String> errors = null;
+    LogEntries logEntries = driver.manage().logs().get(LogType.BROWSER);
+    if (logEntries != null) {
+      Iterator<LogEntry> logEntryIterator = logEntries.iterator();
+      while (logEntryIterator.hasNext()) {
+        LogEntry logEntry = logEntryIterator.next();
+        if (logEntry.getLevel() == Level.SEVERE
+            && logEntry.getTimestamp() > (System.currentTimeMillis() - 10000)
+            && !StringUtils.contains(logEntry.getMessage(), "?update=")
+            && !StringUtils.contains(logEntry.getMessage(), "/rest")) {
+          if (errors == null) {
+            errors = new ArrayList<>();
+          }
+          errors.add(logEntry.getMessage());
+        }
+      }
+    }
+    return errors == null ? Collections.emptyList() : errors;
+  }
+
+  private void goToHomePage(WebDriver driver) {
+    driver.navigate().to(driver.getCurrentUrl().split("/portal")[0]);
+    try {
+      driver.switchTo().alert().accept();
+    } catch (NoAlertPresentException e) {
+      // Normal Behavior
+    }
+    driver.navigate().refresh();
+  }
+
+  private boolean isHomePageDisplayed() {
+    try {
+      return loginSteps.isHomePageDisplayed();
+    } catch (Exception e) {
+      return false;
+    }
+  }
+
   private void loginAsAdmin() {
     loginSteps.authenticate("admin");
   }
 
-  private void checkPageState(WebDriver driver) {
-    try {
-      driver.switchTo().alert().accept();
-      driver.navigate().refresh();
-    } catch (Throwable e) { // NOSONAR
-      // Normal Behavior
-    }
-    // Check wether the page has been loaded for the first time or not
-    String currentUrl = driver.getCurrentUrl();
-    if (StringUtils.contains(currentUrl, "/portal")) {
-      List<String> errors = getJavascriptConsoleErrors(driver);
-      if (errors.size() > CONSOLE_ERRORS_COUNT_FAIL) {
-        // force refresh CSS and Javascript content when a timeout happens
-        // while loading the page such as Nginx timeout when the page has been
-        // loaded for the whole first time. This will avoid opening a new
-        // window on each test scenario execution
-        reloadPageStaticResources(driver);
+  private void reloadPageCSS(JavascriptExecutorFacade javascriptExecutorFacade) {
+    javascriptExecutorFacade.executeScript("const elements = document.getElementsByTagName('link');"
+        + "for (let i = 0; i < elements.length; i++) {"
+        + "  if(elements[i].href) {"
+        + "    elements[i].href = elements[i].href.indexOf('?') > 0 ? `${elements[i].href}&update=${Date.now()}`:`${elements[i].href}?update=${Date.now()}`"
+        + "  }"
+        + "}");
+  }
 
-        // Wait 2 seconds for assets to reload
-        Utils.waitForInMillis(2000);
+  private void reloadPageJavascript(JavascriptExecutorFacade javascriptExecutorFacade) {
+    javascriptExecutorFacade.executeScript("const elements = document.getElementsByTagName('script');"
+        + "for (let i = 0; i < elements.length; i++) {"
+        + "  if(elements[i].src) {"
+        + "    elements[i].src = elements[i].src.indexOf('?') > 0 ? `${elements[i].src}&update=${Date.now()}`:`${elements[i].src}?update=${Date.now()}`"
+        + "  }"
+        + "}");
+  }
 
-        // Refresh the page
-        goToHomePage(driver);
-
-        // Get the JS console errors again and make the test fails when multiple
-        // errors
-        errors = getJavascriptConsoleErrors(driver);
-        assertTrue(errors.size() < (CONSOLE_ERRORS_COUNT_FAIL * 2),
-                   "It Seems that web page " + driver.getCurrentUrl() + " has " + errors.size() + " errors in JS console: \n"
-                       + StringUtils.join(errors, "\n- Console Error: "));
-      }
-    }
+  private void reloadPageStaticResources(WebDriver driver) {
+    JavascriptExecutorFacade javascriptExecutorFacade = new JavascriptExecutorFacade(driver);
+    reloadPageJavascript(javascriptExecutorFacade);
+    reloadPageCSS(javascriptExecutorFacade);
   }
 
   private void warmUp(WebDriver driver) {
@@ -275,69 +338,6 @@ public class TestHooks {
     Arrays.stream(randomUsers).forEach(randomUser -> addUserSteps.addRandomUser(randomUser, false));
     manageSpaceSteps.addOrGoToSpace("randomSpaceName");
     ExceptionLauncher.LOGGER.info("---- End warmup phase in {} seconds", (System.currentTimeMillis() - start) / 1000);
-  }
-
-  private void goToHomePage(WebDriver driver) {
-    driver.navigate().to(driver.getCurrentUrl().split("/portal")[0]);
-    try {
-      driver.switchTo().alert().accept();
-    } catch (NoAlertPresentException e) {
-      // Normal Behavior
-    }
-    driver.navigate().refresh();
-  }
-
-  private boolean isHomePageDisplayed() {
-    try {
-      return loginSteps.isHomePageDisplayed();
-    } catch (Exception e) {
-      return false;
-    }
-  }
-
-  private void reloadPageStaticResources(WebDriver driver) {
-    JavascriptExecutorFacade javascriptExecutorFacade = new JavascriptExecutorFacade(driver);
-    reloadPageJavascript(javascriptExecutorFacade);
-    reloadPageCSS(javascriptExecutorFacade);
-  }
-
-  private void reloadPageJavascript(JavascriptExecutorFacade javascriptExecutorFacade) {
-    javascriptExecutorFacade.executeScript("const elements = document.getElementsByTagName('script');"
-        + "for (let i = 0; i < elements.length; i++) {"
-        + "  if(elements[i].src) {"
-        + "    elements[i].src = elements[i].src.indexOf('?') > 0 ? `${elements[i].src}&update=${Date.now()}`:`${elements[i].src}?update=${Date.now()}`"
-        + "  }"
-        + "}");
-  }
-
-  private void reloadPageCSS(JavascriptExecutorFacade javascriptExecutorFacade) {
-    javascriptExecutorFacade.executeScript("const elements = document.getElementsByTagName('link');"
-        + "for (let i = 0; i < elements.length; i++) {"
-        + "  if(elements[i].href) {"
-        + "    elements[i].href = elements[i].href.indexOf('?') > 0 ? `${elements[i].href}&update=${Date.now()}`:`${elements[i].href}?update=${Date.now()}`"
-        + "  }"
-        + "}");
-  }
-
-  private List<String> getJavascriptConsoleErrors(WebDriver driver) {
-    List<String> errors = null;
-    LogEntries logEntries = driver.manage().logs().get(LogType.BROWSER);
-    if (logEntries != null) {
-      Iterator<LogEntry> logEntryIterator = logEntries.iterator();
-      while (logEntryIterator.hasNext()) {
-        LogEntry logEntry = logEntryIterator.next();
-        if (logEntry.getLevel() == Level.SEVERE
-            && logEntry.getTimestamp() > (System.currentTimeMillis() - 10000)
-            && !StringUtils.contains(logEntry.getMessage(), "?update=")
-            && !StringUtils.contains(logEntry.getMessage(), "/rest")) {
-          if (errors == null) {
-            errors = new ArrayList<>();
-          }
-          errors.add(logEntry.getMessage());
-        }
-      }
-    }
-    return errors == null ? Collections.emptyList() : errors;
   }
 
 }

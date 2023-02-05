@@ -4,16 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Assert;
-
-import io.meeds.qa.ui.pages.page.factory.Kudos.KudosPage;
+import io.meeds.qa.ui.pages.page.factory.kudos.KudosAdministrationPage;
 import io.meeds.qa.ui.pages.page.factory.people.UserProfilePage;
 
 public class UserProfileSteps {
 
   private UserProfilePage userProfilePage;
 
-  private KudosPage       kudosPage;
+  private KudosAdministrationPage       kudosPage;
+
+  public void addWorkExperiences(Map<String, String> workExperiences) {
+    userProfilePage.addWorkExperiences(workExperiences.get("organization"),
+                                       workExperiences.get("jobTitle"),
+                                       workExperiences.get("jobDetails"),
+                                       workExperiences.get("usedSkills"));
+  }
 
   public void checkAchievementsDrawer() {
     userProfilePage.checkAchievementsDrawer();
@@ -64,11 +69,6 @@ public class UserProfileSteps {
     userProfilePage.isCoverVisible();
   }
 
-  public void isFullNameVisible(String fullName) {
-    // Check That User Fullname is displayed in Profile Page
-    Assert.assertEquals(userProfilePage.ELEMENT_PROFILE_FULLNAME.getText(), fullName); // NOSONAR
-  }
-
   public void isGainedCaurisVisible() {
     userProfilePage.isGainedCaurisVisible();
   }
@@ -93,12 +93,6 @@ public class UserProfileSteps {
     userProfilePage.isProfileContactInstantMessagingVisible(instantMessaging);
   }
 
-  public void isProfileContactJobVisible(String job) {
-    // Check That Profile Contact Job is displayed
-    userProfilePage.refreshPage();
-    Assert.assertEquals(userProfilePage.ELEMENT_PROFILE_CONTACT_INFORMATION_JOBTITLE.getText(), job);
-  }
-
   public void isProfileContactPhoneVisible(String phone) {
     userProfilePage.isProfileContactPhoneVisible(phone);
   }
@@ -116,7 +110,7 @@ public class UserProfileSteps {
   }
 
   public void isUserJobVisible(String job) {
-    Assert.assertEquals(userProfilePage.ELEMENT_PROFILE_JOB.getText(), job);
+    userProfilePage.isUserJobVisible(job);
   }
 
   public void openAchivementTab() {
@@ -184,18 +178,11 @@ public class UserProfileSteps {
                                                    basicInformations.get("url"));
   }
 
-  public void updateWorkExperiences(Map<String, String> workExperiences) throws InterruptedException {
+  public void updateWorkExperiences(Map<String, String> workExperiences) {
     userProfilePage.updateWorkExperiences(workExperiences.get("organization"),
                                           workExperiences.get("jobTitle"),
                                           workExperiences.get("jobDetails"),
                                           workExperiences.get("usedSkills"));
-  }
-
-  public void addWorkExperiences(Map<String, String> workExperiences) throws InterruptedException {
-    userProfilePage.addWorkExperiences(workExperiences.get("organization"),
-                                       workExperiences.get("jobTitle"),
-                                       workExperiences.get("jobDetails"),
-                                       workExperiences.get("usedSkills"));
   }
 
   public void uploadProfileAvatar(String fileName) {

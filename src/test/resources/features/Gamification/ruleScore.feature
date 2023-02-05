@@ -84,22 +84,6 @@ Feature: Check the rules score increase
     And I go to my profile
     Then My points augmented
 
-  @ignored
-  Scenario: Create a new wiki page
-    Given I connect as admin if random users doesn't exists
-      | first  |
-    And I create the first random user if not existing
-    And I connect with the first created user
-    And I go to my profile
-    And I check my points
-    And I go to the random space
-    And I go to notes application of the space
-    And I click to add note
-    Then Create note form is opened successfully in new tab
-    And I close browser tab 1
-    And I go to my profile
-    Then My points augmented
-
   # Instable Use Case
   @skip
   Scenario: Receive relationship request

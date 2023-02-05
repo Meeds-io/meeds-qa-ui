@@ -1,11 +1,12 @@
 package io.meeds.qa.ui.steps.definition;
 
+import static io.meeds.qa.ui.utils.Utils.getRandomString;
+import static io.meeds.qa.ui.utils.Utils.getTheRandomNumber;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -16,30 +17,14 @@ import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 
 public class UserProfileStepDefinition {
-  public static String getRandomString() {
-    char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
-    StringBuilder sb = new StringBuilder();
-    Random random = new Random();
-    for (int i = 0; i < 6; i++) {
-      char c = chars[random.nextInt(chars.length)];
-      sb.append(c);
-    }
-    return sb.toString();
-  }
-
-  public static String getTheRandomNumber() {
-    char[] chars = "0123456789".toCharArray();
-    StringBuilder sb = new StringBuilder();
-    Random random = new Random();
-    for (int i = 0; i < 10; i++) {
-      char c = chars[random.nextInt(chars.length)];
-      sb.append(c);
-    }
-    return sb.toString();
-  }
 
   @Steps
   private UserProfileSteps userProfileSteps;
+
+  @And("^I add my profile work experiences$")
+  public void addWorkExperiences(Map<String, String> workExperiences) {
+    userProfileSteps.addWorkExperiences(workExperiences);
+  }
 
   @Then("The achievements drawer is displayed")
   public void checkAchievementsDrawer() {
@@ -66,9 +51,7 @@ public class UserProfileStepDefinition {
     userProfileSteps.checkWeeklyPointChart();
   }
 
-  @Given(
-    "^Job title '(.*)' and Organization '(.*)' and Job details '(.*)' and Used skills '(.*)' are displayed in Work experiences section$"
-  )
+  @Given("^Job title '(.*)' and Organization '(.*)' and Job details '(.*)' and Used skills '(.*)' are displayed in Work experiences section$")
   public void checkWorkExperiencesSection(String jobTitle, String organization, String jobDetails, String usedSkills) {
     userProfileSteps.checkWorkExperiencesSection(jobTitle, organization, jobDetails, usedSkills);
   }
@@ -109,11 +92,6 @@ public class UserProfileStepDefinition {
     userProfileSteps.isCoverVisible();
   }
 
-  @Then("^User Fullname '(.*)' is displayed in Profile Page$")
-  public void isFullNameVisible(String fullName) {
-    userProfileSteps.isFullNameVisible(fullName);
-  }
-
   @Then("Gained Cauris Section is displayed")
   public void isGainedCaurisVisible() {
     userProfileSteps.isGainedCaurisVisible();
@@ -142,11 +120,6 @@ public class UserProfileStepDefinition {
   @Then("^Profile Contact instantMessaging '(.*)' is displayed$")
   public void isProfileContactInstantMessagingVisible(String instantMessaging) {
     userProfileSteps.isProfileContactInstantMessagingVisible(instantMessaging);
-  }
-
-  @Then("^Profile Contact Job '(.*)' is displayed$")
-  public void isProfileContactJobVisible(String job) {
-    userProfileSteps.isProfileContactJobVisible(job);
   }
 
   @Then("^Profile Contact Phone '(.*)' is displayed$")
@@ -187,7 +160,7 @@ public class UserProfileStepDefinition {
   @Then("^Updated Profile Contact Job is displayed$")
   public void isProfileContactRandomJobVisible() {
     String profileJob = Serenity.sessionVariableCalled("profileJob");
-    userProfileSteps.isProfileContactJobVisible(profileJob);
+    userProfileSteps.isUserJobVisible(profileJob);
   }
 
   @Then("^Updated Profile Contact Phone is displayed$")
@@ -201,13 +174,7 @@ public class UserProfileStepDefinition {
 
   @Then("^Updated Profile Contact Url is displayed$")
   public void isProfileContactRandomUrlVisible() {
-    String url = "community-preprod.exoplatform.com/portal/meeds/profile/khalil_riahi";
-    userProfileSteps.isProfileContactUrlVisible(url);
-  }
-
-  @Then("^Profile Contact Url '(.*)' is displayed$")
-  public void isProfileContactUrlVisible(String url) {
-    userProfileSteps.isProfileContactUrlVisible(url);
+    userProfileSteps.isProfileContactUrlVisible("https://meeds.io/");
   }
 
   @Then("Received Kudos Section is displayed")
@@ -218,11 +185,6 @@ public class UserProfileStepDefinition {
   @Then("Sent Kudos Section is displayed")
   public void isSentKudosVisible() {
     userProfileSteps.isSentKudosVisible();
-  }
-
-  @Then("^User Job '(.*)' is displayed in Profile Page$")
-  public void isUserJobVisible(String job) {
-    userProfileSteps.isUserJobVisible(job);
   }
 
   @Then("I open achievement tab")
@@ -294,65 +256,53 @@ public class UserProfileStepDefinition {
 
   @Given("^I update my profile other random informations$")
   public void updateContactOtherRandomInformations() {
-    Map<String, String> basicInformations = new HashMap<>() {
-      {
-        String company = getRandomString();
-        String phoneType = "WORK";
-        String phone = getTheRandomNumber();
-        String instantMessagingType = "SKYPE";
-        String instantMessaging = getRandomString() + "." + getRandomString();
-        String url = "https://community-preprod.exoplatform.com/portal/meeds/profile/khalil_riahi";
+    Map<String, String> basicInformations = new HashMap<>();
+    String company = getRandomString();
+    String phoneType = "WORK";
+    String phone = getTheRandomNumber();
+    String instantMessagingType = "SKYPE";
+    String instantMessaging = getRandomString() + "." + getRandomString();
 
-        put("company", company);
-        put("phoneType", phoneType);
-        put("phone", phone);
-        put("instantMessagingType", instantMessagingType);
-        put("instantMessaging", instantMessaging);
-        put("url", url);
+    basicInformations.put("company", company);
+    basicInformations.put("phoneType", phoneType);
+    basicInformations.put("phone", phone);
+    basicInformations.put("instantMessagingType", instantMessagingType);
+    basicInformations.put("instantMessaging", instantMessaging);
+    basicInformations.put("url", "https://meeds.io/");
 
-        Serenity.setSessionVariable("company").to(company);
-        Serenity.setSessionVariable("phoneType").to(phoneType);
-        Serenity.setSessionVariable("phone").to(phone);
-        Serenity.setSessionVariable("instantMessagingType").to(instantMessagingType);
-        Serenity.setSessionVariable("instantMessaging").to(instantMessaging);
-        Serenity.setSessionVariable("url").to(url);
-      }
-    };
+    Serenity.setSessionVariable("company").to(company);
+    Serenity.setSessionVariable("phoneType").to(phoneType);
+    Serenity.setSessionVariable("phone").to(phone);
+    Serenity.setSessionVariable("instantMessagingType").to(instantMessagingType);
+    Serenity.setSessionVariable("instantMessaging").to(instantMessaging);
+    Serenity.setSessionVariable("url").to("https://meeds.io/");
 
     userProfileSteps.updateContactOtherInformations(basicInformations);
   }
 
   @Given("^I update my profile random basic informations$")
   public void updateRandomBasicInformation() {
-    Map<String, String> basicInformations = new HashMap<>() {
-      {
-        String profileFirstName = getRandomString();
-        String profileLastName = getRandomString();
-        String profileMail = profileFirstName + "." + profileLastName + "@aa.bb";
-        String profileJob = getRandomString() + " " + getRandomString();
+    Map<String, String> basicInformations = new HashMap<>();
+    String profileFirstName = getRandomString();
+    String profileLastName = getRandomString();
+    String profileMail = profileFirstName + "." + profileLastName + "@aa.bb";
+    String profileJob = getRandomString() + " " + getRandomString();
 
-        put("firstName", profileFirstName);
-        put("lastName", profileLastName);
-        put("email", profileMail);
-        put("job", profileJob);
+    basicInformations.put("firstName", profileFirstName);
+    basicInformations.put("lastName", profileLastName);
+    basicInformations.put("email", profileMail);
+    basicInformations.put("job", profileJob);
 
-        Serenity.setSessionVariable("profileFirstName").to(profileFirstName);
-        Serenity.setSessionVariable("profileLastName").to(profileLastName);
-        Serenity.setSessionVariable("profileMail").to(profileMail);
-        Serenity.setSessionVariable("profileJob").to(profileJob);
-      }
-    };
+    Serenity.setSessionVariable("profileFirstName").to(profileFirstName);
+    Serenity.setSessionVariable("profileLastName").to(profileLastName);
+    Serenity.setSessionVariable("profileMail").to(profileMail);
+    Serenity.setSessionVariable("profileJob").to(profileJob);
     userProfileSteps.updateBasicInformation(basicInformations);
   }
 
   @Given("^I update my profile work experiences$")
-  public void updateWorkExperiences(Map<String, String> workExperiences) throws InterruptedException {
+  public void updateWorkExperiences(Map<String, String> workExperiences) {
     userProfileSteps.updateWorkExperiences(workExperiences);
-  }
-
-  @And("^I add my profile work experiences$")
-  public void addWorkExperiences(Map<String, String> workExperiences) throws InterruptedException {
-    userProfileSteps.addWorkExperiences(workExperiences);
   }
 
   @Then("^I upload the Profile avatar '(.*)'$")
