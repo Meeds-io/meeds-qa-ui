@@ -18,11 +18,15 @@ import net.serenitybdd.core.Serenity;
 
 public class Utils {
 
+  private static final int     DEFAULT_WAIT_PAGE_LOADING  = Integer.parseInt(System.getProperty("io.meeds.page.loading.wait",
+                                                                                                "10"));
+
   public static final int      MAX_WAIT_RETRIES           = Integer.parseInt(System.getProperty("io.meeds.retry.max", "3"));
 
   private static final Random  RANDOM                     = new Random();
 
-  public static final int      SHORT_WAIT_DURATION_MILLIS = Integer.parseInt(System.getProperty("io.meeds.retry.wait.millis", "300"));
+  public static final int      SHORT_WAIT_DURATION_MILLIS = Integer.parseInt(System.getProperty("io.meeds.retry.wait.millis",
+                                                                                                "300"));
 
   public static final Duration SHORT_WAIT_DURATION        = Duration.ofMillis(SHORT_WAIT_DURATION_MILLIS);
 
@@ -104,8 +108,14 @@ public class Utils {
   }
 
   public static void waitForPageLoaded() {
+    waitForPageLoaded(DEFAULT_WAIT_PAGE_LOADING);
+  }
+
+  public static void waitForPageLoaded(int pageLoadingWait) {
     try {
-      WebDriverWait wait = new WebDriverWait(Serenity.getDriver(), Duration.ofSeconds(10));
+      WebDriverWait wait = new WebDriverWait(Serenity.getDriver(),
+                                             Duration.ofSeconds(pageLoadingWait),
+                                             Duration.ofMillis(SHORT_WAIT_DURATION_MILLIS));
       wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState === 'complete' "
           + " && (!document.getElementById('TopbarLoadingContainer') || !!document.querySelector('.TopbarLoadingContainer.hidden'))"
           + " && !document.querySelector('.v-navigation-drawer--open .v-progress-linear')")

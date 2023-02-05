@@ -2,32 +2,6 @@
 Feature: Activity Stream
 
   @ignored
-  Scenario: CAP01 - ActivityStream_US01: Activity topbar section
-    Given I connect as admin if random users doesn't exists
-      | first  |
-      | second  |
-
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing
-
-    And I connect with the first created user
-    And I go to the random space
-
-    When I connect with the second created user
-    And I go to the random space
-    And I click on post in space
-    And I enter an activity 'activityTestCAP01-01'
-    And I publish the activity
-    Then the activity 'activityTestCAP01-01' is displayed in activity stream
-
-    When I connect with the first created user
-    And I go to the random space
-    Then The activity 'activityTestCAP01-01' posted by the second user in the created space is displayed with its timestamp in space stream page
-
-    When I go to Stream page
-    Then The activity 'activityTestCAP01-01' posted by the second user in the created space is displayed with its timestamp in streams page
-
-  @ignored
   Scenario: CAP02 - ActivityStream_US03: new Activity body with text display
     Given I connect as admin if random users doesn't exists
       | first  |
@@ -63,158 +37,51 @@ Feature: Activity Stream
     And I connect with the first created user
 
     And I go to the random space
-    And I post '30' activities
+    When I post '15' activities with prefix 'act_CAP04_'
     And I refresh the page
-    Then the activity 'act30' is displayed in activity stream
-    And the activity 'act29' is displayed in activity stream
-    And the activity 'act28' is displayed in activity stream
-    And the activity 'act27' is displayed in activity stream
-    And the activity 'act26' is displayed in activity stream
-    And the activity 'act25' is displayed in activity stream
-    And the activity 'act24' is displayed in activity stream
-    And the activity 'act23' is displayed in activity stream
-    And the activity 'act22' is displayed in activity stream
-    And the activity 'act21' is displayed in activity stream
-    And the activity 'act20' is not displayed in activity stream
+    Then the activity 'act_CAP04_15' is displayed in activity stream
+    And the activity 'act_CAP04_14' is displayed in activity stream
+    And the activity 'act_CAP04_6' is displayed in activity stream
+    And the activity 'act_CAP04_5' is not displayed in activity stream
 
     When I connect with the second created user
     And I go to the random space
-    Then the activity 'act30' is displayed in activity stream
-    And the activity 'act29' is displayed in activity stream
-    And the activity 'act28' is displayed in activity stream
-    And the activity 'act27' is displayed in activity stream
-    And the activity 'act26' is displayed in activity stream
-    And the activity 'act25' is displayed in activity stream
-    And the activity 'act24' is displayed in activity stream
-    And the activity 'act23' is displayed in activity stream
-    And the activity 'act22' is displayed in activity stream
-    And the activity 'act21' is displayed in activity stream
-    And the activity 'act20' is not displayed in activity stream
+    Then the activity 'act_CAP04_15' is displayed in activity stream
+    And the activity 'act_CAP04_14' is displayed in activity stream
+    And the activity 'act_CAP04_6' is displayed in activity stream
+    And the activity 'act_CAP04_5' is not displayed in activity stream
 
     When I connect with the first created user
     And I go to the random space
-    And I click on modify the activity 'act30'
-    And I enter an activity 'act30updated'
-    And I click on Update
-    And I click on modify the activity 'act29'
-    And I enter an activity 'act29updated'
-    And I click on Update
-    And I click on modify the activity 'act28'
-    And I enter an activity 'act28updated'
-    And I click on Update
-    And I click on modify the activity 'act27'
-    And I enter an activity 'act27updated'
-    And I click on Update
-    And I click on modify the activity 'act26'
-    And I enter an activity 'act26updated'
-    And I click on Update
-    And I click on modify the activity 'act25'
-    And I enter an activity 'act25updated'
-    And I click on Update
-    And I click on modify the activity 'act24'
-    And I enter an activity 'act24updated'
-    And I click on Update
-    And I click on modify the activity 'act23'
-    And I enter an activity 'act23updated'
-    And I click on Update
-    And I click on modify the activity 'act22'
-    And I enter an activity 'act22updated'
-    And I click on Update
-    And I click on modify the activity 'act21'
-    And I enter an activity 'act21updated'
-    And I click on Update
-    Then the activity 'act30updated' is displayed in activity stream
-    And the activity 'act21updated' is displayed in activity stream
-    And the activity 'act20' is not displayed in activity stream
-
-    When I click on Load more button
-    Then the activity 'act20' is displayed in activity stream
-
-    When I click on modify the activity 'act20'
-    And I enter an activity 'act20updated'
-    And I click on Update
-    And I click on modify the activity 'act19'
-    And I enter an activity 'act19updated'
-    And I click on Update
-    And I click on modify the activity 'act18'
-    And I enter an activity 'act18updated'
-    And I click on Update
-    And I click on modify the activity 'act17'
-    And I enter an activity 'act17updated'
-    And I click on Update
-    And I click on modify the activity 'act16'
-    And I enter an activity 'act16updated'
-    And I click on Update
-    And I click on modify the activity 'act15'
+    And I click on modify the activity 'act_CAP04_15'
     And I enter an activity 'act15updated'
     And I click on Update
-    And I click on modify the activity 'act14'
+    And I click on modify the activity 'act_CAP04_14'
     And I enter an activity 'act14updated'
     And I click on Update
-    And I click on modify the activity 'act13'
-    And I enter an activity 'act13updated'
-    And I click on Update
-    And I click on modify the activity 'act12'
-    And I enter an activity 'act12updated'
-    And I click on Update
-    And I click on modify the activity 'act11'
-    And I enter an activity 'act11updated'
+    Then the activity 'act15updated' is displayed in activity stream
+    And the activity 'act14updated' is displayed in activity stream
+    And the activity 'act_CAP04_15' is not displayed in activity stream
+
+    When I click on Load more button
+    Then the activity 'act_CAP04_5' is displayed in activity stream
+
+    When I click on modify the activity 'act_CAP04_5'
+    And I enter an activity 'act5updated'
     And I click on Update
 
     When I connect with the second created user
     And I go to the random space
 
-    Then the activity 'act11updated' is displayed in activity stream
-    And the activity 'act12updated' is displayed in activity stream
-    And the activity 'act13updated' is displayed in activity stream
-    And the activity 'act14updated' is displayed in activity stream
+    Then the activity 'act5updated' is displayed in activity stream
     And the activity 'act15updated' is displayed in activity stream
-    And the activity 'act16updated' is displayed in activity stream
-    And the activity 'act17updated' is displayed in activity stream
-    And the activity 'act18updated' is displayed in activity stream
-    And the activity 'act19updated' is displayed in activity stream
-    And the activity 'act20updated' is displayed in activity stream
-    And the activity 'act21' is not displayed in activity stream
-    And the activity 'act21updated' is not displayed in activity stream
+    And the activity 'act14updated' is displayed in activity stream
+    And the activity 'act_CAP04_5' is not displayed in activity stream
+    And the activity 'act_CAP04_6' is not displayed in activity stream
 
     When I click on Load more button
-    Then the activity 'act21updated' is displayed in activity stream
-    And the activity 'act22updated' is displayed in activity stream
-    And the activity 'act23updated' is displayed in activity stream
-    And the activity 'act24updated' is displayed in activity stream
-    And the activity 'act25updated' is displayed in activity stream
-    And the activity 'act26updated' is displayed in activity stream
-    And the activity 'act27updated' is displayed in activity stream
-    And the activity 'act28updated' is displayed in activity stream
-    And the activity 'act29updated' is displayed in activity stream
-    And the activity 'act30updated' is displayed in activity stream
-    And the activity 'act10' is not displayed in activity stream
-
-    When I go to Stream page
-    Then the activity 'act11updated' is displayed in stream page
-    And the activity 'act12updated' is displayed in stream page
-    And the activity 'act13updated' is displayed in stream page
-    And the activity 'act14updated' is displayed in stream page
-    And the activity 'act15updated' is displayed in stream page
-    And the activity 'act16updated' is displayed in stream page
-    And the activity 'act17updated' is displayed in stream page
-    And the activity 'act18updated' is displayed in stream page
-    And the activity 'act19updated' is displayed in stream page
-    And the activity 'act20updated' is displayed in stream page
-    And the activity 'act21updated' is not displayed in stream page
-
-    When I click on Load more button
-    Then the activity 'act21updated' is displayed in stream page
-    And the activity 'act22updated' is displayed in stream page
-    And the activity 'act23updated' is displayed in stream page
-    And the activity 'act24updated' is displayed in stream page
-    And the activity 'act25updated' is displayed in stream page
-    And the activity 'act26updated' is displayed in stream page
-    And the activity 'act27updated' is displayed in stream page
-    And the activity 'act28updated' is displayed in stream page
-    And the activity 'act29updated' is displayed in stream page
-    And the activity 'act30updated' is displayed in stream page
-    And the activity 'act10' is not displayed in stream page
+    Then the activity 'act_CAP04_6' is displayed in activity stream
+    Then the activity 'act_CAP04_1' is displayed in activity stream
 
   Scenario: CAP100 - [ActivityStream_US38][04] Cancel Delete comment with replies from the activity stream
     Given I connect as admin if random space and random users doesn't exists
@@ -490,7 +357,7 @@ Feature: Activity Stream
 
     When I open in activity 'activityTestCAP103-103' the Comments drawer
     Then '1 comment', only 'commenttestCAP103-103' is displayed in Comments drawer
-    And I close the comments drawer
+    And I close the opened drawer
 
     When I connect with the second created user
 
@@ -506,7 +373,7 @@ Feature: Activity Stream
     Then the confirmation popup is not displayed
     And Comment 'commenttestCAP103-103' is not displayed in the drawer
     And No comments displayed in the drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Comment 'commenttestCAP103-103' is not displayed in activity 'activityTestCAP103-103'
 
     When I connect with the first created user
@@ -517,7 +384,7 @@ Feature: Activity Stream
     When I open in activity 'activityTestCAP103-103' the Comments drawer
     Then Comment 'commenttestCAP103-103' is not displayed in the drawer
     And No comments displayed in the drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Comment 'commenttestCAP103-103' is not displayed in activity 'activityTestCAP103-103'
 
     When I connect with the third created user
@@ -528,7 +395,7 @@ Feature: Activity Stream
     When I open in activity 'activityTestCAP103-103' the Comments drawer
     Then Comment 'commenttestCAP103-103' is not displayed in the drawer
     And No comments displayed in the drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Comment 'commenttestCAP104-CAP103-103' is not displayed in activity 'activityTestCAP103-103'
 
   Scenario: CAP104 - [ActivityStream_US39][02] Cancel Delete a simple comment from the comment drawer
@@ -568,7 +435,7 @@ Feature: Activity Stream
 
     When I open in activity 'activityTestCAP104-104' the Comments drawer
     Then '1 comment', only 'commenttestCAP104-104' is displayed in Comments drawer
-    And I close the comments drawer
+    And I close the opened drawer
 
     When I connect with the second created user
 
@@ -583,7 +450,7 @@ Feature: Activity Stream
     And I click on Cancel button
     Then the confirmation popup is not displayed
     And '1 comment', only 'commenttestCAP104-104' is displayed in Comments drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Activity Comment 'commenttestCAP104-104' is displayed in activity stream
 
     When I connect with the first created user
@@ -593,7 +460,7 @@ Feature: Activity Stream
 
     When I open in activity 'activityTestCAP104-104' the Comments drawer
     Then '1 comment', only 'commenttestCAP104-104' is displayed in Comments drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Activity Comment 'commenttestCAP104-104' is displayed in activity stream
 
     When I connect with the third created user
@@ -603,7 +470,7 @@ Feature: Activity Stream
 
     When I open in activity 'activityTestCAP104-104' the Comments drawer
     Then '1 comment', only 'commenttestCAP104-104' is displayed in Comments drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Activity Comment 'commenttestCAP104-104' is displayed in activity stream
 
   Scenario: CAP105 - [ActivityStream_US39][03] Delete comment with replies from the comment drawer
@@ -654,7 +521,7 @@ Feature: Activity Stream
 
     When I open in activity 'activityTestCAP105-105' the Comments drawer
     Then '1 comment', only 'commenttestCAP105-105' is displayed in Comments drawer
-    And I close the comments drawer
+    And I close the opened drawer
     And I add a reply 'replyTest103' to comment 'commenttestCAP105-105' in activity 'activityTestCAP105-105'
 
     When I connect with the second created user
@@ -678,7 +545,7 @@ Feature: Activity Stream
     And The reply 'replyTest101' is not displayed in the drawer
     And The reply 'replyTest102' is not displayed in the drawer
     And The reply 'replyTest103' is not displayed in the drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Comment 'commenttestCAP105-105' is not displayed in activity 'activityTestCAP105-105'
 
     When I connect with the first created user
@@ -692,7 +559,7 @@ Feature: Activity Stream
     And The reply 'replyTest101' is not displayed in the drawer
     And The reply 'replyTest102' is not displayed in the drawer
     And The reply 'replyTest103' is not displayed in the drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Comment 'commenttestCAP105-105' is not displayed in activity 'activityTestCAP105-105'
 
     When I connect with the third created user
@@ -706,7 +573,7 @@ Feature: Activity Stream
     And The reply 'replyTest101' is not displayed in the drawer
     And The reply 'replyTest102' is not displayed in the drawer
     And The reply 'replyTest103' is not displayed in the drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Comment 'commenttestCAP105-105' is not displayed in activity 'activityTestCAP105-105'
 
   Scenario: CAP106 - [ActivityStream_US39][04] Cancel Delete comment with replies from the comments drawer
@@ -757,7 +624,7 @@ Feature: Activity Stream
 
     When I open in activity 'activityTestCAP106-106' the Comments drawer
     Then '1 comment', only 'commenttestCAP106-106' is displayed in Comments drawer
-    And I close the comments drawer
+    And I close the opened drawer
     And I add a reply 'replyTestCAP106-103' to comment 'commenttestCAP106-106' in activity 'activityTestCAP106-106'
 
     When I connect with the second created user
@@ -780,7 +647,7 @@ Feature: Activity Stream
     And In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-101' is displayed in the drawer
     And In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-102' is displayed in the drawer
     And In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-103' is displayed in the drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Activity Comment 'commenttestCAP106-106' is displayed in activity stream
 
     When I connect with the first created user
@@ -794,7 +661,7 @@ Feature: Activity Stream
     Then In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-101' is displayed in the drawer
     And In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-102' is displayed in the drawer
     And In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-103' is displayed in the drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Activity Comment 'commenttestCAP106-106' is displayed in activity stream
 
     When I connect with the third created user
@@ -808,7 +675,7 @@ Feature: Activity Stream
     Then In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-101' is displayed in the drawer
     And In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-102' is displayed in the drawer
     And In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-103' is displayed in the drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Activity Comment 'commenttestCAP106-106' is displayed in activity stream
 
   Scenario: CAP107 - [ActivityStream_US39][05] Delete a reply from comments drawer
@@ -859,7 +726,7 @@ Feature: Activity Stream
 
     When I open in activity 'activityTestCAP107-107' the Comments drawer
     Then '1 comment', only 'commenttestCAP107-107' is displayed in Comments drawer
-    And I close the comments drawer
+    And I close the opened drawer
     And I add a reply 'replyTestCAP107-103' to comment 'commenttestCAP107-107' in activity 'activityTestCAP107-107'
 
     When I connect with the first created user
@@ -882,7 +749,7 @@ Feature: Activity Stream
     And In comment 'commenttestCAP107-107', the reply 'replyTestCAP107-101' is displayed in the drawer
     And In comment 'commenttestCAP107-107', the reply 'replyTestCAP107-103' is displayed in the drawer
     And The reply 'replyTestCAP107-102' is not displayed in the drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Activity Comment 'commenttestCAP107-107' is displayed in activity stream
     And In activity 'activityTestCAP107-107' with comment 'commenttestCAP107-107', the reply 'replyTestCAP107-101' is displayed
     And In activity 'activityTestCAP107-107' with comment 'commenttestCAP107-107', the reply 'replyTestCAP107-103' is displayed
@@ -898,7 +765,7 @@ Feature: Activity Stream
     And In comment 'commenttestCAP107-107', the reply 'replyTestCAP107-101' is displayed in the drawer
     And In comment 'commenttestCAP107-107', the reply 'replyTestCAP107-103' is displayed in the drawer
     And The reply 'replyTestCAP107-102' is not displayed in the drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Activity Comment 'commenttestCAP107-107' is displayed in activity stream
     And In activity 'activityTestCAP107-107' with comment 'commenttestCAP107-107', the reply 'replyTestCAP107-101' is displayed
     And In activity 'activityTestCAP107-107' with comment 'commenttestCAP107-107', the reply 'replyTestCAP107-103' is displayed
@@ -914,7 +781,7 @@ Feature: Activity Stream
     And In comment 'commenttestCAP107-107', the reply 'replyTestCAP107-101' is displayed in the drawer
     And In comment 'commenttestCAP107-107', the reply 'replyTestCAP107-103' is displayed in the drawer
     And The reply 'replyTestCAP107-102' is not displayed in the drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Activity Comment 'commenttestCAP107-107' is displayed in activity stream
     And In activity 'activityTestCAP107-107' with comment 'commenttestCAP107-107', the reply 'replyTestCAP107-101' is displayed
     And In activity 'activityTestCAP107-107' with comment 'commenttestCAP107-107', the reply 'replyTestCAP107-103' is displayed
@@ -968,7 +835,7 @@ Feature: Activity Stream
 
     When I open in activity 'activityTestCAP108-108' the Comments drawer
     Then '1 comment', only 'commenttestCAP108-108' is displayed in Comments drawer
-    And I close the comments drawer
+    And I close the opened drawer
     And I add a reply 'replyTestCAP108-103' to comment 'commenttestCAP108-108' in activity 'activityTestCAP108-108'
 
     When I connect with the first created user
@@ -991,7 +858,7 @@ Feature: Activity Stream
     And In comment 'commenttestCAP108-108', the reply 'replyTestCAP108-101' is displayed in the drawer
     And In comment 'commenttestCAP108-108', the reply 'replyTestCAP108-102' is displayed in the drawer
     And In comment 'commenttestCAP108-108', the reply 'replyTestCAP108-103' is displayed in the drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Activity Comment 'commenttestCAP108-108' is displayed in activity stream
     And In activity 'activityTestCAP108-108' with comment 'commenttestCAP108-108', the reply 'replyTestCAP108-101' is not displayed
     And In activity 'activityTestCAP108-108' with comment 'commenttestCAP108-108', the reply 'replyTestCAP108-102' is displayed
@@ -1008,7 +875,7 @@ Feature: Activity Stream
     Then In comment 'commenttestCAP108-108', the reply 'replyTestCAP108-101' is displayed in the drawer
     And In comment 'commenttestCAP108-108', the reply 'replyTestCAP108-102' is displayed in the drawer
     And In comment 'commenttestCAP108-108', the reply 'replyTestCAP108-103' is displayed in the drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Activity Comment 'commenttestCAP108-108' is displayed in activity stream
     And In activity 'activityTestCAP108-108' with comment 'commenttestCAP108-108', the reply 'replyTestCAP108-101' is not displayed
     And In activity 'activityTestCAP108-108' with comment 'commenttestCAP108-108', the reply 'replyTestCAP108-102' is displayed
@@ -1025,7 +892,7 @@ Feature: Activity Stream
     Then In comment 'commenttestCAP108-108', the reply 'replyTestCAP108-101' is displayed in the drawer
     And In comment 'commenttestCAP108-108', the reply 'replyTestCAP108-102' is displayed in the drawer
     And In comment 'commenttestCAP108-108', the reply 'replyTestCAP108-103' is displayed in the drawer
-    When I close the comments drawer
+    When I close the opened drawer
     Then Activity Comment 'commenttestCAP108-108' is displayed in activity stream
     And In activity 'activityTestCAP108-108' with comment 'commenttestCAP108-108', the reply 'replyTestCAP108-101' is not displayed
     And In activity 'activityTestCAP108-108' with comment 'commenttestCAP108-108', the reply 'replyTestCAP108-102' is displayed
@@ -1236,7 +1103,7 @@ Feature: Activity Stream
 
     When In comments drawer, in comment 'commenttest115', I hover on Like icon
     And Tooltip Remove Like on 'commenttest115' is displayed in comments drawer
-    And I close the comments drawer
+    And I close the opened drawer
 
   Scenario: CAP116 - [ActivityStream_US41][02] DisLike my comment/reply from the comments drawer
     Given I connect as admin if random users doesn't exists
@@ -1274,7 +1141,7 @@ Feature: Activity Stream
     When In comments drawer, I unlike the activity comment 'commenttestCAP116-116'
     Then In comments drawer, Like label in comment 'commenttestCAP116-116' should be black
     And In comments drawer, on comment 'commenttestCAP116-116', '(0)' like is displayed
-    And I close the comments drawer
+    And I close the opened drawer
 
   Scenario: CAP121 - [ActivityStream_IMPV14][01] Display maximum only the last 2 comments/replies below each activity
     Given I connect as admin if random users doesn't exists
@@ -1418,7 +1285,7 @@ Feature: Activity Stream
     And In comment 'commenttestCAP123-104', the reply 'replyTestCAP123-106' is displayed in the drawer
     And In comment 'commenttestCAP123-104', the reply 'replyTestCAP123-104' is not displayed in the drawer
 
-    When I close the comments drawer
+    When I close the opened drawer
     And I click on View All replies related to the comment 'commenttestCAP123-104' in activity stream
     Then In comment 'commenttestCAP123-104', the reply 'replyTestCAP123-105' is displayed in the drawer
     And In comment 'commenttestCAP123-104', the reply 'replyTestCAP123-106' is displayed in the drawer
@@ -1427,7 +1294,7 @@ Feature: Activity Stream
     And In comment 'commenttestCAP123-103', the reply 'replyTestCAP123-101' is not displayed in the drawer
     And In comment 'commenttestCAP123-103', the reply 'replyTestCAP123-102' is displayed in the drawer
     And In comment 'commenttestCAP123-103', the reply 'replyTestCAP123-103' is displayed in the drawer
-    And I close the comments drawer
+    And I close the opened drawer
 
   Scenario: CAP157 - [ActivityStream_IMPV15][01] Internal Link opening behaviors inside comments
     Given I connect as admin if random users doesn't exists
@@ -1741,7 +1608,7 @@ Feature: Activity Stream
 
     When I enter a comment 'comTest155' with attempting to mention the sixth user
     Then Sixth User is not mentioned in the comment
-    And I close the comments drawer
+    And I close the opened drawer
 
   Scenario: Cap146 - [ActivityStream_US40][01] Notifications for comments to my activity
     Given I connect as admin if random users doesn't exists
@@ -2086,14 +1953,10 @@ Feature: Activity Stream
   Scenario: CAP220 - [ActivityStream_IMPV07][01] Pagination in comments drawer
     Given I connect as admin if random users doesn't exists
       | first  |
-      | second  |
 
     And I create the first random user if not existing, no wait
-    And I create the second random user if not existing
 
     When I connect with the first created user
-    And I go to the random space
-    And I connect with the second created user
     And I go to the random space
     And I click on post in space
     And I enter an activity 'activitycap220'
@@ -2102,31 +1965,33 @@ Feature: Activity Stream
 
     When I add in activity 'activitycap220' a comment 'commenttestCAP220-101'
     And I add in activity 'activitycap220' a comment 'commenttestCAP220-102'
-    And I add a reply 'replyTest102' to comment 'commenttestCAP220-102' in activity 'activitycap220'
-    And I add a reply 'replyTest103' to comment 'commenttestCAP220-102' in activity 'activitycap220'
-    And I add a reply 'replyTest104' to comment 'commenttestCAP220-102' in activity 'activitycap220'
-    And I add in activity 'activitycap220' a comment 'commenttestCAP220-103'
-    And I add in activity 'activitycap220' a comment 'commenttestCAP220-104'
-    And I add in activity 'activitycap220' a comment 'commenttestCAP220-105'
-    And I add in activity 'activitycap220' a comment 'commenttestCAP220-106'
-    And I add in activity 'activitycap220' a comment 'commenttestCAP220-107'
-    And I add in activity 'activitycap220' a comment 'commenttestCAP220-108'
-    And I add in activity 'activitycap220' a comment 'commenttestCAP220-109'
-    And I add in activity 'activitycap220' a comment 'commenttestCAP220-1010'
-    And I add in activity 'activitycap220' a comment 'commenttestCAP220-1011'
-    And I add in activity 'activitycap220' a comment 'commenttestCAP220-1012'
-    And I add in activity 'activitycap220' a comment 'commenttestCAP220-1013'
-    And I add in activity 'activitycap220' a comment 'commenttestCAP220-1014'
-    And I add in activity 'activitycap220' a comment 'commenttestCAP220-1015'
-    And I add in activity 'activitycap220' a comment 'commenttestCAP220-1016'
-    And I add in activity 'activitycap220' a comment 'commenttestCAP220-1017'
-    And I add in activity 'activitycap220' a comment 'commenttestCAP220-1018'
-    And I add in activity 'activitycap220' a comment 'commenttestCAP220-1019'
-    And I add in activity 'activitycap220' a comment 'commenttestCAP220-1020'
-    And I add in activity 'activitycap220' a comment 'commenttestCAP220-1021'
-    And I add in activity 'activitycap220' a comment 'commenttestCAP220-1022'
-    And I add in activity 'activitycap220' a comment 'commenttestCAP220-1023'
-    And I add in activity 'activitycap220' a comment 'commenttestCAP220-1024'
+    And I add in comment 'commenttestCAP220-102' of activity 'activitycap220' the following replies
+      | replyTest102  |
+      | replyTest103  |
+      | replyTest104  |
+    And I add in activity 'activitycap220' the following comments
+      | commenttestCAP220-103  |
+      | commenttestCAP220-104  |
+      | commenttestCAP220-105  |
+      | commenttestCAP220-106  |
+      | commenttestCAP220-107  |
+      | commenttestCAP220-108  |
+      | commenttestCAP220-109  |
+      | commenttestCAP220-1010  |
+      | commenttestCAP220-1011  |
+      | commenttestCAP220-1012  |
+      | commenttestCAP220-1013  |
+      | commenttestCAP220-1014  |
+      | commenttestCAP220-1015  |
+      | commenttestCAP220-1016  |
+      | commenttestCAP220-1017  |
+      | commenttestCAP220-1018  |
+      | commenttestCAP220-1019  |
+      | commenttestCAP220-1020  |
+      | commenttestCAP220-1021  |
+      | commenttestCAP220-1022  |
+      | commenttestCAP220-1023  |
+      | commenttestCAP220-1024  |
     And I click on comment button related to activity 'activitycap220'
     Then Activity Comment 'commenttestCAP220-1021' is displayed in Comments drawer
 
@@ -2534,24 +2399,24 @@ Feature: Activity Stream
     And I enter an activity 'PinTest'
     When I publish the activity
     Then the activity 'PinTest' is displayed in activity stream
-    When I post '2' activities
+    When I post '3' activities with prefix 'act_Pin_US04_'
     And I refresh the page
-    Then the activity 'act0' is displayed in activity stream
-    And the activity 'act1' is displayed in activity stream
-    And the activity 'act2' is displayed in activity stream
+    Then the activity 'act_Pin_US04_0' is displayed in activity stream
+    And the activity 'act_Pin_US04_1' is displayed in activity stream
+    And the activity 'act_Pin_US04_2' is displayed in activity stream
     Given I click on three dots button related to activity 'PinTest'
     Then Pin button related to activity 'PinTest' is displayed
     Given I click on Pin button related to activity 'PinTest'
     Then The message 'This activity has been pinned to the space stream.' should be displayed
     And The activity 'PinTest' is pinned in space stream
     Given I go to Stream page
-    Then the activity 'act0' is displayed in stream page
-    And the activity 'act1' is displayed in stream page
-    And the activity 'act2' is displayed in stream page
+    Then the activity 'act_Pin_US04_0' is displayed in stream page
+    And the activity 'act_Pin_US04_1' is displayed in stream page
+    And the activity 'act_Pin_US04_2' is displayed in stream page
     And the activity 'PinTest' is displayed in stream page
     When I select 'Pinned activities' from the filter proposed
     And the activity 'PinTest' is displayed in stream page
-    Then the activity 'act0' is not displayed in stream page
-    And the activity 'act1' is not displayed in stream page
-    And the activity 'act2' is not displayed in stream page
+    Then the activity 'act_Pin_US04_0' is not displayed in stream page
+    And the activity 'act_Pin_US04_1' is not displayed in stream page
+    And the activity 'act_Pin_US04_2' is not displayed in stream page
     When I select 'All' from the filter proposed

@@ -1,6 +1,6 @@
 package io.meeds.qa.ui.steps.definition;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -99,34 +99,24 @@ public class ApplicationStepDefinition {
 
   }
 
-  @Then("^The created application is not displayed in Favorites Applications$")
+  @Then("The created application is not displayed in Favorites Applications")
   public void checkThatCreatedApplicationIsNotDisplayedInFavoriteApps() {
     String randomApplicationTitle = Serenity.sessionVariableCalled("randomApplicationTitle");
     applicationSteps.checkThatApplicationIsNotDisplayedInFavoriteApps(randomApplicationTitle);
-
   }
 
   @When("^'(.*)' Application Open Button is displayed$")
   public void checkThatOpenApplicationButtonIsDisplayed(String app) {
     applicationSteps.checkThatOpenApplicationButtonIsDisplayed(app);
-
   }
 
-  @Then("^The created application is displayed in Favorites Applications$")
+  @Then("The created application is displayed in Favorites Applications")
   public void checkThatRandomApplicationIsDisplayedInFavoriteApps() {
     String randomApplicationTitle = Serenity.sessionVariableCalled("randomApplicationTitle");
     applicationSteps.checkThatApplicationIsDisplayedInFavoriteApps(randomApplicationTitle);
-
   }
 
-  @Then("^First added application is not displayed in Favorites Applications$")
-  public void checkThatRandomApplicationIsNotDisplayedInFavoriteApps() {
-    String randomApplicationTitle = Serenity.sessionVariableCalled("randomApplicationTitle");
-    applicationSteps.checkThatApplicationIsNotDisplayedInFavoriteApps(randomApplicationTitle);
-
-  }
-
-  @When("^The created application Open Button is displayed$")
+  @When("The created application Open Button is displayed")
   public void checkThatRandomApplicationOpenButtonIsDisplayed() {
     String randomApplicationTitle = Serenity.sessionVariableCalled("randomApplicationTitle");
     applicationSteps.checkThatOpenApplicationButtonIsDisplayed(randomApplicationTitle);
@@ -139,15 +129,9 @@ public class ApplicationStepDefinition {
 
   }
 
-  @Then("^I go To AppCenter Drawer$")
+  @Then("I go To AppCenter Drawer")
   public void clickOnTheAppLauncherIcon() {
     applicationSteps.clickOnTheAppLauncherIcon();
-  }
-
-  @When("^I close AppCenter Drawer$")
-  public void closeAppCenterDrawer() {
-    applicationSteps.closeAppCenterDrawer();
-
   }
 
   @Then("^I go to '(.*)' application$")
@@ -155,7 +139,7 @@ public class ApplicationStepDefinition {
     applicationSteps.goToApplication(application);
   }
 
-  @When("^I go to contributions AppCenter Application$")
+  @When("I go to contributions AppCenter Application")
   public void goToContributionsAppCenterApplication() {
     applicationSteps.goToContributionsAppCenterApplication();
   }
@@ -165,7 +149,7 @@ public class ApplicationStepDefinition {
     applicationSteps.goToPerkStoreAppCenterApplication();
   }
 
-  @When("^I go to Tasks AppCenter Application$")
+  @When("I go to Tasks AppCenter Application")
   public void goToTasksAppCenterApplication() {
     applicationSteps.goToTasksAppCenterApplication();
   }
@@ -176,12 +160,12 @@ public class ApplicationStepDefinition {
 
   }
 
-  @When("^I go to Wallet AppCenter Application$")
+  @When("I go to Wallet AppCenter Application")
   public void goToWalletAppCenterApplication() {
     applicationSteps.goToWalletAppCenterApplication();
   }
 
-  @Then("^All Applications Page is Displayed$")
+  @Then("All Applications Page is Displayed")
   public void isAllApplicationsPageDisplayed() {
     applicationSteps.isAllApplicationsPageDisplayed();
 
@@ -189,29 +173,27 @@ public class ApplicationStepDefinition {
 
   @Then("^The application below are displayed in favorite list$")
   public void isAppDisplayedInFavoriteList(List<String> listOfApp) {
-    assertThat(applicationSteps.isAppDisplayedInFavoriteList(listOfApp)).as(String.format("The app %s is not displayed in favorite list",
-                                                                                          applicationSteps.isAppDisplayedInFavoriteList(listOfApp)))
-                                                                        .isEmpty();
+    assertTrue(String.format("One of apps %s is not displayed in favorite list", listOfApp),
+               applicationSteps.isAppDisplayedInFavoriteList(listOfApp));
   }
 
   @Then("^The application below are not displayed in favorite list$")
   public void isAppNotDisplayedInFavoriteList(List<String> listOfApp) {
-    assertThat(applicationSteps.isAppNotDisplayedInFavoriteList(listOfApp)).as(String.format("The app %s is displayed in favorite list",
-                                                                                             applicationSteps.isAppNotDisplayedInFavoriteList(listOfApp)))
-                                                                           .isEmpty();
+    assertTrue(String.format("One of apps %s is displayed in favorite list", listOfApp),
+               applicationSteps.isAppNotDisplayedInFavoriteList(listOfApp));
   }
 
-  @Then("^Challenge Application Page is displayed$")
+  @Then("Challenge Application Page is displayed")
   public void isChallengePageOpened() {
     applicationSteps.isChallengePageOpened();
   }
 
-  @Then("^Challenges Application Page is displayed$")
+  @Then("Challenges Application Page is displayed")
   public void isChallengesPageOpened() {
     applicationSteps.isChallengesPageOpened();
   }
 
-  @Then("^Notes Application Page is displayed$")
+  @Then("Notes Application Page is displayed")
   public void isNotesPageOpened() {
     applicationSteps.isNotesPageOpened();
   }
@@ -221,18 +203,12 @@ public class ApplicationStepDefinition {
     applicationSteps.isPerkStorePageOpened();
   }
 
-  @Then("^Send Feedback Application Page is displayed$")
-  public void isSendFeedbackPageOpened() {
-    applicationSteps.isSendFeedbackPageOpened();
-
-  }
-
-  @Then("^Tasks Application Page is displayed$")
+  @Then("Tasks Application Page is displayed")
   public void isTasksPageOpened() {
     applicationSteps.isTasksPageOpened();
   }
 
-  @Then("^Wallet Application Page is displayed$")
+  @Then("Wallet Application Page is displayed")
   public void isWalletPageOpened() {
     applicationSteps.isWalletPageOpened();
   }
@@ -242,13 +218,13 @@ public class ApplicationStepDefinition {
     applicationSteps.maxFavoriteAppsIsDisplayed();
   }
 
-  @When("^I see All Applications$")
+  @When("I see All Applications")
   public void seeAllApplications() {
     applicationSteps.seeAllApplications();
 
   }
 
-  @Then("^Settings Application Page is displayed$")
+  @Then("Settings Application Page is displayed")
   public void settingsPageIsOpened() {
     applicationSteps.settingsPageIsOpened();
   }

@@ -90,10 +90,6 @@ public class SpaceHomeSteps {
     spaceHomePage.checkThirdCommentInDrawer(comment);
   }
 
-  public void clickCloseActivityDrawerbutton() {
-    spaceHomePage.clickCloseActivityDrawerbutton();
-  }
-
   public void clickCreatePoll() {
     spaceHomePage.clickCreatePoll();
   }
@@ -180,14 +176,6 @@ public class SpaceHomeSteps {
 
   public void clickPostIcon() {
     spaceHomePage.clickPostIcon();
-  }
-
-  public void closeCommentsDrawer() {
-    spaceHomePage.closeCommentsDrawer();
-  }
-
-  public void closeWriteMessageDrawer() {
-    spaceHomePage.closeActivityComposerDrawer();
   }
 
   public void commentIsDisplayedInDrawer(String commentsNumber, String comment) {
@@ -441,17 +429,9 @@ public class SpaceHomeSteps {
       String activity = activityPrefix + i;
       spaceHomePage.clickPostIcon();
       spaceHomePage.addActivity(activity);
-      spaceHomePage.publishActivity();
+      spaceHomePage.publishActivity(false);
     }
-  }
-
-  public void postThirtyActivities(String activityNumber) {
-    for (int i = 0; i < Integer.parseInt(activityNumber) + 1; i++) {
-      String activity = "act" + i;
-      spaceHomePage.clickPostIcon();
-      spaceHomePage.addActivity(activity);
-      spaceHomePage.publishActivity();
-    }
+    spaceHomePage.refreshStream();
   }
 
   public void promoteSpaceMemberAsManager(String name) {
@@ -459,7 +439,7 @@ public class SpaceHomeSteps {
   }
 
   public void publishActicity() {
-    spaceHomePage.publishActivity();
+    spaceHomePage.publishActivity(true);
   }
 
   public void publishActivityInArabicLanguage() {

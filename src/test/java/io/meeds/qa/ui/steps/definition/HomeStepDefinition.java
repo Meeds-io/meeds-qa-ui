@@ -242,12 +242,6 @@ public class HomeStepDefinition {
     homeSteps.clickWalletWidget();
   }
 
-  @Then("^I close Space Drawer$")
-  public void closeSpaceDrawer() {
-    homeSteps.closeSpaceDrawer();
-
-  }
-
   @Then("^I click to confirm the new home page$")
   public void confirmationForChangeSiteHomeLink() {
     homeSteps.confirmationForChangeSiteHomeLink();

@@ -64,7 +64,7 @@ Feature: Rules
     Then The 'Spaces' badge is '1'
     When I click on spaces badge
     And I accept the invitation of the random space
-    And I close Space Drawer
+    And I close the opened drawer
     When I go to my profile
     Then My points augmented
 

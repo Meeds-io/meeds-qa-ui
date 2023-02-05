@@ -3,7 +3,10 @@ package io.meeds.qa.ui.hook;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -21,7 +24,9 @@ import org.openqa.selenium.logging.LogType;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.meeds.qa.ui.steps.AddUserSteps;
 import io.meeds.qa.ui.steps.AdminApplicationSteps;
+import io.meeds.qa.ui.steps.GenericSteps;
 import io.meeds.qa.ui.steps.HomeSteps;
 import io.meeds.qa.ui.steps.LoginSteps;
 import io.meeds.qa.ui.steps.ManageBadgesSteps;
@@ -34,6 +39,15 @@ import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.webdriver.javascript.JavascriptExecutorFacade;
 
 public class TestHooks {
+
+  protected static final String              WARMUP_FILE_PATH          = System.getProperty("io.meeds.warmUp.file",
+                                                                                            "warmUpFile.tmp");
+
+  private static final int                   WARM_UP_PAGE_LOADING_WAIT = 120;
+
+  private static final int                   MAX_WARM_UP_STEP_WAIT     = 5;
+
+  private static final int                   MAX_WARM_UP_RETRIES       = 100;
 
   private static final int                   CONSOLE_ERRORS_COUNT_FAIL = 5;
 
@@ -72,13 +86,14 @@ public class TestHooks {
   @Steps
   private AdminApplicationSteps      adminApplicationSteps;
 
-  private boolean                    adminLoggedIn;
-
   @Steps
   private HomeSteps                  homeSteps;
 
   @Steps
   private LoginSteps                 loginSteps;
+
+  @Steps
+  private GenericSteps               genericSteps;
 
   @Steps
   private ManageBadgesSteps          manageBadgesSteps;
@@ -89,14 +104,17 @@ public class TestHooks {
   @Steps
   private ManageSpaceSteps           manageSpaceSteps;
 
+  @Steps
+  AddUserSteps addUserSteps;
+
   @Before
   public void initDatas() { // NOSONAR
     String adminPassword = System.getProperty("adminPassword");
     Serenity.setSessionVariable("admin-password").to(adminPassword);
-    adminLoggedIn = false;
 
     WebDriver driver = Serenity.getDriver();
 
+    warmUp(driver);
     checkPageState(driver);
 
     SPACES.entrySet().forEach(entry -> {
@@ -124,7 +142,7 @@ public class TestHooks {
     } catch (Exception e) {
       ExceptionLauncher.LOGGER.warn("Error while deleting previously created data", e);
     }
-    cleanupBrowser();
+    genericSteps.closeAllDrawers();
   }
 
   private void deleteAppCenterApplications() {
@@ -160,19 +178,8 @@ public class TestHooks {
     }
   }
 
-  private void cleanupBrowser() {
-    try {
-      Serenity.getDriver().manage().deleteAllCookies();
-    } catch (Throwable e) { // NOSONAR
-      ExceptionLauncher.LOGGER.warn("Error while cleaning browser", e);
-    }
-  }
-
   private void loginAsAdmin() {
-    if (!adminLoggedIn) {
-      loginSteps.logoutLogin("admin");
-      adminLoggedIn = true;
-    }
+    loginSteps.authenticate("admin");
   }
 
   private void checkPageState(WebDriver driver) {
@@ -191,9 +198,7 @@ public class TestHooks {
         // while loading the page such as Nginx timeout when the page has been
         // loaded for the whole first time. This will avoid opening a new
         // window on each test scenario execution
-        JavascriptExecutorFacade javascriptExecutorFacade = new JavascriptExecutorFacade(driver);
-        reloadPageJavascript(javascriptExecutorFacade);
-        reloadPageCSS(javascriptExecutorFacade);
+        reloadPageStaticResources(driver);
 
         // Wait 2 seconds for assets to reload
         Utils.waitForInMillis(2000);
@@ -211,6 +216,67 @@ public class TestHooks {
     }
   }
 
+  private void warmUp(WebDriver driver) {
+    File warmUpFile = new File(WARMUP_FILE_PATH);
+    if (warmUpFile.exists()) {
+      ExceptionLauncher.LOGGER.debug("Warmup already proceeded. Execute test scenario.");
+      return;
+    }
+    try {
+      if (!warmUpFile.createNewFile()) {
+        throw new IOException("Warmup File not created");
+      }
+    } catch (IOException e) {
+      // Will attempt to warmup again next time
+      ExceptionLauncher.LOGGER.warn("Error creating warmup file {}. Proceed to execute Test scenario without warmup.",
+                                    WARMUP_FILE_PATH,
+                                    e);
+      return;
+    }
+
+    ExceptionLauncher.LOGGER.info("---- Start warmup phase with {} retries and wait time of {} seconds",
+                                  MAX_WARM_UP_RETRIES,
+                                  MAX_WARM_UP_STEP_WAIT);
+    long start = System.currentTimeMillis();
+    int retryCount = 1;
+    boolean homePageDisplayed = false;
+    do {
+      ExceptionLauncher.LOGGER.info("---- {}/{} Warmup step",
+                                    retryCount,
+                                    MAX_WARM_UP_RETRIES);
+      try {
+        driver.navigate().to(System.getProperty("webdriver.base.url"));
+        Utils.waitForPageLoaded(WARM_UP_PAGE_LOADING_WAIT);
+        loginAsAdmin();
+        Utils.waitForPageLoaded(WARM_UP_PAGE_LOADING_WAIT);
+      } catch (Exception e) {
+        ExceptionLauncher.LOGGER.warn("Error authenticating admin user", e);
+      }
+      homePageDisplayed = isHomePageDisplayed();
+      if (!homePageDisplayed) {
+        driver.close(); // Close current window to refresh static resources
+        genericSteps.waitInSeconds(MAX_WARM_UP_STEP_WAIT);
+      }
+    } while (!homePageDisplayed && retryCount++ < MAX_WARM_UP_RETRIES);
+    String[] randomUsers = new String[] {
+        "first",
+        "second",
+        "third",
+        "fourth",
+        "fifth",
+        "sixth",
+        "eighteenth",
+        "firstkudos",
+        "secondkudos",
+        "thirdkudos",
+        "fourthkudos",
+        "fortyonekudos",
+    };
+    Arrays.stream(randomUsers).forEach(randomUser -> addUserSteps.addRandomUser(randomUser, false));
+    manageSpaceSteps.addOrGoToSpace("randomSpaceName");
+    ExceptionLauncher.LOGGER.info("---- End warmup phase in {} seconds", (System.currentTimeMillis() - start) / 1000);
+  }
+
   private void goToHomePage(WebDriver driver) {
     driver.navigate().to(driver.getCurrentUrl().split("/portal")[0]);
     try {
@@ -219,6 +285,20 @@ public class TestHooks {
       // Normal Behavior
     }
     driver.navigate().refresh();
+  }
+
+  private boolean isHomePageDisplayed() {
+    try {
+      return loginSteps.isHomePageDisplayed();
+    } catch (Exception e) {
+      return false;
+    }
+  }
+
+  private void reloadPageStaticResources(WebDriver driver) {
+    JavascriptExecutorFacade javascriptExecutorFacade = new JavascriptExecutorFacade(driver);
+    reloadPageJavascript(javascriptExecutorFacade);
+    reloadPageCSS(javascriptExecutorFacade);
   }
 
   private void reloadPageJavascript(JavascriptExecutorFacade javascriptExecutorFacade) {

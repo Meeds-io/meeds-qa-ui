@@ -80,6 +80,11 @@ public class GenericStepDefinitions {
     genericSteps.closeBrowserTab(tabIndex);
   }
 
+  @Then("I close the opened drawer")
+  public void closeDrawerIfDisplayed() {
+    genericSteps.closeDrawerIfDisplayed();
+  }
+
   @When("I wait '{int}' seconds")
   public void waitInSeconds(int seconds) {
     genericSteps.waitInSeconds(seconds);

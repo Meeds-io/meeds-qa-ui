@@ -7,7 +7,7 @@ Feature: Administration settings
 
   Scenario: CAP50 - Admin_Settings_US06 - Active option
     Given I am authenticated as admin
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I go to Administer application center Page
     When I add a new random application
     And I connect with the first created user
@@ -71,7 +71,7 @@ Feature: Administration settings
 
   Scenario: CAP56 - Admin_Settings_US04: Default permissions for an app
     Given I am authenticated as admin
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
 
     And I go to Administer application center Page
     When I add a new random application with the title, the url and the description
@@ -83,4 +83,4 @@ Feature: Administration settings
     When I see All Applications
     And I search for the random created application
     Then The application is not bookmarked as my favorites
-    And First added application is not displayed in Favorites Applications
+    And The created application is not displayed in Favorites Applications

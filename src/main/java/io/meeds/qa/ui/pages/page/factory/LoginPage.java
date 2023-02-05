@@ -3,6 +3,7 @@ package io.meeds.qa.ui.pages.page.factory;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 
 import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 
@@ -15,22 +16,28 @@ import net.thucydides.core.annotations.DefaultUrl;
 @DefaultUrl("https://baseUrl/")
 public class LoginPage extends GenericPage implements IsHidden {
 
+  private static final String LAST_LOGGED_IN_USER_COOKIE_NAME = "lastLoggedInUser";
+
+  private String              lastLoggedInUser                = null;
+
   public LoginPage(WebDriver driver) {
     super(driver);
   }
 
   public void clearCookies() {
-    try {
-      getDriver().switchTo().alert().accept();
-    } catch (NoAlertPresentException e) {
-      // Normal Behavior
-    }
+    closeAlertIfOpened();
     getDriver().manage().deleteAllCookies();
   }
 
   public void login(String login, String password) {
-    openLoginPage();
-    retryOnCondition(() -> tryLogin(login, password), this::refreshPage);
+    if (StringUtils.equals(getLastLoggedInUser(), login)) {
+      closeAllDrawers();
+    } else {
+      openLoginPage();
+      retryOnCondition(() -> tryLogin(login, password), this::refreshPage);
+      getDriver().manage().addCookie(new Cookie(LAST_LOGGED_IN_USER_COOKIE_NAME, login, "/"));
+      lastLoggedInUser = login;
+    }
   }
 
   public void openLoginPage() {
@@ -40,9 +47,18 @@ public class LoginPage extends GenericPage implements IsHidden {
       clearCookies();
       open();
     }
+    lastLoggedInUser = null;
     if (i >= maxRetries) {
       throw new IllegalStateException("Can't display login page after 3 retries");
     }
+  }
+
+  public String getLastLoggedInUser() {
+    if (lastLoggedInUser != null) {
+      return lastLoggedInUser;
+    }
+    Cookie cookie = getDriver().manage().getCookieNamed(LAST_LOGGED_IN_USER_COOKIE_NAME);
+    return cookie == null ? null : cookie.getValue();
   }
 
   private void tryLogin(String login, String password) {
@@ -53,6 +69,10 @@ public class LoginPage extends GenericPage implements IsHidden {
     passwordTextbox.setTextValue(password);
     BaseElementFacade loginButton = findByXPathOrCSS("//*[contains(@class, 'loginButton')]//button");
     clickOnElement(loginButton);
+  }
+
+  public void logout() {
+    openLoginPage();
   }
 
 }

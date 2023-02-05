@@ -1,5 +1,7 @@
 package io.meeds.qa.ui.steps.definition;
 
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 
 import io.cucumber.java.en.And;
@@ -31,6 +33,16 @@ public class SpaceHomeStepDefinition {
   @When("^I add in activity '(.*)' a comment '(.*)'$")
   public void addActivityComment(String activity, String comment) {
     spaceHomePage.addActivityComment(activity, comment);
+  }
+
+  @When("^I add in activity '(.*)' the following comments$")
+  public void addActivityComments(String activity, List<String> comments) {
+    spaceHomePage.addActivityComments(activity, comments);
+  }
+
+  @When("^I add in comment '(.*)' of activity '(.*)' the following replies$")
+  public void addActivityComments(String comment, String activity, List<String> replies) {
+    spaceHomePage.addCommentReplies(replies, comment, activity);
   }
 
   @When("^I enter an activity more than 1300 characters$")
@@ -340,21 +352,6 @@ public class SpaceHomeStepDefinition {
   @When("I click on post in space")
   public void clickPostIcon() {
     spaceHomeSteps.clickPostIcon();
-  }
-
-  @Then("^I close activity drawer$")
-  public void closeActivityDrawer() {
-    spaceHomeSteps.clickCloseActivityDrawerbutton();
-  }
-
-  @Then("^I close the comments drawer$")
-  public void closeCommentsDrawer() {
-    spaceHomeSteps.closeCommentsDrawer();
-  }
-
-  @Then("I close the Write message drawer")
-  public void closeWriteMessageDrawer() {
-    spaceHomeSteps.closeWriteMessageDrawer();
   }
 
   @Then("^'(.*)' among them '(.*)' are displayed in Comments drawer$")
@@ -691,11 +688,6 @@ public class SpaceHomeStepDefinition {
   @When("^I post '(.*)' activities with prefix '(.*)'$")
   public void postManyActivities(String activityNumber, String activityPrefix) {
     spaceHomeSteps.postManyActivities(activityNumber, activityPrefix);
-  }
-
-  @When("^I post '(.*)' activities$")
-  public void postThirtyActivities(String activityNumber) {
-    spaceHomeSteps.postThirtyActivities(activityNumber);
   }
 
   @When("^I promote '(.*)' random user as a space manager$")

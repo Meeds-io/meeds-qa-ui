@@ -1,6 +1,6 @@
 package io.meeds.qa.ui.steps.definition;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class LoginStepDefinitions {
   @Given("^I am authenticated as (.*)$")
   public void authenticate(String username) {
     loginSteps.authenticate(username);
-    assertThat(loginSteps.isHomePageDisplayed()).as("The home page should be loaded, but it did not !").isTrue();
+    assertTrue("The home page should be loaded, but it did not !", loginSteps.isHomePageDisplayed());
   }
 
   @Given("^I connect as (.*) if random users doesn't exists$")
@@ -42,7 +42,7 @@ public class LoginStepDefinitions {
 
   @Given("^I connect with admin$")
   public void logOutLoginadmin() {
-    logOutLogin("admin");
+    authenticate("admin");
   }
 
   @Given("^I connect with the dedicated user to be an administrator$")

@@ -112,7 +112,7 @@ Feature: Tasks - Projects
     When I select projects tab
     And I add a new project
     And I open the added project
-    Then The project name is displayed in project details
+    Then The created project name is displayed in project details
     And Board view is displayed by default
     And Status column 'To Do' is displayed in the first position
     And Status column 'In Progress' is displayed in the second position
@@ -209,19 +209,19 @@ Feature: Tasks - Projects
     When I open the task 'task1'
     And I set task start date TODAY
     And I set task due date TOMORROW
-    And I close task drawer
+    And I close the opened drawer
     And I create the following task in selected project
       | taskName | task2 |
     When I open the task 'task2'
     And I set task start date TOMORROW
     And I set task due date Next week
-    And I close task drawer
+    And I close the opened drawer
     And I create the following task in selected project
       | taskName | task3 |
     When I open the task 'task3'
     And I set task start date TOMORROW
     And I set task due date TOMORROW
-    And I close task drawer
+    And I close the opened drawer
     And I go to the PLAN view
     And I refresh the page
     And I go to the PLAN view

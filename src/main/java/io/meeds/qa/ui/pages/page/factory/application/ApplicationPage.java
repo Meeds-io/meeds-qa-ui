@@ -47,9 +47,6 @@ public class ApplicationPage extends GenericPage {
   @FindBy(xpath = "//*[@id='PerkStoreApp']")
   public static BaseElementFacade ELEMENT_PERK_STORE_APPLICATION_PAGE;
 
-  @FindBy(xpath = "//*[@id='ticketAddon']")
-  public static BaseElementFacade ELEMENT_SEND_FEEDBACK_APPLICATION_PAGE;
-
   @FindBy(xpath = "//*[@id='TasksManagementPortlet']")
   public static BaseElementFacade ELEMENT_TASKS_APPLICATION_PAGE;
 
@@ -115,7 +112,7 @@ public class ApplicationPage extends GenericPage {
     // Check that AppCenter Application app is not displayed
     ELEMENT_APPLICATIONS_TOPBAR.clickOnElement();
     assertWebElementNotVisible(getAppCenterApplicationElement(app));
-    closeDrawer();
+    closeDrawerIfDisplayed();
   }
 
   public void checkThatApplicationIsDisplayedInFavoriteApps(String app) {

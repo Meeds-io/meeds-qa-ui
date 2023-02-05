@@ -22,7 +22,7 @@ Feature: Challenges
     Given I connect as admin if random users doesn't exists
       | sixth  |
 
-    And I create the sixth random user if not existing
+    And I create the sixth random user if not existing, no wait
     And I connect with the sixth created user
     When I go To AppCenter Drawer
     And I go to contributions AppCenter Application

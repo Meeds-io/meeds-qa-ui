@@ -71,21 +71,21 @@ public class BasePageImpl extends PageObject implements BasePage {
     element.clickOnElement();
   }
 
-  public void closeDrawer() {
-    BaseElementFacade closeIcon = findByXPathOrCSS(".v-navigation-drawer--open .drawerHeader button.mdi-close");
-    try {
-      if (closeIcon.isDisplayedNoWait()) {
-        closeIcon.clickOnElement();
-      }
-    } catch (Exception e) {
-      LOGGER.debug("Error when closing task drawer by button, it may be already closed", e);
+  public void closeDrawerIfDisplayed() {
+    BaseElementFacadeImpl openedDrawerElement = findByXPathOrCSS(".v-navigation-drawer--open");
+    if (openedDrawerElement.isDisplayedNoWait()) {
+      findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
+      closeAlertIfOpened();
+      waitForDrawerToClose();
     }
-    waitForDrawerToClose();
   }
 
-  public void closeDrawerIfDisplayed() {
-    if (findByXPathOrCSS(OPNENED_DRAWER_CSS_SELECTOR).isDisplayedNoWait()) {
-      closeDrawer();
+  public void closeAllDrawers() {
+    BaseElementFacadeImpl openedDrawerElement = findByXPathOrCSS(".v-navigation-drawer--open");
+    while (openedDrawerElement.isDisplayedNoWait()) {
+      findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
+      closeAlertIfOpened();
+      waitForDrawerToClose();
     }
   }
 
@@ -276,12 +276,16 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   public void refreshPage() {
     getDriver().get(getCurrentUrl());
+    closeAlertIfOpened();
+    verifyPageLoaded();
+  }
+
+  public void closeAlertIfOpened() {
     try {
       getDriver().switchTo().alert().accept();
     } catch (NoAlertPresentException e) {
       // Normal Behavior
     }
-    verifyPageLoaded();
   }
 
   @Override
@@ -309,6 +313,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void waitForDrawerToClose(String drawerId, boolean withOverlay) {
+    closeAlertIfOpened();
     String drawerSelector = StringUtils.isBlank(drawerId) ? OPNENED_DRAWER_CSS_SELECTOR : drawerId;
     BaseElementFacade drawerElement = findByXPathOrCSS(drawerSelector);
     if (drawerElement.isDisplayedNoWait()) {
@@ -324,7 +329,9 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void waitForDrawerToLoad() {
-    WebDriverWait wait = new WebDriverWait(Serenity.getDriver(), Duration.ofSeconds(30));
+    WebDriverWait wait = new WebDriverWait(Serenity.getDriver(),
+                                           Duration.ofSeconds(30),
+                                           Duration.ofMillis(SHORT_WAIT_DURATION_MILLIS));
     wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState === 'complete' "
         + " && (!document.getElementById('TopbarLoadingContainer') || !!document.querySelector('.TopbarLoadingContainer.hidden'))"
         + " && !!document.querySelector('.v-navigation-drawer--open')"

@@ -55,7 +55,7 @@ Feature: Tasks
     Then Delete task option is displayed
     When I click on task delete option
     And I confirm deletion Task message
-    And I close task drawer
+    And I close the opened drawer
     Then Task '<TestE>' is deleted successfully
 
   Scenario: CAP82 - [User_UI_US22] Mark as completed for "TASKS" in a Project (Participant case)
@@ -108,7 +108,7 @@ Feature: Tasks
     When I click on task delete option
     And I confirm deletion Task message
     Then An alert message Task successfully deleted is displayed
-    When I close task drawer
+    When I close the opened drawer
     Then Task name 'taskessai' is not displayed in project details
 
   Scenario: Check tasks display in project
@@ -136,11 +136,11 @@ Feature: Tasks
 
     When I open the task 'task test'
     And I assign task to the first user
-    And I close task drawer
+    And I close the opened drawer
 
     When I open the task 'task test'
     And I set task due date TODAY
-    And I close task drawer
+    And I close the opened drawer
 
   Scenario: CAP188 - [Lost Projects] check that project isn't lost after renaming space name
     Given I am authenticated as admin
@@ -221,7 +221,7 @@ Feature: Tasks
     And I enter label 'label1' in the project
     Then Label 'label1' is displayed in edit project drawer
 
-    When I close the project drawer
+    When I close the opened drawer
     And I click on three dots project button
     And I click on Edit project button
     And I enter four label 'label2' 'label3' 'label4' 'label5' in the project
@@ -232,7 +232,7 @@ Feature: Tasks
 
     When I Remove Label 'label2' in edit project drawer
     Then Label 'label2' is Not displayed in edit project drawer
-    And I close the project drawer
+    And I close the opened drawer
     And I click on three dots project button
     And I click on Edit project button
     Then Label 'label2' is Not displayed in edit project drawer
@@ -262,7 +262,7 @@ Feature: Tasks
     Then The task is marked as completed in task drawer
     Then An alert message Task successfully marked as archived is displayed
 
-    When I close task drawer
+    When I close the opened drawer
     And Task name 'taskE' is not displayed in project details
     And Tasks number '0' is displayed in the column To Do
 
@@ -321,7 +321,7 @@ Feature: Tasks
     And I add Label 'label5' to task
     And I refresh the page
     And I add Label 'label6' to task
-    And I close task drawer
+    And I close the opened drawer
     And I open the task 'newtask'
     Then Label 'label1' is displayed in edit task drawer and x icon is not displayed
     And Label 'label2' is displayed in edit task drawer and x icon is not displayed
@@ -329,7 +329,7 @@ Feature: Tasks
     And Label 'label4' is displayed in edit task drawer and x icon is not displayed
     And Label 'label5' is displayed in edit task drawer and x icon is not displayed
     And Label 'label6' is displayed in edit task drawer and x icon is not displayed
-    And I close task drawer
+    And I close the opened drawer
 
   Scenario:[Task] when click on notification, user is redirected under the specific project
     Given I connect as admin if random users doesn't exists
@@ -385,7 +385,7 @@ Feature: Tasks
     And I refresh the page
     And I click on Filter button
     Then I check that grouping 'none' is selected
-    And I close Sort And Filter drawer
+    And I close the opened drawer
     Then I exit from project
     And I open the project 'project01'
     And I refresh the page
@@ -416,7 +416,7 @@ Feature: Tasks
     And I click on save Button To Add Task
     And I open the task 'Test Tasks'
     Then The description in the task 'Automation Test Task' is displayed
-    And I close task drawer
+    And I close the opened drawer
     And Task name 'Test Tasks' is displayed in project details
 
     When I connect with the first created user
@@ -483,10 +483,10 @@ Feature: Tasks
     Then task 'Copy of Automation Test Task' is cloned successfully
 
     When I assign task to me
-    And I close task drawer of cloned task
+    And I close the opened drawer
     And I open the task 'Copy of Automation Test Task'
     Then The update description 'Decription Task updated' is displayed in cloned task
 
-    When I close task drawer of cloned task
+    When I close the opened drawer
     And I open the task 'Automation Test Task'
     Then The update description 'Decription Task updated' is displayed in origin task
