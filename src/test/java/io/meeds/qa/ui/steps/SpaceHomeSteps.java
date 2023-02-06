@@ -1,6 +1,7 @@
 package io.meeds.qa.ui.steps;
 
 import io.meeds.qa.ui.pages.page.factory.space.SpaceHomePage;
+import io.meeds.qa.ui.utils.Utils;
 
 public class SpaceHomeSteps {
 
@@ -384,7 +385,7 @@ public class SpaceHomeSteps {
 
   public void linkIsOpenedNewTab(String link) {
     spaceHomePage.linkIsOpenedNewTab(link);
-    spaceHomePage.refreshPage();
+    Utils.refreshPage();
   }
 
   public void noCommentDisplayedInDrawer() {
@@ -432,7 +433,6 @@ public class SpaceHomeSteps {
   }
 
   public void postManyActivities(String activityNumber, String activityPrefix) {
-    spaceHomePage.refreshPage();
     for (int i = 0; i < Integer.parseInt(activityNumber) + 1; i++) {
       String activity = activityPrefix + i;
       spaceHomePage.clickPostIcon();

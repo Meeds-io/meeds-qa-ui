@@ -1,6 +1,7 @@
 package io.meeds.qa.ui.steps;
 
 import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
+import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
@@ -26,13 +27,13 @@ public class ManageSpaceSteps {
     String spaceUrl = sessionVariableCalled(spaceNamePrefix + "-url");
     if (StringUtils.isNotBlank(spaceUrl)) {
       homePage.openUrl(spaceUrl);
-      homePage.verifyPageLoaded();
+      waitForLoading();
       if (StringUtils.equals(homePage.getCurrentUrl(), spaceUrl)) {
         return;
       } else if (!manageSpacesPage.isSpaceMenuDisplayed()) {
         boolean joined = manageSpacesPage.clickSpaceActionToJoin();
         if (joined) {
-          homePage.verifyPageLoaded();
+          waitForLoading();
           return;
         }
       }
@@ -266,7 +267,7 @@ public class ManageSpaceSteps {
 
   public void deleteSpacesList(List<String> listOfSpaces) {
     for (String spaceName : listOfSpaces) {
-      manageSpacesPage.refreshPage();
+      Utils.refreshPage();
       manageSpacesPage.deleteSpace(spaceName);
     }
   }

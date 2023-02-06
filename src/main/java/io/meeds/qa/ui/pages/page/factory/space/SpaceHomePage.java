@@ -1,6 +1,6 @@
 package io.meeds.qa.ui.pages.page.factory.space;
 
-import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION_MILLIS;
+import static io.meeds.qa.ui.utils.Utils.*;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Iterator;
@@ -45,8 +45,11 @@ public class SpaceHomePage extends GenericPage {
         closeDrawerIfDisplayed();
         clickPostIcon();
         waitForDrawerToOpen();
+
+        ckEditorFrameElement = ckEditorFrameElement();
         ckEditorFrameElement.waitUntilVisible();
         getDriver().switchTo().frame(ckEditorFrameElement);
+        activityContentTextBoxElement = activityContentTextBoxElement();
         activityContentTextBoxElement.sendKeys(Keys.CONTROL + "v");
         activityLinkPreviewElement().waitUntilVisible();
       } else if (activity.contains("lien")) {
@@ -380,7 +383,7 @@ public class SpaceHomePage extends GenericPage {
       goToSpecificTab("Stream");
       waitFor(500).milliseconds();
     }
-    verifyPageLoaded();
+    waitForLoading();
     ElementFacade activityPostLink = findByXPathOrCSS(".activityComposer .openLink");
     activityPostLink.clickOnElement();
   }
@@ -470,7 +473,7 @@ public class SpaceHomePage extends GenericPage {
 
   public void editActivity() {
     updateActivityButtonElement().clickOnElement();
-    verifyPageLoaded();
+    waitForLoading();
     waitFor(200).milliseconds(); // Update doesn't trigger a loading effect, bad
                                  // UX
   }
@@ -542,7 +545,7 @@ public class SpaceHomePage extends GenericPage {
       if (comment.contains("https")) {
         ckEditorBodyCommentElement.sendKeys(comment);
         ckEditorBodyCommentElement.sendKeys(Keys.CONTROL + "a" + "x");
-        getDriver().navigate().refresh();
+        refreshPage();
         getActivityCommentButton(activity).clickOnElement();
         ckEditorFrameCommentElement.waitUntilVisible();
         waitOnCommentRichText();
@@ -781,7 +784,7 @@ public class SpaceHomePage extends GenericPage {
       if (refreshStream) {
         refreshStream();
       }
-      verifyPageLoaded();
+      waitForLoading();
     } catch (Exception e) {
       refreshPage();
     }
@@ -1386,7 +1389,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private ElementFacade publishActivityButtonElement() {
-    return findByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//button[@aria-label='Post']");
+    return findByXPathOrCSS(".v-navigation-drawer--open .drawerFooter button#activityComposerPostButton");
   }
 
   private ElementFacade replyButtonInDrawerElement() {

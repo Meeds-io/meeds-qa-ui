@@ -76,7 +76,6 @@ Feature: Tasks
 
   @smoke
   @standardConfigurationOnly
-  @test
   Scenario: CAP95 - [Add_Task_Drawer_US04] 3 dots menu (Delete action) "Task under project"
     Given I connect as admin if random users doesn't exists
       | first  |
@@ -303,7 +302,6 @@ Feature: Tasks
     And Label 'label6' is displayed in edit task drawer and x icon is not displayed
     And I close the opened drawer
 
-  @test
   Scenario:[Task] when click on notification, user is redirected under the specific project
     Given I connect as admin if random users doesn't exists
       | first  |

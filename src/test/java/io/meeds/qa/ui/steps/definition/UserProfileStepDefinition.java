@@ -2,6 +2,7 @@ package io.meeds.qa.ui.steps.definition;
 
 import static io.meeds.qa.ui.utils.Utils.getRandomString;
 import static io.meeds.qa.ui.utils.Utils.getTheRandomNumber;
+import static io.meeds.qa.ui.utils.Utils.refreshPage;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.HashMap;
@@ -124,7 +125,7 @@ public class UserProfileStepDefinition {
 
   @Then("^Profile Contact Phone '(.*)' is displayed$")
   public void isProfileContactPhoneVisible(String phone) {
-    userProfileSteps.refreshPage();
+    refreshPage();
     userProfileSteps.isProfileContactPhoneVisible(phone);
   }
 
@@ -168,7 +169,7 @@ public class UserProfileStepDefinition {
     String phoneType = "Work";
     String phone = Serenity.sessionVariableCalled("phone");
     String phoneInformation = phoneType + ": " + phone;
-    userProfileSteps.refreshPage();
+    refreshPage();
     userProfileSteps.isProfileContactPhoneVisible(phoneInformation);
   }
 

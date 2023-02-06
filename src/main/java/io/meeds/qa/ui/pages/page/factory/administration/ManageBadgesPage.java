@@ -1,5 +1,7 @@
 package io.meeds.qa.ui.pages.page.factory.administration;
 
+import static io.meeds.qa.ui.utils.Utils.refreshPage;
+
 import org.junit.Assert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;

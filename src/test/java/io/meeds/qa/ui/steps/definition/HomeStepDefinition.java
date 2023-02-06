@@ -11,6 +11,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.meeds.qa.ui.steps.HomeSteps;
 import io.meeds.qa.ui.steps.PeopleSteps;
+import io.meeds.qa.ui.utils.Utils;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 
@@ -373,7 +374,7 @@ public class HomeStepDefinition {
 
   @When("^I refresh the page$")
   public void refreshPage() {
-    homeSteps.refreshPage();
+    Utils.refreshPage();
   }
 
   @When("^I reject the following connection invitation sent by second user$")

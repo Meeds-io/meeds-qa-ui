@@ -48,7 +48,7 @@ public class TestHooks {
   protected static final String              WARMUP_FILE_PATH          = System.getProperty("io.meeds.warmUp.file",
                                                                                             "warmUpFile.tmp");
 
-  private static final int                   WARM_UP_PAGE_LOADING_WAIT = 120;
+  private static final int                   WARM_UP_PAGE_LOADING_WAIT = 60;
 
   private static final int                   MAX_WARM_UP_STEP_WAIT     = 5;
 
@@ -260,6 +260,10 @@ public class TestHooks {
     loginSteps.authenticate("admin");
   }
 
+  private void logout() {
+    loginSteps.logout();
+  }
+
   private void reloadPageCSS(JavascriptExecutorFacade javascriptExecutorFacade) {
     javascriptExecutorFacade.executeScript("const elements = document.getElementsByTagName('link');"
         + "for (let i = 0; i < elements.length; i++) {"
@@ -314,14 +318,17 @@ public class TestHooks {
                                     MAX_WARM_UP_RETRIES);
       try {
         driver.navigate().to(System.getProperty("webdriver.base.url"));
-        Utils.waitForPageLoaded(WARM_UP_PAGE_LOADING_WAIT);
+        Utils.waitForLoading(WARM_UP_PAGE_LOADING_WAIT);
         loginAsAdmin();
-        Utils.waitForPageLoaded(WARM_UP_PAGE_LOADING_WAIT);
+        // Make sure to use EN language for admin user
+        driver.navigate().to(driver.getCurrentUrl().replace("/portal", "/portal/en"));
+        Utils.waitForLoading(WARM_UP_PAGE_LOADING_WAIT);
       } catch (Exception e) {
         ExceptionLauncher.LOGGER.warn("Error authenticating admin user", e);
       }
       homePageDisplayed = isHomePageDisplayed();
       if (!homePageDisplayed) {
+        logout();
         driver.close(); // Close current window to refresh static resources
         genericSteps.waitInSeconds(MAX_WARM_UP_STEP_WAIT);
       }

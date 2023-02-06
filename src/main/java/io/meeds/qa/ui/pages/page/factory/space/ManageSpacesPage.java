@@ -1,5 +1,6 @@
 package io.meeds.qa.ui.pages.page.factory.space;
 
+import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Assert;
@@ -317,7 +318,7 @@ public class ManageSpacesPage extends GenericPage {
 
   public void goToSpecificSpace(String spaceName) {
     getSpaceNameInListOfSpace(spaceName).clickOnElement();
-    verifyPageLoaded();
+    waitForLoading();
   }
 
   public void goToTasksTab() {
@@ -419,7 +420,6 @@ public class ManageSpacesPage extends GenericPage {
 
   public void selectTemplate(int index) {
     ElementFacade spaceTemplateFilterElement = spaceTemplateFilterElement();
-    spaceTemplateFilterElement.waitUntilVisible();
     spaceTemplateFilterElement.clickOnElement();
     spaceTemplateFilterElement.selectByIndex(index);
   }

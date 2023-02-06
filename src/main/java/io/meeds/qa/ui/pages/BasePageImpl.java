@@ -3,7 +3,7 @@ package io.meeds.qa.ui.pages;
 import static io.meeds.qa.ui.utils.Utils.MAX_WAIT_RETRIES;
 import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION_MILLIS;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
-import static io.meeds.qa.ui.utils.Utils.waitForPageLoaded;
+import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import static org.junit.Assert.assertTrue;
 
 import java.time.Duration;
@@ -100,9 +100,6 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public ButtonElementFacade findButtonByXPathOrCSS(String xpath) {
-    if (!Selectors.isXPath(xpath)) {
-      ExceptionLauncher.throwSerenityExeption(new Exception(), String.format(XPATH_FORMAT_ERROR_MESSAGE, xpath));
-    }
     WebElementFacade nestedElement = getWebElementFacadeByXPathOrCSS(xpath);
     return ButtonElementFacadeImpl.wrapWebElementFacadeInButtonElement(getDriver(),
                                                                        nestedElement,
@@ -126,9 +123,6 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public TextBoxElementFacade findTextBoxByXPathOrCSS(String xpathOrCSSSelector) {
-    if (!Selectors.isXPath(xpathOrCSSSelector)) {
-      ExceptionLauncher.throwSerenityExeption(new Exception(), String.format(XPATH_FORMAT_ERROR_MESSAGE, xpathOrCSSSelector));
-    }
     WebElementFacade nestedElement = getWebElementFacadeByXPathOrCSS(xpathOrCSSSelector);
 
     return TextBoxElementFacadeImpl.wrapWebElementFacadeInTextBoxElement(getDriver(),
@@ -140,9 +134,6 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public TextElementFacade findTextByXPathOrCSS(String xpath) {
-    if (!Selectors.isXPath(xpath)) {
-      ExceptionLauncher.throwSerenityExeption(new Exception(), String.format(XPATH_FORMAT_ERROR_MESSAGE, xpath));
-    }
     WebElementFacade nestedElement = getWebElementFacadeByXPathOrCSS(xpath);
 
     return TextElementFacadeImpl.wrapWebElementFacadeInTextElement(getDriver(),
@@ -242,15 +233,10 @@ public class BasePageImpl extends PageObject implements BasePage {
     }
   }
 
-  public void refreshPage() {
-    getDriver().get(getCurrentUrl());
-    closeAlertIfOpened();
-    verifyPageLoaded();
-  }
-
   @WhenPageOpens
   public void verifyPageLoaded() {
-    waitForPageLoaded();
+    waitForLoading();
+    waitFor(SHORT_WAIT_DURATION_MILLIS).milliseconds();
   }
 
   public void waitCKEditorLoading() {
@@ -334,7 +320,6 @@ public class BasePageImpl extends PageObject implements BasePage {
    **********************************************************/
 
   private WebElementFacade getWebElementFacadeByXPathOrCSS(String xpathOrCss) {
-    verifyPageLoaded();
     if (StringUtils.contains(xpathOrCss, "//")) {
       return find(By.xpath(xpathOrCss));
     } else {

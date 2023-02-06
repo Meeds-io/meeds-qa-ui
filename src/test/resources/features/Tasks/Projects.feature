@@ -114,7 +114,6 @@ Feature: Tasks - Projects
     When I click on Status name 'To Do'
     Then Status name 'To Do' Edit mode is not opened successfully
 
-  @test
   Scenario: CAP216 - Task card should be well displayed when task title is long
     Given I connect as admin if random users doesn't exists
       | first  |

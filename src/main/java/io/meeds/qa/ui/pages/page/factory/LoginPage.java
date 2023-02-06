@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
+import io.meeds.qa.ui.utils.Utils;
 import net.serenitybdd.markers.IsHidden;
 import net.thucydides.core.annotations.DefaultUrl;
 
@@ -41,7 +42,7 @@ public class LoginPage extends GenericPage implements IsHidden {
       closeAllDrawers();
     } else {
       openLoginPage();
-      retryOnCondition(() -> tryLogin(login, password), this::refreshPage);
+      retryOnCondition(() -> tryLogin(login, password), Utils::refreshPage);
       getDriver().manage().addCookie(new Cookie(LAST_LOGGED_IN_USER_COOKIE_NAME, login, "/"));
       lastLoggedInUser = login;
     }
@@ -65,7 +66,6 @@ public class LoginPage extends GenericPage implements IsHidden {
   }
 
   private void tryLogin(String login, String password) {
-    verifyPageLoaded();
     TextBoxElementFacade loginTextBox = findTextBoxByXPathOrCSS("//*[@id='username']");
     loginTextBox.setTextValue(login);
     TextBoxElementFacade passwordTextbox = findTextBoxByXPathOrCSS("//*[@id='password']");

@@ -1,6 +1,8 @@
 package io.meeds.qa.ui.pages.page.factory.tasks;
 
+import static io.meeds.qa.ui.utils.Utils.refreshPage;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
+import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -632,7 +634,7 @@ public class TasksPage extends GenericPage {
     }
 
     updateButtonDescriptionElement().clickOnElement();
-    verifyPageLoaded();
+    waitForLoading();
   }
 
   public void editProjectButtonIsDisplayed() {
@@ -869,7 +871,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void openFilterDrawer() {
-    getDriver().navigate().refresh();
+    refreshPage();
     filterDrawerButtonElement().clickOnElement();
   }
 
@@ -952,7 +954,7 @@ public class TasksPage extends GenericPage {
   public void setInSearchProjectField(String project) {
     searchProjectInputElement().setTextValue(project);
     waitFor(1).seconds();
-    verifyPageLoaded();
+    waitForLoading();
   }
 
   public void setProjectTitle(String projectTitle) {
@@ -1513,7 +1515,7 @@ public class TasksPage extends GenericPage {
                           findByXPathOrCSS(String.format("//*[contains(@class, 'tasksMenuParent')]//*[@role='tab'][%s]",
                                                          tabIndex));
     clickOnElement(tabLink);
-    verifyPageLoaded();
+    waitForLoading();
     waitFor(300).milliseconds(); // Wait for Tab switch
   }
 

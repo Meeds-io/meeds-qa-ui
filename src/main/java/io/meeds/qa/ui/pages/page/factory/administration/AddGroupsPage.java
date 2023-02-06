@@ -1,5 +1,7 @@
 package io.meeds.qa.ui.pages.page.factory.administration;
 
+import static io.meeds.qa.ui.utils.Utils.refreshPage;
+
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.ElementFacade;

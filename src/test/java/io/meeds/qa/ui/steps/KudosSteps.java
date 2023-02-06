@@ -3,6 +3,7 @@ package io.meeds.qa.ui.steps;
 import io.meeds.qa.ui.pages.page.factory.HomePage;
 import io.meeds.qa.ui.pages.page.factory.kudos.KudosAdministrationPage;
 import io.meeds.qa.ui.pages.page.factory.space.SpaceHomePage;
+import io.meeds.qa.ui.utils.Utils;
 
 public class KudosSteps {
   private HomePage      homePage;
@@ -64,7 +65,7 @@ public class KudosSteps {
   }
 
   public void searchUserCard(String user) {
-    homePage.refreshPage();
+    Utils.refreshPage();
     homePage.goToPeoplePage();
     kudosPage.searchForUsersByName(user);
   }

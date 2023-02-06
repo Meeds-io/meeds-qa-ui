@@ -8,6 +8,7 @@ import java.util.Random;
 import java.util.function.Supplier;
 
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -109,6 +110,14 @@ public class Utils {
     driver.switchTo().window(newTab.get(index));
   }
 
+  public static void refreshPage() {
+    refreshPage(true);
+  }
+
+  public static void waitForLoading() {
+    waitForLoading(DEFAULT_WAIT_PAGE_LOADING);
+  }
+
   public static void waitForInMillis(long timeInMilliseconds) {
     try {
       Thread.sleep(timeInMilliseconds);
@@ -117,23 +126,30 @@ public class Utils {
     }
   }
 
-  public static void waitForPageLoaded() {
-    waitForPageLoaded(DEFAULT_WAIT_PAGE_LOADING);
+  public static void waitForLoading(int loadingWait) {
+    waitForLoading(loadingWait, 1);
   }
 
-  public static void waitForPageLoaded(int pageLoadingWait) {
+  private static void waitForLoading(int loadingWait, int retries) {
     try {
       WebDriverWait wait = new WebDriverWait(Serenity.getDriver(),
-                                             Duration.ofSeconds(pageLoadingWait),
+                                             Duration.ofSeconds(loadingWait),
                                              Duration.ofMillis(SHORT_WAIT_DURATION_MILLIS));
       wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState === 'complete' "
           + " && (!document.getElementById('TopbarLoadingContainer') || !!document.querySelector('.TopbarLoadingContainer.hidden'))"
-          + " && !document.querySelector('.v-navigation-drawer--open .v-progress-linear')")
+          + " && !document.querySelector('#UISiteBody .v-progress-linear__indeterminate')"
+          + " && !document.querySelector('#UISiteBody .v-progress-circular--indeterminate')")
                                                               .toString()
                                                               .equals("true"));
     } catch (TimeoutException | JsonException e) {
-      Serenity.getDriver().navigate().refresh();
-      waitForPageLoaded();
+      refreshPage(false);
+      if (++retries > MAX_WAIT_RETRIES) {
+        throw new IllegalStateException(String.format("Loading effect is still displayed on page after %s retries with timeout interval %s",
+                                                      (retries - 1),
+                                                      loadingWait));
+      } else {
+        waitForLoading(loadingWait, retries);
+      }
     } catch (RuntimeException e) {
       String result =
                     ((JavascriptExecutor) Serenity.getDriver()).executeScript("return `document.readyState: ${document.readyState} ,"
@@ -141,6 +157,18 @@ public class Utils {
                         + " v-navigation-drawer--open = ${!document.querySelector('.v-navigation-drawer--open .v-progress-linear')}")
                                                                .toString();
       LOGGER.warn("Error on waiting document to be loaded. {}", result);
+    }
+  }
+
+  private static void refreshPage(boolean waitForLoading) {
+    Serenity.getDriver().navigate().refresh();
+    try {
+      Serenity.getDriver().switchTo().alert().accept();
+    } catch (NoAlertPresentException e) {
+      // Normal Behavior
+    }
+    if (waitForLoading) {
+      waitForLoading();
     }
   }
 

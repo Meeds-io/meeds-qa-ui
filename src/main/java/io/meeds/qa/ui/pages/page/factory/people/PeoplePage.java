@@ -1,5 +1,6 @@
 package io.meeds.qa.ui.pages.page.factory.people;
 
+import static io.meeds.qa.ui.utils.Utils.refreshPage;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static org.junit.Assert.assertTrue;
 

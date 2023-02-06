@@ -1,5 +1,6 @@
 package io.meeds.qa.ui.pages.page.factory.people;
 
+import static io.meeds.qa.ui.utils.Utils.refreshPage;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -83,7 +84,7 @@ public class UserProfilePage extends GenericPage {
   }
 
   public void goToSentKudos() {
-    getDriver().navigate().refresh();
+    refreshPage();
     contactSentKudosElement().clickOnElement();
   }
 
@@ -302,9 +303,7 @@ public class UserProfilePage extends GenericPage {
       $(contactJobTitleButtonElement).clear();
       $(contactJobTitleButtonElement).sendKeys(job);
     }
-    JavascriptExecutor executor = (JavascriptExecutor) getDriver();
-    executor.executeScript("arguments[0].click();", contactEditSaveButtonElement());
-    contactEditSaveButtonElement().waitUntilNotVisible();
+    contactEditSaveButtonElement().clickOnElement();
   }
 
   public void updateContactOtherInformations(String company,

@@ -1,7 +1,7 @@
 package io.meeds.qa.ui.elements;
 
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
-import static io.meeds.qa.ui.utils.Utils.waitForPageLoaded;
+import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 
 import java.util.Collections;
 import java.util.List;
@@ -55,7 +55,7 @@ public class TextBoxElementFacadeImpl extends ElementFacadeImpl implements TextB
 
   @Override
   public String getTextBoxValue() {
-    waitForPageLoaded();
+    waitForLoading();
     String textValue = null;
     try {
       waitUntilVisible();

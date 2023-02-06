@@ -4,7 +4,7 @@ import static io.meeds.qa.ui.utils.Utils.MAX_WAIT_RETRIES;
 import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION;
 import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION_MILLIS;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
-import static io.meeds.qa.ui.utils.Utils.waitForPageLoaded;
+import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import static org.junit.Assert.assertTrue;
 
 import java.time.Duration;
@@ -96,16 +96,22 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
 
   @Override
   public void clickOnElement() {
-    try {
-      assertClickable();
-      super.click();
-      waitForPageLoaded();
-    } catch (WebDriverException e) {
-      throw new ElementClickInterceptedException(String.format("[%s] The element [%s] cannot be clicked.",
-                                                               getDriver().getWindowHandle(),
-                                                               this),
-                                                 e);
-    }
+    int retries = 0;
+    do {
+      try {
+        assertClickable();
+        super.click();
+        waitForLoading();
+        return;
+      } catch (WebDriverException e) {
+        if (++retries > MAX_WAIT_RETRIES) {
+          throw new ElementClickInterceptedException(String.format("The element [%s] cannot be clicked after %s retries.",
+                                                                   (retries - 1),
+                                                                   this),
+                                                     e);
+        }
+      }
+    } while (true);
   }
 
   @Override
@@ -310,7 +316,7 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
 
   @Override
   public boolean isNotVisible(long maxRetries) {
-    waitForPageLoaded();
+    waitForLoading();
     setImplicitTimeout(SHORT_WAIT_DURATION);
     boolean notVisible = false;
     int retry = 0;
@@ -322,7 +328,7 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
 
   @Override
   public boolean isVisible(long maxRetries) {
-    waitForPageLoaded();
+    waitForLoading();
     int retry = 0;
     do {
       if (isDisplayed(SHORT_WAIT_DURATION_MILLIS)) {

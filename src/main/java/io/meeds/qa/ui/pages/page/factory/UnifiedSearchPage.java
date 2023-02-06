@@ -1,6 +1,8 @@
 package io.meeds.qa.ui.pages.page.factory;
 
+import static io.meeds.qa.ui.utils.Utils.refreshPage;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
+import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 
 import org.openqa.selenium.WebDriver;
 
@@ -14,12 +16,10 @@ public class UnifiedSearchPage extends GenericPage {
   }
 
   public void clickFavoriteBtn() {
-    verifyPageLoaded();
     ElementFacade favoritesBtnElement = favoritesBtnElement();
     favoritesBtnElement.waitUntilVisible();
     favoritesBtnElement.waitUntilClickable();
     favoritesBtnElement.clickOnElement();
-    verifyPageLoaded();
   }
 
   public void favoriteSearchedActivity(String activity) {
@@ -83,7 +83,7 @@ public class UnifiedSearchPage extends GenericPage {
     openSearchApplication();
     searchInputElement().setTextValue(text);
     waitFor(300).milliseconds(); // Wait for search to be used
-    verifyPageLoaded();
+    waitForLoading();
   }
 
   public void selectDropDown(String object) {

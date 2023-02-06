@@ -6,6 +6,7 @@ import java.util.Map;
 
 import io.meeds.qa.ui.pages.page.factory.kudos.KudosAdministrationPage;
 import io.meeds.qa.ui.pages.page.factory.people.UserProfilePage;
+import io.meeds.qa.ui.utils.Utils;
 
 public class UserProfileSteps {
 
@@ -141,10 +142,6 @@ public class UserProfileSteps {
     userProfilePage.receivedKudosUsersSectionIsDisplayed(user);
   }
 
-  public void refreshPage() {
-    userProfilePage.refreshPage();
-  }
-
   public void removeWorkExperience(String jobTitle) {
     userProfilePage.removeWorkExperience(jobTitle);
   }
@@ -195,7 +192,7 @@ public class UserProfileSteps {
     // Retry at most 3 times until Gamification Points are increased
     while (userProfilePage.getMyWeeklyPoint() <= myPointBeforeKudos && index++ < retry) {
       userProfilePage.waitFor(3).seconds();
-      userProfilePage.refreshPage();
+      Utils.refreshPage();
     }
     return index < retry;
   }

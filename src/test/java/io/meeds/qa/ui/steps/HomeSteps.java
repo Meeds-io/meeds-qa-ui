@@ -245,10 +245,6 @@ public class HomeSteps {
     homePage.openNotifications();
   }
 
-  public void refreshPage() {
-    homePage.refreshPage();
-  }
-
   public void rejectConnexionInvitation(List<String> listOfPeople) {
     for (String peopleName : listOfPeople)
       homePage.rejectConnexionInvitation(peopleName);

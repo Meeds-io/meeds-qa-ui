@@ -1,6 +1,8 @@
 package io.meeds.qa.ui.pages.page.factory;
 
+import static io.meeds.qa.ui.utils.Utils.refreshPage;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
+import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -12,6 +14,7 @@ import org.openqa.selenium.WebDriver;
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
+import io.meeds.qa.ui.utils.Utils;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class HomePage extends GenericPage {
@@ -32,7 +35,9 @@ public class HomePage extends GenericPage {
     clickOnHamburgerMenu();
     retryOnCondition(() -> {
       administrationMenuElement().waitUntilVisible();
+      waitFor(10).milliseconds(); // Wait until drawer 'open' animation
       administrationIconElement().hover();
+      waitFor(50).milliseconds(); // Wait for 'hover' animation
       arrowAdminstrationMenuElement().clickOnElement();
       waitFor(300).milliseconds(); // Wait until drawer 'open' animation
       // finishes
@@ -45,6 +50,7 @@ public class HomePage extends GenericPage {
     clickOnHamburgerMenu();
     retryOnCondition(() -> {
       recentSpacesIconElement().hover();
+      waitFor(50).milliseconds(); // Wait for 'hover' animation
       recentSpacesBtnElement().clickOnElement();
       waitFor(300).milliseconds(); // Wait until drawer 'open' animation
                                    // finishes
@@ -145,7 +151,7 @@ public class HomePage extends GenericPage {
 
   public void confirmationForChangeSiteHomeLink() {
     clickOnElement(confirmationForChangeSiteHomeLinkElement());
-    getDriver().navigate().refresh();
+    refreshPage();
   }
 
   public void deactivateSwitcher() {
@@ -175,47 +181,56 @@ public class HomePage extends GenericPage {
   public void goToAppCenterAdminSetupPage() {
     accessToAdministrationMenu();
     clickOnElement(findByXPathOrCSS("//a[contains(@href,'appCenterAdminSetup')]"));
+    waitForLoading();
   }
 
   public void goToHomePage() {
     closeAlertIfOpened();
+    waitForLoading();
     getDriver().get(getDriver().getCurrentUrl().split("/portal/")[0]);
-    verifyPageLoaded();
+    waitForLoading();
   }
 
   public void goToMyProfile() {
     clickOnHamburgerMenu();
     clickOnElement(myProfileButtonElement());
+    waitForLoading();
   }
 
   public void goToPeoplePage() {
     clickOnHamburgerMenu();
     clickOnElement(personnePageLinkElement());
-    verifyPageLoaded();
+    waitForLoading();
   }
 
   public void goToProfilePage() {
     clickOnHamburgerMenu();
     clickOnElement(myProfilePageLinkElement());
+    waitForLoading();
   }
 
   public void goToSettingsPage() {
     clickOnHamburgerMenu();
     clickOnElement(settingsPageLinkElement());
+    waitForLoading();
   }
 
   public void goToSpacesPage() {
     clickOnHamburgerMenu();
     clickOnElement(openSpacesPageLinkElement());
+    waitForLoading();
   }
 
   public void goToStreamPage() {
     clickOnHamburgerMenu();
     clickOnElement(streamPageLinkElement());
+    waitForLoading();
   }
 
   public void goToTasksPage() {
+    waitForLoading();
     clickOnElement(tasksSnapshotPageButtonElement());
+    waitForLoading();
   }
 
   public void hoverOnStreamIcon() {
@@ -275,22 +290,26 @@ public class HomePage extends GenericPage {
   }
 
   public boolean isWidgetWithNumberVisible(String widget, String number) {
-    getDriver().navigate().refresh();
+    refreshPage();
     return getProfileWidgetContent(widget, number).isVisibleAfterWaiting();
   }
 
   public void logout() {
     clickOnHamburgerMenu();
     logOutMenuElement().clickOnElement();
-    verifyPageLoaded();
+    waitForLoading();
   }
 
   public void openAllApplicationPage() {
+    waitForLoading();
     clickOnElement(viewAllApplicationLinkElement());
+    waitForLoading();
   }
 
   public void openAppCenterMenu() {
+    waitForLoading();
     clickOnElement(appCenterButtonElement());
+    waitForLoading();
   }
 
   public void openConnectionRequestDrawer() {
@@ -365,14 +384,18 @@ public class HomePage extends GenericPage {
   }
 
   private void clickOnHamburgerMenu() {
+    waitForLoading();
     retryOnCondition(() -> {
       ElementFacade overlay = findByXPathOrCSS(".v-overlay--active");
-      if (overlay.isDisplayed()) {
-        overlay.clickOnElement();
+      if (overlay.isDisplayedNoWait()) {
+        try {
+          overlay.clickOnElement();
+        } catch (Exception e) {
+          // Expected when overlay is about to close
+        }
       }
-      getHamburgerNavigationMenu().waitUntilClickable();
       getHamburgerNavigationMenu().clickOnElement();
-    }, this::refreshPage);
+    }, Utils::refreshPage);
   }
 
   private ElementFacade confirmationForChangeSiteHomeLinkElement() {

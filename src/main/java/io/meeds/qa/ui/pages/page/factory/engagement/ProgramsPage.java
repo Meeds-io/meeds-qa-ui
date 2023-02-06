@@ -1,5 +1,7 @@
 package io.meeds.qa.ui.pages.page.factory.engagement;
 
+import static io.meeds.qa.ui.utils.Utils.waitForLoading;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -114,7 +116,7 @@ public class ProgramsPage extends GenericPage {
     programQuickFilterSelectBoxElement.clickOnElement();
     programQuickFilterSelectBoxElement.selectByValue(value);
     programQuickFilterSelectBoxElement.clickOnElement();
-    verifyPageLoaded();
+    waitForLoading();
   }
 
   public void selectStatusSwitcher() {
@@ -128,7 +130,7 @@ public class ProgramsPage extends GenericPage {
 
   public void selectEngagementTab(String tab) {
     clickOnElement(getEngagementTab(tab));
-    verifyPageLoaded();
+    waitForLoading();
     waitFor(300).milliseconds(); // Wait for Tab switch
   }
 
