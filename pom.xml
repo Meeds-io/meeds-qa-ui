@@ -50,7 +50,7 @@
     <cucumber.filter.tags>not @ignored and not @ignore and not @wip and not @skip and not @standardConfigurationOnly</cucumber.filter.tags>
     <cucumber-jvm-parallel-plugin.version>5.0.0</cucumber-jvm-parallel-plugin.version>
 
-    <failsafe.rerunFailingTestsCount>2</failsafe.rerunFailingTestsCount>
+    <failsafe.rerunFailingTestsCount>0</failsafe.rerunFailingTestsCount>
     <!-- One of [SCENARIO, FEATURE]. SCENARIO generates one runner per scenario.  FEATURE generates a runner per feature. -->
     <parallel.scheme>SCENARIO</parallel.scheme>
     <!-- Space Template Select Box Value index when creating random spaces -->

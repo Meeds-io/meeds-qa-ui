@@ -1,7 +1,7 @@
 package io.meeds.qa.ui.pages.page.factory.kudos;
 
+import static io.meeds.qa.ui.utils.Utils.refreshPage;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
-import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import static org.junit.Assert.assertTrue;
 
 import org.openqa.selenium.WebDriver;
@@ -121,8 +121,8 @@ public class KudosAdministrationPage extends GenericPage {
     ElementFacade kudosButtonInDrawerElement = kudosButtonInDrawerElement();
     assertWebElementVisible(kudosButtonInDrawerElement);
     kudosButtonInDrawerElement.clickOnElement();
-    waitForLoading();
-    waitForDrawerToClose("#activityKudosDrawer", false);
+    kudosButtonInDrawerElement.waitUntilNotVisible();
+    refreshPage();
   }
 
   public void sendMessage(String txt) {

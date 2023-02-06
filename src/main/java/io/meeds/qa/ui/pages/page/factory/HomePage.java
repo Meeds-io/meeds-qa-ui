@@ -10,12 +10,13 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import io.meeds.qa.ui.utils.Utils;
 import net.serenitybdd.core.pages.WebElementFacade;
+import net.thucydides.core.webdriver.exceptions.ElementShouldBeVisibleException;
 
 public class HomePage extends GenericPage {
 
@@ -32,29 +33,57 @@ public class HomePage extends GenericPage {
   }
 
   public void accessToAdministrationMenu() {
-    clickOnHamburgerMenu();
     retryOnCondition(() -> {
+      clickOnHamburgerMenu();
       administrationMenuElement().waitUntilVisible();
-      waitFor(10).milliseconds(); // Wait until drawer 'open' animation
-      administrationIconElement().hover();
-      waitFor(50).milliseconds(); // Wait for 'hover' animation
-      arrowAdminstrationMenuElement().clickOnElement();
-      waitFor(300).milliseconds(); // Wait until drawer 'open' animation
-      // finishes
-      ElementFacade administrationMenuElement = findByXPathOrCSS("#AdministrationHamburgerNavigation");
-      administrationMenuElement.waitUntilVisible();
-    }, this::clickOnHamburgerMenu);
+      ElementFacade administrationIconElement = administrationIconElement();
+      if (administrationIconElement.isVisibleAfterWaiting()) {
+        waitFor(300).milliseconds(); // Wait for animations to finish
+        Actions action = new Actions(getDriver());
+        action.moveToElement(administrationIconElement).build().perform();
+        ElementFacade arrowAdminstrationMenuElement = arrowAdminstrationMenuElement();
+        if (arrowAdminstrationMenuElement.isVisibleAfterWaiting()) {
+          arrowAdminstrationMenuElement.clickOnElement();
+        } else {
+          throw new ElementShouldBeVisibleException(String.format("Administration menu arrow should be visible %s", arrowAdminstrationMenuElement), null);
+        }
+        ElementFacade administrationMenuElement = findByXPathOrCSS(".HamburgerMenuSecondLevelParent #AdministrationHamburgerNavigation .subItemTitle");
+        if (!administrationMenuElement.isVisibleAfterWaiting()) {
+          throw new ElementShouldBeVisibleException(String.format("Administration menu drawer should be visible %s", administrationMenuElement), null);
+        }
+      } else {
+        throw new ElementShouldBeVisibleException(String.format("Administration menu cog icon should be visible %s", administrationIconElement), null);
+      }
+    }, () -> {
+      refreshPage();
+      waitForLoading();
+    });
   }
 
   public void accessToRecentSpaces() {
-    clickOnHamburgerMenu();
     retryOnCondition(() -> {
-      recentSpacesIconElement().hover();
-      waitFor(50).milliseconds(); // Wait for 'hover' animation
-      recentSpacesBtnElement().clickOnElement();
-      waitFor(300).milliseconds(); // Wait until drawer 'open' animation
-                                   // finishes
-    }, this::clickOnHamburgerMenu);
+      clickOnHamburgerMenu();
+      ElementFacade recentSpacesIconElement = recentSpacesIconElement();
+      if (recentSpacesIconElement.isVisibleAfterWaiting()) {
+        Actions action = new Actions(getDriver());
+        action.moveToElement(recentSpacesIconElement).build().perform();
+        ElementFacade recentSpacesBtnElement = recentSpacesBtnElement();
+        if (recentSpacesBtnElement.isVisibleAfterWaiting()) {
+          recentSpacesBtnElement.clickOnElement();
+        } else {
+          throw new ElementShouldBeVisibleException(String.format("Recent spaces arrow should be visible %s", recentSpacesBtnElement), null);
+        }
+        ElementFacade recentSpacesMenuElement = findByXPathOrCSS(".HamburgerMenuSecondLevelParent .recentDrawer .recentSpacesTitleLabel");
+        if (!recentSpacesMenuElement.isVisibleAfterWaiting()) {
+          throw new ElementShouldBeVisibleException(String.format("Recent spaces drawer should be visible %s", recentSpacesMenuElement), null);
+        }
+      } else {
+        throw new ElementShouldBeVisibleException(String.format("Recent spaces icon should be visible %s", recentSpacesIconElement), null);
+      }
+    }, () -> {
+      refreshPage();
+      waitForLoading();
+    });
   }
 
   public void bookmarkActivity(String activity) {
@@ -385,17 +414,20 @@ public class HomePage extends GenericPage {
 
   private void clickOnHamburgerMenu() {
     waitForLoading();
-    retryOnCondition(() -> {
-      ElementFacade overlay = findByXPathOrCSS(".v-overlay--active");
-      if (overlay.isDisplayedNoWait()) {
-        try {
-          overlay.clickOnElement();
-        } catch (Exception e) {
-          // Expected when overlay is about to close
-        }
-      }
-      getHamburgerNavigationMenu().clickOnElement();
-    }, Utils::refreshPage);
+    closeAllDrawers();
+    retryOnCondition(() -> getHamburgerNavigationMenu().clickOnElement(),
+                     () -> {
+                       ElementFacade overlay = findByXPathOrCSS(".v-overlay--active");
+                       if (overlay.isDisplayedNoWait()) {
+                         try {
+                           overlay.clickOnElement();
+                         } catch (Exception e) {
+                           // Expected when overlay is about to close
+                         }
+                       } else {
+                         refreshPage();
+                       }
+                     });
   }
 
   private ElementFacade confirmationForChangeSiteHomeLinkElement() {

@@ -73,6 +73,8 @@ public class ManageSpaceSteps {
     manageSpacesPage.checkSpaceRegistration(registration);
     manageSpacesPage.clickSecondProcessButton();
     manageSpacesPage.clickAddSpaceButton();
+
+    waitForLoading();
     String spaceNamePrefix = "randomSpaceName";
     setSessionVariable(spaceNamePrefix).to(spaceName);
     setSessionVariable(spaceNamePrefix + "-url").to(manageSpacesPage.getCurrentUrl());
@@ -196,10 +198,6 @@ public class ManageSpaceSteps {
 
   public void checkThatSpaceTabsAreDisplayedInOrder(String space) {
     manageSpacesPage.checkThatSpaceTabsAreDisplayedInOrder(space);
-  }
-
-  public void checkThatSpaceTopBarElementsAreDisplayed() {
-    manageSpacesPage.checkThatSpaceTopBarElementsAreDisplayed();
   }
 
   public void checkThirtyRandomSpacesArePresent() {

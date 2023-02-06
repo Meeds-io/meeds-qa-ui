@@ -139,7 +139,7 @@ public interface ElementFacade extends WebElementFacade {
   /**
    * Asserts Web Element Visible
    */
-  void assertVisible();
+  void checkVisible();
 
   /**
    * Asserts Web Element Not Visible
@@ -149,6 +149,6 @@ public interface ElementFacade extends WebElementFacade {
   /**
    * Asserts Web Element is clickable
    */
-  void assertClickable();
+  void checkClickable();
 
 }

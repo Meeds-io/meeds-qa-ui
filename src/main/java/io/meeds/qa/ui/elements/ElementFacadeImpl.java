@@ -27,6 +27,7 @@ import net.serenitybdd.core.selectors.Selectors;
 import net.thucydides.core.ThucydidesSystemProperty;
 import net.thucydides.core.guice.Injectors;
 import net.thucydides.core.util.EnvironmentVariables;
+import net.thucydides.core.webdriver.exceptions.ElementShouldBeVisibleException;
 import net.thucydides.core.webdriver.javascript.JavascriptExecutorFacade;
 
 public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFacade {
@@ -99,9 +100,8 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
     int retries = 0;
     do {
       try {
-        assertClickable();
+        checkVisible();
         super.click();
-        waitForLoading();
         return;
       } catch (WebDriverException e) {
         if (++retries > MAX_WAIT_RETRIES) {
@@ -109,6 +109,8 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
                                                                    (retries - 1),
                                                                    this),
                                                      e);
+        } else {
+          LOGGER.warn("Element {} wasn't clickable. Retry {}/{}: {}", this, retries, MAX_WAIT_RETRIES, e.getMessage());
         }
       }
     } while (true);
@@ -289,13 +291,17 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
   }
 
   @Override
-  public void assertClickable() {
-    assertTrue(String.format("Unable to locate a clickable element %s", this), isClickable(MAX_WAIT_RETRIES));
+  public void checkClickable() {
+    if (!isClickable(MAX_WAIT_RETRIES)) {
+      throw new ElementClickInterceptedException(String.format("Unable to locate a clickable element %s", this));
+    }
   }
 
   @Override
-  public void assertVisible() {
-    assertTrue(String.format("Unable to locate a visible element %s", this), isVisible(MAX_WAIT_RETRIES));
+  public void checkVisible() {
+    if (!isVisible(MAX_WAIT_RETRIES)) {
+      throw new ElementShouldBeVisibleException(String.format("Unable to locate a visible element %s", this), null);
+    }
   }
 
   @Override

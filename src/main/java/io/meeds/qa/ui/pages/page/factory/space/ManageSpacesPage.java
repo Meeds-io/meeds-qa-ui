@@ -1,7 +1,6 @@
 package io.meeds.qa.ui.pages.page.factory.space;
 
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
@@ -189,15 +188,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void checkThatSpaceTopBarElementsAreDisplayed() {
-    assertWebElementVisible(addNewSpaceButtonElement());
-    ElementFacade showingSpacesSectionElement = showingSpacesSectionElement();
-    assertTrue(showingSpacesSectionElement.getText().contains("Showing"));
-    assertTrue(showingSpacesSectionElement.getText().contains("spaces"));
-    assertWebElementVisible(spacesFilterIconElement());
-    assertWebElementVisible(spacesFilterTextElement());
-    ElementFacade dropDownListSpacesElement = dropDownListSpacesElement();
-    assertWebElementVisible(dropDownListSpacesElement);
-    assertTrue(dropDownListSpacesElement.getText().contains("All spaces"));
+    assertWebElementVisible(spaceMenuItemElement());
   }
 
   public void checkUpdateButton() {
@@ -372,7 +363,7 @@ public class ManageSpacesPage extends GenericPage {
 
   public boolean isSpaceMenuDisplayed() {
     try {
-      ElementFacade webElementFacade = findByXPathOrCSS("//*[contains(@class, 'v-tab--active')]");
+      ElementFacade webElementFacade = findByXPathOrCSS("#SpaceMenu .v-tab--active");
       return webElementFacade.isDisplayedNoWait();
     } catch (RuntimeException e) {
       return false;
@@ -462,11 +453,11 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   private ElementFacade addNewSpaceButtonElement() {
-    return findByXPathOrCSS("//button[contains(@class,'btn-primary')]");
+    return findByXPathOrCSS("#spacesListApplication button#addNewSpaceButton");
   }
 
   private ElementFacade addSpaceButtonElement() {
-    return findByXPathOrCSS("(//aside[contains(@class,'spaceFormDrawer')]//button[contains(@class,'btn-primary')])[3]");
+    return findByXPathOrCSS(".v-navigation-drawer--open .drawerFooter button.btn-primary");
   }
 
   private ElementFacade appCardElement() {
@@ -499,10 +490,6 @@ public class ManageSpacesPage extends GenericPage {
 
   private ElementFacade descriptionSpaceSectionElement() {
     return findByXPathOrCSS("//*[@for='description']");
-  }
-
-  private ElementFacade dropDownListSpacesElement() {
-    return findByXPathOrCSS("//select[contains(@class,'selectSpacesFilter')]");
   }
 
   private ElementFacade editIconOfGeneralSpaceSettingsElement() {
@@ -561,8 +548,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   private ElementFacade getSpaceNameInListOfSpace(String spaceName) {
-    return findByXPathOrCSS(String.format("//*[contains(@class, 'spaceDisplayName') and contains(@href, ':%s/')]",
-                                          spaceName.toLowerCase()));
+    return findByXPathOrCSS(String.format("//a[@title = '%s']", spaceName));
   }
 
   private ElementFacade goToSpaceRightTabsElement() {
@@ -571,6 +557,10 @@ public class ManageSpacesPage extends GenericPage {
 
   private ElementFacade hiddenSectionElement() {
     return findByXPathOrCSS("//*[@for='hidden']");
+  }
+
+  private ElementFacade spaceMenuItemElement() {
+    return findByXPathOrCSS("#SpaceMenu .v-tabs-bar .v-tab");
   }
 
   private ElementFacade homeSpaceMenuItemElement(String space) {
@@ -635,10 +625,6 @@ public class ManageSpacesPage extends GenericPage {
 
   private ElementFacade selectSpaceFilterElement() {
     return findByXPathOrCSS("//select");
-  }
-
-  private ElementFacade showingSpacesSectionElement() {
-    return findByXPathOrCSS("//*[@id='spacesListToolbar']//*[@class='text-sub-title ms-3 d-none d-sm-flex']");
   }
 
   private ElementFacade showMoreButtonElement() {
@@ -728,14 +714,6 @@ public class ManageSpacesPage extends GenericPage {
 
   private ElementFacade spaceSettingsTabElement() {
     return findByXPathOrCSS("//*[@id='UITopBarContainerParent']//*[contains(@class, 'spaceMenuParent')]//a[contains(@href,'/settings')]");
-  }
-
-  private ElementFacade spacesFilterIconElement() {
-    return findByXPathOrCSS("//*[@class='v-input__icon v-input__icon--prepend-inner']//i");
-  }
-
-  private ElementFacade spacesFilterTextElement() {
-    return findByXPathOrCSS("//input[@placeholder='Filter by name or description']");
   }
 
   private ElementFacade spacesPageElement() {

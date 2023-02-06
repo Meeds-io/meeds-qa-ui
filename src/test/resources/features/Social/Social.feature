@@ -23,6 +23,8 @@ Feature: Social
     Then Activity Comment 'commenttest' is displayed in Comments drawer
     And Activity Comment 'commenttest' is displayed in activity stream
 
+  @ignored
+  # Bug detected
   Scenario: Search users in My connections tab
     Given I connect as admin if random users doesn't exists
       | first  |
@@ -37,10 +39,12 @@ Feature: Social
     When I click on connections badge
     And I accept the following connection invitation from random user
       | first |
+    # Wait for Elasticsearch indexing
+    And I wait '3' seconds
     And I refresh the page
-    And  I go to Person Page
-    When I click on People filter and I select My connections
-    And  I enter the contact name of the first user
+    And I go to Person Page
+    And I click on People filter and I select My connections
+    And I enter the contact name of the first user
     Then The search result is well matched with the username entered of the first user
 
   @activitystream

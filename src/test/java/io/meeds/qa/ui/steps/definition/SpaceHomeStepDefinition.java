@@ -78,8 +78,7 @@ public class SpaceHomeStepDefinition {
 
   @When("^I add in activity '(.*)' an internal link '(.*)' as a comment$")
   public void addInternalLinkComment(String activity, String comment) {
-    String currentUrl = spaceHomePage.getCurrentUrl().split("portal")[0];
-    spaceHomePage.addActivityComment(activity, currentUrl + comment);
+    spaceHomePage.addActivityComment(activity, spaceHomePage.getCurrentUrl() + comment);
   }
 
   @When("^I added the second choice '(.*)' in the poll$")
@@ -183,14 +182,12 @@ public class SpaceHomeStepDefinition {
 
   @Then("^Internal link '(.*)' is displayed in activity stream as a comment$")
   public void checkInternalLinkCommentAS(String comment) {
-    String currentUrl = spaceHomePage.getCurrentUrl().split("portal")[0];
-    spaceHomeSteps.checkActivityComment(currentUrl + comment);
+    spaceHomeSteps.checkActivityComment(spaceHomePage.getCurrentUrl() + comment);
   }
 
   @Then("^Internal link '(.*)' is displayed in Comments drawer as a comment$")
   public void checkInternalLinkCommentInDrawer(String comment) {
-    String currentUrl = spaceHomePage.getCurrentUrl().split("portal")[0];
-    spaceHomeSteps.checkActivityCommentInDrawer(currentUrl + comment);
+    spaceHomeSteps.checkActivityCommentInDrawer(spaceHomePage.getCurrentUrl() + comment);
   }
 
   @Then("The link is displayed with the preview")
@@ -277,8 +274,7 @@ public class SpaceHomeStepDefinition {
 
   @When("^I click on the internal link '(.*)'$")
   public void clickOnInternalLinkComment(String comment) {
-    String currentUrl = spaceHomePage.getCurrentUrl().split("portal")[0];
-    spaceHomeSteps.clickOnActivityComment(currentUrl + comment);
+    spaceHomeSteps.clickOnActivityComment(spaceHomePage.getCurrentUrl() + comment);
   }
 
   @When("^I click on Load more button$")
@@ -667,8 +663,7 @@ public class SpaceHomeStepDefinition {
 
   @Then("^I open the internal link '(.*)' in new tab$")
   public void openInternalLinkInNewTab(String link) {
-    String currentUrl = spaceHomePage.getCurrentUrl().split("portal")[0];
-    spaceHomeSteps.openLinkInNewTab(currentUrl + link);
+    spaceHomeSteps.openLinkInNewTab(spaceHomePage.getCurrentUrl() + link);
   }
 
   @Then("^I open link '(.*)' in new tab$")

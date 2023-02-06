@@ -97,6 +97,7 @@ public class Utils {
             throw new IllegalStateException("Unable to process on element after " + retry + " retries", e);
           }
         } else {
+          LOGGER.warn("Error executing attempt {}/{}", retry, MAX_WAIT_RETRIES, e);
           if (onError != null) {
             onError.run();
           }
@@ -142,12 +143,16 @@ public class Utils {
                                                               .toString()
                                                               .equals("true"));
     } catch (TimeoutException | JsonException e) {
-      refreshPage(false);
       if (++retries > MAX_WAIT_RETRIES) {
         throw new IllegalStateException(String.format("Loading effect is still displayed on page after %s retries with timeout interval %s",
                                                       (retries - 1),
                                                       loadingWait));
       } else {
+        LOGGER.info("Loading wait timed out. Retry {}/{}. Refresh page to try again.",
+                    retries,
+                    MAX_WAIT_RETRIES,
+                    e);
+        refreshPage(false);
         waitForLoading(loadingWait, retries);
       }
     } catch (RuntimeException e) {

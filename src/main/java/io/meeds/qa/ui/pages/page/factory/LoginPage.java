@@ -1,6 +1,7 @@
 package io.meeds.qa.ui.pages.page.factory;
 
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
+import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.Cookie;
@@ -45,6 +46,7 @@ public class LoginPage extends GenericPage implements IsHidden {
       retryOnCondition(() -> tryLogin(login, password), Utils::refreshPage);
       getDriver().manage().addCookie(new Cookie(LAST_LOGGED_IN_USER_COOKIE_NAME, login, "/"));
       lastLoggedInUser = login;
+      waitForLoading();
     }
   }
 
@@ -66,12 +68,21 @@ public class LoginPage extends GenericPage implements IsHidden {
   }
 
   private void tryLogin(String login, String password) {
-    TextBoxElementFacade loginTextBox = findTextBoxByXPathOrCSS("//*[@id='username']");
-    loginTextBox.setTextValue(login);
-    TextBoxElementFacade passwordTextbox = findTextBoxByXPathOrCSS("//*[@id='password']");
-    passwordTextbox.setTextValue(password);
-    ElementFacade loginButton = findByXPathOrCSS("//*[contains(@class, 'loginButton')]//button");
-    clickOnElement(loginButton);
+    usernameInputElement().setTextValue(login);
+    passwordInputElement().setTextValue(password);
+    loginButtonElement().clickOnElement();
+  }
+
+  private ElementFacade loginButtonElement() {
+    return findButtonByXPathOrCSS("//*[contains(@class, 'loginButton')]//button");
+  }
+
+  private TextBoxElementFacade usernameInputElement() {
+    return findTextBoxByXPathOrCSS("//*[@id='username']");
+  }
+
+  private TextBoxElementFacade passwordInputElement() {
+    return findTextBoxByXPathOrCSS("//*[@id='password']");
   }
 
 }

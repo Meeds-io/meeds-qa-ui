@@ -175,7 +175,7 @@ public class UserProfileStepDefinition {
 
   @Then("^Updated Profile Contact Url is displayed$")
   public void isProfileContactRandomUrlVisible() {
-    userProfileSteps.isProfileContactUrlVisible("https://meeds.io/");
+    userProfileSteps.isProfileContactUrlVisible("meeds.io");
   }
 
   @Then("Received Kudos Section is displayed")

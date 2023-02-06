@@ -644,7 +644,7 @@ public class SpaceHomePage extends GenericPage {
 
   public void insertNameContact(String contact) {
     filterTextBoxElement().setTextValue(contact);
-
+    waitForLoading();
   }
 
   public void isActivityNameUserSpaceDisplayed(String activity, String user, String space) {

@@ -1204,17 +1204,17 @@ Feature: Activity Stream
     And I go to the random space
     Then the activity 'activityTestCAP157-157' is displayed in activity stream
 
-    When I add in activity 'activityTestCAP157-157' an internal link '/spaces' as a comment
+    When I add in activity 'activityTestCAP157-157' an internal link '/members' as a comment
     And I open in activity 'activityTestCAP157-157' the Comments drawer
-    Then Internal link '/spaces' is displayed in Comments drawer as a comment
-    And Internal link '/spaces' is displayed in activity stream as a comment
+    Then Internal link '/members' is displayed in Comments drawer as a comment
+    And Internal link '/members' is displayed in activity stream as a comment
 
-    When I click on the internal link '/spaces'
+    When I click on the internal link '/members'
     Then Space Top Bar Elements are displayed
 
     When I go to the random space
-    And I open the internal link '/spaces' in new tab
-    Then The internal link '/spaces' is opened in new tab
+    And I open the internal link '/members' in new tab
+    Then The internal link '/members' is opened in new tab
 
   Scenario: CAP158 - [ActivityStream_IMPV15][02] External Link opening behaviors inside comments
     Given I connect as admin if random users doesn't exists
@@ -1597,6 +1597,7 @@ Feature: Activity Stream
     When I click on the kudos button from the comments drawer
     And I send to the comment activity a kudos message 'Test Auto comment Kudos'
     Then In comment 'activitytestkudoscommentCAP129', Kudos label should be blue
+    And I open in activity 'activitytestkudoscommentCAP129' the Comments drawer
     And I click on the kudos button number from the comments drawer
     Then '1' kudos are displayed on the reaction drawer
 
