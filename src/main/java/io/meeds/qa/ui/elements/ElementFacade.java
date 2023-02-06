@@ -86,6 +86,15 @@ public interface ElementFacade extends WebElementFacade {
   boolean isDisplayed(long implicitWaitInMillis);
 
   /**
+   * this method will check if element is clickable or not with a given implicit
+   * wait time in milliseconds
+   * 
+   * @param  implicitWaitInMillis wait time in milliseconds
+   * @return                      true if clickable else false
+   */
+  boolean isClickable(long implicitWaitInMillis);
+
+  /**
    * this method will check if element is displayed or not without implicit
    * timeout
    * 
@@ -136,5 +145,10 @@ public interface ElementFacade extends WebElementFacade {
    * Asserts Web Element Not Visible
    */
   void assertNotVisible();
+
+  /**
+   * Asserts Web Element is clickable
+   */
+  void assertClickable();
 
 }

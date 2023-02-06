@@ -97,7 +97,7 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
   @Override
   public void clickOnElement() {
     try {
-      assertVisible();
+      assertClickable();
       super.click();
       waitForPageLoaded();
     } catch (WebDriverException e) {
@@ -236,6 +236,17 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
   }
 
   @Override
+  public boolean isClickable(long implicitWaitInMillis) {
+    Duration defaultTimeout = getImplicitTimeout();
+    setImplicitTimeout(Duration.ofMillis(implicitWaitInMillis));
+    try {
+      return isClickable();
+    } finally {
+      setImplicitTimeout(defaultTimeout);
+    }
+  }
+
+  @Override
   public boolean isDisplayedNoWait() {
     return isDisplayed(0);
   }
@@ -269,6 +280,11 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
   @Override
   public boolean isVisible() {
     return isDisplayed(SHORT_WAIT_DURATION_MILLIS);
+  }
+
+  @Override
+  public void assertClickable() {
+    assertTrue(String.format("Unable to locate a clickable element %s", this), isClickable(MAX_WAIT_RETRIES));
   }
 
   @Override
