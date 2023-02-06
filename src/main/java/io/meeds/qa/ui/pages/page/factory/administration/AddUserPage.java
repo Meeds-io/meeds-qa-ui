@@ -17,7 +17,7 @@ public class AddUserPage extends GenericPage {
   }
 
   public void checkThatAddUserDrawerIsDisplayed() {
-    addUserDrawerElement().waitUntilVisible();
+    assertWebElementVisible(addUserDrawerElement());
   }
 
   public void checkUserIsDeleted(String fullName) {
@@ -44,9 +44,7 @@ public class AddUserPage extends GenericPage {
   }
 
   public void enableDisableUser(String user) {
-    ElementFacade element = disableEnableStatusButton(user);
-    element.waitUntilVisible();
-    element.clickOnElement();
+    disableEnableStatusButton(user).clickOnElement();
     waitForProgressBar();
   }
 
@@ -71,7 +69,6 @@ public class AddUserPage extends GenericPage {
     int retry = 0;
     do {
       TextBoxElementFacade searchUsersFieldElement = searchUsersFieldElement();
-      searchUsersFieldElement.waitUntilVisible();
       searchUsersFieldElement.setTextValue(userName);
       waitForProgressBar();
     } while (++retry < tentatives && !getUserElement(userName).isDisplayedNoWait());
@@ -79,7 +76,6 @@ public class AddUserPage extends GenericPage {
 
   public void searchForUsersByStatus(String status) {
     ElementFacade pullDownFilterUserStatusElement = pullDownFilterUserStatusElement();
-    pullDownFilterUserStatusElement.waitUntilVisible();
     pullDownFilterUserStatusElement.selectByValue(status);
     waitForProgressBar();
   }

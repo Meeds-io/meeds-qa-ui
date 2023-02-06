@@ -10,9 +10,7 @@ public class SpaceMembersPage extends GenericPage {
   }
 
   public void clickOnThreeDotsMenu() {
-    ElementFacade threeDotsMenuElement = threeDotsMenuElement();
-    threeDotsMenuElement.waitUntilVisible();
-    threeDotsMenuElement.clickOnElement();
+    threeDotsMenuElement().clickOnElement();
   }
 
   public void setAsSpaceManager() {

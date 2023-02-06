@@ -172,7 +172,7 @@ public class TasksStepDefinition {
     tasksSteps.addTaskInProject(taskDetails);
   }
 
-  @And("^The task is created in the specific project$")
+  @And("I create a random quick task in the random project")
   public void addTaskInSimpleProject(Map<String, String> userDetails) {
     tasksSteps.addSimpleTaskProject(userDetails);
   }
@@ -317,12 +317,6 @@ public class TasksStepDefinition {
     tasksSteps.checkProjectNameIsDisplayedInProjectCard(projectName, projectDescription);
   }
 
-  @Then("^First project name with description '(.*)' is displayed in Project Card$")
-  public void checkRandomProjectNameIsDisplayedInProjectCard(String projectDescription) {
-    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
-    tasksSteps.checkProjectNameIsDisplayedInProjectCard(randomSpaceName, projectDescription);
-  }
-
   @And("^Status column '(.*)' is moved to the second position$")
   @Then("^Status column '(.*)' is displayed in the second position$")
   public void checkSecondStatusColumn(String columnStatus) {
@@ -392,8 +386,8 @@ public class TasksStepDefinition {
 
   @When("^The update description '(.*)' is displayed in origin task$")
   @Then("^The update description '(.*)' is displayed in cloned task$")
-  public void checkUpdatedDescription(String Description) {
-    tasksSteps.checkUpdatedDescription(Description);
+  public void checkUpdatedDescription(String description) {
+    tasksSteps.checkUpdatedDescription(description);
   }
 
   @Then("^The label View all attachments is displayed$")
@@ -523,12 +517,12 @@ public class TasksStepDefinition {
   }
 
   @And("^I click on plus Button To Add Task$")
-  public void ClickOnPlusButtonToAddTask() {
+  public void clickOnPlusButtonToAddTask() {
     tasksSteps.clickOnPlusButtonToAddTask();
   }
 
   @And("^I click on plus Button To Add Task of the sixth status column$")
-  public void ClickOnPlusButtonToAddTaskOfTheSixthStatusColumn() {
+  public void clickOnPlusButtonToAddTaskOfTheSixthStatusColumn() {
     tasksSteps.clickOnPlusButtonToAddTaskOfTheSixthStatusColumn();
   }
 
@@ -538,7 +532,7 @@ public class TasksStepDefinition {
   }
 
   @And("^I click on save Button To Add Task$")
-  public void ClickOnSaveButtonToAddTask() {
+  public void clickOnSaveButtonToAddTask() {
     tasksSteps.clickOnSaveButtonToAddTask();
   }
 
@@ -553,9 +547,9 @@ public class TasksStepDefinition {
   }
 
   @When("^I click on the notification that mentione first user in a task in Project '(.*)' project$")
-  public void clickOnTheNotificationThatMentioneFirstUserInATaskInProject(String ProjectName) {
-    String message = "You have been mentioned in a task in" + " " + ProjectName + " " + "project";
-    tasksSteps.clickOnTheNotificationThatMentioneFirstUserInATaskInProject(message, ProjectName);
+  public void clickOnTheNotificationThatMentioneFirstUserInATaskInProject(String projectName) {
+    String message = "You have been mentioned in a task in" + " " + projectName + " " + "project";
+    tasksSteps.clickOnTheNotificationThatMentioneFirstUserInATaskInProject(message, projectName);
   }
 
   @When("^I click on the timestamp$")
@@ -921,12 +915,12 @@ public class TasksStepDefinition {
   }
 
   @And("^I check that Move Status column after option is not displayed$")
-  public void MoveStatusAfterIconIsNotDisplayed() {
+  public void moveStatusAfterIconIsNotDisplayed() {
     tasksSteps.checkMoveStatusAfterIconIsNotDisplayed();
   }
 
   @And("^I check that Move Status column before option is not displayed$")
-  public void MoveStatusBeforeIconIsNotDisplayed() {
+  public void moveStatusBeforeIconIsNotDisplayed() {
     tasksSteps.checkMoveStatusBeforeIconIsNotDisplayed();
   }
 
@@ -1075,12 +1069,6 @@ public class TasksStepDefinition {
     tasksSteps.setInSearchProjectField(randomSpaceName);
   }
 
-  @When("^I search for the created space$")
-  public void setInSearchRandomSpaceField() {
-    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
-    tasksSteps.setInSearchProjectField(randomSpaceName);
-  }
-
   @When("^I enter the project name '(.*)'$")
   public void setProjectTitle(String projectTitle) {
     tasksSteps.setProjectTitle(projectTitle);
@@ -1097,8 +1085,8 @@ public class TasksStepDefinition {
   }
 
   @When("^I enter Description for this task '(.*)'$")
-  public void setTaskDescription(String Description) {
-    tasksSteps.setTaskDescription(Description);
+  public void setTaskDescription(String description) {
+    tasksSteps.setTaskDescription(description);
   }
 
   @And("^I set task due date Next week$")

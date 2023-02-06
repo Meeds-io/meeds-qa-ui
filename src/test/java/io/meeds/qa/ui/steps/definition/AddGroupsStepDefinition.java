@@ -14,28 +14,10 @@ public class AddGroupsStepDefinition {
   @Steps
   private HomeSteps      homeSteps;
 
-  @Given("^I add the role '(.*)' to the dedicated user to be an administrator$")
-  public void addAdminUserInGroup(String role) {
-    String firstAdminFirstName = Serenity.sessionVariableCalled("firstAdminFirstName");
-    String firstAdminLastName = Serenity.sessionVariableCalled("firstAdminLastName");
-
-    String fullName = firstAdminFirstName + " " + firstAdminLastName;
-    addGroupsSteps.addMemberInGroup(role, fullName);
-  }
-
   @Given("^I add the role '(.*)' to the (.*) created user$")
   public void addMemberInGroup(String role, String userPrefix) {
     String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
     addGroupsSteps.addMemberInGroup(role, userLastName);
-  }
-
-  @Given("^I add the role '(.*)' to the dedicated user to the selected role$")
-  public void addUserInGroup(String role) {
-    String firstAdminFirstName = Serenity.sessionVariableCalled("firstAdminFirstName");
-    String firstAdminLastName = Serenity.sessionVariableCalled("firstAdminLastName");
-
-    String fullName = firstAdminFirstName + " " + firstAdminLastName;
-    addGroupsSteps.addMemberInGroup(role, fullName);
   }
 
   @Given("^I open the group '(.*)'$")

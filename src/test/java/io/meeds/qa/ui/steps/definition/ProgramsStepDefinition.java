@@ -4,6 +4,7 @@ import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import io.meeds.qa.ui.steps.ProgramsSteps;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
@@ -16,6 +17,16 @@ public class ProgramsStepDefinition {
   public void addAudienceSpace() {
     String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
     programsSteps.addSpaceAudience(randomSpaceName);
+  }
+
+  @Then("Engagement application center is displayed")
+  public void isEngagementAppOpened() {
+    programsSteps.isEngagementAppOpened();
+  }
+
+  @When("^I select engagement (.*) tab$")
+  public void selectEngagementTab(String tab) {
+    programsSteps.selectEngagementTab(tab);
   }
 
   @And("^I add a disabled program with random description$")

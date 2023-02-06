@@ -40,6 +40,11 @@ import net.thucydides.core.webdriver.javascript.JavascriptExecutorFacade;
 
 public class TestHooks {
 
+  protected static final boolean             INIT_DATA                 =
+                                                       Boolean.parseBoolean(System.getProperty("io.meeds.initData",
+                                                                                               "true")
+                                                                                  .toLowerCase());
+
   protected static final String              WARMUP_FILE_PATH          = System.getProperty("io.meeds.warmUp.file",
                                                                                             "warmUpFile.tmp");
 
@@ -321,22 +326,18 @@ public class TestHooks {
         genericSteps.waitInSeconds(MAX_WARM_UP_STEP_WAIT);
       }
     } while (!homePageDisplayed && retryCount++ < MAX_WARM_UP_RETRIES);
-    String[] randomUsers = new String[] {
-        "first",
-        "second",
-        "third",
-        "fourth",
-        "fifth",
-        "sixth",
-        "eighteenth",
-        "firstkudos",
-        "secondkudos",
-        "thirdkudos",
-        "fourthkudos",
-        "fortyonekudos",
-    };
-    Arrays.stream(randomUsers).forEach(randomUser -> addUserSteps.addRandomUser(randomUser, false));
-    manageSpaceSteps.addOrGoToSpace("randomSpaceName");
+    if (INIT_DATA) {
+      String[] randomUsers = new String[] {
+          "first",
+          "second",
+          "third",
+          "fourth",
+          "fifth",
+          "sixth",
+      };
+      Arrays.stream(randomUsers).forEach(randomUser -> addUserSteps.addRandomUser(randomUser, false));
+      manageSpaceSteps.addOrGoToSpace("randomSpaceName");
+    }
     ExceptionLauncher.LOGGER.info("---- End warmup phase in {} seconds", (System.currentTimeMillis() - start) / 1000);
   }
 

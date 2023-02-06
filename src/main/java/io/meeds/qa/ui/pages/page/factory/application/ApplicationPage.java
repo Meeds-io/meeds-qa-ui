@@ -69,18 +69,17 @@ public class ApplicationPage extends GenericPage {
 
   public void clickOnOpenApplicationButton(String app) {
     // Click on open application
-    ElementFacade appCenterAllApplicationsButton = getAppCenterAllApplicationsButton(app);
-    appCenterAllApplicationsButton.waitUntilVisible();
-    appCenterAllApplicationsButton.clickOnElement();
+    getAppCenterAllApplicationsButton(app).clickOnElement();
   }
 
   public void clickOnTheAppLauncherIcon() {
-    ElementFacade elementApplicationsTopbarElement = elementApplicationsTopbarElement();
-    elementApplicationsTopbarElement.waitUntilVisible();
-    elementApplicationsTopbarElement.clickOnElement();
+    closeAllDrawers();
+    elementApplicationsTopbarElement().clickOnElement();
+    waitForDrawerToOpen();
   }
 
   public void goToApplication(String application) {
+    clickOnTheAppLauncherIcon();
     getApplication(application).clickOnElement();
   }
 
@@ -90,12 +89,8 @@ public class ApplicationPage extends GenericPage {
 
   public void seeAllApplications() {
     // Click on App Center Application Button
-    ElementFacade elementApplicationsTopbarElement = elementApplicationsTopbarElement();
-    elementApplicationsTopbarElement.waitUntilClickable();
-    elementApplicationsTopbarElement.clickOnElement();
-    ElementFacade elementAppcenterSeeAllApplicationsElement = elementAppcenterSeeAllApplicationsElement();
-    elementAppcenterSeeAllApplicationsElement.waitUntilVisible();
-    elementAppcenterSeeAllApplicationsElement.clickOnElement();
+    elementApplicationsTopbarElement().clickOnElement();
+    elementAppcenterSeeAllApplicationsElement().clickOnElement();
   }
 
   public void settingsPageIsOpened() {

@@ -52,8 +52,8 @@ public class GenericPage extends BasePageImpl {
     return element != null && element.isDisplayed();
   }
 
-  public boolean inConfirmMessageDisplayed(String message) {
-    return getConfirmMessage(message).isVisibleAfterWaiting();
+  public void checkConfirmMessageIsDisplayed(String message) {
+    assertWebElementVisible(getConfirmMessage(message));
   }
 
   public boolean isButtonDisplayed(String buttonName) {

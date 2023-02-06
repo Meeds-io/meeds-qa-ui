@@ -143,10 +143,10 @@ Feature: Favorite activities
     And  I search for the random space
     Then The favorite icon should be displayed in space card
     When I bookmark the random space as favorite from space card
-    Then The message 'Favorite added successfully. Find it easily from the search' should be displayed
+    Then Confirmation message is displayed 'Favorite added successfully. Find it easily from the search'
     And  I check that the random space is bookmarked as favorite from space card
     When I unfavorite the random space from space card
-    Then The message 'The item has been removed from favorites successfully.' should be displayed
+    Then Confirmation message is displayed 'The item has been removed from favorites successfully.'
     And I check that the random space is unbookmarked from space card
 
   Scenario: SpacePopover_IMP02.3: Bookmark space from topbar space popover
@@ -158,10 +158,10 @@ Feature: Favorite activities
     And I hover on space name from top bar
     Then The favorite icon should be displayed in space popover from topbar
     When I bookmark the random space as favorite from topbar space popover
-    Then The message 'Favorite added successfully. Find it easily from the search' should be displayed
+    Then Confirmation message is displayed 'Favorite added successfully. Find it easily from the search'
     And  I check that the random space is bookmarked as favorite from topbar space popover
     When I unfavorite the random space from topbar space popover
-    Then The message 'The item has been removed from favorites successfully.' should be displayed
+    Then Confirmation message is displayed 'The item has been removed from favorites successfully.'
     And I check that the random space is unbookmarked from topbar space popover
 
   Scenario: Left Nav US02.2: Bookmark space from the left menu (desktop)
@@ -177,10 +177,10 @@ Feature: Favorite activities
     Then The third level Navigation should display the space details panel
     And The favorite icon should be displayed on space details panel
     When I bookmark the random space as favorite from Third Navigation Level
-    Then The message 'Favorite added successfully. Find it easily from the search' should be displayed
+    Then Confirmation message is displayed 'Favorite added successfully. Find it easily from the search'
     And I check that the random space is bookmarked as favorite from Third Navigation Level
     When I unfavorite the random space from Third Navigation Level
-    Then The message 'The item has been removed from favorites successfully.' should be displayed
+    Then Confirmation message is displayed 'The item has been removed from favorites successfully.'
     And I check that the random space is unbookmarked from Third Navigation Level
 
   Scenario: StreamFiltering_US04.2: Filter my stream by favorite spaces
@@ -204,7 +204,7 @@ Feature: Favorite activities
     Then The third level Navigation should display the space details panel
     And The favorite icon should be displayed on space details panel
     When I bookmark the random space as favorite from Third Navigation Level
-    Then The message 'Favorite added successfully. Find it easily from the search' should be displayed
+    Then Confirmation message is displayed 'Favorite added successfully. Find it easily from the search'
     And I check that the random space is bookmarked as favorite from Third Navigation Level
     And I refresh the page
     Given I go to Stream page

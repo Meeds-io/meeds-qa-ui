@@ -6,8 +6,7 @@ Feature: Tasks - Projects
       | first  |
     And I create the first random user if not existing
     And I connect with the first created user
-    When I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
+    And I go to 'Tasks' application
     When I select projects tab
     And I add a new project with a description
     Then the project is created successfully and displayed on Projects tab
@@ -18,8 +17,7 @@ Feature: Tasks - Projects
     And I create the first random user if not existing
     And I connect with the first created user
     And I create a random space
-    When I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
+    And I go to 'Tasks' application
     When I select projects tab
     And I search for the created project
     And I open the created project
@@ -36,8 +34,7 @@ Feature: Tasks - Projects
       | first  |
     And I create the first random user if not existing
     And I connect with the first created user
-    When I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
+    And I go to 'Tasks' application
     When I select projects tab
     And I create the project 'Project2'
     And I search for the project 'Project2'
@@ -52,8 +49,7 @@ Feature: Tasks - Projects
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
-    When I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
+    And I go to 'Tasks' application
 
     When I select projects tab
     And I add the random project with first user as the manager and second user as the participant
@@ -66,8 +62,7 @@ Feature: Tasks - Projects
   Scenario: CAP19 - [User_UI_US09] Project's Tasks "BOARD" view
     Given I am authenticated as admin
 
-    When I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
+    And I go to 'Tasks' application
 
     When I select projects tab
     And I add a new project
@@ -82,8 +77,7 @@ Feature: Tasks - Projects
   Scenario: CAP36 [User_UI_US18.1] Check  message when  Project title is empty
     Given I am authenticated as admin
 
-    When I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
+    And I go to 'Tasks' application
 
     When I click to add new project
     And I click on save project button
@@ -93,8 +87,7 @@ Feature: Tasks - Projects
     Given I am authenticated as admin
     And I create the first random user if not existing
 
-    When I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
+    And I go to 'Tasks' application
 
     When I select projects tab
     And I create the random project with the first created user as participant
@@ -109,8 +102,7 @@ Feature: Tasks - Projects
 
     When I return to Projects tab
     And I connect with the first created user
-    And I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
+    And I go to 'Tasks' application
 
     When I select projects tab
     And I search for the created project
@@ -122,19 +114,19 @@ Feature: Tasks - Projects
     When I click on Status name 'To Do'
     Then Status name 'To Do' Edit mode is not opened successfully
 
+  @test
   Scenario: CAP216 - Task card should be well displayed when task title is long
     Given I connect as admin if random users doesn't exists
       | first  |
     And I create the first random user if not existing
 
     When I connect with the first created user
-    And I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
+    And I go to 'Tasks' application
 
     When I select projects tab
     And I create the project 'teamcap216'
     And I open the project 'teamcap216'
-    And The task is created in the specific project
+    And I create a random quick task in the random project
       | taskName | testlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtaskname |
 
     Then Task name 'testlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtasknametestlongtaskname' is displayed in project details
@@ -146,8 +138,7 @@ Feature: Tasks - Projects
   Scenario: CAP16 - [Project_Card_US01]: check the display "project's creator avatar"
     Given I am authenticated as admin
     And I create the first random user if not existing
-    When I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
+    And I go to 'Tasks' application
     When I select projects tab
     And I add the random project with first user as the participant
     And I search for the created project

@@ -33,9 +33,7 @@ public class HomePage extends GenericPage {
     retryOnCondition(() -> {
       administrationMenuElement().waitUntilVisible();
       administrationIconElement().hover();
-      ElementFacade arrowAdminstrationMenuElement = arrowAdminstrationMenuElement();
-      arrowAdminstrationMenuElement.waitUntilVisible();
-      clickOnElement(arrowAdminstrationMenuElement);
+      arrowAdminstrationMenuElement().clickOnElement();
       waitFor(300).milliseconds(); // Wait until drawer 'open' animation
       // finishes
       ElementFacade administrationMenuElement = findByXPathOrCSS("#AdministrationHamburgerNavigation");
@@ -47,8 +45,7 @@ public class HomePage extends GenericPage {
     clickOnHamburgerMenu();
     retryOnCondition(() -> {
       recentSpacesIconElement().hover();
-      recentSpacesBtnElement().waitUntilVisible();
-      clickOnElement(recentSpacesBtnElement());
+      recentSpacesBtnElement().clickOnElement();
       waitFor(300).milliseconds(); // Wait until drawer 'open' animation
                                    // finishes
     }, this::clickOnHamburgerMenu);

@@ -1899,7 +1899,7 @@ Feature: Activity Stream
     Given I click on three dots button related to activity 'PinTest'
     Then Pin button related to activity 'PinTest' is displayed
     Given I click on Pin button related to activity 'PinTest'
-    Then The message 'This activity has been pinned to the space stream.' should be displayed
+    Then Confirmation message is displayed 'This activity has been pinned to the space stream.'
     And The activity 'PinTest' is pinned in space stream
     Given I go to Stream page
     Then the activity 'PinTest' is displayed in stream page
@@ -1933,7 +1933,7 @@ Feature: Activity Stream
     And I click on three dots button related to activity 'PinTest'
     Then Pin button related to activity 'PinTest' is displayed
     Given I click on Pin button related to activity 'PinTest'
-    Then The message 'This activity has been pinned to the space stream.' should be displayed
+    Then Confirmation message is displayed 'This activity has been pinned to the space stream.'
     Given I go to the random space
     Then The activity 'PinTest' is pinned in space stream
     Given I click on three dots button related to activity 'PinTest'
@@ -1966,13 +1966,13 @@ Feature: Activity Stream
     And I click on three dots button related to activity 'PinTest'
     Then Pin button related to activity 'PinTest' is displayed
     Given I click on Pin button related to activity 'PinTest'
-    Then The message 'This activity has been pinned to the space stream.' should be displayed
+    Then Confirmation message is displayed 'This activity has been pinned to the space stream.'
     Given I go to the random space
     Then The activity 'PinTest' is pinned in space stream
     Given I click on three dots button related to activity 'PinTest'
     Then Unpin button related to activity 'PinTest' is displayed
     Given I click to the Unpin button related to activity 'PinTest'
-    Then The message 'This activity has been unpinned.' should be displayed
+    Then Confirmation message is displayed 'This activity has been unpinned.'
     And The activity 'PinTest' should be not pinned in space stream
 
   Scenario: Pin Activity US04: Pinned activities filter
@@ -1991,7 +1991,7 @@ Feature: Activity Stream
     Given I click on three dots button related to activity 'PinTest'
     Then Pin button related to activity 'PinTest' is displayed
     Given I click on Pin button related to activity 'PinTest'
-    Then The message 'This activity has been pinned to the space stream.' should be displayed
+    Then Confirmation message is displayed 'This activity has been pinned to the space stream.'
     And The activity 'PinTest' is pinned in space stream
     Given I go to Stream page
     Then the activity 'act_Pin_US04_0' is displayed in stream page

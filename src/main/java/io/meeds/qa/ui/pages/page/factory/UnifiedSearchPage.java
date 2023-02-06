@@ -76,9 +76,7 @@ public class UnifiedSearchPage extends GenericPage {
   }
 
   public void openSearchApplication() {
-    ElementFacade toolbarSearchButtonElement = toolbarSearchButtonElement();
-    toolbarSearchButtonElement.waitUntilVisible();
-    toolbarSearchButtonElement.clickOnElement();
+    toolbarSearchButtonElement().clickOnElement();
   }
 
   public void search(String text) {

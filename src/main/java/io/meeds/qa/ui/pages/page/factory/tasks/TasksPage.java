@@ -38,23 +38,17 @@ public class TasksPage extends GenericPage {
   }
 
   public void addNewCommentInTask() {
-    ElementFacade addNewCommentInTaskElement = addNewCommentInTaskElement();
-    addNewCommentInTaskElement.waitUntilVisible();
-    addNewCommentInTaskElement.clickOnElement();
+    addNewCommentInTaskElement().clickOnElement();
   }
 
   public void addNewCommentInTaskWithMentioningTheFirstUserInTask(String comment, String user) {
     mentionUserInCKEditor(ckEditorFrameTaskMentioningUserElement(), taskCommentContentTextBoxElement(), comment, user, true);
-    ElementFacade commentTaskButtonElement = commentTaskButtonElement();
-    commentTaskButtonElement.waitUntilVisible();
-    commentTaskButtonElement.clickOnElement();
+    commentTaskButtonElement().clickOnElement();
     closeDrawerIfDisplayed();
   }
 
   public void addOtherCommentInTask() {
-    ElementFacade addOtherCommentInTaskElement = addOtherCommentInTaskElement();
-    addOtherCommentInTaskElement.waitUntilVisible();
-    addOtherCommentInTaskElement.clickOnElement();
+    addOtherCommentInTaskElement().clickOnElement();
   }
 
   public void addProject(String projectName) {
@@ -388,9 +382,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void clickOnAddAttachmentLink() {
-    ElementFacade addAttachmentLinkElement = addAttachmentLinkElement();
-    addAttachmentLinkElement.waitUntilVisible();
-    addAttachmentLinkElement.clickOnElement();
+    addAttachmentLinkElement().clickOnElement();
   }
 
   public void clickOnAddStatusAfterOptionOfTheFifthStatusColumn() {
@@ -420,9 +412,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void clickOnConfirmButton() {
-    ElementFacade confirmButtonDrawerElement = confirmButtonDrawerElement();
-    confirmButtonDrawerElement.waitUntilVisible();
-    confirmButtonDrawerElement.clickOnElement();
+    confirmButtonDrawerElement().clickOnElement();
   }
 
   public void clickOnDeleteStatusIcon() {
@@ -523,9 +513,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void clickStatusName(String statusColumn) {
-    ElementFacade statusColumnElement = getStatusColumn(statusColumn);
-    statusColumnElement.waitUntilVisible();
-    statusColumnElement.clickOnElement();
+    getStatusColumn(statusColumn).clickOnElement();
   }
 
   public void clickViewAttachmentLink() {
@@ -765,9 +753,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void exitFromTheFirstProject() {
-    ElementFacade backButtonProjectElement = backButtonProjectElement();
-    backButtonProjectElement.waitUntilVisible();
-    backButtonProjectElement.clickOnElement();
+    backButtonProjectElement().clickOnElement();
   }
 
   public void goBack() {
@@ -787,9 +773,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void goToPLanView() {
-    ElementFacade planViewElement = planViewElement();
-    planViewElement.waitUntilVisible();
-    planViewElement.clickOnElement();
+    planViewElement().clickOnElement();
   }
 
   public void goToProjectDetailsList() {
@@ -886,9 +870,7 @@ public class TasksPage extends GenericPage {
 
   public void openFilterDrawer() {
     getDriver().navigate().refresh();
-    ElementFacade filterDrawerButtonElement = filterDrawerButtonElement();
-    filterDrawerButtonElement.waitUntilVisible();
-    filterDrawerButtonElement.clickOnElement();
+    filterDrawerButtonElement().clickOnElement();
   }
 
   public void openProject(String project) {
@@ -908,9 +890,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void openTaskInTasksTab(String taskName) {
-    ElementFacade taskTitleInTasksTab = getTaskTitleInTasksTab(taskName);
-    taskTitleInTasksTab.waitUntilVisible();
-    taskTitleInTasksTab.clickOnElement();
+    getTaskTitleInTasksTab(taskName).clickOnElement();
   }
 
   public void projectDrawerNotClosing() {
@@ -1008,23 +988,17 @@ public class TasksPage extends GenericPage {
   }
 
   public void setTaskDueDateNextWeek() {
-    TextBoxElementFacade taskDueDateElement = taskDueDateElement();
-    taskDueDateElement.waitUntilVisible();
-    taskDueDateElement.clickOnElement();
+    taskDueDateElement().clickOnElement();
     taskDueDateNextWeekElement().clickOnElement();
   }
 
   public void setTaskDueDateToday() {
-    TextBoxElementFacade taskDueDateElement = taskDueDateElement();
-    taskDueDateElement.waitUntilVisible();
-    taskDueDateElement.clickOnElement();
+    taskDueDateElement().clickOnElement();
     taskDueDateTodayElement().clickOnElement();
   }
 
   public void setTaskDueDateTomorrow() {
-    TextBoxElementFacade taskDueDateElement = taskDueDateElement();
-    taskDueDateElement.waitUntilVisible();
-    taskDueDateElement.clickOnElement();
+    taskDueDateElement().clickOnElement();
     taskDueDateTomorrowElement().clickOnElement();
   }
 
@@ -1039,23 +1013,17 @@ public class TasksPage extends GenericPage {
   }
 
   public void setTaskStartDateToday() {
-    TextBoxElementFacade taskStartDateElement = taskStartDateElement();
-    taskStartDateElement.waitUntilVisible();
-    taskStartDateElement.clickOnElement();
+    taskStartDateElement().clickOnElement();
     taskStartDateTodayElement().clickOnElement();
   }
 
   public void setTaskStartDateTomorrow() {
-    TextBoxElementFacade taskStartDateElement = taskStartDateElement();
-    taskStartDateElement.waitUntilVisible();
-    taskStartDateElement.clickOnElement();
+    taskStartDateElement().clickOnElement();
     taskStartDateTomorrowElement().clickOnElement();
   }
 
   public void setTaskStatus(String taskStatus) {
-    assertWebElementVisible(selectStatusSelectorElement());
     selectStatusSelectorElement().clickOnElement();
-    assertWebElementVisible(selectTaskStatus(taskStatus));
     selectTaskStatus(taskStatus).clickOnElement();
   }
 
@@ -1668,7 +1636,7 @@ public class TasksPage extends GenericPage {
   }
 
   private ElementFacade quickAddTaskInProjectButtonElement() {
-    return findByXPathOrCSS("button.quickAddNewTaskButton");
+    return findByXPathOrCSS("//button[contains(@class, 'quickAddNewTaskButton')]");
   }
 
   private ElementFacade replyTaskCommentButtonElement() {

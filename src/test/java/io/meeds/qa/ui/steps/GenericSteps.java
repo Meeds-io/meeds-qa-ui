@@ -37,8 +37,8 @@ public class GenericSteps {
     return genericPage.getCurrentUrl();
   }
 
-  public boolean inConfirmMessageDisplayed(String message) {
-    return genericPage.inConfirmMessageDisplayed(message);
+  public void checkConfirmMessageIsDisplayed(String message) {
+    genericPage.checkConfirmMessageIsDisplayed(message);
   }
 
   public boolean isButtonDisplayed(String button) {

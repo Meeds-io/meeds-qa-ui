@@ -96,15 +96,11 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void clickAddApplicationButton() {
-    ElementFacade addApplicationButtonElement = addApplicationButtonElement();
-    addApplicationButtonElement.waitUntilVisible();
-    addApplicationButtonElement.clickOnElement();
+    addApplicationButtonElement().clickOnElement();
   }
 
   public void clickCancelDelete() {
-    ElementFacade cancelDeleteButtonElement = cancelDeleteButtonElement();
-    cancelDeleteButtonElement.waitUntilVisible();
-    cancelDeleteButtonElement.clickOnElement();
+    cancelDeleteButtonElement().clickOnElement();
   }
 
   public void clickCloseDeletePopup() {
@@ -139,9 +135,7 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void enableDisableActiveApplication(String appTitle) {
-    ElementFacade activeApplicationSwitchButton = getActiveApplication(appTitle);
-    activeApplicationSwitchButton.waitUntilVisible();
-    activeApplicationSwitchButton.clickOnElement();
+    getActiveApplication(appTitle).clickOnElement();
   }
 
   public void enableMandatoryApplication(String appTitle) {

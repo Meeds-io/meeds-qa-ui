@@ -122,6 +122,16 @@ public class ProgramsPage extends GenericPage {
     checkbox.click();
   }
 
+  public void checkEngagementAppOpened() {
+    assertWebElementVisible(findByXPathOrCSS("//*[@id='EngagementCenterApplication']"));
+  }
+
+  public void selectEngagementTab(String tab) {
+    clickOnElement(getEngagementTab(tab));
+    verifyPageLoaded();
+    waitFor(300).milliseconds(); // Wait for Tab switch
+  }
+
   private ElementFacade addProgramBtnElement() {
     return findByXPathOrCSS("//*[@id='engagementCenterAddProgramBtn']");
   }
@@ -161,7 +171,7 @@ public class ProgramsPage extends GenericPage {
   }
 
   private TextBoxElementFacade programDescriptionFieldElement() {
-    return findTextBoxByXPathOrCSS("body.cke_editable_themed");
+    return findTextBoxByXPathOrCSS("//body[contains(@class,'cke_editable_themed')]");
   }
 
   private ElementFacade programQuickFilterSelectBoxElement() {
@@ -182,6 +192,10 @@ public class ProgramsPage extends GenericPage {
 
   private ElementFacade yesConfirmButtonElement() {
     return findByXPathOrCSS("//*[@class='v-card__actions']//button[contains(@class,'btn btn-primary')]");
+  }
+
+  private ElementFacade getEngagementTab(String tab) {
+    return findByXPathOrCSS(String.format("//*[@id='engagementCenterTabs']//*[contains(text(),'%s')]", tab));
   }
 
 }

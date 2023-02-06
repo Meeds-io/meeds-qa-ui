@@ -283,11 +283,6 @@ public class ManageSpaceSteps {
     manageSpacesPage.goToSpaceHomeViaSpaceAvatar();
   }
 
-  public void goToSpaceToAcceptInvitation(String space) {
-    manageSpacesPage.insertSpaceNameInSearchField(space);
-    manageSpacesPage.goToSpaceToAcceptInvitation(space);
-  }
-
   public void goToTasksTab() {
     manageSpacesPage.goToTasksTab();
   }

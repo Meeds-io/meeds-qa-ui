@@ -312,21 +312,11 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void goToSpaceHomeViaSpaceAvatar() {
-    ElementFacade spaceAvatarElement = spaceAvatarElement();
-    spaceAvatarElement.waitUntilVisible();
-    spaceAvatarElement.clickOnElement();
-  }
-
-  public void goToSpaceToAcceptInvitation(String spaceName) {
-    ElementFacade spaceNameInListOfSpace = getSpaceNameInListOfSpace(spaceName);
-    spaceNameInListOfSpace.waitUntilVisible();
-    spaceNameInListOfSpace.clickOnElement();
+    spaceAvatarElement().clickOnElement();
   }
 
   public void goToSpecificSpace(String spaceName) {
-    ElementFacade element = getSpaceNameInListOfSpace(spaceName);
-    element.waitUntilVisible();
-    element.clickOnElement();
+    getSpaceNameInListOfSpace(spaceName).clickOnElement();
     verifyPageLoaded();
   }
 
@@ -448,20 +438,16 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void spaceAvatarIsDisplayed() {
-    spaceAvatarElement().waitUntilVisible();
+    assertWebElementVisible(spaceAvatarElement());
   }
 
   public void spaceNameIsDisplayed(String space) {
-    spaceName(space).waitUntilVisible();
+    assertWebElementVisible(spaceName(space));
   }
 
   public void uploadSpaceBanner(String fileName) {
-    spaceBannerElement().waitUntilVisible();
-    ElementFacade spaceBannerImage = findByXPathOrCSS("#SpaceHeader .v-image");
-    spaceBannerImage.clickOnElement();
-    TextBoxElementFacade uploadSpaceBannerButtonElement = uploadSpaceBannerButtonElement();
-    uploadSpaceBannerButtonElement.waitUntilVisible();
-    uploadSpaceBannerButtonElement.clickOnElement();
+    spaceBannerElement().clickOnElement();
+    uploadSpaceBannerButtonElement().clickOnElement();
     waitForDrawerToOpen();
     ElementFacade fileInput = findByXPathOrCSS(".v-navigation-drawer--open input[type=file]");
     upload(UPLOAD_DIRECTORY_PATH + fileName).fromLocalMachine().to(fileInput);

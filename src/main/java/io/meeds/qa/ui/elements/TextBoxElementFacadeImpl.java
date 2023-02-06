@@ -78,6 +78,7 @@ public class TextBoxElementFacadeImpl extends ElementFacadeImpl implements TextB
   }
 
   public void sendValueWithKeysOnElement(boolean clear, Keys keys, CharSequence... value) {
+    waitUntilVisible();
     if (clear) {
       clear();
       String currentValue = getValue();

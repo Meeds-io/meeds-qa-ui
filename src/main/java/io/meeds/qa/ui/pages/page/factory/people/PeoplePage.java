@@ -181,9 +181,7 @@ public class PeoplePage extends GenericPage {
 
   public void connectUserProfile() {
     refreshPage();
-    ElementFacade connectUserProfileButtonElement = connectUserProfileButtonElement();
-    connectUserProfileButtonElement.waitUntilVisible();
-    connectUserProfileButtonElement.clickOnElement();
+    connectUserProfileButtonElement().clickOnElement();
   }
 
   public ElementFacade currentUserLeaderboardPoints(String id) {

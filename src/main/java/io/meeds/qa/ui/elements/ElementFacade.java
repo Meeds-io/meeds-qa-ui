@@ -94,6 +94,14 @@ public interface ElementFacade extends WebElementFacade {
   boolean isDisplayedNoWait();
 
   /**
+   * this method will check if element is clickable or not without implicit
+   * timeout
+   * 
+   * @return true if clickable else false
+   */
+  boolean isClickableNoWait();
+
+  /**
    * This method will scroll down the element
    */
   void scrollDown();
@@ -102,4 +110,31 @@ public interface ElementFacade extends WebElementFacade {
    * This method will scroll the element to the right
    */
   void scrollToTheRight();
+
+  /**
+   * Checks whether element is visible after x retries
+   * 
+   * @param maxRetries number of retries
+   * @return true if visible
+   */
+  boolean isVisible(long maxRetries);
+
+  /**
+   * Checks whether element isn't visible after x retries
+   * 
+   * @param maxRetries number of retries
+   * @return true if not visible
+   */
+  boolean isNotVisible(long maxRetries);
+
+  /**
+   * Asserts Web Element Visible
+   */
+  void assertVisible();
+
+  /**
+   * Asserts Web Element Not Visible
+   */
+  void assertNotVisible();
+
 }

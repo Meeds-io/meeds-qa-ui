@@ -10,6 +10,7 @@ import static org.junit.Assert.assertTrue;
 import java.time.Duration;
 
 import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoAlertPresentException;
@@ -54,7 +55,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   public void assertWebElementNotVisible(ElementFacade element) {
     assertTrue(String.format("Element %s is still visible after waiting", // NOSONAR
                              element),
-               isWebElementNotVisible(element));
+               isWebElementNotVisible(element, MAX_WAIT_RETRIES));
   }
 
   public void assertWebElementNotVisible(ElementFacade element, int maxRetries) {
@@ -62,7 +63,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void assertWebElementVisible(ElementFacade element) {
-    assertTrue(String.format("Unable to locate a visible element %s", element), isWebElementVisible(element));
+    assertTrue(String.format("Unable to locate a visible element %s", element), isWebElementVisible(element, MAX_WAIT_RETRIES));
   }
 
   public void assertWebElementVisible(ElementFacade element, int maxRetries) {
@@ -158,51 +159,19 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public boolean isNotVisible(String xpathOrCss) {
-    return isWebElementNotVisible(findByXPathOrCSS(xpathOrCss));
+    return isWebElementNotVisible(findByXPathOrCSS(xpathOrCss), MAX_WAIT_RETRIES);
   }
 
   public boolean isVisible(String xpathOrCss) {
-    return isWebElementVisible(findByXPathOrCSS(xpathOrCss));
+    return isWebElementVisible(findByXPathOrCSS(xpathOrCss), MAX_WAIT_RETRIES);
   }
 
-  public boolean isWebElementNotVisible(ElementFacade element) {
-    return isWebElementNotVisible(element, MAX_WAIT_RETRIES);
+  public boolean isWebElementNotVisible(ElementFacade element, int maxRetries) {
+    return element.isNotVisible(maxRetries);
   }
 
-  public boolean isWebElementNotVisible(ElementFacade element, long maxRetries) {
-    verifyPageLoaded();
-    element.setImplicitTimeout(SHORT_WAIT_DURATION);
-    boolean notVisible = false;
-    int retry = 0;
-    do {
-      notVisible = !element.isDisplayed(SHORT_WAIT_DURATION_MILLIS);
-    } while (!notVisible && retry++ < maxRetries);
-    return notVisible || element.isNotVisibleAfterWaiting();
-  }
-
-  public boolean isWebElementVisible(ElementFacade element) {
-    return isWebElementVisible(element, MAX_WAIT_RETRIES);
-  }
-
-  public boolean isWebElementVisible(ElementFacade element, long maxRetries) {
-    verifyPageLoaded();
-    boolean visible = false;
-    int retry = 0;
-    do {
-      element.setImplicitTimeout(SHORT_WAIT_DURATION);
-      visible = element.isDisplayed(SHORT_WAIT_DURATION_MILLIS);
-      if (visible) {
-        return true;
-      } else {
-        String selector = element.getXPathOrCSSSelector();
-        if (StringUtils.isNotBlank(selector)) {
-          element = findByXPathOrCSS(selector);
-        } else if (element instanceof ElementFacadeImpl && ((ElementFacadeImpl) element).getFoundBy() != null) {
-          element = findByXPathOrCSS(((ElementFacadeImpl) element).getFoundBy());
-        }
-      }
-    } while (retry++ < maxRetries);
-    return element.isVisibleAfterWaiting();
+  public boolean isWebElementVisible(ElementFacade element, int maxRetries) {
+    return element.isVisible(maxRetries);
   }
 
   public boolean mentionInField(TextBoxElementFacade inputField, String user, int maxRetries) {
@@ -365,9 +334,13 @@ public class BasePageImpl extends PageObject implements BasePage {
    * Methods for finding element facade in the page
    **********************************************************/
 
-  private WebElementFacade getWebElementFacadeByXPathOrCSS(String xpath) {
+  private WebElementFacade getWebElementFacadeByXPathOrCSS(String xpathOrCss) {
     verifyPageLoaded();
-    return findBy(xpath);
+    if (StringUtils.contains(xpathOrCss, "//")) {
+      return find(By.xpath(xpathOrCss));
+    } else {
+      return find(By.cssSelector(xpathOrCss));
+    }
   }
 
   private void waitSuggesterToLoad() {

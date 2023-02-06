@@ -2,8 +2,6 @@ package io.meeds.qa.ui.steps.definition;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.io.IOException;
-
 import org.apache.commons.lang3.StringUtils;
 
 import io.cucumber.java.en.Then;
@@ -25,13 +23,11 @@ public class GenericStepDefinitions {
 
   @When("Confirmation message is displayed '{}'")
   public void checkConfirmMessage(String message) {
-    assertThat(genericSteps.inConfirmMessageDisplayed(message)).as(String.format("Confirm message %s should be displayed but it is not",
-                                                                                 message))
-                                                               .isTrue();
+    genericSteps.checkConfirmMessageIsDisplayed(message);
   }
 
   @When("^The '(.*)' drawer is displayed$")
-  public void checkDrawerDisplayed(String title) throws IOException, InterruptedException {
+  public void checkDrawerDisplayed(String title) {
     genericSteps.checkDrawerDisplayed(title);
   }
 
@@ -61,7 +57,7 @@ public class GenericStepDefinitions {
 
   @When("success message is displayed")
   public void checkSuccessMessage() {
-    assertThat(genericSteps.isSuccessMessageDisplayed()).as(String.format("Success message should be displayed but it is not"))
+    assertThat(genericSteps.isSuccessMessageDisplayed()).as("Success message should be displayed but it is not")
                                                         .isTrue();
   }
 

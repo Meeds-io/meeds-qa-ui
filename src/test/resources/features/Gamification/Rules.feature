@@ -57,7 +57,6 @@ Feature: Rules
   Scenario: Create a new task
     Given I am authenticated as admin
     And I check my points
-    When I go To AppCenter Drawer
     And I go to 'Tasks' application
     And I select tasks tab
     And I create the following task
@@ -67,14 +66,12 @@ Feature: Rules
 
   Scenario: Complete assigned task
     Given I am authenticated as admin
-    When I go To AppCenter Drawer
     And I go to 'Tasks' application
     And I select tasks tab
     And I create the following task
       | taskName | taskcompleted |
     And I go to my profile
     And I check my points
-    When I go To AppCenter Drawer
     And I go to 'Tasks' application
     And I select tasks tab
     And I start the search for Task 'taskcompleted'

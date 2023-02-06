@@ -61,4 +61,12 @@ public class ProgramsSteps {
     programsPage.selectProgramsFilter(value);
   }
 
+  public void isEngagementAppOpened() {
+    programsPage.checkEngagementAppOpened();
+  }
+
+  public void selectEngagementTab(String tab) {
+    programsPage.selectEngagementTab(tab);
+  }
+
 }

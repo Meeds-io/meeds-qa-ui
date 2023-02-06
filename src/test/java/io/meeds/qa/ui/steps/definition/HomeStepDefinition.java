@@ -98,7 +98,7 @@ public class HomeStepDefinition {
 
   @Then("^the invitation number for spaces is '(.*)'$")
   public void checkBagde(String number) {
-    assertThat(homeSteps.isSpacesBadgeWithNumberVisible(number)).as(String.format("La badge doit avoir le nombre %s", number))
+    assertThat(homeSteps.isSpacesBadgeWithNumberVisible(number)).as(String.format("The spaces invitation badge must be %s", number))
                                                                 .isTrue();
   }
 

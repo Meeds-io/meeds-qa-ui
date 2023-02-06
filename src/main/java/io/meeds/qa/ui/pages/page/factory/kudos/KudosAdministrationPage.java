@@ -81,9 +81,7 @@ public class KudosAdministrationPage extends GenericPage {
   public void goToKudosMenu() {
     menuBtnElement().clickOnElement();
     administrationIconElement().hover();
-    ElementFacade addministrationMenuElement = addministrationMenuElement();
-    addministrationMenuElement.waitUntilVisible();
-    addministrationMenuElement.clickOnElement();
+    addministrationMenuElement().clickOnElement();
     kudosLinkElement().clickOnElement();
   }
 
@@ -92,15 +90,11 @@ public class KudosAdministrationPage extends GenericPage {
   }
 
   public void searchForUsersByName(String fullName) {
-    TextBoxElementFacade searchUsersFieldElement = searchUsersFieldElement();
-    searchUsersFieldElement.waitUntilVisible();
-    searchUsersFieldElement.setTextValue(fullName);
+    searchUsersFieldElement().setTextValue(fullName);
   }
 
   public void selectType() {
-    ElementFacade periodTypeElement = periodTypeElement();
-    periodTypeElement.waitUntilVisible();
-    periodTypeElement.clickOnElement();
+    periodTypeElement().clickOnElement();
     semesterPeriodElement().clickOnElement();
   }
 

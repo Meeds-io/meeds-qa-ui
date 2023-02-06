@@ -71,7 +71,6 @@ public class ManageBadgesPage extends GenericPage {
 
   public void editBadgeDescription(String description) {
     TextBoxElementFacade editBadgeDescriptionElement = editBadgeDescriptionElement();
-    editBadgeDescriptionElement.waitUntilVisible();
     editBadgeDescriptionElement.clear();
     editBadgeDescriptionElement.setTextValue(description);
 
@@ -79,14 +78,12 @@ public class ManageBadgesPage extends GenericPage {
 
   public void editBadgeDomain(String domain) {
     TextBoxElementFacade editSelectBadgeDomainElement = editSelectBadgeDomainElement();
-    editSelectBadgeDomainElement.waitUntilVisible();
     editSelectBadgeDomainElement.selectByVisibleText(domain);
 
   }
 
   public void editBadgeName(String name) {
     TextBoxElementFacade editBadgeNameElement = editBadgeNameElement();
-    editBadgeNameElement.waitUntilVisible();
     editBadgeNameElement.clear();
     editBadgeNameElement.setTextValue(name);
 
@@ -94,7 +91,6 @@ public class ManageBadgesPage extends GenericPage {
 
   public void editBadgeScore(String score) {
     TextBoxElementFacade editBadgeScoreElement = editBadgeScoreElement();
-    editBadgeScoreElement.waitUntilVisible();
     editBadgeScoreElement.clear();
     editBadgeScoreElement.setTextValue(score);
 

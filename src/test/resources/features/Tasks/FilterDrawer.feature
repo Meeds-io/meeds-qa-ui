@@ -5,7 +5,6 @@ Feature: Filter Drawer
     Given I am authenticated as admin
 
     When I create a random space
-    When I go To AppCenter Drawer
     And I go to 'Tasks' application
     And I select projects tab
     And I search for the created project
@@ -38,7 +37,6 @@ Feature: Filter Drawer
     Given I am authenticated as admin
 
     When I create a random space
-    When I go To AppCenter Drawer
     And I go to 'Tasks' application
     And I select projects tab
     And I search for the created project
@@ -69,7 +67,6 @@ Feature: Filter Drawer
     Given I am authenticated as admin
 
     And I create a random space
-    When I go To AppCenter Drawer
     And I go to 'Tasks' application
     And I select projects tab
     And I search for the created project
@@ -114,7 +111,6 @@ Feature: Filter Drawer
     Given I am authenticated as admin
 
     When I create a random space
-    When I go To AppCenter Drawer
     And I go to 'Tasks' application
     And I select projects tab
     And I search for the created project

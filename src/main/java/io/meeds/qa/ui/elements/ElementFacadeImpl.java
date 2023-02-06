@@ -1,11 +1,15 @@
 package io.meeds.qa.ui.elements;
 
+import static io.meeds.qa.ui.utils.Utils.MAX_WAIT_RETRIES;
+import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION;
 import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION_MILLIS;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoaded;
+import static org.junit.Assert.assertTrue;
 
 import java.time.Duration;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.WebDriver;
@@ -94,11 +98,8 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
   @Override
   public void clickOnElement() {
     try {
-      resetTimeouts();
-      waitForPageLoaded();
-      waitUntilVisible();
+      assertVisible();
       super.click();
-      resetTimeouts();
       waitForPageLoaded();
     } catch (WebDriverException e) {
       throw new ElementClickInterceptedException(String.format("[%s] The element [%s] cannot be clicked.",
@@ -194,6 +195,17 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
   }
 
   @Override
+  public boolean isClickableNoWait() {
+    Duration defaultTimeout = getImplicitTimeout();
+    setImplicitTimeout(Duration.ofMillis(0));
+    try {
+      return isClickable();
+    } finally {
+      setImplicitTimeout(defaultTimeout);
+    }
+  }
+
+  @Override
   public boolean isDisabledAfterWaiting() {
     try {
       waitUntilDisabled();
@@ -261,6 +273,16 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
   }
 
   @Override
+  public void assertVisible() {
+    assertTrue(String.format("Unable to locate a visible element %s", this), isVisible(MAX_WAIT_RETRIES));
+  }
+
+  @Override
+  public void assertNotVisible() {
+    assertTrue(String.format("Element %s is still visible after waiting", this), isNotVisible(MAX_WAIT_RETRIES));
+  }
+
+  @Override
   public boolean isVisibleAfterWaiting() {
     Boolean visible = false;
     long retry = 0;
@@ -272,25 +294,56 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
   }
 
   @Override
-  public void scrollDown() {
+  public boolean isNotVisible(long maxRetries) {
+    waitForPageLoaded();
+    setImplicitTimeout(SHORT_WAIT_DURATION);
+    boolean notVisible = false;
+    int retry = 0;
+    do {
+      notVisible = !isDisplayed(SHORT_WAIT_DURATION_MILLIS);
+    } while (!notVisible && retry++ < maxRetries);
+    return notVisible || isNotVisibleAfterWaiting();
+  }
 
+  @Override
+  public boolean isVisible(long maxRetries) {
+    waitForPageLoaded();
+    boolean visible = false;
+    int retry = 0;
+    ElementFacade element = this;
+    do {
+      element.setImplicitTimeout(SHORT_WAIT_DURATION);
+      visible = element.isDisplayed(SHORT_WAIT_DURATION_MILLIS);
+      if (visible) {
+        return true;
+      } else {
+        String selector = element.getXPathOrCSSSelector();
+        if (StringUtils.isNotBlank(selector)) {
+          element = findBy(selector);
+        } else if (element instanceof ElementFacadeImpl && ((ElementFacadeImpl) element).getFoundBy() != null) {
+          element = findBy(((ElementFacadeImpl) element).getFoundBy());
+        }
+      }
+    } while (retry++ < maxRetries);
+    return isVisibleAfterWaiting();
+  }
+
+  @Override
+  public void scrollDown() {
     JavascriptExecutorFacade javascriptExecutorFacade = new JavascriptExecutorFacade(getDriver());
     javascriptExecutorFacade.executeScript("arguments[0].scrollBy(0, 200);", this);
-
   }
 
   @Override
   public void scrollToTheRight() {
     JavascriptExecutorFacade javascriptExecutorFacade = new JavascriptExecutorFacade(getDriver());
     javascriptExecutorFacade.executeScript("arguments[0].scrollBy(300, 0);", this);
-
   }
 
   @Override
   public void scrollToWebElement() {
     JavascriptExecutorFacade javascriptExecutorFacade = new JavascriptExecutorFacade(getDriver());
     javascriptExecutorFacade.executeScript("arguments[0].scrollIntoView();", this);
-
   }
 
   /**********************************************************

@@ -69,9 +69,7 @@ public class UserProfilePage extends GenericPage {
   }
 
   public void clickOnSendKudosBtn() {
-    ElementFacade uiIconKudosElement = uiIconKudosElement();
-    uiIconKudosElement.waitUntilVisible();
-    uiIconKudosElement.clickOnElement();
+    uiIconKudosElement().clickOnElement();
     waitForDrawerToOpen();
     waitCKEditorLoading();
   }
@@ -209,9 +207,7 @@ public class UserProfilePage extends GenericPage {
 
   public void removeWorkExperience(String jobTitle) {
     // Remove Work Experience
-    ElementFacade editWorkExperiencesElement = editWorkExperiencesElement();
-    editWorkExperiencesElement.waitUntilVisible();
-    editWorkExperiencesElement.clickOnElement();
+    editWorkExperiencesElement().clickOnElement();
     openWorkExperience(jobTitle).clickOnElement();
     removeWorkExperienceElement().clickOnElement();
     JavascriptExecutor executor = (JavascriptExecutor) getDriver();
@@ -389,10 +385,8 @@ public class UserProfilePage extends GenericPage {
   }
 
   public void uploadProfileAvatar(String fileName) {
-    ElementFacade profileAvatarElement = profileAvatarElement();
-    profileAvatarElement.waitUntilVisible();
     Actions builder = new Actions(getDriver());
-    builder.moveToElement(profileAvatarElement).build().perform();
+    builder.moveToElement(profileAvatarElement()).build().perform();
     uploadProfileAvatarBtnElement().waitUntilVisible();
     WebElement elem =
                     getDriver().findElement(org.openqa.selenium.By.xpath("//*[contains(@class,'changeAvatarButton')]//*[@class='v-input__prepend-outer']//button/following::input[1]"));
