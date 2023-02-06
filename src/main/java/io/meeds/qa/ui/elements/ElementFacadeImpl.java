@@ -9,7 +9,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.time.Duration;
 
-import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.WebDriver;
@@ -308,16 +307,10 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
   @Override
   public boolean isVisible(long maxRetries) {
     waitForPageLoaded();
-    boolean visible = false;
     int retry = 0;
-    ElementFacade element = this;
     do {
-      element.setImplicitTimeout(SHORT_WAIT_DURATION);
-      visible = element.isDisplayed(SHORT_WAIT_DURATION_MILLIS);
-      if (visible) {
+      if (isDisplayed(SHORT_WAIT_DURATION_MILLIS)) {
         return true;
-      } else {
-        element = findAgain();
       }
     } while (retry++ < maxRetries);
     return isVisibleAfterWaiting();
@@ -362,28 +355,6 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
 
   protected WebElementFacade getWebElementFacadeByXpath(String xpath) {
     return findBy(String.format(".%s", xpath));
-  }
-
-  protected ElementFacade findAgain() {
-    WebElementFacade nestedElement;
-    if (StringUtils.isNotBlank(xPathOrCSSSelector)) {
-      if (StringUtils.contains(xPathOrCSSSelector, "//")) {
-        nestedElement = findBy(By.xpath(xPathOrCSSSelector));
-      } else {
-        nestedElement = findBy(By.cssSelector(xPathOrCSSSelector));
-      }
-    } else if (getFoundBy() != null) {
-      nestedElement = findBy(getFoundBy());
-    } else {
-      return this;
-    }
-
-    return ElementFacadeImpl.wrapWebElementFacade(getDriver(),
-                                                  nestedElement,
-                                                  null,
-                                                  xPathOrCSSSelector,
-                                                  getImplicitTimeoutInMilliseconds(),
-                                                  getImplicitTimeoutInMilliseconds());
   }
 
 }
