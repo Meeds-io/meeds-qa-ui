@@ -317,12 +317,7 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
       if (visible) {
         return true;
       } else {
-        String selector = element.getXPathOrCSSSelector();
-        if (StringUtils.isNotBlank(selector)) {
-          element = findBy(selector);
-        } else if (element instanceof ElementFacadeImpl && ((ElementFacadeImpl) element).getFoundBy() != null) {
-          element = findBy(((ElementFacadeImpl) element).getFoundBy());
-        }
+        element = findAgain();
       }
     } while (retry++ < maxRetries);
     return isVisibleAfterWaiting();
@@ -368,4 +363,27 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
   protected WebElementFacade getWebElementFacadeByXpath(String xpath) {
     return findBy(String.format(".%s", xpath));
   }
+
+  protected ElementFacade findAgain() {
+    WebElementFacade nestedElement;
+    if (StringUtils.isNotBlank(xPathOrCSSSelector)) {
+      if (StringUtils.contains(xPathOrCSSSelector, "//")) {
+        nestedElement = findBy(By.xpath(xPathOrCSSSelector));
+      } else {
+        nestedElement = findBy(By.cssSelector(xPathOrCSSSelector));
+      }
+    } else if (getFoundBy() != null) {
+      nestedElement = findBy(getFoundBy());
+    } else {
+      return this;
+    }
+
+    return ElementFacadeImpl.wrapWebElementFacade(getDriver(),
+                                                  nestedElement,
+                                                  null,
+                                                  xPathOrCSSSelector,
+                                                  getImplicitTimeoutInMilliseconds(),
+                                                  getImplicitTimeoutInMilliseconds());
+  }
+
 }

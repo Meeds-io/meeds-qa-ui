@@ -1,7 +1,6 @@
 package io.meeds.qa.ui.pages;
 
 import static io.meeds.qa.ui.utils.Utils.MAX_WAIT_RETRIES;
-import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION;
 import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION_MILLIS;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoaded;
