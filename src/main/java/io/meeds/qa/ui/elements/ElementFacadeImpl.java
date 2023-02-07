@@ -266,7 +266,7 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
 
   @Override
   public void checkClickable() {
-    if (!isClickable(MAX_WAIT_RETRIES)) {
+    if (!isClickable(SHORT_WAIT_DURATION_MILLIS)) {
       throw new ElementClickInterceptedException(String.format("Unable to locate a clickable element %s", this));
     }
   }
@@ -313,7 +313,7 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
                   this,
                   e);
     }
-    return isNotVisibleAfterWaiting();
+    return !isDisplayedNoWait();
   }
 
   @Override
@@ -332,7 +332,7 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
                   this,
                   e);
     }
-    return isVisibleAfterWaiting();
+    return isDisplayedNoWait();
   }
 
   @Override
