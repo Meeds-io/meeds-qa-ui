@@ -8,7 +8,7 @@ Feature: Rules
       | first  |
     And I create the first random user if not existing
     And I connect with the first created user
-    When I go to my profile
+    When I go to My Profile page
     And I check my points
     And I go to the random space
     When I click on post in space
@@ -16,7 +16,7 @@ Feature: Rules
     And I publish the activity
     And the activity 'kudosPostActivity' is displayed in activity stream
     And I add in activity 'kudosPostActivity' a comment 'commentKudos'
-    And I go to my profile
+    And I go to My Profile page
     Then My points augmented
 
   Scenario: Like a comment
@@ -30,11 +30,11 @@ Feature: Rules
     And I add in activity 'kudosActivity11' a comment 'commentKudosPostActivity'
     And I connect with the first created user
     And I go to the random space
-    And I go to my profile
+    And I go to My Profile page
     When I check my points
     And I go to the random space
     And I like the activity comment 'commentKudosPostActivity'
-    And I go to my profile
+    And I go to My Profile page
     Then My points augmented
 
   Scenario: Like a post
@@ -47,11 +47,11 @@ Feature: Rules
     And the activity 'kudosActivity12' is displayed in activity stream
     And I connect with the first created user
     And I go to the random space
-    And I go to my profile
+    And I go to My Profile page
     And I check my points
     And I go to the random space
     And I like the activity 'kudosActivity12'
-    When I go to my profile
+    When I go to My Profile page
     Then My points augmented
 
   Scenario: Create a new task
@@ -61,7 +61,7 @@ Feature: Rules
     And I select tasks tab
     And I create the following task
       | taskName | taskgamification |
-    And I go to my profile
+    And I go to My Profile page
     Then My points augmented
 
   Scenario: Complete assigned task
@@ -70,11 +70,11 @@ Feature: Rules
     And I select tasks tab
     And I create the following task
       | taskName | taskcompleted |
-    And I go to my profile
+    And I go to My Profile page
     And I check my points
     And I go to 'Tasks' application
     And I select tasks tab
     And I start the search for Task 'taskcompleted'
     And I mark the task as completed
-    And I go to my profile
+    And I go to My Profile page
     Then My points augmented

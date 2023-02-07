@@ -213,16 +213,6 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
   }
 
   @Override
-  public boolean isDisabledAfterWaiting() {
-    try {
-      waitUntilDisabled();
-      return true;
-    } catch (Throwable e) { // NOSONAR
-      return false;
-    }
-  }
-
-  @Override
   public boolean isDisplayed() {
     try {
       return super.isDisplayed();
@@ -259,16 +249,6 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
   }
 
   @Override
-  public boolean isEnabledAfterWaiting() {
-    try {
-      waitUntilEnabled();
-    } catch (Throwable e) { // NOSONAR
-      return false;
-    }
-    return true;
-  }
-
-  @Override
   public boolean isNotVisibleAfterWaiting() {
     long maxRetries = getImplicitTimeoutInMilliseconds() / SHORT_WAIT_DURATION_MILLIS;
     return isNotVisible(maxRetries);
@@ -294,6 +274,13 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
   @Override
   public void checkVisible() {
     if (!isVisible(MAX_WAIT_RETRIES)) {
+      throw new ElementShouldBeVisibleException(String.format("Unable to locate a visible element %s", this), null);
+    }
+  }
+
+  @Override
+  public void checkNotVisible() {
+    if (!isNotVisible(MAX_WAIT_RETRIES)) {
       throw new ElementShouldBeVisibleException(String.format("Unable to locate a visible element %s", this), null);
     }
   }
@@ -346,6 +333,24 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
                   e);
     }
     return isVisibleAfterWaiting();
+  }
+
+  @Override
+  public WebElementFacade waitUntilVisible() {
+    checkVisible();
+    return this;
+  }
+
+  @Override
+  public WebElementFacade waitUntilNotVisible() {
+    checkNotVisible();
+    return this;
+  }
+
+  @Override
+  public WebElementFacade waitUntilClickable() {
+    checkClickable();
+    return this;
   }
 
   @Override

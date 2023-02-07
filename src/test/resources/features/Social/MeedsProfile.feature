@@ -3,7 +3,6 @@ Feature: Search for User Informations in Profile page
   As a user
   I want to check in Profile page all contact informations
 
-  @perfs
   Scenario: PROFILE-1 : Integrate default user's avatar and cover
     Given I am authenticated as admin
 
@@ -81,7 +80,6 @@ Feature: Search for User Informations in Profile page
     Then Received Kudos Section is displayed
     Then Sent Kudos Section is displayed
 
-  @perfs
   Scenario: : PROFILE-7 : Work Experiences block and its drawer
     Given I am authenticated as admin
 

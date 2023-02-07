@@ -197,14 +197,14 @@ public class HomePage extends GenericPage {
   public void goToAddGroups() {
     if (!StringUtils.contains(getDriver().getCurrentUrl(), "groupsManagement")) {
       accessToAdministrationMenu();
-      clickOnElement(findByXPathOrCSS("//a[contains(@href, 'groupsManagement')]"));
+      clickOnElement(findByXPathOrCSS("//a[contains(@href, '/groupsManagement')]"));
     }
   }
 
   public void goToAddUser() {
     if (!StringUtils.contains(getDriver().getCurrentUrl(), "usersManagement")) {
       accessToAdministrationMenu();
-      clickOnElement(findByXPathOrCSS("//a[contains(@href, 'usersManagement')]"));
+      clickOnElement(findByXPathOrCSS("//a[contains(@href, '/usersManagement')]"));
     }
   }
 
@@ -215,6 +215,11 @@ public class HomePage extends GenericPage {
   }
 
   public void goToHomePage() {
+    String currentUrl = getDriver().getCurrentUrl();
+    if (currentUrl.endsWith("/") && !currentUrl.endsWith("g:")) {
+      refreshPage();
+      return;
+    }
     closeAlertIfOpened();
     waitForLoading();
     getDriver().get(getDriver().getCurrentUrl().split("/portal/")[0]);
@@ -222,42 +227,66 @@ public class HomePage extends GenericPage {
   }
 
   public void goToMyProfile() {
+    String currentUrl = getDriver().getCurrentUrl();
+    if (currentUrl.endsWith("/profile") && !currentUrl.endsWith("g:")) {
+      refreshPage();
+      return;
+    }
     clickOnHamburgerMenu();
     clickOnElement(myProfileButtonElement());
     waitForLoading();
   }
 
   public void goToPeoplePage() {
+    String currentUrl = getDriver().getCurrentUrl();
+    if (currentUrl.endsWith("/people") && !currentUrl.endsWith("g:")) {
+      refreshPage();
+      return;
+    }
     clickOnHamburgerMenu();
-    clickOnElement(personnePageLinkElement());
-    waitForLoading();
-  }
-
-  public void goToProfilePage() {
-    clickOnHamburgerMenu();
-    clickOnElement(myProfilePageLinkElement());
+    clickOnElement(peoplePageLinkElement());
     waitForLoading();
   }
 
   public void goToSettingsPage() {
+    String currentUrl = getDriver().getCurrentUrl();
+    if (currentUrl.endsWith("/settings") && !currentUrl.endsWith("g:")) {
+      refreshPage();
+      return;
+    }
     clickOnHamburgerMenu();
     clickOnElement(settingsPageLinkElement());
     waitForLoading();
   }
 
   public void goToSpacesPage() {
+    String currentUrl = getDriver().getCurrentUrl();
+    if (currentUrl.endsWith("/spaces") && !currentUrl.endsWith("g:")) {
+      refreshPage();
+      return;
+    }
     clickOnHamburgerMenu();
     clickOnElement(openSpacesPageLinkElement());
     waitForLoading();
   }
 
   public void goToStreamPage() {
+    String currentUrl = getDriver().getCurrentUrl();
+    if (currentUrl.endsWith("/stream") && !currentUrl.endsWith("g:")) {
+      refreshPage();
+      return;
+    }
     clickOnHamburgerMenu();
     clickOnElement(streamPageLinkElement());
     waitForLoading();
   }
 
   public void goToTasksPage() {
+    String currentUrl = getDriver().getCurrentUrl();
+    if (currentUrl.endsWith("/tasks") && !currentUrl.endsWith("g:")) {
+      refreshPage();
+      return;
+    }
     waitForLoading();
     clickOnElement(tasksSnapshotPageButtonElement());
     waitForLoading();
@@ -265,7 +294,7 @@ public class HomePage extends GenericPage {
 
   public void hoverOnStreamIcon() {
     waitFor(300).milliseconds(); // Wait until drawer 'open' animation finishes
-    streamPageLinkElement().hover("//a[@href='/portal/meeds/stream']");
+    streamPageLinkElement().hover();
   }
 
   public void hoverSearchedSpaceInSideBarFilter(String space) {
@@ -416,6 +445,7 @@ public class HomePage extends GenericPage {
   }
 
   private void clickOnHamburgerMenu() {
+    closeAllDrawers();
     retryOnCondition(() -> getHamburgerNavigationMenu().clickOnElement(),
                      () -> {
                        LOGGER.warn("Hamburger Menu isn't visible, retry by waiting until application is built");
@@ -509,7 +539,7 @@ public class HomePage extends GenericPage {
   }
 
   private ElementFacade homeIconElement() {
-    return findByXPathOrCSS("//a[@href='/portal/meeds/stream']//div[@class='v-list-item__icon']");
+    return findByXPathOrCSS("//*[@id='SiteHamburgerNavigation']//a[contains(@href, '/stream')]//*[contains(@class, 'homePage')]");
   }
 
   private ElementFacade homePageButtonElement() {
@@ -521,11 +551,7 @@ public class HomePage extends GenericPage {
   }
 
   private ElementFacade myProfileButtonElement() {
-    return findByXPathOrCSS("//a[@href='/portal/meeds/profile']");
-  }
-
-  private ElementFacade myProfilePageLinkElement() {
-    return findByXPathOrCSS("//a[@href='/portal/meeds/profile']");
+    return findByXPathOrCSS("//*[@id='ProfileHamburgerNavigation']//a[contains(@href, '/profile')]");
   }
 
   private ElementFacade notificationIconElement() {
@@ -533,10 +559,10 @@ public class HomePage extends GenericPage {
   }
 
   private ElementFacade openSpacesPageLinkElement() {
-    return findByXPathOrCSS("//a[@href='/portal/meeds/spaces']");
+    return findByXPathOrCSS("//*[@id='SiteHamburgerNavigation']//a[contains(@href, '/spaces')]");
   }
 
-  private ElementFacade personnePageLinkElement() {
+  private ElementFacade peoplePageLinkElement() {
     return findByXPathOrCSS("//i[contains(@class,'uiIconPeople')]");
   }
 
@@ -598,7 +624,7 @@ public class HomePage extends GenericPage {
   }
 
   private ElementFacade streamPageLinkElement() {
-    return findByXPathOrCSS("//i[contains(@class,'uiIconStream')]");
+    return findByXPathOrCSS("//*[@id='SiteHamburgerNavigation']//a[contains(@href, '/stream')]");
   }
 
   private ElementFacade streamPageViewElement() {

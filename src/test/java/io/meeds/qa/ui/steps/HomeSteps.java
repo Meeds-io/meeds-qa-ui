@@ -168,10 +168,6 @@ public class HomeSteps {
     homePage.goToPeoplePage();
   }
 
-  public void goToProfilePage() {
-    homePage.goToProfilePage();
-  }
-
   public void goToSettingsPage() {
     homePage.goToSettingsPage();
   }

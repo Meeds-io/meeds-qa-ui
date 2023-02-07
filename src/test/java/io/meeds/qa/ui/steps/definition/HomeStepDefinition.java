@@ -278,11 +278,6 @@ public class HomeStepDefinition {
     homeSteps.goToHomePage();
   }
 
-  @When("^I go to my profile$")
-  public void goToMyProfile() {
-    homeSteps.goToMyProfile();
-  }
-
   @When("^I go to Person Page$")
   public void goToPeoplePage() {
     homeSteps.goToPeoplePage();
@@ -290,7 +285,7 @@ public class HomeStepDefinition {
 
   @When("^I go to My Profile page$")
   public void goToProfilePage() {
-    homeSteps.goToProfilePage();
+    homeSteps.goToMyProfile();
   }
 
   @Given("^I go to Settings page$")

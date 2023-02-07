@@ -26,7 +26,6 @@ import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacadeImpl;
 import io.meeds.qa.ui.elements.TextElementFacade;
 import io.meeds.qa.ui.elements.TextElementFacadeImpl;
-import io.meeds.qa.ui.utils.ExceptionLauncher;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.WhenPageOpens;
@@ -246,7 +245,7 @@ public class BasePageImpl extends PageObject implements BasePage {
         }
       }
     } catch (Exception e) {
-      ExceptionLauncher.LOGGER.debug("Can't wait for progress bar to finish loading", e);
+      LOGGER.warn("Can't wait for progress bar to finish loading", e);
     }
   }
 
@@ -299,16 +298,11 @@ public class BasePageImpl extends PageObject implements BasePage {
   public void waitForProgressBar() {
     try {
       ElementFacade progressBar = findByXPathOrCSS(".UISiteBody .v-progress-linear");
-      if (!progressBar.isDisplayed(SHORT_WAIT_DURATION_MILLIS)) {
-        try { // NOSONAR
-          progressBar.waitUntilVisible();
-        } catch (Exception e) {
-          ExceptionLauncher.LOGGER.debug("Can't wait for progress bar to start loading", e);
-        }
+      if (progressBar.isDisplayed(SHORT_WAIT_DURATION_MILLIS)) {
+        progressBar.waitUntilNotVisible();
       }
-      progressBar.waitUntilNotVisible();
     } catch (Exception e) {
-      ExceptionLauncher.LOGGER.debug("Can't wait for progress bar to finish loading", e);
+      LOGGER.warn("Can't wait for progress bar to finish loading", e);
     }
   }
 

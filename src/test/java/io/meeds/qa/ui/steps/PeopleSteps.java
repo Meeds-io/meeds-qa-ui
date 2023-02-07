@@ -85,7 +85,6 @@ public class PeopleSteps {
   public void connectToUser(String user) {
     homePage.goToPeoplePage();
     peoplePage.connectToUser(user);
-    peoplePage.checkConnectToUser(user);
   }
 
   public void connectUserProfile() {

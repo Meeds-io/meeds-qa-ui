@@ -41,10 +41,6 @@ public interface ElementFacade extends WebElementFacade {
    */
   public void hover(String xpath);
 
-  public boolean isDisabledAfterWaiting();
-
-  public boolean isEnabledAfterWaiting();
-
   /**
    * This method checks the invisibility of a webElement. It waits for the
    * element to disappear.
@@ -150,5 +146,10 @@ public interface ElementFacade extends WebElementFacade {
    * Asserts Web Element is clickable
    */
   void checkClickable();
+
+  /**
+   * Asserts Web Element is not visible
+   */
+  void checkNotVisible();
 
 }
