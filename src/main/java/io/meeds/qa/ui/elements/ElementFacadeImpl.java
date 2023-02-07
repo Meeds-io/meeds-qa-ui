@@ -1,14 +1,16 @@
 package io.meeds.qa.ui.elements;
 
+import static io.meeds.qa.ui.utils.Utils.DEFAULT_IMPLICIT_WAIT_FOR_TIMEOUT;
+import static io.meeds.qa.ui.utils.Utils.DEFAULT_WAIT_FOR_TIMEOUT;
 import static io.meeds.qa.ui.utils.Utils.MAX_WAIT_RETRIES;
-import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION;
 import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION_MILLIS;
-import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
+import static io.meeds.qa.ui.utils.Utils.waitRemainingTime;
 import static org.junit.Assert.assertTrue;
 
 import java.time.Duration;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.WebDriver;
@@ -20,19 +22,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.meeds.qa.ui.utils.ExceptionLauncher;
-import net.serenitybdd.core.pages.DefaultTimeouts;
+import io.meeds.qa.ui.utils.IOMeedsTraceException;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.core.pages.WebElementFacadeImpl;
 import net.serenitybdd.core.selectors.Selectors;
-import net.thucydides.core.ThucydidesSystemProperty;
-import net.thucydides.core.guice.Injectors;
-import net.thucydides.core.util.EnvironmentVariables;
 import net.thucydides.core.webdriver.exceptions.ElementShouldBeVisibleException;
 import net.thucydides.core.webdriver.javascript.JavascriptExecutorFacade;
 
 public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFacade {
 
-  static final Logger LOGGER = LoggerFactory.getLogger(ElementFacadeImpl.class);
+  public static final Logger LOGGER = LoggerFactory.getLogger(ElementFacadeImpl.class);
 
   /**
    * This method has the goal of creating a BaseElementFacade instance from a
@@ -77,6 +76,7 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
                            long waitForTimeoutInMilliseconds) {
     super(driver, locator, element, implicitTimeoutInMilliseconds, waitForTimeoutInMilliseconds);
     this.driver = driver;
+    this.webElement = element;
     this.xPathOrCSSSelector = xPathOrCSSSelector;
   }
 
@@ -110,27 +110,27 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
                                                                    (retries - 1)),
                                                      e);
         } else {
-          LOGGER.warn("Element {} wasn't clickable. Retry {}/{}: {}", this, retries, MAX_WAIT_RETRIES, e.getMessage());
+          LOGGER.warn("Element {} wasn't clickable. Retry {}/{}: {}",
+                      this,
+                      retries,
+                      MAX_WAIT_RETRIES,
+                      new IOMeedsTraceException(e));
         }
       }
-    } while (true);
+    } while (retries <= MAX_WAIT_RETRIES); // NOSONAR
   }
 
   @Override
   @SuppressWarnings("unchecked")
   public ElementFacadeImpl findByXPath(String xpath) {
     checkXpathFormat(xpath);
-    WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
+    WebElementFacade nestedElement = findSubElementFacadeByXPathOrCSS(xpath);
     return ElementFacadeImpl.wrapWebElementFacade(getDriver(),
                                                   nestedElement,
                                                   null,
                                                   xpath,
-                                                  timeoutInMilliseconds(),
-                                                  defaultWait());
-  }
-
-  public WebElement getCurrentElement() {
-    return super.getElement();
+                                                  DEFAULT_IMPLICIT_WAIT_FOR_TIMEOUT,
+                                                  DEFAULT_WAIT_FOR_TIMEOUT);
   }
 
   @Override
@@ -140,13 +140,10 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
 
   @Override
   public WebElement getElement() {
-    return retryOnCondition(() -> {
-      try {
-        return super.getElement();
-      } catch (Throwable e) { // NOSONAR
-        return getCurrentElement();
-      }
-    });
+    if (this.webElement == null) {
+      this.webElement = getWebElementFacadeByXPathOrCSS(xPathOrCSSSelector);
+    }
+    return this.webElement;
   }
 
   @Override
@@ -192,6 +189,7 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
     try {
       return super.isClickable();
     } catch (Throwable e) { // NOSONAR
+      this.webElement = null;
       return false;
     }
   }
@@ -217,30 +215,79 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
     try {
       return super.isDisplayed();
     } catch (Throwable e) { // NOSONAR
+      this.webElement = null;
       return false;
     }
   }
 
   @Override
-  public boolean isDisplayed(long implicitWaitInMillis) {
+  public boolean isClickable(long implicitWaitInMillis) {
+    long start = System.currentTimeMillis();
     Duration defaultTimeout = getImplicitTimeout();
     setImplicitTimeout(Duration.ofMillis(implicitWaitInMillis));
     try {
-      return isDisplayed();
+      boolean clickable = isClickable();
+      if (!clickable) {
+        waitRemainingTime(implicitWaitInMillis, start);
+      }
+      return clickable;
     } finally {
       setImplicitTimeout(defaultTimeout);
     }
   }
 
   @Override
-  public boolean isClickable(long implicitWaitInMillis) {
+  public boolean isDisplayed(long implicitWaitInMillis) {
+    long start = System.currentTimeMillis();
     Duration defaultTimeout = getImplicitTimeout();
     setImplicitTimeout(Duration.ofMillis(implicitWaitInMillis));
     try {
-      return isClickable();
+      boolean displayed = isDisplayed();
+      if (!displayed) {
+        waitRemainingTime(implicitWaitInMillis, start);
+      }
+      return displayed;
     } finally {
       setImplicitTimeout(defaultTimeout);
     }
+  }
+
+  @Override
+  public boolean isNotVisible(long maxRetries) {
+    int retry = 0;
+    do {
+      if (!isDisplayed(SHORT_WAIT_DURATION_MILLIS)) {
+        return true;
+      }
+    } while (retry++ < maxRetries);
+    // Element not displayed yet after X retries
+    try {
+      waitForLoading();
+    } catch (Exception e) {
+      LOGGER.warn("The page seems not to be completely loaded, thus the element {} could be not built yet. Attempt to use isNotVisibleAfterWaiting",
+                  this,
+                  e);
+    }
+    return !isDisplayedNoWait();
+  }
+
+  @Override
+  public boolean isVisible(long maxRetries) {
+    int retry = 0;
+    do {
+      if (isDisplayed(SHORT_WAIT_DURATION_MILLIS)) {
+        return true;
+      }
+    } while (retry++ < maxRetries);
+    // Element not displayed yet after X retries
+    try {
+      waitForLoading();
+    } catch (Exception e) {
+      LOGGER.warn("The page seems not to be completely loaded, thus the element {} could be not built yet. Attempt to use isVisibleAfterWaiting",
+                  this,
+                  e);
+    }
+    return isDisplayedNoWait();
   }
 
   @Override
@@ -297,45 +344,6 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
   }
 
   @Override
-  public boolean isNotVisible(long maxRetries) {
-    setImplicitTimeout(SHORT_WAIT_DURATION);
-    int retry = 0;
-    do {
-      if (!isDisplayed(SHORT_WAIT_DURATION_MILLIS)) {
-        return true;
-      }
-    } while (retry++ < maxRetries);
-    // Element not displayed yet after X retries
-    try {
-      waitForLoading();
-    } catch (Exception e) {
-      LOGGER.warn("The page seems not to be completely loaded, thus the element {} could be not built yet. Attempt to use isNotVisibleAfterWaiting",
-                  this,
-                  e);
-    }
-    return !isDisplayedNoWait();
-  }
-
-  @Override
-  public boolean isVisible(long maxRetries) {
-    int retry = 0;
-    do {
-      if (isDisplayed(SHORT_WAIT_DURATION_MILLIS)) {
-        return true;
-      }
-    } while (retry++ < maxRetries);
-    // Element not displayed yet after X retries
-    try {
-      waitForLoading();
-    } catch (Exception e) {
-      LOGGER.warn("The page seems not to be completely loaded, thus the element {} could be not built yet. Attempt to use isVisibleAfterWaiting",
-                  this,
-                  e);
-    }
-    return isDisplayedNoWait();
-  }
-
-  @Override
   public WebElementFacade waitUntilVisible() {
     checkVisible();
     return this;
@@ -382,16 +390,28 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
     }
   }
 
-  protected long defaultWait() {
-    EnvironmentVariables environmentVariables = Injectors.getInjector()
-                                                         .getProvider(EnvironmentVariables.class)
-                                                         .get();
-    return ThucydidesSystemProperty.WEBDRIVER_WAIT_FOR_TIMEOUT.integerFrom(environmentVariables,
-                                                                           (int) DefaultTimeouts.DEFAULT_WAIT_FOR_TIMEOUT.toMillis());
+  protected WebElementFacade findSubElementFacadeByXPathOrCSS(String xpathOrCss) {
+    if (StringUtils.contains(xpathOrCss, "//")) {
+      return find(By.xpath(xpathOrCss));
+    } else {
+      return find(By.cssSelector(xpathOrCss));
+    }
   }
 
-  protected WebElementFacade getWebElementFacadeByXpath(String xpath) {
-    return findBy(String.format(".%s", xpath));
+  protected WebElementFacade getWebElementFacadeByXPathOrCSS(String xpathOrCss) {
+    if (StringUtils.contains(xpathOrCss, "//")) {
+      return WebElementFacadeImpl.wrapWebElement(driver,
+                                                 By.xpath(xpathOrCss),
+                                                 DEFAULT_IMPLICIT_WAIT_FOR_TIMEOUT,
+                                                 DEFAULT_WAIT_FOR_TIMEOUT,
+                                                 xpathOrCss);
+    } else {
+      return WebElementFacadeImpl.wrapWebElement(driver,
+                                                 By.cssSelector(xpathOrCss),
+                                                 DEFAULT_IMPLICIT_WAIT_FOR_TIMEOUT,
+                                                 DEFAULT_WAIT_FOR_TIMEOUT,
+                                                 xpathOrCss);
+    }
   }
 
 }

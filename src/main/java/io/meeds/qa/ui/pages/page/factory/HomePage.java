@@ -1,9 +1,10 @@
 package io.meeds.qa.ui.pages.page.factory;
 
+import static io.meeds.qa.ui.utils.ExceptionLauncher.LOGGER;
 import static io.meeds.qa.ui.utils.Utils.refreshPage;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
-import static io.meeds.qa.ui.utils.ExceptionLauncher.*;
+import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -16,6 +17,7 @@ import org.openqa.selenium.interactions.Actions;
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
+import io.meeds.qa.ui.utils.Utils;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.webdriver.exceptions.ElementShouldBeVisibleException;
 
@@ -46,19 +48,23 @@ public class HomePage extends GenericPage {
         if (arrowAdminstrationMenuElement.isVisibleAfterWaiting()) {
           arrowAdminstrationMenuElement.clickOnElement();
         } else {
-          throw new ElementShouldBeVisibleException(String.format("Administration menu arrow should be visible %s", arrowAdminstrationMenuElement), null);
+          throw new ElementShouldBeVisibleException(String.format("Administration menu arrow should be visible %s",
+                                                                  arrowAdminstrationMenuElement),
+                                                    null);
         }
-        ElementFacade administrationMenuElement = findByXPathOrCSS(".HamburgerMenuSecondLevelParent #AdministrationHamburgerNavigation .subItemTitle");
+        ElementFacade administrationMenuElement =
+                                                findByXPathOrCSS(".HamburgerMenuSecondLevelParent #AdministrationHamburgerNavigation .subItemTitle");
         if (!administrationMenuElement.isVisibleAfterWaiting()) {
-          throw new ElementShouldBeVisibleException(String.format("Administration menu drawer should be visible %s", administrationMenuElement), null);
+          throw new ElementShouldBeVisibleException(String.format("Administration menu drawer should be visible %s",
+                                                                  administrationMenuElement),
+                                                    null);
         }
       } else {
-        throw new ElementShouldBeVisibleException(String.format("Administration menu cog icon should be visible %s", administrationIconElement), null);
+        throw new ElementShouldBeVisibleException(String.format("Administration menu cog icon should be visible %s",
+                                                                administrationIconElement),
+                                                  null);
       }
-    }, () -> {
-      refreshPage();
-      waitForLoading();
-    });
+    }, Utils::refreshPage);
   }
 
   public void accessToRecentSpaces() {
@@ -72,19 +78,23 @@ public class HomePage extends GenericPage {
         if (recentSpacesBtnElement.isVisibleAfterWaiting()) {
           recentSpacesBtnElement.clickOnElement();
         } else {
-          throw new ElementShouldBeVisibleException(String.format("Recent spaces arrow should be visible %s", recentSpacesBtnElement), null);
+          throw new ElementShouldBeVisibleException(String.format("Recent spaces arrow should be visible %s",
+                                                                  recentSpacesBtnElement),
+                                                    null);
         }
-        ElementFacade recentSpacesMenuElement = findByXPathOrCSS(".HamburgerMenuSecondLevelParent .recentDrawer .recentSpacesTitleLabel");
+        ElementFacade recentSpacesMenuElement =
+                                              findByXPathOrCSS(".HamburgerMenuSecondLevelParent .recentDrawer .recentSpacesTitleLabel");
         if (!recentSpacesMenuElement.isVisibleAfterWaiting()) {
-          throw new ElementShouldBeVisibleException(String.format("Recent spaces drawer should be visible %s", recentSpacesMenuElement), null);
+          throw new ElementShouldBeVisibleException(String.format("Recent spaces drawer should be visible %s",
+                                                                  recentSpacesMenuElement),
+                                                    null);
         }
       } else {
-        throw new ElementShouldBeVisibleException(String.format("Recent spaces icon should be visible %s", recentSpacesIconElement), null);
+        throw new ElementShouldBeVisibleException(String.format("Recent spaces icon should be visible %s",
+                                                                recentSpacesIconElement),
+                                                  null);
       }
-    }, () -> {
-      refreshPage();
-      waitForLoading();
-    });
+    }, Utils::refreshPage);
   }
 
   public void bookmarkActivity(String activity) {
@@ -211,85 +221,85 @@ public class HomePage extends GenericPage {
   public void goToAppCenterAdminSetupPage() {
     accessToAdministrationMenu();
     clickOnElement(findByXPathOrCSS("//a[contains(@href,'appCenterAdminSetup')]"));
-    waitForLoading();
+    waitForPageLoading();
   }
 
   public void goToHomePage() {
     String currentUrl = getDriver().getCurrentUrl();
     if (currentUrl.endsWith("/") && !currentUrl.endsWith("g:")) {
-      refreshPage();
+      refreshPage(false);
       return;
     }
     closeAlertIfOpened();
-    waitForLoading();
+    waitForPageLoading();
     getDriver().get(getDriver().getCurrentUrl().split("/portal/")[0]);
-    waitForLoading();
+    waitForPageLoading();
   }
 
   public void goToMyProfile() {
     String currentUrl = getDriver().getCurrentUrl();
     if (currentUrl.endsWith("/profile") && !currentUrl.endsWith("g:")) {
-      refreshPage();
+      refreshPage(false);
       return;
     }
     clickOnHamburgerMenu();
     clickOnElement(myProfileButtonElement());
-    waitForLoading();
+    waitForPageLoading();
   }
 
   public void goToPeoplePage() {
     String currentUrl = getDriver().getCurrentUrl();
     if (currentUrl.endsWith("/people") && !currentUrl.endsWith("g:")) {
-      refreshPage();
+      refreshPage(false);
       return;
     }
     clickOnHamburgerMenu();
     clickOnElement(peoplePageLinkElement());
-    waitForLoading();
+    waitForPageLoading();
   }
 
   public void goToSettingsPage() {
     String currentUrl = getDriver().getCurrentUrl();
     if (currentUrl.endsWith("/settings") && !currentUrl.endsWith("g:")) {
-      refreshPage();
+      refreshPage(false);
       return;
     }
     clickOnHamburgerMenu();
     clickOnElement(settingsPageLinkElement());
-    waitForLoading();
+    waitForPageLoading();
   }
 
   public void goToSpacesPage() {
     String currentUrl = getDriver().getCurrentUrl();
     if (currentUrl.endsWith("/spaces") && !currentUrl.endsWith("g:")) {
-      refreshPage();
+      refreshPage(false);
       return;
     }
     clickOnHamburgerMenu();
     clickOnElement(openSpacesPageLinkElement());
-    waitForLoading();
+    waitForPageLoading();
   }
 
   public void goToStreamPage() {
     String currentUrl = getDriver().getCurrentUrl();
     if (currentUrl.endsWith("/stream") && !currentUrl.endsWith("g:")) {
-      refreshPage();
+      refreshPage(false);
       return;
     }
     clickOnHamburgerMenu();
     clickOnElement(streamPageLinkElement());
-    waitForLoading();
+    waitForPageLoading();
   }
 
   public void goToTasksPage() {
     String currentUrl = getDriver().getCurrentUrl();
     if (currentUrl.endsWith("/tasks") && !currentUrl.endsWith("g:")) {
-      refreshPage();
+      refreshPage(false);
       return;
     }
-    waitForLoading();
+    waitForPageLoading();
     clickOnElement(tasksSnapshotPageButtonElement());
-    waitForLoading();
+    waitForPageLoading();
   }
 
   public void hoverOnStreamIcon() {
@@ -349,7 +359,7 @@ public class HomePage extends GenericPage {
   }
 
   public boolean isWidgetWithNumberVisible(String widget, String number) {
-    refreshPage();
+    closeAllDrawers();
     return getProfileWidgetContent(widget, number).isVisibleAfterWaiting();
   }
 
@@ -357,18 +367,18 @@ public class HomePage extends GenericPage {
     if (isHamburgerNavigationDisplayed()) {
       clickOnHamburgerMenu();
       logOutMenuElement().clickOnElement();
-      waitForLoading();
+      waitForPageLoading();
     }
   }
 
   public void openAllApplicationPage() {
-    waitForLoading();
+    waitForPageLoading();
     clickOnElement(viewAllApplicationLinkElement());
-    waitForLoading();
+    waitForPageLoading();
   }
 
   public void openAppCenterMenu() {
-    waitForLoading();
+    waitForPageLoading();
     clickOnElement(appCenterButtonElement());
     waitForLoading();
   }

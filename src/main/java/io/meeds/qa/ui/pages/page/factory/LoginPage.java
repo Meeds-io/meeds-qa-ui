@@ -1,6 +1,6 @@
 package io.meeds.qa.ui.pages.page.factory;
 
-import static io.meeds.qa.ui.utils.Utils.waitForLoading;
+import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.Cookie;
@@ -41,10 +41,12 @@ public class LoginPage extends GenericPage implements IsHidden {
       closeAllDrawers();
     } else {
       openLoginPage();
-      tryLogin(login, password);
+      usernameInputElement().setTextValue(login);
+      passwordInputElement().setTextValue(password);
+      loginButtonElement().clickOnElement();
       getDriver().manage().addCookie(new Cookie(LAST_LOGGED_IN_USER_COOKIE_NAME, login, "/"));
       lastLoggedInUser = login;
-      waitForLoading();
+      waitForPageLoading();
     }
   }
 
@@ -63,12 +65,6 @@ public class LoginPage extends GenericPage implements IsHidden {
     if (i >= maxRetries) {
       throw new IllegalStateException("Can't display login page after 3 retries");
     }
-  }
-
-  private void tryLogin(String login, String password) {
-    usernameInputElement().setTextValue(login);
-    passwordInputElement().setTextValue(password);
-    loginButtonElement().clickOnElement();
   }
 
   private ElementFacade loginButtonElement() {

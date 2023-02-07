@@ -1,6 +1,6 @@
 package io.meeds.qa.ui.pages.page.factory.space;
 
-import static io.meeds.qa.ui.utils.Utils.waitForLoading;
+import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
 
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
@@ -309,7 +309,7 @@ public class ManageSpacesPage extends GenericPage {
 
   public void goToSpecificSpace(String spaceName) {
     getSpaceNameInListOfSpace(spaceName).clickOnElement();
-    waitForLoading();
+    waitForPageLoading();
   }
 
   public void goToTasksTab() {

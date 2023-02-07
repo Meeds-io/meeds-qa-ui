@@ -1,26 +1,18 @@
 package io.meeds.qa.ui.hook;
 
 import static net.serenitybdd.core.Serenity.setSessionVariable;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static io.meeds.qa.ui.utils.Utils.waitRemainingTime;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.logging.LogEntries;
-import org.openqa.selenium.logging.LogEntry;
-import org.openqa.selenium.logging.LogType;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -36,7 +28,7 @@ import io.meeds.qa.ui.utils.ExceptionLauncher;
 import io.meeds.qa.ui.utils.Utils;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
-import net.thucydides.core.webdriver.javascript.JavascriptExecutorFacade;
+import net.thucydides.core.webdriver.exceptions.ElementShouldBeVisibleException;
 
 public class TestHooks {
 
@@ -48,13 +40,11 @@ public class TestHooks {
   protected static final String              WARMUP_FILE_PATH          = System.getProperty("io.meeds.warmUp.file",
                                                                                             "warmUpFile.tmp");
 
-  private static final int                   WARM_UP_PAGE_LOADING_WAIT = 60;
+  private static final int                   WARM_UP_PAGE_LOADING_WAIT = 10;
 
   private static final int                   MAX_WARM_UP_STEP_WAIT     = 5;
 
   private static final int                   MAX_WARM_UP_RETRIES       = 100;
-
-  private static final int                   CONSOLE_ERRORS_COUNT_FAIL = 5;
 
   protected static final Map<String, String> SPACES                    = new HashMap<>();
 
@@ -157,31 +147,6 @@ public class TestHooks {
     } catch (Throwable e) { // NOSONAR
       // Normal Behavior
     }
-    // Check wether the page has been loaded for the first time or not
-    String currentUrl = driver.getCurrentUrl();
-    if (StringUtils.contains(currentUrl, "/portal")) {
-      List<String> errors = getJavascriptConsoleErrors(driver);
-      if (errors.size() > CONSOLE_ERRORS_COUNT_FAIL) {
-        // force refresh CSS and Javascript content when a timeout happens
-        // while loading the page such as Nginx timeout when the page has been
-        // loaded for the whole first time. This will avoid opening a new
-        // window on each test scenario execution
-        reloadPageStaticResources(driver);
-
-        // Wait 2 seconds for assets to reload
-        Utils.waitForInMillis(2000);
-
-        // Refresh the page
-        goToHomePage(driver);
-
-        // Get the JS console errors again and make the test fails when multiple
-        // errors
-        errors = getJavascriptConsoleErrors(driver);
-        assertTrue(errors.size() < (CONSOLE_ERRORS_COUNT_FAIL * 2),
-                   "It Seems that web page " + driver.getCurrentUrl() + " has " + errors.size() + " errors in JS console: \n"
-                       + StringUtils.join(errors, "\n- Console Error: "));
-      }
-    }
   }
 
   private void deleteAppCenterApplications() {
@@ -217,37 +182,6 @@ public class TestHooks {
     }
   }
 
-  private List<String> getJavascriptConsoleErrors(WebDriver driver) {
-    List<String> errors = null;
-    LogEntries logEntries = driver.manage().logs().get(LogType.BROWSER);
-    if (logEntries != null) {
-      Iterator<LogEntry> logEntryIterator = logEntries.iterator();
-      while (logEntryIterator.hasNext()) {
-        LogEntry logEntry = logEntryIterator.next();
-        if (logEntry.getLevel() == Level.SEVERE
-            && logEntry.getTimestamp() > (System.currentTimeMillis() - 10000)
-            && !StringUtils.contains(logEntry.getMessage(), "?update=")
-            && !StringUtils.contains(logEntry.getMessage(), "/rest")) {
-          if (errors == null) {
-            errors = new ArrayList<>();
-          }
-          errors.add(logEntry.getMessage());
-        }
-      }
-    }
-    return errors == null ? Collections.emptyList() : errors;
-  }
-
-  private void goToHomePage(WebDriver driver) {
-    driver.navigate().to(driver.getCurrentUrl().split("/portal")[0]);
-    try {
-      driver.switchTo().alert().accept();
-    } catch (NoAlertPresentException e) {
-      // Normal Behavior
-    }
-    driver.navigate().refresh();
-  }
-
   private boolean isHamburgerNavigationDisplayed() {
     try {
       return loginSteps.isHamburgerNavigationDisplayed();
@@ -258,34 +192,6 @@ public class TestHooks {
 
   private void loginAsAdmin() {
     loginSteps.authenticate("admin");
-  }
-
-  private void logout() {
-    loginSteps.logout();
-  }
-
-  private void reloadPageCSS(JavascriptExecutorFacade javascriptExecutorFacade) {
-    javascriptExecutorFacade.executeScript("const elements = document.getElementsByTagName('link');"
-        + "for (let i = 0; i < elements.length; i++) {"
-        + "  if(elements[i].href) {"
-        + "    elements[i].href = elements[i].href.indexOf('?') > 0 ? `${elements[i].href}&update=${Date.now()}`:`${elements[i].href}?update=${Date.now()}`"
-        + "  }"
-        + "}");
-  }
-
-  private void reloadPageJavascript(JavascriptExecutorFacade javascriptExecutorFacade) {
-    javascriptExecutorFacade.executeScript("const elements = document.getElementsByTagName('script');"
-        + "for (let i = 0; i < elements.length; i++) {"
-        + "  if(elements[i].src) {"
-        + "    elements[i].src = elements[i].src.indexOf('?') > 0 ? `${elements[i].src}&update=${Date.now()}`:`${elements[i].src}?update=${Date.now()}`"
-        + "  }"
-        + "}");
-  }
-
-  private void reloadPageStaticResources(WebDriver driver) {
-    JavascriptExecutorFacade javascriptExecutorFacade = new JavascriptExecutorFacade(driver);
-    reloadPageJavascript(javascriptExecutorFacade);
-    reloadPageCSS(javascriptExecutorFacade);
   }
 
   private void warmUp(WebDriver driver) {
@@ -318,21 +224,29 @@ public class TestHooks {
                                     MAX_WARM_UP_RETRIES);
       try {
         driver.navigate().to(System.getProperty("webdriver.base.url"));
-        Utils.waitForLoading(WARM_UP_PAGE_LOADING_WAIT);
+        Utils.waitForLoading(WARM_UP_PAGE_LOADING_WAIT, true);
         loginAsAdmin();
+        Utils.waitForLoading(WARM_UP_PAGE_LOADING_WAIT, true);
+        homePageDisplayed = isHamburgerNavigationDisplayed();
+        if (!homePageDisplayed) {
+          throw new ElementShouldBeVisibleException("Home Page isn't displayed", null);
+        }
         // Make sure to use EN language for admin user
         driver.navigate().to(driver.getCurrentUrl().replace("/portal", "/portal/en"));
-        Utils.waitForLoading(WARM_UP_PAGE_LOADING_WAIT);
-      } catch (Exception e) {
+        Utils.waitForLoading(WARM_UP_PAGE_LOADING_WAIT, true);
+      } catch (Throwable e) { // NOSONAR
         ExceptionLauncher.LOGGER.warn("Error authenticating admin user", e);
-      }
-      homePageDisplayed = isHamburgerNavigationDisplayed();
-      if (!homePageDisplayed) {
-        logout();
-        driver.close(); // Close current window to refresh static resources
-        genericSteps.waitInSeconds(MAX_WARM_UP_STEP_WAIT);
+        closeCurrentWindow(driver);
+        waitRemainingTime(WARM_UP_PAGE_LOADING_WAIT * 1000l, start);
       }
     } while (!homePageDisplayed && retryCount++ < MAX_WARM_UP_RETRIES);
+    if (!homePageDisplayed) {
+      // Retry warm up next scenario
+      warmUpFile.deleteOnExit();
+      // Close Window and retry next scenario
+      closeCurrentWindow(driver);
+      throw new ElementShouldBeVisibleException("Home Page isn't displayed", null);
+    }
     if (INIT_DATA) {
       String[] randomUsers = new String[] {
           "first",
@@ -346,6 +260,14 @@ public class TestHooks {
       manageSpaceSteps.addOrGoToSpace("randomSpaceName");
     }
     ExceptionLauncher.LOGGER.info("---- End warmup phase in {} seconds", (System.currentTimeMillis() - start) / 1000);
+  }
+
+  private void closeCurrentWindow(WebDriver driver) {
+    try {
+      driver.close(); // Close current window to refresh static resources
+    } catch (Throwable e) { // NOSONAR
+      // no need to throw an exception, the window may be already closed
+    }
   }
 
 }

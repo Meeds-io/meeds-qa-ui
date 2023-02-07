@@ -1,9 +1,11 @@
 package io.meeds.qa.ui.pages;
 
+import static io.meeds.qa.ui.utils.Utils.DEFAULT_IMPLICIT_WAIT_FOR_TIMEOUT;
+import static io.meeds.qa.ui.utils.Utils.DEFAULT_WAIT_FOR_TIMEOUT;
 import static io.meeds.qa.ui.utils.Utils.MAX_WAIT_RETRIES;
 import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION_MILLIS;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
-import static io.meeds.qa.ui.utils.Utils.waitForLoading;
+import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
 import static org.junit.Assert.assertTrue;
 
 import java.time.Duration;
@@ -101,8 +103,8 @@ public class BasePageImpl extends PageObject implements BasePage {
                                                                        nestedElement,
                                                                        null,
                                                                        xpath,
-                                                                       getImplicitWaitTimeout().toMillis(),
-                                                                       getWaitForTimeout().toMillis());
+                                                                       DEFAULT_IMPLICIT_WAIT_FOR_TIMEOUT,
+                                                                       DEFAULT_WAIT_FOR_TIMEOUT);
   }
 
   @Override
@@ -114,8 +116,8 @@ public class BasePageImpl extends PageObject implements BasePage {
                                                   nestedElement,
                                                   null,
                                                   xpathOrCSSSelector,
-                                                  getImplicitWaitTimeout().toMillis(),
-                                                  getWaitForTimeout().toMillis());
+                                                  DEFAULT_IMPLICIT_WAIT_FOR_TIMEOUT,
+                                                  DEFAULT_WAIT_FOR_TIMEOUT);
   }
 
   public TextBoxElementFacade findTextBoxByXPathOrCSS(String xpathOrCSSSelector) {
@@ -125,8 +127,8 @@ public class BasePageImpl extends PageObject implements BasePage {
                                                                          nestedElement,
                                                                          null,
                                                                          xpathOrCSSSelector,
-                                                                         getImplicitWaitTimeout().toMillis(),
-                                                                         getWaitForTimeout().toMillis());
+                                                                         DEFAULT_IMPLICIT_WAIT_FOR_TIMEOUT,
+                                                                         DEFAULT_WAIT_FOR_TIMEOUT);
   }
 
   public TextElementFacade findTextByXPathOrCSS(String xpath) {
@@ -136,8 +138,8 @@ public class BasePageImpl extends PageObject implements BasePage {
                                                                    nestedElement,
                                                                    null,
                                                                    xpath,
-                                                                   getImplicitWaitTimeout().toMillis(),
-                                                                   getWaitForTimeout().toMillis());
+                                                                   DEFAULT_IMPLICIT_WAIT_FOR_TIMEOUT,
+                                                                   DEFAULT_WAIT_FOR_TIMEOUT);
   }
 
   public String getCurrentUrl() {
@@ -231,7 +233,7 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   @WhenPageOpens
   public void verifyPageLoaded() {
-    waitForLoading();
+    waitForPageLoading();
     waitFor(50).milliseconds();
   }
 

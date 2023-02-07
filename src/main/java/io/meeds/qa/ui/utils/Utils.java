@@ -16,20 +16,28 @@ import org.openqa.selenium.json.JsonException;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import net.serenitybdd.core.Serenity;
+import net.serenitybdd.core.SystemTimeouts;
 
 public class Utils {
 
-  private static final int     DEFAULT_WAIT_PAGE_LOADING  = Integer.parseInt(System.getProperty("io.meeds.page.loading.wait",
-                                                                                                "10"));
+  private static final int     DEFAULT_WAIT_PAGE_LOADING         =
+                                                         Integer.parseInt(System.getProperty("io.meeds.page.loading.wait",
+                                                                                             "10"));
 
-  public static final int      MAX_WAIT_RETRIES           = Integer.parseInt(System.getProperty("io.meeds.retry.max", "3"));
+  public static final int      MAX_WAIT_RETRIES                  =
+                                                Integer.parseInt(System.getProperty("io.meeds.retry.max", "3"));
 
-  private static final Random  RANDOM                     = new Random();
+  private static final Random  RANDOM                            = new Random();
 
-  public static final int      SHORT_WAIT_DURATION_MILLIS = Integer.parseInt(System.getProperty("io.meeds.retry.wait.millis",
-                                                                                                "300"));
+  public static final long     DEFAULT_WAIT_FOR_TIMEOUT          = SystemTimeouts.forTheCurrentTest().getWaitForTimeout();
 
-  public static final Duration SHORT_WAIT_DURATION        = Duration.ofMillis(SHORT_WAIT_DURATION_MILLIS);
+  public static final long     DEFAULT_IMPLICIT_WAIT_FOR_TIMEOUT = SystemTimeouts.forTheCurrentTest().getImplicitTimeout();
+
+  public static final int      SHORT_WAIT_DURATION_MILLIS        =
+                                                          Integer.parseInt(System.getProperty("io.meeds.retry.wait.millis",
+                                                                                              "300"));
+
+  public static final Duration SHORT_WAIT_DURATION               = Duration.ofMillis(SHORT_WAIT_DURATION_MILLIS);
 
   public static String getRandomNumber() {
     char[] chars = "0123456789".toCharArray();
@@ -115,8 +123,26 @@ public class Utils {
     refreshPage(true);
   }
 
+  public static void refreshPage(boolean waitAppsLoading) {
+    Serenity.getDriver().navigate().refresh();
+    try {
+      Serenity.getDriver().switchTo().alert().accept();
+    } catch (NoAlertPresentException e) {
+      // Normal Behavior
+    }
+    if (waitAppsLoading) {
+      waitForLoading();
+    } else {
+      waitForPageLoading();
+    }
+  }
+
+  public static void waitForPageLoading() {
+    waitForLoading(DEFAULT_WAIT_PAGE_LOADING, false);
+  }
+
   public static void waitForLoading() {
-    waitForLoading(DEFAULT_WAIT_PAGE_LOADING);
+    waitForLoading(DEFAULT_WAIT_PAGE_LOADING, true);
   }
 
   public static void waitForInMillis(long timeInMilliseconds) {
@@ -127,21 +153,17 @@ public class Utils {
     }
   }
 
-  public static void waitForLoading(int loadingWait) {
-    waitForLoading(loadingWait, 1);
+  public static void waitForLoading(int loadingWait, boolean includeApps) {
+    waitForLoading(loadingWait, includeApps, 1);
   }
 
-  private static void waitForLoading(int loadingWait, int retries) {
+  public static void waitForLoading(int loadingWait, boolean includeApps, int retries) {
+    long start = System.currentTimeMillis();
     try {
       WebDriverWait wait = new WebDriverWait(Serenity.getDriver(),
                                              Duration.ofSeconds(loadingWait),
                                              Duration.ofMillis(SHORT_WAIT_DURATION_MILLIS));
-      wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState === 'complete' "
-          + " && (!document.getElementById('TopbarLoadingContainer') || !!document.querySelector('.TopbarLoadingContainer.hidden'))"
-          + " && !document.querySelector('.v-card .v-progress-linear__indeterminate')"
-          + " && !document.querySelector('.v-navigation-drawer--open .v-progress-linear__indeterminate')"
-          + " && !document.querySelector('.v-card .v-progress-circular--indeterminate')"
-          + " && !document.querySelector('.v-navigation-drawer--open .v-progress-circular--indeterminate')")
+      wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeScript(getPageLoadingScript(includeApps))
                                                               .toString()
                                                               .equals("true"));
     } catch (TimeoutException | JsonException e) {
@@ -154,22 +176,35 @@ public class Utils {
                     retries,
                     MAX_WAIT_RETRIES,
                     e);
-        refreshPage(false);
-        waitForLoading(loadingWait, retries);
+        refreshPage(false); // Must remain false to avoid infinite loop
+        waitForLoading(loadingWait, includeApps, retries);
+      }
+    } catch (Throwable e) { // NOSONAR
+      waitRemainingTime(loadingWait * 1000l, start);
+    }
+  }
+
+  public static void waitRemainingTime(long loadingWaitMilliseconds, long start) {
+    long remainingTime = loadingWaitMilliseconds - (System.currentTimeMillis() - start);
+    if (remainingTime > 50) {
+      try {
+        LOGGER.error("Error waiting for page to load, wait for next retry within {}s", (remainingTime / 1000));
+        Thread.sleep(remainingTime);
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
       }
     }
   }
 
-  private static void refreshPage(boolean waitForLoading) {
-    Serenity.getDriver().navigate().refresh();
-    try {
-      Serenity.getDriver().switchTo().alert().accept();
-    } catch (NoAlertPresentException e) {
-      // Normal Behavior
-    }
-    if (waitForLoading) {
-      waitForLoading();
-    }
+  private static String getPageLoadingScript(boolean includeApps) {
+    String pageLoadingScript = "return document.readyState === 'complete' "
+        + " && (!document.getElementById('TopbarLoadingContainer') || !!document.querySelector('.TopbarLoadingContainer.hidden'))";
+    return includeApps ? pageLoadingScript
+        + " && !document.querySelector('.v-card .v-progress-linear__indeterminate')"
+        + " && !document.querySelector('.v-navigation-drawer--open .v-progress-linear__indeterminate')"
+        + " && !document.querySelector('.v-card .v-progress-circular--indeterminate')"
+        + " && !document.querySelector('.v-navigation-drawer--open .v-progress-circular--indeterminate')"
+                       : pageLoadingScript;
   }
 
   private Utils() {
