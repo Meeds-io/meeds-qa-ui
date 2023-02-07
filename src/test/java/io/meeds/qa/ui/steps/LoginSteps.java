@@ -35,8 +35,8 @@ public class LoginSteps {
     authenticateIfRandomSpaceAndUsersNotExists(username, null, userPrefixes);
   }
 
-  public boolean isHomePageDisplayed() {
-    return homePage.isHomePageDisplayed();
+  public boolean isHamburgerNavigationDisplayed() {
+    return homePage.isHamburgerNavigationDisplayed();
   }
 
   public boolean isLoggedIn() {

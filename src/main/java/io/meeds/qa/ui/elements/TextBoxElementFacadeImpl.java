@@ -55,17 +55,19 @@ public class TextBoxElementFacadeImpl extends ElementFacadeImpl implements TextB
 
   @Override
   public String getTextBoxValue() {
-    waitForLoading();
-    String textValue = null;
     try {
-      waitUntilVisible();
-      textValue = getValue();
+      if (!isVisibleAfterWaiting()) {
+        waitForLoading();
+        if (!isVisibleAfterWaiting()) {
+          waitUntilVisible();
+        }
+      }
+      return getValue();
     } catch (Exception e) {
       ExceptionLauncher.throwSerenityExeption(e,
                                               String.format("Text can't be extracted from The element [%s]", this));
+      return null;
     }
-    return textValue;
-
   }
 
   @Override

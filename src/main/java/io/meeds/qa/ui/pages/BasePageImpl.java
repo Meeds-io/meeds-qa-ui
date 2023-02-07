@@ -29,7 +29,6 @@ import io.meeds.qa.ui.elements.TextElementFacadeImpl;
 import io.meeds.qa.ui.utils.ExceptionLauncher;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
-import net.serenitybdd.core.selectors.Selectors;
 import net.thucydides.core.annotations.WhenPageOpens;
 import net.thucydides.core.pages.PageObject;
 
@@ -38,8 +37,6 @@ public class BasePageImpl extends PageObject implements BasePage {
   private static final Logger LOGGER                      = LoggerFactory.getLogger(BasePageImpl.class);
 
   private static final String OPNENED_DRAWER_CSS_SELECTOR = ".v-navigation-drawer--open";
-
-  private static final String XPATH_FORMAT_ERROR_MESSAGE  = "The format for the xpath [%s] is not correct.";
 
   protected String            url;
 
@@ -82,7 +79,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void closeAllDrawers() {
-    ElementFacade openedDrawerElement = findByXPathOrCSS(".v-navigation-drawer--open");
+    ElementFacade openedDrawerElement = openedDrawerElement();
     while (openedDrawerElement.isDisplayedNoWait()) {
       findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
       closeAlertIfOpened();
@@ -91,7 +88,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void closeDrawerIfDisplayed() {
-    ElementFacade openedDrawerElement = findByXPathOrCSS(".v-navigation-drawer--open");
+    ElementFacade openedDrawerElement = openedDrawerElement();
     if (openedDrawerElement.isDisplayedNoWait()) {
       findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
       closeAlertIfOpened();
@@ -236,7 +233,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   @WhenPageOpens
   public void verifyPageLoaded() {
     waitForLoading();
-    waitFor(SHORT_WAIT_DURATION_MILLIS).milliseconds();
+    waitFor(50).milliseconds();
   }
 
   public void waitCKEditorLoading() {
@@ -313,6 +310,10 @@ public class BasePageImpl extends PageObject implements BasePage {
     } catch (Exception e) {
       ExceptionLauncher.LOGGER.debug("Can't wait for progress bar to finish loading", e);
     }
+  }
+
+  public ElementFacade openedDrawerElement() {
+    return findByXPathOrCSS(OPNENED_DRAWER_CSS_SELECTOR);
   }
 
   /**********************************************************

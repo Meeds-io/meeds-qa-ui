@@ -17,7 +17,7 @@ public class LoginStepDefinitions {
   @Given("^I am authenticated as (.*)$")
   public void authenticate(String username) {
     loginSteps.authenticate(username);
-    assertTrue("The home page should be loaded, but it did not !", loginSteps.isHomePageDisplayed());
+    assertTrue("The home page should be loaded, but it did not !", loginSteps.isHamburgerNavigationDisplayed());
   }
 
   @Given("^I connect as (.*) if random space and random users doesn't exists$")

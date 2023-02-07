@@ -97,7 +97,7 @@ public class Utils {
             throw new IllegalStateException("Unable to process on element after " + retry + " retries", e);
           }
         } else {
-          LOGGER.warn("Error executing attempt {}/{}", retry, MAX_WAIT_RETRIES, e);
+          LOGGER.warn("Error executing tentative {}/{}", retry, MAX_WAIT_RETRIES, e);
           if (onError != null) {
             onError.run();
           }
@@ -138,8 +138,10 @@ public class Utils {
                                              Duration.ofMillis(SHORT_WAIT_DURATION_MILLIS));
       wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState === 'complete' "
           + " && (!document.getElementById('TopbarLoadingContainer') || !!document.querySelector('.TopbarLoadingContainer.hidden'))"
-          + " && !document.querySelector('#UISiteBody .v-progress-linear__indeterminate')"
-          + " && !document.querySelector('#UISiteBody .v-progress-circular--indeterminate')")
+          + " && !document.querySelector('.v-card .v-progress-linear__indeterminate')"
+          + " && !document.querySelector('.v-navigation-drawer--open .v-progress-linear__indeterminate')"
+          + " && !document.querySelector('.v-card .v-progress-circular--indeterminate')"
+          + " && !document.querySelector('.v-navigation-drawer--open .v-progress-circular--indeterminate')")
                                                               .toString()
                                                               .equals("true"));
     } catch (TimeoutException | JsonException e) {
@@ -155,13 +157,6 @@ public class Utils {
         refreshPage(false);
         waitForLoading(loadingWait, retries);
       }
-    } catch (RuntimeException e) {
-      String result =
-                    ((JavascriptExecutor) Serenity.getDriver()).executeScript("return `document.readyState: ${document.readyState} ,"
-                        + " TopbarLoadingContainer = ${(!document.getElementById('TopbarLoadingContainer') || !!document.querySelector('.TopbarLoadingContainer.hidden'))}, "
-                        + " v-navigation-drawer--open = ${!document.querySelector('.v-navigation-drawer--open .v-progress-linear')}")
-                                                               .toString();
-      LOGGER.warn("Error on waiting document to be loaded. {}", result);
     }
   }
 

@@ -2,7 +2,6 @@ package io.meeds.qa.ui.steps;
 
 import io.meeds.qa.ui.pages.page.factory.HomePage;
 import io.meeds.qa.ui.pages.page.factory.people.PeoplePage;
-import io.meeds.qa.ui.utils.Utils;
 import net.serenitybdd.core.Serenity;
 
 public class PeopleSteps {
@@ -65,10 +64,6 @@ public class PeopleSteps {
     peoplePage.checkThatPeopleShowingResultsIsDisplayed();
   }
 
-  public void checkThatPulldownFiltersIsDisplayed() {
-    peoplePage.checkThatPulldownFiltersIsDisplayed();
-  }
-
   public void checkThatSuggestionWidgetDisplayedTwoUsersWithAddAndDeleteButtons() {
     peoplePage.checkThatSuggestionWidgetDisplayedTwoUsersWithAddAndDeleteButtons();
   }
@@ -112,8 +107,6 @@ public class PeopleSteps {
   }
 
   public void goToUserProfile(String user) {
-    peoplePage.checkThatPulldownFiltersIsDisplayed();
-    Utils.refreshPage();
     homePage.goToPeoplePage();
     peoplePage.goToUserProfile(user);
   }

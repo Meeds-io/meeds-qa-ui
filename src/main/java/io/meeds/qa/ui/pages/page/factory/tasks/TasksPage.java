@@ -546,7 +546,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void commentButtonIsDisabled() {
-    commentTaskButtonElement().isDisabledAfterWaiting();
+    commentTaskButtonElement().waitUntilDisabled();
   }
 
   public void commentsDrawerIsDisplayed() {
@@ -920,7 +920,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void replyTaskCommentButtonIsDisabled() {
-    replyTaskCommentButtonElement().isDisabledAfterWaiting();
+    replyTaskCommentButtonElement().waitUntilDisabled();
   }
 
   public void resetFilterButtonIsDisplayed() {

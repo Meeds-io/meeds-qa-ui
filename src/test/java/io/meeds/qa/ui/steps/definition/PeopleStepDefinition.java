@@ -71,11 +71,6 @@ public class PeopleStepDefinition {
     peopleSteps.checkThatPeopleShowingResultsIsDisplayed();
   }
 
-  @Given("^Pulldown Filter is displayed in People page$")
-  public void checkThatPulldownFiltersIsDisplayed() {
-    peopleSteps.checkThatPulldownFiltersIsDisplayed();
-  }
-
   @Given("^The suggestion widget is existing and displayed two users with Add button and Delete buttons$")
   public void checkThatSuggestionWidgetDisplayedTwoUsersWithAddAndDeleteButtons() {
     peopleSteps.checkThatSuggestionWidgetDisplayedTwoUsersWithAddAndDeleteButtons();

@@ -3,6 +3,7 @@ package io.meeds.qa.ui.pages.page.factory;
 import static io.meeds.qa.ui.utils.Utils.refreshPage;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
+import static io.meeds.qa.ui.utils.ExceptionLauncher.*;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -292,7 +293,7 @@ public class HomePage extends GenericPage {
     }
   }
 
-  public boolean isHomePageDisplayed() {
+  public boolean isHamburgerNavigationDisplayed() {
     return getHamburgerNavigationMenu().isVisibleAfterWaiting();
   }
 
@@ -324,9 +325,11 @@ public class HomePage extends GenericPage {
   }
 
   public void logout() {
-    clickOnHamburgerMenu();
-    logOutMenuElement().clickOnElement();
-    waitForLoading();
+    if (isHamburgerNavigationDisplayed()) {
+      clickOnHamburgerMenu();
+      logOutMenuElement().clickOnElement();
+      waitForLoading();
+    }
   }
 
   public void openAllApplicationPage() {
@@ -413,20 +416,11 @@ public class HomePage extends GenericPage {
   }
 
   private void clickOnHamburgerMenu() {
-    waitForLoading();
-    closeAllDrawers();
     retryOnCondition(() -> getHamburgerNavigationMenu().clickOnElement(),
                      () -> {
-                       ElementFacade overlay = findByXPathOrCSS(".v-overlay--active");
-                       if (overlay.isDisplayedNoWait()) {
-                         try {
-                           overlay.clickOnElement();
-                         } catch (Exception e) {
-                           // Expected when overlay is about to close
-                         }
-                       } else {
-                         refreshPage();
-                       }
+                       LOGGER.warn("Hamburger Menu isn't visible, retry by waiting until application is built");
+                       getHamburgerNavigationMenuDrawer().waitUntilPresent();
+                       closeAllDrawers();
                      });
   }
 
@@ -478,6 +472,10 @@ public class HomePage extends GenericPage {
 
   private ElementFacade getHamburgerNavigationMenu() {
     return findByXPathOrCSS(".HamburgerNavigationMenuLink");
+  }
+
+  private ElementFacade getHamburgerNavigationMenuDrawer() {
+    return findByXPathOrCSS(".HamburgerNavigationMenuLink .v-navigation-drawer");
   }
 
   private List<WebElementFacade> getListConnectionInDrawer() {

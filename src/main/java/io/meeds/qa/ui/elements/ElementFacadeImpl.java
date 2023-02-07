@@ -106,8 +106,8 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
       } catch (WebDriverException e) {
         if (++retries > MAX_WAIT_RETRIES) {
           throw new ElementClickInterceptedException(String.format("The element [%s] cannot be clicked after %s retries.",
-                                                                   (retries - 1),
-                                                                   this),
+                                                                   this,
+                                                                   (retries - 1)),
                                                      e);
         } else {
           LOGGER.warn("Element {} wasn't clickable. Retry {}/{}: {}", this, retries, MAX_WAIT_RETRIES, e.getMessage());
@@ -216,11 +216,10 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
   public boolean isDisabledAfterWaiting() {
     try {
       waitUntilDisabled();
+      return true;
     } catch (Throwable e) { // NOSONAR
       return false;
     }
-    return true;
-
   }
 
   @Override
@@ -271,13 +270,8 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
 
   @Override
   public boolean isNotVisibleAfterWaiting() {
-    boolean notVisible = false;
-    long retry = 0;
     long maxRetries = getImplicitTimeoutInMilliseconds() / SHORT_WAIT_DURATION_MILLIS;
-    do {
-      notVisible = !isDisplayed(SHORT_WAIT_DURATION_MILLIS);
-    } while (!notVisible && ++retry < maxRetries);
-    return notVisible;
+    return isNotVisible(maxRetries);
   }
 
   @Override
@@ -311,36 +305,46 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
 
   @Override
   public boolean isVisibleAfterWaiting() {
-    Boolean visible = false;
-    long retry = 0;
     long maxRetries = getImplicitTimeoutInMilliseconds() / SHORT_WAIT_DURATION_MILLIS;
-    do {
-      visible = isDisplayed(SHORT_WAIT_DURATION_MILLIS);
-    } while (visible != null && !visible.booleanValue() && ++retry < maxRetries);
-    return visible != null && visible.booleanValue();
+    return isVisible(maxRetries);
   }
 
   @Override
   public boolean isNotVisible(long maxRetries) {
-    waitForLoading();
     setImplicitTimeout(SHORT_WAIT_DURATION);
-    boolean notVisible = false;
     int retry = 0;
     do {
-      notVisible = !isDisplayed(SHORT_WAIT_DURATION_MILLIS);
-    } while (!notVisible && retry++ < maxRetries);
-    return notVisible || isNotVisibleAfterWaiting();
+      if (!isDisplayed(SHORT_WAIT_DURATION_MILLIS)) {
+        return true;
+      }
+    } while (retry++ < maxRetries);
+    // Element not displayed yet after X retries
+    try {
+      waitForLoading();
+    } catch (Exception e) {
+      LOGGER.warn("The page seems not to be completely loaded, thus the element {} could be not built yet. Attempt to use isNotVisibleAfterWaiting",
+                  this,
+                  e);
+    }
+    return isNotVisibleAfterWaiting();
   }
 
   @Override
   public boolean isVisible(long maxRetries) {
-    waitForLoading();
     int retry = 0;
     do {
       if (isDisplayed(SHORT_WAIT_DURATION_MILLIS)) {
         return true;
       }
     } while (retry++ < maxRetries);
+    // Element not displayed yet after X retries
+    try {
+      waitForLoading();
+    } catch (Exception e) {
+      LOGGER.warn("The page seems not to be completely loaded, thus the element {} could be not built yet. Attempt to use isVisibleAfterWaiting",
+                  this,
+                  e);
+    }
     return isVisibleAfterWaiting();
   }
 

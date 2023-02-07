@@ -248,9 +248,9 @@ public class TestHooks {
     driver.navigate().refresh();
   }
 
-  private boolean isHomePageDisplayed() {
+  private boolean isHamburgerNavigationDisplayed() {
     try {
-      return loginSteps.isHomePageDisplayed();
+      return loginSteps.isHamburgerNavigationDisplayed();
     } catch (Exception e) {
       return false;
     }
@@ -326,7 +326,7 @@ public class TestHooks {
       } catch (Exception e) {
         ExceptionLauncher.LOGGER.warn("Error authenticating admin user", e);
       }
-      homePageDisplayed = isHomePageDisplayed();
+      homePageDisplayed = isHamburgerNavigationDisplayed();
       if (!homePageDisplayed) {
         logout();
         driver.close(); // Close current window to refresh static resources

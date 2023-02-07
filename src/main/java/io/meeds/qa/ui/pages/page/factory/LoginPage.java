@@ -1,6 +1,5 @@
 package io.meeds.qa.ui.pages.page.factory;
 
-import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 
 import org.apache.commons.lang3.StringUtils;
@@ -10,7 +9,6 @@ import org.openqa.selenium.WebDriver;
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import io.meeds.qa.ui.utils.Utils;
 import net.serenitybdd.markers.IsHidden;
 import net.thucydides.core.annotations.DefaultUrl;
 
@@ -43,7 +41,7 @@ public class LoginPage extends GenericPage implements IsHidden {
       closeAllDrawers();
     } else {
       openLoginPage();
-      retryOnCondition(() -> tryLogin(login, password), Utils::refreshPage);
+      tryLogin(login, password);
       getDriver().manage().addCookie(new Cookie(LAST_LOGGED_IN_USER_COOKIE_NAME, login, "/"));
       lastLoggedInUser = login;
       waitForLoading();
