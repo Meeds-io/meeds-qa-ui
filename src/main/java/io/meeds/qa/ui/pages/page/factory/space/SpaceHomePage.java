@@ -164,15 +164,15 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void checkActivityCommentNotDisplayed(String activity, String comment) {
-    assertWebElementNotVisible(getDropDownCommentMenu(activity, comment));
+    getDropDownCommentMenu(activity, comment).assertNotVisible();
   }
 
   public void checkActivityNotVisible(String activity) {
-    assertWebElementNotVisible(getActivityText(activity));
+    getActivityText(activity).assertNotVisible();
   }
 
   public void checkActivityPinned(String activity) {
-    assertWebElementVisible(getPinnedActivity(activity));
+    getPinnedActivity(activity).assertVisible();
   }
 
   public void checkActivityTitle(String activity) {
@@ -180,23 +180,23 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void checkActivityVisible(String activity) {
-    assertWebElementVisible(getActivityText(activity));
+    getActivityText(activity).assertVisible();
   }
 
   public void checkCommentReplyDisplayed(String activity, String comment, String reply) {
-    assertWebElementVisible(getReplyBox(comment, reply, StringUtils.isBlank(activity)));
+    getReplyBox(comment, reply, StringUtils.isBlank(activity)).assertVisible();
   }
 
   public void checkCommentReplyNotDisplayed(String activity, String comment, String reply) {
-    assertWebElementNotVisible(getReplyBox(comment, reply, StringUtils.isBlank(activity)));
+    getReplyBox(comment, reply, StringUtils.isBlank(activity)).assertNotVisible();
   }
 
   public void checkConfirmationPopupNotVisible() {
-    assertWebElementNotVisible(findByXPathOrCSS(CONFIRMATION_BUTTON_TO_DELETE_ACTIVITY_SELECTOR));
+    findByXPathOrCSS(CONFIRMATION_BUTTON_TO_DELETE_ACTIVITY_SELECTOR).assertNotVisible();
   }
 
   public void checkConfirmationPopupVisible() {
-    assertWebElementVisible(findByXPathOrCSS(CONFIRMATION_BUTTON_TO_DELETE_ACTIVITY_SELECTOR));
+    findByXPathOrCSS(CONFIRMATION_BUTTON_TO_DELETE_ACTIVITY_SELECTOR).assertVisible();
   }
 
   public void checkFirstActivityComment(String comment) {
@@ -209,65 +209,65 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void checkFourCommentIsDisplayedInDrawer() {
-    assertWebElementVisible(firstCommentInDrawerElement());
-    assertWebElementVisible(secondCommentInDrawerElement());
-    assertWebElementVisible(thirdCommentInDrawerElement());
-    assertWebElementVisible(fourthCommentInDrawerElement());
+    firstCommentInDrawerElement().assertVisible();
+    secondCommentInDrawerElement().assertVisible();
+    thirdCommentInDrawerElement().assertVisible();
+    fourthCommentInDrawerElement().assertVisible();
     closeDrawerIfDisplayed();
   }
 
   public void checkFourthCommentInDrawer() {
-    assertWebElementVisible(fourthCommentInDrawerElement());
+    fourthCommentInDrawerElement().assertVisible();
     closeDrawerIfDisplayed();
   }
 
   public void checkLinkPreviewVisible() {
-    assertWebElementVisible(findByXPathOrCSS("//*[contains(@id,'Extactivity-content-extensions')]//following::*[@src]//following::*[@class='my-4']//*[contains(@class,'font-weight-bold')]"));
+    findByXPathOrCSS("//*[contains(@id,'Extactivity-content-extensions')]//following::*[@src]//following::*[@class='my-4']//*[contains(@class,'font-weight-bold')]").assertVisible();
   }
 
   public void checkSearchedUserWellMatched(String user) {
-    assertWebElementVisible(getUserProfileButton(user));
+    getUserProfileButton(user).assertVisible();
   }
 
   public void checkSecondActivityComment() {
-    assertWebElementVisible(secondASDisplayedCommentElement());
+    secondASDisplayedCommentElement().assertVisible();
   }
 
   public void checkSecondCommentInDrawer() {
-    assertWebElementVisible(secondCommentInDrawerElement());
+    secondCommentInDrawerElement().assertVisible();
     closeDrawerIfDisplayed();
   }
 
   public void checkSixthPositionInDrawer() {
-    assertWebElementVisible(sixthPositionInDrawerElement());
+    sixthPositionInDrawerElement().assertVisible();
     closeDrawerIfDisplayed();
   }
 
   public void checkTenCommentIsDisplayedInDrawer() {
-    assertWebElementVisible(firstCommentInDrawerElement());
-    assertWebElementVisible(secondCommentInDrawerElement());
-    assertWebElementVisible(thirdCommentInDrawerElement());
-    assertWebElementVisible(fourthCommentInDrawerElement());
-    assertWebElementVisible(fifthCommentInDrawerElement());
-    assertWebElementVisible(sixthPositionInDrawerElement());
-    assertWebElementVisible(seventhCommentInDrawerElement());
-    assertWebElementVisible(eighthCommentInDrawerElement());
-    assertWebElementVisible(ninthCommentInDrawerElement());
-    assertWebElementVisible(tenthCommentInDrawerElement());
+    firstCommentInDrawerElement().assertVisible();
+    secondCommentInDrawerElement().assertVisible();
+    thirdCommentInDrawerElement().assertVisible();
+    fourthCommentInDrawerElement().assertVisible();
+    fifthCommentInDrawerElement().assertVisible();
+    sixthPositionInDrawerElement().assertVisible();
+    seventhCommentInDrawerElement().assertVisible();
+    eighthCommentInDrawerElement().assertVisible();
+    ninthCommentInDrawerElement().assertVisible();
+    tenthCommentInDrawerElement().assertVisible();
     closeDrawerIfDisplayed();
   }
 
   public void checkThirdCommentInDrawer() {
-    assertWebElementVisible(thirdCommentInDrawerElement());
+    thirdCommentInDrawerElement().assertVisible();
     closeDrawerIfDisplayed();
   }
 
   public void checkUserDisplayedInReactionsDrawer(String userLastName) {
-    assertWebElementVisible(getUserElementFromReactionsDrawer(userLastName));
+    getUserElementFromReactionsDrawer(userLastName).assertVisible();
   }
 
   public void checkVideoActivityVisible(String videoLink) {
-    assertWebElementVisible(getSharedVideoPreview(videoLink));
+    getSharedVideoPreview(videoLink).assertVisible();
   }
 
   public void clickApplyDownload() {
@@ -329,7 +329,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void clickOnKudosButtonNumberFromCommentsDrawerToCommentActivity() {
-    assertWebElementVisible(kudosButtonNumberFromCommentsDrawerToCommentActivityElement());
+    kudosButtonNumberFromCommentsDrawerToCommentActivityElement().assertVisible();
     kudosButtonNumberFromCommentsDrawerToCommentActivityElement().clickOnElement();
     waitForDrawerToOpen(".v-navigation-drawer--open .kudos-list", false);
   }
@@ -410,7 +410,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void commentNameIsNotDisplayedInDrawer(String comment) {
-    assertWebElementNotVisible(getDrawerCommentName(comment));
+    getDrawerCommentName(comment).assertNotVisible();
   }
 
   public void commentsDrawerDisplayedLikesOnComment(String comment, String number) {
@@ -422,7 +422,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void copyLinkActivityButtonIsDisplayed(String activity) {
-    assertWebElementVisible(getCopyLinkActivityIcon(activity));
+    getCopyLinkActivityIcon(activity).assertVisible();
   }
 
   public void createPoll(String pollTitle, String choiceOne, String choiceTow) {
@@ -439,7 +439,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void createPollDrawerClosed() {
-    assertWebElementNotVisible(titlePollElement());
+    titlePollElement().assertNotVisible();
   }
 
   public void createPollWithOneChoice(String pollTitle, String choiceOne) {
@@ -452,7 +452,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void deleteActivityButtonIsDisplayed(String activity) {
-    assertWebElementVisible(getDeleteActivityIcon(activity));
+    getDeleteActivityIcon(activity).assertVisible();
   }
 
   public void deleteComment(String comment) {
@@ -468,7 +468,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void downloadActivityButtonIsDisplayed(String activity) {
-    assertWebElementVisible(getDownloadActivityIcon(activity));
+    getDownloadActivityIcon(activity).assertVisible();
   }
 
   public void editActivity() {
@@ -479,7 +479,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void editActivityButtonIsDisplayed(String activity) {
-    assertWebElementVisible(getEditActivityIcon(activity));
+    getEditActivityIcon(activity).assertVisible();
   }
 
   public void editComment() {
@@ -592,7 +592,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void getReceivedKudosSectionIsDisplayed(String kudosNumber) {
-    assertWebElementVisible(getReceivedKudosNumberInDrawer(kudosNumber));
+    getReceivedKudosNumberInDrawer(kudosNumber).assertVisible();
   }
 
   public void goToPeopleMenu() {
@@ -648,25 +648,25 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void isActivityNameUserSpaceDisplayed(String activity, String user, String space) {
-    assertWebElementVisible(getActivityNameUserSpace(activity, user, space));
+    getActivityNameUserSpace(activity, user, space).assertVisible();
   }
 
   public void isMentionedUserDisplayedInPost(String activity, String user) {
-    assertWebElementVisible(getUserMentionedInPost(activity, user));
+    getUserMentionedInPost(activity, user).assertVisible();
   }
 
   public void isUserPopoverDisplayed(String user) {
-    assertWebElementVisible(getUserPopover(user));
+    getUserPopover(user).assertVisible();
   }
 
   public void kudosLabelIsBlack(String comment) {
-    assertWebElementVisible(getBlackKudosCommentIcon(comment));
-    assertWebElementNotVisible(getBlueKudosCommentIcon(comment));
+    getBlackKudosCommentIcon(comment).assertVisible();
+    getBlueKudosCommentIcon(comment).assertNotVisible();
   }
 
   public void kudosLabelIsBlue(String comment) {
-    assertWebElementNotVisible(getBlackKudosCommentIcon(comment));
-    assertWebElementVisible(getBlueKudosCommentIcon(comment));
+    getBlackKudosCommentIcon(comment).assertNotVisible();
+    getBlueKudosCommentIcon(comment).assertVisible();
   }
 
   public void likeActivity(String activity) {
@@ -678,19 +678,19 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void likeLabelInCommentsDrawerIsBlack(String comment) {
-    assertWebElementNotVisible(getCommentsDrawerBlueLikeCommentIcon(comment));
+    getCommentsDrawerBlueLikeCommentIcon(comment).assertNotVisible();
   }
 
   public void likeLabelInCommentsDrawerIsBlue(String comment) {
-    assertWebElementVisible(getCommentsDrawerBlueLikeCommentIcon(comment));
+    getCommentsDrawerBlueLikeCommentIcon(comment).assertVisible();
   }
 
   public void likeLabelIsBlack(String comment) {
-    assertWebElementNotVisible(getBlueLikeCommentIcon(comment));
+    getBlueLikeCommentIcon(comment).assertNotVisible();
   }
 
   public void likeLabelIsBlue(String comment) {
-    assertWebElementVisible(getBlueLikeCommentIcon(comment));
+    getBlueLikeCommentIcon(comment).assertVisible();
   }
 
   public void linkIsOpenedNewTab(String link) {
@@ -712,11 +712,11 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void noCommentDisplayedInDrawer() {
-    assertWebElementVisible(findByXPathOrCSS("//*[@class='text-capitalize-first-letter' and contains(text(),'No comment yet')]"));
+    findByXPathOrCSS("//*[@class='text-capitalize-first-letter' and contains(text(),'No comment yet')]").assertVisible();
   }
 
   public void normalLinkPreviewIsVisible(String link) {
-    assertWebElementVisible(getNormalLinkPreview(link));
+    getNormalLinkPreview(link).assertVisible();
   }
 
   public void openActivityReactionsDrawer(String activity) {
@@ -754,11 +754,11 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void pinActivityButtonIsDisplayed(String activity) {
-    assertWebElementVisible(getPinActivityIcon(activity));
+    getPinActivityIcon(activity).assertVisible();
   }
 
   public void pinnedActivityDisappears(String activity) {
-    assertWebElementNotVisible(getPinnedActivity(activity));
+    getPinnedActivity(activity).assertNotVisible();
   }
 
   public void pollButton() {
@@ -822,15 +822,15 @@ public class SpaceHomePage extends GenericPage {
 
   public void replyInDrawerIsNotDisplayed(String reply) {
     ElementFacade element = getDrawerReplyName(reply);
-    assertWebElementNotVisible(element);
+    element.assertNotVisible();
   }
 
   public void replyIsDisplayedInCommentsDrawer(String comment, String reply) {
-    assertWebElementVisible(getReplyBox(comment, reply, true));
+    getReplyBox(comment, reply, true).assertVisible();
   }
 
   public void replyIsNotDisplayedInCommentsDrawer(String comment, String reply) {
-    assertWebElementNotVisible(getReplyBox(comment, reply, true));
+    getReplyBox(comment, reply, true).assertNotVisible();
   }
 
   public void searchMember(String name) {
@@ -855,7 +855,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void unPinActivityButtonIsDisplayed(String activity) {
-    assertWebElementVisible(getUnpinActivityIcon(activity));
+    getUnpinActivityIcon(activity).assertVisible();
   }
 
   public void updateActivityComment(String comment) {
@@ -900,7 +900,7 @@ public class SpaceHomePage extends GenericPage {
     ckEditorFrameCommentElement.waitUntilVisible();
     getDriver().switchTo().frame(ckEditorFrameCommentElement);
     try {
-      assertWebElementVisible(getMentionedUserInCommentEntered(user));
+      getMentionedUserInCommentEntered(user).assertVisible();
     } finally {
       getDriver().switchTo().defaultContent();
     }
@@ -911,7 +911,7 @@ public class SpaceHomePage extends GenericPage {
     ckEditorFrameCommentElement.waitUntilVisible();
     getDriver().switchTo().frame(ckEditorFrameCommentElement);
     try {
-      assertWebElementNotVisible(getMentionedUserInCommentEntered(user), 2);
+      getMentionedUserInCommentEntered(user).assertNotVisible();
     } finally {
       getDriver().switchTo().defaultContent();
     }

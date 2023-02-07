@@ -13,16 +13,16 @@ public class AddUserPage extends GenericPage {
   }
 
   public void checkPopupCantDeleteLoggedUser() {
-    assertWebElementVisible(popupCantDeleteLoggedUserElement());
+    popupCantDeleteLoggedUserElement().assertVisible();
   }
 
   public void checkThatAddUserDrawerIsDisplayed() {
-    assertWebElementVisible(addUserDrawerElement());
+    addUserDrawerElement().assertVisible();
   }
 
   public void checkUserIsDeleted(String fullName) {
     searchForUserByName(fullName);
-    assertWebElementNotVisible(deleteConfirmationButtonElement());
+    deleteConfirmationButtonElement().assertNotVisible();
   }
 
   public void clickAddUserButton() {
@@ -54,7 +54,7 @@ public class AddUserPage extends GenericPage {
   }
 
   public void isUserNameDisplayed(String user) {
-    assertWebElementVisible(getUserElement(user));
+    getUserElement(user).assertVisible();
   }
 
   public void saveAddUserButton() {

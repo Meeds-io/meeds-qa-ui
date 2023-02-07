@@ -22,10 +22,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.meeds.qa.ui.utils.ExceptionLauncher;
-import io.meeds.qa.ui.utils.IOMeedsTraceException;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.core.pages.WebElementFacadeImpl;
 import net.serenitybdd.core.selectors.Selectors;
+import net.thucydides.core.webdriver.exceptions.ElementShouldBeInvisibleException;
 import net.thucydides.core.webdriver.exceptions.ElementShouldBeVisibleException;
 import net.thucydides.core.webdriver.javascript.JavascriptExecutorFacade;
 
@@ -103,18 +103,18 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
         checkVisible();
         super.click();
         return;
+      } catch (ElementClickInterceptedException e) {
+        // Normal behavior since this can happen when the page is reloaded
+        return;
       } catch (WebDriverException e) {
-        if (++retries > MAX_WAIT_RETRIES) {
+        if (StringUtils.contains(e.getMessage(), "unexpected command response")) {
+          // Normal behavior since this can happen when the page is reloaded
+          return;
+        } else if (++retries > MAX_WAIT_RETRIES) {
           throw new ElementClickInterceptedException(String.format("The element [%s] cannot be clicked after %s retries.",
                                                                    this,
                                                                    (retries - 1)),
                                                      e);
-        } else {
-          LOGGER.warn("Element {} wasn't clickable. Retry {}/{}: {}",
-                      this,
-                      retries,
-                      MAX_WAIT_RETRIES,
-                      new IOMeedsTraceException(e));
         }
       }
     } while (retries <= MAX_WAIT_RETRIES); // NOSONAR
@@ -226,11 +226,12 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
     Duration defaultTimeout = getImplicitTimeout();
     setImplicitTimeout(Duration.ofMillis(implicitWaitInMillis));
     try {
-      boolean clickable = isClickable();
-      if (!clickable) {
+      if (isClickable()) {
+        return true;
+      } else if (implicitWaitInMillis > 0) {
         waitRemainingTime(implicitWaitInMillis, start);
       }
-      return clickable;
+      return false;
     } finally {
       setImplicitTimeout(defaultTimeout);
     }
@@ -242,11 +243,29 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
     Duration defaultTimeout = getImplicitTimeout();
     setImplicitTimeout(Duration.ofMillis(implicitWaitInMillis));
     try {
-      boolean displayed = isDisplayed();
-      if (!displayed) {
+      if (isDisplayed()) {
+        return true;
+      } else if (implicitWaitInMillis > 0) {
         waitRemainingTime(implicitWaitInMillis, start);
       }
-      return displayed;
+      return false;
+    } finally {
+      setImplicitTimeout(defaultTimeout);
+    }
+  }
+
+  @Override
+  public boolean isNotDisplayed(long implicitWaitInMillis) {
+    long start = System.currentTimeMillis();
+    Duration defaultTimeout = getImplicitTimeout();
+    setImplicitTimeout(Duration.ofMillis(implicitWaitInMillis));
+    try {
+      if (!isDisplayed()) {
+        return true;
+      } else if (implicitWaitInMillis > 0) {
+        waitRemainingTime(implicitWaitInMillis, start);
+      }
+      return false;
     } finally {
       setImplicitTimeout(defaultTimeout);
     }
@@ -256,17 +275,18 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
   public boolean isNotVisible(long maxRetries) {
     int retry = 0;
     do {
-      if (!isDisplayed(SHORT_WAIT_DURATION_MILLIS)) {
+      if (isNotDisplayed(SHORT_WAIT_DURATION_MILLIS)) {
         return true;
+      } else {
+        webElement = null;
       }
     } while (retry++ < maxRetries);
     // Element not displayed yet after X retries
     try {
       waitForLoading();
     } catch (Exception e) {
-      LOGGER.warn("The page seems not to be completely loaded, thus the element {} could be not built yet. Attempt to use isNotVisibleAfterWaiting",
-                  this,
-                  e);
+      LOGGER.info("The page seems not to be completely loaded, thus the element {} could be not built yet. Attempt to use isNotVisibleAfterWaiting",
+                  this);
     }
     return !isDisplayedNoWait();
   }
@@ -277,15 +297,16 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
     do {
       if (isDisplayed(SHORT_WAIT_DURATION_MILLIS)) {
         return true;
+      } else {
+        webElement = null;
       }
     } while (retry++ < maxRetries);
     // Element not displayed yet after X retries
     try {
       waitForLoading();
     } catch (Exception e) {
-      LOGGER.warn("The page seems not to be completely loaded, thus the element {} could be not built yet. Attempt to use isVisibleAfterWaiting",
-                  this,
-                  e);
+      LOGGER.info("The page seems not to be completely loaded, thus the element {} could be not built yet",
+                  this);
     }
     return isDisplayedNoWait();
   }
@@ -313,28 +334,54 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
 
   @Override
   public void checkClickable() {
+    long start = System.currentTimeMillis();
     if (!isClickable(SHORT_WAIT_DURATION_MILLIS)) {
-      throw new ElementClickInterceptedException(String.format("Unable to locate a clickable element %s", this));
+      throw new ElementClickInterceptedException(String.format("Unable to locate a clickable element %s after %s ms",
+                                                               this,
+                                                               System.currentTimeMillis() - start));
     }
   }
 
   @Override
   public void checkVisible() {
+    long start = System.currentTimeMillis();
     if (!isVisible(MAX_WAIT_RETRIES)) {
-      throw new ElementShouldBeVisibleException(String.format("Unable to locate a visible element %s", this), null);
+      throw new ElementShouldBeVisibleException(String.format("Unable to locate a visible element %s after %s ms",
+                                                              this,
+                                                              System.currentTimeMillis() - start),
+                                                null);
     }
   }
 
   @Override
   public void checkNotVisible() {
+    long start = System.currentTimeMillis();
     if (!isNotVisible(MAX_WAIT_RETRIES)) {
-      throw new ElementShouldBeVisibleException(String.format("Unable to locate a visible element %s", this), null);
+      throw new ElementShouldBeInvisibleException(String.format("Element is still visible %s after %s ms",
+                                                                this,
+                                                                System.currentTimeMillis() - start),
+                                                  null);
     }
   }
 
   @Override
   public void assertNotVisible() {
-    assertTrue(String.format("Element %s is still visible after waiting", this), isNotVisible(MAX_WAIT_RETRIES));
+    long start = System.currentTimeMillis();
+    boolean notVisible = isNotVisible(MAX_WAIT_RETRIES);
+    assertTrue(String.format("Element %s was visible after waiting %s ms",
+                             this,
+                             System.currentTimeMillis() - start),
+               notVisible);
+  }
+
+  @Override
+  public void assertVisible() {
+    long start = System.currentTimeMillis();
+    boolean visible = isVisible(MAX_WAIT_RETRIES);
+    assertTrue(String.format("Element %s wasn't visible after waiting %s ms",
+                             this,
+                             System.currentTimeMillis() - start),
+               visible);
   }
 
   @Override

@@ -42,37 +42,37 @@ public class UnifiedSearchPage extends GenericPage {
   }
 
   public void isSearchedActivityTitleNotVisible(String activity) {
-    retryOnCondition(() -> assertWebElementNotVisible(getActivitySearchTitle(activity)), () -> {
+    retryOnCondition(() -> getActivitySearchTitle(activity).checkNotVisible(), () -> {
       waitFor(1).seconds(); // The element can be not indexed yet
       refreshPage();
     });
   }
 
   public void isSearchedActivityTitleVisible(String activity) {
-    retryOnCondition(() -> assertWebElementVisible(getActivitySearchTitle(activity)), () -> {
+    retryOnCondition(() -> getActivitySearchTitle(activity).checkVisible(), () -> {
       waitFor(1).seconds(); // The element can be not indexed yet
       refreshPage();
     });
   }
 
   public void isSearchedApplicationDescriptionVisible(String appDesc) {
-    assertWebElementVisible(getApplicationSearchDescription(appDesc));
+    getApplicationSearchDescription(appDesc).assertVisible();
   }
 
   public void isSearchedApplicationNameVisible(String appName) {
-    assertWebElementVisible(getApplicationSearchTitle(appName));
+    getApplicationSearchTitle(appName).assertVisible();
   }
 
   public void isSearchedApplicationPictureVisible() {
-    assertWebElementVisible(elementApplicationSearchPictureElement());
+    elementApplicationSearchPictureElement().assertVisible();
   }
 
   public void isSearchedSpaceNameVisible(String space) {
-    assertWebElementVisible(getSpaceSearchTitle(space));
+    getSpaceSearchTitle(space).assertVisible();
   }
 
   public void isSearchedUserNameVisible(String user) {
-    assertWebElementVisible(getUserSearchTitle(user));
+    getUserSearchTitle(user).assertVisible();
   }
 
   public void openSearchApplication() {

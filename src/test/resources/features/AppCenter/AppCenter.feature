@@ -114,7 +114,6 @@ Feature: UI app administration
     And The created application Open Button is displayed
     And AppCenter created application is removed From Favorites
 
-    
   Scenario: CAP50 - Admin_Settings_US06 - Active option
     Given I am authenticated as admin
     And I create the first random user if not existing, no wait

@@ -6,7 +6,7 @@ import io.meeds.qa.ui.pages.GenericPage;
 public class SpaceMembersPage extends GenericPage {
 
   public void checkPostDrawer() {
-    assertWebElementVisible(writeShortMessageDrawerElement());
+    writeShortMessageDrawerElement().assertVisible();
   }
 
   public void clickOnThreeDotsMenu() {

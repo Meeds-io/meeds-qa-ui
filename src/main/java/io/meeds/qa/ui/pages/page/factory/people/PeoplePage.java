@@ -24,19 +24,19 @@ public class PeoplePage extends GenericPage {
   }
 
   public void areCurrentUserPositionAndPointsOnLeaderboardDisplayed() {
-    assertWebElementVisible(currentUserLeaderboardPositionElement());
+    currentUserLeaderboardPositionElement().assertVisible();
   }
 
   public void areTwoFirstPlacesOnLeaderboardDisplayed() {
     // Display the 2 first places on Leaderboard
-    assertWebElementVisible(firstUserLeaderboardPositionElement());
-    assertWebElementVisible(secondUserLeaderboardPositionElement());
+    firstUserLeaderboardPositionElement().assertVisible();
+    secondUserLeaderboardPositionElement().assertVisible();
   }
 
   public void areTwoFirstUsersPointsOnLeaderboardDisplayed() {
     // Display the 2 first users points on Leaderboard
-    assertWebElementVisible(firstUserLeaderboardPointsElement());
-    assertWebElementVisible(secondUserLeaderboardPointsElement());
+    firstUserLeaderboardPointsElement().assertVisible();
+    secondUserLeaderboardPointsElement().assertVisible();
   }
 
   public void checkConnectToUser(String user) {
@@ -103,7 +103,7 @@ public class PeoplePage extends GenericPage {
   public void checkThatFilterIsDisplayed() {
     // Check that Filter is displayed
     TextBoxElementFacade searchPeopleInputElement = searchPeopleInputElement();
-    assertWebElementVisible(searchPeopleInputElement);
+    searchPeopleInputElement.assertVisible();
     Assert.assertEquals(searchPeopleInputElement.getAttribute("placeholder"), "Filter by name, position or skill");
   }
 

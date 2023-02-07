@@ -25,7 +25,7 @@ public class KudosAdministrationPage extends GenericPage {
     getKudosLink(activity).clickOnElement();
     findByXPathOrCSS("//*[contains (@class, 'v-icon notranslate v-chip')]").clickOnElement();
     ElementFacade suggesterContentElement = findByXPathOrCSS("//*[contains(@content-class,'identitySuggesterContent')]");
-    assertWebElementVisible(suggesterContentElement);
+    suggesterContentElement.assertVisible();
 
     suggesterContentElement.clickOnElement();
     suggesterContentElement.sendKeys(user);
@@ -37,14 +37,14 @@ public class KudosAdministrationPage extends GenericPage {
     getKudosLink(activity).clickOnElement();
     findByXPathOrCSS("//*[contains (@class, 'v-icon notranslate v-chip')]").clickOnElement();
     ElementFacade suggesterContentElement = findByXPathOrCSS("//*[contains(@content-class,'identitySuggesterContent')]");
-    assertWebElementVisible(suggesterContentElement);
+    suggesterContentElement.assertVisible();
     suggesterContentElement.clickOnElement();
     suggesterContentElement.sendKeys(user);
-    assertWebElementVisible(getNotFoundUserInSpaceMessage(message));
+    getNotFoundUserInSpaceMessage(message).assertVisible();
   }
 
   public void checkKudosActivityVisible(String message) {
-    assertWebElementVisible(getKudosActivityText(message));
+    getKudosActivityText(message).assertVisible();
   }
 
   public void checkKudosIconDisabled(String activityId) {
@@ -119,7 +119,7 @@ public class KudosAdministrationPage extends GenericPage {
     }
     getDriver().switchTo().defaultContent();
     ElementFacade kudosButtonInDrawerElement = kudosButtonInDrawerElement();
-    assertWebElementVisible(kudosButtonInDrawerElement);
+    kudosButtonInDrawerElement.assertVisible();
     kudosButtonInDrawerElement.clickOnElement();
     kudosButtonInDrawerElement.waitUntilNotVisible();
     refreshPage();
@@ -132,7 +132,7 @@ public class KudosAdministrationPage extends GenericPage {
 
   public void threeDotsMenuSendKudos() {
     ElementFacade sendKudosMenuElement = sendKudosMenuElement();
-    assertWebElementVisible(sendKudosMenuElement);
+    sendKudosMenuElement.assertVisible();
     sendKudosMenuElement.clickOnElement();
   }
 

@@ -6,9 +6,9 @@ import static io.meeds.qa.ui.utils.Utils.MAX_WAIT_RETRIES;
 import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION_MILLIS;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
-import static org.junit.Assert.assertTrue;
 
 import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
@@ -47,24 +47,6 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   public BasePageImpl(WebDriver driver) {
     super(driver);
-  }
-
-  public void assertWebElementNotVisible(ElementFacade element) {
-    assertTrue(String.format("Element %s is still visible after waiting", // NOSONAR
-                             element),
-               isWebElementNotVisible(element, MAX_WAIT_RETRIES));
-  }
-
-  public void assertWebElementNotVisible(ElementFacade element, int maxRetries) {
-    assertTrue(String.format("Element %s is still visible after waiting", element), isWebElementNotVisible(element, maxRetries));
-  }
-
-  public void assertWebElementVisible(ElementFacade element) {
-    assertTrue(String.format("Unable to locate a visible element %s", element), isWebElementVisible(element, MAX_WAIT_RETRIES));
-  }
-
-  public void assertWebElementVisible(ElementFacade element, int maxRetries) {
-    assertTrue(String.format("Unable to locate a visible element %s", element), isWebElementVisible(element, maxRetries));
   }
 
   public void clickOnElement(ElementFacade element) {

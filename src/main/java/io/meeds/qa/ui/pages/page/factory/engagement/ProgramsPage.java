@@ -49,23 +49,23 @@ public class ProgramsPage extends GenericPage {
   }
 
   public void checkProgramCardDisplay(String title) {
-    assertWebElementNotVisible(getProgramCardTitle(title));
+    getProgramCardTitle(title).assertNotVisible();
   }
 
   public void checkProgramCardTitle(String title) {
-    assertWebElementVisible(getProgramCardTitle(title));
+    getProgramCardTitle(title).assertVisible();
   }
 
   public void checkProgramDrawerDisplay() {
-    assertWebElementVisible(headerProgramDrawerElement());
+    headerProgramDrawerElement().assertVisible();
   }
 
   public void checkProgramTitleDisplayOnCard(String title) {
-    assertWebElementVisible(getProgramCardTitle(title));
+    getProgramCardTitle(title).assertVisible();
   }
 
   public void checkProgramTitleUpdateOnCard(String title) {
-    assertWebElementVisible(getProgramCardTitle(title));
+    getProgramCardTitle(title).assertVisible();
   }
 
   public void clickAddProgramBtn() {
@@ -77,14 +77,14 @@ public class ProgramsPage extends GenericPage {
   }
 
   public void deleteCreatedProgram(String programName) {
-    assertWebElementVisible(getProgramCard(programName));
+    getProgramCard(programName).assertVisible();
     programThreeDotsButtonElement().clickOnElement();
     deleteProgramButtonElement().clickOnElement();
     yesConfirmButtonElement().clickOnElement();
   }
 
   public void editProgramWithDescription(String programName, String newProgramName, String newProgramDescription) {
-    assertWebElementVisible(getProgramCard(programName));
+    getProgramCard(programName).assertVisible();
     programThreeDotsButtonElement().clickOnElement();
     editProgramButtonElement().clickOnElement();
     programTitleFieldElement().setTextValue(newProgramName);
@@ -125,7 +125,7 @@ public class ProgramsPage extends GenericPage {
   }
 
   public void checkEngagementAppOpened() {
-    assertWebElementVisible(findByXPathOrCSS("//*[@id='EngagementCenterApplication']"));
+    findByXPathOrCSS("//*[@id='EngagementCenterApplication']").assertVisible();
   }
 
   public void selectEngagementTab(String tab) {

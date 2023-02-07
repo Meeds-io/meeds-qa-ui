@@ -1,10 +1,12 @@
 package io.meeds.qa.ui.pages.page.factory.administration;
 
+import static io.meeds.qa.ui.utils.ExceptionLauncher.LOGGER;
 import static io.meeds.qa.ui.utils.Utils.refreshPage;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -13,7 +15,6 @@ import org.openqa.selenium.WebElement;
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
-import io.meeds.qa.ui.utils.ExceptionLauncher;
 
 public class ApplicationPage extends GenericPage {
 
@@ -31,13 +32,13 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void appDescriptionInApplicationsTableIsDisplayed(String appDescription) {
-    assertWebElementVisible(appDescriptionInApplicationsTable(appDescription));
+    appDescriptionInApplicationsTable(appDescription).assertVisible();
   }
 
   public void applicationDrawerEnabledButtonsAreIsDisplayed() {
-    assertWebElementVisible(findByXPathOrCSS("(//*[contains(@class, 'appCenterDrawer')]//*[contains(@class, 'applicationProperties')]//input[@aria-checked='true'])[1]//ancestor::*[contains(@class, 'v-input')]"));
-    assertWebElementVisible(findByXPathOrCSS("(//*[contains(@class, 'appCenterDrawer')]//*[contains(@class, 'applicationProperties')]//input[@aria-checked='true'])[2]//ancestor::*[contains(@class, 'v-input')]"));
-    assertWebElementVisible(findByXPathOrCSS("(//*[contains(@class, 'appCenterDrawer')]//*[contains(@class, 'applicationProperties')]//input[@aria-checked='true'])[3]//ancestor::*[contains(@class, 'v-input')]"));
+    findByXPathOrCSS("(//*[contains(@class, 'appCenterDrawer')]//*[contains(@class, 'applicationProperties')]//input[@aria-checked='true'])[1]//ancestor::*[contains(@class, 'v-input')]").assertVisible();
+    findByXPathOrCSS("(//*[contains(@class, 'appCenterDrawer')]//*[contains(@class, 'applicationProperties')]//input[@aria-checked='true'])[2]//ancestor::*[contains(@class, 'v-input')]").assertVisible();
+    findByXPathOrCSS("(//*[contains(@class, 'appCenterDrawer')]//*[contains(@class, 'applicationProperties')]//input[@aria-checked='true'])[3]//ancestor::*[contains(@class, 'v-input')]").assertVisible();
   }
 
   public void applicationDrawerImageIsDisplayed(String image) {
@@ -64,31 +65,31 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void appPermissionInApplicationsTableIsDisplayed(String appTitle, String permission) {
-    assertWebElementVisible(appPermissionInApplicationsTable(appTitle, permission));
+    appPermissionInApplicationsTable(appTitle, permission).assertVisible();
   }
 
   public void appTitleInApplicationsTableIsDisplayed(String appTitle) {
-    assertWebElementVisible(appTitleInApplicationsTable(appTitle));
+    appTitleInApplicationsTable(appTitle).assertVisible();
   }
 
   public void appUrlInApplicationsTableIsDisplayed(String appUrl) {
-    assertWebElementVisible(appUrlInApplicationsTable(appUrl));
+    appUrlInApplicationsTable(appUrl).assertVisible();
   }
 
   public void checkPopupDeleteNotVisible() {
-    assertWebElementNotVisible(confirmDeleteElement());
+    confirmDeleteElement().assertNotVisible();
   }
 
   public void checkThatApplicationImageIsDisplayedInDrawer(String image) {
-    assertWebElementVisible(getApplicationImageInDrawer(image));
+    getApplicationImageInDrawer(image).assertVisible();
   }
 
   public void checkThatApplicationImageIsNotDisplayedInApplicationsTable(String appTitle) {
-    assertWebElementVisible(appTitleNoImageElement(appTitle));
+    appTitleNoImageElement(appTitle).assertVisible();
   }
 
   public void checkThatApplicationImageIsNotDisplayedInDrawer(String image) {
-    assertWebElementNotVisible(getApplicationImageInDrawer(image));
+    getApplicationImageInDrawer(image).assertNotVisible();
   }
 
   public void clickActiveApp(String appTitle) {
@@ -129,7 +130,9 @@ public class ApplicationPage extends GenericPage {
     searchAppByTitle(appTitle);
     retryOnCondition(() -> {
       ElementFacade mandatoryApplication = getMandatoryApplication(appTitle);
-      if (mandatoryApplication.findByXPath("//input").getAttribute("aria-checked").equals("true")) {
+      mandatoryApplication.checkVisible();
+      String enabled = mandatoryApplication.findByXPath("//input").getAttribute("aria-checked");
+      if (StringUtils.equals(enabled, "true")) {
         clickOnElement(mandatoryApplication);
       }
     });
@@ -143,7 +146,9 @@ public class ApplicationPage extends GenericPage {
     searchAppByTitle(appTitle);
     retryOnCondition(() -> {
       ElementFacade mandatoryApplication = getMandatoryApplication(appTitle);
-      if (mandatoryApplication.findByXPath("//input").getAttribute("aria-checked").equals("false")) {
+      mandatoryApplication.checkVisible();
+      String enabled = mandatoryApplication.findByXPath("//input").getAttribute("aria-checked");
+      if (StringUtils.isBlank(enabled) || StringUtils.equals(enabled, "false")) {
         clickOnElement(mandatoryApplication);
       }
     });
@@ -313,11 +318,10 @@ public class ApplicationPage extends GenericPage {
 
   private void waitForSearchToComplete() {
     try {
-      findByXPathOrCSS("(//*[contains(@class, 'tableAppTitle')])[2]").waitUntilNotVisible();
+      findByXPathOrCSS("(//*[contains(@class, 'tableAppTitle')])[2]").checkNotVisible();
     } catch (Exception e) {
-      ExceptionLauncher.LOGGER.debug("Search on AppCenter hasn't finished loading at time", e);
+      LOGGER.debug("Search on AppCenter hasn't finished loading at time", e);
     }
-    waitFor(500).milliseconds(); // Wait until application finishes its
-    // display
+    waitFor(500).milliseconds(); // Wait until application finishes its display
   }
 }

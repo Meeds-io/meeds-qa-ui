@@ -26,45 +26,45 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void checkApplicationIsNotVisible(String application) {
-    assertWebElementNotVisible(getApplicationInsideAppPage(application));
+    getApplicationInsideAppPage(application).assertNotVisible();
   }
 
   public void checkApplicationIsVisible(String application) {
-    assertWebElementVisible(getApplicationInsideAppPage(application));
+    getApplicationInsideAppPage(application).assertVisible();
   }
 
   public void checkThatAddApplicationBtnToFavoritesIsDisplayed(String app) {
     // Check that add application to favorites Button is displayed
-    assertWebElementVisible(addApplicationAFavoriteInApplicationCenter(app));
+    addApplicationAFavoriteInApplicationCenter(app).assertVisible();
   }
 
   public void checkThatAppcenterApplicationIsDisplayed(String app) {
     // Check that AppCenter Application is displayed
     elementApplicationsTopbarElement().clickOnElement();
-    assertWebElementVisible(getFavoriteApplicationElement(app));
+    getFavoriteApplicationElement(app).assertVisible();
     closeDrawerIfDisplayed();
   }
 
   public void checkThatAppcenterApplicationIsNotDisplayed(String app) {
     // Check that AppCenter Application app is not displayed
     elementApplicationsTopbarElement().clickOnElement();
-    assertWebElementNotVisible(getFavoriteApplicationElement(app));
+    getFavoriteApplicationElement(app).assertNotVisible();
     closeDrawerIfDisplayed();
   }
 
   public void checkThatApplicationIsDisplayedInFavoriteApps(String app) {
     // Check that app is displayed in Favorite Applications
-    assertWebElementVisible(getFavoriteApplicationElement(app));
+    getFavoriteApplicationElement(app).assertVisible();
   }
 
   public void checkThatApplicationIsNotDisplayedInFavoriteApps(String app) {
     // Check that app is not displayed in Favorite Applications
-    assertWebElementNotVisible(getFavoriteApplicationElement(app));
+    getFavoriteApplicationElement(app).assertNotVisible();
   }
 
   public void checkThatOpenApplicationButtonIsDisplayed(String app) {
     // Check that open application Button is displayed
-    assertWebElementVisible(getAppCenterAllApplicationsButton(app));
+    getAppCenterAllApplicationsButton(app).assertVisible();
   }
 
   public void clickOnOpenApplicationButton(String app) {
@@ -84,7 +84,7 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void maxFavoriteAppsIsDisplayed() {
-    assertWebElementVisible(maxFavoriteAppsElement());
+    maxFavoriteAppsElement().assertVisible();
   }
 
   public void seeAllApplications() {
@@ -94,19 +94,19 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void settingsPageIsOpened() {
-    assertWebElementVisible(settingsPageElement());
+    settingsPageElement().assertVisible();
   }
 
   public void starButtonIsDisabled(String appTitle) {
-    assertWebElementVisible(disabledFavoriteIsDisplayed(appTitle));
+    disabledFavoriteIsDisplayed(appTitle).assertVisible();
   }
 
   public void starButtonIsNotSelected(String appTitle) {
-    assertWebElementVisible(removeFromAppCenterFavoriteIsDisplayed(appTitle));
+    removeFromAppCenterFavoriteIsDisplayed(appTitle).assertVisible();
   }
 
   public void starButtonIsSelected(String appTitle) {
-    assertWebElementVisible(addToAppCenterFavoriteIsDisplayed(appTitle));
+    addToAppCenterFavoriteIsDisplayed(appTitle).assertVisible();
   }
 
   public void unbookmarkApplication(String appTitle) {
@@ -125,7 +125,7 @@ public class ApplicationPage extends GenericPage {
   }
 
   private ElementFacade disabledFavoriteIsDisplayed(String app) {
-    return findByXPathOrCSS(String.format("//*[contains(@class, 'userAuthorizedApplications')]//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'v-card')]//i[contains(@class, 'mdi-star')]//ancestor::button[@disabled]",
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'userFavoriteApplications')]//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'v-card')]//i[contains(@class, 'mdi-star')]//ancestor::button[@disabled]",
                                           app));
   }
 

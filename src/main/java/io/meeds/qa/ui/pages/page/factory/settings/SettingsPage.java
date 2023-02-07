@@ -63,22 +63,22 @@ public class SettingsPage extends GenericPage {
 
   public void checkThatActivityStreamSectionIsDisplayed() {
     // Check that Activity Stream Section Is Displayed
-    assertWebElementVisible(manageNoticiationActivityStreamSectionElement());
+    manageNoticiationActivityStreamSectionElement().assertVisible();
   }
 
   public void checkThatConnectionsSectionIsDisplayed() {
     // Check that Connections Section Is Displayed
-    assertWebElementVisible(manageNotificationConnectionsSectionElement());
+    manageNotificationConnectionsSectionElement().assertVisible();
   }
 
   public void checkThatGeneralSectionIsDisplayed() {
     // Check that General Section Is Displayed
-    assertWebElementVisible(manageNotificationGeneralSectionElement());
+    manageNotificationGeneralSectionElement().assertVisible();
   }
 
   public void checkThatKudosSectionIsDisplayed() {
     // Check that Kudos Section Is Displayed
-    assertWebElementVisible(manageNotificationKudosSectionElement());
+    manageNotificationKudosSectionElement().assertVisible();
   }
 
   public void checkThatLanguageIsDisplayed(String language) {
@@ -88,12 +88,12 @@ public class SettingsPage extends GenericPage {
 
   public void checkThatManageNotificationPageIsOpened() {
     // Check that Manage Notification Page is opened
-    assertWebElementVisible(manageNotificationPageElement());
+    manageNotificationPageElement().assertVisible();
   }
 
   public void checkThatNotesSectionIsDisplayed() {
     // Check that Notes Section Is Displayed
-    assertWebElementVisible(manageNotificationNotesSectionElement());
+    manageNotificationNotesSectionElement().assertVisible();
   }
 
   public void checkThatNotificationOnMobileIsDisabled() {
@@ -128,27 +128,27 @@ public class SettingsPage extends GenericPage {
 
   public void checkThatPerkStoreSectionIsDisplayed() {
     // Check that Perk Store Section Is Displayed
-    assertWebElementVisible(manageNotificationPerkStoreSectionElement());
+    manageNotificationPerkStoreSectionElement().assertVisible();
   }
 
   public void checkThatSettingsPageIsOpened() {
     // Check that Settings Page is opened
-    assertWebElementVisible(findByXPathOrCSS("#UserSettingLanguage"));
+    findByXPathOrCSS("#UserSettingLanguage").assertVisible();
   }
 
   public void checkThatSpacesSectionIsDisplayed() {
     // Check that Connections Section Is Displayed
-    assertWebElementVisible(manageNotificationSpacesSectionElement());
+    manageNotificationSpacesSectionElement().assertVisible();
   }
 
   public void checkThatTasksSectionIsDisplayed() {
     // Check that Tasks Section Is Displayed
-    assertWebElementVisible(manageNotificationTasksSectionElement());
+    manageNotificationTasksSectionElement().assertVisible();
   }
 
   public void checkThatWalletSectionIsDisplayed() {
     // Check that Wallet Section Is Displayed
-    assertWebElementVisible(manageNotificationWalletSectionElement());
+    manageNotificationWalletSectionElement().assertVisible();
   }
 
   public void dailyEmailIsDisplayedInGeneralNotificationsSection() {
@@ -324,9 +324,9 @@ public class SettingsPage extends GenericPage {
   }
 
   private void checkNotificationSwitchButtonState(int switchButtonIndex, boolean expectedState) {
-    assertWebElementVisible(findByXPathOrCSS(String.format(NOTIFICATION_SWITCH_BUTTON_BY_STATE_XPATH,
-                                                           String.valueOf(switchButtonIndex),
-                                                           String.valueOf(expectedState))));
+    findByXPathOrCSS(String.format(NOTIFICATION_SWITCH_BUTTON_BY_STATE_XPATH,
+                                   String.valueOf(switchButtonIndex),
+                                   String.valueOf(expectedState))).assertVisible();
   }
 
   private void clickOnNotificationSwitchButton(int switchButtonIndex) {

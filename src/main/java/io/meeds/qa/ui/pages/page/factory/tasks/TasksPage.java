@@ -136,77 +136,77 @@ public class TasksPage extends GenericPage {
   }
 
   public void assignTaskToMe() {
-    assertWebElementVisible(taskAssignLinkElement());
+    taskAssignLinkElement().assertVisible();
     taskAssignLinkElement().clickOnElement();
     taskAssignMeElement().clickOnElement();
   }
 
   public void assignTaskToUser(String user) {
-    assertWebElementVisible(taskAssignLinkElement());
+    taskAssignLinkElement().assertVisible();
     taskAssignLinkElement().clickOnElement();
     mentionInField(taskAssignUserInputElement(), user, 5);
   }
 
   public void boardViewIsDisplayedByDefault() {
-    assertWebElementVisible(projectActiveBoardViewElement());
+    projectActiveBoardViewElement().assertVisible();
   }
 
   public void cancelFilterButtonIsDisplayed() {
-    assertWebElementVisible(cancelFilterButtonElement());
+    cancelFilterButtonElement().assertVisible();
   }
 
   public void checkAlertMessageAfterDeleteTask() {
-    assertWebElementVisible(findByXPathOrCSS("//*[contains(@class, 'v-alert')]//*[contains(text(),'Task successfully deleted')]"));
+    findByXPathOrCSS("//*[contains(@class, 'v-alert')]//*[contains(text(),'Task successfully deleted')]").assertVisible();
   }
 
   public void checkAlertMessageAfterMarkTaskAsCompleted() {
-    assertWebElementVisible(alertMessageAfterMarkTaskAsCompletedElement());
+    alertMessageAfterMarkTaskAsCompletedElement().assertVisible();
   }
 
   public void checkAlertMessageMoveStatusAfter() {
-    assertWebElementVisible(alertMessageAfterStatusMovedElement());
+    alertMessageAfterStatusMovedElement().assertVisible();
   }
 
   public void checkAttachmentDisplay(String attachmentName) {
-    assertWebElementNotVisible(getAttachmentName(attachmentName));
+    getAttachmentName(attachmentName).assertNotVisible();
   }
 
   public void checkClonedProject(String projectName) {
-    assertWebElementVisible(getProjectCard(projectName));
-    assertWebElementVisible(alertMessageAfterProjectCloneElement());
+    getProjectCard(projectName).assertVisible();
+    alertMessageAfterProjectCloneElement().assertVisible();
   }
 
   public void checkClonedTask(String taskName) {
-    assertWebElementVisible(getTaskTitle(taskName));
+    getTaskTitle(taskName).assertVisible();
   }
 
   public void checkDeletedProject(String projectName) {
-    assertWebElementNotVisible(getProjectCard(projectName));
-    assertWebElementVisible(alertMessageAfterProjectDeletionElement());
+    getProjectCard(projectName).assertNotVisible();
+    alertMessageAfterProjectDeletionElement().assertVisible();
   }
 
   public void checkDeletedStatus(String statusColumn) {
-    assertWebElementNotVisible(getStatusColumn(statusColumn));
+    getStatusColumn(statusColumn).assertNotVisible();
   }
 
   public void checkDeletedTaskIsNotDisplayed(String taskName) {
-    assertWebElementNotVisible(getTaskName(taskName));
+    getTaskName(taskName).assertNotVisible();
   }
 
   public void checkDescriptionDisplay(String description) {
-    assertWebElementVisible(getDescriptionForTask(description));
+    getDescriptionForTask(description).assertVisible();
   }
 
   public void checkDisplayOfFilterByProject() {
-    assertWebElementVisible(filterByProjectElement());
+    filterByProjectElement().assertVisible();
   }
 
   public void checkDisplayOfFilterByTask() {
-    assertWebElementVisible(filterByTaskElement());
+    filterByTaskElement().assertVisible();
   }
 
   public void checkDrawerDisplay() {
-    assertWebElementVisible(drawerTitleElement());
+    drawerTitleElement().assertVisible();
   }
 
   public void checkFirstStatusColumn(String columnStatus) {
@@ -227,30 +227,30 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkMoveStatusAfterIconIsNotDisplayed() {
-    assertWebElementNotVisible(moveStatusAfterIconElement());
+    moveStatusAfterIconElement().assertNotVisible();
   }
 
   public void checkMoveStatusBeforeIconIsNotDisplayed() {
-    assertWebElementNotVisible(moveStatusBeforeIconElement());
+    moveStatusBeforeIconElement().assertNotVisible();
   }
 
   public void checkProject(String projectName) {
-    assertWebElementVisible(getProjectCard(projectName));
-    assertWebElementVisible(alertMessageAfterProjectCreationElement());
+    getProjectCard(projectName).assertVisible();
+    alertMessageAfterProjectCreationElement().assertVisible();
   }
 
   public void checkProjectIsCreated() {
-    assertWebElementVisible(alertMessageAfterProjectCreationElement());
+    alertMessageAfterProjectCreationElement().assertVisible();
   }
 
   public void checkProjectNameIsDisplayedInProjectCard(String projectName, String description) {
-    assertWebElementVisible(getProjectCard(projectName));
-    assertWebElementVisible(getProjectCardDescription(description));
+    getProjectCard(projectName).assertVisible();
+    getProjectCardDescription(description).assertVisible();
   }
 
   public void checkProjectNotDisplayed(String projectName) {
-    assertWebElementNotVisible(getProjectCard(projectName));
-    assertWebElementNotVisible(alertMessageAfterProjectCreationElement());
+    getProjectCard(projectName).assertNotVisible();
+    alertMessageAfterProjectCreationElement().assertNotVisible();
   }
 
   public void checkSecondStatusColumn(String columnStatus) {
@@ -262,11 +262,11 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkTaskPriority(String taskPriority) {
-    assertWebElementVisible(getTaskPriority(taskPriority));
+    getTaskPriority(taskPriority).assertVisible();
   }
 
   public void checkTaskStatus(String taskStatus) {
-    assertWebElementVisible(getTaskStatus(taskStatus));
+    getTaskStatus(taskStatus).assertVisible();
   }
 
   public void checkThatEditTaskDrawerIsDisplayed() {
@@ -280,7 +280,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkThatTasksAreGroupedByAssignee() {
-    assertWebElementVisible(textAssigneeElement());
+    textAssigneeElement().assertVisible();
   }
 
   public void checkTheTimestampUpdate() {
@@ -320,29 +320,29 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkUpdatedProject(String projectName, String description) {
-    assertWebElementVisible(getProjectCard(projectName));
-    assertWebElementVisible(getProjectCardDescription(description));
-    assertWebElementVisible(alertMessageAfterProjectUpdateElement());
+    getProjectCard(projectName).assertVisible();
+    getProjectCardDescription(description).assertVisible();
+    alertMessageAfterProjectUpdateElement().assertVisible();
   }
 
   public void checkViewLinkAttachments() {
-    assertWebElementVisible(viewAttachmentsLinkElement());
+    viewAttachmentsLinkElement().assertVisible();
   }
 
   public void clearButtonInFilterByTaskIsNotVisible() {
-    assertWebElementNotVisible(clearButtonInFilterByTaskElement());
+    clearButtonInFilterByTaskElement().assertNotVisible();
   }
 
   public void clearButtonInFilterByTaskIsVisible() {
-    assertWebElementVisible(clearButtonInFilterByTaskElement());
+    clearButtonInFilterByTaskElement().assertVisible();
   }
 
   public void clearButtonIsNotVisible() {
-    assertWebElementNotVisible(clearButtonInFilterByProjectElement());
+    clearButtonInFilterByProjectElement().assertNotVisible();
   }
 
   public void clearButtonIsVisible() {
-    assertWebElementVisible(clearButtonInFilterByProjectElement());
+    clearButtonInFilterByProjectElement().assertVisible();
   }
 
   public void clickAddProjectButton() {
@@ -409,7 +409,7 @@ public class TasksPage extends GenericPage {
 
   public void clickOnCommentReply(String comment) {
     ElementFacade taskCommentReplyBtn = getTaskCommentReplyBtn(comment);
-    assertWebElementVisible(taskCommentReplyBtn);
+    taskCommentReplyBtn.assertVisible();
     taskCommentReplyBtn.clickOnElement();
   }
 
@@ -519,21 +519,21 @@ public class TasksPage extends GenericPage {
   }
 
   public void clickViewAttachmentLink() {
-    assertWebElementVisible(viewAttachmentsLinkElement());
+    viewAttachmentsLinkElement().assertVisible();
     viewAttachmentsLinkElement().clickOnElement();
   }
 
   public void cloneProject(String projectName) {
-    assertWebElementVisible(getProjectCard(projectName));
+    getProjectCard(projectName).assertVisible();
     projectThreeDotsButtonElement().clickOnElement();
     cloneProjectButtonElement().clickOnElement();
     confirmationPopupCloneButtonElement().clickOnElement();
-    assertWebElementNotVisible(confirmationPopupCloneButtonElement());
+    confirmationPopupCloneButtonElement().assertNotVisible();
 
   }
 
   public void cloneProjectButtonIsDisplayed() {
-    assertWebElementVisible(cloneProjectButtonElement());
+    cloneProjectButtonElement().assertVisible();
   }
 
   public void clonetaskinspaceproject() {
@@ -542,7 +542,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void colorPaletteIsDisplayed() {
-    assertWebElementVisible(colorPaletteElement());
+    colorPaletteElement().assertVisible();
   }
 
   public void commentButtonIsDisabled() {
@@ -550,7 +550,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void commentsDrawerIsDisplayed() {
-    assertWebElementVisible(commentsDrawerSectionElement());
+    commentsDrawerSectionElement().assertVisible();
   }
 
   public void commentTask(String comment) {
@@ -583,7 +583,7 @@ public class TasksPage extends GenericPage {
   public void confirmDeleteStatusColumn() {
     ElementFacade confirmationPopupDeleteButtonElement = confirmationPopupDeleteButtonElement();
     confirmationPopupDeleteButtonElement.clickOnElement();
-    assertWebElementNotVisible(confirmationPopupDeleteButtonElement);
+    confirmationPopupDeleteButtonElement.assertNotVisible();
   }
 
   public void confirmDeleteTaskFromTasksBord() {
@@ -595,7 +595,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void confirmFilterButtonIsDisplayed() {
-    assertWebElementVisible(confirmFilterButtonElement());
+    confirmFilterButtonElement().assertVisible();
   }
 
   public void deleteCookies() {
@@ -603,19 +603,19 @@ public class TasksPage extends GenericPage {
   }
 
   public void deleteProject(String projectName) {
-    assertWebElementVisible(getProjectCard(projectName));
+    getProjectCard(projectName).assertVisible();
     projectThreeDotsButtonElement().clickOnElement();
     deleteProjectButtonElement().clickOnElement();
     confirmationPopupDeleteButtonElement().clickOnElement();
-    assertWebElementNotVisible(confirmationPopupDeleteButtonElement());
+    confirmationPopupDeleteButtonElement().assertNotVisible();
   }
 
   public void deleteProjectButtonIsDisplayed() {
-    assertWebElementVisible(deleteProjectButtonElement());
+    deleteProjectButtonElement().assertVisible();
   }
 
   public void deleteTaskOptionIsDisplayed() {
-    assertWebElementVisible(deleteTaskOptionElement());
+    deleteTaskOptionElement().assertVisible();
   }
 
   public void editDescriptionForTask(String newDescription) {
@@ -638,7 +638,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void editProjectButtonIsDisplayed() {
-    assertWebElementVisible(editProjectButtonElement());
+    editProjectButtonElement().assertVisible();
   }
 
   public void editProjectName(String projectName) {
@@ -649,7 +649,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void editProjectNameWithDescription(String projectName, String newProjectName, String newDescription) {
-    assertWebElementVisible(getProjectCard(projectName));
+    getProjectCard(projectName).assertVisible();
     projectThreeDotsButtonElement().clickOnElement();
     editProjectButtonElement().clickOnElement();
     projectTitleElement().setTextValue(newProjectName);
@@ -675,7 +675,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void editTaskDrawerIsDisplayed() {
-    assertWebElementVisible(editTaskDrawerSectionElement());
+    editTaskDrawerSectionElement().assertVisible();
   }
 
   public void enterDescriptionForTask(String description) {
@@ -792,7 +792,7 @@ public class TasksPage extends GenericPage {
 
   public void greenInformationIconIsDisplayed() {
     ElementFacade informationIconElement = informationIconElement();
-    assertWebElementVisible(informationIconElement);
+    informationIconElement.assertVisible();
     Assert.assertEquals(informationIconElement.getCssValue("color"), "rgba(46, 181, 140, 1)");
   }
 
@@ -814,7 +814,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void isLabelDisplayedInProjectDetails(String label, String times) {
-    assertWebElementVisible(getDisplayedLabel(label, times));
+    getDisplayedLabel(label, times).assertVisible();
   }
 
   public void isSearchedTaskDisplayed(String taskName) {
@@ -826,16 +826,16 @@ public class TasksPage extends GenericPage {
   }
 
   public void labelIsDisplayedInProjectDrawer(String label) {
-    assertWebElementVisible(getLabelInEditProjectDrawer(label));
+    getLabelInEditProjectDrawer(label).assertVisible();
   }
 
   public void labelIsDisplayedInTaskDrawer(String label) {
-    assertWebElementVisible(getLabelInEditTaskDrawer(label));
-    assertWebElementNotVisible(getRemoveLabelTaskButton(label));
+    getLabelInEditTaskDrawer(label).assertVisible();
+    getRemoveLabelTaskButton(label).assertNotVisible();
   }
 
   public void labelIsNotDisplayedInProjectDrawer(String label) {
-    assertWebElementNotVisible(getLabelInEditProjectDrawer(label));
+    getLabelInEditProjectDrawer(label).assertNotVisible();
   }
 
   public void markTaskAsCompletedFromTaskCard() {
@@ -847,7 +847,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void maxCharsCount1250InformationIsDisplayed() {
-    assertWebElementVisible(maxCharsCountInfoElement());
+    maxCharsCountInfoElement().assertVisible();
   }
 
   public void maxCharsNumberMessageIsDisplayed() {
@@ -858,7 +858,7 @@ public class TasksPage extends GenericPage {
     ckEditorFrameTaskElement.waitUntilVisible();
     getDriver().switchTo().frame(ckEditorFrameTaskElement);
     try {
-      assertWebElementVisible(commentTaskMaxCharsMsgElement());
+      commentTaskMaxCharsMsgElement().assertVisible();
     } finally {
       getDriver().switchTo().defaultContent();
     }
@@ -866,7 +866,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void more1250CharsInformationIsDisplayed() {
-    assertWebElementVisible(more1250CharsCountInfoElement());
+    more1250CharsCountInfoElement().assertVisible();
     Assert.assertEquals(more1250CharsCountInfoElement().getCssValue("color"), "rgba(188, 67, 67, 1)");
   }
 
@@ -900,15 +900,15 @@ public class TasksPage extends GenericPage {
   }
 
   public void projectIsDisplayedInTasksAppCenter(String projectName) {
-    assertWebElementVisible(getProjectCard(projectName));
+    getProjectCard(projectName).assertVisible();
   }
 
   public void projectNameIsDisplayedInProjectDetails(String projectName) {
-    assertWebElementVisible(projectNameInProjectDetails(projectName));
+    projectNameInProjectDetails(projectName).assertVisible();
   }
 
   public void redInformationIconIsDisplayed() {
-    assertWebElementVisible(informationIconElement());
+    informationIconElement().assertVisible();
     Assert.assertEquals(informationIconElement().getCssValue("color"), "rgba(188, 67, 67, 1)");
   }
 
@@ -924,7 +924,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void resetFilterButtonIsDisplayed() {
-    assertWebElementVisible(resetFilterButtonElement());
+    resetFilterButtonElement().assertVisible();
   }
 
   public void returnToProjectsTab() {
@@ -1009,7 +1009,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void setTaskPriority(String taskPriority) {
-    assertWebElementVisible(taskPrioritySelectorElement());
+    taskPrioritySelectorElement().assertVisible();
     taskPrioritySelectorElement().clickOnElement();
     selectTaskPriority(taskPriority).clickOnElement();
   }
@@ -1034,7 +1034,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void taskAlertIsDisplayed(String message) {
-    assertWebElementVisible(getTaskAlert(message));
+    getTaskAlert(message).assertVisible();
   }
 
   public void taskIsMarkedAndDisplayedInCompletedSection(String taskName) {
@@ -1046,7 +1046,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void taskMarkedAsCompletedIsDisplayedInDrawer() {
-    assertWebElementVisible(taskMarkedAsCompletedInDrawerElement());
+    taskMarkedAsCompletedInDrawerElement().assertVisible();
   }
 
   public void taskNameAndLabelIsDisplayedInProjectDetails(String label, String taskName) {
@@ -1059,13 +1059,13 @@ public class TasksPage extends GenericPage {
 
   public void taskNameIsDisplayedInProjectDetails(String taskName) {
     ElementFacade taskElement = taskNameInProjectDetails(taskName);
-    assertWebElementVisible(taskElement);
+    taskElement.assertVisible();
     Assert.assertEquals(taskElement.getText(), taskName);
   }
 
   public void taskNameIsNotDisplayedInProjectDetails(String taskName) {
     ElementFacade taskElement = taskNameInProjectDetails(taskName);
-    assertWebElementNotVisible(taskElement);
+    taskElement.assertNotVisible();
   }
 
   public void taskNamePLanView(String taskName) {
@@ -1077,7 +1077,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void tasksNumberToDo(String tasksNumber) {
-    assertWebElementVisible(getTasksNumberToDo(tasksNumber));
+    getTasksNumberToDo(tasksNumber).assertVisible();
   }
 
   public void taskTooltipIsDisplayed(String task) {
@@ -1099,11 +1099,11 @@ public class TasksPage extends GenericPage {
   }
 
   public void userAvatarIsDisplayedInProjectCard(String userName) {
-    assertWebElementVisible(getProjectCardUserAvatar(userName));
+    getProjectCardUserAvatar(userName).assertVisible();
   }
 
   public void userAvatarIsNotDisplayedInProjectCard(String userName) {
-    assertWebElementNotVisible(getProjectCardUserAvatar(userName));
+    getProjectCardUserAvatar(userName).assertNotVisible();
   }
 
   public void userFullNameIsDisplayedInProjectCard(String name) {
@@ -1115,7 +1115,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void verifyViewLinkAttachments() {
-    assertWebElementNotVisible(viewAttachmentsLinkElement());
+    viewAttachmentsLinkElement().assertNotVisible();
   }
 
   public void viewAllCommentsTaskButton() {

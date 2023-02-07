@@ -32,69 +32,69 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void appCardIsDisplayed() {
-    assertWebElementVisible(appCardElement());
+    appCardElement().assertVisible();
   }
 
   public void checkApplicationsAreDisplayed() {
-    assertWebElementVisible(addAppButtonElement());
+    addAppButtonElement().assertVisible();
   }
 
   public void checkApplicationsSpaceSettings() {
-    assertWebElementVisible(arrowIconOfApplicationsSpaceSettingsElement());
+    arrowIconOfApplicationsSpaceSettingsElement().assertVisible();
   }
 
   public void checkAvatarSection() {
-    assertWebElementVisible(avatarSectionElement());
+    avatarSectionElement().assertVisible();
   }
 
   public void checkCancelButton() {
-    assertWebElementVisible(cancelButtonElement());
+    cancelButtonElement().assertVisible();
   }
 
   public void checkDescriptionSpaceSection() {
-    assertWebElementVisible(descriptionSpaceSectionElement());
+    descriptionSpaceSectionElement().assertVisible();
   }
 
   public void checkDisplayOfOtherSpaces() {
-    assertWebElementVisible(spaceCardN21Element());
+    spaceCardN21Element().assertVisible();
   }
 
   public void checkDisplayOfTwentySpaces() {
-    assertWebElementVisible(spaceCardN20Element());
-    assertWebElementNotVisible(spaceCardN21Element());
+    spaceCardN20Element().assertVisible();
+    spaceCardN21Element().assertNotVisible();
   }
 
   public void checkFavIconInSpaceCard() {
-    assertWebElementVisible(findByXPathOrCSS("//* [@class='spaceCardFront']//*[contains(@class,'fa-star')]"));
+    findByXPathOrCSS("//* [@class='spaceCardFront']//*[contains(@class,'fa-star')]").assertVisible();
   }
 
   public void checkFavIconInSpacePopoverFromTopbar() {
-    assertWebElementVisible(findByXPathOrCSS("//*[contains(@class,'v-card')]//*[contains(@class,'fa-star')]"));
+    findByXPathOrCSS("//*[contains(@class,'v-card')]//*[contains(@class,'fa-star')]").assertVisible();
   }
 
   public void checkFavIconInThirdNavigationLevel() {
-    assertWebElementVisible(findByXPathOrCSS("//*[contains(@class,'HamburgerMenuThirdLevelParent')]//*[contains(@class,'fa-star')]"));
+    findByXPathOrCSS("//*[contains(@class,'HamburgerMenuThirdLevelParent')]//*[contains(@class,'fa-star')]").assertVisible();
   }
 
   public void checkGeneralSpaceSettings() {
-    assertWebElementVisible(editIconOfGeneralSpaceSettingsElement());
+    editIconOfGeneralSpaceSettingsElement().assertVisible();
   }
 
   public void checkHiddenAndSwitchButtonSection() {
-    assertWebElementVisible(hiddenSectionElement());
-    assertWebElementVisible(switchButtonElement());
+    hiddenSectionElement().assertVisible();
+    switchButtonElement().assertVisible();
   }
 
   public void checkNameSpaceSection() {
-    assertWebElementVisible(nameSpaceSectionElement());
+    nameSpaceSectionElement().assertVisible();
   }
 
   public void checkOptionFromApplicationMenuIsDisplayed(String appName, String option) {
-    assertWebElementVisible(getOptionFromApplicationMenu(appName, option));
+    getOptionFromApplicationMenu(appName, option).assertVisible();
   }
 
   public void checkRegistrationSection() {
-    assertWebElementVisible(registrationSectionElement());
+    registrationSectionElement().assertVisible();
   }
 
   public void checkSpaceAppInstallerDrawerIsDisplayed() {
@@ -103,25 +103,25 @@ public class ManageSpacesPage extends GenericPage {
 
   public void checkSpaceBookmarkStatusFromSpaceCard(boolean shouldBeBookmarked) {
     if (shouldBeBookmarked) {
-      assertWebElementVisible(findByXPathOrCSS("//* [@class='spaceCardFront']//*[contains(@class,'fas fa-star')]"));
+      findByXPathOrCSS("//* [@class='spaceCardFront']//*[contains(@class,'fas fa-star')]").assertVisible();
     } else {
-      assertWebElementVisible(findByXPathOrCSS("//* [@class='spaceCardFront']//*[contains(@class,'far fa-star')]"));
+      findByXPathOrCSS("//* [@class='spaceCardFront']//*[contains(@class,'far fa-star')]").assertVisible();
     }
   }
 
   public void checkSpaceBookmarkStatusFromThirdNavigationLevel(boolean shouldBeBookmarked) {
     if (shouldBeBookmarked) {
-      assertWebElementVisible(findByXPathOrCSS("//*[contains(@class,'HamburgerMenuThirdLevelParent')]//*[contains(@class,'fas fa-star')]"));
+      findByXPathOrCSS("//*[contains(@class,'HamburgerMenuThirdLevelParent')]//*[contains(@class,'fas fa-star')]").assertVisible();
     } else {
-      assertWebElementVisible(findByXPathOrCSS("//*[contains(@class,'HamburgerMenuThirdLevelParent')]//*[contains(@class,'far fa-star')]"));
+      findByXPathOrCSS("//*[contains(@class,'HamburgerMenuThirdLevelParent')]//*[contains(@class,'far fa-star')]").assertVisible();
     }
   }
 
   public void checkSpaceBookmarkStatusFromTopbarSpacePopover(boolean shouldBeBookmarked) {
     if (shouldBeBookmarked) {
-      assertWebElementVisible(findByXPathOrCSS("//*[contains(@class,'v-card')]//*[contains(@class,'fas fa-star')]"));
+      findByXPathOrCSS("//*[contains(@class,'v-card')]//*[contains(@class,'fas fa-star')]").assertVisible();
     } else {
-      assertWebElementVisible(findByXPathOrCSS("//*[contains(@class,'v-card')]//*[contains(@class,'far fa-star')]"));
+      findByXPathOrCSS("//*[contains(@class,'v-card')]//*[contains(@class,'far fa-star')]").assertVisible();
     }
   }
 
@@ -146,36 +146,36 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void checkSpaceTemplateSection() {
-    assertWebElementVisible(spaceTemplateSectionElement());
+    spaceTemplateSectionElement().assertVisible();
   }
 
   public void checkThatAppIsAdded(String application) {
-    assertWebElementVisible(getAppCardNameDisplayed(application));
+    getAppCardNameDisplayed(application).assertVisible();
   }
 
   public void checkThatSpaceDetailsInSearchResultsAreDisplayed(String spaceName, String members) {
-    assertWebElementVisible(spaceSearchDetailsCoverElement());
-    assertWebElementVisible(spaceSearchDetailsAvatarElement());
-    assertWebElementVisible(spaceSearchDetailsInfoElement());
-    assertWebElementVisible(spaceSearchDetailsThreeDotsElement());
-    assertWebElementVisible(spaceSearchDetailsLeaveButtonElement());
-    assertWebElementVisible(spaceSearchDetailsSpaceName(spaceName));
-    assertWebElementVisible(spaceSearchDetailsSpaceMembers(members));
+    spaceSearchDetailsCoverElement().assertVisible();
+    spaceSearchDetailsAvatarElement().assertVisible();
+    spaceSearchDetailsInfoElement().assertVisible();
+    spaceSearchDetailsThreeDotsElement().assertVisible();
+    spaceSearchDetailsLeaveButtonElement().assertVisible();
+    spaceSearchDetailsSpaceName(spaceName).assertVisible();
+    spaceSearchDetailsSpaceMembers(members).assertVisible();
 
   }
 
   public void checkThatSpaceDetailsInSearchResultsAreDisplayedByOtherUser(String spaceName, String members) {
-    assertWebElementVisible(spaceSearchDetailsCoverElement());
-    assertWebElementVisible(spaceSearchDetailsAvatarElement());
-    assertWebElementVisible(spaceSearchDetailsInfoElement());
-    assertWebElementVisible(spaceSearchDetailsLeaveButtonElement());
-    assertWebElementVisible(spaceSearchDetailsSpaceName(spaceName));
-    assertWebElementVisible(spaceSearchDetailsSpaceMembers(members));
+    spaceSearchDetailsCoverElement().assertVisible();
+    spaceSearchDetailsAvatarElement().assertVisible();
+    spaceSearchDetailsInfoElement().assertVisible();
+    spaceSearchDetailsLeaveButtonElement().assertVisible();
+    spaceSearchDetailsSpaceName(spaceName).assertVisible();
+    spaceSearchDetailsSpaceMembers(members).assertVisible();
 
   }
 
   public void checkThatSpaceInSearchResultsIsNotDisplayed(String spaceName) {
-    assertWebElementNotVisible(spaceSearchDetailsSpaceName(spaceName));
+    spaceSearchDetailsSpaceName(spaceName).assertNotVisible();
   }
 
   public void checkThatSpaceTabsAreDisplayedInOrder(String space) {
@@ -188,11 +188,11 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void checkThatSpaceTopBarElementsAreDisplayed() {
-    assertWebElementVisible(spaceMenuItemElement());
+    spaceMenuItemElement().assertVisible();
   }
 
   public void checkUpdateButton() {
-    assertWebElementVisible(spaceAppInstallerDrawerElement());
+    spaceAppInstallerDrawerElement().assertVisible();
   }
 
   public void clickAddSpaceButton() {
@@ -336,7 +336,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void isSpaceBannerUpdated() {
-    assertWebElementVisible(spaceBannerUpdatedElement());
+    spaceBannerUpdatedElement().assertVisible();
   }
 
   public boolean isSpaceCardDisplayed(String space) {
@@ -382,11 +382,11 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void moveAfterAppButtonIsDisplayed() {
-    assertWebElementVisible(moveAfterAppButtonElement());
+    moveAfterAppButtonElement().assertVisible();
   }
 
   public void moveBeforeAppButtonIsDisplayed() {
-    assertWebElementVisible(moveBeforeAppButtonElement());
+    moveBeforeAppButtonElement().assertVisible();
   }
 
   public void openSpaceFormDrawer() {
@@ -394,11 +394,11 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void plusButtonIsDisplayed() {
-    assertWebElementVisible(plusButtonAppSpaceSettingsElement());
+    plusButtonAppSpaceSettingsElement().assertVisible();
   }
 
   public void removeAppButtonIsDisplayed() {
-    assertWebElementVisible(removeAppButtonElement());
+    removeAppButtonElement().assertVisible();
   }
 
   public void selectFilter(String filter) {
@@ -425,15 +425,15 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void spaceAppSettingsIsOpened() {
-    assertWebElementVisible(spaceAppSettingsPageElement());
+    spaceAppSettingsPageElement().assertVisible();
   }
 
   public void spaceAvatarIsDisplayed() {
-    assertWebElementVisible(spaceAvatarElement());
+    spaceAvatarElement().assertVisible();
   }
 
   public void spaceNameIsDisplayed(String space) {
-    assertWebElementVisible(spaceName(space));
+    spaceName(space).assertVisible();
   }
 
   public void uploadSpaceBanner(String fileName) {

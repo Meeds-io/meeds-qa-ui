@@ -67,7 +67,7 @@ public class IOMeedsTraceException extends RuntimeException {
     StackTraceElement[] stackTrace = getStackTrace();
     List<StackTraceElement> meedsStackTrace = Arrays.stream(stackTrace)
                                                     .filter(trace -> StringUtils.contains(trace.getClassName(), "io.meeds"))
-                                                    .collect(Collectors.toList());
+                                                    .collect(Collectors.toList()); // NOSONAR used for JDK11
     setStackTrace(meedsStackTrace.toArray(new StackTraceElement[meedsStackTrace.size()]));
   }
 }

@@ -174,8 +174,7 @@ public class Utils {
       } else {
         LOGGER.info("Loading wait timed out. Retry {}/{}. Refresh page to try again.",
                     retries,
-                    MAX_WAIT_RETRIES,
-                    e);
+                    MAX_WAIT_RETRIES);
         refreshPage(false); // Must remain false to avoid infinite loop
         waitForLoading(loadingWait, includeApps, retries);
       }
@@ -186,13 +185,11 @@ public class Utils {
 
   public static void waitRemainingTime(long loadingWaitMilliseconds, long start) {
     long remainingTime = loadingWaitMilliseconds - (System.currentTimeMillis() - start);
-    if (remainingTime > 50) {
-      try {
-        LOGGER.error("Error waiting for page to load, wait for next retry within {}s", (remainingTime / 1000));
-        Thread.sleep(remainingTime);
-      } catch (InterruptedException e) {
-        Thread.currentThread().interrupt();
-      }
+    if (remainingTime > 10) {
+      LOGGER.info("Waiting on element to refresh state within {}ms", remainingTime);
+      waitForInMillis(remainingTime);
+    } else {
+      LOGGER.info("Refresh element right away since the timeout is already elasped since {}ms", -remainingTime);
     }
   }
 

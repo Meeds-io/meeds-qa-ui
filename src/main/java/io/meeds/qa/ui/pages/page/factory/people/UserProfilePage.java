@@ -51,18 +51,18 @@ public class UserProfilePage extends GenericPage {
   }
 
   public void checkAchievementsDrawer() {
-    assertWebElementVisible(achievementsDrawerElement());
+    achievementsDrawerElement().assertVisible();
   }
 
   public void checkWeeklyPointChart() {
-    assertWebElementVisible(weeklyChartElement());
+    weeklyChartElement().assertVisible();
   }
 
   public void checkWorkExperiencesSection(String jobTitle, String organization, String jobDetails, String usedSkills) {
-    assertWebElementVisible(getJobTitleWorkExperience(jobTitle));
-    assertWebElementVisible(getOrganizationWorkExperience(organization));
-    assertWebElementVisible(getJobDetailsWorkExperience(jobDetails));
-    assertWebElementVisible(getUsedSkillsWorkExperience(usedSkills));
+    getJobTitleWorkExperience(jobTitle).assertVisible();
+    getOrganizationWorkExperience(organization).assertVisible();
+    getJobDetailsWorkExperience(jobDetails).assertVisible();
+    getUsedSkillsWorkExperience(usedSkills).assertVisible();
   }
 
   public void clickConfirmConnect() {
@@ -89,17 +89,17 @@ public class UserProfilePage extends GenericPage {
   }
 
   public void howToEarnPointsPageIsDisplayed() {
-    assertWebElementVisible(howToEarnPointsPageElement());
+    howToEarnPointsPageElement().assertVisible();
   }
 
   public void isAvatarVisible() {
     // Check That User Avatar is displayed in Profile Page
-    assertWebElementVisible(profileAvatarElement());
+    profileAvatarElement().assertVisible();
   }
 
   public void isCoverVisible() {
     // Check That User Cover is displayed in Profile Page
-    assertWebElementVisible(profileCoverElement());
+    profileCoverElement().assertVisible();
   }
 
   public boolean isFieldVisible(String fieldName) {
@@ -120,7 +120,7 @@ public class UserProfilePage extends GenericPage {
   }
 
   public void isGainedCaurisVisible() {
-    assertWebElementVisible(contactWalletOverviewRewardElement());
+    contactWalletOverviewRewardElement().assertVisible();
   }
 
   public void isProfileAvatarUploaded() {
@@ -135,7 +135,7 @@ public class UserProfilePage extends GenericPage {
   }
 
   public void isProfileContactEmailVisible(String mail) {
-    assertWebElementVisible(profileContactInformationEmailElement());
+    profileContactInformationEmailElement().assertVisible();
     // Check That Profile Contact Email is displayed
     Assert.assertEquals(profileContactInformationEmailElement().getText(), mail);
   }
@@ -161,11 +161,11 @@ public class UserProfilePage extends GenericPage {
   }
 
   public void isReceivedKudosVisible() {
-    assertWebElementVisible(contactReceivedKudosElement());
+    contactReceivedKudosElement().assertVisible();
   }
 
   public void isSentKudosVisible() {
-    assertWebElementVisible(contactSentKudosElement());
+    contactSentKudosElement().assertVisible();
   }
 
   public void isUserJobVisible(String job) {
@@ -195,15 +195,15 @@ public class UserProfilePage extends GenericPage {
   }
 
   public void profilePageIsDisplayed() {
-    assertWebElementVisible(profilePageElement());
+    profilePageElement().assertVisible();
   }
 
   public void receivedKudosSectionIsDisplayed(String kudosNumber) {
-    assertWebElementVisible(getReceivedKudosNumber(kudosNumber));
+    getReceivedKudosNumber(kudosNumber).assertVisible();
   }
 
   public void receivedKudosUsersSectionIsDisplayed(String user) {
-    assertWebElementVisible(getReceivedKudosUsers(user));
+    getReceivedKudosUsers(user).assertVisible();
   }
 
   public void removeWorkExperience(String jobTitle) {
@@ -267,11 +267,11 @@ public class UserProfilePage extends GenericPage {
   }
 
   public void sentKudosSectionIsDisplayed(String kudosNumber) {
-    assertWebElementVisible(getSentKudosNumber(kudosNumber));
+    getSentKudosNumber(kudosNumber).assertVisible();
   }
 
   public void sentKudosUsersSectionIsDisplayed(String user) {
-    assertWebElementVisible(getSentKudosUsers(user));
+    getSentKudosUsers(user).assertVisible();
   }
 
   public void updateBasicInformation(String firstName, String lastName, String email, String job) {

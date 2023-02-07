@@ -53,7 +53,7 @@ public class GenericPage extends BasePageImpl {
   }
 
   public void checkConfirmMessageIsDisplayed(String message) {
-    assertWebElementVisible(getConfirmMessage(message));
+    getConfirmMessage(message).assertVisible();
   }
 
   public boolean isButtonDisplayed(String buttonName) {

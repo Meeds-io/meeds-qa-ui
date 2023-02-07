@@ -134,7 +134,7 @@ public class ManageBadgesPage extends GenericPage {
                                                 String badgeScore,
                                                 String badgeDomain) {
     ElementFacade badgeElement = getBadgeNameInListOfBadges(badgeName, badgeDescription, badgeScore, badgeDomain);
-    assertWebElementVisible(badgeElement);
+    badgeElement.assertVisible();
     Assert.assertTrue(badgeElement.getText().contains("Yes")); // NOSONAR
   }
 
@@ -143,11 +143,11 @@ public class ManageBadgesPage extends GenericPage {
                                                    String badgeScore,
                                                    String badgeDomain) {
     ElementFacade badgeElement = getBadgeNameInListOfBadges(badgeName, badgeDescription, badgeScore, badgeDomain);
-    assertWebElementNotVisible(badgeElement);
+    badgeElement.assertNotVisible();
   }
 
   public void isSuccessAlertDisplayed(String message) {
-    assertWebElementVisible(successAlertElement());
+    successAlertElement().assertVisible();
     Assert.assertTrue(successAlertElement().getText().contains(message)); // NOSONAR
   }
 

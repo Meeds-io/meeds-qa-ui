@@ -102,27 +102,27 @@ public class HomePage extends GenericPage {
   }
 
   public void checkExistingSpaceInvitation(String spaceName) {
-    assertWebElementVisible(checkSpaceFromDrawer(spaceName));
+    checkSpaceFromDrawer(spaceName).assertVisible();
   }
 
   public void checkFavIcon(String activity) {
-    assertWebElementVisible(getFavoriteIconActivity(activity));
+    getFavoriteIconActivity(activity).assertVisible();
   }
 
   public void checkFavSuccessMessage(String message) {
-    assertWebElementVisible(getFavoriteSucessMessage(message));
+    getFavoriteSucessMessage(message).assertVisible();
   }
 
   public void checkNoActivityDisplayed() {
-    assertWebElementVisible(contextBoxWelcomeActivityElement());
+    contextBoxWelcomeActivityElement().assertVisible();
   }
 
   public void checkNotExistingSpaceInvitation(String spaceName) {
-    assertWebElementNotVisible(checkSpaceFromDrawer(spaceName));
+    checkSpaceFromDrawer(spaceName).assertNotVisible();
   }
 
   public void checkThatStreamPageIsDisplayed() {
-    assertWebElementVisible(streamPageViewElement());
+    streamPageViewElement().assertVisible();
   }
 
   public void clickOnArrowIcon() {
@@ -408,14 +408,16 @@ public class HomePage extends GenericPage {
   }
 
   public void searchedSpaceIsDisplayedInSideBarFilter(String space) {
-    assertWebElementVisible(findByXPathOrCSS(String.format("//*[contains(@class,'recentSpacesWrapper')]//*[@class='v-list-item__content']//*[contains(text(), '%s')]",
-                                                           space)));
+    recentSpaceElement(space).assertVisible();
   }
 
   public void searchedSpaceIsNotDisplayedInSideBarFilter(String space) {
-    assertWebElementNotVisible(findByXPathOrCSS(String.format("//*[contains(@class,'recentSpacesWrapper')]//*[@class='v-list-item__content']//*[contains(text(), '%s')]",
-                                                              space)),
-                               2);
+    recentSpaceElement(space).assertNotVisible();
+  }
+
+  private ElementFacade recentSpaceElement(String space) {
+    return findByXPathOrCSS(String.format("//*[contains(@class,'recentSpacesWrapper')]//*[contains(text(), '%s')]",
+                                   space));
   }
 
   public void searchSpaceInSideBarFilter(String space) {
