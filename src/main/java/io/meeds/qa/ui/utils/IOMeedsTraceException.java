@@ -19,6 +19,7 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.WebDriverException;
@@ -66,7 +67,7 @@ public class IOMeedsTraceException extends RuntimeException {
     StackTraceElement[] stackTrace = getStackTrace();
     List<StackTraceElement> meedsStackTrace = Arrays.stream(stackTrace)
                                                     .filter(trace -> StringUtils.contains(trace.getClassName(), "io.meeds"))
-                                                    .toList();
+                                                    .collect(Collectors.toList());
     setStackTrace(meedsStackTrace.toArray(new StackTraceElement[meedsStackTrace.size()]));
   }
 }
