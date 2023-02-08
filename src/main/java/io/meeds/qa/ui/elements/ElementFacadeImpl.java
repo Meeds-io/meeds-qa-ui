@@ -14,6 +14,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
@@ -277,19 +279,30 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
     return isElementCurrentlyEnabled() && isElementCurrentlyDisplayed();
   }
 
+  private boolean isElementCurrentlyNotDisplayed() {
+    return !isElementCurrentlyDisplayed();
+  }
+
+  private boolean isElementDisabled(long implicitWaitInMillis) {
+    return hasElementProperty(implicitWaitInMillis, this::isElementCurrentlyDisabled);
+  }
+
+  private boolean isElementEnabled(long implicitWaitInMillis) {
+    return hasElementProperty(implicitWaitInMillis, this::isElementCurrentlyEnabled);
+  }
+
   private boolean isElementCurrentlyDisabled() {
     Duration defaultTimeout = getImplicitTimeout();
     setImplicitTimeout(Duration.ofMillis(0));
     try {
       WebElement resolvedWebElement = getResolvedWebElement();
       return resolvedWebElement != null && !resolvedWebElement.isEnabled();
+    } catch (StaleElementReferenceException | TimeoutException e) {
+      webElement = null;
+      return false;
     } finally {
       setImplicitTimeout(defaultTimeout);
     }
-  }
-
-  private boolean isElementCurrentlyNotDisplayed() {
-    return !isElementCurrentlyDisplayed();
   }
 
   private boolean isElementCurrentlyDisplayed() {
@@ -298,6 +311,9 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
     try {
       WebElement resolvedWebElement = getResolvedWebElement();
       return resolvedWebElement != null && resolvedWebElement.isDisplayed();
+    } catch (StaleElementReferenceException | TimeoutException e) {
+      webElement = null;
+      return false;
     } finally {
       setImplicitTimeout(defaultTimeout);
     }
@@ -309,17 +325,12 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
     try {
       WebElement resolvedWebElement = getResolvedWebElement();
       return resolvedWebElement != null && resolvedWebElement.isEnabled();
+    } catch (StaleElementReferenceException | TimeoutException e) {
+      webElement = null;
+      return false;
     } finally {
       setImplicitTimeout(defaultTimeout);
     }
-  }
-
-  private boolean isElementDisabled(long implicitWaitInMillis) {
-    return hasElementProperty(implicitWaitInMillis, this::isElementCurrentlyDisabled);
-  }
-
-  private boolean isElementEnabled(long implicitWaitInMillis) {
-    return hasElementProperty(implicitWaitInMillis, this::isElementCurrentlyEnabled);
   }
 
   private WebElement getResolvedWebElement() {
