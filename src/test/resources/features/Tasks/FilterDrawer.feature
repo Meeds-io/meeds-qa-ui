@@ -143,7 +143,7 @@ Feature: Filter Drawer
 
     When I connect with the first created user
     And I create a random space
-    And I go to the Tasks tab
+    And I click on 'Tasks' space menu tab
     And I create the project 'test Project'
     And I search for the created project 'test project'
     And I edit this project title 'test project edited '
