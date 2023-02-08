@@ -98,7 +98,7 @@ public class SpaceHomePage extends GenericPage {
     Iterator<String> repliesIterator = replies.iterator();
     while (repliesIterator.hasNext()) {
       String reply = repliesIterator.next();
-      waitOnCommentRichText();
+      waitOnCommentReplyRichText();
       addCommentReplyEditorContent(reply);
       waitForDrawerToLoad();
       if (repliesIterator.hasNext()) {
@@ -113,7 +113,7 @@ public class SpaceHomePage extends GenericPage {
   public void addCommentReply(String reply, String comment, String activity) {
     clickOnReplyToComment(comment, activity, false);
 
-    waitOnCommentRichText();
+    waitOnCommentReplyRichText();
     addCommentReplyEditorContent(reply);
     closeDrawerIfDisplayed();
   }
@@ -987,8 +987,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private void clickOnReplyToComment(String comment, String activity, boolean inDrawer) { // NOSONAR
-    ElementFacade commentReplyButton = getCommentReply(comment, inDrawer);
-    clickOnElement(commentReplyButton);
+    getCommentReply(comment, inDrawer).click();
     waitForDrawerToOpen();
   }
 
@@ -1420,6 +1419,11 @@ public class SpaceHomePage extends GenericPage {
 
   private void waitOnCommentRichText() {
     waitCKEditorLoading();
+    ckEditorFrameCommentElement().waitUntilVisible();
+  }
+
+  private void waitOnCommentReplyRichText() {
+    waitCKEditorLoading("//*[contains(@class, 'activity-comment')]");
     ckEditorFrameCommentElement().waitUntilVisible();
   }
 

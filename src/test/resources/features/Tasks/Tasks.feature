@@ -99,6 +99,7 @@ Feature: Tasks
     When I close the opened drawer
     Then Task name 'taskessai' is not displayed in project details
 
+  @test
   Scenario: Check tasks display in project
     Given I connect as admin if random users doesn't exists
       | first  |
@@ -243,6 +244,7 @@ Feature: Tasks
     And Task name 'taskE' is not displayed in project details
     And Tasks number '0' is displayed in the column To Do
 
+  @test
   Scenario: CAP264 - [NF] [US_Sharedlabels_01]All project members can use added labels
     Given I am authenticated as admin
     And I create the first random user if not existing, no wait

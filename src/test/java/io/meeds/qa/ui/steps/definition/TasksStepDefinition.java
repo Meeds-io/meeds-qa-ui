@@ -152,8 +152,11 @@ public class TasksStepDefinition {
 
   @Then("^I create the random project with the (.*) created user as participant$")
   public void addRandomProjectWithRandomParticipant(String userPrefix) {
-    String randomSpaceName = "randomSpaceName" + getRandomNumber();
-    Serenity.setSessionVariable("randomSpaceName").to(randomSpaceName);
+    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
+    if (StringUtils.isBlank(randomSpaceName)) {
+      randomSpaceName = "randomSpaceName" + getRandomNumber();
+      Serenity.setSessionVariable("randomSpaceName").to(randomSpaceName);
+    }
     String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
 
     tasksSteps.addProjectWithParticipant(randomSpaceName, userLastName);

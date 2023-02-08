@@ -1,6 +1,6 @@
 package io.meeds.qa.ui.steps;
 
-import static io.meeds.qa.ui.utils.Utils.getRandomString;
+import static io.meeds.qa.ui.utils.Utils.*;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
@@ -21,6 +21,7 @@ public class AddUserSteps {
 
   public void addRandomUser(String userPrefix, boolean waitSearchable) {
     if (StringUtils.isBlank(sessionVariableCalled(userPrefix + "UserName"))) {
+      addUserPage.waitForDrawerToOpen();
       String userName = "user" + userPrefix + getRandomString();
       String firstName = getRandomString(userPrefix);
       String lastName = getRandomString(userName);
@@ -40,6 +41,8 @@ public class AddUserSteps {
       if (waitSearchable) {
         // Wait for ElasticSearch index creation asynchronously
         addUserPage.waitFor(3).seconds();
+      } else {
+        addUserPage.waitForDrawerToClose();
       }
     }
   }

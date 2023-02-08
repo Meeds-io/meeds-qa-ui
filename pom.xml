@@ -56,7 +56,7 @@
     <!-- Space Template Select Box Value index when creating random spaces -->
     <io.meeds.space.template.index>0</io.meeds.space.template.index>
     <!-- Max retry when getting element -->
-    <io.meeds.retry.max>3</io.meeds.retry.max>
+    <io.meeds.retry.max>5</io.meeds.retry.max>
     <!-- Max implicit timeout for each retry on element fetching -->
     <io.meeds.retry.wait.millis>300</io.meeds.retry.wait.millis>
     <!-- Loading Page wait timeout -->

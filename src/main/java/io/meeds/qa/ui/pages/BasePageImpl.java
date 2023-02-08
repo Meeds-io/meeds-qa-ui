@@ -222,8 +222,12 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void waitCKEditorLoading() {
+    waitCKEditorLoading("");
+  }
+
+  public void waitCKEditorLoading(String parentXPath) {
     try {
-      ElementFacade iframeElement = findByXPathOrCSS("//iframe");
+      ElementFacade iframeElement = findByXPathOrCSS(parentXPath + "//iframe");
       if (!iframeElement.isCurrentlyVisible()) {
         ElementFacade richTextLoadingElement = findByXPathOrCSS("//*[contains(@class, 'loadingRing')]");
         if (richTextLoadingElement.isCurrentlyVisible()) {
