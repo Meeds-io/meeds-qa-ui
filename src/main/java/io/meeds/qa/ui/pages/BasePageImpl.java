@@ -8,7 +8,6 @@ import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
 
 import java.time.Duration;
-import java.time.temporal.ChronoUnit;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
@@ -67,6 +66,18 @@ public class BasePageImpl extends PageObject implements BasePage {
       findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
       closeAlertIfOpened();
       waitForDrawerToClose();
+    }
+  }
+
+  public void closeAllDialogs() {
+    ElementFacade openedDialogElement = openedDialogElement();
+    while (openedDialogElement.isDisplayedNoWait()) {
+      findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
+      try {
+        waitOverlayToClose();
+      } catch (Exception e) {
+        LOGGER.debug("Overlay seems not displayed", e);
+      }
     }
   }
 
@@ -245,7 +256,7 @@ public class BasePageImpl extends PageObject implements BasePage {
       try {
         drawerElement.waitUntilNotVisible();
         if (withOverlay) {
-          findByXPathOrCSS(".v-overlay").waitUntilNotVisible();
+          waitOverlayToClose();
         }
       } catch (Exception e) {
         LOGGER.debug("Overlay seems not displayed", e);
@@ -294,6 +305,10 @@ public class BasePageImpl extends PageObject implements BasePage {
     return findByXPathOrCSS(OPNENED_DRAWER_CSS_SELECTOR);
   }
 
+  public ElementFacade openedDialogElement() {
+    return findByXPathOrCSS(".v-dialog--active");
+  }
+
   /**********************************************************
    * Methods for finding element facade in the page
    **********************************************************/
@@ -315,6 +330,10 @@ public class BasePageImpl extends PageObject implements BasePage {
     } catch (Exception e) {
       LOGGER.debug("Error while waiting for suggester progressbar", e);
     }
+  }
+
+  private void waitOverlayToClose() {
+    findByXPathOrCSS(".v-overlay").waitUntilNotVisible();
   }
 
 }

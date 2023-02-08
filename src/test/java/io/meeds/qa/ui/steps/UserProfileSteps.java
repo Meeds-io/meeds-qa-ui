@@ -28,7 +28,7 @@ public class UserProfileSteps {
   public List<String> checkListOfFields(List<String> listIfFields) {
     List<String> missingValues = new ArrayList<>();
     for (String fieldName : listIfFields) {
-      if (!userProfilePage.isFieldVisible(fieldName))
+      if (!userProfilePage.checkFieldVisible(fieldName))
         missingValues.add(fieldName);
     }
     return missingValues;
@@ -63,55 +63,55 @@ public class UserProfileSteps {
   }
 
   public void isAvatarVisible() {
-    userProfilePage.isAvatarVisible();
+    userProfilePage.checkAvatarVisible();
   }
 
   public void isCoverVisible() {
-    userProfilePage.isCoverVisible();
+    userProfilePage.checkCoverVisible();
   }
 
   public void isGainedCaurisVisible() {
-    userProfilePage.isGainedCaurisVisible();
+    userProfilePage.checkGainedCaurisVisible();
   }
 
   public void isProfileAvatarUploaded() {
-    userProfilePage.isProfileAvatarUploaded();
+    userProfilePage.checkProfileAvatarUploaded();
   }
 
   public void isProfileContactCompanyVisible(String company) {
-    userProfilePage.isProfileContactCompanyVisible(company);
+    userProfilePage.checkProfileContactCompanyVisible(company);
   }
 
   public void isProfileContactEmailVisible(String mail) {
-    userProfilePage.isProfileContactEmailVisible(mail);
+    userProfilePage.checkProfileContactEmailVisible(mail);
   }
 
   public void isProfileContactFullNameVisible(String title, String fullName) {
-    userProfilePage.isProfileContactFullNameVisible(title, fullName);
+    userProfilePage.checkProfileContactFullNameVisible(title, fullName);
   }
 
-  public void isProfileContactInstantMessagingVisible(String instantMessaging) {
-    userProfilePage.isProfileContactInstantMessagingVisible(instantMessaging);
+  public void checkProfileContactInstantMessagingVisible(String instantMessagingType, String instantMessaging) {
+    userProfilePage.checkProfileContactInstantMessagingVisible(instantMessagingType, instantMessaging);
   }
 
-  public void isProfileContactPhoneVisible(String phone) {
-    userProfilePage.isProfileContactPhoneVisible(phone);
+  public void checkProfileContactPhoneVisible(String phoneType, String phone) {
+    userProfilePage.checkProfileContactPhoneVisible(phoneType, phone);
   }
 
   public void isProfileContactUrlVisible(String url) {
-    userProfilePage.isProfileContactUrlVisible(url);
+    userProfilePage.checkProfileContactUrlVisible(url);
   }
 
   public void isReceivedKudosVisible() {
-    userProfilePage.isReceivedKudosVisible();
+    userProfilePage.checkReceivedKudosVisible();
   }
 
   public void isSentKudosVisible() {
-    userProfilePage.isSentKudosVisible();
+    userProfilePage.checkSentKudosVisible();
   }
 
   public void isUserJobVisible(String job) {
-    userProfilePage.isUserJobVisible(job);
+    userProfilePage.checkProfileContactJobTitleVisible(job);
   }
 
   public void openAchivementTab() {

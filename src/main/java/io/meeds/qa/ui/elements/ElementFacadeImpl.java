@@ -98,10 +98,11 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
   @Override
   public void clickOnElement() {
     int retries = 0;
+    long start = System.currentTimeMillis();
     do {
       try {
         checkVisible();
-        super.click();
+        getResolvedWebElement(this).click();
         return;
       } catch (ElementClickInterceptedException e) {
         // Normal behavior since this can happen when the page is reloaded
@@ -111,9 +112,10 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
           // Normal behavior since this can happen when the page is reloaded
           return;
         } else if (++retries > MAX_WAIT_RETRIES) {
-          throw new ElementClickInterceptedException(String.format("The element [%s] cannot be clicked after %s retries.",
+          throw new ElementClickInterceptedException(String.format("The element [%s] cannot be clicked after %s retries and % ms of waiting",
                                                                    this,
-                                                                   (retries - 1)),
+                                                                   (retries - 1),
+                                                                   System.currentTimeMillis() - start),
                                                      e);
         }
       }
@@ -221,6 +223,16 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
   }
 
   @Override
+  public boolean isDisabled() {
+    return isElementDisabled(SHORT_WAIT_DURATION_MILLIS);
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return isElementEnabled(SHORT_WAIT_DURATION_MILLIS);
+  }
+
+  @Override
   public boolean isClickable(long implicitWaitInMillis) {
     long start = System.currentTimeMillis();
     Duration defaultTimeout = getImplicitTimeout();
@@ -285,7 +297,7 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
     try {
       waitForLoading();
     } catch (Exception e) {
-      LOGGER.info("The page seems not to be completely loaded, thus the element {} could be not built yet. Attempt to use isNotVisibleAfterWaiting",
+      LOGGER.info("The page seems not to be completely loaded, thus the element {} could be not built yet. Attempt to use !isDisplayedNoWait",
                   this);
     }
     return !isDisplayedNoWait();
@@ -305,7 +317,7 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
     try {
       waitForLoading();
     } catch (Exception e) {
-      LOGGER.info("The page seems not to be completely loaded, thus the element {} could be not built yet",
+      LOGGER.info("The page seems not to be completely loaded, thus the element {} could be not built yet. Attempt to use isDisplayedNoWait",
                   this);
     }
     return isDisplayedNoWait();
@@ -385,6 +397,26 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
   }
 
   @Override
+  public void assertDisabled() {
+    long start = System.currentTimeMillis();
+    boolean disabled = isDisabled();
+    assertTrue(String.format("Element %s wasn't disabled after waiting %s ms",
+                             this,
+                             System.currentTimeMillis() - start),
+               disabled);
+  }
+
+  @Override
+  public void assertEnabled() {
+    long start = System.currentTimeMillis();
+    boolean enabled = isEnabled();
+    assertTrue(String.format("Element %s wasn't enabled after waiting %s ms",
+                             this,
+                             System.currentTimeMillis() - start),
+               enabled);
+  }
+
+  @Override
   public boolean isVisibleAfterWaiting() {
     long maxRetries = getImplicitTimeoutInMilliseconds() / SHORT_WAIT_DURATION_MILLIS;
     return isVisible(maxRetries);
@@ -458,6 +490,74 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
                                                  DEFAULT_IMPLICIT_WAIT_FOR_TIMEOUT,
                                                  DEFAULT_WAIT_FOR_TIMEOUT,
                                                  xpathOrCss);
+    }
+  }
+
+  public WebElement getResolvedWebElement(WebElement element) {
+    if (element instanceof WebElementFacadeImpl) { // NOSONAR
+      return getResolvedWebElement(((WebElementFacadeImpl) element).getElement());
+    } else {
+      return element;
+    }
+  }
+
+  public boolean isElementDisabled(long implicitWaitInMillis) {
+    int retry = 0;
+    do {
+      long start = System.currentTimeMillis();
+      if (isElementCurrentlyDisabled()) {
+        return true;
+      } else {
+        webElement = null;
+        waitRemainingTime(implicitWaitInMillis, start);
+      }
+    } while (retry++ < MAX_WAIT_RETRIES);
+    // Element not Disabled yet after X retries
+    try {
+      waitForLoading();
+    } catch (Exception e) {
+      LOGGER.info("The page seems not to be completely loaded, thus the element {} could be not built yet. Attempt to use isDisabled",
+                  this);
+    }
+    return isElementCurrentlyDisabled();
+  }
+
+  public boolean isElementEnabled(long implicitWaitInMillis) {
+    int retry = 0;
+    do {
+      long start = System.currentTimeMillis();
+      if (isElementCurrentlyEnabled()) {
+        return true;
+      } else {
+        webElement = null;
+        waitRemainingTime(implicitWaitInMillis, start);
+      }
+    } while (retry++ < MAX_WAIT_RETRIES);
+    // Element not Disabled yet after X retries
+    try {
+      waitForLoading();
+    } catch (Exception e) {
+      LOGGER.info("The page seems not to be completely loaded, thus the element {} could be not built yet. Attempt to use isDisabled",
+                  this);
+    }
+    return isElementCurrentlyEnabled();
+  }
+
+  private boolean isElementCurrentlyDisabled() {
+    try {
+      return !getResolvedWebElement(this).isEnabled();
+    } catch (Throwable e) { // NOSONAR
+      this.webElement = null;
+      return false;
+    }
+  }
+
+  private boolean isElementCurrentlyEnabled() {
+    try {
+      return getResolvedWebElement(this).isEnabled();
+    } catch (Throwable e) { // NOSONAR
+      this.webElement = null;
+      return false;
     }
   }
 

@@ -186,10 +186,10 @@ public class Utils {
   public static void waitRemainingTime(long loadingWaitMilliseconds, long start) {
     long remainingTime = loadingWaitMilliseconds - (System.currentTimeMillis() - start);
     if (remainingTime > 10) {
-      LOGGER.info("Waiting on element to refresh state within {}ms", remainingTime);
+      LOGGER.debug("Waiting on element to refresh state within {}ms", remainingTime);
       waitForInMillis(remainingTime);
     } else {
-      LOGGER.info("Refresh element right away since the timeout is already elasped since {}ms", -remainingTime);
+      LOGGER.debug("Refresh element right away since the timeout is already elasped since {}ms", -remainingTime);
     }
   }
 

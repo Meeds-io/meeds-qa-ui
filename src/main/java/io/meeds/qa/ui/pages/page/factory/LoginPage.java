@@ -23,7 +23,8 @@ public class LoginPage extends GenericPage implements IsHidden {
     super(driver);
   }
 
-  public void clearCookies() {
+  public void deleteCookies() {
+    lastLoggedInUser = null;
     closeAlertIfOpened();
     getDriver().manage().deleteAllCookies();
   }
@@ -58,10 +59,9 @@ public class LoginPage extends GenericPage implements IsHidden {
     int maxRetries = 3;
     int i = 0;
     while (!StringUtils.contains(getDriver().getCurrentUrl(), "/portal/login") && i++ < maxRetries) {
-      clearCookies();
+      deleteCookies();
       open();
     }
-    lastLoggedInUser = null;
     if (i >= maxRetries) {
       throw new IllegalStateException("Can't display login page after 3 retries");
     }

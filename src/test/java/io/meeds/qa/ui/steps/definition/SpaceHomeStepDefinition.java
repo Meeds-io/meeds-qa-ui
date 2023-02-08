@@ -390,8 +390,8 @@ public class SpaceHomeStepDefinition {
   }
 
   @When("^Create Poll Button is Disabled$")
-  public void createPollButton() {
-    spaceHomeSteps.createPollButton();
+  public void checkCreatePollButtonIsDisabled() {
+    spaceHomeSteps.checkCreatePollButtonIsDisabled();
   }
 
   @When("^create poll drawer is closed$")
@@ -481,17 +481,7 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.enterCommentText(comment);
   }
 
-  @Then("^I go to the Space Members tab$")
-  public void goToSpaceMembersTab() {
-    spaceHomeSteps.goToSpaceMembersTab();
-  }
-
-  @Then("^I go to the Tasks tab$")
-  public void goToSpaceTasksTab() {
-    spaceHomeSteps.goToSpaceTasksTab();
-  }
-
-  @Then("^I go to '(.*)' tab$")
+  @Then("^I click on '(.*)' space menu tab$")
   public void goToTab(String tabName) {
     spaceHomeSteps.goToSpecificTab(tabName);
   }
@@ -687,8 +677,8 @@ public class SpaceHomeStepDefinition {
   }
 
   @When("^Create Poll Button is Enabled$")
-  public void pollButton() {
-    spaceHomeSteps.pollButton();
+  public void checkCreatePollButtonIsEnabled() {
+    spaceHomeSteps.checkCreatePollButtonIsEnabled();
   }
 
   @When("^I post '(.*)' activities with prefix '(.*)'$")

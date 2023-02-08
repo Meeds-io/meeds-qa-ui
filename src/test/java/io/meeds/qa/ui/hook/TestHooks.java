@@ -1,7 +1,6 @@
 package io.meeds.qa.ui.hook;
 
 import static io.meeds.qa.ui.utils.Utils.DEFAULT_IMPLICIT_WAIT_FOR_TIMEOUT;
-import static io.meeds.qa.ui.utils.Utils.DEFAULT_WAIT_FOR_TIMEOUT;
 import static io.meeds.qa.ui.utils.Utils.waitRemainingTime;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
@@ -10,10 +9,8 @@ import java.io.IOException;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.WebDriver;
 
@@ -107,17 +104,8 @@ public class TestHooks {
 
   @After
   public void deleteDatas() {
-    try {
-      deleteGamificationBadges();
-      deleteAppCenterApplications();
-    } catch (Exception e) {
-      ExceptionLauncher.LOGGER.warn("Error while deleting previously created data", e);
-    } finally {
-      Serenity.clearSessionVariable("appCenterAppName");
-      Serenity.clearSessionVariable("badgeName");
-      Serenity.clearSessionVariable("updatedBadgeName");
-    }
     genericSteps.closeAllDrawers();
+    genericSteps.closeAllDialogs();
   }
 
   @Before
@@ -157,42 +145,6 @@ public class TestHooks {
     }
   }
 
-  private void deleteAppCenterApplications() {
-    // cleanup created AppCenter applications
-    List<String> appNames = Serenity.sessionVariableCalled("appCenterAppName");
-    if (CollectionUtils.isNotEmpty(appNames)) {
-      logout();
-      loginAsAdmin();
-      homeSteps.goToAppCenterAdminSetupPage();
-      for (String appName : appNames) {
-        if (adminApplicationSteps.isAppExists(appName)) {
-          adminApplicationSteps.deleteApp(appName, true);
-        }
-      }
-    }
-  }
-
-  private void deleteGamificationBadges() {
-    String badgeName = Serenity.sessionVariableCalled("badgeName");
-    String updatedBadgeName = Serenity.sessionVariableCalled("updatedBadgeName");
-
-    if (badgeName != null && !badgeName.isEmpty()) {
-      logout();
-      loginAsAdmin();
-      manageBadgesSteps.goToManageBadgesMenu();
-      manageBadgesSteps.clickOnDeleteBadge(badgeName);
-      manageBadgesSteps.confirmDeletionBadge();
-    }
-
-    if (updatedBadgeName != null && !updatedBadgeName.isEmpty()) {
-      logout();
-      loginAsAdmin();
-      manageBadgesSteps.goToManageBadgesMenu();
-      manageBadgesSteps.clickOnDeleteBadge(updatedBadgeName);
-      manageBadgesSteps.confirmDeletionBadge();
-    }
-  }
-
   private boolean isHamburgerNavigationDisplayed() {
     try {
       return loginSteps.isHamburgerNavigationDisplayed();
@@ -203,10 +155,6 @@ public class TestHooks {
 
   private void loginAsAdmin() {
     loginSteps.authenticate("admin");
-  }
-
-  private void logout() {
-    loginSteps.logout();
   }
 
   private void warmUp(WebDriver driver) {

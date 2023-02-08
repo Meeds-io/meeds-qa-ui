@@ -276,7 +276,7 @@ public class HomePage extends GenericPage {
       return;
     }
     clickOnHamburgerMenu();
-    clickOnElement(openSpacesPageLinkElement());
+    openSpacesPageLinkElement().clickOnElement();
     waitForPageLoading();
   }
 
@@ -571,11 +571,12 @@ public class HomePage extends GenericPage {
   }
 
   private ElementFacade openSpacesPageLinkElement() {
-    return findByXPathOrCSS("//*[@id='SiteHamburgerNavigation']//a[contains(@href, '/spaces')]");
+    // //*[contains(@class, 'v-list-item__content')] added to avoid clicking on home icon
+    return findByXPathOrCSS("//*[@id='SiteHamburgerNavigation']//a[contains(@href, '/spaces')]//*[contains(@class, 'v-list-item__content')]");
   }
 
   private ElementFacade peoplePageLinkElement() {
-    return findByXPathOrCSS("//i[contains(@class,'uiIconPeople')]");
+    return findByXPathOrCSS("//*[@id='SiteHamburgerNavigation']//a[contains(@href, '/people')]//*[contains(@class, 'v-list-item__content')]");
   }
 
   private ElementFacade profileStatsPortletElement() {
@@ -636,7 +637,7 @@ public class HomePage extends GenericPage {
   }
 
   private ElementFacade streamPageLinkElement() {
-    return findByXPathOrCSS("//*[@id='SiteHamburgerNavigation']//a[contains(@href, '/stream')]");
+    return findByXPathOrCSS("//*[@id='SiteHamburgerNavigation']//a[contains(@href, '/stream')]//*[contains(@class, 'v-list-item__content')]");
   }
 
   private ElementFacade streamPageViewElement() {

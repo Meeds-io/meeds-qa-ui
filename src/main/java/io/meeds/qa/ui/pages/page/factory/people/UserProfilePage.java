@@ -1,8 +1,6 @@
 package io.meeds.qa.ui.pages.page.factory.people;
 
 import static io.meeds.qa.ui.utils.Utils.refreshPage;
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
@@ -92,17 +90,17 @@ public class UserProfilePage extends GenericPage {
     howToEarnPointsPageElement().assertVisible();
   }
 
-  public void isAvatarVisible() {
+  public void checkAvatarVisible() {
     // Check That User Avatar is displayed in Profile Page
     profileAvatarElement().assertVisible();
   }
 
-  public void isCoverVisible() {
+  public void checkCoverVisible() {
     // Check That User Cover is displayed in Profile Page
     profileCoverElement().assertVisible();
   }
 
-  public boolean isFieldVisible(String fieldName) {
+  public boolean checkFieldVisible(String fieldName) {
     switch (fieldName) {
     case "Weekly points":
       return getUserStatElement("Points").isVisibleAfterWaiting();
@@ -119,57 +117,54 @@ public class UserProfilePage extends GenericPage {
     }
   }
 
-  public void isGainedCaurisVisible() {
+  public void checkGainedCaurisVisible() {
     contactWalletOverviewRewardElement().assertVisible();
   }
 
-  public void isProfileAvatarUploaded() {
+  public void checkProfileAvatarUploaded() {
     uploadedProfileAvatarWidthElement().waitUntilVisible();
     Assert.assertEquals(uploadedProfileAvatarElement().getAttribute("style"), "width: 860px;");
   }
 
-  public void isProfileContactCompanyVisible(String company) {
+  public void checkProfileContactCompanyVisible(String company) {
     // Check That Profile Contact Company is displayed
-    profileContactInformationCompanyElement().waitUntilVisible();
-    assertEquals(profileContactInformationCompanyElement().getText(), company);
+    profileContactInformationCompanyElement(company).waitUntilVisible();
   }
 
-  public void isProfileContactEmailVisible(String mail) {
-    profileContactInformationEmailElement().assertVisible();
-    // Check That Profile Contact Email is displayed
-    Assert.assertEquals(profileContactInformationEmailElement().getText(), mail);
+  public void checkProfileContactEmailVisible(String mail) {
+    profileContactInformationEmailElement(mail).assertVisible();
   }
 
-  public void isProfileContactFullNameVisible(String title, String fullName) {
+  public void checkProfileContactFullNameVisible(String title, String fullName) {
     // Check That Profile Contact Fullname is displayed
-    Assert.assertEquals(profileContactInformationTitleElement().getText(), title);
-    Assert.assertEquals(profileContactInformationFullnameElement().getText(), fullName);
+    profileContactInformationTitleElement(title).assertVisible();
+    profileContactInformationFullnameElement(fullName).assertVisible();
   }
 
-  public void isProfileContactInstantMessagingVisible(String instantMessaging) {
+  public void checkProfileContactJobTitleVisible(String job) {
+    profileJobElement(job).assertVisible();
+  }
+
+  public void checkProfileContactInstantMessagingVisible(String instantMessagingType, String instantMessaging) {
     // Check That Profile Contact Instant Messaging is displayed
-    Assert.assertEquals(profileContactInformationIMElement().getText(), instantMessaging);
+    profileContactInformationIMElement(instantMessagingType, instantMessaging).assertVisible();
   }
 
-  public void isProfileContactPhoneVisible(String phone) {
-    assertEquals(profileContactInformationPhoneElement().getText(), phone);
+  public void checkProfileContactPhoneVisible(String phoneType, String phone) {
+    profileContactInformationPhoneElement(phoneType, phone).assertVisible();
   }
 
-  public void isProfileContactUrlVisible(String profileUrl) {
+  public void checkProfileContactUrlVisible(String profileUrl) {
     // Check That Profile Contact Url is displayed
-    assertTrue(profileContactInformationURLElement().getText().contains(profileUrl));
+    profileContactInformationURLElement(profileUrl).assertVisible();
   }
 
-  public void isReceivedKudosVisible() {
+  public void checkReceivedKudosVisible() {
     contactReceivedKudosElement().assertVisible();
   }
 
-  public void isSentKudosVisible() {
+  public void checkSentKudosVisible() {
     contactSentKudosElement().assertVisible();
-  }
-
-  public void isUserJobVisible(String job) {
-    Assert.assertEquals(profileJobElement().getText(), job);
   }
 
   public void openAchivementTab() {
@@ -581,40 +576,42 @@ public class UserProfilePage extends GenericPage {
     return findByXPathOrCSS("//*[@id='profileAvatar']");
   }
 
-  private ElementFacade profileContactInformationCompanyElement() {
-    return findByXPathOrCSS("//*[@id='profileContactUserCompany']");
+  private ElementFacade profileContactInformationCompanyElement(String company) {
+    return findByXPathOrCSS("//*[@id='profileContactUserCompany']/parent::*//*[contains(text(), '" + company + "')]");
   }
 
-  private ElementFacade profileContactInformationEmailElement() {
-    return findByXPathOrCSS("//*[@id='profileContactUserEmail']");
+  private ElementFacade profileContactInformationEmailElement(String mail) {
+    return findByXPathOrCSS("//*[@id='profileContactUserEmail']/parent::*//*[contains(text(), '" + mail + "')]");
   }
 
-  private ElementFacade profileContactInformationFullnameElement() {
-    return findByXPathOrCSS("//*[@id='profileContactUserFullname']");
+  private ElementFacade profileContactInformationFullnameElement(String fullName) {
+    return findByXPathOrCSS("//*[@id='profileContactUserFullname']/parent::*//*[contains(text(), '" + fullName + "')]");
   }
 
-  private ElementFacade profileContactInformationIMElement() {
-    return findByXPathOrCSS("//*[contains(@class,'profileContactIm')]");
+  private ElementFacade profileContactInformationIMElement(String instantMessagingType, String instantMessaging) {
+    return findByXPathOrCSS("//*[contains(@class,'profileContactIm')]/parent::*//*[contains(text(), '" + instantMessaging +
+        "')]/parent::*//*[contains(text(), '" + instantMessagingType.toLowerCase() + "')]");
   }
 
-  private ElementFacade profileContactInformationPhoneElement() {
-    return findByXPathOrCSS("//*[contains(@class,'profileContactPhone')]");
+  private ElementFacade profileContactInformationPhoneElement(String phoneType, String phone) {
+    return findByXPathOrCSS("//*[contains(@class,'profileContactPhone')]/parent::*//*[contains(text(), '" + phone
+        + "')]/parent::*//*[contains(text(), '" + phoneType + "')]");
   }
 
-  private ElementFacade profileContactInformationTitleElement() {
-    return findByXPathOrCSS("//*[@id='ProfileContactInformation']//*[contains(@class,'profileContactTitle')]");
+  private ElementFacade profileContactInformationTitleElement(String title) {
+    return findByXPathOrCSS("//*[@id='ProfileContactInformation']/parent::*//*[contains(text(), '"+ title + "')]");
   }
 
-  private ElementFacade profileContactInformationURLElement() {
-    return findByXPathOrCSS("//*[contains(@class,'profileContactUrl')]");
+  private ElementFacade profileJobElement(String jobTitle) {
+    return findByXPathOrCSS("//*[@id='profileHeaderUserPosition']/parent::*//*[contains(text(), '"+ jobTitle + "')]");
+  }
+
+  private ElementFacade profileContactInformationURLElement(String profileUrl) {
+    return findByXPathOrCSS("//*[contains(@class,'profileContactUrl')]/parent::*//*[contains(text(), '" + profileUrl + "')]");
   }
 
   private ElementFacade profileCoverElement() {
     return findByXPathOrCSS("(//*[@id='ProfileHeader']//*[@class='v-image__image v-image__image--cover'])[1]");
-  }
-
-  private ElementFacade profileJobElement() {
-    return findByXPathOrCSS("//*[@id='profileHeaderUserPosition']");
   }
 
   private ElementFacade profilePageElement() {

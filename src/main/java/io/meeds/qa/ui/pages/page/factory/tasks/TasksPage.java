@@ -598,10 +598,6 @@ public class TasksPage extends GenericPage {
     confirmFilterButtonElement().assertVisible();
   }
 
-  public void deleteCookies() {
-    getDriver().manage().deleteAllCookies();
-  }
-
   public void deleteProject(String projectName) {
     getProjectCard(projectName).assertVisible();
     projectThreeDotsButtonElement().clickOnElement();

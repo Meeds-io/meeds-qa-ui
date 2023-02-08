@@ -120,13 +120,12 @@ public class UserProfileStepDefinition {
 
   @Then("^Profile Contact instantMessaging '(.*)' is displayed$")
   public void isProfileContactInstantMessagingVisible(String instantMessaging) {
-    userProfileSteps.isProfileContactInstantMessagingVisible(instantMessaging);
+    userProfileSteps.checkProfileContactInstantMessagingVisible("", instantMessaging);
   }
 
   @Then("^Profile Contact Phone '(.*)' is displayed$")
   public void isProfileContactPhoneVisible(String phone) {
-    refreshPage();
-    userProfileSteps.isProfileContactPhoneVisible(phone);
+    userProfileSteps.checkProfileContactPhoneVisible("", phone);
   }
 
   @Then("^Updated Profile Contact Company is displayed$")
@@ -151,11 +150,10 @@ public class UserProfileStepDefinition {
   }
 
   @Then("^Updated Profile Contact instantMessaging is displayed$")
-  public void isProfileContactRandomInstantMessagingVisible() {
+  public void checkProfileContactInstantMessagingVisible() {
     String instantMessagingType = "Skype";
     String instantMessaging = Serenity.sessionVariableCalled("instantMessaging");
-    String instantMessagingInformation = instantMessagingType + ": " + instantMessaging;
-    userProfileSteps.isProfileContactInstantMessagingVisible(instantMessagingInformation);
+    userProfileSteps.checkProfileContactInstantMessagingVisible(instantMessagingType, instantMessaging);
   }
 
   @Then("^Updated Profile Contact Job is displayed$")
@@ -168,9 +166,8 @@ public class UserProfileStepDefinition {
   public void isProfileContactRandomPhoneVisible() {
     String phoneType = "Work";
     String phone = Serenity.sessionVariableCalled("phone");
-    String phoneInformation = phoneType + ": " + phone;
     refreshPage();
-    userProfileSteps.isProfileContactPhoneVisible(phoneInformation);
+    userProfileSteps.checkProfileContactPhoneVisible(phoneType, phone);
   }
 
   @Then("^Updated Profile Contact Url is displayed$")

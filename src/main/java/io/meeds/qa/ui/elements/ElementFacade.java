@@ -152,6 +152,16 @@ public interface ElementFacade extends WebElementFacade {
   void assertVisible();
 
   /**
+   * Asserts Web Element is disabled
+   */
+  void assertDisabled();
+
+  /**
+   * Asserts Web Element is enabled
+   */
+  void assertEnabled();
+
+  /**
    * Throws exception when element is not clickable
    */
   void checkClickable();

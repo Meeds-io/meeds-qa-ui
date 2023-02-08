@@ -13,6 +13,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.meeds.qa.ui.steps.HomeSteps;
+import io.meeds.qa.ui.steps.LoginSteps;
 import io.meeds.qa.ui.steps.ManageSpaceSteps;
 import io.meeds.qa.ui.steps.TasksSteps;
 import net.serenitybdd.core.Serenity;
@@ -22,6 +23,9 @@ public class TasksStepDefinition {
 
   @Steps
   private HomeSteps        homeSteps;
+
+  @Steps
+  private LoginSteps       loginSteps;
 
   @Steps
   private ManageSpaceSteps manageSpaceSteps;
@@ -680,7 +684,7 @@ public class TasksStepDefinition {
 
   @And("^I clear browsing data cache and cookies$")
   public void deleteCookies() {
-    tasksSteps.deleteCookies();
+    loginSteps.deleteCookies();
   }
 
   @And("^I delete the added project$")

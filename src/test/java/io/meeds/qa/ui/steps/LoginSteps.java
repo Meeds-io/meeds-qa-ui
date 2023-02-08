@@ -45,8 +45,15 @@ public class LoginSteps {
   }
 
   public void logout() {
-    homePage.logout();
-    loginPage.logout();
+    try {
+      homePage.logout();
+    } finally {
+      loginPage.logout();
+    }
+  }
+
+  public void deleteCookies() {
+    loginPage.deleteCookies();
   }
 
 }

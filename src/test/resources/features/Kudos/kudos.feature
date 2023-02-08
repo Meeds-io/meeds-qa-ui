@@ -75,7 +75,7 @@ Feature: Kudos
       | fortytwokudos |
       | fortythreethkudos |
     And I create the fortyonekudos random user if not existing, no wait
-    And I create the fortytwokudos random user if not existing
+    And I create the fortytwokudos random user if not existing, no wait
     And I create the fortythreethkudos random user if not existing
 
     When I connect with the fortyonekudos created user
@@ -103,7 +103,7 @@ Feature: Kudos
       | fiftytwokudos |
       | fiftythreethkudos |
     And I create the fiftyonekudos random user if not existing, no wait
-    And I create the fiftytwokudos random user if not existing
+    And I create the fiftytwokudos random user if not existing, no wait
     And I create the fiftythreethkudos random user if not existing
 
     When I connect with the fiftyonekudos created user

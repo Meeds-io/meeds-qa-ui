@@ -1919,12 +1919,12 @@ Feature: Activity Stream
     Then I go to the random space
     And I connect with the first created user
     And I go to the random space
-    And I go to 'Members' tab
+    And I click on 'Members' space menu tab
     And I enter the contact name of the second user
     Then The search result is well matched with the username entered of the second user
     And I click on three dots menu
     And I set as a redactor
-    Given I go to 'Stream' tab
+    Given I click on 'Stream' space menu tab
     And I click on post in space
     And I enter an activity 'PinTest'
     When I publish the activity
@@ -1952,12 +1952,12 @@ Feature: Activity Stream
     Then I go to the random space
     And I connect with the first created user
     And I go to the random space
-    And I go to 'Members' tab
+    And I click on 'Members' space menu tab
     And I enter the contact name of the second user
     Then The search result is well matched with the username entered of the second user
     And I click on three dots menu
     And I set as a redactor
-    Given I go to 'Stream' tab
+    Given I click on 'Stream' space menu tab
     And I click on post in space
     And I enter an activity 'PinTest'
     When I publish the activity

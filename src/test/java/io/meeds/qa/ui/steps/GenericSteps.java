@@ -21,6 +21,10 @@ public class GenericSteps {
     genericPage.closeAllDrawers();
   }
 
+  public void closeAllDialogs() {
+    genericPage.closeAllDialogs();
+  }
+
   public void closeBrowserTab(int tabIndex) {
     genericPage.closeBrowserTab(tabIndex);
   }

@@ -1,6 +1,8 @@
 package io.meeds.qa.ui.pages.page.factory.space;
 
-import static io.meeds.qa.ui.utils.Utils.*;
+import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION_MILLIS;
+import static io.meeds.qa.ui.utils.Utils.refreshPage;
+import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Iterator;
@@ -101,7 +103,8 @@ public class SpaceHomePage extends GenericPage {
       addCommentReplyEditorContent(reply);
       waitForDrawerToLoad();
       if (repliesIterator.hasNext()) {
-        waitFor(100).milliseconds(); // Wait for CKEditor to completely close
+        ckEditorFrameCommentElement().checkNotVisible(); // Wait for CKEditor to
+                                                         // completely close
         clickOnReplyToComment(comment, activity, true);
       }
     }
@@ -434,8 +437,8 @@ public class SpaceHomePage extends GenericPage {
     waitForDrawerToClose("#createPollDrawer", false);
   }
 
-  public void createPollButton() {
-    buttonCreatePollElement().isDisabled();
+  public void checkCreatePollButtonIsDisabled() {
+    buttonCreatePollElement().assertDisabled();
   }
 
   public void createPollDrawerClosed() {
@@ -600,30 +603,11 @@ public class SpaceHomePage extends GenericPage {
     peopleBtnElement().clickOnElement();
   }
 
-  public void goToSpaceMembersTab() {
-    membersTabElement().clickOnElement();
-  }
-
-  public void goToSpaceTasksTab() {
-    spaceTasksTabElement().clickOnElement();
-  }
-
   public void goToSpecificTab(String tabName) {
-    switch (tabName) {
-    case "Members":
-      if (!membersTabElement().isVisible())
-        goToLeftTabsElement().waitUntilVisible();
-      membersTabElement().sendKeys(Keys.ENTER);
-      break;
-    case "Activité":
-    case "Stream":
-      if (!activityTabElement().isVisible())
-        goToLeftTabsElement().clickOnElement();
-      activityTabElement().sendKeys(Keys.ENTER);
-      break;
-    default:
-      throw new IllegalStateException("Unrecognized Tab name");
-    }
+    ElementFacade tabElement = tabElement(tabName);
+    tabElement.waitUntilVisible();
+    tabElement.hover();
+    tabElement.sendKeys(Keys.ENTER);
   }
 
   public void goToUserProfileFromLikersDrawer(String userLastName) {
@@ -761,8 +745,8 @@ public class SpaceHomePage extends GenericPage {
     getPinnedActivity(activity).assertNotVisible();
   }
 
-  public void pollButton() {
-    buttonCreatePollElement().isEnabled();
+  public void checkCreatePollButtonIsEnabled() {
+    buttonCreatePollElement().assertEnabled();
   }
 
   public void promoteSpaceMemberAsManager(String name) {
@@ -1336,10 +1320,6 @@ public class SpaceHomePage extends GenericPage {
     return findByXPathOrCSS(String.format("//a[contains(@href,'%s')and contains(@class,'userFullname')]", user));
   }
 
-  private ElementFacade goToLeftTabsElement() {
-    return findByXPathOrCSS("//i[contains(@class,'mdi-chevron-left')]");
-  }
-
   private ElementFacade kudosButtonFromCommentsDrawerToCommentActivityElement() {
     return findByXPathOrCSS("//*[@id='activityCommentsDrawer']//*[contains(@id,'KudosActivity') and not(@disabled='disabled')]");
   }
@@ -1360,8 +1340,8 @@ public class SpaceHomePage extends GenericPage {
     return findByXPathOrCSS("//*[contains(@class,'v-btn--block v-btn--contained theme--light')]//span");
   }
 
-  private ElementFacade membersTabElement() {
-    return findByXPathOrCSS("//a[contains(@href,'members') and @tabindex='0']");
+  private ElementFacade tabElement(String tabName) {
+    return findByXPathOrCSS("//*[@id = 'SpaceMenu']//a[contains(text(),'" + tabName + "')]");
   }
 
   private ElementFacade menuBtnElement() {
@@ -1414,10 +1394,6 @@ public class SpaceHomePage extends GenericPage {
 
   private TextBoxElementFacade spaceMembersFilterTextBoxElement() {
     return findTextBoxByXPathOrCSS("//header[@id='peopleListToolbar']//input");
-  }
-
-  private ElementFacade spaceTasksTabElement() {
-    return findByXPathOrCSS("//a[contains(@href,'tasks') and @tabindex='0']");
   }
 
   private ElementFacade tenthCommentInDrawerElement() {

@@ -480,10 +480,6 @@ public class TasksSteps {
     tasksPage.confirmFilterButtonIsDisplayed();
   }
 
-  public void deleteCookies() {
-    tasksPage.deleteCookies();
-  }
-
   public void deleteProject(String projectName) {
     tasksPage.deleteProject(projectName);
   }

@@ -48,7 +48,7 @@ public class KudosAdministrationPage extends GenericPage {
   }
 
   public void checkKudosIconDisabled(String activityId) {
-    getKudosLink(activityId).isDisabled();
+    getKudosLink(activityId).assertDisabled();
   }
 
   public void checkKudosSettings(String kudosNbr, String period) {
