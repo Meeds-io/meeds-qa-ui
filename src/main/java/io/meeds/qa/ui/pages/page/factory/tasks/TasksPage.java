@@ -873,6 +873,7 @@ public class TasksPage extends GenericPage {
 
   public void openProject(String project) {
     getProjectCard(project).clickOnElement();
+    filterButtonElement().assertVisible();
   }
 
   public void openTaskCard(String task) {
