@@ -26,7 +26,7 @@ public class SettingsPage extends GenericPage {
     // Accept editing language
     ElementFacade applyChangeLanguageButtonElement = applyChangeLanguageButtonElement();
     applyChangeLanguageButtonElement.waitUntilClickable();
-    applyChangeLanguageButtonElement.clickOnElement();
+    applyChangeLanguageButtonElement.click();
     waitForDrawerToClose();
   }
 
@@ -34,14 +34,14 @@ public class SettingsPage extends GenericPage {
     // Accept editing password
     ElementFacade confirmEditPasswordElement = confirmEditPasswordElement();
     confirmEditPasswordElement.waitUntilClickable();
-    confirmEditPasswordElement.clickOnElement();
+    confirmEditPasswordElement.click();
 
   }
 
   public void applyEditGeneralNotifications() {
     ElementFacade applyEditGeneralNotificationsButtonElement = applyEditGeneralNotificationsButtonElement();
     applyEditGeneralNotificationsButtonElement.waitUntilClickable();
-    applyEditGeneralNotificationsButtonElement.clickOnElement();
+    applyEditGeneralNotificationsButtonElement.click();
     refreshPage();
   }
 
@@ -49,7 +49,7 @@ public class SettingsPage extends GenericPage {
     // Cancel editing language
     ElementFacade cancelChangeLanguageButtonElement = cancelChangeLanguageButtonElement();
     cancelChangeLanguageButtonElement.waitUntilClickable();
-    cancelChangeLanguageButtonElement.clickOnElement();
+    cancelChangeLanguageButtonElement.click();
     waitForDrawerToClose();
   }
 
@@ -57,7 +57,7 @@ public class SettingsPage extends GenericPage {
     // Cancel editing password
     ElementFacade cancelEditPasswordElement = cancelEditPasswordElement();
     cancelEditPasswordElement.waitUntilClickable();
-    cancelEditPasswordElement.clickOnElement();
+    cancelEditPasswordElement.click();
 
   }
 
@@ -158,11 +158,11 @@ public class SettingsPage extends GenericPage {
 
   public void editLanguage(String language) {
     // Select language and change it
-    findByXPathOrCSS("#UserSettingLanguage button").clickOnElement();
+    findByXPathOrCSS("#UserSettingLanguage button").click();
 
     ElementFacade changeLanguageElement = changeLanguageElement(language);
     changeLanguageElement.waitUntilClickable();
-    changeLanguageElement.clickOnElement();
+    changeLanguageElement.click();
 
   }
 
@@ -217,7 +217,7 @@ public class SettingsPage extends GenericPage {
 
     try {
       editGeneralNotificationsElement().waitUntilClickable();
-      editGeneralNotificationsElement().clickOnElement();
+      editGeneralNotificationsElement().click();
 
     } catch (Exception ex) {
       js.executeScript("arguments[0].click();", editGeneralNotificationsElement());
@@ -333,7 +333,7 @@ public class SettingsPage extends GenericPage {
     ElementFacade element = findByXPathOrCSS(String.format(NOTIFICATION_SWITCH_BUTTON_XPATH,
                                                            String.valueOf(switchButtonIndex)));
     boolean beforeClickState = Boolean.parseBoolean(element.getAttribute("aria-checked"));
-    element.findByXPath("//ancestor::*[contains(@class, 'v-input')]").clickOnElement();
+    element.findByXPath("//ancestor::*[contains(@class, 'v-input')]").click();
 
     boolean expectedNewState = !beforeClickState;
     element = findByXPathOrCSS(String.format(NOTIFICATION_SWITCH_BUTTON_BY_STATE_XPATH,

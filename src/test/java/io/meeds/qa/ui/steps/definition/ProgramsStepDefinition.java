@@ -11,22 +11,12 @@ import net.thucydides.core.annotations.Steps;
 
 public class ProgramsStepDefinition {
   @Steps
-  private ProgramsSteps          programsSteps;
+  private ProgramsSteps programsSteps;
 
   @And("^I add an audience space$")
   public void addAudienceSpace() {
     String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
     programsSteps.addSpaceAudience(randomSpaceName);
-  }
-
-  @Then("Engagement application center is displayed")
-  public void isEngagementAppOpened() {
-    programsSteps.isEngagementAppOpened();
-  }
-
-  @When("^I select engagement (.*) tab$")
-  public void selectEngagementTab(String tab) {
-    programsSteps.selectEngagementTab(tab);
   }
 
   @And("^I add a disabled program with random description$")
@@ -102,6 +92,16 @@ public class ProgramsStepDefinition {
   @And("^I enter the program title '(.*)'$")
   public void enterProgramTitle(String programTitle) {
     programsSteps.enterProgramTitle(programTitle);
+  }
+
+  @Then("Engagement application center is displayed")
+  public void isEngagementAppOpened() {
+    programsSteps.isEngagementAppOpened();
+  }
+
+  @When("^I select engagement (.*) tab$")
+  public void selectEngagementTab(String tab) {
+    programsSteps.selectEngagementTab(tab);
   }
 
   @And("^I filter programs by value '(.*)'$")

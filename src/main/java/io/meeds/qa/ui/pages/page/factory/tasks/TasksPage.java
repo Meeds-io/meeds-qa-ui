@@ -34,43 +34,43 @@ public class TasksPage extends GenericPage {
 
   public void addLabelToTask(String label) {
     retryOnCondition(() -> {
-      labelTaskElement().clickOnElement();
-      getAddLabelToTask(label).clickOnElement();
+      labelTaskElement().click();
+      getAddLabelToTask(label).click();
     });
   }
 
   public void addNewCommentInTask() {
-    addNewCommentInTaskElement().clickOnElement();
+    addNewCommentInTaskElement().click();
   }
 
   public void addNewCommentInTaskWithMentioningTheFirstUserInTask(String comment, String user) {
     mentionUserInCKEditor(ckEditorFrameTaskMentioningUserElement(), taskCommentContentTextBoxElement(), comment, user, true);
-    commentTaskButtonElement().clickOnElement();
+    commentTaskButtonElement().click();
     closeDrawerIfDisplayed();
   }
 
   public void addOtherCommentInTask() {
-    addOtherCommentInTaskElement().clickOnElement();
+    addOtherCommentInTaskElement().click();
   }
 
   public void addProject(String projectName) {
-    addProjectOrTaskElement().clickOnElement();
+    addProjectOrTaskElement().click();
     projectTitleElement().setTextValue(projectName);
-    saveButtonElement().clickOnElement();
+    saveButtonElement().click();
   }
 
   public void addProjectManagerInput(String manager) {
-    addManagerBtnElement().clickOnElement();
+    addManagerBtnElement().click();
     mentionInField(inviteProjectManagerInputElement(), manager, 5);
   }
 
   public void addProjectParticipantInput(String participant) {
-    addParticipantBtnElement().clickOnElement();
+    addParticipantBtnElement().click();
     mentionInField(inviteProjectParticipantInputElement(), participant, 5);
   }
 
   public void addProjectWithDescription(String projectName, String description) {
-    addProjectOrTaskElement().clickOnElement();
+    addProjectOrTaskElement().click();
     projectTitleElement().setTextValue(projectName);
 
     waitCKEditorLoading();
@@ -85,44 +85,44 @@ public class TasksPage extends GenericPage {
       getDriver().switchTo().defaultContent();
     }
 
-    saveButtonElement().clickOnElement();
+    saveButtonElement().click();
   }
 
   public void addProjectWithFirstCreatedUserAsManger(String projectName, String fullName) {
-    addProjectOrTaskElement().clickOnElement();
+    addProjectOrTaskElement().click();
     projectTitleElement().setTextValue(projectName);
     addProjectManagerInput(fullName);
-    saveButtonElement().clickOnElement();
+    saveButtonElement().click();
   }
 
   public void addProjectWithFirstUserAsParticipant(String projectName, String participant) {
-    addProjectOrTaskElement().clickOnElement();
+    addProjectOrTaskElement().click();
     projectTitleElement().setTextValue(projectName);
     addProjectParticipantInput(participant);
-    saveButtonElement().clickOnElement();
+    saveButtonElement().click();
   }
 
   public void addProjectWithManager(String projectName, String fullName) {
-    addProjectOrTaskElement().clickOnElement();
+    addProjectOrTaskElement().click();
     projectTitleElement().setTextValue(projectName);
-    addManagerBtnElement().clickOnElement();
+    addManagerBtnElement().click();
     mentionInField(inviteProjectManagerInputElement(), fullName, 5);
-    saveButtonElement().clickOnElement();
+    saveButtonElement().click();
   }
 
   public void addProjectWithManagerAndParticipant(String projectName, String manager, String participant) {
-    addProjectOrTaskElement().clickOnElement();
+    addProjectOrTaskElement().click();
     projectTitleElement().setTextValue(projectName);
     addProjectManagerInput(manager);
     addProjectParticipantInput(participant);
-    saveButtonElement().clickOnElement();
+    saveButtonElement().click();
   }
 
   public void addProjectWithParticipant(String projectName, String lastName) {
-    addProjectOrTaskElement().clickOnElement();
+    addProjectOrTaskElement().click();
     projectTitleElement().setTextValue(projectName);
     addProjectParticipantInput(lastName);
-    saveButtonElement().clickOnElement();
+    saveButtonElement().click();
   }
 
   public void addSecondUserToProject(String lastName) {
@@ -137,13 +137,13 @@ public class TasksPage extends GenericPage {
 
   public void assignTaskToMe() {
     taskAssignLinkElement().assertVisible();
-    taskAssignLinkElement().clickOnElement();
-    taskAssignMeElement().clickOnElement();
+    taskAssignLinkElement().click();
+    taskAssignMeElement().click();
   }
 
   public void assignTaskToUser(String user) {
     taskAssignLinkElement().assertVisible();
-    taskAssignLinkElement().clickOnElement();
+    taskAssignLinkElement().click();
     mentionInField(taskAssignUserInputElement(), user, 5);
   }
 
@@ -215,7 +215,7 @@ public class TasksPage extends GenericPage {
 
   public void checkGroupingSelected(String groupingValue) {
     assertTrue(findByXPathOrCSS(String.format("//*[contains(@class, 'v-navigation-drawer--open')]//input[@aria-checked='true' and @value='%s']//ancestor::*[contains(@class, 'v-radio')]",
-                                              groupingValue)).isVisibleAfterWaiting());
+                                              groupingValue)).isVisible());
   }
 
   public void checkLastStatusColumn(String columnStatus) {
@@ -306,7 +306,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkUpdatedDescription(String description) {
-    taskDescriptionFieldElement().clickOnElement();
+    taskDescriptionFieldElement().click();
 
     waitCKEditorLoading();
     ElementFacade ckEditorFrameDescriptionElement = ckEditorFrameDescriptionElement();
@@ -346,128 +346,128 @@ public class TasksPage extends GenericPage {
   }
 
   public void clickAddProjectButton() {
-    addProjectOrTaskElement().clickOnElement();
+    addProjectOrTaskElement().click();
   }
 
   public void clickAddTaskButton() {
     ElementFacade addTaskButton = findByXPathOrCSS(".tasksToolbar button.btn-primary");
-    if (addTaskButton.isCurrentlyVisible() && addTaskButton.isVisibleAfterWaiting() && addTaskButton.isClickable()) {
-      addTaskButton.clickOnElement();
+    if (addTaskButton.isCurrentlyVisible() && addTaskButton.isVisible() && addTaskButton.isClickable()) {
+      addTaskButton.click();
     } else {
-      addTaskInProjectButtonElement().clickOnElement();
+      addTaskInProjectButtonElement().click();
     }
   }
 
   public void clickCancel() {
-    cancelButtonElement().clickOnElement();
+    cancelButtonElement().click();
   }
 
   public void clickChangeLocation() {
-    changeLocationLinkElement().clickOnElement();
+    changeLocationLinkElement().click();
   }
 
   public void clickDelete() {
-    deleteButtonElement().clickOnElement();
+    deleteButtonElement().click();
   }
 
   public void clickDeleteProjectButton() {
-    deleteProjectButtonElement().clickOnElement();
+    deleteProjectButtonElement().click();
   }
 
   public void clickDocButton() {
-    documentButtonElement().clickOnElement();
+    documentButtonElement().click();
   }
 
   public void clickFilterButton() {
-    filterButtonElement().clickOnElement();
+    filterButtonElement().click();
     waitForDrawerToOpen();
   }
 
   public void clickOnAddAttachmentLink() {
-    addAttachmentLinkElement().clickOnElement();
+    addAttachmentLinkElement().click();
   }
 
   public void clickOnAddStatusAfterOptionOfTheFifthStatusColumn() {
-    addStatusafteroptionElement().clickOnElement();
+    addStatusafteroptionElement().click();
   }
 
   public void clickOnAddStatusBeforeOption() {
-    addStatusBeforeoptionElement().clickOnElement();
+    addStatusBeforeoptionElement().click();
   }
 
   public void clickOnAssigneeRadioButton() {
-    assigneeRadioButtonElement().clickOnElement();
+    assigneeRadioButtonElement().click();
   }
 
   public void clickOnClearButton() {
-    clearButtonInFilterByProjectElement().clickOnElement();
+    clearButtonInFilterByProjectElement().click();
   }
 
   public void clickOnClearButtonInFilterByTask() {
-    clearButtonInFilterByTaskElement().clickOnElement();
+    clearButtonInFilterByTaskElement().click();
   }
 
   public void clickOnCommentReply(String comment) {
     ElementFacade taskCommentReplyBtn = getTaskCommentReplyBtn(comment);
     taskCommentReplyBtn.assertVisible();
-    taskCommentReplyBtn.clickOnElement();
+    taskCommentReplyBtn.click();
   }
 
   public void clickOnConfirmButton() {
-    confirmButtonDrawerElement().clickOnElement();
+    confirmButtonDrawerElement().click();
   }
 
   public void clickOnDeleteStatusIcon() {
-    deleteStatusIconElement().clickOnElement();
+    deleteStatusIconElement().click();
   }
 
   public void clickOnDeleteTaskOption() {
-    deleteTaskOptionElement().clickOnElement();
+    deleteTaskOptionElement().click();
   }
 
   public void clickOnEditProjectButton() {
-    editProjectButtonElement().clickOnElement();
+    editProjectButtonElement().click();
   }
 
   public void clickOnFifthColumnThreeDotsIcon() {
-    fifthColumnThreeDotsIconElement().clickOnElement();
+    fifthColumnThreeDotsIconElement().click();
   }
 
   public void clickOnLastColumnThreeDotsIcon() {
-    lastColumnThreeDotsIconElement().clickOnElement();
+    lastColumnThreeDotsIconElement().click();
   }
 
   public void clickOnMoveStatusAfterIcon() {
-    moveStatusAfterIconElement().clickOnElement();
+    moveStatusAfterIconElement().click();
   }
 
   public void clickOnMoveStatusBeforeIcon() {
-    moveStatusBeforeIconElement().clickOnElement();
+    moveStatusBeforeIconElement().click();
   }
 
   public void clickOnPlusButtonToAddTask() {
-    plusButtonToAddTaskElement().clickOnElement();
+    plusButtonToAddTaskElement().click();
   }
 
   public void clickOnPlusButtonToAddTaskOfTheSixthStatusColumn() {
-    plusButtonToAddTaskOfTheSixthStatusColumnElement().clickOnElement();
+    plusButtonToAddTaskOfTheSixthStatusColumnElement().click();
   }
 
   public void clickOnProjectThreeDotsButton() {
-    projectThreeDotsButtonElement().clickOnElement();
+    projectThreeDotsButtonElement().click();
   }
 
   public void clickOnSaveButtonToAddTask() {
-    saveButtonTaskElement().clickOnElement();
+    saveButtonTaskElement().click();
   }
 
   public void clickOnSaveButtonToAddTaskSpaceProject() {
-    saveButtonTaskSpaceProjectElement().clickOnElement();
+    saveButtonTaskSpaceProjectElement().click();
   }
 
   public void clickOnTaskThreeDotsOption() {
 
-    taskThreeDotsOptionElement().clickOnElement();
+    taskThreeDotsOptionElement().click();
   }
 
   public void clickOnTheNotificationThatMentioneFirstUserInATaskInProject(String message, String projectName) {
@@ -475,59 +475,59 @@ public class TasksPage extends GenericPage {
     firstNotificationContentElement.waitUntilVisible();
     Assert.assertTrue(firstNotificationContentElement.getText().contains(message));
     Assert.assertTrue(firstNotificationContentElement.getText().contains(projectName));
-    firstNotificationContentElement.clickOnElement();
+    firstNotificationContentElement.click();
   }
 
   public void clickOnTheTimestamp() {
-    timesTampElement().clickOnElement();
+    timesTampElement().click();
   }
 
   public void clickOnThreeDotsIcon() {
-    threeDotsIconElement().clickOnElement();
+    threeDotsIconElement().click();
   }
 
   public void clickOnUpDateButton() {
-    updateButtonDescriptionElement().clickOnElement();
+    updateButtonDescriptionElement().click();
   }
 
   public void clickOnValidateStatusName() {
     String currentStatusName = statusFieldElement().getValue();
-    validateStatusNameElement().clickOnElement();
+    validateStatusNameElement().click();
     // Wait until column is added
     retryOnCondition(() -> getStatusColumn(currentStatusName).waitUntilVisible(),
                      () -> waitFor(2).seconds());
   }
 
   public void clickPlusIcon() {
-    plusIconElement().clickOnElement();
+    plusIconElement().click();
   }
 
   public void clickPlusIconProject() {
-    plusIconProjectElement().clickOnElement();
+    plusIconProjectElement().click();
   }
 
   public void clickQuickAddTaskButton() {
-    quickAddTaskInProjectButtonElement().clickOnElement();
+    quickAddTaskInProjectButtonElement().click();
   }
 
   public void clickSaveProjectButton() {
-    saveButtonElement().clickOnElement();
+    saveButtonElement().click();
   }
 
   public void clickStatusName(String statusColumn) {
-    getStatusColumn(statusColumn).clickOnElement();
+    getStatusColumn(statusColumn).click();
   }
 
   public void clickViewAttachmentLink() {
     viewAttachmentsLinkElement().assertVisible();
-    viewAttachmentsLinkElement().clickOnElement();
+    viewAttachmentsLinkElement().click();
   }
 
   public void cloneProject(String projectName) {
     getProjectCard(projectName).assertVisible();
-    projectThreeDotsButtonElement().clickOnElement();
-    cloneProjectButtonElement().clickOnElement();
-    confirmationPopupCloneButtonElement().clickOnElement();
+    projectThreeDotsButtonElement().click();
+    cloneProjectButtonElement().click();
+    confirmationPopupCloneButtonElement().click();
     confirmationPopupCloneButtonElement().assertNotVisible();
 
   }
@@ -537,8 +537,8 @@ public class TasksPage extends GenericPage {
   }
 
   public void clonetaskinspaceproject() {
-    threeDotsIconInEditTaskElement().clickOnElement();
-    cloneoptionElement().clickOnElement();
+    threeDotsIconInEditTaskElement().click();
+    cloneoptionElement().click();
   }
 
   public void colorPaletteIsDisplayed() {
@@ -568,7 +568,7 @@ public class TasksPage extends GenericPage {
 
     ElementFacade commentTaskButtonElement = commentTaskButtonElement();
     commentTaskButtonElement.waitUntilVisible();
-    commentTaskButtonElement.clickOnElement();
+    commentTaskButtonElement.click();
     closeDrawerIfDisplayed();
   }
 
@@ -577,21 +577,21 @@ public class TasksPage extends GenericPage {
   }
 
   public void completeTask() {
-    markTaskCompletedElement().clickOnElement();
+    markTaskCompletedElement().click();
   }
 
   public void confirmDeleteStatusColumn() {
     ElementFacade confirmationPopupDeleteButtonElement = confirmationPopupDeleteButtonElement();
-    confirmationPopupDeleteButtonElement.clickOnElement();
+    confirmationPopupDeleteButtonElement.click();
     confirmationPopupDeleteButtonElement.assertNotVisible();
   }
 
   public void confirmDeleteTaskFromTasksBord() {
-    confirmationPopupDeleteButtonElement().clickOnElement();
+    confirmationPopupDeleteButtonElement().click();
   }
 
   public void confirmFilter() {
-    confirmFilterButtonElement().clickOnElement();
+    confirmFilterButtonElement().click();
   }
 
   public void confirmFilterButtonIsDisplayed() {
@@ -600,9 +600,9 @@ public class TasksPage extends GenericPage {
 
   public void deleteProject(String projectName) {
     getProjectCard(projectName).assertVisible();
-    projectThreeDotsButtonElement().clickOnElement();
-    deleteProjectButtonElement().clickOnElement();
-    confirmationPopupDeleteButtonElement().clickOnElement();
+    projectThreeDotsButtonElement().click();
+    deleteProjectButtonElement().click();
+    confirmationPopupDeleteButtonElement().click();
     confirmationPopupDeleteButtonElement().assertNotVisible();
   }
 
@@ -615,7 +615,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void editDescriptionForTask(String newDescription) {
-    taskDescriptionFieldElement().clickOnElement();
+    taskDescriptionFieldElement().click();
 
     waitCKEditorLoading();
     ElementFacade switchToFrameTaskUserElement = switchToFrameTaskUserElement();
@@ -629,7 +629,7 @@ public class TasksPage extends GenericPage {
       getDriver().switchTo().defaultContent();
     }
 
-    updateButtonDescriptionElement().clickOnElement();
+    updateButtonDescriptionElement().click();
     waitForLoading();
   }
 
@@ -638,16 +638,16 @@ public class TasksPage extends GenericPage {
   }
 
   public void editProjectName(String projectName) {
-    projectThreeDotsButtonElement().clickOnElement();
-    editProjectButtonElement().clickOnElement();
+    projectThreeDotsButtonElement().click();
+    editProjectButtonElement().click();
     projectTitleElement().setTextValue(projectName);
-    saveButtonElement().clickOnElement();
+    saveButtonElement().click();
   }
 
   public void editProjectNameWithDescription(String projectName, String newProjectName, String newDescription) {
     getProjectCard(projectName).assertVisible();
-    projectThreeDotsButtonElement().clickOnElement();
-    editProjectButtonElement().clickOnElement();
+    projectThreeDotsButtonElement().click();
+    editProjectButtonElement().click();
     projectTitleElement().setTextValue(newProjectName);
 
     waitCKEditorLoading();
@@ -662,12 +662,12 @@ public class TasksPage extends GenericPage {
       getDriver().switchTo().defaultContent();
     }
 
-    saveButtonElement().clickOnElement();
+    saveButtonElement().click();
   }
 
   public void editSpaceName(String spaceName) {
     spaceNameTitleElement().setTextValue(spaceName);
-    updateNameSpaceButtonElement().clickOnElement();
+    updateNameSpaceButtonElement().click();
   }
 
   public void editTaskDrawerIsDisplayed() {
@@ -675,7 +675,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void enterDescriptionForTask(String description) {
-    taskDescriptionFieldElement().clickOnElement();
+    taskDescriptionFieldElement().click();
 
     waitCKEditorLoading();
     ElementFacade switchToFrameTaskElement = switchToFrameTaskElement();
@@ -691,7 +691,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void enterProjectDescriptionWithoutTheTitle(String description) {
-    addProjectOrTaskElement().clickOnElement();
+    addProjectOrTaskElement().click();
 
     waitCKEditorLoading();
     ElementFacade ckEditorFrameTaskElement = ckEditorFrameTaskElement();
@@ -708,7 +708,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void enterProjectTitleAndDescription(String projectName, String description) {
-    addProjectOrTaskElement().clickOnElement();
+    addProjectOrTaskElement().click();
     projectTitleElement().setTextValue(projectName);
 
     waitCKEditorLoading();
@@ -751,31 +751,31 @@ public class TasksPage extends GenericPage {
   }
 
   public void exitFromTheFirstProject() {
-    backButtonProjectElement().clickOnElement();
+    backButtonProjectElement().click();
   }
 
   public void goBack() {
-    goBackIconElement().clickOnElement();
+    goBackIconElement().click();
   }
 
   public void goToFilterTab() {
-    filterTabElement().clickOnElement();
+    filterTabElement().click();
   }
 
   public void goToGroupAndSortTab() {
-    groupAndSortTabElement().clickOnElement();
+    groupAndSortTabElement().click();
   }
 
   public void goToLabelsTab() {
-    labelsTabElement().clickOnElement();
+    labelsTabElement().click();
   }
 
   public void goToPLanView() {
-    planViewElement().clickOnElement();
+    planViewElement().click();
   }
 
   public void goToProjectDetailsList() {
-    projectDetailsListButtonElement().clickOnElement();
+    projectDetailsListButtonElement().click();
   }
 
   public void goToProjectsTab() {
@@ -793,7 +793,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void hoverOnProjectManagerIcon() {
-    projectCardUserFullNameElement().hover("//*[contains(@class, 'spaceAdminContainer')]//*[contains(@class, 'profile-popover')]");
+    projectCardUserPopover().hover();
   }
 
   public void hoverOnTaskName(String task) {
@@ -818,7 +818,7 @@ public class TasksPage extends GenericPage {
   }
 
   public boolean isStatusEditModeDisplayed(String statusColumn) {
-    return getStatusColumn(statusColumn).isNotVisibleAfterWaiting();
+    return getStatusColumn(statusColumn).isNotVisible();
   }
 
   public void labelIsDisplayedInProjectDrawer(String label) {
@@ -835,11 +835,11 @@ public class TasksPage extends GenericPage {
   }
 
   public void markTaskAsCompletedFromTaskCard() {
-    markTaskCompletedOnTaskCardElement().clickOnElement();
+    markTaskCompletedOnTaskCardElement().click();
   }
 
   public void markTaskAsCompletedInProjectDetails(String taskName) {
-    getTaskToMarkAsCompleted(taskName).clickOnElement();
+    getTaskToMarkAsCompleted(taskName).click();
   }
 
   public void maxCharsCount1250InformationIsDisplayed() {
@@ -847,7 +847,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void maxCharsNumberMessageIsDisplayed() {
-    commentsDrawerSectionElement().clickOnElement();
+    commentsDrawerSectionElement().click();
 
     waitCKEditorLoading();
     ElementFacade ckEditorFrameTaskElement = ckEditorFrameTaskElement();
@@ -868,28 +868,28 @@ public class TasksPage extends GenericPage {
 
   public void openFilterDrawer() {
     refreshPage();
-    filterDrawerButtonElement().clickOnElement();
+    filterDrawerButtonElement().click();
   }
 
   public void openProject(String project) {
-    getProjectCard(project).clickOnElement();
+    getProjectCard(project).click();
     filterButtonElement().assertVisible();
   }
 
   public void openTaskCard(String task) {
     closeDrawerIfDisplayed();
-    openTask(task).clickOnElement();
+    openTask(task).click();
     waitForDrawerToOpen();
   }
 
   public void openTaskDrawer(String taskName) {
     closeDrawerIfDisplayed();
-    getTaskName(taskName).clickOnElement();
+    getTaskName(taskName).click();
     waitForDrawerToOpen();
   }
 
   public void openTaskInTasksTab(String taskName) {
-    getTaskTitleInTasksTab(taskName).clickOnElement();
+    getTaskTitleInTasksTab(taskName).click();
   }
 
   public void projectDrawerNotClosing() {
@@ -913,7 +913,7 @@ public class TasksPage extends GenericPage {
     // Labels are retrieved from Server, thus we should wait until it's loaded,
     // in addition, no loading effect is visible in project drawer
     retryOnCondition(() -> findByXPathOrCSS(".projectLabelsName .v-chip").waitUntilVisible());
-    getRemoveLabelButton(label).clickOnElement();
+    getRemoveLabelButton(label).click();
   }
 
   public void replyTaskCommentButtonIsDisabled() {
@@ -925,15 +925,15 @@ public class TasksPage extends GenericPage {
   }
 
   public void returnToProjectsTab() {
-    arrowBackButtonElement().clickOnElement();
+    arrowBackButtonElement().click();
   }
 
   public void saveAddingProject() {
-    saveButtonElement().clickOnElement();
+    saveButtonElement().click();
   }
 
   public void saveAddTaskButton() {
-    saveButtonElement().clickOnElement();
+    saveButtonElement().click();
   }
 
   public void saveQuickTask() {
@@ -945,7 +945,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void selectFilterOption(String label) {
-    getFilterOption(label).clickOnElement();
+    getFilterOption(label).click();
   }
 
   public void setInSearchProjectField(String project) {
@@ -963,16 +963,16 @@ public class TasksPage extends GenericPage {
   }
 
   public void setTaskCompletedInDrawer() {
-    markTaskCompletedInDrawerElement().clickOnElement();
+    markTaskCompletedInDrawerElement().click();
     closeDrawerIfDisplayed();
   }
 
   public void setTaskCompletedInDrawerWithoutClosingIt() {
-    markTaskCompletedInDrawerElement().clickOnElement();
+    markTaskCompletedInDrawerElement().click();
   }
 
   public void setTaskDescription(String description) {
-    taskDescriptionFieldElement().clickOnElement();
+    taskDescriptionFieldElement().click();
 
     waitCKEditorLoading();
     ElementFacade ckEditorFrameDescriptionElement = ckEditorFrameDescriptionElement();
@@ -987,18 +987,18 @@ public class TasksPage extends GenericPage {
   }
 
   public void setTaskDueDateNextWeek() {
-    taskDueDateElement().clickOnElement();
-    taskDueDateNextWeekElement().clickOnElement();
+    taskDueDateElement().click();
+    taskDueDateNextWeekElement().click();
   }
 
   public void setTaskDueDateToday() {
-    taskDueDateElement().clickOnElement();
-    taskDueDateTodayElement().clickOnElement();
+    taskDueDateElement().click();
+    taskDueDateTodayElement().click();
   }
 
   public void setTaskDueDateTomorrow() {
-    taskDueDateElement().clickOnElement();
-    taskDueDateTomorrowElement().clickOnElement();
+    taskDueDateElement().click();
+    taskDueDateTomorrowElement().click();
   }
 
   public void setTaskName(String taskName) {
@@ -1007,27 +1007,27 @@ public class TasksPage extends GenericPage {
 
   public void setTaskPriority(String taskPriority) {
     taskPrioritySelectorElement().assertVisible();
-    taskPrioritySelectorElement().clickOnElement();
-    selectTaskPriority(taskPriority).clickOnElement();
+    taskPrioritySelectorElement().click();
+    selectTaskPriority(taskPriority).click();
   }
 
   public void setTaskStartDateToday() {
-    taskStartDateElement().clickOnElement();
-    taskStartDateTodayElement().clickOnElement();
+    taskStartDateElement().click();
+    taskStartDateTodayElement().click();
   }
 
   public void setTaskStartDateTomorrow() {
-    taskStartDateElement().clickOnElement();
-    taskStartDateTomorrowElement().clickOnElement();
+    taskStartDateElement().click();
+    taskStartDateTomorrowElement().click();
   }
 
   public void setTaskStatus(String taskStatus) {
-    selectStatusSelectorElement().clickOnElement();
-    selectTaskStatus(taskStatus).clickOnElement();
+    selectStatusSelectorElement().click();
+    selectTaskStatus(taskStatus).click();
   }
 
   public void switchToTASKSTab() {
-    backDrawerElement().clickOnElement();
+    backDrawerElement().click();
   }
 
   public void taskAlertIsDisplayed(String message) {
@@ -1082,7 +1082,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void updateTaskDescription(String description) {
-    taskDescriptionFieldElement().clickOnElement();
+    taskDescriptionFieldElement().click();
 
     waitCKEditorLoading();
     ElementFacade ckEditorFrameDescriptionElement = ckEditorFrameDescriptionElement();
@@ -1118,7 +1118,7 @@ public class TasksPage extends GenericPage {
   public void viewAllCommentsTaskButton() {
     ElementFacade viewAllCommentsTaskButtonElement = viewAllCommentsTaskButtonElement();
     viewAllCommentsTaskButtonElement.waitUntilVisible();
-    viewAllCommentsTaskButtonElement.clickOnElement();
+    viewAllCommentsTaskButtonElement.click();
   }
 
   private ElementFacade activeTabFilterDrawerElement() {
@@ -1607,6 +1607,10 @@ public class TasksPage extends GenericPage {
 
   private ElementFacade projectCardUserFullNameElement() {
     return findByXPathOrCSS("(//*[contains(@class,'profile-popover')]//a[contains(@id,'userAvatar')]/following::div[contains(@class,'ms-2')])[2]");
+  }
+
+  private ElementFacade projectCardUserPopover() {
+    return findByXPathOrCSS("//*[contains(@class, 'spaceAdminContainer')]//*[contains(@class, 'profile-popover')]");
   }
 
   private TextBoxElementFacade projectDescriptionFieldElement() {

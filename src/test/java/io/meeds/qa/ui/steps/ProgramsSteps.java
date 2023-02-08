@@ -57,16 +57,16 @@ public class ProgramsSteps {
     programsPage.enterProgramTitle(programTitle);
   }
 
-  public void selectProgramsFilter(String value) {
-    programsPage.selectProgramsFilter(value);
-  }
-
   public void isEngagementAppOpened() {
     programsPage.checkEngagementAppOpened();
   }
 
   public void selectEngagementTab(String tab) {
     programsPage.selectEngagementTab(tab);
+  }
+
+  public void selectProgramsFilter(String value) {
+    programsPage.selectProgramsFilter(value);
   }
 
 }

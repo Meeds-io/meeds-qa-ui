@@ -35,6 +35,10 @@ public class LoginSteps {
     authenticateIfRandomSpaceAndUsersNotExists(username, null, userPrefixes);
   }
 
+  public void deleteCookies() {
+    loginPage.deleteCookies();
+  }
+
   public boolean isHamburgerNavigationDisplayed() {
     return homePage.isHamburgerNavigationDisplayed();
   }
@@ -50,10 +54,6 @@ public class LoginSteps {
     } finally {
       loginPage.logout();
     }
-  }
-
-  public void deleteCookies() {
-    loginPage.deleteCookies();
   }
 
 }

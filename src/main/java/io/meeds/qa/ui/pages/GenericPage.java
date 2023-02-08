@@ -5,9 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 import io.meeds.qa.ui.elements.ElementFacade;
 
@@ -25,17 +23,21 @@ public class GenericPage extends BasePageImpl {
     url = "genericPage";
   }
 
+  public void checkConfirmMessageIsDisplayed(String message) {
+    getConfirmMessage(message).assertVisible();
+  }
+
   public void checkDrawerDisplayed(String title) {
     assertTrue(findByXPathOrCSS(String.format("//*[contains(@class, 'drawerTitle') and contains(text(),'%s')]",
-                                              title)).isVisibleAfterWaiting());
+                                              title)).isVisible());
   }
 
   public void clickConfirm() {
-    getButton("Confirm").clickOnElement();
+    getButton("Confirm").click();
   }
 
   public void clickOkButton() {
-    getOKButton("OK").clickOnElement();
+    getOKButton("OK").click();
   }
 
   public void closeBrowserTab(int index) {
@@ -47,17 +49,11 @@ public class GenericPage extends BasePageImpl {
   }
 
   public boolean containsContent(String content) {
-    WebElement element = getDriver().findElement(By.xpath(String.format("//*[contains(text(),'%s')]",
-                                                                        content)));
-    return element != null && element.isDisplayed();
-  }
-
-  public void checkConfirmMessageIsDisplayed(String message) {
-    getConfirmMessage(message).assertVisible();
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]", content)).isVisible();
   }
 
   public boolean isButtonDisplayed(String buttonName) {
-    return getButton(buttonName).isVisibleAfterWaiting();
+    return getButton(buttonName).isVisible();
   }
 
   public void isPageOpened(String uriPart) {
@@ -65,7 +61,7 @@ public class GenericPage extends BasePageImpl {
   }
 
   public boolean isSuccessMessageDisplayed() {
-    return findByXPathOrCSS("//div[contains(@class,'alert-success')]").isVisibleAfterWaiting();
+    return findByXPathOrCSS("//div[contains(@class,'alert-success')]").isVisible();
   }
 
   private ElementFacade getButton(String buttonName) {

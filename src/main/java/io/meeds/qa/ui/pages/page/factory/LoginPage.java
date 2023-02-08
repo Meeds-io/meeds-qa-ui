@@ -44,7 +44,7 @@ public class LoginPage extends GenericPage implements IsHidden {
       openLoginPage();
       usernameInputElement().setTextValue(login);
       passwordInputElement().setTextValue(password);
-      loginButtonElement().clickOnElement();
+      loginButtonElement().click();
       getDriver().manage().addCookie(new Cookie(LAST_LOGGED_IN_USER_COOKIE_NAME, login, "/"));
       lastLoggedInUser = login;
       waitForPageLoading();
@@ -71,12 +71,12 @@ public class LoginPage extends GenericPage implements IsHidden {
     return findButtonByXPathOrCSS("//*[contains(@class, 'loginButton')]//button");
   }
 
-  private TextBoxElementFacade usernameInputElement() {
-    return findTextBoxByXPathOrCSS("//*[@id='username']");
-  }
-
   private TextBoxElementFacade passwordInputElement() {
     return findTextBoxByXPathOrCSS("//*[@id='password']");
+  }
+
+  private TextBoxElementFacade usernameInputElement() {
+    return findTextBoxByXPathOrCSS("//*[@id='username']");
   }
 
 }

@@ -10,9 +10,9 @@ import io.meeds.qa.ui.utils.Utils;
 
 public class UserProfileSteps {
 
-  private UserProfilePage userProfilePage;
+  private UserProfilePage         userProfilePage;
 
-  private KudosAdministrationPage       kudosPage;
+  private KudosAdministrationPage kudosPage;
 
   public void addWorkExperiences(Map<String, String> workExperiences) {
     userProfilePage.addWorkExperiences(workExperiences.get("organization"),
@@ -32,6 +32,14 @@ public class UserProfileSteps {
         missingValues.add(fieldName);
     }
     return missingValues;
+  }
+
+  public void checkProfileContactInstantMessagingVisible(String instantMessagingType, String instantMessaging) {
+    userProfilePage.checkProfileContactInstantMessagingVisible(instantMessagingType, instantMessaging);
+  }
+
+  public void checkProfileContactPhoneVisible(String phoneType, String phone) {
+    userProfilePage.checkProfileContactPhoneVisible(phoneType, phone);
   }
 
   public void checkWeeklyPointChart() {
@@ -88,14 +96,6 @@ public class UserProfileSteps {
 
   public void isProfileContactFullNameVisible(String title, String fullName) {
     userProfilePage.checkProfileContactFullNameVisible(title, fullName);
-  }
-
-  public void checkProfileContactInstantMessagingVisible(String instantMessagingType, String instantMessaging) {
-    userProfilePage.checkProfileContactInstantMessagingVisible(instantMessagingType, instantMessaging);
-  }
-
-  public void checkProfileContactPhoneVisible(String phoneType, String phone) {
-    userProfilePage.checkProfileContactPhoneVisible(phoneType, phone);
   }
 
   public void isProfileContactUrlVisible(String url) {

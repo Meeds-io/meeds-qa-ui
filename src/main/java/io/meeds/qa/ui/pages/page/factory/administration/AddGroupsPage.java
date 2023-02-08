@@ -20,27 +20,27 @@ public class AddGroupsPage extends GenericPage {
     }
     ElementFacade closeDrawerButtonElement = closeDrawerButtonElement();
     if (closeDrawerButtonElement.isCurrentlyVisible()) {
-      closeDrawerButtonElement.clickOnElement();
+      closeDrawerButtonElement.click();
       waitForDrawerToClose();
     }
-    addMemberInGroupBtnElement.clickOnElement();
+    addMemberInGroupBtnElement.click();
     ElementFacade selectedRoleFieldElement = selectedRoleFieldElement();
     selectedRoleFieldElement.selectByValue(role);
-    selectedRoleFieldElement.clickOnElement();
+    selectedRoleFieldElement.click();
     TextBoxElementFacade inviteMemberInputElement = inviteMemberInputElement();
     inviteMemberInputElement.setTextValue(member);
     boolean found = mentionInField(inviteMemberInputElement, member, 3);
     if (found) {
       ElementFacade saveMemberAddedInGroupElement = saveMemberAddedInGroupElement();
       try {
-        saveMemberAddedInGroupElement.clickOnElement();
+        saveMemberAddedInGroupElement.click();
       } catch (Exception e) {
-        findByXPathOrCSS("//*[contains(@class,'drawerTitle')]").clickOnElement();
-        saveMemberAddedInGroupElement.clickOnElement();
+        findByXPathOrCSS("//*[contains(@class,'drawerTitle')]").click();
+        saveMemberAddedInGroupElement.click();
       }
     }
     if (closeDrawerButtonElement.isCurrentlyVisible()) {
-      closeDrawerButtonElement.clickOnElement();
+      closeDrawerButtonElement.click();
     }
     waitForDrawerToClose();
   }
@@ -58,11 +58,11 @@ public class AddGroupsPage extends GenericPage {
   }
 
   public void openGroup(String group) {
-    groupOpenBtn(group).clickOnElement();
+    groupOpenBtn(group).click();
   }
 
   public void selectGroup(String group) {
-    groupToSelect(group).clickOnElement();
+    groupToSelect(group).click();
   }
 
   private ElementFacade addMemberInGroupBtnElement() {

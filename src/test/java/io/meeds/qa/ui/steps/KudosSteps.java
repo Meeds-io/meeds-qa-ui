@@ -6,11 +6,11 @@ import io.meeds.qa.ui.pages.page.factory.space.SpaceHomePage;
 import io.meeds.qa.ui.utils.Utils;
 
 public class KudosSteps {
-  private HomePage      homePage;
+  private HomePage                homePage;
 
-  private KudosAdministrationPage     kudosPage;
+  private KudosAdministrationPage kudosPage;
 
-  private SpaceHomePage spaceHomePage;
+  private SpaceHomePage           spaceHomePage;
 
   public void addActivityCommentKudos(String kudos) {
     kudosPage.sendKudosMessageFromOpenedDrawer(kudos);

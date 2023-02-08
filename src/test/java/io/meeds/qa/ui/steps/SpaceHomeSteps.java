@@ -75,6 +75,14 @@ public class SpaceHomeSteps {
     spaceHomePage.checkConfirmationPopupVisible();
   }
 
+  public void checkCreatePollButtonIsDisabled() {
+    spaceHomePage.checkCreatePollButtonIsDisabled();
+  }
+
+  public void checkCreatePollButtonIsEnabled() {
+    spaceHomePage.checkCreatePollButtonIsEnabled();
+  }
+
   public void checkFirstActivityComment(String comment) {
     spaceHomePage.checkFirstActivityComment(comment);
   }
@@ -237,10 +245,6 @@ public class SpaceHomeSteps {
 
   public void createPoll(String pollTitle, String choiceOne, String choiceTow) {
     spaceHomePage.createPoll(pollTitle, choiceOne, choiceTow);
-  }
-
-  public void checkCreatePollButtonIsDisabled() {
-    spaceHomePage.checkCreatePollButtonIsDisabled();
   }
 
   public void createPollDrawerClosed() {
@@ -418,10 +422,6 @@ public class SpaceHomeSteps {
 
   public void pinnedActivityDisappears(String activity) {
     spaceHomePage.pinnedActivityDisappears(activity);
-  }
-
-  public void checkCreatePollButtonIsEnabled() {
-    spaceHomePage.checkCreatePollButtonIsEnabled();
   }
 
   public void postManyActivities(String activityNumber, String activityPrefix) {

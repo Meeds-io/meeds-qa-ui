@@ -2,7 +2,6 @@ package io.meeds.qa.ui.pages.page.factory.people;
 
 import static io.meeds.qa.ui.utils.Utils.refreshPage;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
@@ -55,7 +54,7 @@ public class PeoplePage extends GenericPage {
         clickOnElement(userButton);
         ElementFacade okButton = findByXPathOrCSS("//*[contains(@class, 'v-dialog--active')]//button[contains(text(),'OK')]");
         okButton.waitUntilClickable();
-        okButton.clickOnElement();
+        okButton.click();
       } else {
         clickOnElement(userButton);
       }
@@ -69,7 +68,7 @@ public class PeoplePage extends GenericPage {
   public void checkThatAddContactButtonIsDisplayed() {
     // Check that the Add Contact Button is displayed
     ElementFacade addContactTitleElement = addContactTitleElement();
-    addContactTitleElement.isDisplayed();
+    addContactTitleElement.assertVisible();
     Assert.assertEquals(addContactTitleElement.getText(), "Connect");
 
   }
@@ -87,7 +86,7 @@ public class PeoplePage extends GenericPage {
   public void checkThatCircularAvatarIsDisplayed() {
     // Check that the circular avatar is displayed
     ElementFacade contactAvatarElement = contactAvatarElement();
-    contactAvatarElement.isDisplayed();
+    contactAvatarElement.assertVisible();
   }
 
   public void checkThatDeletedUserSuggestionIsNotDisplayed() {
@@ -119,14 +118,13 @@ public class PeoplePage extends GenericPage {
 
   public void checkThatFullNameIsDisplayed() {
     // Check that the Fullname is displayed
-    addContactFullnameElement().isDisplayed();
+    addContactFullnameElement().assertVisible();
 
   }
 
   public void checkThatJobIsDisplayed() {
     // Check that the job is displayed
-    addContactJobElement().isDisplayed();
-
+    addContactJobElement().assertVisible();
   }
 
   public void checkThatMyConnectionsPulldownFiltersIsDisplayed(String user) {
@@ -136,29 +134,28 @@ public class PeoplePage extends GenericPage {
   }
 
   public void checkThatPeopleShowingResultsIsDisplayed() {
-    peopleShowingResultsElement().isDisplayed();
+    peopleShowingResultsElement().assertVisible();
   }
 
   public void checkThatPulldownFiltersIsDisplayed() {
     // Check that Pulldown Filter is displayed
-    peoplePulldownFilterElement().isDisplayed();
+    peoplePulldownFilterElement().assertVisible();
   }
 
   public void checkThatSuggestionWidgetDisplayedTwoUsersWithAddAndDeleteButtons() {
     // The suggestion widget is existing and displayed only 2 users with Add
     // button and Delete buttons
-    assertTrue(firstSuggestionElement().isVisible());
-    assertTrue(secondSuggestionElement().isVisible());
-    assertTrue(addFirstUserSuggestionElement().isVisible());
-    assertTrue(addSecondUserSuggestionElement().isVisible());
-    assertTrue(deleteFirstSuggestionElement().isVisible());
-    assertTrue(deleteSecondSuggestionElement().isVisible());
-
+    firstSuggestionElement().assertVisible();
+    secondSuggestionElement().assertVisible();
+    addFirstUserSuggestionElement().assertVisible();
+    addSecondUserSuggestionElement().assertVisible();
+    deleteFirstSuggestionElement().assertVisible();
+    deleteSecondSuggestionElement().assertVisible();
   }
 
   public void checkThatTheCoverIsDisplayed() {
     // Check that Contact cover is displayed
-    addContactCoverWidthElement().isDisplayed();
+    addContactCoverWidthElement().assertVisible();
   }
 
   public void checkThatUserSuggestionIsDisplayed(String firstName, String lastName) {
@@ -173,7 +170,7 @@ public class PeoplePage extends GenericPage {
 
   public void closeSentRequestsButton() {
     // Close Sent Requests Button
-    closesendRequestButtonElement().clickOnElement();
+    closesendRequestButtonElement().click();
   }
 
   public void connectToUser(String user) {
@@ -182,7 +179,7 @@ public class PeoplePage extends GenericPage {
 
   public void connectUserProfile() {
     refreshPage();
-    connectUserProfileButtonElement().clickOnElement();
+    connectUserProfileButtonElement().click();
   }
 
   public ElementFacade currentUserLeaderboardPoints(String id) {
@@ -192,7 +189,7 @@ public class PeoplePage extends GenericPage {
 
   public void deleteSentRequest(String firstName, String lastName) {
     String userSuggestion = firstName + " " + lastName;
-    deleteSentRequestsUsersElement(userSuggestion).clickOnElement();
+    deleteSentRequestsUsersElement(userSuggestion).click();
   }
 
   public ElementFacade deleteSentRequestsUsersElement(String user) {
@@ -202,19 +199,19 @@ public class PeoplePage extends GenericPage {
 
   public void deleteUserSuggestion() {
     // Delete the user suggestion
-    deleteFirstSuggestionElement().clickOnElement();
+    deleteFirstSuggestionElement().click();
   }
 
   public void goToSentRequests() {
     ElementFacade sentRequestsButtonElement = sentRequestsButtonElement();
     sentRequestsButtonElement.waitUntilClickable();
-    sentRequestsButtonElement.clickOnElement();
+    sentRequestsButtonElement.click();
   }
 
   public void goToUserProfile(String user) {
     retryOnCondition(() -> {
       searchPeopleInputElement().setTextValue(user);
-      getUserProfileButton(user).clickOnElement();
+      getUserProfileButton(user).click();
     }, () -> waitFor(1).seconds() // User may not have been indexed yet
     );
   }

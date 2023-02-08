@@ -155,6 +155,16 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.checkConfirmationPopupNotVisible();
   }
 
+  @When("^Create Poll Button is Disabled$")
+  public void checkCreatePollButtonIsDisabled() {
+    spaceHomeSteps.checkCreatePollButtonIsDisabled();
+  }
+
+  @When("^Create Poll Button is Enabled$")
+  public void checkCreatePollButtonIsEnabled() {
+    spaceHomeSteps.checkCreatePollButtonIsEnabled();
+  }
+
   @Then("^the video '(.*)' is displayed in the activity stream$")
   public void checkDisplayVideo(String videoLink) {
     spaceHomeSteps.checkVideoActivityVisible(videoLink);
@@ -387,11 +397,6 @@ public class SpaceHomeStepDefinition {
   @When("^I create a simple poll with title '(.*)' and Choice One '(.*)' and Choice Two '(.*)'$")
   public void createPoll(String pollTitle, String choiceOne, String choiceTow) {
     spaceHomeSteps.createPoll(pollTitle, choiceOne, choiceTow);
-  }
-
-  @When("^Create Poll Button is Disabled$")
-  public void checkCreatePollButtonIsDisabled() {
-    spaceHomeSteps.checkCreatePollButtonIsDisabled();
   }
 
   @When("^create poll drawer is closed$")
@@ -674,11 +679,6 @@ public class SpaceHomeStepDefinition {
   @Then("^The activity '(.*)' should be not pinned in space stream$")
   public void pinnedActivityDisappears(String activity) {
     spaceHomeSteps.pinnedActivityDisappears(activity);
-  }
-
-  @When("^Create Poll Button is Enabled$")
-  public void checkCreatePollButtonIsEnabled() {
-    spaceHomeSteps.checkCreatePollButtonIsEnabled();
   }
 
   @When("^I post '(.*)' activities with prefix '(.*)'$")

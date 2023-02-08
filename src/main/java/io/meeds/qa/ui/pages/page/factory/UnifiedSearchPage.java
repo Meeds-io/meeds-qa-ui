@@ -19,26 +19,26 @@ public class UnifiedSearchPage extends GenericPage {
     ElementFacade favoritesBtnElement = favoritesBtnElement();
     favoritesBtnElement.waitUntilVisible();
     favoritesBtnElement.waitUntilClickable();
-    favoritesBtnElement.clickOnElement();
+    favoritesBtnElement.click();
   }
 
   public void favoriteSearchedActivity(String activity) {
-    getFavoriteIconSearchedActivity(activity).clickOnElement();
+    getFavoriteIconSearchedActivity(activity).click();
     toolbarSearchButtonElement().hover(); // A trick to hover outside user
                                           // popover to be
     // closed
   }
 
   public void goToTheSearchedActivity() {
-    elementAccessToSearchedActivityElement().clickOnElement();
+    elementAccessToSearchedActivityElement().click();
   }
 
   public void goToTheSearchedApplication(String appName) {
-    getApplicationSearchTitle(appName).clickOnElement();
+    getApplicationSearchTitle(appName).click();
   }
 
   public void goToTheSearchedSpace(String space) {
-    getSpaceSearchTitle(space).clickOnElement();
+    getSpaceSearchTitle(space).click();
   }
 
   public void isSearchedActivityTitleNotVisible(String activity) {
@@ -76,7 +76,7 @@ public class UnifiedSearchPage extends GenericPage {
   }
 
   public void openSearchApplication() {
-    toolbarSearchButtonElement().clickOnElement();
+    toolbarSearchButtonElement().click();
   }
 
   public void search(String text) {
@@ -87,8 +87,8 @@ public class UnifiedSearchPage extends GenericPage {
   }
 
   public void selectDropDown(String object) {
-    shipFormAllElement().clickOnElement();
-    getObjectFromDropDown(object).clickOnElement();
+    shipFormAllElement().click();
+    getObjectFromDropDown(object).click();
 
   }
 

@@ -30,12 +30,12 @@ public class AddUserPage extends GenericPage {
   }
 
   public void clickToDeleteUser() {
-    deleteUserIconElement().clickOnElement();
+    deleteUserIconElement().click();
   }
 
   public void deleteUser() {
-    deleteUserIconElement().clickOnElement();
-    deleteConfirmationButtonElement().clickOnElement();
+    deleteUserIconElement().click();
+    deleteConfirmationButtonElement().click();
   }
 
   public ElementFacade disableEnableStatusButton(String user) {
@@ -44,7 +44,7 @@ public class AddUserPage extends GenericPage {
   }
 
   public void enableDisableUser(String user) {
-    disableEnableStatusButton(user).clickOnElement();
+    disableEnableStatusButton(user).click();
     waitForProgressBar();
   }
 
@@ -58,7 +58,7 @@ public class AddUserPage extends GenericPage {
   }
 
   public void saveAddUserButton() {
-    saveAddUserButtonElement().clickOnElement();
+    saveAddUserButtonElement().click();
   }
 
   public void searchForUserByName(String userName) {
@@ -71,7 +71,7 @@ public class AddUserPage extends GenericPage {
       TextBoxElementFacade searchUsersFieldElement = searchUsersFieldElement();
       searchUsersFieldElement.setTextValue(userName);
       waitForProgressBar();
-    } while (++retry < tentatives && !getUserElement(userName).isDisplayedNoWait());
+    } while (++retry < tentatives && !getUserElement(userName).isCurrentlyVisible());
   }
 
   public void searchForUsersByStatus(String status) {

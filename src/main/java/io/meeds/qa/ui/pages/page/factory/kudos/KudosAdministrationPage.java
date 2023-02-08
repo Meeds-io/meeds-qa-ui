@@ -17,28 +17,28 @@ public class KudosAdministrationPage extends GenericPage {
   }
 
   public void addActivityKudos(String activity, String comment) {
-    getKudosLink(activity).clickOnElement();
+    getKudosLink(activity).click();
     sendKudosMessageFromOpenedDrawer(comment);
   }
 
   public void addActivityKudosToSomeoneDifferent(String activity, String message, String user) {
-    getKudosLink(activity).clickOnElement();
-    findByXPathOrCSS("//*[contains (@class, 'v-icon notranslate v-chip')]").clickOnElement();
+    getKudosLink(activity).click();
+    findByXPathOrCSS("//*[contains (@class, 'v-icon notranslate v-chip')]").click();
     ElementFacade suggesterContentElement = findByXPathOrCSS("//*[contains(@content-class,'identitySuggesterContent')]");
     suggesterContentElement.assertVisible();
 
-    suggesterContentElement.clickOnElement();
+    suggesterContentElement.click();
     suggesterContentElement.sendKeys(user);
-    chooseAnotherUser(user).clickOnElement();
+    chooseAnotherUser(user).click();
     sendKudosMessageFromOpenedDrawer(message);
   }
 
   public void addKudosToSomeoneDifferent(String activity, String user, String message) {
-    getKudosLink(activity).clickOnElement();
-    findByXPathOrCSS("//*[contains (@class, 'v-icon notranslate v-chip')]").clickOnElement();
+    getKudosLink(activity).click();
+    findByXPathOrCSS("//*[contains (@class, 'v-icon notranslate v-chip')]").click();
     ElementFacade suggesterContentElement = findByXPathOrCSS("//*[contains(@content-class,'identitySuggesterContent')]");
     suggesterContentElement.assertVisible();
-    suggesterContentElement.clickOnElement();
+    suggesterContentElement.click();
     suggesterContentElement.sendKeys(user);
     getNotFoundUserInSpaceMessage(message).assertVisible();
   }
@@ -58,36 +58,36 @@ public class KudosAdministrationPage extends GenericPage {
   }
 
   public void clickEditKudos() {
-    threedotsKudosCommentElement().clickOnElement();
-    editKudosCommentElement().clickOnElement();
+    threedotsKudosCommentElement().click();
+    editKudosCommentElement().click();
   }
 
   public void clickEditKudosFromReply() {
-    threedotsKudosReplyCommentElement().clickOnElement();
-    editKudosCommentElement().clickOnElement();
+    threedotsKudosReplyCommentElement().click();
+    editKudosCommentElement().click();
   }
 
   public void editKudos() {
-    dotsMenuElement().clickOnElement();
-    editButtonElement().clickOnElement();
+    dotsMenuElement().click();
+    editButtonElement().click();
   }
 
   public void enterKudosNumber(String val) {
     TextBoxElementFacade kudosNumberElement = kudosNumberElement();
-    kudosNumberElement.clickOnElement();
+    kudosNumberElement.click();
     kudosNumberElement.clear();
     kudosNumberElement.setTextValue(val);
   }
 
   public void goToKudosMenu() {
-    menuBtnElement().clickOnElement();
+    menuBtnElement().click();
     administrationIconElement().hover();
-    addministrationMenuElement().clickOnElement();
-    kudosLinkElement().clickOnElement();
+    addministrationMenuElement().click();
+    kudosLinkElement().click();
   }
 
   public void saveChange() {
-    saveBtnElement().clickOnElement();
+    saveBtnElement().click();
   }
 
   public void searchForUsersByName(String fullName) {
@@ -95,8 +95,8 @@ public class KudosAdministrationPage extends GenericPage {
   }
 
   public void selectType() {
-    periodTypeElement().clickOnElement();
-    semesterPeriodElement().clickOnElement();
+    periodTypeElement().click();
+    semesterPeriodElement().click();
   }
 
   public void sendKudosMessageFromOpenedDrawer(String kudosMessage) {
@@ -120,20 +120,20 @@ public class KudosAdministrationPage extends GenericPage {
     getDriver().switchTo().defaultContent();
     ElementFacade kudosButtonInDrawerElement = kudosButtonInDrawerElement();
     kudosButtonInDrawerElement.assertVisible();
-    kudosButtonInDrawerElement.clickOnElement();
+    kudosButtonInDrawerElement.click();
     kudosButtonInDrawerElement.waitUntilNotVisible();
     refreshPage();
   }
 
   public void sendMessage(String txt) {
     kudosMessageElement().setTextValue(txt);
-    sendKudosBtnElement().clickOnElement();
+    sendKudosBtnElement().click();
   }
 
   public void threeDotsMenuSendKudos() {
     ElementFacade sendKudosMenuElement = sendKudosMenuElement();
     sendKudosMenuElement.assertVisible();
-    sendKudosMenuElement.clickOnElement();
+    sendKudosMenuElement.click();
   }
 
   private ElementFacade addministrationMenuElement() {

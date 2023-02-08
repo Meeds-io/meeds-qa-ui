@@ -1,9 +1,14 @@
 package io.meeds.qa.ui.elements;
 
+import static org.junit.Assert.assertTrue;
+
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.WebDriver;
 
 import net.serenitybdd.core.annotations.ImplementedBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import net.thucydides.core.webdriver.exceptions.ElementShouldBeInvisibleException;
+import net.thucydides.core.webdriver.exceptions.ElementShouldBeVisibleException;
 
 @ImplementedBy(ElementFacadeImpl.class)
 public interface ElementFacade extends WebElementFacade {
@@ -11,7 +16,7 @@ public interface ElementFacade extends WebElementFacade {
   /**
    * Wrapper which is meant to click on a clickable element.
    */
-  public void clickOnElement();
+  public void click();
 
   /**
    * Method to find an element inside an element using the xpath and to wrapp it
@@ -27,77 +32,80 @@ public interface ElementFacade extends WebElementFacade {
    */
   public WebDriver getDriver();
 
-  public String getXPathOrCSSSelector();
-
   /**
    * this method is to make the mouse hover over the selected element.
    */
   public void hover();
 
   /**
-   * this method is to make the mouse hover over the selected element.
-   *
-   * @param xpath XPath of Sub element
-   */
-  public void hover(String xpath);
-
-  /**
-   * This method checks the invisibility of a webElement. It waits for the
-   * element to disappear.
-   *
-   * @return : true if the element is invisible after the explicit timeout,
-   *         false if it did appear.
-   */
-  public boolean isNotVisibleAfterWaiting();
-
-  /**
-   * This method checks the visibility of a webElement. It waits for the element
-   * to appear.
-   *
-   * @return : true if the element is visible after the explicit timeout, false
-   *         if it did not appear.
-   */
-  public boolean isVisibleAfterWaiting();
-
-  /**
    * This method will scroll up or down until it reaches the web element
    */
   public void scrollToWebElement();
 
-  /**
-   * this method will check if element is displayed or not
-   *
-   * @return : true if the element is displayed, false if it not.
-   */
-  @Override
-  boolean isDisplayed();
+  default void assertDisabled() {
+    long start = System.currentTimeMillis();
+    boolean disabled = isDisabled();
+    assertTrue(String.format("Element %s wasn't disabled after waiting %s ms",
+                             this,
+                             System.currentTimeMillis() - start),
+               disabled);
+  }
 
-  /**
-   * this method will check if element is displayed or not with a given implicit
-   * wait time in milliseconds
-   * 
-   * @param  implicitWaitInMillis wait time in milliseconds
-   * @return                      true if displayed else false
-   */
-  boolean isDisplayed(long implicitWaitInMillis);
+  default void assertEnabled() {
+    long start = System.currentTimeMillis();
+    boolean enabled = isEnabled();
+    assertTrue(String.format("Element %s wasn't enabled after waiting %s ms",
+                             this,
+                             System.currentTimeMillis() - start),
+               enabled);
+  }
 
-  /**
-   * this method will check if element is displayed or not with a given implicit
-   * wait time in milliseconds
-   * 
-   * @param  implicitWaitInMillis wait time in milliseconds
-   * @return                      true if not displayed else false
-   */
-  boolean isNotDisplayed(long implicitWaitInMillis);
+  default void assertNotVisible() {
+    long start = System.currentTimeMillis();
+    boolean notVisible = isNotVisible();
+    assertTrue(String.format("Element %s was visible after waiting %s ms",
+                             this,
+                             System.currentTimeMillis() - start),
+               notVisible);
+  }
 
-  /**
-   * this method will check if element is clickable or not with a given implicit
-   * wait time in milliseconds
-   * 
-   * @param  implicitWaitInMillis wait time in milliseconds
-   * @return                      true if clickable else false
-   */
-  boolean isClickable(long implicitWaitInMillis);
+  default void assertVisible() {
+    long start = System.currentTimeMillis();
+    boolean visible = isVisible();
+    assertTrue(String.format("Element %s wasn't visible after waiting %s ms",
+                             this,
+                             System.currentTimeMillis() - start),
+               visible);
+  }
+
+  default void checkClickable() {
+    long start = System.currentTimeMillis();
+    if (!isClickable()) {
+      throw new ElementClickInterceptedException(String.format("Unable to locate a clickable element %s after %s ms",
+                                                               this,
+                                                               System.currentTimeMillis() - start));
+    }
+  }
+
+  default void checkNotVisible() {
+    long start = System.currentTimeMillis();
+    if (!isNotVisible()) {
+      throw new ElementShouldBeInvisibleException(String.format("Element is still visible %s after %s ms",
+                                                                this,
+                                                                System.currentTimeMillis() - start),
+                                                  null);
+    }
+  }
+
+  default void checkVisible() {
+    long start = System.currentTimeMillis();
+    if (!isVisible()) {
+      throw new ElementShouldBeVisibleException(String.format("Unable to locate a visible element %s after %s ms",
+                                                              this,
+                                                              System.currentTimeMillis() - start),
+                                                null);
+    }
+  }
 
   /**
    * this method will check if element is displayed or not without implicit
@@ -105,15 +113,16 @@ public interface ElementFacade extends WebElementFacade {
    * 
    * @return true if displayed else false
    */
-  boolean isDisplayedNoWait();
+  boolean isCurrentlyVisible();
 
   /**
-   * this method will check if element is clickable or not without implicit
-   * timeout
+   * Is this web element present and not visible on the screen This method will
+   * not throw an exception if the element is visible. If the element is
+   * visible, the method will wait a bit to see if it appears later on.
    * 
-   * @return true if clickable else false
+   * @return true if not visible else false
    */
-  boolean isClickableNoWait();
+  boolean isNotVisible();
 
   /**
    * This method will scroll down the element
@@ -124,56 +133,5 @@ public interface ElementFacade extends WebElementFacade {
    * This method will scroll the element to the right
    */
   void scrollToTheRight();
-
-  /**
-   * Checks whether element is visible after x retries
-   * 
-   * @param maxRetries number of retries
-   * @return true if visible
-   */
-  boolean isVisible(long maxRetries);
-
-  /**
-   * Checks whether element isn't visible after x retries
-   * 
-   * @param maxRetries number of retries
-   * @return true if not visible
-   */
-  boolean isNotVisible(long maxRetries);
-
-  /**
-   * Asserts Web Element Not Visible
-   */
-  void assertNotVisible();
-
-  /**
-   * Asserts Web Element is visible
-   */
-  void assertVisible();
-
-  /**
-   * Asserts Web Element is disabled
-   */
-  void assertDisabled();
-
-  /**
-   * Asserts Web Element is enabled
-   */
-  void assertEnabled();
-
-  /**
-   * Throws exception when element is not clickable
-   */
-  void checkClickable();
-
-  /**
-   * Throws exception when element is visible
-   */
-  void checkNotVisible();
-
-  /**
-   * Throws exception when element is not visible
-   */
-  void checkVisible();
 
 }

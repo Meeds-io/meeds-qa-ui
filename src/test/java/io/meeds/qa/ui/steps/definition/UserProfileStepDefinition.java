@@ -47,6 +47,13 @@ public class UserProfileStepDefinition {
                                                                         .isTrue();
   }
 
+  @Then("^Updated Profile Contact instantMessaging is displayed$")
+  public void checkProfileContactInstantMessagingVisible() {
+    String instantMessagingType = "Skype";
+    String instantMessaging = Serenity.sessionVariableCalled("instantMessaging");
+    userProfileSteps.checkProfileContactInstantMessagingVisible(instantMessagingType, instantMessaging);
+  }
+
   @Then("The weekly point chart is displayed")
   public void checkWeeklyPointChart() {
     userProfileSteps.checkWeeklyPointChart();
@@ -147,13 +154,6 @@ public class UserProfileStepDefinition {
 
     String fullName = profileFirstName + " " + profileLastName;
     userProfileSteps.isProfileContactFullNameVisible(title, fullName);
-  }
-
-  @Then("^Updated Profile Contact instantMessaging is displayed$")
-  public void checkProfileContactInstantMessagingVisible() {
-    String instantMessagingType = "Skype";
-    String instantMessaging = Serenity.sessionVariableCalled("instantMessaging");
-    userProfileSteps.checkProfileContactInstantMessagingVisible(instantMessagingType, instantMessaging);
   }
 
   @Then("^Updated Profile Contact Job is displayed$")

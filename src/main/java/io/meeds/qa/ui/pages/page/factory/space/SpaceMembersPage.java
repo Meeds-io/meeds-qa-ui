@@ -10,16 +10,16 @@ public class SpaceMembersPage extends GenericPage {
   }
 
   public void clickOnThreeDotsMenu() {
-    threeDotsMenuElement().clickOnElement();
+    threeDotsMenuElement().click();
   }
 
   public void setAsSpaceManager() {
-    setAsManagerBtnElement().clickOnElement();
+    setAsManagerBtnElement().click();
   }
 
   public void setRedactor() {
 
-    setAsRedactorBtnElement().clickOnElement();
+    setAsRedactorBtnElement().click();
   }
 
   private ElementFacade setAsManagerBtnElement() {

@@ -145,6 +145,14 @@ public class TestHooks {
     }
   }
 
+  private void closeCurrentWindow(WebDriver driver) {
+    try {
+      driver.close(); // Close current window to refresh static resources
+    } catch (Throwable e) { // NOSONAR
+      // no need to throw an exception, the window may be already closed
+    }
+  }
+
   private boolean isHamburgerNavigationDisplayed() {
     try {
       return loginSteps.isHamburgerNavigationDisplayed();
@@ -223,14 +231,6 @@ public class TestHooks {
       manageSpaceSteps.addOrGoToSpace("randomSpaceName");
     }
     ExceptionLauncher.LOGGER.info("---- End warmup phase in {} seconds", (System.currentTimeMillis() - start) / 1000);
-  }
-
-  private void closeCurrentWindow(WebDriver driver) {
-    try {
-      driver.close(); // Close current window to refresh static resources
-    } catch (Throwable e) { // NOSONAR
-      // no need to throw an exception, the window may be already closed
-    }
   }
 
 }

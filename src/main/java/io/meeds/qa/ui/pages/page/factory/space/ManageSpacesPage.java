@@ -17,7 +17,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void addUserToSpace(String user) {
-    spaceMembersTabElement().clickOnElement();
+    spaceMembersTabElement().click();
     ElementFacade inviteUserButtonElement = inviteUserButtonElement();
     inviteUserButtonElement.waitUntilVisible();
     ElementFacade memberCard =
@@ -26,9 +26,9 @@ public class ManageSpacesPage extends GenericPage {
     if (memberCard.isPresent()) {
       spaceHomePage.removeMember(user);
     }
-    inviteUserButtonElement.clickOnElement();
+    inviteUserButtonElement.click();
     inviteUserToSpace(user);
-    inviteUserButtonDrawerElement().clickOnElement();
+    inviteUserButtonDrawerElement().click();
   }
 
   public void appCardIsDisplayed() {
@@ -98,7 +98,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void checkSpaceAppInstallerDrawerIsDisplayed() {
-    spaceAppInstallerDrawerElement().clickOnElement();
+    spaceAppInstallerDrawerElement().click();
   }
 
   public void checkSpaceBookmarkStatusFromSpaceCard(boolean shouldBeBookmarked) {
@@ -129,15 +129,15 @@ public class ManageSpacesPage extends GenericPage {
     switch (registration) {
     case "Open":
       // Select Open
-      openRadioBtnElement().clickOnElement();
+      openRadioBtnElement().click();
       break;
     case "Validation":
       // Select Validation
-      validationRadioBtnElement().clickOnElement();
+      validationRadioBtnElement().click();
       break;
     case "Closed":
       // Select Closed
-      closedRadioBtnElement().clickOnElement();
+      closedRadioBtnElement().click();
       break;
     default:
       // Do nothing
@@ -196,51 +196,51 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void clickAddSpaceButton() {
-    addSpaceButtonElement().clickOnElement();
+    addSpaceButtonElement().click();
   }
 
   public void clickFirstProcessButton() {
-    firstProcessButtonElement().clickOnElement();
+    firstProcessButtonElement().click();
   }
 
   public void clickOn3dotsAppCard() {
-    button3dotAppCardElement().clickOnElement();
+    button3dotAppCardElement().click();
   }
 
   public void clickOnArrowIconAppSpaceSettings() {
-    arrowIconAppSpaceSettingsElement().clickOnElement();
+    arrowIconAppSpaceSettingsElement().click();
   }
 
   public void clickOnGeneralSpaceSettings() {
-    editIconOfGeneralSpaceSettingsElement().clickOnElement();
+    editIconOfGeneralSpaceSettingsElement().click();
   }
 
   public void clickOnPlusButton() {
-    plusButtonAppSpaceSettingsElement().clickOnElement();
+    plusButtonAppSpaceSettingsElement().click();
   }
 
   public void clickOnSpaceBookmarkIconFromSpaceCard() {
-    findByXPathOrCSS("//* [@class='spaceCardFront']//*[contains(@class,'fa-star')]").clickOnElement();
+    findByXPathOrCSS("//* [@class='spaceCardFront']//*[contains(@class,'fa-star')]").click();
   }
 
   public void clickOnSpaceBookmarkIconFromThirdNavigationLevel() {
-    findByXPathOrCSS("//*[contains(@class,'HamburgerMenuThirdLevelParent')]//*[contains(@class,'fa-star')]").clickOnElement();
+    findByXPathOrCSS("//*[contains(@class,'HamburgerMenuThirdLevelParent')]//*[contains(@class,'fa-star')]").click();
   }
 
   public void clickOnSpaceBookmarkIconFromTopbarSpacePopover() {
-    findByXPathOrCSS("//*[contains(@class,'v-card')]//*[contains(@class,'fa-star')]").clickOnElement();
+    findByXPathOrCSS("//*[contains(@class,'v-card')]//*[contains(@class,'fa-star')]").click();
   }
 
   public void clickOnThreeDotsAppCard(String appName) {
-    getApplicationThreeDotsMenu(appName).clickOnElement();
+    getApplicationThreeDotsMenu(appName).click();
   }
 
   public void clickOptionApplicationCard(String appName, String option) {
-    getOptionFromApplicationMenu(appName, option).clickOnElement();
+    getOptionFromApplicationMenu(appName, option).click();
   }
 
   public void clickSecondProcessButton() {
-    secondProcessButtonElement().clickOnElement();
+    secondProcessButtonElement().click();
   }
 
   public void clickSpaceAction(String action) {
@@ -249,7 +249,7 @@ public class ManageSpacesPage extends GenericPage {
       clickOnElement(spaceFirstNavigationTab);
     } else {
       ElementFacade spaceAction = getSpaceAction(action);
-      if (spaceAction != null && spaceAction.isVisibleAfterWaiting()) {
+      if (spaceAction != null && spaceAction.isVisible()) {
         clickOnElement(spaceAction);
       }
     }
@@ -271,49 +271,49 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void clickToAddApp(String application) {
-    getAppCardNameDrawer(application).clickOnElement();
+    getAppCardNameDrawer(application).click();
   }
 
   public void confirmRemoveApplication() {
-    removeConfirmationButtonElement().clickOnElement();
+    removeConfirmationButtonElement().click();
   }
 
   public void deleteSpace(String spaceName) {
     searchSpaceInputElement().setTextValue(spaceName);
-    getSpaceMenu(spaceName).clickOnElement();
-    getDeleteSpaceButton(spaceName).clickOnElement();
+    getSpaceMenu(spaceName).click();
+    getDeleteSpaceButton(spaceName).click();
     TextBoxElementFacade okButtonElement = okButtonElement();
-    okButtonElement.clickOnElement();
+    okButtonElement.click();
     okButtonElement.waitUntilNotVisible();
   }
 
   public void goToMembersTab() {
     ElementFacade spaceMembersTabElement = spaceMembersTabElement();
-    if (spaceMembersTabElement.isNotVisibleAfterWaiting()) {
-      goToSpaceRightTabsElement().clickOnElement();
+    if (spaceMembersTabElement.isNotVisible()) {
+      goToSpaceRightTabsElement().click();
     }
-    spaceMembersTabElement.clickOnElement();
+    spaceMembersTabElement.click();
   }
 
   public void goToSettingsTab() {
     ElementFacade spaceSettingsTabElement = spaceSettingsTabElement();
-    if (!spaceSettingsTabElement.isDisplayedNoWait()) {
-      goToSpaceRightTabsElement().clickOnElement();
+    if (!spaceSettingsTabElement.isCurrentlyVisible()) {
+      goToSpaceRightTabsElement().click();
     }
-    spaceSettingsTabElement.clickOnElement();
+    spaceSettingsTabElement.click();
   }
 
   public void goToSpaceHomeViaSpaceAvatar() {
-    spaceAvatarElement().clickOnElement();
+    spaceAvatarElement().click();
   }
 
   public void goToSpecificSpace(String spaceName) {
-    getSpaceNameInListOfSpace(spaceName).clickOnElement();
+    getSpaceNameInListOfSpace(spaceName).click();
     waitForPageLoading();
   }
 
   public void goToTasksTab() {
-    spaceTasksTabElement().clickOnElement();
+    spaceTasksTabElement().click();
   }
 
   public void hoverOnSpaceName() {
@@ -344,7 +344,7 @@ public class ManageSpacesPage extends GenericPage {
       ElementFacade webElementFacade =
                                      findByXPathOrCSS(String.format("//*[contains(@class, 'spaceDisplayName') and contains(@href, ':%s/')]",
                                                                     space.toLowerCase()));
-      return webElementFacade.isDisplayedNoWait();
+      return webElementFacade.isCurrentlyVisible();
     } catch (RuntimeException e) {
       return false;
     }
@@ -355,7 +355,7 @@ public class ManageSpacesPage extends GenericPage {
       ElementFacade webElementFacade =
                                      findByXPathOrCSS(String.format("//*[contains(@class, 'spaceDisplayName') and contains(@href, ':%s/')]//ancestor::*[contains(@class, 'spaceCardItem')]//*[contains(text(), 'Join')]//ancestor::button",
                                                                     space.toLowerCase()));
-      return webElementFacade.isDisplayedNoWait();
+      return webElementFacade.isCurrentlyVisible();
     } catch (RuntimeException e) {
       return false;
     }
@@ -364,21 +364,21 @@ public class ManageSpacesPage extends GenericPage {
   public boolean isSpaceMenuDisplayed() {
     try {
       ElementFacade webElementFacade = findByXPathOrCSS("#SpaceMenu .v-tab--active");
-      return webElementFacade.isDisplayedNoWait();
+      return webElementFacade.isCurrentlyVisible();
     } catch (RuntimeException e) {
       return false;
     }
   }
 
   public boolean isSpacePageOpened(String space) {
-    return getSpaceElement(space).isVisibleAfterWaiting();
+    return getSpaceElement(space).isVisible();
   }
 
   public void joinSpaceFromCard(String space) {
     ElementFacade webElementFacade =
                                    findByXPathOrCSS(String.format("//*[contains(@class, 'spaceDisplayName') and contains(@href, ':%s/')]//ancestor::*[contains(@class, 'spaceCardItem')]//*[contains(text(), 'Join')]//ancestor::button",
                                                                   space.toLowerCase()));
-    webElementFacade.clickOnElement();
+    webElementFacade.click();
   }
 
   public void moveAfterAppButtonIsDisplayed() {
@@ -390,7 +390,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void openSpaceFormDrawer() {
-    addNewSpaceButtonElement().clickOnElement();
+    addNewSpaceButtonElement().click();
   }
 
   public void plusButtonIsDisplayed() {
@@ -411,7 +411,7 @@ public class ManageSpacesPage extends GenericPage {
 
   public void selectTemplate(int index) {
     ElementFacade spaceTemplateFilterElement = spaceTemplateFilterElement();
-    spaceTemplateFilterElement.clickOnElement();
+    spaceTemplateFilterElement.click();
     spaceTemplateFilterElement.selectByIndex(index);
   }
 
@@ -421,7 +421,7 @@ public class ManageSpacesPage extends GenericPage {
 
   public void showMoreSpaces() {
     spacesPageElement().scrollDown();
-    showMoreButtonElement().clickOnElement();
+    showMoreButtonElement().click();
   }
 
   public void spaceAppSettingsIsOpened() {
@@ -437,14 +437,14 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void uploadSpaceBanner(String fileName) {
-    spaceBannerElement().clickOnElement();
-    uploadSpaceBannerButtonElement().clickOnElement();
+    spaceBannerElement().click();
+    uploadSpaceBannerButtonElement().click();
     waitForDrawerToOpen();
     ElementFacade fileInput = findByXPathOrCSS(".v-navigation-drawer--open input[type=file]");
     upload(UPLOAD_DIRECTORY_PATH + fileName).fromLocalMachine().to(fileInput);
     waitForProgressBar();
     ElementFacade imageApplyButton = findByXPathOrCSS("#imageCropDrawerApply");
-    imageApplyButton.clickOnElement();
+    imageApplyButton.click();
     waitForDrawerToClose();
   }
 
@@ -528,7 +528,7 @@ public class ManageSpacesPage extends GenericPage {
   private ElementFacade getSpaceAction(String action) {
     try {
       ElementFacade webElementFacade = findByXPathOrCSS(String.format("//a[@title='%s']", action));
-      return webElementFacade.isDisplayedNoWait() ? webElementFacade : null;
+      return webElementFacade.isCurrentlyVisible() ? webElementFacade : null;
     } catch (RuntimeException e) {
       return null;
     }
@@ -557,10 +557,6 @@ public class ManageSpacesPage extends GenericPage {
 
   private ElementFacade hiddenSectionElement() {
     return findByXPathOrCSS("//*[@for='hidden']");
-  }
-
-  private ElementFacade spaceMenuItemElement() {
-    return findByXPathOrCSS("#SpaceMenu .v-tabs-bar .v-tab");
   }
 
   private ElementFacade homeSpaceMenuItemElement(String space) {
@@ -670,6 +666,10 @@ public class ManageSpacesPage extends GenericPage {
   private ElementFacade spaceMenuItemByOrderElement(String order) {
     return findByXPathOrCSS(String.format("//*[@class='v-application--wrap']//*[@class='v-slide-group__wrapper']//*[@tabindex][%s]",
                                           order));
+  }
+
+  private ElementFacade spaceMenuItemElement() {
+    return findByXPathOrCSS("#SpaceMenu .v-tabs-bar .v-tab");
   }
 
   private ElementFacade spaceName() {

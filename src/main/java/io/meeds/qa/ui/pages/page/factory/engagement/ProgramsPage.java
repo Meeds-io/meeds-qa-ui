@@ -48,6 +48,10 @@ public class ProgramsPage extends GenericPage {
     clickCreateProgramButton();
   }
 
+  public void checkEngagementAppOpened() {
+    findByXPathOrCSS("//*[@id='EngagementCenterApplication']").assertVisible();
+  }
+
   public void checkProgramCardDisplay(String title) {
     getProgramCardTitle(title).assertNotVisible();
   }
@@ -73,20 +77,20 @@ public class ProgramsPage extends GenericPage {
   }
 
   public void clickCreateProgramButton() {
-    createButtonElement().clickOnElement();
+    createButtonElement().click();
   }
 
   public void deleteCreatedProgram(String programName) {
     getProgramCard(programName).assertVisible();
-    programThreeDotsButtonElement().clickOnElement();
-    deleteProgramButtonElement().clickOnElement();
-    yesConfirmButtonElement().clickOnElement();
+    programThreeDotsButtonElement().click();
+    deleteProgramButtonElement().click();
+    yesConfirmButtonElement().click();
   }
 
   public void editProgramWithDescription(String programName, String newProgramName, String newProgramDescription) {
     getProgramCard(programName).assertVisible();
-    programThreeDotsButtonElement().clickOnElement();
-    editProgramButtonElement().clickOnElement();
+    programThreeDotsButtonElement().click();
+    editProgramButtonElement().click();
     programTitleFieldElement().setTextValue(newProgramName);
     waitCKEditorLoading();
     ElementFacade ckEditorFrameProgramElement = ckEditorFrameProgramElement();
@@ -100,7 +104,7 @@ public class ProgramsPage extends GenericPage {
       getDriver().switchTo().defaultContent();
     }
 
-    saveButtonElement().clickOnElement();
+    saveButtonElement().click();
   }
 
   public void enterProgramRandomTitle(String programTitle) {
@@ -111,27 +115,23 @@ public class ProgramsPage extends GenericPage {
     programTitleFieldElement().setTextValue(programTitle);
   }
 
+  public void selectEngagementTab(String tab) {
+    clickOnElement(getEngagementTab(tab));
+    waitForLoading();
+    waitFor(300).milliseconds(); // Wait for Tab switch
+  }
+
   public void selectProgramsFilter(String value) {
     ElementFacade programQuickFilterSelectBoxElement = programQuickFilterSelectBoxElement();
-    programQuickFilterSelectBoxElement.clickOnElement();
+    programQuickFilterSelectBoxElement.click();
     programQuickFilterSelectBoxElement.selectByValue(value);
-    programQuickFilterSelectBoxElement.clickOnElement();
+    programQuickFilterSelectBoxElement.click();
     waitForLoading();
   }
 
   public void selectStatusSwitcher() {
     WebElement checkbox = getDriver().findElement(By.xpath("//*[@class='v-input--selection-controls__ripple primary--text']"));
     checkbox.click();
-  }
-
-  public void checkEngagementAppOpened() {
-    findByXPathOrCSS("//*[@id='EngagementCenterApplication']").assertVisible();
-  }
-
-  public void selectEngagementTab(String tab) {
-    clickOnElement(getEngagementTab(tab));
-    waitForLoading();
-    waitFor(300).milliseconds(); // Wait for Tab switch
   }
 
   private ElementFacade addProgramBtnElement() {
@@ -156,6 +156,10 @@ public class ProgramsPage extends GenericPage {
 
   private ElementFacade editProgramButtonElement() {
     return findByXPathOrCSS("//*[contains(@class,'fas fa-edit')]");
+  }
+
+  private ElementFacade getEngagementTab(String tab) {
+    return findByXPathOrCSS(String.format("//*[@id='engagementCenterTabs']//*[contains(text(),'%s')]", tab));
   }
 
   private ElementFacade getProgramCard(String programName) {
@@ -194,10 +198,6 @@ public class ProgramsPage extends GenericPage {
 
   private ElementFacade yesConfirmButtonElement() {
     return findByXPathOrCSS("//*[@class='v-card__actions']//button[contains(@class,'btn btn-primary')]");
-  }
-
-  private ElementFacade getEngagementTab(String tab) {
-    return findByXPathOrCSS(String.format("//*[@id='engagementCenterTabs']//*[contains(text(),'%s')]", tab));
   }
 
 }

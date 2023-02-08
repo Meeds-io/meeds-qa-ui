@@ -22,7 +22,7 @@ public class ApplicationPage extends GenericPage {
 
   public void bookmarkApplication(String appTitle) {
     findByXPathOrCSS(String.format("//*[contains(@class, 'userAuthorizedApplications')]//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'v-card')]//i[contains(@class, 'mdi-star-outline')]//ancestor::button",
-                                   appTitle)).clickOnElement();
+                                   appTitle)).click();
   }
 
   public void checkApplicationIsNotVisible(String application) {
@@ -40,14 +40,14 @@ public class ApplicationPage extends GenericPage {
 
   public void checkThatAppcenterApplicationIsDisplayed(String app) {
     // Check that AppCenter Application is displayed
-    elementApplicationsTopbarElement().clickOnElement();
+    elementApplicationsTopbarElement().click();
     getFavoriteApplicationElement(app).assertVisible();
     closeDrawerIfDisplayed();
   }
 
   public void checkThatAppcenterApplicationIsNotDisplayed(String app) {
     // Check that AppCenter Application app is not displayed
-    elementApplicationsTopbarElement().clickOnElement();
+    elementApplicationsTopbarElement().click();
     getFavoriteApplicationElement(app).assertNotVisible();
     closeDrawerIfDisplayed();
   }
@@ -69,18 +69,18 @@ public class ApplicationPage extends GenericPage {
 
   public void clickOnOpenApplicationButton(String app) {
     // Click on open application
-    getAppCenterAllApplicationsButton(app).clickOnElement();
+    getAppCenterAllApplicationsButton(app).click();
   }
 
   public void clickOnTheAppLauncherIcon() {
     closeAllDrawers();
-    elementApplicationsTopbarElement().clickOnElement();
+    elementApplicationsTopbarElement().click();
     waitForDrawerToOpen();
   }
 
   public void goToApplication(String application) {
     clickOnTheAppLauncherIcon();
-    getApplication(application).clickOnElement();
+    getApplication(application).click();
   }
 
   public void maxFavoriteAppsIsDisplayed() {
@@ -89,8 +89,8 @@ public class ApplicationPage extends GenericPage {
 
   public void seeAllApplications() {
     // Click on App Center Application Button
-    elementApplicationsTopbarElement().clickOnElement();
-    elementAppcenterSeeAllApplicationsElement().clickOnElement();
+    elementApplicationsTopbarElement().click();
+    elementAppcenterSeeAllApplicationsElement().click();
   }
 
   public void settingsPageIsOpened() {
@@ -111,7 +111,7 @@ public class ApplicationPage extends GenericPage {
 
   public void unbookmarkApplication(String appTitle) {
     findByXPathOrCSS(String.format("//*[contains(@class, 'userAuthorizedApplications')]//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'v-card')]//i[contains(@class, 'mdi-star')]//ancestor::button",
-                                   appTitle)).clickOnElement();
+                                   appTitle)).click();
   }
 
   private ElementFacade addApplicationAFavoriteInApplicationCenter(String app) {

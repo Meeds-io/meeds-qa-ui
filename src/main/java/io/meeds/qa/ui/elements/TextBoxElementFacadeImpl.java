@@ -56,9 +56,9 @@ public class TextBoxElementFacadeImpl extends ElementFacadeImpl implements TextB
   @Override
   public String getTextBoxValue() {
     try {
-      if (!isVisibleAfterWaiting()) {
+      if (!isVisible()) {
         waitForLoading();
-        if (!isVisibleAfterWaiting()) {
+        if (!isVisible()) {
           waitUntilVisible();
         }
       }

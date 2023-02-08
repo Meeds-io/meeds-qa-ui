@@ -1,6 +1,5 @@
 package io.meeds.qa.ui.pages.page.factory.space;
 
-import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION_MILLIS;
 import static io.meeds.qa.ui.utils.Utils.refreshPage;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import static org.junit.Assert.assertTrue;
@@ -55,7 +54,7 @@ public class SpaceHomePage extends GenericPage {
         activityContentTextBoxElement.sendKeys(Keys.CONTROL + "v");
         activityLinkPreviewElement().waitUntilVisible();
       } else if (activity.contains("lien")) {
-        activityContentTextBoxElement.clickOnElement();
+        activityContentTextBoxElement.click();
         activityContentTextBoxElement.sendKeys(Keys.PAGE_UP);
         activityContentTextBoxElement.sendKeys(activity);
       } else {
@@ -68,7 +67,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void addActivityComment(String activity, String comment) {
-    getActivityCommentButton(activity).clickOnElement();
+    getActivityCommentButton(activity).click();
     waitForDrawerToOpen();
 
     addActivityCommentEditorContent(comment);
@@ -76,7 +75,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void addActivityComments(String activity, List<String> comments) {
-    getActivityCommentButton(activity).clickOnElement();
+    getActivityCommentButton(activity).click();
     waitForDrawerToOpen();
 
     Iterator<String> commentsIterator = comments.iterator();
@@ -88,7 +87,7 @@ public class SpaceHomePage extends GenericPage {
         waitFor(100).milliseconds(); // Wait for CKEditor to completely close
         ElementFacade addCommentInDrawerButton =
                                                findByXPathOrCSS(".v-navigation-drawer--open .drawerIcons > button:first-of-type");
-        addCommentInDrawerButton.clickOnElement();
+        addCommentInDrawerButton.click();
       }
     }
     closeDrawerIfDisplayed();
@@ -127,18 +126,18 @@ public class SpaceHomePage extends GenericPage {
 
   public void addOptionThreeInThePoll(String choiceThree) {
     TextBoxElementFacade choiceThreePollElement = choiceThreePollElement();
-    choiceThreePollElement.clickOnElement();
+    choiceThreePollElement.click();
     choiceThreePollElement.setTextValue(choiceThree);
   }
 
   public void addOptionTwoInThePoll(String choiceTow) {
     TextBoxElementFacade choiceTwoPollElement = choiceTwoPollElement();
-    choiceTwoPollElement.clickOnElement();
+    choiceTwoPollElement.click();
     choiceTwoPollElement.setTextValue(choiceTow);
   }
 
   public void cancelDeleteComment() {
-    cancelDeleteCommentBtnElement().clickOnElement();
+    cancelDeleteCommentBtnElement().click();
   }
 
   public void cancelUpdateActivityComment(String comment) {
@@ -153,8 +152,8 @@ public class SpaceHomePage extends GenericPage {
     } finally {
       getDriver().switchTo().defaultContent();
     }
-    cancelBtnElement().clickOnElement();
-    closeCommentsDrawerElement().clickOnElement();
+    cancelBtnElement().click();
+    closeCommentsDrawerElement().click();
   }
 
   public void checkActivityComment(String comment) {
@@ -200,6 +199,14 @@ public class SpaceHomePage extends GenericPage {
 
   public void checkConfirmationPopupVisible() {
     findByXPathOrCSS(CONFIRMATION_BUTTON_TO_DELETE_ACTIVITY_SELECTOR).assertVisible();
+  }
+
+  public void checkCreatePollButtonIsDisabled() {
+    buttonCreatePollElement().assertDisabled();
+  }
+
+  public void checkCreatePollButtonIsEnabled() {
+    buttonCreatePollElement().assertEnabled();
   }
 
   public void checkFirstActivityComment(String comment) {
@@ -274,43 +281,43 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void clickApplyDownload() {
-    applyDownloadButtonElement().clickOnElement();
+    applyDownloadButtonElement().click();
   }
 
   public void clickCreatePoll() {
-    createPollLinkElement().clickOnElement();
+    createPollLinkElement().click();
   }
 
   public void clickCreatePollButton() {
-    buttonCreatePollElement().clickOnElement();
+    buttonCreatePollElement().click();
   }
 
   public void clickDeleteActivityButton(String activity) {
-    getDeleteActivityIcon(activity).clickOnElement();
+    getDeleteActivityIcon(activity).click();
   }
 
   public void clickOnActivityComment(String comment) {
-    getCommentTitleActivityStream(comment).clickOnElement();
+    getCommentTitleActivityStream(comment).click();
   }
 
   public void clickOnCommentActivityButton(String activity) {
-    getActivityCommentButton(activity).clickOnElement();
+    getActivityCommentButton(activity).click();
   }
 
   public void clickOnCommentsDrawerFirstPage() {
-    commentsDrawerFirstPageBtnElement().clickOnElement();
+    commentsDrawerFirstPageBtnElement().click();
   }
 
   public void clickOnCommentsDrawerSecondPage() {
-    commentsDrawerSecondPageBtnElement().clickOnElement();
+    commentsDrawerSecondPageBtnElement().click();
   }
 
   public void clickOnCommentThreeDotsButton(String activity, String comment) {
-    getDropDownCommentMenu(activity, comment).clickOnElement();
+    getDropDownCommentMenu(activity, comment).click();
   }
 
   public void clickOnCommentThreeDotsButtonFromCommentsDrawer(String comment) {
-    getDropDownCommentMenuFromCommentsDrawer(comment).clickOnElement();
+    getDropDownCommentMenuFromCommentsDrawer(comment).click();
   }
 
   public void clickOnCommentThreeDotsInCommentsDrawer(String comment) {
@@ -319,66 +326,66 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void clickOnConfirmButton() {
-    getConfirmButton("Confirm").clickOnElement();
+    getConfirmButton("Confirm").click();
   }
 
   public void clickOnDeleteReplyButton(String activity, String comment, String reply) {
-    getDropDownReplyMenu(activity, comment, reply).clickOnElement();
+    getDropDownReplyMenu(activity, comment, reply).click();
   }
 
   public void clickOnkudosButtonFromCommentsDrawerToCommentActivity() {
-    kudosButtonFromCommentsDrawerToCommentActivityElement().clickOnElement();
+    kudosButtonFromCommentsDrawerToCommentActivityElement().click();
     waitForDrawerToOpen("#activityKudosDrawer", false);
   }
 
   public void clickOnKudosButtonNumberFromCommentsDrawerToCommentActivity() {
     kudosButtonNumberFromCommentsDrawerToCommentActivityElement().assertVisible();
-    kudosButtonNumberFromCommentsDrawerToCommentActivityElement().clickOnElement();
+    kudosButtonNumberFromCommentsDrawerToCommentActivityElement().click();
     waitForDrawerToOpen(".v-navigation-drawer--open .kudos-list", false);
   }
 
   public void clickOnKudosButtonNumberToCommentActivity() {
-    kudosButtonNumberToCommentActivityElement().clickOnElement();
+    kudosButtonNumberToCommentActivityElement().click();
   }
 
   public void clickOnkudosButtonToActivityStream() {
     ElementFacade firstActivityKudosButton =
                                            findByXPathOrCSS("(//*[contains(@class, 'activity-detail')])[1]//*[contains(@class, 'activity-footer-actions')]//*[contains(@id, 'KudosActivity')]");
-    firstActivityKudosButton.clickOnElement();
+    firstActivityKudosButton.click();
   }
 
   public void clickOnkudosButtonToCommentActivity() {
-    kudosButtonToCommentActivityElement().clickOnElement();
+    kudosButtonToCommentActivityElement().click();
   }
 
   public void clickOnLoadMoreActivities() {
-    loadMoreActivitiesBtnElement().clickOnElement();
+    loadMoreActivitiesBtnElement().click();
   }
 
   public void clickOnNotesTab() {
-    notesTabElement().clickOnElement();
+    notesTabElement().click();
   }
 
   public void clickOnReplyDropDownMenu(String activity, String comment, String reply) {
     ElementFacade threeDots = getDropDownReplyMenu(activity, comment, reply);
     threeDots.waitUntilVisible();
-    threeDots.clickOnElement();
+    threeDots.click();
   }
 
   public void clickOnReplyKudos(String reply) {
-    getBlackKudosCommentIcon(reply).clickOnElement();
+    getBlackKudosCommentIcon(reply).click();
   }
 
   public void clickOnTheUserPopover(String user) {
-    getUserPopover(user).clickOnElement();
+    getUserPopover(user).click();
   }
 
   public void clickOnViewallXcomments() {
-    viewallXcommentsElement().clickOnElement();
+    viewallXcommentsElement().click();
   }
 
   public void clickPinActivityButton(String activity) {
-    getPinActivityIcon(activity).clickOnElement();
+    getPinActivityIcon(activity).click();
   }
 
   public void clickPostIcon() {
@@ -388,28 +395,23 @@ public class SpaceHomePage extends GenericPage {
     }
     waitForLoading();
     ElementFacade activityPostLink = findByXPathOrCSS(".activityComposer .openLink");
-    activityPostLink.clickOnElement();
+    activityPostLink.click();
   }
 
   public void clickUnpinActivityButton(String activity) {
-    getUnpinActivityIcon(activity).clickOnElement();
+    getUnpinActivityIcon(activity).click();
   }
 
   public void clickYesbutton() {
-    findByXPathOrCSS(CONFIRMATION_BUTTON_TO_DELETE_ACTIVITY_SELECTOR).clickOnElement();
+    findByXPathOrCSS(CONFIRMATION_BUTTON_TO_DELETE_ACTIVITY_SELECTOR).click();
   }
 
   public void commentIsDisplayedInDrawer(String commentsNumber, String comment) {
-    assertTrue(String.format("Comment '%s' should be displayed in drawer with drawer title '%s'", comment, commentsNumber),
-               getDrawerCommentsNumberAndNames(commentsNumber, comment).isDisplayed());
+    getDrawerCommentsNumberAndNames(commentsNumber, comment).assertVisible();
   }
 
   public void commentIsNotDisplayedInDrawer(String commentsNumber, String comment) {
-    ElementFacade element = getDrawerCommentsNumberAndNames(commentsNumber, comment);
-    Assert.assertFalse(String.format("Comment '%s' shouldn't be displayed in drawer with drawer title '%s'",
-                                     comment,
-                                     commentsNumber),
-                       element.isDisplayed(SHORT_WAIT_DURATION_MILLIS));
+    getDrawerCommentsNumberAndNames(commentsNumber, comment).assertNotVisible();
   }
 
   public void commentNameIsNotDisplayedInDrawer(String comment) {
@@ -421,7 +423,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void commentsDrawerlikeActivityComment(String activityComment) {
-    getCommentsDrawerLikeCommentIcon(activityComment).clickOnElement();
+    getCommentsDrawerLikeCommentIcon(activityComment).click();
   }
 
   public void copyLinkActivityButtonIsDisplayed(String activity) {
@@ -433,12 +435,8 @@ public class SpaceHomePage extends GenericPage {
     titlePollElement().setTextValue(pollTitle);
     choiceOnePollElement().setTextValue(choiceOne);
     choiceTwoPollElement().setTextValue(choiceTow);
-    buttonCreatePollElement().clickOnElement();
+    buttonCreatePollElement().click();
     waitForDrawerToClose("#createPollDrawer", false);
-  }
-
-  public void checkCreatePollButtonIsDisabled() {
-    buttonCreatePollElement().assertDisabled();
   }
 
   public void createPollDrawerClosed() {
@@ -447,10 +445,10 @@ public class SpaceHomePage extends GenericPage {
 
   public void createPollWithOneChoice(String pollTitle, String choiceOne) {
     TextBoxElementFacade titlePollElement = titlePollElement();
-    titlePollElement.clickOnElement();
+    titlePollElement.click();
     titlePollElement.setTextValue(pollTitle);
     TextBoxElementFacade choiceOnePollElement = choiceOnePollElement();
-    choiceOnePollElement.clickOnElement();
+    choiceOnePollElement.click();
     choiceOnePollElement.setTextValue(choiceOne);
   }
 
@@ -459,11 +457,11 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void deleteComment(String comment) {
-    getDeleteCommentLabel(comment).clickOnElement();
+    getDeleteCommentLabel(comment).click();
   }
 
   public void deleteReply(String reply) {
-    getDeleteReplyLabel(reply).clickOnElement();
+    getDeleteReplyLabel(reply).click();
   }
 
   public void displayedLikesOnComment(String comment, String number) {
@@ -475,7 +473,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void editActivity() {
-    updateActivityButtonElement().clickOnElement();
+    updateActivityButtonElement().click();
     waitForLoading();
     waitFor(200).milliseconds(); // Update doesn't trigger a loading effect, bad
                                  // UX
@@ -486,30 +484,30 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void editComment() {
-    dotsMenuElement().clickOnElement();
-    editButtonElement().clickOnElement();
+    dotsMenuElement().click();
+    editButtonElement().click();
 
   }
 
   public void editComment(String comment) {
-    getEditCommentLabel(comment).clickOnElement();
+    getEditCommentLabel(comment).click();
   }
 
   public void editCommentFromCommentsDrawer(String comment) {
-    getEditCommentLabelFromCommentsDrawer(comment).clickOnElement();
+    getEditCommentLabelFromCommentsDrawer(comment).click();
   }
 
   public void editPoll(String pollTitle, String choiceOne, String choiceTow) {
     TextBoxElementFacade titlePollElement = titlePollElement();
-    titlePollElement.clickOnElement();
+    titlePollElement.click();
     titlePollElement.setTextValue(pollTitle);
     TextBoxElementFacade choiceOnePollElement = choiceOnePollElement();
-    choiceOnePollElement.clickOnElement();
+    choiceOnePollElement.click();
     choiceOnePollElement.setTextValue(choiceOne);
     TextBoxElementFacade choiceTwoPollElement = choiceTwoPollElement();
-    choiceTwoPollElement.clickOnElement();
+    choiceTwoPollElement.click();
     choiceTwoPollElement.setTextValue(choiceTow);
-    buttonCreatePollElement().clickOnElement();
+    buttonCreatePollElement().click();
   }
 
   public void enterActivityCommentWithUser(String comment, String user) {
@@ -538,7 +536,7 @@ public class SpaceHomePage extends GenericPage {
 
   public void enterCommentLink(String activity, String comment) {
 
-    getActivityCommentButton(activity).clickOnElement();
+    getActivityCommentButton(activity).click();
 
     waitOnCommentRichText();
     ElementFacade ckEditorFrameCommentElement = ckEditorFrameCommentElement();
@@ -549,16 +547,16 @@ public class SpaceHomePage extends GenericPage {
         ckEditorBodyCommentElement.sendKeys(comment);
         ckEditorBodyCommentElement.sendKeys(Keys.CONTROL + "a" + "x");
         refreshPage();
-        getActivityCommentButton(activity).clickOnElement();
+        getActivityCommentButton(activity).click();
         ckEditorFrameCommentElement.waitUntilVisible();
         waitOnCommentRichText();
         getDriver().switchTo().frame(ckEditorFrameCommentElement);
 
         ckEditorBodyCommentElement.waitUntilVisible();
-        ckEditorBodyCommentElement.clickOnElement();
+        ckEditorBodyCommentElement.click();
         ckEditorBodyCommentElement.sendKeys(Keys.CONTROL + "v");
       } else if (comment.contains("lien")) {
-        ckEditorBodyCommentElement.clickOnElement();
+        ckEditorBodyCommentElement.click();
         ckEditorBodyCommentElement.sendKeys(Keys.PAGE_UP);
         ckEditorBodyCommentElement.sendKeys(comment);
       } else {
@@ -590,7 +588,7 @@ public class SpaceHomePage extends GenericPage {
   public void filterByMyConnections() {
     ElementFacade filterByMyConnectionsElement = filterByMyConnectionsElement();
     filterByMyConnectionsElement.waitUntilVisible();
-    filterByMyConnectionsElement.clickOnElement();
+    filterByMyConnectionsElement.click();
     filterByMyConnectionsElement.selectByValue("connections");
   }
 
@@ -599,8 +597,8 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void goToPeopleMenu() {
-    menuBtnElement().clickOnElement();
-    peopleBtnElement().clickOnElement();
+    menuBtnElement().click();
+    peopleBtnElement().click();
   }
 
   public void goToSpecificTab(String tabName) {
@@ -611,7 +609,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void goToUserProfileFromLikersDrawer(String userLastName) {
-    getUserElementFromReactionsDrawer(userLastName).clickOnElement();
+    getUserElementFromReactionsDrawer(userLastName).click();
   }
 
   public void hoverOnLikeIcon(String comment) {
@@ -654,11 +652,11 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void likeActivity(String activity) {
-    getActivityLikeButton(activity).clickOnElement();
+    getActivityLikeButton(activity).click();
   }
 
   public void likeActivityComment(String activityComment) {
-    getLikeCommentIcon(activityComment).clickOnElement();
+    getLikeCommentIcon(activityComment).click();
   }
 
   public void likeLabelInCommentsDrawerIsBlack(String comment) {
@@ -704,28 +702,28 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void openActivityReactionsDrawer(String activity) {
-    getReactionActivityLink(activity).clickOnElement();
+    getReactionActivityLink(activity).click();
     waitForDrawerToOpen();
   }
 
   public void openCommentsDrawer(String activity) {
-    getActivityCommentButton(activity).clickOnElement();
+    getActivityCommentButton(activity).click();
     waitForDrawerToLoad();
   }
 
   public void openDeleteActivityMenu(String activity) {
-    getDropDownActivityMenu(activity).clickOnElement();
-    getDeleteActivityIcon(activity).clickOnElement();
+    getDropDownActivityMenu(activity).click();
+    getDeleteActivityIcon(activity).click();
   }
 
   public void openDeleteCommentMenu(String activity, String comment) {
-    getDropDownCommentMenu(activity, comment).clickOnElement();
-    getDeleteCommentLabel(comment).clickOnElement();
+    getDropDownCommentMenu(activity, comment).click();
+    getDeleteCommentLabel(comment).click();
   }
 
   public void openEditActivityMenu(String activity) {
     openThreeDotsActivityMenu(activity);
-    getEditActivityIcon(activity).clickOnElement();
+    getEditActivityIcon(activity).click();
   }
 
   public void openLinkInNewTab(String link) {
@@ -734,7 +732,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void openThreeDotsActivityMenu(String activity) {
-    getDropDownActivityMenu(activity).clickOnElement();
+    getDropDownActivityMenu(activity).click();
   }
 
   public void pinActivityButtonIsDisplayed(String activity) {
@@ -745,24 +743,20 @@ public class SpaceHomePage extends GenericPage {
     getPinnedActivity(activity).assertNotVisible();
   }
 
-  public void checkCreatePollButtonIsEnabled() {
-    buttonCreatePollElement().assertEnabled();
-  }
-
   public void promoteSpaceMemberAsManager(String name) {
     searchMember(name);
     ElementFacade threeDots =
                             findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'peopleCardItem')]//*[contains(@class, 'mdi-dots-vertical')]//ancestor::button",
                                                            name));
-    threeDots.clickOnElement();
+    threeDots.click();
     ElementFacade promoteAsAdminButton =
                                        findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'peopleCardItem')]//ancestor::*[contains(@class, 'v-list-item')]//*[contains(@class, 'uiIconMemberAdmin')]",
                                                                       name));
-    promoteAsAdminButton.clickOnElement();
+    promoteAsAdminButton.click();
   }
 
   public void publishActivity(boolean refreshStream) {
-    publishActivityButtonElement().clickOnElement();
+    publishActivityButtonElement().click();
     try {
       waitForDrawerToClose();
       if (refreshStream) {
@@ -775,18 +769,18 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void publishActivityInArabicLanguage() {
-    newActivityButtonInArabicLanguageElement().clickOnElement();
+    newActivityButtonInArabicLanguageElement().click();
   }
 
   public void publishComment() {
-    commentButtonInDrawerElement().clickOnElement();
+    commentButtonInDrawerElement().click();
     closeDrawerIfDisplayed();
   }
 
   public void refreshStream() {
     ElementFacade newActivityButtonElement = newActivityButtonElement();
-    if (newActivityButtonElement.isDisplayed(SHORT_WAIT_DURATION_MILLIS)) {
-      newActivityButtonElement.clickOnElement();
+    if (newActivityButtonElement.isVisible()) {
+      newActivityButtonElement.click();
     } else {
       refreshPage();
     }
@@ -797,11 +791,11 @@ public class SpaceHomePage extends GenericPage {
     ElementFacade threeDots =
                             findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'peopleCardItem')]//*[contains(@class, 'mdi-dots-vertical')]//ancestor::button",
                                                            name));
-    threeDots.clickOnElement();
+    threeDots.click();
     ElementFacade removeMemberButton =
                                      findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'peopleCardItem')]//*[contains(@class, 'uiIconTrash')]//ancestor::*[contains(@class, 'v-list-item')]",
                                                                     name));
-    removeMemberButton.clickOnElement();
+    removeMemberButton.click();
   }
 
   public void replyInDrawerIsNotDisplayed(String reply) {
@@ -856,12 +850,12 @@ public class SpaceHomePage extends GenericPage {
       getDriver().switchTo().defaultContent();
     }
 
-    updateButonElement().clickOnElement();
-    closeCommentsDrawerElement().clickOnElement();
+    updateButonElement().click();
+    closeCommentsDrawerElement().click();
   }
 
   public void updateComment() {
-    updateButtonInDrawerElement().clickOnElement();
+    updateButtonInDrawerElement().click();
     closeDrawerIfDisplayed();
   }
 
@@ -902,11 +896,11 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void viewAllRepliesInActivityStream(String comment) {
-    getActivityStreamViewAllReplies(comment).clickOnElement();
+    getActivityStreamViewAllReplies(comment).click();
   }
 
   public void viewAllRepliesInCommentsDrawer(String comment) {
-    getCommentsDrawerViewAllReplies(comment).clickOnElement();
+    getCommentsDrawerViewAllReplies(comment).click();
   }
 
   private TextBoxElementFacade activityContentTextBoxElement() {
@@ -936,7 +930,7 @@ public class SpaceHomePage extends GenericPage {
     } finally {
       getDriver().switchTo().defaultContent();
     }
-    commentButtonInDrawerElement().clickOnElement();
+    commentButtonInDrawerElement().click();
   }
 
   private void addCommentReplyEditorContent(String reply) {
@@ -949,7 +943,7 @@ public class SpaceHomePage extends GenericPage {
     } finally {
       getDriver().switchTo().defaultContent();
     }
-    replyButtonInDrawerElement().clickOnElement();
+    replyButtonInDrawerElement().click();
   }
 
   private ElementFacade applyDownloadButtonElement() {
@@ -1340,10 +1334,6 @@ public class SpaceHomePage extends GenericPage {
     return findByXPathOrCSS("//*[contains(@class,'v-btn--block v-btn--contained theme--light')]//span");
   }
 
-  private ElementFacade tabElement(String tabName) {
-    return findByXPathOrCSS("//*[@id = 'SpaceMenu']//a[contains(text(),'" + tabName + "')]");
-  }
-
   private ElementFacade menuBtnElement() {
     return findByXPathOrCSS("//a[@class='HamburgerNavigationMenuLink']");
   }
@@ -1394,6 +1384,10 @@ public class SpaceHomePage extends GenericPage {
 
   private TextBoxElementFacade spaceMembersFilterTextBoxElement() {
     return findTextBoxByXPathOrCSS("//header[@id='peopleListToolbar']//input");
+  }
+
+  private ElementFacade tabElement(String tabName) {
+    return findByXPathOrCSS("//*[@id = 'SpaceMenu']//a[contains(text(),'" + tabName + "')]");
   }
 
   private ElementFacade tenthCommentInDrawerElement() {

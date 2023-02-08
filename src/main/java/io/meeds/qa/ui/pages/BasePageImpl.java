@@ -2,7 +2,6 @@ package io.meeds.qa.ui.pages;
 
 import static io.meeds.qa.ui.utils.Utils.DEFAULT_IMPLICIT_WAIT_FOR_TIMEOUT;
 import static io.meeds.qa.ui.utils.Utils.DEFAULT_WAIT_FOR_TIMEOUT;
-import static io.meeds.qa.ui.utils.Utils.MAX_WAIT_RETRIES;
 import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION_MILLIS;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
@@ -49,7 +48,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void clickOnElement(ElementFacade element) {
-    element.clickOnElement();
+    element.click();
   }
 
   public void closeAlertIfOpened() {
@@ -60,18 +59,9 @@ public class BasePageImpl extends PageObject implements BasePage {
     }
   }
 
-  public void closeAllDrawers() {
-    ElementFacade openedDrawerElement = openedDrawerElement();
-    while (openedDrawerElement.isDisplayedNoWait()) {
-      findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
-      closeAlertIfOpened();
-      waitForDrawerToClose();
-    }
-  }
-
   public void closeAllDialogs() {
     ElementFacade openedDialogElement = openedDialogElement();
-    while (openedDialogElement.isDisplayedNoWait()) {
+    while (openedDialogElement.isCurrentlyVisible()) {
       findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
       try {
         waitOverlayToClose();
@@ -81,9 +71,18 @@ public class BasePageImpl extends PageObject implements BasePage {
     }
   }
 
+  public void closeAllDrawers() {
+    ElementFacade openedDrawerElement = openedDrawerElement();
+    while (openedDrawerElement.isCurrentlyVisible()) {
+      findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
+      closeAlertIfOpened();
+      waitForDrawerToClose();
+    }
+  }
+
   public void closeDrawerIfDisplayed() {
     ElementFacade openedDrawerElement = openedDrawerElement();
-    if (openedDrawerElement.isDisplayedNoWait()) {
+    if (openedDrawerElement.isCurrentlyVisible()) {
       findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
       closeAlertIfOpened();
       waitForDrawerToClose();
@@ -139,22 +138,6 @@ public class BasePageImpl extends PageObject implements BasePage {
     return getDriver().getCurrentUrl();
   }
 
-  public boolean isNotVisible(String xpathOrCss) {
-    return isWebElementNotVisible(findByXPathOrCSS(xpathOrCss), MAX_WAIT_RETRIES);
-  }
-
-  public boolean isVisible(String xpathOrCss) {
-    return isWebElementVisible(findByXPathOrCSS(xpathOrCss), MAX_WAIT_RETRIES);
-  }
-
-  public boolean isWebElementNotVisible(ElementFacade element, int maxRetries) {
-    return element.isNotVisible(maxRetries);
-  }
-
-  public boolean isWebElementVisible(ElementFacade element, int maxRetries) {
-    return element.isVisible(maxRetries);
-  }
-
   public boolean mentionInField(TextBoxElementFacade inputField, String user, int maxRetries) {
     inputField.waitUntilVisible();
     inputField.setTextValue(user + "x");
@@ -172,10 +155,10 @@ public class BasePageImpl extends PageObject implements BasePage {
                        findByXPathOrCSS(String.format("//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
                                                       user.substring(0, user.length() - retry - 1)));
       suggesterElement.setImplicitTimeout(retryWaitTime);
-      visible = suggesterElement.isVisibleAfterWaiting();
+      visible = suggesterElement.isVisible();
     } while (!visible && retry++ < maxRetries);
     if (visible) {
-      suggesterElement.clickOnElement();
+      suggesterElement.click();
     }
     return visible;
   }
@@ -210,7 +193,7 @@ public class BasePageImpl extends PageObject implements BasePage {
                                          findByXPathOrCSS(String.format("//*[contains(@class, 'atwho-view')]//*[contains(text(), '%s')]",
                                                                         user.substring(0, user.length() - retry - 1)));
           suggesterElement.setImplicitTimeout(retryWaitTime);
-          visible = suggesterElement.isVisibleAfterWaiting();
+          visible = suggesterElement.isVisible();
         } finally {
           getDriver().switchTo().frame(ckEditorFrame);
         }
@@ -224,6 +207,14 @@ public class BasePageImpl extends PageObject implements BasePage {
     }
   }
 
+  public ElementFacade openedDialogElement() {
+    return findByXPathOrCSS(".v-dialog--active");
+  }
+
+  public ElementFacade openedDrawerElement() {
+    return findByXPathOrCSS(OPNENED_DRAWER_CSS_SELECTOR);
+  }
+
   @WhenPageOpens
   public void verifyPageLoaded() {
     waitForPageLoading();
@@ -233,9 +224,9 @@ public class BasePageImpl extends PageObject implements BasePage {
   public void waitCKEditorLoading() {
     try {
       ElementFacade iframeElement = findByXPathOrCSS("//iframe");
-      if (!iframeElement.isDisplayedNoWait()) {
+      if (!iframeElement.isCurrentlyVisible()) {
         ElementFacade richTextLoadingElement = findByXPathOrCSS("//*[contains(@class, 'loadingRing')]");
-        if (richTextLoadingElement.isDisplayedNoWait()) {
+        if (richTextLoadingElement.isCurrentlyVisible()) {
           richTextLoadingElement.waitUntilNotVisible();
         }
       }
@@ -252,7 +243,7 @@ public class BasePageImpl extends PageObject implements BasePage {
     closeAlertIfOpened();
     String drawerSelector = StringUtils.isBlank(drawerId) ? OPNENED_DRAWER_CSS_SELECTOR : drawerId;
     ElementFacade drawerElement = findByXPathOrCSS(drawerSelector);
-    if (drawerElement.isDisplayedNoWait()) {
+    if (drawerElement.isCurrentlyVisible()) {
       try {
         drawerElement.waitUntilNotVisible();
         if (withOverlay) {
@@ -293,20 +284,12 @@ public class BasePageImpl extends PageObject implements BasePage {
   public void waitForProgressBar() {
     try {
       ElementFacade progressBar = findByXPathOrCSS(".UISiteBody .v-progress-linear");
-      if (progressBar.isDisplayed(SHORT_WAIT_DURATION_MILLIS)) {
+      if (progressBar.isCurrentlyVisible()) {
         progressBar.waitUntilNotVisible();
       }
     } catch (Exception e) {
       LOGGER.warn("Can't wait for progress bar to finish loading", e);
     }
-  }
-
-  public ElementFacade openedDrawerElement() {
-    return findByXPathOrCSS(OPNENED_DRAWER_CSS_SELECTOR);
-  }
-
-  public ElementFacade openedDialogElement() {
-    return findByXPathOrCSS(".v-dialog--active");
   }
 
   /**********************************************************
@@ -321,19 +304,19 @@ public class BasePageImpl extends PageObject implements BasePage {
     }
   }
 
+  private void waitOverlayToClose() {
+    findByXPathOrCSS(".v-overlay").waitUntilNotVisible();
+  }
+
   private void waitSuggesterToLoad() {
     try {
       ElementFacade progressBar = findByXPathOrCSS(".identitySuggester .v-progress-linear");
-      if (progressBar.isDisplayedNoWait()) {
+      if (progressBar.isCurrentlyVisible()) {
         progressBar.waitUntilNotVisible();
       }
     } catch (Exception e) {
       LOGGER.debug("Error while waiting for suggester progressbar", e);
     }
-  }
-
-  private void waitOverlayToClose() {
-    findByXPathOrCSS(".v-overlay").waitUntilNotVisible();
   }
 
 }

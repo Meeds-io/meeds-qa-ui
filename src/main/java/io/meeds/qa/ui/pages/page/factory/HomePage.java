@@ -40,13 +40,13 @@ public class HomePage extends GenericPage {
       clickOnHamburgerMenu();
       administrationMenuElement().waitUntilVisible();
       ElementFacade administrationIconElement = administrationIconElement();
-      if (administrationIconElement.isVisibleAfterWaiting()) {
+      if (administrationIconElement.isVisible()) {
         waitFor(300).milliseconds(); // Wait for animations to finish
         Actions action = new Actions(getDriver());
         action.moveToElement(administrationIconElement).build().perform();
         ElementFacade arrowAdminstrationMenuElement = arrowAdminstrationMenuElement();
-        if (arrowAdminstrationMenuElement.isVisibleAfterWaiting()) {
-          arrowAdminstrationMenuElement.clickOnElement();
+        if (arrowAdminstrationMenuElement.isVisible()) {
+          arrowAdminstrationMenuElement.click();
         } else {
           throw new ElementShouldBeVisibleException(String.format("Administration menu arrow should be visible %s",
                                                                   arrowAdminstrationMenuElement),
@@ -54,7 +54,7 @@ public class HomePage extends GenericPage {
         }
         ElementFacade administrationMenuElement =
                                                 findByXPathOrCSS(".HamburgerMenuSecondLevelParent #AdministrationHamburgerNavigation .subItemTitle");
-        if (!administrationMenuElement.isVisibleAfterWaiting()) {
+        if (!administrationMenuElement.isVisible()) {
           throw new ElementShouldBeVisibleException(String.format("Administration menu drawer should be visible %s",
                                                                   administrationMenuElement),
                                                     null);
@@ -71,12 +71,12 @@ public class HomePage extends GenericPage {
     retryOnCondition(() -> {
       clickOnHamburgerMenu();
       ElementFacade recentSpacesIconElement = recentSpacesIconElement();
-      if (recentSpacesIconElement.isVisibleAfterWaiting()) {
+      if (recentSpacesIconElement.isVisible()) {
         Actions action = new Actions(getDriver());
         action.moveToElement(recentSpacesIconElement).build().perform();
         ElementFacade recentSpacesBtnElement = recentSpacesBtnElement();
-        if (recentSpacesBtnElement.isVisibleAfterWaiting()) {
-          recentSpacesBtnElement.clickOnElement();
+        if (recentSpacesBtnElement.isVisible()) {
+          recentSpacesBtnElement.click();
         } else {
           throw new ElementShouldBeVisibleException(String.format("Recent spaces arrow should be visible %s",
                                                                   recentSpacesBtnElement),
@@ -84,7 +84,7 @@ public class HomePage extends GenericPage {
         }
         ElementFacade recentSpacesMenuElement =
                                               findByXPathOrCSS(".HamburgerMenuSecondLevelParent .recentDrawer .recentSpacesTitleLabel");
-        if (!recentSpacesMenuElement.isVisibleAfterWaiting()) {
+        if (!recentSpacesMenuElement.isVisible()) {
           throw new ElementShouldBeVisibleException(String.format("Recent spaces drawer should be visible %s",
                                                                   recentSpacesMenuElement),
                                                     null);
@@ -126,7 +126,7 @@ public class HomePage extends GenericPage {
   }
 
   public void clickOnArrowIcon() {
-    spaceArrowIconElement().clickOnElement();
+    spaceArrowIconElement().click();
   }
 
   public void clickOnCommentActivityNotification(String message, String activity, String comment) {
@@ -276,7 +276,7 @@ public class HomePage extends GenericPage {
       return;
     }
     clickOnHamburgerMenu();
-    openSpacesPageLinkElement().clickOnElement();
+    openSpacesPageLinkElement().click();
     waitForPageLoading();
   }
 
@@ -312,28 +312,28 @@ public class HomePage extends GenericPage {
   }
 
   public void isArrowDisplayedAfterHoveringOnSpaceName() {
-    Assert.assertTrue(spaceArrowIconElement().isDisplayed());
+    spaceArrowIconElement().assertVisible();
   }
 
   public boolean isConnectionsBadgeWithNumberVisible(String number) {
-    return getConnectionsBadgeWithNumber(number).isVisibleAfterWaiting();
+    return getConnectionsBadgeWithNumber(number).isVisible();
   }
 
   public boolean isElementVisible(String elementName) {
     switch (elementName) {
     case "Statistique":
-      return profileStatsPortletElement().isVisibleAfterWaiting();
+      return profileStatsPortletElement().isVisible();
     case "Taches":
-      return tasksContainerElement().isVisibleAfterWaiting();
+      return tasksContainerElement().isVisible();
     case "Wallet":
-      return walletBalanceElement().isVisibleAfterWaiting();
+      return walletBalanceElement().isVisible();
     default:
       throw new IllegalStateException("Unrecognized element");
     }
   }
 
   public boolean isHamburgerNavigationDisplayed() {
-    return getHamburgerNavigationMenu().isVisibleAfterWaiting();
+    return getHamburgerNavigationMenu().isVisible();
   }
 
   public boolean isNoConnectionsBadge() {
@@ -351,22 +351,22 @@ public class HomePage extends GenericPage {
   }
 
   public boolean isSpacesBadgeWithNumberVisible(String number) {
-    return getSpacesBadgeWithNumber(number).isVisibleAfterWaiting();
+    return getSpacesBadgeWithNumber(number).isVisible();
   }
 
   public void isThirdLevelNavigationDisplayed() {
-    Assert.assertTrue(thirdLevelNavigationElement().isDisplayed());
+    thirdLevelNavigationElement().assertVisible();
   }
 
   public boolean isWidgetWithNumberVisible(String widget, String number) {
     closeAllDrawers();
-    return getProfileWidgetContent(widget, number).isVisibleAfterWaiting();
+    return getProfileWidgetContent(widget, number).isVisible();
   }
 
   public void logout() {
     if (isHamburgerNavigationDisplayed()) {
       clickOnHamburgerMenu();
-      logOutMenuElement().clickOnElement();
+      logOutMenuElement().click();
       waitForPageLoading();
     }
   }
@@ -402,7 +402,7 @@ public class HomePage extends GenericPage {
 
   public void searchApplicationCenter(String app) {
     ElementFacade adminUiElement = findByXPathOrCSS("//*[contains(@class, 'listApplications')]//tr");
-    boolean isAdminUI = adminUiElement.isDisplayedNoWait();
+    boolean isAdminUI = adminUiElement.isCurrentlyVisible();
     searchApplicationCenterInputElement().setTextValue(app);
     waitUntilAppCenterSearchFinishes(isAdminUI);
   }
@@ -413,11 +413,6 @@ public class HomePage extends GenericPage {
 
   public void searchedSpaceIsNotDisplayedInSideBarFilter(String space) {
     recentSpaceElement(space).assertNotVisible();
-  }
-
-  private ElementFacade recentSpaceElement(String space) {
-    return findByXPathOrCSS(String.format("//*[contains(@class,'recentSpacesWrapper')]//*[contains(text(), '%s')]",
-                                   space));
   }
 
   public void searchSpaceInSideBarFilter(String space) {
@@ -458,7 +453,7 @@ public class HomePage extends GenericPage {
 
   private void clickOnHamburgerMenu() {
     closeAllDrawers();
-    retryOnCondition(() -> getHamburgerNavigationMenu().clickOnElement(),
+    retryOnCondition(() -> getHamburgerNavigationMenu().click(),
                      () -> {
                        LOGGER.warn("Hamburger Menu isn't visible, retry by waiting until application is built");
                        getHamburgerNavigationMenuDrawer().waitUntilPresent();
@@ -571,7 +566,8 @@ public class HomePage extends GenericPage {
   }
 
   private ElementFacade openSpacesPageLinkElement() {
-    // //*[contains(@class, 'v-list-item__content')] added to avoid clicking on home icon
+    // //*[contains(@class, 'v-list-item__content')] added to avoid clicking on
+    // home icon
     return findByXPathOrCSS("//*[@id='SiteHamburgerNavigation']//a[contains(@href, '/spaces')]//*[contains(@class, 'v-list-item__content')]");
   }
 
@@ -581,6 +577,11 @@ public class HomePage extends GenericPage {
 
   private ElementFacade profileStatsPortletElement() {
     return findByXPathOrCSS("#profile-stats-portlet");
+  }
+
+  private ElementFacade recentSpaceElement(String space) {
+    return findByXPathOrCSS(String.format("//*[contains(@class,'recentSpacesWrapper')]//*[contains(text(), '%s')]",
+                                          space));
   }
 
   private ElementFacade recentSpacesBtnElement() {

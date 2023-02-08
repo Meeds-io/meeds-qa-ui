@@ -41,33 +41,33 @@ public class ManageBadgesPage extends GenericPage {
   }
 
   public void clickOnAddBadge() {
-    addBadgeBtnElement().clickOnElement();
+    addBadgeBtnElement().click();
 
   }
 
   public void clickOnDeleteBadge(String badgeName) {
-    getBadgeDeleteButton(badgeName).clickOnElement();
+    getBadgeDeleteButton(badgeName).click();
 
   }
 
   public void clickOnEditBadge(String badgeName) {
-    getBadgeEditButton(badgeName).clickOnElement();
+    getBadgeEditButton(badgeName).click();
 
   }
 
   public void confirmAdditionNewBadge() {
-    confirmAddBadgeBtnElement().clickOnElement();
+    confirmAddBadgeBtnElement().click();
 
   }
 
   public void confirmDeletionBadge() {
     ElementFacade confirmDeleteBadgeBtnElement = confirmDeleteBadgeBtnElement();
     confirmDeleteBadgeBtnElement.waitUntilClickable();
-    confirmDeleteBadgeBtnElement.clickOnElement();
+    confirmDeleteBadgeBtnElement.click();
   }
 
   public void confirmEditBadge() {
-    confirmEditBadgeBtnElement().clickOnElement();
+    confirmEditBadgeBtnElement().click();
 
   }
 
@@ -109,18 +109,18 @@ public class ManageBadgesPage extends GenericPage {
   }
 
   public void goToManageBadgesMenu() {
-    menuBtnElement().clickOnElement();
+    menuBtnElement().click();
     adminIconElement().hover();
     ElementFacade adminBtnElement = adminBtnElement();
     adminBtnElement.waitUntilVisible();
-    adminBtnElement.clickOnElement();
-    badgeLinkElement().clickOnElement();
+    adminBtnElement.click();
+    badgeLinkElement().click();
   }
 
   public void insertBadgeNameInSearchField(String badgeName) {
     TextBoxElementFacade searchBadgeInputElement = searchBadgeInputElement();
     searchBadgeInputElement.waitUntilVisible();
-    if (searchBadgeInputElement.isNotVisibleAfterWaiting()) {
+    if (searchBadgeInputElement.isNotVisible()) {
       refreshPage();
     }
     searchBadgeInputElement = searchBadgeInputElement();

@@ -5,6 +5,10 @@ import io.meeds.qa.ui.pages.GenericPage;
 public class GenericSteps {
   private GenericPage genericPage;
 
+  public void checkConfirmMessageIsDisplayed(String message) {
+    genericPage.checkConfirmMessageIsDisplayed(message);
+  }
+
   public void checkDrawerDisplayed(String title) {
     genericPage.checkDrawerDisplayed(title);
   }
@@ -17,12 +21,12 @@ public class GenericSteps {
     genericPage.clickOkButton();
   }
 
-  public void closeAllDrawers() {
-    genericPage.closeAllDrawers();
-  }
-
   public void closeAllDialogs() {
     genericPage.closeAllDialogs();
+  }
+
+  public void closeAllDrawers() {
+    genericPage.closeAllDrawers();
   }
 
   public void closeBrowserTab(int tabIndex) {
@@ -39,10 +43,6 @@ public class GenericSteps {
 
   public String getCurrentUrl() {
     return genericPage.getCurrentUrl();
-  }
-
-  public void checkConfirmMessageIsDisplayed(String message) {
-    genericPage.checkConfirmMessageIsDisplayed(message);
   }
 
   public boolean isButtonDisplayed(String button) {

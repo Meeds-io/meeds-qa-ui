@@ -77,6 +77,24 @@ public class Utils {
     return e instanceof StaleElementReferenceException || (e.getCause() != null && isStaleElementException(e.getCause()));
   }
 
+  public static void refreshPage() {
+    refreshPage(true);
+  }
+
+  public static void refreshPage(boolean waitAppsLoading) {
+    Serenity.getDriver().navigate().refresh();
+    try {
+      Serenity.getDriver().switchTo().alert().accept();
+    } catch (NoAlertPresentException e) {
+      // Normal Behavior
+    }
+    if (waitAppsLoading) {
+      waitForLoading();
+    } else {
+      waitForPageLoading();
+    }
+  }
+
   public static void retryOnCondition(Runnable runnable) {
     retryOnCondition(runnable, null);
   }
@@ -119,38 +137,16 @@ public class Utils {
     driver.switchTo().window(newTab.get(index));
   }
 
-  public static void refreshPage() {
-    refreshPage(true);
-  }
-
-  public static void refreshPage(boolean waitAppsLoading) {
-    Serenity.getDriver().navigate().refresh();
-    try {
-      Serenity.getDriver().switchTo().alert().accept();
-    } catch (NoAlertPresentException e) {
-      // Normal Behavior
-    }
-    if (waitAppsLoading) {
-      waitForLoading();
-    } else {
-      waitForPageLoading();
-    }
-  }
-
-  public static void waitForPageLoading() {
-    waitForLoading(DEFAULT_WAIT_PAGE_LOADING, false);
-  }
-
-  public static void waitForLoading() {
-    waitForLoading(DEFAULT_WAIT_PAGE_LOADING, true);
-  }
-
   public static void waitForInMillis(long timeInMilliseconds) {
     try {
       Thread.sleep(timeInMilliseconds);
     } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
     }
+  }
+
+  public static void waitForLoading() {
+    waitForLoading(DEFAULT_WAIT_PAGE_LOADING, true);
   }
 
   public static void waitForLoading(int loadingWait, boolean includeApps) {
@@ -181,6 +177,10 @@ public class Utils {
     } catch (Throwable e) { // NOSONAR
       waitRemainingTime(loadingWait * 1000l, start);
     }
+  }
+
+  public static void waitForPageLoading() {
+    waitForLoading(DEFAULT_WAIT_PAGE_LOADING, false);
   }
 
   public static void waitRemainingTime(long loadingWaitMilliseconds, long start) {

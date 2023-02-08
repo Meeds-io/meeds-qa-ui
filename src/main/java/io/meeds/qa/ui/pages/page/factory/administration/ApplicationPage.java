@@ -18,7 +18,6 @@ import io.meeds.qa.ui.pages.GenericPage;
 
 public class ApplicationPage extends GenericPage {
 
-
   public ApplicationPage(WebDriver driver) {
     super(driver);
   }
@@ -94,35 +93,35 @@ public class ApplicationPage extends GenericPage {
 
   public void clickActiveApp(String appTitle) {
     searchAppByTitle(appTitle);
-    getActiveButton(appTitle).clickOnElement();
+    getActiveButton(appTitle).click();
   }
 
   public void clickAddApplicationButton() {
-    addApplicationButtonElement().clickOnElement();
+    addApplicationButtonElement().click();
   }
 
   public void clickCancelDelete() {
-    cancelDeleteButtonElement().clickOnElement();
+    cancelDeleteButtonElement().click();
   }
 
   public void clickCloseDeletePopup() {
-    closeDeletePopupButtonElement().clickOnElement();
+    closeDeletePopupButtonElement().click();
   }
 
   public void clickSaveAddApplication() {
-    saveAddApplicationButtonElement().clickOnElement();
+    saveAddApplicationButtonElement().click();
     waitForDrawerToClose();
   }
 
   public void deleteApp(String appTitle, boolean confirm) {
     ElementFacade deleteButton = getDeleteButton(appTitle);
-    if (deleteButton.isDisplayedNoWait()) {
-      deleteButton.clickOnElement();
+    if (deleteButton.isCurrentlyVisible()) {
+      deleteButton.click();
       waitFor(100).milliseconds();
     }
     ElementFacade confirmDeleteElement = confirmDeleteElement();
     if (confirm && confirmDeleteElement.isVisible()) {
-      confirmDeleteElement.clickOnElement();
+      confirmDeleteElement.click();
     }
   }
 
@@ -139,7 +138,7 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void enableDisableActiveApplication(String appTitle) {
-    getActiveApplication(appTitle).clickOnElement();
+    getActiveApplication(appTitle).click();
   }
 
   public void enableMandatoryApplication(String appTitle) {
@@ -182,7 +181,7 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void goToEditTheApplication(String app) {
-    editTheApplication(app).clickOnElement();
+    editTheApplication(app).click();
   }
 
   public boolean isAppExists(String appTitle) {
@@ -191,7 +190,7 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void removeFileFromApplicationDrawer() {
-    removeFileInApplicationDrawerButtonElement().clickOnElement();
+    removeFileInApplicationDrawerButtonElement().click();
   }
 
   public void searchApp(String appTitle) {

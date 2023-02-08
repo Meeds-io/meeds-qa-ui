@@ -6,13 +6,14 @@ import static io.meeds.qa.ui.utils.Utils.MAX_WAIT_RETRIES;
 import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION_MILLIS;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import static io.meeds.qa.ui.utils.Utils.waitRemainingTime;
-import static org.junit.Assert.assertTrue;
 
 import java.time.Duration;
+import java.util.function.BooleanSupplier;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
@@ -25,8 +26,6 @@ import io.meeds.qa.ui.utils.ExceptionLauncher;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.core.pages.WebElementFacadeImpl;
 import net.serenitybdd.core.selectors.Selectors;
-import net.thucydides.core.webdriver.exceptions.ElementShouldBeInvisibleException;
-import net.thucydides.core.webdriver.exceptions.ElementShouldBeVisibleException;
 import net.thucydides.core.webdriver.javascript.JavascriptExecutorFacade;
 
 public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFacade {
@@ -90,13 +89,6 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
 
   @Override
   public void click() {
-    clickOnElement();
-  }
-
-  /*********************************************************************************************************/
-
-  @Override
-  public void clickOnElement() {
     int retries = 0;
     long start = System.currentTimeMillis();
     do {
@@ -149,77 +141,24 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
   }
 
   @Override
-  public String getFoundBy() {
-    WebElement element = getElement();
-    if (element instanceof WebElementFacadeImpl) {
-      return ((ElementFacadeImpl) element).getFoundBy();
-    } else {
-      return null;
-    }
-  }
-
-  @Override
-  public ElementLocator getLocator() {
-    WebElement element = getElement();
-    if (element instanceof WebElementFacadeImpl) {
-      return ((ElementFacadeImpl) element).getLocator();
-    } else {
-      return null;
-    }
-  }
-
-  @Override
-  public String getXPathOrCSSSelector() {
-    return xPathOrCSSSelector;
-  }
-
-  @Override
   public void hover() {
     Actions action = new Actions(getDriver());
     action.moveToElement(this).build().perform();
   }
 
   @Override
-  public void hover(String xpath) {
-    Actions action = new Actions(getDriver());
-    WebElement we = getDriver().findElement(By.xpath(xpath));
-    action.moveToElement(we).build().perform();
+  public boolean isClickable() {
+    return isElementClickable(SHORT_WAIT_DURATION_MILLIS);
   }
 
   @Override
-  public boolean isClickable() {
-    try {
-      return super.isClickable();
-    } catch (Throwable e) { // NOSONAR
-      this.webElement = null;
-      return false;
-    }
+  public boolean isCurrentlyEnabled() {
+    return isElementCurrentlyEnabled();
   }
 
   @Override
   public boolean isCurrentlyVisible() {
-    return isDisplayedNoWait();
-  }
-
-  @Override
-  public boolean isClickableNoWait() {
-    Duration defaultTimeout = getImplicitTimeout();
-    setImplicitTimeout(Duration.ofMillis(0));
-    try {
-      return isClickable();
-    } finally {
-      setImplicitTimeout(defaultTimeout);
-    }
-  }
-
-  @Override
-  public boolean isDisplayed() {
-    try {
-      return super.isDisplayed();
-    } catch (Throwable e) { // NOSONAR
-      this.webElement = null;
-      return false;
-    }
+    return isElementCurrentlyDisplayed();
   }
 
   @Override
@@ -228,216 +167,35 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
   }
 
   @Override
+  public boolean isDisplayed() {
+    return isVisible();
+  }
+
+  public boolean isElementNotVisible(long implicitWaitInMillis) {
+    return hasElementProperty(implicitWaitInMillis, this::isElementCurrentlyNotDisplayed);
+  }
+
+  public boolean isElementVisible(long implicitWaitInMillis) {
+    return hasElementProperty(implicitWaitInMillis, this::isElementCurrentlyDisplayed);
+  }
+
+  @Override
   public boolean isEnabled() {
     return isElementEnabled(SHORT_WAIT_DURATION_MILLIS);
   }
 
-  @Override
-  public boolean isClickable(long implicitWaitInMillis) {
-    long start = System.currentTimeMillis();
-    Duration defaultTimeout = getImplicitTimeout();
-    setImplicitTimeout(Duration.ofMillis(implicitWaitInMillis));
-    try {
-      if (isClickable()) {
-        return true;
-      } else if (implicitWaitInMillis > 0) {
-        waitRemainingTime(implicitWaitInMillis, start);
-      }
-      return false;
-    } finally {
-      setImplicitTimeout(defaultTimeout);
-    }
-  }
-
-  @Override
-  public boolean isDisplayed(long implicitWaitInMillis) {
-    long start = System.currentTimeMillis();
-    Duration defaultTimeout = getImplicitTimeout();
-    setImplicitTimeout(Duration.ofMillis(implicitWaitInMillis));
-    try {
-      if (isDisplayed()) {
-        return true;
-      } else if (implicitWaitInMillis > 0) {
-        waitRemainingTime(implicitWaitInMillis, start);
-      }
-      return false;
-    } finally {
-      setImplicitTimeout(defaultTimeout);
-    }
-  }
-
-  @Override
-  public boolean isNotDisplayed(long implicitWaitInMillis) {
-    long start = System.currentTimeMillis();
-    Duration defaultTimeout = getImplicitTimeout();
-    setImplicitTimeout(Duration.ofMillis(implicitWaitInMillis));
-    try {
-      if (!isDisplayed()) {
-        return true;
-      } else if (implicitWaitInMillis > 0) {
-        waitRemainingTime(implicitWaitInMillis, start);
-      }
-      return false;
-    } finally {
-      setImplicitTimeout(defaultTimeout);
-    }
-  }
-
-  @Override
-  public boolean isNotVisible(long maxRetries) {
-    int retry = 0;
-    do {
-      if (isNotDisplayed(SHORT_WAIT_DURATION_MILLIS)) {
-        return true;
-      } else {
-        webElement = null;
-      }
-    } while (retry++ < maxRetries);
-    // Element not displayed yet after X retries
-    try {
-      waitForLoading();
-    } catch (Exception e) {
-      LOGGER.info("The page seems not to be completely loaded, thus the element {} could be not built yet. Attempt to use !isDisplayedNoWait",
-                  this);
-    }
-    return !isDisplayedNoWait();
-  }
-
-  @Override
-  public boolean isVisible(long maxRetries) {
-    int retry = 0;
-    do {
-      if (isDisplayed(SHORT_WAIT_DURATION_MILLIS)) {
-        return true;
-      } else {
-        webElement = null;
-      }
-    } while (retry++ < maxRetries);
-    // Element not displayed yet after X retries
-    try {
-      waitForLoading();
-    } catch (Exception e) {
-      LOGGER.info("The page seems not to be completely loaded, thus the element {} could be not built yet. Attempt to use isDisplayedNoWait",
-                  this);
-    }
-    return isDisplayedNoWait();
-  }
-
-  @Override
-  public boolean isDisplayedNoWait() {
-    return isDisplayed(0);
-  }
-
-  @Override
-  public boolean isNotVisibleAfterWaiting() {
-    long maxRetries = getImplicitTimeoutInMilliseconds() / SHORT_WAIT_DURATION_MILLIS;
-    return isNotVisible(maxRetries);
+  public boolean isNotVisible() {
+    return isElementNotVisible(SHORT_WAIT_DURATION_MILLIS);
   }
 
   @Override
   public boolean isPresent() {
-    return isDisplayedNoWait();
+    return isElementCurrentlyDisplayed();
   }
 
   @Override
   public boolean isVisible() {
-    return isDisplayed(SHORT_WAIT_DURATION_MILLIS);
-  }
-
-  @Override
-  public void checkClickable() {
-    long start = System.currentTimeMillis();
-    if (!isClickable(SHORT_WAIT_DURATION_MILLIS)) {
-      throw new ElementClickInterceptedException(String.format("Unable to locate a clickable element %s after %s ms",
-                                                               this,
-                                                               System.currentTimeMillis() - start));
-    }
-  }
-
-  @Override
-  public void checkVisible() {
-    long start = System.currentTimeMillis();
-    if (!isVisible(MAX_WAIT_RETRIES)) {
-      throw new ElementShouldBeVisibleException(String.format("Unable to locate a visible element %s after %s ms",
-                                                              this,
-                                                              System.currentTimeMillis() - start),
-                                                null);
-    }
-  }
-
-  @Override
-  public void checkNotVisible() {
-    long start = System.currentTimeMillis();
-    if (!isNotVisible(MAX_WAIT_RETRIES)) {
-      throw new ElementShouldBeInvisibleException(String.format("Element is still visible %s after %s ms",
-                                                                this,
-                                                                System.currentTimeMillis() - start),
-                                                  null);
-    }
-  }
-
-  @Override
-  public void assertNotVisible() {
-    long start = System.currentTimeMillis();
-    boolean notVisible = isNotVisible(MAX_WAIT_RETRIES);
-    assertTrue(String.format("Element %s was visible after waiting %s ms",
-                             this,
-                             System.currentTimeMillis() - start),
-               notVisible);
-  }
-
-  @Override
-  public void assertVisible() {
-    long start = System.currentTimeMillis();
-    boolean visible = isVisible(MAX_WAIT_RETRIES);
-    assertTrue(String.format("Element %s wasn't visible after waiting %s ms",
-                             this,
-                             System.currentTimeMillis() - start),
-               visible);
-  }
-
-  @Override
-  public void assertDisabled() {
-    long start = System.currentTimeMillis();
-    boolean disabled = isDisabled();
-    assertTrue(String.format("Element %s wasn't disabled after waiting %s ms",
-                             this,
-                             System.currentTimeMillis() - start),
-               disabled);
-  }
-
-  @Override
-  public void assertEnabled() {
-    long start = System.currentTimeMillis();
-    boolean enabled = isEnabled();
-    assertTrue(String.format("Element %s wasn't enabled after waiting %s ms",
-                             this,
-                             System.currentTimeMillis() - start),
-               enabled);
-  }
-
-  @Override
-  public boolean isVisibleAfterWaiting() {
-    long maxRetries = getImplicitTimeoutInMilliseconds() / SHORT_WAIT_DURATION_MILLIS;
-    return isVisible(maxRetries);
-  }
-
-  @Override
-  public WebElementFacade waitUntilVisible() {
-    checkVisible();
-    return this;
-  }
-
-  @Override
-  public WebElementFacade waitUntilNotVisible() {
-    checkNotVisible();
-    return this;
-  }
-
-  @Override
-  public WebElementFacade waitUntilClickable() {
-    checkClickable();
-    return this;
+    return isElementVisible(SHORT_WAIT_DURATION_MILLIS);
   }
 
   @Override
@@ -456,6 +214,24 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
   public void scrollToWebElement() {
     JavascriptExecutorFacade javascriptExecutorFacade = new JavascriptExecutorFacade(getDriver());
     javascriptExecutorFacade.executeScript("arguments[0].scrollIntoView();", this);
+  }
+
+  @Override
+  public WebElementFacade waitUntilClickable() {
+    checkClickable();
+    return this;
+  }
+
+  @Override
+  public WebElementFacade waitUntilNotVisible() {
+    checkNotVisible();
+    return this;
+  }
+
+  @Override
+  public WebElementFacade waitUntilVisible() {
+    checkVisible();
+    return this;
   }
 
   /**********************************************************
@@ -493,7 +269,68 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
     }
   }
 
-  public WebElement getResolvedWebElement(WebElement element) {
+  private boolean isElementClickable(long implicitWaitInMillis) {
+    return hasElementProperty(implicitWaitInMillis, this::isElementCurrentlyClickable);
+  }
+
+  private boolean isElementCurrentlyClickable() {
+    return isElementCurrentlyEnabled() && isElementCurrentlyDisplayed();
+  }
+
+  private boolean isElementCurrentlyDisabled() {
+    Duration defaultTimeout = getImplicitTimeout();
+    setImplicitTimeout(Duration.ofMillis(0));
+    try {
+      WebElement resolvedWebElement = getResolvedWebElement();
+      return resolvedWebElement != null && !resolvedWebElement.isEnabled();
+    } finally {
+      setImplicitTimeout(defaultTimeout);
+    }
+  }
+
+  private boolean isElementCurrentlyNotDisplayed() {
+    return !isElementCurrentlyDisplayed();
+  }
+
+  private boolean isElementCurrentlyDisplayed() {
+    Duration defaultTimeout = getImplicitTimeout();
+    setImplicitTimeout(Duration.ofMillis(0));
+    try {
+      WebElement resolvedWebElement = getResolvedWebElement();
+      return resolvedWebElement != null && resolvedWebElement.isDisplayed();
+    } finally {
+      setImplicitTimeout(defaultTimeout);
+    }
+  }
+
+  private boolean isElementCurrentlyEnabled() {
+    Duration defaultTimeout = getImplicitTimeout();
+    setImplicitTimeout(Duration.ofMillis(0));
+    try {
+      WebElement resolvedWebElement = getResolvedWebElement();
+      return resolvedWebElement != null && resolvedWebElement.isEnabled();
+    } finally {
+      setImplicitTimeout(defaultTimeout);
+    }
+  }
+
+  private boolean isElementDisabled(long implicitWaitInMillis) {
+    return hasElementProperty(implicitWaitInMillis, this::isElementCurrentlyDisabled);
+  }
+
+  private boolean isElementEnabled(long implicitWaitInMillis) {
+    return hasElementProperty(implicitWaitInMillis, this::isElementCurrentlyEnabled);
+  }
+
+  private WebElement getResolvedWebElement() {
+    try {
+      return getResolvedWebElement(this);
+    } catch (NoSuchElementException e) {
+      return null;
+    }
+  }
+
+  private WebElement getResolvedWebElement(WebElement element) {
     if (element instanceof WebElementFacadeImpl) { // NOSONAR
       return getResolvedWebElement(((WebElementFacadeImpl) element).getElement());
     } else {
@@ -501,63 +338,31 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
     }
   }
 
-  public boolean isElementDisabled(long implicitWaitInMillis) {
+  private boolean hasElementProperty(long implicitWaitInMillis, BooleanSupplier checkPropertyMethod) {
     int retry = 0;
     do {
       long start = System.currentTimeMillis();
-      if (isElementCurrentlyDisabled()) {
+      if (checkPropertyMethod.getAsBoolean()) {
         return true;
       } else {
-        webElement = null;
-        waitRemainingTime(implicitWaitInMillis, start);
+        resetAndWaitForRemainingTime(implicitWaitInMillis, start);
       }
     } while (retry++ < MAX_WAIT_RETRIES);
-    // Element not Disabled yet after X retries
+    waitForAppLoading();
+    return checkPropertyMethod.getAsBoolean();
+  }
+
+  private void resetAndWaitForRemainingTime(long implicitWaitInMillis, long start) {
+    waitRemainingTime(implicitWaitInMillis, start);
+    webElement = null;
+  }
+
+  private void waitForAppLoading() {
     try {
       waitForLoading();
     } catch (Exception e) {
-      LOGGER.info("The page seems not to be completely loaded, thus the element {} could be not built yet. Attempt to use isDisabled",
+      LOGGER.info("The page seems not to be completely loaded, thus the element {} could be not built yet.",
                   this);
-    }
-    return isElementCurrentlyDisabled();
-  }
-
-  public boolean isElementEnabled(long implicitWaitInMillis) {
-    int retry = 0;
-    do {
-      long start = System.currentTimeMillis();
-      if (isElementCurrentlyEnabled()) {
-        return true;
-      } else {
-        webElement = null;
-        waitRemainingTime(implicitWaitInMillis, start);
-      }
-    } while (retry++ < MAX_WAIT_RETRIES);
-    // Element not Disabled yet after X retries
-    try {
-      waitForLoading();
-    } catch (Exception e) {
-      LOGGER.info("The page seems not to be completely loaded, thus the element {} could be not built yet. Attempt to use isDisabled",
-                  this);
-    }
-    return isElementCurrentlyEnabled();
-  }
-
-  private boolean isElementCurrentlyDisabled() {
-    try {
-      return !getResolvedWebElement(this).isEnabled();
-    } catch (Throwable e) { // NOSONAR
-      this.webElement = null;
-      return false;
-    }
-  }
-
-  private boolean isElementCurrentlyEnabled() {
-    try {
-      return getResolvedWebElement(this).isEnabled();
-    } catch (Throwable e) { // NOSONAR
-      this.webElement = null;
-      return false;
     }
   }
 
