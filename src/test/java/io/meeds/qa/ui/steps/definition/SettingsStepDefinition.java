@@ -1,3 +1,20 @@
+/*
+ * This file is part of the Meeds project (https://meeds.io/).
+ * 
+ * Copyright (C) 2020 - 2023 Meeds Association contact@meeds.io
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
 package io.meeds.qa.ui.steps.definition;
 
 import io.cucumber.java.en.And;
@@ -22,11 +39,6 @@ public class SettingsStepDefinition {
     settingsSteps.acceptEditPassword();
   }
 
-  @When("^I accept editing time zone$")
-  public void acceptEditTimeZone() {
-    settingsSteps.acceptEditTimeZone();
-  }
-
   @When("^I confirm the modification of General Notifications$")
   public void applyEditGeneralNotifications() {
     settingsSteps.applyEditGeneralNotifications();
@@ -40,11 +52,6 @@ public class SettingsStepDefinition {
   @When("I cancel editing password")
   public void cancelEditPassword() {
     settingsSteps.cancelEditPassword();
-  }
-
-  @When("I cancel editing time zone")
-  public void cancelEditTimeZone() {
-    settingsSteps.cancelEditTimeZone();
   }
 
   @And("^Activity Stream section is displayed$")
@@ -132,11 +139,6 @@ public class SettingsStepDefinition {
     settingsSteps.checkThatTasksSectionIsDisplayed();
   }
 
-  @Then("^Time zone '(.*)' is displayed$")
-  public void checkThatTimeZoneIsDisplayed(String timeZone) {
-    settingsSteps.checkThatTimeZoneIsDisplayed(timeZone);
-  }
-
   @And("^Wallet section is displayed$")
   public void checkThatWalletSectionIsDisplayed() {
     settingsSteps.checkThatWalletSectionIsDisplayed();
@@ -155,11 +157,6 @@ public class SettingsStepDefinition {
   @When("^I enter the old password '(.*)' and the new password '(.*)'$")
   public void editPassword(String oldPassword, String password) {
     settingsSteps.editPassword(oldPassword, password);
-  }
-
-  @When("^I click on Edit time zone and I change it '(.*)'$")
-  public void editTimeZone(String timeZone) {
-    settingsSteps.editTimeZone(timeZone);
   }
 
   @When("^I enter the edited password and the old password$")

@@ -1,19 +1,23 @@
+/*
+ * This file is part of the Meeds project (https://meeds.io/).
+ * 
+ * Copyright (C) 2020 - 2023 Meeds Association contact@meeds.io
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
 package io.meeds.qa.ui.steps;
 
-import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_APPCENTER_ALL_APPLICATIONS_PAGE;
-import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_APPCENTER_PERK_STORE;
-import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_APPCENTER_SEE_ALL_APPLICATIONS;
-import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_APPCENTER_WALLET;
-import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_APPLICATIONS_TOPBAR;
-import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_NOTES_APPLICATION_PAGE;
-import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_PERK_STORE_APPLICATION_PAGE;
-import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.ELEMENT_TASKS_APPLICATION_PAGE;
-import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.contributionsApplication;
-import static io.meeds.qa.ui.pages.page.factory.application.ApplicationPage.elementChallengeApplicationPage;
-
-import java.util.List;
-
-import io.meeds.qa.ui.pages.page.factory.application.ApplicationPage;
+import io.meeds.qa.ui.pages.ApplicationPage;
 
 public class ApplicationSteps {
 
@@ -25,6 +29,14 @@ public class ApplicationSteps {
 
   public void bookmarkApplication(String appTitle) {
     applicationPage.bookmarkApplication(appTitle);
+  }
+
+  public void checkApplicationIsNotVisible(String applicationName) {
+    applicationPage.checkApplicationIsNotVisible(applicationName);
+  }
+
+  public void checkApplicationIsVisible(String applicationName) {
+    applicationPage.checkApplicationIsVisible(applicationName);
   }
 
   public void checkThatAddApplicationBtnToFavoritesIsDisplayed(String app) {
@@ -68,92 +80,12 @@ public class ApplicationSteps {
     applicationPage.goToApplication(applicationName);
   }
 
-  public void goToContributionsAppCenterApplication() {
-    // Click on App Center Contributions Application Button
-   contributionsApplication.clickOnElement();
-  }
-
-  public void goToPerkStoreAppCenterApplication() {
-    // Click on App Center Perk Store Application Button
-    ELEMENT_APPCENTER_PERK_STORE.clickOnElement();
-  }
-
-  public void goToTasksAppCenterApplication() {
-    applicationPage.goToTasksAppCenterApplication();
-  }
-
-  public void goToTheAppcenterApplicationPage(String app) {
-
-    applicationPage.goToTheAppcenterApplicationPage(app);
-  }
-
-  public void goToWalletAppCenterApplication() {
-    // Click on App Center Wallet Application Button
-    ELEMENT_APPCENTER_WALLET.clickOnElement();
-  }
-
-  public boolean isAllApplicationsPageDisplayed() {
-
-    // All Applications Page is displayed
-    applicationPage.refreshPage();
-    return ELEMENT_APPCENTER_ALL_APPLICATIONS_PAGE.isVisibleAfterWaiting();
-  }
-
-  public boolean isAppDisplayedInFavoriteList(List<String> listOfApp) {
-    return listOfApp.stream().allMatch(appName -> applicationPage.isAppDisplayedInFavoriteList(appName));
-  }
-
-  public void checkApplicationIsVisible(String applicationName) {
-    applicationPage.checkApplicationIsVisible(applicationName);
-  }
-
-  public void checkApplicationIsNotVisible(String applicationName) {
-    applicationPage.checkApplicationIsNotVisible(applicationName);
-  }
-
-  public boolean isAppNotDisplayedInFavoriteList(List<String> listOfApp) {
-    return listOfApp.stream().noneMatch(appName -> applicationPage.isAppDisplayedInFavoriteList(appName));
-  }
-
-  public boolean isChallengePageOpened() {
-    // Challenges Application Page is displayed
-    return elementChallengeApplicationPage.isVisibleAfterWaiting();
-  }
-
-  public boolean isChallengesPageOpened() {
-    return applicationPage.isChallengesPageOpened();
-  }
-
-  public boolean isNotesPageOpened() {
-    return ELEMENT_NOTES_APPLICATION_PAGE.isVisibleAfterWaiting();
-  }
-
-  public boolean isPerkStorePageOpened() {
-    // Perk Store Application Page is displayed
-    return ELEMENT_PERK_STORE_APPLICATION_PAGE.isVisibleAfterWaiting();
-  }
-
-  public boolean isTasksPageOpened() {
-    // Tasks Application Page is displayed
-    return ELEMENT_TASKS_APPLICATION_PAGE.isVisibleAfterWaiting();
-  }
-
-  public boolean isWalletPageOpened() {
-    return applicationPage.isWalletPageOpened();
-  }
-
   public void maxFavoriteAppsIsDisplayed() {
-
     applicationPage.maxFavoriteAppsIsDisplayed();
   }
 
   public void seeAllApplications() {
-    // Click on App Center Application Button
-    ELEMENT_APPLICATIONS_TOPBAR.waitUntilClickable();
-    ELEMENT_APPLICATIONS_TOPBAR.clickOnElement();
-
-    ELEMENT_APPCENTER_SEE_ALL_APPLICATIONS.waitUntilVisible();
-    ELEMENT_APPCENTER_SEE_ALL_APPLICATIONS.clickOnElement();
+    applicationPage.seeAllApplications();
   }
 
   public void settingsPageIsOpened() {
@@ -175,6 +107,5 @@ public class ApplicationSteps {
   public void unbookmarkApplication(String appTitle) {
     applicationPage.unbookmarkApplication(appTitle);
   }
-
 
 }

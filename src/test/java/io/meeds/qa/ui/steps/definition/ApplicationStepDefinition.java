@@ -1,19 +1,36 @@
+/*
+ * This file is part of the Meeds project (https://meeds.io/).
+ * 
+ * Copyright (C) 2020 - 2023 Meeds Association contact@meeds.io
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
 package io.meeds.qa.ui.steps.definition;
-
-import static org.junit.Assert.assertTrue;
-
-import java.util.List;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.meeds.qa.ui.steps.ApplicationSteps;
+import io.meeds.qa.ui.steps.GenericSteps;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 
 public class ApplicationStepDefinition {
   @Steps
   private ApplicationSteps applicationSteps;
+
+  @Steps
+  private GenericSteps     genericSteps;
 
   @When("^I remove Application '(.*)' From Favorites$")
   @And("^I add Application '(.*)' To Favorites$")
@@ -139,78 +156,9 @@ public class ApplicationStepDefinition {
     applicationSteps.goToApplication(application);
   }
 
-  @When("I go to contributions AppCenter Application")
-  public void goToContributionsAppCenterApplication() {
-    applicationSteps.goToContributionsAppCenterApplication();
-  }
-
-  @When("I go to Perk Store AppCenter Application")
-  public void goToPerkStoreAppCenterApplication() {
-    applicationSteps.goToPerkStoreAppCenterApplication();
-  }
-
-  @When("I go to Tasks AppCenter Application")
-  public void goToTasksAppCenterApplication() {
-    applicationSteps.goToTasksAppCenterApplication();
-  }
-
-  @When("^I go to AppCenter '/.*/' Application Page$")
-  public void goToTheAppcenterApplicationPage(String app) {
-    applicationSteps.goToTheAppcenterApplicationPage(app);
-
-  }
-
-  @When("I go to Wallet AppCenter Application")
-  public void goToWalletAppCenterApplication() {
-    applicationSteps.goToWalletAppCenterApplication();
-  }
-
-  @Then("All Applications Page is Displayed")
-  public void isAllApplicationsPageDisplayed() {
-    applicationSteps.isAllApplicationsPageDisplayed();
-
-  }
-
-  @Then("^The application below are displayed in favorite list$")
-  public void isAppDisplayedInFavoriteList(List<String> listOfApp) {
-    assertTrue(String.format("One of apps %s is not displayed in favorite list", listOfApp),
-               applicationSteps.isAppDisplayedInFavoriteList(listOfApp));
-  }
-
-  @Then("^The application below are not displayed in favorite list$")
-  public void isAppNotDisplayedInFavoriteList(List<String> listOfApp) {
-    assertTrue(String.format("One of apps %s is displayed in favorite list", listOfApp),
-               applicationSteps.isAppNotDisplayedInFavoriteList(listOfApp));
-  }
-
-  @Then("Challenge Application Page is displayed")
-  public void isChallengePageOpened() {
-    applicationSteps.isChallengePageOpened();
-  }
-
-  @Then("Challenges Application Page is displayed")
-  public void isChallengesPageOpened() {
-    applicationSteps.isChallengesPageOpened();
-  }
-
-  @Then("Notes Application Page is displayed")
-  public void isNotesPageOpened() {
-    applicationSteps.isNotesPageOpened();
-  }
-
-  @Then("Perk Store Application Page is displayed")
-  public void isPerkStorePageOpened() {
-    applicationSteps.isPerkStorePageOpened();
-  }
-
-  @Then("Tasks Application Page is displayed")
-  public void isTasksPageOpened() {
-    applicationSteps.isTasksPageOpened();
-  }
-
-  @Then("Wallet Application Page is displayed")
-  public void isWalletPageOpened() {
-    applicationSteps.isWalletPageOpened();
+  @Then("^The Page '(.*)' is displayed$")
+  public void isPageOpened(String uriPart) {
+    genericSteps.isPageOpened(uriPart);
   }
 
   @When("The message 'You can’t set more than 12 favorites' is displayed$")

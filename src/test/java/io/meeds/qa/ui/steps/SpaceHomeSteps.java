@@ -1,6 +1,24 @@
+/*
+ * This file is part of the Meeds project (https://meeds.io/).
+ * 
+ * Copyright (C) 2020 - 2023 Meeds Association contact@meeds.io
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
 package io.meeds.qa.ui.steps;
 
-import io.meeds.qa.ui.pages.page.factory.space.SpaceHomePage;
+import io.meeds.qa.ui.pages.SpaceHomePage;
+import io.meeds.qa.ui.utils.Utils;
 
 public class SpaceHomeSteps {
 
@@ -42,8 +60,20 @@ public class SpaceHomeSteps {
     spaceHomePage.checkActivityCommentNotDisplayed(activity, comment);
   }
 
+  public void checkActivityNotVisible(String activity) {
+    spaceHomePage.checkActivityNotVisible(activity);
+  }
+
+  public void checkActivityPinned(String activity) {
+    spaceHomePage.checkActivityPinned(activity);
+  }
+
   public void checkActivityTitle(String activity) {
     spaceHomePage.checkActivityTitle(activity);
+  }
+
+  public void checkActivityVisible(String activity) {
+    spaceHomePage.checkActivityVisible(activity);
   }
 
   public void checkCommentReplyDisplayed(String activity, String comment, String reply) {
@@ -52,6 +82,22 @@ public class SpaceHomeSteps {
 
   public void checkCommentReplyNotDisplayed(String activity, String comment, String reply) {
     spaceHomePage.checkCommentReplyNotDisplayed(activity, comment, reply);
+  }
+
+  public void checkConfirmationPopupNotVisible() {
+    spaceHomePage.checkConfirmationPopupNotVisible();
+  }
+
+  public void checkConfirmationPopupVisible() {
+    spaceHomePage.checkConfirmationPopupVisible();
+  }
+
+  public void checkCreatePollButtonIsDisabled() {
+    spaceHomePage.checkCreatePollButtonIsDisabled();
+  }
+
+  public void checkCreatePollButtonIsEnabled() {
+    spaceHomePage.checkCreatePollButtonIsEnabled();
   }
 
   public void checkFirstActivityComment(String comment) {
@@ -66,28 +112,40 @@ public class SpaceHomeSteps {
     spaceHomePage.checkFourCommentIsDisplayedInDrawer();
   }
 
-  public void checkFourthCommentInDrawer(String comment) {
-    spaceHomePage.checkFourthCommentInDrawer(comment);
+  public void checkFourthCommentInDrawer() {
+    spaceHomePage.checkFourthCommentInDrawer();
   }
 
-  public void checkSecondActivityComment(String comment) {
-    spaceHomePage.checkSecondActivityComment(comment);
+  public void checkLinkPreviewVisible() {
+    spaceHomePage.checkLinkPreviewVisible();
   }
 
-  public void checkSecondCommentInDrawer(String comment) {
-    spaceHomePage.checkSecondCommentInDrawer(comment);
+  public void checkSecondActivityComment() {
+    spaceHomePage.checkSecondActivityComment();
   }
 
-  public void checkSixthPositionInDrawer(String comment) {
-    spaceHomePage.checkSixthPositionInDrawer(comment);
+  public void checkSecondCommentInDrawer() {
+    spaceHomePage.checkSecondCommentInDrawer();
+  }
+
+  public void checkSixthPositionInDrawer() {
+    spaceHomePage.checkSixthPositionInDrawer();
   }
 
   public void checkTenCommentIsDisplayedInDrawer() {
     spaceHomePage.checkTenCommentIsDisplayedInDrawer();
   }
 
-  public void checkThirdCommentInDrawer(String comment) {
-    spaceHomePage.checkThirdCommentInDrawer(comment);
+  public void checkThirdCommentInDrawer() {
+    spaceHomePage.checkThirdCommentInDrawer();
+  }
+
+  public void checkUserDisplayedInReactionsDrawer(String userLastName) {
+    spaceHomePage.checkUserDisplayedInReactionsDrawer(userLastName);
+  }
+
+  public void checkVideoActivityVisible(String videoLink) {
+    spaceHomePage.checkVideoActivityVisible(videoLink);
   }
 
   public void clickCreatePoll() {
@@ -100,14 +158,6 @@ public class SpaceHomeSteps {
 
   public void clickDeleteActivityButton(String activity) {
     spaceHomePage.clickDeleteActivityButton(activity);
-  }
-
-  public void clickPinActivityButton(String activity) {
-    spaceHomePage.clickPinActivityButton(activity);
-  }
-
-  public void clickUnpinActivityButton(String activity) {
-    spaceHomePage.clickUnpinActivityButton(activity);
   }
 
   public void clickKudosFromActivityStream() {
@@ -174,8 +224,16 @@ public class SpaceHomeSteps {
     spaceHomePage.clickOnViewallXcomments();
   }
 
+  public void clickPinActivityButton(String activity) {
+    spaceHomePage.clickPinActivityButton(activity);
+  }
+
   public void clickPostIcon() {
     spaceHomePage.clickPostIcon();
+  }
+
+  public void clickUnpinActivityButton(String activity) {
+    spaceHomePage.clickUnpinActivityButton(activity);
   }
 
   public void commentIsDisplayedInDrawer(String commentsNumber, String comment) {
@@ -206,10 +264,6 @@ public class SpaceHomeSteps {
     spaceHomePage.createPoll(pollTitle, choiceOne, choiceTow);
   }
 
-  public void createPollButton() {
-    spaceHomePage.createPollButton();
-  }
-
   public void createPollDrawerClosed() {
     spaceHomePage.createPollDrawerClosed();
   }
@@ -224,14 +278,6 @@ public class SpaceHomeSteps {
 
   public void deleteActivityButtonIsDisplayed(String activity) {
     spaceHomePage.deleteActivityButtonIsDisplayed(activity);
-  }
-
-  public void pinActivityButtonIsDisplayed(String activity) {
-    spaceHomePage.pinActivityButtonIsDisplayed(activity);
-  }
-
-  public void unPinActivityButtonIsDisplayed(String activity) {
-    spaceHomePage.unPinActivityButtonIsDisplayed(activity);
   }
 
   public void deleteComment(String comment) {
@@ -286,16 +332,12 @@ public class SpaceHomeSteps {
     spaceHomePage.enterCommentText(comment);
   }
 
-  public void goToSpaceMembersTab() {
-    spaceHomePage.goToSpaceMembersTab();
-  }
-
-  public void goToSpaceTasksTab() {
-    spaceHomePage.goToSpaceTasksTab();
-  }
-
   public void goToSpecificTab(String tabName) {
     spaceHomePage.goToSpecificTab(tabName);
+  }
+
+  public void goToUserProfileFromLikersDrawer(String prefix) {
+    spaceHomePage.goToUserProfileFromLikersDrawer(prefix);
   }
 
   public void hoverOnLikeIcon(String comment) {
@@ -314,40 +356,8 @@ public class SpaceHomeSteps {
     spaceHomePage.isActivityNameUserSpaceDisplayed(activity, user, space);
   }
 
-  public void checkActivityVisible(String activity) {
-    spaceHomePage.checkActivityVisible(activity);
-  }
-
-  public void checkActivityPinned(String activity) {
-    spaceHomePage.checkActivityPinned(activity);
-  }
-
-  public void pinnedActivityDisappears(String activity) {
-    spaceHomePage.pinnedActivityDisappears(activity);
-  }
-
-  public void checkActivityNotVisible(String activity) {
-    spaceHomePage.checkActivityNotVisible(activity);
-  }
-
-  public void checkConfirmationPopupVisible() {
-    spaceHomePage.checkConfirmationPopupVisible();
-  }
-
-  public void checkConfirmationPopupNotVisible() {
-    spaceHomePage.checkConfirmationPopupNotVisible();
-  }
-
-  public void checkLinkPreviewVisible() {
-    spaceHomePage.checkLinkPreviewVisible();
-  }
-
   public void isMentionedUserDisplayedInPost(String activity, String user) {
     spaceHomePage.isMentionedUserDisplayedInPost(activity, user);
-  }
-
-  public void checkVideoActivityVisible(String videoLink) {
-    spaceHomePage.checkVideoActivityVisible(videoLink);
   }
 
   public void isUserPopoverDisplayed(String user) {
@@ -388,7 +398,7 @@ public class SpaceHomeSteps {
 
   public void linkIsOpenedNewTab(String link) {
     spaceHomePage.linkIsOpenedNewTab(link);
-    spaceHomePage.refreshPage();
+    Utils.refreshPage();
   }
 
   public void noCommentDisplayedInDrawer() {
@@ -397,6 +407,10 @@ public class SpaceHomeSteps {
 
   public void normalLinkPreviewIsVisible(String link) {
     spaceHomePage.normalLinkPreviewIsVisible(link);
+  }
+
+  public void openActivityReactionsDrawer(String activity) {
+    spaceHomePage.openActivityReactionsDrawer(activity);
   }
 
   public void openDeleteActivityMenu(String activity) {
@@ -419,12 +433,15 @@ public class SpaceHomeSteps {
     spaceHomePage.openThreeDotsActivityMenu(activity);
   }
 
-  public void pollButton() {
-    spaceHomePage.pollButton();
+  public void pinActivityButtonIsDisplayed(String activity) {
+    spaceHomePage.pinActivityButtonIsDisplayed(activity);
+  }
+
+  public void pinnedActivityDisappears(String activity) {
+    spaceHomePage.pinnedActivityDisappears(activity);
   }
 
   public void postManyActivities(String activityNumber, String activityPrefix) {
-    spaceHomePage.refreshPage();
     for (int i = 0; i < Integer.parseInt(activityNumber) + 1; i++) {
       String activity = activityPrefix + i;
       spaceHomePage.clickPostIcon();
@@ -474,12 +491,20 @@ public class SpaceHomeSteps {
     spaceHomePage.kudosLabelIsBlue(comment);
   }
 
+  public void selectPinnedActivity(String filter) {
+    spaceHomePage.selectPinnedActivity(filter);
+  }
+
   public void tooltipActivityStreamIsDisplayed(String comment) {
     spaceHomePage.tooltipActivityStreamIsDisplayed(comment);
   }
 
   public void tooltipCommentsDrawerIsDisplayed(String comment) {
     spaceHomePage.tooltipCommentsDrawerIsDisplayed(comment);
+  }
+
+  public void unPinActivityButtonIsDisplayed(String activity) {
+    spaceHomePage.unPinActivityButtonIsDisplayed(activity);
   }
 
   public void updateComment() {
@@ -504,21 +529,5 @@ public class SpaceHomeSteps {
 
   public void viewAllRepliesInCommentsDrawer(String comment) {
     spaceHomePage.viewAllRepliesInCommentsDrawer(comment);
-  }
-
-  public void openActivityReactionsDrawer(String activity) {
-    spaceHomePage.openActivityReactionsDrawer(activity);
-  }
-
-  public void checkUserDisplayedInReactionsDrawer(String userLastName) {
-    spaceHomePage.checkUserDisplayedInReactionsDrawer(userLastName);
-  }
-
-  public void goToUserProfileFromLikersDrawer(String prefix) {
-    spaceHomePage.goToUserProfileFromLikersDrawer(prefix);
-  }
-
-  public void selectPinnedActivity(String filter) {
-    spaceHomePage.selectPinnedActivity(filter);
   }
 }

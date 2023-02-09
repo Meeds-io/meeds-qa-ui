@@ -1,9 +1,27 @@
+/*
+ * This file is part of the Meeds project (https://meeds.io/).
+ * 
+ * Copyright (C) 2020 - 2023 Meeds Association contact@meeds.io
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
 package io.meeds.qa.ui.steps.definition;
+
+import static io.meeds.qa.ui.utils.Utils.getRandomString;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -13,20 +31,8 @@ import net.thucydides.core.annotations.Steps;
 
 public class AdminApplicationStepDefinition {
 
-  public static final Random RANDOM = new Random();
-
   @Steps
   private AdminApplicationSteps adminApplicationSteps;
-
-  public static String getRandomString() {
-    char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
-    StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < 6; i++) {
-      char c = chars[RANDOM.nextInt(chars.length)];
-      sb.append(c);
-    }
-    return sb.toString();
-  }
 
   @When("^I add a new application with the following data$")
   public void addNewApp(Map<String, String> appData) {
@@ -38,8 +44,8 @@ public class AdminApplicationStepDefinition {
   public void addNewAppWithDescription(Map<String, String> appData) {
     adminApplicationSteps.enterApplicationTitleUrlDescription(appData);
     String applicationTitle = appData.get("Application title");
-    setCurrentlyTestingApplicationTitle(applicationTitle);
     Serenity.setSessionVariable("randomApplicationTitle").to(applicationTitle);
+    setCurrentlyTestingApplicationTitle(applicationTitle);
   }
 
   @When("I add a new random application")
@@ -49,9 +55,8 @@ public class AdminApplicationStepDefinition {
 
     Serenity.setSessionVariable("randomApplicationTitle").to(randomApplicationTitle);
     Serenity.setSessionVariable("randomApplicationUrl").to(randomApplicationUrl);
-    setCurrentlyTestingApplicationTitle(randomApplicationTitle);
-
     adminApplicationSteps.enterRandomApplicationTitleAndUrl(randomApplicationTitle, randomApplicationUrl);
+    setCurrentlyTestingApplicationTitle(randomApplicationTitle);
   }
 
   @Then("^Application Description '(.*)' is displayed in Applications Table$")

@@ -1,3 +1,20 @@
+/*
+ * This file is part of the Meeds project (https://meeds.io/).
+ * 
+ * Copyright (C) 2020 - 2023 Meeds Association contact@meeds.io
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
 package io.meeds.qa.ui.steps.definition;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -11,6 +28,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.meeds.qa.ui.steps.HomeSteps;
 import io.meeds.qa.ui.steps.PeopleSteps;
+import io.meeds.qa.ui.utils.Utils;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 
@@ -85,6 +103,11 @@ public class HomeStepDefinition {
     homeSteps.acceptSpaceInvitation(spaces);
   }
 
+  @When("^I access to Recent spaces$")
+  public void accessToRecentSpaces() {
+    homeSteps.accessToRecentSpaces();
+  }
+
   @And("I unbookmark the activity '{}'")
   @When("I bookmark the activity '{}'")
   public void bookmarkActivity(String activity) {
@@ -93,7 +116,8 @@ public class HomeStepDefinition {
 
   @Then("^the invitation number for spaces is '(.*)'$")
   public void checkBagde(String number) {
-    assertThat(homeSteps.isSpacesBadgeWithNumberVisible(number)).as(String.format("La badge doit avoir le nombre %s", number))
+    assertThat(homeSteps.isSpacesBadgeWithNumberVisible(number)).as(String.format("The spaces invitation badge must be %s",
+                                                                                  number))
                                                                 .isTrue();
   }
 
@@ -141,9 +165,9 @@ public class HomeStepDefinition {
     homeSteps.checkNotDisplaySpaceInvitation(listOfSpace);
   }
 
-  @When("^The '(.*)' page is opened$")
-  public void checkPage(String page) {
-    assertThat(homeSteps.checkPage(page)).as(page + " page is not opened").isTrue();
+  @When("The page '(.*)' is opened$")
+  public void checkPageTitle(String uriPart) {
+    homeSteps.isPageOpened(uriPart);
   }
 
   @When("the following sections are displayed")
@@ -170,11 +194,6 @@ public class HomeStepDefinition {
     homeSteps.checkThatStreamPageIsDisplayed();
   }
 
-  @Then("The wallet page is opened")
-  public void checkWalletPage() throws InterruptedException {
-    assertThat(homeSteps.checkWalletPage()).as("Wallet page is not opened").isTrue();
-  }
-
   @Then("^The '(.*)' number is '(.*)'$")
   public void checkWidgetContent(String widget, String number) {
     assertThat(homeSteps.isWidgetWithNumberVisible(widget, number)).as(String.format("La widget %s doit avoir le nombre %s",
@@ -183,14 +202,17 @@ public class HomeStepDefinition {
                                                                    .isTrue();
   }
 
+  @And("^I click on the arrow displayed when hovering the searched space in Side Bar Filter$")
+  public void clickOnArrowIcon() {
+    homeSteps.clickOnArrowIcon();
+  }
+
   @When("^I click on connections badge$")
   public void clickOnConnectionsBadge() {
     homeSteps.clickOnConnectionsBagde();
   }
 
-  @When(
-    "^I click on the notification that shows that activity '(.*)' posted by first user is commented by second user with comment '(.*)'$"
-  )
+  @When("^I click on the notification that shows that activity '(.*)' posted by first user is commented by second user with comment '(.*)'$")
   public void clickOnFirstUserActivityCommentedBySecondUserNotification(String activity, String comment) {
     String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
     String secondUserLastName = Serenity.sessionVariableCalled("secondUserLastName");
@@ -237,11 +259,6 @@ public class HomeStepDefinition {
     homeSteps.clickSeeAll();
   }
 
-  @When("^I click on wallet label$")
-  public void clickWallet() {
-    homeSteps.clickWalletWidget();
-  }
-
   @Then("^I click to confirm the new home page$")
   public void confirmationForChangeSiteHomeLink() {
     homeSteps.confirmationForChangeSiteHomeLink();
@@ -253,15 +270,7 @@ public class HomeStepDefinition {
     homeSteps.favoriteActivity(oldActiviyy);
   }
 
-  @When("^(.*) searched space is not displayed in Side Bar Filter$")
-  public void randomSearchedSpaceIsNotDisplayedInSideBarFilter(String spacePrefix) {
-    String randomSpaceName = Serenity.sessionVariableCalled(spacePrefix.toLowerCase() + "RandomSpaceName");
-    homeSteps.searchedSpaceIsNotDisplayedInSideBarFilter(randomSpaceName);
-  }
-
-  @Then(
-    "^The notification that shows that activity '(.*)' posted by first user is commented by second user with comment '(.*)', is displayed$"
-  )
+  @Then("^The notification that shows that activity '(.*)' posted by first user is commented by second user with comment '(.*)', is displayed$")
   public void firstUserActivityCommentedBySecondUserNotificationIsDisplayed(String activity, String comment) {
     String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
     String secondUserLastName = Serenity.sessionVariableCalled("secondUserLastName");
@@ -282,19 +291,9 @@ public class HomeStepDefinition {
     homeSteps.goToAppCenterAdminSetupPage();
   }
 
-  @Then("my applications button is displayed")
-  public void goToAppCenterApplications() {
-    homeSteps.goToAppCenterApplications();
-  }
-
   @When("^I go to the home page$")
   public void goToHomePage() {
     homeSteps.goToHomePage();
-  }
-
-  @When("^I go to my profile$")
-  public void goToMyProfile() {
-    homeSteps.goToMyProfile();
   }
 
   @When("^I go to Person Page$")
@@ -304,7 +303,7 @@ public class HomeStepDefinition {
 
   @When("^I go to My Profile page$")
   public void goToProfilePage() {
-    homeSteps.goToProfilePage();
+    homeSteps.goToMyProfile();
   }
 
   @Given("^I go to Settings page$")
@@ -327,20 +326,31 @@ public class HomeStepDefinition {
     homeSteps.goToTasksPage();
   }
 
-  @When("^I access to Recent spaces$")
-  public void accessToRecentSpaces() {
-    homeSteps.accessToRecentSpaces();
-  }
-
   @And("^I mouse over the stream icon in sidebar menu$")
   public void hoverOnStreamIcon() {
     homeSteps.hoverOnStreamIcon();
+  }
+
+  @And("^I hover on the (.*) searched Space In side bar filter$")
+  public void hoverSearchedSpaceInSideBarFilter(String spacePrefix) {
+    String spaceName = Serenity.sessionVariableCalled(spacePrefix + "RandomSpaceName");
+    homeSteps.hoverSearchedSpaceInSideBarFilter(spaceName);
+  }
+
+  @And("^The arrow is displayed when hovering on searched space in Side Bar Filter$")
+  public void isArrowDisplayedAfterHoveringOnSpaceName() {
+    homeSteps.isArrowDisplayedAfterHoveringOnSpaceName();
   }
 
   @Then("The badge isn't displayed")
   public void isNoConnectionsBadge() {
     assertThat(homeSteps.isNoConnectionsBadge()).as("The badge shouldn't be displayed")
                                                 .isTrue();
+  }
+
+  @And("^The third level Navigation should display the space details panel$")
+  public void isThirdLevelNavigationDisplayed() {
+    homeSteps.isThirdLevelNavigationDisplayed();
   }
 
   @When("^I open all application page$")
@@ -363,9 +373,21 @@ public class HomeStepDefinition {
     homeSteps.openNotifications();
   }
 
+  @When("^(.*) searched space is displayed in Side Bar Filter$")
+  public void randomSearchedSpaceIsDisplayedInSideBarFilter(String spacePrefix) {
+    String randomSpaceName = Serenity.sessionVariableCalled(spacePrefix.toLowerCase() + "RandomSpaceName");
+    homeSteps.searchedSpaceIsDisplayedInSideBarFilter(randomSpaceName);
+  }
+
+  @When("^(.*) searched space is not displayed in Side Bar Filter$")
+  public void randomSearchedSpaceIsNotDisplayedInSideBarFilter(String spacePrefix) {
+    String randomSpaceName = Serenity.sessionVariableCalled(spacePrefix.toLowerCase() + "RandomSpaceName");
+    homeSteps.searchedSpaceIsNotDisplayedInSideBarFilter(randomSpaceName);
+  }
+
   @When("^I refresh the page$")
   public void refreshPage() {
-    homeSteps.refreshPage();
+    Utils.refreshPage();
   }
 
   @When("^I reject the following connection invitation sent by second user$")
@@ -424,15 +446,7 @@ public class HomeStepDefinition {
     homeSteps.searchSpaceInSideBarFilter(space);
   }
 
-  @When("^(.*) searched space is displayed in Side Bar Filter$")
-  public void randomSearchedSpaceIsDisplayedInSideBarFilter(String spacePrefix) {
-    String randomSpaceName = Serenity.sessionVariableCalled(spacePrefix.toLowerCase() + "RandomSpaceName");
-    homeSteps.searchedSpaceIsDisplayedInSideBarFilter(randomSpaceName);
-  }
-
-  @Then(
-    "^The notification that shows that comment '(.*)' posted by second user is replied by first user with '(.*)', is displayed$"
-  )
+  @Then("^The notification that shows that comment '(.*)' posted by second user is replied by first user with '(.*)', is displayed$")
   public void secondUserCommentRepliedByFirstUserNotificationIsDisplayed(String comment, String reply) {
     String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
     String firstUserLastName = Serenity.sessionVariableCalled("firstUserLastName");
@@ -452,26 +466,5 @@ public class HomeStepDefinition {
   public void unbookmarkActivity() {
     String oldActiviyy = Serenity.sessionVariableCalled("activity");
     homeSteps.unbookmarkActivity(oldActiviyy);
-  }
-
-  @And("^I hover on the (.*) searched Space In side bar filter$")
-  public void hoverSearchedSpaceInSideBarFilter(String spacePrefix) {
-    String spaceName = Serenity.sessionVariableCalled(spacePrefix + "RandomSpaceName");
-    homeSteps.hoverSearchedSpaceInSideBarFilter(spaceName);
-  }
-
-  @And("^The arrow is displayed when hovering on searched space in Side Bar Filter$")
-  public void isArrowDisplayedAfterHoveringOnSpaceName() {
-    homeSteps.isArrowDisplayedAfterHoveringOnSpaceName();
-  }
-
-  @And("^I click on the arrow displayed when hovering the searched space in Side Bar Filter$")
-  public void clickOnArrowIcon()  {
-    homeSteps.clickOnArrowIcon() ;
-  }
-
-  @And("^The third level Navigation should display the space details panel$")
-  public void isThirdLevelNavigationDisplayed() {
-    homeSteps.isThirdLevelNavigationDisplayed();
   }
 }

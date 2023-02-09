@@ -1,6 +1,25 @@
+/*
+ * This file is part of the Meeds project (https://meeds.io/).
+ * 
+ * Copyright (C) 2020 - 2023 Meeds Association contact@meeds.io
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
 package io.meeds.qa.ui.steps;
 
 import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
+import static io.meeds.qa.ui.utils.Utils.waitForLoading;
+import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
@@ -9,30 +28,30 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
 import io.meeds.qa.ui.hook.TestHooks;
-import io.meeds.qa.ui.pages.page.factory.HomePage;
-import io.meeds.qa.ui.pages.page.factory.space.ManageSpacesPage;
+import io.meeds.qa.ui.pages.HomePage;
+import io.meeds.qa.ui.pages.ManageSpacesPage;
 import io.meeds.qa.ui.utils.Utils;
 
 public class ManageSpaceSteps {
 
   private static final int SPACE_TEMPLATE_INDEX = Integer.parseInt(System.getProperty("io.meeds.space.template.index", "0"));
 
-  private HomePage            homePage;
+  private HomePage         homePage;
 
-  private ManageSpacesPage    manageSpacesPage;
+  private ManageSpacesPage manageSpacesPage;
 
   public void addOrGoToSpace(String spaceNamePrefix) {
     String spaceName = sessionVariableCalled(spaceNamePrefix);
     String spaceUrl = sessionVariableCalled(spaceNamePrefix + "-url");
     if (StringUtils.isNotBlank(spaceUrl)) {
       homePage.openUrl(spaceUrl);
-      homePage.verifyPageLoaded();
+      waitForPageLoading();
       if (StringUtils.equals(homePage.getCurrentUrl(), spaceUrl)) {
         return;
       } else if (!manageSpacesPage.isSpaceMenuDisplayed()) {
         boolean joined = manageSpacesPage.clickSpaceActionToJoin();
         if (joined) {
-          homePage.verifyPageLoaded();
+          waitForPageLoading();
           return;
         }
       }
@@ -72,6 +91,8 @@ public class ManageSpaceSteps {
     manageSpacesPage.checkSpaceRegistration(registration);
     manageSpacesPage.clickSecondProcessButton();
     manageSpacesPage.clickAddSpaceButton();
+
+    waitForLoading();
     String spaceNamePrefix = "randomSpaceName";
     setSessionVariable(spaceNamePrefix).to(spaceName);
     setSessionVariable(spaceNamePrefix + "-url").to(manageSpacesPage.getCurrentUrl());
@@ -113,6 +134,18 @@ public class ManageSpaceSteps {
     manageSpacesPage.checkDisplayOfTwentySpaces();
   }
 
+  public void checkFavIconInSpaceCard() {
+    manageSpacesPage.checkFavIconInSpaceCard();
+  }
+
+  public void checkFavIconInSpacePopoverFromTopbar() {
+    manageSpacesPage.checkFavIconInSpacePopoverFromTopbar();
+  }
+
+  public void checkFavIconInThirdNavigationLevel() {
+    manageSpacesPage.checkFavIconInThirdNavigationLevel();
+  }
+
   public void checkGeneralSpaceSettings() {
     manageSpacesPage.checkGeneralSpaceSettings();
   }
@@ -125,6 +158,10 @@ public class ManageSpaceSteps {
     manageSpacesPage.checkNameSpaceSection();
   }
 
+  public void checkOptionFromApplicationMenuIsDisplayed(String appName, String option) {
+    manageSpacesPage.checkOptionFromApplicationMenuIsDisplayed(appName, option);
+  }
+
   public void checkRegistrationSection() {
     manageSpacesPage.checkRegistrationSection();
   }
@@ -133,8 +170,32 @@ public class ManageSpaceSteps {
     manageSpacesPage.checkSpaceAppInstallerDrawerIsDisplayed();
   }
 
+  public void checkSpaceBookmarkedFromSpaceCard() {
+    manageSpacesPage.checkSpaceBookmarkStatusFromSpaceCard(true);
+  }
+
+  public void checkSpaceBookmarkedFromTopbarSpacePopover() {
+    manageSpacesPage.checkSpaceBookmarkStatusFromTopbarSpacePopover(true);
+  }
+
+  public void checkSpaceBookmarkThirdNavigationLevel() {
+    manageSpacesPage.checkSpaceBookmarkStatusFromThirdNavigationLevel(true);
+  }
+
   public void checkSpaceTemplateSection() {
     manageSpacesPage.checkSpaceTemplateSection();
+  }
+
+  public void checkSpaceUnBookmarkFromSpaceCard() {
+    manageSpacesPage.checkSpaceBookmarkStatusFromSpaceCard(false);
+  }
+
+  public void checkSpaceUnBookmarkFromThirdNavigationLevel() {
+    manageSpacesPage.checkSpaceBookmarkStatusFromThirdNavigationLevel(false);
+  }
+
+  public void checkSpaceUnBookmarkFromTopbarSpacePopover() {
+    manageSpacesPage.checkSpaceBookmarkStatusFromTopbarSpacePopover(false);
   }
 
   public void checkThatAppIsDisplayed(String application) {
@@ -157,10 +218,6 @@ public class ManageSpaceSteps {
     manageSpacesPage.checkThatSpaceTabsAreDisplayedInOrder(space);
   }
 
-  public void checkThatSpaceTopBarElementsAreDisplayed() {
-    manageSpacesPage.checkThatSpaceTopBarElementsAreDisplayed();
-  }
-
   public void checkThirtyRandomSpacesArePresent() {
     homePage.goToSpacesPage();
     if (!manageSpacesPage.isLoadMoreButtonDisplayed()) {
@@ -176,10 +233,6 @@ public class ManageSpaceSteps {
     manageSpacesPage.checkUpdateButton();
   }
 
-  public void clickOnThreeDotsAppCard(String appName) {
-    manageSpacesPage.clickOnThreeDotsAppCard(appName);
-  }
-
   public void clickOnArrowIconAppSpaceSettings() {
     manageSpacesPage.clickOnArrowIconAppSpaceSettings();
   }
@@ -192,6 +245,26 @@ public class ManageSpaceSteps {
     manageSpacesPage.clickOnPlusButton();
   }
 
+  public void clickOnSpaceBookmarkIconFromSpaceCard() {
+    manageSpacesPage.clickOnSpaceBookmarkIconFromSpaceCard();
+  }
+
+  public void clickOnSpaceBookmarkIconFromThirdNavigationLevel() {
+    manageSpacesPage.clickOnSpaceBookmarkIconFromThirdNavigationLevel();
+  }
+
+  public void clickOnSpaceBookmarkIconFromTopbarSpacePopover() {
+    manageSpacesPage.clickOnSpaceBookmarkIconFromTopbarSpacePopover();
+  }
+
+  public void clickOnThreeDotsAppCard(String appName) {
+    manageSpacesPage.clickOnThreeDotsAppCard(appName);
+  }
+
+  public void clickOptionApplicationCard(String appName, String option) {
+    manageSpacesPage.clickOptionApplicationCard(appName, option);
+  }
+
   public void clickSpaceAction(String action) {
     manageSpacesPage.clickSpaceAction(action);
   }
@@ -200,29 +273,18 @@ public class ManageSpaceSteps {
     manageSpacesPage.clickToAddApp(application);
   }
 
+  public void confirmRemoveApplication() {
+    manageSpacesPage.confirmRemoveApplication();
+  }
+
   public void deleteSpace(String spaceName) {
     manageSpacesPage.deleteSpace(spaceName);
   }
 
   public void deleteSpacesList(List<String> listOfSpaces) {
     for (String spaceName : listOfSpaces) {
-      manageSpacesPage.refreshPage();
+      Utils.refreshPage();
       manageSpacesPage.deleteSpace(spaceName);
-    }
-  }
-
-  private boolean findSpaceCard(String spaceName) {
-    manageSpacesPage.insertSpaceNameInSearchField(spaceName);
-    return manageSpacesPage.isSpaceCardDisplayed(spaceName);
-  }
-
-  private void goOrJoinToSpace(String spaceName) {
-    if (manageSpacesPage.isSpaceCardJoinButtonDisplayed(spaceName)) {
-      manageSpacesPage.joinSpaceFromCard(spaceName);
-    }
-    manageSpacesPage.goToSpecificSpace(spaceName);
-    if (!manageSpacesPage.isSpaceMenuDisplayed()) {
-      manageSpacesPage.clickSpaceActionToJoin();
     }
   }
 
@@ -238,13 +300,12 @@ public class ManageSpaceSteps {
     manageSpacesPage.goToSpaceHomeViaSpaceAvatar();
   }
 
-  public void goToSpaceToAcceptInvitation(String space) {
-    manageSpacesPage.insertSpaceNameInSearchField(space);
-    manageSpacesPage.goToSpaceToAcceptInvitation(space);
-  }
-
   public void goToTasksTab() {
     manageSpacesPage.goToTasksTab();
+  }
+
+  public void hoverOnSpaceName() {
+    manageSpacesPage.hoverOnSpaceName();
   }
 
   public void isSpaceBannerUpdated() {
@@ -253,10 +314,6 @@ public class ManageSpaceSteps {
 
   public void plusButtonIsDisplayed() {
     manageSpacesPage.plusButtonIsDisplayed();
-  }
-
-  public void checkOptionFromApplicationMenuIsDisplayed(String appName, String option) {
-    manageSpacesPage.checkOptionFromApplicationMenuIsDisplayed(appName, option);
   }
 
   public void searchSpace(String spaceName) {
@@ -287,64 +344,18 @@ public class ManageSpaceSteps {
     manageSpacesPage.uploadSpaceBanner(fileName);
   }
 
-
-  public void confirmRemoveApplication(){
-    manageSpacesPage.confirmRemoveApplication();
+  private boolean findSpaceCard(String spaceName) {
+    manageSpacesPage.insertSpaceNameInSearchField(spaceName);
+    return manageSpacesPage.isSpaceCardDisplayed(spaceName);
   }
 
-  public void clickOptionApplicationCard(String appName, String option) {
-    manageSpacesPage.clickOptionApplicationCard(appName, option);
-  }
-
-  public void checkFavIconInSpaceCard() {
-    manageSpacesPage.checkFavIconInSpaceCard();
-  }
-
-  public void checkFavIconInSpacePopoverFromTopbar() {
-    manageSpacesPage.checkFavIconInSpacePopoverFromTopbar();
-  }
-
-  public void checkFavIconInThirdNavigationLevel() {
-    manageSpacesPage.checkFavIconInThirdNavigationLevel();
-  }
-
-  public void clickOnSpaceBookmarkIconFromSpaceCard() {
-    manageSpacesPage.clickOnSpaceBookmarkIconFromSpaceCard();
-  }
-
-  public void clickOnSpaceBookmarkIconFromTopbarSpacePopover() {
-    manageSpacesPage.clickOnSpaceBookmarkIconFromTopbarSpacePopover();
-  }
-
-  public void clickOnSpaceBookmarkIconFromThirdNavigationLevel() {
-    manageSpacesPage.clickOnSpaceBookmarkIconFromThirdNavigationLevel();
-  }
-
-  public void checkSpaceBookmarkedFromSpaceCard() {
-    manageSpacesPage.checkSpaceBookmarkStatusFromSpaceCard(true);
-  }
-
-  public void checkSpaceUnBookmarkFromSpaceCard() {
-    manageSpacesPage.checkSpaceBookmarkStatusFromSpaceCard(false);
-  }
-
-  public void checkSpaceBookmarkedFromTopbarSpacePopover() {
-    manageSpacesPage.checkSpaceBookmarkStatusFromTopbarSpacePopover(true);
-  }
-
-  public void checkSpaceUnBookmarkFromTopbarSpacePopover() {
-    manageSpacesPage.checkSpaceBookmarkStatusFromTopbarSpacePopover(false);
-  }
-
-  public void checkSpaceBookmarkThirdNavigationLevel() {
-    manageSpacesPage.checkSpaceBookmarkStatusFromThirdNavigationLevel(true);
-  }
-
-  public void checkSpaceUnBookmarkFromThirdNavigationLevel() {
-    manageSpacesPage.checkSpaceBookmarkStatusFromThirdNavigationLevel(false);
-  }
-
-  public void hoverOnSpaceName() {
-    manageSpacesPage.hoverOnSpaceName();
+  private void goOrJoinToSpace(String spaceName) {
+    if (manageSpacesPage.isSpaceCardJoinButtonDisplayed(spaceName)) {
+      manageSpacesPage.joinSpaceFromCard(spaceName);
+    }
+    manageSpacesPage.goToSpecificSpace(spaceName);
+    if (!manageSpacesPage.isSpaceMenuDisplayed()) {
+      manageSpacesPage.clickSpaceActionToJoin();
+    }
   }
 }

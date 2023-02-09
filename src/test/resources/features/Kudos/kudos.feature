@@ -2,15 +2,6 @@
 Feature: Kudos
   As an administrator I can modify kudos parameters
 
-  @ignored
-  Scenario: [EXISTANT-KUDOS 3] Select the number of Kudos that a user is allowed to send per period
-    Given I am authenticated as admin
-    When I go to administration then reward then kudos
-    And  I enter a number of kudos'8'
-    And  I select type period per semester
-    And I save all changes
-    Then The kudos settings saved with a kudos number equal to '8' and 'Semester' period type
-
   Scenario: [EXISTANT-KUDOS 2] Sending and Receiving Kudos
     Given I connect as admin if random users doesn't exists
       | firstkudos  |
@@ -20,13 +11,13 @@ Feature: Kudos
     When I connect with the secondkudos created user
     And I go to the random space
     And I click on post in space
-    And I enter an activity 'Kudos Post activity'
+    And I enter an activity 'Kudos Post activity - EXISTANT-KUDOS 2'
     And I publish the activity
-    Then the activity 'Kudos Post activity' is displayed in activity stream
+    Then the activity 'Kudos Post activity - EXISTANT-KUDOS 2' is displayed in activity stream
 
     And I connect with the firstkudos created user
     When I go to the random space
-    And I send to the activity 'Kudos Post activity' a kudos message 'Test Auto Kudos Module'
+    And I send in the activity 'Kudos Post activity - EXISTANT-KUDOS 2' a kudos message 'Test Auto Kudos Module - EXISTANT-KUDOS 2'
 
     And I connect with the secondkudos created user
     And I go to My Profile page
@@ -40,10 +31,10 @@ Feature: Kudos
     When I connect with the first created user
     And I go to the random space
     When I click on post in space
-    And I enter an activity 'Kudos Post'
+    And I enter an activity 'Kudos Post - EXISTANT-KUDOS 5'
     And I publish the activity
-    Then the activity 'Kudos Post' is displayed in activity stream
-    And kudos icon of the activity 'Kudos Post' is Disabled
+    Then the activity 'Kudos Post - EXISTANT-KUDOS 5' is displayed in activity stream
+    And kudos icon of the activity 'Kudos Post - EXISTANT-KUDOS 5' is Disabled
 
   Scenario: EXISTANT-KUDOS 7: Sending Kudos from user profile
     Given I connect as admin if random users doesn't exists
@@ -54,7 +45,7 @@ Feature: Kudos
 
     When I connect with the fourthkudos created user
     And I go to the thirdkudos user profile
-    And I send kudos with message 'Message for kudos'
+    And I send kudos with message 'Message for kudos - EXISTANT-KUDOS 7'
 
     And I connect with the thirdkudos created user
     And I go to My Profile page
@@ -71,12 +62,12 @@ Feature: Kudos
 
     And I search for second user card
     And I click on three dots menu
-    And I click on send kudos button and I send kudos with message 'Message for kudos'
+    And I click on send kudos button and I send kudos with message 'Message for kudos - US51'
     And I go to Stream page
-    Then the kudos activity UI 'Message for kudos' is displayed in stream page
+    Then the kudos activity UI 'Message for kudos - US51' is displayed in stream page
     And I click on three dots menu click on the edit button
-    And I set the new kudos 'updated kudos message' and I click on update button
-    Then the updated Kudos activity 'updated kudos message' is displayed in stream page
+    And I set the new kudos 'updated Message for kudos - US51' and I click on update button
+    Then the updated Kudos activity 'updated Message for kudos - US51' is displayed in stream page
 
   Scenario: [ActivityStreamKudos_US11] Send a kudos to someone different from the activity author
     Given I connect as admin if random users doesn't exists
@@ -84,22 +75,22 @@ Feature: Kudos
       | fortytwokudos |
       | fortythreethkudos |
     And I create the fortyonekudos random user if not existing, no wait
-    And I create the fortytwokudos random user if not existing
+    And I create the fortytwokudos random user if not existing, no wait
     And I create the fortythreethkudos random user if not existing
 
     When I connect with the fortyonekudos created user
     And I go to the random space
     And I click on post in space
-    And I enter an activity 'Hello Team'
+    And I enter an activity 'Hello Team - US11'
     And I publish the activity
-    Then the activity 'Hello Team' is displayed in activity stream
+    Then the activity 'Hello Team - US11' is displayed in activity stream
 
     And I connect with the fortytwokudos created user
     And I go to the random space
 
     And I connect with the fortythreethkudos created user
     When I go to the random space
-    And I send to the activity 'Hello Team' a kudos message 'Good Good Good' to fortytwokudos created user
+    And I send in the activity 'Hello Team - US11' a kudos message 'Kudos Message US11' to 'fortytwokudos' user
 
     And I connect with the fortytwokudos created user
     And I go to My Profile page
@@ -112,18 +103,16 @@ Feature: Kudos
       | fiftytwokudos |
       | fiftythreethkudos |
     And I create the fiftyonekudos random user if not existing, no wait
-    And I create the fiftytwokudos random user if not existing
+    And I create the fiftytwokudos random user if not existing, no wait
     And I create the fiftythreethkudos random user if not existing
 
     When I connect with the fiftyonekudos created user
     And I go to the random space
     And I click on post in space
-    And I enter an activity 'Hello Team'
+    And I enter an activity 'Hello Team - USX'
     And I publish the activity
-    Then the activity 'Hello Team' is displayed in activity stream
+    Then the activity 'Hello Team - USX' is displayed in activity stream
 
     And I connect with the fiftytwokudos created user
     When I go to the random space
-    Then I send to the activity 'Hello Team' a kudos to fiftythreethkudos to 'Not found in space'
-
-
+    Then I send in the activity 'Hello Team - USX' a kudos message 'Kudos Message USX' to 'fiftythreethkudos' user

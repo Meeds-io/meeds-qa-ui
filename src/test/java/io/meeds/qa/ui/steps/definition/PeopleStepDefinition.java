@@ -1,3 +1,20 @@
+/*
+ * This file is part of the Meeds project (https://meeds.io/).
+ * 
+ * Copyright (C) 2020 - 2023 Meeds Association contact@meeds.io
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
 package io.meeds.qa.ui.steps.definition;
 
 import io.cucumber.java.en.Given;
@@ -10,11 +27,6 @@ public class PeopleStepDefinition {
 
   @Steps
   private PeopleSteps peopleSteps;
-
-  @Given("I add the first user suggestion")
-  public void addFirstUserSuggestion() {
-    peopleSteps.addFirstUserSuggestion();
-  }
 
   @Then("^Current User position and points on Leaderboard are displayed$")
   public void areCurrentUserPositionAndPointsOnLeaderboardDisplayed() {
@@ -56,11 +68,6 @@ public class PeopleStepDefinition {
     peopleSteps.checkThatFilterIsDisplayed();
   }
 
-  @Given("^First User Suggestion is not displayed$")
-  public void checkThatFirstUserSuggestionIsNotDisplayed() {
-    peopleSteps.checkThatFirstUserSuggestionIsNotDisplayed();
-  }
-
   @Then("^Contact Fullname in People page is displayed$")
   public void checkThatFullNameIsDisplayed() {
     peopleSteps.checkThatFullNameIsDisplayed();
@@ -79,11 +86,6 @@ public class PeopleStepDefinition {
   @Given("^People Showing Results is displayed in People page$")
   public void checkThatPeopleShowingResultsIsDisplayed() {
     peopleSteps.checkThatPeopleShowingResultsIsDisplayed();
-  }
-
-  @Given("^Pulldown Filter is displayed in People page$")
-  public void checkThatPulldownFiltersIsDisplayed() {
-    peopleSteps.checkThatPulldownFiltersIsDisplayed();
   }
 
   @Given("^The suggestion widget is existing and displayed two users with Add button and Delete buttons$")
@@ -118,7 +120,7 @@ public class PeopleStepDefinition {
   }
 
   @Given("^I delete Sent Request$")
-  public void deleteSentRequest() throws InterruptedException {
+  public void deleteSentRequest() {
     peopleSteps.deleteSentRequest();
   }
 

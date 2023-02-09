@@ -8,9 +8,7 @@ Feature: Tasks
     And I create the first random user if not existing
     And I connect with the first created user
     And I create a random space
-    When I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
+    And I go to 'Tasks' application
     When I select projects tab
     And I search for the created project
     And I open the created project
@@ -27,9 +25,7 @@ Feature: Tasks
       | first  |
     And I create the first random user if not existing
     And I connect with the first created user
-    When I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
+    And I go to 'Tasks' application
     When I select tasks tab
     And I create the following task
       | taskName | task1 |
@@ -44,9 +40,7 @@ Feature: Tasks
   Scenario: CAP94_[Add_Task_Drawer_US04] (3 dots menu-Delete action) "Tasks TAB"
     Given I am authenticated as admin
 
-    When I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
+    And I go to 'Tasks' application
     When I select tasks tab
     And I create the following task
       | taskName | testE |
@@ -62,17 +56,13 @@ Feature: Tasks
     Given I am authenticated as admin
     And I create the first random user if not existing
 
-    When I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
+    And I go to 'Tasks' application
 
     When I select projects tab
     And I create the random project with the first created user as participant
     And I connect with the first created user
 
-    When I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
+    And I go to 'Tasks' application
 
     When I select projects tab
     And I search for the created project
@@ -92,14 +82,12 @@ Feature: Tasks
     And I create the first random user if not existing
     And I connect with the first created user
 
-    When I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
+    And I go to 'Tasks' application
 
     When I select projects tab
     And I create the project 'newtestessai'
     And I open the project 'newtestessai'
-    And The task is created in the specific project
+    And I create a random quick task in the random project
       | taskName | taskessai |
 
     When I open the task 'taskessai'
@@ -125,9 +113,7 @@ Feature: Tasks
     Then I go to the random space
 
     When I connect with the second created user
-    And I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
+    And I go to 'Tasks' application
     When I select projects tab
     And I search for the created project
     And I open the created project
@@ -152,9 +138,7 @@ Feature: Tasks
     And I create the project 'new project test'
     Then the project is created successfully and displayed on Tasks Space tab
 
-    When I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
+    And I go to 'Tasks' application
     And Project 'new project test' is displayed in Tasks App Center
 
     When I go to the random space
@@ -168,9 +152,7 @@ Feature: Tasks
     Then the project is created successfully and displayed on Tasks Space tab
     And Project 'second project test' is displayed in Tasks space
 
-    When I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
+    And I go to 'Tasks' application
     And Project 'new project test' is displayed in Tasks App Center
     And Project 'second project test' is displayed in Tasks App Center
 
@@ -179,9 +161,7 @@ Feature: Tasks
     And I create the first random user if not existing
     And I connect with the first created user
 
-    When I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
+    And I go to 'Tasks' application
 
     When I select projects tab
     And I create the project 'TestProject'
@@ -213,8 +193,7 @@ Feature: Tasks
     And I create the first random user if not existing
     And I connect with the first created user
 
-    When I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
+    And I go to 'Tasks' application
     And I create the project 'project test labels'
     And I click on three dots project button
     And I click on Edit project button
@@ -248,9 +227,7 @@ Feature: Tasks
     And I connect with the first created user
     And I create a random space
 
-    When I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
+    And I go to 'Tasks' application
 
     When I select projects tab
     And I search for the created project
@@ -271,9 +248,7 @@ Feature: Tasks
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
-    When I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
+    And I go to 'Tasks' application
 
     When I select projects tab
     And I create the random project with the first created user as participant
@@ -290,9 +265,7 @@ Feature: Tasks
     And I click on save project button
 
     When I connect with the first created user
-    And I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
-    And Tasks Application Page is displayed
+    And I go to 'Tasks' application
     And I select projects tab
     And I search for the created project
     And I open the created project
@@ -301,9 +274,7 @@ Feature: Tasks
     Then Task name 'newtask' is displayed in project details
 
     When I connect with the second created user
-    And I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
-    And Tasks Application Page is displayed
+    And I go to 'Tasks' application
     And I select projects tab
     And I search for the created project
     And I open the created project
@@ -339,14 +310,12 @@ Feature: Tasks
     And I create the second random user if not existing
 
     When I connect with the second created user
-    And I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
+    And I go to 'Tasks' application
 
     When I select projects tab
     And I create the project 'Test Compagne' with the first created user as manager
     And I open the project 'Test Compagne'
-    And The task is created in the specific project
+    And I create a random quick task in the random project
       | taskName | Security |
     And I open the task 'Security'
     And I click on Add new comment button
@@ -363,9 +332,7 @@ Feature: Tasks
       | first  |
     And  I create the first random user if not existing
     And  I connect with the first created user
-    When I go To AppCenter Drawer
-    And  I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
+    And  I go to 'Tasks' application
     And I create the project 'project01'
     And I open the project 'project01'
     When I click on plus Button To Add Task
@@ -401,9 +368,7 @@ Feature: Tasks
     Given I am authenticated as admin
     And I create the first random user if not existing
 
-    When I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
+    And I go to 'Tasks' application
     And I select projects tab
     And I create the random project with the first created user as participant
 
@@ -420,9 +385,7 @@ Feature: Tasks
     And Task name 'Test Tasks' is displayed in project details
 
     When I connect with the first created user
-    And I go To AppCenter Drawer
-    And I go to Tasks AppCenter Application
-    And Tasks Application Page is displayed
+    And I go to 'Tasks' application
     And I select projects tab
     And I search for the created project
     And I open the created project
@@ -437,9 +400,7 @@ Feature: Tasks
       | first  |
     And  I create the first random user if not existing
     And  I connect with the first created user
-    When I go To AppCenter Drawer
-    And  I go to Tasks AppCenter Application
-    Then Tasks Application Page is displayed
+    And  I go to 'Tasks' application
     And I create the project 'project001'
     And I open the project 'project001'
     When I click on plus Button To Add Task
@@ -490,3 +451,14 @@ Feature: Tasks
     When I close the opened drawer
     And I open the task 'Automation Test Task'
     Then The update description 'Decription Task updated' is displayed in origin task
+
+  Scenario: CAP37 - [User_UI_US18.1] Check message when project title contains less than 3 characters
+    Given I am authenticated as admin
+    And I open the app center menu
+    And I open all application page
+    When I go to 'Tasks' application
+    And I select projects tab
+    And I click on add project button
+    And I enter the project name 'pr'
+    And I click on save project button
+    Then The 'Add Project' drawer is displayed

@@ -1,6 +1,23 @@
+/*
+ * This file is part of the Meeds project (https://meeds.io/).
+ * 
+ * Copyright (C) 2020 - 2023 Meeds Association contact@meeds.io
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
 package io.meeds.qa.ui.steps;
 
-import io.meeds.qa.ui.pages.page.factory.settings.SettingsPage;
+import io.meeds.qa.ui.pages.SettingsPage;
 
 public class SettingsSteps {
 
@@ -12,11 +29,6 @@ public class SettingsSteps {
 
   public void acceptEditPassword() {
     settingsPage.acceptEditPassword();
-  }
-
-  public void acceptEditTimeZone() {
-    settingsPage.acceptEditTimeZone();
-
   }
 
   public void applyEditGeneralNotifications() {
@@ -31,11 +43,6 @@ public class SettingsSteps {
 
   public void cancelEditPassword() {
     settingsPage.cancelEditPassword();
-
-  }
-
-  public void cancelEditTimeZone() {
-    settingsPage.cancelEditTimeZone();
 
   }
 
@@ -124,11 +131,6 @@ public class SettingsSteps {
 
   }
 
-  public void checkThatTimeZoneIsDisplayed(String timeZone) {
-    settingsPage.checkThatTimeZoneIsDisplayed(timeZone);
-
-  }
-
   public void checkThatWalletSectionIsDisplayed() {
     settingsPage.checkThatWalletSectionIsDisplayed();
 
@@ -149,19 +151,12 @@ public class SettingsSteps {
 
   }
 
-  public void editTimeZone(String timeZone) {
-    settingsPage.editTimeZone(timeZone);
-
-  }
-
   public void enableDisableNotificationOnMobile() {
     settingsPage.enableDisableNotificationOnMobile();
-
   }
 
   public void enableDisableNotificationOnSite() {
     settingsPage.enableDisableNotificationOnSite();
-
   }
 
   public void enableDisableNotificationViaMail() {

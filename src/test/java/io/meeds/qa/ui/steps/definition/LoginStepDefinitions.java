@@ -1,3 +1,20 @@
+/*
+ * This file is part of the Meeds project (https://meeds.io/).
+ * 
+ * Copyright (C) 2020 - 2023 Meeds Association contact@meeds.io
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
 package io.meeds.qa.ui.steps.definition;
 
 import static org.junit.Assert.assertTrue;
@@ -17,17 +34,17 @@ public class LoginStepDefinitions {
   @Given("^I am authenticated as (.*)$")
   public void authenticate(String username) {
     loginSteps.authenticate(username);
-    assertTrue("The home page should be loaded, but it did not !", loginSteps.isHomePageDisplayed());
-  }
-
-  @Given("^I connect as (.*) if random users doesn't exists$")
-  public void authenticateIfUsersNotExists(String username, List<String> userPrefixes) {
-    loginSteps.authenticateIfUsersNotExists("admin", userPrefixes);
+    assertTrue("The home page should be loaded, but it did not !", loginSteps.isHamburgerNavigationDisplayed());
   }
 
   @Given("^I connect as (.*) if random space and random users doesn't exists$")
   public void authenticateIfRandomSpaceAndUsersNotExists(String username, List<String> userPrefixes) {
     loginSteps.authenticateIfRandomSpaceAndUsersNotExists(username, "randomSpaceName", userPrefixes);
+  }
+
+  @Given("^I connect as (.*) if random users doesn't exists$")
+  public void authenticateIfUsersNotExists(String username, List<String> userPrefixes) {
+    loginSteps.authenticateIfUsersNotExists("admin", userPrefixes);
   }
 
   @Given("I logout")

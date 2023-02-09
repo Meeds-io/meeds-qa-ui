@@ -1,8 +1,23 @@
+/*
+ * This file is part of the Meeds project (https://meeds.io/).
+ * 
+ * Copyright (C) 2020 - 2023 Meeds Association contact@meeds.io
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
 package io.meeds.qa.ui.steps.definition;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
-import java.io.IOException;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -14,7 +29,7 @@ import net.thucydides.core.annotations.Steps;
 public class GenericStepDefinitions {
 
   @Steps
-  GenericSteps genericSteps;
+  private GenericSteps genericSteps;
 
   @When("The button '{}' is displayed")
   public void checkButton(String button) {
@@ -25,13 +40,11 @@ public class GenericStepDefinitions {
 
   @When("Confirmation message is displayed '{}'")
   public void checkConfirmMessage(String message) {
-    assertThat(genericSteps.inConfirmMessageDisplayed(message)).as(String.format("Confirm message %s should be displayed but it is not",
-                                                                                 message))
-                                                               .isTrue();
+    genericSteps.checkConfirmMessageIsDisplayed(message);
   }
 
   @When("^The '(.*)' drawer is displayed$")
-  public void checkDrawerDisplayed(String title) throws IOException, InterruptedException {
+  public void checkDrawerDisplayed(String title) {
     genericSteps.checkDrawerDisplayed(title);
   }
 
@@ -46,22 +59,22 @@ public class GenericStepDefinitions {
   }
 
   @Then("The page {string} that contains {string} is displayed")
-  public void checkPage(String pageUri ,  String content) {
+  public void checkPage(String pageUri, String content) {
     String currentUrl = genericSteps.getCurrentUrl();
     assertThat(StringUtils.contains(currentUrl, pageUri)).as(String.format("Current URL '%s' doesn't end with '%s'",
-                    currentUrl,
-                    pageUri))
-            .isTrue();
+                                                                           currentUrl,
+                                                                           pageUri))
+                                                         .isTrue();
 
     assertThat(genericSteps.containsContent(content)).as(String.format("Current Page '%s' doesn't contain '%s'",
-                    currentUrl,
-                    content))
-            .isTrue();
+                                                                       currentUrl,
+                                                                       content))
+                                                     .isTrue();
   }
 
   @When("success message is displayed")
   public void checkSuccessMessage() {
-    assertThat(genericSteps.isSuccessMessageDisplayed()).as(String.format("Success message should be displayed but it is not"))
+    assertThat(genericSteps.isSuccessMessageDisplayed()).as("Success message should be displayed but it is not")
                                                         .isTrue();
   }
 

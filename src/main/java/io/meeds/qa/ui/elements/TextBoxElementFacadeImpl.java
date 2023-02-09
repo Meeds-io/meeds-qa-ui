@@ -1,7 +1,24 @@
+/*
+ * This file is part of the Meeds project (https://meeds.io/).
+ * 
+ * Copyright (C) 2020 - 2023 Meeds Association contact@meeds.io
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
 package io.meeds.qa.ui.elements;
 
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
-import static io.meeds.qa.ui.utils.Utils.waitForPageLoaded;
+import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 
 import java.util.Collections;
 import java.util.List;
@@ -18,7 +35,7 @@ import org.slf4j.LoggerFactory;
 import io.meeds.qa.ui.utils.ExceptionLauncher;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-public class TextBoxElementFacadeImpl extends BaseElementFacadeImpl implements TextBoxElementFacade {
+public class TextBoxElementFacadeImpl extends ElementFacadeImpl implements TextBoxElementFacade {
 
   static final Logger LOGGER = LoggerFactory.getLogger(TextBoxElementFacadeImpl.class);
 
@@ -55,17 +72,19 @@ public class TextBoxElementFacadeImpl extends BaseElementFacadeImpl implements T
 
   @Override
   public String getTextBoxValue() {
-    waitForPageLoaded();
-    String textValue = null;
     try {
-      waitUntilVisible();
-      textValue = getValue();
+      if (!isVisible()) {
+        waitForLoading();
+        if (!isVisible()) {
+          waitUntilVisible();
+        }
+      }
+      return getValue();
     } catch (Exception e) {
       ExceptionLauncher.throwSerenityExeption(e,
                                               String.format("Text can't be extracted from The element [%s]", this));
+      return null;
     }
-    return textValue;
-
   }
 
   @Override
@@ -78,6 +97,7 @@ public class TextBoxElementFacadeImpl extends BaseElementFacadeImpl implements T
   }
 
   public void sendValueWithKeysOnElement(boolean clear, Keys keys, CharSequence... value) {
+    waitUntilVisible();
     if (clear) {
       clear();
       String currentValue = getValue();

@@ -1,9 +1,26 @@
+/*
+ * This file is part of the Meeds project (https://meeds.io/).
+ * 
+ * Copyright (C) 2020 - 2023 Meeds Association contact@meeds.io
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
 package io.meeds.qa.ui.steps;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.meeds.qa.ui.pages.page.factory.HomePage;
+import io.meeds.qa.ui.pages.HomePage;
 
 public class HomeSteps {
 
@@ -29,6 +46,10 @@ public class HomeSteps {
       homePage.acceptSpaceInvitation(spaceName);
     }
 
+  }
+
+  public void accessToRecentSpaces() {
+    homePage.accessToRecentSpaces();
   }
 
   public void bookmarkActivity(String activity) {
@@ -63,10 +84,6 @@ public class HomeSteps {
     }
   }
 
-  public boolean checkPage(String page) {
-    return homePage.isPageOpened(page);
-  }
-
   public void checkRandomDisplaySpaceInvitation(String space) {
     homePage.checkExistingSpaceInvitation(space);
   }
@@ -92,8 +109,8 @@ public class HomeSteps {
     homePage.checkThatStreamPageIsDisplayed();
   }
 
-  public boolean checkWalletPage() throws InterruptedException {
-    return homePage.isWalletPageOpened();
+  public void clickOnArrowIcon() {
+    homePage.clickOnArrowIcon();
   }
 
   public void clickOnCommentActivityNotification(String message, String activity, String comment) {
@@ -124,10 +141,6 @@ public class HomeSteps {
     homePage.clickSeeAll();
   }
 
-  public void clickWalletWidget() {
-    homePage.clickWalletWidget();
-  }
-
   public void commentActivityNotificationIsDisplayed(String message, String activity, String comment) {
     homePage.commentActivityNotificationIsDisplayed(message, activity, comment);
   }
@@ -156,10 +169,6 @@ public class HomeSteps {
     homePage.goToAppCenterAdminSetupPage();
   }
 
-  public void goToAppCenterApplications() {
-    homePage.goToAppCenterApplications();
-  }
-
   public void goToHomePage() {
     homePage.goToHomePage();
   }
@@ -176,10 +185,6 @@ public class HomeSteps {
     homePage.goToPeoplePage();
   }
 
-  public void goToProfilePage() {
-    homePage.goToProfilePage();
-  }
-
   public void goToSettingsPage() {
     homePage.goToSettingsPage();
   }
@@ -192,12 +197,16 @@ public class HomeSteps {
     homePage.goToTasksPage();
   }
 
-  public void accessToRecentSpaces() {
-    homePage.accessToRecentSpaces();
-  }
-
   public void hoverOnStreamIcon() {
     homePage.hoverOnStreamIcon();
+  }
+
+  public void hoverSearchedSpaceInSideBarFilter(String space) {
+    homePage.hoverSearchedSpaceInSideBarFilter(space);
+  }
+
+  public void isArrowDisplayedAfterHoveringOnSpaceName() {
+    homePage.isArrowDisplayedAfterHoveringOnSpaceName();
   }
 
   public boolean isConnectionsBadgeWithNumberVisible(String number) {
@@ -217,8 +226,16 @@ public class HomeSteps {
     return homePage.isNumberOfSpacesInDrawer(Integer.valueOf(number));
   }
 
+  public void isPageOpened(String uriPart) {
+    homePage.isPageOpened(uriPart);
+  }
+
   public boolean isSpacesBadgeWithNumberVisible(String number) {
     return homePage.isSpacesBadgeWithNumberVisible(number);
+  }
+
+  public void isThirdLevelNavigationDisplayed() {
+    homePage.isThirdLevelNavigationDisplayed();
   }
 
   public boolean isWidgetWithNumberVisible(String widget, String number) {
@@ -239,10 +256,6 @@ public class HomeSteps {
 
   public void openNotifications() {
     homePage.openNotifications();
-  }
-
-  public void refreshPage() {
-    homePage.refreshPage();
   }
 
   public void rejectConnexionInvitation(List<String> listOfPeople) {
@@ -285,21 +298,5 @@ public class HomeSteps {
 
   public void unbookmarkActivity(String activity) {
     homePage.unbookmarkActivity(activity);
-  }
-
-  public void hoverSearchedSpaceInSideBarFilter(String space) {
-    homePage.hoverSearchedSpaceInSideBarFilter(space);
-  }
-
-  public void isArrowDisplayedAfterHoveringOnSpaceName() {
-    homePage.isArrowDisplayedAfterHoveringOnSpaceName();
-  }
-
-  public void clickOnArrowIcon(){
-    homePage.clickOnArrowIcon();
-  }
-
-  public void isThirdLevelNavigationDisplayed() {
-    homePage.isThirdLevelNavigationDisplayed();
   }
 }

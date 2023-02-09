@@ -1,3 +1,20 @@
+/*
+ * This file is part of the Meeds project (https://meeds.io/).
+ * 
+ * Copyright (C) 2020 - 2023 Meeds Association contact@meeds.io
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
 package io.meeds.qa.ui.steps.definition;
 
 import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
@@ -13,6 +30,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.meeds.qa.ui.steps.HomeSteps;
+import io.meeds.qa.ui.steps.LoginSteps;
 import io.meeds.qa.ui.steps.ManageSpaceSteps;
 import io.meeds.qa.ui.steps.TasksSteps;
 import net.serenitybdd.core.Serenity;
@@ -21,13 +39,16 @@ import net.thucydides.core.annotations.Steps;
 public class TasksStepDefinition {
 
   @Steps
-  HomeSteps        homeSteps;
+  private HomeSteps        homeSteps;
 
   @Steps
-  ManageSpaceSteps manageSpaceSteps;
+  private LoginSteps       loginSteps;
 
   @Steps
-  TasksSteps       tasksSteps;
+  private ManageSpaceSteps manageSpaceSteps;
+
+  @Steps
+  private TasksSteps       tasksSteps;
 
   @When("^I accept the invitation of the created space project$")
   public void acceptRandomSpaceProject() {
@@ -130,6 +151,16 @@ public class TasksStepDefinition {
     tasksSteps.addProjectWithManagerAndParticipant(randomSpaceName, firstUserFullName, secondUserFullName);
   }
 
+  @Then("^I add the random project with first user as the participant$")
+  public void addProjectWithFirstUserAsParticipant() {
+    String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
+    String firstUserLastName = Serenity.sessionVariableCalled("firstUserLastName");
+    String firstUserFullName = firstUserFirstName + " " + firstUserLastName;
+    String randomSpaceName = "randomSpaceName" + getRandomNumber();
+    Serenity.setSessionVariable("randomSpaceName").to(randomSpaceName);
+    tasksSteps.addProjectWithFirstUserAsParticipant(randomSpaceName, firstUserFullName);
+  }
+
   @Then("^I create the project '(.*)' with the manager '(.*)'$")
   public void addProjectWithManager(String projectName, String fullName) {
     tasksSteps.addProjectWithManager(projectName, fullName);
@@ -138,8 +169,11 @@ public class TasksStepDefinition {
 
   @Then("^I create the random project with the (.*) created user as participant$")
   public void addRandomProjectWithRandomParticipant(String userPrefix) {
-    String randomSpaceName = "randomSpaceName" + getRandomNumber();
-    Serenity.setSessionVariable("randomSpaceName").to(randomSpaceName);
+    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
+    if (StringUtils.isBlank(randomSpaceName)) {
+      randomSpaceName = "randomSpaceName" + getRandomNumber();
+      Serenity.setSessionVariable("randomSpaceName").to(randomSpaceName);
+    }
     String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
 
     tasksSteps.addProjectWithParticipant(randomSpaceName, userLastName);
@@ -162,7 +196,7 @@ public class TasksStepDefinition {
     tasksSteps.addTaskInProject(taskDetails);
   }
 
-  @And("^The task is created in the specific project$")
+  @And("I create a random quick task in the random project")
   public void addTaskInSimpleProject(Map<String, String> userDetails) {
     tasksSteps.addSimpleTaskProject(userDetails);
   }
@@ -307,12 +341,6 @@ public class TasksStepDefinition {
     tasksSteps.checkProjectNameIsDisplayedInProjectCard(projectName, projectDescription);
   }
 
-  @Then("^First project name with description '(.*)' is displayed in Project Card$")
-  public void checkRandomProjectNameIsDisplayedInProjectCard(String projectDescription) {
-    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
-    tasksSteps.checkProjectNameIsDisplayedInProjectCard(randomSpaceName, projectDescription);
-  }
-
   @And("^Status column '(.*)' is moved to the second position$")
   @Then("^Status column '(.*)' is displayed in the second position$")
   public void checkSecondStatusColumn(String columnStatus) {
@@ -382,8 +410,8 @@ public class TasksStepDefinition {
 
   @When("^The update description '(.*)' is displayed in origin task$")
   @Then("^The update description '(.*)' is displayed in cloned task$")
-  public void checkUpdatedDescription(String Description) {
-    tasksSteps.checkUpdatedDescription(Description);
+  public void checkUpdatedDescription(String description) {
+    tasksSteps.checkUpdatedDescription(description);
   }
 
   @Then("^The label View all attachments is displayed$")
@@ -424,6 +452,21 @@ public class TasksStepDefinition {
   @When("^I click on (add project|add tasks) button$")
   public void clickAddProjectButton(String buttonName) {
     tasksSteps.clickAddProjectButton();
+  }
+
+  @When("^I click on cancel to not confirm project deletion$")
+  public void clickCancel() {
+    tasksSteps.clickCancel();
+  }
+
+  @When("^I click on delete to confirm project deletion$")
+  public void clickDelete() {
+    tasksSteps.clickDelete();
+  }
+
+  @When("^I click on delete project button$")
+  public void clickDeleteProjectButton() {
+    tasksSteps.clickDeleteProjectButton();
   }
 
   @When("^I click on document button$")
@@ -498,13 +541,13 @@ public class TasksStepDefinition {
   }
 
   @And("^I click on plus Button To Add Task$")
-  public void ClickOnPlusButtonToAddTask() {
-    tasksSteps.ClickOnPlusButtonToAddTask();
+  public void clickOnPlusButtonToAddTask() {
+    tasksSteps.clickOnPlusButtonToAddTask();
   }
 
   @And("^I click on plus Button To Add Task of the sixth status column$")
-  public void ClickOnPlusButtonToAddTaskOfTheSixthStatusColumn() {
-    tasksSteps.ClickOnPlusButtonToAddTaskOfTheSixthStatusColumn();
+  public void clickOnPlusButtonToAddTaskOfTheSixthStatusColumn() {
+    tasksSteps.clickOnPlusButtonToAddTaskOfTheSixthStatusColumn();
   }
 
   @When("^I click on three dots project button$")
@@ -513,8 +556,8 @@ public class TasksStepDefinition {
   }
 
   @And("^I click on save Button To Add Task$")
-  public void ClickOnSaveButtonToAddTask() {
-    tasksSteps.ClickOnSaveButtonToAddTask();
+  public void clickOnSaveButtonToAddTask() {
+    tasksSteps.clickOnSaveButtonToAddTask();
   }
 
   @And("^I click on save Button To Add Task in space project$")
@@ -528,9 +571,9 @@ public class TasksStepDefinition {
   }
 
   @When("^I click on the notification that mentione first user in a task in Project '(.*)' project$")
-  public void clickOnTheNotificationThatMentioneFirstUserInATaskInProject(String ProjectName) {
-    String message = "You have been mentioned in a task in" + " " + ProjectName + " " + "project";
-    tasksSteps.clickOnTheNotificationThatMentioneFirstUserInATaskInProject(message, ProjectName);
+  public void clickOnTheNotificationThatMentioneFirstUserInATaskInProject(String projectName) {
+    String message = "You have been mentioned in a task in" + " " + projectName + " " + "project";
+    tasksSteps.clickOnTheNotificationThatMentioneFirstUserInATaskInProject(message, projectName);
   }
 
   @When("^I click on the timestamp$")
@@ -661,7 +704,7 @@ public class TasksStepDefinition {
 
   @And("^I clear browsing data cache and cookies$")
   public void deleteCookies() {
-    tasksSteps.deleteCookies();
+    loginSteps.deleteCookies();
   }
 
   @And("^I delete the added project$")
@@ -758,6 +801,12 @@ public class TasksStepDefinition {
   @Then("^I exit from project$")
   public void exitFromTheFirstProject() {
     tasksSteps.exitFromTheFirstProject();
+  }
+
+  @Then("^Avatar of the first created user is not displayed in Project Card$")
+  public void firstRandomUserAvatarIsDisplayedInProjectCard() {
+    String firstUserName = Serenity.sessionVariableCalled("firstUserName");
+    tasksSteps.userAvatarIsNotDisplayedInProjectCard(firstUserName);
   }
 
   @When("^I go back to edit task drawer$")
@@ -890,12 +939,12 @@ public class TasksStepDefinition {
   }
 
   @And("^I check that Move Status column after option is not displayed$")
-  public void MoveStatusAfterIconIsNotDisplayed() {
+  public void moveStatusAfterIconIsNotDisplayed() {
     tasksSteps.checkMoveStatusAfterIconIsNotDisplayed();
   }
 
   @And("^I check that Move Status column before option is not displayed$")
-  public void MoveStatusBeforeIconIsNotDisplayed() {
+  public void moveStatusBeforeIconIsNotDisplayed() {
     tasksSteps.checkMoveStatusBeforeIconIsNotDisplayed();
   }
 
@@ -953,12 +1002,6 @@ public class TasksStepDefinition {
     tasksSteps.projectIsDisplayedInTasksAppCenter(projectName);
   }
 
-  @When("The created project name is displayed in project details")
-  public void randomProjectNameIsDisplayedInProjectDetails() {
-    String randomProjectName = Serenity.sessionVariableCalled("projectName");
-    tasksSteps.projectNameIsDisplayedInProjectDetails(randomProjectName);
-  }
-
   @When("The project name is displayed in project details")
   public void projectNameIsDisplayedInProjectDetails() {
     String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
@@ -968,6 +1011,12 @@ public class TasksStepDefinition {
   @When("^The project '(.*)' is displayed in project details$")
   public void projectNameIsDisplayedInProjectDetails(String projectName) {
     tasksSteps.projectNameIsDisplayedInProjectDetails(projectName);
+  }
+
+  @When("The created project name is displayed in project details")
+  public void randomProjectNameIsDisplayedInProjectDetails() {
+    String randomProjectName = Serenity.sessionVariableCalled("projectName");
+    tasksSteps.projectNameIsDisplayedInProjectDetails(randomProjectName);
   }
 
   @Then("^Avatar of the first created user is displayed in Project Card$")
@@ -1044,12 +1093,6 @@ public class TasksStepDefinition {
     tasksSteps.setInSearchProjectField(randomSpaceName);
   }
 
-  @When("^I search for the created space$")
-  public void setInSearchRandomSpaceField() {
-    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
-    tasksSteps.setInSearchProjectField(randomSpaceName);
-  }
-
   @When("^I enter the project name '(.*)'$")
   public void setProjectTitle(String projectTitle) {
     tasksSteps.setProjectTitle(projectTitle);
@@ -1066,8 +1109,8 @@ public class TasksStepDefinition {
   }
 
   @When("^I enter Description for this task '(.*)'$")
-  public void setTaskDescription(String Description) {
-    tasksSteps.setTaskDescription(Description);
+  public void setTaskDescription(String description) {
+    tasksSteps.setTaskDescription(description);
   }
 
   @And("^I set task due date Next week$")
@@ -1210,36 +1253,5 @@ public class TasksStepDefinition {
   @When("^I view all task comments$")
   public void viewAllCommentsTaskButton() {
     tasksSteps.viewAllCommentsTaskButton();
-  }
-
-  @Then("^I add the random project with first user as the participant$")
-  public void addProjectWithFirstUserAsParticipant() {
-    String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
-    String firstUserLastName = Serenity.sessionVariableCalled("firstUserLastName");
-    String firstUserFullName = firstUserFirstName + " " + firstUserLastName;
-    String randomSpaceName = "randomSpaceName" + getRandomNumber();
-    Serenity.setSessionVariable("randomSpaceName").to(randomSpaceName);
-    tasksSteps.addProjectWithFirstUserAsParticipant(randomSpaceName, firstUserFullName);
-  }
-
-  @Then("^Avatar of the first created user is not displayed in Project Card$")
-  public void firstRandomUserAvatarIsDisplayedInProjectCard() {
-    String firstUserName = Serenity.sessionVariableCalled("firstUserName");
-    tasksSteps.userAvatarIsNotDisplayedInProjectCard(firstUserName);
-  }
-
-  @When("^I click on delete project button$")
-  public void clickDeleteProjectButton() {
-    tasksSteps.clickDeleteProjectButton();
-  }
-
-  @When("^I click on delete to confirm project deletion$")
-  public void clickDelete() {
-    tasksSteps.clickDelete();
-  }
-
-  @When("^I click on cancel to not confirm project deletion$")
-  public void clickCancel() {
-    tasksSteps.clickCancel();
   }
 }

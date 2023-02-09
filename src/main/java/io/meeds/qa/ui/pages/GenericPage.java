@@ -1,3 +1,20 @@
+/*
+ * This file is part of the Meeds project (https://meeds.io/).
+ * 
+ * Copyright (C) 2020 - 2023 Meeds Association contact@meeds.io
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
 package io.meeds.qa.ui.pages;
 
 import static io.meeds.qa.ui.utils.Utils.switchToTabByIndex;
@@ -5,11 +22,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
-import io.meeds.qa.ui.elements.BaseElementFacade;
+import io.meeds.qa.ui.elements.ElementFacade;
 
 public class GenericPage extends BasePageImpl {
 
@@ -25,17 +40,21 @@ public class GenericPage extends BasePageImpl {
     url = "genericPage";
   }
 
+  public void checkConfirmMessageIsDisplayed(String message) {
+    getConfirmMessage(message).assertVisible();
+  }
+
   public void checkDrawerDisplayed(String title) {
     assertTrue(findByXPathOrCSS(String.format("//*[contains(@class, 'drawerTitle') and contains(text(),'%s')]",
-                                              title)).isVisibleAfterWaiting());
+                                              title)).isVisible());
   }
 
   public void clickConfirm() {
-    getButton("Confirm").clickOnElement();
+    getButton("Confirm").click();
   }
 
   public void clickOkButton() {
-    getOKButton("OK").clickOnElement();
+    getOKButton("OK").click();
   }
 
   public void closeBrowserTab(int index) {
@@ -47,33 +66,31 @@ public class GenericPage extends BasePageImpl {
   }
 
   public boolean containsContent(String content) {
-    WebElement element = getDriver().findElement(By.xpath(String.format("//*[contains(text(),'%s')]",
-                                                                        content)));
-    return element != null && element.isDisplayed();
-  }
-
-  private BaseElementFacade getButton(String buttonName) {
-    return findByXPathOrCSS(String.format("//a[contains(text(),'%s')]", buttonName));
-  }
-
-  private BaseElementFacade getConfirmMessage(String message) {
-    return findByXPathOrCSS(String.format("//span[contains(text(),\"%s\")]", message));
-  }
-
-  private BaseElementFacade getOKButton(String buttonName) {
-    return findByXPathOrCSS(String.format("//button[contains(text(),'%s')]", buttonName));
-  }
-
-  public boolean inConfirmMessageDisplayed(String message) {
-    return getConfirmMessage(message).isVisibleAfterWaiting();
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]", content)).isVisible();
   }
 
   public boolean isButtonDisplayed(String buttonName) {
-    return getButton(buttonName).isVisibleAfterWaiting();
+    return getButton(buttonName).isVisible();
+  }
+
+  public void isPageOpened(String uriPart) {
+    assertTrue(getDriver().getCurrentUrl().contains(uriPart));
   }
 
   public boolean isSuccessMessageDisplayed() {
-    return findByXPathOrCSS("//div[contains(@class,'alert-success')]").isVisibleAfterWaiting();
+    return findByXPathOrCSS("//div[contains(@class,'alert-success')]").isVisible();
+  }
+
+  private ElementFacade getButton(String buttonName) {
+    return findByXPathOrCSS(String.format("//a[contains(text(),'%s')]", buttonName));
+  }
+
+  private ElementFacade getConfirmMessage(String message) {
+    return findByXPathOrCSS(String.format("//span[contains(text(),\"%s\")]", message));
+  }
+
+  private ElementFacade getOKButton(String buttonName) {
+    return findByXPathOrCSS(String.format("//button[contains(text(),'%s')]", buttonName));
   }
 
 }

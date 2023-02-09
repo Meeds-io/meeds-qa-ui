@@ -1,43 +1,39 @@
+/*
+ * This file is part of the Meeds project (https://meeds.io/).
+ * 
+ * Copyright (C) 2020 - 2023 Meeds Association contact@meeds.io
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
 package io.meeds.qa.ui.steps.definition;
 
 import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
-import io.meeds.qa.ui.steps.ChallengeSteps;
+import io.cucumber.java.en.When;
 import io.meeds.qa.ui.steps.ProgramsSteps;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 
 public class ProgramsStepDefinition {
   @Steps
-  ProgramsSteps          programsSteps;
+  private ProgramsSteps programsSteps;
 
-  @Steps
-  private ChallengeSteps challengeSteps;
-
-  @And("^I click on the button add program$")
-  public void clickAddProgramBtn() {
-    programsSteps.clickAddProgramBtn();
-  }
-
-  @Then("^The drawer add program should be displayed$")
-  public void checkAddProgramDrawerDisplay() {
-    programsSteps.checkProgramDrawerDisplay();
-  }
-
-  @And("^I enter a random program title$")
-  public void enterProgramTitle() {
-    String programName = "programName" + getRandomNumber();
-    Serenity.setSessionVariable("programName").to(programName);
-    programsSteps.enterProgramRandomTitle(programName);
-  }
-
-  @And("^I add program with random description$")
-  public void addProgramWithRandomDescription() {
-    String programDescription = "programDescription" + getRandomNumber();
-    Serenity.setSessionVariable("programDescription").to(programDescription);
-    programsSteps.addProgramWithRandomDescription(programDescription);
+  @And("^I add an audience space$")
+  public void addAudienceSpace() {
+    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
+    programsSteps.addSpaceAudience(randomSpaceName);
   }
 
   @And("^I add a disabled program with random description$")
@@ -47,16 +43,50 @@ public class ProgramsStepDefinition {
     programsSteps.addDisabledProgramWithRandomDescription(disabledProgramDescription);
   }
 
-  @And("^The program title should be displayed on the card$")
-  public void checkProgramTitleDisplayOnCard() {
-    String programName = Serenity.sessionVariableCalled("programName");
-    programsSteps.checkProgramTitleDisplayOnCard(programName);
+  @And("^I add program with random description$")
+  public void addProgramWithRandomDescription() {
+    String programDescription = "programDescription" + getRandomNumber();
+    Serenity.setSessionVariable("programDescription").to(programDescription);
+    programsSteps.addProgramWithRandomDescription(programDescription);
+  }
+
+  @Then("^The drawer add program should be displayed$")
+  public void checkAddProgramDrawerDisplay() {
+    programsSteps.checkProgramDrawerDisplay();
   }
 
   @And("^The program card should not be displayed$")
   public void checkProgramCardDisplay() {
     String programName = Serenity.sessionVariableCalled("programName");
     programsSteps.checkProgramCardDisplay(programName);
+  }
+
+  @Then("^The program card title '(.*)' should be displayed$")
+  public void checkProgramCardTitle(String title) {
+    programsSteps.checkProgramCardTitle(title);
+  }
+
+  @And("^The program title should be displayed on the card$")
+  public void checkProgramTitleDisplayOnCard() {
+    String programName = Serenity.sessionVariableCalled("programName");
+    programsSteps.checkProgramTitleDisplayOnCard(programName);
+  }
+
+  @And("^The program title should be updated on the card$")
+  public void checkProgramTitleUpdateOnCard() {
+    String newProgramName = Serenity.sessionVariableCalled("newProgramName");
+    programsSteps.checkProgramTitleUpdateOnCard(newProgramName);
+  }
+
+  @And("^I click on the button add program$")
+  public void clickAddProgramBtn() {
+    programsSteps.clickAddProgramBtn();
+  }
+
+  @And("^I delete the created program$")
+  public void deleteCreatedProgram() {
+    String programName = Serenity.sessionVariableCalled("programName");
+    programsSteps.deleteCreatedProgram(programName);
   }
 
   @And("^I edit the created program$")
@@ -69,21 +99,11 @@ public class ProgramsStepDefinition {
     programsSteps.editProgramWithDescription(programName, newProgramName, newProgramDescription);
   }
 
-  @And("^The program title should be updated on the card$")
-  public void checkProgramTitleUpdateOnCard() {
-    String newProgramName = Serenity.sessionVariableCalled("newProgramName");
-    programsSteps.checkProgramTitleUpdateOnCard(newProgramName);
-  }
-
-  @And("^I delete the created program$")
-  public void deleteCreatedProgram() {
-    String programName = Serenity.sessionVariableCalled("programName");
-    programsSteps.deleteCreatedProgram(programName);
-  }
-
-  @And("^I filter programs by value '(.*)'$")
-  public void selectProgramsFilter(String value) {
-    programsSteps.selectProgramsFilter(value);
+  @And("^I enter a random program title$")
+  public void enterProgramTitle() {
+    String programName = "programName" + getRandomNumber();
+    Serenity.setSessionVariable("programName").to(programName);
+    programsSteps.enterProgramRandomTitle(programName);
   }
 
   @And("^I enter the program title '(.*)'$")
@@ -91,15 +111,19 @@ public class ProgramsStepDefinition {
     programsSteps.enterProgramTitle(programTitle);
   }
 
-  @Then("^The program card title '(.*)' should be displayed$")
-  public void checkProgramCardTitle(String title) {
-    programsSteps.checkProgramCardTitle(title);
+  @Then("Engagement application center is displayed")
+  public void isEngagementAppOpened() {
+    programsSteps.isEngagementAppOpened();
   }
 
-  @And("^I add an audience space$")
-  public void addAudienceSpace() {
-    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
-    programsSteps.addSpaceAudience(randomSpaceName);
+  @When("^I select engagement (.*) tab$")
+  public void selectEngagementTab(String tab) {
+    programsSteps.selectEngagementTab(tab);
+  }
+
+  @And("^I filter programs by value '(.*)'$")
+  public void selectProgramsFilter(String value) {
+    programsSteps.selectProgramsFilter(value);
   }
 
 }

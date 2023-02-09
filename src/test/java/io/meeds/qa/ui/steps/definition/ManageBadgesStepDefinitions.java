@@ -1,6 +1,23 @@
+/*
+ * This file is part of the Meeds project (https://meeds.io/).
+ * 
+ * Copyright (C) 2020 - 2023 Meeds Association contact@meeds.io
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
 package io.meeds.qa.ui.steps.definition;
 
-import java.util.Random;
+import static io.meeds.qa.ui.utils.Utils.getRandomString;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -10,16 +27,6 @@ import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 
 public class ManageBadgesStepDefinitions {
-  public static String getRandomString() {
-    char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
-    StringBuilder sb = new StringBuilder();
-    Random random = new Random();
-    for (int i = 0; i < 6; i++) {
-      char c = chars[random.nextInt(chars.length)];
-      sb.append(c);
-    }
-    return sb.toString();
-  }
 
   @Steps
   private ManageBadgesSteps manageBadgesSteps;
@@ -137,12 +144,8 @@ public class ManageBadgesStepDefinitions {
 
   }
 
-  @Then(
-    "^The new badge is added successfully and is displayed with name '(.*)', description '(.*)', score '(.*)', domain '(.*)', and enabled status in badges list"
-  )
-  @And(
-    "^The badge has been updated successfully and is displayed with name '(.*)', description '(.*)', score '(.*)', domain '(.*)', and enabled status in badges list"
-  )
+  @Then("^The new badge is added successfully and is displayed with name '(.*)', description '(.*)', score '(.*)', domain '(.*)', and enabled status in badges list")
+  @And("^The badge has been updated successfully and is displayed with name '(.*)', description '(.*)', score '(.*)', domain '(.*)', and enabled status in badges list")
   public void isBadgeDisplayedWithEnabledStatus(String badgeName,
                                                 String badgeDescription,
                                                 String badgeScore,
@@ -160,18 +163,14 @@ public class ManageBadgesStepDefinitions {
 
   }
 
-  @And(
-    "^The deleted badge with random name, description '(.*)', score '(.*)', domain '(.*)' is no longer displayed in badges list"
-  )
+  @And("^The deleted badge with random name, description '(.*)', score '(.*)', domain '(.*)' is no longer displayed in badges list")
   public void isDeletedRandomBadgeNotDisplayedWithEnabledStatus(String badgeDescription, String badgeScore, String badgeDomain) {
     String badgeName = Serenity.sessionVariableCalled("badgeNameToBeDeleted");
     manageBadgesSteps.isBadgeNotDisplayedWithEnabledStatus(badgeName, badgeDescription, badgeScore, badgeDomain);
 
   }
 
-  @Then(
-    "^The new badge is added successfully and is displayed with random name, description '(.*)', score '(.*)', domain '(.*)', and enabled status in badges list"
-  )
+  @Then("^The new badge is added successfully and is displayed with random name, description '(.*)', score '(.*)', domain '(.*)', and enabled status in badges list")
   public void isRandomBadgeDisplayedWithEnabledStatus(String badgeDescription, String badgeScore, String badgeDomain) {
     String badgeName = Serenity.sessionVariableCalled("badgeName");
     manageBadgesSteps.isBadgeDisplayedWithEnabledStatus(badgeName, badgeDescription, badgeScore, badgeDomain);
@@ -185,18 +184,14 @@ public class ManageBadgesStepDefinitions {
 
   }
 
-  @Then(
-    "^The new badge to be deleted is added successfully and is displayed with random name, description '(.*)', score '(.*)', domain '(.*)', and enabled status in badges list"
-  )
+  @Then("^The new badge to be deleted is added successfully and is displayed with random name, description '(.*)', score '(.*)', domain '(.*)', and enabled status in badges list")
   public void isRandomBadgeToBeDeletedDisplayedWithEnabledStatus(String badgeDescription, String badgeScore, String badgeDomain) {
     String badgeNameToBeUpdated = Serenity.sessionVariableCalled("badgeNameToBeDeleted");
     manageBadgesSteps.isBadgeDisplayedWithEnabledStatus(badgeNameToBeUpdated, badgeDescription, badgeScore, badgeDomain);
 
   }
 
-  @Then(
-    "^The new badge to be updated is added successfully and is displayed with random name, description '(.*)', score '(.*)', domain '(.*)', and enabled status in badges list"
-  )
+  @Then("^The new badge to be updated is added successfully and is displayed with random name, description '(.*)', score '(.*)', domain '(.*)', and enabled status in badges list")
   public void isRandomBadgeToBeUpdatedDisplayedWithEnabledStatus(String badgeDescription, String badgeScore, String badgeDomain) {
     String badgeNameToBeUpdated = Serenity.sessionVariableCalled("badgeNameToBeUpdated");
     manageBadgesSteps.isBadgeDisplayedWithEnabledStatus(badgeNameToBeUpdated, badgeDescription, badgeScore, badgeDomain);
@@ -209,9 +204,7 @@ public class ManageBadgesStepDefinitions {
 
   }
 
-  @Then(
-    "^The badge has been updated successfully and is displayed with random name, description '(.*)', score '(.*)', domain '(.*)', and enabled status in badges list"
-  )
+  @Then("^The badge has been updated successfully and is displayed with random name, description '(.*)', score '(.*)', domain '(.*)', and enabled status in badges list")
   public void isUpdatedRandomBadgeDisplayedWithEnabledStatus(String badgeDescription, String badgeScore, String badgeDomain) {
     String updatedBadgeName = Serenity.sessionVariableCalled("updatedBadgeName");
     manageBadgesSteps.isBadgeDisplayedWithEnabledStatus(updatedBadgeName, badgeDescription, badgeScore, badgeDomain);

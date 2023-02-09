@@ -1,15 +1,32 @@
+/*
+ * This file is part of the Meeds project (https://meeds.io/).
+ * 
+ * Copyright (C) 2020 - 2023 Meeds Association contact@meeds.io
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
 package io.meeds.qa.ui.pages;
 
-import static io.meeds.qa.ui.utils.Utils.MAX_WAIT_RETRIES;
-import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION;
+import static io.meeds.qa.ui.utils.Utils.DEFAULT_IMPLICIT_WAIT_FOR_TIMEOUT;
+import static io.meeds.qa.ui.utils.Utils.DEFAULT_WAIT_FOR_TIMEOUT;
 import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION_MILLIS;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
-import static io.meeds.qa.ui.utils.Utils.waitForPageLoaded;
-import static org.junit.Assert.assertTrue;
+import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
 
 import java.time.Duration;
 
 import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoAlertPresentException;
@@ -18,16 +35,16 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.meeds.qa.ui.elements.BaseElementFacade;
-import io.meeds.qa.ui.elements.BaseElementFacadeImpl;
+import io.meeds.qa.ui.elements.ButtonElementFacade;
 import io.meeds.qa.ui.elements.ButtonElementFacadeImpl;
+import io.meeds.qa.ui.elements.ElementFacade;
+import io.meeds.qa.ui.elements.ElementFacadeImpl;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacadeImpl;
+import io.meeds.qa.ui.elements.TextElementFacade;
 import io.meeds.qa.ui.elements.TextElementFacadeImpl;
-import io.meeds.qa.ui.utils.ExceptionLauncher;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
-import net.serenitybdd.core.selectors.Selectors;
 import net.thucydides.core.annotations.WhenPageOpens;
 import net.thucydides.core.pages.PageObject;
 
@@ -36,8 +53,6 @@ public class BasePageImpl extends PageObject implements BasePage {
   private static final Logger LOGGER                      = LoggerFactory.getLogger(BasePageImpl.class);
 
   private static final String OPNENED_DRAWER_CSS_SELECTOR = ".v-navigation-drawer--open";
-
-  private static final String XPATH_FORMAT_ERROR_MESSAGE  = "The format for the xpath [%s] is not correct.";
 
   protected String            url;
 
@@ -49,163 +64,123 @@ public class BasePageImpl extends PageObject implements BasePage {
     super(driver);
   }
 
-  public void assertWebElementNotVisible(BaseElementFacade element) {
-    assertTrue(String.format("Element %s is still visible after waiting", // NOSONAR
-                             element),
-               isWebElementNotVisible(element));
+  public void clickOnElement(ElementFacade element) {
+    element.click();
   }
 
-  public void assertWebElementNotVisible(BaseElementFacade element, int maxRetries) {
-    assertTrue(String.format("Element %s is still visible after waiting", element), isWebElementNotVisible(element, maxRetries));
+  public void closeAlertIfOpened() {
+    try {
+      getDriver().switchTo().alert().accept();
+    } catch (NoAlertPresentException e) {
+      // Normal Behavior
+    }
   }
 
-  public void assertWebElementVisible(BaseElementFacade element) {
-    assertTrue(String.format("Unable to locate a visible element %s", element), isWebElementVisible(element));
-  }
-
-  public void assertWebElementVisible(BaseElementFacade element, int maxRetries) {
-    assertTrue(String.format("Unable to locate a visible element %s", element), isWebElementVisible(element, maxRetries));
-  }
-
-  public void clickOnElement(BaseElementFacade element) {
-    element.clickOnElement();
-  }
-
-  public void closeDrawerIfDisplayed() {
-    BaseElementFacadeImpl openedDrawerElement = findByXPathOrCSS(".v-navigation-drawer--open");
-    if (openedDrawerElement.isDisplayedNoWait()) {
+  public void closeAllDialogs() {
+    ElementFacade openedDialogElement = openedDialogElement();
+    while (openedDialogElement.isCurrentlyVisible()) {
       findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
-      closeAlertIfOpened();
-      waitForDrawerToClose();
+      try {
+        waitOverlayToClose();
+      } catch (Exception e) {
+        LOGGER.debug("Overlay seems not displayed", e);
+      }
     }
   }
 
   public void closeAllDrawers() {
-    BaseElementFacadeImpl openedDrawerElement = findByXPathOrCSS(".v-navigation-drawer--open");
-    while (openedDrawerElement.isDisplayedNoWait()) {
+    ElementFacade openedDrawerElement = openedDrawerElement();
+    while (openedDrawerElement.isCurrentlyVisible()) {
       findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
       closeAlertIfOpened();
       waitForDrawerToClose();
     }
   }
 
-  public ButtonElementFacadeImpl findButtonElementByXpath(String xpath) {
-    if (!Selectors.isXPath(xpath)) {
-      ExceptionLauncher.throwSerenityExeption(new Exception(), String.format(XPATH_FORMAT_ERROR_MESSAGE, xpath));
+  public void closeDrawerIfDisplayed() {
+    ElementFacade openedDrawerElement = openedDrawerElement();
+    if (openedDrawerElement.isCurrentlyVisible()) {
+      findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
+      closeAlertIfOpened();
+      waitForDrawerToClose();
     }
-    WebElementFacade nestedElement = getWebElementFacadeByXpathOrCSS(xpath);
+  }
 
+  public ButtonElementFacade findButtonByXPathOrCSS(String xpath) {
+    WebElementFacade nestedElement = getWebElementFacadeByXPathOrCSS(xpath);
     return ButtonElementFacadeImpl.wrapWebElementFacadeInButtonElement(getDriver(),
                                                                        nestedElement,
                                                                        null,
                                                                        xpath,
-                                                                       getImplicitWaitTimeout().toMillis(),
-                                                                       getWaitForTimeout().toMillis());
+                                                                       DEFAULT_IMPLICIT_WAIT_FOR_TIMEOUT,
+                                                                       DEFAULT_WAIT_FOR_TIMEOUT);
   }
 
   @Override
   @SuppressWarnings("unchecked")
-  public BaseElementFacadeImpl findByXPathOrCSS(String xpathOrCSSSelector) {
-    WebElementFacade nestedElement = getWebElementFacadeByXpathOrCSS(xpathOrCSSSelector);
+  public ElementFacade findByXPathOrCSS(String xpathOrCSSSelector) {
+    WebElementFacade nestedElement = getWebElementFacadeByXPathOrCSS(xpathOrCSSSelector);
 
-    return BaseElementFacadeImpl.wrapWebElementFacade(getDriver(),
-                                                      nestedElement,
-                                                      null,
-                                                      xpathOrCSSSelector,
-                                                      getImplicitWaitTimeout().toMillis(),
-                                                      getWaitForTimeout().toMillis());
+    return ElementFacadeImpl.wrapWebElementFacade(getDriver(),
+                                                  nestedElement,
+                                                  null,
+                                                  xpathOrCSSSelector,
+                                                  DEFAULT_IMPLICIT_WAIT_FOR_TIMEOUT,
+                                                  DEFAULT_WAIT_FOR_TIMEOUT);
   }
 
-  public TextBoxElementFacadeImpl findTextBoxElementByXpath(String xpath) {
-    if (!Selectors.isXPath(xpath)) {
-      ExceptionLauncher.throwSerenityExeption(new Exception(), String.format(XPATH_FORMAT_ERROR_MESSAGE, xpath));
-    }
-    WebElementFacade nestedElement = getWebElementFacadeByXpathOrCSS(xpath);
+  public TextBoxElementFacade findTextBoxByXPathOrCSS(String xpathOrCSSSelector) {
+    WebElementFacade nestedElement = getWebElementFacadeByXPathOrCSS(xpathOrCSSSelector);
 
     return TextBoxElementFacadeImpl.wrapWebElementFacadeInTextBoxElement(getDriver(),
                                                                          nestedElement,
                                                                          null,
-                                                                         xpath,
-                                                                         getImplicitWaitTimeout().toMillis(),
-                                                                         getWaitForTimeout().toMillis());
+                                                                         xpathOrCSSSelector,
+                                                                         DEFAULT_IMPLICIT_WAIT_FOR_TIMEOUT,
+                                                                         DEFAULT_WAIT_FOR_TIMEOUT);
   }
 
-  public TextElementFacadeImpl findTextElementByXpath(String xpath) {
-    if (!Selectors.isXPath(xpath)) {
-      ExceptionLauncher.throwSerenityExeption(new Exception(), String.format(XPATH_FORMAT_ERROR_MESSAGE, xpath));
-    }
-    WebElementFacade nestedElement = getWebElementFacadeByXpathOrCSS(xpath);
+  public TextElementFacade findTextByXPathOrCSS(String xpath) {
+    WebElementFacade nestedElement = getWebElementFacadeByXPathOrCSS(xpath);
 
     return TextElementFacadeImpl.wrapWebElementFacadeInTextElement(getDriver(),
                                                                    nestedElement,
                                                                    null,
                                                                    xpath,
-                                                                   getImplicitWaitTimeout().toMillis(),
-                                                                   getWaitForTimeout().toMillis());
+                                                                   DEFAULT_IMPLICIT_WAIT_FOR_TIMEOUT,
+                                                                   DEFAULT_WAIT_FOR_TIMEOUT);
   }
 
   public String getCurrentUrl() {
     return getDriver().getCurrentUrl();
   }
 
-  /**********************************************************
-   * Methods for finding element facade in the page
-   **********************************************************/
+  public boolean mentionInField(TextBoxElementFacade inputField, String user, int maxRetries) {
+    inputField.waitUntilVisible();
+    inputField.setTextValue(user + "x");
+    inputField.sendKeys(Keys.BACK_SPACE);
 
-  private WebElementFacade getWebElementFacadeByXpathOrCSS(String xpath) {
-    verifyPageLoaded();
-    return findBy(xpath);
-  }
-
-  public boolean isNotVisible(String xpathOrCss) {
-    return isWebElementNotVisible(findByXPathOrCSS(xpathOrCss));
-  }
-
-  public boolean isVisible(String xpathOrCss) {
-    return isWebElementVisible(findByXPathOrCSS(xpathOrCss));
-  }
-
-  public boolean isWebElementNotVisible(BaseElementFacade element) {
-    return isWebElementNotVisible(element, MAX_WAIT_RETRIES);
-  }
-
-  public boolean isWebElementNotVisible(BaseElementFacade element, long maxRetries) {
-    verifyPageLoaded();
-    element.setImplicitTimeout(SHORT_WAIT_DURATION);
-    boolean notVisible = false;
-    int retry = 0;
-    do {
-      notVisible = !element.isDisplayed(SHORT_WAIT_DURATION_MILLIS);
-    } while (!notVisible && retry++ < maxRetries);
-    return notVisible || element.isNotVisibleAfterWaiting();
-  }
-
-  public boolean isWebElementVisible(BaseElementFacade element) {
-    return isWebElementVisible(element, MAX_WAIT_RETRIES);
-  }
-
-  public boolean isWebElementVisible(BaseElementFacade element, long maxRetries) {
-    verifyPageLoaded();
     boolean visible = false;
     int retry = 0;
+    Duration retryWaitTime = Duration.ofSeconds(1);
+    ElementFacade suggesterElement;
     do {
-      element.setImplicitTimeout(SHORT_WAIT_DURATION);
-      visible = element.isDisplayed(SHORT_WAIT_DURATION_MILLIS);
-      if (visible) {
-        return true;
-      } else {
-        String selector = element.getXPathOrCSSSelector();
-        if (StringUtils.isNotBlank(selector)) {
-          element = findByXPathOrCSS(selector);
-        } else if (element instanceof BaseElementFacadeImpl && ((BaseElementFacadeImpl) element).getFoundBy() != null) {
-          element = findByXPathOrCSS(((BaseElementFacadeImpl) element).getFoundBy());
-        }
-      }
-    } while (retry++ < maxRetries);
-    return element.isVisibleAfterWaiting();
+      inputField.sendKeys(Keys.BACK_SPACE);
+      waitFor(300).milliseconds();
+      waitSuggesterToLoad();
+      suggesterElement =
+                       findByXPathOrCSS(String.format("//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
+                                                      user.substring(0, user.length() - retry - 1)));
+      suggesterElement.setImplicitTimeout(retryWaitTime);
+      visible = suggesterElement.isVisible();
+    } while (!visible && retry++ < maxRetries);
+    if (visible) {
+      suggesterElement.click();
+    }
+    return visible;
   }
 
-  public boolean mentionUserInCKEditor(BaseElementFacade ckEditorFrame,
+  public boolean mentionUserInCKEditor(ElementFacade ckEditorFrame,
                                        TextBoxElementFacade ckEditorBody,
                                        String content,
                                        String user,
@@ -231,11 +206,11 @@ public class BasePageImpl extends PageObject implements BasePage {
         }
         getDriver().switchTo().defaultContent();
         try {
-          BaseElementFacade suggesterElement =
-                                             findByXPathOrCSS(String.format("//*[contains(@class, 'atwho-view')]//*[contains(text(), '%s')]",
-                                                                            user.substring(0, user.length() - retry - 1)));
+          ElementFacade suggesterElement =
+                                         findByXPathOrCSS(String.format("//*[contains(@class, 'atwho-view')]//*[contains(text(), '%s')]",
+                                                                        user.substring(0, user.length() - retry - 1)));
           suggesterElement.setImplicitTimeout(retryWaitTime);
-          visible = suggesterElement.isVisibleAfterWaiting();
+          visible = suggesterElement.isVisible();
         } finally {
           getDriver().switchTo().frame(ckEditorFrame);
         }
@@ -249,62 +224,35 @@ public class BasePageImpl extends PageObject implements BasePage {
     }
   }
 
-  public boolean mentionInField(TextBoxElementFacade inputField, String user, int maxRetries) {
-    inputField.waitUntilVisible();
-    inputField.setTextValue(user + "x");
-    inputField.sendKeys(Keys.BACK_SPACE);
-
-    boolean visible = false;
-    int retry = 0;
-    Duration retryWaitTime = Duration.ofSeconds(1);
-    BaseElementFacade suggesterElement;
-    do {
-      inputField.sendKeys(Keys.BACK_SPACE);
-      waitFor(300).milliseconds();
-      waitSuggesterToLoad();
-      suggesterElement =
-                       findByXPathOrCSS(String.format("//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
-                                                      user.substring(0, user.length() - retry - 1)));
-      suggesterElement.setImplicitTimeout(retryWaitTime);
-      visible = suggesterElement.isVisibleAfterWaiting();
-    } while (!visible && retry++ < maxRetries);
-    if (visible) {
-      suggesterElement.clickOnElement();
-    }
-    return visible;
+  public ElementFacade openedDialogElement() {
+    return findByXPathOrCSS(".v-dialog--active");
   }
 
-  public void refreshPage() {
-    getDriver().get(getCurrentUrl());
-    closeAlertIfOpened();
-    verifyPageLoaded();
+  public ElementFacade openedDrawerElement() {
+    return findByXPathOrCSS(OPNENED_DRAWER_CSS_SELECTOR);
   }
 
-  public void closeAlertIfOpened() {
-    try {
-      getDriver().switchTo().alert().accept();
-    } catch (NoAlertPresentException e) {
-      // Normal Behavior
-    }
-  }
-
-  @Override
   @WhenPageOpens
   public void verifyPageLoaded() {
-    waitForPageLoaded();
+    waitForPageLoading();
+    waitFor(50).milliseconds();
   }
 
   public void waitCKEditorLoading() {
+    waitCKEditorLoading("");
+  }
+
+  public void waitCKEditorLoading(String parentXPath) {
     try {
-      BaseElementFacade iframeElement = findByXPathOrCSS("//iframe");
-      if (!iframeElement.isDisplayedNoWait()) {
-        BaseElementFacade richTextLoadingElement = findByXPathOrCSS("//*[contains(@class, 'loadingRing')]");
-        if (richTextLoadingElement.isDisplayedNoWait()) {
+      ElementFacade iframeElement = findByXPathOrCSS(parentXPath + "//iframe");
+      if (!iframeElement.isCurrentlyVisible()) {
+        ElementFacade richTextLoadingElement = findByXPathOrCSS("//*[contains(@class, 'loadingRing')]");
+        if (richTextLoadingElement.isCurrentlyVisible()) {
           richTextLoadingElement.waitUntilNotVisible();
         }
       }
     } catch (Exception e) {
-      ExceptionLauncher.LOGGER.debug("Can't wait for progress bar to finish loading", e);
+      LOGGER.warn("Can't wait for progress bar to finish loading", e);
     }
   }
 
@@ -315,12 +263,12 @@ public class BasePageImpl extends PageObject implements BasePage {
   public void waitForDrawerToClose(String drawerId, boolean withOverlay) {
     closeAlertIfOpened();
     String drawerSelector = StringUtils.isBlank(drawerId) ? OPNENED_DRAWER_CSS_SELECTOR : drawerId;
-    BaseElementFacade drawerElement = findByXPathOrCSS(drawerSelector);
-    if (drawerElement.isDisplayedNoWait()) {
+    ElementFacade drawerElement = findByXPathOrCSS(drawerSelector);
+    if (drawerElement.isCurrentlyVisible()) {
       try {
         drawerElement.waitUntilNotVisible();
         if (withOverlay) {
-          findByXPathOrCSS(".v-overlay").waitUntilNotVisible();
+          waitOverlayToClose();
         }
       } catch (Exception e) {
         LOGGER.debug("Overlay seems not displayed", e);
@@ -356,24 +304,35 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   public void waitForProgressBar() {
     try {
-      BaseElementFacade progressBar = findByXPathOrCSS(".UISiteBody .v-progress-linear");
-      if (!progressBar.isDisplayed(SHORT_WAIT_DURATION_MILLIS)) {
-        try { // NOSONAR
-          progressBar.waitUntilVisible();
-        } catch (Exception e) {
-          ExceptionLauncher.LOGGER.debug("Can't wait for progress bar to start loading", e);
-        }
+      ElementFacade progressBar = findByXPathOrCSS(".UISiteBody .v-progress-linear");
+      if (progressBar.isCurrentlyVisible()) {
+        progressBar.waitUntilNotVisible();
       }
-      progressBar.waitUntilNotVisible();
     } catch (Exception e) {
-      ExceptionLauncher.LOGGER.debug("Can't wait for progress bar to finish loading", e);
+      LOGGER.warn("Can't wait for progress bar to finish loading", e);
     }
+  }
+
+  /**********************************************************
+   * Methods for finding element facade in the page
+   **********************************************************/
+
+  private WebElementFacade getWebElementFacadeByXPathOrCSS(String xpathOrCss) {
+    if (StringUtils.contains(xpathOrCss, "//")) {
+      return find(By.xpath(xpathOrCss));
+    } else {
+      return find(By.cssSelector(xpathOrCss));
+    }
+  }
+
+  private void waitOverlayToClose() {
+    findByXPathOrCSS(".v-overlay").waitUntilNotVisible();
   }
 
   private void waitSuggesterToLoad() {
     try {
-      BaseElementFacade progressBar = findByXPathOrCSS(".identitySuggester .v-progress-linear");
-      if (progressBar.isDisplayedNoWait()) {
+      ElementFacade progressBar = findByXPathOrCSS(".identitySuggester .v-progress-linear");
+      if (progressBar.isCurrentlyVisible()) {
         progressBar.waitUntilNotVisible();
       }
     } catch (Exception e) {
