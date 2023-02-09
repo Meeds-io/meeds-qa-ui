@@ -18,25 +18,17 @@ public class KudosStepDefinitions {
     kudoSteps.addActivityCommentKudos(kudos);
   }
 
-  @When("^I send to the activity '(.*)' a kudos message '(.*)'$")
+  @When("^I send in the activity '(.*)' a kudos message '(.*)'$")
   public void addActivityKudos(String activity, String kudos) {
     kudoSteps.addActivityKudos(activity, kudos);
   }
 
-  @When("^I send to the activity '(.*)' a kudos message '(.*)' to (.*) created user$")
+  @When("^I send in the activity '(.*)' a kudos message '(.*)' to '(.*)' user$")
   public void addActivityKudosToSomeoneDifferent(String activity, String message, String userPrefix) {
-    String secondUserFirstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");
-    String secondUserLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
-    String fullName = secondUserFirstName + " " + secondUserLastName;
+    String firstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");
+    String lastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
+    String fullName = firstName + " " + lastName;
     kudoSteps.addActivityKudosToSomeoneDifferent(activity, message, fullName);
-  }
-
-  @When("^I send to the activity '(.*)' a kudos to (.*) to '(.*)'$")
-  public void addKudosToSomeoneDifferent(String activity, String userPrefix, String message) {
-    String secondUserFirstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");
-    String secondUserLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
-    String fullName = secondUserFirstName + " " + secondUserLastName;
-    kudoSteps.addKudosToSomeoneDifferent(activity, fullName, message);
   }
 
   @And("^the kudos activity UI '(.*)' is displayed in stream page$")

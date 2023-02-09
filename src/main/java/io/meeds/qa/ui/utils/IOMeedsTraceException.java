@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.WebDriverException;
 
 public class IOMeedsTraceException extends RuntimeException {
 
@@ -37,7 +36,7 @@ public class IOMeedsTraceException extends RuntimeException {
     super(msg);
   }
 
-  public IOMeedsTraceException(WebDriverException e) {
+  public IOMeedsTraceException(Throwable e) {
     super(e);
   }
 
@@ -72,5 +71,32 @@ public class IOMeedsTraceException extends RuntimeException {
                                                                                    // for
                                                                                    // JDK11
     setStackTrace(meedsStackTrace.toArray(new StackTraceElement[meedsStackTrace.size()]));
+  }
+
+  @Override
+  public synchronized Throwable initCause(Throwable cause) {
+    StackTraceElement[] stackTrace = getStackTrace();
+    List<StackTraceElement> meedsStackTrace = Arrays.stream(stackTrace)
+                                                    .filter(trace -> StringUtils.contains(trace.getClassName(), "io.meeds"))
+                                                    .collect(Collectors.toList()); // NOSONAR
+                                                                                   // used
+                                                                                   // for
+                                                                                   // JDK11
+    cause.setStackTrace(meedsStackTrace.toArray(new StackTraceElement[meedsStackTrace.size()]));
+    return super.initCause(cause);
+  }
+
+  @Override
+  public synchronized Throwable getCause() {
+    Throwable cause = super.getCause();
+    StackTraceElement[] stackTrace = getStackTrace();
+    List<StackTraceElement> meedsStackTrace = Arrays.stream(stackTrace)
+                                                    .filter(trace -> StringUtils.contains(trace.getClassName(), "io.meeds"))
+                                                    .collect(Collectors.toList()); // NOSONAR
+                                                                                   // used
+                                                                                   // for
+                                                                                   // JDK11
+    cause.setStackTrace(meedsStackTrace.toArray(new StackTraceElement[meedsStackTrace.size()]));
+    return cause;
   }
 }

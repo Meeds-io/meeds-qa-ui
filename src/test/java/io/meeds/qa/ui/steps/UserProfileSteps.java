@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import io.meeds.qa.ui.pages.page.factory.kudos.KudosAdministrationPage;
+import io.meeds.qa.ui.pages.page.factory.kudos.KudosPage;
 import io.meeds.qa.ui.pages.page.factory.people.UserProfilePage;
 import io.meeds.qa.ui.utils.Utils;
 
@@ -12,7 +12,7 @@ public class UserProfileSteps {
 
   private UserProfilePage         userProfilePage;
 
-  private KudosAdministrationPage kudosPage;
+  private KudosPage kudosPage;
 
   public void addWorkExperiences(Map<String, String> workExperiences) {
     userProfilePage.addWorkExperiences(workExperiences.get("organization"),

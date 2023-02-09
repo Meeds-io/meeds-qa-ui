@@ -123,7 +123,7 @@ public class Utils {
             throw new IllegalStateException("Unable to process on element after " + retry + " retries", e);
           }
         } else {
-          LOGGER.warn("Error executing tentative {}/{}", retry, MAX_WAIT_RETRIES, e);
+          LOGGER.info("Error executing tentative {}/{}", retry, MAX_WAIT_RETRIES, new IOMeedsTraceException(e));
           if (onError != null) {
             onError.run();
           }

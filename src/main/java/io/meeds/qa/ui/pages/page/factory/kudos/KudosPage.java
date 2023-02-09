@@ -6,41 +6,27 @@ import static org.junit.Assert.assertTrue;
 
 import org.openqa.selenium.WebDriver;
 
+import io.meeds.qa.ui.elements.ButtonElementFacade;
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.pages.GenericPage;
 
-public class KudosAdministrationPage extends GenericPage {
+public class KudosPage extends GenericPage {
 
-  public KudosAdministrationPage(WebDriver driver) {
+  public KudosPage(WebDriver driver) {
     super(driver);
+  }
+
+  public void addActivityKudosToSomeoneDifferent(String activity, String message, String user) {
+    getKudosLink(activity).click();
+    deleteUserFromKudosButtonElement().click();
+    mentionInField(userKudosInputElement(), user, 5);
+    sendKudosMessageFromOpenedDrawer(message);
   }
 
   public void addActivityKudos(String activity, String comment) {
     getKudosLink(activity).click();
     sendKudosMessageFromOpenedDrawer(comment);
-  }
-
-  public void addActivityKudosToSomeoneDifferent(String activity, String message, String user) {
-    getKudosLink(activity).click();
-    findByXPathOrCSS("//*[contains (@class, 'v-icon notranslate v-chip')]").click();
-    ElementFacade suggesterContentElement = findByXPathOrCSS("//*[contains(@content-class,'identitySuggesterContent')]");
-    suggesterContentElement.assertVisible();
-
-    suggesterContentElement.click();
-    suggesterContentElement.sendKeys(user);
-    chooseAnotherUser(user).click();
-    sendKudosMessageFromOpenedDrawer(message);
-  }
-
-  public void addKudosToSomeoneDifferent(String activity, String user, String message) {
-    getKudosLink(activity).click();
-    findByXPathOrCSS("//*[contains (@class, 'v-icon notranslate v-chip')]").click();
-    ElementFacade suggesterContentElement = findByXPathOrCSS("//*[contains(@content-class,'identitySuggesterContent')]");
-    suggesterContentElement.assertVisible();
-    suggesterContentElement.click();
-    suggesterContentElement.sendKeys(user);
-    getNotFoundUserInSpaceMessage(message).assertVisible();
   }
 
   public void checkKudosActivityVisible(String message) {
@@ -144,9 +130,12 @@ public class KudosAdministrationPage extends GenericPage {
     return findByXPathOrCSS("//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'titleIcon')]");
   }
 
-  private ElementFacade chooseAnotherUser(String user) {
-    return findByXPathOrCSS(String.format("//*[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
-                                          user));
+  private TextBoxElementFacade userKudosInputElement() {
+    return findTextBoxByXPathOrCSS(".v-navigation-drawer--open .user-suggester input");
+  }
+
+  private ButtonElementFacade deleteUserFromKudosButtonElement() {
+    return findButtonByXPathOrCSS(".v-navigation-drawer--open .user-suggester button");
   }
 
   private ElementFacade displayedPeriodTypeElement() {
@@ -177,10 +166,6 @@ public class KudosAdministrationPage extends GenericPage {
   private ElementFacade getKudosLink(String activity) {
     return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'activity-detail')]//child::button[contains(@id, 'KudosActivity')]",
                                           activity));
-  }
-
-  private ElementFacade getNotFoundUserInSpaceMessage(String message) {
-    return findByXPathOrCSS(String.format("//*[contains(@class,'v-select-list')]//*[contains(text() ,'%s')]", message));
   }
 
   private ElementFacade kudosButtonInDrawerElement() {
