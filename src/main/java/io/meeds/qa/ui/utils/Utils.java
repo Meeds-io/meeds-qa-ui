@@ -22,8 +22,6 @@ import static io.meeds.qa.ui.utils.ExceptionLauncher.LOGGER;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.function.Supplier;
 
 import org.openqa.selenium.JavascriptExecutor;
@@ -114,8 +112,8 @@ public class Utils {
     }
   }
 
-  public static void retryOnCondition(Runnable runnable) {
-    retryOnCondition(runnable, null);
+  public static void retryOnCondition(Runnable task) {
+    retryOnCondition(() -> runTask(task), null);
   }
 
   public static void retryOnCondition(Runnable task, Runnable onError) {
@@ -145,7 +143,8 @@ public class Utils {
           }
         }
       }
-    } while (true);
+    } while (retry < MAX_WAIT_RETRIES);
+    return null;
   }
 
   public static void switchToTabByIndex(WebDriver driver, int index) {
@@ -221,18 +220,7 @@ public class Utils {
   }
 
   private static Object runTask(Runnable task) {
-    try {
-      CompletableFuture.runAsync(task).get();
-    } catch (ExecutionException e) {
-      Throwable cause = e.getCause();
-      if (cause instanceof RuntimeException) { // NOSONAR
-        throw (RuntimeException) cause;
-      } else {
-        throw new IOMeedsTraceException(e);
-      }
-    } catch (InterruptedException e) {
-      Thread.currentThread().interrupt();
-    }
+    task.run();
     return null;
   }
 
