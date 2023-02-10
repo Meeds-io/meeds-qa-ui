@@ -12,7 +12,8 @@ Feature: Search for User Informations in Profile page
     And User Avatar is displayed in Profile Page
 
   Scenario: PROFILE-4 Contact information block_(01) : Add informations
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | firstprofile  |
 
     When I create the firstprofile random user if not existing, no wait
     And I connect with the firstprofile created user
@@ -24,7 +25,8 @@ Feature: Search for User Informations in Profile page
     And Updated Profile Contact Job is displayed
 
   Scenario: PROFILE-4 Contact information block_(02) : Add informations
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | secondprofile  |
 
     When I create the secondprofile random user if not existing, no wait
     And I connect with the secondprofile created user
@@ -41,7 +43,10 @@ Feature: Search for User Informations in Profile page
     And Updated Profile Contact Url is displayed
 
   Scenario: PROFILE-5 Kudos block
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | fifthkudos  |
+      | sixthkudos  |
+      | seventhkudos  |
 
     When I create the fifthkudos random user if not existing, no wait
     And I create the sixthkudos random user if not existing, no wait
@@ -81,12 +86,11 @@ Feature: Search for User Informations in Profile page
     Then Sent Kudos Section is displayed
 
   Scenario: : PROFILE-7 : Work Experiences block and its drawer
-    Given I am authenticated as admin
-
+    Given I connect as admin if random users doesn't exists
+      | thirdprofile  |
     And I create the thirdprofile random user if not existing, no wait
 
     When I connect with the thirdprofile created user
-
     And I go to My Profile page
 
     And I add my profile work experiences

@@ -37,7 +37,6 @@ import org.openqa.selenium.support.ui.Select;
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import net.serenitybdd.core.Serenity;
-import net.thucydides.core.webdriver.exceptions.ElementShouldBeEnabledException;
 
 public class SpaceHomePage extends GenericPage {
   private static final String OPENED_ACTIVITY_COMMENTS_DRAWER_SELECTOR        =
@@ -52,7 +51,8 @@ public class SpaceHomePage extends GenericPage {
     super(driver);
   }
 
-  public void addActivity(String activity) {
+  public void addActivityTextInOpenedEditor(String activity) {
+    waitForDrawerToOpen();
     waitCKEditorLoading(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR);
 
     getDriver().switchTo().frame(ckEditorFrameElement());
@@ -90,7 +90,7 @@ public class SpaceHomePage extends GenericPage {
     getActivityCommentButton(activity).click();
     waitForDrawerToOpen();
 
-    addActivityCommentEditorContent(comment);
+    addActivityCommentEditorContent(comment, false, true);
     closeDrawerIfDisplayed();
   }
 
@@ -101,7 +101,7 @@ public class SpaceHomePage extends GenericPage {
     Iterator<String> commentsIterator = comments.iterator();
     while (commentsIterator.hasNext()) {
       String comment = commentsIterator.next();
-      addActivityCommentEditorContent(comment);
+      addActivityCommentEditorContent(comment, false, true);
       if (commentsIterator.hasNext()) {
         waitFor(100).milliseconds(); // Wait for CKEditor to completely close
         ElementFacade addCommentInDrawerButton =
@@ -110,6 +110,36 @@ public class SpaceHomePage extends GenericPage {
       }
     }
     closeDrawerIfDisplayed();
+  }
+
+  public void addActivityCommentEditorContent(String comment, boolean edit, boolean save) {
+    retryOnCondition(() -> {
+      if (!edit && !ckEditorFrameCommentElement().isCurrentlyVisible()) {
+        addCommentButtonInDrawerElement().click();
+        waitFor(200).milliseconds();
+      }
+      waitOnCommentRichText();
+      getDriver().switchTo().frame(ckEditorFrameCommentElement());
+      try {
+        TextBoxElementFacade ckEditorBodyCommentElement = ckEditorBodyCommentElement();
+        ckEditorBodyCommentElement.waitUntilVisible();
+        ckEditorBodyCommentElement.setTextValue(comment);
+      } finally {
+        getDriver().switchTo().defaultContent();
+      }
+      if (save) {
+        clickOnSaveComment();
+      }
+    });
+    if (save) {
+      waitForDrawerToLoad();
+      ckEditorFrameCommentElement().waitUntilNotVisible();
+    }
+  }
+
+  public void clickOnSaveComment() {
+    ElementFacade saveCommentButtonInDrawerElement = saveCommentButtonInDrawerElement();
+    saveCommentButtonInDrawerElement.click();
   }
 
   public void addCommentReplies(List<String> replies, String comment, String activity) {
@@ -131,6 +161,7 @@ public class SpaceHomePage extends GenericPage {
 
   public void addCommentReply(String reply, String comment, String activity) {
     clickOnReplyToComment(comment, activity, false);
+    waitForDrawerToOpen();
 
     waitOnCommentReplyRichText();
     addCommentReplyEditorContent(reply);
@@ -490,7 +521,7 @@ public class SpaceHomePage extends GenericPage {
     getDownloadActivityIcon(activity).assertVisible();
   }
 
-  public void editActivity() {
+  public void clickOnUpdateActivity() {
     updateActivityButtonElement().click();
     waitForLoading();
     waitFor(200).milliseconds(); // Update doesn't trigger a loading effect, bad
@@ -937,31 +968,6 @@ public class SpaceHomePage extends GenericPage {
     return findByXPathOrCSS("//div[contains(@class,'contentBox')]//*[contains(@class,'postContent ')]//div");
   }
 
-  private void addActivityCommentEditorContent(String comment) {
-    retryOnCondition(() -> {
-      if (!ckEditorFrameCommentElement().isCurrentlyVisible()) {
-        addCommentButtonInDrawerElement().click();
-        waitFor(200).milliseconds();
-      }
-      waitOnCommentRichText();
-      getDriver().switchTo().frame(ckEditorFrameCommentElement());
-      try {
-        TextBoxElementFacade ckEditorBodyCommentElement = ckEditorBodyCommentElement();
-        ckEditorBodyCommentElement.waitUntilVisible();
-        ckEditorBodyCommentElement.setTextValue(comment);
-      } finally {
-        getDriver().switchTo().defaultContent();
-      }
-      ElementFacade saveCommentButtonInDrawerElement = saveCommentButtonInDrawerElement();
-      if (!saveCommentButtonInDrawerElement.isCurrentlyEnabled()) {
-        throw new ElementShouldBeEnabledException("Comment Button not visible");
-      }
-      saveCommentButtonInDrawerElement.click();
-    });
-    waitForDrawerToLoad();
-    ckEditorFrameCommentElement().waitUntilNotVisible();
-  }
-
   private void addCommentReplyEditorContent(String reply) {
     ElementFacade ckEditorFrameCommentElement = ckEditorFrameCommentElement();
     getDriver().switchTo().frame(ckEditorFrameCommentElement);
@@ -1029,7 +1035,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private ElementFacade saveCommentButtonInDrawerElement() {
-    return findByXPathOrCSS(OPENED_ACTIVITY_COMMENTS_DRAWER_SELECTOR + "//*[contains(@class,'drawerContent')]//button//*[contains(text(),'Comment')]");
+    return findByXPathOrCSS(OPENED_ACTIVITY_COMMENTS_DRAWER_SELECTOR + "//*[contains(@class,'drawerContent')]//button//*[contains(text(),'Comment') or contains(text(),'Update')]");
   }
 
   private TextBoxElementFacade commentFieldElement() {

@@ -210,9 +210,9 @@ public class Utils {
   }
 
   private static String getPageLoadingScript(boolean includeApps) {
-    String pageLoadingScript = "return document.readyState === 'complete' "
-        + " && (!document.getElementById('TopbarLoadingContainer') || !!document.querySelector('.TopbarLoadingContainer.hidden'))";
+    String pageLoadingScript = "return document.readyState === 'complete'";
     return includeApps ? pageLoadingScript
+        + " && (!document.getElementById('TopbarLoadingContainer') || !!document.querySelector('.TopbarLoadingContainer.hidden'))"
         + " && !document.querySelector('.v-card .v-progress-linear__indeterminate')"
         + " && !document.querySelector('.v-navigation-drawer--open .v-progress-linear__indeterminate')"
         + " && !document.querySelector('.v-card .v-progress-circular--indeterminate')"

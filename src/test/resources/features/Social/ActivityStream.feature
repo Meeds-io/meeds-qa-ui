@@ -58,7 +58,6 @@ Feature: Activity Stream
     Then the activity 'act_CAP04_6' is displayed in activity stream
     Then the activity 'act_CAP04_1' is displayed in activity stream
 
-  @test
   Scenario: CAP100 - [ActivityStream_US38][04] Cancel Delete comment with replies from the activity stream
     Given I connect as admin if random space and random users doesn't exists
       | first  |
@@ -675,7 +674,6 @@ Feature: Activity Stream
     And In activity 'activityTestCAP107-107' with comment 'commenttestCAP107-107', the reply 'replyTestCAP107-103' is displayed
     And In activity 'activityTestCAP107-107' with comment 'commenttestCAP107-107', the reply 'replyTestCAP107-102' is not displayed
 
-  @test
   Scenario: CAP108 - [ActivityStream_US39][06] Cancel Delete a reply from the comments drawer
     Given I connect as admin if random space and random users doesn't exists
       | first  |
@@ -994,7 +992,6 @@ Feature: Activity Stream
     And Tooltip Remove Like on 'commenttest115' is displayed in comments drawer
     And I close the opened drawer
 
-  @test
   Scenario: CAP116 - [ActivityStream_US41][02] DisLike my comment/reply from the comments drawer
     Given I connect as admin if random users doesn't exists
       | first  |
@@ -1604,7 +1601,6 @@ Feature: Activity Stream
     And I click on the kudos button number from the comments drawer
     Then '1' kudos are displayed on the reaction drawer
 
-  @test
   Scenario: CAP220 - [ActivityStream_IMPV07][01] Pagination in comments drawer
     Given I connect as admin if random users doesn't exists
       | first  |

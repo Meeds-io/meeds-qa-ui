@@ -246,7 +246,7 @@ public class BasePageImpl extends PageObject implements BasePage {
     try {
       ElementFacade iframeElement = findByXPathOrCSS(parentXPath + "//iframe[contains(@class,'cke_wysiwyg_frame')]");
       if (!iframeElement.isCurrentlyVisible()) {
-        ElementFacade richTextLoadingElement = findByXPathOrCSS("//*[contains(@class, 'loadingRing')]");
+        ElementFacade richTextLoadingElement = findByXPathOrCSS(parentXPath + "//*[contains(@class, 'loadingRing')]");
         if (richTextLoadingElement.isCurrentlyVisible()) {
           richTextLoadingElement.waitUntilNotVisible();
         }

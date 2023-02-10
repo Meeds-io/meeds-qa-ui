@@ -29,7 +29,7 @@ public class SpaceHomeSteps {
   }
 
   public void addActivity(String activity) {
-    spaceHomePage.addActivity(activity);
+    spaceHomePage.addActivityTextInOpenedEditor(activity);
   }
 
   public void addDescriptionLess1000CharsInThePoll(String choiceThree) {
@@ -297,7 +297,7 @@ public class SpaceHomeSteps {
   }
 
   public void editActivity() {
-    spaceHomePage.editActivity();
+    spaceHomePage.clickOnUpdateActivity();
   }
 
   public void editActivityButtonIsDisplayed(String activity) {
@@ -445,7 +445,7 @@ public class SpaceHomeSteps {
     for (int i = 0; i < Integer.parseInt(activityNumber) + 1; i++) {
       String activity = activityPrefix + i;
       spaceHomePage.clickPostIcon();
-      spaceHomePage.addActivity(activity);
+      spaceHomePage.addActivityTextInOpenedEditor(activity);
       spaceHomePage.publishActivity(false);
     }
     spaceHomePage.refreshStream();
