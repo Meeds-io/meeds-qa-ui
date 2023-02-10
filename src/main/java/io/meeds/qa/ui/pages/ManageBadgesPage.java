@@ -20,7 +20,6 @@ package io.meeds.qa.ui.pages;
 import static io.meeds.qa.ui.utils.Utils.refreshPage;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Assert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
