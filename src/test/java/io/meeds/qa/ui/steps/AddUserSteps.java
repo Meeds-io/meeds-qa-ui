@@ -54,18 +54,19 @@ public class AddUserSteps {
       String password = "123456nBm";
 
       if (injectUsingRest) {
-        String addUserScript = String.format(
-                                             "const callback = arguments[arguments.length - 1];" +
-                                                 "fetch(\"/portal/rest/v1/users\", {\n"
-                                                 + "  \"headers\": {\n"
-                                                 + "    \"content-type\": \"application/json\",\n"
-                                                 + "  },\n"
-                                                 + "  \"body\": \"{\\\"enabled\\\":true,\\\"userName\\\":\\\"%s\\\",\\\"firstName\\\":\\\"%s\\\",\\\"lastName\\\":\\\"%s\\\",\\\"email\\\":\\\"%s\\\",\\\"password\\\":\\\"%s\\\",\\\"confirmNewPassword\\\":\\\"%s\\\"}\",\n"
-                                                 + "  \"method\": \"POST\",\n"
-                                                 + "  \"credentials\": \"include\"\n"
-                                                 + "})"
-                                                 + ".then(() => callback && callback(true))"
-                                                 + ".catch(() => callback && callback(false));",
+        String addUserScript = String.format("""
+                                             const callback = arguments[arguments.length - 1];
+                                             fetch("/portal/rest/v1/users", {
+                                               "headers": {
+                                                 "content-type": "application/json",
+                                               },
+                                               "body": "{'enabled':true,'userName':'%s','firstName':'%s','lastName':'%s','email':'%s','password':'%s','confirmNewPassword':'%s'}",
+                                               "method": "POST",
+                                               "credentials": "include"
+                                             })"
+                                             .then(() => callback && callback(true))"
+                                             .catch(() => callback && callback(false));
+                                            """,
                                              userName,
                                              firstName,
                                              lastName,

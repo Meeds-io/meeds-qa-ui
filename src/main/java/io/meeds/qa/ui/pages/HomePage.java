@@ -192,16 +192,16 @@ public class HomePage extends GenericPage {
 
   public void commentActivityNotificationIsDisplayed(String message, String activity, String comment) {
     ElementFacade firstNotificationContentElement = firstNotificationContentElement();
-    if (firstNotificationContentElement.getText().contains(message)) {
-      Assert.assertTrue(firstNotificationContentElement.getText().contains(message)); // NOSONAR
-      Assert.assertTrue(firstNotificationContentElement.getText().contains(activity));
-      Assert.assertTrue(firstNotificationContentElement.getText().contains(comment));
-
+    String text = firstNotificationContentElement.getText();
+    if (text.contains(message)) {
+      Assert.assertTrue(text.contains(activity));
+      Assert.assertTrue(text.contains(comment));
     } else {
       ElementFacade secondNotificationContentElement = secondNotificationContentElement();
-      Assert.assertTrue(secondNotificationContentElement.getText().contains(message));
-      Assert.assertTrue(secondNotificationContentElement.getText().contains(activity));
-      Assert.assertTrue(secondNotificationContentElement.getText().contains(comment));
+      String secondNotificationText = secondNotificationContentElement.getText();
+      Assert.assertTrue(secondNotificationText.contains(message));
+      Assert.assertTrue(secondNotificationText.contains(activity));
+      Assert.assertTrue(secondNotificationText.contains(comment));
     }
   }
 
