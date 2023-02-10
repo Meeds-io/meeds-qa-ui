@@ -22,6 +22,9 @@ import static io.meeds.qa.ui.utils.ExceptionLauncher.LOGGER;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 import java.util.function.Supplier;
 
 import org.openqa.selenium.JavascriptExecutor;
@@ -117,10 +120,7 @@ public class Utils {
   }
 
   public static void retryOnCondition(Runnable task, Runnable onError) {
-    retryOnCondition(() -> {
-      task.run();
-      return null;
-    }, onError);
+    retryOnCondition(() -> runTask(task), onError);
   }
 
   public static <T> T retryOnCondition(Supplier<T> supplier) {
@@ -142,7 +142,7 @@ public class Utils {
         } else {
           LOGGER.info("Error executing tentative {}/{}", retry, MAX_WAIT_RETRIES, new IOMeedsTraceException(e));
           if (onError != null) {
-            onError.run();
+            runTask(onError);
           }
         }
       }
@@ -219,6 +219,22 @@ public class Utils {
         + " && !document.querySelector('.v-card .v-progress-circular--indeterminate')"
         + " && !document.querySelector('.v-navigation-drawer--open .v-progress-circular--indeterminate')"
                        : pageLoadingScript;
+  }
+
+  private static Object runTask(Runnable task) {
+    try {
+      CompletableFuture.runAsync(task).get();
+    } catch (ExecutionException e) {
+      Throwable cause = e.getCause();
+      if (cause instanceof RuntimeException) { // NOSONAR
+        throw (RuntimeException) cause;
+      } else {
+        throw new IOMeedsTraceException(e);
+      }
+    } catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+    }
+    return null;
   }
 
   private Utils() {

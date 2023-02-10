@@ -1601,6 +1601,7 @@ Feature: Activity Stream
     And I click on the kudos button number from the comments drawer
     Then '1' kudos are displayed on the reaction drawer
 
+  @test
   Scenario: CAP220 - [ActivityStream_IMPV07][01] Pagination in comments drawer
     Given I connect as admin if random users doesn't exists
       | first  |
