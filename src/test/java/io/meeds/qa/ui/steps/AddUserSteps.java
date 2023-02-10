@@ -21,14 +21,18 @@ import static io.meeds.qa.ui.utils.Utils.*;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import java.time.Duration;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.meeds.qa.ui.hook.TestHooks;
 import io.meeds.qa.ui.pages.AddUserPage;
 import io.meeds.qa.ui.pages.HomePage;
+import net.serenitybdd.core.Serenity;
 
 public class AddUserSteps {
 
@@ -37,16 +41,54 @@ public class AddUserSteps {
   private HomePage    homePage;
 
   public void addRandomUser(String userPrefix, boolean waitSearchable) {
+    addRandomUser(userPrefix, waitSearchable, false);
+  }
+
+  public void addRandomUser(String userPrefix, boolean waitSearchable, boolean injectUsingRest) {
+
     if (StringUtils.isBlank(sessionVariableCalled(userPrefix + "UserName"))) {
-      addUserPage.waitForDrawerToOpen();
       String userName = "user" + userPrefix + getRandomString();
       String firstName = getRandomString(userPrefix);
       String lastName = getRandomString(userName);
       String email = userName + "@aa.bb";
       String password = "123456nBm";
 
-      homePage.goToAddUser();
-      addRandomUser(userName, firstName, lastName, email, password);
+      if (injectUsingRest) {
+        String addUserScript = String.format(
+                                             "const callback = arguments[arguments.length - 1];" +
+                                                 "fetch(\"/portal/rest/v1/users\", {\n"
+                                                 + "  \"headers\": {\n"
+                                                 + "    \"content-type\": \"application/json\",\n"
+                                                 + "  },\n"
+                                                 + "  \"body\": \"{\\\"enabled\\\":true,\\\"userName\\\":\\\"%s\\\",\\\"firstName\\\":\\\"%s\\\",\\\"lastName\\\":\\\"%s\\\",\\\"email\\\":\\\"%s\\\",\\\"password\\\":\\\"%s\\\",\\\"confirmNewPassword\\\":\\\"%s\\\"}\",\n"
+                                                 + "  \"method\": \"POST\",\n"
+                                                 + "  \"credentials\": \"include\"\n"
+                                                 + "})"
+                                                 + ".then(() => callback && callback(true))"
+                                                 + ".catch(() => callback && callback(false));",
+                                             userName,
+                                             firstName,
+                                             lastName,
+                                             email,
+                                             password,
+                                             password);
+        WebDriverWait wait = new WebDriverWait(Serenity.getDriver(),
+                                               Duration.ofSeconds(3),
+                                               Duration.ofMillis(SHORT_WAIT_DURATION_MILLIS));
+        wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeAsyncScript(addUserScript)
+                                                                .toString()
+                                                                .equals("true"));
+      } else {
+        addUserPage.waitForDrawerToOpen();
+        homePage.goToAddUser();
+        addRandomUser(userName, firstName, lastName, email, password);
+        if (waitSearchable) {
+          // Wait for ElasticSearch index creation asynchronously
+          addUserPage.waitFor(3).seconds();
+        } else {
+          addUserPage.waitForDrawerToClose();
+        }
+      }
 
       setSessionVariable(userPrefix + "UserName").to(userName);
       setSessionVariable(userPrefix + "UserFirstName").to(firstName);
@@ -54,13 +96,6 @@ public class AddUserSteps {
       setSessionVariable(userPrefix + "UserPassword").to(password);
       setSessionVariable(userName + "-password").to(password);
       TestHooks.userWithPrefixCreated(userPrefix, userName, firstName, lastName, email, password);
-
-      if (waitSearchable) {
-        // Wait for ElasticSearch index creation asynchronously
-        addUserPage.waitFor(3).seconds();
-      } else {
-        addUserPage.waitForDrawerToClose();
-      }
     }
   }
 

@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.FutureTask;
 import java.util.function.Supplier;
 
 import org.openqa.selenium.JavascriptExecutor;

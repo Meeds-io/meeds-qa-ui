@@ -97,8 +97,8 @@ public class KudosSteps {
   }
 
   public void updateKudosMessage(String kudos) {
-    spaceHomePage.updateCommentText(kudos);
-    spaceHomePage.updateComment();
+    spaceHomePage.addActivity(kudos);
+    spaceHomePage.publishActivity(false);
   }
 
 }

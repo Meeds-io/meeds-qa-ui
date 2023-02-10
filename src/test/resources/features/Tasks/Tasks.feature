@@ -188,6 +188,7 @@ Feature: Tasks
     Then In column status 'TestStatus2' , Task name 'Collaboration FT Task' is displayed
 
   @smoke
+  @test
   Scenario: CAP269 - [US_Sharedlabels_02] Manage labels in Project
     Given I am authenticated as admin
     And I create the first random user if not existing
