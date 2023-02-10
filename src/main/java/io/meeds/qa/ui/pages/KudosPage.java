@@ -29,6 +29,9 @@ import io.meeds.qa.ui.elements.TextBoxElementFacade;
 
 public class KudosPage extends GenericPage {
 
+  private static final String ACTIVITY_KUDOS_DRAWER_SELECTOR =
+                                                             "//*[@id='activityKudosDrawer' and contains(@class, 'v-navigation-drawer--open')]";
+
   public KudosPage(WebDriver driver) {
     super(driver);
   }
@@ -103,7 +106,7 @@ public class KudosPage extends GenericPage {
 
   public void sendKudosMessageFromOpenedDrawer(String kudosMessage) {
     waitForDrawerToOpen("#activityKudosDrawer", false);
-    waitCKEditorLoading();
+    waitCKEditorLoading(ACTIVITY_KUDOS_DRAWER_SELECTOR);
     retryOnCondition(() -> {
       ElementFacade ckEditorFrameKudos = getCkEditorFrameKudos();
       ckEditorFrameKudos.waitUntilVisible();
@@ -171,7 +174,7 @@ public class KudosPage extends GenericPage {
   }
 
   private ElementFacade getCkEditorFrameKudos() {
-    return findByXPathOrCSS("//*[@id='activityKudosDrawer']//iframe[contains(@class,'cke_wysiwyg_frame')]");
+    return findByXPathOrCSS(ACTIVITY_KUDOS_DRAWER_SELECTOR + "//iframe[contains(@class,'cke_wysiwyg_frame')]");
   }
 
   private ElementFacade getKudosActivityText(String message) {

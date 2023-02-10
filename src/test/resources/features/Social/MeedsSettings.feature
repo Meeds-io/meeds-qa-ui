@@ -4,7 +4,8 @@ Feature: Edit sections in Settings page
   I want to edit in Settings page many sections
 
   Scenario: [SETTINGS-5] Language and its drawer
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | firstlang  |
     And I create the firstlang random user if not existing
     And I connect with the firstlang created user
 

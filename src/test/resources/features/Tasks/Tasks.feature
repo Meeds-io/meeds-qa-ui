@@ -129,7 +129,8 @@ Feature: Tasks
     And I close the opened drawer
 
   Scenario: CAP188 - [Lost Projects] check that project isn't lost after renaming space name
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
     And I create the first random user if not existing
     And I connect with the first created user
 
@@ -157,7 +158,8 @@ Feature: Tasks
     And Project 'second project test' is displayed in Tasks App Center
 
   Scenario: Create Task with a new status
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
     And I create the first random user if not existing
     And I connect with the first created user
 
@@ -189,7 +191,8 @@ Feature: Tasks
 
   @smoke
   Scenario: CAP269 - [US_Sharedlabels_02] Manage labels in Project
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
     And I create the first random user if not existing
     And I connect with the first created user
 
@@ -222,7 +225,8 @@ Feature: Tasks
 
   @smoke
   Scenario: Mark task as completed from the task drawer [1]
-    Given I am authenticated as admin
+    Given I connect as admin if random users doesn't exists
+      | first  |
     And I create the first random user if not existing
     And I connect with the first created user
     And I create a random space

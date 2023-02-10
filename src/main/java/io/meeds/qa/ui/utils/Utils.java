@@ -112,15 +112,12 @@ public class Utils {
     }
   }
 
-  public static void retryOnCondition(Runnable runnable) {
-    retryOnCondition(runnable, null);
+  public static void retryOnCondition(Runnable task) {
+    retryOnCondition(() -> runTask(task), null);
   }
 
   public static void retryOnCondition(Runnable task, Runnable onError) {
-    retryOnCondition(() -> {
-      task.run();
-      return null;
-    }, onError);
+    retryOnCondition(() -> runTask(task), onError);
   }
 
   public static <T> T retryOnCondition(Supplier<T> supplier) {
@@ -142,11 +139,12 @@ public class Utils {
         } else {
           LOGGER.info("Error executing tentative {}/{}", retry, MAX_WAIT_RETRIES, new IOMeedsTraceException(e));
           if (onError != null) {
-            onError.run();
+            runTask(onError);
           }
         }
       }
-    } while (true);
+    } while (retry < MAX_WAIT_RETRIES);
+    return null;
   }
 
   public static void switchToTabByIndex(WebDriver driver, int index) {
@@ -211,14 +209,19 @@ public class Utils {
   }
 
   private static String getPageLoadingScript(boolean includeApps) {
-    String pageLoadingScript = "return document.readyState === 'complete' "
-        + " && (!document.getElementById('TopbarLoadingContainer') || !!document.querySelector('.TopbarLoadingContainer.hidden'))";
+    String pageLoadingScript = "return document.readyState === 'complete'";
     return includeApps ? pageLoadingScript
+        + " && (!document.getElementById('TopbarLoadingContainer') || !!document.querySelector('.TopbarLoadingContainer.hidden'))"
         + " && !document.querySelector('.v-card .v-progress-linear__indeterminate')"
         + " && !document.querySelector('.v-navigation-drawer--open .v-progress-linear__indeterminate')"
         + " && !document.querySelector('.v-card .v-progress-circular--indeterminate')"
         + " && !document.querySelector('.v-navigation-drawer--open .v-progress-circular--indeterminate')"
                        : pageLoadingScript;
+  }
+
+  private static Object runTask(Runnable task) {
+    task.run();
+    return null;
   }
 
   private Utils() {

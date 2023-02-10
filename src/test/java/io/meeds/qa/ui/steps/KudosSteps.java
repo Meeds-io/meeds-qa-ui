@@ -97,8 +97,12 @@ public class KudosSteps {
   }
 
   public void updateKudosMessage(String kudos) {
-    spaceHomePage.updateCommentText(kudos);
-    spaceHomePage.updateComment();
+    spaceHomePage.addActivityTextInOpenedEditor(kudos);
+    spaceHomePage.clickOnUpdateActivity();
+  }
+
+  public void updateKudosCommentMessage(String kudos) {
+    spaceHomePage.addActivityCommentEditorContent(kudos, true, true);
   }
 
 }

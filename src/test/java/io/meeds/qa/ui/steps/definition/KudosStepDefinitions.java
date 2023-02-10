@@ -118,9 +118,14 @@ public class KudosStepDefinitions {
     kudoSteps.threeDotsMenuSendKudos(kudosMessage);
   }
 
-  @Given("^I set the new kudos comment text '(.*)' and I click on update button$")
-  @And("^I set the new kudos '(.*)' and I click on update button$")
+  @Given("^I set the new kudos '(.*)' and I click on update button$")
   public void updateKudosMessage(String kudos) {
     kudoSteps.updateKudosMessage(kudos);
   }
+
+  @Given("^I set the new kudos comment text '(.*)' and I click on update button$")
+  public void updateKudosCommentMessage(String kudos) {
+    kudoSteps.updateKudosCommentMessage(kudos);
+  }
+
 }

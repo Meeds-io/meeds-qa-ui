@@ -19,7 +19,6 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -66,10 +65,7 @@ public class IOMeedsTraceException extends RuntimeException {
     StackTraceElement[] stackTrace = getStackTrace();
     List<StackTraceElement> meedsStackTrace = Arrays.stream(stackTrace)
                                                     .filter(trace -> StringUtils.contains(trace.getClassName(), "io.meeds"))
-                                                    .collect(Collectors.toList()); // NOSONAR
-                                                                                   // used
-                                                                                   // for
-                                                                                   // JDK11
+                                                    .toList();
     setStackTrace(meedsStackTrace.toArray(new StackTraceElement[meedsStackTrace.size()]));
   }
 
@@ -78,10 +74,7 @@ public class IOMeedsTraceException extends RuntimeException {
     StackTraceElement[] stackTrace = getStackTrace();
     List<StackTraceElement> meedsStackTrace = Arrays.stream(stackTrace)
                                                     .filter(trace -> StringUtils.contains(trace.getClassName(), "io.meeds"))
-                                                    .collect(Collectors.toList()); // NOSONAR
-                                                                                   // used
-                                                                                   // for
-                                                                                   // JDK11
+                                                    .toList();
     cause.setStackTrace(meedsStackTrace.toArray(new StackTraceElement[meedsStackTrace.size()]));
     return super.initCause(cause);
   }
@@ -92,10 +85,7 @@ public class IOMeedsTraceException extends RuntimeException {
     StackTraceElement[] stackTrace = getStackTrace();
     List<StackTraceElement> meedsStackTrace = Arrays.stream(stackTrace)
                                                     .filter(trace -> StringUtils.contains(trace.getClassName(), "io.meeds"))
-                                                    .collect(Collectors.toList()); // NOSONAR
-                                                                                   // used
-                                                                                   // for
-                                                                                   // JDK11
+                                                    .toList();
     cause.setStackTrace(meedsStackTrace.toArray(new StackTraceElement[meedsStackTrace.size()]));
     return cause;
   }

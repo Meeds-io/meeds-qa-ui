@@ -359,8 +359,8 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
   }
 
   private WebElement getResolvedWebElement(WebElement element) {
-    if (element instanceof WebElementFacadeImpl) { // NOSONAR
-      return getResolvedWebElement(((WebElementFacadeImpl) element).getElement());
+    if (element instanceof WebElementFacadeImpl webElementFacadeImpl) {
+      return getResolvedWebElement(webElementFacadeImpl.getElement());
     } else {
       return element;
     }

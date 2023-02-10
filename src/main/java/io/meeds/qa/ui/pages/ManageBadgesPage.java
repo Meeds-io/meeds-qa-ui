@@ -18,8 +18,8 @@
 package io.meeds.qa.ui.pages;
 
 import static io.meeds.qa.ui.utils.Utils.refreshPage;
+import static org.junit.Assert.assertTrue;
 
-import org.junit.Assert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
@@ -151,7 +151,7 @@ public class ManageBadgesPage extends GenericPage {
                                                 String badgeDomain) {
     ElementFacade badgeElement = getBadgeNameInListOfBadges(badgeName, badgeDescription, badgeScore, badgeDomain);
     badgeElement.assertVisible();
-    Assert.assertTrue(badgeElement.getText().contains("Yes")); // NOSONAR
+    assertTrue(badgeElement.getText().contains("Yes"));
   }
 
   public void isBadgeNotDisplayedWithEnabledStatus(String badgeName,
@@ -164,7 +164,7 @@ public class ManageBadgesPage extends GenericPage {
 
   public void isSuccessAlertDisplayed(String message) {
     successAlertElement().assertVisible();
-    Assert.assertTrue(successAlertElement().getText().contains(message)); // NOSONAR
+    assertTrue(successAlertElement().getText().contains(message));
   }
 
   private ElementFacade addBadgeBtnElement() {

@@ -283,7 +283,7 @@ public class TestHooks {
           "seconddisabled",
           "eighteenth",
       };
-      Arrays.stream(randomUsers).forEach(randomUser -> addUserSteps.addRandomUser(randomUser, false));
+      Arrays.stream(randomUsers).forEach(randomUser -> addUserSteps.addRandomUser(randomUser, false, true));
       manageSpaceSteps.addOrGoToSpace("randomSpaceName");
     }
     ExceptionLauncher.LOGGER.info("---- End warmup phase in {} seconds", (System.currentTimeMillis() - start) / 1000);
