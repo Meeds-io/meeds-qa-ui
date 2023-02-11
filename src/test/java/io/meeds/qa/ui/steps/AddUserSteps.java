@@ -51,11 +51,11 @@ public class AddUserSteps {
       String firstName = getRandomString(userPrefix);
       String lastName = getRandomString(userName);
       String email = userName + "@aa.bb";
-      String password = "123456nBm";
+      String password = "Test1234@";
 
       if (injectUsingRest) {
         String addUserScript = String.format("""
-                                             const callback = arguments[arguments.length - 1];
+                                             const callback = arguments && arguments.length > 0 && arguments[arguments.length - 1];
                                              fetch("/portal/rest/v1/users", {
                                                "headers": {
                                                  "content-type": "application/json",
@@ -63,8 +63,8 @@ public class AddUserSteps {
                                                "body": "{'enabled':true,'userName':'%s','firstName':'%s','lastName':'%s','email':'%s','password':'%s','confirmNewPassword':'%s'}",
                                                "method": "POST",
                                                "credentials": "include"
-                                             })"
-                                             .then(() => callback && callback(true))"
+                                             })
+                                             .then(() => callback && callback(true))
                                              .catch(() => callback && callback(false));
                                             """,
                                              userName,
