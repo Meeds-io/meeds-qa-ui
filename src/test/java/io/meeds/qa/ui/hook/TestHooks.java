@@ -17,6 +17,7 @@
  */
 package io.meeds.qa.ui.hook;
 
+import static io.meeds.qa.ui.utils.ExceptionLauncher.LOGGER;
 import static io.meeds.qa.ui.utils.Utils.DEFAULT_IMPLICIT_WAIT_FOR_TIMEOUT;
 import static io.meeds.qa.ui.utils.Utils.waitRemainingTime;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
@@ -41,7 +42,6 @@ import io.meeds.qa.ui.steps.LoginSteps;
 import io.meeds.qa.ui.steps.ManageBadgesSteps;
 import io.meeds.qa.ui.steps.ManageSpaceSteps;
 import io.meeds.qa.ui.steps.definition.ManageSpaceStepDefinitions;
-import io.meeds.qa.ui.utils.ExceptionLauncher;
 import io.meeds.qa.ui.utils.Utils;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
@@ -185,7 +185,7 @@ public class TestHooks {
   private void warmUp(WebDriver driver) {
     File warmUpFile = new File(WARMUP_FILE_PATH);
     if (warmUpFile.exists()) {
-      ExceptionLauncher.LOGGER.debug("Warmup already proceeded. Execute test scenario.");
+      LOGGER.debug("Warmup already proceeded. Execute test scenario.");
       return;
     }
     try {
@@ -194,20 +194,20 @@ public class TestHooks {
       }
     } catch (IOException e) {
       // Will attempt to warmup again next time
-      ExceptionLauncher.LOGGER.warn("Error creating warmup file {}. Proceed to execute Test scenario without warmup.",
+      LOGGER.warn("Error creating warmup file {}. Proceed to execute Test scenario without warmup.",
                                     WARMUP_FILE_PATH,
                                     e);
       return;
     }
 
-    ExceptionLauncher.LOGGER.info("---- Start warmup phase with {} retries and wait time of {} seconds",
+    LOGGER.info("---- Start warmup phase with {} retries and wait time of {} seconds",
                                   MAX_WARM_UP_RETRIES,
                                   MAX_WARM_UP_STEP_WAIT);
     long start = System.currentTimeMillis();
     int retryCount = 1;
     boolean homePageDisplayed = false;
     do {
-      ExceptionLauncher.LOGGER.info("---- {}/{} Warmup step",
+      LOGGER.info("---- {}/{} Warmup step",
                                     retryCount,
                                     MAX_WARM_UP_RETRIES);
       try {
@@ -223,7 +223,7 @@ public class TestHooks {
         driver.navigate().to(driver.getCurrentUrl().replace("/portal", "/portal/en"));
         Utils.waitForLoading(WARM_UP_PAGE_LOADING_WAIT, true);
       } catch (Throwable e) { // NOSONAR
-        ExceptionLauncher.LOGGER.warn("Error authenticating admin user", e);
+        LOGGER.warn("Error authenticating admin user", e);
         closeCurrentWindow(driver);
         waitRemainingTime(WARM_UP_PAGE_LOADING_WAIT * 1000l, start);
       }
@@ -283,10 +283,22 @@ public class TestHooks {
           "seconddisabled",
           "eighteenth",
       };
-      Arrays.stream(randomUsers).forEach(randomUser -> addUserSteps.addRandomUser(randomUser, false, true));
       manageSpaceSteps.addOrGoToSpace("randomSpaceName");
+      if (!Arrays.stream(randomUsers).map(this::addRandomUser).allMatch(userCreated -> userCreated)) {
+        throw new IllegalStateException("Some users wasn't created successfully in WarmUp phase");
+      }
     }
-    ExceptionLauncher.LOGGER.info("---- End warmup phase in {} seconds", (System.currentTimeMillis() - start) / 1000);
+    LOGGER.info("---- End warmup phase in {} seconds", (System.currentTimeMillis() - start) / 1000);
+  }
+
+  private boolean addRandomUser(String randomUser) {
+    try {
+      addUserSteps.addRandomUser(randomUser, false, true);
+      return true;
+    } catch (Exception e) {
+      LOGGER.warn("Error creating User {} in Warmup phase. Error: {}", randomUser, e.getMessage());
+      return false;
+    }
   }
 
 }

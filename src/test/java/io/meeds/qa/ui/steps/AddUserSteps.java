@@ -55,17 +55,22 @@ public class AddUserSteps {
 
       if (injectUsingRest) {
         String addUserScript = String.format("""
-                                             const callback = arguments && arguments.length > 0 && arguments[arguments.length - 1];
+                                             const callback = arguments[arguments.length - 1];
                                              fetch("/portal/rest/v1/users", {
                                                "headers": {
                                                  "content-type": "application/json",
                                                },
-                                               "body": "{'enabled':true,'userName':'%s','firstName':'%s','lastName':'%s','email':'%s','password':'%s','confirmNewPassword':'%s'}",
+                                               "body": `{"enabled":true,"userName":"%s","firstName":"%s","lastName":"%s","email":"%s","password":"%s","confirmNewPassword":"%s"}`,
                                                "method": "POST",
                                                "credentials": "include"
                                              })
-                                             .then(() => callback && callback(true))
-                                             .catch(() => callback && callback(false));
+                                             .then(resp => {
+                                               if (!resp || !resp.ok) {
+                                                 throw new Error("Error creating user");
+                                               }
+                                             })
+                                             .then(user => callback(true))
+                                             .catch(() => callback(false));
                                             """,
                                              userName,
                                              firstName,
