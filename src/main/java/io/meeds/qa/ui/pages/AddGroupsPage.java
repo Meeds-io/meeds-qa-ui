@@ -34,11 +34,7 @@ public class AddGroupsPage extends GenericPage {
     if (!addMemberInGroupBtnElement.isClickable() || !addMemberInGroupBtnElement.isVisible()) {
       refreshPage();
     }
-    ElementFacade closeDrawerButtonElement = closeDrawerButtonElement();
-    if (closeDrawerButtonElement.isCurrentlyVisible()) {
-      closeDrawerButtonElement.click();
-      waitForDrawerToClose();
-    }
+    closeAllDrawers();
     addMemberInGroupBtnElement.click();
     ElementFacade selectedRoleFieldElement = selectedRoleFieldElement();
     selectedRoleFieldElement.selectByValue(role);
@@ -55,9 +51,7 @@ public class AddGroupsPage extends GenericPage {
         saveMemberAddedInGroupElement.click();
       }
     }
-    if (closeDrawerButtonElement.isCurrentlyVisible()) {
-      closeDrawerButtonElement.click();
-    }
+    closeAllDrawers();
     waitForDrawerToClose();
   }
 
@@ -83,10 +77,6 @@ public class AddGroupsPage extends GenericPage {
 
   private ElementFacade addMemberInGroupBtnElement() {
     return findByXPathOrCSS("//*[contains(@class,'addNewMembershipButton')]");
-  }
-
-  private ElementFacade closeDrawerButtonElement() {
-    return findByXPathOrCSS("//*[@id='membershipFormDrawer' and contains(@class, 'v-navigation-drawer--open')]//button[contains(@class,'mdi-close')]");
   }
 
   private TextBoxElementFacade inviteMemberInputElement() {

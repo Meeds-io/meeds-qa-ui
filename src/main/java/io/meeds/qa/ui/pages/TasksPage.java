@@ -1162,7 +1162,7 @@ public class TasksPage extends GenericPage {
   }
 
   private ElementFacade addProjectOrTaskElement() {
-    return findByXPathOrCSS("//*[contains(@class, 'tasksToolbar')]//button[contains(@class, 'btn-primary')]");
+    return findByXPathOrCSS("//*[@id = 'projectBoardToolbar']//*[contains(@class, 'tasksToolbar')]//button[contains(@class, 'btn-primary')]");
   }
 
   private ElementFacade addStatusafteroptionElement() {
