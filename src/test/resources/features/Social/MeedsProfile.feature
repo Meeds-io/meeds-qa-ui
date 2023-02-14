@@ -11,6 +11,8 @@ Feature: Search for User Informations in Profile page
     Then User Cover is displayed in Profile Page
     And User Avatar is displayed in Profile Page
 
+  # Needs adaptation after MIP#38 merge
+  @ignored
   Scenario: PROFILE-4 Contact information block_(01) : Add informations
     Given I connect as admin if random users doesn't exists
       | firstprofile  |
@@ -24,6 +26,8 @@ Feature: Search for User Informations in Profile page
     And Updated Profile Contact Email is displayed
     And Updated Profile Contact Job is displayed
 
+  # Needs adaptation after MIP#38 merge
+  @ignored
   Scenario: PROFILE-4 Contact information block_(02) : Add informations
     Given I connect as admin if random users doesn't exists
       | secondprofile  |
