@@ -51,7 +51,6 @@ Feature: Kudos
     And I go to My Profile page
     Then '1' kudos are received
 
-  @test
   Scenario: [ActivityStream_US51][01] Edit a kudos activity
     Given I connect as admin if random users doesn't exists
       | first  |

@@ -93,7 +93,11 @@ public class KudosSteps {
   }
 
   public void threeDotsMenuSendKudos(String kudosMessage) {
-    retryOnCondition(() -> kudosPage.sendKudosMessageFromOpenedDrawer(kudosMessage), () -> {
+    retryOnCondition(() -> {
+      kudosPage.threeDotsMenuSendKudos();
+      kudosPage.sendKudosMessageFromOpenedDrawer(kudosMessage);
+    },
+    () -> {
       kudosPage.closeAllDrawers();
       kudosPage.threeDotsMenuSendKudos();
     });
