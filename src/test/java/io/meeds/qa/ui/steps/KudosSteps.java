@@ -17,10 +17,11 @@
  */
 package io.meeds.qa.ui.steps;
 
+import static io.meeds.qa.ui.utils.Utils.*;
+
 import io.meeds.qa.ui.pages.HomePage;
 import io.meeds.qa.ui.pages.KudosPage;
 import io.meeds.qa.ui.pages.SpaceHomePage;
-import io.meeds.qa.ui.utils.Utils;
 
 public class KudosSteps {
   private HomePage                homePage;
@@ -78,7 +79,7 @@ public class KudosSteps {
   }
 
   public void searchUserCard(String user) {
-    Utils.refreshPage();
+    refreshPage();
     homePage.goToPeoplePage();
     kudosPage.searchForUsersByName(user);
   }
@@ -92,8 +93,10 @@ public class KudosSteps {
   }
 
   public void threeDotsMenuSendKudos(String kudosMessage) {
-    kudosPage.threeDotsMenuSendKudos();
-    kudosPage.sendKudosMessageFromOpenedDrawer(kudosMessage);
+    retryOnCondition(() -> kudosPage.sendKudosMessageFromOpenedDrawer(kudosMessage), () -> {
+      kudosPage.closeAllDrawers();
+      kudosPage.threeDotsMenuSendKudos();
+    });
   }
 
   public void updateKudosMessage(String kudos) {

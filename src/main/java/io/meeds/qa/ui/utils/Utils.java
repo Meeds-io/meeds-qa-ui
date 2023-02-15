@@ -113,18 +113,18 @@ public class Utils {
   }
 
   public static void retryOnCondition(Runnable task) {
-    retryOnCondition(() -> runTask(task), null);
+    retryGetOnCondition(() -> runTask(task), null);
   }
 
   public static void retryOnCondition(Runnable task, Runnable onError) {
-    retryOnCondition(() -> runTask(task), onError);
+    retryGetOnCondition(() -> runTask(task), onError);
   }
 
-  public static <T> T retryOnCondition(Supplier<T> supplier) {
-    return retryOnCondition(supplier, null);
+  public static <T> T retryGetOnCondition(Supplier<T> supplier) {
+    return retryGetOnCondition(supplier, null);
   }
 
-  public static <T> T retryOnCondition(Supplier<T> supplier, Runnable onError) { // NOSONAR
+  public static <T> T retryGetOnCondition(Supplier<T> supplier, Runnable onError) { // NOSONAR
     long retry = 0;
     do {
       try {

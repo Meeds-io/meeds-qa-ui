@@ -246,11 +246,14 @@ public class BasePageImpl extends PageObject implements BasePage {
     try {
       ElementFacade iframeElement = findByXPathOrCSS(parentXPath + "//iframe[contains(@class,'cke_wysiwyg_frame')]");
       if (!iframeElement.isCurrentlyVisible()) {
-        ElementFacade richTextLoadingElement = findByXPathOrCSS(parentXPath + "//*[contains(@class, 'loadingRing')]");
-        if (richTextLoadingElement.isCurrentlyVisible()) {
-          richTextLoadingElement.waitUntilNotVisible();
-        }
-        retryOnCondition((Runnable) iframeElement::waitUntilVisible);
+        retryOnCondition(() -> {
+          ElementFacade richTextLoadingElement = findByXPathOrCSS(parentXPath + "//*[contains(@class, 'loadingRing')]");
+          if (richTextLoadingElement.isCurrentlyVisible()) {
+            richTextLoadingElement.waitUntilNotVisible();
+          }
+          iframeElement.setImplicitTimeout(getImplicitWaitTimeout().multipliedBy(3));
+          iframeElement.waitUntilVisible();
+        });
       }
     } catch (Exception e) {
       LOGGER.warn("Can't wait for progress bar to finish loading", e);

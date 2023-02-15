@@ -18,6 +18,7 @@
 package io.meeds.qa.ui.pages;
 
 import static io.meeds.qa.ui.utils.Utils.refreshPage;
+import static io.meeds.qa.ui.utils.Utils.retryGetOnCondition;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import static org.junit.Assert.assertFalse;
@@ -510,7 +511,7 @@ public class TasksPage extends GenericPage {
     String currentStatusName = statusFieldElement().getValue();
     validateStatusNameElement().click();
     // Wait until column is added
-    retryOnCondition(() -> getStatusColumn(currentStatusName).waitUntilVisible(),
+    retryGetOnCondition(() -> getStatusColumn(currentStatusName).waitUntilVisible(),
                      () -> waitFor(2).seconds());
   }
 
@@ -928,7 +929,7 @@ public class TasksPage extends GenericPage {
   public void removeLabelToProject(String label) {
     // Labels are retrieved from Server, thus we should wait until it's loaded,
     // in addition, no loading effect is visible in project drawer
-    retryOnCondition(() -> findByXPathOrCSS(".projectLabelsName .v-chip").waitUntilVisible());
+    retryGetOnCondition(() -> findByXPathOrCSS(".projectLabelsName .v-chip").waitUntilVisible());
     getRemoveLabelButton(label).click();
   }
 
