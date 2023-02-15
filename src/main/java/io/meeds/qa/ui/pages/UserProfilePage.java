@@ -31,6 +31,8 @@ import io.meeds.qa.ui.elements.TextBoxElementFacade;
 
 public class UserProfilePage extends GenericPage {
 
+  private static final String PROFILE_CONTACT_INFORMATION_FORM_INPUTS = "(//*[contains(@class, 'profileContactInformationDrawer') and contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'drawerContent')]//input)";
+
   public UserProfilePage(WebDriver driver) {
     super(driver);
   }
@@ -289,6 +291,7 @@ public class UserProfilePage extends GenericPage {
     // Update basic information
 
     contactInformationButtonElement().click();
+    waitForDrawerToOpen();
 
     if (StringUtils.isNotBlank(firstName)) {
       // update firstname
@@ -315,6 +318,7 @@ public class UserProfilePage extends GenericPage {
       $(contactJobTitleButtonElement).sendKeys(job);
     }
     contactEditSaveButtonElement().click();
+    waitForDrawerToClose();
   }
 
   public void updateContactOtherInformations(String company,
@@ -445,12 +449,20 @@ public class UserProfilePage extends GenericPage {
     return findByXPathOrCSS("//*[contains(@class,'btn-primary')]");
   }
 
-  private ElementFacade contactEmailButtonElement() {
-    return findByXPathOrCSS("(//*[@class='v-card__text d-flex emailField py-0']//input)[1]");
+  private ElementFacade contactFirstNameButtonElement() {
+    return findByXPathOrCSS(PROFILE_CONTACT_INFORMATION_FORM_INPUTS + "[1]");
   }
 
-  private ElementFacade contactFirstNameButtonElement() {
-    return findByXPathOrCSS("(//*[@class='v-card__text d-flex fullnameFields py-0']//input)[1]");
+  private ElementFacade contactLastNameButtonElement() {
+    return findByXPathOrCSS(PROFILE_CONTACT_INFORMATION_FORM_INPUTS + "[2]");
+  }
+
+  private ElementFacade contactEmailButtonElement() {
+    return findByXPathOrCSS(PROFILE_CONTACT_INFORMATION_FORM_INPUTS + "[3]");
+  }
+
+  private ElementFacade contactJobTitleButtonElement() {
+    return findByXPathOrCSS(PROFILE_CONTACT_INFORMATION_FORM_INPUTS + "[4]");
   }
 
   private ElementFacade contactIMTitleButtonElement() {
@@ -463,14 +475,6 @@ public class UserProfilePage extends GenericPage {
 
   private ElementFacade contactInformationButtonElement() {
     return findByXPathOrCSS("//*[@id='profileContactEditButton']");
-  }
-
-  private ElementFacade contactJobTitleButtonElement() {
-    return findByXPathOrCSS("(//*[@class='v-card__text d-flex positionField py-0']//input)[1]");
-  }
-
-  private ElementFacade contactLastNameButtonElement() {
-    return findByXPathOrCSS("(//*[@class='v-card__text d-flex fullnameFields py-0']//input)[2]");
   }
 
   private ElementFacade contactPhoneTitleButtonElement() {
@@ -592,42 +596,53 @@ public class UserProfilePage extends GenericPage {
     return findByXPathOrCSS("//*[@id='profileAvatar']");
   }
 
-  private ElementFacade profileContactInformationCompanyElement(String company) {
-    return findByXPathOrCSS("//*[@id='profileContactUserCompany']/parent::*//*[contains(text(), '" + company + "')]");
-  }
-
-  private ElementFacade profileContactInformationEmailElement(String mail) {
-    return findByXPathOrCSS("//*[@id='profileContactUserEmail']/parent::*//*[contains(text(), '" + mail + "')]");
-  }
-
-  private ElementFacade profileContactInformationFullnameElement(String fullName) {
-    return findByXPathOrCSS("//*[@id='profileContactUserFullname']/parent::*//*[contains(text(), '" + fullName + "')]");
-  }
-
-  private ElementFacade profileContactInformationIMElement(String instantMessagingType, String instantMessaging) {
-    return findByXPathOrCSS("//*[contains(@class,'profileContactIm')]/parent::*//*[contains(text(), '" + instantMessaging +
-        "')]/parent::*//*[contains(text(), '" + instantMessagingType.toLowerCase() + "')]");
-  }
-
-  private ElementFacade profileContactInformationPhoneElement(String phoneType, String phone) {
-    return findByXPathOrCSS("//*[contains(@class,'profileContactPhone')]/parent::*//*[contains(text(), '" + phone
-        + "')]/parent::*//*[contains(text(), '" + phoneType + "')]");
-  }
-
   private ElementFacade profileContactInformationTitleElement(String title) {
     return findByXPathOrCSS("//*[@id='ProfileContactInformation']/parent::*//*[contains(text(), '" + title + "')]");
   }
 
+  private ElementFacade profileContactInformationCompanyElement(String company) {
+    return profileContactInformationElement("company", company);
+  }
+
+  private ElementFacade profileContactInformationEmailElement(String email) {
+    return profileContactInformationElement("email", email);
+  }
+
+  private ElementFacade profileContactInformationFullnameElement(String fullName) {
+    return profileContactInformationElement("fullName", fullName);
+  }
+
+  private ElementFacade profileContactInformationIMElement(String instantMessagingType, String instantMessaging) {
+    return profileContactInformationElement("ims", instantMessagingType, instantMessaging);
+  }
+
+  private ElementFacade profileContactInformationPhoneElement(String phoneType, String phone) {
+    return profileContactInformationElement("phones", phoneType, phone);
+  }
+
   private ElementFacade profileContactInformationURLElement(String profileUrl) {
-    return findByXPathOrCSS("//*[contains(@class,'profileContactUrl')]/parent::*//*[contains(text(), '" + profileUrl + "')]");
+    return profileContactInformationElement("urls", profileUrl);
+  }
+
+  private ElementFacade profileJobElement(String jobTitle) {
+    return profileContactInformationElement("position", jobTitle);
+  }
+
+  private ElementFacade profileContactInformationElement(String name, String value) {
+    return findByXPathOrCSS(String.format("//*[@id='profileContactInformation-%s']/parent::*//*[contains(text(), '%s')]",
+                                          name,
+                                          value));
+  }
+
+  private ElementFacade profileContactInformationElement(String name, String multiFieldName, String multiFieldValue) {
+    return findByXPathOrCSS(String.format("//*[@id='profileContactInformation-%s']/parent::*//*[contains(text(), '%s')]/parent::*//*[contains(text(), '%s')]",
+                                          name,
+                                          multiFieldValue,
+                                          multiFieldName));
   }
 
   private ElementFacade profileCoverElement() {
     return findByXPathOrCSS("(//*[@id='ProfileHeader']//*[@class='v-image__image v-image__image--cover'])[1]");
-  }
-
-  private ElementFacade profileJobElement(String jobTitle) {
-    return findByXPathOrCSS("//*[@id='profileHeaderUserPosition']/parent::*//*[contains(text(), '" + jobTitle + "')]");
   }
 
   private ElementFacade profilePageElement() {

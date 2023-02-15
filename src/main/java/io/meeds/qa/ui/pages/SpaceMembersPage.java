@@ -17,6 +17,8 @@
  */
 package io.meeds.qa.ui.pages;
 
+import static io.meeds.qa.ui.utils.Utils.*;
+
 import io.meeds.qa.ui.elements.ElementFacade;
 
 public class SpaceMembersPage extends GenericPage {
@@ -34,8 +36,7 @@ public class SpaceMembersPage extends GenericPage {
   }
 
   public void setRedactor() {
-
-    setAsRedactorBtnElement().click();
+    retryOnCondition(setAsRedactorBtnElement()::click, this::clickOnThreeDotsMenu);
   }
 
   private ElementFacade setAsManagerBtnElement() {
