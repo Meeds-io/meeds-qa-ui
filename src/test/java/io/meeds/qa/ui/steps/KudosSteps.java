@@ -88,10 +88,6 @@ public class KudosSteps {
     kudosPage.selectType();
   }
 
-  public void sendMessage(String txt) {
-    kudosPage.sendMessage(txt);
-  }
-
   public void threeDotsMenuSendKudos(String kudosMessage) {
     retryOnCondition(() -> {
       kudosPage.threeDotsMenuSendKudos();

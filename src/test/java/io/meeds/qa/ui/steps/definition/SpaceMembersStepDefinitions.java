@@ -35,7 +35,6 @@ public class SpaceMembersStepDefinitions {
   @Then("I click on three dots menu$")
   public void clickOnThreeDotsMenu() {
     spaceMembersSteps.clickOnThreeDotsMenu();
-
   }
 
   @And("^I set as a space manager$")

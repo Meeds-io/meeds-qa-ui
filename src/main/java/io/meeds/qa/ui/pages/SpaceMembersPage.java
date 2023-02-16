@@ -28,7 +28,10 @@ public class SpaceMembersPage extends GenericPage {
   }
 
   public void clickOnThreeDotsMenu() {
-    threeDotsMenuElement().click();
+    retryOnCondition(() -> {
+      threeDotsButton().click();
+      threeDotsMenuElement().checkVisible();
+    });
   }
 
   public void setAsSpaceManager() {
@@ -40,15 +43,19 @@ public class SpaceMembersPage extends GenericPage {
   }
 
   private ElementFacade setAsManagerBtnElement() {
-    return findByXPathOrCSS("(//*[@class='v-list-item__title peopleActionItem'])[4]");
+    return findByXPathOrCSS("//*[contains(@class, 'uiIconMemberAdmin')]//ancestor::*[contains(@class, 'peopleActionItem')]");
   }
 
   private ElementFacade setAsRedactorBtnElement() {
-    return findByXPathOrCSS("(//*[@class='v-list-item__title peopleActionItem'])[4]");
+    return findByXPathOrCSS("//*[contains(@class, 'uiIconEditMembership')]//ancestor::*[contains(@class, 'peopleActionItem')]");
+  }
+
+  private ElementFacade threeDotsButton() {
+    return findByXPathOrCSS("//*[contains(@class, 'peopleCardItem')]//button[contains(@class, 'peopleMenuIcon')]");
   }
 
   private ElementFacade threeDotsMenuElement() {
-    return findByXPathOrCSS("//button[@class='peopleMenuIcon d-block v-btn v-btn--flat v-btn--icon v-btn--round v-btn--text theme--light v-size--default']");
+    return findByXPathOrCSS("//*[contains(@class, 'peopleActionMenu')]//*[contains(@class, 'peopleActionItem')]");
   }
 
   private ElementFacade writeShortMessageDrawerElement() {
