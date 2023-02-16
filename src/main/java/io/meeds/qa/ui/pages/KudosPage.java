@@ -130,11 +130,6 @@ public class KudosPage extends GenericPage {
     refreshPage();
   }
 
-  public void sendMessage(String txt) {
-    kudosMessageElement().setTextValue(txt);
-    sendKudosBtnElement().click();
-  }
-
   public void threeDotsMenuSendKudos() {
     ElementFacade sendKudosMenuElement = sendKudosMenuElement();
     sendKudosMenuElement.assertVisible();
@@ -199,10 +194,6 @@ public class KudosPage extends GenericPage {
     return findByXPathOrCSS("//a[@href='/portal/g/:platform:rewarding/rewardAdministration/kudosAdministration']");
   }
 
-  private TextBoxElementFacade kudosMessageElement() {
-    return findTextBoxByXPathOrCSS("]");
-  }
-
   private TextBoxElementFacade kudosNumberElement() {
     return findTextBoxByXPathOrCSS("//input[@name='kudosPerPeriod']");
   }
@@ -227,12 +218,8 @@ public class KudosPage extends GenericPage {
     return findByXPathOrCSS("//*[contains(text(),'Semester')]");
   }
 
-  private ElementFacade sendKudosBtnElement() {
-    return findByXPathOrCSS("//button[@class='ignore-vuetify-classes btn btn-primary me-3']");
-  }
-
   private ElementFacade sendKudosMenuElement() {
-    return findByXPathOrCSS("//*[@class='v-list-item__title peopleActionItem']");
+    return findByXPathOrCSS("//*[contains(@class, 'fa-award')]//ancestor::*[contains(@class, 'peopleActionItem')]");
   }
 
   private ElementFacade threedotsKudosCommentElement() {

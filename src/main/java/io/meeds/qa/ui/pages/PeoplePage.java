@@ -190,7 +190,7 @@ public class PeoplePage extends GenericPage {
   }
 
   public void connectToUser(String user) {
-    checkConnectToUser(user);
+    retryOnCondition(() -> checkConnectToUser(user));
   }
 
   public void connectUserProfile() {
