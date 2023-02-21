@@ -56,8 +56,8 @@ public class LoginSteps {
     loginPage.deleteCookies();
   }
 
-  public boolean isHamburgerNavigationDisplayed() {
-    return homePage.isHamburgerNavigationDisplayed();
+  public boolean isPortalDisplayed() {
+    return homePage.isPortalDisplayed();
   }
 
   public boolean isLoggedIn() {

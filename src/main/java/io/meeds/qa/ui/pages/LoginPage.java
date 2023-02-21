@@ -61,9 +61,9 @@ public class LoginPage extends GenericPage implements IsHidden {
       usernameInputElement().setTextValue(login);
       passwordInputElement().setTextValue(password);
       loginButtonElement().click();
+      waitForPageLoading();
       getDriver().manage().addCookie(new Cookie(LAST_LOGGED_IN_USER_COOKIE_NAME, login, "/"));
       lastLoggedInUser = login;
-      waitForPageLoading();
     }
   }
 
@@ -74,10 +74,10 @@ public class LoginPage extends GenericPage implements IsHidden {
   public void openLoginPage() {
     int maxRetries = 3;
     int i = 0;
-    while (!StringUtils.contains(getDriver().getCurrentUrl(), "/portal/login") && i++ < maxRetries) {
+    do {
       deleteCookies();
       open();
-    }
+    } while (!StringUtils.contains(getDriver().getCurrentUrl(), "/portal/login") && i++ < maxRetries);
     if (i >= maxRetries) {
       throw new IllegalStateException("Can't display login page after 3 retries");
     }

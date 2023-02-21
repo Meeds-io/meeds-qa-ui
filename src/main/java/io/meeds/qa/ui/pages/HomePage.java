@@ -69,7 +69,7 @@ public class HomePage extends GenericPage {
                                                     null);
         }
         ElementFacade administrationMenuElement =
-                                                findByXPathOrCSS(".HamburgerMenuSecondLevelParent #AdministrationHamburgerNavigation .subItemTitle");
+                                                findByXPathOrCSS("#AdministrationHamburgerNavigation .subItemTitle");
         if (!administrationMenuElement.isVisible()) {
           throw new ElementShouldBeVisibleException(String.format("Administration menu drawer should be visible %s",
                                                                   administrationMenuElement),
@@ -99,7 +99,7 @@ public class HomePage extends GenericPage {
                                                     null);
         }
         ElementFacade recentSpacesMenuElement =
-                                              findByXPathOrCSS(".HamburgerMenuSecondLevelParent .recentDrawer .recentSpacesTitleLabel");
+                                              findByXPathOrCSS(".recentSpacesTitle .recentSpacesTitleLabel");
         if (!recentSpacesMenuElement.isVisible()) {
           throw new ElementShouldBeVisibleException(String.format("Recent spaces drawer should be visible %s",
                                                                   recentSpacesMenuElement),
@@ -348,8 +348,8 @@ public class HomePage extends GenericPage {
     }
   }
 
-  public boolean isHamburgerNavigationDisplayed() {
-    return getHamburgerNavigationMenu().isVisible();
+  public boolean isPortalDisplayed() {
+    return getSiteBody().isVisible();
   }
 
   public boolean isNoConnectionsBadge() {
@@ -380,7 +380,7 @@ public class HomePage extends GenericPage {
   }
 
   public void logout() {
-    if (isHamburgerNavigationDisplayed()) {
+    if (isPortalDisplayed()) {
       clickOnHamburgerMenu();
       logOutMenuElement().click();
       waitForPageLoading();
@@ -451,7 +451,7 @@ public class HomePage extends GenericPage {
   }
 
   private ElementFacade administrationMenuElement() {
-    return findByXPathOrCSS("//i[contains(@class,'uiAdministrationIcon')]");
+    return findByXPathOrCSS("#AdministrationHamburgerNavigation");
   }
 
   private ElementFacade appCenterButtonElement() {
@@ -525,6 +525,10 @@ public class HomePage extends GenericPage {
 
   private ElementFacade getHamburgerNavigationMenu() {
     return findByXPathOrCSS(".HamburgerNavigationMenuLink");
+  }
+
+  private ElementFacade getSiteBody() {
+    return findByXPathOrCSS("#UISiteBody");
   }
 
   private ElementFacade getHamburgerNavigationMenuDrawer() {

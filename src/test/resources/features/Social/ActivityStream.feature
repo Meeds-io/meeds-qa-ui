@@ -1248,6 +1248,7 @@ Feature: Activity Stream
     When I open link 'https://www.meeds.io/' in new tab
     Then Link 'https://www.meeds.io/' is opened in new tab
 
+  @test
   Scenario: CAP97 - [ActivityStream_US38][01] Delete a simple comment from the activity stream
     Given I am authenticated as admin
 

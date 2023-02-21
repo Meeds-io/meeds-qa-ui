@@ -170,15 +170,20 @@ public class TestHooks {
     }
   }
 
-  private boolean isHamburgerNavigationDisplayed() {
+  private boolean isPortalDisplayed() {
     try {
-      return loginSteps.isHamburgerNavigationDisplayed();
+      return loginSteps.isPortalDisplayed();
     } catch (Exception e) {
       return false;
     }
   }
 
   private void loginAsAdmin() {
+    try {
+      loginSteps.logout();
+    } catch (Exception e) {
+      LOGGER.warn("Can't logout admin user. Proceed to login phase", e);
+    }
     loginSteps.authenticate("admin");
   }
 
@@ -215,7 +220,7 @@ public class TestHooks {
         Utils.waitForLoading(WARM_UP_PAGE_LOADING_WAIT, true);
         loginAsAdmin();
         Utils.waitForLoading(WARM_UP_PAGE_LOADING_WAIT, true);
-        homePageDisplayed = isHamburgerNavigationDisplayed();
+        homePageDisplayed = isPortalDisplayed();
         if (!homePageDisplayed) {
           throw new ElementShouldBeVisibleException("Home Page isn't displayed", null);
         }
