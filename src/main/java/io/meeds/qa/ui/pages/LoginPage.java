@@ -57,30 +57,21 @@ public class LoginPage extends GenericPage implements IsHidden {
   }
 
   public void login(String login, String password) {
-    long start = System.currentTimeMillis();
-    LOGGER.info("login - Start");
     if (StringUtils.equals(getLastLoggedInUser(), login)) {
       closeAllDrawers();
     } else {
-      LOGGER.info("login - logout: {}ms", System.currentTimeMillis() - start);
       logout();
-      LOGGER.info("login - setTextValue: {}ms", System.currentTimeMillis() - start);
       usernameInputElement().setTextValue(login);
       passwordInputElement().setTextValue(password);
       loginButtonElement().click();
-      LOGGER.info("login - waitForPageLoading: {}ms", System.currentTimeMillis() - start);
       waitForPageLoading();
-      LOGGER.info("login - addCookie: {}ms", System.currentTimeMillis() - start);
       assertTrue("The home page should be loaded, but it did not !", homePage.isPortalDisplayed());
       getDriver().manage().addCookie(new Cookie(LAST_LOGGED_IN_USER_COOKIE_NAME, login, "/"));
       lastLoggedInUser = login;
     }
-    LOGGER.info("login - End: {}ms", System.currentTimeMillis() - start);
   }
 
   public void openLoginPage() {
-    long start = System.currentTimeMillis();
-    LOGGER.info("openLoginPage - Start");
     int maxRetries = 3;
     int i = 0;
     do {
@@ -90,7 +81,6 @@ public class LoginPage extends GenericPage implements IsHidden {
     if (i >= maxRetries) {
       throw new IllegalStateException("Can't display login page after 3 retries");
     }
-    LOGGER.info("openLoginPage - End: {}ms", System.currentTimeMillis() - start);
   }
 
   public boolean isLoginPageDisplayed() {
