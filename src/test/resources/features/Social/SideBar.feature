@@ -5,7 +5,7 @@ Feature: SideBar
   Scenario: CAP37 - US 6.2.2 [FRONT]_(01) : Filter Recent Spaces in the Second level side bar in Desktop
     Given I connect as admin if random users doesn't exists
       | first  |
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     When I connect with the first created user
     And I go to the first random space
     And I go to the second random space
@@ -18,7 +18,7 @@ Feature: SideBar
   Scenario:CAP34-US 6.5[FRONT]_(01):My Settings in the Side bar for Desktop
     Given I connect as admin if random users doesn't exists
       | first  |
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     When I connect with the first created user
     When I go to Settings page
     Then The page 'settings' that contains 'Manage notifications' is displayed
@@ -27,7 +27,7 @@ Feature: SideBar
   Scenario: Stick and Unstick Hamburger Menu
     Given I connect as admin if random users doesn't exists
       | hamburgermenu  |
-    And I create the hamburgermenu random user if not existing
+    And I create the hamburgermenu random user if not existing, no wait
     When I connect with the hamburgermenu created user
     Then The hamburger menu is displayed as unstickied
     When I open hamburger menu drawer

@@ -85,7 +85,6 @@ public class AddUserSteps {
                                                                 .toString()
                                                                 .equals("true"));
       } else {
-        addUserPage.waitForDrawerToOpen();
         homePage.goToAddUser();
         addRandomUser(userName, firstName, lastName, email, password);
         if (waitSearchable) {

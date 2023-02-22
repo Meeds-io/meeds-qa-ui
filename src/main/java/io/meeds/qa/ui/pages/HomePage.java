@@ -68,18 +68,12 @@ public class HomePage extends GenericPage {
                                                                   arrowAdminstrationMenuElement),
                                                     null);
         }
-        ElementFacade administrationMenuElement =
-                                                findByXPathOrCSS("#AdministrationHamburgerNavigation .subItemTitle");
-        if (!administrationMenuElement.isVisible()) {
-          throw new ElementShouldBeVisibleException(String.format("Administration menu drawer should be visible %s",
-                                                                  administrationMenuElement),
-                                                    null);
-        }
       } else {
         throw new ElementShouldBeVisibleException(String.format("Administration menu cog icon should be visible %s",
                                                                 administrationIconElement),
                                                   null);
       }
+      findByXPathOrCSS("#AdministrationHamburgerNavigation .subItemTitle").checkVisible();
     }, Utils::refreshPage);
   }
 
@@ -98,18 +92,12 @@ public class HomePage extends GenericPage {
                                                                   recentSpacesBtnElement),
                                                     null);
         }
-        ElementFacade recentSpacesMenuElement =
-                                              findByXPathOrCSS(".recentSpacesTitle .recentSpacesTitleLabel");
-        if (!recentSpacesMenuElement.isVisible()) {
-          throw new ElementShouldBeVisibleException(String.format("Recent spaces drawer should be visible %s",
-                                                                  recentSpacesMenuElement),
-                                                    null);
-        }
       } else {
         throw new ElementShouldBeVisibleException(String.format("Recent spaces icon should be visible %s",
                                                                 recentSpacesIconElement),
                                                   null);
       }
+      findByXPathOrCSS(".recentSpacesTitle .recentSpacesTitleLabel").checkVisible();
     }, Utils::refreshPage);
   }
 
@@ -230,7 +218,7 @@ public class HomePage extends GenericPage {
   public void goToAddUser() {
     if (!StringUtils.contains(getDriver().getCurrentUrl(), "usersManagement")) {
       accessToAdministrationMenu();
-      clickOnElement(findByXPathOrCSS("//a[contains(@href, '/usersManagement')]"));
+      findByXPathOrCSS("//a[contains(@href, '/usersManagement')]").click();
     }
   }
 
