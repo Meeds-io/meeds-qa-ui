@@ -363,11 +363,6 @@ public class HomeStepDefinition {
     homeSteps.openAppCenterMenu();
   }
 
-  @And("^I open Navigation menu$")
-  public void openNavigationMenu() {
-    homeSteps.openNavigationMenu();
-  }
-
   @When("^I open Notifications$")
   public void openNotifications() {
     homeSteps.openNotifications();

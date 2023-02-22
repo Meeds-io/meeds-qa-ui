@@ -37,7 +37,7 @@ import net.serenitybdd.core.SystemTimeouts;
 
 public class Utils {
 
-  private static final int     DEFAULT_WAIT_PAGE_LOADING         =
+  public static final int      DEFAULT_WAIT_PAGE_LOADING         =
                                                          Integer.parseInt(System.getProperty("io.meeds.page.loading.wait",
                                                                                              "10"));
 
@@ -195,7 +195,7 @@ public class Utils {
   }
 
   public static void waitForPageLoading() {
-    waitForLoading(DEFAULT_WAIT_PAGE_LOADING, false);
+    // Nothing for now
   }
 
   public static void waitRemainingTime(long loadingWaitMilliseconds, long start) {

@@ -250,10 +250,6 @@ public class HomeSteps {
     homePage.openAppCenterMenu();
   }
 
-  public void openNavigationMenu() {
-    homePage.clickOnHamburgerIcon();
-  }
-
   public void openNotifications() {
     homePage.openNotifications();
   }
@@ -322,6 +318,10 @@ public class HomeSteps {
 
   public void unstickHamburgerMenu() {
     homePage.unstickHamburgerMenu();
+  }
+
+  public boolean isPortalDisplayed() {
+    return homePage.isPortalDisplayed();
   }
 
 }

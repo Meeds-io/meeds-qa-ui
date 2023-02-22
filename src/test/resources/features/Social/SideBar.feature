@@ -24,6 +24,7 @@ Feature: SideBar
     Then The page 'settings' that contains 'Manage notifications' is displayed
 
   @smoke
+  @test
   Scenario: Stick and Unstick Hamburger Menu
     Given I connect as admin if random users doesn't exists
       | hamburgermenu  |

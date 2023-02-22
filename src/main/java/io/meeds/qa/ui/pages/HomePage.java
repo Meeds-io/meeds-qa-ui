@@ -17,7 +17,6 @@
  */
 package io.meeds.qa.ui.pages;
 
-import static io.meeds.qa.ui.utils.ExceptionLauncher.LOGGER;
 import static io.meeds.qa.ui.utils.Utils.refreshPage;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
@@ -152,10 +151,6 @@ public class HomePage extends GenericPage {
 
   public void clickOnConnectionsBagde() {
     clickOnElement(connectionsBadgeElement());
-  }
-
-  public void clickOnHamburgerIcon() {
-    clickOnHamburgerMenu();
   }
 
   public void clickOnHomeIcon() {
@@ -337,11 +332,11 @@ public class HomePage extends GenericPage {
   }
 
   public boolean isPortalDisplayed() {
-    return getSiteBody().isVisible();
+    return getSiteBody().isCurrentlyVisible();
   }
 
   public boolean isNoConnectionsBadge() {
-    return !getConnectionsBadge().isVisible();
+    return getConnectionsBadge().isNotVisible();
   }
 
   public boolean isNumberOfConnectionsInDrawer(int expectedNumber) {
@@ -365,17 +360,6 @@ public class HomePage extends GenericPage {
   public boolean isWidgetWithNumberVisible(String widget, String number) {
     closeAllDrawers();
     return getProfileWidgetContent(widget, number).isVisible();
-  }
-
-  public void logout() {
-    if (isPortalDisplayed()) {
-      ElementFacade logOutMenuElement = logOutMenuElement();
-      if (!logOutMenuElement.isVisible()) {
-        clickOnHamburgerMenu();
-      }
-      logOutMenuElement.click();
-      waitForPageLoading();
-    }
   }
 
   public void openAllApplicationPage() {
@@ -562,10 +546,6 @@ public class HomePage extends GenericPage {
 
   private ElementFacade homePageButtonElement() {
     return findByXPathOrCSS("//*[@id='UserHomePortalLink']");
-  }
-
-  private ElementFacade logOutMenuElement() {
-    return findByXPathOrCSS("//i[contains(@class,'logoutIcon')]");
   }
 
   private ElementFacade myProfileButtonElement() {

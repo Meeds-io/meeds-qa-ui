@@ -172,7 +172,7 @@ public class TestHooks {
 
   private boolean isPortalDisplayed() {
     try {
-      return loginSteps.isPortalDisplayed();
+      return homeSteps.isPortalDisplayed();
     } catch (Exception e) {
       return false;
     }
@@ -241,63 +241,68 @@ public class TestHooks {
       throw new ElementShouldBeVisibleException("Home Page isn't displayed", null);
     }
     if (INIT_DATA) {
-      String[] randomUsers = new String[] {
-          "first",
-          "second",
-          "third",
-          "fourth",
-          "fifth",
-          "sixth",
-          "firstgami",
-          "secondgami",
-          "firstkudos",
-          "secondkudos",
-          "thirdkudos",
-          "fourthkudos",
-          "fortyonekudos",
-          "fortytwokudos",
-          "fortythreethkudos",
-          "fiftyonekudos",
-          "fiftytwokudos",
-          "fiftythreethkudos",
-          "firstnoconn",
-          "secondnoconn",
-          "thirdnoconn",
-          "fourthnoconn",
-          "fifthnoconn",
-          "firstconn",
-          "secondconn",
-          "thirdconn",
-          "fourthconn",
-          "fifthconn",
-          "firstrequ",
-          "secondrequ",
-          "thirdrequ",
-          "firstcommconn",
-          "secondcommconn",
-          "thirdcommconn",
-          "fourthcommconn",
-          "fifthcommconn",
-          "firstprofile",
-          "secondprofile",
-          "fifthkudos",
-          "sixthkudos",
-          "seventhkudos",
-          "thirdprofile",
-          "firstlang",
-          "seconddisabled",
-          "eighteenth",
-          "hamburgermenu",
-      };
-      manageSpaceSteps.addOrGoToSpace("randomSpaceName");
-      if (!Arrays.stream(randomUsers).map(this::addRandomUser).allMatch(userCreated -> userCreated)) {
-        throw new IllegalStateException("Some users wasn't created successfully in WarmUp phase");
-      }
+      injectData();
     }
     LOGGER.info("---- End warmup phase in {} seconds", (System.currentTimeMillis() - start) / 1000);
   }
 
+  private void injectData() {
+    manageSpaceSteps.addOrGoToSpace("randomSpaceName");
+    String[] randomUsers = new String[] {
+        "first",
+        "second",
+        "third",
+        "fourth",
+        "fifth",
+        "sixth",
+        "firstgami",
+        "secondgami",
+        "firstkudos",
+        "secondkudos",
+        "thirdkudos",
+        "fourthkudos",
+        "fortyonekudos",
+        "fortytwokudos",
+        "fortythreethkudos",
+        "fiftyonekudos",
+        "fiftytwokudos",
+        "fiftythreethkudos",
+        "firstnoconn",
+        "secondnoconn",
+        "thirdnoconn",
+        "fourthnoconn",
+        "fifthnoconn",
+        "firstconn",
+        "secondconn",
+        "thirdconn",
+        "fourthconn",
+        "fifthconn",
+        "firstrequ",
+        "secondrequ",
+        "thirdrequ",
+        "firstcommconn",
+        "secondcommconn",
+        "thirdcommconn",
+        "fourthcommconn",
+        "fifthcommconn",
+        "firstprofile",
+        "secondprofile",
+        "fifthkudos",
+        "sixthkudos",
+        "seventhkudos",
+        "thirdprofile",
+        "firstlang",
+        "seconddisabled",
+        "eighteenth",
+        "hamburgermenu",
+    };
+    if (!Arrays.stream(randomUsers).map(this::addRandomUser).allMatch(userCreated -> userCreated)) {
+      throw new IllegalStateException("Some users wasn't created successfully in WarmUp phase");
+    }
+  }
+
   private boolean addRandomUser(String randomUser) {
+    LOGGER.info("Injecting new random user {}", randomUser);
     try {
       addUserSteps.addRandomUser(randomUser, false, true);
       return true;
