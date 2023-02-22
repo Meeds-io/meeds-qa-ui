@@ -44,7 +44,7 @@ public class LoginStepDefinitions {
 
   @Given("^I connect as (.*) if random users doesn't exists$")
   public void authenticateIfUsersNotExists(String username, List<String> userPrefixes) {
-    loginSteps.authenticateIfUsersNotExists("admin", userPrefixes);
+    loginSteps.authenticateIfUsersNotExists(username, userPrefixes);
   }
 
   @Given("I logout")
@@ -57,8 +57,8 @@ public class LoginStepDefinitions {
     authenticate(username);
   }
 
-  @Given("^I connect with admin$")
-  public void logOutLoginadmin() {
+  @Given("I connect with admin")
+  public void authenticateAdmin() {
     authenticate("admin");
   }
 

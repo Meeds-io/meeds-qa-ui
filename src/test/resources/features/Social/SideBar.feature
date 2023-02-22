@@ -22,3 +22,28 @@ Feature: SideBar
     When I connect with the first created user
     When I go to Settings page
     Then The page 'settings' that contains 'Manage notifications' is displayed
+
+  @smoke
+  Scenario: Stick and Unstick Hamburger Menu
+    Given I connect as admin if random users doesn't exists
+      | hamburgermenu  |
+    And I create the hamburgermenu random user if not existing
+    When I connect with the hamburgermenu created user
+    Then The hamburger menu is displayed as unstickied
+    When I open hamburger menu drawer
+    Then The hamburger menu has all navigation elements into it
+    And I stick the hamburger menu
+    Then The hamburger menu is displayed as stickied
+    And The hamburger menu has all navigation elements into it
+    When I refresh the page
+    Then The hamburger menu is displayed as stickied
+    And The hamburger menu has all navigation elements into it
+    When I logout
+    And I connect with the hamburgermenu created user
+    Then The hamburger menu is displayed as stickied
+    And The hamburger menu has all navigation elements into it
+    And I unstick the hamburger menu
+    Then The hamburger menu is displayed as unstickied
+    When I logout
+    And I connect with the hamburgermenu created user
+    Then The hamburger menu is displayed as unstickied

@@ -287,6 +287,7 @@ public class TestHooks {
           "firstlang",
           "seconddisabled",
           "eighteenth",
+          "hamburgermenu",
       };
       manageSpaceSteps.addOrGoToSpace("randomSpaceName");
       if (!Arrays.stream(randomUsers).map(this::addRandomUser).allMatch(userCreated -> userCreated)) {

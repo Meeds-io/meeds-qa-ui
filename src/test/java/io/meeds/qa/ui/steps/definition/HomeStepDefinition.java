@@ -467,4 +467,35 @@ public class HomeStepDefinition {
     String oldActiviyy = Serenity.sessionVariableCalled("activity");
     homeSteps.unbookmarkActivity(oldActiviyy);
   }
+
+  @When("I open hamburger menu drawer")
+  public void openHamburgerMenuDrawer() {
+    homeSteps.openHamburgerMenuDrawer();
+  }
+
+  @When("I stick the hamburger menu")
+  public void stickHamburgerMenu() {
+    homeSteps.stickHamburgerMenu();
+  }
+
+  @When("I unstick the hamburger menu")
+  public void unstickHamburgerMenu() {
+    homeSteps.unstickHamburgerMenu();
+  }
+
+  @Then("The hamburger menu has all navigation elements into it")
+  public void checkHamburgerMenuNavigations() {
+    homeSteps.checkHamburgerMenuNavigations();
+  }
+
+  @Then("The hamburger menu is displayed as stickied")
+  public void checkHamburgerMenuSticky() {
+    homeSteps.checkHamburgerMenuSticky();
+  }
+
+  @Then("The hamburger menu is displayed as unstickied")
+  public void checkHamburgerMenuUnsticked() {
+    homeSteps.checkHamburgerMenuUnsticked();
+  }
+
 }

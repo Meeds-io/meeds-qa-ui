@@ -381,8 +381,11 @@ public class HomePage extends GenericPage {
 
   public void logout() {
     if (isPortalDisplayed()) {
-      clickOnHamburgerMenu();
-      logOutMenuElement().click();
+      ElementFacade logOutMenuElement = logOutMenuElement();
+      if (!logOutMenuElement.isVisible()) {
+        clickOnHamburgerMenu();
+      }
+      logOutMenuElement.click();
       waitForPageLoading();
     }
   }
@@ -446,6 +449,16 @@ public class HomePage extends GenericPage {
     clickOnElement(getFavoriteIconActivity(activity));
   }
 
+  public void clickOnHamburgerMenu() {
+    closeAllDrawers();
+    retryOnCondition(() -> getHamburgerNavigationMenu().click(),
+                     () -> {
+                       LOGGER.warn("Hamburger Menu isn't visible, retry by waiting until application is built");
+                       getHamburgerNavigationMenuDrawer().waitUntilPresent();
+                       closeAllDrawers();
+                     });
+  }
+
   private ElementFacade administrationIconElement() {
     return findByXPathOrCSS("//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'titleIcon')]");
   }
@@ -465,16 +478,6 @@ public class HomePage extends GenericPage {
   private ElementFacade checkSpaceFromDrawer(String spaceName) {
     return findByXPathOrCSS(String.format("//aside[contains(@class,'spaceDrawer ')]//descendant::div[contains(text(),'%s')]//following::i[contains(@class,'mdi-checkbox-marked')]",
                                           spaceName));
-  }
-
-  private void clickOnHamburgerMenu() {
-    closeAllDrawers();
-    retryOnCondition(() -> getHamburgerNavigationMenu().click(),
-                     () -> {
-                       LOGGER.warn("Hamburger Menu isn't visible, retry by waiting until application is built");
-                       getHamburgerNavigationMenuDrawer().waitUntilPresent();
-                       closeAllDrawers();
-                     });
   }
 
   private ElementFacade confirmationForChangeSiteHomeLinkElement() {
@@ -695,6 +698,33 @@ public class HomePage extends GenericPage {
 
   private ElementFacade walletBalanceElement() {
     return findByXPathOrCSS("#walletBalance");
+  }
+
+  public void checkHamburgerMenuUnsticked() {
+    findByXPathOrCSS(".HamburgerNavigationMenuLink").checkVisible();
+    findByXPathOrCSS(".HamburgerNavigationMenu .fa-angle-double-left").checkNotVisible();
+  }
+
+  public void checkHamburgerMenuSticked() {
+    findByXPathOrCSS(".HamburgerNavigationMenuLink").checkNotVisible();
+    findByXPathOrCSS(".HamburgerNavigationMenu .fa-angle-double-left").checkVisible();
+  }
+
+  public void checkHamburgerMenuNavigations() {
+    findByXPathOrCSS(".HamburgerNavigationMenu #ProfileHamburgerNavigation").checkVisible();
+    findByXPathOrCSS(".HamburgerNavigationMenu #SiteHamburgerNavigation").checkVisible();
+    findByXPathOrCSS(".HamburgerNavigationMenu #RecentSpaceHamburgerNavigation").checkVisible();
+    findByXPathOrCSS(".HamburgerNavigationMenu #RecentSpaceHamburgerNavigation").checkVisible();
+    findByXPathOrCSS(".HamburgerNavigationMenu #UserHamburgerNavigation .settingsTitle").checkVisible();
+    findByXPathOrCSS(".HamburgerNavigationMenu #UserHamburgerNavigation .logoutLinks").checkVisible();
+  }
+
+  public void stickHamburgerMenu() {
+    findByXPathOrCSS(".HamburgerNavigationMenu .fa-angle-double-right").click();
+  }
+
+  public void unstickHamburgerMenu() {
+    findByXPathOrCSS(".HamburgerNavigationMenu .fa-angle-double-left").click();
   }
 
 }

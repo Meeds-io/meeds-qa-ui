@@ -19,6 +19,7 @@ package io.meeds.qa.ui.pages;
 
 import static io.meeds.qa.ui.utils.Utils.DEFAULT_IMPLICIT_WAIT_FOR_TIMEOUT;
 import static io.meeds.qa.ui.utils.Utils.DEFAULT_WAIT_FOR_TIMEOUT;
+import static io.meeds.qa.ui.utils.Utils.MAX_WAIT_RETRIES;
 import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION_MILLIS;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
@@ -89,17 +90,19 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void closeAllDrawers() {
-    ElementFacade openedDrawerElement = openedDrawerElement();
-    while (openedDrawerElement.isCurrentlyVisible()) {
+    int i = MAX_WAIT_RETRIES * 2;
+    while (openedDrawerElement().isCurrentlyVisible() && i-- > 0) {
       findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
       closeAlertIfOpened();
       waitForDrawerToClose();
     }
+    if (i == 0) {
+      openedDrawerElement().assertNotVisible();
+    }
   }
 
   public void closeDrawerIfDisplayed() {
-    ElementFacade openedDrawerElement = openedDrawerElement();
-    if (openedDrawerElement.isCurrentlyVisible()) {
+    if (openedDrawerElement().isCurrentlyVisible()) {
       findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
       closeAlertIfOpened();
       waitForDrawerToClose();
