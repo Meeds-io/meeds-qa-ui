@@ -247,6 +247,7 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   public void waitCKEditorLoading(String parentXPath) {
     try {
+      getDriver().switchTo().defaultContent();
       ElementFacade iframeElement = findByXPathOrCSS(parentXPath + "//iframe[contains(@class,'cke_wysiwyg_frame')]");
       if (!iframeElement.isCurrentlyVisible()) {
         retryOnCondition(() -> {
@@ -256,7 +257,7 @@ public class BasePageImpl extends PageObject implements BasePage {
           }
           iframeElement.setImplicitTimeout(getImplicitWaitTimeout().multipliedBy(3));
           iframeElement.waitUntilVisible();
-        });
+        }, () -> getDriver().switchTo().defaultContent());
       }
     } catch (Exception e) {
       LOGGER.warn("Can't wait for progress bar to finish loading", e);

@@ -17,7 +17,6 @@
  */
 package io.meeds.qa.ui.pages;
 
-import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
 import static org.junit.Assert.assertTrue;
 
 import org.apache.commons.lang3.StringUtils;
@@ -64,7 +63,7 @@ public class LoginPage extends GenericPage implements IsHidden {
       usernameInputElement().setTextValue(login);
       passwordInputElement().setTextValue(password);
       loginButtonElement().click();
-      waitForPageLoading();
+      verifyPageLoaded();
       assertTrue("The home page should be loaded, but it did not !", homePage.isPortalDisplayed());
       getDriver().manage().addCookie(new Cookie(LAST_LOGGED_IN_USER_COOKIE_NAME, login, "/"));
       lastLoggedInUser = login;
@@ -96,8 +95,6 @@ public class LoginPage extends GenericPage implements IsHidden {
           homePage.clickOnHamburgerMenu();
         }
         logOutMenuElement.click();
-        waitForPageLoading();
-        assertTrue("Login page should be displayed", isLoginPageDisplayed());
         usernameInputElement().checkVisible();
       } finally {
         deleteCookies();
