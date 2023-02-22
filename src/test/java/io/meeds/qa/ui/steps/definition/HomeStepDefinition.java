@@ -349,8 +349,8 @@ public class HomeStepDefinition {
   }
 
   @And("^The third level Navigation should display the space details panel$")
-  public void isThirdLevelNavigationDisplayed() {
-    homeSteps.isThirdLevelNavigationDisplayed();
+  public void checkThirdLevelNavigationDisplayed() {
+    homeSteps.checkThirdLevelNavigationDisplayed();
   }
 
   @When("^I open all application page$")

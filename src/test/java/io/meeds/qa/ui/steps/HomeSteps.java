@@ -234,8 +234,8 @@ public class HomeSteps {
     return homePage.isSpacesBadgeWithNumberVisible(number);
   }
 
-  public void isThirdLevelNavigationDisplayed() {
-    homePage.isThirdLevelNavigationDisplayed();
+  public void checkThirdLevelNavigationDisplayed() {
+    homePage.checkThirdLevelNavigationDisplayed();
   }
 
   public boolean isWidgetWithNumberVisible(String widget, String number) {

@@ -438,10 +438,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void clickPostIcon() {
-    if (activityTabElement().getAttribute("aria-selected").equals("false")) {
-      goToSpecificTab("Stream");
-      waitFor(500).milliseconds();
-    }
+    goToSpecificTab("Stream");
     waitForLoading();
     ElementFacade activityPostLink = findByXPathOrCSS(".activityComposer .openLink");
     activityPostLink.click();
@@ -653,8 +650,12 @@ public class SpaceHomePage extends GenericPage {
   public void goToSpecificTab(String tabName) {
     ElementFacade tabElement = tabElement(tabName);
     tabElement.waitUntilVisible();
-    tabElement.hover();
-    tabElement.sendKeys(Keys.ENTER);
+
+    ElementFacade selectedTab = findByXPathOrCSS(String.format("//*[@id = 'SpaceMenu']//*[contains(@class, 'SelectedTab') and contains(text(), '%s')]",
+                                                               tabName));
+    if (!selectedTab.isCurrentlyVisible()) {
+      tabElement.click();
+    }
   }
 
   public void goToUserProfileFromLikersDrawer(String userLastName) {
@@ -958,10 +959,6 @@ public class SpaceHomePage extends GenericPage {
 
   private ElementFacade activityLinkPreviewElement() {
     return findByXPathOrCSS("[data-widget='embedSemantic']");
-  }
-
-  private ElementFacade activityTabElement() {
-    return findByXPathOrCSS("//div[@id='MiddleToolBar']//a[@tabindex='0'][1]");
   }
 
   private ElementFacade activityTitleElement() {

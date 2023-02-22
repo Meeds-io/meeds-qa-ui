@@ -17,7 +17,6 @@
  */
 package io.meeds.qa.ui.pages;
 
-import static io.meeds.qa.ui.utils.Utils.refreshPage;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
@@ -190,7 +189,7 @@ public class HomePage extends GenericPage {
 
   public void confirmationForChangeSiteHomeLink() {
     clickOnElement(confirmationForChangeSiteHomeLinkElement());
-    refreshPage();
+    closeAllDrawers();
   }
 
   public void deactivateSwitcher() {
@@ -204,33 +203,19 @@ public class HomePage extends GenericPage {
   }
 
   public void goToAddGroups() {
-    if (!StringUtils.contains(getDriver().getCurrentUrl(), "groupsManagement")) {
-      accessToAdministrationMenu();
-      clickOnElement(findByXPathOrCSS("//a[contains(@href, '/groupsManagement')]"));
-    }
+    goToAdministrationPage("/groupsManagement");
   }
 
   public void goToAddUser() {
-    if (!StringUtils.contains(getDriver().getCurrentUrl(), "usersManagement")) {
-      accessToAdministrationMenu();
-      findByXPathOrCSS("//a[contains(@href, '/usersManagement')]").click();
-    }
+    goToAdministrationPage("/usersManagement");
   }
 
   public void goToAppCenterAdminSetupPage() {
-    accessToAdministrationMenu();
-    clickOnElement(findByXPathOrCSS("//a[contains(@href,'appCenterAdminSetup')]"));
-    waitForPageLoading();
+    goToAdministrationPage("/appCenterAdminSetup");
   }
 
   public void goToHomePage() {
-    String currentUrl = getDriver().getCurrentUrl();
-    if (currentUrl.endsWith("/") && !currentUrl.endsWith("g:")) {
-      refreshPage(false);
-      return;
-    }
     closeAlertIfOpened();
-    waitForPageLoading();
     getDriver().get(getDriver().getCurrentUrl().split("/portal/")[0]);
     waitForPageLoading();
   }
@@ -238,18 +223,18 @@ public class HomePage extends GenericPage {
   public void goToMyProfile() {
     String currentUrl = getDriver().getCurrentUrl();
     if (currentUrl.endsWith("/profile") && !currentUrl.endsWith("g:")) {
-      refreshPage(false);
+      closeAllDrawers();
       return;
     }
     clickOnHamburgerMenu();
-    clickOnElement(myProfileButtonElement());
+    myProfileButtonElement().click();
     waitForPageLoading();
   }
 
   public void goToPeoplePage() {
     String currentUrl = getDriver().getCurrentUrl();
     if (currentUrl.endsWith("/people") && !currentUrl.endsWith("g:")) {
-      refreshPage(false);
+      closeAllDrawers();
       return;
     }
     clickOnHamburgerMenu();
@@ -260,7 +245,7 @@ public class HomePage extends GenericPage {
   public void goToSettingsPage() {
     String currentUrl = getDriver().getCurrentUrl();
     if (currentUrl.endsWith("/settings") && !currentUrl.endsWith("g:")) {
-      refreshPage(false);
+      closeAllDrawers();
       return;
     }
     clickOnHamburgerMenu();
@@ -271,7 +256,7 @@ public class HomePage extends GenericPage {
   public void goToSpacesPage() {
     String currentUrl = getDriver().getCurrentUrl();
     if (currentUrl.endsWith("/spaces") && !currentUrl.endsWith("g:")) {
-      refreshPage(false);
+      closeAllDrawers();
       return;
     }
     clickOnHamburgerMenu();
@@ -282,7 +267,7 @@ public class HomePage extends GenericPage {
   public void goToStreamPage() {
     String currentUrl = getDriver().getCurrentUrl();
     if (currentUrl.endsWith("/stream") && !currentUrl.endsWith("g:")) {
-      refreshPage(false);
+      closeAllDrawers();
       return;
     }
     clickOnHamburgerMenu();
@@ -293,7 +278,7 @@ public class HomePage extends GenericPage {
   public void goToTasksPage() {
     String currentUrl = getDriver().getCurrentUrl();
     if (currentUrl.endsWith("/tasks") && !currentUrl.endsWith("g:")) {
-      refreshPage(false);
+      closeAllDrawers();
       return;
     }
     waitForPageLoading();
@@ -353,7 +338,7 @@ public class HomePage extends GenericPage {
     return getSpacesBadgeWithNumber(number).isVisible();
   }
 
-  public void isThirdLevelNavigationDisplayed() {
+  public void checkThirdLevelNavigationDisplayed() {
     thirdLevelNavigationElement().assertVisible();
   }
 
@@ -429,6 +414,15 @@ public class HomePage extends GenericPage {
                        getHamburgerNavigationMenuDrawer().waitUntilPresent();
                        closeAllDrawers();
                      });
+  }
+
+  private void goToAdministrationPage(String uri) {
+    if (!StringUtils.contains(getDriver().getCurrentUrl(), uri)) {
+      accessToAdministrationMenu();
+      waitFor(50).milliseconds();
+      findByXPathOrCSS(String.format("//*[@id = 'AdministrationHamburgerNavigation']//a[contains(@href, '%s')]", uri)).click();
+      waitForPageLoading();
+    }
   }
 
   private ElementFacade administrationIconElement() {
@@ -549,7 +543,7 @@ public class HomePage extends GenericPage {
   }
 
   private ElementFacade myProfileButtonElement() {
-    return findByXPathOrCSS("//*[@id='ProfileHamburgerNavigation']//a[contains(@href, '/profile')]");
+    return findByXPathOrCSS("//*[@id='ProfileHamburgerNavigation']//a[contains(@href, '/profile')]//*[contains(@class, 'v-avatar')]");
   }
 
   private ElementFacade notificationIconElement() {
