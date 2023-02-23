@@ -274,12 +274,16 @@ public class ManageSpacesPage extends GenericPage {
   public boolean clickSpaceActionToJoin() {
     ElementFacade spaceAction = getSpaceAction("Join");
     if (spaceAction != null) {
-      clickOnElement(spaceAction);
+      spaceAction.click();
+      waitFor(50).milliseconds();
+      verifyPageLoaded();
       return true;
     } else {
       spaceAction = getSpaceAction("Accept");
       if (spaceAction != null) {
-        clickOnElement(spaceAction);
+        spaceAction.click();
+        waitFor(50).milliseconds();
+        verifyPageLoaded();
         return true;
       }
     }

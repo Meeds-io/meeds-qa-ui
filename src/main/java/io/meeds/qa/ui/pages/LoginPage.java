@@ -95,13 +95,21 @@ public class LoginPage extends GenericPage implements IsHidden {
           homePage.clickOnHamburgerMenu();
         }
         logOutMenuElement.click();
+        waitFor(50).milliseconds();
+        verifyPageLoaded();
         usernameInputElement().checkVisible();
       } finally {
-        deleteCookies();
+        deleteLastLoginCookie();
       }
     } else if (!isLoginPageDisplayed()) {
       openLoginPage();
     }
+  }
+
+  private void deleteLastLoginCookie() {
+    lastLoggedInUser = null;
+    closeAlertIfOpened();
+    getDriver().manage().deleteCookieNamed(LAST_LOGGED_IN_USER_COOKIE_NAME);
   }
 
   private ElementFacade logOutMenuElement() {

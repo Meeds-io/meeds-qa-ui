@@ -73,10 +73,10 @@ Feature: Kudos
     Given I connect as admin if random users doesn't exists
       | fortyonekudos |
       | fortytwokudos |
-      | fortythreethkudos |
+      | fortythreekudos |
     And I create the fortyonekudos random user if not existing, no wait
     And I create the fortytwokudos random user if not existing, no wait
-    And I create the fortythreethkudos random user if not existing
+    And I create the fortythreekudos random user if not existing
 
     When I connect with the fortyonekudos created user
     And I go to the random space
@@ -88,7 +88,7 @@ Feature: Kudos
     And I connect with the fortytwokudos created user
     And I go to the random space
 
-    And I connect with the fortythreethkudos created user
+    And I connect with the fortythreekudos created user
     When I go to the random space
     And I send in the activity 'Hello Team - US11' a kudos message 'Kudos Message US11' to 'fortytwokudos' user
 
@@ -96,15 +96,14 @@ Feature: Kudos
     And I go to My Profile page
     Then '1' kudos are received
 
-
   Scenario: People suggestor in invitation when members can't be found
     Given I connect as admin if random users doesn't exists
       | fiftyonekudos |
       | fiftytwokudos |
-      | fiftythreethkudos |
+      | fiftythreekudos |
     And I create the fiftyonekudos random user if not existing, no wait
     And I create the fiftytwokudos random user if not existing, no wait
-    And I create the fiftythreethkudos random user if not existing
+    And I create the fiftythreekudos random user if not existing
 
     When I connect with the fiftyonekudos created user
     And I go to the random space
@@ -115,4 +114,4 @@ Feature: Kudos
 
     And I connect with the fiftytwokudos created user
     When I go to the random space
-    Then I send in the activity 'Hello Team - USX' a kudos message 'Kudos Message USX' to 'fiftythreethkudos' user
+    Then I send in the activity 'Hello Team - USX' a kudos message 'Kudos Message USX' to 'fiftythreekudos' user
