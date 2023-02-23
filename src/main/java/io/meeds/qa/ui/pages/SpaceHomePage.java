@@ -42,6 +42,9 @@ public class SpaceHomePage extends GenericPage {
   private static final String OPENED_ACTIVITY_COMMENTS_DRAWER_SELECTOR        =
                                                                        "//*[@id='activityCommentsDrawer' and contains(@class, 'v-navigation-drawer--open')]";
 
+  private static final String OPENED_ACTIVITY_REPLIES_DRAWER_SELECTOR        =
+                                                                       "//*[@id='activityCommentsDrawer' and contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'activity-comment')]";
+
   private static final String OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR        =
                                                                        "//*[@id = 'activityComposerDrawer' and contains(@class, 'v-navigation-drawer--open')]";
 
@@ -89,6 +92,7 @@ public class SpaceHomePage extends GenericPage {
   public void addActivityComment(String activity, String comment) {
     getActivityCommentButton(activity).click();
     waitForDrawerToOpen();
+    waitForDrawerToLoad();
 
     addActivityCommentEditorContent(comment, false, true);
     closeDrawerIfDisplayed();
@@ -97,6 +101,7 @@ public class SpaceHomePage extends GenericPage {
   public void addActivityComments(String activity, List<String> comments) {
     getActivityCommentButton(activity).click();
     waitForDrawerToOpen();
+    waitForDrawerToLoad();
 
     Iterator<String> commentsIterator = comments.iterator();
     while (commentsIterator.hasNext()) {
@@ -147,8 +152,8 @@ public class SpaceHomePage extends GenericPage {
     Iterator<String> repliesIterator = replies.iterator();
     while (repliesIterator.hasNext()) {
       String reply = repliesIterator.next();
-      waitOnCommentReplyRichText();
-      addCommentReplyEditorContent(reply);
+      waitOnReplyRichText();
+      addReplyEditorContent(reply);
       waitForDrawerToLoad();
       if (repliesIterator.hasNext()) {
         ckEditorFrameCommentElement().checkNotVisible(); // Wait for CKEditor to
@@ -162,9 +167,10 @@ public class SpaceHomePage extends GenericPage {
   public void addCommentReply(String reply, String comment, String activity) {
     clickOnReplyToComment(comment, activity, false);
     waitForDrawerToOpen();
+    waitForDrawerToLoad();
 
-    waitOnCommentReplyRichText();
-    addCommentReplyEditorContent(reply);
+    waitOnReplyRichText();
+    addReplyEditorContent(reply);
     closeDrawerIfDisplayed();
   }
 
@@ -438,10 +444,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void clickPostIcon() {
-    if (activityTabElement().getAttribute("aria-selected").equals("false")) {
-      goToSpecificTab("Stream");
-      waitFor(500).milliseconds();
-    }
+    goToSpecificTab("Stream");
     waitForLoading();
     ElementFacade activityPostLink = findByXPathOrCSS(".activityComposer .openLink");
     activityPostLink.click();
@@ -653,8 +656,12 @@ public class SpaceHomePage extends GenericPage {
   public void goToSpecificTab(String tabName) {
     ElementFacade tabElement = tabElement(tabName);
     tabElement.waitUntilVisible();
-    tabElement.hover();
-    tabElement.sendKeys(Keys.ENTER);
+
+    ElementFacade selectedTab = findByXPathOrCSS(String.format("//*[@id = 'SpaceMenu']//*[contains(@class, 'SelectedTab') and contains(text(), '%s')]",
+                                                               tabName));
+    if (!selectedTab.isCurrentlyVisible()) {
+      tabElement.click();
+    }
   }
 
   public void goToUserProfileFromLikersDrawer(String userLastName) {
@@ -960,16 +967,12 @@ public class SpaceHomePage extends GenericPage {
     return findByXPathOrCSS("[data-widget='embedSemantic']");
   }
 
-  private ElementFacade activityTabElement() {
-    return findByXPathOrCSS("//div[@id='MiddleToolBar']//a[@tabindex='0'][1]");
-  }
-
   private ElementFacade activityTitleElement() {
     return findByXPathOrCSS("//div[contains(@class,'contentBox')]//*[contains(@class,'postContent ')]//div");
   }
 
-  private void addCommentReplyEditorContent(String reply) {
-    ElementFacade ckEditorFrameCommentElement = ckEditorFrameCommentElement();
+  private void addReplyEditorContent(String reply) {
+    ElementFacade ckEditorFrameCommentElement = ckEditorFrameReplyElement();
     getDriver().switchTo().frame(ckEditorFrameCommentElement);
     try {
       TextBoxElementFacade ckEditorBodyCommentElement = ckEditorBodyCommentElement();
@@ -1015,6 +1018,10 @@ public class SpaceHomePage extends GenericPage {
 
   private ElementFacade ckEditorFrameCommentElement() {
     return findByXPathOrCSS(OPENED_ACTIVITY_COMMENTS_DRAWER_SELECTOR + "//iframe[contains(@class,'cke_wysiwyg_frame')]");
+  }
+
+  private ElementFacade ckEditorFrameReplyElement() {
+    return findByXPathOrCSS(OPENED_ACTIVITY_REPLIES_DRAWER_SELECTOR + "//iframe[contains(@class,'cke_wysiwyg_frame')]");
   }
 
   private ElementFacade ckEditorFrameElement() {
@@ -1401,7 +1408,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private ElementFacade replyButtonInDrawerElement() {
-    return findByXPathOrCSS("//*[contains(@class,'drawerContent ')]//button//span[contains(text(),'Comment')]");
+    return findByXPathOrCSS(OPENED_ACTIVITY_REPLIES_DRAWER_SELECTOR + "//button//span[contains(text(),'Comment')]");
   }
 
   private ElementFacade secondASDisplayedCommentElement() {
@@ -1460,7 +1467,7 @@ public class SpaceHomePage extends GenericPage {
     waitCKEditorLoading("//*[@id = 'activityCommentsDrawer' and contains(@class, 'v-navigation-drawer--open')]");
   }
 
-  private void waitOnCommentReplyRichText() {
+  private void waitOnReplyRichText() {
     waitCKEditorLoading("//*[@id = 'activityCommentsDrawer' and contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'activity-comment')]");
   }
 

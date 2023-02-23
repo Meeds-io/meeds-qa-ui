@@ -23,13 +23,10 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
-import io.meeds.qa.ui.pages.HomePage;
 import io.meeds.qa.ui.pages.LoginPage;
 import net.serenitybdd.core.Serenity;
 
 public class LoginSteps {
-
-  private HomePage  homePage;
 
   private LoginPage loginPage;
 
@@ -56,21 +53,13 @@ public class LoginSteps {
     loginPage.deleteCookies();
   }
 
-  public boolean isHamburgerNavigationDisplayed() {
-    return homePage.isHamburgerNavigationDisplayed();
-  }
-
   public boolean isLoggedIn() {
     String currentUrl = loginPage.getCurrentUrl();
     return StringUtils.contains(currentUrl, "/portal") && !StringUtils.contains(currentUrl, "/login");
   }
 
   public void logout() {
-    try {
-      homePage.logout();
-    } finally {
-      loginPage.logout();
-    }
+    loginPage.logout();
   }
 
 }

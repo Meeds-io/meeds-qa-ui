@@ -31,7 +31,7 @@ Feature: Edit sections in Settings page
   Scenario: SETTINGS-4 : Add the favorite icon for Homepage default view
     Given I am authenticated as admin
 
-    And I open Navigation menu
+    And I open hamburger menu drawer
     And I mouse over the stream icon in sidebar menu
     And I click on home icon
     And I click to confirm the new home page

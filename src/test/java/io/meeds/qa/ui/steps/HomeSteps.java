@@ -234,8 +234,8 @@ public class HomeSteps {
     return homePage.isSpacesBadgeWithNumberVisible(number);
   }
 
-  public void isThirdLevelNavigationDisplayed() {
-    homePage.isThirdLevelNavigationDisplayed();
+  public void checkThirdLevelNavigationDisplayed() {
+    homePage.checkThirdLevelNavigationDisplayed();
   }
 
   public boolean isWidgetWithNumberVisible(String widget, String number) {
@@ -248,10 +248,6 @@ public class HomeSteps {
 
   public void openAppCenterMenu() {
     homePage.openAppCenterMenu();
-  }
-
-  public void openNavigationMenu() {
-    homePage.clickOnHamburgerIcon();
   }
 
   public void openNotifications() {
@@ -299,4 +295,33 @@ public class HomeSteps {
   public void unbookmarkActivity(String activity) {
     homePage.unbookmarkActivity(activity);
   }
+
+  public void checkHamburgerMenuUnsticked() {
+    homePage.checkHamburgerMenuUnsticked();
+  }
+
+  public void checkHamburgerMenuSticky() {
+    homePage.checkHamburgerMenuSticked();
+  }
+
+  public void openHamburgerMenuDrawer() {
+    homePage.clickOnHamburgerMenu();
+  }
+
+  public void checkHamburgerMenuNavigations() {
+    homePage.checkHamburgerMenuNavigations();
+  }
+
+  public void stickHamburgerMenu() {
+    homePage.stickHamburgerMenu();
+  }
+
+  public void unstickHamburgerMenu() {
+    homePage.unstickHamburgerMenu();
+  }
+
+  public boolean isPortalDisplayed() {
+    return homePage.isPortalDisplayed();
+  }
+
 }

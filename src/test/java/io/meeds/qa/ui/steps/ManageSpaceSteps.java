@@ -81,6 +81,7 @@ public class ManageSpaceSteps {
     manageSpacesPage.clickSecondProcessButton();
     manageSpacesPage.inviteUserToSpace(user);
     manageSpacesPage.clickAddSpaceButton();
+    waitForLoading();
   }
 
   public void addSpaceWithRegistration(String spaceName, String registration) {
@@ -91,8 +92,8 @@ public class ManageSpaceSteps {
     manageSpacesPage.checkSpaceRegistration(registration);
     manageSpacesPage.clickSecondProcessButton();
     manageSpacesPage.clickAddSpaceButton();
-
     waitForLoading();
+
     String spaceNamePrefix = "randomSpaceName";
     setSessionVariable(spaceNamePrefix).to(spaceName);
     setSessionVariable(spaceNamePrefix + "-url").to(manageSpacesPage.getCurrentUrl());

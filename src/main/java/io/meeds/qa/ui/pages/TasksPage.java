@@ -323,9 +323,8 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkUpdatedDescription(String description) {
-    taskDescriptionFieldElement().click();
+    clickOnTaskDescription();
 
-    waitCKEditorLoading();
     ElementFacade ckEditorFrameDescriptionElement = ckEditorFrameDescriptionElement();
     ckEditorFrameDescriptionElement.waitUntilVisible();
     getDriver().switchTo().frame(ckEditorFrameDescriptionElement);
@@ -472,6 +471,7 @@ public class TasksPage extends GenericPage {
 
   public void clickOnProjectThreeDotsButton() {
     projectThreeDotsButtonElement().click();
+    editProjectButtonElement().waitUntilVisible();
   }
 
   public void clickOnSaveButtonToAddTask() {
@@ -632,9 +632,8 @@ public class TasksPage extends GenericPage {
   }
 
   public void editDescriptionForTask(String newDescription) {
-    taskDescriptionFieldElement().click();
+    clickOnTaskDescription();
 
-    waitCKEditorLoading();
     ElementFacade switchToFrameTaskUserElement = switchToFrameTaskUserElement();
     switchToFrameTaskUserElement.waitUntilVisible();
     getDriver().switchTo().frame(switchToFrameTaskUserElement);
@@ -692,9 +691,8 @@ public class TasksPage extends GenericPage {
   }
 
   public void enterDescriptionForTask(String description) {
-    taskDescriptionFieldElement().click();
+    clickOnTaskDescription();
 
-    waitCKEditorLoading();
     ElementFacade switchToFrameTaskElement = switchToFrameTaskElement();
     switchToFrameTaskElement.waitUntilVisible();
     getDriver().switchTo().frame(switchToFrameTaskElement);
@@ -989,9 +987,8 @@ public class TasksPage extends GenericPage {
   }
 
   public void setTaskDescription(String description) {
-    taskDescriptionFieldElement().click();
+    clickOnTaskDescription();
 
-    waitCKEditorLoading();
     ElementFacade ckEditorFrameDescriptionElement = ckEditorFrameDescriptionElement();
     ckEditorFrameDescriptionElement.waitUntilVisible();
     getDriver().switchTo().frame(ckEditorFrameDescriptionElement);
@@ -1099,9 +1096,8 @@ public class TasksPage extends GenericPage {
   }
 
   public void updateTaskDescription(String description) {
-    taskDescriptionFieldElement().click();
+    clickOnTaskDescription();
 
-    waitCKEditorLoading();
     ElementFacade ckEditorFrameDescriptionElement = ckEditorFrameDescriptionElement();
     ckEditorFrameDescriptionElement.waitUntilVisible();
     getDriver().switchTo().frame(ckEditorFrameDescriptionElement);
@@ -1136,6 +1132,11 @@ public class TasksPage extends GenericPage {
     ElementFacade viewAllCommentsTaskButtonElement = viewAllCommentsTaskButtonElement();
     viewAllCommentsTaskButtonElement.waitUntilVisible();
     viewAllCommentsTaskButtonElement.click();
+  }
+
+  private void clickOnTaskDescription() {
+    taskDescriptionFieldElement().click();
+    waitFor(200).milliseconds();
   }
 
   private ElementFacade activeTabFilterDrawerElement() {
@@ -1323,7 +1324,7 @@ public class TasksPage extends GenericPage {
   }
 
   private ElementFacade editProjectButtonElement() {
-    return findByXPathOrCSS("//*[contains(@class,'uiIconEdit ')]");
+    return findByXPathOrCSS("//*[contains(@class,'menuable__content__active ')]//*[contains(@class,'uiIconEdit ')]");
   }
 
   private ElementFacade editTaskDrawerSectionElement() {

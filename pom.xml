@@ -200,7 +200,13 @@
             <io.meeds.page.loading.wait>${io.meeds.page.loading.wait}</io.meeds.page.loading.wait>
             <io.meeds.retry.wait.millis>${io.meeds.retry.wait.millis}</io.meeds.retry.wait.millis>
             <io.meeds.forkNumber>${surefire.forkNumber}</io.meeds.forkNumber>
-            <properties>serenity.properties</properties>
+            <serenity.dry.run>false</serenity.dry.run>
+            <serenity.maintain.session>true</serenity.maintain.session>
+            <serenity.timeout>5000</serenity.timeout>
+            <serenity.take.screenshots>FOR_EACH_ACTION</serenity.take.screenshots>
+            <serenity.restart.browser.for.each>never</serenity.restart.browser.for.each>
+            <serenity.console.colors>true</serenity.console.colors>
+            <restart.browser.each.scenario>false</restart.browser.each.scenario>
             <webdriver.remote.url>http://localhost:4444</webdriver.remote.url>
             <webdriver.base.url>http://localhost:8080/</webdriver.base.url>
             <webdriver.remote.driver>chrome</webdriver.remote.driver>

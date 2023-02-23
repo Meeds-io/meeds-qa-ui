@@ -17,8 +17,6 @@
  */
 package io.meeds.qa.ui.steps.definition;
 
-import static org.junit.Assert.assertTrue;
-
 import java.util.List;
 
 import io.cucumber.java.en.Given;
@@ -34,7 +32,6 @@ public class LoginStepDefinitions {
   @Given("^I am authenticated as (.*)$")
   public void authenticate(String username) {
     loginSteps.authenticate(username);
-    assertTrue("The home page should be loaded, but it did not !", loginSteps.isHamburgerNavigationDisplayed());
   }
 
   @Given("^I connect as (.*) if random space and random users doesn't exists$")
@@ -44,7 +41,7 @@ public class LoginStepDefinitions {
 
   @Given("^I connect as (.*) if random users doesn't exists$")
   public void authenticateIfUsersNotExists(String username, List<String> userPrefixes) {
-    loginSteps.authenticateIfUsersNotExists("admin", userPrefixes);
+    loginSteps.authenticateIfUsersNotExists(username, userPrefixes);
   }
 
   @Given("I logout")
@@ -57,8 +54,8 @@ public class LoginStepDefinitions {
     authenticate(username);
   }
 
-  @Given("^I connect with admin$")
-  public void logOutLoginadmin() {
+  @Given("I connect with admin")
+  public void authenticateAdmin() {
     authenticate("admin");
   }
 

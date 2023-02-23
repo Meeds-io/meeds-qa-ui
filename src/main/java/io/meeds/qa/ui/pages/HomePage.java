@@ -17,8 +17,6 @@
  */
 package io.meeds.qa.ui.pages;
 
-import static io.meeds.qa.ui.utils.ExceptionLauncher.LOGGER;
-import static io.meeds.qa.ui.utils.Utils.refreshPage;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
@@ -68,18 +66,12 @@ public class HomePage extends GenericPage {
                                                                   arrowAdminstrationMenuElement),
                                                     null);
         }
-        ElementFacade administrationMenuElement =
-                                                findByXPathOrCSS(".HamburgerMenuSecondLevelParent #AdministrationHamburgerNavigation .subItemTitle");
-        if (!administrationMenuElement.isVisible()) {
-          throw new ElementShouldBeVisibleException(String.format("Administration menu drawer should be visible %s",
-                                                                  administrationMenuElement),
-                                                    null);
-        }
       } else {
         throw new ElementShouldBeVisibleException(String.format("Administration menu cog icon should be visible %s",
                                                                 administrationIconElement),
                                                   null);
       }
+      findByXPathOrCSS("#AdministrationHamburgerNavigation .subItemTitle").checkVisible();
     }, Utils::refreshPage);
   }
 
@@ -98,18 +90,12 @@ public class HomePage extends GenericPage {
                                                                   recentSpacesBtnElement),
                                                     null);
         }
-        ElementFacade recentSpacesMenuElement =
-                                              findByXPathOrCSS(".HamburgerMenuSecondLevelParent .recentDrawer .recentSpacesTitleLabel");
-        if (!recentSpacesMenuElement.isVisible()) {
-          throw new ElementShouldBeVisibleException(String.format("Recent spaces drawer should be visible %s",
-                                                                  recentSpacesMenuElement),
-                                                    null);
-        }
       } else {
         throw new ElementShouldBeVisibleException(String.format("Recent spaces icon should be visible %s",
                                                                 recentSpacesIconElement),
                                                   null);
       }
+      findByXPathOrCSS(".recentSpacesTitle .recentSpacesTitleLabel").checkVisible();
     }, Utils::refreshPage);
   }
 
@@ -166,10 +152,6 @@ public class HomePage extends GenericPage {
     clickOnElement(connectionsBadgeElement());
   }
 
-  public void clickOnHamburgerIcon() {
-    clickOnHamburgerMenu();
-  }
-
   public void clickOnHomeIcon() {
     clickOnElement(homeIconElement());
   }
@@ -207,7 +189,7 @@ public class HomePage extends GenericPage {
 
   public void confirmationForChangeSiteHomeLink() {
     clickOnElement(confirmationForChangeSiteHomeLinkElement());
-    refreshPage();
+    closeAllDrawers();
   }
 
   public void deactivateSwitcher() {
@@ -221,33 +203,19 @@ public class HomePage extends GenericPage {
   }
 
   public void goToAddGroups() {
-    if (!StringUtils.contains(getDriver().getCurrentUrl(), "groupsManagement")) {
-      accessToAdministrationMenu();
-      clickOnElement(findByXPathOrCSS("//a[contains(@href, '/groupsManagement')]"));
-    }
+    goToAdministrationPage("/groupsManagement");
   }
 
   public void goToAddUser() {
-    if (!StringUtils.contains(getDriver().getCurrentUrl(), "usersManagement")) {
-      accessToAdministrationMenu();
-      clickOnElement(findByXPathOrCSS("//a[contains(@href, '/usersManagement')]"));
-    }
+    goToAdministrationPage("/usersManagement");
   }
 
   public void goToAppCenterAdminSetupPage() {
-    accessToAdministrationMenu();
-    clickOnElement(findByXPathOrCSS("//a[contains(@href,'appCenterAdminSetup')]"));
-    waitForPageLoading();
+    goToAdministrationPage("/appCenterAdminSetup");
   }
 
   public void goToHomePage() {
-    String currentUrl = getDriver().getCurrentUrl();
-    if (currentUrl.endsWith("/") && !currentUrl.endsWith("g:")) {
-      refreshPage(false);
-      return;
-    }
     closeAlertIfOpened();
-    waitForPageLoading();
     getDriver().get(getDriver().getCurrentUrl().split("/portal/")[0]);
     waitForPageLoading();
   }
@@ -255,18 +223,18 @@ public class HomePage extends GenericPage {
   public void goToMyProfile() {
     String currentUrl = getDriver().getCurrentUrl();
     if (currentUrl.endsWith("/profile") && !currentUrl.endsWith("g:")) {
-      refreshPage(false);
+      closeAllDrawers();
       return;
     }
     clickOnHamburgerMenu();
-    clickOnElement(myProfileButtonElement());
+    myProfileButtonElement().click();
     waitForPageLoading();
   }
 
   public void goToPeoplePage() {
     String currentUrl = getDriver().getCurrentUrl();
     if (currentUrl.endsWith("/people") && !currentUrl.endsWith("g:")) {
-      refreshPage(false);
+      closeAllDrawers();
       return;
     }
     clickOnHamburgerMenu();
@@ -277,7 +245,7 @@ public class HomePage extends GenericPage {
   public void goToSettingsPage() {
     String currentUrl = getDriver().getCurrentUrl();
     if (currentUrl.endsWith("/settings") && !currentUrl.endsWith("g:")) {
-      refreshPage(false);
+      closeAllDrawers();
       return;
     }
     clickOnHamburgerMenu();
@@ -288,7 +256,7 @@ public class HomePage extends GenericPage {
   public void goToSpacesPage() {
     String currentUrl = getDriver().getCurrentUrl();
     if (currentUrl.endsWith("/spaces") && !currentUrl.endsWith("g:")) {
-      refreshPage(false);
+      closeAllDrawers();
       return;
     }
     clickOnHamburgerMenu();
@@ -299,7 +267,7 @@ public class HomePage extends GenericPage {
   public void goToStreamPage() {
     String currentUrl = getDriver().getCurrentUrl();
     if (currentUrl.endsWith("/stream") && !currentUrl.endsWith("g:")) {
-      refreshPage(false);
+      closeAllDrawers();
       return;
     }
     clickOnHamburgerMenu();
@@ -310,7 +278,7 @@ public class HomePage extends GenericPage {
   public void goToTasksPage() {
     String currentUrl = getDriver().getCurrentUrl();
     if (currentUrl.endsWith("/tasks") && !currentUrl.endsWith("g:")) {
-      refreshPage(false);
+      closeAllDrawers();
       return;
     }
     waitForPageLoading();
@@ -348,12 +316,12 @@ public class HomePage extends GenericPage {
     }
   }
 
-  public boolean isHamburgerNavigationDisplayed() {
-    return getHamburgerNavigationMenu().isVisible();
+  public boolean isPortalDisplayed() {
+    return getSiteBody().isCurrentlyVisible();
   }
 
   public boolean isNoConnectionsBadge() {
-    return !getConnectionsBadge().isVisible();
+    return getConnectionsBadge().isNotVisible();
   }
 
   public boolean isNumberOfConnectionsInDrawer(int expectedNumber) {
@@ -370,21 +338,13 @@ public class HomePage extends GenericPage {
     return getSpacesBadgeWithNumber(number).isVisible();
   }
 
-  public void isThirdLevelNavigationDisplayed() {
+  public void checkThirdLevelNavigationDisplayed() {
     thirdLevelNavigationElement().assertVisible();
   }
 
   public boolean isWidgetWithNumberVisible(String widget, String number) {
     closeAllDrawers();
     return getProfileWidgetContent(widget, number).isVisible();
-  }
-
-  public void logout() {
-    if (isHamburgerNavigationDisplayed()) {
-      clickOnHamburgerMenu();
-      logOutMenuElement().click();
-      waitForPageLoading();
-    }
   }
 
   public void openAllApplicationPage() {
@@ -446,12 +406,31 @@ public class HomePage extends GenericPage {
     clickOnElement(getFavoriteIconActivity(activity));
   }
 
+  public void clickOnHamburgerMenu() {
+    closeAllDrawers();
+    retryOnCondition(() -> getHamburgerNavigationMenu().click(),
+                     () -> {
+                       LOGGER.warn("Hamburger Menu isn't visible, retry by waiting until application is built");
+                       getHamburgerNavigationMenuDrawer().waitUntilPresent();
+                       closeAllDrawers();
+                     });
+  }
+
+  private void goToAdministrationPage(String uri) {
+    if (!StringUtils.contains(getDriver().getCurrentUrl(), uri)) {
+      accessToAdministrationMenu();
+      waitFor(50).milliseconds();
+      findByXPathOrCSS(String.format("//*[@id = 'AdministrationHamburgerNavigation']//a[contains(@href, '%s')]", uri)).click();
+      waitForPageLoading();
+    }
+  }
+
   private ElementFacade administrationIconElement() {
     return findByXPathOrCSS("//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'titleIcon')]");
   }
 
   private ElementFacade administrationMenuElement() {
-    return findByXPathOrCSS("//i[contains(@class,'uiAdministrationIcon')]");
+    return findByXPathOrCSS("#AdministrationHamburgerNavigation");
   }
 
   private ElementFacade appCenterButtonElement() {
@@ -465,16 +444,6 @@ public class HomePage extends GenericPage {
   private ElementFacade checkSpaceFromDrawer(String spaceName) {
     return findByXPathOrCSS(String.format("//aside[contains(@class,'spaceDrawer ')]//descendant::div[contains(text(),'%s')]//following::i[contains(@class,'mdi-checkbox-marked')]",
                                           spaceName));
-  }
-
-  private void clickOnHamburgerMenu() {
-    closeAllDrawers();
-    retryOnCondition(() -> getHamburgerNavigationMenu().click(),
-                     () -> {
-                       LOGGER.warn("Hamburger Menu isn't visible, retry by waiting until application is built");
-                       getHamburgerNavigationMenuDrawer().waitUntilPresent();
-                       closeAllDrawers();
-                     });
   }
 
   private ElementFacade confirmationForChangeSiteHomeLinkElement() {
@@ -527,6 +496,10 @@ public class HomePage extends GenericPage {
     return findByXPathOrCSS(".HamburgerNavigationMenuLink");
   }
 
+  private ElementFacade getSiteBody() {
+    return findByXPathOrCSS("#UISiteBody");
+  }
+
   private ElementFacade getHamburgerNavigationMenuDrawer() {
     return findByXPathOrCSS(".HamburgerNavigationMenuLink .v-navigation-drawer");
   }
@@ -569,12 +542,8 @@ public class HomePage extends GenericPage {
     return findByXPathOrCSS("//*[@id='UserHomePortalLink']");
   }
 
-  private ElementFacade logOutMenuElement() {
-    return findByXPathOrCSS("//i[contains(@class,'logoutIcon')]");
-  }
-
   private ElementFacade myProfileButtonElement() {
-    return findByXPathOrCSS("//*[@id='ProfileHamburgerNavigation']//a[contains(@href, '/profile')]");
+    return findByXPathOrCSS("//*[@id='ProfileHamburgerNavigation']//a[contains(@href, '/profile')]//*[contains(@class, 'v-avatar')]");
   }
 
   private ElementFacade notificationIconElement() {
@@ -691,6 +660,33 @@ public class HomePage extends GenericPage {
 
   private ElementFacade walletBalanceElement() {
     return findByXPathOrCSS("#walletBalance");
+  }
+
+  public void checkHamburgerMenuUnsticked() {
+    findByXPathOrCSS(".HamburgerNavigationMenuLink").checkVisible();
+    findByXPathOrCSS(".HamburgerNavigationMenu .fa-angle-double-left").checkNotVisible();
+  }
+
+  public void checkHamburgerMenuSticked() {
+    findByXPathOrCSS(".HamburgerNavigationMenuLink").checkNotVisible();
+    findByXPathOrCSS(".HamburgerNavigationMenu .fa-angle-double-left").checkVisible();
+  }
+
+  public void checkHamburgerMenuNavigations() {
+    findByXPathOrCSS(".HamburgerNavigationMenu #ProfileHamburgerNavigation").checkVisible();
+    findByXPathOrCSS(".HamburgerNavigationMenu #SiteHamburgerNavigation").checkVisible();
+    findByXPathOrCSS(".HamburgerNavigationMenu #RecentSpaceHamburgerNavigation").checkVisible();
+    findByXPathOrCSS(".HamburgerNavigationMenu #RecentSpaceHamburgerNavigation").checkVisible();
+    findByXPathOrCSS(".HamburgerNavigationMenu #UserHamburgerNavigation .settingsTitle").checkVisible();
+    findByXPathOrCSS(".HamburgerNavigationMenu #UserHamburgerNavigation .logoutLinks").checkVisible();
+  }
+
+  public void stickHamburgerMenu() {
+    findByXPathOrCSS(".HamburgerNavigationMenu .fa-angle-double-right").click();
+  }
+
+  public void unstickHamburgerMenu() {
+    findByXPathOrCSS(".HamburgerNavigationMenu .fa-angle-double-left").click();
   }
 
 }

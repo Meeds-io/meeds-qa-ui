@@ -19,9 +19,11 @@ package io.meeds.qa.ui.pages;
 
 import static io.meeds.qa.ui.utils.Utils.DEFAULT_IMPLICIT_WAIT_FOR_TIMEOUT;
 import static io.meeds.qa.ui.utils.Utils.DEFAULT_WAIT_FOR_TIMEOUT;
+import static io.meeds.qa.ui.utils.Utils.DEFAULT_WAIT_PAGE_LOADING;
+import static io.meeds.qa.ui.utils.Utils.MAX_WAIT_RETRIES;
 import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION_MILLIS;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
-import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
+import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 
 import java.time.Duration;
 
@@ -50,7 +52,7 @@ import net.thucydides.core.pages.PageObject;
 
 public class BasePageImpl extends PageObject implements BasePage {
 
-  private static final Logger LOGGER                      = LoggerFactory.getLogger(BasePageImpl.class);
+  protected static final Logger LOGGER                      = LoggerFactory.getLogger(BasePageImpl.class);
 
   private static final String OPNENED_DRAWER_CSS_SELECTOR = ".v-navigation-drawer--open";
 
@@ -89,17 +91,19 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void closeAllDrawers() {
-    ElementFacade openedDrawerElement = openedDrawerElement();
-    while (openedDrawerElement.isCurrentlyVisible()) {
+    int i = MAX_WAIT_RETRIES * 2;
+    while (openedDrawerElement().isCurrentlyVisible() && i-- > 0) {
       findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
       closeAlertIfOpened();
       waitForDrawerToClose();
     }
+    if (i == 0) {
+      openedDrawerElement().assertNotVisible();
+    }
   }
 
   public void closeDrawerIfDisplayed() {
-    ElementFacade openedDrawerElement = openedDrawerElement();
-    if (openedDrawerElement.isCurrentlyVisible()) {
+    if (openedDrawerElement().isCurrentlyVisible()) {
       findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
       closeAlertIfOpened();
       waitForDrawerToClose();
@@ -234,8 +238,7 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   @WhenPageOpens
   public void verifyPageLoaded() {
-    waitForPageLoading();
-    waitFor(50).milliseconds();
+    waitForLoading(DEFAULT_WAIT_PAGE_LOADING, false);
   }
 
   public void waitCKEditorLoading() {
@@ -244,6 +247,7 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   public void waitCKEditorLoading(String parentXPath) {
     try {
+      getDriver().switchTo().defaultContent();
       ElementFacade iframeElement = findByXPathOrCSS(parentXPath + "//iframe[contains(@class,'cke_wysiwyg_frame')]");
       if (!iframeElement.isCurrentlyVisible()) {
         retryOnCondition(() -> {
@@ -253,7 +257,7 @@ public class BasePageImpl extends PageObject implements BasePage {
           }
           iframeElement.setImplicitTimeout(getImplicitWaitTimeout().multipliedBy(3));
           iframeElement.waitUntilVisible();
-        });
+        }, () -> getDriver().switchTo().defaultContent());
       }
     } catch (Exception e) {
       LOGGER.warn("Can't wait for progress bar to finish loading", e);

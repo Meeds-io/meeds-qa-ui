@@ -17,7 +17,7 @@
  */
 package io.meeds.qa.ui.pages;
 
-import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
+import static org.junit.Assert.assertTrue;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.Cookie;
@@ -34,6 +34,8 @@ public class LoginPage extends GenericPage implements IsHidden {
   private static final String LAST_LOGGED_IN_USER_COOKIE_NAME = "lastLoggedInUser";
 
   private String              lastLoggedInUser                = null;
+
+  private HomePage            homePage;
 
   public LoginPage(WebDriver driver) {
     super(driver);
@@ -57,30 +59,61 @@ public class LoginPage extends GenericPage implements IsHidden {
     if (StringUtils.equals(getLastLoggedInUser(), login)) {
       closeAllDrawers();
     } else {
-      openLoginPage();
+      logout();
       usernameInputElement().setTextValue(login);
       passwordInputElement().setTextValue(password);
       loginButtonElement().click();
+      verifyPageLoaded();
+      assertTrue("The home page should be loaded, but it did not !", homePage.isPortalDisplayed());
       getDriver().manage().addCookie(new Cookie(LAST_LOGGED_IN_USER_COOKIE_NAME, login, "/"));
       lastLoggedInUser = login;
-      waitForPageLoading();
     }
-  }
-
-  public void logout() {
-    openLoginPage();
   }
 
   public void openLoginPage() {
     int maxRetries = 3;
     int i = 0;
-    while (!StringUtils.contains(getDriver().getCurrentUrl(), "/portal/login") && i++ < maxRetries) {
+    do {
       deleteCookies();
       open();
-    }
+    } while (!isLoginPageDisplayed() && i++ < maxRetries);
     if (i >= maxRetries) {
       throw new IllegalStateException("Can't display login page after 3 retries");
     }
+  }
+
+  public boolean isLoginPageDisplayed() {
+    return StringUtils.contains(getDriver().getCurrentUrl(), "/portal/login");
+  }
+
+  public void logout() {
+    if (homePage.isPortalDisplayed()) {
+      try {
+        ElementFacade logOutMenuElement = logOutMenuElement();
+        if (!logOutMenuElement.isCurrentlyVisible()) {
+          closeAllDrawers();
+          homePage.clickOnHamburgerMenu();
+        }
+        logOutMenuElement.click();
+        waitFor(50).milliseconds();
+        verifyPageLoaded();
+        usernameInputElement().checkVisible();
+      } finally {
+        deleteLastLoginCookie();
+      }
+    } else if (!isLoginPageDisplayed()) {
+      openLoginPage();
+    }
+  }
+
+  private void deleteLastLoginCookie() {
+    lastLoggedInUser = null;
+    closeAlertIfOpened();
+    getDriver().manage().deleteCookieNamed(LAST_LOGGED_IN_USER_COOKIE_NAME);
+  }
+
+  private ElementFacade logOutMenuElement() {
+    return findByXPathOrCSS("//i[contains(@class,'logoutIcon')]");
   }
 
   private ElementFacade loginButtonElement() {
