@@ -416,6 +416,34 @@ public class HomePage extends GenericPage {
                      });
   }
 
+  public void checkHamburgerMenuSpacePosition(String spaceName, int spaceMenuPosition) {
+    if (!getHamburgerNavigationMenuDrawer().isCurrentlyVisible()) {
+      clickOnHamburgerMenu();
+    }
+    recentSpaceFirstLevelMenuItem(spaceName, spaceMenuPosition).assertVisible();
+  }
+
+  public void checkHamburgerMenuRecentSpaceMenuApplication(String spaceName, String appName, int appPosition) {
+    openHamburgerMenuRecentSpaceDetails(spaceName);
+    recentSpaceSecondLevelMenuApplication(appName, appPosition).assertVisible();
+  }
+
+  public void checkHamburgerMenuSpaceDescriptionAndName(String randomSpaceName) {
+    recentSpaceSecondLevelSpaceName(randomSpaceName).assertVisible();
+    recentSpaceSecondLevelSpaceDescription(randomSpaceName).assertVisible();
+  }
+
+  public void openHamburgerMenuRecentSpaceDetails(String spaceName) {
+    if (!getHamburgerNavigationMenuDrawer().isCurrentlyVisible()) {
+      clickOnHamburgerMenu();
+    }
+    ElementFacade menuItem = recentSpaceFirstLevelMenuItem(spaceName);
+    menuItem.assertVisible();
+    menuItem.hover();
+    ElementFacade arrowIcon = recentSpaceFirstLevelMenuArrowIcon(spaceName);
+    arrowIcon.click();
+  }
+
   private void goToAdministrationPage(String uri) {
     if (!StringUtils.contains(getDriver().getCurrentUrl(), uri)) {
       accessToAdministrationMenu();
@@ -423,6 +451,30 @@ public class HomePage extends GenericPage {
       findByXPathOrCSS(String.format("//*[@id = 'AdministrationHamburgerNavigation']//a[contains(@href, '%s')]", uri)).click();
       waitForPageLoading();
     }
+  }
+
+  private ElementFacade recentSpaceFirstLevelMenuItem(String spaceName, int spaceMenuPosition) {
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'spacesNavigationContent')]//a[contains(@class, 'spaceItem')]/parent::*/a[%s]//*[contains(text(), '%s')]", spaceMenuPosition, spaceName));
+  }
+
+  private ElementFacade recentSpaceFirstLevelMenuItem(String spaceName) {
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'spacesNavigationContent')]//*[contains(text(), '%s')]//ancestor::a[contains(@class, 'spaceItem')]//*[contains(@class, 'v-image')]", spaceName));
+  }
+
+  private ElementFacade recentSpaceFirstLevelMenuArrowIcon(String spaceName) {
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'spacesNavigationContent')]//*[contains(text(), '%s')]//ancestor::a[contains(@class, 'spaceItem')]//*[contains(@class, 'fa-arrow')]", spaceName));
+  }
+
+  private ElementFacade recentSpaceSecondLevelMenuApplication(String appName, int appPosition) {
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'HamburgerMenuSecondLevelParent')]//*[contains(text(), '%s')]//ancestor::a/parent::*/a[%s]", appName, appPosition));
+  }
+
+  private ElementFacade recentSpaceSecondLevelSpaceName(String spaceName) {
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'HamburgerMenuSecondLevelParent')]//a/parent::*/*[contains(text(), '%s')]", spaceName));
+  }
+
+  private ElementFacade recentSpaceSecondLevelSpaceDescription(String spaceName) {
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'HamburgerMenuSecondLevelParent')]//p[contains(text(), '%s')]", spaceName));
   }
 
   private ElementFacade administrationIconElement() {
