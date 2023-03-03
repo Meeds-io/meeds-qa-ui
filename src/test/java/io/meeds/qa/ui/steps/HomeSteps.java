@@ -268,8 +268,21 @@ public class HomeSteps {
   }
 
   public void rejectSpaceInvitation(List<String> listOfSpaces) {
-    for (String spaceName : listOfSpaces)
+    for (String spaceName : listOfSpaces) {
       homePage.rejectSpaceInvitation(spaceName);
+    }
+  }
+
+  public void checkHamburgerMenuSpacePosition(String spaceName, int spaceMenuPosition) {
+    homePage.checkHamburgerMenuSpacePosition(spaceName, spaceMenuPosition);
+  }
+
+  public void checkHamburgerMenuRecentSpaceMenuApplication(String spaceName, String appName, int appPosition) {
+    homePage.checkHamburgerMenuRecentSpaceMenuApplication(spaceName, appName, appPosition);
+  }
+
+  public void openHamburgerMenuRecentSpaceDetails(String spaceName) {
+    homePage.openHamburgerMenuRecentSpaceDetails(spaceName);
   }
 
   public void searchApplicationCenter(String app) {
@@ -322,6 +335,10 @@ public class HomeSteps {
 
   public boolean isPortalDisplayed() {
     return homePage.isPortalDisplayed();
+  }
+
+  public void checkHamburgerMenuSpaceDescriptionAndName(String randomSpaceName) {
+    homePage.checkHamburgerMenuSpaceDescriptionAndName(randomSpaceName);
   }
 
 }

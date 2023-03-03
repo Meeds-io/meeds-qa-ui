@@ -87,6 +87,7 @@ public class ManageSpaceSteps {
   public void addSpaceWithRegistration(String spaceName, String registration) {
     manageSpacesPage.openSpaceFormDrawer();
     manageSpacesPage.setSpaceName(spaceName);
+    manageSpacesPage.setSpaceDescription(spaceName);
     manageSpacesPage.selectTemplate(SPACE_TEMPLATE_INDEX);
     manageSpacesPage.clickFirstProcessButton();
     manageSpacesPage.checkSpaceRegistration(registration);
@@ -358,5 +359,13 @@ public class ManageSpaceSteps {
     if (!manageSpacesPage.isSpaceMenuDisplayed()) {
       manageSpacesPage.clickSpaceActionToJoin();
     }
+  }
+
+  public String moveApplicationAfter(int appPosition) {
+    return manageSpacesPage.moveApplicationAfter(appPosition);
+  }
+
+  public String moveApplicationBefore(int appPosition) {
+    return manageSpacesPage.moveApplicationBefore(appPosition);
   }
 }

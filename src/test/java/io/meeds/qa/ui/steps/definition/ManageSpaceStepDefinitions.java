@@ -17,6 +17,7 @@
  */
 package io.meeds.qa.ui.steps.definition;
 
+import static io.meeds.qa.ui.utils.Utils.getIndexFomName;
 import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
@@ -160,6 +161,20 @@ public class ManageSpaceStepDefinitions {
   @Given("^I check that space name section is displayed$")
   public void checkNameSpaceSection() {
     manageSpaceSteps.checkNameSpaceSection();
+  }
+
+  @Given("^I move (.*) application after$")
+  public void moveApplicationAfter(String appSettingPosition) {
+    int appPosition = getIndexFomName(appSettingPosition);
+    String appName = manageSpaceSteps.moveApplicationAfter(appPosition);
+    Serenity.setSessionVariable(appSettingPosition + "SettingApplication").to(appName);
+  }
+
+  @Given("^I move (.*) application before$")
+  public void moveApplicationBefore(String appSettingPosition) {
+    int appPosition = getIndexFomName(appSettingPosition);
+    String appName = manageSpaceSteps.moveApplicationBefore(appPosition);
+    Serenity.setSessionVariable(appSettingPosition + "SettingApplication").to(appName);
   }
 
   @Given("^'(.*)' option of the application '(.*)' is displayed$")
@@ -366,6 +381,8 @@ public class ManageSpaceStepDefinitions {
   }
 
   @Given("^I go to the (.*) random space$")
+  @And("^I create the (.*) random space if not existing$")
+  @And("^I create or go to the (.*) random space$")
   public void goToRandomSpaceWithPrefix(String spacePrefix) {
     manageSpaceSteps.addOrGoToSpace(spacePrefix + "RandomSpaceName");
   }

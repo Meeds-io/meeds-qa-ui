@@ -47,3 +47,27 @@ Feature: SideBar
     When I logout
     And I connect with the hamburgermenu created user
     Then The hamburger menu is displayed as unstickied
+
+  Scenario: Recent Space Hamburger Menu
+    Given I am authenticated as admin
+    And I create the third random space if not existing
+    And I create the fourth random space if not existing
+    And I go to the fourth random space
+    Then The third random space is displayed as second item in recent spaces menu
+    Then The fourth random space is displayed as first item in recent spaces menu
+    When I close the opened drawer
+    And I go to Settings in space tab
+    And I click on arrow icon of application space settings
+    And I move third application before
+    Then Previously third application in settings is displayed as third menu item in fourth random space left menu
+    When I close the opened drawer
+    And I move second application after
+    Then The third application in settings is displayed as fourth menu item in fourth random space left menu
+    When I go to the third random space
+    Then The third random space is displayed as first item in recent spaces menu
+    And The fourth random space is displayed as second item in recent spaces menu
+    When I open the third random space menu details
+    Then The third random space name and description are displayed in second manu level
+    When I open the fourth random space menu details
+    Then The fourth random space name and description are displayed in second manu level
+    And I close the opened drawer

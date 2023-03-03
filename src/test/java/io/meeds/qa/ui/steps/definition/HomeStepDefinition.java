@@ -18,6 +18,8 @@
 package io.meeds.qa.ui.steps.definition;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static io.meeds.qa.ui.utils.Utils.getIndexFomName;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -491,6 +493,34 @@ public class HomeStepDefinition {
   @Then("The hamburger menu is displayed as unstickied")
   public void checkHamburgerMenuUnsticked() {
     homeSteps.checkHamburgerMenuUnsticked();
+  }
+
+  @Then("^The (.*) random space is displayed as (.*) item in recent spaces menu$")
+  public void checkHamburgerMenuSpacePosition(String spacePrefix, String spacePosition) {
+    String spaceName = Serenity.sessionVariableCalled(spacePrefix + "RandomSpaceName");
+    int spaceMenuPosition = getIndexFomName(spacePosition);
+    homeSteps.checkHamburgerMenuSpacePosition(spaceName, spaceMenuPosition);
+  }
+
+  @Given("^The (.*) random space name and description are displayed in second manu level$")
+  public void checkHamburgerMenuSpaceDescriptionAndName(String spacePrefix) {
+    String randomSpaceName = sessionVariableCalled(spacePrefix + "RandomSpaceName");
+    homeSteps.checkHamburgerMenuSpaceDescriptionAndName(randomSpaceName);
+  }
+
+  @Then("^Previously (.*) application in settings is displayed as (.*) menu item in (.*) random space left menu$")
+  @And("^The (.*) application in settings is displayed as (.*) menu item in (.*) random space left menu$")
+  public void checkHamburgerMenuRecentSpaceMenuApplication(String appSettingPosition, String appMenuPosition, String spacePrefix) {
+    String spaceName = Serenity.sessionVariableCalled(spacePrefix + "RandomSpaceName");
+    String appName = Serenity.sessionVariableCalled(appSettingPosition + "SettingApplication");
+    int appPosition = getIndexFomName(appMenuPosition);
+    homeSteps.checkHamburgerMenuRecentSpaceMenuApplication(spaceName, appName, appPosition);
+  }
+
+  @Then("^I open the (.*) random space menu details$")
+  public void openHamburgerMenuRecentSpaceDetails(String spacePrefix) {
+    String spaceName = Serenity.sessionVariableCalled(spacePrefix + "RandomSpaceName");
+    homeSteps.openHamburgerMenuRecentSpaceDetails(spaceName);
   }
 
 }

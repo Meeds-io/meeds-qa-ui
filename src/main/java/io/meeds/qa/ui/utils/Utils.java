@@ -194,6 +194,31 @@ public class Utils {
     }
   }
 
+  public static int getIndexFomName(String appSettingPosition) {
+    return switch (appSettingPosition) {
+    case "first": {
+      yield 1;
+    }
+    case "second": {
+      yield 2;
+    }
+    case "third": {
+      yield 3;
+    }
+    case "fourth": {
+      yield 4;
+    }
+    case "fifth": {
+      yield 5;
+    }
+    case "sixth": {
+      yield 6;
+    }
+    default:
+      throw new IllegalArgumentException("Unexpected value: " + appSettingPosition);
+    };
+  }
+
   public static void waitForPageLoading() {
     // Nothing for now
   }

@@ -22,10 +22,12 @@ import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 
+import io.meeds.qa.ui.elements.ButtonElementFacade;
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 
 public class ManageSpacesPage extends GenericPage {
+  private static final String SPACE_SETTING_APPLICATION_CARD_TEMPLATE = "(//*[contains(@class, 'SpaceApplicationCard')][1]/parent::*[1])[1]/*[contains(@class, 'SpaceApplicationCard')][%s]";
   private SpaceHomePage spaceHomePage;
 
   public ManageSpacesPage(WebDriver driver) {
@@ -439,6 +441,10 @@ public class ManageSpacesPage extends GenericPage {
     spaceNameInputElement().setTextValue(spaceName);
   }
 
+  public void setSpaceDescription(String spaceDescription) {
+    descriptionSpaceSectionElement().setTextValue(spaceDescription);
+  }
+
   public void showMoreSpaces() {
     spacesPageElement().scrollDown();
     showMoreButtonElement().click();
@@ -466,6 +472,33 @@ public class ManageSpacesPage extends GenericPage {
     ElementFacade imageApplyButton = findByXPathOrCSS("#imageCropDrawerApply");
     imageApplyButton.click();
     waitForDrawerToClose();
+  }
+
+  public String moveApplicationAfter(int appPosition) {
+    return moveApplication(appPosition, "Move after");
+  }
+
+  public String moveApplicationBefore(int appPosition) {
+    return moveApplication(appPosition, "Move before");
+  }
+
+  private String moveApplication(int appPosition, String actionName) {
+    String appTitle = spaceSettingAppTitle(appPosition).getText();
+    spaceSettingAppMenu(appPosition).click();
+    spaceSettingAppMenuItem(appPosition, actionName).click();
+    return appTitle;
+  }
+
+  private ButtonElementFacade spaceSettingAppTitle(int appPosition) {
+    return findButtonByXPathOrCSS(String.format(SPACE_SETTING_APPLICATION_CARD_TEMPLATE + "//*[contains(@class, 'SpaceApplicationCardTitle')]", appPosition));
+  }
+
+  private ButtonElementFacade spaceSettingAppMenu(int appPosition) {
+    return findButtonByXPathOrCSS(String.format(SPACE_SETTING_APPLICATION_CARD_TEMPLATE + "//*[contains(@class, 'SpaceApplicationCardAction')]//button", appPosition));
+  }
+
+  private ButtonElementFacade spaceSettingAppMenuItem(int appPosition, String actionName) {
+    return findButtonByXPathOrCSS(String.format(SPACE_SETTING_APPLICATION_CARD_TEMPLATE + "//*[contains(@class, 'menuable__content__active')]//*[contains(text(), '%s')]", appPosition, actionName));
   }
 
   private ElementFacade addAppButtonElement() {
@@ -508,8 +541,8 @@ public class ManageSpacesPage extends GenericPage {
     return findByXPathOrCSS("//*[@class='v-input--selection-controls__input']/following::label[contains(text(),'Closed')]");
   }
 
-  private ElementFacade descriptionSpaceSectionElement() {
-    return findByXPathOrCSS("//*[@for='description']");
+  private TextBoxElementFacade descriptionSpaceSectionElement() {
+    return findTextBoxByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//textarea[@name='description']");
   }
 
   private ElementFacade editIconOfGeneralSpaceSettingsElement() {
@@ -763,4 +796,5 @@ public class ManageSpacesPage extends GenericPage {
   private ElementFacade validationRadioBtnElement() {
     return findByXPathOrCSS("//*[@class='v-input--selection-controls__input']/following::label[contains(text(),'Validation')]");
   }
+
 }
