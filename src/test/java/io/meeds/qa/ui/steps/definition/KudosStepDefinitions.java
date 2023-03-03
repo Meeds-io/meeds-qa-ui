@@ -79,6 +79,11 @@ public class KudosStepDefinitions {
     kudoSteps.editKudos();
   }
 
+  @And("I click on three dots menu click on the cancel kudos button")
+  public void cancelKudos() {
+    kudoSteps.cancelKudos();
+  }
+
   @When("^I go to administration then reward then kudos$")
   public void goToAdmin() {
     kudoSteps.goToKudosMenu();

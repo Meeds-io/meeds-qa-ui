@@ -77,6 +77,11 @@ public class KudosPage extends GenericPage {
     editButtonElement().click();
   }
 
+  public void cancelKudos() {
+    dotsMenuElement().click();
+    cancelKudosButtonElement().click();
+  }
+
   public void enterKudosNumber(String val) {
     TextBoxElementFacade kudosNumberElement = kudosNumberElement();
     kudosNumberElement.click();
@@ -164,6 +169,10 @@ public class KudosPage extends GenericPage {
     return findByXPathOrCSS("//i[@class='v-icon notranslate dark-grey-color fa fa-edit theme--light']");
   }
 
+  private ElementFacade cancelKudosButtonElement() {
+    return findByXPathOrCSS("//i[@class='v-icon notranslate dark-grey-color fa fa-undo-alt theme--light']");
+  }
+
   private ElementFacade editKudosCommentElement() {
     return findByXPathOrCSS("//*[@class='v-list-item__title pl-3' and contains(text(),'Edit')]");
   }
@@ -228,5 +237,10 @@ public class KudosPage extends GenericPage {
 
   private ElementFacade threedotsKudosReplyCommentElement() {
     return findByXPathOrCSS("(//*[@class='flex-grow-1 flex-shrink-1 overflow-hidden']//*[@class='v-icon notranslate primary--text mdi mdi-dots-vertical theme--light'])[3]");
+  }
+
+  private ElementFacade getCancelKudosIcon(String activity) {
+    return findByXPathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Cancel Kudos')]",
+            activity));
   }
 }

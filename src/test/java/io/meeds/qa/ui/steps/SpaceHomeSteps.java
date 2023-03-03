@@ -421,6 +421,10 @@ public class SpaceHomeSteps {
     spaceHomePage.openDeleteCommentMenu(activity, comment);
   }
 
+  public void openCancelKudosMenu(String activity, String comment) {
+    spaceHomePage.openCancelKudosMenu(activity, comment);
+  }
+
   public void openEditActivityMenu(String activity) {
     spaceHomePage.openEditActivityMenu(activity);
   }

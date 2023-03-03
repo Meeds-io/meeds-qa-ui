@@ -777,6 +777,11 @@ public class SpaceHomePage extends GenericPage {
     getDeleteCommentLabel(comment).click();
   }
 
+  public void openCancelKudosMenu(String activity, String comment) {
+    getDropDownCommentMenu(activity, comment).click();
+    getCancelKudosLabel(comment).click();
+  }
+
   public void openEditActivityMenu(String activity) {
     openThreeDotsActivityMenu(activity);
     getEditActivityIcon(activity).click();
@@ -1222,6 +1227,11 @@ public class SpaceHomePage extends GenericPage {
 
   private ElementFacade getDeleteCommentLabel(String comment) {
     return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]/preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Delete')]",
+                                          comment));
+  }
+
+  private ElementFacade getCancelKudosLabel(String comment) {
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]/preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Cancel kudos sending')]",
                                           comment));
   }
 
