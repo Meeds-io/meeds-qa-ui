@@ -777,11 +777,6 @@ public class SpaceHomePage extends GenericPage {
     getDeleteCommentLabel(comment).click();
   }
 
-  public void openCancelKudosMenu(String activity, String comment) {
-    getDropDownCommentMenu(activity, comment).click();
-    getCancelKudosLabel(comment).click();
-  }
-
   public void openEditActivityMenu(String activity) {
     openThreeDotsActivityMenu(activity);
     getEditActivityIcon(activity).click();

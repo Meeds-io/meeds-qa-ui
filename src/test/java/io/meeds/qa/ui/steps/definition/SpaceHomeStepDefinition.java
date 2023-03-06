@@ -662,12 +662,6 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.openDeleteCommentMenu(activity, comment);
   }
 
-  @When("^In activity '(.*)' I cancel the kudos '(.*)'$")
-  public void openCancelKudosMenu(String activity, String comment) {
-    spaceHomeSteps.openCancelKudosMenu(activity, comment);
-  }
-
-
   @When("^I click on modify the activity$")
   public void openEditActivityMenu() {
     String oldActiviyy = Serenity.sessionVariableCalled("activity");

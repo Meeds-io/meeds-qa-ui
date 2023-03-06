@@ -116,50 +116,46 @@ Feature: Kudos
     When I go to the random space
     Then I send in the activity 'Hello Team - USX' a kudos message 'Kudos Message USX' to 'fiftythreekudos' user
 
-  @test
   Scenario: Cancel Kudos sending from the activity author
     Given I connect as admin if random users doesn't exists
-      | firstkudos  |
-      | secondkudos |
-    And I create the firstkudos random user if not existing, no wait
-    And I create the secondkudos random user if not existing
-    When I connect with the secondkudos created user
+      | cancelfirst  |
+      | cancelsecond |
+    And I create the cancelfirst random user if not existing, no wait
+    And I create the cancelsecond random user if not existing
+    When I connect with the cancelsecond created user
     And I go to the random space
     And I click on post in space
     And I enter an activity 'Kudos Post activity - Kudos comment to cancel'
     And I publish the activity
 
-    And I connect with the firstkudos created user
+    And I connect with the cancelfirst created user
     When I go to the random space
     And I send in the activity 'Kudos Post activity - Kudos comment to cancel' a kudos message 'Kudos comment to cancel'
 
-    And I go to the random space
-    When In activity 'Kudos Post activity - Kudos comment to cancel' I cancel the kudos 'Kudos comment to cancel'
-    And I click on Yes button
+    When In activity 'Kudos Post activity - Kudos comment to cancel' I cancel the sent kudos comment 'Kudos comment to cancel'
     And Comment 'Kudos comment to cancel' is not displayed in activity 'Kudos Post activity - Kudos comment to cancel'
     And I go to My Profile page
     Then '0' kudos are sent
 
-    And I connect with the secondkudos created user
+    And I connect with the cancelsecond created user
     And I go to My Profile page
     Then '0' kudos are received
 
+  @test
   Scenario: Cancel Kudos sending from user profile
     Given I connect as admin if random users doesn't exists
-      | firstkudos  |
+      | cancelfirst  |
       | secondkudos |
-    And I create the firstkudos random user if not existing, no wait
-    And I create the secondkudos random user if not existing
+    And I create the cancelfirst random user if not existing, no wait
+    And I create the cancelsecond random user if not existing
 
-    When I connect with the firstkudos created user
-    And I go to the secondkudos user profile
+    When I connect with the cancelfirst created user
+    And I go to the cancelsecond user profile
     And I send kudos with message 'Message for kudos - Kudos to cancel'
 
     And I go to Stream page
     Then the kudos activity UI 'Message for kudos - Kudos to cancel' is displayed in stream page
-    And I click on three dots menu click on the cancel kudos button
-    And I click on Yes button
-
+    When I cancel the sent kudos activity 'Message for kudos - Kudos to cancel'
     Then the activity 'Message for kudos - Kudos to cancel' is no more displayed in the activity stream
 
     And I go to My Profile page

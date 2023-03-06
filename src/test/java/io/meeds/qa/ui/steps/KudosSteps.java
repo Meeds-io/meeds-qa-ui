@@ -62,8 +62,16 @@ public class KudosSteps {
     kudosPage.editKudos();
   }
 
-  public void cancelKudos() {
-    kudosPage.cancelKudos();
+  public void cancelActivityKudos(String activity) {
+    spaceHomePage.openThreeDotsActivityMenu(activity);
+    kudosPage.cancelKudosActivity(activity);
+    spaceHomePage.clickYesbutton();
+  }
+
+  public void cancelCommentKudos(String activity, String comment) {
+    spaceHomePage.clickOnCommentThreeDotsButton(activity, comment);
+    kudosPage.cancelKudosComment(comment);
+    spaceHomePage.clickYesbutton();
   }
 
   public void enterKudosNumber(String val) {
@@ -109,10 +117,6 @@ public class KudosSteps {
   }
 
   public void updateKudosCommentMessage(String kudos) {
-    spaceHomePage.addActivityCommentEditorContent(kudos, true, true);
-  }
-
-  public void cancelKudos(String kudos) {
     spaceHomePage.addActivityCommentEditorContent(kudos, true, true);
   }
 

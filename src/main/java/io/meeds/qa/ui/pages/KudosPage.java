@@ -77,9 +77,12 @@ public class KudosPage extends GenericPage {
     editButtonElement().click();
   }
 
-  public void cancelKudos() {
-    dotsMenuElement().click();
-    cancelKudosButtonElement().click();
+  public void cancelKudosActivity(String activity) {
+    getCancelKudosActivityIcon(activity).click();
+  }
+
+  public void cancelKudosComment(String comment) {
+    getCancelKudosCommentIcon(comment).click();
   }
 
   public void enterKudosNumber(String val) {
@@ -169,10 +172,6 @@ public class KudosPage extends GenericPage {
     return findByXPathOrCSS("//i[@class='v-icon notranslate dark-grey-color fa fa-edit theme--light']");
   }
 
-  private ElementFacade cancelKudosButtonElement() {
-    return findByXPathOrCSS("//i[@class='v-icon notranslate dark-grey-color fa fa-undo-alt theme--light']");
-  }
-
   private ElementFacade editKudosCommentElement() {
     return findByXPathOrCSS("//*[@class='v-list-item__title pl-3' and contains(text(),'Edit')]");
   }
@@ -239,8 +238,14 @@ public class KudosPage extends GenericPage {
     return findByXPathOrCSS("(//*[@class='flex-grow-1 flex-shrink-1 overflow-hidden']//*[@class='v-icon notranslate primary--text mdi mdi-dots-vertical theme--light'])[3]");
   }
 
-  private ElementFacade getCancelKudosIcon(String activity) {
-    return findByXPathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Cancel Kudos')]",
+  private ElementFacade getCancelKudosActivityIcon(String activity) {
+    return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@id, 'activity-detail')]//*[contains(@class, 'menuable__content__active')]//*[contains(@class, 'undo')]",
             activity));
   }
+
+  private ElementFacade getCancelKudosCommentIcon(String comment) {
+    return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@id, 'ActivityComm')]//*[contains(@class, 'menuable__content__active')]//*[contains(@class, 'undo')]",
+            comment));
+  }
+
 }
