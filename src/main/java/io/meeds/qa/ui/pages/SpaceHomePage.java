@@ -1225,11 +1225,6 @@ public class SpaceHomePage extends GenericPage {
                                           comment));
   }
 
-  private ElementFacade getCancelKudosLabel(String comment) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]/preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Cancel kudos sending')]",
-                                          comment));
-  }
-
   private ElementFacade getDeleteReplyLabel(String comment) {
     return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]/preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Delete')]",
                                           comment));

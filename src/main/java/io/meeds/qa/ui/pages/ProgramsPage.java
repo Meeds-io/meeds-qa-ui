@@ -145,13 +145,17 @@ public class ProgramsPage extends GenericPage {
     waitForLoading();
   }
 
+  public void openProgramCard(String value) {
+    getProgramCard(value).click();
+  }
+
   public void selectStatusSwitcher() {
     WebElement checkbox = getDriver().findElement(By.xpath("//*[@class='v-input--selection-controls__ripple primary--text']"));
     checkbox.click();
   }
 
   private ElementFacade addProgramBtnElement() {
-    return findByXPathOrCSS("//*[@id='engagementCenterAddProgramBtn']");
+    return findByXPathOrCSS("//*[contains(text(), 'Add program')]//ancestor::*[contains(@class, 'btn-primary')]");
   }
 
   private TextBoxElementFacade audienceSpaceFieldElement() {
