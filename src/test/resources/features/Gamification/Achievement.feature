@@ -1,7 +1,6 @@
 @achievements
 Feature: Achievements
 
-  @test
   Scenario: Achievements for Send/Cancel Kudos from the activity author
     Given I am authenticated as admin
     And I go to 'Contributions' application
@@ -44,7 +43,6 @@ Feature: Achievements
     When I select engagement Achievements tab
     Then Achievement for 'Send kudos' is canceled
 
-  @test
   Scenario: Achievements for Send/Cancel Kudos from user profile
     Given I am authenticated as admin
     And I go to 'Contributions' application
