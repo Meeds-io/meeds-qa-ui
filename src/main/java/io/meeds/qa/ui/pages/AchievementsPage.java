@@ -55,12 +55,12 @@ public class AchievementsPage extends GenericPage {
   }
 
   private ElementFacade rejectedAchievementElement(String actionTitle) {
-    return findByXPathOrCSS(String.format("//span[contains(text(), '%s')]//ancestor::*[contains(@id, 'GamificationRealizationItem')]//*[contains(@class, 'fa-times-circle')]",
+    return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@id, 'GamificationRealizationItem')]//*[contains(@class, 'fa-times-circle')]",
                                           actionTitle));
   }
 
   private ElementFacade acceptedAchievementElement(String actionTitle) {
-    return findByXPathOrCSS(String.format("//span[contains(text(), '%s')]//ancestor::*[contains(@id, 'GamificationRealizationItem')]//*[contains(@class, 'fa-check-circle')]",
+    return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@id, 'GamificationRealizationItem')]//*[contains(@class, 'fa-check-circle')]",
                                           actionTitle));
   }
 
