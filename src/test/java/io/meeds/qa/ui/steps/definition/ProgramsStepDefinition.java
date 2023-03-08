@@ -126,4 +126,9 @@ public class ProgramsStepDefinition {
     programsSteps.selectProgramsFilter(value);
   }
 
+  @And("^I open '(.*)' program card$")
+  public void openProgramCard(String value) {
+    programsSteps.openProgramCard(value);
+  }
+
 }

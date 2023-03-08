@@ -79,6 +79,16 @@ public class KudosStepDefinitions {
     kudoSteps.editKudos();
   }
 
+  @When("^I cancel the sent kudos activity '(.*)'")
+  public void cancelKudosActivity(String activity) {
+    kudoSteps.cancelActivityKudos(activity);
+  }
+
+  @When("^In activity '(.*)' I cancel the sent kudos comment '(.*)'")
+  public void cancelKudosComment(String activity, String comment) {
+    kudoSteps.cancelCommentKudos(activity, comment);
+  }
+
   @When("^I go to administration then reward then kudos$")
   public void goToAdmin() {
     kudoSteps.goToKudosMenu();

@@ -86,4 +86,7 @@ public class ProgramsSteps {
     programsPage.selectProgramsFilter(value);
   }
 
+  public void openProgramCard(String value) {
+    programsPage.openProgramCard(value);
+  }
 }

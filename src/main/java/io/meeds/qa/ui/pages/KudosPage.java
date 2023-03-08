@@ -77,6 +77,14 @@ public class KudosPage extends GenericPage {
     editButtonElement().click();
   }
 
+  public void cancelKudosActivity(String activity) {
+    getCancelKudosActivityIcon(activity).click();
+  }
+
+  public void cancelKudosComment(String comment) {
+    getCancelKudosCommentIcon(comment).click();
+  }
+
   public void enterKudosNumber(String val) {
     TextBoxElementFacade kudosNumberElement = kudosNumberElement();
     kudosNumberElement.click();
@@ -229,4 +237,15 @@ public class KudosPage extends GenericPage {
   private ElementFacade threedotsKudosReplyCommentElement() {
     return findByXPathOrCSS("(//*[@class='flex-grow-1 flex-shrink-1 overflow-hidden']//*[@class='v-icon notranslate primary--text mdi mdi-dots-vertical theme--light'])[3]");
   }
+
+  private ElementFacade getCancelKudosActivityIcon(String activity) {
+    return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@id, 'activity-detail')]//*[contains(@class, 'menuable__content__active')]//*[contains(@class, 'undo')]",
+            activity));
+  }
+
+  private ElementFacade getCancelKudosCommentIcon(String comment) {
+    return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@id, 'ActivityComm')]//*[contains(@class, 'menuable__content__active')]//*[contains(@class, 'undo')]",
+            comment));
+  }
+
 }

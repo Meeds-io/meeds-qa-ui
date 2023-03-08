@@ -115,3 +115,47 @@ Feature: Kudos
     And I connect with the fiftytwokudos created user
     When I go to the random space
     Then I send in the activity 'Hello Team - USX' a kudos message 'Kudos Message USX' to 'fiftythreekudos' user
+
+  Scenario: Cancel Kudos sending from the activity author
+    Given I connect as admin if random users doesn't exists
+      | cancelfirst  |
+      | cancelsecond |
+    And I create the cancelfirst random user if not existing, no wait
+    And I create the cancelsecond random user if not existing
+    When I connect with the cancelsecond created user
+    And I go to the random space
+    And I click on post in space
+    And I enter an activity 'Kudos Post activity - Kudos comment to cancel'
+    And I publish the activity
+
+    And I connect with the cancelfirst created user
+    When I go to the random space
+    And I send in the activity 'Kudos Post activity - Kudos comment to cancel' a kudos message 'Kudos comment to cancel'
+
+    Then In activity 'Kudos Post activity - Kudos comment to cancel' I cancel the sent kudos comment 'Kudos comment to cancel'
+    And Comment 'Kudos comment to cancel' is not displayed in activity 'Kudos Post activity - Kudos comment to cancel'
+    When I go to My Profile page
+    Then '0' kudos are sent
+
+    When I connect with the cancelsecond created user
+    And I go to My Profile page
+    Then '0' kudos are received
+
+  Scenario: Cancel Kudos sending from user profile
+    Given I connect as admin if random users doesn't exists
+      | cancelfirst  |
+      | cancelsecond |
+    And I create the cancelfirst random user if not existing, no wait
+    And I create the cancelsecond random user if not existing
+
+    When I connect with the cancelfirst created user
+    And I go to the cancelsecond user profile
+    And I send kudos with message 'Message for kudos - Kudos to cancel'
+
+    And I go to Stream page
+    Then the kudos activity UI 'Message for kudos - Kudos to cancel' is displayed in stream page
+    When I cancel the sent kudos activity 'Message for kudos - Kudos to cancel'
+    Then the activity 'Message for kudos - Kudos to cancel' is no more displayed in the activity stream
+
+    When I go to My Profile page
+    Then '0' kudos are sent
