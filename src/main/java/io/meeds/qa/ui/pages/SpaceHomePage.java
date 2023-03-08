@@ -287,7 +287,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void checkLinkPreviewVisible() {
-    findByXPathOrCSS("//*[contains(@id,'Extactivity-content-extensions')]//following::*[@src]//following::*[@class='my-4']//*[contains(@class,'font-weight-bold')]").assertVisible();
+    findByXPathOrCSS("//*[contains(@class, 'activity-thumbnail-box')]//*[contains(@class, 'v-avatar')]").assertVisible();
   }
 
   public void checkSearchedUserWellMatched(String user) {

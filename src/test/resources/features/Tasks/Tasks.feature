@@ -160,7 +160,7 @@ Feature: Tasks
   Scenario: Create Task with a new status
     Given I connect as admin if random users doesn't exists
       | first  |
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I connect with the first created user
 
     And I go to 'Tasks' application

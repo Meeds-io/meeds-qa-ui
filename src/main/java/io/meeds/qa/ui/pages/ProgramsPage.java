@@ -33,6 +33,7 @@ public class ProgramsPage extends GenericPage {
   }
 
   public void addDisabledProgramWithRandomDescription(String disabledProgramDescription) {
+    waitDrawerCKEditorLoading();
     ElementFacade ckEditorFrameProgramElement = ckEditorFrameElement();
     ckEditorFrameProgramElement.waitUntilVisible();
     getDriver().switchTo().frame(ckEditorFrameProgramElement);
@@ -47,6 +48,7 @@ public class ProgramsPage extends GenericPage {
   }
 
   public void addProgramWithRandomDescription(String programDescription) {
+    waitDrawerCKEditorLoading();
     ElementFacade ckEditorFrameProgramElement = ckEditorFrameElement();
     ckEditorFrameProgramElement.waitUntilVisible();
     getDriver().switchTo().frame(ckEditorFrameProgramElement);
@@ -108,7 +110,8 @@ public class ProgramsPage extends GenericPage {
     programThreeDotsButtonElement().click();
     editProgramButtonElement().click();
     programTitleFieldElement().setTextValue(newProgramName);
-    waitCKEditorLoading();
+
+    waitDrawerCKEditorLoading();
     ElementFacade ckEditorFrameProgramElement = ckEditorFrameElement();
     ckEditorFrameProgramElement.waitUntilVisible();
     getDriver().switchTo().frame(ckEditorFrameProgramElement);

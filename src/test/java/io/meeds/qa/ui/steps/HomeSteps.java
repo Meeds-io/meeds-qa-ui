@@ -105,8 +105,8 @@ public class HomeSteps {
     homePage.isSpacesBadgeWithNumberVisible(badgeNumber);
   }
 
-  public void checkThatStreamPageIsDisplayed() {
-    homePage.checkThatStreamPageIsDisplayed();
+  public void checkPageIsDisplayed(String pageUri) {
+    homePage.checkPageIsDisplayed(pageUri);
   }
 
   public void clickOnArrowIcon() {
@@ -121,12 +121,16 @@ public class HomeSteps {
     homePage.clickOnConnectionsBagde();
   }
 
-  public void clickOnHomeButton() {
-    homePage.clickOnHomePageButton();
+  public void clickOnHomeLink() {
+    homePage.clickOnHomeLink();
   }
 
-  public void clickOnHomeIcon() {
-    homePage.clickOnHomeIcon();
+  public void clickOnHomeIcon(String pageName) {
+    homePage.clickOnHomeIcon(pageName);
+  }
+
+  public void checkHomeButtonPosition(String pageName) {
+    homePage.checkHomeButtonPosition(pageName);
   }
 
   public void clickOnSpaceInvitationWidget() {
@@ -201,8 +205,8 @@ public class HomeSteps {
     homePage.goToTasksPage();
   }
 
-  public void hoverOnStreamIcon() {
-    homePage.hoverOnStreamIcon();
+  public void hoverOnPageHomeIcon(String pageName) {
+    homePage.hoverOnPageHomeIcon(pageName);
   }
 
   public void hoverSearchedSpaceInSideBarFilter(String space) {
@@ -344,5 +348,6 @@ public class HomeSteps {
   public void checkHamburgerMenuSpaceDescriptionAndName(String randomSpaceName) {
     homePage.checkHamburgerMenuSpaceDescriptionAndName(randomSpaceName);
   }
+
 
 }

@@ -24,6 +24,7 @@ import io.meeds.qa.ui.elements.ElementFacade;
 public class SpaceMembersPage extends GenericPage {
 
   public void checkPostDrawer() {
+    waitCKEditorLoading();
     writeShortMessageDrawerElement().assertVisible();
   }
 

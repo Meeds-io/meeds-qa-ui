@@ -1,6 +1,5 @@
 @appcenter
-@appcenterAdministration
-Feature: UI app administration
+Feature: Application center Addon
   As an admin user
   I want to manage application
   in order to share them with users
