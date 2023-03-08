@@ -34,4 +34,8 @@ public class AchievementsSteps {
   public void checkThatAchievementIsCanceled(String actionTitle) {
     achievementsPage.checkThatAchievementIsCanceled(actionTitle);
   }
+
+  public void checkThatAchievementIsDeleted(String actionTitle) {
+    achievementsPage.checkThatAchievementIsDeleted(actionTitle);
+  }
 }

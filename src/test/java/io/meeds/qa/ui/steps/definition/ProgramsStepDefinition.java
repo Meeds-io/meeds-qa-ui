@@ -131,4 +131,11 @@ public class ProgramsStepDefinition {
     programsSteps.openProgramCard(value);
   }
 
+  @And("^I announce challenge '(.*)'$")
+  public void announceChallenge(String challengeTitle) {
+    String announcementMessage = "announcementMessage" + getRandomNumber();
+    Serenity.setSessionVariable("announcementMessage").to(announcementMessage);
+    programsSteps.announceChallenge(challengeTitle, announcementMessage);
+  }
+
 }

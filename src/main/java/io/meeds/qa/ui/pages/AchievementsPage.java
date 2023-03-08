@@ -54,6 +54,15 @@ public class AchievementsPage extends GenericPage {
     tooltipCanceledElement.assertVisible();
   }
 
+  public void checkThatAchievementIsDeleted(String actionTitle) {
+    waitForPageLoading();
+    ElementFacade rejectedAchievementElement = rejectedAchievementElement(actionTitle);
+    rejectedAchievementElement.assertVisible();
+    rejectedAchievementElement.hover();
+    ElementFacade tooltipDeletedActivity = tooltipDeletedActivity();
+    tooltipDeletedActivity.assertVisible();
+  }
+
   private ElementFacade rejectedAchievementElement(String actionTitle) {
     return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@id, 'GamificationRealizationItem')]//*[contains(@class, 'fa-times-circle')]",
                                           actionTitle));
@@ -70,5 +79,9 @@ public class AchievementsPage extends GenericPage {
 
   private ElementFacade tooltipCanceledElement() {
     return findByXPathOrCSS("//span[contains(text(), 'Canceled')]//ancestor::*[contains(@class, 'v-tooltip__content')]");
+  }
+
+  private ElementFacade tooltipDeletedActivity() {
+    return findByXPathOrCSS("//span[contains(text(), 'Rejected due to activity')]//ancestor::*[contains(@class, 'v-tooltip__content')]");
   }
 }

@@ -39,4 +39,9 @@ public class AchievementsStepDefinition {
   public void checkThatAchievementIsCanceled(String actionTitle) {
     achievementsSteps.checkThatAchievementIsCanceled(actionTitle);
   }
+
+  @Then("^Achievement for '(.*)' is rejected due to activity deletion$")
+  public void checkThatAchievementIsDeleted(String actionTitle) {
+    achievementsSteps.checkThatAchievementIsDeleted(actionTitle);
+  }
 }

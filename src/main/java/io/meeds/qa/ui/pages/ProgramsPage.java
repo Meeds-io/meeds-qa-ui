@@ -33,7 +33,7 @@ public class ProgramsPage extends GenericPage {
   }
 
   public void addDisabledProgramWithRandomDescription(String disabledProgramDescription) {
-    ElementFacade ckEditorFrameProgramElement = ckEditorFrameProgramElement();
+    ElementFacade ckEditorFrameProgramElement = ckEditorFrameElement();
     ckEditorFrameProgramElement.waitUntilVisible();
     getDriver().switchTo().frame(ckEditorFrameProgramElement);
     try {
@@ -47,7 +47,7 @@ public class ProgramsPage extends GenericPage {
   }
 
   public void addProgramWithRandomDescription(String programDescription) {
-    ElementFacade ckEditorFrameProgramElement = ckEditorFrameProgramElement();
+    ElementFacade ckEditorFrameProgramElement = ckEditorFrameElement();
     ckEditorFrameProgramElement.waitUntilVisible();
     getDriver().switchTo().frame(ckEditorFrameProgramElement);
     try {
@@ -109,7 +109,7 @@ public class ProgramsPage extends GenericPage {
     editProgramButtonElement().click();
     programTitleFieldElement().setTextValue(newProgramName);
     waitCKEditorLoading();
-    ElementFacade ckEditorFrameProgramElement = ckEditorFrameProgramElement();
+    ElementFacade ckEditorFrameProgramElement = ckEditorFrameElement();
     ckEditorFrameProgramElement.waitUntilVisible();
     getDriver().switchTo().frame(ckEditorFrameProgramElement);
     try {
@@ -149,6 +149,22 @@ public class ProgramsPage extends GenericPage {
     getProgramCard(value).click();
   }
 
+  public void announceChallenge(String challengeTitle, String announcementMessage) {
+    getChallengeItemElement(challengeTitle).hover();
+    getAnnounceBtnElement().click();
+    ElementFacade ckEditorFrameAnnouncementElement = ckEditorFrameElement();
+    ckEditorFrameAnnouncementElement.waitUntilVisible();
+    getDriver().switchTo().frame(ckEditorFrameAnnouncementElement);
+    try {
+      TextBoxElementFacade challengeAnnouncementFieldElement = challengeAnnouncementFieldElement();
+      challengeAnnouncementFieldElement.waitUntilVisible();
+      challengeAnnouncementFieldElement.setTextValue(announcementMessage);
+    } finally {
+      getDriver().switchTo().defaultContent();
+    }
+    saveButtonElement().click();
+  }
+
   public void selectStatusSwitcher() {
     WebElement checkbox = getDriver().findElement(By.xpath("//*[@class='v-input--selection-controls__ripple primary--text']"));
     checkbox.click();
@@ -162,7 +178,7 @@ public class ProgramsPage extends GenericPage {
     return findTextBoxByXPathOrCSS("(//*[contains(@class, 'v-navigation-drawer--open')]//*[@name='programSpaceAutocomplete']//input)[01]");
   }
 
-  private ElementFacade ckEditorFrameProgramElement() {
+  private ElementFacade ckEditorFrameElement() {
     return findByXPathOrCSS(".v-navigation-drawer--open iframe.cke_wysiwyg_frame");
   }
 
@@ -218,6 +234,18 @@ public class ProgramsPage extends GenericPage {
 
   private ElementFacade yesConfirmButtonElement() {
     return findByXPathOrCSS("//*[@class='v-card__actions']//button[contains(@class,'btn btn-primary')]");
+  }
+
+  private ElementFacade getChallengeItemElement(String challengeTitle) {
+    return findByXPathOrCSS(String.format("//ancestor::tbody//ancestor::*[contains(@title,'%s')]", challengeTitle));
+  }
+
+  private ElementFacade getAnnounceBtnElement() {
+    return findByXPathOrCSS("//*[contains(@class, 'fa-bullhorn')]//ancestor::*[contains(@class, 'v-btn--icon v-btn--round')]");
+  }
+
+  private TextBoxElementFacade challengeAnnouncementFieldElement() {
+    return findTextBoxByXPathOrCSS("//body[contains(@class,'cke_editable_themed')]");
   }
 
 }
