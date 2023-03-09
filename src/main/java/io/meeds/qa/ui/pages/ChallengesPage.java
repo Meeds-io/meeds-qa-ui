@@ -19,15 +19,17 @@ public class ChallengesPage extends GenericPage {
   }
 
   public void addProgram(String programTitle) {
+    programFieldElement().waitUntilVisible();
     mentionInField(programFieldElement(), programTitle, 5);
   }
 
   public void enterStartedChallenge() {
     challengeStartDateCalenderElement().click();
+    currentDateCalenderElement().waitUntilVisible();
     currentDateCalenderElement().click();
     challengeEndDateCalenderElement().click();
+    randomDateCalenderElement().waitUntilVisible();
     randomDateCalenderElement().click();
-
   }
 
   public void addChallengeRandomDescription(String challengeDescription) {
@@ -57,7 +59,7 @@ public class ChallengesPage extends GenericPage {
   }
 
   private TextBoxElementFacade programFieldElement() {
-    return findTextBoxByXPathOrCSS("(//*[contains(@class, 'v-navigation-drawer--open')]//*[@id='EngagementCenterChallengeDrawerProgramSuggester']//input)[01]");
+    return findTextBoxByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[@id='EngagementCenterChallengeDrawerProgramSuggester']//input");
   }
 
   private TextBoxElementFacade challengeStartDateCalenderElement() {
@@ -69,11 +71,11 @@ public class ChallengesPage extends GenericPage {
   }
 
   private TextBoxElementFacade currentDateCalenderElement() {
-    return findTextBoxByXPathOrCSS("//ancestor::*[contains(@class,'datePickerMenu')]//*[contains(@class, 'v-date-picker-table__current') and not(@disabled)]");
+    return findTextBoxByXPathOrCSS("//ancestor::*[contains(@id,'engagementCenterChallengeStartDatePicker')]//*[contains(@class, 'v-date-picker-table__current') and not(@disabled)]");
   }
 
   private TextBoxElementFacade randomDateCalenderElement() {
-    return findTextBoxByXPathOrCSS("//ancestor::*[contains(@id,'engagementCenterChallengeEndDatePicker')]//ancestor::*[contains(@class,'datePickerMenu')]//*[contains(@class, 'v-btn--rounded') and not(@disabled)]");
+    return findTextBoxByXPathOrCSS("//ancestor::*[contains(@id,'engagementCenterChallengeEndDatePicker')]//*[contains(@class, 'v-btn--rounded') and not(@disabled)]");
   }
 
   private ElementFacade ckEditorFrameRuleElement() {

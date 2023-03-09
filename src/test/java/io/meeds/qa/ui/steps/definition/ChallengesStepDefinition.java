@@ -28,6 +28,12 @@ public class ChallengesStepDefinition {
     challengesSteps.addProgram(programTitle);
   }
 
+  @And("^I enter random program to challenge$")
+  public void enterRandomProgramTitle() {
+    String programName = Serenity.sessionVariableCalled("programName");
+    challengesSteps.addProgram(programName);
+  }
+
   @And("^I enter a started challenge$")
   public void enterStartedChallenge() {
     challengesSteps.enterStartedChallenge();

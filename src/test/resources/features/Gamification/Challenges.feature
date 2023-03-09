@@ -6,13 +6,13 @@ Feature: Challenges
     And I create the first random user if not existing
     And I go to 'Contributions' application
     And I click on the button add program
-    And I enter the program title 'announce challenges program'
+    And I enter a random program title
     And I add program with random description
     And I add an audience space
     When I select engagement Challenges tab
     And I click on the button add challenge
     And I enter the challenge title 'Challenge to announce'
-    And I add 'announce challenges program' program
+    And I enter random program to challenge
     And I enter a started challenge
     And I add challenge random description
 
@@ -20,7 +20,7 @@ Feature: Challenges
     And I go to the random space
 
     And I go to 'Contributions' application
-    And I open 'announce challenges program' program card
+    And I open random program card
     And I announce challenge 'Challenge to announce'
 
     When I go to 'Contributions' application
@@ -32,13 +32,13 @@ Feature: Challenges
     And I create the first random user if not existing
     And I go to 'Contributions' application
     And I click on the button add program
-    And I enter the program title 'cancel challenge program'
+    And I enter a random program title
     And I add program with random description
     And I add an audience space
     When I select engagement Challenges tab
     And I click on the button add challenge
     And I enter the challenge title 'Challenge To Cancel'
-    And I add 'cancel challenge program' program
+    And I enter random program to challenge
     And I enter a started challenge
     And I add challenge random description
 
@@ -46,7 +46,7 @@ Feature: Challenges
     And I go to the random space
 
     And I go to 'Contributions' application
-    And I open 'cancel challenge program' program card
+    And I open random program card
     And I announce challenge 'Challenge To Cancel'
 
     And I go to Stream page
@@ -61,13 +61,13 @@ Feature: Challenges
     And I create the first random user if not existing
     And I go to 'Contributions' application
     And I click on the button add program
-    And I enter the program title 'Announce program'
+    And I enter a random program title
     And I add program with random description
     And I add an audience space
     When I select engagement Challenges tab
     And I click on the button add challenge
     And I enter the challenge title 'Announce activity to delete'
-    And I add 'Announce program' program
+    And I enter random program to challenge
     And I enter a started challenge
     And I add challenge random description
 
@@ -75,7 +75,7 @@ Feature: Challenges
     And I go to the random space
 
     And I go to 'Contributions' application
-    And I open 'Announce program' program card
+    And I open random program card
     And I announce challenge 'Announce activity to delete'
 
     And I go to Stream page

@@ -162,7 +162,6 @@ public class BasePageImpl extends PageObject implements BasePage {
   public boolean mentionInField(TextBoxElementFacade inputField, String user, int maxRetries) {
     inputField.waitUntilVisible();
     inputField.setTextValue(user + "x");
-    inputField.sendKeys(Keys.BACK_SPACE);
 
     boolean visible = false;
     int retry = 0;
