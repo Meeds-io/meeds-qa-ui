@@ -275,6 +275,17 @@ public class HomePage extends GenericPage {
     waitForPageLoading();
   }
 
+  public void goToOverviewPage() {
+    String currentUrl = getDriver().getCurrentUrl();
+    if (currentUrl.endsWith("/overview")) {
+      closeAllDrawers();
+      return;
+    }
+    clickOnHamburgerMenu();
+    clickOnElement(overviewPageLinkElement());
+    waitForPageLoading();
+  }
+
   public void goToTasksPage() {
     String currentUrl = getDriver().getCurrentUrl();
     if (currentUrl.endsWith("/tasks") && !currentUrl.endsWith("g:")) {
@@ -676,6 +687,10 @@ public class HomePage extends GenericPage {
 
   private ElementFacade streamPageLinkElement() {
     return findByXPathOrCSS("//*[@id='SiteHamburgerNavigation']//a[contains(@href, '/stream')]//*[contains(@class, 'v-list-item__content')]");
+  }
+
+  private ElementFacade overviewPageLinkElement() {
+    return findByXPathOrCSS("//*[@id='SiteHamburgerNavigation']//a[contains(@href, '/overview')]//*[contains(@class, 'v-list-item__content')]");
   }
 
   private ElementFacade streamPageViewElement() {

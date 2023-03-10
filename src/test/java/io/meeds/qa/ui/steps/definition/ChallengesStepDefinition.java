@@ -1,6 +1,7 @@
 package io.meeds.qa.ui.steps.definition;
 
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.meeds.qa.ui.steps.ChallengesSteps;
 import net.serenitybdd.core.Serenity;
@@ -49,5 +50,15 @@ public class ChallengesStepDefinition {
   @When("^I cancel the announcement challenge '(.*)'")
   public void cancelAnnouncementChallenge(String announcement) {
     challengesSteps.cancelAnnouncementChallenge(announcement);
+  }
+
+  @Then("^'(.*)' is displayed in challenge portlet with '(.*)' participants$")
+  public void isOverviewChallengeDisplayed(String challengeTitle, String participantsCount) {
+    challengesSteps.isOverviewChallengeDisplayed(challengeTitle, participantsCount);
+  }
+
+  @Then("^'(.*)' with '(.*)' participants is not displayed in challenge portlet$")
+  public void isOverviewChallengeNotDisplayed(String challengeTitle, String participantsCount) {
+    challengesSteps.isOverviewChallengeNotDisplayed(challengeTitle, participantsCount);
   }
 }

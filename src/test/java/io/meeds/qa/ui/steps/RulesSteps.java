@@ -37,4 +37,20 @@ public class RulesSteps {
   public void addRuleRandomDescription(String ruleDescription) {
     rulePage.addRuleRandomDescription(ruleDescription);
   }
+
+  public void searchRuleInProgramRuleFilter(String ruleTitle) {
+    rulePage.searchRuleInProgramRuleFilter(ruleTitle);
+  }
+
+  public void ruleNotfoundTryAgain() {
+    rulePage.ruleNotfoundTryAgain();
+  }
+
+  public void clearRulesSearchFilter() {
+    rulePage.clearRulesSearchFilter();
+  }
+
+  public void isRuleDisplayed(String ruleTitle) {
+    rulePage.isRuleDisplayed(ruleTitle);
+  }
 }

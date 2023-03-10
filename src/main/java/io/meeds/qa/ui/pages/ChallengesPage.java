@@ -12,6 +12,7 @@ public class ChallengesPage extends GenericPage {
 
   public void clickAddChallengeBtn() {
     clickOnElement(addChallengeBtnElement());
+    waitForDrawerToOpen();
   }
 
   public void enterChallengeTitle(String challengeTitle) {
@@ -48,6 +49,14 @@ public class ChallengesPage extends GenericPage {
 
   public void cancelAnnouncementChallenge(String announcement) {
     getCancelAnnouncementChallengeIcon(announcement).click();
+  }
+
+  public void isOverviewChallengeDisplayed(String challengeTitle, String participantsCount) {
+    getOverviewChallengeItemElement(challengeTitle, participantsCount).isVisible();
+  }
+
+  public void isOverviewChallengeNotDisplayed(String challengeTitle, String participantsCount) {
+    getOverviewChallengeItemElement(challengeTitle, participantsCount).isNotVisible();
   }
 
   private ElementFacade addChallengeBtnElement() {
@@ -93,6 +102,11 @@ public class ChallengesPage extends GenericPage {
   private ElementFacade getCancelAnnouncementChallengeIcon(String announcement) {
     return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@id, 'activity-detail')]//*[contains(@class, 'menuable__content__active')]//*[contains(@class, 'undo')]",
                                           announcement));
+  }
+
+  private ElementFacade getOverviewChallengeItemElement(String challengeTitle, String participantsCount) {
+    return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]/following::*[contains(text(), '%s')]",
+            challengeTitle, participantsCount + " Participants"));
   }
 
 }
