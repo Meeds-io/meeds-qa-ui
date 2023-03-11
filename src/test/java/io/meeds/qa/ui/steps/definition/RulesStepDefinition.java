@@ -18,6 +18,8 @@
 package io.meeds.qa.ui.steps.definition;
 
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import io.meeds.qa.ui.steps.RulesSteps;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
@@ -44,9 +46,29 @@ public class RulesStepDefinition {
   }
 
   @And("^I add rule random description$")
-  public void addProgramWithRandomDescription() {
+  public void addRuleRandomDescription() {
     String ruleDescription = "ruleDescription" + getRandomNumber();
     Serenity.setSessionVariable("ruleDescription").to(ruleDescription);
     rulesSteps.addRuleRandomDescription(ruleDescription);
+  }
+
+  @When("^I search for the (.*) rule in program detail rule filter$")
+  public void searchRuleInProgramRuleFilter(String ruleTitle) {
+    rulesSteps.searchRuleInProgramRuleFilter(ruleTitle);
+  }
+
+  @Then("^Rule not found. Please try again is displayed$")
+  public void ruleNotfoundTryAgain() {
+    rulesSteps.ruleNotfoundTryAgain();
+  }
+
+  @When("^I clear rules search filter$")
+  public void clearRulesSearchFilter() {
+    rulesSteps.clearRulesSearchFilter();
+  }
+
+  @Then("^The Rule (.*) is displayed$")
+  public void ruleDisplayed(String ruleTitle) {
+    rulesSteps.isRuleDisplayed(ruleTitle);
   }
 }

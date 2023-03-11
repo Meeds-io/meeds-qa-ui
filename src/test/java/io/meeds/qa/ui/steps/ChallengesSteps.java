@@ -34,4 +34,12 @@ public class ChallengesSteps {
     challengesPage.cancelAnnouncementChallenge(announcement);
     spaceHomePage.clickYesbutton();
   }
+
+  public void isOverviewChallengeDisplayed(String challengeTitle, String participantsCount) {
+    challengesPage.isOverviewChallengeDisplayed(challengeTitle, participantsCount);
+  }
+
+  public void isOverviewChallengeNotDisplayed(String challengeTitle, String participantsCount) {
+    challengesPage.isOverviewChallengeNotDisplayed(challengeTitle, participantsCount);
+  }
 }

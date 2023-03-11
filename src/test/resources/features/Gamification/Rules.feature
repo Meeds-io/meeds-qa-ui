@@ -78,3 +78,24 @@ Feature: Rules
     And I mark the task as completed
     And I go to My Profile page
     Then My points augmented
+
+  Scenario: Quick filter rules
+    Given I am authenticated as admin
+    And I go to the random space
+    And I go to 'Contributions' application
+    And I select engagement Programs tab
+    And I click on the button add program
+    And I enter a random program title
+    And I add program with random description
+    And I add an audience space
+    And I open random program card
+    When I click on the button add action
+    And I enter the rule title 'Receive kudos'
+    And I add an event 'Receive kudos'
+    And I add rule random description
+
+    When I search for the 'Not found' rule in program detail rule filter
+    Then Rule not found. Please try again is displayed
+
+    When I clear rules search filter
+    Then The Rule 'Receive kudos' is displayed

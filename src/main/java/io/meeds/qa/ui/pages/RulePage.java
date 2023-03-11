@@ -72,6 +72,31 @@ public class RulePage extends GenericPage {
     clickAddRuleButton();
   }
 
+  public void searchRuleInProgramRuleFilter(String ruleTitle) {
+    searchRuleByTitle(ruleTitle, 1);
+  }
+
+  public void searchRuleByTitle(String ruleTitle, int tentatives) {
+    int retry = 0;
+    do {
+      TextBoxElementFacade searchRulesFieldElement = searchRulesFieldElement();
+      searchRulesFieldElement.setTextValue(ruleTitle);
+      waitForProgressBar();
+    } while (++retry < tentatives && !getRuleElement(ruleTitle).isCurrentlyVisible());
+  }
+
+  public void ruleNotfoundTryAgain() {
+    ruleNotfoundTryAgainElement().assertVisible();
+  }
+
+  public void clearRulesSearchFilter() {
+    clearSearchBtnElement().click();
+  }
+
+  public void isRuleDisplayed(String ruleTitle) {
+    getRuleElement(ruleTitle).isVisible();
+  }
+
   public void clickAddRuleButton() {
     createButtonElement().click();
   }
@@ -90,6 +115,23 @@ public class RulePage extends GenericPage {
 
   private ElementFacade createButtonElement() {
     return findByXPathOrCSS(".v-navigation-drawer--open .drawerFooter button.btn-primary");
+  }
+
+  private TextBoxElementFacade searchRulesFieldElement() {
+    return findTextBoxByXPathOrCSS("//input[@placeholder='Filter by action']");
+  }
+
+  public ElementFacade getRuleElement(String ruleTitle) {
+    return findByXPathOrCSS(String.format("//*[@class='v-data-table__wrapper']//*[@class='text-truncate' and contains(@title,'%s')][1]",
+            ruleTitle));
+  }
+
+  public ElementFacade ruleNotfoundTryAgainElement() {
+    return findByXPathOrCSS("//a[contains(text(), 'try again')]");
+  }
+
+  public ElementFacade clearSearchBtnElement() {
+    return findByXPathOrCSS("//button[contains(@class, 'fa-times')]");
   }
 
 }

@@ -323,6 +323,12 @@ public class HomeStepDefinition {
     homeSteps.goToStreamPage();
   }
 
+  @Given("^I go to Overview page$")
+  public void goToOverviewPage() {
+    homeSteps.goToOverviewPage();
+  }
+
+
   @When("^I go to Tasks Page$")
   public void goToTasksPage() {
     homeSteps.goToTasksPage();

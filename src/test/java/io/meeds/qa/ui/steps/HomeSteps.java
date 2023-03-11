@@ -193,6 +193,10 @@ public class HomeSteps {
     homePage.goToStreamPage();
   }
 
+  public void goToOverviewPage() {
+    homePage.goToOverviewPage();
+  }
+
   public void goToTasksPage() {
     homePage.goToTasksPage();
   }
