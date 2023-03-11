@@ -48,6 +48,7 @@ Feature: SideBar
     And I connect with the hamburgermenu created user
     Then The hamburger menu is displayed as unstickied
 
+  @test
   Scenario: Recent Space Hamburger Menu
     Given I am authenticated as admin
     And I create the third random space if not existing

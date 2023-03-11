@@ -74,6 +74,7 @@ public class TasksPage extends GenericPage {
     addProjectOrTaskElement().click();
     projectTitleElement().setTextValue(projectName);
     saveButtonElement().click();
+    waitForDrawerToClose();
   }
 
   public void addProjectManagerInput(String manager) {
@@ -103,6 +104,7 @@ public class TasksPage extends GenericPage {
     }
 
     saveButtonElement().click();
+    waitForDrawerToClose();
   }
 
   public void addProjectWithFirstCreatedUserAsManger(String projectName, String fullName) {
@@ -110,6 +112,7 @@ public class TasksPage extends GenericPage {
     projectTitleElement().setTextValue(projectName);
     addProjectManagerInput(fullName);
     saveButtonElement().click();
+    waitForDrawerToClose();
   }
 
   public void addProjectWithFirstUserAsParticipant(String projectName, String participant) {
@@ -117,6 +120,7 @@ public class TasksPage extends GenericPage {
     projectTitleElement().setTextValue(projectName);
     addProjectParticipantInput(participant);
     saveButtonElement().click();
+    waitForDrawerToClose();
   }
 
   public void addProjectWithManager(String projectName, String fullName) {
@@ -125,6 +129,7 @@ public class TasksPage extends GenericPage {
     addManagerBtnElement().click();
     mentionInField(inviteProjectManagerInputElement(), fullName, 5);
     saveButtonElement().click();
+    waitForDrawerToClose();
   }
 
   public void addProjectWithManagerAndParticipant(String projectName, String manager, String participant) {
@@ -133,6 +138,7 @@ public class TasksPage extends GenericPage {
     addProjectManagerInput(manager);
     addProjectParticipantInput(participant);
     saveButtonElement().click();
+    waitForDrawerToClose();
   }
 
   public void addProjectWithParticipant(String projectName, String lastName) {
@@ -140,6 +146,7 @@ public class TasksPage extends GenericPage {
     projectTitleElement().setTextValue(projectName);
     addProjectParticipantInput(lastName);
     saveButtonElement().click();
+    waitForDrawerToClose();
   }
 
   public void addSecondUserToProject(String lastName) {
@@ -375,7 +382,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void clickCancel() {
-    cancelButtonElement().click();
+    clickToCancelDialog();
   }
 
   public void clickChangeLocation() {
@@ -529,6 +536,7 @@ public class TasksPage extends GenericPage {
 
   public void clickSaveProjectButton() {
     saveButtonElement().click();
+    waitForDrawerToClose();
   }
 
   public void clickStatusName(String statusColumn) {
@@ -544,9 +552,7 @@ public class TasksPage extends GenericPage {
     getProjectCard(projectName).assertVisible();
     projectThreeDotsButtonElement().click();
     cloneProjectButtonElement().click();
-    confirmationPopupCloneButtonElement().click();
-    confirmationPopupCloneButtonElement().assertNotVisible();
-
+    clickToConfirmDialog();
   }
 
   public void cloneProjectButtonIsDisplayed() {
@@ -598,13 +604,11 @@ public class TasksPage extends GenericPage {
   }
 
   public void confirmDeleteStatusColumn() {
-    ElementFacade confirmationPopupDeleteButtonElement = confirmationPopupDeleteButtonElement();
-    confirmationPopupDeleteButtonElement.click();
-    confirmationPopupDeleteButtonElement.assertNotVisible();
+    clickToConfirmDialog();
   }
 
   public void confirmDeleteTaskFromTasksBord() {
-    confirmationPopupDeleteButtonElement().click();
+    clickToConfirmDialog();
   }
 
   public void confirmFilter() {
@@ -619,8 +623,7 @@ public class TasksPage extends GenericPage {
     getProjectCard(projectName).assertVisible();
     projectThreeDotsButtonElement().click();
     deleteProjectButtonElement().click();
-    confirmationPopupDeleteButtonElement().click();
-    confirmationPopupDeleteButtonElement().assertNotVisible();
+    clickToConfirmDialog();
   }
 
   public void deleteProjectButtonIsDisplayed() {
@@ -1219,10 +1222,6 @@ public class TasksPage extends GenericPage {
     return findByXPathOrCSS("//*[@class='uiIcon uiArrowBAckIcon']");
   }
 
-  private TextBoxElementFacade cancelButtonElement() {
-    return findTextBoxByXPathOrCSS("//*[@class='v-card__actions']//button[contains(@class,'btn ms-2')]");
-  }
-
   private ElementFacade cancelFilterButtonElement() {
     return findByXPathOrCSS("//*[contains(@class,'filterSortTasksDrawer')]//following::*[contains(text(),'Cancel')][1]");
   }
@@ -1281,14 +1280,6 @@ public class TasksPage extends GenericPage {
 
   private TextBoxElementFacade commentTaskMaxCharsMsgElement() {
     return findTextBoxByXPathOrCSS(")]");
-  }
-
-  private ElementFacade confirmationPopupCloneButtonElement() {
-    return findByXPathOrCSS("//*[@class='ignore-vuetify-classes btn btn-primary me-2']");
-  }
-
-  private ElementFacade confirmationPopupDeleteButtonElement() {
-    return findByXPathOrCSS("//*[@class='ignore-vuetify-classes btn btn-primary me-2']");
   }
 
   private ElementFacade confirmButtonDrawerElement() {
@@ -1858,7 +1849,7 @@ public class TasksPage extends GenericPage {
   }
 
   private ElementFacade validateStatusNameElement() {
-    return findByXPathOrCSS(" //*[contains(@class,'uiIcon40x40TickBlue')]");
+    return findByXPathOrCSS("//*[contains(@class, 'taskStatusNameEdit')]//*[contains(@class,'Tick')]");
   }
 
   private ElementFacade viewAllCommentsTaskButtonElement() {

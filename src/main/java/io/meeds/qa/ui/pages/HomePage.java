@@ -20,6 +20,7 @@ package io.meeds.qa.ui.pages;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -123,8 +124,8 @@ public class HomePage extends GenericPage {
     checkSpaceFromDrawer(spaceName).assertNotVisible();
   }
 
-  public void checkThatStreamPageIsDisplayed() {
-    streamPageViewElement().assertVisible();
+  public void checkPageIsDisplayed(String pageUri) {
+    assertThat(getDriver().getCurrentUrl()).contains(pageUri);
   }
 
   public void clickOnArrowIcon() {
@@ -152,12 +153,21 @@ public class HomePage extends GenericPage {
     clickOnElement(connectionsBadgeElement());
   }
 
-  public void clickOnHomeIcon() {
-    clickOnElement(homeIconElement());
+  public void clickOnHomeIcon(String pageName) {
+    homeHoverButton(pageName).click();
   }
 
-  public void clickOnHomePageButton() {
-    clickOnElement(homePageButtonElement());
+  public void clickOnHomeLink() {
+    clickOnElement(homePageLinkElement());
+  }
+
+  public void checkHomeButtonPosition(String pageName) {
+    if (!homeButtonElement(pageName).isCurrentlyVisible()) {
+      hoverOnPageHomeIcon(pageName);
+      clickOnHomeIcon(pageName);
+      confirmationForChangeSiteHomeLink();
+      homeButtonElement(pageName).assertVisible();
+    }
   }
 
   public void clickOnSpaceInvitationWidget() {
@@ -188,8 +198,8 @@ public class HomePage extends GenericPage {
   }
 
   public void confirmationForChangeSiteHomeLink() {
-    clickOnElement(confirmationForChangeSiteHomeLinkElement());
-    closeAllDrawers();
+    clickToConfirmDialog();
+    waitFor(200).milliseconds(); // Wait for animation until the home icon changes its location
   }
 
   public void deactivateSwitcher() {
@@ -271,7 +281,7 @@ public class HomePage extends GenericPage {
       return;
     }
     clickOnHamburgerMenu();
-    clickOnElement(streamPageLinkElement());
+    pageLinkElement("Stream").click();
     waitForPageLoading();
   }
 
@@ -282,7 +292,7 @@ public class HomePage extends GenericPage {
       return;
     }
     clickOnHamburgerMenu();
-    clickOnElement(overviewPageLinkElement());
+    clickOnElement(pageLinkElement("Overview"));
     waitForPageLoading();
   }
 
@@ -297,9 +307,9 @@ public class HomePage extends GenericPage {
     waitForPageLoading();
   }
 
-  public void hoverOnStreamIcon() {
+  public void hoverOnPageHomeIcon(String pageName) {
     waitFor(300).milliseconds(); // Wait until drawer 'open' animation finishes
-    streamPageLinkElement().hover();
+    pageLinkElement(pageName).hover();
   }
 
   public void hoverSearchedSpaceInSideBarFilter(String space) {
@@ -509,10 +519,6 @@ public class HomePage extends GenericPage {
                                           spaceName));
   }
 
-  private ElementFacade confirmationForChangeSiteHomeLinkElement() {
-    return findByXPathOrCSS("//*[@class='ignore-vuetify-classes btn btn-primary me-2']");
-  }
-
   private ElementFacade connectionsBadgeElement() {
     return findByXPathOrCSS("(//div[contains(@class,'profileCard')]//*[@aria-label='Badge'])[2]");
   }
@@ -597,12 +603,18 @@ public class HomePage extends GenericPage {
                                           number));
   }
 
-  private ElementFacade homeIconElement() {
-    return findByXPathOrCSS("//*[@id='SiteHamburgerNavigation']//a[contains(@href, '/stream')]//*[contains(@class, 'homePage')]");
+  private ElementFacade homeHoverButton(String pageName) {
+    return findByXPathOrCSS(String.format("//*[@id='SiteHamburgerNavigation']//*[contains(text(), '%s')]/ancestor::*[contains(@class, 'UserPageLink')]//*[contains(@class, 'homePage')]",
+                                          pageName));
   }
 
-  private ElementFacade homePageButtonElement() {
-    return findByXPathOrCSS("//*[@id='UserHomePortalLink']");
+  private ElementFacade homeButtonElement(String pageName) {
+    return findByXPathOrCSS(String.format("//*[@id='SiteHamburgerNavigation']//*[contains(text(), '%s')]/ancestor::*[contains(@class, 'UserPageLinkHome')]//*[contains(@class, 'homePage')]",
+                                          pageName));
+  }
+
+  private ElementFacade homePageLinkElement() {
+    return findByXPathOrCSS("//*[contains(@class, 'UserPageLinkHome')]//i");
   }
 
   private ElementFacade myProfileButtonElement() {
@@ -614,8 +626,6 @@ public class HomePage extends GenericPage {
   }
 
   private ElementFacade openSpacesPageLinkElement() {
-    // //*[contains(@class, 'v-list-item__content')] added to avoid clicking on
-    // home icon
     return findByXPathOrCSS("//*[@id='SiteHamburgerNavigation']//a[contains(@href, '/spaces')]//*[contains(@class, 'v-list-item__content')]");
   }
 
@@ -685,16 +695,9 @@ public class HomePage extends GenericPage {
     return findByXPathOrCSS("(//div[contains(@class,'profileCard')]//*[@aria-label='Badge'])[1]");
   }
 
-  private ElementFacade streamPageLinkElement() {
-    return findByXPathOrCSS("//*[@id='SiteHamburgerNavigation']//a[contains(@href, '/stream')]//*[contains(@class, 'v-list-item__content')]");
-  }
-
-  private ElementFacade overviewPageLinkElement() {
-    return findByXPathOrCSS("//*[@id='SiteHamburgerNavigation']//a[contains(@href, '/overview')]//*[contains(@class, 'v-list-item__content')]");
-  }
-
-  private ElementFacade streamPageViewElement() {
-    return findByXPathOrCSS("//*[@id='StreamPage']");
+  private ElementFacade pageLinkElement(String pageName) {
+    return findByXPathOrCSS(String.format("//*[@id='SiteHamburgerNavigation']//*[contains(text(), '%s')]",
+                                          pageName));
   }
 
   private ElementFacade switcherButtonElement() {

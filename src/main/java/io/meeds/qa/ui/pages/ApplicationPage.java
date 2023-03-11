@@ -17,7 +17,6 @@
  */
 package io.meeds.qa.ui.pages;
 
-import static io.meeds.qa.ui.utils.ExceptionLauncher.LOGGER;
 import static io.meeds.qa.ui.utils.Utils.refreshPage;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static org.junit.Assert.assertTrue;
@@ -233,12 +232,10 @@ public class ApplicationPage extends GenericPage {
 
   public void deleteApp(String appTitle, boolean confirm) {
     ElementFacade deleteButton = getDeleteButton(appTitle);
-    if (deleteButton.isCurrentlyVisible()) {
-      deleteButton.click();
-      waitFor(100).milliseconds();
-    }
+    deleteButton.click();
+    waitFor(100).milliseconds();
     ElementFacade confirmDeleteElement = confirmDeleteElement();
-    if (confirm && confirmDeleteElement.isVisible()) {
+    if (confirm) {
       confirmDeleteElement.click();
     }
   }

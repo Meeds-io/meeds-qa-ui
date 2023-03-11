@@ -191,9 +191,9 @@ public class HomeStepDefinition {
                                                           .isTrue();
   }
 
-  @Then("^Activity Stream page is displayed$")
-  public void checkThatStreamPageIsDisplayed() {
-    homeSteps.checkThatStreamPageIsDisplayed();
+  @Then("^'(.*)' page is displayed$")
+  public void checkPageIsDisplayed(String pageUri) {
+    homeSteps.checkPageIsDisplayed(pageUri);
   }
 
   @Then("^The '(.*)' number is '(.*)'$")
@@ -225,14 +225,19 @@ public class HomeStepDefinition {
     homeSteps.clickOnCommentActivityNotification(message, activity, comment);
   }
 
-  @And("^I click on home page button$")
-  public void clickOnHomeButton() {
-    homeSteps.clickOnHomeButton();
+  @Given("^My home icon is on '(.*)'")
+  public void checkHomeButtonPosition(String pageName) {
+    homeSteps.checkHomeButtonPosition(pageName);
+  }
+
+  @And("^I click on home page link$")
+  public void clickOnHomeLink() {
+    homeSteps.clickOnHomeLink();
   }
 
   @And("^I click on home icon$")
   public void clickOnHomeIcon() {
-    homeSteps.clickOnHomeIcon();
+    homeSteps.clickOnHomeIcon(Serenity.sessionVariableCalled("hoverHomeLink").toString());
   }
 
   @When("^I click on the notification that shows that comment '(.*)' posted by second user is replied by first user with '(.*)'$")
@@ -334,9 +339,10 @@ public class HomeStepDefinition {
     homeSteps.goToTasksPage();
   }
 
-  @And("^I mouse over the stream icon in sidebar menu$")
-  public void hoverOnStreamIcon() {
-    homeSteps.hoverOnStreamIcon();
+  @And("^I mouse over the '(.*)' icon in sidebar menu$")
+  public void hoverOnPageHomeIcon(String pageName) {
+    Serenity.setSessionVariable("hoverHomeLink").to(pageName);
+    homeSteps.hoverOnPageHomeIcon(pageName);
   }
 
   @And("^I hover on the (.*) searched Space In side bar filter$")

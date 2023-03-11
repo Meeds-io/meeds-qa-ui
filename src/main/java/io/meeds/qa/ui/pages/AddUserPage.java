@@ -38,7 +38,7 @@ public class AddUserPage extends GenericPage {
 
   public void checkUserIsDeleted(String fullName) {
     searchForUserByName(fullName);
-    deleteConfirmationButtonElement().assertNotVisible();
+    clickToConfirmDialog();
   }
 
   public void clickAddUserButton() {
@@ -51,7 +51,7 @@ public class AddUserPage extends GenericPage {
 
   public void deleteUser() {
     deleteUserIconElement().click();
-    deleteConfirmationButtonElement().click();
+    clickToConfirmDialog();
   }
 
   public ElementFacade disableEnableStatusButton(String user) {
@@ -136,10 +136,6 @@ public class AddUserPage extends GenericPage {
 
   private TextBoxElementFacade confirmPasswordFieldElement() {
     return findTextBoxByXPathOrCSS("//div[contains(@class,'confirmPasswordField')]//input");
-  }
-
-  private TextBoxElementFacade deleteConfirmationButtonElement() {
-    return findTextBoxByXPathOrCSS("//*[@class='ignore-vuetify-classes btn btn-primary me-2']");
   }
 
   private TextBoxElementFacade deleteUserIconElement() {

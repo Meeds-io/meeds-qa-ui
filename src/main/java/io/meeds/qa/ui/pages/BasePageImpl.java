@@ -17,7 +17,7 @@
  */
 package io.meeds.qa.ui.pages;
 
-import static io.meeds.qa.ui.utils.Utils.DEFAULT_IMPLICIT_WAIT_FOR_TIMEOUT;
+import static io.meeds.qa.ui.utils.Utils.*;
 import static io.meeds.qa.ui.utils.Utils.DEFAULT_WAIT_FOR_TIMEOUT;
 import static io.meeds.qa.ui.utils.Utils.DEFAULT_WAIT_PAGE_LOADING;
 import static io.meeds.qa.ui.utils.Utils.MAX_WAIT_RETRIES;
@@ -78,15 +78,35 @@ public class BasePageImpl extends PageObject implements BasePage {
     }
   }
 
+  public void clickToConfirmDialog() {
+    ElementFacade okButton = findByXPathOrCSS("//*[contains(@class, 'v-dialog--active')]//button[contains(@class, 'primary')]");
+    okButton.click();
+    okButton.waitUntilNotVisible();
+  }
+
+  public void clickToCancelDialog() {
+    ElementFacade cancelButton = findByXPathOrCSS("//*[contains(@class, 'v-dialog--active')]//button[not(contains(@class, 'primary'))]");
+    cancelButton.click();
+    cancelButton.waitUntilNotVisible();
+  }
+
   public void closeAllDialogs() {
-    ElementFacade openedDialogElement = openedDialogElement();
-    while (openedDialogElement.isCurrentlyVisible()) {
-      findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
+    int i = MAX_WAIT_RETRIES * 2;
+    while (openedDialogElement().isCurrentlyVisible() && i-- > 0) {
+      try {
+        findByXPathOrCSS(".v-dialog--active .uiIconClose").click();
+      } catch (Exception e) {
+        LOGGER.warn("Can't find dialog close button, try to use escape key", e);
+        findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
+      }
       try {
         waitOverlayToClose();
       } catch (Exception e) {
-        LOGGER.debug("Overlay seems not displayed", e);
+        LOGGER.debug("Dialog seems not displayed", e);
       }
+    }
+    if (i == 0) {
+      openedDialogElement().assertNotVisible();
     }
   }
 
@@ -242,6 +262,10 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   public void waitCKEditorLoading() {
     waitCKEditorLoading("");
+  }
+
+  public void waitDrawerCKEditorLoading() {
+    waitCKEditorLoading("//*[contains(@class, 'v-navigation-drawer--open')]");
   }
 
   public void waitCKEditorLoading(String parentXPath) {

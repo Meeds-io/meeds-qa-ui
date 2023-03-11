@@ -32,8 +32,18 @@ Feature: Edit sections in Settings page
     Given I am authenticated as admin
 
     And I open hamburger menu drawer
-    And I mouse over the stream icon in sidebar menu
+
+    Given My home icon is on 'Stream'
+
+    When I mouse over the 'Spaces' icon in sidebar menu
     And I click on home icon
     And I click to confirm the new home page
-    And I click on home page button
-    Then Activity Stream page is displayed
+    And I click on home page link
+    Then '/spaces' page is displayed
+
+    When I open hamburger menu drawer
+    And I mouse over the 'Stream' icon in sidebar menu
+    And I click on home icon
+    And I click to confirm the new home page
+    And I click on home page link
+    Then '/stream' page is displayed
