@@ -89,4 +89,8 @@ public class ProgramsSteps {
   public void openProgramCard(String value) {
     programsPage.openProgramCard(value);
   }
+
+  public void announceChallenge(String challengeTitle, String announcementMessage) {
+    programsPage.announceChallenge(challengeTitle, announcementMessage);
+  }
 }
