@@ -540,5 +540,10 @@ public class HomeStepDefinition {
     String spaceName = Serenity.sessionVariableCalled(spacePrefix + "RandomSpaceName");
     homeSteps.openHamburgerMenuRecentSpaceDetails(spaceName);
   }
+  
+  @Then("The red dot is displayed in the hamburger menu")
+  public void checkRedDotInHamburgerMenu() {
+    homeSteps.checkRedDotInHamburgerMenu();
+  }
 
 }

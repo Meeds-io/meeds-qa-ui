@@ -72,3 +72,21 @@ Feature: SideBar
     When I open the fourth random space menu details
     Then The fourth random space name and description are displayed in second manu level
     And I close the opened drawer
+
+  @test
+  Scenario: Display Red Dot In Unstickied Hamburger Menu
+    Given I am authenticated as admin
+    And I create the first random user if not existing
+    And I create the second random user if not existing
+    When I connect with the first created user
+    And I create a random space
+    When I connect with the second created user
+    And I go to the random space
+    And I click on post in space
+    And I enter an activity 'Unread - This is an unread activity for the first user'
+    And I publish the activity
+    And I connect with the first created user
+    When The hamburger menu is displayed as unstickied
+    Then The red dot is displayed in the hamburger menu
+
+

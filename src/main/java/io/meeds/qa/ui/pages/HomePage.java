@@ -758,5 +758,11 @@ public class HomePage extends GenericPage {
   public void unstickHamburgerMenu() {
     findByXPathOrCSS(".HamburgerNavigationMenu .fa-angle-double-left").click();
   }
+  
+  public void checkRedDotInHamburgerMenu() {
+    findByXPathOrCSS(".HamburgerNavigationMenuLink").checkVisible();
+    findByXPathOrCSS(".hamburger-unread-badge ").checkVisible();
+  }
+
 
 }
