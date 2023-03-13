@@ -214,6 +214,12 @@ public class HomeStepDefinition {
     homeSteps.clickOnConnectionsBagde();
   }
 
+  @Given("I close current browser tab")
+  public void closeCurrentBrowserTab() {
+    Serenity.getDriver().close();
+    Serenity.getDriver().switchTo().window(Serenity.sessionVariableCalled("windowHandle"));
+  }
+
   @When("^I click on the notification that shows that activity '(.*)' posted by first user is commented by second user with comment '(.*)'$")
   public void clickOnFirstUserActivityCommentedBySecondUserNotification(String activity, String comment) {
     String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
