@@ -348,6 +348,13 @@ public class HomeSteps {
   public void checkHamburgerMenuSpaceDescriptionAndName(String randomSpaceName) {
     homePage.checkHamburgerMenuSpaceDescriptionAndName(randomSpaceName);
   }
+  
+  public void checkRedDotInHamburgerMenu() {
+    homePage.checkRedDotInHamburgerMenu();
+  }
 
+  public void checkRedDotNotInHamburgerMenu() {
+    homePage.checkRedDotNotInHamburgerMenu();
+  }
 
 }
