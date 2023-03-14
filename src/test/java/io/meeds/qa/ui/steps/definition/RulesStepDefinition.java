@@ -40,6 +40,11 @@ public class RulesStepDefinition {
     rulesSteps.addRuleEvent(eventName);
   }
 
+  @And("^I enter the rule score '(.*)'")
+  public void addRuleScore(String roleScore) {
+    rulesSteps.addRuleScore(roleScore);
+  }
+
   @And("^I click on the button add action$")
   public void clickAddProgramBtn() {
     rulesSteps.clickAddRuleBtn();

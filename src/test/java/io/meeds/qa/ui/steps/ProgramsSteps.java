@@ -62,6 +62,10 @@ public class ProgramsSteps {
     programsPage.deleteCreatedProgram(programName);
   }
 
+  public void enableDisableProgram(String programName) {
+    programsPage.enableDisableProgram(programName);
+  }
+
   public void editProgramWithDescription(String programName, String newProgramName, String newProgramDescription) {
     programsPage.editProgramWithDescription(programName, newProgramName, newProgramDescription);
   }
@@ -92,5 +96,13 @@ public class ProgramsSteps {
 
   public void announceChallenge(String challengeTitle, String announcementMessage) {
     programsPage.announceChallenge(challengeTitle, announcementMessage);
+  }
+
+  public void isMostAwardedProgram(String programName) {
+    programsPage.isMostAwardedProgram(programName);
+  }
+
+  public void isNotMostAwardedProgram(String programName) {
+    programsPage.isNotMostAwardedProgram(programName);
   }
 }

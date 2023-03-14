@@ -20,6 +20,7 @@ package io.meeds.qa.ui.steps.definition;
 import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
 
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.meeds.qa.ui.steps.ProgramsSteps;
@@ -89,6 +90,13 @@ public class ProgramsStepDefinition {
     programsSteps.deleteCreatedProgram(programName);
   }
 
+  @Given("^I enable the created program$")
+  @And("^I disable the created program$")
+  public void disableCreatedProgram() {
+    String programName = Serenity.sessionVariableCalled("programName");
+    programsSteps.enableDisableProgram(programName);
+  }
+
   @And("^I edit the created program$")
   public void editProgramWithDescription() {
     String programName = Serenity.sessionVariableCalled("programName");
@@ -142,6 +150,18 @@ public class ProgramsStepDefinition {
     String announcementMessage = "announcementMessage" + getRandomNumber();
     Serenity.setSessionVariable("announcementMessage").to(announcementMessage);
     programsSteps.announceChallenge(challengeTitle, announcementMessage);
+  }
+
+  @Then("^The created program is the most awarded program$")
+  public void isMostAwardedProgram() {
+    String programName = Serenity.sessionVariableCalled("programName");
+    programsSteps.isMostAwardedProgram(programName);
+  }
+
+  @Then("^The created program is not the most awarded program$")
+  public void isNotMostAwardedProgram() {
+    String programName = Serenity.sessionVariableCalled("programName");
+    programsSteps.isNotMostAwardedProgram(programName);
   }
 
 }

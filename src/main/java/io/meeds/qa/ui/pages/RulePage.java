@@ -45,6 +45,10 @@ public class RulePage extends GenericPage {
     ruleEventsMenuItem(eventName).click();
   }
 
+  public void addRuleScore(String ruleScore) {
+    ruleScoreFieldElement().setTextValue(ruleScore);
+  }
+
   private ElementFacade addRuleBtnElement() {
     return findByXPathOrCSS("//*[contains(text(), 'Add Action')]//ancestor::*[contains(@class, 'btn-primary')]");
   }
@@ -111,6 +115,10 @@ public class RulePage extends GenericPage {
 
   private TextBoxElementFacade ruleTitleFieldElement() {
     return findTextBoxByXPathOrCSS("//*[@id='ruleTitle']");
+  }
+
+  private TextBoxElementFacade ruleScoreFieldElement() {
+    return findTextBoxByXPathOrCSS("//aside[contains(@class,'v-navigation-drawer--open')]//div[contains(@class,'v-text-field--is-booted v-text-field--enclosed')]//input[contains(@id,'input-')]");
   }
 
   private ElementFacade createButtonElement() {

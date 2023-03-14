@@ -30,6 +30,10 @@ public class RulesSteps {
     rulePage.addRuleEvent(eventName);
   }
 
+  public void addRuleScore(String ruleScore) {
+    rulePage.addRuleScore(ruleScore);
+  }
+
   public void clickAddRuleBtn() {
     rulePage.clickAddActionBtn();
   }

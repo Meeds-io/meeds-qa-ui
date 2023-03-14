@@ -105,6 +105,14 @@ public class ProgramsPage extends GenericPage {
     yesConfirmButtonElement().click();
   }
 
+  public void enableDisableProgram(String programName) {
+    getProgramCard(programName).assertVisible();
+    programThreeDotsButtonElement().click();
+    editProgramButtonElement().click();
+    selectStatusSwitcher();
+    saveButtonElement().click();
+  }
+
   public void editProgramWithDescription(String programName, String newProgramName, String newProgramDescription) {
     getProgramCard(programName).assertVisible();
     programThreeDotsButtonElement().click();
@@ -171,6 +179,18 @@ public class ProgramsPage extends GenericPage {
   public void selectStatusSwitcher() {
     WebElement checkbox = getDriver().findElement(By.xpath("//*[@class='v-input--selection-controls__ripple primary--text']"));
     checkbox.click();
+  }
+
+  public void isMostAwardedProgram(String programTitle) {
+    overviewProgramItem(programTitle).assertVisible();
+  }
+
+  public void isNotMostAwardedProgram(String programTitle) {
+    overviewProgramItem(programTitle).assertNotVisible();
+  }
+
+  private ElementFacade overviewProgramItem(String programTitle) {
+    return findByXPathOrCSS(String.format("//div[@id='programsOverview']//div[@class='v-list py-0 py-auto v-sheet theme--light'][1]//*[contains(text(),'%s')]", programTitle));
   }
 
   private ElementFacade addProgramBtnElement() {
