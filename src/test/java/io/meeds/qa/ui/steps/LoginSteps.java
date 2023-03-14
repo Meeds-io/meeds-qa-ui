@@ -62,4 +62,8 @@ public class LoginSteps {
     loginPage.logout();
   }
 
+  public void checkLoginPageDisplay() {
+    loginPage.checkLoginPageDisplay();
+  }
+
 }

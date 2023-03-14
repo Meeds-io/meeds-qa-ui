@@ -435,6 +435,7 @@ public class HomePage extends GenericPage {
                        getHamburgerNavigationMenuDrawer().waitUntilPresent();
                        closeAllDrawers();
                      });
+    waitForDrawerToOpen();
   }
 
   public void checkHamburgerMenuSpacePosition(String spaceName, int spaceMenuPosition) {
@@ -457,12 +458,15 @@ public class HomePage extends GenericPage {
   public void openHamburgerMenuRecentSpaceDetails(String spaceName) {
     if (!getHamburgerNavigationMenuDrawer().isCurrentlyVisible()) {
       clickOnHamburgerMenu();
+      waitFor(200).milliseconds(); // Wait for drawer to completely open
     }
     ElementFacade menuItem = recentSpaceFirstLevelMenuItem(spaceName);
     menuItem.assertVisible();
     menuItem.hover();
     ElementFacade arrowIcon = recentSpaceFirstLevelMenuArrowIcon(spaceName);
+    arrowIcon.assertVisible();
     arrowIcon.click();
+    recentSpaceSecondLevelSpaceName(spaceName).waitUntilVisible();
   }
 
   public void checkHamburgerMenuUnsticked() {

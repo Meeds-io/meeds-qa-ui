@@ -77,6 +77,7 @@ public class ManageSpaceSteps {
   public void addSpaceWithInviteUser(String spaceName, String user) {
     manageSpacesPage.openSpaceFormDrawer();
     manageSpacesPage.setSpaceName(spaceName);
+    manageSpacesPage.setSpaceDescription(spaceName);
     manageSpacesPage.clickFirstProcessButton();
     manageSpacesPage.clickSecondProcessButton();
     manageSpacesPage.inviteUserToSpace(user);

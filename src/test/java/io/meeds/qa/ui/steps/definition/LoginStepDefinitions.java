@@ -49,6 +49,11 @@ public class LoginStepDefinitions {
     loginSteps.logout();
   }
 
+  @Given("I check login page display")
+  public void checkLoginPageDisplay() {
+    loginSteps.checkLoginPageDisplay();
+  }
+
   @Given("^I change user (.*)$")
   public void logOutLogin(String username) {
     authenticate(username);
