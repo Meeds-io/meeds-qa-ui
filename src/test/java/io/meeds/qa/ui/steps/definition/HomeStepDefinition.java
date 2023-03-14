@@ -546,4 +546,9 @@ public class HomeStepDefinition {
     homeSteps.checkRedDotInHamburgerMenu();
   }
 
+  @Then("The red dot is not displayed in the hamburger menu")
+  public void checkRedDotNotInHamburgerMenu() {
+    homeSteps.checkRedDotNotInHamburgerMenu();
+  }
+
 }

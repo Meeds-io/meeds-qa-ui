@@ -465,6 +465,43 @@ public class HomePage extends GenericPage {
     arrowIcon.click();
   }
 
+  public void checkHamburgerMenuUnsticked() {
+    getHamburgerNavigationMenu().checkVisible();
+    unstickHamburgerMenuElement().checkNotVisible();
+  }
+
+  public void checkHamburgerMenuSticked() {
+    getHamburgerNavigationMenu().checkNotVisible();
+    unstickHamburgerMenuElement().checkVisible();
+  }
+
+  public void checkHamburgerMenuNavigations() {
+    findByXPathOrCSS(".HamburgerNavigationMenu #ProfileHamburgerNavigation").checkVisible();
+    findByXPathOrCSS(".HamburgerNavigationMenu #SiteHamburgerNavigation").checkVisible();
+    findByXPathOrCSS(".HamburgerNavigationMenu #RecentSpaceHamburgerNavigation").checkVisible();
+    findByXPathOrCSS(".HamburgerNavigationMenu #RecentSpaceHamburgerNavigation").checkVisible();
+    findByXPathOrCSS(".HamburgerNavigationMenu #UserHamburgerNavigation .settingsTitle").checkVisible();
+    findByXPathOrCSS(".HamburgerNavigationMenu #UserHamburgerNavigation .logoutLinks").checkVisible();
+  }
+
+  public void stickHamburgerMenu() {
+    stickHamburgerMenuElement().click();
+  }
+
+  public void unstickHamburgerMenu() {
+    unstickHamburgerMenuElement().click();
+  }
+
+  public void checkRedDotInHamburgerMenu() {
+    getHamburgerNavigationMenu().assertVisible();
+    findByXPathOrCSS(".hamburger-unread-badge ").assertVisible();
+  }
+
+  public void checkRedDotNotInHamburgerMenu() {
+    getHamburgerNavigationMenu().assertVisible();
+    findByXPathOrCSS(".hamburger-unread-badge ").assertNotVisible();
+  }
+
   private void goToAdministrationPage(String uri) {
     if (!StringUtils.contains(getDriver().getCurrentUrl(), uri)) {
       accessToAdministrationMenu();
@@ -472,6 +509,14 @@ public class HomePage extends GenericPage {
       findByXPathOrCSS(String.format("//*[@id = 'AdministrationHamburgerNavigation']//a[contains(@href, '%s')]", uri)).click();
       waitForPageLoading();
     }
+  }
+
+  private ElementFacade stickHamburgerMenuElement() {
+    return findByXPathOrCSS(".HamburgerNavigationMenu .fa-angle-double-right");
+  }
+
+  private ElementFacade unstickHamburgerMenuElement() {
+    return findByXPathOrCSS(".HamburgerNavigationMenu .fa-angle-double-left");
   }
 
   private ElementFacade recentSpaceFirstLevelMenuItem(String spaceName, int spaceMenuPosition) {
@@ -731,38 +776,5 @@ public class HomePage extends GenericPage {
   private ElementFacade walletBalanceElement() {
     return findByXPathOrCSS("#walletBalance");
   }
-
-  public void checkHamburgerMenuUnsticked() {
-    findByXPathOrCSS(".HamburgerNavigationMenuLink").checkVisible();
-    findByXPathOrCSS(".HamburgerNavigationMenu .fa-angle-double-left").checkNotVisible();
-  }
-
-  public void checkHamburgerMenuSticked() {
-    findByXPathOrCSS(".HamburgerNavigationMenuLink").checkNotVisible();
-    findByXPathOrCSS(".HamburgerNavigationMenu .fa-angle-double-left").checkVisible();
-  }
-
-  public void checkHamburgerMenuNavigations() {
-    findByXPathOrCSS(".HamburgerNavigationMenu #ProfileHamburgerNavigation").checkVisible();
-    findByXPathOrCSS(".HamburgerNavigationMenu #SiteHamburgerNavigation").checkVisible();
-    findByXPathOrCSS(".HamburgerNavigationMenu #RecentSpaceHamburgerNavigation").checkVisible();
-    findByXPathOrCSS(".HamburgerNavigationMenu #RecentSpaceHamburgerNavigation").checkVisible();
-    findByXPathOrCSS(".HamburgerNavigationMenu #UserHamburgerNavigation .settingsTitle").checkVisible();
-    findByXPathOrCSS(".HamburgerNavigationMenu #UserHamburgerNavigation .logoutLinks").checkVisible();
-  }
-
-  public void stickHamburgerMenu() {
-    findByXPathOrCSS(".HamburgerNavigationMenu .fa-angle-double-right").click();
-  }
-
-  public void unstickHamburgerMenu() {
-    findByXPathOrCSS(".HamburgerNavigationMenu .fa-angle-double-left").click();
-  }
-  
-  public void checkRedDotInHamburgerMenu() {
-    findByXPathOrCSS(".HamburgerNavigationMenuLink").checkVisible();
-    findByXPathOrCSS(".hamburger-unread-badge ").checkVisible();
-  }
-
 
 }

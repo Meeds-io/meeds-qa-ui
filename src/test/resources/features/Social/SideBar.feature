@@ -48,7 +48,6 @@ Feature: SideBar
     And I connect with the hamburgermenu created user
     Then The hamburger menu is displayed as unstickied
 
-  @test
   Scenario: Recent Space Hamburger Menu
     Given I am authenticated as admin
     And I create the third random space if not existing
@@ -73,20 +72,25 @@ Feature: SideBar
     Then The fourth random space name and description are displayed in second manu level
     And I close the opened drawer
 
-  @test
   Scenario: Display Red Dot In Unstickied Hamburger Menu
-    Given I am authenticated as admin
-    And I create the first random user if not existing
-    And I create the second random user if not existing
-    When I connect with the first created user
-    And I create a random space
-    When I connect with the second created user
+    Given I connect as admin if random users doesn't exists
+      | reddot  |
+    When I create the reddot random user if not existing, no wait
+    And I go to the random space
+    And I connect with the reddot created user
+    And I go to the random space
+    And I change user admin
     And I go to the random space
     And I click on post in space
-    And I enter an activity 'Unread - This is an unread activity for the first user'
+    And I enter an activity 'Unread - This is an unread activity for the reddot user'
     And I publish the activity
-    And I connect with the first created user
-    When The hamburger menu is displayed as unstickied
-    Then The red dot is displayed in the hamburger menu
-
-
+    And I connect with the reddot created user
+    Then The hamburger menu is displayed as unstickied
+    And The red dot is displayed in the hamburger menu
+    When I go to the random space
+    And I wait '5' seconds
+    Then The hamburger menu is displayed as unstickied
+    And The red dot is not displayed in the hamburger menu
+    When I refresh the page
+    Then The hamburger menu is displayed as unstickied
+    And The red dot is not displayed in the hamburger menu

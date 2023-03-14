@@ -353,6 +353,8 @@ public class HomeSteps {
     homePage.checkRedDotInHamburgerMenu();
   }
 
-
+  public void checkRedDotNotInHamburgerMenu() {
+    homePage.checkRedDotNotInHamburgerMenu();
+  }
 
 }
