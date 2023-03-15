@@ -132,9 +132,15 @@ Feature: Kudos
     When I go to the random space
     And I send in the activity 'Kudos Post activity - Kudos comment to cancel' a kudos message 'Kudos comment to cancel'
 
-    Then In activity 'Kudos Post activity - Kudos comment to cancel' I cancel the sent kudos comment 'Kudos comment to cancel'
-    And Comment 'Kudos comment to cancel' is not displayed in activity 'Kudos Post activity - Kudos comment to cancel'
-    When I go to My Profile page
+    And I connect with admin
+    When I go to the random space
+    Then In activity 'Kudos Post activity - Kudos comment to cancel' the cancel option in kudos comment 'Kudos comment to cancel' is not displayed
+
+    When I connect with the cancelfirst created user
+    And I go to the random space
+    And In activity 'Kudos Post activity - Kudos comment to cancel' I cancel the sent kudos comment 'Kudos comment to cancel'
+    Then Comment 'Kudos comment to cancel' is not displayed in activity 'Kudos Post activity - Kudos comment to cancel'
+    And I go to My Profile page
     Then '0' kudos are sent
 
     When I connect with the cancelsecond created user
@@ -152,9 +158,13 @@ Feature: Kudos
     And I go to the cancelsecond user profile
     And I send kudos with message 'Message for kudos - Kudos to cancel'
 
+    When I connect with the cancelsecond created user
     And I go to Stream page
-    Then the kudos activity UI 'Message for kudos - Kudos to cancel' is displayed in stream page
-    When I cancel the sent kudos activity 'Message for kudos - Kudos to cancel'
+    Then In kudos activity 'Message for kudos - Kudos to cancel' the cancel option is not displayed
+
+    When I connect with the cancelfirst created user
+    And I go to Stream page
+    And I cancel the sent kudos activity 'Message for kudos - Kudos to cancel'
     Then the activity 'Message for kudos - Kudos to cancel' is no more displayed in the activity stream
 
     When I go to My Profile page

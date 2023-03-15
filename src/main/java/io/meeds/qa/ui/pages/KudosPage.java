@@ -144,6 +144,14 @@ public class KudosPage extends GenericPage {
     sendKudosMenuElement.click();
   }
 
+  public void checkCancelKudosActivityIsNotVisible(String kudos) {
+    getCancelKudosActivityIcon(kudos).assertNotVisible();
+  }
+
+  public void checkCancelKudosCommentIsNotVisible(String kudos) {
+    getCancelKudosCommentIcon(kudos).assertNotVisible();
+  }
+
   private ElementFacade addministrationMenuElement() {
     return findByXPathOrCSS("//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'fa fa-arrow')]");
   }
