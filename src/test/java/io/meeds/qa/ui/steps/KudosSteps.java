@@ -120,4 +120,13 @@ public class KudosSteps {
     spaceHomePage.addActivityCommentEditorContent(kudos, true, true);
   }
 
+  public void checkCancelKudosActivityIsNotVisible(String kudos) {
+    spaceHomePage.openThreeDotsActivityMenu(kudos);
+    kudosPage.checkCancelKudosActivityIsNotVisible(kudos);
+  }
+
+  public void checkCancelKudosCommentIsNotVisible(String activity, String kudos) {
+    spaceHomePage.clickOnCommentThreeDotsButton(activity, kudos);
+    kudosPage.checkCancelKudosCommentIsNotVisible(kudos);
+  }
 }
