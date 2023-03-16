@@ -345,16 +345,16 @@ public class ApplicationPage extends GenericPage {
                                           appUrl));
   }
 
-  private ElementFacade cancelDeleteButtonElement() {
-    return findByXPathOrCSS("//div[@class='btn']");
-  }
-
   private ElementFacade closeDeletePopupButtonElement() {
-    return findByXPathOrCSS("//button[contains(@class,'closeBindingModal')]");
+    return findByXPathOrCSS(".v-dialog--active .uiIconClose");
   }
 
   private ElementFacade confirmDeleteElement() {
-    return findByXPathOrCSS("//div[@id='deleteBtn']");
+    return findByXPathOrCSS("//*[contains(@class, 'v-dialog--active')]//button[contains(text(), 'Delete')]");
+  }
+
+  private ElementFacade cancelDeleteButtonElement() {
+    return findByXPathOrCSS("//*[contains(@class, 'v-dialog--active')]//button[contains(text(), 'Cancel')]");
   }
 
   private ElementFacade editApplicationDrawerImageElement() {

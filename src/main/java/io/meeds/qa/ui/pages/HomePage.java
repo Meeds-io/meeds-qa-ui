@@ -162,7 +162,7 @@ public class HomePage extends GenericPage {
   }
 
   public void checkHomeButtonPosition(String pageName) {
-    if (!homeButtonElement(pageName).isCurrentlyVisible()) {
+    if (homeButtonElement(pageName).isNotVisible()) {
       hoverOnPageHomeIcon(pageName);
       clickOnHomeIcon(pageName);
       confirmationForChangeSiteHomeLink();
