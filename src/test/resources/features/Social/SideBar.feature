@@ -25,9 +25,8 @@ Feature: SideBar
 
   @smoke
   Scenario: Stick and Unstick Hamburger Menu
-    Given I connect as admin if random users doesn't exists
-      | hmenu  |
-    And I create the hmenu random user if not existing, no wait
+    Given I am authenticated as admin
+    And I create the hmenu random user, no wait
     When I connect with the hmenu created user
     Then The hamburger menu is displayed as unstickied
     When I open hamburger menu drawer
