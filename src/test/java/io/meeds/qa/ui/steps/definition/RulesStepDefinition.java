@@ -40,9 +40,9 @@ public class RulesStepDefinition {
     rulesSteps.addRuleEvent(eventName);
   }
 
-  @And("^I click on the button add action$")
-  public void clickAddProgramBtn() {
-    rulesSteps.clickAddRuleBtn();
+  @And("I click on the button to add a rule")
+  public void clickAddRuleButton() {
+    rulesSteps.clickAddRuleButton();
   }
 
   @And("^I add rule random description$")

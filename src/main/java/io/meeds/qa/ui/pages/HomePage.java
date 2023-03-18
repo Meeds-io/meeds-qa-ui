@@ -248,7 +248,7 @@ public class HomePage extends GenericPage {
       return;
     }
     clickOnHamburgerMenu();
-    clickOnElement(peoplePageLinkElement());
+    pageLinkElement("/people").click();
     waitForPageLoading();
   }
 
@@ -270,7 +270,7 @@ public class HomePage extends GenericPage {
       return;
     }
     clickOnHamburgerMenu();
-    openSpacesPageLinkElement().click();
+    pageLinkElement("/spaces").click();
     waitForPageLoading();
   }
 
@@ -281,7 +281,7 @@ public class HomePage extends GenericPage {
       return;
     }
     clickOnHamburgerMenu();
-    pageLinkElement("Stream").click();
+    pageLinkElement("/stream").click();
     waitForPageLoading();
   }
 
@@ -292,7 +292,7 @@ public class HomePage extends GenericPage {
       return;
     }
     clickOnHamburgerMenu();
-    clickOnElement(pageLinkElement("Overview"));
+    pageLinkElement("/overview").click();
     waitForPageLoading();
   }
 
@@ -309,7 +309,7 @@ public class HomePage extends GenericPage {
 
   public void hoverOnPageHomeIcon(String pageName) {
     waitFor(300).milliseconds(); // Wait until drawer 'open' animation finishes
-    pageLinkElement(pageName).hover();
+    pageLinkElementByName(pageName).hover();
   }
 
   public void hoverSearchedSpaceInSideBarFilter(String space) {
@@ -428,6 +428,8 @@ public class HomePage extends GenericPage {
   }
 
   public void clickOnHamburgerMenu() {
+    closeAlert();
+    closeAllDialogs();
     closeAllDrawers();
     retryOnCondition(() -> getHamburgerNavigationMenu().click(),
                      () -> {
@@ -674,14 +676,6 @@ public class HomePage extends GenericPage {
     return findByXPathOrCSS("#NotificationPopoverPortlet");
   }
 
-  private ElementFacade openSpacesPageLinkElement() {
-    return findByXPathOrCSS("//*[@id='SiteHamburgerNavigation']//a[contains(@href, '/spaces')]//*[contains(@class, 'v-list-item__content')]");
-  }
-
-  private ElementFacade peoplePageLinkElement() {
-    return findByXPathOrCSS("//*[@id='SiteHamburgerNavigation']//a[contains(@href, '/people')]//*[contains(@class, 'v-list-item__content')]");
-  }
-
   private ElementFacade profileStatsPortletElement() {
     return findByXPathOrCSS("#profile-stats-portlet");
   }
@@ -744,7 +738,12 @@ public class HomePage extends GenericPage {
     return findByXPathOrCSS("(//div[contains(@class,'profileCard')]//*[@aria-label='Badge'])[1]");
   }
 
-  private ElementFacade pageLinkElement(String pageName) {
+  private ElementFacade pageLinkElement(String pageUri) {
+    return findByXPathOrCSS(String.format("//*[@id='SiteHamburgerNavigation']//*[contains(@href, '%s')]//*[contains(@class, 'v-list-item__content')]",
+                                          pageUri));
+  }
+
+  private ElementFacade pageLinkElementByName(String pageName) {
     return findByXPathOrCSS(String.format("//*[@id='SiteHamburgerNavigation']//*[contains(text(), '%s')]",
                                           pageName));
   }

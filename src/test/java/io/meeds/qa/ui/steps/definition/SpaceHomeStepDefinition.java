@@ -17,11 +17,15 @@
  */
 package io.meeds.qa.ui.steps.definition;
 
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.meeds.qa.ui.pages.SpaceHomePage;
@@ -35,11 +39,6 @@ public class SpaceHomeStepDefinition {
 
   @Steps
   private SpaceHomeSteps spaceHomeSteps;
-
-  @And("I go to notes application of the space")
-  public void accessNotesApp() {
-    spaceHomeSteps.accessNotesApp();
-  }
 
   @When("^I enter an activity '(.*)'$")
   @And("^I add a short message '(.*)' for the Poll$")
@@ -506,6 +505,11 @@ public class SpaceHomeStepDefinition {
   @Then("^I click on '(.*)' space menu tab$")
   public void goToTab(String tabName) {
     spaceHomeSteps.goToSpecificTab(tabName);
+  }
+
+  @Given("^I add application '(.*)' in random space if not existing$")
+  public void addSpaceApplicationIfNotExisting(String appName) {
+    spaceHomeSteps.addSpaceApplicationIfNotExisting(appName);
   }
 
   @When("^I open user profile of (.*) user from activity likers drawer$")

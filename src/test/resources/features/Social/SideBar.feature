@@ -26,9 +26,9 @@ Feature: SideBar
   @smoke
   Scenario: Stick and Unstick Hamburger Menu
     Given I connect as admin if random users doesn't exists
-      | hamburgermenu  |
-    And I create the hamburgermenu random user if not existing, no wait
-    When I connect with the hamburgermenu created user
+      | hmenu  |
+    And I create the hmenu random user if not existing, no wait
+    When I connect with the hmenu created user
     Then The hamburger menu is displayed as unstickied
     When I open hamburger menu drawer
     Then The hamburger menu has all navigation elements into it
@@ -39,13 +39,13 @@ Feature: SideBar
     Then The hamburger menu is displayed as stickied
     And The hamburger menu has all navigation elements into it
     When I logout
-    And I connect with the hamburgermenu created user
+    And I connect with the hmenu created user
     Then The hamburger menu is displayed as stickied
     And The hamburger menu has all navigation elements into it
     And I unstick the hamburger menu
     Then The hamburger menu is displayed as unstickied
     When I logout
-    And I connect with the hamburgermenu created user
+    And I connect with the hmenu created user
     Then The hamburger menu is displayed as unstickied
 
   Scenario: Recent Space Hamburger Menu

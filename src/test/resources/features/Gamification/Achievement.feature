@@ -3,6 +3,7 @@ Feature: Achievements
 
   Scenario: Achievements for Send/Cancel Kudos from the activity author
     Given I am authenticated as admin
+    And I create the random space if not existing
     And I go to 'Contributions' application
     When I select engagement Programs tab
     And I click on the button add program
@@ -10,18 +11,18 @@ Feature: Achievements
     And I add program with random description
     And I add an audience space
     And I open 'Achievements program' program card
-    And I click on the button add action
+    And I click on the button to add a rule
     And I enter the rule title 'Send kudos'
     And I add an event 'Send kudos'
     And I add rule random description
 
-    And I click on the button add action
+    And I click on the button to add a rule
     And I enter the rule title 'Receive kudos'
     And I add an event 'Receive kudos'
     And I add rule random description
 
     And I create the fisrtachievement random user if not existing, no wait
-    And I create the secondachievement random user if not existing
+    And I create the secondachievement random user if not existing, no wait
     When I connect with the secondachievement created user
     And I go to the random space
     And I click on post in space
@@ -45,6 +46,7 @@ Feature: Achievements
 
   Scenario: Achievements for Send/Cancel Kudos from user profile
     Given I am authenticated as admin
+    And I create the random space if not existing
     And I go to 'Contributions' application
     When I select engagement Programs tab
     And I click on the button add program
@@ -52,12 +54,12 @@ Feature: Achievements
     And I add program with random description
     And I add an audience space
     And I open 'Achievements program' program card
-    And I click on the button add action
+    And I click on the button to add a rule
     And I enter the rule title 'Send kudos'
     And I add an event 'Send kudos'
     And I add rule random description
 
-    And I click on the button add action
+    And I click on the button to add a rule
     And I enter the rule title 'Receive kudos'
     And I add an event 'Receive kudos'
     And I add rule random description

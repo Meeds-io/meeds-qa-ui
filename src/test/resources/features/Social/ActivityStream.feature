@@ -68,7 +68,7 @@ Feature: Activity Stream
     And I create the second random user if not existing, no wait
     And I create the third random user if not existing
 
-    And I go to the random space if not existing
+    And I create the random space if not existing
 
     When I connect with the first created user
 
@@ -130,7 +130,7 @@ Feature: Activity Stream
     And I create the second random user if not existing, no wait
     And I create the third random user if not existing
 
-    And I go to the random space if not existing
+    And I create the random space if not existing
 
     When I connect with the first created user
 
@@ -217,7 +217,7 @@ Feature: Activity Stream
     And I create the second random user if not existing, no wait
     And I create the third random user if not existing
 
-    And I go to the random space if not existing
+    And I create the random space if not existing
 
     When I connect with the first created user
 
@@ -295,7 +295,7 @@ Feature: Activity Stream
     And I create the second random user if not existing, no wait
     And I create the third random user if not existing, no wait
 
-    And I go to the random space if not existing
+    And I create the random space if not existing
 
     When I connect with the first created user
 
@@ -370,7 +370,7 @@ Feature: Activity Stream
     And I create the second random user if not existing, no wait
     And I create the third random user if not existing
 
-    And I go to the random space if not existing
+    And I create the random space if not existing
 
     When I connect with the first created user
 
@@ -473,7 +473,7 @@ Feature: Activity Stream
     And I create the second random user if not existing, no wait
     And I create the third random user if not existing
 
-    And I go to the random space if not existing
+    And I create the random space if not existing
 
     When I connect with the first created user
 
@@ -575,7 +575,7 @@ Feature: Activity Stream
     And I create the second random user if not existing, no wait
     And I create the third random user if not existing
 
-    And I go to the random space if not existing
+    And I create the random space if not existing
 
     When I connect with the first created user
 
@@ -684,7 +684,7 @@ Feature: Activity Stream
     And I create the second random user if not existing, no wait
     And I create the third random user if not existing
 
-    And I go to the random space if not existing
+    And I create the random space if not existing
 
     When I connect with the first created user
 
@@ -1979,7 +1979,6 @@ Feature: Activity Stream
   Scenario: Pin Activity US04: Pinned activities filter
     Given I am authenticated as admin
     And I create a random space
-    And I go to the random space
     And I click on post in space
     And I enter an activity 'PinTest'
     When I publish the activity

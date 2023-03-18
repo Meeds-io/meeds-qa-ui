@@ -177,6 +177,11 @@ public class ManageSpaceStepDefinitions {
     Serenity.setSessionVariable(appSettingPosition + "SettingApplication").to(appName);
   }
 
+  @Given("^I click to move '(.*)' application before$")
+  public void moveApplicationByNameBefore(String appName) {
+    manageSpaceSteps.moveApplicationBefore(appName);
+  }
+
   @Given("^'(.*)' option of the application '(.*)' is displayed$")
   public void checkOptionFromApplicationMenuIsDisplayed(String option, String appName) {
     manageSpaceSteps.checkOptionFromApplicationMenuIsDisplayed(appName, option);
@@ -248,12 +253,6 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.checkThatSpaceInSearchResultsIsNotDisplayed(sessionVariableCalled("spaceName"));
   }
 
-  @Given("^First created space Tabs are displayed in order$")
-  public void checkThatFirstSpaceTabsAreDisplayedInOrder() {
-    String randomSpaceName = sessionVariableCalled("randomSpaceName");
-    manageSpaceSteps.checkThatSpaceTabsAreDisplayedInOrder(randomSpaceName);
-  }
-
   @Given("^Second space details are displayed in spaces page search results with '(.*)'$")
   public void checkThatSecondSpaceDetailsInSearchResultsAreDisplayed(String members) {
     manageSpaceSteps.checkThatSpaceDetailsInSearchResultsAreDisplayed(sessionVariableCalled("secondRandomSpaceName"), members);
@@ -268,11 +267,6 @@ public class ManageSpaceStepDefinitions {
   public void checkThatSpaceDetailsInSearchResultsAreDisplayedByOtherUser(String members) {
     manageSpaceSteps.checkThatSpaceDetailsInSearchResultsAreDisplayedByOtherUser(sessionVariableCalled("randomSpaceName"),
                                                                                  members);
-  }
-
-  @Given("^Space Tabs are displayed in order '(.*)'$")
-  public void checkThatSpaceTabsAreDisplayedInOrder(String space) {
-    manageSpaceSteps.checkThatSpaceTabsAreDisplayedInOrder(space);
   }
 
   @Given("Space Top Bar Elements are displayed")
@@ -373,7 +367,7 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.addOrGoToSpace("randomSpaceName");
   }
 
-  @Given("I go to the random space if not existing")
+  @Given("I create the random space if not existing")
   public void goToRandomSpaceIfNotExisting() {
     if (StringUtils.isBlank(sessionVariableCalled("randomSpaceName"))) {
       manageSpaceSteps.addOrGoToSpace("randomSpaceName");

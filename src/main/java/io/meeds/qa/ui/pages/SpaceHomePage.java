@@ -42,8 +42,8 @@ public class SpaceHomePage extends GenericPage {
   private static final String OPENED_ACTIVITY_COMMENTS_DRAWER_SELECTOR        =
                                                                        "//*[@id='activityCommentsDrawer' and contains(@class, 'v-navigation-drawer--open')]";
 
-  private static final String OPENED_ACTIVITY_REPLIES_DRAWER_SELECTOR        =
-                                                                       "//*[@id='activityCommentsDrawer' and contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'activity-comment')]";
+  private static final String OPENED_ACTIVITY_REPLIES_DRAWER_SELECTOR         =
+                                                                      "//*[@id='activityCommentsDrawer' and contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'activity-comment')]";
 
   private static final String OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR        =
                                                                        "//*[@id = 'activityComposerDrawer' and contains(@class, 'v-navigation-drawer--open')]";
@@ -417,10 +417,6 @@ public class SpaceHomePage extends GenericPage {
     loadMoreActivitiesBtnElement().click();
   }
 
-  public void clickOnNotesTab() {
-    notesTabElement().click();
-  }
-
   public void clickOnReplyDropDownMenu(String activity, String comment, String reply) {
     ElementFacade threeDots = getDropDownReplyMenu(activity, comment, reply);
     threeDots.waitUntilVisible();
@@ -653,13 +649,27 @@ public class SpaceHomePage extends GenericPage {
     peopleBtnElement().click();
   }
 
-  public void goToSpecificTab(String tabName) {
-    ElementFacade tabElement = tabElement(tabName);
-    tabElement.waitUntilVisible();
+  public void addSpaceApplicationIfNotExisting(String applicationName) {
+    ElementFacade tabElement = searchSpaceTabElement(applicationName);
+    if (tabElement.isCurrentlyVisible()) {
+      return;
+    }
+    installedApplicationCard(applicationName).assertNotVisible(); // Check app not already added
+    goToSpecificTab("Settings");
+    verifyPageLoaded();
+    arrowIconAppSpaceSettingsElement().click();
+    plusButtonAppSpaceSettingsElement().click();
+    waitForDrawerToOpen();
+    addApplicationButton(applicationName).click();
+    waitForDrawerToClose();
+    refreshPage();
+    waitForLoading();
+  }
 
-    ElementFacade selectedTab = findByXPathOrCSS(String.format("//*[@id = 'SpaceMenu']//*[contains(@class, 'SelectedTab') and contains(text(), '%s')]",
-                                                               tabName));
-    if (!selectedTab.isCurrentlyVisible()) {
+  public void goToSpecificTab(String tabName) {
+    ElementFacade tabElement = searchSpaceTabElement(tabName);
+    tabElement.assertVisible();
+    if (!selectedTabElement(tabName).isCurrentlyVisible()) {
       tabElement.click();
     }
   }
@@ -959,6 +969,36 @@ public class SpaceHomePage extends GenericPage {
     getCommentsDrawerViewAllReplies(comment).click();
   }
 
+  private ElementFacade searchSpaceTabElement(String tabName) {
+    selectedTabElement().waitUntilPresent();
+    ElementFacade tabElement = tabElement(tabName);
+    while (!tabElement.isCurrentlyVisible() && goToSpaceLeftTabsElement().isCurrentlyVisible()) {
+      goToSpaceLeftTabsElement().click();
+      waitFor(200).milliseconds(); // Wait for animation end
+    }
+    while (!tabElement.isCurrentlyVisible() && goToSpaceRightTabsElement().isCurrentlyVisible()) {
+      goToSpaceRightTabsElement().click();
+      waitFor(200).milliseconds(); // Wait for animation end
+    }
+    return tabElement;
+  }
+
+  private ElementFacade installedApplicationCard(String applicationName) {
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'SpaceApplicationCard')]//*[contains(text(), '%s')]", applicationName));
+  }
+
+  private ElementFacade addApplicationButton(String applicationName) {
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'SpaceApplicationCard')]//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'SpaceApplicationCardBody')]/parent::*//button", applicationName));
+  }
+
+  private ElementFacade plusButtonAppSpaceSettingsElement() {
+    return findByXPathOrCSS("//*[@class='v-icon notranslate mdi mdi-plus theme--light']");
+  }
+
+  private ElementFacade arrowIconAppSpaceSettingsElement() {
+    return findByXPathOrCSS("//i[@class='v-icon notranslate text-sub-title fa fa-caret-right theme--light']");
+  }
+
   private TextBoxElementFacade activityContentTextBoxElement() {
     return findTextBoxByXPathOrCSS("//body[contains(@class,'cke_editable_themed')]");
   }
@@ -1038,11 +1078,13 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private ElementFacade closeCommentsDrawerElement() {
-    return findByXPathOrCSS(OPENED_ACTIVITY_COMMENTS_DRAWER_SELECTOR + "//button[contains(@class, 'close') or contains(@title, 'Close')]");
+    return findByXPathOrCSS(OPENED_ACTIVITY_COMMENTS_DRAWER_SELECTOR
+        + "//button[contains(@class, 'close') or contains(@title, 'Close')]");
   }
 
   private ElementFacade saveCommentButtonInDrawerElement() {
-    return findByXPathOrCSS(OPENED_ACTIVITY_COMMENTS_DRAWER_SELECTOR + "//*[contains(@class,'drawerContent')]//button//*[contains(text(),'Comment') or contains(text(),'Update')]");
+    return findByXPathOrCSS(OPENED_ACTIVITY_COMMENTS_DRAWER_SELECTOR
+        + "//*[contains(@class,'drawerContent')]//button//*[contains(text(),'Comment') or contains(text(),'Update')]");
   }
 
   private TextBoxElementFacade commentFieldElement() {
@@ -1149,6 +1191,14 @@ public class SpaceHomePage extends GenericPage {
   private ElementFacade getBlueLikeCommentIcon(String activityComment) {
     return findByXPathOrCSS(String.format("//*[contains(@class,'activity-detail')]//div[contains(text(),'%s')]//ancestor::*[contains(@class, 'v-list-item')]//button[contains(@id,'LikeLinkcomment') and contains(@class,'primary--text')]",
                                           activityComment));
+  }
+
+  private ElementFacade goToSpaceRightTabsElement() {
+    return findByXPathOrCSS("//*[@id = 'SpaceMenu']//*[contains(@class,'chevron-right')]");
+  }
+
+  private ElementFacade goToSpaceLeftTabsElement() {
+    return findByXPathOrCSS("//*[@id = 'SpaceMenu']//*[contains(@class,'chevron-left')]");
   }
 
   private ElementFacade getCommentDrawerButton(String comment, String buttonIdPart) {
@@ -1395,10 +1445,6 @@ public class SpaceHomePage extends GenericPage {
     return findByXPathOrCSS("(//*[@id='activityCommentsDrawer']//*[contains(@id,'Extactivity-content-extensions')]//p//div)[9]");
   }
 
-  private ElementFacade notesTabElement() {
-    return findByXPathOrCSS("//a[contains(@href,'/notes') and @tabindex='0']");
-  }
-
   private ElementFacade peopleBtnElement() {
     return findByXPathOrCSS("//a[@class='v-list-item v-list-item--link theme--light UserPageLink']");
   }
@@ -1433,6 +1479,14 @@ public class SpaceHomePage extends GenericPage {
 
   private ElementFacade tabElement(String tabName) {
     return findByXPathOrCSS("//*[@id = 'SpaceMenu']//a[contains(text(),'" + tabName + "')]");
+  }
+
+  private ElementFacade selectedTabElement() {
+    return findByXPathOrCSS("//*[@id = 'SpaceMenu']//a[contains(@class, 'SelectedTab')]");
+  }
+
+  private ElementFacade selectedTabElement(String tabName) {
+    return findByXPathOrCSS("//*[@id = 'SpaceMenu']//a[contains(@class, 'SelectedTab') and contains(text(),'" + tabName + "')]");
   }
 
   private ElementFacade tenthCommentInDrawerElement() {

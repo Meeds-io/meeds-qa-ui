@@ -5,7 +5,7 @@ Feature: Poll
     Given I connect as admin if random space and random users doesn't exists
       | first  |
     And I create the first random user if not existing, no wait
-    And I go to the random space if not existing
+    And I create the random space if not existing
 
     When I connect with the first created user
     Then I go to the random space
@@ -20,7 +20,7 @@ Feature: Poll
     Given I connect as admin if random space and random users doesn't exists
       | first  |
     And I create the first random user if not existing, no wait
-    And I go to the random space if not existing
+    And I create the random space if not existing
 
     When I connect with the first created user
     Then I go to the random space
@@ -47,7 +47,7 @@ Feature: Poll
     Given I connect as admin if random space and random users doesn't exists
       | first  |
     And I create the first random user if not existing, no wait
-    And I go to the random space if not existing
+    And I create the random space if not existing
 
     When I connect with the first created user
     Then I go to the random space
@@ -64,7 +64,7 @@ Feature: Poll
     Given I connect as admin if random space and random users doesn't exists
       | first  |
     And I create the first random user if not existing, no wait
-    And I go to the random space if not existing
+    And I create the random space if not existing
 
     When I connect with the first created user
     Then I go to the random space

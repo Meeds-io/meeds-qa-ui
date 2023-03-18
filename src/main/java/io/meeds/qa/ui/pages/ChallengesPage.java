@@ -26,10 +26,8 @@ public class ChallengesPage extends GenericPage {
 
   public void enterStartedChallenge() {
     challengeStartDateCalenderElement().click();
-    currentDateCalenderElement().waitUntilVisible();
     currentDateCalenderElement().click();
     challengeEndDateCalenderElement().click();
-    randomDateCalenderElement().waitUntilVisible();
     randomDateCalenderElement().click();
   }
 
@@ -80,11 +78,11 @@ public class ChallengesPage extends GenericPage {
   }
 
   private TextBoxElementFacade currentDateCalenderElement() {
-    return findTextBoxByXPathOrCSS("//ancestor::*[contains(@id,'engagementCenterChallengeStartDatePicker')]//*[contains(@class, 'v-date-picker-table__current') and not(@disabled)]");
+    return findTextBoxByXPathOrCSS("//*[contains(@id,'engagementCenterChallengeStartDatePicker')]//*[contains(@class, 'v-date-picker-table__current') and not(@disabled)]");
   }
 
   private TextBoxElementFacade randomDateCalenderElement() {
-    return findTextBoxByXPathOrCSS("//ancestor::*[contains(@id,'engagementCenterChallengeEndDatePicker')]//*[contains(@class, 'v-btn--rounded') and not(@disabled)]");
+    return findTextBoxByXPathOrCSS("//*[contains(@id,'engagementCenterChallengeEndDatePicker')]//*[contains(@class, 'v-btn--rounded') and not(@disabled)]");
   }
 
   private ElementFacade ckEditorFrameRuleElement() {

@@ -11,16 +11,6 @@ Feature: Meeds Space
     Then Space Avatar is displayed
     And The created space name is displayed
 
-  Scenario: SPC_MNG-2 : Space applications
-    Given I am authenticated as admin
-
-    When I go to the random space
-
-    Then Space Avatar is displayed
-    And The created space name is displayed
-    And First created space Tabs are displayed in order
-
-
   Scenario: SPC_MNG-3 : Home space page banner
     Given I am authenticated as admin
 
@@ -42,7 +32,7 @@ Feature: Meeds Space
     And The created space name is displayed
 
     When I go to space Home
-    Then First created space Tabs are displayed in order
+    Then Space Top Bar Elements are displayed
 
   Scenario: [SPACES-2] Spaces Cards bloc
     Given I am authenticated as admin
@@ -76,6 +66,7 @@ Feature: Meeds Space
   Scenario: [SPC_MNG-8] Spaces applications management
     Given I am authenticated as admin
     When I create a random space
+    And I add application 'Notes' in random space if not existing
     When I go to Settings in space tab
     Then I check that general settings section is displayed with his edit icon
     And I check that Applications section is displayed with his edit icon
@@ -88,7 +79,9 @@ Feature: Meeds Space
     When I click on three dots icon of 'Notes' application
     Then 'Remove' option of the application 'Notes' is displayed
     And 'Move before' option of the application 'Notes' is displayed
-    And 'Move after' option of the application 'Notes' is displayed
+    When I click to move 'Notes' application before
+    And I click on three dots icon of 'Notes' application
+    Then 'Move after' option of the application 'Notes' is displayed
     And I click on 'Remove' option from application 'Notes' menu
     And  I confirm to remove the application
 

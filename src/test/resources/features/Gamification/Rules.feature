@@ -81,7 +81,7 @@ Feature: Rules
 
   Scenario: Quick filter rules
     Given I am authenticated as admin
-    And I go to the random space
+    And I create the random space if not existing
     And I go to 'Contributions' application
     And I select engagement Programs tab
     And I click on the button add program
@@ -89,7 +89,7 @@ Feature: Rules
     And I add program with random description
     And I add an audience space
     And I open random program card
-    When I click on the button add action
+    When I click on the button to add a rule
     And I enter the rule title 'Receive kudos'
     And I add an event 'Receive kudos'
     And I add rule random description
