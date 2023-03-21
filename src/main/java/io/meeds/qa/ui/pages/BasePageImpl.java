@@ -90,6 +90,17 @@ public class BasePageImpl extends PageObject implements BasePage {
     cancelButton.waitUntilNotVisible();
   }
 
+  public void closeAlert() {
+    ElementFacade closeAlertButton = findByXPathOrCSS(".v-alert .v-alert__dismissible");
+    if (closeAlertButton.isCurrentlyVisible()) {
+      try {
+        closeAlertButton.click();
+      } catch (Exception e) {
+        // It can be already closed by timeout
+      }
+    }
+  }
+
   public void closeAllDialogs() {
     int i = MAX_WAIT_RETRIES * 2;
     while (openedDialogElement().isCurrentlyVisible() && i-- > 0) {

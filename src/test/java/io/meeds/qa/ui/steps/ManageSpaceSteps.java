@@ -217,10 +217,6 @@ public class ManageSpaceSteps {
     manageSpacesPage.checkThatSpaceInSearchResultsIsNotDisplayed(spaceName);
   }
 
-  public void checkThatSpaceTabsAreDisplayedInOrder(String space) {
-    manageSpacesPage.checkThatSpaceTabsAreDisplayedInOrder(space);
-  }
-
   public void checkThirtyRandomSpacesArePresent() {
     homePage.goToSpacesPage();
     if (!manageSpacesPage.isLoadMoreButtonDisplayed()) {
@@ -368,5 +364,9 @@ public class ManageSpaceSteps {
 
   public String moveApplicationBefore(int appPosition) {
     return manageSpacesPage.moveApplicationBefore(appPosition);
+  }
+
+  public void moveApplicationBefore(String appName) {
+    manageSpacesPage.moveApplicationBefore(appName);
   }
 }

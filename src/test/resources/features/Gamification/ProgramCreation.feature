@@ -3,7 +3,7 @@ Feature: Programs
 
   Scenario: [Engagement][Program][US] : Add an enabled program
     Given I am authenticated as admin
-    And I go to the random space
+    And I create the random space if not existing
     And I go to 'Contributions' application
     Then Engagement application center is displayed
     When I select engagement Programs tab
@@ -19,7 +19,7 @@ Feature: Programs
 
   Scenario: [Engagement][Program][US] : Add a disabled program
     Given I am authenticated as admin
-    And I go to the random space
+    And I create the random space if not existing
     And I go to 'Contributions' application
     Then Engagement application center is displayed
     When I select engagement Programs tab
@@ -35,7 +35,7 @@ Feature: Programs
 
   Scenario: [Engagement][Program][US] : Edit program
     Given I am authenticated as admin
-    And I go to the random space
+    And I create the random space if not existing
     And I go to 'Contributions' application
     Then Engagement application center is displayed
     When I select engagement Programs tab
@@ -52,7 +52,7 @@ Feature: Programs
 
   Scenario: [Program][US04] Delete program
     Given I am authenticated as admin
-    And I go to the random space
+    And I create the random space if not existing
     And I go to 'Contributions' application
     Then Engagement application center is displayed
     When I select engagement Programs tab
@@ -69,7 +69,7 @@ Feature: Programs
 
   Scenario:[Engagement][Program][US] : Quick filter on program
     Given I am authenticated as admin
-    And I go to the random space
+    And I create the random space if not existing
     And I go to 'Contributions' application
     Then Engagement application center is displayed
     When I select engagement Programs tab

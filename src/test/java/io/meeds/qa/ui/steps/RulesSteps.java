@@ -30,8 +30,8 @@ public class RulesSteps {
     rulePage.addRuleEvent(eventName);
   }
 
-  public void clickAddRuleBtn() {
-    rulePage.clickAddActionBtn();
+  public void clickAddRuleButton() {
+    rulePage.clickAddRuleButton();
   }
 
   public void addRuleRandomDescription(String ruleDescription) {

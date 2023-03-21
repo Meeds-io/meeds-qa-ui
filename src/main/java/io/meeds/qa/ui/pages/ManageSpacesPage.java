@@ -19,7 +19,6 @@ package io.meeds.qa.ui.pages;
 
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
 
-import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.ButtonElementFacade;
@@ -196,15 +195,6 @@ public class ManageSpacesPage extends GenericPage {
     spaceSearchDetailsSpaceName(spaceName).assertNotVisible();
   }
 
-  public void checkThatSpaceTabsAreDisplayedInOrder(String space) {
-    // Top Bar Tabs after Space Creation are displayed in order
-    Assert.assertTrue(spaceMenuItemByOrderElement("1").getAttribute("href")
-                                                      .contains(homeSpaceMenuItemElement(space.toLowerCase()).getAttribute("href")));
-
-    Assert.assertTrue(spaceMenuItemByOrderElement("2").getAttribute("href")
-                                                      .contains(spaceMembersMenuItemElement(space.toLowerCase()).getAttribute("href")));
-  }
-
   public void checkThatSpaceTopBarElementsAreDisplayed() {
     spaceMenuItemElement().assertVisible();
   }
@@ -310,19 +300,11 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void goToMembersTab() {
-    ElementFacade spaceMembersTabElement = spaceMembersTabElement();
-    if (spaceMembersTabElement.isNotVisible()) {
-      goToSpaceRightTabsElement().click();
-    }
-    spaceMembersTabElement.click();
+    spaceHomePage.goToSpecificTab("Members");
   }
 
   public void goToSettingsTab() {
-    ElementFacade spaceSettingsTabElement = spaceSettingsTabElement();
-    if (!spaceSettingsTabElement.isCurrentlyVisible()) {
-      goToSpaceRightTabsElement().click();
-    }
-    spaceSettingsTabElement.click();
+    spaceHomePage.goToSpecificTab("Settings");
   }
 
   public void goToSpaceHomeViaSpaceAvatar() {
@@ -482,11 +464,22 @@ public class ManageSpacesPage extends GenericPage {
     return moveApplication(appPosition, "Move before");
   }
 
+  public void moveApplicationBefore(String appName) {
+    moveApplication(appName, "Move before");
+  }
+
   private String moveApplication(int appPosition, String actionName) {
     String appTitle = spaceSettingAppTitle(appPosition).getText();
     spaceSettingAppMenu(appPosition).click();
     spaceSettingAppMenuItem(appPosition, actionName).click();
     return appTitle;
+  }
+
+  private void moveApplication(String appName, String actionName) {
+    if (!spaceSettingAppMenuItem(appName, actionName).isCurrentlyVisible()) {
+      spaceSettingAppMenu(appName).click();
+    }
+    spaceSettingAppMenuItem(appName, actionName).click();
   }
 
   private ButtonElementFacade spaceSettingAppTitle(int appPosition) {
@@ -497,8 +490,16 @@ public class ManageSpacesPage extends GenericPage {
     return findButtonByXPathOrCSS(String.format(SPACE_SETTING_APPLICATION_CARD_TEMPLATE + "//*[contains(@class, 'SpaceApplicationCardAction')]//button", appPosition));
   }
 
+  private ButtonElementFacade spaceSettingAppMenu(String appName) {
+    return findButtonByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@class,'SpaceApplicationCard')]//*[contains(@class, 'SpaceApplicationCardAction')]//button", appName));
+  }
+
   private ButtonElementFacade spaceSettingAppMenuItem(int appPosition, String actionName) {
     return findButtonByXPathOrCSS(String.format(SPACE_SETTING_APPLICATION_CARD_TEMPLATE + "//*[contains(@class, 'menuable__content__active')]//*[contains(text(), '%s')]", appPosition, actionName));
+  }
+
+  private ButtonElementFacade spaceSettingAppMenuItem(String appName, String actionName) {
+    return findButtonByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@class,'SpaceApplicationCard')]//*[contains(@class, 'menuable__content__active')]//*[contains(text(), '%s')]", appName, actionName));
   }
 
   private ElementFacade addAppButtonElement() {
@@ -580,7 +581,7 @@ public class ManageSpacesPage extends GenericPage {
 
   private ElementFacade getSpaceAction(String action) {
     try {
-      ElementFacade webElementFacade = findByXPathOrCSS(String.format("//a[@title='%s']", action));
+      ElementFacade webElementFacade = findByXPathOrCSS(String.format("//*[@id = 'SpaceAccess']//button//*[contains(text(), '%s')]", action));
       return webElementFacade.isCurrentlyVisible() ? webElementFacade : null;
     } catch (RuntimeException e) {
       return null;
@@ -604,16 +605,8 @@ public class ManageSpacesPage extends GenericPage {
     return findByXPathOrCSS(String.format("//a[@title = '%s']", spaceName));
   }
 
-  private ElementFacade goToSpaceRightTabsElement() {
-    return findByXPathOrCSS("//i[contains(@class,'mdi-chevron-right')]");
-  }
-
   private ElementFacade hiddenSectionElement() {
     return findByXPathOrCSS("//*[@for='hidden']");
-  }
-
-  private ElementFacade homeSpaceMenuItemElement(String space) {
-    return findByXPathOrCSS(String.format("//*[@id='MiddleToolBar']//*[contains(@href,'%s')][1]", space));
   }
 
   private ElementFacade inviteUserButtonDrawerElement() {
@@ -708,17 +701,8 @@ public class ManageSpacesPage extends GenericPage {
     return findByXPathOrCSS("(//*[contains(@class, 'spaceCardFlip')])[21]");
   }
 
-  private ElementFacade spaceMembersMenuItemElement(String space) {
-    return findByXPathOrCSS(String.format("//*[@id='MiddleToolBar']//*[contains(@href,'%s/members')]", space));
-  }
-
   private ElementFacade spaceMembersTabElement() {
     return findByXPathOrCSS("(//a[contains(@href,'/members') and @tabindex='0'])");
-  }
-
-  private ElementFacade spaceMenuItemByOrderElement(String order) {
-    return findByXPathOrCSS(String.format("//*[@class='v-application--wrap']//*[@class='v-slide-group__wrapper']//*[@tabindex][%s]",
-                                          order));
   }
 
   private ElementFacade spaceMenuItemElement() {
@@ -763,10 +747,6 @@ public class ManageSpacesPage extends GenericPage {
 
   private TextBoxElementFacade spaceSearchDetailsThreeDotsElement() {
     return findTextBoxByXPathOrCSS("//*[contains(@class,'spaceToolbarIcons')]//button[contains(@class,'spaceMenuIcon')]");
-  }
-
-  private ElementFacade spaceSettingsTabElement() {
-    return findByXPathOrCSS("//*[@id='UITopBarContainerParent']//*[contains(@class, 'spaceMenuParent')]//a[contains(@href,'/settings')]");
   }
 
   private ElementFacade spacesPageElement() {

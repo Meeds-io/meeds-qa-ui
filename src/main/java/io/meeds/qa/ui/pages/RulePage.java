@@ -33,8 +33,8 @@ public class RulePage extends GenericPage {
     ruleTitleFieldElement().setTextValue(ruleTitle);
   }
 
-  public void clickAddActionBtn() {
-    clickOnElement(addRuleBtnElement());
+  public void clickAddRuleButton() {
+    addRuleButton().click();
   }
 
   public void addRuleEvent(String eventName) {
@@ -45,7 +45,7 @@ public class RulePage extends GenericPage {
     ruleEventsMenuItem(eventName).click();
   }
 
-  private ElementFacade addRuleBtnElement() {
+  private ElementFacade addRuleButton() {
     return findByXPathOrCSS("//*[contains(text(), 'Add Action')]//ancestor::*[contains(@class, 'btn-primary')]");
   }
 
@@ -69,7 +69,7 @@ public class RulePage extends GenericPage {
     } finally {
       getDriver().switchTo().defaultContent();
     }
-    clickAddRuleButton();
+    saveRuleButton().click();
   }
 
   public void searchRuleInProgramRuleFilter(String ruleTitle) {
@@ -97,10 +97,6 @@ public class RulePage extends GenericPage {
     getRuleElement(ruleTitle).isVisible();
   }
 
-  public void clickAddRuleButton() {
-    createButtonElement().click();
-  }
-
   private ElementFacade ckEditorFrameRuleElement() {
     return findByXPathOrCSS(".v-navigation-drawer--open iframe.cke_wysiwyg_frame");
   }
@@ -113,7 +109,7 @@ public class RulePage extends GenericPage {
     return findTextBoxByXPathOrCSS("//*[@id='ruleTitle']");
   }
 
-  private ElementFacade createButtonElement() {
+  private ElementFacade saveRuleButton() {
     return findByXPathOrCSS(".v-navigation-drawer--open .drawerFooter button.btn-primary");
   }
 

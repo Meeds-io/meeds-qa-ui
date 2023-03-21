@@ -24,10 +24,6 @@ public class SpaceHomeSteps {
 
   private SpaceHomePage spaceHomePage;
 
-  public void accessNotesApp() {
-    spaceHomePage.clickOnNotesTab();
-  }
-
   public void addActivity(String activity) {
     spaceHomePage.addActivityTextInOpenedEditor(activity);
   }
@@ -334,6 +330,10 @@ public class SpaceHomeSteps {
 
   public void goToSpecificTab(String tabName) {
     spaceHomePage.goToSpecificTab(tabName);
+  }
+
+  public void addSpaceApplicationIfNotExisting(String appName) {
+    spaceHomePage.addSpaceApplicationIfNotExisting(appName);
   }
 
   public void goToUserProfileFromLikersDrawer(String prefix) {

@@ -25,6 +25,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.meeds.qa.ui.steps.AddUserSteps;
 import io.meeds.qa.ui.steps.HomeSteps;
+import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 
 public class AddUserStepDefinition {
@@ -41,14 +42,25 @@ public class AddUserStepDefinition {
   }
 
   @Given("^I create the (.*) random user if not existing$")
-  @And("^I create the (.*) random user$")
-  public void addRandomUser(String prefix) {
-    addUserSteps.addRandomUser(prefix, true);
+  public void addRandomUserIfNotExisting(String userPrefix) {
+    addUserSteps.addRandomUser(userPrefix, true);
   }
 
   @Given("^I create the (.*) random user if not existing, no wait$")
-  public void addRandomUserNoWait(String prefix) {
-    addUserSteps.addRandomUser(prefix, false);
+  public void addRandomUserIfNotExistingNoWait(String userPrefix) {
+    addUserSteps.addRandomUser(userPrefix, false);
+  }
+
+  @Given("^I create the (.*) random user$")
+  public void addRandomUser(String userPrefix) {
+    Serenity.setSessionVariable(userPrefix + "UserName").to(null);
+    addUserSteps.addRandomUser(userPrefix, true);
+  }
+
+  @Given("^I create the (.*) random user, no wait$")
+  public void addRandomUserNoWait(String userPrefix) {
+    Serenity.setSessionVariable(userPrefix + "UserName").to(null);
+    addUserSteps.addRandomUser(userPrefix, false);
   }
 
   @Given("^The following user is created$")

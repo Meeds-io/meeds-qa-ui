@@ -294,7 +294,6 @@ public class TestHooks {
         "firstlang",
         "seconddisabled",
         "eighteenth",
-        "hamburgermenu",
         "cancelfirst",
         "cancelsecond",
         "fisrtachievement",

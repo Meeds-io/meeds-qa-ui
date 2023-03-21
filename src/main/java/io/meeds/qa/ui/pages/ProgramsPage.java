@@ -202,7 +202,7 @@ public class ProgramsPage extends GenericPage {
   }
 
   private ElementFacade getProgramCard(String programName) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@class,'engagement-center-card')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class,'engagement-center-card')]//*[contains(text(),'%s')]",
                                           programName));
   }
 

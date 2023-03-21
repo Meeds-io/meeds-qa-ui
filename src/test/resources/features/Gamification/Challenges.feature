@@ -4,6 +4,7 @@ Feature: Challenges
   Scenario: Announce a challenge
     Given I am authenticated as admin
     And I create the first random user if not existing
+    And I create the random space if not existing
     And I go to 'Contributions' application
     And I click on the button add program
     And I enter a random program title
@@ -30,6 +31,7 @@ Feature: Challenges
   Scenario: Cancel a challenge
     Given I am authenticated as admin
     And I create the first random user if not existing
+    And I create the random space if not existing
     And I go to 'Contributions' application
     And I click on the button add program
     And I enter a random program title
@@ -59,6 +61,7 @@ Feature: Challenges
   Scenario: Delete announce Activity
     Given I am authenticated as admin
     And I create the first random user if not existing
+    And I create the random space if not existing
     And I go to 'Contributions' application
     And I click on the button add program
     And I enter a random program title
@@ -89,6 +92,7 @@ Feature: Challenges
   Scenario: Overview top challenge
     Given I am authenticated as admin
     And I create the first random user if not existing
+    And I create the random space if not existing
     And I go to 'Contributions' application
     And I click on the button add program
     And I enter a random program title
