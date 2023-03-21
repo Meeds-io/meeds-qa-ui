@@ -301,6 +301,7 @@ public class TestHooks {
         "thirdachievement",
         "fourachievement",
         "reddot",
+        "homeicon",
     };
     if (!Arrays.stream(randomUsers).map(this::addRandomUser).allMatch(userCreated -> userCreated)) {
       throw new IllegalStateException("Some users wasn't created successfully in WarmUp phase");
