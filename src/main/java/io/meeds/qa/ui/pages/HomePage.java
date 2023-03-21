@@ -433,6 +433,11 @@ public class HomePage extends GenericPage {
     clickOnElement(getFavoriteIconActivity(activity));
   }
 
+  public void openHamburgerMenuDrawer() {
+    clickOnHamburgerMenu();
+    myProfileButtonElement().hover();
+  }
+
   public void clickOnHamburgerMenu() {
     closeAlert();
     closeAllDialogs();

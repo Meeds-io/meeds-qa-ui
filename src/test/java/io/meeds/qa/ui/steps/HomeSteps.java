@@ -326,7 +326,7 @@ public class HomeSteps {
   }
 
   public void openHamburgerMenuDrawer() {
-    homePage.clickOnHamburgerMenu();
+    homePage.openHamburgerMenuDrawer();
   }
 
   public void checkHamburgerMenuNavigations() {

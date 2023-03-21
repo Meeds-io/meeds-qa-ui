@@ -28,14 +28,14 @@ Feature: Edit sections in Settings page
     When I refresh the page
     Then Language 'English / English' is displayed
 
-  Scenario: SETTINGS-4 : Add the favorite icon for Homepage default view
-    Given I am authenticated as admin
+  Scenario: SETTINGS-4 : Add the home icon for Homepage default view
+    Given I connect as admin if random users doesn't exists
+      | homeicon  |
+    And I create the homeicon random user if not existing, no wait
+    And I connect with the homeicon created user
 
-    And I open hamburger menu drawer
-
-    Given My home icon is on 'Stream'
-
-    When I mouse over the 'Spaces' icon in sidebar menu
+    When I open hamburger menu drawer
+    And I mouse over the 'Spaces' icon in sidebar menu
     And I click on home icon
     And I click to confirm the new home page
     And I open hamburger menu drawer
