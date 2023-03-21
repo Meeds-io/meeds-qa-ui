@@ -162,10 +162,16 @@ public class HomePage extends GenericPage {
   }
 
   public void checkHomeButtonPosition(String pageName) {
+    if (getHamburgerNavigationMenu().isVisible()) {
+      clickOnHamburgerMenu();
+    }
     if (homeButtonElement(pageName).isNotVisible()) {
       hoverOnPageHomeIcon(pageName);
       clickOnHomeIcon(pageName);
       confirmationForChangeSiteHomeLink();
+      if (getHamburgerNavigationMenu().isVisible()) {
+        clickOnHamburgerMenu();
+      }
       homeButtonElement(pageName).assertVisible();
     }
   }
