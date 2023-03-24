@@ -17,9 +17,6 @@
  */
 package io.meeds.qa.ui.steps.definition;
 
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
-import static org.junit.Assert.assertTrue;
-
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;

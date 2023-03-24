@@ -17,7 +17,10 @@
  */
 package io.meeds.qa.ui.steps.definition;
 
+import static io.meeds.qa.ui.utils.Utils.getIndexFomName;
 import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
+
+import java.util.Map;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -78,7 +81,27 @@ public class ProgramsStepDefinition {
     programsSteps.checkProgramTitleUpdateOnCard(newProgramName);
   }
 
-  @And("^I click on the button add program$")
+  @And("^I create the '(.*)' random program with$")
+  public void createRandomProgram(String suffix, Map<String, String> details) {
+    String programName = "programName" + getRandomNumber();
+    programsSteps.createRandomProgram(programName, details);
+    Serenity.setSessionVariable("programName" + suffix).to(programName);
+  }
+
+  @Then("^The '(.*)' random program is not displayed in Top Programs widget$")
+  public void checkProgramNotInTopPrograms(String suffix) {
+    String programName = Serenity.sessionVariableCalled("programName" + suffix);
+    programsSteps.checkProgramNotDisplayedInTopPrograms(programName);
+  }
+
+  @Then("^The '(.*)' random program is displayed in '(.*)' position in Top Programs widget$")
+  public void checkProgramPositionInTopPrograms(String suffix, String position) {
+    String programName = Serenity.sessionVariableCalled("programName" + suffix);
+    int listPosition = getIndexFomName(position);
+    programsSteps.checkProgramPositionInTopPrograms(programName, listPosition);
+  }
+
+  @And("^I click on the button add program(.*)$")
   public void clickAddProgramBtn() {
     programsSteps.clickAddProgramBtn();
   }
@@ -103,7 +126,7 @@ public class ProgramsStepDefinition {
   public void enterProgramTitle() {
     String programName = "programName" + getRandomNumber();
     Serenity.setSessionVariable("programName").to(programName);
-    programsSteps.enterProgramRandomTitle(programName);
+    programsSteps.enterProgramTitle(programName);
   }
 
   @And("^I enter the program title '(.*)'$")

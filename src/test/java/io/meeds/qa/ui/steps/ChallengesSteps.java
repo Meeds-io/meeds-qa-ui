@@ -1,7 +1,14 @@
 package io.meeds.qa.ui.steps;
 
+import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
+
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+
 import io.meeds.qa.ui.pages.ChallengesPage;
 import io.meeds.qa.ui.pages.SpaceHomePage;
+import net.serenitybdd.core.Serenity;
 
 public class ChallengesSteps {
 
@@ -11,6 +18,21 @@ public class ChallengesSteps {
 
   public void clickAddChallengeBtn() {
     challengesPage.clickAddChallengeBtn();
+  }
+
+  public void createRandomChallenge(String challengeName, Map<String, String> details) {
+    challengesPage.clickAddChallengeBtn();
+
+    String challengeProgram = details.get("program");
+    String challengeDescription = details.get("description");
+    String challengePoints = details.get("points");
+    if (StringUtils.isBlank(challengeDescription)) {
+      challengeDescription = "challengeDescription" + getRandomNumber();
+    }
+    if (StringUtils.isNotBlank(challengeProgram)) {
+      challengeProgram = Serenity.sessionVariableCalled("programName" + challengeProgram);
+    }
+    challengesPage.saveChallenge(challengeName, challengeDescription, challengeProgram, challengePoints);
   }
 
   public void enterChallengeTitle(String challengeTitle) {
@@ -26,7 +48,7 @@ public class ChallengesSteps {
   }
 
   public void addChallengeRandomDescription(String challengeDescription) {
-    challengesPage.addChallengeRandomDescription(challengeDescription);
+    challengesPage.addChallengeDescription(challengeDescription);
   }
 
   public void cancelAnnouncementChallenge(String announcement) {
@@ -42,4 +64,5 @@ public class ChallengesSteps {
   public void isOverviewChallengeNotDisplayed(String challengeTitle, String participantsCount) {
     challengesPage.isOverviewChallengeNotDisplayed(challengeTitle, participantsCount);
   }
+
 }

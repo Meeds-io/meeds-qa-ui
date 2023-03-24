@@ -9,6 +9,8 @@ import net.thucydides.core.annotations.Steps;
 
 import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
 
+import java.util.Map;
+
 public class ChallengesStepDefinition {
 
   @Steps
@@ -17,6 +19,13 @@ public class ChallengesStepDefinition {
   @And("^I click on the button add challenge$")
   public void clickAddChallengeBtn() {
     challengesSteps.clickAddChallengeBtn();
+  }
+
+  @And("^I create the '(.*)' random challenge with$")
+  public void createRandomChallenge(String suffix, Map<String, String> details) {
+    String challengeName = "challengeName" + getRandomNumber();
+    challengesSteps.createRandomChallenge(challengeName, details);
+    Serenity.setSessionVariable("challengeName" + suffix).to(challengeName);
   }
 
   @And("^I enter the challenge title '(.*)'$")

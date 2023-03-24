@@ -185,8 +185,11 @@ public class Utils {
       } else {
         LOGGER.info("Loading wait timed out. Retry {}/{}. Refresh page to try again.",
                     retries,
-                    MAX_WAIT_RETRIES);
-        refreshPage(false); // Must remain false to avoid infinite loop
+                    MAX_WAIT_RETRIES,
+                    e);
+        if (!includeApps) {
+          refreshPage(false); // Must remain false to avoid infinite loop
+        }
         waitForLoading(loadingWait, includeApps, retries);
       }
     } catch (Throwable e) { // NOSONAR

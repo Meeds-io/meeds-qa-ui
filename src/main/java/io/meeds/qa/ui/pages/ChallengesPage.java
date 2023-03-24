@@ -2,12 +2,34 @@ package io.meeds.qa.ui.pages;
 
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
+
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.WebDriver;
 
 public class ChallengesPage extends GenericPage {
 
   public ChallengesPage(WebDriver driver) {
     super(driver);
+  }
+
+  public void saveChallenge(String challengeName, String challengeDescription, String challengeProgram, String challengePoints) {
+    if (StringUtils.isNotBlank(challengeName)) {
+      enterChallengeTitle(challengeName);
+    }
+    if (StringUtils.isNotBlank(challengeDescription)) {
+      addChallengeDescription(challengeDescription);
+    }
+    if (StringUtils.isNotBlank(challengeProgram)) {
+      addProgram(challengeProgram);
+    }
+    challengeStartDateCalenderElement().click();
+    currentDateCalenderElement().click();
+    challengeEndDateCalenderElement().click();
+    randomDateCalenderElement().click();
+    if (StringUtils.isNotBlank(challengePoints)) {
+      challengePointsTextbox().setTextValue(challengePoints);
+    }
+    saveButtonElement().click();
   }
 
   public void clickAddChallengeBtn() {
@@ -20,7 +42,6 @@ public class ChallengesPage extends GenericPage {
   }
 
   public void addProgram(String programTitle) {
-    programFieldElement().waitUntilVisible();
     mentionInField(programFieldElement(), programTitle, 5);
   }
 
@@ -31,7 +52,7 @@ public class ChallengesPage extends GenericPage {
     randomDateCalenderElement().click();
   }
 
-  public void addChallengeRandomDescription(String challengeDescription) {
+  public void addChallengeDescription(String challengeDescription) {
     ElementFacade ckEditorFrameRuleElement = ckEditorFrameRuleElement();
     ckEditorFrameRuleElement.waitUntilVisible();
     getDriver().switchTo().frame(ckEditorFrameRuleElement);
@@ -42,7 +63,7 @@ public class ChallengesPage extends GenericPage {
     } finally {
       getDriver().switchTo().defaultContent();
     }
-    createButtonElement().click();
+    saveButtonElement().click();
   }
 
   public void cancelAnnouncementChallenge(String announcement) {
@@ -59,6 +80,10 @@ public class ChallengesPage extends GenericPage {
 
   private ElementFacade addChallengeBtnElement() {
     return findByXPathOrCSS("//*[@id='engagementCenterAddChallengeBtn']");
+  }
+
+  private TextBoxElementFacade challengePointsTextbox() {
+    return findTextBoxByXPathOrCSS("//input[@id='EngagementCenterChallengeDrawerPoints']");
   }
 
   private TextBoxElementFacade challengeTitleFieldElement() {
@@ -93,7 +118,7 @@ public class ChallengesPage extends GenericPage {
     return findTextBoxByXPathOrCSS("//body[contains(@class,'cke_editable_themed')]");
   }
 
-  private ElementFacade createButtonElement() {
+  private ElementFacade saveButtonElement() {
     return findByXPathOrCSS(".v-navigation-drawer--open .drawerFooter button.btn-primary");
   }
 

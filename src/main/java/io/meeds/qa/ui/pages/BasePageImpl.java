@@ -201,17 +201,16 @@ public class BasePageImpl extends PageObject implements BasePage {
     do {
       inputField.sendKeys(Keys.BACK_SPACE);
       waitFor(300).milliseconds();
-      waitSuggesterToLoad();
-      suggesterElement =
-                       findByXPathOrCSS(String.format("//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
+      suggesterElement = findByXPathOrCSS(String.format("//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
                                                       user.substring(0, user.length() - retry - 1)));
       suggesterElement.setImplicitTimeout(retryWaitTime);
       visible = suggesterElement.isVisible();
-    } while (!visible && retry++ < maxRetries);
-    if (visible) {
-      suggesterElement.click();
-    }
-    return visible;
+      if (visible) {
+        suggesterElement.click();
+        return true;
+      }
+    } while (!visible && retry++ < maxRetries); // NOSONAR
+    return false;
   }
 
   public boolean mentionUserInCKEditor(ElementFacade ckEditorFrame,
@@ -340,7 +339,7 @@ public class BasePageImpl extends PageObject implements BasePage {
         findByXPathOrCSS(".v-overlay").waitUntilVisible();
       }
     } catch (Exception e) {
-      LOGGER.debug("Overlay seems not displayed", e);
+      LOGGER.warn("Overlay seems not displayed", e);
     }
   }
 
@@ -369,17 +368,6 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   private void waitOverlayToClose() {
     findByXPathOrCSS(".v-overlay").waitUntilNotVisible();
-  }
-
-  private void waitSuggesterToLoad() {
-    try {
-      ElementFacade progressBar = findByXPathOrCSS(".identitySuggester .v-progress-linear");
-      if (progressBar.isCurrentlyVisible()) {
-        progressBar.waitUntilNotVisible();
-      }
-    } catch (Exception e) {
-      LOGGER.debug("Error while waiting for suggester progressbar", e);
-    }
   }
 
 }

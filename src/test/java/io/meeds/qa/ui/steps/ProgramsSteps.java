@@ -17,7 +17,14 @@
  */
 package io.meeds.qa.ui.steps;
 
+import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
+
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+
 import io.meeds.qa.ui.pages.ProgramsPage;
+import net.serenitybdd.core.Serenity;
 
 public class ProgramsSteps {
   private ProgramsPage programsPage;
@@ -32,6 +39,7 @@ public class ProgramsSteps {
 
   public void addSpaceAudience(String randomSpaceName) {
     programsPage.addSpaceAudience(randomSpaceName);
+    programsPage.clickCreateProgramButton();
   }
 
   public void checkProgramCardDisplay(String programName) {
@@ -66,10 +74,6 @@ public class ProgramsSteps {
     programsPage.editProgramWithDescription(programName, newProgramName, newProgramDescription);
   }
 
-  public void enterProgramRandomTitle(String programTitle) {
-    programsPage.enterProgramRandomTitle(programTitle);
-  }
-
   public void enterProgramTitle(String programTitle) {
     programsPage.enterProgramTitle(programTitle);
   }
@@ -93,4 +97,28 @@ public class ProgramsSteps {
   public void announceChallenge(String challengeTitle, String announcementMessage) {
     programsPage.announceChallenge(challengeTitle, announcementMessage);
   }
+
+  public void createRandomProgram(String programName, Map<String, String> details) {
+    clickAddProgramBtn();
+
+    String programDescription = details.get("description");
+    String programAudience = details.get("audience");
+    if (StringUtils.isBlank(programDescription)) {
+      programDescription = "programDescription" + getRandomNumber();
+    }
+    if (StringUtils.isNotBlank(programAudience)) {
+      programAudience = Serenity.sessionVariableCalled(programAudience + "RandomSpaceName");
+    }
+    programsPage.saveProgram(programName, programDescription, programAudience);
+    programsPage.closeAlert();
+  }
+
+  public void checkProgramPositionInTopPrograms(String programName, int listPosition) {
+    programsPage.checkProgramPositionInTopPrograms(programName, listPosition);
+  }
+
+  public void checkProgramNotDisplayedInTopPrograms(String programName) {
+    programsPage.checkProgramNotDisplayedInTopPrograms(programName);
+  }
+
 }
