@@ -102,7 +102,7 @@ public class ProgramsStepDefinition {
   }
 
   @And("^I click on the button add program(.*)$")
-  public void clickAddProgramBtn() {
+  public void clickAddProgramBtn(String message) {
     programsSteps.clickAddProgramBtn();
   }
 

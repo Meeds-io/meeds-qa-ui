@@ -95,6 +95,7 @@ public class ChallengesPage extends GenericPage {
   public void setChallengeStartDate() {
     challengeStartDateCalenderElement().click();
     waitForMenuToOpen();
+    currentDateCalenderElement().waitUntilVisible();
     currentDateCalenderElement().click();
     waitForMenuToClose();
   }
@@ -106,6 +107,7 @@ public class ChallengesPage extends GenericPage {
   private void setChallengeEndDate() {
     challengeEndDateCalenderElement().click();
     waitForMenuToOpen();
+    randomDateCalenderElement().waitUntilVisible();
     randomDateCalenderElement().click();
     waitForMenuToClose();
   }
