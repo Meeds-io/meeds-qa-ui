@@ -16,23 +16,34 @@ public class ChallengesSteps {
 
   private SpaceHomePage  spaceHomePage;
 
-  public void clickAddChallengeBtn() {
-    challengesPage.clickAddChallengeBtn();
+  public void updateChallenge(String challengeName, Map<String, String> details) {
+    challengesPage.openEditChallengeDrawer(challengeName);
+
+    String challengeTitle = details.get("title");
+    String challengeDescription = details.get("description");
+    String challengeProgram = details.get("program");
+    String challengePoints = details.get("points");
+    challengesPage.saveChallenge(challengeTitle, challengeDescription, challengeProgram, challengePoints, false);
   }
 
-  public void createRandomChallenge(String challengeName, Map<String, String> details) {
+  public void createdChallenge(String challengeName, Map<String, String> details) {
     challengesPage.clickAddChallengeBtn();
 
-    String challengeProgram = details.get("program");
     String challengeDescription = details.get("description");
-    String challengePoints = details.get("points");
     if (StringUtils.isBlank(challengeDescription)) {
       challengeDescription = "challengeDescription" + getRandomNumber();
     }
+    String challengeProgram = details.get("program");
     if (StringUtils.isNotBlank(challengeProgram)) {
       challengeProgram = Serenity.sessionVariableCalled("programName" + challengeProgram);
     }
-    challengesPage.saveChallenge(challengeName, challengeDescription, challengeProgram, challengePoints);
+    String challengePoints = details.get("points");
+
+    challengesPage.saveChallenge(challengeName, challengeDescription, challengeProgram, challengePoints, true);
+  }
+
+  public void clickAddChallengeBtn() {
+    challengesPage.clickAddChallengeBtn();
   }
 
   public void enterChallengeTitle(String challengeTitle) {
@@ -49,6 +60,7 @@ public class ChallengesSteps {
 
   public void addChallengeRandomDescription(String challengeDescription) {
     challengesPage.addChallengeDescription(challengeDescription);
+    challengesPage.clickOnSaveButton();
   }
 
   public void cancelAnnouncementChallenge(String announcement) {
@@ -63,6 +75,10 @@ public class ChallengesSteps {
 
   public void isOverviewChallengeNotDisplayed(String challengeTitle, String participantsCount) {
     challengesPage.isOverviewChallengeNotDisplayed(challengeTitle, participantsCount);
+  }
+
+  public void checkChallengePoints(String challengeName, String points) {
+    challengesPage.checkChallengePoints(challengeName, points);
   }
 
 }

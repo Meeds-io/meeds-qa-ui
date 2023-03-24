@@ -44,6 +44,8 @@ public class ProgramsPage extends GenericPage {
       addSpaceAudience(programAudience);
     }
     saveButtonElement().click();
+    waitForDrawerToClose();
+    waitForLoading();
   }
 
   public void addDisabledProgramWithRandomDescription(String disabledProgramDescription) {

@@ -339,7 +339,7 @@ public class BasePageImpl extends PageObject implements BasePage {
         findByXPathOrCSS(".v-overlay").waitUntilVisible();
       }
     } catch (Exception e) {
-      LOGGER.warn("Overlay seems not displayed", e);
+      LOGGER.debug("Overlay seems not displayed", e);
     }
   }
 
@@ -349,6 +349,24 @@ public class BasePageImpl extends PageObject implements BasePage {
       if (progressBar.isCurrentlyVisible()) {
         progressBar.waitUntilNotVisible();
       }
+    } catch (Exception e) {
+      LOGGER.warn("Can't wait for progress bar to finish loading", e);
+    }
+  }
+
+  public void waitForMenuToOpen() {
+    try {
+      ElementFacade menu = findByXPathOrCSS(".menuable__content__active");
+      menu.waitUntilVisible();
+    } catch (Exception e) {
+      LOGGER.warn("Can't wait for progress bar to finish loading", e);
+    }
+  }
+
+  public void waitForMenuToClose() {
+    try {
+      ElementFacade menu = findByXPathOrCSS(".menuable__content__active");
+      menu.waitUntilNotVisible();
     } catch (Exception e) {
       LOGGER.warn("Can't wait for progress bar to finish loading", e);
     }

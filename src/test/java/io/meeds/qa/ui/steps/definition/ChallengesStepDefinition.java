@@ -24,13 +24,25 @@ public class ChallengesStepDefinition {
   @And("^I create the '(.*)' random challenge with$")
   public void createRandomChallenge(String suffix, Map<String, String> details) {
     String challengeName = "challengeName" + getRandomNumber();
-    challengesSteps.createRandomChallenge(challengeName, details);
+    challengesSteps.createdChallenge(challengeName, details);
     Serenity.setSessionVariable("challengeName" + suffix).to(challengeName);
+  }
+  
+  @And("^I update the '(.*)' random challenge with$")
+  public void updateRandomChallenge(String suffix, Map<String, String> details) {
+    String challengeName = Serenity.sessionVariableCalled("challengeName" + suffix);
+    challengesSteps.updateChallenge(challengeName, details);
   }
 
   @And("^I enter the challenge title '(.*)'$")
   public void enterChallengeTitle(String challengeTitle) {
     challengesSteps.enterChallengeTitle(challengeTitle);
+  }
+
+  @And("^The '(.*)' challenge is displayed with '(.*)' points$")
+  public void checkChallengePoints(String suffix, String points) {
+    String challengeName = Serenity.sessionVariableCalled("challengeName" + suffix);
+    challengesSteps.checkChallengePoints(challengeName, points);
   }
 
   @And("^I add '(.*)' program$")

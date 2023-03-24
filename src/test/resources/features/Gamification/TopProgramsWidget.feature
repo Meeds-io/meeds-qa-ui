@@ -1,5 +1,6 @@
 @gamification
 @topprograms
+@test
 Feature: Programs should be displayed in Top Programs in sorted way
   I should access programs I am member of in Top Programs, sorted by points descending
 
@@ -40,4 +41,18 @@ Feature: Programs should be displayed in Top Programs in sorted way
 
     Then The 'second' random program is displayed in 'first' position in Top Programs widget
     And The 'first' random program is displayed in 'second' position in Top Programs widget
+    And The 'fifth' random program is not displayed in Top Programs widget
+
+    When I change user admin
+    And I go to 'Contributions' application
+    And I select engagement Challenges tab
+    And I update the 'first' random challenge with
+      | points | 9999 |
+    Then The 'first' challenge is displayed with '9999' points
+
+    When I connect with the first created user
+    When I go to Overview page
+
+    Then The 'first' random program is displayed in 'first' position in Top Programs widget
+    And The 'second' random program is displayed in 'second' position in Top Programs widget
     And The 'fifth' random program is not displayed in Top Programs widget
