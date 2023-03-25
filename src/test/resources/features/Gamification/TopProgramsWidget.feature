@@ -6,7 +6,7 @@ Feature: Programs should be displayed in Top Programs in sorted way
   Scenario: Top Programs sorted by score descending
     Given I am authenticated as admin
 
-    When I create the thirtyone random user if not existing
+    When I create the thirtyone random user
     And I create the thirtyone random space with the thirtyone random user as member
     And I create the thirtytwo random space with the thirtyone random user as member
     And I create the thirtythree random space

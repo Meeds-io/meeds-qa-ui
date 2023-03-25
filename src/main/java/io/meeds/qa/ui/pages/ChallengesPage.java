@@ -69,6 +69,7 @@ public class ChallengesPage extends GenericPage {
 
   public void openEditChallengeDrawer(String challengeName) {
     searchChallengeElement().setTextValue(challengeName);
+    waitFor(1).seconds();
     waitForLoading();
     editChallengeThreeDots(challengeName).click();
     editChallengeButton(challengeName).click();
