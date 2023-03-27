@@ -94,7 +94,6 @@ Feature: SideBar
     Then The hamburger menu is displayed as unstickied
     And The red dot is not displayed in the hamburger menu
     
-  @test
   Scenario: Open Unstickied Hamburger Menu On Hover in Desktop
     Given I connect as admin if random users doesn't exists
       | hmenu  |
