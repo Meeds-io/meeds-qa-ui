@@ -550,5 +550,20 @@ public class HomeStepDefinition {
   public void checkRedDotNotInHamburgerMenu() {
     homeSteps.checkRedDotNotInHamburgerMenu();
   }
+  
+  @When("I hover on the hambuger menu")
+  public void hoverOnHamburgerMenu() {
+    homeSteps.hoverOnHamburgerMenu();
+  }
+  
+  @When("I hover on the drawer overlay")
+  public void hoverOutsideHamburgerMenu() {
+    homeSteps.hoverOutsideHamburgerMenu();
+  }
+  
+  @Then ("The hamburger menu is closed")
+  public void closeHamburgerMenu() {
+    homeSteps.closeHamburgerMenu();
+  }
 
 }

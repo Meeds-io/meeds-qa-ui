@@ -518,6 +518,18 @@ public class HomePage extends GenericPage {
     getHamburgerNavigationMenu().assertVisible();
     findByXPathOrCSS(".hamburger-unread-badge ").assertNotVisible();
   }
+  
+  public void hoverOnHamburgerMenu() {
+    getHamburgerNavigationMenu().hover();
+  }
+  
+  public void hoverOutsideHamburgerMenu() {
+    getDrawerOverlay().hover();
+  }
+  
+  public void closeHamburgerMenu() {
+    getHamburgerNavigationMenuDrawer().checkNotVisible();
+  }
 
   private void goToAdministrationPage(String uri) {
     if (!StringUtils.contains(getDriver().getCurrentUrl(), uri)) {
@@ -625,6 +637,10 @@ public class HomePage extends GenericPage {
 
   private ElementFacade getHamburgerNavigationMenu() {
     return findByXPathOrCSS(".HamburgerNavigationMenuLink");
+  }
+  
+  private ElementFacade getDrawerOverlay() {
+    return findByXPathOrCSS("#drawers-overlay");
   }
 
   private ElementFacade getSiteBody() {

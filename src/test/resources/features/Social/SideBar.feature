@@ -93,3 +93,19 @@ Feature: SideBar
     When I refresh the page
     Then The hamburger menu is displayed as unstickied
     And The red dot is not displayed in the hamburger menu
+    
+  @test
+  Scenario: Open Unstickied Hamburger Menu On Hover in Desktop
+    Given I connect as admin if random users doesn't exists
+      | hmenu  |
+    And I create the hmenu random user, no wait
+    And I connect with the hmenu created user
+    And The hamburger menu is displayed as unstickied
+    When I hover on the hambuger menu
+    And I wait '500' milliseconds
+    Then The hamburger menu has all navigation elements into it
+    When I hover on the drawer overlay
+    And I wait '500' milliseconds
+    Then The hamburger menu is closed
+    
+    

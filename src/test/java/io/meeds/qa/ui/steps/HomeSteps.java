@@ -357,4 +357,16 @@ public class HomeSteps {
     homePage.checkRedDotNotInHamburgerMenu();
   }
 
+  public void hoverOnHamburgerMenu() {
+    homePage.hoverOnHamburgerMenu();
+  }
+  
+  public void hoverOutsideHamburgerMenu() {
+    homePage.hoverOutsideHamburgerMenu();
+  }
+  
+  public void closeHamburgerMenu() {
+    homePage.closeHamburgerMenu();
+  }
+  
 }

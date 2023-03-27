@@ -102,4 +102,9 @@ public class GenericStepDefinitions {
   public void waitInSeconds(int seconds) {
     genericSteps.waitInSeconds(seconds);
   }
+  
+  @When("I wait '{int}' milliseconds")
+  public void waitInMilliseconds(int milliseconds) {
+    genericSteps.waitInMilliseconds(milliseconds);
+  }
 }
