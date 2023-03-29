@@ -54,6 +54,7 @@ Feature: Space widgets checking
     And I connect with the fourthconn created user
     And I connect to fifthconn user
     When I connect with the fifthconn created user
+    And I wait '3' seconds
     And I go to Stream page
     Then The 'Connections' badge is '5'
     When I click on connections badge

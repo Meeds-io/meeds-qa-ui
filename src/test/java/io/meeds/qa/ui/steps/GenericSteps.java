@@ -77,5 +77,9 @@ public class GenericSteps {
   public void waitInSeconds(int seconds) {
     genericPage.waitFor(seconds).seconds();
   }
+  
+  public void waitInMilliseconds(int milliseconds) {
+    genericPage.waitFor(milliseconds).milliseconds();
+  }
 
 }

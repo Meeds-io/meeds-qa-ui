@@ -226,8 +226,8 @@ public class HomeSteps {
     return homePage.isNoConnectionsBadge();
   }
 
-  public boolean isNumberOfConnectionsInDrawer(String number) {
-    return homePage.isNumberOfConnectionsInDrawer(Integer.valueOf(number));
+  public void checkNumberOfConnectionsInDrawer(String number) {
+    homePage.checkNumberOfConnectionsInDrawer(Integer.valueOf(number));
   }
 
   public boolean isNumberOfSpacesInDrawer(String number) {
@@ -357,4 +357,16 @@ public class HomeSteps {
     homePage.checkRedDotNotInHamburgerMenu();
   }
 
+  public void hoverOnHamburgerMenu() {
+    homePage.hoverOnHamburgerMenu();
+  }
+  
+  public void hoverOutsideHamburgerMenu() {
+    homePage.hoverOutsideHamburgerMenu();
+  }
+  
+  public void closeHamburgerMenu() {
+    homePage.closeHamburgerMenu();
+  }
+  
 }
