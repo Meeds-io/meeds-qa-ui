@@ -395,6 +395,7 @@ public class ManageSpacesPage extends GenericPage {
 
   public void openSpaceFormDrawer() {
     addNewSpaceButtonElement().click();
+    waitForDrawerToOpen();
   }
 
   public void plusButtonIsDisplayed() {

@@ -19,6 +19,7 @@ package io.meeds.qa.ui.pages;
 
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -32,18 +33,23 @@ public class ProgramsPage extends GenericPage {
     super(driver);
   }
 
-  public void addDisabledProgramWithRandomDescription(String disabledProgramDescription) {
-    waitDrawerCKEditorLoading();
-    ElementFacade ckEditorFrameProgramElement = ckEditorFrameElement();
-    ckEditorFrameProgramElement.waitUntilVisible();
-    getDriver().switchTo().frame(ckEditorFrameProgramElement);
-    try {
-      TextBoxElementFacade programDescriptionFieldElement = programDescriptionFieldElement();
-      programDescriptionFieldElement.waitUntilVisible();
-      programDescriptionFieldElement.setTextValue(disabledProgramDescription);
-    } finally {
-      getDriver().switchTo().defaultContent();
+  public void saveProgram(String programName, String programDescription, String programAudience) {
+    if (StringUtils.isNotBlank(programName)) {
+      enterProgramTitle(programName);
     }
+    if (StringUtils.isNotBlank(programAudience)) {
+      addProgramWithRandomDescription(programDescription);
+    }
+    if (StringUtils.isNotBlank(programAudience)) {
+      addSpaceAudience(programAudience);
+    }
+    saveButtonElement().click();
+    waitForDrawerToClose();
+    waitForLoading();
+  }
+
+  public void addDisabledProgramWithRandomDescription(String disabledProgramDescription) {
+    addProgramWithRandomDescription(disabledProgramDescription);
     selectStatusSwitcher();
   }
 
@@ -63,7 +69,6 @@ public class ProgramsPage extends GenericPage {
 
   public void addSpaceAudience(String randomSpaceName) {
     mentionInField(audienceSpaceFieldElement(), randomSpaceName, 5);
-    clickCreateProgramButton();
   }
 
   public void checkEngagementAppOpened() {
@@ -107,27 +112,11 @@ public class ProgramsPage extends GenericPage {
 
   public void editProgramWithDescription(String programName, String newProgramName, String newProgramDescription) {
     getProgramCard(programName).assertVisible();
+
     programThreeDotsButtonElement().click();
     editProgramButtonElement().click();
-    programTitleFieldElement().setTextValue(newProgramName);
 
-    waitDrawerCKEditorLoading();
-    ElementFacade ckEditorFrameProgramElement = ckEditorFrameElement();
-    ckEditorFrameProgramElement.waitUntilVisible();
-    getDriver().switchTo().frame(ckEditorFrameProgramElement);
-    try {
-      TextBoxElementFacade programDescriptionFieldElement = programDescriptionFieldElement();
-      programDescriptionFieldElement.waitUntilVisible();
-      programDescriptionFieldElement.setTextValue(newProgramDescription);
-    } finally {
-      getDriver().switchTo().defaultContent();
-    }
-
-    saveButtonElement().click();
-  }
-
-  public void enterProgramRandomTitle(String programTitle) {
-    programTitleFieldElement().setTextValue(programTitle);
+    saveProgram(newProgramName, newProgramDescription, null);
   }
 
   public void enterProgramTitle(String programTitle) {
@@ -171,6 +160,22 @@ public class ProgramsPage extends GenericPage {
   public void selectStatusSwitcher() {
     WebElement checkbox = getDriver().findElement(By.xpath("//*[@class='v-input--selection-controls__ripple primary--text']"));
     checkbox.click();
+  }
+
+  public void checkProgramPositionInTopPrograms(String programName, int listPosition) {
+    topProgramsElement(programName, listPosition).assertVisible();
+  }
+
+  public void checkProgramNotDisplayedInTopPrograms(String programName) {
+    topProgramsElement(programName).assertNotVisible();
+  }
+
+  private ElementFacade topProgramsElement(String programName, int listPosition) {
+    return findByXPathOrCSS(String.format("(//*[@id='programsOverview']//a[contains(@href, 'programs/')])[%s]//*[contains(text(), '%s')]", listPosition, programName));
+  }
+  
+  private ElementFacade topProgramsElement(String programName) {
+    return findByXPathOrCSS(String.format("//*[@id='programsOverview']//a[contains(@href, 'programs/')]//*[contains(text(), '%s')]", programName));
   }
 
   private ElementFacade addProgramBtnElement() {

@@ -1,13 +1,35 @@
 package io.meeds.qa.ui.pages;
 
+import static io.meeds.qa.ui.utils.Utils.waitForLoading;
+
+import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.WebDriver;
+
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
-import org.openqa.selenium.WebDriver;
 
 public class ChallengesPage extends GenericPage {
 
   public ChallengesPage(WebDriver driver) {
     super(driver);
+  }
+
+  public void saveChallenge(String challengeName,
+                            String challengeDescription,
+                            String challengeProgram,
+                            String challengePoints,
+                            boolean changeDates) {
+    setChallengeTitle(challengeName);
+    setChallengeProgram(challengeProgram);
+    if (changeDates) {
+      setChallengeStartDate();
+      setChallengeEndDate();
+    }
+    setChallengePoints(challengePoints);
+    setChallengeDescription(challengeDescription);
+    clickOnSaveButton();
+    waitForDrawerToClose();
+    waitForLoading();
   }
 
   public void clickAddChallengeBtn() {
@@ -20,18 +42,15 @@ public class ChallengesPage extends GenericPage {
   }
 
   public void addProgram(String programTitle) {
-    programFieldElement().waitUntilVisible();
     mentionInField(programFieldElement(), programTitle, 5);
   }
 
   public void enterStartedChallenge() {
-    challengeStartDateCalenderElement().click();
-    currentDateCalenderElement().click();
-    challengeEndDateCalenderElement().click();
-    randomDateCalenderElement().click();
+    setChallengeStartDate();
+    setChallengeEndDate();
   }
 
-  public void addChallengeRandomDescription(String challengeDescription) {
+  public void addChallengeDescription(String challengeDescription) {
     ElementFacade ckEditorFrameRuleElement = ckEditorFrameRuleElement();
     ckEditorFrameRuleElement.waitUntilVisible();
     getDriver().switchTo().frame(ckEditorFrameRuleElement);
@@ -42,7 +61,18 @@ public class ChallengesPage extends GenericPage {
     } finally {
       getDriver().switchTo().defaultContent();
     }
-    createButtonElement().click();
+  }
+
+  public void clickOnSaveButton() {
+    saveButtonElement().click();
+  }
+
+  public void openEditChallengeDrawer(String challengeName) {
+    searchChallengeElement().setTextValue(challengeName);
+    waitFor(1).seconds();
+    waitForLoading();
+    editChallengeThreeDots(challengeName).click();
+    editChallengeButton(challengeName).click();
   }
 
   public void cancelAnnouncementChallenge(String announcement) {
@@ -57,8 +87,76 @@ public class ChallengesPage extends GenericPage {
     getOverviewChallengeItemElement(challengeTitle, participantsCount).isNotVisible();
   }
 
+  private void setChallengeTitle(String challengeName) {
+    if (StringUtils.isNotBlank(challengeName)) {
+      enterChallengeTitle(challengeName);
+    }
+  }
+
+  public void setChallengeStartDate() {
+    challengeStartDateCalenderElement().click();
+    waitForMenuToOpen();
+    currentDateCalenderElement().waitUntilVisible();
+    currentDateCalenderElement().click();
+    waitForMenuToClose();
+  }
+
+  public void checkChallengePoints(String challengeName, String points) {
+    challengeByNameAndPoints(challengeName, points).assertVisible();
+  }
+
+  private void setChallengeEndDate() {
+    challengeEndDateCalenderElement().click();
+    waitForMenuToOpen();
+    randomDateCalenderElement().waitUntilVisible();
+    randomDateCalenderElement().click();
+    waitForMenuToClose();
+  }
+
+  private void setChallengeDescription(String challengeDescription) {
+    if (StringUtils.isNotBlank(challengeDescription)) {
+      addChallengeDescription(challengeDescription);
+    }
+  }
+
+  private void setChallengeProgram(String challengeProgram) {
+    if (StringUtils.isNotBlank(challengeProgram)) {
+      addProgram(challengeProgram);
+    }
+  }
+
+  private void setChallengePoints(String challengePoints) {
+    if (StringUtils.isNotBlank(challengePoints)) {
+      challengePointsTextbox().setTextValue(challengePoints);
+    }
+  }
+
+  private TextBoxElementFacade searchChallengeElement() {
+    return findTextBoxByXPathOrCSS("//input[@id='EngagementCenterApplicationSearchFilter']");
+  }
+
+  private ElementFacade challengeByNameAndPoints(String challengeName, String points) {
+    return findByXPathOrCSS(String.format("//*[@id='ChallengesApplication']//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'engagement-center-card')]//*[contains(text(), '%s Points')]",
+                                          challengeName,
+                                          points));
+  }
+
+  private ElementFacade editChallengeThreeDots(String challengeName) {
+    return findByXPathOrCSS(String.format("//*[@id='ChallengesApplication']//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'engagement-center-card')]//*[contains(@class, 'fa-ellipsis')]",
+                                          challengeName));
+  }
+
+  private ElementFacade editChallengeButton(String challengeName) {
+    return findByXPathOrCSS(String.format("//*[@id='ChallengesApplication']//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'engagement-center-card')]//*[contains(@class, 'v-menu')]//*[contains(text(), 'Edit')]",
+                                          challengeName));
+  }
+
   private ElementFacade addChallengeBtnElement() {
     return findByXPathOrCSS("//*[@id='engagementCenterAddChallengeBtn']");
+  }
+
+  private TextBoxElementFacade challengePointsTextbox() {
+    return findTextBoxByXPathOrCSS("//input[@id='EngagementCenterChallengeDrawerPoints']");
   }
 
   private TextBoxElementFacade challengeTitleFieldElement() {
@@ -78,11 +176,11 @@ public class ChallengesPage extends GenericPage {
   }
 
   private TextBoxElementFacade currentDateCalenderElement() {
-    return findTextBoxByXPathOrCSS("//*[contains(@id,'engagementCenterChallengeStartDatePicker')]//*[contains(@class, 'v-date-picker-table__current') and not(@disabled)]");
+    return findTextBoxByXPathOrCSS("//*[@id='engagementCenterChallengeStartDatePicker']//*[contains(@class,'menuable__content__active')]//*[contains(@class,'v-date-picker-table')]//button[not(@disabled) and contains(@class, 'v-date-picker-table__current')]");
   }
 
   private TextBoxElementFacade randomDateCalenderElement() {
-    return findTextBoxByXPathOrCSS("//*[contains(@id,'engagementCenterChallengeEndDatePicker')]//*[contains(@class, 'v-btn--rounded') and not(@disabled)]");
+    return findTextBoxByXPathOrCSS("//*[@id='engagementCenterChallengeEndDatePicker']//*[contains(@class,'menuable__content__active')]//*[contains(@class,'v-date-picker-table')]//button[not(@disabled)]");
   }
 
   private ElementFacade ckEditorFrameRuleElement() {
@@ -93,7 +191,7 @@ public class ChallengesPage extends GenericPage {
     return findTextBoxByXPathOrCSS("//body[contains(@class,'cke_editable_themed')]");
   }
 
-  private ElementFacade createButtonElement() {
+  private ElementFacade saveButtonElement() {
     return findByXPathOrCSS(".v-navigation-drawer--open .drawerFooter button.btn-primary");
   }
 

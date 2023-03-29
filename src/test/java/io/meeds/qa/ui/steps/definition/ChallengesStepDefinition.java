@@ -9,6 +9,8 @@ import net.thucydides.core.annotations.Steps;
 
 import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
 
+import java.util.Map;
+
 public class ChallengesStepDefinition {
 
   @Steps
@@ -19,9 +21,28 @@ public class ChallengesStepDefinition {
     challengesSteps.clickAddChallengeBtn();
   }
 
+  @And("^I create the '(.*)' random challenge with$")
+  public void createRandomChallenge(String suffix, Map<String, String> details) {
+    String challengeName = "challengeName" + getRandomNumber();
+    challengesSteps.createdChallenge(challengeName, details);
+    Serenity.setSessionVariable("challengeName" + suffix).to(challengeName);
+  }
+  
+  @And("^I update the '(.*)' random challenge with$")
+  public void updateRandomChallenge(String suffix, Map<String, String> details) {
+    String challengeName = Serenity.sessionVariableCalled("challengeName" + suffix);
+    challengesSteps.updateChallenge(challengeName, details);
+  }
+
   @And("^I enter the challenge title '(.*)'$")
   public void enterChallengeTitle(String challengeTitle) {
     challengesSteps.enterChallengeTitle(challengeTitle);
+  }
+
+  @And("^The '(.*)' challenge is displayed with '(.*)' points$")
+  public void checkChallengePoints(String suffix, String points) {
+    String challengeName = Serenity.sessionVariableCalled("challengeName" + suffix);
+    challengesSteps.checkChallengePoints(challengeName, points);
   }
 
   @And("^I add '(.*)' program$")
