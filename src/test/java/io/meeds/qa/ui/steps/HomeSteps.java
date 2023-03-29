@@ -226,8 +226,8 @@ public class HomeSteps {
     return homePage.isNoConnectionsBadge();
   }
 
-  public boolean isNumberOfConnectionsInDrawer(String number) {
-    return homePage.isNumberOfConnectionsInDrawer(Integer.valueOf(number));
+  public void checkNumberOfConnectionsInDrawer(String number) {
+    homePage.checkNumberOfConnectionsInDrawer(Integer.valueOf(number));
   }
 
   public boolean isNumberOfSpacesInDrawer(String number) {

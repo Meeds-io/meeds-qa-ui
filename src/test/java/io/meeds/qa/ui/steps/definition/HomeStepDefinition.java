@@ -129,17 +129,15 @@ public class HomeStepDefinition {
   }
 
   @Then("^the number of connection requests is '(.*)'$")
-  public void checkConnexionBagde(String number) {
+  public void checkConnectionBagde(String number) {
     assertThat(homeSteps.isConnectionsBadgeWithNumberVisible(number)).as(String.format("The badge must contains %s connections",
                                                                                        number))
                                                                      .isTrue();
   }
 
   @Then("^the drawer with '(.*)' connections is opened$")
-  public void checkConnexionDrawer(String number) {
-    assertThat(homeSteps.isNumberOfConnectionsInDrawer(number)).as(String.format("Le nombre de connexions dans le drawer n'est pas égale à %s",
-                                                                                 number))
-                                                               .isTrue();
+  public void checkNumberOfConnectionsInDrawer(String number) {
+    homeSteps.checkNumberOfConnectionsInDrawer(number);
   }
 
   @When("the following Space is displayed in Spaces Requests section")

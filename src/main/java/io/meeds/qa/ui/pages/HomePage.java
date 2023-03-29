@@ -150,7 +150,9 @@ public class HomePage extends GenericPage {
   }
 
   public void clickOnConnectionsBagde() {
-    clickOnElement(connectionsBadgeElement());
+    connectionsBadgeElement().click();
+    waitForDrawerToOpen();
+    waitForLoading();
   }
 
   public void clickOnHomeIcon(String pageName) {
@@ -351,9 +353,9 @@ public class HomePage extends GenericPage {
     return getConnectionsBadge().isNotVisible();
   }
 
-  public boolean isNumberOfConnectionsInDrawer(int expectedNumber) {
-    int listOfSpaces = getListConnectionInDrawer().size();
-    return listOfSpaces == expectedNumber;
+  public void checkNumberOfConnectionsInDrawer(int expectedNumber) {
+    waitForLoading();
+    assertThat(getListConnectionInDrawer().size()).isEqualTo(expectedNumber);
   }
 
   public boolean isNumberOfSpacesInDrawer(int expectedNumber) {
@@ -652,7 +654,7 @@ public class HomePage extends GenericPage {
   }
 
   private List<WebElementFacade> getListConnectionInDrawer() {
-    return findAll("//aside[contains(@class,'connectionsDrawer ')]//div[@role='list']//descendant::div[@role='listitem']");
+    return findAll("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(@class,'connectionsRequests')]//*[contains(@class,'request-user-name')]");
   }
 
   private List<WebElementFacade> getListSpaceInDrawer() {
