@@ -45,6 +45,7 @@ public class TasksPage extends GenericPage {
 
   public void addLabel(String label) {
     TextBoxElementFacade labelTaskElement = labelTaskElement();
+    labelTaskElement.waitUntilVisible();
     labelTaskElement.setTextValue(label);
     labelTaskElement.sendKeys(Keys.ENTER);
   }
@@ -450,6 +451,7 @@ public class TasksPage extends GenericPage {
 
   public void clickOnEditProjectButton() {
     editProjectButtonElement().click();
+    waitForDrawerToOpen();
   }
 
   public void clickOnFifthColumnThreeDotsIcon() {
