@@ -28,8 +28,7 @@ import io.meeds.qa.ui.elements.ElementFacade;
 
 public class GenericPage extends BasePageImpl {
 
-  public static final String UPLOAD_DIRECTORY_PATH = System.getProperty("user.dir") + File.separator + "src"
-      + File.separator + "test" + File.separator + "resources" + File.separator + "DataFiles" + File.separator;
+  public static final String UPLOAD_DIRECTORY_PATH = GenericPage.class.getResource(File.separator+"DataFiles"+File.separator).getFile();
 
   public GenericPage() {
     this(null);
