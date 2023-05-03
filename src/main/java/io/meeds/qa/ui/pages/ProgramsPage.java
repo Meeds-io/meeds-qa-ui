@@ -99,8 +99,9 @@ public class ProgramsPage extends GenericPage {
     clickOnElement(addProgramBtnElement());
   }
 
-  public void clickCreateProgramButton() {
+  public void clickSaveProgramButton() {
     createButtonElement().click();
+    waitForDrawerToClose();
   }
 
   public void deleteCreatedProgram(String programName) {
@@ -139,6 +140,10 @@ public class ProgramsPage extends GenericPage {
 
   public void openProgramCard(String value) {
     getProgramCard(value).click();
+  }
+
+  public void closeProgramCard() {
+    closeProgramCardIcon().click();
   }
 
   public void announceChallenge(String challengeTitle, String announcementMessage) {
@@ -250,6 +255,10 @@ public class ProgramsPage extends GenericPage {
 
   private ElementFacade getAnnounceBtnElement() {
     return findByXPathOrCSS("//*[contains(@class, 'fa-bullhorn')]//ancestor::*[contains(@class, 'v-btn--icon v-btn--round')]");
+  }
+
+  private ElementFacade closeProgramCardIcon() {
+    return findByXPathOrCSS("//*[@id = 'engagementCenterProgramDetail']//*[contains(@class, 'fa-arrow-left')]");
   }
 
   private TextBoxElementFacade challengeAnnouncementFieldElement() {

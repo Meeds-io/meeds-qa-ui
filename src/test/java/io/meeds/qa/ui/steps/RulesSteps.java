@@ -17,25 +17,31 @@
  */
 package io.meeds.qa.ui.steps;
 
+import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
+
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+
 import io.meeds.qa.ui.pages.RulePage;
 
 public class RulesSteps {
   private RulePage rulePage;
 
   public void enterRuleTitle(String ruleTitle) {
-    rulePage.enterRuleTitle(ruleTitle);
+    rulePage.setActionTitle(ruleTitle);
   }
 
   public void addRuleEvent(String eventName) {
-    rulePage.addRuleEvent(eventName);
+    rulePage.setActionEvent(eventName);
   }
 
-  public void clickAddRuleButton() {
-    rulePage.clickAddRuleButton();
+  public void clickAddActionButton() {
+    rulePage.clickAddActionButton();
   }
 
   public void addRuleRandomDescription(String ruleDescription) {
-    rulePage.addRuleRandomDescription(ruleDescription);
+    rulePage.setActionDescription(ruleDescription);
   }
 
   public void searchRuleInProgramRuleFilter(String ruleTitle) {
@@ -52,5 +58,21 @@ public class RulesSteps {
 
   public void isRuleDisplayed(String ruleTitle) {
     rulePage.isRuleDisplayed(ruleTitle);
+  }
+
+  public void createAction(String title, boolean declarative, Map<String, String> details) {
+    rulePage.clickAddActionButton();
+
+    String description = details.get("description");
+    if (StringUtils.isBlank(description)) {
+      description = "challengeDescription" + getRandomNumber();
+    }
+    String points = details.get("points");
+    rulePage.saveAction(title, description, points, declarative, true, true);
+  }
+
+  public void setActionEndDate() {
+    rulePage.selectDurationChoice();
+    rulePage.setActionEndDate();
   }
 }

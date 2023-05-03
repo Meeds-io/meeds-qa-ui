@@ -101,6 +101,7 @@ public class ApplicationPage extends GenericPage {
     closeAllDrawers();
     elementApplicationsTopbarElement().click();
     waitForDrawerToOpen();
+    waitForDrawerToLoad();
   }
 
   public void goToApplication(String application) {
@@ -440,7 +441,7 @@ public class ApplicationPage extends GenericPage {
   }
 
   private ElementFacade getApplication(String appName) {
-    return findByXPathOrCSS(String.format("//*[contains(@class,'appLauncherTitle') and contains(text(),'%s')]", appName));
+    return findByXPathOrCSS(String.format("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(@class,'appLauncherTitle') and contains(text(),'%s')]", appName));
   }
 
   private ElementFacade getApplicationInsideAppPage(String appName) {
