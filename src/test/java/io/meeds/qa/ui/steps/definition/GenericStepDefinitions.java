@@ -83,9 +83,24 @@ public class GenericStepDefinitions {
     genericSteps.clickConfirm();
   }
 
-  @When("^I click on 'OK' button$")
-  public void clickOkButton() {
-    genericSteps.clickOkButton();
+  @When("^I click on '(.*)' button$")
+  public void clickButton(String buttonText) {
+    genericSteps.clickButton(buttonText);
+  }
+
+  @When("^I click on '(.*)' button in drawer$")
+  public void clickDrawerButton(String buttonText) {
+    genericSteps.clickDrawerButton(buttonText);
+  }
+
+  @When("I wait for drawer to open")
+  public void waitForDrawerToOpen() {
+    genericSteps.waitForDrawerToOpen();
+  }
+
+  @When("I wait for drawer to close")
+  public void waitForDrawerToClose() {
+    genericSteps.waitForDrawerToClose();
   }
 
   @When("I close browser tab {int}")

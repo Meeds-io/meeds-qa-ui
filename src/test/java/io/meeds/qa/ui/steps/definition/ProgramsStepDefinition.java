@@ -33,10 +33,15 @@ public class ProgramsStepDefinition {
   @Steps
   private ProgramsSteps programsSteps;
 
-  @And("^I add an audience space$")
+  @And("I add an audience space")
   public void addAudienceSpace() {
     String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
     programsSteps.addSpaceAudience(randomSpaceName);
+  }
+
+  @And("I save the program details")
+  public void saveProgram() {
+    programsSteps.clickSaveProgramButton();
   }
 
   @And("^I add a disabled program with random description$")
@@ -152,6 +157,17 @@ public class ProgramsStepDefinition {
   @And("^I open '(.*)' program card$")
   public void openProgramCard(String value) {
     programsSteps.openProgramCard(value);
+  }
+
+  @And("^I open '(.*)' random program card$")
+  public void openRandomProgramCard(String suffix) {
+    String programName = Serenity.sessionVariableCalled("programName" + suffix);
+    programsSteps.openProgramCard(programName);
+  }
+
+  @And("I close program card")
+  public void closeProgramCard() {
+    programsSteps.closeProgramCard();
   }
 
   @And("^I open random program card$")

@@ -88,11 +88,15 @@ Feature: Rules
     And I enter a random program title
     And I add program with random description
     And I add an audience space
+    And I save the program details
     And I open random program card
-    When I click on the button to add a rule
+    When I click on 'Add Action' button
     And I enter the rule title 'Receive kudos'
     And I add an event 'Receive kudos'
     And I add rule random description
+    And I click on 'Declarative' button in drawer
+    And I click on 'Next' button in drawer
+    And I click on 'Add' button in drawer
 
     When I search for the 'Not found' rule in program detail rule filter
     Then Rule not found. Please try again is displayed
