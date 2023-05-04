@@ -52,8 +52,12 @@ public class GenericPage extends BasePageImpl {
     getButton("Confirm").click();
   }
 
-  public void clickOkButton() {
-    getOKButton("OK").click();
+  public void clickButton(String buttonText) {
+    getButton(buttonText).click();
+  }
+
+  public void clickDrawerButton(String buttonText) {
+    getDrawerButton(buttonText).click();
   }
 
   public void closeBrowserTab(int index) {
@@ -81,15 +85,15 @@ public class GenericPage extends BasePageImpl {
   }
 
   private ElementFacade getButton(String buttonName) {
-    return findByXPathOrCSS(String.format("//a[contains(text(),'%s')]", buttonName));
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor-or-self::button", buttonName));
+  }
+
+  private ElementFacade getDrawerButton(String buttonName) {
+    return findByXPathOrCSS(String.format("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(),'%s')]//ancestor-or-self::button", buttonName));
   }
 
   private ElementFacade getConfirmMessage(String message) {
     return findByXPathOrCSS(String.format("//span[contains(text(),\"%s\")]", message));
-  }
-
-  private ElementFacade getOKButton(String buttonName) {
-    return findByXPathOrCSS(String.format("//button[contains(text(),'%s')]", buttonName));
   }
 
 }
