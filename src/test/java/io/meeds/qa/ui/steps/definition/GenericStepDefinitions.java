@@ -93,6 +93,16 @@ public class GenericStepDefinitions {
     genericSteps.clickDrawerButton(buttonText);
   }
 
+  @Then("^The button '(.*)' is disabled$")
+  public void buttonIsDisabled(String buttonText) {
+    genericSteps.buttonIsDisabled(buttonText);
+  }
+
+  @Then("^The button '(.*)' is disabled in drawer$")
+  public void buttonInDrawerIsDisabled(String buttonText) {
+    genericSteps.buttonInDrawerIsDisabled(buttonText);
+  }
+
   @When("I wait for drawer to open")
   public void waitForDrawerToOpen() {
     genericSteps.waitForDrawerToOpen();

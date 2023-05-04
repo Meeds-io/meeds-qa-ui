@@ -1,12 +1,11 @@
 @achievements
 Feature: Achievements
 
-  # Bug detected and qualified as non-bloquer
-  @ignored
   Scenario: Achievements for Send/Cancel Kudos from the activity author
     Given I am authenticated as admin
     And I create the random space if not existing
     And I go to 'Contributions' application
+
     When I select engagement Programs tab
     And I click on the button add program
     And I enter the program title 'Achievements program'
@@ -14,22 +13,35 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
     And I open 'Achievements program' program card
+
     And I click on 'Add Action' button
+    And I wait for drawer to open
     And I enter the rule title 'Send kudos'
-    And I add an event 'Send kudos'
     And I add rule random description
-    And I click on 'Declarative' button in drawer
+    And I click on 'Automatic' button in drawer
+
+    Then The button 'Next' is disabled in drawer
+
+    When I add an event 'Send kudos'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
-    And I click on the buttoI cliI click on 'Add Action' buttone 'Receive kudos'
+    Then Confirmation message is displayed 'Action has been successfully created'
+    And The action 'Send kudos' is displayed in program detail
+
+    And I click on 'Add Action' button
+    And I wait for drawer to open
+    And I enter the rule title 'Receive kudos'
+    And I add rule random description
+    And I click on 'Automatic' button in drawer
     And I add an event 'Receive kudos'
-    And I add rule random description
-    And I click on 'Declarative' button in drawer
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
-    And I create the fisrtachievement random user if not existing, no wait
+    Then Confirmation message is displayed 'Action has been successfully created'
+    And The action 'Receive kudos' is displayed in program detail
+
+    When I create the fisrtachievement random user if not existing, no wait
     And I create the secondachievement random user if not existing, no wait
     When I connect with the secondachievement created user
     And I go to the random space
@@ -50,10 +62,8 @@ Feature: Achievements
 
     And I go to 'Contributions' application
     When I select engagement Achievements tab
-    Then Achievement for 'Send kudos' is canceled
+    Then Achievement for 'Send kudos' is rejected
 
-  # Bug detected and qualified as non-bloquer
-  @ignored
   Scenario: Achievements for Send/Cancel Kudos from user profile
     Given I am authenticated as admin
     And I create the random space if not existing
@@ -65,19 +75,30 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
     And I open 'Achievements program' program card
-    And I click on the buttoI click onI click on 'Add Action' buttonnd kudos'
-    And I add an event 'Send kudos'
+
+    And I click on 'Add Action' button
+    And I wait for drawer to open
+    And I enter the rule title 'Send kudos'
     And I add rule random description
-    And I click on 'Declarative' button in drawer
+    And I click on 'Automatic' button in drawer
+    And I add an event 'Send kudos'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
-    And I click on the buttoI click on 'AddI click on 'Add Action' button kudos'
-    And I add an event 'Receive kudos'
+    Then Confirmation message is displayed 'Action has been successfully created'
+    And The action 'Send kudos' is displayed in program detail
+
+    When I click on 'Add Action' button
+    And I wait for drawer to open
+    And I enter the rule title 'Receive kudos'
     And I add rule random description
-    And I click on 'Declarative' button in drawer
+    And I click on 'Automatic' button in drawer
+    And I add an event 'Receive kudos'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
+
+    Then Confirmation message is displayed 'Action has been successfully created'
+    And The action 'Receive kudos' is displayed in program detail
 
     And I create the thirdachievement random user if not existing, no wait
     And I create the fourachievement random user if not existing
@@ -96,8 +117,4 @@ Feature: Achievements
 
     And I go to 'Contributions' application
     When I select engagement Achievements tab
-    Then Achievement for 'Send kudos' is canceled
-
-
-
-    
+    Then Achievement for 'Send kudos' is rejected

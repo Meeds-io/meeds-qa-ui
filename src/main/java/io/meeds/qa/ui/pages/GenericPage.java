@@ -60,6 +60,14 @@ public class GenericPage extends BasePageImpl {
     getDrawerButton(buttonText).click();
   }
 
+  public void buttonIsDisabled(String buttonText) {
+    getButton(buttonText).assertDisabled();
+  }
+
+  public void buttonInDrawerIsDisabled(String buttonText) {
+    getDrawerButton(buttonText).assertDisabled();
+  }
+
   public void closeBrowserTab(int index) {
     switchToTabByIndex(getDriver(), index);
     getDriver().close();
