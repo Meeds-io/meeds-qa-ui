@@ -93,6 +93,16 @@ public class GenericStepDefinitions {
     genericSteps.clickDrawerButton(buttonText);
   }
 
+  @Then("^The button '(.*)' is disabled$")
+  public void buttonIsDisabled(String buttonText) {
+    genericSteps.buttonIsDisabled(buttonText);
+  }
+
+  @Then("^The button '(.*)' is disabled in drawer$")
+  public void buttonInDrawerIsDisabled(String buttonText) {
+    genericSteps.buttonInDrawerIsDisabled(buttonText);
+  }
+
   @When("I wait for drawer to open")
   public void waitForDrawerToOpen() {
     genericSteps.waitForDrawerToOpen();
@@ -122,4 +132,20 @@ public class GenericStepDefinitions {
   public void waitInMilliseconds(int milliseconds) {
     genericSteps.waitInMilliseconds(milliseconds);
   }
+
+  @Then("^The switch button '(.*)' is not displayed$")
+  public void checkSwitchButtonNotDisplayed(String buttonName) {
+    genericSteps.checkSwitchButtonNotDisplayed(buttonName);
+  }
+
+  @Then("^The switch button '(.*)' is displayed$")
+  public void checkSwitchButtonDisplayed(String buttonName) {
+    genericSteps.checkSwitchButtonDisplayed(buttonName);
+  }
+
+  @Then("^I enable the switch button '(.*)'$")
+  public void enableSwitchButtonDisplayed(String buttonName) {
+    genericSteps.enableSwitchButtonDisplayed(buttonName);
+  }
+
 }

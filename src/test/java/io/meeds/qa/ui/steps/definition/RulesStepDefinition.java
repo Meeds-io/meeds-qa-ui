@@ -81,8 +81,8 @@ public class RulesStepDefinition {
     rulesSteps.clearRulesSearchFilter();
   }
 
-  @Then("^The Rule (.*) is displayed$")
-  public void ruleDisplayed(String ruleTitle) {
-    rulesSteps.isRuleDisplayed(ruleTitle);
+  @Then("^The action '(.*)' is displayed in program detail$")
+  public void isRuleDisplayedInProgramDetail(String actionTitle) {
+    rulesSteps.isRuleDisplayedInProgramDetail(actionTitle);
   }
 }

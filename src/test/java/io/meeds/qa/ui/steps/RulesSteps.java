@@ -56,8 +56,8 @@ public class RulesSteps {
     rulePage.clearRulesSearchFilter();
   }
 
-  public void isRuleDisplayed(String ruleTitle) {
-    rulePage.isRuleDisplayed(ruleTitle);
+  public void isRuleDisplayedInProgramDetail(String ruleTitle) {
+    rulePage.isRuleDisplayedInProgramDetail(ruleTitle);
   }
 
   public void createAction(String title, boolean declarative, Map<String, String> details) {

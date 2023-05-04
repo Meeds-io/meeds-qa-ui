@@ -175,6 +175,19 @@ public class ProgramsPage extends GenericPage {
     topProgramsElement(programName).assertNotVisible();
   }
 
+  public void addProgramOwner(String fullName) {
+    addProgramOwnerButton().click();
+    mentionInField(programOwnerSuggester(), fullName, 3);
+  }
+
+  private TextBoxElementFacade programOwnerSuggester() {
+    return findTextBoxByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'assignChallengeMenu')]//*[contains(@class, 'identitySuggesterInputStyle')]//input[@type = 'text']");
+  }
+
+  private ElementFacade addProgramOwnerButton() {
+    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(text(), 'Add Owners')]");
+  }
+
   private ElementFacade topProgramsElement(String programName, int listPosition) {
     return findByXPathOrCSS(String.format("(//*[@id='programsOverview']//a[contains(@href, 'programs/')])[%s]//*[contains(text(), '%s')]", listPosition, programName));
   }
