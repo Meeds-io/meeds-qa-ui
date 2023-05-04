@@ -17,11 +17,14 @@
  */
 package io.meeds.qa.ui.pages;
 
+import static io.meeds.qa.ui.utils.Utils.*;
+import static org.junit.Assert.assertEquals;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.ElementFacade;
-
-import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
+import io.meeds.qa.ui.elements.TextBoxElementFacade;
 
 public class AchievementsPage extends GenericPage {
 
@@ -29,11 +32,18 @@ public class AchievementsPage extends GenericPage {
     super(driver);
   }
 
+  public void filterAchievementByProgram(String programTitle) {
+    achievementsFilterButton().click();
+    waitForDrawerToOpen();
+    mentionInField(achievementsFilterProgramSuggester(), programTitle, 3);
+    getDrawerButton("Confirm").click();
+    waitForLoading();
+  }
+
   public void checkThatAchievementIsAccepted(String actionTitle) {
     waitForPageLoading();
     ElementFacade acceptedAchievementElement = acceptedAchievementElement(actionTitle);
     acceptedAchievementElement.assertVisible();
-
   }
 
   public void checkThatAchievementIsRejected(String actionTitle) {
@@ -63,9 +73,25 @@ public class AchievementsPage extends GenericPage {
     tooltipDeletedActivity.assertVisible();
   }
 
+  public void checkThatAchievementIsDisplayed(String actionTitle, long times) {
+    int found = findAll(By.xpath(String.format("//*[contains(@id, 'GamificationRealizationItem')]//*[contains(text(), '%s')]",
+                                               actionTitle))).size();
+    assertEquals("Achievements count doesn't match",
+                 times,
+                 found);
+  }
+
   private ElementFacade rejectedAchievementElement(String actionTitle) {
     return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@id, 'GamificationRealizationItem')]//*[contains(@class, 'fa-times-circle')]",
                                           actionTitle));
+  }
+
+  private ElementFacade achievementsFilterButton() {
+    return findByXPathOrCSS("//*[@id = 'Realizations']//*[contains(text(), 'Filter')]//ancestor-or-self::button");
+  }
+
+  private TextBoxElementFacade achievementsFilterProgramSuggester() {
+    return findTextBoxByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(text(), 'Program')]/parent::*//*[contains(@class, 'identitySuggesterInputStyle')]//input[@type = 'text']");
   }
 
   private ElementFacade acceptedAchievementElement(String actionTitle) {
@@ -84,4 +110,5 @@ public class AchievementsPage extends GenericPage {
   private ElementFacade tooltipDeletedActivity() {
     return findByXPathOrCSS("//span[contains(text(), 'Rejected due to activity')]//ancestor::*[contains(@class, 'v-tooltip__content')]");
   }
+
 }

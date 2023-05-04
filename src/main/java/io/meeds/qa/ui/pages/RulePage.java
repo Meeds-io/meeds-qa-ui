@@ -133,7 +133,7 @@ public class RulePage extends GenericPage {
       TextBoxElementFacade searchRulesFieldElement = searchRulesFieldElement();
       searchRulesFieldElement.setTextValue(ruleTitle);
       waitForProgressBar();
-    } while (++retry < tentatives && !getRuleElement(ruleTitle).isCurrentlyVisible());
+    } while (++retry < tentatives && !actionInProgramDetailElement(ruleTitle).isCurrentlyVisible());
   }
 
   public void ruleNotfoundTryAgain() {
@@ -144,8 +144,8 @@ public class RulePage extends GenericPage {
     clearSearchBtnElement().click();
   }
 
-  public void isRuleDisplayed(String ruleTitle) {
-    getRuleElement(ruleTitle).isVisible();
+  public void isRuleDisplayedInProgramDetail(String actionTitle) {
+    actionInProgramDetailElement(actionTitle).assertVisible();
   }
 
   private ElementFacade durationChip() {
@@ -209,15 +209,11 @@ public class RulePage extends GenericPage {
     return findTextBoxByXPathOrCSS("//*[@id='ruleTitle']");
   }
 
-  private ElementFacade saveRuleButton() {
-    return findByXPathOrCSS(".v-navigation-drawer--open .drawerFooter button.btn-primary");
-  }
-
   private TextBoxElementFacade searchRulesFieldElement() {
     return findTextBoxByXPathOrCSS("//input[@placeholder='Filter by action']");
   }
 
-  public ElementFacade getRuleElement(String ruleTitle) {
+  public ElementFacade actionInProgramDetailElement(String ruleTitle) {
     return findByXPathOrCSS(String.format("//*[@class='v-data-table__wrapper']//*[@class='text-truncate' and contains(@title,'%s')][1]",
             ruleTitle));
   }

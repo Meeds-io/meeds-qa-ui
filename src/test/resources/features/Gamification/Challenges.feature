@@ -15,14 +15,22 @@ Feature: Challenges
     And I open random program card
     And I click on 'Add Action' button
     And I wait for drawer to open
-    And I enter the rule title 'Challenge to announce'
+
+    Then The button 'Next' is disabled in drawer
+
+    When I enter the rule title 'Challenge to announce'
+    Then The button 'Next' is disabled in drawer
+
     And I add rule random description
-    And I click on 'Declarative' button in drawer
+    Then The button 'Next' is disabled in drawer
+
+    When I click on 'Declarative' button in drawer
     And I click on 'Next' button in drawer
     And I set rule end date
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
+    And The action 'Challenge to announce' is displayed in program detail
 
     When I connect with the first created user
     And I go to the random space
@@ -56,6 +64,7 @@ Feature: Challenges
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
+    And The action 'Challenge To Cancel' is displayed in program detail
 
     When I connect with the first created user
     And I go to the random space
@@ -92,6 +101,7 @@ Feature: Challenges
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
+    And The action 'Announce activity to delete' is displayed in program detail
 
     When I connect with the first created user
     And I go to the random space
@@ -129,6 +139,7 @@ Feature: Challenges
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
+    And The action 'Top challenge' is displayed in program detail
 
     When I connect with the first created user
     And I go to the random space

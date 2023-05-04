@@ -141,6 +141,22 @@ public class BasePageImpl extends PageObject implements BasePage {
     }
   }
 
+  public void clickButton(String buttonText) {
+    getButton(buttonText).click();
+  }
+
+  public void clickDrawerButton(String buttonText) {
+    getDrawerButton(buttonText).click();
+  }
+
+  public void buttonIsDisabled(String buttonText) {
+    getButton(buttonText).assertDisabled();
+  }
+
+  public void buttonInDrawerIsDisabled(String buttonText) {
+    getDrawerButton(buttonText).assertDisabled();
+  }
+
   public ButtonElementFacade findButtonByXPathOrCSS(String xpath) {
     WebElementFacade nestedElement = getWebElementFacadeByXPathOrCSS(xpath);
     return ButtonElementFacadeImpl.wrapWebElementFacadeInButtonElement(getDriver(),
@@ -370,6 +386,14 @@ public class BasePageImpl extends PageObject implements BasePage {
     } catch (Exception e) {
       LOGGER.warn("Can't wait for progress bar to finish loading", e);
     }
+  }
+
+  public ElementFacade getButton(String buttonName) {
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor-or-self::button", buttonName));
+  }
+
+  public ElementFacade getDrawerButton(String buttonName) {
+    return findByXPathOrCSS(String.format("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(),'%s')]//ancestor-or-self::button", buttonName));
   }
 
   /**********************************************************
