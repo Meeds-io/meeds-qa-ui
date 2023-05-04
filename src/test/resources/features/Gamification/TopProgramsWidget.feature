@@ -19,15 +19,16 @@ Feature: Programs should be displayed in Top Programs in sorted way
     And I create the 'thirtythree' random program with
       | audience | thirtythree |
 
-    When I select engagement Challenges tab
-    And I create the 'thirtyone' random challenge with
-      | program | thirtyone |
+    And I open 'thirtyone' random program card
+    And I create the 'thirtyone' random manual action with
       | points | 9997 |
-    And I create the 'thirtytwo' random challenge with
-      | program | thirtytwo |
+    And I close program card
+    And I open 'thirtytwo' random program card
+    And I create the 'thirtytwo' random manual action with
       | points | 9998 |
-    And I create the 'thirtythree' random challenge with
-      | program | thirtythree |
+    And I close program card
+    And I open 'thirtythree' random program card
+    And I create the 'thirtythree' random manual action with
       | points | 9999 |
 
     When I connect with the thirtyone created user
@@ -47,6 +48,7 @@ Feature: Programs should be displayed in Top Programs in sorted way
     And I select engagement Challenges tab
     And I update the 'thirtyone' random challenge with
       | points | 9999 |
+    And I search the 'thirtyone' random challenge
     Then The 'thirtyone' challenge is displayed with '9999' points
 
     When I connect with the thirtyone created user

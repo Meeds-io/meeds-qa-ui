@@ -34,8 +34,20 @@ public class GenericSteps {
     genericPage.clickConfirm();
   }
 
-  public void clickOkButton() {
-    genericPage.clickOkButton();
+  public void clickButton(String buttonText) {
+    genericPage.clickButton(buttonText);
+  }
+
+  public void clickDrawerButton(String buttonText) {
+    genericPage.clickDrawerButton(buttonText);
+  }
+
+  public void waitForDrawerToOpen() {
+    genericPage.waitForDrawerToOpen();
+  }
+
+  public void waitForDrawerToClose() {
+    genericPage.waitForDrawerToClose();
   }
 
   public void closeAllDialogs() {

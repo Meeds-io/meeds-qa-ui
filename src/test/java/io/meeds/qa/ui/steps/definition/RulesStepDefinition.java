@@ -26,6 +26,8 @@ import net.thucydides.core.annotations.Steps;
 
 import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
 
+import java.util.Map;
+
 public class RulesStepDefinition {
   @Steps
   private RulesSteps rulesSteps;
@@ -36,20 +38,32 @@ public class RulesStepDefinition {
   }
 
   @And("^I add an event '(.*)'")
-  public void addAudienceSpace(String eventName) {
+  public void addRuleEvent(String eventName) {
     rulesSteps.addRuleEvent(eventName);
   }
 
-  @And("I click on the button to add a rule")
-  public void clickAddRuleButton() {
-    rulesSteps.clickAddRuleButton();
+  @And("I set rule end date")
+  public void setActionEndDate() {
+    rulesSteps.setActionEndDate();
   }
 
-  @And("^I add rule random description$")
+  @And("I click on the button to add a rule")
+  public void clickAddActionButton() {
+    rulesSteps.clickAddActionButton();
+  }
+
+  @And("I add rule random description")
   public void addRuleRandomDescription() {
     String ruleDescription = "ruleDescription" + getRandomNumber();
     Serenity.setSessionVariable("ruleDescription").to(ruleDescription);
     rulesSteps.addRuleRandomDescription(ruleDescription);
+  }
+
+  @And("^I create the '(.*)' random manual action with$")
+  public void createRandomManualRule(String suffix, Map<String, String> details) {
+    String title = "challengeName" + getRandomNumber();
+    rulesSteps.createAction(title, true, details);
+    Serenity.setSessionVariable("challengeName" + suffix).to(title);
   }
 
   @When("^I search for the (.*) rule in program detail rule filter$")

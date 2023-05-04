@@ -1,23 +1,30 @@
 @gamification
+@challenge
 Feature: Challenges
 
   Scenario: Announce a challenge
     Given I am authenticated as admin
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the random space if not existing
     And I go to 'Contributions' application
     And I click on the button add program
     And I enter a random program title
     And I add program with random description
     And I add an audience space
-    When I select engagement Challenges tab
-    And I click on the button add challenge
-    And I enter the challenge title 'Challenge to announce'
-    And I enter random program to challenge
-    And I enter a started challenge
-    And I add challenge random description
+    And I save the program details
+    And I open random program card
+    And I click on 'Add Action' button
+    And I wait for drawer to open
+    And I enter the rule title 'Challenge to announce'
+    And I add rule random description
+    And I click on 'Declarative' button in drawer
+    And I click on 'Next' button in drawer
+    And I set rule end date
+    And I click on 'Add' button in drawer
 
-    And I connect with the first created user
+    Then Confirmation message is displayed 'Action has been successfully created'
+
+    When I connect with the first created user
     And I go to the random space
 
     And I go to 'Contributions' application
@@ -30,21 +37,27 @@ Feature: Challenges
 
   Scenario: Cancel a challenge
     Given I am authenticated as admin
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the random space if not existing
     And I go to 'Contributions' application
     And I click on the button add program
     And I enter a random program title
     And I add program with random description
     And I add an audience space
-    When I select engagement Challenges tab
-    And I click on the button add challenge
-    And I enter the challenge title 'Challenge To Cancel'
-    And I enter random program to challenge
-    And I enter a started challenge
-    And I add challenge random description
+    And I save the program details
+    And I open random program card
+    And I click on 'Add Action' button
+    And I wait for drawer to open
+    And I enter the rule title 'Challenge To Cancel'
+    And I add rule random description
+    And I click on 'Declarative' button in drawer
+    And I click on 'Next' button in drawer
+    And I set rule end date
+    And I click on 'Add' button in drawer
 
-    And I connect with the first created user
+    Then Confirmation message is displayed 'Action has been successfully created'
+
+    When I connect with the first created user
     And I go to the random space
 
     And I go to 'Contributions' application
@@ -60,21 +73,27 @@ Feature: Challenges
 
   Scenario: Delete announce Activity
     Given I am authenticated as admin
-    And I create the first random user if not existing
+    And I create the first random user if not existing, no wait
     And I create the random space if not existing
     And I go to 'Contributions' application
     And I click on the button add program
     And I enter a random program title
     And I add program with random description
     And I add an audience space
-    When I select engagement Challenges tab
-    And I click on the button add challenge
-    And I enter the challenge title 'Announce activity to delete'
-    And I enter random program to challenge
-    And I enter a started challenge
-    And I add challenge random description
+    And I save the program details
+    And I open random program card
+    And I click on 'Add Action' button
+    And I wait for drawer to open
+    And I enter the rule title 'Announce activity to delete'
+    And I add rule random description
+    And I click on 'Declarative' button in drawer
+    And I click on 'Next' button in drawer
+    And I set rule end date
+    And I click on 'Add' button in drawer
 
-    And I connect with the first created user
+    Then Confirmation message is displayed 'Action has been successfully created'
+
+    When I connect with the first created user
     And I go to the random space
 
     And I go to 'Contributions' application
@@ -91,21 +110,27 @@ Feature: Challenges
 
   Scenario: Overview top challenge
     Given I am authenticated as admin
-    And I create the first random user if not existing
+    When I create the first random user if not existing, no wait
     And I create the random space if not existing
     And I go to 'Contributions' application
     And I click on the button add program
     And I enter a random program title
     And I add program with random description
     And I add an audience space
-    When I select engagement Challenges tab
-    And I click on the button add challenge
-    And I enter the challenge title 'Top challenge'
-    And I enter random program to challenge
-    And I enter a started challenge
-    And I add challenge random description
+    And I save the program details
+    And I open random program card
+    And I click on 'Add Action' button
+    And I wait for drawer to open
+    And I enter the rule title 'Top challenge'
+    And I add rule random description
+    And I click on 'Declarative' button in drawer
+    And I click on 'Next' button in drawer
+    And I set rule end date
+    And I click on 'Add' button in drawer
 
-    And I connect with the first created user
+    Then Confirmation message is displayed 'Action has been successfully created'
+
+    When I connect with the first created user
     And I go to the random space
 
     And I go to 'Contributions' application
