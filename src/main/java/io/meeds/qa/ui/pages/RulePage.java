@@ -18,6 +18,9 @@
 package io.meeds.qa.ui.pages;
 
 import io.meeds.qa.ui.elements.ButtonElementFacade;
+
+import static io.meeds.qa.ui.utils.Utils.waitForLoading;
+
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.ElementFacade;
@@ -29,47 +32,95 @@ public class RulePage extends GenericPage {
     super(driver);
   }
 
-  public void enterRuleTitle(String ruleTitle) {
-    ruleTitleFieldElement().setTextValue(ruleTitle);
+  public void clickAddActionButton() {
+    addActionButton().click();
   }
 
-  public void clickAddRuleButton() {
-    addRuleButton().click();
+  public void saveAction(String title,
+                         String description,
+                         String points,
+                         boolean declarative,
+                         boolean changeDates,
+                         boolean newRule) {
+    setActionTitle(title);
+    setActionDescription(description);
+    setActionPoints(points);
+
+    if (newRule) {
+      if (declarative) {
+        declarativeChoiceButton().click();
+      } else {
+        automaticChoiceButton().click();
+      }
+    }
+
+    clickOnNextButton();
+
+    if (changeDates) {
+      selectDurationChoice();
+      setActionEndDate();
+    }
+
+    clickOnSaveButton(newRule);
+    waitForDrawerToClose();
+    waitForLoading();
   }
 
-  public void addRuleEvent(String eventName) {
-    findByXPathOrCSS("#EventSelectAutoComplete").click();
-    do {
-      findTextBoxByXPathOrCSS("(//*[contains(@class,'v-menu__content theme--light v-menu__content--fixed')])").scrollDown();
-    } while (!isEventDisplayed(eventName));
-    ruleEventsMenuItem(eventName).click();
+  public void selectDurationChoice() {
+    durationChip().click();
   }
 
-  private ElementFacade addRuleButton() {
-    return findByXPathOrCSS("//*[contains(text(), 'Add Action')]//ancestor::*[contains(@class, 'btn-primary')]");
+  public void setActionTitle(String title) {
+    ruleTitleFieldElement().setTextValue(title);
   }
 
-  private ButtonElementFacade ruleEventsMenuItem(String eventName) {
-    return findButtonByXPathOrCSS(String.format("//*[contains(@class, 'menuable__content__active')]//*[contains(text(), '%s')]/parent::*",
-                                                eventName));
-  }
-
-  public boolean isEventDisplayed(String eventName) {
-    return ruleEventsMenuItem(eventName).isVisible();
-  }
-
-  public void addRuleRandomDescription(String ruleDescription) {
+  public void setActionDescription(String description) {
     ElementFacade ckEditorFrameRuleElement = ckEditorFrameRuleElement();
     ckEditorFrameRuleElement.waitUntilVisible();
     getDriver().switchTo().frame(ckEditorFrameRuleElement);
     try {
       TextBoxElementFacade ruleDescriptionFieldElement = ruleDescriptionFieldElement();
       ruleDescriptionFieldElement.waitUntilVisible();
-      ruleDescriptionFieldElement.setTextValue(ruleDescription);
+      ruleDescriptionFieldElement.setTextValue(description);
     } finally {
       getDriver().switchTo().defaultContent();
     }
-    saveRuleButton().click();
+  }
+
+  public void setActionPoints(String challengePoints) {
+    actionPointsTextbox().setTextValue(challengePoints);
+  }
+
+  public void setActionEvent(String eventName) {
+    eventSelectAutoComplete().click();
+    do {
+      findTextBoxByXPathOrCSS("(//*[contains(@class,'v-menu__content theme--light v-menu__content--fixed')])").scrollDown();
+    } while (!isEventDisplayed(eventName));
+    ruleEventsMenuItem(eventName).click();
+  }
+
+  public void setActionEndDate() {
+    actionEndDateElement().click();
+    waitForMenuToOpen();
+    randomDateCalenderElement().waitUntilVisible();
+    randomDateCalenderElement().click();
+    waitForMenuToClose();
+  }
+
+  public void clickOnNextButton() {
+    nextStepButton().click();
+  }
+
+  public void clickOnSaveButton(boolean newRule) {
+    if (newRule) {
+      addButton().click();
+    } else {
+      updateButton().click();
+    }
+  }
+
+  public boolean isEventDisplayed(String eventName) {
+    return ruleEventsMenuItem(eventName).isVisible();
   }
 
   public void searchRuleInProgramRuleFilter(String ruleTitle) {
@@ -97,8 +148,57 @@ public class RulePage extends GenericPage {
     getRuleElement(ruleTitle).isVisible();
   }
 
+  private ElementFacade durationChip() {
+    return findByXPathOrCSS("//*[contains(text(),'Duration')]//ancestor-or-self::*[contains(@class, 'v-chip')]");
+  }
+
+  private ElementFacade declarativeChoiceButton() {
+    return findByXPathOrCSS("//*[contains(text(),'Declarative')]//ancestor-or-self::button");
+  }
+
+  private ElementFacade automaticChoiceButton() {
+    return findByXPathOrCSS("//*[contains(text(),'Automatic')]//ancestor-or-self::button");
+  }
+
+  private ElementFacade nextStepButton() {
+    return findByXPathOrCSS("//*[contains(text(),'Next')]//ancestor-or-self::button");
+  }
+
+  private ElementFacade addButton() {
+    return findByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(),'Add')]//ancestor-or-self::button");
+  }
+
+  private ElementFacade updateButton() {
+    return findByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(),'Update')]//ancestor-or-self::button");
+  }
+
+  private ElementFacade addActionButton() {
+    return findByXPathOrCSS("//*[@id = 'engagementCenterProgramDetail']//*[contains(text(), 'Add Action')]//ancestor::button");
+  }
+
+  private ButtonElementFacade ruleEventsMenuItem(String eventName) {
+    return findButtonByXPathOrCSS(String.format("//*[contains(@class, 'menuable__content__active')]//*[contains(text(), '%s')]/parent::*",
+                                                eventName));
+  }
+
+  private ElementFacade eventSelectAutoComplete() {
+    return findByXPathOrCSS("#EventSelectAutoComplete");
+  }
+
+  private TextBoxElementFacade actionPointsTextbox() {
+    return findTextBoxByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(),'Points')]/parent::*//input[@type = 'number']");
+  }
+
   private ElementFacade ckEditorFrameRuleElement() {
     return findByXPathOrCSS(".v-navigation-drawer--open iframe.cke_wysiwyg_frame");
+  }
+
+  private TextBoxElementFacade actionEndDateElement() {
+    return findTextBoxByXPathOrCSS("//*[contains(@class,'challengeDates')]//*[contains(@class, 'datePickerText')]");
+  }
+
+  private TextBoxElementFacade randomDateCalenderElement() {
+    return findTextBoxByXPathOrCSS("//*[contains(@class,'menuable__content__active')]//*[contains(@class,'v-date-picker-table')]//button[not(@disabled)]");
   }
 
   private TextBoxElementFacade ruleDescriptionFieldElement() {

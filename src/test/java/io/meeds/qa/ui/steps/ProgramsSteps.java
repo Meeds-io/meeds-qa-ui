@@ -39,7 +39,10 @@ public class ProgramsSteps {
 
   public void addSpaceAudience(String randomSpaceName) {
     programsPage.addSpaceAudience(randomSpaceName);
-    programsPage.clickCreateProgramButton();
+  }
+
+  public void clickSaveProgramButton() {
+    programsPage.clickSaveProgramButton();
   }
 
   public void checkProgramCardDisplay(String programName) {
@@ -92,6 +95,10 @@ public class ProgramsSteps {
 
   public void openProgramCard(String value) {
     programsPage.openProgramCard(value);
+  }
+
+  public void closeProgramCard() {
+    programsPage.closeProgramCard();
   }
 
   public void announceChallenge(String challengeTitle, String announcementMessage) {
