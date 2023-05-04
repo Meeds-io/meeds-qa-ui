@@ -10,16 +10,22 @@ Feature: Achievements
     And I enter the program title 'Achievements program'
     And I add program with random description
     And I add an audience space
+    And I save the program details
     And I open 'Achievements program' program card
-    And I click on the button to add a rule
+    And I click on 'Add Action' button
     And I enter the rule title 'Send kudos'
     And I add an event 'Send kudos'
     And I add rule random description
+    And I click on 'Declarative' button in drawer
+    And I click on 'Next' button in drawer
+    And I click on 'Add' button in drawer
 
-    And I click on the button to add a rule
-    And I enter the rule title 'Receive kudos'
+    And I click on the buttoI cliI click on 'Add Action' buttone 'Receive kudos'
     And I add an event 'Receive kudos'
     And I add rule random description
+    And I click on 'Declarative' button in drawer
+    And I click on 'Next' button in drawer
+    And I click on 'Add' button in drawer
 
     And I create the fisrtachievement random user if not existing, no wait
     And I create the secondachievement random user if not existing, no wait
@@ -53,16 +59,21 @@ Feature: Achievements
     And I enter the program title 'Achievements program'
     And I add program with random description
     And I add an audience space
+    And I save the program details
     And I open 'Achievements program' program card
-    And I click on the button to add a rule
-    And I enter the rule title 'Send kudos'
+    And I click on the buttoI click onI click on 'Add Action' buttonnd kudos'
     And I add an event 'Send kudos'
     And I add rule random description
+    And I click on 'Declarative' button in drawer
+    And I click on 'Next' button in drawer
+    And I click on 'Add' button in drawer
 
-    And I click on the button to add a rule
-    And I enter the rule title 'Receive kudos'
+    And I click on the buttoI click on 'AddI click on 'Add Action' button kudos'
     And I add an event 'Receive kudos'
     And I add rule random description
+    And I click on 'Declarative' button in drawer
+    And I click on 'Next' button in drawer
+    And I click on 'Add' button in drawer
 
     And I create the thirdachievement random user if not existing, no wait
     And I create the fourachievement random user if not existing

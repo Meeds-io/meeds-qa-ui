@@ -12,6 +12,7 @@ Feature: Programs
     And I enter a random program title
     And I add program with random description
     And I add an audience space
+    And I save the program details
     Then Confirmation message is displayed 'New program created successfully'
     And The program title should be displayed on the card
     And I filter programs by value 'ENABLED'
@@ -28,6 +29,7 @@ Feature: Programs
     And I enter a random program title
     And I add a disabled program with random description
     And I add an audience space
+    And I save the program details
     Then Confirmation message is displayed 'New program created successfully'
     And The program card should not be displayed
     And I filter programs by value 'DISABLED'
@@ -44,6 +46,7 @@ Feature: Programs
     And I enter a random program title
     And I add program with random description
     And I add an audience space
+    And I save the program details
     Then Confirmation message is displayed 'New program created successfully'
     And The program title should be displayed on the card
     And I edit the created program
@@ -61,6 +64,7 @@ Feature: Programs
     And I enter a random program title
     And I add program with random description
     And I add an audience space
+    And I save the program details
     Then Confirmation message is displayed 'New program created successfully'
     And The program title should be displayed on the card
     And I delete the created program
@@ -78,6 +82,7 @@ Feature: Programs
     And I enter the program title 'Enabled program'
     And I add program with random description
     And I add an audience space
+    And I save the program details
     Then Confirmation message is displayed 'New program created successfully'
     And The program card title 'Enabled program' should be displayed
     And I click on the button add program
@@ -85,6 +90,7 @@ Feature: Programs
     And I enter the program title 'Disabled program'
     And I add a disabled program with random description
     And I add an audience space
+    And I save the program details
     Then Confirmation message is displayed 'New program created successfully'
     And I filter programs by value 'ALL'
     Then The program card title 'Disabled program' should be displayed
