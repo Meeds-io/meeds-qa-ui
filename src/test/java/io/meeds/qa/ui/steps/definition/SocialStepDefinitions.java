@@ -67,6 +67,15 @@ public class SocialStepDefinitions {
     socialSteps.goToPeopleMenu();
   }
 
+  @And("^I search for '(.*)' random user$")
+  public void searchRandomUser(String suffix) {
+    String firstName = Serenity.sessionVariableCalled(suffix + "UserFirstName");
+    String lastName = Serenity.sessionVariableCalled(suffix + "UserLastName");
+    String fullName = firstName + " " + lastName;
+
+    socialSteps.insertNameContact(fullName);
+  }
+
   @And("^I enter the contact name '(.*)'$")
   public void insertNameContact(String user) {
     socialSteps.insertNameContact(user);

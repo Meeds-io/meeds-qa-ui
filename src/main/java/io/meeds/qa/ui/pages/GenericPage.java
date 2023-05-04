@@ -52,14 +52,6 @@ public class GenericPage extends BasePageImpl {
     getButton("Confirm").click();
   }
 
-  public void clickButton(String buttonText) {
-    getButton(buttonText).click();
-  }
-
-  public void clickDrawerButton(String buttonText) {
-    getDrawerButton(buttonText).click();
-  }
-
   public void closeBrowserTab(int index) {
     switchToTabByIndex(getDriver(), index);
     getDriver().close();
@@ -84,12 +76,16 @@ public class GenericPage extends BasePageImpl {
     return findByXPathOrCSS("//div[contains(@class,'alert-success')]").isVisible();
   }
 
-  private ElementFacade getButton(String buttonName) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor-or-self::button", buttonName));
+  public void checkSwitchButtonNotDisplayed(String buttonName) {
+    findByXPathOrCSS(String.format("//*[contains(@class, 'v-input--switch')]/parent::*//*[contains(text(), '%s')]", buttonName)).assertNotVisible();
   }
 
-  private ElementFacade getDrawerButton(String buttonName) {
-    return findByXPathOrCSS(String.format("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(),'%s')]//ancestor-or-self::button", buttonName));
+  public void checkSwitchButtonDisplayed(String buttonName) {
+    findByXPathOrCSS(String.format("//*[contains(@class, 'v-input--switch')]/parent::*//*[contains(text(), '%s')]", buttonName)).assertVisible();
+  }
+
+  public void enableSwitchButtonDisplayed(String buttonName) {
+    findByXPathOrCSS(String.format("//*[contains(text(), '%s')]/parent::*//*[contains(@class, 'v-input--switch') and contains(@class, 'v-input--selection-controls')]", buttonName)).click();
   }
 
   private ElementFacade getConfirmMessage(String message) {

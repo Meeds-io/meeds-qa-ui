@@ -17,11 +17,13 @@
  */
 package io.meeds.qa.ui.steps.definition;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.meeds.qa.ui.steps.AchievementsSteps;
 import net.thucydides.core.annotations.Steps;
 
 public class AchievementsStepDefinition {
+
   @Steps
   private AchievementsSteps achievementsSteps;
 
@@ -44,4 +46,15 @@ public class AchievementsStepDefinition {
   public void checkThatAchievementIsDeleted(String actionTitle) {
     achievementsSteps.checkThatAchievementIsDeleted(actionTitle);
   }
+
+  @Then("^The achievement '(.*)' is displayed '(.*)' times$")
+  public void checkThatAchievementIsDisplayed(String actionTitle, String times) {
+    achievementsSteps.checkThatAchievementIsDisplayed(actionTitle, Long.parseLong(times));
+  }
+
+  @And("^I filter achievements using '(.*)' program$")
+  public void filterAchievementByProgram(String programTitle) {
+    achievementsSteps.filterAchievementByProgram(programTitle);
+  }
+
 }

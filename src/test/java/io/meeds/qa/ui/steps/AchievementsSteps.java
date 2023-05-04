@@ -38,4 +38,13 @@ public class AchievementsSteps {
   public void checkThatAchievementIsDeleted(String actionTitle) {
     achievementsPage.checkThatAchievementIsDeleted(actionTitle);
   }
+
+  public void filterAchievementByProgram(String programTitle) {
+    achievementsPage.filterAchievementByProgram(programTitle);
+  }
+
+  public void checkThatAchievementIsDisplayed(String actionTitle, long times) {
+    achievementsPage.checkThatAchievementIsDisplayed(actionTitle, times);
+  }
+
 }

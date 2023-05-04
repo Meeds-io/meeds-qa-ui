@@ -149,6 +149,15 @@ public class ProgramsStepDefinition {
     programsSteps.selectEngagementTab(tab);
   }
 
+  @When("^I set user '(.*)' as program owner$")
+  public void addProgramOwner(String suffix) {
+    String firstName = Serenity.sessionVariableCalled(suffix + "UserFirstName");
+    String lastName = Serenity.sessionVariableCalled(suffix + "UserLastName");
+    String fullName = firstName + " " + lastName;
+
+    programsSteps.addProgramOwner(fullName);
+  }
+
   @And("^I filter programs by value '(.*)'$")
   public void selectProgramsFilter(String value) {
     programsSteps.selectProgramsFilter(value);

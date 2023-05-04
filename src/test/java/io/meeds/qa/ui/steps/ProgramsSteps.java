@@ -128,4 +128,8 @@ public class ProgramsSteps {
     programsPage.checkProgramNotDisplayedInTopPrograms(programName);
   }
 
+  public void addProgramOwner(String fullName) {
+    programsPage.addProgramOwner(fullName);
+  }
+
 }
