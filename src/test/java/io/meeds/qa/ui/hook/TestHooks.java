@@ -300,6 +300,8 @@ public class TestHooks {
         "secondachievement",
         "thirdachievement",
         "fourachievement",
+        "fifthachievement",
+        "sixthachievement",
         "reddot",
         "homeicon",
     };

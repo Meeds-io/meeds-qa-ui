@@ -30,6 +30,18 @@ public class GenericSteps {
     genericPage.checkDrawerDisplayed(title);
   }
 
+  public void checkSwitchButtonNotDisplayed(String buttonName) {
+    genericPage.checkSwitchButtonNotDisplayed(buttonName);
+  }
+
+  public void checkSwitchButtonDisplayed(String buttonName) {
+    genericPage.checkSwitchButtonDisplayed(buttonName);
+  }
+
+  public void enableSwitchButtonDisplayed(String buttonName) {
+    genericPage.enableSwitchButtonDisplayed(buttonName);
+  }
+
   public void clickConfirm() {
     genericPage.clickConfirm();
   }
