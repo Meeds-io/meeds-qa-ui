@@ -49,7 +49,8 @@ public class GenericPage extends BasePageImpl {
   }
 
   public void clickConfirm() {
-    getButton("Confirm").click();
+    clickToConfirmDialog();
+    waitFor(200).milliseconds(); // Wait for animation until the home icon changes its location
   }
 
   public void closeBrowserTab(int index) {

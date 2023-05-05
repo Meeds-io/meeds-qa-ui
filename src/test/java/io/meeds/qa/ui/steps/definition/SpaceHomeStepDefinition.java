@@ -597,6 +597,7 @@ public class SpaceHomeStepDefinition {
   }
 
   @When("^I like the activity '(.*)'$")
+  @And("^I unlike the activity '(.*)'$")
   public void likeActivity(String activity) {
     spaceHomeSteps.likeActivity(activity);
   }

@@ -178,7 +178,6 @@ public class ManageSpacesPage extends GenericPage {
     spaceSearchDetailsLeaveButtonElement().assertVisible();
     spaceSearchDetailsSpaceName(spaceName).assertVisible();
     spaceSearchDetailsSpaceMembers(members).assertVisible();
-
   }
 
   public void checkThatSpaceDetailsInSearchResultsAreDisplayedByOtherUser(String spaceName, String members) {
@@ -329,6 +328,13 @@ public class ManageSpacesPage extends GenericPage {
     searchSpaceInputElement.waitUntilVisible();
     searchSpaceInputElement.setTextValue(spaceName);
     waitForProgressBar();
+  }
+
+  public void leaveSpace() {
+    spaceSearchDetailsLeaveButtonElement().click();
+    waitFor(200).milliseconds(); // Wait for animation until the home icon changes its location
+    clickToConfirmDialog();
+    waitFor(200).milliseconds(); // Wait for animation until the home icon changes its location
   }
 
   public void inviteUserToSpace(String user) {
