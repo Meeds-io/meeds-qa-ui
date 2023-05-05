@@ -464,10 +464,15 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.clickSpaceAction(action);
   }
 
-  @When("^I search for the random space$")
+  @When("I search for the random space")
   public void setInSearchRandomSpaceField() {
     String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
     manageSpaceSteps.searchSpace(randomSpaceName);
+  }
+
+  @When("I leave found space")
+  public void leaveSpace() {
+    manageSpaceSteps.leaveSpace();
   }
 
   @Given("^I click on Show more button$")
