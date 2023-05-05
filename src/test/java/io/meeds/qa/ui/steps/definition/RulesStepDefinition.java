@@ -47,6 +47,12 @@ public class RulesStepDefinition {
     rulesSteps.setActionEndDate();
   }
 
+  @When("I set rule as disabled")
+  @And("I set rule as enabled")
+  public void changeRuleEnablement() {
+    rulesSteps.changeRuleEnablement();
+  }
+
   @And("I click on the button to add a rule")
   public void clickAddActionButton() {
     rulesSteps.clickAddActionButton();
@@ -83,6 +89,16 @@ public class RulesStepDefinition {
 
   @Then("^The action '(.*)' is displayed in program detail$")
   public void isRuleDisplayedInProgramDetail(String actionTitle) {
-    rulesSteps.isRuleDisplayedInProgramDetail(actionTitle);
+    rulesSteps.isActionDisplayedInProgramDetail(actionTitle);
+  }
+
+  @Then("^The action '(.*)' is not displayed in program detail$")
+  public void isRuleNotDisplayedInProgramDetail(String actionTitle) {
+    rulesSteps.isActionNotDisplayedInProgramDetail(actionTitle);
+  }
+
+  @Then("^I open program action '(.*)'$")
+  public void openActionDrawer(String actionTitle) {
+    rulesSteps.openActionDrawer(actionTitle);
   }
 }
