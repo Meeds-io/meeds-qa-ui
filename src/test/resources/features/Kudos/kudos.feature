@@ -2,7 +2,7 @@
 Feature: Kudos
   As an administrator I can modify kudos parameters
 
-  Scenario: [EXISTANT-KUDOS 2] Sending and Receiving Kudos
+  Scenario: Sending and Receiving a kudos
     Given I connect as admin if random users doesn't exists
       | firstkudos  |
       | secondkudos  |
@@ -23,7 +23,7 @@ Feature: Kudos
     And I go to My Profile page
     Then '1' kudos are received
 
-  Scenario: [EXISTANT-KUDOS 5] check that user cannot send kudos to himself
+  Scenario: User cannot send a kudos to himself
     Given I connect as admin if random users doesn't exists
       | first  |
     And I create the first random user if not existing
@@ -36,7 +36,7 @@ Feature: Kudos
     Then the activity 'Kudos Post - EXISTANT-KUDOS 5' is displayed in activity stream
     And kudos icon of the activity 'Kudos Post - EXISTANT-KUDOS 5' is Disabled
 
-  Scenario: EXISTANT-KUDOS 7: Sending Kudos from user profile
+  Scenario: Sending a kudos from user profile
     Given I connect as admin if random users doesn't exists
       | thirdkudos  |
       | fourthkudos  |
@@ -51,7 +51,7 @@ Feature: Kudos
     And I go to My Profile page
     Then '1' kudos are received
 
-  Scenario: [ActivityStream_US51][01] Edit a kudos activity
+  Scenario: Edit a kudos activity
     Given I connect as admin if random users doesn't exists
       | first  |
       | second  |
@@ -69,7 +69,7 @@ Feature: Kudos
     And I set the new kudos 'updated Message for kudos - US51' and I click on update button
     Then the updated Kudos activity 'updated Message for kudos - US51' is displayed in stream page
 
-  Scenario: [ActivityStreamKudos_US11] Send a kudos to someone different from the activity author
+  Scenario: Send a kudos to someone different from the activity author
     Given I connect as admin if random users doesn't exists
       | fortyonekudos |
       | fortytwokudos |
@@ -96,7 +96,7 @@ Feature: Kudos
     And I go to My Profile page
     Then '1' kudos are received
 
-  Scenario: People suggestor in invitation when members can't be found
+  Scenario: People suggestor in invitation when members cannot be found
     Given I connect as admin if random users doesn't exists
       | fiftyonekudos |
       | fiftytwokudos |
@@ -116,12 +116,14 @@ Feature: Kudos
     When I go to the random space
     Then I send in the activity 'Hello Team - USX' a kudos message 'Kudos Message USX' to 'fiftythreekudos' user
 
+  @test
   Scenario: Cancel Kudos sending from the activity author
     Given I connect as admin if random users doesn't exists
       | cancelfirst  |
       | cancelsecond |
     And I create the cancelfirst random user if not existing, no wait
-    And I create the cancelsecond random user if not existing
+    And I create the cancelsecond random user if not existing, no wait
+
     When I connect with the cancelsecond created user
     And I go to the random space
     And I click on post in space
@@ -135,10 +137,13 @@ Feature: Kudos
     And I connect with admin
     When I go to the random space
     Then In activity 'Kudos Post activity - Kudos comment to cancel' the cancel option in kudos comment 'Kudos comment to cancel' is not displayed
+    Then In activity 'Kudos Post activity - Kudos comment to cancel' the delete option in kudos comment 'Kudos comment to cancel' is displayed
 
     When I connect with the cancelfirst created user
     And I go to the random space
-    And In activity 'Kudos Post activity - Kudos comment to cancel' I cancel the sent kudos comment 'Kudos comment to cancel'
+    Then In activity 'Kudos Post activity - Kudos comment to cancel' the delete option in kudos comment 'Kudos comment to cancel' is not displayed
+
+    When In activity 'Kudos Post activity - Kudos comment to cancel' I cancel the sent kudos comment 'Kudos comment to cancel'
     Then Comment 'Kudos comment to cancel' is not displayed in activity 'Kudos Post activity - Kudos comment to cancel'
     And I go to My Profile page
     Then '0' kudos are sent
