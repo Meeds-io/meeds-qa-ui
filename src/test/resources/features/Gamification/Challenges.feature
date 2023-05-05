@@ -2,6 +2,7 @@
 @challenge
 Feature: Challenges
 
+  @test
   Scenario: Announce a challenge
     Given I am authenticated as admin
     And I create the first random user if not existing, no wait
@@ -26,7 +27,10 @@ Feature: Challenges
 
     When I click on 'Declarative' button in drawer
     And I click on 'Next' button in drawer
-    And I set rule end date
+
+    Then The button 'Duration' is not displayed in drawer
+
+    When I set rule end date
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
@@ -42,6 +46,27 @@ Feature: Challenges
     When I go to 'Contributions' application
     And I select engagement Achievements tab
     Then Achievement for 'Challenge to announce' is accepted
+
+    When I select engagement Programs tab
+    And I open random program card
+
+    When I open program action 'Challenge to announce'
+    Then The program action contains duration limitation
+    And I close the opened drawer
+
+    When I change user admin
+
+    When I go to 'Contributions' application
+    And I select engagement Programs tab
+    And I open random program card
+    And I edit program action 'Challenge to announce'
+    And I click on 'Next' button in drawer
+    And I delete rule duration
+    And I click on 'Update' button in drawer
+
+    When I open program action 'Challenge to announce'
+    Then The program action does not contain duration limitation
+    And I close the opened drawer
 
   Scenario: Cannot Announce a disabled challenge
     Given I am authenticated as admin

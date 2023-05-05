@@ -47,6 +47,11 @@ public class RulesStepDefinition {
     rulesSteps.setActionEndDate();
   }
 
+  @And("I delete rule duration")
+  public void deleteActionDuration() {
+    rulesSteps.deleteActionDuration();
+  }
+
   @When("I set rule as disabled")
   @And("I set rule as enabled")
   public void changeRuleEnablement() {

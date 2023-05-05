@@ -109,6 +109,14 @@ public class ProgramsSteps {
     programsPage.checkCannotAnnounceAction();
   }
 
+  public void checkProgramActionNotContainsDurationLimitation() {
+    programsPage.checkProgramActionNotContainsDurationLimitation();
+  }
+
+  public void checkProgramActionContainsDurationLimitation() {
+    programsPage.checkProgramActionContainsDurationLimitation();
+  }
+
   public void closeProgramCard() {
     programsPage.closeProgramCard();
   }

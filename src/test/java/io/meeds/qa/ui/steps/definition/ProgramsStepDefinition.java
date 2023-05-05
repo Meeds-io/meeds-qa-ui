@@ -200,6 +200,16 @@ public class ProgramsStepDefinition {
     programsSteps.checkCannotAnnounceAction();
   }
 
+  @And("The program action does not contain duration limitation")
+  public void checkProgramActionNotContainsDurationLimitation() {
+    programsSteps.checkProgramActionNotContainsDurationLimitation();
+  }
+
+  @And("The program action contains duration limitation")
+  public void checkProgramActionContainsDurationLimitation() {
+    programsSteps.checkProgramActionContainsDurationLimitation();
+  }
+
   @And("^I announce challenge '(.*)'$")
   public void announceChallenge(String challengeTitle) {
     String announcementMessage = "announcementMessage" + getRandomNumber();

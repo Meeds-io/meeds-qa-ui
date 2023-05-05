@@ -147,6 +147,9 @@ Feature: Achievements
     And I click on 'Automatic' button in drawer
     And I add an event 'Join space'
     And I click on 'Next' button in drawer
+
+    Then The button 'Duration' is not displayed in drawer
+
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'

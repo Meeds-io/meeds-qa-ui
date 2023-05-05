@@ -84,6 +84,10 @@ public class RulesSteps {
     rulePage.setActionEndDate();
   }
 
+  public void deleteActionDuration() {
+    rulePage.deleteActionDuration();
+  }
+
   public void changeRuleEnablement() {
     rulePage.changeRuleEnablement();
   }
