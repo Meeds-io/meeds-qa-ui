@@ -185,11 +185,36 @@ public class ProgramsStepDefinition {
     programsSteps.openProgramCard(programName);
   }
 
+  @And("^I edit program action '(.*)'$")
+  public void editProgramAction(String actionTitle) {
+    programsSteps.editProgramAction(actionTitle);
+  }
+
+  @And("^I change program actions filter to '(.*)'$")
+  public void changeProgramActionsFilter(String filterChoice) {
+    programsSteps.changeProgramActionsFilter(filterChoice);
+  }
+
+  @And("I cannot announce program action")
+  public void checkCannotAnnounceAction() {
+    programsSteps.checkCannotAnnounceAction();
+  }
+
   @And("^I announce challenge '(.*)'$")
   public void announceChallenge(String challengeTitle) {
     String announcementMessage = "announcementMessage" + getRandomNumber();
     Serenity.setSessionVariable("announcementMessage").to(announcementMessage);
     programsSteps.announceChallenge(challengeTitle, announcementMessage);
+  }
+
+  @Then("Actions Filter dropdown is not displayed")
+  public void checkActionsFilterIsNotDisplayed() {
+    programsSteps.checkActionsFilterIsNotDisplayed();
+  }
+
+  @Then("Actions Filter dropdown is displayed")
+  public void checkActionsFilterIsDisplayed() {
+    programsSteps.checkActionsFilterIsDisplayed();
   }
 
 }
