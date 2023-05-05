@@ -198,3 +198,261 @@ Feature: Achievements
 
     When I enable the switch button 'Display achievements from programs you host'
     Then The achievement 'Join space' is displayed '2' times
+
+  Scenario: Cancel Activity changes the Achievement as Rejected
+    Given I am authenticated as admin
+    And I create the random space if not existing
+    And I create the seventhachievement random user if not existing, no wait
+
+    And I go to 'Contributions' application
+    And I select engagement Programs tab
+
+    And I click on the button add program
+    And I enter the program title 'Activity Post Achievement Reject'
+    And I add program with random description
+    And I add an audience space
+    And I save the program details
+
+    When I open 'Activity Post Achievement Reject' program card
+    When I click on 'Add Action' button
+    And I wait for drawer to open
+    And I enter the rule title 'Post activity in a space'
+    And I add rule random description
+    And I click on 'Automatic' button in drawer
+    And I add an event 'Activity Stream (space) : Post activity'
+    And I click on 'Next' button in drawer
+    And I click on 'Add' button in drawer
+
+    Then Confirmation message is displayed 'Action has been successfully created'
+    And The action 'Post activity in a space' is displayed in program detail
+
+    When I connect with the seventhachievement created user
+    And I go to the random space
+    And I click on post in space
+    And I enter an activity 'Activity to cancel'
+    And I publish the activity
+    Then the activity 'Activity to cancel' is displayed in activity stream
+
+    When I click to delete from the dropdownActivitymenu
+    And I click on Yes button
+    Then the confirmation popup is not displayed
+    And the activity 'Activity to cancel' is no more displayed in the activity stream
+
+    When I go to 'Contributions' application
+    And I select engagement Achievements tab
+
+    Then Achievement for 'Post activity in a space' is rejected
+
+  Scenario: Cancel Comment changes the Achievement as Rejected
+    Given I am authenticated as admin
+    And I create the random space if not existing
+    And I create the seventhachievement random user if not existing, no wait
+
+    And I go to 'Contributions' application
+    And I select engagement Programs tab
+
+    And I click on the button add program
+    And I enter the program title 'Comment Post Achievement Reject'
+    And I add program with random description
+    And I add an audience space
+    And I save the program details
+
+    When I open 'Comment Post Achievement Reject' program card
+
+    When I click on 'Add Action' button
+    And I wait for drawer to open
+    And I enter the rule title 'Comment activity in space'
+    And I add rule random description
+    And I click on 'Automatic' button in drawer
+    And I add an event 'Activity Stream (space) : Comment activity'
+    And I click on 'Next' button in drawer
+    And I click on 'Add' button in drawer
+
+    Then Confirmation message is displayed 'Action has been successfully created'
+    And The action 'Comment activity in space' is displayed in program detail
+
+    When I click on 'Add Action' button
+    And I wait for drawer to open
+    And I enter the rule title 'Receive comment activity in space'
+    And I add rule random description
+    And I click on 'Automatic' button in drawer
+    And I add an event 'Activity Stream (space) : Receive comment'
+    And I click on 'Next' button in drawer
+    And I click on 'Add' button in drawer
+
+    Then Confirmation message is displayed 'Action has been successfully created'
+    And The action 'Receive comment activity in space' is displayed in program detail
+
+    When I connect with the seventhachievement created user
+    And I go to the random space
+    And I click on post in space
+    And I enter an activity 'Activity with comment to cancel'
+    And I publish the activity
+    Then the activity 'Activity with comment to cancel' is displayed in activity stream
+    When I add in activity 'Activity with comment to cancel' a comment 'comment to delete'
+    And In activity 'Activity with comment to cancel', I click on the comment 'comment to delete' three dots icon
+    And In comment 'comment to delete', I click on delete button
+    And I click on Yes button
+    Then the confirmation popup is not displayed
+    And Comment 'comment to delete' is not displayed in activity 'Activity with comment to cancel'
+
+    When I go to 'Contributions' application
+    And I select engagement Achievements tab
+
+    Then Achievement for 'Comment activity in space' is rejected
+    And Achievement for 'Receive comment activity in space' is rejected
+
+  # Bug detected
+  @ignored
+  Scenario: Cancel Like Stream Activity changes the Achievement as Rejected
+    Given I am authenticated as admin
+    And I create the random space if not existing
+    And I create the seventhachievement random user if not existing, no wait
+
+    And I go to 'Contributions' application
+    And I select engagement Programs tab
+
+    And I click on the button add program
+    And I enter the program title 'Like Activity Achievement Reject'
+    And I add program with random description
+    And I add an audience space
+    And I save the program details
+
+    When I open 'Like Activity Achievement Reject' program card
+    When I click on 'Add Action' button
+    And I wait for drawer to open
+    And I enter the rule title 'Like activity in space'
+    And I add rule random description
+    And I click on 'Automatic' button in drawer
+    And I add an event 'Activity Stream (space) : Like activity'
+    And I click on 'Next' button in drawer
+    And I click on 'Add' button in drawer
+
+    Then Confirmation message is displayed 'Action has been successfully created'
+    And The action 'Like activity in space' is displayed in program detail
+
+    When I click on 'Add Action' button
+    And I wait for drawer to open
+    And I enter the rule title 'Receive activity like in space'
+    And I add rule random description
+    And I click on 'Automatic' button in drawer
+    And I add an event 'Activity Stream (space) : Receive like'
+    And I click on 'Next' button in drawer
+    And I click on 'Add' button in drawer
+
+    Then Confirmation message is displayed 'Action has been successfully created'
+    And The action 'Receive activity like in space' is displayed in program detail
+
+    When I connect with the seventhachievement created user
+    And I go to the random space
+    And I click on post in space
+    And I enter an activity 'Activity to like + unlike'
+    And I publish the activity
+    Then the activity 'Activity to like + unlike' is displayed in activity stream
+
+    When I like the activity 'Activity to like + unlike'
+    And I unlike the activity 'Activity to like + unlike'
+
+    When I go to 'Contributions' application
+    And I select engagement Achievements tab
+
+    Then Achievement for 'Receive activity like in space' is rejected
+    And Achievement for 'Like activity in space' is rejected
+
+  # Bug detected
+  @ignored
+  Scenario: Cancel Like Stream Comment changes the Achievement as Rejected
+    Given I am authenticated as admin
+    And I create the random space if not existing
+    And I create the seventhachievement random user if not existing, no wait
+
+    And I go to 'Contributions' application
+    And I select engagement Programs tab
+
+    And I click on the button add program
+    And I enter the program title 'Like Stream Comment Achievement Reject'
+    And I add program with random description
+    And I add an audience space
+    And I save the program details
+
+    When I open 'Like Stream Comment Achievement Reject' program card
+    When I click on 'Add Action' button
+    And I wait for drawer to open
+    And I enter the rule title 'Like stream comment in space'
+    And I add rule random description
+    And I click on 'Automatic' button in drawer
+    And I add an event 'Activity Stream : Like comment in space'
+    And I click on 'Next' button in drawer
+    And I click on 'Add' button in drawer
+
+    Then Confirmation message is displayed 'Action has been successfully created'
+    And The action 'Like stream comment in space' is displayed in program detail
+
+    When I click on 'Add Action' button
+    And I wait for drawer to open
+    And I enter the rule title 'Receive Like on stream comment in space'
+    And I add rule random description
+    And I click on 'Automatic' button in drawer
+    And I add an event 'Activity Stream : Receive like comment in space'
+    And I click on 'Next' button in drawer
+    And I click on 'Add' button in drawer
+
+    Then Confirmation message is displayed 'Action has been successfully created'
+    And The action 'Receive Like on stream comment in space' is displayed in program detail
+
+    When I connect with the seventhachievement created user
+    And I go to the random space
+    And I click on post in space
+    And I enter an activity 'Activity with comment to like + unlike'
+    And I publish the activity
+    Then the activity 'Activity with comment to like + unlike' is displayed in activity stream
+
+    When I add in activity 'Activity with comment to like + unlike' a comment 'comment to unlike'
+
+    When I like the activity comment 'comment to unlike'
+    And I unlike the activity comment 'comment to unlike'
+
+    When I go to 'Contributions' application
+    And I select engagement Achievements tab
+
+    Then Achievement for 'Receive Like on stream comment in space' is rejected
+    Then Achievement for 'Like stream comment in space' is rejected
+
+  # Bug detected
+  @ignored
+  Scenario: Cancel Space Join changes the Achievement as Rejected
+    Given I am authenticated as admin
+    And I create the random space if not existing
+    And I create the seventhachievement random user if not existing, no wait
+
+    When I go to 'Contributions' application
+    And I select engagement Programs tab
+    And I click on the button add program
+    And I enter the program title 'Cancel Space Join Program'
+    And I add program with random description
+    And I add an audience space
+    And I save the program details
+
+    When I open 'Cancel Space Join Program' program card
+
+    And I click on 'Add Action' button
+    And I wait for drawer to open
+    And I enter the rule title 'Cancel Space Join'
+    And I add rule random description
+    And I click on 'Automatic' button in drawer
+    And I add an event 'Spaces : Join space'
+    And I click on 'Next' button in drawer
+    And I click on 'Add' button in drawer
+
+    Then Confirmation message is displayed 'Action has been successfully created'
+    And The action 'Cancel Space Join' is displayed in program detail
+
+    When I connect with the seventhachievement created user
+    And I go to the random space
+    And I go to spaces page
+    And I search for the random space
+    And I leave found space
+    And I go to 'Contributions' application
+    And I select engagement Achievements tab
+
+    Then Achievement for 'Cancel Space Join' is rejected
