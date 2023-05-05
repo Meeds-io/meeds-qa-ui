@@ -123,10 +123,24 @@ public class KudosSteps {
   public void checkCancelKudosActivityIsNotVisible(String kudos) {
     spaceHomePage.openThreeDotsActivityMenu(kudos);
     kudosPage.checkCancelKudosActivityIsNotVisible(kudos);
+    spaceHomePage.openThreeDotsActivityMenu(kudos);
   }
 
   public void checkCancelKudosCommentIsNotVisible(String activity, String kudos) {
     spaceHomePage.clickOnCommentThreeDotsButton(activity, kudos);
     kudosPage.checkCancelKudosCommentIsNotVisible(kudos);
+    spaceHomePage.clickOnCommentThreeDotsButton(activity, kudos);
+  }
+
+  public void checkDeleteKudosCommentIsNotVisible(String activity, String kudos) {
+    spaceHomePage.clickOnCommentThreeDotsButton(activity, kudos);
+    kudosPage.checkDeleteKudosCommentIsNotVisible(kudos);
+    spaceHomePage.clickOnCommentThreeDotsButton(activity, kudos);
+  }
+
+  public void checkDeleteKudosCommentIsVisible(String activity, String kudos) {
+    spaceHomePage.clickOnCommentThreeDotsButton(activity, kudos);
+    kudosPage.checkDeleteKudosCommentIsVisible(kudos);
+    spaceHomePage.clickOnCommentThreeDotsButton(activity, kudos);
   }
 }

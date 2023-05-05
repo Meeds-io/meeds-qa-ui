@@ -43,7 +43,6 @@ Feature: Challenges
     And I select engagement Achievements tab
     Then Achievement for 'Challenge to announce' is accepted
 
-  @test
   Scenario: Cannot Announce a disabled challenge
     Given I am authenticated as admin
     And I create the random space if not existing

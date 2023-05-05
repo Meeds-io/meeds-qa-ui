@@ -152,6 +152,14 @@ public class KudosPage extends GenericPage {
     getCancelKudosCommentIcon(kudos).assertNotVisible();
   }
 
+  public void checkDeleteKudosCommentIsNotVisible(String kudos) {
+    getDeleteCommentIcon(kudos).assertNotVisible();
+  }
+
+  public void checkDeleteKudosCommentIsVisible(String kudos) {
+    getDeleteCommentIcon(kudos).assertVisible();
+  }
+
   private ElementFacade addministrationMenuElement() {
     return findByXPathOrCSS("//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'fa fa-arrow')]");
   }
@@ -254,6 +262,11 @@ public class KudosPage extends GenericPage {
   private ElementFacade getCancelKudosCommentIcon(String comment) {
     return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@id, 'ActivityComm')]//*[contains(@class, 'menuable__content__active')]//*[contains(@class, 'undo')]",
             comment));
+  }
+
+  private ElementFacade getDeleteCommentIcon(String comment) {
+    return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@id, 'ActivityComm')]//*[contains(@class, 'menuable__content__active')]//*[contains(@class, 'fa-trash')]",
+                                          comment));
   }
 
 }
