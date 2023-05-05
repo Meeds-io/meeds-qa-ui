@@ -97,6 +97,18 @@ public class ProgramsSteps {
     programsPage.openProgramCard(value);
   }
 
+  public void editProgramAction(String actionTitle) {
+    programsPage.editProgramAction(actionTitle);
+  }
+
+  public void changeProgramActionsFilter(String value) {
+    programsPage.changeProgramActionsFilter(value);
+  }
+
+  public void checkCannotAnnounceAction() {
+    programsPage.checkCannotAnnounceAction();
+  }
+
   public void closeProgramCard() {
     programsPage.closeProgramCard();
   }
@@ -130,6 +142,14 @@ public class ProgramsSteps {
 
   public void addProgramOwner(String fullName) {
     programsPage.addProgramOwner(fullName);
+  }
+
+  public void checkActionsFilterIsNotDisplayed() {
+    programsPage.checkActionsFilterIsNotDisplayed();
+  }
+
+  public void checkActionsFilterIsDisplayed() {
+    programsPage.checkActionsFilterIsDisplayed();
   }
 
 }

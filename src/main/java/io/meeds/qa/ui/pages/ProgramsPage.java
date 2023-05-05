@@ -142,13 +142,28 @@ public class ProgramsPage extends GenericPage {
     getProgramCard(value).click();
   }
 
+  public void changeProgramActionsFilter(String value) {
+    filterActionsDropdown().selectByValue(value);
+    waitForLoading();
+  }
+
+  public void checkCannotAnnounceAction() {
+    announceChallengeActionFromDrawer().checkNotVisible();
+  }
+
   public void closeProgramCard() {
     closeProgramCardIcon().click();
   }
 
+  public void editProgramAction(String actionTitle) {
+    getChallengeItemElement(actionTitle).hover();
+    actionMenuButton().click();
+    editActionMenuItem().click();
+  }
+
   public void announceChallenge(String challengeTitle, String announcementMessage) {
     getChallengeItemElement(challengeTitle).hover();
-    getAnnounceBtnElement().click();
+    announceButton().click();
     ElementFacade ckEditorFrameAnnouncementElement = ckEditorFrameElement();
     ckEditorFrameAnnouncementElement.waitUntilVisible();
     getDriver().switchTo().frame(ckEditorFrameAnnouncementElement);
@@ -178,6 +193,14 @@ public class ProgramsPage extends GenericPage {
   public void addProgramOwner(String fullName) {
     addProgramOwnerButton().click();
     mentionInField(programOwnerSuggester(), fullName, 3);
+  }
+
+  public void checkActionsFilterIsDisplayed() {
+    filterActionsDropdown().assertVisible();
+  }
+  
+  public void checkActionsFilterIsNotDisplayed() {
+    filterActionsDropdown().assertNotVisible();
   }
 
   private TextBoxElementFacade programOwnerSuggester() {
@@ -266,8 +289,16 @@ public class ProgramsPage extends GenericPage {
     return findByXPathOrCSS(String.format("//ancestor::tbody//ancestor::*[contains(@title,'%s')]", challengeTitle));
   }
 
-  private ElementFacade getAnnounceBtnElement() {
-    return findByXPathOrCSS("//*[contains(@class, 'fa-bullhorn')]//ancestor::*[contains(@class, 'v-btn--icon v-btn--round')]");
+  private ElementFacade announceButton() {
+    return findByXPathOrCSS("//*[@id = 'engagementCenterProgramDetail']//*[contains(@class, 'v-data-table')]//*[contains(@class, 'fa-bullhorn')]");
+  }
+
+  private ElementFacade actionMenuButton() {
+    return findByXPathOrCSS("//*[@id = 'engagementCenterProgramDetail']//*[contains(@class, 'v-data-table')]//*[contains(@class, 'fa-ellipsis-v')]");
+  }
+
+  private ElementFacade editActionMenuItem() {
+    return findByXPathOrCSS("//*[@id = 'engagementCenterProgramDetail']//*[contains(@class, 'v-menu')]//*[contains(text(), 'Edit')]");
   }
 
   private ElementFacade closeProgramCardIcon() {
@@ -276,6 +307,14 @@ public class ProgramsPage extends GenericPage {
 
   private TextBoxElementFacade challengeAnnouncementFieldElement() {
     return findTextBoxByXPathOrCSS("//body[contains(@class,'cke_editable_themed')]");
+  }
+
+  private ElementFacade filterActionsDropdown() {
+    return findByXPathOrCSS("//*[@id='engagementCenterProgramDetail']//option[@value='ENABLED']/parent::select");
+  }
+
+  private ElementFacade announceChallengeActionFromDrawer() {
+    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(text(), 'Announce your achievement']");
   }
 
 }

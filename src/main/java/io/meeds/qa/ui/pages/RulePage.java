@@ -111,6 +111,10 @@ public class RulePage extends GenericPage {
     nextStepButton().click();
   }
 
+  public void changeRuleEnablement() {
+    ruleEnableSwitchButton().click();
+  }
+
   public void clickOnSaveButton(boolean newRule) {
     if (newRule) {
       addButton().click();
@@ -144,8 +148,21 @@ public class RulePage extends GenericPage {
     clearSearchBtnElement().click();
   }
 
-  public void isRuleDisplayedInProgramDetail(String actionTitle) {
+  private ElementFacade ruleEnableSwitchButton() {
+    return findByXPathOrCSS("//*[contains(text(), 'Enabled')]/parent::*//*[contains(@class, 'v-input--switch') and contains(@class, 'v-input--selection-controls')]");
+  }
+
+  public void isActionDisplayedInProgramDetail(String actionTitle) {
     actionInProgramDetailElement(actionTitle).assertVisible();
+  }
+
+  public void isActionNotDisplayedInProgramDetail(String actionTitle) {
+    actionInProgramDetailElement(actionTitle).assertNotVisible();
+  }
+
+  public void openActionDrawer(String actionTitle) {
+    actionInProgramDetailElement(actionTitle).click();
+    waitForDrawerToOpen();
   }
 
   private ElementFacade durationChip() {

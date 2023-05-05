@@ -56,8 +56,16 @@ public class RulesSteps {
     rulePage.clearRulesSearchFilter();
   }
 
-  public void isRuleDisplayedInProgramDetail(String ruleTitle) {
-    rulePage.isRuleDisplayedInProgramDetail(ruleTitle);
+  public void isActionDisplayedInProgramDetail(String ruleTitle) {
+    rulePage.isActionDisplayedInProgramDetail(ruleTitle);
+  }
+
+  public void isActionNotDisplayedInProgramDetail(String ruleTitle) {
+    rulePage.isActionNotDisplayedInProgramDetail(ruleTitle);
+  }
+
+  public void openActionDrawer(String ruleTitle) {
+    rulePage.openActionDrawer(ruleTitle);
   }
 
   public void createAction(String title, boolean declarative, Map<String, String> details) {
@@ -74,5 +82,9 @@ public class RulesSteps {
   public void setActionEndDate() {
     rulePage.selectDurationChoice();
     rulePage.setActionEndDate();
+  }
+
+  public void changeRuleEnablement() {
+    rulePage.changeRuleEnablement();
   }
 }
