@@ -319,6 +319,10 @@ public class ManageSpaceSteps {
     manageSpacesPage.insertSpaceNameInSearchField(spaceName);
   }
 
+  public void leaveSpace() {
+    manageSpacesPage.leaveSpace();
+  }
+
   public void selectFilter(String filter) {
     manageSpacesPage.selectFilter(filter);
   }
