@@ -72,10 +72,9 @@ Feature: SideBar
     And I close the opened drawer
 
   Scenario: Display Red Dot In Unstickied Hamburger Menu
-    Given I am authenticated as 'admin' if random users doesn't exists
-      | reddot  |
+    Given I am authenticated as 'admin' random user
     When I create the reddot random user if not existing, no wait
-    And I go to the random space
+    And I create a random space
     And I login as 'reddot' random user
     And I go to the random space
     And I login as 'admin' random user
