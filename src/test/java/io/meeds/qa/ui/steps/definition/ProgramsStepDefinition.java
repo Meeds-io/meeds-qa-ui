@@ -19,6 +19,7 @@ package io.meeds.qa.ui.steps.definition;
 
 import static io.meeds.qa.ui.utils.Utils.getIndexFomName;
 import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
+import static io.meeds.qa.ui.utils.Utils.getRandomString;
 
 import java.util.Map;
 
@@ -136,6 +137,13 @@ public class ProgramsStepDefinition {
 
   @And("^I enter the program title '(.*)'$")
   public void enterProgramTitle(String programTitle) {
+    programsSteps.enterProgramTitle(programTitle);
+  }
+
+  @And("^I enter the random program title '(.*)'$")
+  public void enterRandomProgramTitle(String suffix) {
+    String programTitle = getRandomString(suffix) + suffix;
+    Serenity.setSessionVariable("programName" + suffix).to(programTitle);
     programsSteps.enterProgramTitle(programTitle);
   }
 

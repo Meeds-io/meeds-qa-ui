@@ -135,12 +135,12 @@ Feature: Achievements
     When I go to 'Contributions' application
     And I select engagement Programs tab
     And I click on the button add program
-    And I enter the program title 'Test Program Host'
+    And I enter the random program title 'Test Program Host'
     And I add program with random description
     And I add an audience space
     And I save the program details
 
-    When I open 'Test Program Host' program card
+    When I open 'Test Program Host' random program card
     And I click on 'Add Action' button
     And I wait for drawer to open
     And I enter the rule title 'Join space'
@@ -159,19 +159,19 @@ Feature: Achievements
     When I login as 'fifthachievement' random user
     And I go to the random space
     And I go to 'Contributions' application
-    When I open 'Test Program Host' program card
+    When I open 'Test Program Host' random program card
     Then Actions Filter dropdown is not displayed
 
     And I login as 'sixthachievement' random user
     And I go to the random space
     And I go to 'Contributions' application
-    When I open 'Test Program Host' program card
+    When I open 'Test Program Host' random program card
     Then Actions Filter dropdown is not displayed
 
     When I login as 'admin' random user
     And I go to 'Contributions' application
     And I select engagement Achievements tab
-    And I filter achievements using 'Test Program Host' program
+    And I filter achievements using 'Test Program Host' random program
 
     Then The achievement 'Join space' is displayed '2' times
 
@@ -193,7 +193,7 @@ Feature: Achievements
     When I login as 'fifthachievement' random user
     And I go to 'Contributions' application
 
-    When I open 'Test Program Host' program card
+    When I open 'Test Program Host' random program card
     Then Actions Filter dropdown is displayed
 
     When I select engagement Achievements tab
