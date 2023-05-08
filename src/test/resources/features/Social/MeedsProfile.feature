@@ -4,7 +4,7 @@ Feature: Search for User Informations in Profile page
   I want to check in Profile page all contact informations
 
   Scenario: PROFILE-1 : Integrate default user's avatar and cover
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
 
     When I go to My Profile page
 
@@ -14,11 +14,11 @@ Feature: Search for User Informations in Profile page
   # Needs bugs fixes after MIP#38 merge
   @ignored
   Scenario: PROFILE-4 Contact information block_(01) : Add informations
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | firstprofile  |
 
     When I create the firstprofile random user if not existing, no wait
-    And I connect with the firstprofile created user
+    And I login as 'firstprofile' random user
     And I go to My Profile page
     And I update my profile random basic informations
     And I refresh the page
@@ -29,11 +29,11 @@ Feature: Search for User Informations in Profile page
   # Needs bugs fixes after MIP#38 merge
   @ignored
   Scenario: PROFILE-4 Contact information block_(02) : Add informations
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | secondprofile  |
 
     When I create the secondprofile random user if not existing, no wait
-    And I connect with the secondprofile created user
+    And I login as 'secondprofile' random user
     And I go to My Profile page
     And I update my profile random basic informations
     Then In 'Your contact informations', Updated profile Contact Fullname is displayed
@@ -47,7 +47,7 @@ Feature: Search for User Informations in Profile page
     And Updated Profile Contact Url is displayed
 
   Scenario: PROFILE-5 Kudos block
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | fifthkudos  |
       | sixthkudos  |
       | seventhkudos  |
@@ -56,7 +56,7 @@ Feature: Search for User Informations in Profile page
     And I create the sixthkudos random user if not existing, no wait
     And I create the seventhkudos random user if not existing
 
-    When I connect with the fifthkudos created user
+    When I login as 'fifthkudos' random user
 
     And I go to the sixthkudos user profile
     And I send kudos with message 'Message for kudos'
@@ -64,12 +64,12 @@ Feature: Search for User Informations in Profile page
     And I go to the seventhkudos user profile
     And I send kudos with message 'Message for kudos'
 
-    When I connect with the sixthkudos created user
+    When I login as 'sixthkudos' random user
 
     And I go to the fifthkudos user profile
     And I send kudos with message 'Message for kudos'
 
-    When I connect with the fifthkudos created user
+    When I login as 'fifthkudos' random user
     And  I go to My Profile page
     Then '2' kudos are sent
     And '1' kudos are received
@@ -82,7 +82,7 @@ Feature: Search for User Informations in Profile page
     And Sent kudos by user 'sixthkudos' is displayed
 
   Scenario: : PROFILE-6 : Received and sent kudos section
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
 
     When I go to My Profile page
 
@@ -90,11 +90,11 @@ Feature: Search for User Informations in Profile page
     Then Sent Kudos Section is displayed
 
   Scenario: : PROFILE-7 : Work Experiences block and its drawer
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | thirdprofile  |
     And I create the thirdprofile random user if not existing, no wait
 
-    When I connect with the thirdprofile created user
+    When I login as 'thirdprofile' random user
     And I go to My Profile page
 
     And I add my profile work experiences

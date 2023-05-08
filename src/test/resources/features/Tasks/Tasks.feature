@@ -3,10 +3,10 @@ Feature: Tasks
 
   @smoke
   Scenario: CAP81 - [User_UI_US22] Mark as completed for "TASKS" in a Project (Manager case)
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I create the first random user if not existing
-    And I connect with the first created user
+    And I login as 'first' random user
     And I create a random space
     And I go to 'Tasks' application
     When I select projects tab
@@ -21,10 +21,10 @@ Feature: Tasks
 
   @smoke
   Scenario: CAP176 - [US_Filterfield_01] Add Clear typed characters icon (Filter by task under TASKS tab)
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I create the first random user if not existing
-    And I connect with the first created user
+    And I login as 'first' random user
     And I go to 'Tasks' application
     When I select tasks tab
     And I create the following task
@@ -38,7 +38,7 @@ Feature: Tasks
 
   @smoke
   Scenario: CAP94_[Add_Task_Drawer_US04] (3 dots menu-Delete action) "Tasks TAB"
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
 
     And I go to 'Tasks' application
     When I select tasks tab
@@ -53,14 +53,14 @@ Feature: Tasks
     Then Task '<TestE>' is deleted successfully
 
   Scenario: CAP82 - [User_UI_US22] Mark as completed for "TASKS" in a Project (Participant case)
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the first random user if not existing
 
     And I go to 'Tasks' application
 
     When I select projects tab
     And I create the random project with the first created user as participant
-    And I connect with the first created user
+    And I login as 'first' random user
 
     And I go to 'Tasks' application
 
@@ -77,10 +77,10 @@ Feature: Tasks
   @smoke
   @standardConfigurationOnly
   Scenario: CAP95 - [Add_Task_Drawer_US04] 3 dots menu (Delete action) "Task under project"
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I create the first random user if not existing
-    And I connect with the first created user
+    And I login as 'first' random user
 
     And I go to 'Tasks' application
 
@@ -100,19 +100,19 @@ Feature: Tasks
     Then Task name 'taskessai' is not displayed in project details
 
   Scenario: Check tasks display in project
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
-    And I connect with the second created user
+    And I login as 'second' random user
     And I create a random space
 
-    When I connect with the first created user
+    When I login as 'first' random user
     Then I go to the random space
 
-    When I connect with the second created user
+    When I login as 'second' random user
     And I go to 'Tasks' application
     When I select projects tab
     And I search for the created project
@@ -129,10 +129,10 @@ Feature: Tasks
     And I close the opened drawer
 
   Scenario: CAP188 - [Lost Projects] check that project isn't lost after renaming space name
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I create the first random user if not existing
-    And I connect with the first created user
+    And I login as 'first' random user
 
     And I create a random space
     And I go to Tasks in space tab
@@ -158,10 +158,10 @@ Feature: Tasks
     And Project 'second project test' is displayed in Tasks App Center
 
   Scenario: Create Task with a new status
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I create the first random user if not existing, no wait
-    And I connect with the first created user
+    And I login as 'first' random user
 
     And I go to 'Tasks' application
 
@@ -191,10 +191,10 @@ Feature: Tasks
 
   @smoke
   Scenario: CAP269 - [US_Sharedlabels_02] Manage labels in Project
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I create the first random user if not existing
-    And I connect with the first created user
+    And I login as 'first' random user
 
     And I go to 'Tasks' application
     And I create the project 'project test labels'
@@ -225,10 +225,10 @@ Feature: Tasks
 
   @smoke
   Scenario: Mark task as completed from the task drawer [1]
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I create the first random user if not existing
-    And I connect with the first created user
+    And I login as 'first' random user
     And I create a random space
 
     And I go to 'Tasks' application
@@ -248,7 +248,7 @@ Feature: Tasks
     And Tasks number '0' is displayed in the column To Do
 
   Scenario: CAP264 - [NF] [US_Sharedlabels_01]All project members can use added labels
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
@@ -268,7 +268,7 @@ Feature: Tasks
     And Label 'label6' is displayed in edit project drawer
     And I click on save project button
 
-    When I connect with the first created user
+    When I login as 'first' random user
     And I go to 'Tasks' application
     And I select projects tab
     And I search for the created project
@@ -277,7 +277,7 @@ Feature: Tasks
       | taskName | newtask |
     Then Task name 'newtask' is displayed in project details
 
-    When I connect with the second created user
+    When I login as 'second' random user
     And I go to 'Tasks' application
     And I select projects tab
     And I search for the created project
@@ -307,13 +307,13 @@ Feature: Tasks
     And I close the opened drawer
 
   Scenario:[Task] when click on notification, user is redirected under the specific project
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
-    When I connect with the second created user
+    When I login as 'second' random user
     And I go to 'Tasks' application
 
     When I select projects tab
@@ -325,17 +325,17 @@ Feature: Tasks
     And I click on Add new comment button
     And I enter a comment 'Start working on it' with mentioning the first user in task
 
-    When I connect with the first created user
+    When I login as 'first' random user
     And I open Notifications
     And I click on the notification that mentione first user in a task in Project 'Test Compagne' project
     Then First user with the task comment 'Start working on it' is displayed in task comments drawer
 
   @smoke
   Scenario: CAP190 -[IMP] [US_SortGroupeBy_01] Memorize Group and Sort filters (Group by)
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And  I create the first random user if not existing
-    And  I connect with the first created user
+    And  I login as 'first' random user
     And  I go to 'Tasks' application
     And I create the project 'project01'
     And I open the project 'project01'
@@ -370,7 +370,7 @@ Feature: Tasks
     And I refresh the page
 
   Scenario: CAP341 [TASK] when refresh task drawer, the description should not be lost
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the first random user if not existing
 
     And I go to 'Tasks' application
@@ -389,7 +389,7 @@ Feature: Tasks
     And I close the opened drawer
     And Task name 'Test Tasks' is displayed in project details
 
-    When I connect with the first created user
+    When I login as 'first' random user
     And I go to 'Tasks' application
     And I select projects tab
     And I search for the created project
@@ -401,10 +401,10 @@ Feature: Tasks
     Then The edit description in the task 'Edit Automation Test Task' is displayed
 
   Scenario: [IMP] [US_ChangesDrawer_01] Display last Update and Changes drawer
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And  I create the first random user if not existing
-    And  I connect with the first created user
+    And  I login as 'first' random user
     And  I go to 'Tasks' application
     And I create the project 'project001'
     And I open the project 'project001'
@@ -427,10 +427,10 @@ Feature: Tasks
     Then I check that a new second level drawer Changes is opened
 
   Scenario: Description update should not be lost due to cloning task and assigning it or changing its status
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I create the first random user if not existing
-    And I connect with the first created user
+    And I login as 'first' random user
 
     And I create a random space
     And I refresh the page
@@ -458,7 +458,7 @@ Feature: Tasks
     Then The update description 'Decription Task updated' is displayed in origin task
 
   Scenario: CAP37 - [User_UI_US18.1] Check message when project title contains less than 3 characters
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I open the app center menu
     And I open all application page
     When I go to 'Tasks' application

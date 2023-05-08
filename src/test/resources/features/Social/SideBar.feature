@@ -3,10 +3,10 @@ Feature: SideBar
 
   @smoke
   Scenario: CAP37 - US 6.2.2 [FRONT]_(01) : Filter Recent Spaces in the Second level side bar in Desktop
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I create the first random user if not existing, no wait
-    When I connect with the first created user
+    When I login as 'first' random user
     And I go to the first random space
     And I go to the second random space
     And I access to Recent spaces
@@ -16,18 +16,18 @@ Feature: SideBar
 
   @smoke
   Scenario:CAP34-US 6.5[FRONT]_(01):My Settings in the Side bar for Desktop
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I create the first random user if not existing, no wait
-    When I connect with the first created user
+    When I login as 'first' random user
     When I go to Settings page
     Then The page 'settings' that contains 'Manage notifications' is displayed
 
   @smoke
   Scenario: Stick and Unstick Hamburger Menu
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the hmenu random user, no wait
-    When I connect with the hmenu created user
+    When I login as 'hmenu' random user
     Then The hamburger menu is displayed as unstickied
     When I open hamburger menu drawer
     Then The hamburger menu has all navigation elements into it
@@ -38,17 +38,17 @@ Feature: SideBar
     Then The hamburger menu is displayed as stickied
     And The hamburger menu has all navigation elements into it
     When I logout
-    And I connect with the hmenu created user
+    And I login as 'hmenu' random user
     Then The hamburger menu is displayed as stickied
     And The hamburger menu has all navigation elements into it
     And I unstick the hamburger menu
     Then The hamburger menu is displayed as unstickied
     When I logout
-    And I connect with the hmenu created user
+    And I login as 'hmenu' random user
     Then The hamburger menu is displayed as unstickied
 
   Scenario: Recent Space Hamburger Menu
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the third random space if not existing
     And I create the fourth random space if not existing
     And I go to the fourth random space
@@ -72,18 +72,18 @@ Feature: SideBar
     And I close the opened drawer
 
   Scenario: Display Red Dot In Unstickied Hamburger Menu
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | reddot  |
     When I create the reddot random user if not existing, no wait
     And I go to the random space
-    And I connect with the reddot created user
+    And I login as 'reddot' random user
     And I go to the random space
-    And I change user admin
+    And I login as 'admin' random user
     And I go to the random space
     And I click on post in space
     And I enter an activity 'Unread - This is an unread activity for the reddot user'
     And I publish the activity
-    And I connect with the reddot created user
+    And I login as 'reddot' random user
     Then The hamburger menu is displayed as unstickied
     And The red dot is displayed in the hamburger menu
     When I go to the random space
@@ -95,10 +95,10 @@ Feature: SideBar
     And The red dot is not displayed in the hamburger menu
     
   Scenario: Open Unstickied Hamburger Menu On Hover in Desktop
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | hmenu  |
     And I create the hmenu random user, no wait
-    And I connect with the hmenu created user
+    And I login as 'hmenu' random user
     And The hamburger menu is displayed as unstickied
     When I hover on the hambuger menu
     And I wait '500' milliseconds

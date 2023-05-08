@@ -2,9 +2,8 @@
 @challenge
 Feature: Challenges
 
-  @test
   Scenario: Announce a challenge
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the first random user if not existing, no wait
     And I create the random space if not existing
     And I go to 'Contributions' application
@@ -36,7 +35,7 @@ Feature: Challenges
     Then Confirmation message is displayed 'Action has been successfully created'
     And The action 'Challenge to announce' is displayed in program detail
 
-    When I connect with the first created user
+    When I login as 'first' random user
     And I go to the random space
 
     And I go to 'Contributions' application
@@ -54,7 +53,7 @@ Feature: Challenges
     Then The program action contains duration limitation
     And I close the opened drawer
 
-    When I change user admin
+    When I login as 'admin' random user
 
     When I go to 'Contributions' application
     And I select engagement Programs tab
@@ -69,7 +68,7 @@ Feature: Challenges
     And I close the opened drawer
 
   Scenario: Cannot Announce a disabled challenge
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the random space if not existing
 
     And I go to 'Contributions' application
@@ -111,7 +110,7 @@ Feature: Challenges
     And I close the opened drawer
 
   Scenario: Cancel a challenge
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the first random user if not existing, no wait
     And I create the random space if not existing
     And I go to 'Contributions' application
@@ -133,7 +132,7 @@ Feature: Challenges
     Then Confirmation message is displayed 'Action has been successfully created'
     And The action 'Challenge To Cancel' is displayed in program detail
 
-    When I connect with the first created user
+    When I login as 'first' random user
     And I go to the random space
 
     And I go to 'Contributions' application
@@ -148,7 +147,7 @@ Feature: Challenges
     Then Achievement for 'Challenge To Cancel' is canceled
 
   Scenario: Delete announce Activity
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the first random user if not existing, no wait
     And I create the random space if not existing
     And I go to 'Contributions' application
@@ -170,7 +169,7 @@ Feature: Challenges
     Then Confirmation message is displayed 'Action has been successfully created'
     And The action 'Announce activity to delete' is displayed in program detail
 
-    When I connect with the first created user
+    When I login as 'first' random user
     And I go to the random space
 
     And I go to 'Contributions' application
@@ -186,7 +185,7 @@ Feature: Challenges
     Then Achievement for 'Announce activity to delete' is rejected due to activity deletion
 
   Scenario: Overview top challenge
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     When I create the first random user if not existing, no wait
     And I create the random space if not existing
     And I go to 'Contributions' application
@@ -208,7 +207,7 @@ Feature: Challenges
     Then Confirmation message is displayed 'Action has been successfully created'
     And The action 'Top challenge' is displayed in program detail
 
-    When I connect with the first created user
+    When I login as 'first' random user
     And I go to the random space
 
     And I go to 'Contributions' application
@@ -221,11 +220,11 @@ Feature: Challenges
     And I go to Overview page
     Then 'Top challenge' is displayed in challenge portlet with '4' participants
 
-    When I change user admin
+    When I login as 'admin' random user
 
     And I go to 'Contributions' application
     And I delete the created program
-    And I connect with the first created user
+    And I login as 'first' random user
     And I go to Overview page
 
     Then 'Top challenge' with '4' participants is not displayed in challenge portlet

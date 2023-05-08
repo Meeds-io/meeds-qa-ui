@@ -4,7 +4,7 @@ Feature: Achievements
   # Bug detected and qualified as non-bloquer
   @ignored
   Scenario: Achievements for Send/Cancel Kudos from the activity author
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the random space if not existing
     And I go to 'Contributions' application
 
@@ -45,13 +45,13 @@ Feature: Achievements
 
     When I create the fisrtachievement random user if not existing, no wait
     And I create the secondachievement random user if not existing, no wait
-    When I connect with the secondachievement created user
+    When I login as 'secondachievement' random user
     And I go to the random space
     And I click on post in space
     And I enter an activity 'Achievements - Kudos Post activity'
     And I publish the activity
 
-    And I connect with the fisrtachievement created user
+    And I login as 'fisrtachievement' random user
     When I go to the random space
     And I send in the activity 'Achievements - Kudos Post activity' a kudos message 'Achievements - kudos activity comment to cancel'
 
@@ -70,7 +70,7 @@ Feature: Achievements
   # Bug detected and qualified as non-bloquer
   @ignored
   Scenario: Achievements for Send/Cancel Kudos from user profile
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the random space if not existing
     And I go to 'Contributions' application
     When I select engagement Programs tab
@@ -108,7 +108,7 @@ Feature: Achievements
     And I create the thirdachievement random user if not existing, no wait
     And I create the fourachievement random user if not existing
 
-    When I connect with the thirdachievement created user
+    When I login as 'thirdachievement' random user
     When I go to the random space
     And I go to the fourachievement user profile
     And I send kudos with message 'Achievements - Kudos Post activity to cancel'
@@ -126,7 +126,7 @@ Feature: Achievements
     And Achievement for 'Receive kudos' is rejected
 
   Scenario: Achievements listing for program owner/space host
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the random space if not existing
     And I create the fifthachievement random user if not existing, no wait
     And I create the sixthachievement random user if not existing, no wait
@@ -155,19 +155,19 @@ Feature: Achievements
     Then Confirmation message is displayed 'Action has been successfully created'
     And The action 'Join space' is displayed in program detail
 
-    When I connect with the fifthachievement created user
+    When I login as 'fifthachievement' random user
     And I go to the random space
     And I go to 'Contributions' application
     When I open 'Test Program Host' program card
     Then Actions Filter dropdown is not displayed
 
-    And I connect with the sixthachievement created user
+    And I login as 'sixthachievement' random user
     And I go to the random space
     And I go to 'Contributions' application
     When I open 'Test Program Host' program card
     Then Actions Filter dropdown is not displayed
 
-    When I change user admin
+    When I login as 'admin' random user
     And I go to 'Contributions' application
     And I select engagement Achievements tab
     And I filter achievements using 'Test Program Host' program
@@ -180,7 +180,7 @@ Feature: Achievements
     And I click on three dots menu
     And I set as a space manager
 
-    When I connect with the sixthachievement created user
+    When I login as 'sixthachievement' random user
     And I go to 'Contributions' application
     And I select engagement Achievements tab
     Then The achievement 'Join space' is displayed '1' times
@@ -189,7 +189,7 @@ Feature: Achievements
     When I enable the switch button 'Display achievements from programs you host'
     Then The achievement 'Join space' is displayed '0' times
 
-    When I connect with the fifthachievement created user
+    When I login as 'fifthachievement' random user
     And I go to 'Contributions' application
 
     When I open 'Test Program Host' program card
@@ -203,7 +203,7 @@ Feature: Achievements
     Then The achievement 'Join space' is displayed '2' times
 
   Scenario: Cancel Activity changes the Achievement as Rejected
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the random space if not existing
     And I create the seventhachievement random user if not existing, no wait
 
@@ -229,7 +229,7 @@ Feature: Achievements
     Then Confirmation message is displayed 'Action has been successfully created'
     And The action 'Post activity in a space' is displayed in program detail
 
-    When I connect with the seventhachievement created user
+    When I login as 'seventhachievement' random user
     And I go to the random space
     And I click on post in space
     And I enter an activity 'Activity to cancel'
@@ -247,7 +247,7 @@ Feature: Achievements
     Then Achievement for 'Post activity in a space' is rejected
 
   Scenario: Cancel Comment changes the Achievement as Rejected
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the random space if not existing
     And I create the seventhachievement random user if not existing, no wait
 
@@ -286,7 +286,7 @@ Feature: Achievements
     Then Confirmation message is displayed 'Action has been successfully created'
     And The action 'Receive comment activity in space' is displayed in program detail
 
-    When I connect with the seventhachievement created user
+    When I login as 'seventhachievement' random user
     And I go to the random space
     And I click on post in space
     And I enter an activity 'Activity with comment to cancel'
@@ -308,7 +308,7 @@ Feature: Achievements
   # Bug detected
   @ignored
   Scenario: Cancel Like Stream Activity changes the Achievement as Rejected
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the random space if not existing
     And I create the seventhachievement random user if not existing, no wait
 
@@ -346,7 +346,7 @@ Feature: Achievements
     Then Confirmation message is displayed 'Action has been successfully created'
     And The action 'Receive activity like in space' is displayed in program detail
 
-    When I connect with the seventhachievement created user
+    When I login as 'seventhachievement' random user
     And I go to the random space
     And I click on post in space
     And I enter an activity 'Activity to like + unlike'
@@ -365,7 +365,7 @@ Feature: Achievements
   # Bug detected
   @ignored
   Scenario: Cancel Like Stream Comment changes the Achievement as Rejected
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the random space if not existing
     And I create the seventhachievement random user if not existing, no wait
 
@@ -403,7 +403,7 @@ Feature: Achievements
     Then Confirmation message is displayed 'Action has been successfully created'
     And The action 'Receive Like on stream comment in space' is displayed in program detail
 
-    When I connect with the seventhachievement created user
+    When I login as 'seventhachievement' random user
     And I go to the random space
     And I click on post in space
     And I enter an activity 'Activity with comment to like + unlike'
@@ -424,7 +424,7 @@ Feature: Achievements
   # Bug detected
   @ignored
   Scenario: Cancel Space Join changes the Achievement as Rejected
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the random space if not existing
     And I create the seventhachievement random user if not existing, no wait
 
@@ -450,7 +450,7 @@ Feature: Achievements
     Then Confirmation message is displayed 'Action has been successfully created'
     And The action 'Cancel Space Join' is displayed in program detail
 
-    When I connect with the seventhachievement created user
+    When I login as 'seventhachievement' random user
     And I go to the random space
     And I go to spaces page
     And I search for the random space

@@ -5,12 +5,12 @@ Feature: Notes
   @notes
   @smoke
   Scenario: Edit a Note in full screen
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the hmenu random user, no wait
     And I create the random space if not existing
     And I go to the random space
     And I add application 'Notes' in random space if not existing
-    When I connect with the hmenu created user
+    When I login as 'hmenu' random user
     And I go to the random space
     And I open hamburger menu drawer
     And I stick the hamburger menu

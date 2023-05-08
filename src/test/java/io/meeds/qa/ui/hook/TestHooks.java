@@ -49,6 +49,12 @@ import net.thucydides.core.webdriver.exceptions.ElementShouldBeVisibleException;
 
 public class TestHooks {
 
+  private static final String                ADMIN_USER                = "admin";
+
+  protected static final String[]            ADMIN_GROUPS              = System.getProperty("io.meeds.admin.groups",
+                                                                                            "/platform/administrators,/platform/rewarding,/platform/analytics")
+                                                                               .split(",");
+
   protected static final boolean             INIT_DATA                 =
                                                        Boolean.parseBoolean(System.getProperty("io.meeds.initData",
                                                                                                "true")
@@ -184,7 +190,7 @@ public class TestHooks {
     } catch (Exception e) {
       LOGGER.warn("Can't logout admin user. Proceed to login phase", e);
     }
-    loginSteps.authenticate("admin");
+    loginSteps.authenticate(ADMIN_USER);
   }
 
   private void warmUp(WebDriver driver) {
@@ -200,21 +206,21 @@ public class TestHooks {
     } catch (IOException e) {
       // Will attempt to warmup again next time
       LOGGER.warn("Error creating warmup file {}. Proceed to execute Test scenario without warmup.",
-                                    WARMUP_FILE_PATH,
-                                    e);
+                  WARMUP_FILE_PATH,
+                  e);
       return;
     }
 
     LOGGER.info("---- Start warmup phase with {} retries and wait time of {} seconds",
-                                  MAX_WARM_UP_RETRIES,
-                                  MAX_WARM_UP_STEP_WAIT);
+                MAX_WARM_UP_RETRIES,
+                MAX_WARM_UP_STEP_WAIT);
     long start = System.currentTimeMillis();
     int retryCount = 1;
     boolean homePageDisplayed = false;
     do {
       LOGGER.info("---- {}/{} Warmup step",
-                                    retryCount,
-                                    MAX_WARM_UP_RETRIES);
+                  retryCount,
+                  MAX_WARM_UP_RETRIES);
       try {
         driver.navigate().to(System.getProperty("webdriver.base.url"));
         Utils.waitForLoading(WARM_UP_PAGE_LOADING_WAIT, true);
@@ -243,6 +249,11 @@ public class TestHooks {
     if (INIT_DATA) {
       injectData();
     }
+
+    addAdminRandomUser();
+
+    loginSteps.logout();
+
     LOGGER.info("---- End warmup phase in {} seconds", (System.currentTimeMillis() - start) / 1000);
   }
 
@@ -310,6 +321,11 @@ public class TestHooks {
     if (!Arrays.stream(randomUsers).map(this::addRandomUser).allMatch(userCreated -> userCreated)) {
       throw new IllegalStateException("Some users wasn't created successfully in WarmUp phase");
     }
+  }
+
+  private void addAdminRandomUser() {
+    this.addRandomUser(ADMIN_USER);
+    Arrays.stream(ADMIN_GROUPS).forEach(groupId -> addUserSteps.addUserRole(ADMIN_USER, groupId, "*"));
   }
 
   private boolean addRandomUser(String randomUser) {
