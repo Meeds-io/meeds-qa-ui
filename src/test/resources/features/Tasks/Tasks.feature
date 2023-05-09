@@ -308,27 +308,27 @@ Feature: Tasks
 
   Scenario:[Task] when click on notification, user is redirected under the specific project
     Given I am authenticated as 'admin' if random users doesn't exists
-      | first  |
+      | third  |
       | second  |
-    And I create the first random user if not existing, no wait
+    And I create the third random user if not existing, no wait
     And I create the second random user if not existing
 
     When I login as 'second' random user
     And I go to 'Tasks' application
 
     When I select projects tab
-    And I create the project 'Test Compagne' with the first created user as manager
+    And I create the project 'Test Compagne' with the 'third' created user as manager
     And I open the project 'Test Compagne'
     And I create a random quick task in the random project
       | taskName | Security |
     And I open the task 'Security'
     And I click on Add new comment button
-    And I enter a comment 'Start working on it' with mentioning the first user in task
+    And I enter a comment 'Start working on it' with mentioning the 'third' user in task
 
-    When I login as 'first' random user
+    When I login as 'third' random user
     And I open Notifications
-    And I click on the notification that mentione first user in a task in Project 'Test Compagne' project
-    Then First user with the task comment 'Start working on it' is displayed in task comments drawer
+    And I click on the notification that mention third user in a task in Project 'Test Compagne' project
+    Then Third user with the task comment 'Start working on it' is displayed in task comments drawer
 
   @smoke
   Scenario: CAP190 -[IMP] [US_SortGroupeBy_01] Memorize Group and Sort filters (Group by)

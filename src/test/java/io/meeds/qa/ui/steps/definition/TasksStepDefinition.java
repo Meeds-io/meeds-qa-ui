@@ -76,9 +76,9 @@ public class TasksStepDefinition {
     tasksSteps.addNewCommentInTask(comment);
   }
 
-  @When("^I enter a comment '(.*)' with mentioning the first user in task$")
-  public void addNewCommentInTaskWithMentioningTheFirstUserInTask(String comment) {
-    String user = Serenity.sessionVariableCalled("firstUserName");
+  @When("^I enter a comment '(.*)' with mentioning the '(.*)' user in task$")
+  public void addNewCommentInTaskWithMentioningTheFirstUserInTask(String comment, String userSuffix) {
+    String user = Serenity.sessionVariableCalled(userSuffix + "UserName");
     tasksSteps.addNewCommentInTaskWithMentioningTheFirstUserInTask(comment, user);
   }
 
@@ -130,12 +130,12 @@ public class TasksStepDefinition {
     tasksSteps.addProjectWithDescription(projectName, description);
   }
 
-  @Then("^I create the project '(.*)' with the first created user as manager$")
-  public void addProjectWithFirstCreatedUserAsMangerAndParticipant(String projectName) {
-    String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
-    String firstUserLastName = Serenity.sessionVariableCalled("firstUserLastName");
-    String firstUserFullName = firstUserFirstName + " " + firstUserLastName;
-    tasksSteps.addProjectWithFirstCreatedUserAsManger(projectName, firstUserFullName);
+  @Then("^I create the project '(.*)' with the '(.*)' created user as manager$")
+  public void addProjectWithFirstCreatedUserAsMangerAndParticipant(String projectName, String userSuffix) {
+    String firstName = Serenity.sessionVariableCalled(userSuffix + "UserFirstName");
+    String lastName = Serenity.sessionVariableCalled(userSuffix + "UserLastName");
+    String fullName = firstName + " " + lastName;
+    tasksSteps.addProjectWithFirstCreatedUserAsManger(projectName, fullName);
   }
 
   @Then("^I add the random project with first user as the manager and second user as the participant$")
@@ -570,10 +570,10 @@ public class TasksStepDefinition {
     tasksSteps.clickOnTaskThreeDotsOption();
   }
 
-  @When("^I click on the notification that mentione first user in a task in Project '(.*)' project$")
+  @When("^I click on the notification that mention third user in a task in Project '(.*)' project$")
   public void clickOnTheNotificationThatMentioneFirstUserInATaskInProject(String projectName) {
     String message = "You have been mentioned in a task in" + " " + projectName + " " + "project";
-    tasksSteps.clickOnTheNotificationThatMentioneFirstUserInATaskInProject(message, projectName);
+    tasksSteps.clickOnTheNotificationThatMentionThirdUserInATaskInProject(message, projectName);
   }
 
   @When("^I click on the timestamp$")
@@ -662,19 +662,14 @@ public class TasksStepDefinition {
     tasksSteps.commentsDrawerIsDisplayed();
   }
 
-  @When("^First user with the task comment '(.*)' is displayed in task comments drawer$")
-  public void commentTaskWithFirstUser(String comment) {
-    String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
-    String firstUserLastName = Serenity.sessionVariableCalled("firstUserLastName");
+  @When("^(.*) user with the task comment '(.*)' is displayed in task comments drawer$")
+  public void commentTaskWithRandomUser(String suffix, String comment) {
+    String firstName = Serenity.sessionVariableCalled(suffix.toLowerCase() + "UserFirstName");
+    String lastName = Serenity.sessionVariableCalled(suffix.toLowerCase() + "UserLastName");
 
-    String fullName = firstUserFirstName + " " + firstUserLastName;
+    String fullName = firstName + " " + lastName;
 
     tasksSteps.commentTaskWithUser(fullName, comment);
-  }
-
-  @When("^'(.*)' with the task comment '(.*)' is displayed in task comments drawer$")
-  public void commentTaskWithUser(String user, String comment) {
-    tasksSteps.commentTaskWithUser(user, comment);
   }
 
   @Then("^I mark the task as completed$")
