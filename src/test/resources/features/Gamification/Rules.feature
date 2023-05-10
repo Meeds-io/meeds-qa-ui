@@ -3,7 +3,7 @@
 Feature: Rules
 
   Scenario: Quick filter rules
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the random space if not existing
     And I go to 'Contributions' application
     And I select engagement Programs tab
@@ -33,14 +33,14 @@ Feature: Rules
     Then The action 'Receive kudos' is displayed in program detail
 
   Scenario: Space host can add action in program
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the random space if not existing
     And I create the firstrule random user if not existing, no wait
 
-    When I connect with the firstrule created user
+    When I login as 'firstrule' random user
     And I go to the random space
 
-    When I change user admin
+    When I login as 'admin' random user
     And I go to the random space
     And I click on 'Members' space menu tab
     And I search for 'firstrule' random user
@@ -55,7 +55,7 @@ Feature: Rules
     And I add an audience space
     And I save the program details
 
-    When I connect with the firstrule created user
+    When I login as 'firstrule' random user
     And I go to 'Contributions' application
     And I select engagement Programs tab
     And I open 'Test Rule Space Host' program card
@@ -73,14 +73,14 @@ Feature: Rules
     And The action 'Join space' is displayed in program detail
 
   Scenario: Space member as program owner can add action
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the random space if not existing
     And I create the secondrule random user if not existing, no wait
 
-    When I connect with the secondrule created user
+    When I login as 'secondrule' random user
     And I go to the random space
 
-    When I change user admin
+    When I login as 'admin' random user
     And I go to 'Contributions' application
     And I select engagement Programs tab
     And I click on the button add program
@@ -90,7 +90,7 @@ Feature: Rules
     And I set user 'secondrule' as program owner
     And I save the program details
 
-    When I connect with the secondrule created user
+    When I login as 'secondrule' random user
     And I go to 'Contributions' application
     And I open 'Test Rule Program Owner' program card
 

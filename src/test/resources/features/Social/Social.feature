@@ -4,18 +4,18 @@ Feature: Social
 
   @activitystream
   Scenario: Comment on your friends activity
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing, no wait
-    And I connect with the first created user
+    And I login as 'first' random user
     And I go to the random space
     And I click on post in space
     And I enter an activity 'CommentPost'
     And I publish the activity
     And the activity 'CommentPost' is displayed in activity stream
-    And I connect with the second created user
+    And I login as 'second' random user
     And I go to the random space
     And the activity 'CommentPost' is displayed in activity stream
     And I add in activity 'CommentPost' a comment 'commenttest'
@@ -24,14 +24,14 @@ Feature: Social
     And Activity Comment 'commenttest' is displayed in activity stream
 
   Scenario: Search users in My connections tab
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing
-    And I connect with the first created user
+    And I login as 'first' random user
     And I connect to second user
-    And I connect with the second created user
+    And I login as 'second' random user
     And I go to Stream page
     Then The 'Connections' badge is '1'
     When I click on connections badge
@@ -47,10 +47,10 @@ Feature: Social
 
   @activitystream
   Scenario: Cancel edit comment
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I create the first random user if not existing, no wait
-    When I connect with the first created user
+    When I login as 'first' random user
     And I go to the random space
     And I click on post in space
     And I enter an activity 'CancelEditComment'
@@ -66,7 +66,7 @@ Feature: Social
 
   @activitystream
   Scenario: [REPLY_05] The comment is displayed on the buttom of the comment reply section
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
       | third  |
@@ -74,19 +74,19 @@ Feature: Social
     And I create the second random user if not existing, no wait
     And I create the third random user if not existing
 
-    When I connect with the first created user
+    When I login as 'first' random user
     And I go to the random space
     And I click on post in space
     And I enter an activity 'comment activity'
     And I publish the activity
     Then the activity 'comment activity' is displayed in activity stream
 
-    When I connect with the second created user
+    When I login as 'second' random user
     And I go to the random space
     Then the activity 'comment activity' is displayed in activity stream
 
     When I add in activity 'comment activity' a comment 'commenttest'
-    And I connect with the third created user
+    And I login as 'third' random user
     And I go to the random space
     Then the activity 'comment activity' is displayed in activity stream
     When I add a reply 'reply' to comment 'commenttest' in activity 'comment activity'

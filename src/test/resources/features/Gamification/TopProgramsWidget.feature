@@ -4,7 +4,7 @@ Feature: Programs should be displayed in Top Programs in sorted way
   I should access programs I am member of in Top Programs, sorted by points descending
 
   Scenario: Top Programs sorted by score descending
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
 
     When I create the thirtyone random user
     And I create the thirtyone random space with the thirtyone random user as member
@@ -31,7 +31,7 @@ Feature: Programs should be displayed in Top Programs in sorted way
     And I create the 'thirtythree' random manual action with
       | points | 9999 |
 
-    When I connect with the thirtyone created user
+    When I login as 'thirtyone' random user
     And I go to Stream page
     And I click on spaces badge
     And I accept the invitation of the thirtyone created space
@@ -43,7 +43,7 @@ Feature: Programs should be displayed in Top Programs in sorted way
     And The 'thirtyone' random program is displayed in 'second' position in Top Programs widget
     And The 'thirtythree' random program is not displayed in Top Programs widget
 
-    When I change user admin
+    When I login as 'admin' random user
     And I go to 'Contributions' application
     And I select engagement Challenges tab
     And I update the 'thirtyone' random challenge with
@@ -51,7 +51,7 @@ Feature: Programs should be displayed in Top Programs in sorted way
     And I search the 'thirtyone' random challenge
     Then The 'thirtyone' challenge is displayed with '9999' points
 
-    When I connect with the thirtyone created user
+    When I login as 'thirtyone' random user
     When I go to Overview page
 
     Then The 'thirtyone' random program is displayed in 'first' position in Top Programs widget

@@ -518,7 +518,7 @@ public class HomeStepDefinition {
     homeSteps.checkHamburgerMenuSpacePosition(spaceName, spaceMenuPosition);
   }
 
-  @Given("^The (.*) random space name and description are displayed in second manu level$")
+  @Given("^The (.*) random space name and description are displayed in second menu level$")
   public void checkHamburgerMenuSpaceDescriptionAndName(String spacePrefix) {
     String randomSpaceName = sessionVariableCalled(spacePrefix + "RandomSpaceName");
     homeSteps.checkHamburgerMenuSpaceDescriptionAndName(randomSpaceName);

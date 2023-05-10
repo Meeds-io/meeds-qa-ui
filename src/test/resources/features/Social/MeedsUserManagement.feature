@@ -6,7 +6,7 @@ Feature: Users Management
   # Unstable use case
   @ignored
   Scenario: [USR_MNG-1.1] Users Grid
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
 
     When I create the seconddisabled random user if not existing
     And I create the first random user if not existing

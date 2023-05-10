@@ -51,7 +51,7 @@ public class ManageSpaceSteps {
       } else if (!manageSpacesPage.isSpaceMenuDisplayed()) {
         boolean joined = manageSpacesPage.clickSpaceActionToJoin();
         if (joined) {
-          waitForPageLoading();
+          waitForLoading();
           return;
         }
       }
