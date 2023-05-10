@@ -66,9 +66,9 @@ Feature: SideBar
     Then The third random space is displayed as first item in recent spaces menu
     And The fourth random space is displayed as second item in recent spaces menu
     When I open the third random space menu details
-    Then The third random space name and description are displayed in second manu level
+    Then The third random space name and description are displayed in second menu level
     When I open the fourth random space menu details
-    Then The fourth random space name and description are displayed in second manu level
+    Then The fourth random space name and description are displayed in second menu level
     And I close the opened drawer
 
   Scenario: Display Red Dot In Unstickied Hamburger Menu
