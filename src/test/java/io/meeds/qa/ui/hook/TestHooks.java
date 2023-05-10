@@ -313,6 +313,8 @@ public class TestHooks {
         "fourachievement",
         "fifthachievement",
         "sixthachievement",
+        "seventhachievement",
+        "eighthachievement",
         "firstrule",
         "secondrule",
         "reddot",
