@@ -496,7 +496,7 @@ public class TasksPage extends GenericPage {
     taskThreeDotsOptionElement().click();
   }
 
-  public void clickOnTheNotificationThatMentioneFirstUserInATaskInProject(String message, String projectName) {
+  public void clickOnTheNotificationThatMentioneThirdUserInATaskInProject(String message, String projectName) {
     ElementFacade firstNotificationContentElement = firstNotificationContentElement();
     firstNotificationContentElement.waitUntilVisible();
     Assert.assertTrue(firstNotificationContentElement.getText().contains(message));

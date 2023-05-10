@@ -4,7 +4,7 @@ Feature: Meeds Space
   I want to check spaces page
 
   Scenario: SPC_MNG-1 : Spaces avatar and title
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
 
     When I go to the random space
 
@@ -12,7 +12,7 @@ Feature: Meeds Space
     And The created space name is displayed
 
   Scenario: SPC_MNG-3 : Home space page banner
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
 
     When I go to the random space
 
@@ -24,7 +24,7 @@ Feature: Meeds Space
     Then Space banner is changed successfully
 
   Scenario: SPC_MNG-4 : Clickable Space avatar
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
 
     When I go to the random space
 
@@ -35,7 +35,7 @@ Feature: Meeds Space
     Then Space Top Bar Elements are displayed
 
   Scenario: [SPACES-2] Spaces Cards bloc
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
 
     When I create or check that thirty spaces are created
     And I go to spaces page
@@ -44,13 +44,13 @@ Feature: Meeds Space
     Then I check that other spaces are displayed
 
   Scenario: SPACES-4: Spaces Request
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the first random user if not existing
     And I create a first random space with the first created user as member
     And I create a second random space with the first created user as member
     And I create a third random space with the first created user as member
 
-    When I connect with the first created user
+    When I login as 'first' random user
     And I go to Stream page
     Then The Spaces badge is '3'
     When I click on spaces badge
@@ -64,7 +64,7 @@ Feature: Meeds Space
     And The second created space is not displayed in Spaces Requests section
 
   Scenario: [SPC_MNG-8] Spaces applications management
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     When I create a random space
     And I add application 'Notes' in random space if not existing
     When I go to Settings in space tab
