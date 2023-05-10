@@ -4,10 +4,10 @@ Feature: Edit sections in Settings page
   I want to edit in Settings page many sections
 
   Scenario: [SETTINGS-5] Language and its drawer
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | firstlang  |
     And I create the firstlang random user if not existing
-    And I connect with the firstlang created user
+    And I login as 'firstlang' random user
 
     And I go to Settings page
     Then Settings Page Is Opened
@@ -29,10 +29,10 @@ Feature: Edit sections in Settings page
     Then Language 'English / English' is displayed
 
   Scenario: SETTINGS-4 : Add the home icon for Homepage default view
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | homeicon  |
     And I create the homeicon random user if not existing, no wait
-    And I connect with the homeicon created user
+    And I login as 'homeicon' random user
 
     When I open hamburger menu drawer
     And I mouse over the 'Spaces' icon in sidebar menu

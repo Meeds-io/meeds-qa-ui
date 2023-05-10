@@ -5,7 +5,7 @@ Feature: Application center Addon
   in order to share them with users
 
   Scenario: CAP47-[Admin_UI_US12] Applications table/Edit action
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I go to Administer application center Page
     When I open 'Analytics' edit drawer
     Then Edit application title is displayed 'Analytics' in drawer
@@ -16,7 +16,7 @@ Feature: Application center Addon
     And I refresh the page
 
   Scenario: CAP79-[Admin_UI_US07][02]Delete an app
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I go to Administer application center Page
     When I add a new random application
     And I search for the random created application
@@ -27,7 +27,7 @@ Feature: Application center Addon
     Then The random application is not displayed in application list
 
   Scenario: CAP80-[Admin_UI_US07][03]Cancel button /close icon
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I go to Administer application center Page
     When I add a new random application
     And I search for the random created application
@@ -41,12 +41,12 @@ Feature: Application center Addon
     Then Delete popup is not displayed
 
   Scenario: CAP72 - [Admin_UI_US06][02] Applications table/ Editable fields(Mandatory option)
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
 
     When I create the first random user if not existing, no wait
     And I go to Administer application center Page
     And I add a new random application
-    And I connect with the first created user
+    And I login as 'first' random user
     And I see All Applications
     Then The message 'You can’t set more than 12 favorites' is displayed
     When I search for the random created application
@@ -58,24 +58,24 @@ Feature: Application center Addon
     Then The application is not bookmarked as my favorites
     Then The created application is not displayed in Favorites Applications
 
-    When I change user admin
+    When I login as 'admin' random user
     And I go to Administer application center Page
     And I enable Mandatory for the created application
 
     And I go to Administer application center Page
     And I search for the random created application
-    And I connect with the first created user
+    And I login as 'first' random user
     And I see All Applications
     Then The application bookmark is disabled
 
   Scenario: CAP71 - [Admin_UI_US06][01] Applications table/ Editable fields (Active option)
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
 
     And I create the first random user if not existing, no wait
     And I go to Administer application center Page
     And I add a new random application
 
-    And I connect with the first created user
+    And I login as 'first' random user
     And I see All Applications
 
     When I search for the random created application
@@ -85,12 +85,12 @@ Feature: Application center Addon
     And The created application Open Button is displayed
     And AppCenter created application is removed From Favorites
 
-    When I change user admin
+    When I login as 'admin' random user
 
     And I go to Administer application center Page
     And I search for the random created application
     And I disable Active option for the created application
-    And I connect with the first created user
+    And I login as 'first' random user
     And I see All Applications
     And I search for the random created application
     Then The created application is not displayed in Favorites Applications
@@ -98,12 +98,12 @@ Feature: Application center Addon
     And The random application is not displayed in application list
     And AppCenter created application is removed From Favorites
 
-    When I change user admin
+    When I login as 'admin' random user
 
     And I go to Administer application center Page
     And I search for the random created application
     And I enable Active option for the created application
-    And I connect with the first created user
+    And I login as 'first' random user
     And I see All Applications
     And I search for the random created application
     Then The created application is not displayed in Favorites Applications
@@ -114,26 +114,26 @@ Feature: Application center Addon
     And AppCenter created application is removed From Favorites
 
   Scenario: CAP50 - Admin_Settings_US06 - Active option
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the first random user if not existing, no wait
     And I go to Administer application center Page
     When I add a new random application
-    And I connect with the first created user
+    And I login as 'first' random user
     And I open the app center menu
     And I open all application page
     And I search for the random created application
     Then The random application is displayed in application list
-    When I change user admin
+    When I login as 'admin' random user
     And I go to Administer application center Page
     And I click on the added application active button
-    And I connect with the first created user
+    And I login as 'first' random user
     And I open the app center menu
     And I open all application page
     And I search for the random created application
     Then The random application is not displayed in application list
 
   Scenario: CAP53 - Edit an app which contain an attached image
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
 
     When I go to Administer application center Page
     And I add a new random application with the title, the url and the description with image <cap02.png>
@@ -162,7 +162,7 @@ Feature: Application center Addon
     Then The image of the second application is not displayed in Applications Table
 
   Scenario: CAP55 - Edit the title ,URL, description field for an app
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
 
     And I go to Administer application center Page
     When I add a new random application with the title, the url and the description
@@ -178,7 +178,7 @@ Feature: Application center Addon
     And First application edited Description is displayed in Applications Table
 
   Scenario: CAP56 - Admin_Settings_US04: Default permissions for an app
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the first random user if not existing, no wait
 
     And I go to Administer application center Page
@@ -186,7 +186,7 @@ Feature: Application center Addon
     And I search for the random created application
     Then The added application with permission '*:/platform/users' is displayed in Applications Table
 
-    When I connect with the first created user
+    When I login as 'first' random user
 
     When I see All Applications
     And I search for the random created application

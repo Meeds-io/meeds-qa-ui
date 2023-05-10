@@ -99,6 +99,10 @@ public class RulePage extends GenericPage {
     ruleEventsMenuItem(eventName).click();
   }
 
+  public void deleteActionDuration() {
+    durationEnabledChip().click();
+  }
+
   public void setActionEndDate() {
     actionEndDateElement().click();
     waitForMenuToOpen();
@@ -167,6 +171,10 @@ public class RulePage extends GenericPage {
 
   private ElementFacade durationChip() {
     return findByXPathOrCSS("//*[contains(text(),'Duration')]//ancestor-or-self::*[contains(@class, 'v-chip')]");
+  }
+
+  private ElementFacade durationEnabledChip() {
+    return findByXPathOrCSS("//*[contains(text(),'Duration')]//ancestor-or-self::*[contains(@class, 'v-chip') and contains(@class, 'primary')]");
   }
 
   private ElementFacade declarativeChoiceButton() {

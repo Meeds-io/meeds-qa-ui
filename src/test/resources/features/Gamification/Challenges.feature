@@ -3,7 +3,7 @@
 Feature: Challenges
 
   Scenario: Announce a challenge
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the first random user if not existing, no wait
     And I create the random space if not existing
     And I go to 'Contributions' application
@@ -26,13 +26,16 @@ Feature: Challenges
 
     When I click on 'Declarative' button in drawer
     And I click on 'Next' button in drawer
-    And I set rule end date
+
+    Then The button 'Duration' is not displayed in drawer
+
+    When I set rule end date
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
     And The action 'Challenge to announce' is displayed in program detail
 
-    When I connect with the first created user
+    When I login as 'first' random user
     And I go to the random space
 
     And I go to 'Contributions' application
@@ -43,8 +46,29 @@ Feature: Challenges
     And I select engagement Achievements tab
     Then Achievement for 'Challenge to announce' is accepted
 
+    When I select engagement Programs tab
+    And I open random program card
+
+    When I open program action 'Challenge to announce'
+    Then The program action contains duration limitation
+    And I close the opened drawer
+
+    When I login as 'admin' random user
+
+    When I go to 'Contributions' application
+    And I select engagement Programs tab
+    And I open random program card
+    And I edit program action 'Challenge to announce'
+    And I click on 'Next' button in drawer
+    And I delete rule duration
+    And I click on 'Update' button in drawer
+
+    When I open program action 'Challenge to announce'
+    Then The program action does not contain duration limitation
+    And I close the opened drawer
+
   Scenario: Cannot Announce a disabled challenge
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the random space if not existing
 
     And I go to 'Contributions' application
@@ -86,7 +110,7 @@ Feature: Challenges
     And I close the opened drawer
 
   Scenario: Cancel a challenge
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the first random user if not existing, no wait
     And I create the random space if not existing
     And I go to 'Contributions' application
@@ -108,7 +132,7 @@ Feature: Challenges
     Then Confirmation message is displayed 'Action has been successfully created'
     And The action 'Challenge To Cancel' is displayed in program detail
 
-    When I connect with the first created user
+    When I login as 'first' random user
     And I go to the random space
 
     And I go to 'Contributions' application
@@ -123,7 +147,7 @@ Feature: Challenges
     Then Achievement for 'Challenge To Cancel' is canceled
 
   Scenario: Delete announce Activity
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the first random user if not existing, no wait
     And I create the random space if not existing
     And I go to 'Contributions' application
@@ -145,7 +169,7 @@ Feature: Challenges
     Then Confirmation message is displayed 'Action has been successfully created'
     And The action 'Announce activity to delete' is displayed in program detail
 
-    When I connect with the first created user
+    When I login as 'first' random user
     And I go to the random space
 
     And I go to 'Contributions' application
@@ -161,7 +185,7 @@ Feature: Challenges
     Then Achievement for 'Announce activity to delete' is rejected due to activity deletion
 
   Scenario: Overview top challenge
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     When I create the first random user if not existing, no wait
     And I create the random space if not existing
     And I go to 'Contributions' application
@@ -183,7 +207,7 @@ Feature: Challenges
     Then Confirmation message is displayed 'Action has been successfully created'
     And The action 'Top challenge' is displayed in program detail
 
-    When I connect with the first created user
+    When I login as 'first' random user
     And I go to the random space
 
     And I go to 'Contributions' application
@@ -196,11 +220,11 @@ Feature: Challenges
     And I go to Overview page
     Then 'Top challenge' is displayed in challenge portlet with '4' participants
 
-    When I change user admin
+    When I login as 'admin' random user
 
     And I go to 'Contributions' application
     And I delete the created program
-    And I connect with the first created user
+    And I login as 'first' random user
     And I go to Overview page
 
     Then 'Top challenge' with '4' participants is not displayed in challenge portlet

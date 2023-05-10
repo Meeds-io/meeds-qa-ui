@@ -157,6 +157,14 @@ public class BasePageImpl extends PageObject implements BasePage {
     getDrawerButton(buttonText).assertDisabled();
   }
 
+  public void buttonInDrawerIsNotDisplayed(String buttonText) {
+    getDrawerButton(buttonText).assertNotVisible();
+  }
+
+  public void buttonInDrawerIsDisplayed(String buttonText) {
+    getDrawerButton(buttonText).assertVisible();
+  }
+
   public ButtonElementFacade findButtonByXPathOrCSS(String xpath) {
     WebElementFacade nestedElement = getWebElementFacadeByXPathOrCSS(xpath);
     return ButtonElementFacadeImpl.wrapWebElementFacadeInButtonElement(getDriver(),
