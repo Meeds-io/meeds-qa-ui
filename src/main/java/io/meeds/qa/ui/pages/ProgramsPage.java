@@ -148,7 +148,15 @@ public class ProgramsPage extends GenericPage {
   }
 
   public void checkCannotAnnounceAction() {
-    announceChallengeActionFromDrawer().checkNotVisible();
+    announceChallengeActionFromDrawer().assertNotVisible();
+  }
+
+  public void checkProgramActionNotContainsDurationLimitation() {
+    daysLeftInfoFromDrawer().assertNotVisible();
+  }
+
+  public void checkProgramActionContainsDurationLimitation() {
+    daysLeftInfoFromDrawer().assertVisible();
   }
 
   public void closeProgramCard() {
@@ -315,6 +323,10 @@ public class ProgramsPage extends GenericPage {
 
   private ElementFacade announceChallengeActionFromDrawer() {
     return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(text(), 'Announce your achievement']");
+  }
+
+  private ElementFacade daysLeftInfoFromDrawer() {
+    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'fa-calendar-day')]");
   }
 
 }

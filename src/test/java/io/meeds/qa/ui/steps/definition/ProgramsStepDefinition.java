@@ -19,6 +19,7 @@ package io.meeds.qa.ui.steps.definition;
 
 import static io.meeds.qa.ui.utils.Utils.getIndexFomName;
 import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
+import static io.meeds.qa.ui.utils.Utils.getRandomString;
 
 import java.util.Map;
 
@@ -139,6 +140,13 @@ public class ProgramsStepDefinition {
     programsSteps.enterProgramTitle(programTitle);
   }
 
+  @And("^I enter the random program title '(.*)'$")
+  public void enterRandomProgramTitle(String suffix) {
+    String programTitle = getRandomString(suffix) + suffix;
+    Serenity.setSessionVariable("programName" + suffix).to(programTitle);
+    programsSteps.enterProgramTitle(programTitle);
+  }
+
   @Then("Engagement application center is displayed")
   public void isEngagementAppOpened() {
     programsSteps.isEngagementAppOpened();
@@ -198,6 +206,16 @@ public class ProgramsStepDefinition {
   @And("I cannot announce program action")
   public void checkCannotAnnounceAction() {
     programsSteps.checkCannotAnnounceAction();
+  }
+
+  @And("The program action does not contain duration limitation")
+  public void checkProgramActionNotContainsDurationLimitation() {
+    programsSteps.checkProgramActionNotContainsDurationLimitation();
+  }
+
+  @And("The program action contains duration limitation")
+  public void checkProgramActionContainsDurationLimitation() {
+    programsSteps.checkProgramActionContainsDurationLimitation();
   }
 
   @And("^I announce challenge '(.*)'$")

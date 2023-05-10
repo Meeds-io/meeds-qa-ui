@@ -103,6 +103,16 @@ public class GenericStepDefinitions {
     genericSteps.buttonInDrawerIsDisabled(buttonText);
   }
 
+  @Then("^The button '(.*)' is not displayed in drawer$")
+  public void buttonInDrawerIsNotDisplayed(String buttonText) {
+    genericSteps.buttonInDrawerIsNotDisplayed(buttonText);
+  }
+
+  @Then("^The button '(.*)' is displayed in drawer$")
+  public void buttonInDrawerIsDisplayed(String buttonText) {
+    genericSteps.buttonInDrawerIsDisplayed(buttonText);
+  }
+
   @When("I wait for drawer to open")
   public void waitForDrawerToOpen() {
     genericSteps.waitForDrawerToOpen();

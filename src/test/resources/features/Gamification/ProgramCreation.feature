@@ -2,7 +2,7 @@
 Feature: Programs
 
   Scenario: [Engagement][Program][US] : Add an enabled program
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the random space if not existing
     And I go to 'Contributions' application
     Then Engagement application center is displayed
@@ -19,7 +19,7 @@ Feature: Programs
     Then The program title should be displayed on the card
 
   Scenario: [Engagement][Program][US] : Add a disabled program
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the random space if not existing
     And I go to 'Contributions' application
     Then Engagement application center is displayed
@@ -36,7 +36,7 @@ Feature: Programs
     Then The program title should be displayed on the card
 
   Scenario: [Engagement][Program][US] : Edit program
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the random space if not existing
     And I go to 'Contributions' application
     Then Engagement application center is displayed
@@ -54,7 +54,7 @@ Feature: Programs
     And The program title should be updated on the card
 
   Scenario: [Program][US04] Delete program
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the random space if not existing
     And I go to 'Contributions' application
     Then Engagement application center is displayed
@@ -72,7 +72,7 @@ Feature: Programs
     And The program card should not be displayed
 
   Scenario:[Engagement][Program][US] : Quick filter on program
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the random space if not existing
     And I go to 'Contributions' application
     Then Engagement application center is displayed

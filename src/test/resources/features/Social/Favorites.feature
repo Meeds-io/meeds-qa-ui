@@ -2,10 +2,10 @@
 Feature: Favorite activities
 
   Scenario: [Favs_US03] Bookmark an activity
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I create the first random user if not existing
-    And I connect with the first created user
+    And I login as 'first' random user
     And I go to the random space
     When I click on post in space
     And I enter an activity 'favorite activity'
@@ -16,10 +16,10 @@ Feature: Favorite activities
     Then The favorite success message 'Favorite added successfully. Find it easily from the search' should be displayed
 
   Scenario: [Favs_US04] Remove the Bookmark for an activity
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I create the first random user if not existing
-    And I connect with the first created user
+    And I login as 'first' random user
     And I go to the random space
     When I click on post in space
     And I enter an activity 'bookmark activity'
@@ -32,10 +32,10 @@ Feature: Favorite activities
     Then The favorite success message 'The item has been removed from favorites successfully.' should be displayed
 
   Scenario: [Favs_US05][01] Search by favorites (Filter by favorite button)
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I create the first random user if not existing
-    And I connect with the first created user
+    And I login as 'first' random user
     And I go to the random space
     When I post '3' activities with prefix 'act_Fav_US05_01_'
     And I refresh the page
@@ -58,10 +58,10 @@ Feature: Favorite activities
     And The activity is not displayed in the search 'act_Fav_US05_01_2'
 
   Scenario:  [Favs_US05][02] Search by favorites (Filter by keyword and favorite button)
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I create the first random user if not existing
-    And I connect with the first created user
+    And I login as 'first' random user
     And I go to the random space
     When I post '2' activities with prefix 'activityFavs_US05'
     And I refresh the page
@@ -87,10 +87,10 @@ Feature: Favorite activities
     And The activity is displayed in the search 'activityFavs_US050'
 
   Scenario: [Favs_US06][01] Manage favorites from the search card ( Bookmark an activity)
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I create the first random user if not existing
-    And I connect with the first created user
+    And I login as 'first' random user
     And I go to the random space
     When I post '2' activities with prefix 'activityFavs_US06_01_'
     And I refresh the page
@@ -109,10 +109,10 @@ Feature: Favorite activities
     And The activity is not displayed in the search 'activityFavs_US06_01_0'
 
   Scenario: [Favs_US06][02] Manage favorites from the search card ( UnBookmark an activity)
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I create the first random user if not existing
-    And I connect with the first created user
+    And I login as 'first' random user
     And I go to the random space
     When I post '2' activities with prefix 'activityFavs_US06_02_'
     And I refresh the page
@@ -133,10 +133,10 @@ Feature: Favorite activities
     And The activity is not displayed in the search 'activityFavs_US06_02_0'
 
   Scenario: SpaceFav_US01.11: Bookmark a space as a favorite (space page)
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the first random user if not existing
     And I create a random space
-    And I connect with the first created user
+    And I login as 'first' random user
     And I go to the random space
     And I 'Join'
     When I go to spaces page
@@ -150,10 +150,10 @@ Feature: Favorite activities
     And I check that the random space is unbookmarked from space card
 
   Scenario: SpacePopover_IMP02.3: Bookmark space from topbar space popover
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the first random user if not existing
     And I create a random space
-    And I connect with the first created user
+    And I login as 'first' random user
     And I go to the random space
     And I hover on space name from top bar
     Then The favorite icon should be displayed in space popover from topbar
@@ -165,7 +165,7 @@ Feature: Favorite activities
     And I check that the random space is unbookmarked from topbar space popover
 
   Scenario: Left Nav US02.2: Bookmark space from the left menu (desktop)
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I go to the seven random space
     And I go to the nine random space
     And I access to Recent spaces
@@ -184,7 +184,7 @@ Feature: Favorite activities
     And I check that the random space is unbookmarked from Third Navigation Level
 
   Scenario: StreamFiltering_US04.2: Filter my stream by favorite spaces
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I go to the ninety random space
     And I click on post in space
     And I enter an activity 'Test1'

@@ -7,14 +7,14 @@ Feature: Spaces widget checking
 
   @smoke
   Scenario: US 3.3.2_(02) [BACK] Spaces requests to join: See All
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the eighteenth random user if not existing
     And I create a random space with the eighteenth random user
     And I create a random space with the eighteenth random user
     And I create a random space with the eighteenth random user
     And I create a random space with the eighteenth random user
     And I create a random space with the eighteenth random user
-    When I connect with the eighteenth created user
+    When I login as 'eighteenth' random user
     And I go to Stream page
     Then the invitation number for spaces is '5'
     And The Spaces badge is '5'
