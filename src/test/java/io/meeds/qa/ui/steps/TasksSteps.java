@@ -409,8 +409,8 @@ public class TasksSteps {
     tasksPage.clickOnTaskThreeDotsOption();
   }
 
-  public void clickOnTheNotificationThatMentioneFirstUserInATaskInProject(String message, String projectName) {
-    tasksPage.clickOnTheNotificationThatMentioneFirstUserInATaskInProject(message, projectName);
+  public void clickOnTheNotificationThatMentionThirdUserInATaskInProject(String message, String projectName) {
+    tasksPage.clickOnTheNotificationThatMentioneThirdUserInATaskInProject(message, projectName);
   }
 
   public void clickOnTheTimestamp() {

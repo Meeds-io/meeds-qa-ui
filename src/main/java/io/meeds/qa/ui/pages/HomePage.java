@@ -513,14 +513,14 @@ public class HomePage extends GenericPage {
 
   public void checkRedDotInHamburgerMenu() {
     getHamburgerNavigationMenu().assertVisible();
-    findByXPathOrCSS(".hamburger-unread-badge ").assertVisible();
+    retryOnCondition(() -> findByXPathOrCSS(".hamburger-unread-badge ").checkVisible());
   }
 
   public void checkRedDotNotInHamburgerMenu() {
     getHamburgerNavigationMenu().assertVisible();
-    findByXPathOrCSS(".hamburger-unread-badge ").assertNotVisible();
+    retryOnCondition(() -> findByXPathOrCSS(".hamburger-unread-badge ").checkNotVisible());
   }
-  
+
   public void hoverOnHamburgerMenu() {
     getHamburgerNavigationMenu().hover();
   }

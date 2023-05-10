@@ -62,6 +62,14 @@ public class GenericSteps {
     genericPage.buttonInDrawerIsDisabled(buttonText);
   }
 
+  public void buttonInDrawerIsNotDisplayed(String buttonText) {
+    genericPage.buttonInDrawerIsNotDisplayed(buttonText);
+  }
+
+  public void buttonInDrawerIsDisplayed(String buttonText) {
+    genericPage.buttonInDrawerIsDisplayed(buttonText);
+  }
+
   public void waitForDrawerToOpen() {
     genericPage.waitForDrawerToOpen();
   }

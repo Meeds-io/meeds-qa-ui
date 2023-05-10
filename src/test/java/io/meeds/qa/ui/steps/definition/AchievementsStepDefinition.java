@@ -20,6 +20,7 @@ package io.meeds.qa.ui.steps.definition;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.meeds.qa.ui.steps.AchievementsSteps;
+import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 
 public class AchievementsStepDefinition {
@@ -55,6 +56,12 @@ public class AchievementsStepDefinition {
   @And("^I filter achievements using '(.*)' program$")
   public void filterAchievementByProgram(String programTitle) {
     achievementsSteps.filterAchievementByProgram(programTitle);
+  }
+
+  @And("^I filter achievements using '(.*)' random program$")
+  public void filterAchievementByRandomProgram(String suffix) {
+    String programName = Serenity.sessionVariableCalled("programName" + suffix);
+    achievementsSteps.filterAchievementByProgram(programName);
   }
 
 }

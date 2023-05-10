@@ -19,6 +19,7 @@ package io.meeds.qa.ui.steps.definition;
 
 import java.util.List;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.meeds.qa.ui.steps.LoginSteps;
 import net.serenitybdd.core.Serenity;
@@ -29,19 +30,21 @@ public class LoginStepDefinitions {
   @Steps
   private LoginSteps loginSteps;
 
-  @Given("^I am authenticated as (.*)$")
-  public void authenticate(String username) {
-    loginSteps.authenticate(username);
+  @Given("^I am authenticated as '(.*)' random user$")
+  @And("^I login as '(.*)' random user$")
+  public void loginUser(String userPrefix) {
+    String userName = Serenity.sessionVariableCalled(userPrefix + "UserName");
+    loginSteps.authenticate(userName);
   }
 
-  @Given("^I connect as (.*) if random space and random users doesn't exists$")
-  public void authenticateIfRandomSpaceAndUsersNotExists(String username, List<String> userPrefixes) {
-    loginSteps.authenticateIfRandomSpaceAndUsersNotExists(username, "randomSpaceName", userPrefixes);
-  }
-
-  @Given("^I connect as (.*) if random users doesn't exists$")
+  @Given("^I am authenticated as '(.*)' if random users doesn't exists$")
   public void authenticateIfUsersNotExists(String username, List<String> userPrefixes) {
     loginSteps.authenticateIfUsersNotExists(username, userPrefixes);
+  }
+
+  @Given("^I am authenticated as '(.*)' if random space and random users doesn't exists$")
+  public void authenticateIfRandomSpaceAndUsersNotExists(String username, List<String> userPrefixes) {
+    loginSteps.authenticateIfRandomSpaceAndUsersNotExists(username, "randomSpaceName", userPrefixes);
   }
 
   @Given("I logout")
@@ -52,34 +55,6 @@ public class LoginStepDefinitions {
   @Given("I check login page display")
   public void checkLoginPageDisplay() {
     loginSteps.checkLoginPageDisplay();
-  }
-
-  @Given("^I change user (.*)$")
-  public void logOutLogin(String username) {
-    authenticate(username);
-  }
-
-  @Given("I connect with admin")
-  public void authenticateAdmin() {
-    authenticate("admin");
-  }
-
-  @Given("^I connect with the dedicated user to be an administrator$")
-  public void logOutLoginFirstAdminUser() {
-    String firstAdminName = Serenity.sessionVariableCalled("firstAdminName");
-    logOutLogin(firstAdminName);
-  }
-
-  @Given("I connect with the first created user with the edited password")
-  public void logOutLoginFirstUserEditedPassword() {
-    String firstUserName = Serenity.sessionVariableCalled("firstUserName");
-    logOutLogin(firstUserName);
-  }
-
-  @Given("^I connect with the (.*) created user$")
-  public void logoutLoginUser(String userPrefix) {
-    String userName = Serenity.sessionVariableCalled(userPrefix + "UserName");
-    authenticate(userName);
   }
 
 }

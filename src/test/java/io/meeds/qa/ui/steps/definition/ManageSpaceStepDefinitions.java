@@ -36,6 +36,8 @@ import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 
 public class ManageSpaceStepDefinitions {
+  private static final String RANDOM_SPACE_NAME = "randomSpaceName";
+
   @Steps
   private HomeSteps        homeSteps;
 
@@ -46,7 +48,7 @@ public class ManageSpaceStepDefinitions {
 
   @When("I accept the invitation of the random space")
   public void acceptInvitationRandomSpace() {
-    String randomSpaceName = sessionVariableCalled("randomSpaceName");
+    String randomSpaceName = sessionVariableCalled(RANDOM_SPACE_NAME);
     homeSteps.acceptRandomSpaceInvitation(randomSpaceName);
   }
 
@@ -64,24 +66,24 @@ public class ManageSpaceStepDefinitions {
 
   @Given("I create a random space")
   public void addARandomSpace() {
-    String randomSpaceName = "randomSpaceName" + getRandomNumber();
+    String randomSpaceName = RANDOM_SPACE_NAME + getRandomNumber();
     homeSteps.goToManageSpacesPage();
     manageSpaceSteps.addSpaceWithRegistration(randomSpaceName, "Open");
   }
 
   @Given("^I create a random space with the (.*) random user$")
   public void addARandomSpaceWithRandomUserInvited(String userPrefix) {
-    String randomSpaceName = "randomSpaceName" + getRandomNumber();
+    String randomSpaceName = RANDOM_SPACE_NAME + getRandomNumber();
     String userFirstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");
     homeSteps.goToManageSpacesPage();
     manageSpaceSteps.addSpaceWithInviteUser(randomSpaceName, userFirstName);
-    setSessionVariable("randomSpaceName").to(randomSpaceName);
+    setSessionVariable(RANDOM_SPACE_NAME).to(randomSpaceName);
   }
 
   @Given("^I create a (.*) random space$")
   @And("^I create the (.*) random space$")
   public void addARandomSpace(String spacePrefix) {
-    String randomSpaceName = "randomSpaceName" + getRandomNumber();
+    String randomSpaceName = RANDOM_SPACE_NAME + getRandomNumber();
     homeSteps.goToManageSpacesPage();
     manageSpaceSteps.addSpaceWithRegistration(randomSpaceName, "Open");
     setSessionVariable(spacePrefix + "RandomSpaceName").to(randomSpaceName);
@@ -90,7 +92,7 @@ public class ManageSpaceStepDefinitions {
   @Given("^I create a (.*) random space with the (.*) created user as member$")
   @And("^I create the (.*) random space with the (.*) random user as member$")
   public void addARandomSpaceWithRandomUserInvited(String spacePrefix, String userPrefix) {
-    String randomSpaceName = "randomSpaceName" + getRandomNumber();
+    String randomSpaceName = RANDOM_SPACE_NAME + getRandomNumber();
     String userFirstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");
     homeSteps.goToManageSpacesPage();
     manageSpaceSteps.addSpaceWithInviteUser(randomSpaceName, userFirstName);
@@ -154,7 +156,7 @@ public class ManageSpaceStepDefinitions {
 
   @When("The first created space is not displayed in Spaces Requests section")
   public void checkFirstRandomDisplaySpaceInvitation() {
-    String randomSpaceName = sessionVariableCalled("randomSpaceName");
+    String randomSpaceName = sessionVariableCalled(RANDOM_SPACE_NAME);
     homeSteps.checkRandomNotDisplaySpaceInvitation(randomSpaceName);
   }
 
@@ -275,7 +277,7 @@ public class ManageSpaceStepDefinitions {
 
   @Given("^The created space details are displayed in spaces page search results with '(.*)'$")
   public void checkThatSpaceDetailsInSearchResultsAreDisplayedByOtherUser(String members) {
-    manageSpaceSteps.checkThatSpaceDetailsInSearchResultsAreDisplayedByOtherUser(sessionVariableCalled("randomSpaceName"),
+    manageSpaceSteps.checkThatSpaceDetailsInSearchResultsAreDisplayedByOtherUser(sessionVariableCalled(RANDOM_SPACE_NAME),
                                                                                  members);
   }
 
@@ -374,13 +376,13 @@ public class ManageSpaceStepDefinitions {
 
   @Given("I go to the random space")
   public void goToRandomSpace() {
-    manageSpaceSteps.addOrGoToSpace("randomSpaceName");
+    manageSpaceSteps.addOrGoToSpace(RANDOM_SPACE_NAME);
   }
 
   @Given("I create the random space if not existing")
   public void goToRandomSpaceIfNotExisting() {
-    if (StringUtils.isBlank(sessionVariableCalled("randomSpaceName"))) {
-      manageSpaceSteps.addOrGoToSpace("randomSpaceName");
+    if (StringUtils.isBlank(sessionVariableCalled(RANDOM_SPACE_NAME))) {
+      manageSpaceSteps.addOrGoToSpace(RANDOM_SPACE_NAME);
     }
   }
 
@@ -428,7 +430,7 @@ public class ManageSpaceStepDefinitions {
 
   @Given("^The created space name is displayed$")
   public void randomSpaceNameIsDisplayed() {
-    String randomSpaceName = sessionVariableCalled("randomSpaceName");
+    String randomSpaceName = sessionVariableCalled(RANDOM_SPACE_NAME);
     manageSpaceSteps.spaceNameIsDisplayed(randomSpaceName);
   }
 
@@ -466,7 +468,7 @@ public class ManageSpaceStepDefinitions {
 
   @When("I search for the random space")
   public void setInSearchRandomSpaceField() {
-    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
+    String randomSpaceName = Serenity.sessionVariableCalled(RANDOM_SPACE_NAME);
     manageSpaceSteps.searchSpace(randomSpaceName);
   }
 
