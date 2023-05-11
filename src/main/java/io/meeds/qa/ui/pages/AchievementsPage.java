@@ -25,6 +25,7 @@ import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
+import io.meeds.qa.ui.utils.Utils;
 
 public class AchievementsPage extends GenericPage {
 
@@ -42,35 +43,40 @@ public class AchievementsPage extends GenericPage {
 
   public void checkThatAchievementIsAccepted(String actionTitle) {
     waitForPageLoading();
-    ElementFacade acceptedAchievementElement = acceptedAchievementElement(actionTitle);
-    acceptedAchievementElement.assertVisible();
+    retryOnCondition(() -> acceptedAchievementElement(actionTitle).checkVisible(), Utils::refreshPage);
   }
 
   public void checkThatAchievementIsRejected(String actionTitle) {
     waitForPageLoading();
-    ElementFacade rejectedAchievementElement = rejectedAchievementElement(actionTitle);
-    rejectedAchievementElement.assertVisible();
-    rejectedAchievementElement.hover();
-    ElementFacade tooltipRejectedElement = tooltipRejectedElement();
-    tooltipRejectedElement.assertVisible();
+    retryOnCondition(() -> {
+      ElementFacade rejectedAchievementElement = rejectedAchievementElement(actionTitle);
+      rejectedAchievementElement.checkVisible();
+      rejectedAchievementElement.hover();
+      ElementFacade tooltipRejectedElement = tooltipRejectedElement();
+      tooltipRejectedElement.checkVisible();
+    }, Utils::refreshPage);
   }
 
   public void checkThatAchievementIsCanceled(String actionTitle) {
     waitForPageLoading();
-    ElementFacade rejectedAchievementElement = rejectedAchievementElement(actionTitle);
-    rejectedAchievementElement.assertVisible();
-    rejectedAchievementElement.hover();
-    ElementFacade tooltipCanceledElement = tooltipCanceledElement();
-    tooltipCanceledElement.assertVisible();
+    retryOnCondition(() -> {
+      ElementFacade rejectedAchievementElement = rejectedAchievementElement(actionTitle);
+      rejectedAchievementElement.checkVisible();
+      rejectedAchievementElement.hover();
+      ElementFacade tooltipCanceledElement = tooltipCanceledElement();
+      tooltipCanceledElement.checkVisible();
+    }, Utils::refreshPage);
   }
 
   public void checkThatAchievementIsDeleted(String actionTitle) {
     waitForPageLoading();
-    ElementFacade rejectedAchievementElement = rejectedAchievementElement(actionTitle);
-    rejectedAchievementElement.assertVisible();
-    rejectedAchievementElement.hover();
-    ElementFacade tooltipDeletedActivity = tooltipDeletedActivity();
-    tooltipDeletedActivity.assertVisible();
+    retryOnCondition(() -> {
+      ElementFacade rejectedAchievementElement = rejectedAchievementElement(actionTitle);
+      rejectedAchievementElement.checkVisible();
+      rejectedAchievementElement.hover();
+      ElementFacade tooltipDeletedActivity = tooltipDeletedActivity();
+      tooltipDeletedActivity.checkVisible();
+    }, Utils::refreshPage);
   }
 
   public void checkThatAchievementIsDisplayed(String actionTitle, long times) {

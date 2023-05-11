@@ -475,12 +475,15 @@ public class HomePage extends GenericPage {
       clickOnHamburgerMenu();
       waitFor(200).milliseconds(); // Wait for drawer to completely open
     }
+    waitFor(200).milliseconds(); // Wait for drawer to completely open
     ElementFacade menuItem = recentSpaceFirstLevelMenuItem(spaceName);
     menuItem.assertVisible();
     menuItem.hover();
+    waitFor(200).milliseconds(); // Wait for drawer to completely open
     ElementFacade arrowIcon = recentSpaceFirstLevelMenuArrowIcon(spaceName);
     arrowIcon.assertVisible();
     arrowIcon.click();
+    waitFor(200).milliseconds(); // Wait for drawer to completely open
     recentSpaceSecondLevelSpaceName(spaceName).waitUntilVisible();
   }
 

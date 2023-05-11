@@ -60,6 +60,7 @@ Feature: Achievements
 
     And I go to the random space
     When In activity 'Achievements - Kudos Post activity' I cancel the sent kudos comment 'Achievements - kudos activity comment to cancel'
+    And I refresh the page
 
     And I go to 'Contributions' application
     When I select engagement Achievements tab
