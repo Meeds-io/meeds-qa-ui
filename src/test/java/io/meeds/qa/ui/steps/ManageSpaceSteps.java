@@ -22,6 +22,7 @@ import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
@@ -81,8 +82,7 @@ public class ManageSpaceSteps {
     manageSpacesPage.clickFirstProcessButton();
     manageSpacesPage.clickSecondProcessButton();
     manageSpacesPage.inviteUserToSpace(user);
-    manageSpacesPage.clickAddSpaceButton();
-    waitForLoading();
+    manageSpacesPage.saveSpace();
   }
 
   public void addSpaceWithRegistration(String spaceName, String registration) {
@@ -93,8 +93,7 @@ public class ManageSpaceSteps {
     manageSpacesPage.clickFirstProcessButton();
     manageSpacesPage.checkSpaceRegistration(registration);
     manageSpacesPage.clickSecondProcessButton();
-    manageSpacesPage.clickAddSpaceButton();
-    waitForLoading();
+    manageSpacesPage.saveSpace();
 
     String spaceNamePrefix = "randomSpaceName";
     setSessionVariable(spaceNamePrefix).to(spaceName);

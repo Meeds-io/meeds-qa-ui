@@ -163,7 +163,9 @@ public class UserProfilePage extends GenericPage {
   }
 
   public void clickOnSendKudosBtn() {
-    uiIconKudosElement().click();
+    ElementFacade uiIconKudosElement = uiIconKudosElement();
+    uiIconKudosElement.assertVisible();
+    uiIconKudosElement.click();
     waitForDrawerToOpen();
     waitCKEditorLoading();
   }
@@ -658,7 +660,7 @@ public class UserProfilePage extends GenericPage {
   }
 
   private ElementFacade uiIconKudosElement() {
-    return findByXPathOrCSS("//i[contains(@class,'uiIconKudos')]");
+    return findByXPathOrCSS("//*[contains(@class,'profileHeaderOtherActions')]//button//i[contains(@class,'uiIconKudos')]");
   }
 
   private ElementFacade uploadedProfileAvatarElement() {

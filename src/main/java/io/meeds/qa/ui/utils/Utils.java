@@ -59,7 +59,7 @@ public class Utils {
   public static String getRandomNumber() {
     char[] chars = "0123456789".toCharArray();
     StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 8; i++) {
       char c = chars[RANDOM.nextInt(chars.length)];
       sb.append(c);
     }
@@ -73,17 +73,7 @@ public class Utils {
   public static String getRandomString(String base) {
     char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
     StringBuilder sb = new StringBuilder(base);
-    for (int i = 0; i < 6; i++) {
-      char c = chars[RANDOM.nextInt(chars.length)];
-      sb.append(c);
-    }
-    return sb.toString();
-  }
-
-  public static String getTheRandomNumber() {
-    char[] chars = "0123456789".toCharArray();
-    StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 8; i++) {
       char c = chars[RANDOM.nextInt(chars.length)];
       sb.append(c);
     }
