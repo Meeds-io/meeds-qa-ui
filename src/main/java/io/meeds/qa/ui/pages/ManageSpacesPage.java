@@ -17,7 +17,9 @@
  */
 package io.meeds.qa.ui.pages;
 
+import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.openqa.selenium.WebDriver;
 
@@ -202,8 +204,11 @@ public class ManageSpacesPage extends GenericPage {
     spaceAppInstallerDrawerElement().assertVisible();
   }
 
-  public void clickAddSpaceButton() {
+  public void saveSpace() {
     addSpaceButtonElement().click();
+    waitForDrawerToClose();
+    waitForLoading();
+    assertThat(getCurrentUrl()).contains("/g/");
   }
 
   public void clickFirstProcessButton() {
@@ -306,6 +311,10 @@ public class ManageSpacesPage extends GenericPage {
     spaceHomePage.goToSpecificTab("Settings");
   }
 
+  public void goToTasksTab() {
+    spaceHomePage.goToSpecificTab("Tasks");
+  }
+
   public void goToSpaceHomeViaSpaceAvatar() {
     spaceAvatarElement().click();
   }
@@ -313,10 +322,6 @@ public class ManageSpacesPage extends GenericPage {
   public void goToSpecificSpace(String spaceName) {
     getSpaceNameInListOfSpace(spaceName).click();
     waitForPageLoading();
-  }
-
-  public void goToTasksTab() {
-    spaceTasksTabElement().click();
   }
 
   public void hoverOnSpaceName() {
@@ -758,10 +763,6 @@ public class ManageSpacesPage extends GenericPage {
 
   private ElementFacade spacesPageElement() {
     return findByXPathOrCSS("//*[@id='UISiteBody']");
-  }
-
-  private ElementFacade spaceTasksTabElement() {
-    return findByXPathOrCSS("(//a[contains(@href,'/tasks')])");
   }
 
   private ElementFacade spaceTemplateFilterElement() {

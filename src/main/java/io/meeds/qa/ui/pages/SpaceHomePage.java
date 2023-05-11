@@ -671,7 +671,9 @@ public class SpaceHomePage extends GenericPage {
     tabElement.assertVisible();
     if (!selectedTabElement(tabName).isCurrentlyVisible()) {
       tabElement.click();
+      waitForLoading();
     }
+    selectedTabElement(tabName).assertVisible();
   }
 
   public void goToUserProfileFromLikersDrawer(String userLastName) {
@@ -970,15 +972,20 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private ElementFacade searchSpaceTabElement(String tabName) {
+    waitForLoading();
     selectedTabElement().waitUntilPresent();
     ElementFacade tabElement = tabElement(tabName);
-    while (!tabElement.isCurrentlyVisible() && goToSpaceLeftTabsElement().isCurrentlyVisible()) {
-      goToSpaceLeftTabsElement().click();
-      waitFor(200).milliseconds(); // Wait for animation end
-    }
-    while (!tabElement.isCurrentlyVisible() && goToSpaceRightTabsElement().isCurrentlyVisible()) {
+    while (!tabElement.isCurrentlyVisible() && goToSpaceRightTabsElement().isVisible()) {
       goToSpaceRightTabsElement().click();
-      waitFor(200).milliseconds(); // Wait for animation end
+      waitFor(500).milliseconds(); // Wait for animation end
+    }
+    while (!tabElement.isCurrentlyVisible() && goToSpaceLeftTabsElement().isVisible()) {
+      goToSpaceLeftTabsElement().click();
+      waitFor(500).milliseconds(); // Wait for animation end
+    }
+    while (!tabElement.isCurrentlyVisible() && goToSpaceRightTabsElement().isVisible()) {
+      goToSpaceRightTabsElement().click();
+      waitFor(500).milliseconds(); // Wait for animation end
     }
     return tabElement;
   }
