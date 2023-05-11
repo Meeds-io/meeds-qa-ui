@@ -26,6 +26,10 @@ public class ChallengesPage extends GenericPage {
     searchChallengeElement().setTextValue(challengeName);
     waitFor(1).seconds();
     waitForLoading();
+    TextBoxElementFacade expandProgramChallengesElement = expandProgramChallengesElement();
+    if (expandProgramChallengesElement.isCurrentlyVisible()) {
+      expandProgramChallengesElement.click();
+    }
   }
 
   public void cancelAnnouncementChallenge(String announcement) {
@@ -46,6 +50,10 @@ public class ChallengesPage extends GenericPage {
 
   private TextBoxElementFacade searchChallengeElement() {
     return findTextBoxByXPathOrCSS("//input[@id='EngagementCenterApplicationSearchFilter']");
+  }
+
+  private TextBoxElementFacade expandProgramChallengesElement() {
+    return findTextBoxByXPathOrCSS("//*[contains(@class, 'v-expansion-panel-header')]//*[contains(@class, 'fa-chevron-down')]");
   }
 
   private ElementFacade challengeByNameAndPoints(String challengeName, String points) {
