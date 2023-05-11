@@ -974,20 +974,15 @@ public class SpaceHomePage extends GenericPage {
   private ElementFacade searchSpaceTabElement(String tabName) {
     waitForLoading();
     selectedTabElement().waitUntilPresent();
-    ElementFacade tabElement = tabElement(tabName);
-    while (!tabElement.isCurrentlyVisible() && goToSpaceRightTabsElement().isVisible()) {
-      goToSpaceRightTabsElement().click();
-      waitFor(500).milliseconds(); // Wait for animation end
-    }
-    while (!tabElement.isCurrentlyVisible() && goToSpaceLeftTabsElement().isVisible()) {
+    while (!tabElement(tabName).isCurrentlyVisible() && goToSpaceLeftTabsElement().isVisible()) {
       goToSpaceLeftTabsElement().click();
-      waitFor(500).milliseconds(); // Wait for animation end
+      waitFor(1000).milliseconds(); // Wait for animation end
     }
-    while (!tabElement.isCurrentlyVisible() && goToSpaceRightTabsElement().isVisible()) {
+    while (!tabElement(tabName).isCurrentlyVisible() && goToSpaceRightTabsElement().isVisible()) {
       goToSpaceRightTabsElement().click();
-      waitFor(500).milliseconds(); // Wait for animation end
+      waitFor(1000).milliseconds(); // Wait for animation end
     }
-    return tabElement;
+    return tabElement(tabName);
   }
 
   private ElementFacade installedApplicationCard(String applicationName) {
