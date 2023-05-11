@@ -398,7 +398,7 @@ public class HomeStepDefinition {
     homeSteps.searchedSpaceIsNotDisplayedInSideBarFilter(randomSpaceName);
   }
 
-  @When("^I refresh the page$")
+  @When("I refresh the page")
   public void refreshPage() {
     Utils.refreshPage();
   }
