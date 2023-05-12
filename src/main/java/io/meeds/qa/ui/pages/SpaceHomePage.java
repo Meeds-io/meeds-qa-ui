@@ -803,6 +803,18 @@ public class SpaceHomePage extends GenericPage {
     getDropDownActivityMenu(activity).click();
   }
 
+  public boolean isThreeDotsActivityMenuOpen(String activity) {
+    return getDropDownActivityMenu(activity).isVisible();
+  }
+
+  public void openThreeDotsCommentMenu(String activity, String comment) {
+    getDropDownCommentMenu(activity, comment).click();
+  }
+
+  public boolean isThreeDotsCommentMenuOpen(String activity, String comment) {
+    return getDropDownCommentMenu(activity, comment).isVisible();
+  }
+
   public void pinActivityButtonIsDisplayed(String activity) {
     getPinActivityIcon(activity).assertVisible();
   }
@@ -1304,12 +1316,12 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private ElementFacade getDropDownActivityMenu(String activity) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::div[contains(@class,'contentBox')]//*[contains(@class, 'activity-head')]//*[contains(@class,'fa-ellipsis-v')]",
+    return findByXPathOrCSS(String.format("(//*[contains(text(),'%s')]//ancestor::div[contains(@class,'contentBox')]//*[contains(@class, 'activity-head')]//*[contains(@class,'fa-ellipsis-v')])[1]",
                                           activity));
   }
 
   private ElementFacade getDropDownCommentMenu(String activity, String comment) {
-    return findByXPathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//following::*[contains(@class,'activity-comment')]//*[contains(@class,'rich-editor-content')]//*[contains(text(),'%s')]/preceding::button[@class='v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--small'][1]",
+    return findByXPathOrCSS(String.format("(//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//following::*[contains(@class,'activity-comment')]//*[contains(@class,'rich-editor-content')]//*[contains(text(),'%s')]/preceding::button[@class='v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--small'])[1]",
                                           activity,
                                           comment));
   }

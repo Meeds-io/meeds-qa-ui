@@ -70,7 +70,7 @@ public class KudosSteps {
 
   public void cancelCommentKudos(String activity, String comment) {
     spaceHomePage.clickOnCommentThreeDotsButton(activity, comment);
-    kudosPage.cancelKudosComment(comment);
+    kudosPage.cancelKudosComment(activity, comment);
     spaceHomePage.clickYesbutton();
   }
 
