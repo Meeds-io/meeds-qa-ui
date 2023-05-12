@@ -1,3 +1,4 @@
+@gamification
 @achievements
 Feature: Achievements
 
@@ -134,8 +135,6 @@ Feature: Achievements
     And I select engagement Achievements tab
     Then Achievement for 'Receive kudos' is canceled
 
-  # Unstable Test case
-  @ignored
   Scenario: Achievements listing for program owner/space host
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing

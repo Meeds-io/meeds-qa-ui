@@ -17,8 +17,9 @@
  */
 package io.meeds.qa.ui.pages;
 
-import static io.meeds.qa.ui.utils.Utils.*;
-import static org.junit.Assert.assertEquals;
+import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
+import static io.meeds.qa.ui.utils.Utils.waitForLoading;
+import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -43,7 +44,12 @@ public class AchievementsPage extends GenericPage {
 
   public void checkThatAchievementIsAccepted(String actionTitle) {
     waitForPageLoading();
-    retryOnCondition(() -> acceptedAchievementElement(actionTitle).checkVisible(), Utils::refreshPage);
+    retryOnCondition(() -> acceptedAchievementElement(actionTitle).checkVisible(),
+                     () -> {
+                       waitFor(2).seconds();
+                       Utils.refreshPage(true);
+                     },
+                     10);
   }
 
   public void checkThatAchievementIsRejected(String actionTitle) {
@@ -54,7 +60,11 @@ public class AchievementsPage extends GenericPage {
       rejectedAchievementElement.hover();
       ElementFacade tooltipRejectedElement = tooltipRejectedElement();
       tooltipRejectedElement.checkVisible();
-    }, Utils::refreshPage);
+    }, () -> {
+      waitFor(2).seconds();
+      Utils.refreshPage(true);
+    },
+    10);
   }
 
   public void checkThatAchievementIsCanceled(String actionTitle) {
@@ -65,7 +75,11 @@ public class AchievementsPage extends GenericPage {
       rejectedAchievementElement.hover();
       ElementFacade tooltipCanceledElement = tooltipCanceledElement();
       tooltipCanceledElement.checkVisible();
-    }, Utils::refreshPage);
+    }, () -> {
+      waitFor(2).seconds();
+      Utils.refreshPage(true);
+    },
+    10);
   }
 
   public void checkThatAchievementIsDeleted(String actionTitle) {
@@ -76,15 +90,27 @@ public class AchievementsPage extends GenericPage {
       rejectedAchievementElement.hover();
       ElementFacade tooltipDeletedActivity = tooltipDeletedActivity();
       tooltipDeletedActivity.checkVisible();
-    }, Utils::refreshPage);
+    }, () -> {
+      waitFor(2).seconds();
+      Utils.refreshPage(true);
+    },
+    10);
   }
 
   public void checkThatAchievementIsDisplayed(String actionTitle, long times) {
-    int found = findAll(By.xpath(String.format("//*[contains(@id, 'GamificationRealizationItem')]//*[contains(text(), '%s')]",
-                                               actionTitle))).size();
-    assertEquals("Achievements count doesn't match",
-                 times,
-                 found);
+    retryOnCondition(() -> {
+      int found = findAll(By.xpath(String.format("//*[contains(@id, 'GamificationRealizationItem')]//*[contains(text(), '%s')]",
+                                                 actionTitle))).size();
+      if (times != found) {
+        throw new IllegalStateException(String.format("Expected to find '%s' achievement %s times, but was %s times",
+                                                      actionTitle,
+                                                      times,
+                                                      found));
+      }
+    }, () -> {
+      waitFor(2).seconds();
+      Utils.refreshPage(true);
+    }, 10);
   }
 
   private ElementFacade rejectedAchievementElement(String actionTitle) {
