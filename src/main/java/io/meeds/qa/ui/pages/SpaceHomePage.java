@@ -36,6 +36,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
+import io.meeds.qa.ui.utils.Utils;
 import net.serenitybdd.core.Serenity;
 
 public class SpaceHomePage extends GenericPage {
@@ -221,7 +222,10 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void checkActivityCommentNotDisplayed(String activity, String comment) {
-    getDropDownCommentMenu(activity, comment).assertNotVisible();
+    retryOnCondition(() -> getDropDownCommentMenu(activity, comment).checkNotVisible(), () -> {
+      waitFor(3).seconds();
+      Utils.refreshPage();
+    });
   }
 
   public void checkActivityNotVisible(String activity) {
@@ -452,6 +456,7 @@ public class SpaceHomePage extends GenericPage {
 
   public void clickYesbutton() {
     findByXPathOrCSS(CONFIRMATION_BUTTON_TO_DELETE_ACTIVITY_SELECTOR).click();
+    waitForLoading();
   }
 
   public void commentIsDisplayedInDrawer(String commentsNumber, String comment) {

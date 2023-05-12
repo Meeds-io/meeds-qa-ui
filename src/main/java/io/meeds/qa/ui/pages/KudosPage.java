@@ -80,14 +80,14 @@ public class KudosPage extends GenericPage {
   }
 
   public void cancelKudosActivity(String activity) {
-    if (!spaceHomePage.isThreeDotsActivityMenuOpen(activity)) {
+    if (!getCancelKudosActivityIcon(activity).isVisible()) {
       spaceHomePage.openThreeDotsActivityMenu(activity);
     }
     getCancelKudosActivityIcon(activity).click();
   }
 
   public void cancelKudosComment(String activity, String kudos) {
-    if (!spaceHomePage.isThreeDotsCommentMenuOpen(activity, kudos)) {
+    if (!getCancelKudosCommentIcon(kudos).isVisible()) {
       spaceHomePage.openThreeDotsCommentMenu(activity, kudos);
     }
     getCancelKudosCommentIcon(kudos).click();
@@ -260,11 +260,6 @@ public class KudosPage extends GenericPage {
 
   private ElementFacade threedotsKudosReplyCommentElement() {
     return findByXPathOrCSS("(//*[@class='flex-grow-1 flex-shrink-1 overflow-hidden']//*[@class='v-icon notranslate primary--text mdi mdi-dots-vertical theme--light'])[3]");
-  }
-
-  private ElementFacade getCancelKudosActivityMenu(String activity) {
-    return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@id, 'activity-detail')]//*[contains(@class, 'menuable__content__active')]",
-            activity));
   }
 
   private ElementFacade getCancelKudosActivityIcon(String activity) {

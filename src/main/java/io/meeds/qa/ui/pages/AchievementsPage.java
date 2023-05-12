@@ -43,7 +43,11 @@ public class AchievementsPage extends GenericPage {
 
   public void checkThatAchievementIsAccepted(String actionTitle) {
     waitForPageLoading();
-    retryOnCondition(() -> acceptedAchievementElement(actionTitle).checkVisible(), Utils::refreshPage);
+    retryOnCondition(() -> acceptedAchievementElement(actionTitle).checkVisible(),
+                     () -> {
+                       waitFor(3).seconds();
+                       Utils.refreshPage();
+                     });
   }
 
   public void checkThatAchievementIsRejected(String actionTitle) {
@@ -54,7 +58,10 @@ public class AchievementsPage extends GenericPage {
       rejectedAchievementElement.hover();
       ElementFacade tooltipRejectedElement = tooltipRejectedElement();
       tooltipRejectedElement.checkVisible();
-    }, Utils::refreshPage);
+    }, () -> {
+      waitFor(3).seconds();
+      Utils.refreshPage();
+    });
   }
 
   public void checkThatAchievementIsCanceled(String actionTitle) {
@@ -65,7 +72,10 @@ public class AchievementsPage extends GenericPage {
       rejectedAchievementElement.hover();
       ElementFacade tooltipCanceledElement = tooltipCanceledElement();
       tooltipCanceledElement.checkVisible();
-    }, Utils::refreshPage);
+    }, () -> {
+      waitFor(3).seconds();
+      Utils.refreshPage();
+    });
   }
 
   public void checkThatAchievementIsDeleted(String actionTitle) {
@@ -76,7 +86,10 @@ public class AchievementsPage extends GenericPage {
       rejectedAchievementElement.hover();
       ElementFacade tooltipDeletedActivity = tooltipDeletedActivity();
       tooltipDeletedActivity.checkVisible();
-    }, Utils::refreshPage);
+    }, () -> {
+      waitFor(3).seconds();
+      Utils.refreshPage();
+    });
   }
 
   public void checkThatAchievementIsDisplayed(String actionTitle, long times) {

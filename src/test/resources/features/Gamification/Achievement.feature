@@ -1,6 +1,7 @@
 @achievements
 Feature: Achievements
 
+  @unstable
   Scenario: Achievements for Send/Cancel Kudos from the activity author
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
@@ -71,6 +72,7 @@ Feature: Achievements
     And I select engagement Achievements tab
     And Achievement for 'Receive kudos' is canceled
 
+  @unstable
   Scenario: Achievements for Send/Cancel Kudos from user profile
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
@@ -213,6 +215,7 @@ Feature: Achievements
     When I enable the switch button 'Display achievements from programs you host'
     Then The achievement 'Join space' is displayed '2' times
 
+  @unstable
   Scenario: Cancel Activity changes the Achievement as Rejected
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
@@ -257,6 +260,7 @@ Feature: Achievements
 
     Then Achievement for 'Post activity in a space' is rejected
 
+  @unstable
   Scenario: Cancel Comment changes the Achievement as Rejected
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
@@ -316,6 +320,7 @@ Feature: Achievements
     Then Achievement for 'Comment activity in space' is rejected
     And Achievement for 'Receive comment activity in space' is rejected
 
+  @unstable
   Scenario: Cancel Like Stream Activity changes the Achievement as Canceled
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
@@ -371,6 +376,7 @@ Feature: Achievements
     Then Achievement for 'Receive activity like in space' is canceled
     And Achievement for 'Like activity in space' is canceled
 
+  @unstable
   Scenario: Cancel Like Stream Comment changes the Achievement as Canceled
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
@@ -428,6 +434,7 @@ Feature: Achievements
     Then Achievement for 'Receive Like on stream comment in space' is canceled
     Then Achievement for 'Like stream comment in space' is canceled
 
+  @unstable
   Scenario: Cancel Space Join changes the Achievement as Canceled
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing

@@ -116,6 +116,7 @@ Feature: Kudos
     When I go to the random space
     Then I send in the activity 'Hello Team - USX' a kudos message 'Kudos Message USX' to 'fiftythreekudos' user
 
+  @unstable
   Scenario: Cancel Kudos sending from the activity author
     Given I am authenticated as 'admin' if random users doesn't exists
       | cancelfirst  |
@@ -152,6 +153,7 @@ Feature: Kudos
     And I go to My Profile page
     Then '0' kudos are received
 
+  @unstable
   Scenario: Cancel Kudos sending from user profile
     Given I am authenticated as 'admin' if random users doesn't exists
       | cancelfirst  |

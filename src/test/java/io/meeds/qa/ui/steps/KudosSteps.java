@@ -63,7 +63,6 @@ public class KudosSteps {
   }
 
   public void cancelActivityKudos(String activity) {
-    spaceHomePage.openThreeDotsActivityMenu(activity);
     kudosPage.cancelKudosActivity(activity);
     spaceHomePage.clickYesbutton();
   }
