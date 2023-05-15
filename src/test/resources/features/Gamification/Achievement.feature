@@ -52,12 +52,19 @@ Feature: Achievements
     And I publish the activity
 
     And I login as 'fisrtachievement' random user
+
+    And I go to My Profile page
+    And I check my points
+
     When I go to the random space
     And I send in the activity 'Achievements - Kudos Post activity' a kudos message 'Achievements - kudos activity comment to cancel'
 
     And I go to 'Contributions' application
     When I select engagement Achievements tab
     Then Achievement for 'Send kudos' is accepted
+
+    When I go to My Profile page
+    Then My points augmented
 
     And I go to the random space
     When In activity 'Achievements - Kudos Post activity' I cancel the sent kudos comment 'Achievements - kudos activity comment to cancel'
@@ -180,9 +187,8 @@ Feature: Achievements
     When I login as 'admin' random user
     And I go to 'Contributions' application
     And I select engagement Achievements tab
-    And I filter achievements using 'Test Program Host' random program
 
-    Then The achievement 'Join space' is displayed '2' times
+    Then The achievement 'Join space' is displayed '2' times for 'Test Program Host' random program
 
     When I go to the random space
     And I click on 'Members' space menu tab
@@ -206,6 +212,7 @@ Feature: Achievements
     Then Actions Filter dropdown is displayed
 
     When I select engagement Achievements tab
+    And I filter achievements using 'Test Program Host' random program
     Then The achievement 'Join space' is displayed '1' times
     And The switch button 'Display achievements from programs you host' is displayed
 

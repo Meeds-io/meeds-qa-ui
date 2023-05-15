@@ -47,4 +47,8 @@ public class AchievementsSteps {
     achievementsPage.checkThatAchievementIsDisplayed(actionTitle, times);
   }
 
+  public void checkThatAchievementIsDisplayed(String actionTitle, long times, String programName) {
+    achievementsPage.checkThatAchievementIsDisplayed(actionTitle, times, programName);
+  }
+
 }

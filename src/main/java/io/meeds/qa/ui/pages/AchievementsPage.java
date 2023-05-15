@@ -30,6 +30,8 @@ import io.meeds.qa.ui.utils.Utils;
 
 public class AchievementsPage extends GenericPage {
 
+  private static final int MAX_REFRESH_RETRIES = 30;
+
   public AchievementsPage(WebDriver driver) {
     super(driver);
   }
@@ -49,7 +51,7 @@ public class AchievementsPage extends GenericPage {
                        waitFor(2).seconds();
                        Utils.refreshPage(true);
                      },
-                     10);
+                     MAX_REFRESH_RETRIES);
   }
 
   public void checkThatAchievementIsRejected(String actionTitle) {
@@ -63,8 +65,7 @@ public class AchievementsPage extends GenericPage {
     }, () -> {
       waitFor(2).seconds();
       Utils.refreshPage(true);
-    },
-    10);
+    }, MAX_REFRESH_RETRIES);
   }
 
   public void checkThatAchievementIsCanceled(String actionTitle) {
@@ -78,8 +79,7 @@ public class AchievementsPage extends GenericPage {
     }, () -> {
       waitFor(2).seconds();
       Utils.refreshPage(true);
-    },
-    10);
+    }, MAX_REFRESH_RETRIES);
   }
 
   public void checkThatAchievementIsDeleted(String actionTitle) {
@@ -93,8 +93,7 @@ public class AchievementsPage extends GenericPage {
     }, () -> {
       waitFor(2).seconds();
       Utils.refreshPage(true);
-    },
-    10);
+    }, MAX_REFRESH_RETRIES);
   }
 
   public void checkThatAchievementIsDisplayed(String actionTitle, long times) {
@@ -110,7 +109,24 @@ public class AchievementsPage extends GenericPage {
     }, () -> {
       waitFor(2).seconds();
       Utils.refreshPage(true);
-    }, 10);
+    }, MAX_REFRESH_RETRIES);
+  }
+
+  public void checkThatAchievementIsDisplayed(String actionTitle, long times, String programName) {
+    retryOnCondition(() -> {
+      filterAchievementByProgram(programName);
+      int found = findAll(By.xpath(String.format("//*[contains(@id, 'GamificationRealizationItem')]//*[contains(text(), '%s')]",
+                                                 actionTitle))).size();
+      if (times != found) {
+        throw new IllegalStateException(String.format("Expected to find '%s' achievement %s times, but was %s times",
+                                                      actionTitle,
+                                                      times,
+                                                      found));
+      }
+    }, () -> {
+      waitFor(2).seconds();
+      Utils.refreshPage(true);
+    }, MAX_REFRESH_RETRIES);
   }
 
   private ElementFacade rejectedAchievementElement(String actionTitle) {
