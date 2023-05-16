@@ -176,13 +176,15 @@ Feature: Achievements
     And I go to the random space
     And I go to 'Contributions' application
     When I open 'Test Program Host' random program card
-    Then Actions Filter dropdown is not displayed
+    Then Actions Filter dropdown is displayed
+    And Admin Actions Filter dropdown is not displayed
 
     And I login as 'sixthachievement' random user
     And I go to the random space
     And I go to 'Contributions' application
     When I open 'Test Program Host' random program card
-    Then Actions Filter dropdown is not displayed
+    Then Actions Filter dropdown is displayed
+    And Admin Actions Filter dropdown is not displayed
 
     When I login as 'admin' random user
     And I go to 'Contributions' application
@@ -210,6 +212,7 @@ Feature: Achievements
 
     When I open 'Test Program Host' random program card
     Then Actions Filter dropdown is displayed
+    And Admin Actions Filter dropdown is displayed
 
     When I select engagement Achievements tab
     And I filter achievements using 'Test Program Host' random program
