@@ -219,8 +219,7 @@ Feature: Achievements
     Then The achievement 'Join space' is displayed '1' times
     And The switch button 'Display achievements from programs you host' is displayed
 
-    When I enable the switch button 'Display achievements from programs you host'
-    Then The achievement 'Join space' is displayed '2' times
+    Then The achievement 'Join space' is displayed '2' times when enabling 'Display achievements from programs you host' switch button
 
   Scenario: Cancel Activity changes the Achievement as Rejected
     Given I am authenticated as 'admin' random user
@@ -466,6 +465,11 @@ Feature: Achievements
 
     When I login as 'eighthachievement' random user
     And I go to the random space
+    And I go to 'Contributions' application
+    And I select engagement Achievements tab
+
+    Then Achievement for 'Cancel Space Join' is accepted
+
     And I go to spaces page
     And I search for the random space
     And I leave found space

@@ -29,6 +29,7 @@ import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
+import io.meeds.qa.ui.utils.Utils;
 import net.serenitybdd.markers.IsHidden;
 import net.thucydides.core.annotations.DefaultUrl;
 
@@ -91,19 +92,26 @@ public class LoginPage extends GenericPage implements IsHidden {
   }
 
   public void logout() {
+    logout(1, Utils.MAX_WAIT_RETRIES);
+    usernameInputElement().assertVisible();
+  }
+
+  private void logout(int tentative, int max) {
     if (homePage.isPortalDisplayed()) {
-      try {
-        ElementFacade logOutMenuElement = logOutMenuElement();
-        if (!logOutMenuElement.isCurrentlyVisible()) {
-          closeAllDrawers();
-          homePage.clickOnHamburgerMenu();
-        }
-        logOutMenuElement.click();
-        waitFor(50).milliseconds();
-        verifyPageLoaded();
-        usernameInputElement().checkVisible();
-      } finally {
+      ElementFacade logOutMenuElement = logOutMenuElement();
+      if (!logOutMenuElement.isCurrentlyVisible()) {
+        closeAllDrawers();
+        waitFor(200).milliseconds();
+        homePage.clickOnHamburgerMenu();
+      }
+      logOutMenuElement.click();
+      verifyPageLoaded();
+      if (usernameInputElement().isVisible()) {
         deleteLastLoginCookie();
+      } else {
+        LOGGER.warn("Error logout, tentative {}/{}. Retry by refreshing page.", tentative, max);
+        Utils.refreshPage(true);
+        logout(tentative + 1, max);
       }
     } else if (!isLoginPageDisplayed()) {
       openLoginPage();

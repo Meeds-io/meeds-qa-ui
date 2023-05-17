@@ -17,10 +17,13 @@
  */
 package io.meeds.qa.ui.pages;
 
+import static io.meeds.qa.ui.utils.Utils.retryGetOnCondition;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
+import static org.assertj.core.api.Assertions.fail;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -97,36 +100,46 @@ public class AchievementsPage extends GenericPage {
   }
 
   public void checkThatAchievementIsDisplayed(String actionTitle, long times) {
-    retryOnCondition(() -> {
-      int found = findAll(By.xpath(String.format("//*[contains(@id, 'GamificationRealizationItem')]//*[contains(text(), '%s')]",
-                                                 actionTitle))).size();
-      if (times != found) {
-        throw new IllegalStateException(String.format("Expected to find '%s' achievement %s times, but was %s times",
-                                                      actionTitle,
-                                                      times,
-                                                      found));
-      }
+    String errorMessage = retryGetOnCondition(() -> {
+      long found = achievementsCount(actionTitle);
+      return checkAchievementsCount(actionTitle, times, found);
     }, () -> {
       waitFor(2).seconds();
       Utils.refreshPage(true);
     }, MAX_REFRESH_RETRIES);
+    if (StringUtils.isNotBlank(errorMessage)) {
+      fail(errorMessage);
+    }
+  }
+
+  public void checkThatAchievementIsDisplayedWithSwitchEnabled(String actionTitle, long times, String switchButtonName) {
+    String errorMessage = retryGetOnCondition(() -> {
+      enableSwitchButtonDisplayed(switchButtonName);
+      waitFor(300).milliseconds();
+      waitForLoading();
+      long found = achievementsCount(actionTitle);
+      return checkAchievementsCount(actionTitle, times, found);
+    }, () -> {
+      waitFor(2).seconds();
+      Utils.refreshPage(true);
+    }, MAX_REFRESH_RETRIES);
+    if (StringUtils.isNotBlank(errorMessage)) {
+      fail(errorMessage);
+    }
   }
 
   public void checkThatAchievementIsDisplayed(String actionTitle, long times, String programName) {
-    retryOnCondition(() -> {
+    String errorMessage = retryGetOnCondition(() -> {
       filterAchievementByProgram(programName);
-      int found = findAll(By.xpath(String.format("//*[contains(@id, 'GamificationRealizationItem')]//*[contains(text(), '%s')]",
-                                                 actionTitle))).size();
-      if (times != found) {
-        throw new IllegalStateException(String.format("Expected to find '%s' achievement %s times, but was %s times",
-                                                      actionTitle,
-                                                      times,
-                                                      found));
-      }
+      long found = achievementsCount(actionTitle);
+      return checkAchievementsCount(actionTitle, times, found);
     }, () -> {
       waitFor(2).seconds();
       Utils.refreshPage(true);
     }, MAX_REFRESH_RETRIES);
+    if (StringUtils.isNotBlank(errorMessage)) {
+      fail(errorMessage);
+    }
   }
 
   private ElementFacade rejectedAchievementElement(String actionTitle) {
@@ -157,6 +170,27 @@ public class AchievementsPage extends GenericPage {
 
   private ElementFacade tooltipDeletedActivity() {
     return findByXPathOrCSS("//span[contains(text(), 'Rejected due to activity')]//ancestor::*[contains(@class, 'v-tooltip__content')]");
+  }
+
+  private int achievementsCount(String actionTitle) {
+    return findAll(By.xpath(String.format("//*[contains(@id, 'GamificationRealizationItem')]//td[1]//*[contains(text(), '%s')]",
+                                          actionTitle))).size();
+  }
+
+  private String checkAchievementsCount(String actionTitle, long times, long found) {
+    if (found < times) {
+      throw new IllegalStateException(String.format("Expected to find '%s' achievement %s times, but was %s times",
+                                                    actionTitle,
+                                                    times,
+                                                    found));
+    } else if (found > times) {
+      return String.format("Expected to find '%s' achievement %s times which was more than expected %s times",
+                           actionTitle,
+                           found,
+                           times);
+    } else {
+      return null;
+    }
   }
 
 }
