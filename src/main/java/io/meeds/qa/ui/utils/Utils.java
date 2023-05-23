@@ -106,34 +106,50 @@ public class Utils {
     retryGetOnCondition(() -> runTask(task), null);
   }
 
+  public static void retryOnCondition(Runnable task, long retry) {
+    retryGetOnCondition(() -> runTask(task), null, retry);
+  }
+
   public static void retryOnCondition(Runnable task, Runnable onError) {
     retryGetOnCondition(() -> runTask(task), onError);
+  }
+
+  public static void retryOnCondition(Runnable task, Runnable onError, long retry) {
+    retryGetOnCondition(() -> runTask(task), onError, retry);
   }
 
   public static <T> T retryGetOnCondition(Supplier<T> supplier) {
     return retryGetOnCondition(supplier, null);
   }
 
+  public static <T> T retryGetOnCondition(Supplier<T> supplier, long retry) {
+    return retryGetOnCondition(supplier, null, retry);
+  }
+
   public static <T> T retryGetOnCondition(Supplier<T> supplier, Runnable onError) { // NOSONAR
-    long retry = 0;
+    return retryGetOnCondition(supplier, onError, MAX_WAIT_RETRIES);
+  }
+
+  public static <T> T retryGetOnCondition(Supplier<T> supplier, Runnable onError, final long retry) { // NOSONAR
+    long retryIndex = retry;
     do {
       try {
         return supplier.get();
       } catch (Throwable e) {// NOSONAR
-        if (++retry == MAX_WAIT_RETRIES) {
+        if (--retryIndex <= 0) {
           if (e instanceof RuntimeException) {
             throw e;
           } else {
             throw new IllegalStateException("Unable to process on element after " + retry + " retries", e);
           }
         } else {
-          LOGGER.info("Error executing tentative {}/{}", retry, MAX_WAIT_RETRIES, new IOMeedsTraceException(e));
+          LOGGER.info("Error executing tentative {}/{}", (retry - retryIndex), retry, new IOMeedsTraceException(e));
           if (onError != null) {
             runTask(onError);
           }
         }
       }
-    } while (retry < MAX_WAIT_RETRIES);
+    } while (retryIndex > 0);
     return null;
   }
 

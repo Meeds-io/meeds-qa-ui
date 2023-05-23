@@ -225,14 +225,19 @@ public class ProgramsStepDefinition {
     programsSteps.announceChallenge(challengeTitle, announcementMessage);
   }
 
-  @Then("Actions Filter dropdown is not displayed")
-  public void checkActionsFilterIsNotDisplayed() {
-    programsSteps.checkActionsFilterIsNotDisplayed();
-  }
-
   @Then("Actions Filter dropdown is displayed")
   public void checkActionsFilterIsDisplayed() {
     programsSteps.checkActionsFilterIsDisplayed();
+  }
+
+  @Then("Admin Actions Filter dropdown is not displayed")
+  public void checkAdminActionsFilterIsNotDisplayed() {
+    programsSteps.checkAdminActionsFilterIsNotDisplayed();
+  }
+  
+  @Then("Admin Actions Filter dropdown is displayed")
+  public void checkAdminActionsFilterIsDisplayed() {
+    programsSteps.checkAdminActionsFilterIsDisplayed();
   }
 
 }
