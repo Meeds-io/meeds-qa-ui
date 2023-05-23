@@ -58,10 +58,8 @@ public class UserProfileStepDefinition {
 
   @Then("My points augmented")
   public void checkMyPointIncrease() {
-    int myPointBeforeKudos = Serenity.sessionVariableCalled("myPointBeforeKudos");
-    assertThat(userProfileSteps.wasMyPointIncreased(myPointBeforeKudos)).as("The points did not increase. Old Value = "
-        + myPointBeforeKudos)
-                                                                        .isTrue();
+    int originalWeeklyPoint = Serenity.sessionVariableCalled("originalWeeklyPoint");
+    userProfileSteps.checkMyPointIncrease(originalWeeklyPoint);
   }
 
   @Then("^Updated Profile Contact instantMessaging is displayed$")
@@ -88,8 +86,8 @@ public class UserProfileStepDefinition {
 
   @When("^I check my points$")
   public void getMyWeeklyPoint() {
-    int myPointBeforeKudos = userProfileSteps.getMyWeeklyPoint();
-    Serenity.setSessionVariable("myPointBeforeKudos").to(myPointBeforeKudos);
+    int originalWeeklyPoint = userProfileSteps.getMyWeeklyPoint();
+    Serenity.setSessionVariable("originalWeeklyPoint").to(originalWeeklyPoint);
   }
 
   @Then("I go to Received Kudos")

@@ -17,12 +17,9 @@
  */
 package io.meeds.qa.ui.pages;
 
-import io.meeds.qa.ui.elements.ButtonElementFacade;
-
-import static io.meeds.qa.ui.utils.Utils.waitForLoading;
-
 import org.openqa.selenium.WebDriver;
 
+import io.meeds.qa.ui.elements.ButtonElementFacade;
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 
@@ -63,7 +60,6 @@ public class RulePage extends GenericPage {
 
     clickOnSaveButton(newRule);
     waitForDrawerToClose();
-    waitForLoading();
   }
 
   public void selectDurationChoice() {
@@ -104,6 +100,7 @@ public class RulePage extends GenericPage {
   }
 
   public void setActionEndDate() {
+    selectActionDateChoice("BEFORE");
     actionEndDateElement().click();
     waitForMenuToOpen();
     randomDateCalenderElement().waitUntilVisible();
@@ -150,6 +147,18 @@ public class RulePage extends GenericPage {
 
   public void clearRulesSearchFilter() {
     clearSearchBtnElement().click();
+  }
+
+  private void selectActionDateChoice(String value) {
+    ElementFacade selectActionDateElement =
+                                          selectActionDateElement(value);
+    selectActionDateElement.selectByValue(value);
+    waitFor(50).milliseconds();
+  }
+
+  private ElementFacade selectActionDateElement(String value) {
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'v-navigation-drawer--open')]//option[@value='%s']//parent::select",
+                                          value));
   }
 
   private ElementFacade ruleEnableSwitchButton() {
@@ -240,7 +249,7 @@ public class RulePage extends GenericPage {
 
   public ElementFacade actionInProgramDetailElement(String ruleTitle) {
     return findByXPathOrCSS(String.format("//*[@class='v-data-table__wrapper']//*[@class='text-truncate' and contains(@title,'%s')][1]",
-            ruleTitle));
+                                          ruleTitle));
   }
 
   public ElementFacade ruleNotfoundTryAgainElement() {

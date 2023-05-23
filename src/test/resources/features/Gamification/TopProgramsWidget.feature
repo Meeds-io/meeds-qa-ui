@@ -45,10 +45,9 @@ Feature: Programs should be displayed in Top Programs in sorted way
 
     When I login as 'admin' random user
     And I go to 'Contributions' application
-    And I select engagement Challenges tab
+    And I select engagement Actions tab
     And I update the 'thirtyone' random challenge with
       | points | 9999 |
-    And I search the 'thirtyone' random challenge
     Then The 'thirtyone' challenge is displayed with '9999' points
 
     When I login as 'thirtyone' random user

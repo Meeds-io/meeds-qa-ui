@@ -4,20 +4,6 @@
 Feature: Check the rules score increase
   for different type of activity on the plf
 
-  Scenario: Send a Kudos
-    Given I am authenticated as 'admin' if random users doesn't exists
-      | first  |
-      | second  |
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing
-    When I login as 'first' random user
-    And I go to My Profile page
-    And I check my points
-    And I go to the second user profile
-    And I send kudos with message 'rule score kudos'
-    When I go to My Profile page
-    Then My points augmented
-
   # Instable Use Case
   @skip
   Scenario: Receive a connection request

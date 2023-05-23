@@ -1,6 +1,6 @@
 @gamification
-@challenge
-Feature: Challenges
+@actions
+Feature: Actions
 
   Scenario: Announce a challenge
     Given I am authenticated as 'admin' random user

@@ -32,6 +32,8 @@ public class KudosPage extends GenericPage {
   private static final String ACTIVITY_KUDOS_DRAWER_SELECTOR =
                                                              "//*[@id='activityKudosDrawer' and contains(@class, 'v-navigation-drawer--open')]";
 
+  private SpaceHomePage       spaceHomePage;
+
   public KudosPage(WebDriver driver) {
     super(driver);
   }
@@ -78,11 +80,17 @@ public class KudosPage extends GenericPage {
   }
 
   public void cancelKudosActivity(String activity) {
+    if (!getCancelKudosActivityIcon(activity).isVisible()) {
+      spaceHomePage.openThreeDotsActivityMenu(activity);
+    }
     getCancelKudosActivityIcon(activity).click();
   }
 
-  public void cancelKudosComment(String comment) {
-    getCancelKudosCommentIcon(comment).click();
+  public void cancelKudosComment(String activity, String kudos) {
+    if (!getCancelKudosCommentIcon(kudos).isVisible()) {
+      spaceHomePage.openThreeDotsCommentMenu(activity, kudos);
+    }
+    getCancelKudosCommentIcon(kudos).click();
   }
 
   public void enterKudosNumber(String val) {
@@ -256,7 +264,7 @@ public class KudosPage extends GenericPage {
 
   private ElementFacade getCancelKudosActivityIcon(String activity) {
     return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@id, 'activity-detail')]//*[contains(@class, 'menuable__content__active')]//*[contains(@class, 'undo')]",
-            activity));
+                                          activity));
   }
 
   private ElementFacade getCancelKudosCommentIcon(String comment) {

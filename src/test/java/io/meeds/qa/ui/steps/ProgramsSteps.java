@@ -152,12 +152,16 @@ public class ProgramsSteps {
     programsPage.addProgramOwner(fullName);
   }
 
-  public void checkActionsFilterIsNotDisplayed() {
-    programsPage.checkActionsFilterIsNotDisplayed();
-  }
-
   public void checkActionsFilterIsDisplayed() {
     programsPage.checkActionsFilterIsDisplayed();
+  }
+
+  public void checkAdminActionsFilterIsNotDisplayed() {
+    programsPage.checkAdminActionsFilterIsNotDisplayed();
+  }
+  
+  public void checkAdminActionsFilterIsDisplayed() {
+    programsPage.checkAdminActionsFilterIsDisplayed();
   }
 
 }

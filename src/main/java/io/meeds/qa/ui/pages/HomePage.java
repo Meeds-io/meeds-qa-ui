@@ -447,7 +447,6 @@ public class HomePage extends GenericPage {
     retryOnCondition(() -> getHamburgerNavigationMenu().click(),
                      () -> {
                        LOGGER.warn("Hamburger Menu isn't visible, retry by waiting until application is built");
-                       getHamburgerNavigationMenuDrawer().waitUntilPresent();
                        closeAllDrawers();
                      });
     waitForDrawerToOpen();

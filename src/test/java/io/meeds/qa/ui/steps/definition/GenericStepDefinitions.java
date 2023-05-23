@@ -21,6 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.apache.commons.lang3.StringUtils;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.meeds.qa.ui.steps.GenericSteps;
@@ -134,6 +135,7 @@ public class GenericStepDefinitions {
   }
 
   @When("I wait '{int}' seconds")
+  @And("I wait for '{int}' seconds")
   public void waitInSeconds(int seconds) {
     genericSteps.waitInSeconds(seconds);
   }
