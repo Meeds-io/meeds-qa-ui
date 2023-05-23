@@ -1,3 +1,4 @@
+@gamification
 @achievements
 Feature: Achievements
 
@@ -51,12 +52,19 @@ Feature: Achievements
     And I publish the activity
 
     And I login as 'fisrtachievement' random user
+
+    And I go to My Profile page
+    And I check my points
+
     When I go to the random space
     And I send in the activity 'Achievements - Kudos Post activity' a kudos message 'Achievements - kudos activity comment to cancel'
 
     And I go to 'Contributions' application
     When I select engagement Achievements tab
     Then Achievement for 'Send kudos' is accepted
+
+    When I go to My Profile page
+    Then My points augmented
 
     And I go to the random space
     When In activity 'Achievements - Kudos Post activity' I cancel the sent kudos comment 'Achievements - kudos activity comment to cancel'
@@ -134,8 +142,6 @@ Feature: Achievements
     And I select engagement Achievements tab
     Then Achievement for 'Receive kudos' is canceled
 
-  # Unstable Test case
-  @ignored
   Scenario: Achievements listing for program owner/space host
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
@@ -170,20 +176,21 @@ Feature: Achievements
     And I go to the random space
     And I go to 'Contributions' application
     When I open 'Test Program Host' random program card
-    Then Actions Filter dropdown is not displayed
+    Then Actions Filter dropdown is displayed
+    And Admin Actions Filter dropdown is not displayed
 
     And I login as 'sixthachievement' random user
     And I go to the random space
     And I go to 'Contributions' application
     When I open 'Test Program Host' random program card
-    Then Actions Filter dropdown is not displayed
+    Then Actions Filter dropdown is displayed
+    And Admin Actions Filter dropdown is not displayed
 
     When I login as 'admin' random user
     And I go to 'Contributions' application
     And I select engagement Achievements tab
-    And I filter achievements using 'Test Program Host' random program
 
-    Then The achievement 'Join space' is displayed '2' times
+    Then The achievement 'Join space' is displayed '2' times when enabling program owner view for 'Test Program Host' random program
 
     When I go to the random space
     And I click on 'Members' space menu tab
@@ -195,23 +202,21 @@ Feature: Achievements
     And I go to 'Contributions' application
     And I select engagement Achievements tab
     Then The achievement 'Join space' is displayed '1' times
-    And The switch button 'Display achievements from programs you host' is displayed
-
-    When I enable the switch button 'Display achievements from programs you host'
-    Then The achievement 'Join space' is displayed '0' times
+    And The switch button 'Display achievements from programs you host' is not displayed
 
     When I login as 'fifthachievement' random user
     And I go to 'Contributions' application
 
     When I open 'Test Program Host' random program card
     Then Actions Filter dropdown is displayed
+    And Admin Actions Filter dropdown is displayed
 
     When I select engagement Achievements tab
+    And I filter achievements using 'Test Program Host' random program
     Then The achievement 'Join space' is displayed '1' times
     And The switch button 'Display achievements from programs you host' is displayed
 
-    When I enable the switch button 'Display achievements from programs you host'
-    Then The achievement 'Join space' is displayed '2' times
+    Then The achievement 'Join space' is displayed '2' times when enabling program owner view for 'Test Program Host' random program
 
   Scenario: Cancel Activity changes the Achievement as Rejected
     Given I am authenticated as 'admin' random user
@@ -457,6 +462,11 @@ Feature: Achievements
 
     When I login as 'eighthachievement' random user
     And I go to the random space
+    And I go to 'Contributions' application
+    And I select engagement Achievements tab
+
+    Then Achievement for 'Cancel Space Join' is accepted
+
     And I go to spaces page
     And I search for the random space
     And I leave found space
