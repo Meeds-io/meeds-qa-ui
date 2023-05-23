@@ -63,14 +63,13 @@ public class KudosSteps {
   }
 
   public void cancelActivityKudos(String activity) {
-    spaceHomePage.openThreeDotsActivityMenu(activity);
     kudosPage.cancelKudosActivity(activity);
     spaceHomePage.clickYesbutton();
   }
 
   public void cancelCommentKudos(String activity, String comment) {
     spaceHomePage.clickOnCommentThreeDotsButton(activity, comment);
-    kudosPage.cancelKudosComment(comment);
+    kudosPage.cancelKudosComment(activity, comment);
     spaceHomePage.clickYesbutton();
   }
 

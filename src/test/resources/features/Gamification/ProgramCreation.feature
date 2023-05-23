@@ -1,3 +1,4 @@
+@gamification
 @programs
 Feature: Programs
 

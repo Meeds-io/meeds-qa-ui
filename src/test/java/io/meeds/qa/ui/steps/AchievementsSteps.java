@@ -47,4 +47,12 @@ public class AchievementsSteps {
     achievementsPage.checkThatAchievementIsDisplayed(actionTitle, times);
   }
 
+  public void checkThatAchievementIsDisplayedWithProgramOwnerView(String actionTitle, long times, String programName) {
+    achievementsPage.checkThatAchievementIsDisplayedWithProgramOwnerView(actionTitle, times, programName);
+  }
+
+  public void checkThatAchievementIsDisplayed(String actionTitle, long times, String programName) {
+    achievementsPage.checkThatAchievementIsDisplayed(actionTitle, times, programName);
+  }
+
 }
