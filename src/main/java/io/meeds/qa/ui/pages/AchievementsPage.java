@@ -33,7 +33,7 @@ import io.meeds.qa.ui.utils.Utils;
 
 public class AchievementsPage extends GenericPage {
 
-  private static final int MAX_REFRESH_RETRIES = 30;
+  private static final int MAX_REFRESH_RETRIES = 5;
 
   public AchievementsPage(WebDriver driver) {
     super(driver);
@@ -112,11 +112,10 @@ public class AchievementsPage extends GenericPage {
     }
   }
 
-  public void checkThatAchievementIsDisplayedWithSwitchEnabled(String actionTitle, long times, String switchButtonName) {
+  public void checkThatAchievementIsDisplayedWithProgramOwnerView(String actionTitle, long times, String programName) {
     String errorMessage = retryGetOnCondition(() -> {
-      enableSwitchButtonDisplayed(switchButtonName);
-      waitFor(300).milliseconds();
-      waitForLoading();
+      enableProgramOwnerView();
+      filterAchievementByProgram(programName);
       long found = achievementsCount(actionTitle);
       return checkAchievementsCount(actionTitle, times, found);
     }, () -> {
@@ -140,6 +139,18 @@ public class AchievementsPage extends GenericPage {
     if (StringUtils.isNotBlank(errorMessage)) {
       fail(errorMessage);
     }
+  }
+
+  private void enableProgramOwnerView() {
+    ElementFacade programOwnerSwitchButton = programOwnerSwitchButton();
+    programOwnerSwitchButton.assertVisible();
+    programOwnerSwitchButton.click();
+    waitFor(200).milliseconds();
+    waitForLoading();
+  }
+
+  private ElementFacade programOwnerSwitchButton() {
+    return findByXPathOrCSS("//*[@id='realizationAdministrationSwitch']//ancestor::*[contains(@class, 'v-input--selection-controls') and contains(@class, 'v-input--switch')]");
   }
 
   private ElementFacade rejectedAchievementElement(String actionTitle) {

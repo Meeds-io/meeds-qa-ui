@@ -47,8 +47,8 @@ public class AchievementsSteps {
     achievementsPage.checkThatAchievementIsDisplayed(actionTitle, times);
   }
 
-  public void checkThatAchievementIsDisplayedWithSwitchEnabled(String actionTitle, long times, String switchButtonName) {
-    achievementsPage.checkThatAchievementIsDisplayedWithSwitchEnabled(actionTitle, times, switchButtonName);
+  public void checkThatAchievementIsDisplayedWithProgramOwnerView(String actionTitle, long times, String programName) {
+    achievementsPage.checkThatAchievementIsDisplayedWithProgramOwnerView(actionTitle, times, programName);
   }
 
   public void checkThatAchievementIsDisplayed(String actionTitle, long times, String programName) {

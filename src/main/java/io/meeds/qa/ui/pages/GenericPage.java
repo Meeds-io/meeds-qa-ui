@@ -86,7 +86,7 @@ public class GenericPage extends BasePageImpl {
   }
 
   public void enableSwitchButtonDisplayed(String buttonName) {
-    findByXPathOrCSS(String.format("//*[contains(text(), '%s')]/parent::*//*[contains(@class, 'v-input--switch') and contains(@class, 'v-input--selection-controls')]", buttonName)).click();
+    findByXPathOrCSS(String.format("//*[contains(text(), '%s')]/parent::*//*[contains(@class, 'v-input--switch')]", buttonName)).click();
   }
 
   private ElementFacade getConfirmMessage(String message) {

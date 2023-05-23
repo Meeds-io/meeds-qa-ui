@@ -190,7 +190,7 @@ Feature: Achievements
     And I go to 'Contributions' application
     And I select engagement Achievements tab
 
-    Then The achievement 'Join space' is displayed '2' times for 'Test Program Host' random program
+    Then The achievement 'Join space' is displayed '2' times when enabling program owner view for 'Test Program Host' random program
 
     When I go to the random space
     And I click on 'Members' space menu tab
@@ -202,10 +202,7 @@ Feature: Achievements
     And I go to 'Contributions' application
     And I select engagement Achievements tab
     Then The achievement 'Join space' is displayed '1' times
-    And The switch button 'Display achievements from programs you host' is displayed
-
-    When I enable the switch button 'Display achievements from programs you host'
-    Then The achievement 'Join space' is displayed '0' times
+    And The switch button 'Display achievements from programs you host' is not displayed
 
     When I login as 'fifthachievement' random user
     And I go to 'Contributions' application
@@ -219,7 +216,7 @@ Feature: Achievements
     Then The achievement 'Join space' is displayed '1' times
     And The switch button 'Display achievements from programs you host' is displayed
 
-    Then The achievement 'Join space' is displayed '2' times when enabling 'Display achievements from programs you host' switch button
+    Then The achievement 'Join space' is displayed '2' times when enabling program owner view for 'Test Program Host' random program
 
   Scenario: Cancel Activity changes the Achievement as Rejected
     Given I am authenticated as 'admin' random user

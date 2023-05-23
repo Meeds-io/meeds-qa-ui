@@ -15,8 +15,13 @@ public class ChallengesPage extends GenericPage {
 
   public void openEditChallengeDrawer(String challengeName) {
     searchChallenge(challengeName);
-    editChallengeThreeDots(challengeName).click();
+    challengeCard(challengeName).hover();
+    ElementFacade menuThreeDots = editChallengeThreeDots(challengeName);
+    menuThreeDots.assertVisible();
+    menuThreeDots.click();
     editChallengeButton(challengeName).click();
+    waitForDrawerToOpen();
+    waitForLoading();
   }
 
   public void searchChallenge(String challengeName) {
@@ -45,22 +50,27 @@ public class ChallengesPage extends GenericPage {
   }
 
   private TextBoxElementFacade searchChallengeElement() {
-    return findTextBoxByXPathOrCSS("//input[@id='EngagementCenterApplicationSearchFilter']");
+    return findTextBoxByXPathOrCSS("//input[@id='rulesFilterInput']");
   }
 
   private ElementFacade challengeByNameAndPoints(String challengeName, String points) {
-    return findByXPathOrCSS(String.format("//*[@id='ChallengesApplication']//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'engagement-center-card')]//*[contains(text(), '%s Points')]",
+    return findByXPathOrCSS(String.format("//*[@id='rulesList']//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'rule-card-info')]//*[contains(text(), '%s Points')]",
                                           challengeName,
                                           points));
   }
 
   private ElementFacade editChallengeThreeDots(String challengeName) {
-    return findByXPathOrCSS(String.format("//*[@id='ChallengesApplication']//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'engagement-center-card')]//*[contains(@class, 'fa-ellipsis')]",
+    return findByXPathOrCSS(String.format("//*[@id='rulesList']//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'rule-card-info')]//*[contains(@class, 'fa-ellipsis')]",
+                                          challengeName));
+  }
+
+  private ElementFacade challengeCard(String challengeName) {
+    return findByXPathOrCSS(String.format("//*[@id='rulesList']//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'rule-card-info')]",
                                           challengeName));
   }
 
   private ElementFacade editChallengeButton(String challengeName) {
-    return findByXPathOrCSS(String.format("//*[@id='ChallengesApplication']//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'engagement-center-card')]//*[contains(@class, 'v-menu')]//*[contains(text(), 'Edit')]",
+    return findByXPathOrCSS(String.format("//*[@id='rulesList']//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'rule-card-info')]//*[contains(@class, 'v-menu')]//*[contains(text(), 'Edit')]",
                                           challengeName));
   }
 

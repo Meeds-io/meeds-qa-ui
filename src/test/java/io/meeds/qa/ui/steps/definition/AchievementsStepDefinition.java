@@ -53,9 +53,10 @@ public class AchievementsStepDefinition {
     achievementsSteps.checkThatAchievementIsDisplayed(actionTitle, Long.parseLong(times));
   }
 
-  @Then("^The achievement '(.*)' is displayed '(.*)' times when enabling '(.*)' switch button$")
-  public void checkThatAchievementIsDisplayedWithSwitchEnabled(String actionTitle, String times, String switchButtonName) {
-    achievementsSteps.checkThatAchievementIsDisplayedWithSwitchEnabled(actionTitle, Long.parseLong(times), switchButtonName);
+  @Then("^The achievement '(.*)' is displayed '(.*)' times when enabling program owner view for '(.*)' random program$")
+  public void checkThatAchievementIsDisplayedWithProgramOwnerView(String actionTitle, String times, String randomProgramSuffix) {
+    String programName = Serenity.sessionVariableCalled("programName" + randomProgramSuffix);
+    achievementsSteps.checkThatAchievementIsDisplayedWithProgramOwnerView(actionTitle, Long.parseLong(times), programName);
   }
 
   @Then("^The achievement '(.*)' is displayed '(.*)' times for '(.*)' random program$")
