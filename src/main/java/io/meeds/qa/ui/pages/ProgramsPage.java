@@ -203,12 +203,16 @@ public class ProgramsPage extends GenericPage {
     mentionInField(programOwnerSuggester(), fullName, 3);
   }
 
+  public void checkAdminActionsFilterIsDisplayed() {
+    filterAdminActionsDropdown().assertVisible();
+  }
+
+  public void checkAdminActionsFilterIsNotDisplayed() {
+    filterAdminActionsDropdown().assertNotVisible();
+  }
+
   public void checkActionsFilterIsDisplayed() {
     filterActionsDropdown().assertVisible();
-  }
-  
-  public void checkActionsFilterIsNotDisplayed() {
-    filterActionsDropdown().assertNotVisible();
   }
 
   private TextBoxElementFacade programOwnerSuggester() {
@@ -318,7 +322,11 @@ public class ProgramsPage extends GenericPage {
   }
 
   private ElementFacade filterActionsDropdown() {
-    return findByXPathOrCSS("//*[@id='engagementCenterProgramDetail']//option[@value='ENABLED']/parent::select");
+    return findByXPathOrCSS("//*[@id='engagementCenterProgramDetail']//option[@value='ALL']/parent::select");
+  }
+
+  private ElementFacade filterAdminActionsDropdown() {
+    return findByXPathOrCSS("//*[@id='engagementCenterProgramDetail']//option[@value='DISABLED']/parent::select");
   }
 
   private ElementFacade announceChallengeActionFromDrawer() {

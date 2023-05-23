@@ -18,6 +18,8 @@
 package io.meeds.qa.ui.pages;
 
 import static io.meeds.qa.ui.utils.Utils.refreshPage;
+import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
+import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
@@ -28,6 +30,7 @@ import org.openqa.selenium.interactions.Actions;
 
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
+import io.meeds.qa.ui.utils.Utils;
 
 public class UserProfilePage extends GenericPage {
 
@@ -409,6 +412,21 @@ public class UserProfilePage extends GenericPage {
     String js = "arguments[0].style.height='auto'; arguments[0].style.visibility='visible';";
     ((JavascriptExecutor) getDriver()).executeScript(js, elem);
     upload(UPLOAD_DIRECTORY_PATH + fileName).fromLocalMachine().to(elem);
+  }
+
+  public void checkMyPointIncrease(int originalWeeklyPoint) {
+    waitForPageLoading();
+    retryOnCondition(() -> {
+      int myWeeklyPoint = getMyWeeklyPoint();
+      if (myWeeklyPoint <= originalWeeklyPoint) {
+        throw new IllegalStateException(String.format("Weekly points %s wasn't increased, original points = %s",
+                                                      myWeeklyPoint,
+                                                      originalWeeklyPoint));
+      }
+    }, () -> {
+      waitFor(2).seconds();
+      Utils.refreshPage(true);
+    }, 10);
   }
 
   private ElementFacade achievementsDrawerElement() {
