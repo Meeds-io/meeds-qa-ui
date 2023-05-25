@@ -89,10 +89,7 @@ public class RulePage extends GenericPage {
 
   public void setActionEvent(String eventName) {
     eventSelectAutoComplete().click();
-    do {
-      findTextBoxByXPathOrCSS("(//*[contains(@class,'v-menu__content theme--light v-menu__content--fixed')])").scrollDown();
-    } while (!isEventDisplayed(eventName));
-    ruleEventsMenuItem(eventName).click();
+    eventSelectAutoComplete().typeAndEnter(eventName);
   }
 
   public void deleteActionDuration() {

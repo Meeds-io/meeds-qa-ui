@@ -78,13 +78,13 @@ public class ProgramsStepDefinition {
   @And("^The program title should be displayed on the card$")
   public void checkProgramTitleDisplayOnCard() {
     String programName = Serenity.sessionVariableCalled("programName");
-    programsSteps.checkProgramTitleDisplayOnCard(programName);
+    programsSteps.checkProgramCardTitle(programName);
   }
 
   @And("^The program title should be updated on the card$")
   public void checkProgramTitleUpdateOnCard() {
     String newProgramName = Serenity.sessionVariableCalled("newProgramName");
-    programsSteps.checkProgramTitleUpdateOnCard(newProgramName);
+    programsSteps.checkProgramCardTitle(newProgramName);
   }
 
   @And("^I create the '(.*)' random program with$")
@@ -171,6 +171,11 @@ public class ProgramsStepDefinition {
     programsSteps.selectProgramsFilter(value);
   }
 
+  @And("^I filter program actions by value '(.*)'$")
+  public void selectProgramActionsFilter(String value) {
+    programsSteps.selectProgramActionsFilter(value);
+  }
+
   @And("^I open '(.*)' program card$")
   public void openProgramCard(String value) {
     programsSteps.openProgramCard(value);
@@ -196,11 +201,6 @@ public class ProgramsStepDefinition {
   @And("^I edit program action '(.*)'$")
   public void editProgramAction(String actionTitle) {
     programsSteps.editProgramAction(actionTitle);
-  }
-
-  @And("^I change program actions filter to '(.*)'$")
-  public void changeProgramActionsFilter(String filterChoice) {
-    programsSteps.changeProgramActionsFilter(filterChoice);
   }
 
   @And("I cannot announce program action")

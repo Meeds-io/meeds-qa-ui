@@ -12,7 +12,6 @@ Feature: Rules
     And I add program with random description
     And I add an audience space
     And I save the program details
-    And I open random program card
 
     And I click on 'Add Action' button
     And I wait for drawer to open
@@ -24,6 +23,8 @@ Feature: Rules
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
+
+    When I close the notification
     And The action 'Receive kudos' is displayed in program detail
 
     When I search for the 'Not found' rule in program detail rule filter
@@ -70,7 +71,9 @@ Feature: Rules
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
-    And The action 'Join space' is displayed in program detail
+
+    When I close the notification
+    Then The action 'Join space' is displayed in program detail
 
   Scenario: Space member as program owner can add action
     Given I am authenticated as 'admin' random user
@@ -104,4 +107,6 @@ Feature: Rules
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
-    And The action 'Join space' is displayed in program detail
+
+    When I close the notification
+    Then The action 'Join space' is displayed in program detail

@@ -50,7 +50,7 @@ public class ChallengesPage extends GenericPage {
   }
 
   private TextBoxElementFacade searchChallengeElement() {
-    return findTextBoxByXPathOrCSS("//input[@id='rulesFilterInput']");
+    return findTextBoxByXPathOrCSS("//input[@id='applicationToolbarFilterInput']");
   }
 
   private ElementFacade challengeByNameAndPoints(String challengeName, String points) {

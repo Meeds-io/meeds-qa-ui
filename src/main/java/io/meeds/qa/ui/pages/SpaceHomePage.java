@@ -699,6 +699,7 @@ public class SpaceHomePage extends GenericPage {
 
   public void insertNameContact(String contact) {
     filterTextBoxElement().setTextValue(contact);
+    waitFor(500).milliseconds();
     waitForLoading();
   }
 

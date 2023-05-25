@@ -1901,7 +1901,8 @@ Feature: Activity Stream
     Then Pin button related to activity 'PinTest' is displayed
     Given I click on Pin button related to activity 'PinTest'
     Then Confirmation message is displayed 'This activity has been pinned to the space stream.'
-    And The activity 'PinTest' is pinned in space stream
+    When I close the notification
+    Then The activity 'PinTest' is pinned in space stream
     Given I go to Stream page
     Then the activity 'PinTest' is displayed in stream page
     Given I click on three dots button related to activity 'PinTest'
@@ -1935,7 +1936,8 @@ Feature: Activity Stream
     Then Pin button related to activity 'PinTest' is displayed
     Given I click on Pin button related to activity 'PinTest'
     Then Confirmation message is displayed 'This activity has been pinned to the space stream.'
-    Given I go to the random space
+    When I close the notification
+    And I go to the random space
     Then The activity 'PinTest' is pinned in space stream
     Given I click on three dots button related to activity 'PinTest'
     Then Unpin button related to activity 'PinTest' is displayed
@@ -1968,13 +1970,15 @@ Feature: Activity Stream
     Then Pin button related to activity 'PinTest' is displayed
     Given I click on Pin button related to activity 'PinTest'
     Then Confirmation message is displayed 'This activity has been pinned to the space stream.'
-    Given I go to the random space
+    When I close the notification
+    And I go to the random space
     Then The activity 'PinTest' is pinned in space stream
     Given I click on three dots button related to activity 'PinTest'
     Then Unpin button related to activity 'PinTest' is displayed
     Given I click to the Unpin button related to activity 'PinTest'
     Then Confirmation message is displayed 'This activity has been unpinned.'
-    And The activity 'PinTest' should be not pinned in space stream
+    When I close the notification
+    Then The activity 'PinTest' should be not pinned in space stream
 
   Scenario: Pin Activity US04: Pinned activities filter
     Given I am authenticated as 'admin' random user
@@ -1992,7 +1996,8 @@ Feature: Activity Stream
     Then Pin button related to activity 'PinTest' is displayed
     Given I click on Pin button related to activity 'PinTest'
     Then Confirmation message is displayed 'This activity has been pinned to the space stream.'
-    And The activity 'PinTest' is pinned in space stream
+    When I close the notification
+    Then The activity 'PinTest' is pinned in space stream
     Given I go to Stream page
     Then the activity 'act_Pin_US04_0' is displayed in stream page
     And the activity 'act_Pin_US04_1' is displayed in stream page

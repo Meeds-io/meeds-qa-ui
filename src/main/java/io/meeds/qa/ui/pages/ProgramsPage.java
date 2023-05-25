@@ -20,7 +20,6 @@ package io.meeds.qa.ui.pages;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 
 import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -80,19 +79,12 @@ public class ProgramsPage extends GenericPage {
   }
 
   public void checkProgramCardTitle(String title) {
+    searchProgram(title);
     getProgramCardTitle(title).assertVisible();
   }
 
   public void checkProgramDrawerDisplay() {
     headerProgramDrawerElement().assertVisible();
-  }
-
-  public void checkProgramTitleDisplayOnCard(String title) {
-    getProgramCardTitle(title).assertVisible();
-  }
-
-  public void checkProgramTitleUpdateOnCard(String title) {
-    getProgramCardTitle(title).assertVisible();
   }
 
   public void clickAddProgramBtn() {
@@ -105,16 +97,18 @@ public class ProgramsPage extends GenericPage {
   }
 
   public void deleteCreatedProgram(String programName) {
+    searchProgram(programName);
     getProgramCard(programName).assertVisible();
-    programThreeDotsButtonElement().click();
+    programThreeDotsButtonElement(programName).click();
     deleteProgramButtonElement().click();
     yesConfirmButtonElement().click();
+    waitForLoading();
   }
 
   public void editProgramWithDescription(String programName, String newProgramName, String newProgramDescription) {
+    searchProgram(programName);
     getProgramCard(programName).assertVisible();
-
-    programThreeDotsButtonElement().click();
+    programThreeDotsButtonElement(programName).click();
     editProgramButtonElement().click();
 
     saveProgram(newProgramName, newProgramDescription, null);
@@ -131,20 +125,18 @@ public class ProgramsPage extends GenericPage {
   }
 
   public void selectProgramsFilter(String value) {
-    ElementFacade programQuickFilterSelectBoxElement = programQuickFilterSelectBoxElement();
-    programQuickFilterSelectBoxElement.click();
-    programQuickFilterSelectBoxElement.selectByValue(value);
-    programQuickFilterSelectBoxElement.click();
+    programFilterDropdown().selectByValue(value);
     waitForLoading();
   }
 
-  public void openProgramCard(String value) {
-    getProgramCard(value).click();
+  public void selectProgramActionsFilter(String value) {
+    rulesStatusDropdown().selectByValue(value);
+    waitForLoading();
   }
 
-  public void changeProgramActionsFilter(String value) {
-    filterActionsDropdown().selectByValue(value);
-    waitForLoading();
+  public void openProgramCard(String title) {
+    searchProgram(title);
+    getProgramCard(title).click();
   }
 
   public void checkCannotAnnounceAction() {
@@ -186,7 +178,7 @@ public class ProgramsPage extends GenericPage {
   }
 
   public void selectStatusSwitcher() {
-    WebElement checkbox = getDriver().findElement(By.xpath("//*[@class='v-input--selection-controls__ripple primary--text']"));
+    WebElement checkbox = findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'v-input--selection-controls__ripple primary--text')]");
     checkbox.click();
   }
 
@@ -204,15 +196,22 @@ public class ProgramsPage extends GenericPage {
   }
 
   public void checkAdminActionsFilterIsDisplayed() {
-    filterAdminActionsDropdown().assertVisible();
+    rulesAdminStatusDropdown().assertVisible();
   }
 
   public void checkAdminActionsFilterIsNotDisplayed() {
-    filterAdminActionsDropdown().assertNotVisible();
+    rulesAdminStatusDropdown().assertNotVisible();
   }
 
   public void checkActionsFilterIsDisplayed() {
-    filterActionsDropdown().assertVisible();
+    rulesStatusDropdown().assertVisible();
+  }
+
+  private void searchProgram(String title) {
+    while (!getProgramCardTitle(title).isCurrentlyVisible() && getButton("Show More").isCurrentlyVisible()) {
+      getButton("Show More").click();
+      waitForLoading();
+    }
   }
 
   private TextBoxElementFacade programOwnerSuggester() {
@@ -277,12 +276,9 @@ public class ProgramsPage extends GenericPage {
     return findTextBoxByXPathOrCSS("//body[contains(@class,'cke_editable_themed')]");
   }
 
-  private ElementFacade programQuickFilterSelectBoxElement() {
-    return findByXPathOrCSS("//*[@id='EngagementCenterApplicationCProgramsQuickFilter']");
-  }
-
-  private ElementFacade programThreeDotsButtonElement() {
-    return findByXPathOrCSS("//button[contains(@class,'pull-right')]");
+  private ElementFacade programThreeDotsButtonElement(String programName) {
+    return findByXPathOrCSS(String.format("//*[contains(@class,'engagement-center-card')]//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'engagement-center-card')]//*[contains(@class,'fa-ellipsis-v')]",
+                                          programName));
   }
 
   private TextBoxElementFacade programTitleFieldElement() {
@@ -321,12 +317,16 @@ public class ProgramsPage extends GenericPage {
     return findTextBoxByXPathOrCSS("//body[contains(@class,'cke_editable_themed')]");
   }
 
-  private ElementFacade filterActionsDropdown() {
-    return findByXPathOrCSS("//*[@id='engagementCenterProgramDetail']//option[@value='ALL']/parent::select");
+  private ElementFacade programFilterDropdown() {
+    return findByXPathOrCSS("//*[@id='applicationToolbarFilterSelect']//option[@value='ALL']/parent::select");
   }
 
-  private ElementFacade filterAdminActionsDropdown() {
-    return findByXPathOrCSS("//*[@id='engagementCenterProgramDetail']//option[@value='DISABLED']/parent::select");
+  private ElementFacade rulesStatusDropdown() {
+    return findByXPathOrCSS("//*[@id='rulesStatusFilter']//option[@value='ALL']/parent::select");
+  }
+
+  private ElementFacade rulesAdminStatusDropdown() {
+    return findByXPathOrCSS("//*[@id='rulesStatusFilter']//option[@value='DISABLED']/parent::select");
   }
 
   private ElementFacade announceChallengeActionFromDrawer() {
@@ -334,7 +334,7 @@ public class ProgramsPage extends GenericPage {
   }
 
   private ElementFacade daysLeftInfoFromDrawer() {
-    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'fa-calendar-day')]");
+    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'fa-calendar-check')]");
   }
 
 }

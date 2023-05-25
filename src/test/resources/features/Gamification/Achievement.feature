@@ -13,7 +13,6 @@ Feature: Achievements
     And I add program with random description
     And I add an audience space
     And I save the program details
-    And I open 'Achievements program' program card
 
     And I click on 'Add Action' button
     And I wait for drawer to open
@@ -28,7 +27,8 @@ Feature: Achievements
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
-    And The action 'Send kudos' is displayed in program detail
+    When I close the notification
+    Then The action 'Send kudos' is displayed in program detail
 
     And I click on 'Add Action' button
     And I wait for drawer to open
@@ -40,7 +40,8 @@ Feature: Achievements
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
-    And The action 'Receive kudos' is displayed in program detail
+    When I close the notification
+    Then The action 'Receive kudos' is displayed in program detail
 
     When I create the fisrtachievement random user if not existing, no wait
     And I create the secondachievement random user if not existing, no wait
@@ -89,7 +90,6 @@ Feature: Achievements
     And I add program with random description
     And I add an audience space
     And I save the program details
-    And I open 'Achievements program' program card
 
     And I click on 'Add Action' button
     And I wait for drawer to open
@@ -101,7 +101,8 @@ Feature: Achievements
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
-    And The action 'Send kudos' is displayed in program detail
+    When I close the notification
+    Then The action 'Send kudos' is displayed in program detail
 
     When I click on 'Add Action' button
     And I wait for drawer to open
@@ -113,7 +114,8 @@ Feature: Achievements
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
-    And The action 'Receive kudos' is displayed in program detail
+    When I close the notification
+    Then The action 'Receive kudos' is displayed in program detail
 
     And I create the thirdachievement random user if not existing, no wait
     And I create the fourachievement random user if not existing
@@ -156,7 +158,6 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
 
-    When I open 'Test Program Host' random program card
     And I click on 'Add Action' button
     And I wait for drawer to open
     And I enter the rule title 'Join space'
@@ -170,7 +171,8 @@ Feature: Achievements
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
-    And The action 'Join space' is displayed in program detail
+    When I close the notification
+    Then The action 'Join space' is displayed in program detail
 
     When I login as 'fifthachievement' random user
     And I go to the random space
@@ -202,7 +204,7 @@ Feature: Achievements
     And I go to 'Contributions' application
     And I select engagement Achievements tab
     Then The achievement 'Join space' is displayed '1' times
-    And The switch button 'Display achievements from programs you host' is not displayed
+    And The button 'Hosted' is not displayed
 
     When I login as 'fifthachievement' random user
     And I go to 'Contributions' application
@@ -214,7 +216,7 @@ Feature: Achievements
     When I select engagement Achievements tab
     And I filter achievements using 'Test Program Host' random program
     Then The achievement 'Join space' is displayed '1' times
-    And The switch button 'Display achievements from programs you host' is displayed
+    And The button 'Hosted' is displayed
 
     Then The achievement 'Join space' is displayed '2' times when enabling program owner view for 'Test Program Host' random program
 
@@ -232,7 +234,6 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
 
-    When I open 'Activity Post Achievement Reject' program card
     When I click on 'Add Action' button
     And I wait for drawer to open
     And I enter the rule title 'Post activity in a space'
@@ -243,7 +244,8 @@ Feature: Achievements
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
-    And The action 'Post activity in a space' is displayed in program detail
+    When I close the notification
+    Then The action 'Post activity in a space' is displayed in program detail
 
     When I login as 'seventhachievement' random user
     And I go to the random space
@@ -276,8 +278,6 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
 
-    When I open 'Comment Post Achievement Reject' program card
-
     When I click on 'Add Action' button
     And I wait for drawer to open
     And I enter the rule title 'Comment activity in space'
@@ -288,7 +288,8 @@ Feature: Achievements
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
-    And The action 'Comment activity in space' is displayed in program detail
+    When I close the notification
+    Then The action 'Comment activity in space' is displayed in program detail
 
     When I click on 'Add Action' button
     And I wait for drawer to open
@@ -300,7 +301,8 @@ Feature: Achievements
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
-    And The action 'Receive comment activity in space' is displayed in program detail
+    When I close the notification
+    Then The action 'Receive comment activity in space' is displayed in program detail
 
     When I login as 'seventhachievement' random user
     And I go to the random space
@@ -335,7 +337,6 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
 
-    When I open 'Like Activity Achievement Reject' program card
     When I click on 'Add Action' button
     And I wait for drawer to open
     And I enter the rule title 'Like activity in space'
@@ -346,7 +347,8 @@ Feature: Achievements
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
-    And The action 'Like activity in space' is displayed in program detail
+    When I close the notification
+    Then The action 'Like activity in space' is displayed in program detail
 
     When I click on 'Add Action' button
     And I wait for drawer to open
@@ -358,7 +360,8 @@ Feature: Achievements
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
-    And The action 'Receive activity like in space' is displayed in program detail
+    When I close the notification
+    Then The action 'Receive activity like in space' is displayed in program detail
 
     When I login as 'seventhachievement' random user
     And I go to the random space
@@ -390,7 +393,6 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
 
-    When I open 'Like Stream Comment Achievement Reject' program card
     When I click on 'Add Action' button
     And I wait for drawer to open
     And I enter the rule title 'Like stream comment in space'
@@ -401,7 +403,8 @@ Feature: Achievements
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
-    And The action 'Like stream comment in space' is displayed in program detail
+    When I close the notification
+    Then The action 'Like stream comment in space' is displayed in program detail
 
     When I click on 'Add Action' button
     And I wait for drawer to open
@@ -413,7 +416,8 @@ Feature: Achievements
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
-    And The action 'Receive Like on stream comment in space' is displayed in program detail
+    When I close the notification
+    Then The action 'Receive Like on stream comment in space' is displayed in program detail
 
     When I login as 'seventhachievement' random user
     And I go to the random space
@@ -446,8 +450,6 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
 
-    When I open 'Cancel Space Join Program' program card
-
     And I click on 'Add Action' button
     And I wait for drawer to open
     And I enter the rule title 'Cancel Space Join'
@@ -458,7 +460,8 @@ Feature: Achievements
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
-    And The action 'Cancel Space Join' is displayed in program detail
+    When I close the notification
+    Then The action 'Cancel Space Join' is displayed in program detail
 
     When I login as 'eighthachievement' random user
     And I go to the random space

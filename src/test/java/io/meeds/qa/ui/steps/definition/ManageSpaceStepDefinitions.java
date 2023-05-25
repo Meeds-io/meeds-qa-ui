@@ -379,6 +379,11 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.addOrGoToSpace(RANDOM_SPACE_NAME);
   }
 
+  @Given("I join the random space")
+  public void joinRandomSpace() {
+    manageSpaceSteps.joinOrGoToSpace(RANDOM_SPACE_NAME);
+  }
+
   @Given("I create the random space if not existing")
   public void goToRandomSpaceIfNotExisting() {
     if (StringUtils.isBlank(sessionVariableCalled(RANDOM_SPACE_NAME))) {

@@ -57,14 +57,6 @@ public class ProgramsSteps {
     programsPage.checkProgramDrawerDisplay();
   }
 
-  public void checkProgramTitleDisplayOnCard(String programName) {
-    programsPage.checkProgramTitleDisplayOnCard(programName);
-  }
-
-  public void checkProgramTitleUpdateOnCard(String newProgramName) {
-    programsPage.checkProgramTitleUpdateOnCard(newProgramName);
-  }
-
   public void clickAddProgramBtn() {
     programsPage.clickAddProgramBtn();
   }
@@ -93,16 +85,16 @@ public class ProgramsSteps {
     programsPage.selectProgramsFilter(value);
   }
 
+  public void selectProgramActionsFilter(String value) {
+    programsPage.selectProgramActionsFilter(value);
+  }
+
   public void openProgramCard(String value) {
     programsPage.openProgramCard(value);
   }
 
   public void editProgramAction(String actionTitle) {
     programsPage.editProgramAction(actionTitle);
-  }
-
-  public void changeProgramActionsFilter(String value) {
-    programsPage.changeProgramActionsFilter(value);
   }
 
   public void checkCannotAnnounceAction() {
