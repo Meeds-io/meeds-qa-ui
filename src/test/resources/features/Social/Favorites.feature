@@ -168,6 +168,7 @@ Feature: Favorite activities
     When I close the notification
     Then I check that the random space is unbookmarked from topbar space popover
 
+  @test
   Scenario: Left Nav US02.2: Bookmark space from the left menu (desktop)
     Given I am authenticated as 'admin' random user
     And I go to the seven random space

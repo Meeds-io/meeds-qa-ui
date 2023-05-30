@@ -2,9 +2,10 @@
 @programs
 Feature: Programs
 
-  Scenario: [Engagement][Program][US] : Add an enabled program
+  Scenario: Add an enabled program
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
+    And I join the random space
     And I go to 'Contributions' application
     Then Engagement application center is displayed
     When I select engagement Programs tab
@@ -22,9 +23,10 @@ Feature: Programs
     And I filter programs by value 'ENABLED'
     Then The program title should be displayed on the card
 
-  Scenario: [Engagement][Program][US] : Add a disabled program
+  Scenario: Add a disabled program
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
+    And I join the random space
     And I go to 'Contributions' application
     Then Engagement application center is displayed
     When I select engagement Programs tab
@@ -42,7 +44,7 @@ Feature: Programs
     And I filter programs by value 'DISABLED'
     Then The program title should be displayed on the card
 
-  Scenario: [Engagement][Program][US] : Edit program
+  Scenario: Edit program
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
     And I go to 'Contributions' application
@@ -64,9 +66,10 @@ Feature: Programs
     When I close the notification
     Then The program title should be updated on the card
 
-  Scenario: [Program][US04] Delete program
+  Scenario: Delete program
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
+    And I join the random space
     And I go to 'Contributions' application
     Then Engagement application center is displayed
     When I select engagement Programs tab
@@ -87,9 +90,10 @@ Feature: Programs
     When I close the notification
     Then The program card should not be displayed
 
-  Scenario:[Engagement][Program][US] : Quick filter on program
+  Scenario: Quick filter on program
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
+    And I join the random space
     And I go to 'Contributions' application
     Then Engagement application center is displayed
     When I select engagement Programs tab

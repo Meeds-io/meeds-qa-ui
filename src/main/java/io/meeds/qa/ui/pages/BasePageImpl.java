@@ -80,6 +80,14 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   public void clickToConfirmDialog() {
     ElementFacade okButton = findByXPathOrCSS("//*[contains(@class, 'v-dialog--active')]//button[contains(@class, 'primary')]");
+    if (okButton.isVisible()) {
+      okButton.click();
+      okButton.waitUntilNotVisible();
+    }
+  }
+
+  public void closeConfirmDialogIfDisplayed() {
+    ElementFacade okButton = findByXPathOrCSS("//*[contains(@class, 'v-dialog--active')]//button[contains(@class, 'primary')]");
     if (okButton.isCurrentlyVisible()) {
       okButton.click();
       okButton.waitUntilNotVisible();
@@ -97,6 +105,7 @@ public class BasePageImpl extends PageObject implements BasePage {
     if (closeAlertButton.isVisible()) {
       try {
         closeAlertButton.click();
+        closeAlertButton.waitUntilNotVisible();
       } catch (Exception e) {
         // It can be already closed by timeout
       }
@@ -105,6 +114,7 @@ public class BasePageImpl extends PageObject implements BasePage {
       if (closeAlertButton.isVisible()) {
         try {
           closeAlertButton.click();
+          closeAlertButton.waitUntilNotVisible();
         } catch (Exception e) {
           // It can be already closed by timeout
         }
@@ -117,6 +127,7 @@ public class BasePageImpl extends PageObject implements BasePage {
     if (closeAlertButton.isCurrentlyVisible()) {
       try {
         closeAlertButton.click();
+        closeAlertButton.waitUntilNotVisible();
       } catch (Exception e) {
         // It can be already closed by timeout
       }
@@ -125,6 +136,7 @@ public class BasePageImpl extends PageObject implements BasePage {
       if (closeAlertButton.isCurrentlyVisible()) {
         try {
           closeAlertButton.click();
+          closeAlertButton.waitUntilNotVisible();
         } catch (Exception e) {
           // It can be already closed by timeout
         }
@@ -157,7 +169,7 @@ public class BasePageImpl extends PageObject implements BasePage {
     while (openedDrawerElement().isCurrentlyVisible() && i-- > 0) {
       findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
       closeAlertIfOpened();
-      clickToConfirmDialog();
+      closeConfirmDialogIfDisplayed();
       waitForDrawerToClose();
     }
     if (i == 0) {
