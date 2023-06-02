@@ -45,11 +45,10 @@ public class ProgramsStepDefinition {
     programsSteps.clickSaveProgramButton();
   }
 
-  @And("^I add a disabled program with random description$")
-  public void addDisabledProgramWithRandomDescription() {
-    String disabledProgramDescription = "disabledProgramDescription" + getRandomNumber();
-    Serenity.setSessionVariable("disabledProgramDescription").to(disabledProgramDescription);
-    programsSteps.addDisabledProgramWithRandomDescription(disabledProgramDescription);
+  @When("I switch program as disabled")
+  @And("I switch program as enabled")
+  public void enableDisableProgram() {
+    programsSteps.enableDisableProgram();
   }
 
   @And("^I add program with random description$")
@@ -118,7 +117,12 @@ public class ProgramsStepDefinition {
     programsSteps.deleteCreatedProgram(programName);
   }
 
-  @And("^I edit the created program$")
+  @And("I edit the program")
+  public void editProgram() {
+    programsSteps.editProgram();
+  }
+
+  @And("I edit the created program")
   public void editProgramWithDescription() {
     String programName = Serenity.sessionVariableCalled("programName");
     String newProgramName = "newProgramName" + getRandomNumber();

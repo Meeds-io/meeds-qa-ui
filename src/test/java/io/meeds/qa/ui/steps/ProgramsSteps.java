@@ -29,8 +29,8 @@ import net.serenitybdd.core.Serenity;
 public class ProgramsSteps {
   private ProgramsPage programsPage;
 
-  public void addDisabledProgramWithRandomDescription(String disabledProgramDescription) {
-    programsPage.addDisabledProgramWithRandomDescription(disabledProgramDescription);
+  public void enableDisableProgram() {
+    programsPage.enableDisableProgram();
   }
 
   public void addProgramWithRandomDescription(String programDescription) {
@@ -65,6 +65,10 @@ public class ProgramsSteps {
     programsPage.deleteCreatedProgram(programName);
   }
 
+  public void editProgram() {
+    programsPage.editProgram();
+  }
+  
   public void editProgramWithDescription(String programName, String newProgramName, String newProgramDescription) {
     programsPage.editProgramWithDescription(programName, newProgramName, newProgramDescription);
   }

@@ -10,6 +10,7 @@ Feature: Actions
     And I click on the button add program
     And I enter a random program title
     And I add program with random description
+    And I click on 'Next' button in drawer
     And I add an audience space
     And I save the program details
 
@@ -77,6 +78,7 @@ Feature: Actions
     And I click on the button add program
     And I enter a random program title
     And I add program with random description
+    And I click on 'Next' button in drawer
     And I add an audience space
     And I save the program details
 
@@ -123,6 +125,7 @@ Feature: Actions
     And I click on the button add program
     And I enter a random program title
     And I add program with random description
+    And I click on 'Next' button in drawer
     And I add an audience space
     And I save the program details
 
@@ -161,6 +164,7 @@ Feature: Actions
     And I click on the button add program
     And I enter a random program title
     And I add program with random description
+    And I click on 'Next' button in drawer
     And I add an audience space
     And I save the program details
 
@@ -200,6 +204,7 @@ Feature: Actions
     And I click on the button add program
     And I enter a random program title
     And I add program with random description
+    And I click on 'Next' button in drawer
     And I add an audience space
     And I save the program details
 

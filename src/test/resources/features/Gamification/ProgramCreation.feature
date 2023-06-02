@@ -13,6 +13,7 @@ Feature: Programs
     Then The drawer add program should be displayed
     And I enter a random program title
     And I add program with random description
+    And I click on 'Next' button in drawer
     And I add an audience space
     And I save the program details
     Then Confirmation message is displayed 'New program created successfully'
@@ -33,12 +34,20 @@ Feature: Programs
     And I click on the button add program
     Then The drawer add program should be displayed
     And I enter a random program title
-    And I add a disabled program with random description
+    And I add program with random description
+    And I click on 'Next' button in drawer
     And I add an audience space
     And I save the program details
     Then Confirmation message is displayed 'New program created successfully'
-    When I close the notification
 
+    When I close the notification
+    And I edit the program
+    And I click on 'Next' button in drawer
+    And I switch program as disabled
+    And I click on 'Save' button in drawer
+    Then Confirmation message is displayed 'Program successfully updated'
+
+    When I close the notification
     And I select engagement Programs tab
     And The program card should not be displayed
     And I filter programs by value 'DISABLED'
@@ -54,6 +63,7 @@ Feature: Programs
     Then The drawer add program should be displayed
     And I enter a random program title
     And I add program with random description
+    And I click on 'Next' button in drawer
     And I add an audience space
     And I save the program details
     Then Confirmation message is displayed 'New program created successfully'
@@ -77,6 +87,7 @@ Feature: Programs
     Then The drawer add program should be displayed
     And I enter a random program title
     And I add program with random description
+    And I click on 'Next' button in drawer
     And I add an audience space
     And I save the program details
     Then Confirmation message is displayed 'New program created successfully'
@@ -101,6 +112,7 @@ Feature: Programs
     Then The drawer add program should be displayed
     And I enter the program title 'Enabled program'
     And I add program with random description
+    And I click on 'Next' button in drawer
     And I add an audience space
     And I save the program details
     Then Confirmation message is displayed 'New program created successfully'
@@ -112,11 +124,18 @@ Feature: Programs
     When I click on the button add program
     Then The drawer add program should be displayed
     And I enter the program title 'Disabled program'
-    And I add a disabled program with random description
+    And I add program with random description
+    And I click on 'Next' button in drawer
     And I add an audience space
     And I save the program details
     Then Confirmation message is displayed 'New program created successfully'
+
     When I close the notification
+    And I edit the program
+    And I click on 'Next' button in drawer
+    And I switch program as disabled
+    And I click on 'Save' button in drawer
+    Then Confirmation message is displayed 'Program successfully updated'
 
     And I select engagement Programs tab
     And I filter programs by value 'ALL'

@@ -39,6 +39,7 @@ public class ProgramsPage extends GenericPage {
     if (StringUtils.isNotBlank(programAudience)) {
       addProgramWithRandomDescription(programDescription);
     }
+    clickDrawerButton("Next");
     if (StringUtils.isNotBlank(programAudience)) {
       addSpaceAudience(programAudience);
     }
@@ -47,9 +48,9 @@ public class ProgramsPage extends GenericPage {
     waitForLoading();
   }
 
-  public void addDisabledProgramWithRandomDescription(String disabledProgramDescription) {
-    addProgramWithRandomDescription(disabledProgramDescription);
-    selectStatusSwitcher();
+  public void enableDisableProgram() {
+    programStatusSwitcher().click();
+    waitFor(200).milliseconds();
   }
 
   public void addProgramWithRandomDescription(String programDescription) {
@@ -103,6 +104,11 @@ public class ProgramsPage extends GenericPage {
     deleteProgramButtonElement().click();
     yesConfirmButtonElement().click();
     waitForLoading();
+  }
+
+  public void editProgram() {
+    programThreeDotsButtonElement().click();
+    editProgramButtonElement().click();
   }
 
   public void editProgramWithDescription(String programName, String newProgramName, String newProgramDescription) {
@@ -177,11 +183,6 @@ public class ProgramsPage extends GenericPage {
     saveButtonElement().click();
   }
 
-  public void selectStatusSwitcher() {
-    WebElement checkbox = findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'v-input--selection-controls__ripple primary--text')]");
-    checkbox.click();
-  }
-
   public void checkProgramPositionInTopPrograms(String programName, int listPosition) {
     topProgramsElement(programName, listPosition).assertVisible();
   }
@@ -223,11 +224,14 @@ public class ProgramsPage extends GenericPage {
   }
 
   private ElementFacade topProgramsElement(String programName, int listPosition) {
-    return findByXPathOrCSS(String.format("(//*[@id='programsOverview']//a[contains(@href, 'programs/')])[%s]//*[contains(text(), '%s')]", listPosition, programName));
+    return findByXPathOrCSS(String.format("(//*[@id='programsOverview']//a[contains(@href, 'programs/')])[%s]//*[contains(text(), '%s')]",
+                                          listPosition,
+                                          programName));
   }
-  
+
   private ElementFacade topProgramsElement(String programName) {
-    return findByXPathOrCSS(String.format("//*[@id='programsOverview']//a[contains(@href, 'programs/')]//*[contains(text(), '%s')]", programName));
+    return findByXPathOrCSS(String.format("//*[@id='programsOverview']//a[contains(@href, 'programs/')]//*[contains(text(), '%s')]",
+                                          programName));
   }
 
   private ElementFacade addProgramBtnElement() {
@@ -244,6 +248,10 @@ public class ProgramsPage extends GenericPage {
 
   private ElementFacade createButtonElement() {
     return findByXPathOrCSS(".v-navigation-drawer--open .drawerFooter button.btn-primary");
+  }
+
+  private ElementFacade programStatusSwitcher() {
+    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//input[@id='engagementCenterProgramDrawerSwitch']/parent::*[contains(@class, 'v-input--selection-controls__input')]");
   }
 
   private ElementFacade deleteProgramButtonElement() {
@@ -281,8 +289,12 @@ public class ProgramsPage extends GenericPage {
                                           programName));
   }
 
+  private ElementFacade programThreeDotsButtonElement() {
+    return findByXPathOrCSS(String.format("#engagementCenterProgramDetail .fa-ellipsis-v"));
+  }
+
   private TextBoxElementFacade programTitleFieldElement() {
-    return findTextBoxByXPathOrCSS("//*[@id='EngagementCenterProgramDrawerTitleTextArea']");
+    return findTextBoxByXPathOrCSS("//input[@name='programTitle']");
   }
 
   private ElementFacade saveButtonElement() {

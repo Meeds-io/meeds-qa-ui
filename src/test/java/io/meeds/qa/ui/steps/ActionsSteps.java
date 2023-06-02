@@ -2,20 +2,20 @@ package io.meeds.qa.ui.steps;
 
 import java.util.Map;
 
-import io.meeds.qa.ui.pages.ChallengesPage;
+import io.meeds.qa.ui.pages.ActionsPage;
 import io.meeds.qa.ui.pages.RulePage;
 import io.meeds.qa.ui.pages.SpaceHomePage;
 
-public class ChallengesSteps {
+public class ActionsSteps {
 
-  private ChallengesPage challengesPage;
+  private ActionsPage   actionsPage;
 
-  private RulePage       rulePage;
+  private RulePage      rulePage;
 
-  private SpaceHomePage  spaceHomePage;
+  private SpaceHomePage spaceHomePage;
 
-  public void updateChallenge(String challengeName, Map<String, String> details) {
-    challengesPage.openEditChallengeDrawer(challengeName);
+  public void updateAction(String challengeName, Map<String, String> details) {
+    actionsPage.openEditChallengeDrawer(challengeName);
 
     String title = details.get("title");
     String description = details.get("description");
@@ -24,25 +24,25 @@ public class ChallengesSteps {
   }
 
   public void searchChallenge(String challengeName) {
-    challengesPage.searchChallenge(challengeName);
+    actionsPage.searchAction(challengeName);
   }
 
   public void cancelAnnouncementChallenge(String announcement) {
     spaceHomePage.openThreeDotsActivityMenu(announcement);
-    challengesPage.cancelAnnouncementChallenge(announcement);
+    actionsPage.cancelAnnouncementChallenge(announcement);
     spaceHomePage.clickYesbutton();
   }
 
   public void isOverviewChallengeDisplayed(String challengeTitle, String participantsCount) {
-    challengesPage.isOverviewChallengeDisplayed(challengeTitle, participantsCount);
+    actionsPage.isOverviewChallengeDisplayed(challengeTitle, participantsCount);
   }
 
   public void isOverviewChallengeNotDisplayed(String challengeTitle, String participantsCount) {
-    challengesPage.isOverviewChallengeNotDisplayed(challengeTitle, participantsCount);
+    actionsPage.isOverviewChallengeNotDisplayed(challengeTitle, participantsCount);
   }
 
   public void checkChallengePoints(String challengeName, String points) {
-    challengesPage.checkChallengePoints(challengeName, points);
+    actionsPage.checkChallengePoints(challengeName, points);
   }
 
 }

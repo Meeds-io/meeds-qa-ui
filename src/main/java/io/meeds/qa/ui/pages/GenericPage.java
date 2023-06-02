@@ -90,6 +90,7 @@ public class GenericPage extends BasePageImpl {
 
   public void enableSwitchButtonDisplayed(String buttonName) {
     findByXPathOrCSS(String.format("//*[contains(text(), '%s')]/parent::*//*[contains(@class, 'v-input--switch')]", buttonName)).click();
+    waitFor(200).milliseconds();
   }
 
   private ElementFacade getDisayedConfirmMessage() {

@@ -10,6 +10,7 @@ Feature: Rules
     And I click on the button add program
     And I enter a random program title
     And I add program with random description
+    And I click on 'Next' button in drawer
     And I add an audience space
     And I save the program details
 
@@ -53,6 +54,7 @@ Feature: Rules
     And I click on the button add program
     And I enter the program title 'Test Rule Space Host'
     And I add program with random description
+    And I click on 'Next' button in drawer
     And I add an audience space
     And I save the program details
 
@@ -89,6 +91,7 @@ Feature: Rules
     And I click on the button add program
     And I enter the program title 'Test Rule Program Owner'
     And I add program with random description
+    And I click on 'Next' button in drawer
     And I add an audience space
     And I set user 'secondrule' as program owner
     And I save the program details

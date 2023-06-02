@@ -189,12 +189,14 @@ public class BasePageImpl extends PageObject implements BasePage {
     ElementFacade button = getButton(buttonText);
     button.assertEnabled();
     button.click();
+    waitForLoading();
   }
 
   public void clickDrawerButton(String buttonText) {
     ElementFacade button = getDrawerButton(buttonText);
     button.assertEnabled();
     button.click();
+    waitForLoading();
   }
 
   public void buttonIsDisabled(String buttonText) {

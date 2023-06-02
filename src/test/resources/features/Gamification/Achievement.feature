@@ -11,6 +11,7 @@ Feature: Achievements
     And I click on the button add program
     And I enter the program title 'Achievements program'
     And I add program with random description
+    And I click on 'Next' button in drawer
     And I add an audience space
     And I save the program details
 
@@ -88,6 +89,7 @@ Feature: Achievements
     And I click on the button add program
     And I enter the program title 'Achievements program'
     And I add program with random description
+    And I click on 'Next' button in drawer
     And I add an audience space
     And I save the program details
 
@@ -144,6 +146,7 @@ Feature: Achievements
     And I select engagement Achievements tab
     Then Achievement for 'Receive kudos' is canceled
 
+  @test
   Scenario: Achievements listing for program owner/space host
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
@@ -155,6 +158,7 @@ Feature: Achievements
     And I click on the button add program
     And I enter the random program title 'Test Program Host'
     And I add program with random description
+    And I click on 'Next' button in drawer
     And I add an audience space
     And I save the program details
 
@@ -231,6 +235,7 @@ Feature: Achievements
     And I click on the button add program
     And I enter the program title 'Activity Post Achievement Reject'
     And I add program with random description
+    And I click on 'Next' button in drawer
     And I add an audience space
     And I save the program details
 
@@ -275,6 +280,7 @@ Feature: Achievements
     And I click on the button add program
     And I enter the program title 'Comment Post Achievement Reject'
     And I add program with random description
+    And I click on 'Next' button in drawer
     And I add an audience space
     And I save the program details
 
@@ -334,6 +340,7 @@ Feature: Achievements
     And I click on the button add program
     And I enter the program title 'Like Activity Achievement Reject'
     And I add program with random description
+    And I click on 'Next' button in drawer
     And I add an audience space
     And I save the program details
 
@@ -390,6 +397,7 @@ Feature: Achievements
     And I click on the button add program
     And I enter the program title 'Like Stream Comment Achievement Reject'
     And I add program with random description
+    And I click on 'Next' button in drawer
     And I add an audience space
     And I save the program details
 
@@ -447,6 +455,7 @@ Feature: Achievements
     And I click on the button add program
     And I enter the program title 'Cancel Space Join Program'
     And I add program with random description
+    And I click on 'Next' button in drawer
     And I add an audience space
     And I save the program details
 
