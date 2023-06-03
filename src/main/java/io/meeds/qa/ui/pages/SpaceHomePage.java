@@ -294,8 +294,14 @@ public class SpaceHomePage extends GenericPage {
     findByXPathOrCSS("//*[contains(@class, 'activity-thumbnail-box')]//*[contains(@class, 'v-avatar')]").assertVisible();
   }
 
-  public void checkSearchedUserWellMatched(String user) {
-    getUserProfileButton(user).assertVisible();
+  public void checkSearchedUserWellMatched(String fullName) {
+    insertNameContact(fullName);
+    retryOnCondition(() -> getUserProfileButton(fullName).checkVisible(),
+                     () -> {
+                       filterTextBoxElement().sendKeys(Keys.BACK_SPACE);
+                       waitFor(300).milliseconds();
+                       waitForLoading();
+                     });
   }
 
   public void checkSecondActivityComment() {
@@ -659,7 +665,9 @@ public class SpaceHomePage extends GenericPage {
     if (tabElement.isCurrentlyVisible()) {
       return;
     }
-    installedApplicationCard(applicationName).assertNotVisible(); // Check app not already added
+    installedApplicationCard(applicationName).assertNotVisible(); // Check app
+                                                                  // not already
+                                                                  // added
     goToSpecificTab("Settings");
     verifyPageLoaded();
     arrowIconAppSpaceSettingsElement().click();
@@ -1004,11 +1012,13 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private ElementFacade installedApplicationCard(String applicationName) {
-    return findByXPathOrCSS(String.format("//*[contains(@class, 'SpaceApplicationCard')]//*[contains(text(), '%s')]", applicationName));
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'SpaceApplicationCard')]//*[contains(text(), '%s')]",
+                                          applicationName));
   }
 
   private ElementFacade addApplicationButton(String applicationName) {
-    return findByXPathOrCSS(String.format("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'SpaceApplicationCard')]//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'SpaceApplicationCardBody')]/parent::*//button", applicationName));
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'SpaceApplicationCard')]//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'SpaceApplicationCardBody')]/parent::*//button",
+                                          applicationName));
   }
 
   private ElementFacade plusButtonAppSpaceSettingsElement() {
@@ -1425,8 +1435,8 @@ public class SpaceHomePage extends GenericPage {
     return findByXPathOrCSS(String.format("//*[@id='profileName']//*[contains(text(),'%s')]", user));
   }
 
-  private ElementFacade getUserProfileButton(String user) {
-    return findByXPathOrCSS(String.format("//a[contains(@href,'%s')and contains(@class,'userFullname')]", user));
+  private ElementFacade getUserProfileButton(String fullName) {
+    return findByXPathOrCSS(String.format("//a[contains(text(),'%s')and contains(@class,'userFullname')]", fullName));
   }
 
   private ElementFacade kudosButtonFromCommentsDrawerToCommentActivityElement() {

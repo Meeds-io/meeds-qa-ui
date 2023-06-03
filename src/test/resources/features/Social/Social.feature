@@ -23,6 +23,7 @@ Feature: Social
     Then Activity Comment 'commenttest' is displayed in Comments drawer
     And Activity Comment 'commenttest' is displayed in activity stream
 
+  @test
   Scenario: Search users in My connections tab
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -42,7 +43,6 @@ Feature: Social
     And I refresh the page
     And I go to Person Page
     And I click on People filter and I select My connections
-    And I enter the contact name of the first user
     Then The search result is well matched with the username entered of the first user
 
   @activitystream

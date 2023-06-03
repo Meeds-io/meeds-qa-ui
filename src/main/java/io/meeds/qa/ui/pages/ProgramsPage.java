@@ -209,7 +209,9 @@ public class ProgramsPage extends GenericPage {
   }
 
   private void searchProgram(String title) {
+    waitForLoading();
     while (!getProgramCardTitle(title).isCurrentlyVisible() && getButton("Show More").isCurrentlyVisible()) {
+      getButton("Show More").scrollToWebElement();
       getButton("Show More").click();
       waitForLoading();
     }
