@@ -23,7 +23,6 @@ Feature: Social
     Then Activity Comment 'commenttest' is displayed in Comments drawer
     And Activity Comment 'commenttest' is displayed in activity stream
 
-  @test
   Scenario: Search users in My connections tab
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |

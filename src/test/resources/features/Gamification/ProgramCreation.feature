@@ -2,7 +2,6 @@
 @programs
 Feature: Programs
 
-  @test
   Scenario: Add an enabled program
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
@@ -54,7 +53,6 @@ Feature: Programs
     And I filter programs by value 'DISABLED'
     Then The program title should be displayed on the card
 
-  @test
   Scenario: Edit program
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing

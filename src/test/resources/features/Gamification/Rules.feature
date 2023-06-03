@@ -14,7 +14,7 @@ Feature: Rules
     And I add an audience space
     And I save the program details
 
-    And I click on 'Add Action' button
+    And I click on 'Add incentive' button
     And I wait for drawer to open
     And I enter the rule title 'Receive kudos'
     And I add rule random description

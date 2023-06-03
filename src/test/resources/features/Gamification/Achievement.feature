@@ -15,7 +15,7 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
 
-    And I click on 'Add Action' button
+    And I click on 'Add incentive' button
     And I wait for drawer to open
     And I enter the rule title 'Send kudos'
     And I add rule random description
@@ -93,7 +93,7 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
 
-    And I click on 'Add Action' button
+    And I click on 'Add incentive' button
     And I wait for drawer to open
     And I enter the rule title 'Send kudos'
     And I add rule random description
@@ -146,7 +146,6 @@ Feature: Achievements
     And I select engagement Achievements tab
     Then Achievement for 'Receive kudos' is canceled
 
-  @test
   Scenario: Achievements listing for program owner/space host
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
@@ -162,7 +161,7 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
 
-    And I click on 'Add Action' button
+    And I click on 'Add incentive' button
     And I wait for drawer to open
     And I enter the rule title 'Join space'
     And I add rule random description
@@ -239,7 +238,7 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
 
-    When I click on 'Add Action' button
+    When I click on 'Add incentive' button
     And I wait for drawer to open
     And I enter the rule title 'Post activity in a space'
     And I add rule random description
@@ -284,7 +283,7 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
 
-    When I click on 'Add Action' button
+    When I click on 'Add incentive' button
     And I wait for drawer to open
     And I enter the rule title 'Comment activity in space'
     And I add rule random description
@@ -344,7 +343,7 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
 
-    When I click on 'Add Action' button
+    When I click on 'Add incentive' button
     And I wait for drawer to open
     And I enter the rule title 'Like activity in space'
     And I add rule random description
@@ -401,7 +400,7 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
 
-    When I click on 'Add Action' button
+    When I click on 'Add incentive' button
     And I wait for drawer to open
     And I enter the rule title 'Like stream comment in space'
     And I add rule random description
@@ -459,7 +458,7 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
 
-    And I click on 'Add Action' button
+    And I click on 'Add incentive' button
     And I wait for drawer to open
     And I enter the rule title 'Cancel Space Join'
     And I add rule random description
