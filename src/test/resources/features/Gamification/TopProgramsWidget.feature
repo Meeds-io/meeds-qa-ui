@@ -3,6 +3,7 @@
 Feature: Programs should be displayed in Top Programs in sorted way
   I should access programs I am member of in Top Programs, sorted by points descending
 
+  @test
   Scenario: Top Programs sorted by score descending
     Given I am authenticated as 'admin' random user
 
@@ -14,22 +15,23 @@ Feature: Programs should be displayed in Top Programs in sorted way
     When I go to 'Contributions' application
     And I create the 'thirtyone' random program with
       | audience | thirtyone |
-    And I create the 'thirtytwo' random program with
-      | audience | thirtytwo |
-    And I create the 'thirtythree' random program with
-      | audience | thirtythree |
-
-    And I open 'thirtyone' random program card
     And I create the 'thirtyone' random manual action with
       | points | 9997 |
-    And I close program card
-    And I open 'thirtytwo' random program card
+    And I click on 'Activate the program' button
+
+    And I select engagement Programs tab
+    And I create the 'thirtytwo' random program with
+      | audience | thirtytwo |
     And I create the 'thirtytwo' random manual action with
       | points | 9998 |
-    And I close program card
-    And I open 'thirtythree' random program card
+    And I click on 'Activate the program' button
+
+    And I select engagement Programs tab
+    And I create the 'thirtythree' random program with
+      | audience | thirtythree |
     And I create the 'thirtythree' random manual action with
       | points | 9999 |
+    And I click on 'Activate the program' button
 
     When I login as 'thirtyone' random user
     And I go to Stream page
@@ -46,6 +48,7 @@ Feature: Programs should be displayed in Top Programs in sorted way
     When I login as 'admin' random user
     And I go to 'Contributions' application
     And I select engagement Actions tab
+    And I click on 'All' button
     And I update the 'thirtyone' random challenge with
       | points | 9999 |
     Then The 'thirtyone' challenge is displayed with '9999' points

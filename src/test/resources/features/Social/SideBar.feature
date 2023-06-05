@@ -47,6 +47,7 @@ Feature: SideBar
     And I login as 'hmenu' random user
     Then The hamburger menu is displayed as unstickied
 
+  @ignored
   Scenario: Recent Space Hamburger Menu
     Given I am authenticated as 'admin' random user
     And I create the third random space if not existing

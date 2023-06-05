@@ -78,6 +78,10 @@ public class GenericSteps {
     genericPage.waitForDrawerToClose();
   }
 
+  public void closeOpenedNotification() {
+    genericPage.closeDisplayedAlert();
+  }
+
   public void closeAllDialogs() {
     genericPage.closeAllDialogs();
   }
