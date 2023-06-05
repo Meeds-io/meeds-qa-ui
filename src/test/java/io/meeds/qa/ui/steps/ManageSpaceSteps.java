@@ -22,7 +22,6 @@ import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
-import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
@@ -40,6 +39,18 @@ public class ManageSpaceSteps {
   private HomePage         homePage;
 
   private ManageSpacesPage manageSpacesPage;
+
+  public void joinOrGoToSpace(String spaceNamePrefix) {
+    String spaceName = sessionVariableCalled(spaceNamePrefix);
+    if (!manageSpacesPage.getCurrentUrl().contains("/spaces")) {
+      homePage.goToSpacesPage();
+    }
+    if (findSpaceCard(spaceName)) {
+      goOrJoinToSpace(spaceName);
+    } else {
+      throw new IllegalStateException("Can't find previously created space with name " + spaceName);
+    }
+  }
 
   public void addOrGoToSpace(String spaceNamePrefix) {
     String spaceName = sessionVariableCalled(spaceNamePrefix);

@@ -39,6 +39,13 @@ public class GenericStepDefinitions {
                                                       .isTrue();
   }
 
+  @When("The button '{}' is not displayed")
+  public void checkButtonNotdisplayed(String button) {
+    assertThat(genericSteps.isButtonDisplayed(button)).as(String.format("The button %s should not be displayed but it was",
+                                                                        button))
+                                                      .isFalse();
+  }
+
   @When("Confirmation message is displayed '{}'")
   public void checkConfirmMessage(String message) {
     genericSteps.checkConfirmMessageIsDisplayed(message);
@@ -122,6 +129,11 @@ public class GenericStepDefinitions {
   @When("I wait for drawer to close")
   public void waitForDrawerToClose() {
     genericSteps.waitForDrawerToClose();
+  }
+
+  @When("I close the notification")
+  public void closeOpenedNotification() {
+    genericSteps.closeOpenedNotification();
   }
 
   @When("I close browser tab {int}")

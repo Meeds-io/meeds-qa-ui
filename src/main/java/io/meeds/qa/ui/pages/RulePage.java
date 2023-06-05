@@ -17,6 +17,7 @@
  */
 package io.meeds.qa.ui.pages;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.ButtonElementFacade;
@@ -39,9 +40,15 @@ public class RulePage extends GenericPage {
                          boolean declarative,
                          boolean changeDates,
                          boolean newRule) {
-    setActionTitle(title);
-    setActionDescription(description);
-    setActionPoints(points);
+    if (StringUtils.isNotBlank(title)) {
+      setActionTitle(title);
+    }
+    if (StringUtils.isNotBlank(description)) {
+      setActionDescription(description);
+    }
+    if (StringUtils.isNotBlank(points)) {
+      setActionPoints(points);
+    }
 
     if (newRule) {
       if (declarative) {
@@ -89,10 +96,7 @@ public class RulePage extends GenericPage {
 
   public void setActionEvent(String eventName) {
     eventSelectAutoComplete().click();
-    do {
-      findTextBoxByXPathOrCSS("(//*[contains(@class,'v-menu__content theme--light v-menu__content--fixed')])").scrollDown();
-    } while (!isEventDisplayed(eventName));
-    ruleEventsMenuItem(eventName).click();
+    eventSelectAutoComplete().typeAndEnter(eventName);
   }
 
   public void deleteActionDuration() {
@@ -207,7 +211,7 @@ public class RulePage extends GenericPage {
   }
 
   private ElementFacade addActionButton() {
-    return findByXPathOrCSS("//*[@id = 'engagementCenterProgramDetail']//*[contains(text(), 'Add Action')]//ancestor::button");
+    return findByXPathOrCSS("//*[@id = 'engagementCenterProgramDetail']//*[contains(text(), 'Add Action') or contains(text(), 'Add incentive')]//ancestor::button");
   }
 
   private ButtonElementFacade ruleEventsMenuItem(String eventName) {

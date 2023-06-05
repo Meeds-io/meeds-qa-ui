@@ -193,6 +193,16 @@ public class TestHooks {
     loginSteps.authenticate(ADMIN_USER);
   }
 
+  private void loginAsRandomAdmin() {
+    try {
+      loginSteps.logout();
+    } catch (Exception e) {
+      LOGGER.warn("Can't logout admin user. Proceed to login phase", e);
+    }
+    String userName = Serenity.sessionVariableCalled(ADMIN_USER + "UserName");
+    loginSteps.authenticate(userName);
+  }
+
   private void warmUp(WebDriver driver) {
     File warmUpFile = new File(WARMUP_FILE_PATH);
     if (warmUpFile.exists()) {
@@ -246,13 +256,12 @@ public class TestHooks {
       closeCurrentWindow(driver);
       throw new ElementShouldBeVisibleException("Home Page isn't displayed", null);
     }
+
+    addAdminRandomUser();
+    loginAsRandomAdmin();
     if (INIT_DATA) {
       injectData();
     }
-
-    addAdminRandomUser();
-
-    loginSteps.logout();
 
     LOGGER.info("---- End warmup phase in {} seconds", (System.currentTimeMillis() - start) / 1000);
   }

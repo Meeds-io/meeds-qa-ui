@@ -15,7 +15,6 @@ Feature: Redactor Role
     And I login as 'first' random user
     And I go to the random space
     And I click on 'Members' space menu tab
-    And I enter the contact name of the second user
     Then The search result is well matched with the username entered of the second user
     And I click on three dots menu
     And I set as a redactor
