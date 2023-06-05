@@ -33,6 +33,10 @@ public class ProgramsSteps {
     programsPage.enableDisableProgram();
   }
 
+  public void checkprogramStatusSwitchNotDisplayed() {
+    programsPage.checkprogramStatusSwitchNotDisplayed();
+  }
+
   public void addProgramWithRandomDescription(String programDescription) {
     programsPage.addProgramWithRandomDescription(programDescription);
   }

@@ -51,6 +51,11 @@ public class ProgramsStepDefinition {
     programsSteps.enableDisableProgram();
   }
 
+  @Then("The program status switch is not displayed")
+  public void programStatusSwitchNotDisplayed() {
+    programsSteps.checkprogramStatusSwitchNotDisplayed();
+  }
+
   @And("^I add program with random description$")
   public void addProgramWithRandomDescription() {
     String programDescription = "programDescription" + getRandomNumber();

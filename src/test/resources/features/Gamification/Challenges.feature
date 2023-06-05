@@ -36,6 +36,10 @@ Feature: Actions
     Then Confirmation message is displayed 'Action has been successfully created'
     When I close the notification
     Then The action 'Challenge to announce' is displayed in program detail
+    When I click on 'Activate the program' button
+    Then Confirmation message is displayed 'Program activated'
+
+    When I close the notification
 
     When I login as 'first' random user
     And I go to the random space
@@ -100,6 +104,10 @@ Feature: Actions
 
     When I close the notification
     Then The action 'Challenge to disable' is displayed in program detail
+    When I click on 'Activate the program' button
+    Then Confirmation message is displayed 'Program activated'
+
+    When I close the notification
 
     When I edit program action 'Challenge to disable'
     And I set rule as disabled
@@ -141,6 +149,10 @@ Feature: Actions
     Then Confirmation message is displayed 'Action has been successfully created'
     When I close the notification
     Then The action 'Challenge To Cancel' is displayed in program detail
+    When I click on 'Activate the program' button
+    Then Confirmation message is displayed 'Program activated'
+
+    When I close the notification
 
     When I login as 'first' random user
     And I go to the random space
@@ -180,6 +192,10 @@ Feature: Actions
     Then Confirmation message is displayed 'Action has been successfully created'
     When I close the notification
     Then The action 'Announce activity to delete' is displayed in program detail
+    When I click on 'Activate the program' button
+    Then Confirmation message is displayed 'Program activated'
+
+    When I close the notification
 
     When I login as 'first' random user
     And I go to the random space
@@ -222,6 +238,12 @@ Feature: Actions
     When I close the notification
     Then The action 'Top challenge' is displayed in program detail
 
+    When I click on 'Activate the program' button
+    Then Confirmation message is displayed 'Program activated'
+
+    When I close the notification
+    Then The button 'Activate the program' is not displayed
+
     When I login as 'first' random user
     And I go to the random space
 
@@ -242,6 +264,7 @@ Feature: Actions
     When I login as 'admin' random user
 
     And I go to 'Contributions' application
+    And I filter programs by value 'ALL'
     And I delete the created program
     And I login as 'first' random user
     And I go to Overview page

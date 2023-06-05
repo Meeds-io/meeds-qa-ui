@@ -21,7 +21,6 @@ import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
@@ -51,6 +50,10 @@ public class ProgramsPage extends GenericPage {
   public void enableDisableProgram() {
     programStatusSwitcher().click();
     waitFor(200).milliseconds();
+  }
+
+  public void checkprogramStatusSwitchNotDisplayed() {
+    programStatusSwitcher().assertNotVisible();
   }
 
   public void addProgramWithRandomDescription(String programDescription) {
@@ -292,7 +295,7 @@ public class ProgramsPage extends GenericPage {
   }
 
   private ElementFacade programThreeDotsButtonElement() {
-    return findByXPathOrCSS(String.format("#engagementCenterProgramDetail .fa-ellipsis-v"));
+    return findByXPathOrCSS("#engagementCenterProgramDetail .fa-ellipsis-v");
   }
 
   private TextBoxElementFacade programTitleFieldElement() {

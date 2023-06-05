@@ -44,10 +44,14 @@ Feature: Achievements
     When I close the notification
     Then The action 'Receive kudos' is displayed in program detail
 
+    When I click on 'Activate the program' button
+    Then Confirmation message is displayed 'Program activated'
+    And I close the notification
+
     When I create the fisrtachievement random user if not existing, no wait
     And I create the secondachievement random user if not existing, no wait
 
-    When I login as 'secondachievement' random user
+    And I login as 'secondachievement' random user
     And I go to the random space
     And I click on post in space
     And I enter an activity 'Achievements - Kudos Post activity'
@@ -56,7 +60,7 @@ Feature: Achievements
     And I login as 'fisrtachievement' random user
 
     And I go to My Profile page
-    And I check my points
+    Then I check my points
 
     When I go to the random space
     And I send in the activity 'Achievements - Kudos Post activity' a kudos message 'Achievements - kudos activity comment to cancel'
@@ -66,7 +70,10 @@ Feature: Achievements
     Then Achievement for 'Send kudos' is accepted
 
     When I go to My Profile page
-    Then My points augmented
+    Then The following items are displayed
+      | Weekly points |
+      | Weekly rank   |
+    And My points augmented
 
     And I go to the random space
     When In activity 'Achievements - Kudos Post activity' I cancel the sent kudos comment 'Achievements - kudos activity comment to cancel'
@@ -119,7 +126,11 @@ Feature: Achievements
     When I close the notification
     Then The action 'Receive kudos' is displayed in program detail
 
-    And I create the thirdachievement random user if not existing, no wait
+    When I click on 'Activate the program' button
+    Then Confirmation message is displayed 'Program activated'
+    And I close the notification
+
+    When I create the thirdachievement random user if not existing, no wait
     And I create the fourachievement random user if not existing
 
     When I login as 'fourachievement' random user
@@ -176,6 +187,10 @@ Feature: Achievements
     Then Confirmation message is displayed 'Action has been successfully created'
     When I close the notification
     Then The action 'Join space' is displayed in program detail
+
+    When I click on 'Activate the program' button
+    Then Confirmation message is displayed 'Program activated'
+    And I close the notification
 
     When I login as 'fifthachievement' random user
     And I go to the random space
@@ -251,6 +266,10 @@ Feature: Achievements
     When I close the notification
     Then The action 'Post activity in a space' is displayed in program detail
 
+    When I click on 'Activate the program' button
+    Then Confirmation message is displayed 'Program activated'
+    And I close the notification
+
     When I login as 'seventhachievement' random user
     And I go to the random space
     And I click on post in space
@@ -308,6 +327,10 @@ Feature: Achievements
     Then Confirmation message is displayed 'Action has been successfully created'
     When I close the notification
     Then The action 'Receive comment activity in space' is displayed in program detail
+
+    When I click on 'Activate the program' button
+    Then Confirmation message is displayed 'Program activated'
+    And I close the notification
 
     When I login as 'seventhachievement' random user
     And I go to the random space
@@ -369,6 +392,10 @@ Feature: Achievements
     When I close the notification
     Then The action 'Receive activity like in space' is displayed in program detail
 
+    When I click on 'Activate the program' button
+    Then Confirmation message is displayed 'Program activated'
+    And I close the notification
+
     When I login as 'seventhachievement' random user
     And I go to the random space
     And I click on post in space
@@ -426,6 +453,10 @@ Feature: Achievements
     When I close the notification
     Then The action 'Receive Like on stream comment in space' is displayed in program detail
 
+    When I click on 'Activate the program' button
+    Then Confirmation message is displayed 'Program activated'
+    And I close the notification
+
     When I login as 'seventhachievement' random user
     And I go to the random space
     And I click on post in space
@@ -470,6 +501,10 @@ Feature: Achievements
     Then Confirmation message is displayed 'Action has been successfully created'
     When I close the notification
     Then The action 'Cancel Space Join' is displayed in program detail
+
+    When I click on 'Activate the program' button
+    Then Confirmation message is displayed 'Program activated'
+    And I close the notification
 
     When I login as 'eighthachievement' random user
     And I go to the random space

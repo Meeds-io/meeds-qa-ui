@@ -61,6 +61,7 @@ Feature: Rules
     When I login as 'firstrule' random user
     And I go to 'Contributions' application
     And I select engagement Programs tab
+    And I filter programs by value 'ALL'
     And I open 'Test Rule Space Host' program card
 
     And I click on 'Add Action' button
@@ -76,6 +77,7 @@ Feature: Rules
 
     When I close the notification
     Then The action 'Join space' is displayed in program detail
+    And The button 'Activate the program' is displayed
 
   Scenario: Space member as program owner can add action
     Given I am authenticated as 'admin' random user
@@ -98,9 +100,10 @@ Feature: Rules
 
     When I login as 'secondrule' random user
     And I go to 'Contributions' application
-    And I open 'Test Rule Program Owner' program card
+    And I filter programs by value 'ALL'
+    Then I open 'Test Rule Program Owner' program card
 
-    And I click on 'Add Action' button
+    When I click on 'Add Action' button
     And I wait for drawer to open
     And I enter the rule title 'Join space'
     And I add rule random description

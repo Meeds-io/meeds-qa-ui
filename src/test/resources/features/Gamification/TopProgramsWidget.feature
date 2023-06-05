@@ -16,18 +16,21 @@ Feature: Programs should be displayed in Top Programs in sorted way
       | audience | thirtyone |
     And I create the 'thirtyone' random manual action with
       | points | 9997 |
+    And I click on 'Activate the program' button
 
     And I select engagement Programs tab
     And I create the 'thirtytwo' random program with
       | audience | thirtytwo |
     And I create the 'thirtytwo' random manual action with
       | points | 9998 |
+    And I click on 'Activate the program' button
 
     And I select engagement Programs tab
     And I create the 'thirtythree' random program with
       | audience | thirtythree |
     And I create the 'thirtythree' random manual action with
       | points | 9999 |
+    And I click on 'Activate the program' button
 
     When I login as 'thirtyone' random user
     And I go to Stream page
