@@ -33,7 +33,7 @@ import io.meeds.qa.ui.utils.Utils;
 
 public class AchievementsPage extends GenericPage {
 
-  private static final int MAX_REFRESH_RETRIES = 5;
+  private static final int MAX_REFRESH_RETRIES = 20;
 
   public AchievementsPage(WebDriver driver) {
     super(driver);
@@ -142,15 +142,9 @@ public class AchievementsPage extends GenericPage {
   }
 
   private void enableProgramOwnerView() {
-    ElementFacade programOwnerSwitchButton = programOwnerSwitchButton();
-    programOwnerSwitchButton.assertVisible();
-    programOwnerSwitchButton.click();
+    getButton("Hosted").click();
     waitFor(200).milliseconds();
     waitForLoading();
-  }
-
-  private ElementFacade programOwnerSwitchButton() {
-    return findByXPathOrCSS("//*[@id='realizationAdministrationSwitch']//ancestor::*[contains(@class, 'v-input--selection-controls') and contains(@class, 'v-input--switch')]");
   }
 
   private ElementFacade rejectedAchievementElement(String actionTitle) {

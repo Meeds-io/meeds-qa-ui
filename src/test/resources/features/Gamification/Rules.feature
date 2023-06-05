@@ -10,11 +10,11 @@ Feature: Rules
     And I click on the button add program
     And I enter a random program title
     And I add program with random description
+    And I click on 'Next' button in drawer
     And I add an audience space
     And I save the program details
-    And I open random program card
 
-    And I click on 'Add Action' button
+    And I click on 'Add incentive' button
     And I wait for drawer to open
     And I enter the rule title 'Receive kudos'
     And I add rule random description
@@ -24,6 +24,8 @@ Feature: Rules
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
+
+    When I close the notification
     And The action 'Receive kudos' is displayed in program detail
 
     When I search for the 'Not found' rule in program detail rule filter
@@ -52,12 +54,14 @@ Feature: Rules
     And I click on the button add program
     And I enter the program title 'Test Rule Space Host'
     And I add program with random description
+    And I click on 'Next' button in drawer
     And I add an audience space
     And I save the program details
 
     When I login as 'firstrule' random user
     And I go to 'Contributions' application
     And I select engagement Programs tab
+    And I filter programs by value 'ALL'
     And I open 'Test Rule Space Host' program card
 
     And I click on 'Add Action' button
@@ -70,7 +74,10 @@ Feature: Rules
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
-    And The action 'Join space' is displayed in program detail
+
+    When I close the notification
+    Then The action 'Join space' is displayed in program detail
+    And The button 'Activate the program' is displayed
 
   Scenario: Space member as program owner can add action
     Given I am authenticated as 'admin' random user
@@ -86,15 +93,17 @@ Feature: Rules
     And I click on the button add program
     And I enter the program title 'Test Rule Program Owner'
     And I add program with random description
+    And I click on 'Next' button in drawer
     And I add an audience space
     And I set user 'secondrule' as program owner
     And I save the program details
 
     When I login as 'secondrule' random user
     And I go to 'Contributions' application
-    And I open 'Test Rule Program Owner' program card
+    And I filter programs by value 'ALL'
+    Then I open 'Test Rule Program Owner' program card
 
-    And I click on 'Add Action' button
+    When I click on 'Add Action' button
     And I wait for drawer to open
     And I enter the rule title 'Join space'
     And I add rule random description
@@ -104,4 +113,6 @@ Feature: Rules
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
-    And The action 'Join space' is displayed in program detail
+
+    When I close the notification
+    Then The action 'Join space' is displayed in program detail

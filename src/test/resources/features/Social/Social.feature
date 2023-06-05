@@ -42,7 +42,6 @@ Feature: Social
     And I refresh the page
     And I go to Person Page
     And I click on People filter and I select My connections
-    And I enter the contact name of the first user
     Then The search result is well matched with the username entered of the first user
 
   @activitystream

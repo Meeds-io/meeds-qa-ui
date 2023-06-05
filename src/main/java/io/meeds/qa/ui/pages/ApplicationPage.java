@@ -116,6 +116,8 @@ public class ApplicationPage extends GenericPage {
   public void seeAllApplications() {
     // Click on App Center Application Button
     elementApplicationsTopbarElement().click();
+    waitForDrawerToOpen();
+    waitForDrawerToLoad();
     elementAppcenterSeeAllApplicationsElement().click();
   }
 
@@ -428,7 +430,7 @@ public class ApplicationPage extends GenericPage {
   }
 
   private ElementFacade elementAppcenterSeeAllApplicationsElement() {
-    return findByXPathOrCSS("(//*[contains(@class,'drawerParent appCenterDrawer')]//*[@class='v-btn__content'])[2]");
+    return findByXPathOrCSS("//*[contains(@class,'appCenterDrawer')]//*[contains(@href, 'appCenterUserSetup')]");
   }
 
   private ElementFacade elementApplicationsTopbarElement() {

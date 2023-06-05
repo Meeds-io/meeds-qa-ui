@@ -18,6 +18,7 @@
 package io.meeds.qa.ui.pages;
 
 import static io.meeds.qa.ui.utils.Utils.switchToTabByIndex;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -40,7 +41,9 @@ public class GenericPage extends BasePageImpl {
   }
 
   public void checkConfirmMessageIsDisplayed(String message) {
-    getConfirmMessage(message).assertVisible();
+    ElementFacade confirmMessageElement = getDisayedConfirmMessage();
+    confirmMessageElement.assertVisible();
+    assertThat(confirmMessageElement.getText()).contains(message);
   }
 
   public void checkDrawerDisplayed(String title) {
@@ -87,10 +90,11 @@ public class GenericPage extends BasePageImpl {
 
   public void enableSwitchButtonDisplayed(String buttonName) {
     findByXPathOrCSS(String.format("//*[contains(text(), '%s')]/parent::*//*[contains(@class, 'v-input--switch')]", buttonName)).click();
+    waitFor(200).milliseconds();
   }
 
-  private ElementFacade getConfirmMessage(String message) {
-    return findByXPathOrCSS(String.format("//span[contains(text(),\"%s\")]", message));
+  private ElementFacade getDisayedConfirmMessage() {
+    return findByXPathOrCSS(".v-snack--active .v-alert__content");
   }
 
 }

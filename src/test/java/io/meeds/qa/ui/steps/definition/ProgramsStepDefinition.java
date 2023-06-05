@@ -45,11 +45,15 @@ public class ProgramsStepDefinition {
     programsSteps.clickSaveProgramButton();
   }
 
-  @And("^I add a disabled program with random description$")
-  public void addDisabledProgramWithRandomDescription() {
-    String disabledProgramDescription = "disabledProgramDescription" + getRandomNumber();
-    Serenity.setSessionVariable("disabledProgramDescription").to(disabledProgramDescription);
-    programsSteps.addDisabledProgramWithRandomDescription(disabledProgramDescription);
+  @When("I switch program as disabled")
+  @And("I switch program as enabled")
+  public void enableDisableProgram() {
+    programsSteps.enableDisableProgram();
+  }
+
+  @Then("The program status switch is not displayed")
+  public void programStatusSwitchNotDisplayed() {
+    programsSteps.checkprogramStatusSwitchNotDisplayed();
   }
 
   @And("^I add program with random description$")
@@ -78,13 +82,13 @@ public class ProgramsStepDefinition {
   @And("^The program title should be displayed on the card$")
   public void checkProgramTitleDisplayOnCard() {
     String programName = Serenity.sessionVariableCalled("programName");
-    programsSteps.checkProgramTitleDisplayOnCard(programName);
+    programsSteps.checkProgramCardTitle(programName);
   }
 
   @And("^The program title should be updated on the card$")
   public void checkProgramTitleUpdateOnCard() {
     String newProgramName = Serenity.sessionVariableCalled("newProgramName");
-    programsSteps.checkProgramTitleUpdateOnCard(newProgramName);
+    programsSteps.checkProgramCardTitle(newProgramName);
   }
 
   @And("^I create the '(.*)' random program with$")
@@ -118,7 +122,12 @@ public class ProgramsStepDefinition {
     programsSteps.deleteCreatedProgram(programName);
   }
 
-  @And("^I edit the created program$")
+  @And("I edit the program")
+  public void editProgram() {
+    programsSteps.editProgram();
+  }
+
+  @And("I edit the created program")
   public void editProgramWithDescription() {
     String programName = Serenity.sessionVariableCalled("programName");
     String newProgramName = "newProgramName" + getRandomNumber();
@@ -171,6 +180,11 @@ public class ProgramsStepDefinition {
     programsSteps.selectProgramsFilter(value);
   }
 
+  @And("^I filter program actions by value '(.*)'$")
+  public void selectProgramActionsFilter(String value) {
+    programsSteps.selectProgramActionsFilter(value);
+  }
+
   @And("^I open '(.*)' program card$")
   public void openProgramCard(String value) {
     programsSteps.openProgramCard(value);
@@ -196,11 +210,6 @@ public class ProgramsStepDefinition {
   @And("^I edit program action '(.*)'$")
   public void editProgramAction(String actionTitle) {
     programsSteps.editProgramAction(actionTitle);
-  }
-
-  @And("^I change program actions filter to '(.*)'$")
-  public void changeProgramActionsFilter(String filterChoice) {
-    programsSteps.changeProgramActionsFilter(filterChoice);
   }
 
   @And("I cannot announce program action")

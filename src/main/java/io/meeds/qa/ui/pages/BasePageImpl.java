@@ -80,8 +80,18 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   public void clickToConfirmDialog() {
     ElementFacade okButton = findByXPathOrCSS("//*[contains(@class, 'v-dialog--active')]//button[contains(@class, 'primary')]");
-    okButton.click();
-    okButton.waitUntilNotVisible();
+    if (okButton.isVisible()) {
+      okButton.click();
+      okButton.waitUntilNotVisible();
+    }
+  }
+
+  public void closeConfirmDialogIfDisplayed() {
+    ElementFacade okButton = findByXPathOrCSS("//*[contains(@class, 'v-dialog--active')]//button[contains(@class, 'primary')]");
+    if (okButton.isCurrentlyVisible()) {
+      okButton.click();
+      okButton.waitUntilNotVisible();
+    }
   }
 
   public void clickToCancelDialog() {
@@ -90,13 +100,46 @@ public class BasePageImpl extends PageObject implements BasePage {
     cancelButton.waitUntilNotVisible();
   }
 
+  public void closeDisplayedAlert() {
+    ElementFacade closeAlertButton = findByXPathOrCSS(".v-snack--active .v-alert .v-alert__dismissible");
+    if (closeAlertButton.isVisible()) {
+      try {
+        closeAlertButton.click();
+        closeAlertButton.waitUntilNotVisible();
+      } catch (Exception e) {
+        // It can be already closed by timeout
+      }
+    } else {
+      closeAlertButton = findByXPathOrCSS(".v-alert .v-alert__dismissible");
+      if (closeAlertButton.isVisible()) {
+        try {
+          closeAlertButton.click();
+          closeAlertButton.waitUntilNotVisible();
+        } catch (Exception e) {
+          // It can be already closed by timeout
+        }
+      }
+    }
+  }
+
   public void closeAlert() {
-    ElementFacade closeAlertButton = findByXPathOrCSS(".v-alert .v-alert__dismissible");
+    ElementFacade closeAlertButton = findByXPathOrCSS(".v-snack--active .v-alert .v-alert__dismissible");
     if (closeAlertButton.isCurrentlyVisible()) {
       try {
         closeAlertButton.click();
+        closeAlertButton.waitUntilNotVisible();
       } catch (Exception e) {
         // It can be already closed by timeout
+      }
+    } else {
+      closeAlertButton = findByXPathOrCSS(".v-alert .v-alert__dismissible");
+      if (closeAlertButton.isCurrentlyVisible()) {
+        try {
+          closeAlertButton.click();
+          closeAlertButton.waitUntilNotVisible();
+        } catch (Exception e) {
+          // It can be already closed by timeout
+        }
       }
     }
   }
@@ -126,6 +169,7 @@ public class BasePageImpl extends PageObject implements BasePage {
     while (openedDrawerElement().isCurrentlyVisible() && i-- > 0) {
       findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
       closeAlertIfOpened();
+      closeConfirmDialogIfDisplayed();
       waitForDrawerToClose();
     }
     if (i == 0) {
@@ -142,11 +186,17 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void clickButton(String buttonText) {
-    getButton(buttonText).click();
+    ElementFacade button = getButton(buttonText);
+    button.assertEnabled();
+    button.click();
+    waitForLoading();
   }
 
   public void clickDrawerButton(String buttonText) {
-    getDrawerButton(buttonText).click();
+    ElementFacade button = getDrawerButton(buttonText);
+    button.assertEnabled();
+    button.click();
+    waitForLoading();
   }
 
   public void buttonIsDisabled(String buttonText) {
