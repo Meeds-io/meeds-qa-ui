@@ -29,8 +29,12 @@ import net.serenitybdd.core.Serenity;
 public class ProgramsSteps {
   private ProgramsPage programsPage;
 
-  public void addDisabledProgramWithRandomDescription(String disabledProgramDescription) {
-    programsPage.addDisabledProgramWithRandomDescription(disabledProgramDescription);
+  public void enableDisableProgram() {
+    programsPage.enableDisableProgram();
+  }
+
+  public void checkprogramStatusSwitchNotDisplayed() {
+    programsPage.checkprogramStatusSwitchNotDisplayed();
   }
 
   public void addProgramWithRandomDescription(String programDescription) {
@@ -57,14 +61,6 @@ public class ProgramsSteps {
     programsPage.checkProgramDrawerDisplay();
   }
 
-  public void checkProgramTitleDisplayOnCard(String programName) {
-    programsPage.checkProgramTitleDisplayOnCard(programName);
-  }
-
-  public void checkProgramTitleUpdateOnCard(String newProgramName) {
-    programsPage.checkProgramTitleUpdateOnCard(newProgramName);
-  }
-
   public void clickAddProgramBtn() {
     programsPage.clickAddProgramBtn();
   }
@@ -73,6 +69,10 @@ public class ProgramsSteps {
     programsPage.deleteCreatedProgram(programName);
   }
 
+  public void editProgram() {
+    programsPage.editProgram();
+  }
+  
   public void editProgramWithDescription(String programName, String newProgramName, String newProgramDescription) {
     programsPage.editProgramWithDescription(programName, newProgramName, newProgramDescription);
   }
@@ -93,16 +93,16 @@ public class ProgramsSteps {
     programsPage.selectProgramsFilter(value);
   }
 
+  public void selectProgramActionsFilter(String value) {
+    programsPage.selectProgramActionsFilter(value);
+  }
+
   public void openProgramCard(String value) {
     programsPage.openProgramCard(value);
   }
 
   public void editProgramAction(String actionTitle) {
     programsPage.editProgramAction(actionTitle);
-  }
-
-  public void changeProgramActionsFilter(String value) {
-    programsPage.changeProgramActionsFilter(value);
   }
 
   public void checkCannotAnnounceAction() {

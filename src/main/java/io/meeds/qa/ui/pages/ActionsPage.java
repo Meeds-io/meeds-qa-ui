@@ -1,21 +1,23 @@
 package io.meeds.qa.ui.pages;
 
+import static io.meeds.qa.ui.utils.Utils.MAX_WAIT_RETRIES;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 
-public class ChallengesPage extends GenericPage {
+public class ActionsPage extends GenericPage {
 
-  public ChallengesPage(WebDriver driver) {
+  public ActionsPage(WebDriver driver) {
     super(driver);
   }
 
   public void openEditChallengeDrawer(String challengeName) {
-    searchChallenge(challengeName);
-    challengeCard(challengeName).hover();
+    searchAction(challengeName);
+    actionCard(challengeName).hover();
     ElementFacade menuThreeDots = editChallengeThreeDots(challengeName);
     menuThreeDots.assertVisible();
     menuThreeDots.click();
@@ -24,13 +26,23 @@ public class ChallengesPage extends GenericPage {
     waitForLoading();
   }
 
-  public void searchChallenge(String challengeName) {
-    searchChallengeElement().setTextValue("");
-    waitFor(1).seconds();
+  public void searchAction(String actionName) {
+    TextBoxElementFacade searchField = searchChallengeElement();
+    searchField.setTextValue("");
+    waitFor(300).milliseconds();
     waitForLoading();
-    searchChallengeElement().setTextValue(challengeName);
-    waitFor(1).seconds();
+    searchField.setTextValue(actionName);
+    waitFor(300).milliseconds();
     waitForLoading();
+
+    boolean visible = actionCard(actionName).isVisible();
+    int retry = 0;
+    while (!visible && retry++ < MAX_WAIT_RETRIES) {
+      searchField.sendKeys(Keys.BACK_SPACE);
+      waitFor(300).milliseconds();
+      waitForLoading();
+      visible = actionCard(actionName).isVisible();
+    }
   }
 
   public void cancelAnnouncementChallenge(String announcement) {
@@ -50,11 +62,11 @@ public class ChallengesPage extends GenericPage {
   }
 
   private TextBoxElementFacade searchChallengeElement() {
-    return findTextBoxByXPathOrCSS("//input[@id='rulesFilterInput']");
+    return findTextBoxByXPathOrCSS("//input[@id='applicationToolbarFilterInput']");
   }
 
   private ElementFacade challengeByNameAndPoints(String challengeName, String points) {
-    return findByXPathOrCSS(String.format("//*[@id='rulesList']//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'rule-card-info')]//*[contains(text(), '%s Points')]",
+    return findByXPathOrCSS(String.format("//*[@id='rulesList']//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'rule-card-info')]//*[contains(text(), '+ %s')]",
                                           challengeName,
                                           points));
   }
@@ -64,7 +76,7 @@ public class ChallengesPage extends GenericPage {
                                           challengeName));
   }
 
-  private ElementFacade challengeCard(String challengeName) {
+  private ElementFacade actionCard(String challengeName) {
     return findByXPathOrCSS(String.format("//*[@id='rulesList']//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'rule-card-info')]",
                                           challengeName));
   }

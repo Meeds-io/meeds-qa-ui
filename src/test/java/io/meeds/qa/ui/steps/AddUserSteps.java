@@ -211,7 +211,7 @@ public class AddUserSteps {
                                        password,
                                        password);
     WebDriverWait wait = new WebDriverWait(Serenity.getDriver(),
-                                           Duration.ofSeconds(3),
+                                           Duration.ofSeconds(10),
                                            Duration.ofMillis(SHORT_WAIT_DURATION_MILLIS));
     wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeAsyncScript(addUserScript)
                                                             .toString()

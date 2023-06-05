@@ -2,6 +2,7 @@
 @actions
 Feature: Actions
 
+  @test
   Scenario: Announce a challenge
     Given I am authenticated as 'admin' random user
     And I create the first random user if not existing, no wait
@@ -10,10 +11,11 @@ Feature: Actions
     And I click on the button add program
     And I enter a random program title
     And I add program with random description
+    And I click on 'Next' button in drawer
     And I add an audience space
     And I save the program details
-    And I open random program card
-    And I click on 'Add Action' button
+
+    And I click on 'Add incentive' button
     And I wait for drawer to open
 
     Then The button 'Next' is disabled in drawer
@@ -33,7 +35,12 @@ Feature: Actions
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
-    And The action 'Challenge to announce' is displayed in program detail
+    When I close the notification
+    Then The action 'Challenge to announce' is displayed in program detail
+    When I click on 'Activate the program' button
+    Then Confirmation message is displayed 'Program activated'
+
+    When I close the notification
 
     When I login as 'first' random user
     And I go to the random space
@@ -62,6 +69,7 @@ Feature: Actions
     And I click on 'Next' button in drawer
     And I delete rule duration
     And I click on 'Update' button in drawer
+    And I close the notification
 
     When I open program action 'Challenge to announce'
     Then The program action does not contain duration limitation
@@ -75,10 +83,11 @@ Feature: Actions
     And I click on the button add program
     And I enter a random program title
     And I add program with random description
+    And I click on 'Next' button in drawer
     And I add an audience space
     And I save the program details
-    And I open random program card
-    And I click on 'Add Action' button
+
+    And I click on 'Add incentive' button
     And I wait for drawer to open
 
     When I enter the rule title 'Challenge to disable'
@@ -93,7 +102,13 @@ Feature: Actions
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
-    And The action 'Challenge to disable' is displayed in program detail
+
+    When I close the notification
+    Then The action 'Challenge to disable' is displayed in program detail
+    When I click on 'Activate the program' button
+    Then Confirmation message is displayed 'Program activated'
+
+    When I close the notification
 
     When I edit program action 'Challenge to disable'
     And I set rule as disabled
@@ -101,9 +116,11 @@ Feature: Actions
     And I click on 'Update' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully updated'
-    And The action 'Challenge to disable' is not displayed in program detail
 
-    When I change program actions filter to 'ALL'
+    When I close the notification
+    Then The action 'Challenge to disable' is not displayed in program detail
+
+    When I filter program actions by value 'ALL'
     And I open program action 'Challenge to disable'
 
     Then I cannot announce program action
@@ -117,10 +134,11 @@ Feature: Actions
     And I click on the button add program
     And I enter a random program title
     And I add program with random description
+    And I click on 'Next' button in drawer
     And I add an audience space
     And I save the program details
-    And I open random program card
-    And I click on 'Add Action' button
+
+    And I click on 'Add incentive' button
     And I wait for drawer to open
     And I enter the rule title 'Challenge To Cancel'
     And I add rule random description
@@ -130,7 +148,12 @@ Feature: Actions
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
-    And The action 'Challenge To Cancel' is displayed in program detail
+    When I close the notification
+    Then The action 'Challenge To Cancel' is displayed in program detail
+    When I click on 'Activate the program' button
+    Then Confirmation message is displayed 'Program activated'
+
+    When I close the notification
 
     When I login as 'first' random user
     And I go to the random space
@@ -154,10 +177,11 @@ Feature: Actions
     And I click on the button add program
     And I enter a random program title
     And I add program with random description
+    And I click on 'Next' button in drawer
     And I add an audience space
     And I save the program details
-    And I open random program card
-    And I click on 'Add Action' button
+
+    And I click on 'Add incentive' button
     And I wait for drawer to open
     And I enter the rule title 'Announce activity to delete'
     And I add rule random description
@@ -167,7 +191,12 @@ Feature: Actions
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
-    And The action 'Announce activity to delete' is displayed in program detail
+    When I close the notification
+    Then The action 'Announce activity to delete' is displayed in program detail
+    When I click on 'Activate the program' button
+    Then Confirmation message is displayed 'Program activated'
+
+    When I close the notification
 
     When I login as 'first' random user
     And I go to the random space
@@ -192,10 +221,11 @@ Feature: Actions
     And I click on the button add program
     And I enter a random program title
     And I add program with random description
+    And I click on 'Next' button in drawer
     And I add an audience space
     And I save the program details
-    And I open random program card
-    And I click on 'Add Action' button
+
+    And I click on 'Add incentive' button
     And I wait for drawer to open
     And I enter the rule title 'Top challenge'
     And I add rule random description
@@ -205,7 +235,15 @@ Feature: Actions
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
-    And The action 'Top challenge' is displayed in program detail
+
+    When I close the notification
+    Then The action 'Top challenge' is displayed in program detail
+
+    When I click on 'Activate the program' button
+    Then Confirmation message is displayed 'Program activated'
+
+    When I close the notification
+    Then The button 'Activate the program' is not displayed
 
     When I login as 'first' random user
     And I go to the random space
@@ -213,9 +251,13 @@ Feature: Actions
     And I go to 'Contributions' application
     And I open random program card
     And I announce challenge 'Top challenge'
+    And I close the notification
     And I announce challenge 'Top challenge'
+    And I close the notification
     And I announce challenge 'Top challenge'
+    And I close the notification
     And I announce challenge 'Top challenge'
+    And I close the notification
 
     And I go to Overview page
     Then 'Top challenge' is displayed in challenge portlet with '4' participants
@@ -223,6 +265,7 @@ Feature: Actions
     When I login as 'admin' random user
 
     And I go to 'Contributions' application
+    And I filter programs by value 'ALL'
     And I delete the created program
     And I login as 'first' random user
     And I go to Overview page
