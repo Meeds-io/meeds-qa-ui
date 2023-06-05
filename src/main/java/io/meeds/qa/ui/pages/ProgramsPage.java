@@ -351,7 +351,7 @@ public class ProgramsPage extends GenericPage {
   }
 
   private ElementFacade daysLeftInfoFromDrawer() {
-    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'fa-calendar-check')]");
+    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(text(), 'Ends in') or contains(text(), 'Available in')]");
   }
 
 }

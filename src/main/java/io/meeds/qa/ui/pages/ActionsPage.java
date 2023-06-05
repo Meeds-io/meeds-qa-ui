@@ -66,7 +66,7 @@ public class ActionsPage extends GenericPage {
   }
 
   private ElementFacade challengeByNameAndPoints(String challengeName, String points) {
-    return findByXPathOrCSS(String.format("//*[@id='rulesList']//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'rule-card-info')]//*[contains(text(), '%s Points')]",
+    return findByXPathOrCSS(String.format("//*[@id='rulesList']//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'rule-card-info')]//*[contains(text(), '+ %s')]",
                                           challengeName,
                                           points));
   }

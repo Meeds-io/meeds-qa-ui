@@ -2,6 +2,7 @@
 @actions
 Feature: Actions
 
+  @test
   Scenario: Announce a challenge
     Given I am authenticated as 'admin' random user
     And I create the first random user if not existing, no wait
