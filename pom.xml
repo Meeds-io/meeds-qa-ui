@@ -62,6 +62,8 @@
     <!-- Loading Page wait timeout -->
     <io.meeds.page.loading.wait>10</io.meeds.page.loading.wait>
     <version.surefire.plugin>3.0.0-M8</version.surefire.plugin>
+    <!-- Specific target snapshot repository -->
+    <exo.snapshots.repo.url>https://repository.exoplatform.org/content/repositories/meeds-snapshots</exo.snapshots.repo.url>
   </properties>
   <dependencyManagement>
     <dependencies>
