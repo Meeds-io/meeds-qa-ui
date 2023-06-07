@@ -18,7 +18,6 @@
 package io.meeds.qa.ui.pages;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -30,8 +29,10 @@ import org.openqa.selenium.WebDriver;
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.utils.Utils;
+import net.serenitybdd.core.pages.ClickStrategy;
 import net.serenitybdd.markers.IsHidden;
 import net.thucydides.core.annotations.DefaultUrl;
+import net.thucydides.core.webdriver.exceptions.ElementShouldBeVisibleException;
 
 @DefaultUrl("https://baseUrl/")
 public class LoginPage extends GenericPage implements IsHidden {
@@ -41,6 +42,8 @@ public class LoginPage extends GenericPage implements IsHidden {
   private String              lastLoggedInUser                = null;
 
   private HomePage            homePage;
+
+  private String              loginUrl;
 
   public LoginPage(WebDriver driver) {
     super(driver);
@@ -61,18 +64,30 @@ public class LoginPage extends GenericPage implements IsHidden {
   }
 
   public void login(String login, String password) {
+    login(login, password, true);
+  }
+
+  public boolean login(String login, String password, boolean throwException) {
     if (StringUtils.equals(getLastLoggedInUser(), login)) {
       closeAllDrawers();
     } else {
       logout();
+      setLoginUrl(getCurrentUrl());
       usernameInputElement().setTextValue(login);
       passwordInputElement().setTextValue(password);
-      loginButtonElement().click();
+      loginButtonElement().click(ClickStrategy.IMMEDIATE);
       verifyPageLoaded();
-      assertTrue("The home page should be loaded, but it did not !", homePage.isPortalDisplayed());
+      if (!homePage.isPortalDisplayed()) {
+        if (throwException) {
+          throw new ElementShouldBeVisibleException("Home Page isn't displayed", null);
+        } else {
+          return false;
+        }
+      }
       getDriver().manage().addCookie(new Cookie(LAST_LOGGED_IN_USER_COOKIE_NAME, login, "/"));
       lastLoggedInUser = login;
     }
+    return true;
   }
 
   public void openLoginPage() {
@@ -80,10 +95,27 @@ public class LoginPage extends GenericPage implements IsHidden {
     int i = 0;
     do {
       deleteCookies();
-      open();
+      String currentUrl = getCurrentUrl();
+      if (StringUtils.isNotBlank(currentUrl)) {
+        getDriver().get(currentUrl);
+      } else {
+        open();
+      }
     } while (!isLoginPageDisplayed() && i++ < maxRetries);
     if (i >= maxRetries) {
       throw new IllegalStateException("Can't display login page after 3 retries");
+    }
+  }
+
+  @Override
+  public String getCurrentUrl() {
+    String currentUrl = super.getCurrentUrl();
+    return StringUtils.isNotBlank(loginUrl) ? loginUrl : currentUrl;
+  }
+
+  public void setLoginUrl(String loginUrl) {
+    if (StringUtils.isNotBlank(loginUrl)) {
+      this.loginUrl = loginUrl;
     }
   }
 
@@ -120,7 +152,8 @@ public class LoginPage extends GenericPage implements IsHidden {
 
   @SuppressWarnings("unchecked")
   public void checkLoginPageDisplay() {
-    List<Long> windowDimensions = (List<Long>) ((JavascriptExecutor) getDriver()).executeScript("return [window.innerWidth, window.innerHeight];");
+    List<Long> windowDimensions =
+                                (List<Long>) ((JavascriptExecutor) getDriver()).executeScript("return [window.innerWidth, window.innerHeight];");
     int windowWidth = windowDimensions.get(0).intValue();
     int windowHeight = windowDimensions.get(1).intValue();
 
@@ -132,7 +165,6 @@ public class LoginPage extends GenericPage implements IsHidden {
 
     assertEquals(0, loginElementTop);
     assertEquals(0, loginElementLeft);
-
 
     int loginElementWidth = loginElement.getRect().getWidth();
     int loginElementHeight = loginElement.getRect().getHeight();
@@ -148,8 +180,8 @@ public class LoginPage extends GenericPage implements IsHidden {
     int brandingLogoElementWidth = brandingLogoElement.getRect().getWidth();
     int brandingLogoElementHeight = brandingLogoElement.getRect().getHeight();
 
-    assertEquals((long)(windowHeight - brandingLogoElementHeight - windowHeight * 0.03d), brandingLogoElementTop);
-    assertEquals((long)(windowWidth - brandingLogoElementWidth - windowWidth * 0.03d), brandingLogoElementLeft);
+    assertEquals((long) (windowHeight - brandingLogoElementHeight - windowHeight * 0.03d), brandingLogoElementTop);
+    assertEquals((long) (windowWidth - brandingLogoElementWidth - windowWidth * 0.03d), brandingLogoElementLeft);
   }
 
   private void deleteLastLoginCookie() {

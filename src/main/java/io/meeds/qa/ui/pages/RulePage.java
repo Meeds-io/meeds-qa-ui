@@ -70,7 +70,10 @@ public class RulePage extends GenericPage {
   }
 
   public void selectDurationChoice() {
-    durationChip().click();
+    ElementFacade durationChip = durationDeselectedChip();
+    durationChip.waitUntilVisible();
+    durationChip.click();
+    durationSelectedChip().assertVisible();
   }
 
   public void setActionTitle(String title) {
@@ -100,7 +103,7 @@ public class RulePage extends GenericPage {
   }
 
   public void deleteActionDuration() {
-    durationEnabledChip().click();
+    durationSelectedChip().click();
   }
 
   public void setActionEndDate() {
@@ -154,8 +157,9 @@ public class RulePage extends GenericPage {
   }
 
   private void selectActionDateChoice(String value) {
-    ElementFacade selectActionDateElement =
-                                          selectActionDateElement(value);
+    ElementFacade selectActionDateElement = selectActionDateElement(value);
+    selectActionDateElement.waitUntilVisible();
+    selectActionDateElement.waitUntilClickable();
     selectActionDateElement.selectByValue(value);
     waitFor(50).milliseconds();
   }
@@ -182,12 +186,12 @@ public class RulePage extends GenericPage {
     waitForDrawerToOpen();
   }
 
-  private ElementFacade durationChip() {
-    return findByXPathOrCSS("//*[contains(text(),'Duration')]//ancestor-or-self::*[contains(@class, 'v-chip')]");
+  private ElementFacade durationDeselectedChip() {
+    return findByXPathOrCSS("//*[contains(text(),'Duration')]//ancestor-or-self::*[contains(@class, 'v-chip--clickable') and not(contains(@class, 'primary'))]");
   }
 
-  private ElementFacade durationEnabledChip() {
-    return findByXPathOrCSS("//*[contains(text(),'Duration')]//ancestor-or-self::*[contains(@class, 'v-chip') and contains(@class, 'primary')]");
+  private ElementFacade durationSelectedChip() {
+    return findByXPathOrCSS("//*[contains(text(),'Duration')]//ancestor-or-self::*[contains(@class, 'v-chip--clickable') and contains(@class, 'primary')]");
   }
 
   private ElementFacade declarativeChoiceButton() {

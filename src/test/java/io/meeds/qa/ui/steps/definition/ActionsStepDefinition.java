@@ -16,19 +16,19 @@ public class ActionsStepDefinition {
 
   @And("^I update the '(.*)' random challenge with$")
   public void updateRandomChallenge(String suffix, Map<String, String> details) {
-    String challengeName = Serenity.sessionVariableCalled("challengeName" + suffix);
+    String challengeName = Serenity.sessionVariableCalled("actionName" + suffix);
     actionsSteps.updateAction(challengeName, details);
   }
 
   @And("^I search the '(.*)' random challenge$")
   public void searchChallenge(String suffix) {
-    String challengeName = Serenity.sessionVariableCalled("challengeName" + suffix);
+    String challengeName = Serenity.sessionVariableCalled("actionName" + suffix);
     actionsSteps.searchChallenge(challengeName);
   }
 
   @And("^The '(.*)' challenge is displayed with '(.*)' points$")
   public void checkChallengePoints(String suffix, String points) {
-    String challengeName = Serenity.sessionVariableCalled("challengeName" + suffix);
+    String challengeName = Serenity.sessionVariableCalled("actionName" + suffix);
     actionsSteps.checkChallengePoints(challengeName, points);
   }
 

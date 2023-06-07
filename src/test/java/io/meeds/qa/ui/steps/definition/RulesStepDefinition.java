@@ -37,6 +37,13 @@ public class RulesStepDefinition {
     rulesSteps.enterRuleTitle(ruleTitle);
   }
 
+  @And("I add rule random title")
+  public void enterProgramTitle() {
+    String ruleTitle = "ruleTitle" + getRandomNumber();
+    Serenity.setSessionVariable("ruleTitle").to(ruleTitle);
+    rulesSteps.enterRuleTitle(ruleTitle);
+  }
+
   @And("^I add an event '(.*)'")
   public void addRuleEvent(String eventName) {
     rulesSteps.addRuleEvent(eventName);
@@ -72,9 +79,9 @@ public class RulesStepDefinition {
 
   @And("^I create the '(.*)' random manual action with$")
   public void createRandomManualRule(String suffix, Map<String, String> details) {
-    String title = "challengeName" + getRandomNumber();
+    String title = "actionName" + getRandomNumber();
     rulesSteps.createAction(title, true, details);
-    Serenity.setSessionVariable("challengeName" + suffix).to(title);
+    Serenity.setSessionVariable("actionName" + suffix).to(title);
   }
 
   @When("^I search for the (.*) rule in program detail rule filter$")

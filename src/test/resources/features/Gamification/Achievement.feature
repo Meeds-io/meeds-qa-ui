@@ -198,7 +198,10 @@ Feature: Achievements
     When I open 'Test Program Host' random program card
     Then Actions Filter dropdown is displayed
     And Admin Actions Filter dropdown is not displayed
+    When I open 'Join space' achivements drawer from program detail
+    Then In drawer, user 'fifthachievement' achievement is display 'first'
 
+    When I close the opened drawer
     And I login as 'sixthachievement' random user
     And I go to the random space
     And I go to 'Contributions' application
@@ -231,12 +234,132 @@ Feature: Achievements
     Then Actions Filter dropdown is displayed
     And Admin Actions Filter dropdown is displayed
 
-    When I select engagement Achievements tab
+    When I open 'Join space' achivements drawer from program detail
+    And In drawer, user 'sixthachievement' achievement is display 'first'
+    Then In drawer, user 'fifthachievement' achievement is display 'second'
+
+    When I close the opened drawer
+    And I select engagement Achievements tab
     And I filter achievements using 'Test Program Host' random program
     Then The achievement 'Join space' is displayed '1' times
     And The button 'Hosted' is displayed
 
     Then The achievement 'Join space' is displayed '2' times when enabling program owner view for 'Test Program Host' random program
+
+  Scenario: Achievements sort
+    Given I am authenticated as 'admin' random user
+    And I create the random space if not existing
+    And I inject the 'ninethachievement' random user if not existing, no wait
+    And I inject the 'tenthachievement' random user if not existing, no wait
+
+    When I go to 'Contributions' application
+    And I click on the button add program
+    And I enter the random program title 'Test Program Achievements sort'
+    And I add program with random description
+    And I click on 'Next' button in drawer
+    And I add an audience space
+    And I save the program details
+
+    And I click on 'Add incentive' button
+    And I wait for drawer to open
+    And I enter the rule title 'Join space'
+    And I add rule random description
+    And I click on 'Automatic' button in drawer
+    And I add an event 'Join space'
+    And I click on 'Next' button in drawer
+    And I click on 'Add' button in drawer
+    And I close the notification
+
+    And I click on 'Add Action' button
+    And I wait for drawer to open
+    And I enter the rule title 'Announce an achievement'
+    And I add rule random description
+    And I click on 'Declarative' button in drawer
+    And I click on 'Next' button in drawer
+    And I click on 'Add' button in drawer
+    And I close the notification
+
+    When I click on 'Activate the program' button
+    And I close the notification
+
+    When I login as 'ninethachievement' random user
+    And I go to the random space
+    And I go to 'Contributions' application
+    When I open 'Test Program Achievements sort' random program card
+    And I announce challenge 'Announce an achievement'
+    And I click on 'See' link
+
+    Then The activity 'Announce an achievement' is displayed
+    When I cancel the announcement challenge 'Announce an achievement'
+
+    And I login as 'tenthachievement' random user
+    And I go to the random space
+    And I go to 'Contributions' application
+    When I open 'Test Program Achievements sort' random program card
+    And I announce challenge 'Announce an achievement'
+
+    When I select engagement Achievements tab
+    And Current user achievement 'Announce an achievement' is displayed 'first'
+    And Current user achievement 'Join space' is displayed 'second'
+
+    When I login as 'admin' random user
+    And I go to 'Contributions' application
+    And I select engagement Achievements tab
+
+    When I click on 'Hosted' button
+    Then I wait for application loading
+
+    When I filter achievements using 'Test Program Achievements sort' random program
+    And I wait for application loading
+
+    Then Achievement 'Announce an achievement' of user 'tenthachievement' is displayed 'first'
+    And Achievement 'Join space' of user 'tenthachievement' is displayed 'second'
+    And Achievement 'Announce an achievement' of user 'ninethachievement' is displayed 'third'
+    And Achievement 'Join space' of user 'ninethachievement' is displayed 'fourth'
+
+    When I sort table by 'Date'
+    And I wait for application loading
+
+    Then Achievement 'Join space' of user 'ninethachievement' is displayed 'first'
+    And Achievement 'Announce an achievement' of user 'ninethachievement' is displayed 'second'
+    And Achievement 'Join space' of user 'tenthachievement' is displayed 'third'
+    And Achievement 'Announce an achievement' of user 'tenthachievement' is displayed 'fourth'
+
+    When I sort table by 'Type'
+    And I wait for application loading
+
+    Then Achievement 'Join space' of user 'tenthachievement' is displayed 'first'
+    And Achievement 'Join space' of user 'ninethachievement' is displayed 'second'
+    And Achievement 'Announce an achievement' of user 'tenthachievement' is displayed 'third'
+    And Achievement 'Announce an achievement' of user 'ninethachievement' is displayed 'fourth'
+
+    When I sort table by 'Type'
+    And I wait for application loading
+
+    Then Achievement 'Announce an achievement' of user 'tenthachievement' is displayed 'first'
+    And Achievement 'Announce an achievement' of user 'ninethachievement' is displayed 'second'
+    And Achievement 'Join space' of user 'tenthachievement' is displayed 'third'
+    And Achievement 'Join space' of user 'ninethachievement' is displayed 'fourth'
+
+    When I sort table by 'Status'
+    And I wait for application loading
+
+    Then Achievement 'Announce an achievement' of user 'tenthachievement' is displayed 'first'
+    And Achievement 'Join space' of user 'tenthachievement' is displayed 'second'
+    And Achievement 'Join space' of user 'ninethachievement' is displayed 'third'
+    And Achievement 'Announce an achievement' of user 'ninethachievement' is displayed 'fourth'
+
+    When I sort table by 'Status'
+    And I wait for application loading
+
+    Then Achievement 'Announce an achievement' of user 'ninethachievement' is displayed 'first'
+    And Achievement 'Announce an achievement' of user 'tenthachievement' is displayed 'second'
+    And Achievement 'Join space' of user 'tenthachievement' is displayed 'third'
+    And Achievement 'Join space' of user 'ninethachievement' is displayed 'fourth'
+
+    When I filter achievements using 'ninethachievement' random user
+    Then Achievement 'Announce an achievement' of user 'ninethachievement' is displayed 'first'
+    And Achievement 'Join space' of user 'ninethachievement' is displayed 'second'
 
   Scenario: Cancel Activity changes the Achievement as Rejected
     Given I am authenticated as 'admin' random user
@@ -404,6 +527,7 @@ Feature: Achievements
     Then the activity 'Activity to like + unlike' is displayed in activity stream
 
     When I like the activity 'Activity to like + unlike'
+    And I wait for '1' seconds
     And I unlike the activity 'Activity to like + unlike'
 
     When I go to 'Contributions' application
@@ -467,6 +591,7 @@ Feature: Achievements
     When I add in activity 'Activity with comment to like + unlike' a comment 'comment to unlike'
 
     When I like the activity comment 'comment to unlike'
+    And I wait for '1' seconds
     And I unlike the activity comment 'comment to unlike'
 
     When I go to 'Contributions' application

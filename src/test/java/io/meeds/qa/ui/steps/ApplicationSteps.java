@@ -80,10 +80,6 @@ public class ApplicationSteps {
     applicationPage.goToApplication(applicationName);
   }
 
-  public void maxFavoriteAppsIsDisplayed() {
-    applicationPage.maxFavoriteAppsIsDisplayed();
-  }
-
   public void seeAllApplications() {
     applicationPage.seeAllApplications();
   }

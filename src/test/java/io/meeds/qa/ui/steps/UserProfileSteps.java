@@ -130,8 +130,8 @@ public class UserProfileSteps {
     userProfilePage.checkProfileContactJobTitleVisible(job);
   }
 
-  public void openAchivementTab() {
-    userProfilePage.openAchivementTab();
+  public void openAchievementTab() {
+    userProfilePage.openAchievementTab();
   }
 
   public void openBadgeDetails() {

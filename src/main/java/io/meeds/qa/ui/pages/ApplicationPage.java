@@ -19,6 +19,7 @@ package io.meeds.qa.ui.pages;
 
 import static io.meeds.qa.ui.utils.Utils.refreshPage;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
+import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -30,6 +31,7 @@ import org.openqa.selenium.WebElement;
 
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
+import io.meeds.qa.ui.utils.Utils;
 
 public class ApplicationPage extends GenericPage {
 
@@ -98,19 +100,20 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void clickOnTheAppLauncherIcon() {
+    waitForLoading();
     closeAllDrawers();
-    elementApplicationsTopbarElement().click();
-    waitForDrawerToOpen();
-    waitForDrawerToLoad();
+    retryOnCondition(() -> {
+      elementApplicationsTopbarElement().checkVisible();
+      elementApplicationsTopbarElement().click();
+      waitForDrawerToOpen();
+      waitForDrawerToLoad();
+    }, Utils::refreshPage);
   }
 
   public void goToApplication(String application) {
     clickOnTheAppLauncherIcon();
     getApplication(application).click();
-  }
-
-  public void maxFavoriteAppsIsDisplayed() {
-    maxFavoriteAppsElement().assertVisible();
+    waitForLoading();
   }
 
   public void seeAllApplications() {
@@ -452,10 +455,6 @@ public class ApplicationPage extends GenericPage {
 
   private ElementFacade getFavoriteApplicationElement(String appName) {
     return findByXPathOrCSS(String.format("//*[contains(@class,'favoriteApplication')]//*[contains(text(),'%s')]", appName));
-  }
-
-  private ElementFacade maxFavoriteAppsElement() {
-    return findByXPathOrCSS("//*[@class='maxFavorite']//span[contains(text(),'You can’t set more than 12 favorites')]");
   }
 
   private ElementFacade removeFromAppCenterFavoriteIsDisplayed(String app) {
