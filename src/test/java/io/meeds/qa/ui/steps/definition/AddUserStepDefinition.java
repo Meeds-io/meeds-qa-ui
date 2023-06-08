@@ -19,6 +19,7 @@ package io.meeds.qa.ui.steps.definition;
 
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
+import java.util.List;
 import java.util.Map;
 
 import io.cucumber.java.en.And;
@@ -38,29 +39,66 @@ public class AddUserStepDefinition {
 
   @Given("^I create a dedicated user to be an administrator$")
   public void addRandomAdminUser() {
-    addUserSteps.addRandomUser("firstAdmin", true);
+    addUserSteps.addRandomUser("firstAdmin", true, false);
   }
 
-  @Given("^I create the (.*) random user if not existing$")
-  public void addRandomUserIfNotExisting(String userPrefix) {
-    addUserSteps.addRandomUser(userPrefix, true);
+  @Given("^I create the ([^']*) random user if not existing$")
+  @And("^I create the '(.*)' random user if not existing$")
+  public void createRandomUserIfNotExisting(String userPrefix) {
+    addUserSteps.addRandomUser(userPrefix, true, false);
   }
 
-  @Given("^I create the (.*) random user if not existing, no wait$")
-  public void addRandomUserIfNotExistingNoWait(String userPrefix) {
-    addUserSteps.addRandomUser(userPrefix, false);
+  @Given("^I inject the ([^']*) random user if not existing$")
+  @And("^I inject the '(.*)' random user if not existing$")
+  public void injectRandomUserIfNotExisting(String userPrefix) {
+    addUserSteps.addRandomUser(userPrefix, true, true);
   }
 
-  @Given("^I create the (.*) random user$")
-  public void addRandomUser(String userPrefix) {
+  @Given("^I create the ([^']*) random user if not existing, no wait$")
+  @And("^I create the '(.*)' random user if not existing, no wait$")
+  public void createRandomUserIfNotExistingNoWait(String userPrefix) {
+    addUserSteps.addRandomUser(userPrefix, false, false);
+  }
+
+  @Given("^I inject the ([^']*) random user if not existing, no wait$")
+  @And("^I inject the '(.*)' random user if not existing, no wait$")
+  public void injectRandomUserIfNotExistingNoWait(String userPrefix) {
+    addUserSteps.addRandomUser(userPrefix, false, true);
+  }
+
+  @Given("^I create the ([^']*) random user$")
+  @And("^I create the '(.*)' random user$")
+  public void createRandomUser(String userPrefix) {
     Serenity.setSessionVariable(userPrefix + "UserName").to(null);
-    addUserSteps.addRandomUser(userPrefix, true);
+    addUserSteps.addRandomUser(userPrefix, true, false);
   }
 
-  @Given("^I create the (.*) random user, no wait$")
-  public void addRandomUserNoWait(String userPrefix) {
+  @Given("^I inject the ([^']*) random user$")
+  @And("^I inject the '(.*)' random user$")
+  public void injectRandomUser(String userPrefix) {
     Serenity.setSessionVariable(userPrefix + "UserName").to(null);
-    addUserSteps.addRandomUser(userPrefix, false);
+    addUserSteps.addRandomUser(userPrefix, true, true);
+  }
+
+  @Given("^I create the ([^']*) random user, no wait$")
+  @And("^I create the '(.*)' random user, no wait$")
+  public void createRandomUserNoWait(String userPrefix) {
+    Serenity.setSessionVariable(userPrefix + "UserName").to(null);
+    addUserSteps.addRandomUser(userPrefix, false, false);
+  }
+
+  @Given("^I inject the ([^']*) random user, no wait$")
+  @And("^I inject the '(.*)' random user, no wait$")
+  public void injectRandomUserNoWait(String userPrefix) {
+    Serenity.setSessionVariable(userPrefix + "UserName").to(null);
+    addUserSteps.addRandomUser(userPrefix, false, true);
+  }
+
+  @Given("^I inject the ([^']*) random user with the following memberships")
+  @And("^I inject the '(.*)' random user with the following memberships$")
+  public void injectRandomUserWithGroups(String userPrefix, List<String> groups) {
+    Serenity.setSessionVariable(userPrefix + "UserName").to(null);
+    addUserSteps.injectRandomUserWithGroups(userPrefix, groups, true);
   }
 
   @Given("^The following user is created$")

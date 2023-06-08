@@ -35,6 +35,11 @@ public class LoginSteps {
     loginPage.login(username, password);
   }
 
+  public boolean authenticate(String username, boolean throwException) {
+    String password = Serenity.sessionVariableCalled(username + "-password");
+    return loginPage.login(username, password, throwException);
+  }
+
   public void authenticateIfRandomSpaceAndUsersNotExists(String username, String spacePrefix, List<String> userPrefixes) {
     boolean spaceDoesntExist = StringUtils.isBlank(spacePrefix) || StringUtils.isBlank(sessionVariableCalled(spacePrefix));
     boolean userDoesntExist = userPrefixes.stream()

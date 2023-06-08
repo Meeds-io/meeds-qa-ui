@@ -17,7 +17,7 @@
  */
 package io.meeds.qa.ui.pages;
 
-import static io.meeds.qa.ui.utils.Utils.*;
+import static io.meeds.qa.ui.utils.Utils.DEFAULT_IMPLICIT_WAIT_FOR_TIMEOUT;
 import static io.meeds.qa.ui.utils.Utils.DEFAULT_WAIT_FOR_TIMEOUT;
 import static io.meeds.qa.ui.utils.Utils.DEFAULT_WAIT_PAGE_LOADING;
 import static io.meeds.qa.ui.utils.Utils.MAX_WAIT_RETRIES;
@@ -25,6 +25,7 @@ import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION_MILLIS;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 
+import java.io.File;
 import java.time.Duration;
 
 import org.apache.commons.lang3.StringUtils;
@@ -54,9 +55,15 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   protected static final Logger LOGGER                      = LoggerFactory.getLogger(BasePageImpl.class);
 
-  private static final String OPNENED_DRAWER_CSS_SELECTOR = ".v-navigation-drawer--open";
+  private static final String   OPNENED_DRAWER_CSS_SELECTOR = ".v-navigation-drawer--open";
 
-  protected String            url;
+  public static final String    UPLOAD_DIRECTORY_PATH       =
+                                                      GenericPage.class.getResource(File.separator + "DataFiles" + File.separator)
+                                                                       .getFile();
+
+  public static final String    USER_AVATAR_PNG             = "cap02.png";
+
+  protected String              url;
 
   public BasePageImpl() {
     this(null);
@@ -95,7 +102,8 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void clickToCancelDialog() {
-    ElementFacade cancelButton = findByXPathOrCSS("//*[contains(@class, 'v-dialog--active')]//button[not(contains(@class, 'primary'))]");
+    ElementFacade cancelButton =
+                               findByXPathOrCSS("//*[contains(@class, 'v-dialog--active')]//button[not(contains(@class, 'primary'))]");
     cancelButton.click();
     cancelButton.waitUntilNotVisible();
   }
@@ -185,8 +193,28 @@ public class BasePageImpl extends PageObject implements BasePage {
     }
   }
 
+  public void expandDrawer() {
+    expandDrawerButton().assertVisible();
+    expandDrawerButton().click();
+  }
+
+  public void clickOnGoBack() {
+    goBackButton().click();
+  }
+
+  public void clickOnGoBackInDrawer() {
+    goBackButtonInDrawer().click();
+  }
+
   public void clickButton(String buttonText) {
     ElementFacade button = getButton(buttonText);
+    button.assertEnabled();
+    button.click();
+    waitForLoading();
+  }
+
+  public void clickLink(String linkText) {
+    ElementFacade button = getLink(linkText);
     button.assertEnabled();
     button.click();
     waitForLoading();
@@ -199,12 +227,27 @@ public class BasePageImpl extends PageObject implements BasePage {
     waitForLoading();
   }
 
+  public void clickSelecdLevelDrawerButton(String buttonText) {
+    ElementFacade button = getSelecdLevelDrawerButton(buttonText);
+    button.assertEnabled();
+    button.click();
+    waitForLoading();
+  }
+
   public void buttonIsDisabled(String buttonText) {
     getButton(buttonText).assertDisabled();
   }
 
+  public void buttonIsEnabled(String buttonText) {
+    getButton(buttonText).assertEnabled();
+  }
+
   public void buttonInDrawerIsDisabled(String buttonText) {
     getDrawerButton(buttonText).assertDisabled();
+  }
+
+  public void buttonInDrawerIsEnabled(String buttonText) {
+    getDrawerButton(buttonText).assertEnabled();
   }
 
   public void buttonInDrawerIsNotDisplayed(String buttonText) {
@@ -275,7 +318,8 @@ public class BasePageImpl extends PageObject implements BasePage {
     do {
       inputField.sendKeys(Keys.BACK_SPACE);
       waitFor(300).milliseconds();
-      suggesterElement = findByXPathOrCSS(String.format("//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
+      suggesterElement =
+                       findByXPathOrCSS(String.format("//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]",
                                                       user.substring(0, user.length() - retry - 1)));
       suggesterElement.setImplicitTimeout(retryWaitTime);
       visible = suggesterElement.isVisible();
@@ -337,6 +381,10 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   public ElementFacade openedDrawerElement() {
     return findByXPathOrCSS(OPNENED_DRAWER_CSS_SELECTOR);
+  }
+
+  public ElementFacade expandDrawerButton() {
+    return findByXPathOrCSS(OPNENED_DRAWER_CSS_SELECTOR + " .mdi-arrow-expand");
   }
 
   @WhenPageOpens
@@ -446,12 +494,41 @@ public class BasePageImpl extends PageObject implements BasePage {
     }
   }
 
-  public ElementFacade getButton(String buttonName) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor-or-self::button", buttonName));
+  public ElementFacade getButton(String buttonText) {
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor-or-self::button", buttonText));
+  }
+
+  public ElementFacade getLink(String linkText) {
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor-or-self::a", linkText));
   }
 
   public ElementFacade getDrawerButton(String buttonName) {
-    return findByXPathOrCSS(String.format("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(),'%s')]//ancestor-or-self::button", buttonName));
+    return findByXPathOrCSS(String.format("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(),'%s')]//ancestor-or-self::button",
+                                          buttonName));
+  }
+
+  public ElementFacade getSelecdLevelDrawerButton(String buttonName) {
+    return findByXPathOrCSS(String.format("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(),'%s')]//ancestor-or-self::button",
+                                          buttonName));
+  }
+
+  public void attachImageToOpenedDrawer(boolean secondLevel) {
+    ElementFacade fileInput = findByXPathOrCSS((secondLevel ? OPNENED_DRAWER_CSS_SELECTOR : "") + " "
+        + OPNENED_DRAWER_CSS_SELECTOR + " input[type=file]");
+    fileInput.assertEnabled();
+    attachImageToFileInput(fileInput);
+    clickButton("Apply");
+  }
+
+  public ElementFacade attachFileInput(boolean secondLevel) {
+    String fileInputXPath = (secondLevel ? "//*[contains(@class, 'v-navigation-drawer--open')]" : "")
+        + "//*[contains(@class, 'v-navigation-drawer--open')]//*[@type='file']";
+    return findByXPathOrCSS(fileInputXPath);
+  }
+
+  public void attachImageToFileInput(ElementFacade fileInput) {
+    upload(UPLOAD_DIRECTORY_PATH + USER_AVATAR_PNG).fromLocalMachine().to(fileInput.getElement());
+    waitForProgressBar();
   }
 
   /**********************************************************
@@ -464,6 +541,14 @@ public class BasePageImpl extends PageObject implements BasePage {
     } else {
       return find(By.cssSelector(xpathOrCss));
     }
+  }
+
+  private ElementFacade goBackButton() {
+    return findByXPathOrCSS("#UIPage .fa-arrow-left");
+  }
+
+  private ElementFacade goBackButtonInDrawer() {
+    return findByXPathOrCSS(OPNENED_DRAWER_CSS_SELECTOR + " .fa-arrow-left");
   }
 
   private void waitOverlayToClose() {

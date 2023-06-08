@@ -190,7 +190,7 @@ public class UserProfilePage extends GenericPage {
     howToEarnPointsPageElement().assertVisible();
   }
 
-  public void openAchivementTab() {
+  public void openAchievementTab() {
     getUserStatElement("Points").click();
     waitFor(2).seconds(); // Wait until card is displayed
     ElementFacade iconProfile = findByXPathOrCSS("#profile-stats-portlet .uiIconInformation");

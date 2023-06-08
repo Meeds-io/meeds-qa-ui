@@ -2,7 +2,6 @@
 @actions
 Feature: Actions
 
-  @test
   Scenario: Announce a challenge
     Given I am authenticated as 'admin' random user
     And I create the first random user if not existing, no wait
@@ -48,6 +47,10 @@ Feature: Actions
     And I go to 'Contributions' application
     And I open random program card
     And I announce challenge 'Challenge to announce'
+
+    And I click on 'See' link
+
+    Then The activity 'Challenge to announce' is displayed
 
     When I go to 'Contributions' application
     And I select engagement Achievements tab
@@ -162,7 +165,9 @@ Feature: Actions
     And I open random program card
     And I announce challenge 'Challenge To Cancel'
 
-    And I go to Stream page
+    And I click on 'See' link
+
+    Then The activity 'Challenge To Cancel' is displayed
     When I cancel the announcement challenge 'Challenge To Cancel'
 
     And I go to 'Contributions' application

@@ -17,9 +17,12 @@
  */
 package io.meeds.qa.ui.steps.definition;
 
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.meeds.qa.ui.steps.AchievementsSteps;
+import io.meeds.qa.ui.utils.Utils;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 
@@ -27,6 +30,31 @@ public class AchievementsStepDefinition {
 
   @Steps
   private AchievementsSteps achievementsSteps;
+
+  @Then("I open '{}' achivements drawer from program detail")
+  public void openAchievementsDrawerFromProgramDetail(String ruleTitle) {
+    achievementsSteps.openAchievementsDrawerFromProgramDetail(ruleTitle);
+  }
+
+  @Then("Achievement '{}' of user '{}' is displayed '{}'")
+  public void checkThatAchievementIsDisplayedInPosition(String ruleTitle, String userPrefix, String indexName) {
+    String userName = sessionVariableCalled(userPrefix + "UserName");
+    int index = Utils.getIndexFomName(indexName);
+    achievementsSteps.checkThatAchievementIsDisplayedInPosition(ruleTitle, userName, index);
+  }
+
+  @Then("Current user achievement '{}' is displayed '{}'")
+  public void checkThatAchievementIsDisplayedInPosition(String ruleTitle, String indexName) {
+    int index = Utils.getIndexFomName(indexName);
+    achievementsSteps.checkThatAchievementIsDisplayedInPosition(ruleTitle, index);
+  }
+
+  @Then("In drawer, user '{}' achievement is display '{}'")
+  public void checkThatAchievementInDrawerIsDisplayedInPosition(String userPrefix, String indexName) {
+    String userName = sessionVariableCalled(userPrefix + "UserName");
+    int index = Utils.getIndexFomName(indexName);
+    achievementsSteps.checkThatAchievementInDrawerIsDisplayedInPosition(userName, index);
+  }
 
   @Then("^Achievement for '(.*)' is accepted$")
   public void checkThatAchievementIsAccepted(String appDescription) {
@@ -74,6 +102,13 @@ public class AchievementsStepDefinition {
   public void filterAchievementByRandomProgram(String suffix) {
     String programName = Serenity.sessionVariableCalled("programName" + suffix);
     achievementsSteps.filterAchievementByProgram(programName);
+  }
+
+  @And("^I filter achievements using '(.*)' random user$")
+  public void filterAchievementByRandomUser(String userPrefix) {
+    String firstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");
+    String lastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
+    achievementsSteps.filterAchievementByUser(firstName + " " + lastName);
   }
 
 }
