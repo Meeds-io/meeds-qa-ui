@@ -3,7 +3,6 @@
 Feature: Programs should be displayed in Top Programs in sorted way
   I should access programs I am member of in Top Programs, sorted by points descending
 
-  @test
   Scenario: Top Programs sorted by score descending
     Given I am authenticated as 'admin' random user
 

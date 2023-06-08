@@ -190,7 +190,9 @@ public class TestHooks {
     } catch (Exception e) {
       LOGGER.warn("Can't logout admin user. Proceed to login phase", e);
     }
-    loginSteps.authenticate(ADMIN_USER);
+    if (!loginSteps.authenticate(ADMIN_USER, false)) {
+      throw new IllegalStateException("Couldn't login with admin");
+    }
   }
 
   private void loginAsRandomAdmin() {
@@ -200,7 +202,9 @@ public class TestHooks {
       LOGGER.warn("Can't logout admin user. Proceed to login phase", e);
     }
     String userName = Serenity.sessionVariableCalled(ADMIN_USER + "UserName");
-    loginSteps.authenticate(userName);
+    if (!loginSteps.authenticate(userName, false)) {
+      throw new IllegalStateException("Couldn't login with random admin");
+    }
   }
 
   private void warmUp(WebDriver driver) {
@@ -234,6 +238,7 @@ public class TestHooks {
       try {
         driver.navigate().to(System.getProperty("webdriver.base.url"));
         Utils.waitForLoading(WARM_UP_PAGE_LOADING_WAIT, true);
+        driver.navigate().refresh();
         loginAsAdmin();
         Utils.waitForLoading(WARM_UP_PAGE_LOADING_WAIT, true);
         homePageDisplayed = isPortalDisplayed();

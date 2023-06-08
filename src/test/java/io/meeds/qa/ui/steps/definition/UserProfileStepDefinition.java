@@ -201,8 +201,8 @@ public class UserProfileStepDefinition {
   }
 
   @Then("I open achievement tab")
-  public void openAchivementTab() {
-    userProfileSteps.openAchivementTab();
+  public void openAchievementTab() {
+    userProfileSteps.openAchievementTab();
   }
 
   @Then("I open badge details")

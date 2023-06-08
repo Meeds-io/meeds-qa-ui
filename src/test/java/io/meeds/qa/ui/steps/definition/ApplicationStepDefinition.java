@@ -161,11 +161,6 @@ public class ApplicationStepDefinition {
     genericSteps.isPageOpened(uriPart);
   }
 
-  @When("The message 'You can’t set more than 12 favorites' is displayed$")
-  public void maxFavoriteAppsIsDisplayed() {
-    applicationSteps.maxFavoriteAppsIsDisplayed();
-  }
-
   @When("I see All Applications")
   public void seeAllApplications() {
     applicationSteps.seeAllApplications();

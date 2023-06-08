@@ -43,6 +43,10 @@ public class AchievementsSteps {
     achievementsPage.filterAchievementByProgram(programTitle);
   }
 
+  public void filterAchievementByUser(String userFullName) {
+    achievementsPage.filterAchievementByUser(userFullName);
+  }
+
   public void checkThatAchievementIsDisplayed(String actionTitle, long times) {
     achievementsPage.checkThatAchievementIsDisplayed(actionTitle, times);
   }
@@ -53,6 +57,22 @@ public class AchievementsSteps {
 
   public void checkThatAchievementIsDisplayed(String actionTitle, long times, String programName) {
     achievementsPage.checkThatAchievementIsDisplayed(actionTitle, times, programName);
+  }
+
+  public void checkThatAchievementIsDisplayedInPosition(String ruleTitle, String userName, int index) {
+    achievementsPage.checkThatAchievementIsDisplayedInPosition(ruleTitle, userName, index);
+  }
+
+  public void checkThatAchievementIsDisplayedInPosition(String ruleTitle, int index) {
+    achievementsPage.checkThatAchievementIsDisplayedInPosition(ruleTitle, index);
+  }
+
+  public void checkThatAchievementInDrawerIsDisplayedInPosition(String userName, int index) {
+    achievementsPage.checkThatAchievementInDrawerIsDisplayedInPosition(userName, index);
+  }
+
+  public void openAchievementsDrawerFromProgramDetail(String ruleTitle) {
+    achievementsPage.openAchievementsDrawerFromProgramDetail(ruleTitle);
   }
 
 }
