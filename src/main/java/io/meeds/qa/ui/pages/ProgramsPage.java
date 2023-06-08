@@ -17,7 +17,9 @@
  */
 package io.meeds.qa.ui.pages;
 
+import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.WebDriver;
@@ -36,7 +38,7 @@ public class ProgramsPage extends GenericPage {
       enterProgramTitle(programName);
     }
     if (StringUtils.isNotBlank(programAudience)) {
-      addProgramWithRandomDescription(programDescription);
+      enterProgramDescription(programDescription);
     }
     clickDrawerButton("Next");
     if (StringUtils.isNotBlank(programAudience)) {
@@ -52,22 +54,12 @@ public class ProgramsPage extends GenericPage {
     waitFor(200).milliseconds();
   }
 
-  public void checkprogramStatusSwitchNotDisplayed() {
+  public void checkProgramStatusSwitchNotDisplayed() {
     programStatusSwitcher().assertNotVisible();
   }
 
-  public void addProgramWithRandomDescription(String programDescription) {
-    waitDrawerCKEditorLoading();
-    ElementFacade ckEditorFrameProgramElement = ckEditorFrameElement();
-    ckEditorFrameProgramElement.waitUntilVisible();
-    getDriver().switchTo().frame(ckEditorFrameProgramElement);
-    try {
-      TextBoxElementFacade programDescriptionFieldElement = programDescriptionFieldElement();
-      programDescriptionFieldElement.waitUntilVisible();
-      programDescriptionFieldElement.setTextValue(programDescription);
-    } finally {
-      getDriver().switchTo().defaultContent();
-    }
+  public void goBackUsingProgramTitle(String programName) {
+    getProgramDetailTitle(programName).click();
   }
 
   public void addSpaceAudience(String randomSpaceName) {
@@ -114,6 +106,13 @@ public class ProgramsPage extends GenericPage {
     editProgramButtonElement().click();
   }
 
+  public void editProgram(String programName) {
+    searchProgram(programName);
+    getProgramCard(programName).assertVisible();
+    programThreeDotsButtonElement(programName).click();
+    editActionMenuItem().click();
+  }
+
   public void editProgramWithDescription(String programName, String newProgramName, String newProgramDescription) {
     searchProgram(programName);
     getProgramCard(programName).assertVisible();
@@ -127,8 +126,23 @@ public class ProgramsPage extends GenericPage {
     programTitleFieldElement().setTextValue(programTitle);
   }
 
+  public void enterProgramDescription(String programDescription) {
+    waitDrawerCKEditorLoading();
+    ElementFacade ckEditorFrameProgramElement = ckEditorFrameElement();
+    ckEditorFrameProgramElement.waitUntilVisible();
+    getDriver().switchTo().frame(ckEditorFrameProgramElement);
+    try {
+      TextBoxElementFacade programDescriptionFieldElement = programDescriptionFieldElement();
+      programDescriptionFieldElement.waitUntilVisible();
+      programDescriptionFieldElement.setTextValue(programDescription);
+    } finally {
+      getDriver().switchTo().defaultContent();
+    }
+  }
+
   public void selectEngagementTab(String tab) {
     clickOnElement(getEngagementTab(tab));
+    waitFor(300).milliseconds(); // Wait for Tab switch
     waitForLoading();
     waitFor(300).milliseconds(); // Wait for Tab switch
   }
@@ -165,13 +179,20 @@ public class ProgramsPage extends GenericPage {
   }
 
   public void editProgramAction(String actionTitle) {
-    getChallengeItemElement(actionTitle).hover();
+    getActionItemElement(actionTitle).hover();
     actionMenuButton().click();
     editActionMenuItem().click();
   }
 
-  public void announceChallenge(String challengeTitle, String announcementMessage) {
-    getChallengeItemElement(challengeTitle).hover();
+  public void deleteProgramAction(String actionTitle) {
+    getActionItemElement(actionTitle).hover();
+    actionMenuButton().click();
+    deleteActionMenuItem().click();
+    clickToConfirmDialog();
+  }
+
+  public void announceAction(String actionTitle, String announcementMessage) {
+    getActionItemElement(actionTitle).hover();
     announceButton().click();
     ElementFacade ckEditorFrameAnnouncementElement = ckEditorFrameElement();
     ckEditorFrameAnnouncementElement.waitUntilVisible();
@@ -184,6 +205,7 @@ public class ProgramsPage extends GenericPage {
       getDriver().switchTo().defaultContent();
     }
     saveButtonElement().click();
+    waitForDrawerToClose();
   }
 
   public void checkProgramPositionInTopPrograms(String programName, int listPosition) {
@@ -211,11 +233,50 @@ public class ProgramsPage extends GenericPage {
     rulesStatusDropdown().assertVisible();
   }
 
+  public void attachAvatarToProgram() {
+    attachAvatarButton().click();
+    waitForDrawerToOpen();
+    attachImageToOpenedDrawer(true);
+  }
+
+  public void attachCoverToProgram() {
+    attachCoverButton().click();
+    waitForDrawerToOpen();
+    attachImageToOpenedDrawer(true);
+  }
+
+  public void deleteAvatarFromProgram() {
+    deleteAvatarButton().click();
+  }
+
+  public void deleteCoverFromProgram() {
+    deleteCoverButton().click();
+  }
+
+  public void checkProgramAvatarIsSpecificInDetail() {
+    waitForAvatarBackgroundToLoad();
+    assertThat(avatarImageElement().getAttribute("style")).doesNotContain("default").as("Program Avatar should be specific");
+  }
+
+  public void checkProgramAvatarIsDefaultInDetail() {
+    waitForAvatarBackgroundToLoad();
+    assertThat(avatarImageElement().getAttribute("style")).contains("default").as("Program Avatar should be default");
+  }
+
+  public void checkProgramCoverIsSpecificInDetail() {
+    assertThat(coverImageElement().getAttribute("src")).doesNotContain("default").as("Program Cover should be specific");
+  }
+
+  public void checkProgramCoverIsDefaultInDetail() {
+    assertThat(coverImageElement().getAttribute("src")).contains("default").as("Program Cover should be default");
+  }
+
   private void searchProgram(String title) {
     waitForLoading();
-    while (!getProgramCardTitle(title).isCurrentlyVisible() && getButton("Show More").isCurrentlyVisible()) {
+    while (getProgramCardTitle(title).isNotVisible() && getButton("Show More").isVisible()) {
       getButton("Show More").scrollToWebElement();
       getButton("Show More").click();
+      waitFor(200).milliseconds();
       waitForLoading();
     }
   }
@@ -281,6 +342,11 @@ public class ProgramsPage extends GenericPage {
                                           title));
   }
 
+  private ElementFacade getProgramDetailTitle(String title) {
+    return findByXPathOrCSS(String.format("//*[@id='engagementCenterProgramDetail']//*[contains(@class,'v-card')]//*[contains(text(),'%s')]",
+                                          title));
+  }
+
   private ElementFacade headerProgramDrawerElement() {
     return findByXPathOrCSS("//*[@id='EngagementCenterProgramDrawerForm']");
   }
@@ -310,7 +376,7 @@ public class ProgramsPage extends GenericPage {
     return findByXPathOrCSS("//*[@class='v-card__actions']//button[contains(@class,'btn btn-primary')]");
   }
 
-  private ElementFacade getChallengeItemElement(String challengeTitle) {
+  private ElementFacade getActionItemElement(String challengeTitle) {
     return findByXPathOrCSS(String.format("//ancestor::tbody//ancestor::*[contains(@title,'%s')]", challengeTitle));
   }
 
@@ -323,7 +389,11 @@ public class ProgramsPage extends GenericPage {
   }
 
   private ElementFacade editActionMenuItem() {
-    return findByXPathOrCSS("//*[@id = 'engagementCenterProgramDetail']//*[contains(@class, 'v-menu')]//*[contains(text(), 'Edit')]");
+    return findByXPathOrCSS("//*[contains(@class, 'v-menu')]//*[contains(text(), 'Edit')]");
+  }
+
+  private ElementFacade deleteActionMenuItem() {
+    return findByXPathOrCSS("//*[contains(@class, 'v-menu')]//*[contains(text(), 'Delete')]");
   }
 
   private ElementFacade closeProgramCardIcon() {
@@ -352,6 +422,39 @@ public class ProgramsPage extends GenericPage {
 
   private ElementFacade daysLeftInfoFromDrawer() {
     return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(text(), 'Ends in') or contains(text(), 'Available in')]");
+  }
+
+  private ElementFacade attachCoverButton() {
+    return findByXPathOrCSS("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'fa-file-image')])[1]");
+  }
+
+  private ElementFacade deleteCoverButton() {
+    return findByXPathOrCSS("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'fa-file-image')])[1]//ancestor::*[contains(@class, 'EngagementCenterImageSelector')]//i[contains(@class, 'delete')]");
+  }
+
+  private ElementFacade attachAvatarButton() {
+    return findByXPathOrCSS("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'fa-file-image')])[2]");
+  }
+
+  private ElementFacade deleteAvatarButton() {
+    return findByXPathOrCSS("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'fa-file-image')])[2]//ancestor::*[contains(@class, 'EngagementCenterImageSelector')]//i[contains(@class, 'delete')]");
+  }
+
+  private ElementFacade coverImageElement() {
+    return findByXPathOrCSS("//*[@id='engagementCenterCoverImage']");
+  }
+
+  private ElementFacade avatarImageElement() {
+    return findByXPathOrCSS(".rule-program-cover .v-image__image--cover");
+  }
+
+  private void waitForAvatarBackgroundToLoad() {
+    retryOnCondition(() -> {
+      if (!avatarImageElement().getAttribute("style").contains("background-image")) {
+        throw new IllegalStateException(String.format("Element doesn't have adequate style for background image: %s",
+                                                      avatarImageElement()));
+      }
+    }, () -> waitFor(200).milliseconds());
   }
 
 }

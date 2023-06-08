@@ -23,6 +23,8 @@ import static io.meeds.qa.ui.utils.Utils.getRandomString;
 
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -53,14 +55,70 @@ public class ProgramsStepDefinition {
 
   @Then("The program status switch is not displayed")
   public void programStatusSwitchNotDisplayed() {
-    programsSteps.checkprogramStatusSwitchNotDisplayed();
+    programsSteps.checkProgramStatusSwitchNotDisplayed();
+  }
+
+  @Then("I attach an avatar to the program")
+  public void attachAvatarToProgram() {
+    programsSteps.attachAvatarToProgram();
+  }
+
+  @Then("I attach a cover to the program")
+  public void attachCoverToProgram() {
+    programsSteps.attachCoverToProgram();
+  }
+
+  @Then("The program is displayed with specific avatar")
+  public void checkProgramAvatarIsSpecificInDetail() {
+    programsSteps.checkProgramAvatarIsSpecificInDetail();
+  }
+
+  @Then("The program is displayed with specific cover")
+  public void checkProgramCoverIsSpecificInDetail() {
+    programsSteps.checkProgramCoverIsSpecificInDetail();
+  }
+
+  @Then("I delete the specific avatar of the program")
+  public void deleteAvatarFromProgram() {
+    programsSteps.deleteAvatarFromProgram();
+  }
+
+  @Then("I delete the specific cover of the program")
+  public void deleteCoverFromProgram() {
+    programsSteps.deleteCoverFromProgram();
+  }
+
+  @Then("The program is displayed with default avatar")
+  public void checkProgramAvatarIsDefaultInDetail() {
+    programsSteps.checkProgramAvatarIsDefaultInDetail();
+  }
+
+  @Then("The program is displayed with default cover")
+  public void checkProgramCoverIsDefaultInDetail() {
+    programsSteps.checkProgramCoverIsDefaultInDetail();
+  }
+
+  @Then("I click on program title to go back")
+  public void goBackUsingProgramTitle() {
+    String programName = Serenity.sessionVariableCalled("programName");
+    programsSteps.goBackUsingProgramTitle(programName);
   }
 
   @And("^I add program with random description$")
-  public void addProgramWithRandomDescription() {
+  @And("I enter a random description for program")
+  public void enterProgramRandomDescription() {
     String programDescription = "programDescription" + getRandomNumber();
     Serenity.setSessionVariable("programDescription").to(programDescription);
-    programsSteps.addProgramWithRandomDescription(programDescription);
+    programsSteps.enterProgramDescription(programDescription);
+  }
+
+  @And("^I enter the program description '(.*)' '(.*)' times$")
+  public void enterProgramDescription(String programDescription, String times) {
+    StringBuilder programLongDescription = new StringBuilder();
+    for (int i = 0; i < Integer.parseInt(times); i++) {
+      programLongDescription.append(programDescription);
+    }
+    programsSteps.enterProgramDescription(programLongDescription.toString());
   }
 
   @Then("^The drawer add program should be displayed$")
@@ -122,12 +180,18 @@ public class ProgramsStepDefinition {
     programsSteps.deleteCreatedProgram(programName);
   }
 
-  @And("I edit the program")
+  @And("I edit the program from detail")
   public void editProgram() {
     programsSteps.editProgram();
   }
 
-  @And("I edit the created program")
+  @And("I edit the program from list")
+  public void editProgramFromList() {
+    String programName = Serenity.sessionVariableCalled("programName");
+    programsSteps.editProgram(programName);
+  }
+
+  @And("I change the created program with a random description")
   public void editProgramWithDescription() {
     String programName = Serenity.sessionVariableCalled("programName");
     String newProgramName = "newProgramName" + getRandomNumber();
@@ -151,7 +215,7 @@ public class ProgramsStepDefinition {
 
   @And("^I enter the random program title '(.*)'$")
   public void enterRandomProgramTitle(String suffix) {
-    String programTitle = getRandomString(suffix) + suffix;
+    String programTitle = StringUtils.truncate(getRandomString(suffix) + suffix, 49);
     Serenity.setSessionVariable("programName" + suffix).to(programTitle);
     programsSteps.enterProgramTitle(programTitle);
   }
@@ -212,6 +276,11 @@ public class ProgramsStepDefinition {
     programsSteps.editProgramAction(actionTitle);
   }
 
+  @And("^I delete program action '(.*)'$")
+  public void deleteProgramAction(String actionTitle) {
+    programsSteps.deleteProgramAction(actionTitle);
+  }
+
   @And("I cannot announce program action")
   public void checkCannotAnnounceAction() {
     programsSteps.checkCannotAnnounceAction();
@@ -228,10 +297,10 @@ public class ProgramsStepDefinition {
   }
 
   @And("^I announce challenge '(.*)'$")
-  public void announceChallenge(String challengeTitle) {
+  public void announceAction(String challengeTitle) {
     String announcementMessage = "announcementMessage" + getRandomNumber();
     Serenity.setSessionVariable("announcementMessage").to(announcementMessage);
-    programsSteps.announceChallenge(challengeTitle, announcementMessage);
+    programsSteps.announceAction(challengeTitle, announcementMessage);
   }
 
   @Then("Actions Filter dropdown is displayed")
@@ -243,7 +312,7 @@ public class ProgramsStepDefinition {
   public void checkAdminActionsFilterIsNotDisplayed() {
     programsSteps.checkAdminActionsFilterIsNotDisplayed();
   }
-  
+
   @Then("Admin Actions Filter dropdown is displayed")
   public void checkAdminActionsFilterIsDisplayed() {
     programsSteps.checkAdminActionsFilterIsDisplayed();

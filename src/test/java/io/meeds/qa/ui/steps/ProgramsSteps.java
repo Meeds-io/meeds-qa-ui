@@ -33,12 +33,16 @@ public class ProgramsSteps {
     programsPage.enableDisableProgram();
   }
 
-  public void checkprogramStatusSwitchNotDisplayed() {
-    programsPage.checkprogramStatusSwitchNotDisplayed();
+  public void checkProgramStatusSwitchNotDisplayed() {
+    programsPage.checkProgramStatusSwitchNotDisplayed();
   }
 
-  public void addProgramWithRandomDescription(String programDescription) {
-    programsPage.addProgramWithRandomDescription(programDescription);
+  public void goBackUsingProgramTitle(String programName) {
+    programsPage.goBackUsingProgramTitle(programName);
+  }
+
+  public void enterProgramDescription(String programDescription) {
+    programsPage.enterProgramDescription(programDescription);
   }
 
   public void addSpaceAudience(String randomSpaceName) {
@@ -71,6 +75,10 @@ public class ProgramsSteps {
 
   public void editProgram() {
     programsPage.editProgram();
+  }
+
+  public void editProgram(String programName) {
+    programsPage.editProgram(programName);
   }
   
   public void editProgramWithDescription(String programName, String newProgramName, String newProgramDescription) {
@@ -105,6 +113,10 @@ public class ProgramsSteps {
     programsPage.editProgramAction(actionTitle);
   }
 
+  public void deleteProgramAction(String actionTitle) {
+    programsPage.deleteProgramAction(actionTitle);
+  }
+
   public void checkCannotAnnounceAction() {
     programsPage.checkCannotAnnounceAction();
   }
@@ -121,8 +133,8 @@ public class ProgramsSteps {
     programsPage.closeProgramCard();
   }
 
-  public void announceChallenge(String challengeTitle, String announcementMessage) {
-    programsPage.announceChallenge(challengeTitle, announcementMessage);
+  public void announceAction(String challengeTitle, String announcementMessage) {
+    programsPage.announceAction(challengeTitle, announcementMessage);
   }
 
   public void createRandomProgram(String programName, Map<String, String> details) {
@@ -162,6 +174,38 @@ public class ProgramsSteps {
   
   public void checkAdminActionsFilterIsDisplayed() {
     programsPage.checkAdminActionsFilterIsDisplayed();
+  }
+
+  public void attachAvatarToProgram() {
+    programsPage.attachAvatarToProgram();
+  }
+
+  public void attachCoverToProgram() {
+    programsPage.attachCoverToProgram();
+  }
+
+  public void deleteAvatarFromProgram() {
+    programsPage.deleteAvatarFromProgram();
+  }
+
+  public void deleteCoverFromProgram() {
+    programsPage.deleteCoverFromProgram();
+  }
+
+  public void checkProgramAvatarIsSpecificInDetail() {
+    programsPage.checkProgramAvatarIsSpecificInDetail();
+  }
+
+  public void checkProgramCoverIsSpecificInDetail() {
+    programsPage.checkProgramCoverIsSpecificInDetail();
+  }
+
+  public void checkProgramAvatarIsDefaultInDetail() {
+    programsPage.checkProgramAvatarIsDefaultInDetail();
+  }
+
+  public void checkProgramCoverIsDefaultInDetail() {
+    programsPage.checkProgramCoverIsDefaultInDetail();
   }
 
 }

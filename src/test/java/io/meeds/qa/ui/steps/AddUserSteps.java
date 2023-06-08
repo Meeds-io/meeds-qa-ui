@@ -22,6 +22,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -179,6 +180,37 @@ public class AddUserSteps {
                                                             .equals("true"));
   }
 
+  public void deleteUserRole(String userPrefix, String groupId, String membershipType) {
+    String userName = sessionVariableCalled(userPrefix + "UserName");
+    String addUserScript =
+        String.format("""
+                              const callback = arguments[arguments.length - 1];
+                              fetch("/portal/rest/v1/groups/memberships?membershipId=%s:%s:%s", {
+                                "headers": {
+                                  "content-type": "application/json",
+                                },
+                                "method": "DELETE",
+                                "credentials": "include"
+                              })
+                              .then(resp => {
+                                if (!resp || !resp.ok) {
+                                  throw new Error("Error adding user role");
+                                }
+                              })
+                              .then(user => callback(true))
+                              .catch(() => callback(false));
+                             """,
+                             membershipType,
+                             userName,
+                             groupId);
+    WebDriverWait wait = new WebDriverWait(Serenity.getDriver(),
+                                           Duration.ofSeconds(3),
+                                           Duration.ofMillis(SHORT_WAIT_DURATION_MILLIS));
+    wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeAsyncScript(addUserScript)
+               .toString()
+               .equals("true"));
+  }
+
   private void addRandomUser(String userPrefix,
                              String userName,
                              String firstName,
@@ -223,6 +255,19 @@ public class AddUserSteps {
     setSessionVariable(userPrefix + "UserPassword").to(password);
     setSessionVariable(userName + "-password").to(password);
     TestHooks.userWithPrefixCreated(userPrefix, userName, firstName, lastName, email, password);
+  }
+
+  public void injectRandomUserWithGroups(String userPrefix, List<String> memberships, boolean deleteInternalMembership) {
+    addRandomUser(userPrefix, false, true);
+    if (deleteInternalMembership) {
+      deleteUserRole(userPrefix, "/platform/users", "member");
+    }
+    memberships.forEach(membership -> {
+      String[] membershipParts = membership.contains(":") ? membership.split(":") : new String[] {
+          "member", membership
+      };
+      addUserRole(userPrefix, membershipParts[1], membershipParts[0]);
+    });
   }
 
 }

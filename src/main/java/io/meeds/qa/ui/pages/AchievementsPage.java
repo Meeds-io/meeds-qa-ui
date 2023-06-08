@@ -47,6 +47,14 @@ public class AchievementsPage extends GenericPage {
     waitForLoading();
   }
 
+  public void filterAchievementByUser(String userFullName) {
+    achievementsFilterButton().click();
+    waitForDrawerToOpen();
+    mentionInField(achievementsFilterUserSuggester(), userFullName, 3);
+    getDrawerButton("Confirm").click();
+    waitForLoading();
+  }
+
   public void checkThatAchievementIsAccepted(String actionTitle) {
     waitForPageLoading();
     retryOnCondition(() -> acceptedAchievementElement(actionTitle).checkVisible(),
@@ -141,6 +149,46 @@ public class AchievementsPage extends GenericPage {
     }
   }
 
+  public void checkThatAchievementIsDisplayedInPosition(String ruleTitle, String userName, int index) {
+    achievementRowElement(ruleTitle, userName, index).assertVisible();
+  }
+
+  public void checkThatAchievementInDrawerIsDisplayedInPosition(String userName, int index) {
+    achievementDrawerElement(userName, index).assertVisible();
+  }
+
+  public void checkThatAchievementIsDisplayedInPosition(String ruleTitle, int index) {
+    achievementRowElement(ruleTitle, index).assertVisible();
+  }
+
+  public void openAchievementsDrawerFromProgramDetail(String ruleTitle) {
+    achievementAvatarsElement(ruleTitle).click();
+  }
+
+  private ElementFacade achievementAvatarsElement(String ruleTitle) {
+    return findByXPathOrCSS(String.format("//tbody//*[contains(text(), '%s')]//ancestor::tr//*[contains(@class, 'profile-popover')]",
+                                          ruleTitle));
+  }
+
+  private ElementFacade achievementRowElement(String ruleTitle, String userName, int index) {
+    return findByXPathOrCSS(String.format("(//tbody//tr)[%s]//*[contains(text(), '%s')]//ancestor::tr//a[contains(@href, '/profile/%s')]",
+                                          index,
+                                          ruleTitle,
+                                          userName));
+  }
+
+  private ElementFacade achievementRowElement(String ruleTitle, int index) {
+    return findByXPathOrCSS(String.format("(//tbody//tr)[%s]//*[contains(text(), '%s')]",
+                                          index,
+                                          ruleTitle));
+  }
+
+  private ElementFacade achievementDrawerElement(String userName, int index) {
+    return findByXPathOrCSS(String.format("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'profile-popover')])[%s]//a[contains(@href, '/profile/%s')]",
+                                          index,
+                                          userName));
+  }
+
   private void enableProgramOwnerView() {
     getButton("Hosted").click();
     waitFor(200).milliseconds();
@@ -158,6 +206,10 @@ public class AchievementsPage extends GenericPage {
 
   private TextBoxElementFacade achievementsFilterProgramSuggester() {
     return findTextBoxByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(text(), 'Program')]/parent::*//*[contains(@class, 'identitySuggesterInputStyle')]//input[@type = 'text']");
+  }
+
+  private TextBoxElementFacade achievementsFilterUserSuggester() {
+    return findTextBoxByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(text(), 'Grantee')]/parent::*//*[contains(@class, 'identitySuggesterInputStyle')]//input[@type = 'text']");
   }
 
   private ElementFacade acceptedAchievementElement(String actionTitle) {

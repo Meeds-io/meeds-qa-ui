@@ -139,6 +139,7 @@ public class SpaceHomeStepDefinition {
   @When("^the activity '(.*)' is displayed in activity stream$")
   @Then("^the activity '(.*)' is displayed in stream page$")
   @And("^The Poll '(.*)' is displayed in stream page$")
+  @And("^The activity '(.*)' is displayed$")
   public void checkActivityVisible(String activity) {
     spaceHomeSteps.checkActivityVisible(activity);
   }
