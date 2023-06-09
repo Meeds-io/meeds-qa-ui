@@ -22,11 +22,11 @@
   <parent>
     <artifactId>maven-parent-pom</artifactId>
     <groupId>org.exoplatform</groupId>
-    <version>26-M03</version>
+    <version>26-exo-M03</version>
   </parent>
   <groupId>io.meeds.qa</groupId>
   <artifactId>meeds-qa-ui</artifactId>
-  <version>1.0.x-SNAPSHOT</version>
+  <version>1.0.x-exo-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Meeds Test Suite</name>
   <description>Meeds Automatic Test Suite</description>
