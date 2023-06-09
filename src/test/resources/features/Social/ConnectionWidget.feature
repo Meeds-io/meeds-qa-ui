@@ -32,18 +32,12 @@ Feature: Space widgets checking
     Then the number of connection requests is '5'
 
   Scenario: US 3.3.4_(01) [BACK]Connections requests to join: See All
-    Given I am authenticated as 'admin' if random users doesn't exists
-      | firstconn  |
-      | secondconn  |
-      | thirdconn  |
-      | fourthconn  |
-      | fifthconn  |
-
-    And I create the firstconn random user if not existing, no wait
-    And I create the secondconn random user if not existing, no wait
-    And I create the thirdconn random user if not existing, no wait
-    And I create the fourthconn random user if not existing, no wait
-    And I create the fifthconn random user if not existing
+    Given I am authenticated as 'admin' random user
+    And I inject the firstconn random user, no wait
+    And I inject the secondconn random user, no wait
+    And I inject the thirdconn random user, no wait
+    And I inject the fourthconn random user, no wait
+    And I inject the fifthconn random user
     And I connect to fifthconn user
     And I login as 'firstconn' random user
     And I connect to fifthconn user
@@ -63,13 +57,10 @@ Feature: Space widgets checking
     And The page '/connexions/receivedInvitations' is opened
 
   Scenario:US 3.3.4_(02)[BACK]Connections requests : accept and reject
-    Given I am authenticated as 'admin' if random users doesn't exists
-      | firstrequ  |
-      | secondrequ  |
-      | thirdrequ  |
-    And I create the firstrequ random user if not existing, no wait
-    And I create the secondrequ random user if not existing, no wait
-    And I create the thirdrequ random user if not existing
+    Given I am authenticated as 'admin' random user
+    And I inject the firstrequ random user, no wait
+    And I inject the secondrequ random user, no wait
+    And I inject the thirdrequ random user
     And I connect to thirdrequ user
     And I login as 'firstrequ' random user
     And I connect to thirdrequ user
@@ -81,7 +72,7 @@ Feature: Space widgets checking
     Then The 'Connections' badge is '3'
     When I click on connections badge
     And I accept the following connection invitation
-      | Admin |
+      | admin |
     Then The 'Connections' number is '1'
 
     Then The 'Connections' badge is '2'
