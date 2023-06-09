@@ -50,7 +50,6 @@ Feature: Achievements
 
     When I create the fisrtachievement random user if not existing, no wait
     And I create the secondachievement random user if not existing, no wait
-
     And I login as 'secondachievement' random user
     And I go to the random space
     And I click on post in space
@@ -249,8 +248,8 @@ Feature: Achievements
   Scenario: Achievements sort
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
-    And I inject the 'ninethachievement' random user if not existing, no wait
-    And I inject the 'tenthachievement' random user if not existing, no wait
+    And I inject the 'ninethachievement' random user, no wait
+    And I inject the 'tenthachievement' random user, no wait
 
     When I go to 'Contributions' application
     And I click on the button add program
@@ -299,6 +298,7 @@ Feature: Achievements
     And I announce challenge 'Announce an achievement'
 
     When I select engagement Achievements tab
+    When I filter achievements using 'Test Program Achievements sort' random program
     And Current user achievement 'Announce an achievement' is displayed 'first'
     And Current user achievement 'Join space' is displayed 'second'
 

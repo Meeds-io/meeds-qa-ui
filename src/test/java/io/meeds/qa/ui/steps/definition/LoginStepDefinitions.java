@@ -22,7 +22,6 @@ import java.util.List;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.meeds.qa.ui.steps.LoginSteps;
-import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 
 public class LoginStepDefinitions {
@@ -33,18 +32,17 @@ public class LoginStepDefinitions {
   @Given("^I am authenticated as '(.*)' random user$")
   @And("^I login as '(.*)' random user$")
   public void loginUser(String userPrefix) {
-    String userName = Serenity.sessionVariableCalled(userPrefix + "UserName");
-    loginSteps.authenticate(userName);
+    loginSteps.authenticate(userPrefix);
   }
 
   @Given("^I am authenticated as '(.*)' if random users doesn't exists$")
-  public void authenticateIfUsersNotExists(String username, List<String> userPrefixes) {
-    loginSteps.authenticateIfUsersNotExists(username, userPrefixes);
+  public void authenticateIfUsersNotExists(String userPrefix, List<String> userPrefixes) {
+    loginSteps.authenticateIfUsersNotExists(userPrefix, userPrefixes);
   }
 
   @Given("^I am authenticated as '(.*)' if random space and random users doesn't exists$")
-  public void authenticateIfRandomSpaceAndUsersNotExists(String username, List<String> userPrefixes) {
-    loginSteps.authenticateIfRandomSpaceAndUsersNotExists(username, "randomSpaceName", userPrefixes);
+  public void authenticateIfRandomSpaceAndUsersNotExists(String userPrefix, List<String> userPrefixes) {
+    loginSteps.authenticateIfRandomSpaceAndUsersNotExists(userPrefix, "randomSpaceName", userPrefixes);
   }
 
   @Given("I logout")
