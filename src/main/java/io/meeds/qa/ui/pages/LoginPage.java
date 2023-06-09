@@ -29,10 +29,8 @@ import org.openqa.selenium.WebDriver;
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.utils.Utils;
-import net.serenitybdd.core.pages.ClickStrategy;
 import net.serenitybdd.markers.IsHidden;
 import net.thucydides.core.annotations.DefaultUrl;
-import net.thucydides.core.webdriver.exceptions.ElementShouldBeVisibleException;
 
 @DefaultUrl("https://baseUrl/")
 public class LoginPage extends GenericPage implements IsHidden {
@@ -67,27 +65,45 @@ public class LoginPage extends GenericPage implements IsHidden {
     login(login, password, true);
   }
 
-  public boolean login(String login, String password, boolean throwException) {
-    if (StringUtils.equals(getLastLoggedInUser(), login)) {
-      closeAllDrawers();
-    } else {
-      logout();
-      setLoginUrl(getCurrentUrl());
-      usernameInputElement().setTextValue(login);
-      passwordInputElement().setTextValue(password);
-      loginButtonElement().click(ClickStrategy.IMMEDIATE);
-      verifyPageLoaded();
-      if (!homePage.isPortalDisplayed()) {
-        if (throwException) {
-          throw new ElementShouldBeVisibleException("Home Page isn't displayed", null);
-        } else {
-          return false;
-        }
+  public boolean login(String login, String password, boolean throwException) { // NOSONAR
+    try {
+      if (StringUtils.isBlank(login) || StringUtils.isBlank(password)) {
+        return returnError("Username " + login + " and Password " + password + " are mandatory", throwException);
       }
-      getDriver().manage().addCookie(new Cookie(LAST_LOGGED_IN_USER_COOKIE_NAME, login, "/"));
-      lastLoggedInUser = login;
+      if (StringUtils.equals(getLastLoggedInUser(), login)) {
+        closeAllDrawers();
+      } else {
+        logout(1, Utils.MAX_WAIT_RETRIES);
+        if (!usernameInputElement().isVisible()) {
+          return returnError("Username Field isn't displayed", throwException);
+        } else {
+          setLoginUrl(getCurrentUrl());
+        }
+        usernameInputElement().setTextValue(login);
+        if (!passwordInputElement().isVisible()) {
+          return returnError("Username Field isn't displayed", throwException);
+        }
+        passwordInputElement().setTextValue(password);
+        if (!loginButtonElement().isEnabled()) {
+          return returnError("Login button isn't enabled", throwException);
+        }
+        loginButtonElement().click();
+        verifyPageLoaded();
+        if (!homePage.isPortalDisplayed()) {
+          return returnError("Home Page isn't displayed", throwException);
+        }
+        getDriver().manage().addCookie(new Cookie(LAST_LOGGED_IN_USER_COOKIE_NAME, login, "/"));
+        lastLoggedInUser = login;
+      }
+      return true;
+    } catch (RuntimeException e) {
+      if (throwException) {
+        throw e;
+      } else {
+        LOGGER.warn("An error occurred while login with user {}", login, e);
+        return false;
+      }
     }
-    return true;
   }
 
   public void openLoginPage() {
@@ -146,6 +162,7 @@ public class LoginPage extends GenericPage implements IsHidden {
         logout(tentative + 1, max);
       }
     } else if (!isLoginPageDisplayed()) {
+      deleteCookies();
       openLoginPage();
     }
   }
@@ -182,6 +199,14 @@ public class LoginPage extends GenericPage implements IsHidden {
 
     assertEquals((long) (windowHeight - brandingLogoElementHeight - windowHeight * 0.03d), brandingLogoElementTop);
     assertEquals((long) (windowWidth - brandingLogoElementWidth - windowWidth * 0.03d), brandingLogoElementLeft);
+  }
+
+  private boolean returnError(String message, boolean throwException) {
+    if (throwException) {
+      throw new IllegalStateException(message);
+    } else {
+      return false;
+    }
   }
 
   private void deleteLastLoginCookie() {

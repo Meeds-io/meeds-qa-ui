@@ -213,6 +213,7 @@
             <webdriver.base.url>http://localhost:8080/</webdriver.base.url>
             <webdriver.remote.driver>chrome</webdriver.remote.driver>
             <cucumber.filter.tags>${cucumber.filter.tags}</cucumber.filter.tags>
+            <adminUser>admin</adminUser>
             <adminPassword>Test1234@</adminPassword>
           </systemPropertyVariables>
         </configuration>

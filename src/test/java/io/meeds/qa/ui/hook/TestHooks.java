@@ -49,7 +49,11 @@ import net.thucydides.core.webdriver.exceptions.ElementShouldBeVisibleException;
 
 public class TestHooks {
 
-  private static final String                ADMIN_USER                = "admin";
+  private static final String                ADMIN_PREFIX              = "admin";
+
+  private static final String                ADMIN_USERNAME            = System.getProperty("adminUser", "admin");
+
+  private static final String                ADMIN_PASSWORD            = System.getProperty("adminPassword", "Test1234@");
 
   protected static final String[]            ADMIN_GROUPS              = System.getProperty("io.meeds.admin.groups",
                                                                                             "/platform/administrators,/platform/rewarding,/platform/analytics")
@@ -123,7 +127,7 @@ public class TestHooks {
   private ManageSpaceSteps           manageSpaceSteps;
 
   @Steps
-  AddUserSteps                       addUserSteps;
+  private AddUserSteps               addUserSteps;
 
   @After
   public void deleteDatas() {
@@ -133,9 +137,6 @@ public class TestHooks {
 
   @Before
   public void initDatas() { // NOSONAR
-    String adminPassword = System.getProperty("adminPassword");
-    Serenity.setSessionVariable("admin-password").to(adminPassword);
-
     WebDriver driver = Serenity.getDriver();
     driver.manage().timeouts().implicitlyWait(Duration.ofMillis(DEFAULT_IMPLICIT_WAIT_FOR_TIMEOUT));
 
@@ -190,7 +191,7 @@ public class TestHooks {
     } catch (Exception e) {
       LOGGER.warn("Can't logout admin user. Proceed to login phase", e);
     }
-    if (!loginSteps.authenticate(ADMIN_USER, false)) {
+    if (!loginSteps.authenticate(ADMIN_USERNAME, ADMIN_PASSWORD, false)) {
       throw new IllegalStateException("Couldn't login with admin");
     }
   }
@@ -201,8 +202,7 @@ public class TestHooks {
     } catch (Exception e) {
       LOGGER.warn("Can't logout admin user. Proceed to login phase", e);
     }
-    String userName = Serenity.sessionVariableCalled(ADMIN_USER + "UserName");
-    if (!loginSteps.authenticate(userName, false)) {
+    if (!loginSteps.authenticate(ADMIN_PREFIX, false)) {
       throw new IllegalStateException("Couldn't login with random admin");
     }
   }
@@ -340,8 +340,8 @@ public class TestHooks {
   }
 
   private void addAdminRandomUser() {
-    this.addRandomUser(ADMIN_USER);
-    Arrays.stream(ADMIN_GROUPS).forEach(groupId -> addUserSteps.addUserRole(ADMIN_USER, groupId, "*"));
+    this.addRandomUser(ADMIN_PREFIX);
+    Arrays.stream(ADMIN_GROUPS).forEach(groupId -> addUserSteps.addUserRole(ADMIN_PREFIX, groupId, "*"));
   }
 
   private boolean addRandomUser(String randomUser) {
