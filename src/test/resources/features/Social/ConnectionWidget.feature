@@ -57,14 +57,18 @@ Feature: Space widgets checking
     And The page '/connexions/receivedInvitations' is opened
 
   Scenario:US 3.3.4_(02)[BACK]Connections requests : accept and reject
-    Given I am authenticated as 'admin' random user
-    And I inject the firstrequ random user, no wait
-    And I inject the secondrequ random user, no wait
-    And I inject the thirdrequ random user
-    And I connect to thirdrequ user
+    Given I am authenticated as 'admin' if random users doesn't exists
+      | firstrequ  |
+      | secondrequ  |
+      | thirdrequ  |
+    And I create the firstrequ random user if not existing, no wait
+    And I create the secondrequ random user if not existing, no wait
+    And I create the thirdrequ random user if not existing
     And I login as 'firstrequ' random user
     And I connect to thirdrequ user
     And I login as 'secondrequ' random user
+    And I connect to thirdrequ user
+    And I login as 'admin' random user
     And I connect to thirdrequ user
 
     When I login as 'thirdrequ' random user
