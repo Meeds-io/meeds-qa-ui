@@ -239,80 +239,27 @@ public class HomePage extends GenericPage {
   }
 
   public void goToMyProfile() {
-    String currentUrl = getDriver().getCurrentUrl();
-    if (currentUrl.endsWith("/profile") && !currentUrl.endsWith("g:")) {
-      closeAllDrawers();
-      return;
-    }
-    clickOnHamburgerMenu();
-    myProfileButtonElement().click();
-    waitForPageLoading();
+    goToPageWithLink("/profile");
   }
 
   public void goToPeoplePage() {
-    String currentUrl = getDriver().getCurrentUrl();
-    if (currentUrl.endsWith("/people") && !currentUrl.endsWith("g:")) {
-      closeAllDrawers();
-      return;
-    }
-    clickOnHamburgerMenu();
-    pageLinkElement("/people").click();
-    waitForPageLoading();
+    goToPageWithLink("/people");
   }
 
   public void goToSettingsPage() {
-    String currentUrl = getDriver().getCurrentUrl();
-    if (currentUrl.endsWith("/settings") && !currentUrl.endsWith("g:")) {
-      closeAllDrawers();
-      return;
-    }
-    clickOnHamburgerMenu();
-    clickOnElement(settingsPageLinkElement());
-    waitForPageLoading();
+    goToPageWithLink("/settings");
   }
 
   public void goToSpacesPage() {
-    String currentUrl = getDriver().getCurrentUrl();
-    if (currentUrl.endsWith("/spaces") && !currentUrl.endsWith("g:")) {
-      closeAllDrawers();
-      return;
-    }
-    clickOnHamburgerMenu();
-    pageLinkElement("/spaces").click();
-    waitForPageLoading();
+    goToPageWithLink("/spaces");
   }
 
   public void goToStreamPage() {
-    String currentUrl = getDriver().getCurrentUrl();
-    if (currentUrl.endsWith("/stream") && !currentUrl.endsWith("g:")) {
-      closeAllDrawers();
-      return;
-    }
-    clickOnHamburgerMenu();
-    pageLinkElement("/stream").click();
-    waitForPageLoading();
+    goToPageWithLink("/stream");
   }
 
   public void goToOverviewPage() {
-    String currentUrl = getDriver().getCurrentUrl();
-    if (currentUrl.endsWith("/overview")) {
-      closeAllDrawers();
-      return;
-    }
-    clickOnHamburgerMenu();
-    pageLinkElement("/overview").click();
-    waitForPageLoading();
-  }
-
-  public void goToTasksPage() {
-    String currentUrl = getDriver().getCurrentUrl();
-    if (currentUrl.endsWith("/tasks") && !currentUrl.endsWith("g:")) {
-      closeAllDrawers();
-      return;
-    }
-    waitForPageLoading();
-    clickOnElement(tasksSnapshotPageButtonElement());
-    waitForPageLoading();
+    goToPageWithLink("/overview");
   }
 
   public void hoverOnPageHomeIcon(String pageName) {
@@ -330,19 +277,6 @@ public class HomePage extends GenericPage {
 
   public boolean isConnectionsBadgeWithNumberVisible(String number) {
     return getConnectionsBadgeWithNumber(number).isVisible();
-  }
-
-  public boolean isElementVisible(String elementName) {
-    switch (elementName) {
-    case "Statistique":
-      return profileStatsPortletElement().isVisible();
-    case "Taches":
-      return tasksContainerElement().isVisible();
-    case "Wallet":
-      return walletBalanceElement().isVisible();
-    default:
-      throw new IllegalStateException("Unrecognized element");
-    }
   }
 
   public boolean isPortalDisplayed() {
@@ -544,6 +478,19 @@ public class HomePage extends GenericPage {
     }
   }
 
+  private void goToPageWithLink(String linkSuffix) {
+    String currentUrl = getDriver().getCurrentUrl();
+    if (currentUrl.endsWith(linkSuffix) && !currentUrl.endsWith("g:")) {
+      closeAllDrawers();
+      return;
+    }
+    clickOnHamburgerMenu();
+    pageLinkElement(linkSuffix).assertVisible();
+    pageLinkElement(linkSuffix).click();
+    waitForPageLoading();
+    assertThat(getDriver().getCurrentUrl()).endsWith(linkSuffix);
+  }
+
   private ElementFacade stickHamburgerMenuElement() {
     return findByXPathOrCSS(".HamburgerNavigationMenu .fa-angle-double-right");
   }
@@ -707,10 +654,6 @@ public class HomePage extends GenericPage {
     return findByXPathOrCSS("#NotificationPopoverPortlet");
   }
 
-  private ElementFacade profileStatsPortletElement() {
-    return findByXPathOrCSS("#profile-stats-portlet");
-  }
-
   private ElementFacade recentSpaceElement(String space) {
     return findByXPathOrCSS(String.format("//*[contains(@class,'recentSpacesWrapper')]//*[contains(text(), '%s')]",
                                           space));
@@ -745,10 +688,6 @@ public class HomePage extends GenericPage {
     return findByXPathOrCSS("//*[contains(@class,'selectSpacesFilter')]");
   }
 
-  private ElementFacade settingsPageLinkElement() {
-    return findByXPathOrCSS("//i[contains(@class,'settingsIcon')]");
-  }
-
   private TextBoxElementFacade sideBarFilterSpacesElement() {
     return findTextBoxByXPathOrCSS("//*[contains(@class,'recentSpacesTitle')]//*[contains(@class,'recentSpacesTitleLabel')]");
   }
@@ -770,7 +709,7 @@ public class HomePage extends GenericPage {
   }
 
   private ElementFacade pageLinkElement(String pageUri) {
-    return findByXPathOrCSS(String.format("//*[@id='SiteHamburgerNavigation']//*[contains(@href, '%s')]//*[contains(@class, 'v-list-item__content')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'HamburgerNavigationMenu')]//*[contains(@href, '%s')]//*[contains(@class, 'v-list-item__content')]",
                                           pageUri));
   }
 
@@ -781,14 +720,6 @@ public class HomePage extends GenericPage {
 
   private ElementFacade switcherButtonElement() {
     return findByXPathOrCSS("(//*[@class='providersTableRow']//*[@class='center actionContainer']/div)[1]");
-  }
-
-  private ElementFacade tasksContainerElement() {
-    return findByXPathOrCSS("#tasks");
-  }
-
-  private ElementFacade tasksSnapshotPageButtonElement() {
-    return findByXPathOrCSS("//*[@id='tasks']//*[@class='body-1 text-uppercase color-title px-0']");
   }
 
   private ElementFacade thirdLevelNavigationElement() {
@@ -805,10 +736,6 @@ public class HomePage extends GenericPage {
     } else {
       findByXPathOrCSS("(//*[contains(@class, 'userAuthorizedApplications')]//*[contains(@class, 'authorizedApplication')])[2]").waitUntilNotVisible();
     }
-  }
-
-  private ElementFacade walletBalanceElement() {
-    return findByXPathOrCSS("#walletBalance");
   }
 
 }
