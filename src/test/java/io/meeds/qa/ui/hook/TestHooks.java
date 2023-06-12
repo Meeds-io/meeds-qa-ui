@@ -319,8 +319,6 @@ public class TestHooks {
         "firstlang",
         "seconddisabled",
         "eighteenth",
-        "cancelfirst",
-        "cancelsecond",
         "fisrtachievement",
         "secondachievement",
         "thirdachievement",
