@@ -117,11 +117,9 @@ Feature: Kudos
     Then I send in the activity 'Hello Team - USX' a kudos message 'Kudos Message USX' to 'fiftythreekudos' user
 
   Scenario: Cancel Kudos sending from the activity author
-    Given I am authenticated as 'admin' if random users doesn't exists
-      | cancelfirst  |
-      | cancelsecond |
-    And I create the cancelfirst random user if not existing, no wait
-    And I create the cancelsecond random user if not existing, no wait
+    Given I am authenticated as 'admin' random user
+    And I inject the cancelfirst random user, no wait
+    And I inject the cancelsecond random user, no wait
 
     When I login as 'cancelsecond' random user
     And I go to the random space
@@ -153,11 +151,9 @@ Feature: Kudos
     Then '0' kudos are received
 
   Scenario: Cancel Kudos sending from user profile
-    Given I am authenticated as 'admin' if random users doesn't exists
-      | cancelfirst  |
-      | cancelsecond |
-    And I create the cancelfirst random user if not existing, no wait
-    And I create the cancelsecond random user if not existing
+    Given I am authenticated as 'admin' random user
+    And I inject the cancelfirst random user, no wait
+    And I inject the cancelsecond random user
 
     When I login as 'cancelfirst' random user
     And I go to the cancelsecond user profile
