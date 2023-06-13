@@ -148,4 +148,14 @@ public class KudosStepDefinitions {
     kudoSteps.checkCancelKudosCommentIsNotVisible(activity, kudos);
   }
 
+  @Then("^In activity '(.*)' the delete option in kudos comment '(.*)' is not displayed$")
+  public void checkDeleteKudosCommentIsNotVisible(String activity, String kudos) {
+    kudoSteps.checkDeleteKudosCommentIsNotVisible(activity, kudos);
+  }
+
+  @Then("^In activity '(.*)' the delete option in kudos comment '(.*)' is displayed$")
+  public void checkDeleteKudosCommentIsVisible(String activity, String kudos) {
+    kudoSteps.checkDeleteKudosCommentIsVisible(activity, kudos);
+  }
+
 }

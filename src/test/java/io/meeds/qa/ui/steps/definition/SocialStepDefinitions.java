@@ -34,21 +34,14 @@ public class SocialStepDefinitions {
     socialSteps.cancelUpdateActivityComment(comment);
   }
 
-  @Given("The search result is well matched with the username entered of the first user")
-  public void checkSearchedFirstUserWellMatched() {
-    String firstUserName = Serenity.sessionVariableCalled("firstUserName");
-    socialSteps.checkSearchedUserWellMatched(firstUserName);
-  }
-
-  @Given("The search result is well matched with the username entered of the second user")
-  public void checkSearchedSecondUserWellMatched() {
-    String secondUserName = Serenity.sessionVariableCalled("secondUserName");
-    socialSteps.checkSearchedUserWellMatched(secondUserName);
-  }
-
   @Given("^The search result is well matched with the username entered '(.*)'$")
-  public void checkSearchedUserWellMatched(String user) {
-    socialSteps.checkSearchedUserWellMatched(user);
+  @And("^The search result is well matched with the username entered of the (.*) user$")
+  public void checkSearchedUserWellMatched(String suffix) {
+    String firstName = Serenity.sessionVariableCalled(suffix + "UserFirstName");
+    String lastName = Serenity.sessionVariableCalled(suffix + "UserLastName");
+
+    String fullName = firstName + " " + lastName;
+    socialSteps.checkSearchedUserWellMatched(fullName);
   }
 
   @And("I Select the comment added and I click on edit button")
@@ -67,26 +60,12 @@ public class SocialStepDefinitions {
     socialSteps.goToPeopleMenu();
   }
 
-  @And("^I enter the contact name '(.*)'$")
-  public void insertNameContact(String user) {
-    socialSteps.insertNameContact(user);
-  }
+  @And("^I search for '(.*)' random user$")
+  public void searchRandomUser(String suffix) {
+    String firstName = Serenity.sessionVariableCalled(suffix + "UserFirstName");
+    String lastName = Serenity.sessionVariableCalled(suffix + "UserLastName");
+    String fullName = firstName + " " + lastName;
 
-  @And("I enter the contact name of the first user")
-  public void insertNameOfFirstContact() {
-    String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
-    String firstUserLastName = Serenity.sessionVariableCalled("firstUserLastName");
-
-    String fullName = firstUserFirstName + " " + firstUserLastName;
-    socialSteps.insertNameContact(fullName);
-  }
-
-  @And("I enter the contact name of the second user")
-  public void insertNameOfSecondContact() {
-    String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
-    String secondUserLastName = Serenity.sessionVariableCalled("secondUserLastName");
-
-    String fullName = secondUserFirstName + " " + secondUserLastName;
     socialSteps.insertNameContact(fullName);
   }
 

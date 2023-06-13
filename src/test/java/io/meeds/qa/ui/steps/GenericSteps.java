@@ -17,6 +17,8 @@
  */
 package io.meeds.qa.ui.steps;
 
+import java.util.Map;
+
 import io.meeds.qa.ui.pages.GenericPage;
 
 public class GenericSteps {
@@ -26,16 +28,92 @@ public class GenericSteps {
     genericPage.checkConfirmMessageIsDisplayed(message);
   }
 
+  public void checkMessageIsDisplayed(String message) {
+    genericPage.checkMessageIsDisplayed(message);
+  }
+
+  public void checkMessageIsNotDisplayed(String message) {
+    genericPage.checkMessageIsNotDisplayed(message);
+  }
+
+  public void checkMessageIsDisplayedInPage(String message) {
+    genericPage.checkMessageIsDisplayedInPage(message);
+  }
+
+  public void checkMessageIsNotDisplayedInPage(String message) {
+    genericPage.checkMessageIsNotDisplayedInPage(message);
+  }
+
   public void checkDrawerDisplayed(String title) {
     genericPage.checkDrawerDisplayed(title);
+  }
+
+  public void checkSwitchButtonNotDisplayed(String buttonName) {
+    genericPage.checkSwitchButtonNotDisplayed(buttonName);
+  }
+
+  public void checkSwitchButtonDisplayed(String buttonName) {
+    genericPage.checkSwitchButtonDisplayed(buttonName);
+  }
+
+  public void enableSwitchButtonDisplayed(String buttonName) {
+    genericPage.enableSwitchButtonDisplayed(buttonName);
   }
 
   public void clickConfirm() {
     genericPage.clickConfirm();
   }
 
-  public void clickOkButton() {
-    genericPage.clickOkButton();
+  public void clickButton(String buttonText) {
+    genericPage.clickButton(buttonText);
+  }
+
+  public void clickLink(String linkText) {
+    genericPage.clickLink(linkText);
+  }
+
+  public void clickDrawerButton(String buttonText) {
+    genericPage.clickDrawerButton(buttonText);
+  }
+
+  public void clickSelecdLevelDrawerButton(String buttonText) {
+    genericPage.clickSelecdLevelDrawerButton(buttonText);
+  }
+
+  public void buttonIsDisabled(String buttonText) {
+    genericPage.buttonIsDisabled(buttonText);
+  }
+
+  public void buttonIsEnabled(String buttonText) {
+    genericPage.buttonIsEnabled(buttonText);
+  }
+
+  public void buttonInDrawerIsDisabled(String buttonText) {
+    genericPage.buttonInDrawerIsDisabled(buttonText);
+  }
+
+  public void buttonInDrawerIsEnabled(String buttonText) {
+    genericPage.buttonInDrawerIsEnabled(buttonText);
+  }
+
+  public void buttonInDrawerIsNotDisplayed(String buttonText) {
+    genericPage.buttonInDrawerIsNotDisplayed(buttonText);
+  }
+
+  public void buttonInDrawerIsDisplayed(String buttonText) {
+    genericPage.buttonInDrawerIsDisplayed(buttonText);
+  }
+
+  public void waitForDrawerToOpen() {
+    genericPage.waitForDrawerToOpen();
+  }
+
+  public void waitForDrawerToClose() {
+    genericPage.waitForDrawerToClose();
+  }
+
+  public void closeOpenedNotification() {
+    genericPage.closeDisplayedAlert();
   }
 
   public void closeAllDialogs() {
@@ -54,6 +132,18 @@ public class GenericSteps {
     genericPage.closeDrawerIfDisplayed();
   }
 
+  public void expandDrawer() {
+    genericPage.expandDrawer();
+  }
+
+  public void clickOnGoBack() {
+    genericPage.clickOnGoBack();
+  }
+
+  public void clickOnGoBackInDrawer() {
+    genericPage.clickOnGoBackInDrawer();
+  }
+
   public boolean containsContent(String content) {
     return genericPage.containsContent(content);
   }
@@ -70,16 +160,40 @@ public class GenericSteps {
     genericPage.isPageOpened(uriPart);
   }
 
-  public boolean isSuccessMessageDisplayed() {
-    return genericPage.isSuccessMessageDisplayed();
+  public void checkSuccessMessageDisplayed() {
+    genericPage.checkSuccessMessageDisplayed();
   }
 
   public void waitInSeconds(int seconds) {
     genericPage.waitFor(seconds).seconds();
   }
-  
+
   public void waitInMilliseconds(int milliseconds) {
     genericPage.waitFor(milliseconds).milliseconds();
+  }
+
+  public void checkTranslationButtonIsPrimary(int index) {
+    genericPage.checkTranslationButtonIsPrimary(index);
+  }
+
+  public void checkTranslationButtonIsNotPrimary(int index) {
+    genericPage.checkTranslationButtonIsNotPrimary(index);
+  }
+
+  public void openTranslationsDrawer(int index) {
+    genericPage.openTranslationsDrawer(index);
+  }
+
+  public void addTranslationValues(String fieldType, Map<String, String> valuesByLanguage) {
+    genericPage.addTranslationValues(fieldType, valuesByLanguage);
+  }
+
+  public void switchPageLanguage(String lang) {
+    genericPage.switchPageLanguage(lang);
+  }
+
+  public void sortTableByField(String fieldText) {
+    genericPage.sortTableByField(fieldText);
   }
 
 }

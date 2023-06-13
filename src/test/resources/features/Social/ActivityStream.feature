@@ -2,14 +2,14 @@
 Feature: Activity Stream
 
   Scenario: CAP04 - [ActivityStream_US05] Display 10 activities in Activity Stream
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second |
 
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
-    And I connect with the first created user
+    And I login as 'first' random user
 
     And I go to the random space
     When I post '15' activities with prefix 'act_CAP04_'
@@ -19,14 +19,14 @@ Feature: Activity Stream
     And the activity 'act_CAP04_6' is displayed in activity stream
     And the activity 'act_CAP04_5' is not displayed in activity stream
 
-    When I connect with the second created user
+    When I login as 'second' random user
     And I go to the random space
     Then the activity 'act_CAP04_15' is displayed in activity stream
     And the activity 'act_CAP04_14' is displayed in activity stream
     And the activity 'act_CAP04_6' is displayed in activity stream
     And the activity 'act_CAP04_5' is not displayed in activity stream
 
-    When I connect with the first created user
+    When I login as 'first' random user
     And I go to the random space
     And I click on modify the activity 'act_CAP04_15'
     And I enter an activity 'act15updated'
@@ -45,7 +45,7 @@ Feature: Activity Stream
     And I enter an activity 'act5updated'
     And I click on Update
 
-    When I connect with the second created user
+    When I login as 'second' random user
     And I go to the random space
 
     Then the activity 'act5updated' is displayed in activity stream
@@ -59,7 +59,7 @@ Feature: Activity Stream
     Then the activity 'act_CAP04_1' is displayed in activity stream
 
   Scenario: CAP100 - [ActivityStream_US38][04] Cancel Delete comment with replies from the activity stream
-    Given I connect as admin if random space and random users doesn't exists
+    Given I am authenticated as 'admin' if random space and random users doesn't exists
       | first  |
       | second |
       | third |
@@ -70,7 +70,7 @@ Feature: Activity Stream
 
     And I create the random space if not existing
 
-    When I connect with the first created user
+    When I login as 'first' random user
 
     And I go to the random space
     And I click on post in space
@@ -78,7 +78,7 @@ Feature: Activity Stream
     And I publish the activity
     Then the activity 'activityTestCAP100-100' is displayed in activity stream
 
-    When I connect with the second created user
+    When I login as 'second' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP100-100' is displayed in activity stream
@@ -87,7 +87,7 @@ Feature: Activity Stream
     Then Activity Comment 'commenttestCAP100-100' is displayed in Comments drawer
     And Activity Comment 'commenttestCAP100-100' is displayed in activity stream
 
-    When I connect with the third created user
+    When I login as 'third' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP100-100' is displayed in activity stream
@@ -95,7 +95,7 @@ Feature: Activity Stream
     When I add a reply 'replyTestCAP100-100' to comment 'commenttestCAP100-100' in activity 'activityTestCAP100-100'
     Then In activity 'activityTestCAP100-100' with comment 'commenttestCAP100-100', the reply 'replyTestCAP100-100' is displayed
 
-    When I change user admin
+    When I login as 'admin' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP100-100' is displayed in activity stream
@@ -104,7 +104,7 @@ Feature: Activity Stream
     When I add a reply 'replyTestCAP100-101' to comment 'commenttestCAP100-100' in activity 'activityTestCAP100-100'
     Then In activity 'activityTestCAP100-100' with comment 'commenttestCAP100-100', the reply 'replyTestCAP100-101' is displayed
 
-    When I connect with the second created user
+    When I login as 'second' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP100-100' is displayed in activity stream
@@ -121,7 +121,7 @@ Feature: Activity Stream
     And In activity 'activityTestCAP100-100' with comment 'commenttestCAP100-100', the reply 'replyTestCAP100-101' is displayed
 
   Scenario: CAP102 - [ActivityStream_US38][06] Cancel Delete a reply from the activity stream
-    Given I connect as admin if random space and random users doesn't exists
+    Given I am authenticated as 'admin' if random space and random users doesn't exists
       | first  |
       | second  |
       | third  |
@@ -132,7 +132,7 @@ Feature: Activity Stream
 
     And I create the random space if not existing
 
-    When I connect with the first created user
+    When I login as 'first' random user
 
     And I go to the random space
     And I click on post in space
@@ -140,7 +140,7 @@ Feature: Activity Stream
     And I publish the activity
     Then the activity 'activityTestCAP102-102' is displayed in activity stream
 
-    When I connect with the second created user
+    When I login as 'second' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP102-102' is displayed in activity stream
@@ -149,7 +149,7 @@ Feature: Activity Stream
     Then Activity Comment 'commenttestCAP102-102' is displayed in Comments drawer
     And Activity Comment 'commenttestCAP102-102' is displayed in activity stream
 
-    When I connect with the third created user
+    When I login as 'third' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP102-102' is displayed in activity stream
@@ -157,7 +157,7 @@ Feature: Activity Stream
     When I add a reply 'replyTestCAP102-101' to comment 'commenttestCAP102-102' in activity 'activityTestCAP102-102'
     Then In activity 'activityTestCAP102-102' with comment 'commenttestCAP102-102', the reply 'replyTestCAP102-101' is displayed
 
-    When I connect with the second created user
+    When I login as 'second' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP102-102' is displayed in activity stream
@@ -166,7 +166,7 @@ Feature: Activity Stream
     When I add a reply 'replyTestCAP102-102' to comment 'commenttestCAP102-102' in activity 'activityTestCAP102-102'
     Then In activity 'activityTestCAP102-102' with comment 'commenttestCAP102-102', the reply 'replyTestCAP102-102' is displayed
 
-    When I connect with the first created user
+    When I login as 'first' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP102-102' is displayed in activity stream
@@ -176,7 +176,7 @@ Feature: Activity Stream
     When I add a reply 'replyTestCAP102-103' to comment 'commenttestCAP102-102' in activity 'activityTestCAP102-102'
     Then In activity 'activityTestCAP102-102' with comment 'commenttestCAP102-102', the reply 'replyTestCAP102-103' is displayed
 
-    When I change user admin
+    When I login as 'admin' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP102-102' is displayed in activity stream
@@ -187,7 +187,7 @@ Feature: Activity Stream
     When I add a reply 'replyTestCAP102-104' to comment 'commenttestCAP102-102' in activity 'activityTestCAP102-102'
     Then In activity 'activityTestCAP102-102' with comment 'commenttestCAP102-102', the reply 'replyTestCAP102-104' is displayed
 
-    When I connect with the first created user
+    When I login as 'first' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP102-102' is displayed in activity stream
@@ -208,7 +208,7 @@ Feature: Activity Stream
     And In activity 'activityTestCAP102-102' with comment 'commenttestCAP102-102', the reply 'replyTestCAP102-104' is displayed
 
   Scenario: CAP103 - [ActivityStream_US39][01] Delete a simple comment from the comment drawer
-    Given I connect as admin if random space and random users doesn't exists
+    Given I am authenticated as 'admin' if random space and random users doesn't exists
       | first  |
       | second  |
       | third  |
@@ -219,7 +219,7 @@ Feature: Activity Stream
 
     And I create the random space if not existing
 
-    When I connect with the first created user
+    When I login as 'first' random user
 
     And I go to the random space
     And I click on post in space
@@ -227,7 +227,7 @@ Feature: Activity Stream
     And I publish the activity
     Then the activity 'activityTestCAP103-103' is displayed in activity stream
 
-    When I connect with the second created user
+    When I login as 'second' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP103-103' is displayed in activity stream
@@ -236,7 +236,7 @@ Feature: Activity Stream
     Then Activity Comment 'commenttestCAP103-103' is displayed in Comments drawer
     And Activity Comment 'commenttestCAP103-103' is displayed in activity stream
 
-    When I connect with the third created user
+    When I login as 'third' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP103-103' is displayed in activity stream
@@ -246,7 +246,7 @@ Feature: Activity Stream
     Then '1 comment', only 'commenttestCAP103-103' is displayed in Comments drawer
     And I close the opened drawer
 
-    When I connect with the second created user
+    When I login as 'second' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP103-103' is displayed in activity stream
@@ -263,7 +263,7 @@ Feature: Activity Stream
     When I close the opened drawer
     Then Comment 'commenttestCAP103-103' is not displayed in activity 'activityTestCAP103-103'
 
-    When I connect with the first created user
+    When I login as 'first' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP103-103' is displayed in activity stream
@@ -274,7 +274,7 @@ Feature: Activity Stream
     When I close the opened drawer
     Then Comment 'commenttestCAP103-103' is not displayed in activity 'activityTestCAP103-103'
 
-    When I connect with the third created user
+    When I login as 'third' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP103-103' is displayed in activity stream
@@ -286,7 +286,7 @@ Feature: Activity Stream
     Then Comment 'commenttestCAP104-CAP103-103' is not displayed in activity 'activityTestCAP103-103'
 
   Scenario: CAP104 - [ActivityStream_US39][02] Cancel Delete a simple comment from the comment drawer
-    Given I connect as admin if random space and random users doesn't exists
+    Given I am authenticated as 'admin' if random space and random users doesn't exists
       | first  |
       | second  |
       | third  |
@@ -297,7 +297,7 @@ Feature: Activity Stream
 
     And I create the random space if not existing
 
-    When I connect with the first created user
+    When I login as 'first' random user
 
     And I go to the random space
     And I click on post in space
@@ -305,7 +305,7 @@ Feature: Activity Stream
     And I publish the activity
     Then the activity 'activityTestCAP104-104' is displayed in activity stream
 
-    When I connect with the second created user
+    When I login as 'second' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP104-104' is displayed in activity stream
@@ -314,7 +314,7 @@ Feature: Activity Stream
     Then Activity Comment 'commenttestCAP104-104' is displayed in Comments drawer
     And Activity Comment 'commenttestCAP104-104' is displayed in activity stream
 
-    When I connect with the third created user
+    When I login as 'third' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP104-104' is displayed in activity stream
@@ -324,7 +324,7 @@ Feature: Activity Stream
     Then '1 comment', only 'commenttestCAP104-104' is displayed in Comments drawer
     And I close the opened drawer
 
-    When I connect with the second created user
+    When I login as 'second' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP104-104' is displayed in activity stream
@@ -340,7 +340,7 @@ Feature: Activity Stream
     When I close the opened drawer
     Then Activity Comment 'commenttestCAP104-104' is displayed in activity stream
 
-    When I connect with the first created user
+    When I login as 'first' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP104-104' is displayed in activity stream
@@ -350,7 +350,7 @@ Feature: Activity Stream
     When I close the opened drawer
     Then Activity Comment 'commenttestCAP104-104' is displayed in activity stream
 
-    When I connect with the third created user
+    When I login as 'third' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP104-104' is displayed in activity stream
@@ -361,7 +361,7 @@ Feature: Activity Stream
     Then Activity Comment 'commenttestCAP104-104' is displayed in activity stream
 
   Scenario: CAP105 - [ActivityStream_US39][03] Delete comment with replies from the comment drawer
-    Given I connect as admin if random space and random users doesn't exists
+    Given I am authenticated as 'admin' if random space and random users doesn't exists
       | first  |
       | second  |
       | third  |
@@ -372,7 +372,7 @@ Feature: Activity Stream
 
     And I create the random space if not existing
 
-    When I connect with the first created user
+    When I login as 'first' random user
 
     And I go to the random space
     And I click on post in space
@@ -380,7 +380,7 @@ Feature: Activity Stream
     And I publish the activity
     Then the activity 'activityTestCAP105-105' is displayed in activity stream
 
-    When I connect with the second created user
+    When I login as 'second' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP105-105' is displayed in activity stream
@@ -391,7 +391,7 @@ Feature: Activity Stream
     When I add a reply 'replyTest101' to comment 'commenttestCAP105-105' in activity 'activityTestCAP105-105'
     Then In activity 'activityTestCAP105-105' with comment 'commenttestCAP105-105', the reply 'replyTest101' is displayed
 
-    When I connect with the first created user
+    When I login as 'first' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP105-105' is displayed in activity stream
@@ -400,7 +400,7 @@ Feature: Activity Stream
     When I add a reply 'replyTest102' to comment 'commenttestCAP105-105' in activity 'activityTestCAP105-105'
     Then In activity 'activityTestCAP105-105' with comment 'commenttestCAP105-105', the reply 'replyTest102' is displayed
 
-    When I connect with the third created user
+    When I login as 'third' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP105-105' is displayed in activity stream
@@ -411,7 +411,7 @@ Feature: Activity Stream
     And I close the opened drawer
     And I add a reply 'replyTest103' to comment 'commenttestCAP105-105' in activity 'activityTestCAP105-105'
 
-    When I connect with the second created user
+    When I login as 'second' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP105-105' is displayed in activity stream
@@ -435,7 +435,7 @@ Feature: Activity Stream
     When I close the opened drawer
     Then Comment 'commenttestCAP105-105' is not displayed in activity 'activityTestCAP105-105'
 
-    When I connect with the first created user
+    When I login as 'first' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP105-105' is displayed in activity stream
@@ -449,7 +449,7 @@ Feature: Activity Stream
     When I close the opened drawer
     Then Comment 'commenttestCAP105-105' is not displayed in activity 'activityTestCAP105-105'
 
-    When I connect with the third created user
+    When I login as 'third' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP105-105' is displayed in activity stream
@@ -464,7 +464,7 @@ Feature: Activity Stream
     Then Comment 'commenttestCAP105-105' is not displayed in activity 'activityTestCAP105-105'
 
   Scenario: CAP106 - [ActivityStream_US39][04] Cancel Delete comment with replies from the comments drawer
-    Given I connect as admin if random space and random users doesn't exists
+    Given I am authenticated as 'admin' if random space and random users doesn't exists
       | first  |
       | second  |
       | third  |
@@ -475,7 +475,7 @@ Feature: Activity Stream
 
     And I create the random space if not existing
 
-    When I connect with the first created user
+    When I login as 'first' random user
 
     And I go to the random space
     And I click on post in space
@@ -483,7 +483,7 @@ Feature: Activity Stream
     And I publish the activity
     Then the activity 'activityTestCAP106-106' is displayed in activity stream
 
-    When I connect with the second created user
+    When I login as 'second' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP106-106' is displayed in activity stream
@@ -494,7 +494,7 @@ Feature: Activity Stream
     When I add a reply 'replyTestCAP106-101' to comment 'commenttestCAP106-106' in activity 'activityTestCAP106-106'
     Then In activity 'activityTestCAP106-106' with comment 'commenttestCAP106-106', the reply 'replyTestCAP106-101' is displayed
 
-    When I connect with the first created user
+    When I login as 'first' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP106-106' is displayed in activity stream
@@ -503,7 +503,7 @@ Feature: Activity Stream
     When I add a reply 'replyTestCAP106-102' to comment 'commenttestCAP106-106' in activity 'activityTestCAP106-106'
     Then In activity 'activityTestCAP106-106' with comment 'commenttestCAP106-106', the reply 'replyTestCAP106-102' is displayed
 
-    When I connect with the third created user
+    When I login as 'third' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP106-106' is displayed in activity stream
@@ -514,7 +514,7 @@ Feature: Activity Stream
     And I close the opened drawer
     And I add a reply 'replyTestCAP106-103' to comment 'commenttestCAP106-106' in activity 'activityTestCAP106-106'
 
-    When I connect with the second created user
+    When I login as 'second' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP106-106' is displayed in activity stream
@@ -537,7 +537,7 @@ Feature: Activity Stream
     When I close the opened drawer
     Then Activity Comment 'commenttestCAP106-106' is displayed in activity stream
 
-    When I connect with the first created user
+    When I login as 'first' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP106-106' is displayed in activity stream
@@ -551,7 +551,7 @@ Feature: Activity Stream
     When I close the opened drawer
     Then Activity Comment 'commenttestCAP106-106' is displayed in activity stream
 
-    When I connect with the third created user
+    When I login as 'third' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP106-106' is displayed in activity stream
@@ -566,7 +566,7 @@ Feature: Activity Stream
     Then Activity Comment 'commenttestCAP106-106' is displayed in activity stream
 
   Scenario: CAP107 - [ActivityStream_US39][05] Delete a reply from comments drawer
-    Given I connect as admin if random space and random users doesn't exists
+    Given I am authenticated as 'admin' if random space and random users doesn't exists
       | first  |
       | second  |
       | third  |
@@ -577,7 +577,7 @@ Feature: Activity Stream
 
     And I create the random space if not existing
 
-    When I connect with the first created user
+    When I login as 'first' random user
 
     And I go to the random space
     And I click on post in space
@@ -585,7 +585,7 @@ Feature: Activity Stream
     And I publish the activity
     Then the activity 'activityTestCAP107-107' is displayed in activity stream
 
-    When I connect with the second created user
+    When I login as 'second' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP107-107' is displayed in activity stream
@@ -596,7 +596,7 @@ Feature: Activity Stream
     When I add a reply 'replyTestCAP107-101' to comment 'commenttestCAP107-107' in activity 'activityTestCAP107-107'
     Then In activity 'activityTestCAP107-107' with comment 'commenttestCAP107-107', the reply 'replyTestCAP107-101' is displayed
 
-    When I connect with the first created user
+    When I login as 'first' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP107-107' is displayed in activity stream
@@ -605,7 +605,7 @@ Feature: Activity Stream
     When I add a reply 'replyTestCAP107-102' to comment 'commenttestCAP107-107' in activity 'activityTestCAP107-107'
     Then In activity 'activityTestCAP107-107' with comment 'commenttestCAP107-107', the reply 'replyTestCAP107-102' is displayed
 
-    When I connect with the third created user
+    When I login as 'third' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP107-107' is displayed in activity stream
@@ -616,7 +616,7 @@ Feature: Activity Stream
     And I close the opened drawer
     And I add a reply 'replyTestCAP107-103' to comment 'commenttestCAP107-107' in activity 'activityTestCAP107-107'
 
-    When I connect with the first created user
+    When I login as 'first' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP107-107' is displayed in activity stream
@@ -642,7 +642,7 @@ Feature: Activity Stream
     And In activity 'activityTestCAP107-107' with comment 'commenttestCAP107-107', the reply 'replyTestCAP107-103' is displayed
     And In activity 'activityTestCAP107-107' with comment 'commenttestCAP107-107', the reply 'replyTestCAP107-102' is not displayed
 
-    When I connect with the second created user
+    When I login as 'second' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP107-107' is displayed in activity stream
@@ -658,7 +658,7 @@ Feature: Activity Stream
     And In activity 'activityTestCAP107-107' with comment 'commenttestCAP107-107', the reply 'replyTestCAP107-103' is displayed
     And In activity 'activityTestCAP107-107' with comment 'commenttestCAP107-107', the reply 'replyTestCAP107-102' is not displayed
 
-    When I connect with the third created user
+    When I login as 'third' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP107-107' is displayed in activity stream
@@ -675,7 +675,7 @@ Feature: Activity Stream
     And In activity 'activityTestCAP107-107' with comment 'commenttestCAP107-107', the reply 'replyTestCAP107-102' is not displayed
 
   Scenario: CAP108 - [ActivityStream_US39][06] Cancel Delete a reply from the comments drawer
-    Given I connect as admin if random space and random users doesn't exists
+    Given I am authenticated as 'admin' if random space and random users doesn't exists
       | first  |
       | second  |
       | third  |
@@ -686,7 +686,7 @@ Feature: Activity Stream
 
     And I create the random space if not existing
 
-    When I connect with the first created user
+    When I login as 'first' random user
 
     And I go to the random space
     And I click on post in space
@@ -694,7 +694,7 @@ Feature: Activity Stream
     And I publish the activity
     Then the activity 'activityTestCAP108-108' is displayed in activity stream
 
-    When I connect with the second created user
+    When I login as 'second' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP108-108' is displayed in activity stream
@@ -705,7 +705,7 @@ Feature: Activity Stream
     When I add a reply 'replyTestCAP108-101' to comment 'commenttestCAP108-108' in activity 'activityTestCAP108-108'
     Then In activity 'activityTestCAP108-108' with comment 'commenttestCAP108-108', the reply 'replyTestCAP108-101' is displayed
 
-    When I connect with the first created user
+    When I login as 'first' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP108-108' is displayed in activity stream
@@ -714,7 +714,7 @@ Feature: Activity Stream
     When I add a reply 'replyTestCAP108-102' to comment 'commenttestCAP108-108' in activity 'activityTestCAP108-108'
     Then In activity 'activityTestCAP108-108' with comment 'commenttestCAP108-108', the reply 'replyTestCAP108-102' is displayed
 
-    When I connect with the third created user
+    When I login as 'third' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP108-108' is displayed in activity stream
@@ -725,7 +725,7 @@ Feature: Activity Stream
     And I close the opened drawer
     And I add a reply 'replyTestCAP108-103' to comment 'commenttestCAP108-108' in activity 'activityTestCAP108-108'
 
-    When I connect with the first created user
+    When I login as 'first' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP108-108' is displayed in activity stream
@@ -751,7 +751,7 @@ Feature: Activity Stream
     And In activity 'activityTestCAP108-108' with comment 'commenttestCAP108-108', the reply 'replyTestCAP108-102' is displayed
     And In activity 'activityTestCAP108-108' with comment 'commenttestCAP108-108', the reply 'replyTestCAP108-103' is displayed
 
-    When I connect with the second created user
+    When I login as 'second' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP108-108' is displayed in activity stream
@@ -768,7 +768,7 @@ Feature: Activity Stream
     And In activity 'activityTestCAP108-108' with comment 'commenttestCAP108-108', the reply 'replyTestCAP108-102' is displayed
     And In activity 'activityTestCAP108-108' with comment 'commenttestCAP108-108', the reply 'replyTestCAP108-103' is displayed
 
-    When I connect with the third created user
+    When I login as 'third' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP108-108' is displayed in activity stream
@@ -786,21 +786,21 @@ Feature: Activity Stream
     And In activity 'activityTestCAP108-108' with comment 'commenttestCAP108-108', the reply 'replyTestCAP108-103' is displayed
 
   Scenario: CAP109 - [ActivityStream_US40][01] Like my comment/reply from activity stream
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
 
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
-    When I connect with the first created user
+    When I login as 'first' random user
     And I go to the random space
     And I click on post in space
     And I enter an activity 'activitytest009'
     And I publish the activity
     Then the activity 'activitytest009' is displayed in activity stream
 
-    When I connect with the second created user
+    When I login as 'second' random user
     And I go to the random space
     Then the activity 'activitytest009' is displayed in activity stream
 
@@ -825,14 +825,14 @@ Feature: Activity Stream
     Then Tooltip Remove Like on 'commenttest109' is displayed in activity stream
 
   Scenario: CAP110 - [ActivityStream_US40][02] DisLike my comment/reply from activity stream
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
 
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
-    And I connect with the first created user
+    And I login as 'first' random user
 
     And I go to the random space
     And I click on post in space
@@ -840,7 +840,7 @@ Feature: Activity Stream
     And I publish the activity
     Then the activity 'activityTestCAP110-010' is displayed in activity stream
 
-    And I connect with the second created user
+    And I login as 'second' random user
     And I go to the random space
     Then the activity 'activityTestCAP110-010' is displayed in activity stream
 
@@ -861,7 +861,7 @@ Feature: Activity Stream
     And On comment 'commenttestCAP110-110', '(0)' like is displayed
 
   Scenario: CAP111 - [ActivityStream_US40][03] Like comment/reply of other user from activity stream
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
       | third  |
@@ -870,7 +870,7 @@ Feature: Activity Stream
     And I create the second random user if not existing, no wait
     And I create the third random user if not existing
 
-    When I connect with the first created user
+    When I login as 'first' random user
 
     And I go to the random space
     And I click on post in space
@@ -878,7 +878,7 @@ Feature: Activity Stream
     And I publish the activity
     Then the activity 'activitytest011' is displayed in activity stream
 
-    When I connect with the second created user
+    When I login as 'second' random user
     And I go to the random space
     Then the activity 'activitytest011' is displayed in activity stream
 
@@ -890,7 +890,7 @@ Feature: Activity Stream
     When I add a reply 'replyTest101' to comment 'commenttest111' in activity 'activitytest011'
     Then In activity 'activitytest011' with comment 'commenttest111', the reply 'replyTest101' is displayed
 
-    When I connect with the third created user
+    When I login as 'third' random user
     And I go to the random space
     Then the activity 'activitytest011' is displayed in activity stream
 
@@ -908,7 +908,7 @@ Feature: Activity Stream
     Then Tooltip Remove Like on 'commenttest111' is displayed in activity stream
 
   Scenario: CAP112 [ActivityStream_US40][04] DisLike comment/reply of other user from activity stream
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
       | third  |
@@ -917,7 +917,7 @@ Feature: Activity Stream
     And I create the second random user if not existing, no wait
     And I create the third random user if not existing
 
-    And I connect with the first created user
+    And I login as 'first' random user
 
     And I go to the random space
     And I click on post in space
@@ -925,7 +925,7 @@ Feature: Activity Stream
     And I publish the activity
     Then the activity 'activityTestCAP1112-012' is displayed in activity stream
 
-    When I connect with the second created user
+    When I login as 'second' random user
     And I go to the random space
     Then the activity 'activityTestCAP1112-012' is displayed in activity stream
 
@@ -937,7 +937,7 @@ Feature: Activity Stream
     When I add a reply 'replyTestCAP112-101' to comment 'commenttestCAP112-112' in activity 'activityTestCAP1112-012'
     Then In activity 'activityTestCAP1112-012' with comment 'commenttestCAP112-112', the reply 'replyTestCAP112-101' is displayed
 
-    When I connect with the third created user
+    When I login as 'third' random user
     And I go to the random space
     Then the activity 'activityTestCAP1112-012' is displayed in activity stream
 
@@ -950,14 +950,14 @@ Feature: Activity Stream
     And On comment 'commenttestCAP112-112', '(0)' like is displayed
 
   Scenario: CAP115 - [ActivityStream_US41][01] Like my comment/reply from the comment drawer
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
 
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
-    When I connect with the first created user
+    When I login as 'first' random user
 
     And I go to the random space
     And I click on post in space
@@ -965,7 +965,7 @@ Feature: Activity Stream
     And I publish the activity
     Then the activity 'activitytest015' is displayed in activity stream
 
-    When I connect with the second created user
+    When I login as 'second' random user
     And I go to the random space
     Then the activity 'activitytest015' is displayed in activity stream
 
@@ -993,14 +993,14 @@ Feature: Activity Stream
     And I close the opened drawer
 
   Scenario: CAP116 - [ActivityStream_US41][02] DisLike my comment/reply from the comments drawer
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
 
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
-    And I connect with the first created user
+    And I login as 'first' random user
 
     And I go to the random space
     And I click on post in space
@@ -1008,7 +1008,7 @@ Feature: Activity Stream
     And I publish the activity
     Then the activity 'activityTestCAP1116-016' is displayed in activity stream
 
-    And I connect with the second created user
+    And I login as 'second' random user
     And I go to the random space
     Then the activity 'activityTestCAP1116-016' is displayed in activity stream
 
@@ -1031,14 +1031,14 @@ Feature: Activity Stream
     And I close the opened drawer
 
   Scenario: CAP121 - [ActivityStream_IMPV14][01] Display maximum only the last 2 comments/replies below each activity
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
 
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
-    When I connect with the first created user
+    When I login as 'first' random user
 
     And I go to the random space
     And I click on post in space
@@ -1046,7 +1046,7 @@ Feature: Activity Stream
     And I publish the activity
     Then the activity 'activityTest121' is displayed in activity stream
 
-    When I connect with the second created user
+    When I login as 'second' random user
 
     And I go to the random space
     Then the activity 'activityTest121' is displayed in activity stream
@@ -1071,14 +1071,14 @@ Feature: Activity Stream
     And Comment 'commenttest102' is not displayed in activity 'activityTest121'
 
   Scenario: CAP122 - [ActivityStream_IMPV14][02] Display maximum only the last 2 comments/replies below each activity
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
 
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
-    When I connect with the first created user
+    When I login as 'first' random user
 
     And I go to the random space
     And I click on post in space
@@ -1086,7 +1086,7 @@ Feature: Activity Stream
     And I publish the activity
     Then the activity 'activityTestCAP122-122-02' is displayed in activity stream
 
-    When I connect with the second created user
+    When I login as 'second' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP122-122-02' is displayed in activity stream
@@ -1115,14 +1115,14 @@ Feature: Activity Stream
     And In activity 'activityTestCAP122-122-02' with comment 'commenttestCAP122-104-02', the reply 'replyTestCAP122-104-02' is displayed
 
   Scenario: CAP123 - [ActivityStream_IMPV14][03] Display maximum only the last 2 comments/replies below each activity
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
 
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
-    When I connect with the first created user
+    When I login as 'first' random user
 
     And I go to the random space
     And I click on post in space
@@ -1130,7 +1130,7 @@ Feature: Activity Stream
     And I publish the activity
     Then the activity 'activityTestCAP123-123' is displayed in activity stream
 
-    When I connect with the second created user
+    When I login as 'second' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP123-123' is displayed in activity stream
@@ -1184,14 +1184,14 @@ Feature: Activity Stream
     And I close the opened drawer
 
   Scenario: CAP157 - [ActivityStream_IMPV15][01] Internal Link opening behaviors inside comments
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
 
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
-    When I connect with the first created user
+    When I login as 'first' random user
 
     And I go to the random space
     And I click on post in space
@@ -1199,7 +1199,7 @@ Feature: Activity Stream
     And I publish the activity
     Then the activity 'activityTestCAP157-157' is displayed in activity stream
 
-    When I connect with the second created user
+    When I login as 'second' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP157-157' is displayed in activity stream
@@ -1217,14 +1217,14 @@ Feature: Activity Stream
     Then The internal link '/members' is opened in new tab
 
   Scenario: CAP158 - [ActivityStream_IMPV15][02] External Link opening behaviors inside comments
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
 
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
-    When I connect with the first created user
+    When I login as 'first' random user
 
     And I go to the random space
     And I click on post in space
@@ -1232,7 +1232,7 @@ Feature: Activity Stream
     And I publish the activity
     Then the activity 'activityTestCAP158-158' is displayed in activity stream
 
-    When I connect with the second created user
+    When I login as 'second' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP158-158' is displayed in activity stream
@@ -1249,7 +1249,7 @@ Feature: Activity Stream
     Then Link 'https://www.meeds.io/' is opened in new tab
 
   Scenario: CAP97 - [ActivityStream_US38][01] Delete a simple comment from the activity stream
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
 
     When I create the firstadm random user if not existing, no wait
     And I create the second random user if not existing, no wait
@@ -1260,16 +1260,16 @@ Feature: Activity Stream
     And I select the group 'Administration'
     And I add the role '*' to the firstadm created user
 
-    When I connect with the second created user
+    When I login as 'second' random user
     And I go to the random space
-    And I connect with the third created user
+    And I login as 'third' random user
     And I go to the random space
     And I click on post in space
     And I enter an activity 'activityTest97'
     And I publish the activity
     Then the activity 'activityTest97' is displayed in activity stream
 
-    When I connect with the fourth created user
+    When I login as 'fourth' random user
     And I go to the random space
     Then the activity 'activityTest97' is displayed in activity stream
     When I add in activity 'activityTest97' a comment 'commenttest97'
@@ -1277,7 +1277,7 @@ Feature: Activity Stream
     Then Activity Comment 'commenttest97' is displayed in Comments drawer
     And Activity Comment 'commenttest97' is displayed in activity stream
 
-    When I connect with the firstadm created user
+    When I login as 'firstadm' random user
     And I go to the random space
     Then the activity 'activityTest97' is displayed in activity stream
     And Activity Comment 'commenttest97' is displayed in activity stream
@@ -1289,7 +1289,7 @@ Feature: Activity Stream
     And Comment 'commenttest97' is not displayed in activity 'activityTest97'
 
   Scenario: Cap155 - ActivityStream_US58: Mention a user in the comments
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
       | third  |
@@ -1304,26 +1304,26 @@ Feature: Activity Stream
     And I create the fifth random user if not existing, no wait
     And I create the sixth random user if not existing
 
-    And I connect with the first created user
+    And I login as 'first' random user
     And I create a random space
     And I click on post in space
     And I enter an activity 'activityTest155'
     And I publish the activity
     Then the activity 'activityTest155' is displayed in activity stream
 
-    When I connect with the second created user
+    When I login as 'second' random user
     And I go to the random space
     Then the activity 'activityTest155' is displayed in activity stream
 
-    When I connect with the third created user
+    When I login as 'third' random user
     And I go to the random space
     Then the activity 'activityTest155' is displayed in activity stream
 
-    When I connect with the fourth created user
+    When I login as 'fourth' random user
     And I go to the random space
     Then the activity 'activityTest155' is displayed in activity stream
 
-    When I connect with the second created user
+    When I login as 'second' random user
     And I go to the random space
     Then the activity 'activityTest155' is displayed in activity stream
 
@@ -1345,21 +1345,21 @@ Feature: Activity Stream
     And I close the opened drawer
 
   Scenario: Cap146 - [ActivityStream_US40][01] Notifications for comments to my activity
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
 
     When I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
-    And I connect with the first created user
+    And I login as 'first' random user
     And I go to the random space
     And I click on post in space
     And I enter an activity 'activityTest146'
     And I publish the activity
     Then the activity 'activityTest146' is displayed in activity stream
 
-    When I connect with the second created user
+    When I login as 'second' random user
     And I go to the random space
     Then the activity 'activityTest146' is displayed in activity stream
     When I add in activity 'activityTest146' a comment 'commenttest146'
@@ -1367,7 +1367,7 @@ Feature: Activity Stream
     Then Activity Comment 'commenttest146' is displayed in Comments drawer
     And Activity Comment 'commenttest146' is displayed in activity stream
 
-    When I connect with the first created user
+    When I login as 'first' random user
     And I open Notifications
     Then The notification that shows that activity 'activityTest146' posted by first user is commented by second user with comment 'activityTest146', is displayed
 
@@ -1377,21 +1377,21 @@ Feature: Activity Stream
     And I go to the home page
 
   Scenario: Cap147 - [ActivityStream_US40][02] Notifications for comment to my comment
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
 
     When I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
-    And I connect with the first created user
+    And I login as 'first' random user
     And I go to the random space
     And I click on post in space
     And I enter an activity 'activityTest147'
     And I publish the activity
     Then the activity 'activityTest147' is displayed in activity stream
 
-    When I connect with the second created user
+    When I login as 'second' random user
     And I go to the random space
     Then the activity 'activityTest147' is displayed in activity stream
     When I add in activity 'activityTest147' a comment 'commenttest147'
@@ -1399,14 +1399,14 @@ Feature: Activity Stream
     Then Activity Comment 'commenttest147' is displayed in Comments drawer
     And Activity Comment 'commenttest147' is displayed in activity stream
 
-    When I connect with the first created user
+    When I login as 'first' random user
     And I go to the random space
     Then the activity 'activityTest147' is displayed in activity stream
     And Activity Comment 'commenttest147' is displayed in activity stream
     When I add a reply 'replyTest147' to comment 'commenttest147' in activity 'activityTest147'
     Then In activity 'activityTest147' with comment 'commenttest147', the reply 'replyTest147' is displayed
 
-    When I connect with the second created user
+    When I login as 'second' random user
     And I open Notifications
     Then The notification that shows that comment 'commenttest147' posted by second user is replied by first user with 'replyTest147', is displayed
 
@@ -1417,17 +1417,17 @@ Feature: Activity Stream
     And I go to the home page
 
   Scenario: CAP20 - [ActivityStream_US10][09] Activity with text or link options (3 dots) (Author delete the post)
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
 
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
-    When I connect with the first created user
+    When I login as 'first' random user
     And I go to the random space
 
-    When I connect with the second created user
+    When I login as 'second' random user
     And I go to the random space
     And I click on post in space
     And I enter an activity 'activityus1009cap20'
@@ -1446,17 +1446,17 @@ Feature: Activity Stream
     Then the activity 'activityus1009cap20' is not displayed in stream page
 
   Scenario: CAP21 - [ActivityStream_US10][10] Activity with text or link options (3 dots) ( Author cancel delete post)
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
 
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
-    When I connect with the first created user
+    When I login as 'first' random user
     And I go to the random space
 
-    When I connect with the second created user
+    When I login as 'second' random user
     And I go to the random space
     And I click on post in space
     And I enter an activity 'activityus1010cap21'
@@ -1475,7 +1475,7 @@ Feature: Activity Stream
     Then the activity 'activityus1010cap21' is displayed in stream page
 
   Scenario: CAP88 - [ActivityStream_US04.1][01] Edit comment from the comment drawer
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
       | third  |
@@ -1486,10 +1486,10 @@ Feature: Activity Stream
     And I create the third random user if not existing, no wait
     And I create the fourth random user if not existing
 
-    When I connect with the first created user
+    When I login as 'first' random user
     And I go to the random space
 
-    When I connect with the second created user
+    When I login as 'second' random user
     And I go to the random space
     And I click on post in space
     And I enter an activity 'activitycap88'
@@ -1500,21 +1500,21 @@ Feature: Activity Stream
     Then Activity Comment 'commenttestCAP88-101' is displayed in Comments drawer
     And Activity Comment 'commenttestCAP88-101' is displayed in activity stream
 
-    When I connect with the first created user
+    When I login as 'first' random user
     And I go to the random space
     Then the activity 'activitycap88' is displayed in activity stream
     When I add in activity 'activitycap88' a comment 'commenttestCAP88-102'
     And I add a reply 'replyTestCAP88-102' to comment 'commenttestCAP88-102' in activity 'activitycap88'
     Then In activity 'activitycap88' with comment 'commenttestCAP88-102', the reply 'replyTestCAP88-102' is displayed
 
-    When I connect with the third created user
+    When I login as 'third' random user
     And I go to the random space
     Then the activity 'activitycap88' is displayed in activity stream
     When I add in activity 'activitycap88' a comment 'commenttestCAP88-103'
     And I add a reply 'replyTestCAP88-103' to comment 'commenttestCAP88-103' in activity 'activitycap88'
     Then In activity 'activitycap88' with comment 'commenttestCAP88-103', the reply 'replyTestCAP88-103' is displayed
 
-    When I connect with the fourth created user
+    When I login as 'fourth' random user
     And I go to the random space
     Then the activity 'activitycap88' is displayed in activity stream
     When I add in activity 'activitycap88' a comment 'commenttestCAP88-104'
@@ -1529,7 +1529,7 @@ Feature: Activity Stream
     Then Comment is displayed in comments drawer at the sixth position
 
   Scenario: CAP128 - [ActivityStream_US47][01] Send a kudos from a comment
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
       | third  |
@@ -1538,14 +1538,14 @@ Feature: Activity Stream
     And I create the second random user if not existing, no wait
     And I create the third random user if not existing
 
-    And I connect with the first created user
+    And I login as 'first' random user
     And I go to the random space
     And I click on post in space
     And I enter an activity 'activitytestkudosCAP128'
     And I publish the activity
     Then the activity 'activitytestkudosCAP128' is displayed in activity stream
 
-    When I connect with the third created user
+    When I login as 'third' random user
     And I go to the random space
     Then the activity 'activitytestkudosCAP128' is displayed in activity stream
 
@@ -1554,7 +1554,7 @@ Feature: Activity Stream
     Then Activity Comment 'activitytestkudoscommentCAP128' is displayed in Comments drawer
     And Activity Comment 'activitytestkudoscommentCAP128' is displayed in activity stream
 
-    When I connect with the second created user
+    When I login as 'second' random user
     And I go to the random space
     Then the activity 'activitytestkudosCAP128' is displayed in activity stream
     When In comment 'activitytestkudoscommentCAP128', Kudos label should be black
@@ -1565,7 +1565,7 @@ Feature: Activity Stream
     Then '1' kudos are displayed on the reaction drawer
 
   Scenario: CAP129 - [ActivityStream_US47][03] Send a kudos from the comments drawer
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | sixth  |
       | third  |
@@ -1574,14 +1574,14 @@ Feature: Activity Stream
     And I create the sixth random user if not existing, no wait
     And I create the third random user if not existing
 
-    And I connect with the first created user
+    And I login as 'first' random user
     And I go to the random space
     And I click on post in space
     And I enter an activity 'activitytestkudosCAP129'
     And I publish the activity
     Then the activity 'activitytestkudosCAP129' is displayed in activity stream
 
-    When I connect with the third created user
+    When I login as 'third' random user
     And I go to the random space
     Then the activity 'activitytestkudosCAP129' is displayed in activity stream
     When I add in activity 'activitytestkudosCAP129' a comment 'activitytestkudoscommentCAP129'
@@ -1589,7 +1589,7 @@ Feature: Activity Stream
     And I open in activity 'activitytestkudosCAP129' the Comments drawer
     Then Activity Comment 'activitytestkudoscommentCAP129' is displayed in Comments drawer
 
-    When I connect with the sixth created user
+    When I login as 'sixth' random user
     And I go to the random space
     Then the activity 'activitytestkudosCAP129' is displayed in activity stream
     And I open in activity 'activitytestkudosCAP129' the Comments drawer
@@ -1602,12 +1602,12 @@ Feature: Activity Stream
     Then '1' kudos are displayed on the reaction drawer
 
   Scenario: CAP220 - [ActivityStream_IMPV07][01] Pagination in comments drawer
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
 
     And I create the first random user if not existing, no wait
 
-    When I connect with the first created user
+    When I login as 'first' random user
     And I go to the random space
     And I click on post in space
     And I enter an activity 'activitycap220'
@@ -1662,16 +1662,16 @@ Feature: Activity Stream
     Then Check Four comment is displayed in comments drawer
 
   Scenario: [STREAM-12] Activity Likers in drawer
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create the first random user if not existing, no wait
     And I go to the random space
     And I click on post in space
     And I enter an activity 'stream activité'
     And I publish the activity
-    And I connect with the first created user
+    And I login as 'first' random user
     And I go to the random space
     And I like the activity 'stream activité'
-    And I change user admin
+    And I login as 'admin' random user
     And I go to the random space
     And I like the activity 'stream activité'
     When I click on likers number of the activity 'stream activité'
@@ -1680,7 +1680,7 @@ Feature: Activity Stream
     And The page '/profile' is opened
 
   Scenario: CAP129 - [ActivityStream_US47][02] Send a kudos from a reply
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | sixth  |
       | third  |
@@ -1691,14 +1691,14 @@ Feature: Activity Stream
     And I create the third random user if not existing, no wait
     And I create the fourth random user if not existing
 
-    And I connect with the first created user
+    And I login as 'first' random user
     And I go to the random space
     And I click on post in space
     And I enter an activity 'activitytestkudosCAP129'
     And I publish the activity
     Then the activity 'activitytestkudosCAP129' is displayed in activity stream
 
-    When I connect with the third created user
+    When I login as 'third' random user
     And I go to the random space
     Then the activity 'activitytestkudosCAP129' is displayed in activity stream
 
@@ -1707,13 +1707,13 @@ Feature: Activity Stream
     Then Activity Comment 'activitytestkudosCAP129comment' is displayed in Comments drawer
     And Activity Comment 'activitytestkudosCAP129comment' is displayed in activity stream
 
-    When I connect with the fourth created user
+    When I login as 'fourth' random user
     And I go to the random space
     Then the activity 'activitytestkudosCAP129' is displayed in activity stream
     When I add a reply 'activitytestkudosCAP129commentreply' to comment 'activitytestkudosCAP129comment' in activity 'activitytestkudosCAP129'
     Then In activity 'activitytestkudosCAP129' with comment 'activitytestkudosCAP129comment', the reply 'activitytestkudosCAP129commentreply' is displayed
 
-    When I connect with the sixth created user
+    When I login as 'sixth' random user
     And I go to the random space
     Then the activity 'activitytestkudosCAP129' is displayed in activity stream
     And In reply 'activitytestkudosCAP129commentreply', Kudos label should be black
@@ -1724,7 +1724,7 @@ Feature: Activity Stream
     Then '1' kudos are displayed on the reaction drawer
 
   Scenario: CAP89 - [ActivityStream_US04][03] Edit reply in Activity stream
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
       | third  |
@@ -1735,10 +1735,10 @@ Feature: Activity Stream
     And I create the third random user if not existing, no wait
     And I create the fourth random user if not existing
 
-    When I connect with the first created user
+    When I login as 'first' random user
     And I go to the random space
 
-    When I connect with the second created user
+    When I login as 'second' random user
     And I go to the random space
     And I click on post in space
     And I enter an activity 'activitycap87'
@@ -1750,7 +1750,7 @@ Feature: Activity Stream
     Then Activity Comment 'commenttest101' is displayed in Comments drawer
     And Activity Comment 'commenttest101' is displayed in activity stream
 
-    When I connect with the first created user
+    When I login as 'first' random user
     And I go to the random space
     Then the activity 'activitycap87' is displayed in activity stream
 
@@ -1758,7 +1758,7 @@ Feature: Activity Stream
     And I click on comment button related to activity 'activitycap87'
     Then Second comment is displayed in comments drawer
 
-    When I connect with the third created user
+    When I login as 'third' random user
     And I go to the random space
     Then the activity 'activitycap87' is displayed in activity stream
 
@@ -1766,7 +1766,7 @@ Feature: Activity Stream
     And I click on comment button related to activity 'activitycap87'
     Then Third comment is displayed in comments drawer
 
-    When I connect with the fourth created user
+    When I login as 'fourth' random user
     And I go to the random space
     Then the activity 'activitycap87' is displayed in activity stream
 
@@ -1782,7 +1782,7 @@ Feature: Activity Stream
     Then Fourth comment is displayed in comments drawer
 
   Scenario: [ActivityStream_US52][03] Edit a kudos from a comment
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
       | fourth  |
@@ -1791,14 +1791,14 @@ Feature: Activity Stream
     And I create the second random user if not existing, no wait
     And I create the fourth random user if not existing
 
-    And I connect with the fourth created user
+    And I login as 'fourth' random user
     And I go to the random space
     And I click on post in space
     And I enter an activity 'activitytestkudosUS52'
     And I publish the activity
     Then the activity 'activitytestkudosUS52' is displayed in activity stream
 
-    When I connect with the second created user
+    When I login as 'second' random user
     And I go to the random space
     Then the activity 'activitytestkudosUS52' is displayed in activity stream
 
@@ -1807,7 +1807,7 @@ Feature: Activity Stream
     Then Activity Comment 'activitytestkudoscommentUS52' is displayed in Comments drawer
     And Activity Comment 'activitytestkudoscommentUS52' is displayed in activity stream
 
-    When I connect with the fourth created user
+    When I login as 'fourth' random user
     And I go to the random space
     Then the activity 'activitytestkudosUS52' is displayed in activity stream
     When In comment 'activitytestkudoscommentUS52', Kudos label should be black
@@ -1818,7 +1818,7 @@ Feature: Activity Stream
     Then the updated Kudos activity 'updated kudos message' is displayed in stream page
 
   Scenario: [ActivityStream_US52][05] Edit a kudos from a reply
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
       | third  |
@@ -1829,14 +1829,14 @@ Feature: Activity Stream
     And I create the third random user if not existing, no wait
     And I create the fourth random user if not existing
 
-    And I connect with the first created user
+    And I login as 'first' random user
     And I go to the random space
     And I click on post in space
     And I enter an activity 'activitytestkudosUS52_05'
     And I publish the activity
     Then the activity 'activitytestkudosUS52_05' is displayed in activity stream
 
-    When I connect with the third created user
+    When I login as 'third' random user
     And I go to the random space
     Then the activity 'activitytestkudosUS52_05' is displayed in activity stream
 
@@ -1845,13 +1845,13 @@ Feature: Activity Stream
     Then Activity Comment 'activitytestkudoscommentUS52_05' is displayed in Comments drawer
     And Activity Comment 'activitytestkudoscommentUS52_05' is displayed in activity stream
 
-    When I connect with the fourth created user
+    When I login as 'fourth' random user
     And I go to the random space
     Then the activity 'activitytestkudosUS52_05' is displayed in activity stream
     When I add a reply 'activitytestkudoscommentreplyUS52_05' to comment 'activitytestkudoscommentUS52_05' in activity 'activitytestkudosUS52_05'
     Then In activity 'activitytestkudoUS52_05s' with comment 'activitytestkudoscommentUS52_05', the reply 'activitytestkudoscommentreplyUS52_05' is displayed
 
-    When I connect with the second created user
+    When I login as 'second' random user
     And I go to the random space
     Then the activity 'activitytestkudosUS52_05' is displayed in activity stream
     And In reply 'activitytestkudoscommentreplyUS52_05', Kudos label should be black
@@ -1865,21 +1865,21 @@ Feature: Activity Stream
     Then the updated Kudos activity 'updated kudos message' is displayed in stream page
 
   Scenario: CAP132 - [ActivityStream_US52][01] Edit a kudos comment from an activity
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | fifth  |
 
     And I create the first random user if not existing, no wait
     And I create the fifth random user if not existing
 
-    And I connect with the first created user
+    And I login as 'first' random user
     And I go to the random space
     And I click on post in space
     And I enter an activity 'activitytestkudosUS52_01'
     And I publish the activity
     Then the activity 'activitytestkudosUS52_01' is displayed in activity stream
 
-    When I connect with the fifth created user
+    When I login as 'fifth' random user
     And I go to the random space
     Then the activity 'activitytestkudosUS52_01' is displayed in activity stream
     Then I click on the kudos button on first displayed Activity
@@ -1890,7 +1890,7 @@ Feature: Activity Stream
     Then the updated Kudos activity 'updated Test Auto reply Kudos US52_01' is displayed in stream page
 
   Scenario: PinActivity_US01: Space host or redactor can pin an activity (from Space Stream -  Space host Case)
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create a random space
     And I go to the random space
     And I click on post in space
@@ -1901,26 +1901,26 @@ Feature: Activity Stream
     Then Pin button related to activity 'PinTest' is displayed
     Given I click on Pin button related to activity 'PinTest'
     Then Confirmation message is displayed 'This activity has been pinned to the space stream.'
-    And The activity 'PinTest' is pinned in space stream
+    When I close the notification
+    Then The activity 'PinTest' is pinned in space stream
     Given I go to Stream page
     Then the activity 'PinTest' is displayed in stream page
     Given I click on three dots button related to activity 'PinTest'
     Then Unpin button related to activity 'PinTest' is displayed
 
   Scenario: Pin Activity US01: Space host or redactor can pin an activity (from General Stream -  Space redactor Case)
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing, no wait
-    When I connect with the first created user
+    When I login as 'first' random user
     And I create a random space
-    And I connect with the second created user
+    And I login as 'second' random user
     Then I go to the random space
-    And I connect with the first created user
+    And I login as 'first' random user
     And I go to the random space
     And I click on 'Members' space menu tab
-    And I enter the contact name of the second user
     Then The search result is well matched with the username entered of the second user
     And I click on three dots menu
     And I set as a redactor
@@ -1929,31 +1929,31 @@ Feature: Activity Stream
     And I enter an activity 'PinTest'
     When I publish the activity
     Then the activity 'PinTest' is displayed in activity stream
-    When I connect with the second created user
+    When I login as 'second' random user
     And I go to Stream page
     And I click on three dots button related to activity 'PinTest'
     Then Pin button related to activity 'PinTest' is displayed
     Given I click on Pin button related to activity 'PinTest'
     Then Confirmation message is displayed 'This activity has been pinned to the space stream.'
-    Given I go to the random space
+    When I close the notification
+    And I go to the random space
     Then The activity 'PinTest' is pinned in space stream
     Given I click on three dots button related to activity 'PinTest'
     Then Unpin button related to activity 'PinTest' is displayed
 
   Scenario: Pin Activity US03: Unpin an activity
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing, no wait
-    When I connect with the first created user
+    When I login as 'first' random user
     And I create a random space
-    And I connect with the second created user
+    And I login as 'second' random user
     Then I go to the random space
-    And I connect with the first created user
+    And I login as 'first' random user
     And I go to the random space
     And I click on 'Members' space menu tab
-    And I enter the contact name of the second user
     Then The search result is well matched with the username entered of the second user
     And I click on three dots menu
     And I set as a redactor
@@ -1962,22 +1962,24 @@ Feature: Activity Stream
     And I enter an activity 'PinTest'
     When I publish the activity
     Then the activity 'PinTest' is displayed in activity stream
-    When I connect with the first created user
+    When I login as 'first' random user
     And I go to Stream page
     And I click on three dots button related to activity 'PinTest'
     Then Pin button related to activity 'PinTest' is displayed
     Given I click on Pin button related to activity 'PinTest'
     Then Confirmation message is displayed 'This activity has been pinned to the space stream.'
-    Given I go to the random space
+    When I close the notification
+    And I go to the random space
     Then The activity 'PinTest' is pinned in space stream
     Given I click on three dots button related to activity 'PinTest'
     Then Unpin button related to activity 'PinTest' is displayed
     Given I click to the Unpin button related to activity 'PinTest'
     Then Confirmation message is displayed 'This activity has been unpinned.'
-    And The activity 'PinTest' should be not pinned in space stream
+    When I close the notification
+    Then The activity 'PinTest' should be not pinned in space stream
 
   Scenario: Pin Activity US04: Pinned activities filter
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I create a random space
     And I click on post in space
     And I enter an activity 'PinTest'
@@ -1992,7 +1994,8 @@ Feature: Activity Stream
     Then Pin button related to activity 'PinTest' is displayed
     Given I click on Pin button related to activity 'PinTest'
     Then Confirmation message is displayed 'This activity has been pinned to the space stream.'
-    And The activity 'PinTest' is pinned in space stream
+    When I close the notification
+    Then The activity 'PinTest' is pinned in space stream
     Given I go to Stream page
     Then the activity 'act_Pin_US04_0' is displayed in stream page
     And the activity 'act_Pin_US04_1' is displayed in stream page

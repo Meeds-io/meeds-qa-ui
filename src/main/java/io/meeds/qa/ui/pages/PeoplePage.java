@@ -19,8 +19,13 @@ package io.meeds.qa.ui.pages;
 
 import static io.meeds.qa.ui.utils.Utils.refreshPage;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
+import static io.meeds.qa.ui.utils.Utils.waitForLoading;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.time.Duration;
 
 import org.junit.Assert;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.ElementFacade;
@@ -55,11 +60,10 @@ public class PeoplePage extends GenericPage {
   }
 
   public void checkConnectToUser(String user) {
-    searchPeopleInputElement().setTextValue(user);
-    waitForProgressBar();
-
+    assertThat(searchUser(user)).isTrue()
+                                .as("User " + user + " wasn't found");
     ElementFacade userButton = getUserButton(user);
-    userButton.waitUntilClickable();
+    userButton.checkClickable();
     if (!userButton.hasClass("connectUserButton")) {
       if (userButton.hasClass("acceptToConnectButton")) {
         ElementFacade invitationsRequestUserButton = getInvitationsRequestUserButton(user);
@@ -227,6 +231,7 @@ public class PeoplePage extends GenericPage {
   public void goToUserProfile(String user) {
     retryOnCondition(() -> {
       searchPeopleInputElement().setTextValue(user);
+      waitForLoading();
       getUserProfileButton(user).click();
     }, () -> waitFor(1).seconds() // User may not have been indexed yet
     );
@@ -363,6 +368,32 @@ public class PeoplePage extends GenericPage {
 
   private ElementFacade sentRequestsButtonElement() {
     return findByXPathOrCSS("//*[@class='peopleOverviewCard d-flex flex-column clickable']");
+  }
+
+  public boolean searchUser(String user) {
+    TextBoxElementFacade inputField = searchPeopleInputElement();
+    inputField.checkVisible();
+
+    inputField.waitUntilVisible();
+    inputField.setTextValue(user + "x");
+
+    boolean visible = false;
+    int retry = 0;
+    Duration retryWaitTime = Duration.ofSeconds(1);
+    ElementFacade userCard;
+    do {
+      inputField.sendKeys(Keys.BACK_SPACE);
+      waitFor(300).milliseconds();
+      waitForLoading();
+      userCard = getUserButton(user);
+      userCard.setImplicitTimeout(retryWaitTime);
+      visible = userCard.isVisible();
+      if (visible) {
+        userCard.click();
+        return true;
+      }
+    } while (!visible && retry++ < 3); // NOSONAR
+    return false;
   }
 
 }

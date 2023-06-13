@@ -17,9 +17,10 @@
  */
 package io.meeds.qa.ui.pages;
 
-import io.meeds.qa.ui.elements.ButtonElementFacade;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.WebDriver;
 
+import io.meeds.qa.ui.elements.ButtonElementFacade;
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 
@@ -29,47 +30,109 @@ public class RulePage extends GenericPage {
     super(driver);
   }
 
-  public void enterRuleTitle(String ruleTitle) {
-    ruleTitleFieldElement().setTextValue(ruleTitle);
+  public void clickAddActionButton() {
+    addActionButton().click();
   }
 
-  public void clickAddRuleButton() {
-    addRuleButton().click();
+  public void saveAction(String title,
+                         String description,
+                         String points,
+                         boolean declarative,
+                         boolean changeDates,
+                         boolean newRule) {
+    if (StringUtils.isNotBlank(title)) {
+      setActionTitle(title);
+    }
+    if (StringUtils.isNotBlank(description)) {
+      setActionDescription(description);
+    }
+    if (StringUtils.isNotBlank(points)) {
+      setActionPoints(points);
+    }
+
+    if (newRule) {
+      if (declarative) {
+        declarativeChoiceButton().click();
+      } else {
+        automaticChoiceButton().click();
+      }
+    }
+
+    clickOnNextButton();
+
+    if (changeDates) {
+      selectDurationChoice();
+      setActionEndDate();
+    }
+
+    clickOnSaveButton(newRule);
+    waitForDrawerToClose();
   }
 
-  public void addRuleEvent(String eventName) {
-    findByXPathOrCSS("#EventSelectAutoComplete").click();
-    do {
-      findTextBoxByXPathOrCSS("(//*[contains(@class,'v-menu__content theme--light v-menu__content--fixed')])").scrollDown();
-    } while (!isEventDisplayed(eventName));
-    ruleEventsMenuItem(eventName).click();
+  public void selectDurationChoice() {
+    ElementFacade durationChip = durationDeselectedChip();
+    durationChip.waitUntilVisible();
+    durationChip.click();
+    durationSelectedChip().assertVisible();
   }
 
-  private ElementFacade addRuleButton() {
-    return findByXPathOrCSS("//*[contains(text(), 'Add Action')]//ancestor::*[contains(@class, 'btn-primary')]");
+  public void setActionTitle(String title) {
+    ruleTitleFieldElement().setTextValue(title);
   }
 
-  private ButtonElementFacade ruleEventsMenuItem(String eventName) {
-    return findButtonByXPathOrCSS(String.format("//*[contains(@class, 'menuable__content__active')]//*[contains(text(), '%s')]/parent::*",
-                                                eventName));
-  }
-
-  public boolean isEventDisplayed(String eventName) {
-    return ruleEventsMenuItem(eventName).isVisible();
-  }
-
-  public void addRuleRandomDescription(String ruleDescription) {
+  public void setActionDescription(String description) {
     ElementFacade ckEditorFrameRuleElement = ckEditorFrameRuleElement();
     ckEditorFrameRuleElement.waitUntilVisible();
     getDriver().switchTo().frame(ckEditorFrameRuleElement);
     try {
       TextBoxElementFacade ruleDescriptionFieldElement = ruleDescriptionFieldElement();
       ruleDescriptionFieldElement.waitUntilVisible();
-      ruleDescriptionFieldElement.setTextValue(ruleDescription);
+      ruleDescriptionFieldElement.setTextValue(description);
     } finally {
       getDriver().switchTo().defaultContent();
     }
-    saveRuleButton().click();
+  }
+
+  public void setActionPoints(String challengePoints) {
+    actionPointsTextbox().setTextValue(challengePoints);
+  }
+
+  public void setActionEvent(String eventName) {
+    eventSelectAutoComplete().click();
+    eventSelectAutoComplete().typeAndEnter(eventName);
+  }
+
+  public void deleteActionDuration() {
+    durationSelectedChip().click();
+  }
+
+  public void setActionEndDate() {
+    selectActionDateChoice("BEFORE");
+    actionEndDateElement().click();
+    waitForMenuToOpen();
+    randomDateCalenderElement().waitUntilVisible();
+    randomDateCalenderElement().click();
+    waitForMenuToClose();
+  }
+
+  public void clickOnNextButton() {
+    nextStepButton().click();
+  }
+
+  public void changeRuleEnablement() {
+    ruleEnableSwitchButton().click();
+  }
+
+  public void clickOnSaveButton(boolean newRule) {
+    if (newRule) {
+      addButton().click();
+    } else {
+      updateButton().click();
+    }
+  }
+
+  public boolean isEventDisplayed(String eventName) {
+    return ruleEventsMenuItem(eventName).isVisible();
   }
 
   public void searchRuleInProgramRuleFilter(String ruleTitle) {
@@ -82,7 +145,7 @@ public class RulePage extends GenericPage {
       TextBoxElementFacade searchRulesFieldElement = searchRulesFieldElement();
       searchRulesFieldElement.setTextValue(ruleTitle);
       waitForProgressBar();
-    } while (++retry < tentatives && !getRuleElement(ruleTitle).isCurrentlyVisible());
+    } while (++retry < tentatives && !actionInProgramDetailElement(ruleTitle).isCurrentlyVisible());
   }
 
   public void ruleNotfoundTryAgain() {
@@ -93,12 +156,91 @@ public class RulePage extends GenericPage {
     clearSearchBtnElement().click();
   }
 
-  public void isRuleDisplayed(String ruleTitle) {
-    getRuleElement(ruleTitle).isVisible();
+  private void selectActionDateChoice(String value) {
+    ElementFacade selectActionDateElement = selectActionDateElement(value);
+    selectActionDateElement.waitUntilVisible();
+    selectActionDateElement.waitUntilClickable();
+    selectActionDateElement.selectByValue(value);
+    waitFor(50).milliseconds();
+  }
+
+  private ElementFacade selectActionDateElement(String value) {
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'v-navigation-drawer--open')]//option[@value='%s']//parent::select",
+                                          value));
+  }
+
+  private ElementFacade ruleEnableSwitchButton() {
+    return findByXPathOrCSS("//*[contains(text(), 'Enabled')]/parent::*//*[contains(@class, 'v-input--switch') and contains(@class, 'v-input--selection-controls')]");
+  }
+
+  public void isActionDisplayedInProgramDetail(String actionTitle) {
+    actionInProgramDetailElement(actionTitle).assertVisible();
+  }
+
+  public void isActionNotDisplayedInProgramDetail(String actionTitle) {
+    actionInProgramDetailElement(actionTitle).assertNotVisible();
+  }
+
+  public void openActionDrawer(String actionTitle) {
+    actionInProgramDetailElement(actionTitle).click();
+    waitForDrawerToOpen();
+  }
+
+  private ElementFacade durationDeselectedChip() {
+    return findByXPathOrCSS("//*[contains(text(),'Duration')]//ancestor-or-self::*[contains(@class, 'v-chip--clickable') and not(contains(@class, 'primary'))]");
+  }
+
+  private ElementFacade durationSelectedChip() {
+    return findByXPathOrCSS("//*[contains(text(),'Duration')]//ancestor-or-self::*[contains(@class, 'v-chip--clickable') and contains(@class, 'primary')]");
+  }
+
+  private ElementFacade declarativeChoiceButton() {
+    return findByXPathOrCSS("//*[contains(text(),'Declarative')]//ancestor-or-self::button");
+  }
+
+  private ElementFacade automaticChoiceButton() {
+    return findByXPathOrCSS("//*[contains(text(),'Automatic')]//ancestor-or-self::button");
+  }
+
+  private ElementFacade nextStepButton() {
+    return findByXPathOrCSS("//*[contains(text(),'Next')]//ancestor-or-self::button");
+  }
+
+  private ElementFacade addButton() {
+    return findByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(),'Add')]//ancestor-or-self::button");
+  }
+
+  private ElementFacade updateButton() {
+    return findByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(),'Update')]//ancestor-or-self::button");
+  }
+
+  private ElementFacade addActionButton() {
+    return findByXPathOrCSS("//*[@id = 'engagementCenterProgramDetail']//*[contains(text(), 'Add Action') or contains(text(), 'Add incentive')]//ancestor::button");
+  }
+
+  private ButtonElementFacade ruleEventsMenuItem(String eventName) {
+    return findButtonByXPathOrCSS(String.format("//*[contains(@class, 'menuable__content__active')]//*[contains(text(), '%s')]/parent::*",
+                                                eventName));
+  }
+
+  private ElementFacade eventSelectAutoComplete() {
+    return findByXPathOrCSS("#EventSelectAutoComplete");
+  }
+
+  private TextBoxElementFacade actionPointsTextbox() {
+    return findTextBoxByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(),'Points')]/parent::*//input[@type = 'number']");
   }
 
   private ElementFacade ckEditorFrameRuleElement() {
     return findByXPathOrCSS(".v-navigation-drawer--open iframe.cke_wysiwyg_frame");
+  }
+
+  private TextBoxElementFacade actionEndDateElement() {
+    return findTextBoxByXPathOrCSS("//*[contains(@class,'challengeDates')]//*[contains(@class, 'datePickerText')]");
+  }
+
+  private TextBoxElementFacade randomDateCalenderElement() {
+    return findTextBoxByXPathOrCSS("//*[contains(@class,'menuable__content__active')]//*[contains(@class,'v-date-picker-table')]//button[not(@disabled)]");
   }
 
   private TextBoxElementFacade ruleDescriptionFieldElement() {
@@ -109,17 +251,13 @@ public class RulePage extends GenericPage {
     return findTextBoxByXPathOrCSS("//*[@id='ruleTitle']");
   }
 
-  private ElementFacade saveRuleButton() {
-    return findByXPathOrCSS(".v-navigation-drawer--open .drawerFooter button.btn-primary");
-  }
-
   private TextBoxElementFacade searchRulesFieldElement() {
     return findTextBoxByXPathOrCSS("//input[@placeholder='Filter by action']");
   }
 
-  public ElementFacade getRuleElement(String ruleTitle) {
+  public ElementFacade actionInProgramDetailElement(String ruleTitle) {
     return findByXPathOrCSS(String.format("//*[@class='v-data-table__wrapper']//*[@class='text-truncate' and contains(@title,'%s')][1]",
-            ruleTitle));
+                                          ruleTitle));
   }
 
   public ElementFacade ruleNotfoundTryAgainElement() {

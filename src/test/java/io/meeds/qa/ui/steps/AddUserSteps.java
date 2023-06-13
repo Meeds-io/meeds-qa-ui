@@ -22,6 +22,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -36,9 +37,9 @@ import net.serenitybdd.core.Serenity;
 
 public class AddUserSteps {
 
-  private AddUserPage addUserPage;
+  private AddUserPage         addUserPage;
 
-  private HomePage    homePage;
+  private HomePage            homePage;
 
   public void addRandomUser(String userPrefix, boolean waitSearchable) {
     addRandomUser(userPrefix, waitSearchable, false);
@@ -51,39 +52,10 @@ public class AddUserSteps {
       String firstName = getRandomString(userPrefix);
       String lastName = getRandomString(userName);
       String email = userName + "@aa.bb";
-      String password = "Test1234@";
+      String password = "Test1234@" + getRandomString(userPrefix);
 
       if (injectUsingRest) {
-        String addUserScript = String.format("""
-                                             const callback = arguments[arguments.length - 1];
-                                             fetch("/portal/rest/v1/users", {
-                                               "headers": {
-                                                 "content-type": "application/json",
-                                               },
-                                               "body": `{"enabled":true,"userName":"%s","firstName":"%s","lastName":"%s","email":"%s","password":"%s","confirmNewPassword":"%s"}`,
-                                               "method": "POST",
-                                               "credentials": "include"
-                                             })
-                                             .then(resp => {
-                                               if (!resp || !resp.ok) {
-                                                 throw new Error("Error creating user");
-                                               }
-                                             })
-                                             .then(user => callback(true))
-                                             .catch(() => callback(false));
-                                            """,
-                                             userName,
-                                             firstName,
-                                             lastName,
-                                             email,
-                                             password,
-                                             password);
-        WebDriverWait wait = new WebDriverWait(Serenity.getDriver(),
-                                               Duration.ofSeconds(3),
-                                               Duration.ofMillis(SHORT_WAIT_DURATION_MILLIS));
-        wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeAsyncScript(addUserScript)
-                                                                .toString()
-                                                                .equals("true"));
+        addRandomUser(userPrefix, userName, firstName, lastName, email, password);
       } else {
         homePage.goToAddUser();
         addRandomUser(userName, firstName, lastName, email, password);
@@ -102,6 +74,16 @@ public class AddUserSteps {
       setSessionVariable(userName + "-password").to(password);
       TestHooks.userWithPrefixCreated(userPrefix, userName, firstName, lastName, email, password);
     }
+  }
+
+  public void addAdminUser(String userPrefix) {
+    String adminUsername = sessionVariableCalled(userPrefix + "UserName");
+    String firstName = "Admin";
+    String lastName = "User";
+    String email = adminUsername + "@localhost.com";
+    String password = getRandomString(userPrefix);
+
+    addRandomUser(userPrefix, adminUsername, firstName, lastName, email, password);
   }
 
   public void addRandomUser(String userName, String firstName, String lastName, String mail, String password) {
@@ -164,6 +146,128 @@ public class AddUserSteps {
 
   public void searchForUsersByStatus(String status) {
     addUserPage.searchForUsersByStatus(status);
+  }
+
+  public void addUserRole(String userPrefix, String groupId, String membershipType) {
+    String userName = sessionVariableCalled(userPrefix + "UserName");
+    String addUserScript =
+                         String.format("""
+                              const callback = arguments[arguments.length - 1];
+                              fetch("/portal/rest/v1/groups/memberships/bulk?membershipId=", {
+                                "headers": {
+                                  "content-type": "application/json",
+                                },
+                                "body": `[{"userName":"%s","groupId":"%s","membershipType":"%s"}]`,
+                                "method": "POST",
+                                "credentials": "include"
+                              })
+                              .then(resp => {
+                                if (!resp || !resp.ok) {
+                                  throw new Error("Error adding user role");
+                                }
+                              })
+                              .then(user => callback(true))
+                              .catch(() => callback(false));
+                             """,
+                                       userName,
+                                       groupId,
+                                       membershipType);
+    WebDriverWait wait = new WebDriverWait(Serenity.getDriver(),
+                                           Duration.ofSeconds(3),
+                                           Duration.ofMillis(SHORT_WAIT_DURATION_MILLIS));
+    wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeAsyncScript(addUserScript)
+                                                            .toString()
+                                                            .equals("true"));
+  }
+
+  public void deleteUserRole(String userPrefix, String groupId, String membershipType) {
+    String userName = sessionVariableCalled(userPrefix + "UserName");
+    String addUserScript =
+        String.format("""
+                              const callback = arguments[arguments.length - 1];
+                              fetch("/portal/rest/v1/groups/memberships?membershipId=%s:%s:%s", {
+                                "headers": {
+                                  "content-type": "application/json",
+                                },
+                                "method": "DELETE",
+                                "credentials": "include"
+                              })
+                              .then(resp => {
+                                if (!resp || !resp.ok) {
+                                  throw new Error("Error adding user role");
+                                }
+                              })
+                              .then(user => callback(true))
+                              .catch(() => callback(false));
+                             """,
+                             membershipType,
+                             userName,
+                             groupId);
+    WebDriverWait wait = new WebDriverWait(Serenity.getDriver(),
+                                           Duration.ofSeconds(3),
+                                           Duration.ofMillis(SHORT_WAIT_DURATION_MILLIS));
+    wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeAsyncScript(addUserScript)
+               .toString()
+               .equals("true"));
+  }
+
+  private void addRandomUser(String userPrefix,
+                             String userName,
+                             String firstName,
+                             String lastName,
+                             String email,
+                             String password) {
+    String addUserScript =
+                         String.format("""
+                              const callback = arguments[arguments.length - 1];
+                              fetch("/portal/rest/v1/users", {
+                                "headers": {
+                                  "content-type": "application/json",
+                                },
+                                "body": `{"enabled":true,"userName":"%s","firstName":"%s","lastName":"%s","email":"%s","password":"%s","confirmNewPassword":"%s"}`,
+                                "method": "POST",
+                                "credentials": "include"
+                              })
+                              .then(resp => {
+                                if (!resp || !resp.ok) {
+                                  throw new Error("Error creating user");
+                                }
+                              })
+                              .then(user => callback(true))
+                              .catch(() => callback(false));
+                             """,
+                                       userName,
+                                       firstName,
+                                       lastName,
+                                       email,
+                                       password,
+                                       password);
+    WebDriverWait wait = new WebDriverWait(Serenity.getDriver(),
+                                           Duration.ofSeconds(10),
+                                           Duration.ofMillis(SHORT_WAIT_DURATION_MILLIS));
+    wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeAsyncScript(addUserScript)
+                                                            .toString()
+                                                            .equals("true"));
+
+    setSessionVariable(userPrefix + "UserName").to(userName);
+    setSessionVariable(userPrefix + "UserFirstName").to(firstName);
+    setSessionVariable(userPrefix + "UserLastName").to(lastName);
+    setSessionVariable(userPrefix + "UserPassword").to(password);
+    setSessionVariable(userName + "-password").to(password);
+    TestHooks.userWithPrefixCreated(userPrefix, userName, firstName, lastName, email, password);
+  }
+
+  public void injectRandomUserWithGroups(String userPrefix, List<String> memberships, boolean deleteInternalMembership) {
+    addRandomUser(userPrefix, false, true);
+    if (deleteInternalMembership) {
+      deleteUserRole(userPrefix, "/platform/users", "member");
+    }
+    memberships.forEach(membership -> {
+      String[] membershipParts = membership.contains(":") ? membership.split(":") : new String[] {
+          "member", membership
+      };
+      addUserRole(userPrefix, membershipParts[1], membershipParts[0]);
+    });
   }
 
 }

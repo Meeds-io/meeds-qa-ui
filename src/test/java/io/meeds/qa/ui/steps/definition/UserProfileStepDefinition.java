@@ -17,8 +17,8 @@
  */
 package io.meeds.qa.ui.steps.definition;
 
+import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
 import static io.meeds.qa.ui.utils.Utils.getRandomString;
-import static io.meeds.qa.ui.utils.Utils.getTheRandomNumber;
 import static io.meeds.qa.ui.utils.Utils.refreshPage;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -58,10 +58,8 @@ public class UserProfileStepDefinition {
 
   @Then("My points augmented")
   public void checkMyPointIncrease() {
-    int myPointBeforeKudos = Serenity.sessionVariableCalled("myPointBeforeKudos");
-    assertThat(userProfileSteps.wasMyPointIncreased(myPointBeforeKudos)).as("The points did not increase. Old Value = "
-        + myPointBeforeKudos)
-                                                                        .isTrue();
+    int originalWeeklyPoint = Serenity.sessionVariableCalled("originalWeeklyPoint");
+    userProfileSteps.checkMyPointIncrease(originalWeeklyPoint);
   }
 
   @Then("^Updated Profile Contact instantMessaging is displayed$")
@@ -88,8 +86,8 @@ public class UserProfileStepDefinition {
 
   @When("^I check my points$")
   public void getMyWeeklyPoint() {
-    int myPointBeforeKudos = userProfileSteps.getMyWeeklyPoint();
-    Serenity.setSessionVariable("myPointBeforeKudos").to(myPointBeforeKudos);
+    int originalWeeklyPoint = userProfileSteps.getMyWeeklyPoint();
+    Serenity.setSessionVariable("originalWeeklyPoint").to(originalWeeklyPoint);
   }
 
   @Then("I go to Received Kudos")
@@ -203,8 +201,8 @@ public class UserProfileStepDefinition {
   }
 
   @Then("I open achievement tab")
-  public void openAchivementTab() {
-    userProfileSteps.openAchivementTab();
+  public void openAchievementTab() {
+    userProfileSteps.openAchievementTab();
   }
 
   @Then("I open badge details")
@@ -274,7 +272,7 @@ public class UserProfileStepDefinition {
     Map<String, String> basicInformations = new HashMap<>();
     String company = getRandomString();
     String phoneType = "WORK";
-    String phone = getTheRandomNumber();
+    String phone = getRandomNumber();
     String instantMessagingType = "SKYPE";
     String instantMessaging = getRandomString() + "." + getRandomString();
 

@@ -2,7 +2,7 @@
 Feature: Filter Drawer
 
   Scenario: CAP110 - [Filter_Drawer_US03]Group by Labels [Group and Sort" tab under project]
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
 
     When I create a random space
     And I go to 'Tasks' application
@@ -34,7 +34,7 @@ Feature: Filter Drawer
     And Task label 'testlabel110-1' related to task name 'task110-2' is displayed in project details
 
   Scenario: CAP113 - [Filter_Drawer_US03]Sort by Title ["Group and Sort" tab under project]
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
 
     When I create a random space
     And I go to 'Tasks' application
@@ -64,7 +64,7 @@ Feature: Filter Drawer
     And In project details the task 'ctask11' is displayed in '3' place
 
   Scenario: CAP111 - [Filter_Drawer_US03] Group by Completed [Group and Sort tab under project]
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
 
     And I create a random space
     And I go to 'Tasks' application
@@ -108,7 +108,7 @@ Feature: Filter Drawer
     And Task 'task111-3' is not marked as completed and displayed in Uncompleted section
 
   Scenario: CAP53 - [Filter_Drawer_US01] Filter button in a project
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
 
     When I create a random space
     And I go to 'Tasks' application
@@ -137,11 +137,11 @@ Feature: Filter Drawer
     And Reset button is displayed in the Filter drawer
 
   Scenario: Filter project
-    Given I connect as admin if random users doesn't exists
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I create the first random user if not existing, no wait
 
-    When I connect with the first created user
+    When I login as 'first' random user
     And I create a random space
     And I click on 'Tasks' space menu tab
     And I create the project 'test Project'

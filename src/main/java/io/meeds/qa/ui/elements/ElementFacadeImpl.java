@@ -123,10 +123,11 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
           // Normal behavior since this can happen when the page is reloaded
           return;
         } else if (++retries > MAX_WAIT_RETRIES) {
-          throw new ElementClickInterceptedException(String.format("The element [%s] cannot be clicked after %s retries and %s ms of waiting",
+          throw new ElementClickInterceptedException(String.format("The element [%s] cannot be clicked after %s retries and %s ms of waiting. Current URL = %s",
                                                                    this,
                                                                    (retries - 1),
-                                                                   System.currentTimeMillis() - start),
+                                                                   System.currentTimeMillis() - start,
+                                                                   getDriver().getCurrentUrl()),
                                                      e);
         }
       }
@@ -162,7 +163,7 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
   @Override
   public void hover() {
     Actions action = new Actions(getDriver());
-    action.moveToElement(this).build().perform();
+    action.moveToElement(this).perform();
   }
 
   @Override

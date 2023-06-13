@@ -18,7 +18,6 @@
 package io.meeds.qa.ui.pages;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -29,6 +28,7 @@ import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
+import io.meeds.qa.ui.utils.Utils;
 import net.serenitybdd.markers.IsHidden;
 import net.thucydides.core.annotations.DefaultUrl;
 
@@ -40,6 +40,8 @@ public class LoginPage extends GenericPage implements IsHidden {
   private String              lastLoggedInUser                = null;
 
   private HomePage            homePage;
+
+  private String              loginUrl;
 
   public LoginPage(WebDriver driver) {
     super(driver);
@@ -60,17 +62,47 @@ public class LoginPage extends GenericPage implements IsHidden {
   }
 
   public void login(String login, String password) {
-    if (StringUtils.equals(getLastLoggedInUser(), login)) {
-      closeAllDrawers();
-    } else {
-      logout();
-      usernameInputElement().setTextValue(login);
-      passwordInputElement().setTextValue(password);
-      loginButtonElement().click();
-      verifyPageLoaded();
-      assertTrue("The home page should be loaded, but it did not !", homePage.isPortalDisplayed());
-      getDriver().manage().addCookie(new Cookie(LAST_LOGGED_IN_USER_COOKIE_NAME, login, "/"));
-      lastLoggedInUser = login;
+    login(login, password, true);
+  }
+
+  public boolean login(String login, String password, boolean throwException) { // NOSONAR
+    try {
+      if (StringUtils.isBlank(login) || StringUtils.isBlank(password)) {
+        return returnError("Username " + login + " and Password " + password + " are mandatory", throwException);
+      }
+      if (StringUtils.equals(getLastLoggedInUser(), login)) {
+        closeAllDrawers();
+      } else {
+        logout(1, Utils.MAX_WAIT_RETRIES);
+        if (!usernameInputElement().isVisible()) {
+          return returnError("Username Field isn't displayed", throwException);
+        } else {
+          setLoginUrl(getCurrentUrl());
+        }
+        usernameInputElement().setTextValue(login);
+        if (!passwordInputElement().isVisible()) {
+          return returnError("Username Field isn't displayed", throwException);
+        }
+        passwordInputElement().setTextValue(password);
+        if (!loginButtonElement().isEnabled()) {
+          return returnError("Login button isn't enabled", throwException);
+        }
+        loginButtonElement().click();
+        verifyPageLoaded();
+        if (!homePage.isPortalDisplayed()) {
+          return returnError("Home Page isn't displayed", throwException);
+        }
+        getDriver().manage().addCookie(new Cookie(LAST_LOGGED_IN_USER_COOKIE_NAME, login, "/"));
+        lastLoggedInUser = login;
+      }
+      return true;
+    } catch (RuntimeException e) {
+      if (throwException) {
+        throw e;
+      } else {
+        LOGGER.warn("An error occurred while login with user {}", login, e);
+        return false;
+      }
     }
   }
 
@@ -79,10 +111,27 @@ public class LoginPage extends GenericPage implements IsHidden {
     int i = 0;
     do {
       deleteCookies();
-      open();
+      String currentUrl = getCurrentUrl();
+      if (StringUtils.isNotBlank(currentUrl)) {
+        getDriver().get(currentUrl);
+      } else {
+        open();
+      }
     } while (!isLoginPageDisplayed() && i++ < maxRetries);
     if (i >= maxRetries) {
       throw new IllegalStateException("Can't display login page after 3 retries");
+    }
+  }
+
+  @Override
+  public String getCurrentUrl() {
+    String currentUrl = super.getCurrentUrl();
+    return StringUtils.isNotBlank(loginUrl) ? loginUrl : currentUrl;
+  }
+
+  public void setLoginUrl(String loginUrl) {
+    if (StringUtils.isNotBlank(loginUrl)) {
+      this.loginUrl = loginUrl;
     }
   }
 
@@ -91,28 +140,37 @@ public class LoginPage extends GenericPage implements IsHidden {
   }
 
   public void logout() {
+    logout(1, Utils.MAX_WAIT_RETRIES);
+    usernameInputElement().assertVisible();
+  }
+
+  private void logout(int tentative, int max) {
     if (homePage.isPortalDisplayed()) {
-      try {
-        ElementFacade logOutMenuElement = logOutMenuElement();
-        if (!logOutMenuElement.isCurrentlyVisible()) {
-          closeAllDrawers();
-          homePage.clickOnHamburgerMenu();
-        }
-        logOutMenuElement.click();
-        waitFor(50).milliseconds();
-        verifyPageLoaded();
-        usernameInputElement().checkVisible();
-      } finally {
+      ElementFacade logOutMenuElement = logOutMenuElement();
+      if (!logOutMenuElement.isCurrentlyVisible()) {
+        closeAllDrawers();
+        waitFor(200).milliseconds();
+        homePage.clickOnHamburgerMenu();
+      }
+      logOutMenuElement.click();
+      verifyPageLoaded();
+      if (usernameInputElement().isVisible()) {
         deleteLastLoginCookie();
+      } else {
+        LOGGER.warn("Error logout, tentative {}/{}. Retry by refreshing page.", tentative, max);
+        Utils.refreshPage(true);
+        logout(tentative + 1, max);
       }
     } else if (!isLoginPageDisplayed()) {
+      deleteCookies();
       openLoginPage();
     }
   }
 
   @SuppressWarnings("unchecked")
   public void checkLoginPageDisplay() {
-    List<Long> windowDimensions = (List<Long>) ((JavascriptExecutor) getDriver()).executeScript("return [window.innerWidth, window.innerHeight];");
+    List<Long> windowDimensions =
+                                (List<Long>) ((JavascriptExecutor) getDriver()).executeScript("return [window.innerWidth, window.innerHeight];");
     int windowWidth = windowDimensions.get(0).intValue();
     int windowHeight = windowDimensions.get(1).intValue();
 
@@ -124,7 +182,6 @@ public class LoginPage extends GenericPage implements IsHidden {
 
     assertEquals(0, loginElementTop);
     assertEquals(0, loginElementLeft);
-
 
     int loginElementWidth = loginElement.getRect().getWidth();
     int loginElementHeight = loginElement.getRect().getHeight();
@@ -140,8 +197,16 @@ public class LoginPage extends GenericPage implements IsHidden {
     int brandingLogoElementWidth = brandingLogoElement.getRect().getWidth();
     int brandingLogoElementHeight = brandingLogoElement.getRect().getHeight();
 
-    assertEquals((long)(windowHeight - brandingLogoElementHeight - windowHeight * 0.03d), brandingLogoElementTop);
-    assertEquals((long)(windowWidth - brandingLogoElementWidth - windowWidth * 0.03d), brandingLogoElementLeft);
+    assertEquals((long) (windowHeight - brandingLogoElementHeight - windowHeight * 0.03d), brandingLogoElementTop);
+    assertEquals((long) (windowWidth - brandingLogoElementWidth - windowWidth * 0.03d), brandingLogoElementLeft);
+  }
+
+  private boolean returnError(String message, boolean throwException) {
+    if (throwException) {
+      throw new IllegalStateException(message);
+    } else {
+      return false;
+    }
   }
 
   private void deleteLastLoginCookie() {

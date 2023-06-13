@@ -40,6 +40,18 @@ public class ManageSpaceSteps {
 
   private ManageSpacesPage manageSpacesPage;
 
+  public void joinOrGoToSpace(String spaceNamePrefix) {
+    String spaceName = sessionVariableCalled(spaceNamePrefix);
+    if (!manageSpacesPage.getCurrentUrl().contains("/spaces")) {
+      homePage.goToSpacesPage();
+    }
+    if (findSpaceCard(spaceName)) {
+      goOrJoinToSpace(spaceName);
+    } else {
+      throw new IllegalStateException("Can't find previously created space with name " + spaceName);
+    }
+  }
+
   public void addOrGoToSpace(String spaceNamePrefix) {
     String spaceName = sessionVariableCalled(spaceNamePrefix);
     String spaceUrl = sessionVariableCalled(spaceNamePrefix + "-url");
@@ -51,7 +63,7 @@ public class ManageSpaceSteps {
       } else if (!manageSpacesPage.isSpaceMenuDisplayed()) {
         boolean joined = manageSpacesPage.clickSpaceActionToJoin();
         if (joined) {
-          waitForPageLoading();
+          waitForLoading();
           return;
         }
       }
@@ -81,8 +93,7 @@ public class ManageSpaceSteps {
     manageSpacesPage.clickFirstProcessButton();
     manageSpacesPage.clickSecondProcessButton();
     manageSpacesPage.inviteUserToSpace(user);
-    manageSpacesPage.clickAddSpaceButton();
-    waitForLoading();
+    manageSpacesPage.saveSpace();
   }
 
   public void addSpaceWithRegistration(String spaceName, String registration) {
@@ -93,8 +104,7 @@ public class ManageSpaceSteps {
     manageSpacesPage.clickFirstProcessButton();
     manageSpacesPage.checkSpaceRegistration(registration);
     manageSpacesPage.clickSecondProcessButton();
-    manageSpacesPage.clickAddSpaceButton();
-    waitForLoading();
+    manageSpacesPage.saveSpace();
 
     String spaceNamePrefix = "randomSpaceName";
     setSessionVariable(spaceNamePrefix).to(spaceName);
@@ -317,6 +327,10 @@ public class ManageSpaceSteps {
 
   public void searchSpace(String spaceName) {
     manageSpacesPage.insertSpaceNameInSearchField(spaceName);
+  }
+
+  public void leaveSpace() {
+    manageSpacesPage.leaveSpace();
   }
 
   public void selectFilter(String filter) {

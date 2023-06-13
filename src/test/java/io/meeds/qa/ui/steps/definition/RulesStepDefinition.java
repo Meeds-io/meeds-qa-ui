@@ -26,6 +26,8 @@ import net.thucydides.core.annotations.Steps;
 
 import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
 
+import java.util.Map;
+
 public class RulesStepDefinition {
   @Steps
   private RulesSteps rulesSteps;
@@ -35,21 +37,51 @@ public class RulesStepDefinition {
     rulesSteps.enterRuleTitle(ruleTitle);
   }
 
+  @And("I add rule random title")
+  public void enterProgramTitle() {
+    String ruleTitle = "ruleTitle" + getRandomNumber();
+    Serenity.setSessionVariable("ruleTitle").to(ruleTitle);
+    rulesSteps.enterRuleTitle(ruleTitle);
+  }
+
   @And("^I add an event '(.*)'")
-  public void addAudienceSpace(String eventName) {
+  public void addRuleEvent(String eventName) {
     rulesSteps.addRuleEvent(eventName);
   }
 
-  @And("I click on the button to add a rule")
-  public void clickAddRuleButton() {
-    rulesSteps.clickAddRuleButton();
+  @And("I set rule end date")
+  public void setActionEndDate() {
+    rulesSteps.setActionEndDate();
   }
 
-  @And("^I add rule random description$")
+  @And("I delete rule duration")
+  public void deleteActionDuration() {
+    rulesSteps.deleteActionDuration();
+  }
+
+  @When("I set rule as disabled")
+  @And("I set rule as enabled")
+  public void changeRuleEnablement() {
+    rulesSteps.changeRuleEnablement();
+  }
+
+  @And("I click on the button to add a rule")
+  public void clickAddActionButton() {
+    rulesSteps.clickAddActionButton();
+  }
+
+  @And("I add rule random description")
   public void addRuleRandomDescription() {
     String ruleDescription = "ruleDescription" + getRandomNumber();
     Serenity.setSessionVariable("ruleDescription").to(ruleDescription);
     rulesSteps.addRuleRandomDescription(ruleDescription);
+  }
+
+  @And("^I create the '(.*)' random manual action with$")
+  public void createRandomManualRule(String suffix, Map<String, String> details) {
+    String title = "actionName" + getRandomNumber();
+    rulesSteps.createAction(title, true, details);
+    Serenity.setSessionVariable("actionName" + suffix).to(title);
   }
 
   @When("^I search for the (.*) rule in program detail rule filter$")
@@ -67,8 +99,18 @@ public class RulesStepDefinition {
     rulesSteps.clearRulesSearchFilter();
   }
 
-  @Then("^The Rule (.*) is displayed$")
-  public void ruleDisplayed(String ruleTitle) {
-    rulesSteps.isRuleDisplayed(ruleTitle);
+  @Then("^The action '(.*)' is displayed in program detail$")
+  public void isRuleDisplayedInProgramDetail(String actionTitle) {
+    rulesSteps.isActionDisplayedInProgramDetail(actionTitle);
+  }
+
+  @Then("^The action '(.*)' is not displayed in program detail$")
+  public void isRuleNotDisplayedInProgramDetail(String actionTitle) {
+    rulesSteps.isActionNotDisplayedInProgramDetail(actionTitle);
+  }
+
+  @Then("^I open program action '(.*)'$")
+  public void openActionDrawer(String actionTitle) {
+    rulesSteps.openActionDrawer(actionTitle);
   }
 }

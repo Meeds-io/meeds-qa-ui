@@ -30,23 +30,34 @@ public class LoginSteps {
 
   private LoginPage loginPage;
 
-  public void authenticate(String username) {
+  public void authenticate(String userPrefix) {
+    String username = Serenity.sessionVariableCalled(userPrefix + "UserName");
     String password = Serenity.sessionVariableCalled(username + "-password");
     loginPage.login(username, password);
   }
 
-  public void authenticateIfRandomSpaceAndUsersNotExists(String username, String spacePrefix, List<String> userPrefixes) {
+  public boolean authenticate(String userPrefix, boolean throwException) {
+    String username = Serenity.sessionVariableCalled(userPrefix + "UserName");
+    String password = Serenity.sessionVariableCalled(username + "-password");
+    return loginPage.login(username, password, throwException);
+  }
+
+  public boolean authenticate(String username, String password, boolean throwException) {
+    return loginPage.login(username, password, throwException);
+  }
+
+  public void authenticateIfRandomSpaceAndUsersNotExists(String userPrefix, String spacePrefix, List<String> userPrefixes) {
     boolean spaceDoesntExist = StringUtils.isBlank(spacePrefix) || StringUtils.isBlank(sessionVariableCalled(spacePrefix));
     boolean userDoesntExist = userPrefixes.stream()
-                                          .anyMatch(userPrefix -> StringUtils.isBlank(sessionVariableCalled(userPrefix
+                                          .anyMatch(userToCreatePrefix -> StringUtils.isBlank(sessionVariableCalled(userToCreatePrefix
                                               + "UserName")));
     if (userDoesntExist || spaceDoesntExist) {
-      authenticate(username);
+      authenticate(userPrefix);
     }
   }
 
-  public void authenticateIfUsersNotExists(String username, List<String> userPrefixes) {
-    authenticateIfRandomSpaceAndUsersNotExists(username, null, userPrefixes);
+  public void authenticateIfUsersNotExists(String userPrefix, List<String> userPrefixes) {
+    authenticateIfRandomSpaceAndUsersNotExists(userPrefix, null, userPrefixes);
   }
 
   public void deleteCookies() {

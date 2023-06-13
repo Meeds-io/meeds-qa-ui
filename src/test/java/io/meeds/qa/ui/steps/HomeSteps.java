@@ -17,7 +17,6 @@
  */
 package io.meeds.qa.ui.steps;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.meeds.qa.ui.pages.HomePage;
@@ -90,15 +89,6 @@ public class HomeSteps {
 
   public void checkRandomNotDisplaySpaceInvitation(String space) {
     homePage.checkNotExistingSpaceInvitation(space);
-  }
-
-  public List<String> checkSections(List<String> elementList) {
-    List<String> missingValues = new ArrayList<>();
-    for (String elementName : elementList) {
-      if (!homePage.isElementVisible(elementName))
-        missingValues.add(elementName);
-    }
-    return missingValues;
   }
 
   public void checkSpacesBadge(String badgeNumber) {
@@ -199,10 +189,6 @@ public class HomeSteps {
 
   public void goToOverviewPage() {
     homePage.goToOverviewPage();
-  }
-
-  public void goToTasksPage() {
-    homePage.goToTasksPage();
   }
 
   public void hoverOnPageHomeIcon(String pageName) {

@@ -49,6 +49,16 @@ import net.thucydides.core.webdriver.exceptions.ElementShouldBeVisibleException;
 
 public class TestHooks {
 
+  private static final String                ADMIN_PREFIX              = "admin";
+
+  private static final String                ADMIN_USERNAME            = System.getProperty("adminUser", "admin");
+
+  private static final String                ADMIN_PASSWORD            = System.getProperty("adminPassword", "Test1234@");
+
+  protected static final String[]            ADMIN_GROUPS              = System.getProperty("io.meeds.admin.groups",
+                                                                                            "/platform/administrators,/platform/rewarding,/platform/analytics")
+                                                                               .split(",");
+
   protected static final boolean             INIT_DATA                 =
                                                        Boolean.parseBoolean(System.getProperty("io.meeds.initData",
                                                                                                "true")
@@ -117,7 +127,7 @@ public class TestHooks {
   private ManageSpaceSteps           manageSpaceSteps;
 
   @Steps
-  AddUserSteps                       addUserSteps;
+  private AddUserSteps               addUserSteps;
 
   @After
   public void deleteDatas() {
@@ -127,9 +137,6 @@ public class TestHooks {
 
   @Before
   public void initDatas() { // NOSONAR
-    String adminPassword = System.getProperty("adminPassword");
-    Serenity.setSessionVariable("admin-password").to(adminPassword);
-
     WebDriver driver = Serenity.getDriver();
     driver.manage().timeouts().implicitlyWait(Duration.ofMillis(DEFAULT_IMPLICIT_WAIT_FOR_TIMEOUT));
 
@@ -184,7 +191,20 @@ public class TestHooks {
     } catch (Exception e) {
       LOGGER.warn("Can't logout admin user. Proceed to login phase", e);
     }
-    loginSteps.authenticate("admin");
+    if (!loginSteps.authenticate(ADMIN_USERNAME, ADMIN_PASSWORD, false)) {
+      throw new IllegalStateException("Couldn't login with admin");
+    }
+  }
+
+  private void loginAsRandomAdmin() {
+    try {
+      loginSteps.logout();
+    } catch (Exception e) {
+      LOGGER.warn("Can't logout admin user. Proceed to login phase", e);
+    }
+    if (!loginSteps.authenticate(ADMIN_PREFIX, false)) {
+      throw new IllegalStateException("Couldn't login with random admin");
+    }
   }
 
   private void warmUp(WebDriver driver) {
@@ -200,24 +220,25 @@ public class TestHooks {
     } catch (IOException e) {
       // Will attempt to warmup again next time
       LOGGER.warn("Error creating warmup file {}. Proceed to execute Test scenario without warmup.",
-                                    WARMUP_FILE_PATH,
-                                    e);
+                  WARMUP_FILE_PATH,
+                  e);
       return;
     }
 
     LOGGER.info("---- Start warmup phase with {} retries and wait time of {} seconds",
-                                  MAX_WARM_UP_RETRIES,
-                                  MAX_WARM_UP_STEP_WAIT);
+                MAX_WARM_UP_RETRIES,
+                MAX_WARM_UP_STEP_WAIT);
     long start = System.currentTimeMillis();
     int retryCount = 1;
     boolean homePageDisplayed = false;
     do {
       LOGGER.info("---- {}/{} Warmup step",
-                                    retryCount,
-                                    MAX_WARM_UP_RETRIES);
+                  retryCount,
+                  MAX_WARM_UP_RETRIES);
       try {
         driver.navigate().to(System.getProperty("webdriver.base.url"));
         Utils.waitForLoading(WARM_UP_PAGE_LOADING_WAIT, true);
+        driver.navigate().refresh();
         loginAsAdmin();
         Utils.waitForLoading(WARM_UP_PAGE_LOADING_WAIT, true);
         homePageDisplayed = isPortalDisplayed();
@@ -240,9 +261,13 @@ public class TestHooks {
       closeCurrentWindow(driver);
       throw new ElementShouldBeVisibleException("Home Page isn't displayed", null);
     }
+
+    addAdminRandomUser();
+    loginAsRandomAdmin();
     if (INIT_DATA) {
       injectData();
     }
+
     LOGGER.info("---- End warmup phase in {} seconds", (System.currentTimeMillis() - start) / 1000);
   }
 
@@ -294,18 +319,27 @@ public class TestHooks {
         "firstlang",
         "seconddisabled",
         "eighteenth",
-        "cancelfirst",
-        "cancelsecond",
         "fisrtachievement",
         "secondachievement",
         "thirdachievement",
         "fourachievement",
+        "fifthachievement",
+        "sixthachievement",
+        "seventhachievement",
+        "eighthachievement",
+        "firstrule",
+        "secondrule",
         "reddot",
         "homeicon",
     };
     if (!Arrays.stream(randomUsers).map(this::addRandomUser).allMatch(userCreated -> userCreated)) {
       throw new IllegalStateException("Some users wasn't created successfully in WarmUp phase");
     }
+  }
+
+  private void addAdminRandomUser() {
+    this.addRandomUser(ADMIN_PREFIX);
+    Arrays.stream(ADMIN_GROUPS).forEach(groupId -> addUserSteps.addUserRole(ADMIN_PREFIX, groupId, "*"));
   }
 
   private boolean addRandomUser(String randomUser) {

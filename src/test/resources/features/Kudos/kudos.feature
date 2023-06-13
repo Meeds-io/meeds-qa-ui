@@ -2,33 +2,33 @@
 Feature: Kudos
   As an administrator I can modify kudos parameters
 
-  Scenario: [EXISTANT-KUDOS 2] Sending and Receiving Kudos
-    Given I connect as admin if random users doesn't exists
+  Scenario: Sending and Receiving a kudos
+    Given I am authenticated as 'admin' if random users doesn't exists
       | firstkudos  |
       | secondkudos  |
     And I create the firstkudos random user if not existing, no wait
     And I create the secondkudos random user if not existing
-    When I connect with the secondkudos created user
+    When I login as 'secondkudos' random user
     And I go to the random space
     And I click on post in space
     And I enter an activity 'Kudos Post activity - EXISTANT-KUDOS 2'
     And I publish the activity
     Then the activity 'Kudos Post activity - EXISTANT-KUDOS 2' is displayed in activity stream
 
-    And I connect with the firstkudos created user
+    And I login as 'firstkudos' random user
     When I go to the random space
     And I send in the activity 'Kudos Post activity - EXISTANT-KUDOS 2' a kudos message 'Test Auto Kudos Module - EXISTANT-KUDOS 2'
 
-    And I connect with the secondkudos created user
+    And I login as 'secondkudos' random user
     And I go to My Profile page
     Then '1' kudos are received
 
-  Scenario: [EXISTANT-KUDOS 5] check that user cannot send kudos to himself
-    Given I connect as admin if random users doesn't exists
+  Scenario: User cannot send a kudos to himself
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I create the first random user if not existing
 
-    When I connect with the first created user
+    When I login as 'first' random user
     And I go to the random space
     When I click on post in space
     And I enter an activity 'Kudos Post - EXISTANT-KUDOS 5'
@@ -36,29 +36,29 @@ Feature: Kudos
     Then the activity 'Kudos Post - EXISTANT-KUDOS 5' is displayed in activity stream
     And kudos icon of the activity 'Kudos Post - EXISTANT-KUDOS 5' is Disabled
 
-  Scenario: EXISTANT-KUDOS 7: Sending Kudos from user profile
-    Given I connect as admin if random users doesn't exists
+  Scenario: Sending a kudos from user profile
+    Given I am authenticated as 'admin' if random users doesn't exists
       | thirdkudos  |
       | fourthkudos  |
     And I create the thirdkudos random user if not existing, no wait
     And I create the fourthkudos random user if not existing
 
-    When I connect with the fourthkudos created user
+    When I login as 'fourthkudos' random user
     And I go to the thirdkudos user profile
     And I send kudos with message 'Message for kudos - EXISTANT-KUDOS 7'
 
-    And I connect with the thirdkudos created user
+    And I login as 'thirdkudos' random user
     And I go to My Profile page
     Then '1' kudos are received
 
-  Scenario: [ActivityStream_US51][01] Edit a kudos activity
-    Given I connect as admin if random users doesn't exists
+  Scenario: Edit a kudos activity
+    Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing
 
-    When I connect with the first created user
+    When I login as 'first' random user
 
     And I search for second user card
     And I click on three dots menu
@@ -69,8 +69,8 @@ Feature: Kudos
     And I set the new kudos 'updated Message for kudos - US51' and I click on update button
     Then the updated Kudos activity 'updated Message for kudos - US51' is displayed in stream page
 
-  Scenario: [ActivityStreamKudos_US11] Send a kudos to someone different from the activity author
-    Given I connect as admin if random users doesn't exists
+  Scenario: Send a kudos to someone different from the activity author
+    Given I am authenticated as 'admin' if random users doesn't exists
       | fortyonekudos |
       | fortytwokudos |
       | fortythreekudos |
@@ -78,26 +78,26 @@ Feature: Kudos
     And I create the fortytwokudos random user if not existing, no wait
     And I create the fortythreekudos random user if not existing
 
-    When I connect with the fortyonekudos created user
+    When I login as 'fortyonekudos' random user
     And I go to the random space
     And I click on post in space
     And I enter an activity 'Hello Team - US11'
     And I publish the activity
     Then the activity 'Hello Team - US11' is displayed in activity stream
 
-    And I connect with the fortytwokudos created user
+    And I login as 'fortytwokudos' random user
     And I go to the random space
 
-    And I connect with the fortythreekudos created user
+    And I login as 'fortythreekudos' random user
     When I go to the random space
     And I send in the activity 'Hello Team - US11' a kudos message 'Kudos Message US11' to 'fortytwokudos' user
 
-    And I connect with the fortytwokudos created user
+    And I login as 'fortytwokudos' random user
     And I go to My Profile page
     Then '1' kudos are received
 
-  Scenario: People suggestor in invitation when members can't be found
-    Given I connect as admin if random users doesn't exists
+  Scenario: People suggestor in invitation when members cannot be found
+    Given I am authenticated as 'admin' if random users doesn't exists
       | fiftyonekudos |
       | fiftytwokudos |
       | fiftythreekudos |
@@ -105,64 +105,65 @@ Feature: Kudos
     And I create the fiftytwokudos random user if not existing, no wait
     And I create the fiftythreekudos random user if not existing
 
-    When I connect with the fiftyonekudos created user
+    When I login as 'fiftyonekudos' random user
     And I go to the random space
     And I click on post in space
     And I enter an activity 'Hello Team - USX'
     And I publish the activity
     Then the activity 'Hello Team - USX' is displayed in activity stream
 
-    And I connect with the fiftytwokudos created user
+    And I login as 'fiftytwokudos' random user
     When I go to the random space
     Then I send in the activity 'Hello Team - USX' a kudos message 'Kudos Message USX' to 'fiftythreekudos' user
 
   Scenario: Cancel Kudos sending from the activity author
-    Given I connect as admin if random users doesn't exists
-      | cancelfirst  |
-      | cancelsecond |
-    And I create the cancelfirst random user if not existing, no wait
-    And I create the cancelsecond random user if not existing
-    When I connect with the cancelsecond created user
+    Given I am authenticated as 'admin' random user
+    And I inject the cancelfirst random user, no wait
+    And I inject the cancelsecond random user, no wait
+
+    When I login as 'cancelsecond' random user
     And I go to the random space
     And I click on post in space
     And I enter an activity 'Kudos Post activity - Kudos comment to cancel'
     And I publish the activity
 
-    And I connect with the cancelfirst created user
+    And I login as 'cancelfirst' random user
     When I go to the random space
     And I send in the activity 'Kudos Post activity - Kudos comment to cancel' a kudos message 'Kudos comment to cancel'
 
-    And I connect with admin
+    And I login as 'admin' random user
     When I go to the random space
     Then In activity 'Kudos Post activity - Kudos comment to cancel' the cancel option in kudos comment 'Kudos comment to cancel' is not displayed
+    Then In activity 'Kudos Post activity - Kudos comment to cancel' the delete option in kudos comment 'Kudos comment to cancel' is displayed
 
-    When I connect with the cancelfirst created user
+    When I login as 'cancelfirst' random user
     And I go to the random space
-    And In activity 'Kudos Post activity - Kudos comment to cancel' I cancel the sent kudos comment 'Kudos comment to cancel'
+    Then In activity 'Kudos Post activity - Kudos comment to cancel' the delete option in kudos comment 'Kudos comment to cancel' is not displayed
+
+    When In activity 'Kudos Post activity - Kudos comment to cancel' I cancel the sent kudos comment 'Kudos comment to cancel'
+    And I refresh the page
     Then Comment 'Kudos comment to cancel' is not displayed in activity 'Kudos Post activity - Kudos comment to cancel'
     And I go to My Profile page
     Then '0' kudos are sent
 
-    When I connect with the cancelsecond created user
+    When I login as 'cancelsecond' random user
     And I go to My Profile page
     Then '0' kudos are received
 
   Scenario: Cancel Kudos sending from user profile
-    Given I connect as admin if random users doesn't exists
-      | cancelfirst  |
-      | cancelsecond |
-    And I create the cancelfirst random user if not existing, no wait
-    And I create the cancelsecond random user if not existing
+    Given I am authenticated as 'admin' random user
+    And I inject the cancelfirst random user, no wait
+    And I inject the cancelsecond random user
 
-    When I connect with the cancelfirst created user
+    When I login as 'cancelfirst' random user
     And I go to the cancelsecond user profile
     And I send kudos with message 'Message for kudos - Kudos to cancel'
 
-    When I connect with the cancelsecond created user
+    When I login as 'cancelsecond' random user
     And I go to Stream page
     Then In kudos activity 'Message for kudos - Kudos to cancel' the cancel option is not displayed
 
-    When I connect with the cancelfirst created user
+    When I login as 'cancelfirst' random user
     And I go to Stream page
     And I cancel the sent kudos activity 'Message for kudos - Kudos to cancel'
     Then the activity 'Message for kudos - Kudos to cancel' is no more displayed in the activity stream

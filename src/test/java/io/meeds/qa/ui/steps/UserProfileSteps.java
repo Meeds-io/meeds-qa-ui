@@ -23,7 +23,6 @@ import java.util.Map;
 
 import io.meeds.qa.ui.pages.KudosPage;
 import io.meeds.qa.ui.pages.UserProfilePage;
-import io.meeds.qa.ui.utils.Utils;
 
 public class UserProfileSteps {
 
@@ -131,8 +130,8 @@ public class UserProfileSteps {
     userProfilePage.checkProfileContactJobTitleVisible(job);
   }
 
-  public void openAchivementTab() {
-    userProfilePage.openAchivementTab();
+  public void openAchievementTab() {
+    userProfilePage.openAchievementTab();
   }
 
   public void openBadgeDetails() {
@@ -203,15 +202,8 @@ public class UserProfileSteps {
     userProfilePage.uploadProfileAvatar(fileName);
   }
 
-  public boolean wasMyPointIncreased(int myPointBeforeKudos) {
-    int retry = 5;
-    int index = 0;
-    // Retry at most 3 times until Gamification Points are increased
-    while (userProfilePage.getMyWeeklyPoint() <= myPointBeforeKudos && index++ < retry) {
-      userProfilePage.waitFor(3).seconds();
-      Utils.refreshPage();
-    }
-    return index < retry;
+  public void checkMyPointIncrease(int originalWeeklyPoint) {
+    userProfilePage.checkMyPointIncrease(originalWeeklyPoint);
   }
 
 }

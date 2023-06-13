@@ -2,7 +2,7 @@
 Feature: Activities
 
   Scenario: delete your activity
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I go to the random space
     When I click on post in space
     And I enter an activity 'activity to delete'
@@ -14,7 +14,7 @@ Feature: Activities
     And the activity 'activity to delete' is no more displayed in the activity stream
 
   Scenario:  delete your comment
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I go to the random space
     When I click on post in space
     And I enter an activity 'activity with comment to delete'
@@ -30,7 +30,7 @@ Feature: Activities
     And Comment 'A comment to delete' is not displayed in activity 'activity with comment to delete'
 
   Scenario: comment your activity
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I go to the random space
     When I click on post in space
     And I enter an activity 'activity to comment'

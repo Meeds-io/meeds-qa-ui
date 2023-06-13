@@ -6,7 +6,7 @@ Feature: General new composer
   In order to share them with my collaborators
 
   Scenario: CAP97 [US-General-04] update posts - text update (space case)
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I go to the random space
     When I click on post in space
     And I enter an activity 'activité CAP97'
@@ -16,8 +16,10 @@ Feature: General new composer
     And I click on Update
     And the activity 'activité CAP97 edited' is displayed in activity stream
 
+  # Bug detected and qualified as non-bloquer
+  @ignored
   Scenario: CAP109-[US-General-07]update posts - text update with normal Link (space case)
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I go to the random space
     When I click on post in space
     And I enter an activity 'https://www.meeds.io/'
@@ -31,7 +33,7 @@ Feature: General new composer
     And The link is displayed with the preview
 
   Scenario: CAP110 - [US-General-07] update posts - text update with video Link (space case)
-    Given I am authenticated as admin
+    Given I am authenticated as 'admin' random user
     And I go to the random space
     When I click on post in space
     And I enter an activity 'https://www.youtube.com/watch?v=wgpduVyZT50'

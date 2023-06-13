@@ -19,8 +19,11 @@ package io.meeds.qa.ui.steps.definition;
 
 import static io.meeds.qa.ui.utils.Utils.getIndexFomName;
 import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
+import static io.meeds.qa.ui.utils.Utils.getRandomString;
 
 import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -33,24 +36,89 @@ public class ProgramsStepDefinition {
   @Steps
   private ProgramsSteps programsSteps;
 
-  @And("^I add an audience space$")
+  @And("I add an audience space")
   public void addAudienceSpace() {
     String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
     programsSteps.addSpaceAudience(randomSpaceName);
   }
 
-  @And("^I add a disabled program with random description$")
-  public void addDisabledProgramWithRandomDescription() {
-    String disabledProgramDescription = "disabledProgramDescription" + getRandomNumber();
-    Serenity.setSessionVariable("disabledProgramDescription").to(disabledProgramDescription);
-    programsSteps.addDisabledProgramWithRandomDescription(disabledProgramDescription);
+  @And("I save the program details")
+  public void saveProgram() {
+    programsSteps.clickSaveProgramButton();
+  }
+
+  @When("I switch program as disabled")
+  @And("I switch program as enabled")
+  public void enableDisableProgram() {
+    programsSteps.enableDisableProgram();
+  }
+
+  @Then("The program status switch is not displayed")
+  public void programStatusSwitchNotDisplayed() {
+    programsSteps.checkProgramStatusSwitchNotDisplayed();
+  }
+
+  @Then("I attach an avatar to the program")
+  public void attachAvatarToProgram() {
+    programsSteps.attachAvatarToProgram();
+  }
+
+  @Then("I attach a cover to the program")
+  public void attachCoverToProgram() {
+    programsSteps.attachCoverToProgram();
+  }
+
+  @Then("The program is displayed with specific avatar")
+  public void checkProgramAvatarIsSpecificInDetail() {
+    programsSteps.checkProgramAvatarIsSpecificInDetail();
+  }
+
+  @Then("The program is displayed with specific cover")
+  public void checkProgramCoverIsSpecificInDetail() {
+    programsSteps.checkProgramCoverIsSpecificInDetail();
+  }
+
+  @Then("I delete the specific avatar of the program")
+  public void deleteAvatarFromProgram() {
+    programsSteps.deleteAvatarFromProgram();
+  }
+
+  @Then("I delete the specific cover of the program")
+  public void deleteCoverFromProgram() {
+    programsSteps.deleteCoverFromProgram();
+  }
+
+  @Then("The program is displayed with default avatar")
+  public void checkProgramAvatarIsDefaultInDetail() {
+    programsSteps.checkProgramAvatarIsDefaultInDetail();
+  }
+
+  @Then("The program is displayed with default cover")
+  public void checkProgramCoverIsDefaultInDetail() {
+    programsSteps.checkProgramCoverIsDefaultInDetail();
+  }
+
+  @Then("I click on program title to go back")
+  public void goBackUsingProgramTitle() {
+    String programName = Serenity.sessionVariableCalled("programName");
+    programsSteps.goBackUsingProgramTitle(programName);
   }
 
   @And("^I add program with random description$")
-  public void addProgramWithRandomDescription() {
+  @And("I enter a random description for program")
+  public void enterProgramRandomDescription() {
     String programDescription = "programDescription" + getRandomNumber();
     Serenity.setSessionVariable("programDescription").to(programDescription);
-    programsSteps.addProgramWithRandomDescription(programDescription);
+    programsSteps.enterProgramDescription(programDescription);
+  }
+
+  @And("^I enter the program description '(.*)' '(.*)' times$")
+  public void enterProgramDescription(String programDescription, String times) {
+    StringBuilder programLongDescription = new StringBuilder();
+    for (int i = 0; i < Integer.parseInt(times); i++) {
+      programLongDescription.append(programDescription);
+    }
+    programsSteps.enterProgramDescription(programLongDescription.toString());
   }
 
   @Then("^The drawer add program should be displayed$")
@@ -72,13 +140,13 @@ public class ProgramsStepDefinition {
   @And("^The program title should be displayed on the card$")
   public void checkProgramTitleDisplayOnCard() {
     String programName = Serenity.sessionVariableCalled("programName");
-    programsSteps.checkProgramTitleDisplayOnCard(programName);
+    programsSteps.checkProgramCardTitle(programName);
   }
 
   @And("^The program title should be updated on the card$")
   public void checkProgramTitleUpdateOnCard() {
     String newProgramName = Serenity.sessionVariableCalled("newProgramName");
-    programsSteps.checkProgramTitleUpdateOnCard(newProgramName);
+    programsSteps.checkProgramCardTitle(newProgramName);
   }
 
   @And("^I create the '(.*)' random program with$")
@@ -112,7 +180,18 @@ public class ProgramsStepDefinition {
     programsSteps.deleteCreatedProgram(programName);
   }
 
-  @And("^I edit the created program$")
+  @And("I edit the program from detail")
+  public void editProgram() {
+    programsSteps.editProgram();
+  }
+
+  @And("I edit the program from list")
+  public void editProgramFromList() {
+    String programName = Serenity.sessionVariableCalled("programName");
+    programsSteps.editProgram(programName);
+  }
+
+  @And("I change the created program with a random description")
   public void editProgramWithDescription() {
     String programName = Serenity.sessionVariableCalled("programName");
     String newProgramName = "newProgramName" + getRandomNumber();
@@ -134,6 +213,13 @@ public class ProgramsStepDefinition {
     programsSteps.enterProgramTitle(programTitle);
   }
 
+  @And("^I enter the random program title '(.*)'$")
+  public void enterRandomProgramTitle(String suffix) {
+    String programTitle = StringUtils.truncate(getRandomString(suffix) + suffix, 49);
+    Serenity.setSessionVariable("programName" + suffix).to(programTitle);
+    programsSteps.enterProgramTitle(programTitle);
+  }
+
   @Then("Engagement application center is displayed")
   public void isEngagementAppOpened() {
     programsSteps.isEngagementAppOpened();
@@ -144,14 +230,39 @@ public class ProgramsStepDefinition {
     programsSteps.selectEngagementTab(tab);
   }
 
+  @When("^I set user '(.*)' as program owner$")
+  public void addProgramOwner(String suffix) {
+    String firstName = Serenity.sessionVariableCalled(suffix + "UserFirstName");
+    String lastName = Serenity.sessionVariableCalled(suffix + "UserLastName");
+    String fullName = firstName + " " + lastName;
+
+    programsSteps.addProgramOwner(fullName);
+  }
+
   @And("^I filter programs by value '(.*)'$")
   public void selectProgramsFilter(String value) {
     programsSteps.selectProgramsFilter(value);
   }
 
+  @And("^I filter program actions by value '(.*)'$")
+  public void selectProgramActionsFilter(String value) {
+    programsSteps.selectProgramActionsFilter(value);
+  }
+
   @And("^I open '(.*)' program card$")
   public void openProgramCard(String value) {
     programsSteps.openProgramCard(value);
+  }
+
+  @And("^I open '(.*)' random program card$")
+  public void openRandomProgramCard(String suffix) {
+    String programName = Serenity.sessionVariableCalled("programName" + suffix);
+    programsSteps.openProgramCard(programName);
+  }
+
+  @And("I close program card")
+  public void closeProgramCard() {
+    programsSteps.closeProgramCard();
   }
 
   @And("^I open random program card$")
@@ -160,11 +271,51 @@ public class ProgramsStepDefinition {
     programsSteps.openProgramCard(programName);
   }
 
+  @And("^I edit program action '(.*)'$")
+  public void editProgramAction(String actionTitle) {
+    programsSteps.editProgramAction(actionTitle);
+  }
+
+  @And("^I delete program action '(.*)'$")
+  public void deleteProgramAction(String actionTitle) {
+    programsSteps.deleteProgramAction(actionTitle);
+  }
+
+  @And("I cannot announce program action")
+  public void checkCannotAnnounceAction() {
+    programsSteps.checkCannotAnnounceAction();
+  }
+
+  @And("The program action does not contain duration limitation")
+  public void checkProgramActionNotContainsDurationLimitation() {
+    programsSteps.checkProgramActionNotContainsDurationLimitation();
+  }
+
+  @And("The program action contains duration limitation")
+  public void checkProgramActionContainsDurationLimitation() {
+    programsSteps.checkProgramActionContainsDurationLimitation();
+  }
+
   @And("^I announce challenge '(.*)'$")
-  public void announceChallenge(String challengeTitle) {
+  public void announceAction(String challengeTitle) {
     String announcementMessage = "announcementMessage" + getRandomNumber();
     Serenity.setSessionVariable("announcementMessage").to(announcementMessage);
-    programsSteps.announceChallenge(challengeTitle, announcementMessage);
+    programsSteps.announceAction(challengeTitle, announcementMessage);
+  }
+
+  @Then("Actions Filter dropdown is displayed")
+  public void checkActionsFilterIsDisplayed() {
+    programsSteps.checkActionsFilterIsDisplayed();
+  }
+
+  @Then("Admin Actions Filter dropdown is not displayed")
+  public void checkAdminActionsFilterIsNotDisplayed() {
+    programsSteps.checkAdminActionsFilterIsNotDisplayed();
+  }
+
+  @Then("Admin Actions Filter dropdown is displayed")
+  public void checkAdminActionsFilterIsDisplayed() {
+    programsSteps.checkAdminActionsFilterIsDisplayed();
   }
 
 }

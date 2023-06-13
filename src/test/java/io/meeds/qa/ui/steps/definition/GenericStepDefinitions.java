@@ -19,11 +19,15 @@ package io.meeds.qa.ui.steps.definition;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.meeds.qa.ui.steps.GenericSteps;
+import io.meeds.qa.ui.utils.Utils;
 import net.thucydides.core.annotations.Steps;
 
 public class GenericStepDefinitions {
@@ -38,9 +42,64 @@ public class GenericStepDefinitions {
                                                       .isTrue();
   }
 
+  @When("The button '{}' is not displayed")
+  public void checkButtonNotdisplayed(String button) {
+    assertThat(genericSteps.isButtonDisplayed(button)).as(String.format("The button %s should not be displayed but it was",
+                                                                        button))
+                                                      .isFalse();
+  }
+
   @When("Confirmation message is displayed '{}'")
   public void checkConfirmMessage(String message) {
     genericSteps.checkConfirmMessageIsDisplayed(message);
+  }
+
+  @When("I switch the page to '{}' language")
+  public void switchPageLanguage(String lang) {
+    genericSteps.switchPageLanguage(lang);
+  }
+
+  @When("The '{}' translations button is primary")
+  public void checkTranslationButtonIsPrimary(String indexName) {
+    int index = Utils.getIndexFomName(indexName);
+    genericSteps.checkTranslationButtonIsPrimary(index);
+  }
+
+  @When("The '{}' translations button is not primary")
+  public void checkTranslationButtonIsNotPrimary(String indexName) {
+    int index = Utils.getIndexFomName(indexName);
+    genericSteps.checkTranslationButtonIsNotPrimary(index);
+  }
+
+  @When("I open translations drawer for the '{}' input")
+  public void openTranslationsDrawer(String indexName) {
+    int index = Utils.getIndexFomName(indexName);
+    genericSteps.openTranslationsDrawer(index);
+  }
+
+  @When("I add the following '{}' translations")
+  public void addTranslationValues(String fieldType, Map<String, String> valuesByLanguage) {
+    genericSteps.addTranslationValues(fieldType, valuesByLanguage);
+  }
+
+  @When("The message '{}' is displayed")
+  public void checkMessageIsDisplayed(String message) {
+    genericSteps.checkMessageIsDisplayed(message);
+  }
+
+  @When("The message '{}' is displayed in page")
+  public void checkMessageIsDisplayedInPage(String message) {
+    genericSteps.checkMessageIsDisplayedInPage(message);
+  }
+
+  @When("The message '{}' is not displayed")
+  public void checkMessageIsNotDisplayed(String message) {
+    genericSteps.checkMessageIsNotDisplayed(message);
+  }
+
+  @When("The message '{}' is not displayed in page")
+  public void checkMessageIsNotDisplayedInPage(String message) {
+    genericSteps.checkMessageIsNotDisplayedInPage(message);
   }
 
   @When("^The '(.*)' drawer is displayed$")
@@ -74,8 +133,7 @@ public class GenericStepDefinitions {
 
   @When("success message is displayed")
   public void checkSuccessMessage() {
-    assertThat(genericSteps.isSuccessMessageDisplayed()).as("Success message should be displayed but it is not")
-                                                        .isTrue();
+    genericSteps.checkSuccessMessageDisplayed();
   }
 
   @When("^I confirm$")
@@ -83,9 +141,79 @@ public class GenericStepDefinitions {
     genericSteps.clickConfirm();
   }
 
-  @When("^I click on 'OK' button$")
-  public void clickOkButton() {
-    genericSteps.clickOkButton();
+  @When("^I click on '(.*)' button$")
+  public void clickButton(String buttonText) {
+    genericSteps.clickButton(buttonText);
+  }
+
+  @When("^I click on '(.*)' link$")
+  public void clickOnLink(String linkText) {
+    genericSteps.clickLink(linkText);
+  }
+
+  @When("^I click on '(.*)' button in drawer$")
+  public void clickDrawerButton(String buttonText) {
+    genericSteps.clickDrawerButton(buttonText);
+  }
+
+  @When("^I click on '(.*)' button in second level drawer$")
+  public void clickSelecdLevelDrawerButton(String buttonText) {
+    genericSteps.clickSelecdLevelDrawerButton(buttonText);
+  }
+
+  @Then("^The button '(.*)' is disabled$")
+  public void buttonIsDisabled(String buttonText) {
+    genericSteps.buttonIsDisabled(buttonText);
+  }
+
+  @Then("^The button '(.*)' is enabled")
+  public void buttonIsEnabled(String buttonText) {
+    genericSteps.buttonIsEnabled(buttonText);
+  }
+
+  @Then("^The button '(.*)' is disabled in drawer$")
+  public void buttonInDrawerIsDisabled(String buttonText) {
+    genericSteps.buttonInDrawerIsDisabled(buttonText);
+  }
+
+  @Then("^The button '(.*)' is enabled in drawer$")
+  public void buttonInDrawerIsEnabled(String buttonText) {
+    genericSteps.buttonInDrawerIsEnabled(buttonText);
+  }
+
+  @Then("^The button '(.*)' is not displayed in drawer$")
+  public void buttonInDrawerIsNotDisplayed(String buttonText) {
+    genericSteps.buttonInDrawerIsNotDisplayed(buttonText);
+  }
+
+  @Then("^The button '(.*)' is displayed in drawer$")
+  public void buttonInDrawerIsDisplayed(String buttonText) {
+    genericSteps.buttonInDrawerIsDisplayed(buttonText);
+  }
+
+  @When("I wait for drawer to open")
+  public void waitForDrawerToOpen() {
+    genericSteps.waitForDrawerToOpen();
+  }
+
+  @When("I wait for application loading")
+  public void waitApplicationLoading() {
+    Utils.waitForLoading();
+  }
+
+  @When("I sort table by '{}'")
+  public void sortTableByField(String fieldText) {
+    genericSteps.sortTableByField(fieldText);
+  }
+
+  @When("I wait for drawer to close")
+  public void waitForDrawerToClose() {
+    genericSteps.waitForDrawerToClose();
+  }
+
+  @When("I close the notification")
+  public void closeOpenedNotification() {
+    genericSteps.closeOpenedNotification();
   }
 
   @When("I close browser tab {int}")
@@ -98,7 +226,23 @@ public class GenericStepDefinitions {
     genericSteps.closeDrawerIfDisplayed();
   }
 
+  @Then("I expand the drawer")
+  public void expandDrawer() {
+    genericSteps.expandDrawer();
+  }
+
+  @Then("I click on go back button")
+  public void clickOnGoBack() {
+    genericSteps.clickOnGoBack();
+  }
+
+  @Then("I click on go back button in drawer")
+  public void clickOnGoBackInDrawer() {
+    genericSteps.clickOnGoBackInDrawer();
+  }
+
   @When("I wait '{int}' seconds")
+  @And("I wait for '{int}' seconds")
   public void waitInSeconds(int seconds) {
     genericSteps.waitInSeconds(seconds);
   }
@@ -107,4 +251,20 @@ public class GenericStepDefinitions {
   public void waitInMilliseconds(int milliseconds) {
     genericSteps.waitInMilliseconds(milliseconds);
   }
+
+  @Then("^The switch button '(.*)' is not displayed$")
+  public void checkSwitchButtonNotDisplayed(String buttonName) {
+    genericSteps.checkSwitchButtonNotDisplayed(buttonName);
+  }
+
+  @Then("^The switch button '(.*)' is displayed$")
+  public void checkSwitchButtonDisplayed(String buttonName) {
+    genericSteps.checkSwitchButtonDisplayed(buttonName);
+  }
+
+  @Then("^I enable the switch button '(.*)'$")
+  public void enableSwitchButtonDisplayed(String buttonName) {
+    genericSteps.enableSwitchButtonDisplayed(buttonName);
+  }
+
 }
