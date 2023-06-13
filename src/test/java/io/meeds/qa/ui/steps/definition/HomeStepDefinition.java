@@ -170,13 +170,6 @@ public class HomeStepDefinition {
     homeSteps.isPageOpened(uriPart);
   }
 
-  @When("the following sections are displayed")
-  public void checkSections(List<String> sliderList) {
-    assertThat(homeSteps.checkSections(sliderList)).as(String.format("The section %s is not visible",
-                                                                     homeSteps.checkSections(sliderList)))
-                                                   .isEmpty();
-  }
-
   @When("^The Spaces badge is '(.*)'$")
   public void checkSpaceBadge(String badgeNumber) {
     homeSteps.checkSpacesBadge(badgeNumber);
@@ -307,7 +300,7 @@ public class HomeStepDefinition {
     homeSteps.goToHomePage();
   }
 
-  @When("^I go to Person Page$")
+  @When("^I go to People Page$")
   public void goToPeoplePage() {
     homeSteps.goToPeoplePage();
   }
@@ -335,12 +328,6 @@ public class HomeStepDefinition {
   @Given("^I go to Overview page$")
   public void goToOverviewPage() {
     homeSteps.goToOverviewPage();
-  }
-
-
-  @When("^I go to Tasks Page$")
-  public void goToTasksPage() {
-    homeSteps.goToTasksPage();
   }
 
   @And("^I mouse over the '(.*)' icon in sidebar menu$")
