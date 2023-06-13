@@ -17,6 +17,7 @@
  */
 package io.meeds.qa.ui.pages;
 
+import static io.meeds.qa.ui.utils.Utils.MAX_WAIT_RETRIES;
 import static io.meeds.qa.ui.utils.Utils.refreshPage;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
@@ -373,8 +374,6 @@ public class PeoplePage extends GenericPage {
   public boolean searchUser(String user) {
     TextBoxElementFacade inputField = searchPeopleInputElement();
     inputField.checkVisible();
-
-    inputField.waitUntilVisible();
     inputField.setTextValue(user + "x");
 
     boolean visible = false;
@@ -389,10 +388,9 @@ public class PeoplePage extends GenericPage {
       userCard.setImplicitTimeout(retryWaitTime);
       visible = userCard.isVisible();
       if (visible) {
-        userCard.click();
         return true;
       }
-    } while (!visible && retry++ < 3); // NOSONAR
+    } while (!visible && retry++ < MAX_WAIT_RETRIES); // NOSONAR
     return false;
   }
 
