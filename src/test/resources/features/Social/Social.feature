@@ -40,7 +40,7 @@ Feature: Social
     # Wait for Elasticsearch indexing
     And I wait '3' seconds
     And I refresh the page
-    And I go to Person Page
+    And I go to People Page
     And I click on People filter and I select My connections
     Then The search result is well matched with the username entered of the first user
 
