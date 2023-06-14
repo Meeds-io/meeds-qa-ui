@@ -4,8 +4,6 @@ Feature: Insert links
   I want to publish links via the new composer
   In order to share them with my collaborators
 
-  # Bug detected and qualified as non-bloquer
-  @ignored
   Scenario: CAP29-[US-insertLink-01] insert a link from composer drawer (space case)
     Given I am authenticated as 'admin' random user
     And I go to the random space
