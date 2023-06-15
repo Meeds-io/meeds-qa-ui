@@ -215,7 +215,7 @@ public class RulePage extends GenericPage {
   }
 
   private ElementFacade addActionButton() {
-    return findByXPathOrCSS("//*[@id = 'engagementCenterProgramDetail']//*[contains(text(), 'Add Action') or contains(text(), 'Add incentive')]//ancestor::button");
+    return findByXPathOrCSS("//*[@id = 'engagementCenterProgramDetail']//*[contains(text(), 'Add Action') or contains(text(), 'Add action')]//ancestor::button");
   }
 
   private ButtonElementFacade ruleEventsMenuItem(String eventName) {

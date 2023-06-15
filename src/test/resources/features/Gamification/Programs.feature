@@ -97,7 +97,7 @@ Feature: Programs
     Then Confirmation message is displayed 'New program created successfully'
 
     When I close the notification
-    And I click on 'Add incentive' button
+    And I click on 'Add action' button
     And I wait for drawer to open
     When I enter the rule title 'Program Translation Action'
 
@@ -160,7 +160,7 @@ Feature: Programs
 
     Then The program is displayed with specific cover
 
-    And I click on 'Add incentive' button
+    And I click on 'Add action' button
     And I wait for drawer to open
     When I enter the rule title 'Program With Image Action'
     When I add rule random description
@@ -218,7 +218,7 @@ Feature: Programs
     Then success message is displayed
     When I close the notification
 
-    And I click on 'Add incentive' button
+    And I click on 'Add action' button
     And I wait for drawer to open
     When I enter the rule title 'Internal users action'
     When I add rule random description
@@ -289,7 +289,7 @@ Feature: Programs
     When I close the notification
     Then The button 'Activate the program' is not displayed
 
-    And I click on 'Add incentive' button
+    And I click on 'Add action' button
     And I wait for drawer to open
     Then The button 'Next' is disabled
     When I enter the rule title 'Program activation test'
@@ -320,7 +320,7 @@ Feature: Programs
     And I close the notification
 
     Then The button 'Activate the program' is not displayed
-    And The message 'No active incentives' is displayed
+    And The message 'No active action' is displayed
 
     When I filter program actions by value 'ALL'
     And I edit program action 'Program activation test'
@@ -335,7 +335,7 @@ Feature: Programs
     And I close the notification
 
     Then The button 'Activate the program' is not displayed
-    And The message 'No active incentives' is not displayed
+    And The message 'No active action' is not displayed
 
     When I delete program action 'Program activation test'
 
