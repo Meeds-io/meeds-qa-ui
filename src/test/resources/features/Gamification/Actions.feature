@@ -14,7 +14,7 @@ Feature: Actions
     And I add an audience space
     And I save the program details
 
-    And I click on 'Add incentive' button
+    And I click on 'Add action' button
     And I wait for drawer to open
 
     Then The button 'Next' is disabled in drawer
@@ -90,7 +90,7 @@ Feature: Actions
     And I add an audience space
     And I save the program details
 
-    And I click on 'Add incentive' button
+    And I click on 'Add action' button
     And I wait for drawer to open
 
     When I enter the rule title 'Challenge to disable'
@@ -141,7 +141,7 @@ Feature: Actions
     And I add an audience space
     And I save the program details
 
-    And I click on 'Add incentive' button
+    And I click on 'Add action' button
     And I wait for drawer to open
     And I enter the rule title 'Challenge To Cancel'
     And I add rule random description
@@ -186,7 +186,7 @@ Feature: Actions
     And I add an audience space
     And I save the program details
 
-    And I click on 'Add incentive' button
+    And I click on 'Add action' button
     And I wait for drawer to open
     And I enter the rule title 'Announce activity to delete'
     And I add rule random description
@@ -230,7 +230,7 @@ Feature: Actions
     And I add an audience space
     And I save the program details
 
-    And I click on 'Add incentive' button
+    And I click on 'Add action' button
     And I wait for drawer to open
     And I enter the rule title 'Top challenge'
     And I add rule random description

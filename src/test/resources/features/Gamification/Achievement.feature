@@ -15,7 +15,7 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
 
-    And I click on 'Add incentive' button
+    And I click on 'Add action' button
     And I wait for drawer to open
     And I enter the rule title 'Send kudos'
     And I add rule random description
@@ -99,7 +99,7 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
 
-    And I click on 'Add incentive' button
+    And I click on 'Add action' button
     And I wait for drawer to open
     And I enter the rule title 'Send kudos'
     And I add rule random description
@@ -171,7 +171,7 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
 
-    And I click on 'Add incentive' button
+    And I click on 'Add action' button
     And I wait for drawer to open
     And I enter the rule title 'Join space'
     And I add rule random description
@@ -259,7 +259,7 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
 
-    And I click on 'Add incentive' button
+    And I click on 'Add action' button
     And I wait for drawer to open
     And I enter the rule title 'Join space'
     And I add rule random description
@@ -376,7 +376,7 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
 
-    When I click on 'Add incentive' button
+    When I click on 'Add action' button
     And I wait for drawer to open
     And I enter the rule title 'Post activity in a space'
     And I add rule random description
@@ -425,7 +425,7 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
 
-    When I click on 'Add incentive' button
+    When I click on 'Add action' button
     And I wait for drawer to open
     And I enter the rule title 'Comment activity in space'
     And I add rule random description
@@ -489,7 +489,7 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
 
-    When I click on 'Add incentive' button
+    When I click on 'Add action' button
     And I wait for drawer to open
     And I enter the rule title 'Like activity in space'
     And I add rule random description
@@ -551,7 +551,7 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
 
-    When I click on 'Add incentive' button
+    When I click on 'Add action' button
     And I wait for drawer to open
     And I enter the rule title 'Like stream comment in space'
     And I add rule random description
@@ -614,7 +614,7 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
 
-    And I click on 'Add incentive' button
+    And I click on 'Add action' button
     And I wait for drawer to open
     And I enter the rule title 'Cancel Space Join'
     And I add rule random description
