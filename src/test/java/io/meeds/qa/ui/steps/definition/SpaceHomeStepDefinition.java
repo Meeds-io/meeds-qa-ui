@@ -639,11 +639,6 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.noCommentDisplayedInDrawer();
   }
 
-  @Then("^The link preview '(.*)' is displayed in activity stream$")
-  public void normalLinkPreviewIsVisible(String link) {
-    spaceHomeSteps.normalLinkPreviewIsVisible(link);
-  }
-
   @When("^I click on likers number of the activity '(.*)'$")
   public void openActivityReactionsDrawer(String activity) {
     spaceHomeSteps.openActivityReactionsDrawer(activity);
