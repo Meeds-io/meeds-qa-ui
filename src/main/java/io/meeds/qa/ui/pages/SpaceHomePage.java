@@ -779,10 +779,6 @@ public class SpaceHomePage extends GenericPage {
     findByXPathOrCSS("//*[@class='text-capitalize-first-letter' and contains(text(),'No comment yet')]").assertVisible();
   }
 
-  public void normalLinkPreviewIsVisible(String link) {
-    getNormalLinkPreview(link).assertVisible();
-  }
-
   public void openActivityReactionsDrawer(String activity) {
     getReactionActivityLink(activity).click();
     waitForDrawerToOpen();
@@ -1375,11 +1371,6 @@ public class SpaceHomePage extends GenericPage {
 
   private ElementFacade getMentionedUserInCommentEntered(String user) {
     return findByXPathOrCSS(String.format("//*[@class='atwho-inserted']//*[contains(text(),'%s')]", user));
-  }
-
-  private ElementFacade getNormalLinkPreview(String link) {
-    return findByXPathOrCSS(String.format("//*[contains(@id,'Extactivity-content-extensions')]//*[contains(@class,'activity-thumbnail-box') and @href='%s']",
-                                          link));
   }
 
   private ElementFacade getPinActivityIcon(String activity) {

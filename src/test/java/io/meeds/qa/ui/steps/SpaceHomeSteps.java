@@ -405,10 +405,6 @@ public class SpaceHomeSteps {
     spaceHomePage.noCommentDisplayedInDrawer();
   }
 
-  public void normalLinkPreviewIsVisible(String link) {
-    spaceHomePage.normalLinkPreviewIsVisible(link);
-  }
-
   public void openActivityReactionsDrawer(String activity) {
     spaceHomePage.openActivityReactionsDrawer(activity);
   }
