@@ -80,7 +80,7 @@ public class ProgramsSteps {
   public void editProgram(String programName) {
     programsPage.editProgram(programName);
   }
-  
+
   public void editProgramWithDescription(String programName, String newProgramName, String newProgramDescription) {
     programsPage.editProgramWithDescription(programName, newProgramName, newProgramDescription);
   }
@@ -137,6 +137,14 @@ public class ProgramsSteps {
     programsPage.announceAction(challengeTitle, announcementMessage);
   }
 
+  public void announceActionFromActivity(String challengeTitle, String announcementMessage) {
+    programsPage.announceActionFromActivity(challengeTitle, announcementMessage);
+  }
+
+  public void sendAnnouncementMessage(String announcementMessage) {
+    programsPage.sendAnnouncementMessage(announcementMessage);
+  }
+
   public void createRandomProgram(String programName, Map<String, String> details) {
     clickAddProgramBtn();
 
@@ -171,7 +179,7 @@ public class ProgramsSteps {
   public void checkAdminActionsFilterIsNotDisplayed() {
     programsPage.checkAdminActionsFilterIsNotDisplayed();
   }
-  
+
   public void checkAdminActionsFilterIsDisplayed() {
     programsPage.checkAdminActionsFilterIsDisplayed();
   }

@@ -67,11 +67,11 @@ public class TestHooks {
   protected static final String              WARMUP_FILE_PATH          = System.getProperty("io.meeds.warmUp.file",
                                                                                             "warmUpFile.tmp");
 
-  private static final int                   WARM_UP_PAGE_LOADING_WAIT = 10;
+  private static final int                   WARM_UP_PAGE_LOADING_WAIT = 30;
 
   private static final int                   MAX_WARM_UP_STEP_WAIT     = 5;
 
-  private static final int                   MAX_WARM_UP_RETRIES       = 100;
+  private static final int                   MAX_WARM_UP_RETRIES       = 30;
 
   protected static final Map<String, String> SPACES                    = new HashMap<>();
 
@@ -177,14 +177,6 @@ public class TestHooks {
     }
   }
 
-  private boolean isPortalDisplayed() {
-    try {
-      return homeSteps.isPortalDisplayed();
-    } catch (Exception e) {
-      return false;
-    }
-  }
-
   private void loginAsAdmin() {
     try {
       loginSteps.logout();
@@ -239,9 +231,11 @@ public class TestHooks {
         driver.navigate().to(System.getProperty("webdriver.base.url"));
         Utils.waitForLoading(WARM_UP_PAGE_LOADING_WAIT, true);
         driver.navigate().refresh();
+        loginSteps.waitForUsernameInputDisplay(MAX_WARM_UP_RETRIES);
         loginAsAdmin();
         Utils.waitForLoading(WARM_UP_PAGE_LOADING_WAIT, true);
-        homePageDisplayed = isPortalDisplayed();
+        homeSteps.waitPortalDisplayed(MAX_WARM_UP_RETRIES);
+        homePageDisplayed = homeSteps.isPortalDisplayed();
         if (!homePageDisplayed) {
           throw new ElementShouldBeVisibleException("Home Page isn't displayed", null);
         }
