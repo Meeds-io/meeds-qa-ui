@@ -194,6 +194,15 @@ public class ProgramsPage extends GenericPage {
   public void announceAction(String actionTitle, String announcementMessage) {
     getActionItemElement(actionTitle).hover();
     announceButton().click();
+    sendAnnouncementMessage(announcementMessage);
+  }
+
+  public void announceActionFromActivity(String actionTitle, String announcementMessage) {
+    activityAnnounceButton(actionTitle).click();
+    sendAnnouncementMessage(announcementMessage);
+  }
+
+  public void sendAnnouncementMessage(String announcementMessage) {
     ElementFacade ckEditorFrameAnnouncementElement = ckEditorFrameElement();
     ckEditorFrameAnnouncementElement.waitUntilVisible();
     getDriver().switchTo().frame(ckEditorFrameAnnouncementElement);
@@ -380,8 +389,13 @@ public class ProgramsPage extends GenericPage {
     return findByXPathOrCSS(String.format("//ancestor::tbody//ancestor::*[contains(@title,'%s')]", challengeTitle));
   }
 
+  private ElementFacade activityAnnounceButton(String ruleTitle) {
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'activity-detail')]//*[contains(@class, 'activity-footer')]//*[contains(@class, 'bullhorn')]",
+                                          ruleTitle));
+  }
+
   private ElementFacade announceButton() {
-    return findByXPathOrCSS("//*[@id = 'engagementCenterProgramDetail']//*[contains(@class, 'v-data-table')]//*[contains(@class, 'fa-bullhorn')]");
+    return findByXPathOrCSS("//*[contains(@class, 'fa-bullhorn')]");
   }
 
   private ElementFacade actionMenuButton() {

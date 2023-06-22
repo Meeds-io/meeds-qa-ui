@@ -46,7 +46,7 @@ Feature: Actions
 
     And I go to 'Contributions' application
     And I open random program card
-    And I announce challenge 'Challenge to announce'
+    And I announce challenge 'Challenge to announce' with message 'announcement10'
 
     And I click on 'See' link
 
@@ -106,6 +106,142 @@ Feature: Actions
 
     Then Confirmation message is displayed 'Action has been successfully created'
 
+  @test
+  Scenario: Announce an action from its activity
+    Given I am authenticated as 'admin' random user
+    And I create the random space if not existing
+
+    And I go to 'Contributions' application
+    And I click on the button add program
+    And I enter a random program title
+    And I add program with random description
+    And I click on 'Next' button in drawer
+    And I add an audience space
+    And I save the program details
+
+    And I click on 'Add action' button
+    And I wait for drawer to open
+
+    When I enter the rule title 'Action with activity'
+    Then The button 'Next' is disabled in drawer
+
+    And I add rule random description
+    Then The button 'Next' is disabled in drawer
+
+    When I click on 'Declarative' button in drawer
+    And I click on 'Next' button in drawer
+    And I set rule end date
+    And I click on 'Add' button in drawer
+
+    Then Confirmation message is displayed 'Action has been successfully created'
+    When I close the notification
+
+    Then The action 'Action with activity' is displayed in program detail
+    When I click on 'Activate the program' button
+    Then Confirmation message is displayed 'Program activated'
+    When I close the notification
+
+    When I go to Stream page
+    Then The message 'Action with activity' is not displayed
+
+    When I go to 'Contributions' application
+    And I open random program card
+    And I edit program action 'Action with activity'
+    And I click on 'Next' button in drawer
+    And I enable rule publication
+    And I set rule publication message 'Action publication message'
+    And I click on 'Update' button in drawer
+    Then Confirmation message is displayed 'Action has been successfully updated'
+    When I close the notification
+
+    When I go to Stream page
+    Then The message 'Action with activity' is displayed
+
+    When I click on 'Action with activity' text
+    Then '0' participants is displayed in action drawer
+
+    When I click on 'Announce' button in drawer
+    And I announce action with message 'announcement12'
+    And I close the notification
+    Then The comment 'announcement12' is displayed
+
+    When I click on 'Action with activity' text
+    Then '1' participants is displayed in action drawer
+
+    When I go to the action from opened drawer
+    Then '1' participants is displayed in action drawer
+
+    When I go to the activity of opened action
+    And I click on 'Action with activity' text
+    Then '1' participants is displayed in action drawer
+
+    When I go to the random space
+    Then The message 'Action with activity' is displayed
+    And The message 'Action publication message' is displayed
+    And The comment 'announcement12' is displayed
+
+    When I click on three dots button related to activity 'Action with activity'
+    And I click on 'Hide' menu item
+    And I confirm
+    Then The message 'Action with activity' is not displayed
+
+    When I go to 'Contributions' application
+    And I open random program card
+    And I click on 'Action with activity' text
+    And I go to the activity of opened action
+    And I click on three dots button related to activity 'Action with activity'
+    And I click on 'Unhide' menu item
+    And I go to the random space
+
+    Then The message 'Action with activity' is displayed
+
+    When I go to 'Contributions' application
+    And I open random program card
+    And I click on 'Add Action' button
+    And I wait for drawer to open
+
+    When I enter the rule title 'Action with second activity'
+    And I add rule random description
+    When I click on 'Declarative' button in drawer
+    And I click on 'Next' button in drawer
+    And I set rule end date
+    And I click on 'Add' button in drawer
+
+    Then Confirmation message is displayed 'Action has been successfully created'
+    And I close the notification
+
+    When I go to the random space
+    Then The message 'Action with second activity' is displayed
+    And The button 'Announce' is displayed
+
+  Scenario: Cannot Announce a disabled challenge
+    Given I am authenticated as 'admin' random user
+    And I create the random space if not existing
+
+    And I go to 'Contributions' application
+    And I click on the button add program
+    And I enter a random program title
+    And I add program with random description
+    And I click on 'Next' button in drawer
+    And I add an audience space
+    And I save the program details
+
+    And I click on 'Add action' button
+    And I wait for drawer to open
+
+    When I enter the rule title 'Challenge to disable'
+    Then The button 'Next' is disabled in drawer
+
+    And I add rule random description
+    Then The button 'Next' is disabled in drawer
+
+    When I click on 'Declarative' button in drawer
+    And I click on 'Next' button in drawer
+    And I set rule end date
+    And I click on 'Add' button in drawer
+
+    Then Confirmation message is displayed 'Action has been successfully created'
+
     When I close the notification
     Then The action 'Challenge to disable' is displayed in program detail
     When I click on 'Activate the program' button
@@ -129,52 +265,7 @@ Feature: Actions
     Then I cannot announce program action
     And I close the opened drawer
 
-  Scenario: Cancel a challenge
-    Given I am authenticated as 'admin' random user
-    And I create the first random user if not existing, no wait
-    And I create the random space if not existing
-    And I go to 'Contributions' application
-    And I click on the button add program
-    And I enter a random program title
-    And I add program with random description
-    And I click on 'Next' button in drawer
-    And I add an audience space
-    And I save the program details
-
-    And I click on 'Add action' button
-    And I wait for drawer to open
-    And I enter the rule title 'Challenge To Cancel'
-    And I add rule random description
-    And I click on 'Declarative' button in drawer
-    And I click on 'Next' button in drawer
-    And I set rule end date
-    And I click on 'Add' button in drawer
-
-    Then Confirmation message is displayed 'Action has been successfully created'
-    When I close the notification
-    Then The action 'Challenge To Cancel' is displayed in program detail
-    When I click on 'Activate the program' button
-    Then Confirmation message is displayed 'Program activated'
-
-    When I close the notification
-
-    When I login as 'first' random user
-    And I go to the random space
-
-    And I go to 'Contributions' application
-    And I open random program card
-    And I announce challenge 'Challenge To Cancel'
-
-    And I click on 'See' link
-
-    Then The activity 'Challenge To Cancel' is displayed
-    When I cancel the announcement challenge 'Challenge To Cancel'
-
-    And I go to 'Contributions' application
-    When I select engagement Achievements tab
-    Then Achievement for 'Challenge To Cancel' is canceled
-
-  Scenario: Delete announce Activity
+  Scenario: Cancel an announcement
     Given I am authenticated as 'admin' random user
     And I create the first random user if not existing, no wait
     And I create the random space if not existing
@@ -208,15 +299,26 @@ Feature: Actions
 
     And I go to 'Contributions' application
     And I open random program card
-    And I announce challenge 'Announce activity to delete'
+    And I announce challenge 'Announce activity to delete' with message 'announcement8'
 
-    And I go to Stream page
-    When I click on three dots button related to activity 'Announce activity to delete'
-    And I click on Delete button related to activity 'Announce activity to delete'
+    When I click on 'See' link
+    Then The comment 'announcement8' is displayed in Comments drawer
+
+    When I close the opened drawer
+    Then The comment 'announcement8' is displayed
+    And I click on three dots button related to comment 'announcement8'
+    And I click on 'Cancel' button related to comment 'announcement8'
     And I click on Yes button
+
+    And I announce challenge 'Announce activity to delete' with message 'announcement11' from activity
+    Then The comment 'announcement11' is displayed
+    And I click on three dots button related to comment 'announcement11'
+    And I click on 'Cancel' button related to comment 'announcement11'
+    And I click on Yes button
+
     And I go to 'Contributions' application
     When I select engagement Achievements tab
-    Then Achievement for 'Announce activity to delete' is rejected due to activity deletion
+    Then Achievement for 'Announce activity to delete' is canceled
 
   Scenario: Overview top challenge
     Given I am authenticated as 'admin' random user
@@ -255,13 +357,13 @@ Feature: Actions
 
     And I go to 'Contributions' application
     And I open random program card
-    And I announce challenge 'Top challenge'
+    And I announce challenge 'Top challenge' with message 'announcement7'
     And I close the notification
-    And I announce challenge 'Top challenge'
+    And I announce challenge 'Top challenge' with message 'announcement6'
     And I close the notification
-    And I announce challenge 'Top challenge'
+    And I announce challenge 'Top challenge' with message 'announcement5'
     And I close the notification
-    And I announce challenge 'Top challenge'
+    And I announce challenge 'Top challenge' with message 'announcement4'
     And I close the notification
 
     And I go to Overview page

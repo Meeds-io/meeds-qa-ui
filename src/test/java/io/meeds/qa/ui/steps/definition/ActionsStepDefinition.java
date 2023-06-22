@@ -4,7 +4,6 @@ import java.util.Map;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
 import io.meeds.qa.ui.steps.ActionsSteps;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
@@ -32,9 +31,29 @@ public class ActionsStepDefinition {
     actionsSteps.checkChallengePoints(challengeName, points);
   }
 
-  @When("^I cancel the announcement challenge '(.*)'")
-  public void cancelAnnouncementChallenge(String announcement) {
-    actionsSteps.cancelAnnouncementChallenge(announcement);
+  @And("I go to the activity of opened action")
+  public void openActionActivity() {
+    actionsSteps.openActionActivity();
+  }
+
+  @And("I go to the action from opened drawer")
+  public void openActionFromActivity() {
+    actionsSteps.openActionFromActivity();
+  }
+
+  @And("^'(.*)' participants is displayed in action drawer$")
+  public void openActionFromActivity(String count) {
+    actionsSteps.checkParticipantsCount(Integer.parseInt(count));
+  }
+
+  @And("^I set rule publication message '(.*)'$")
+  public void setActionPublicationMessage(String message) {
+    actionsSteps.setActionPublicationMessage(message);
+  }
+
+  @And("I enable rule publication")
+  public void enableActionPublication() {
+    actionsSteps.enableActionPublication();
   }
 
   @Then("^'(.*)' is displayed in challenge portlet with '(.*)' participants$")

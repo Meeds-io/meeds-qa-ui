@@ -296,11 +296,19 @@ public class ProgramsStepDefinition {
     programsSteps.checkProgramActionContainsDurationLimitation();
   }
 
-  @And("^I announce challenge '(.*)'$")
-  public void announceAction(String challengeTitle) {
-    String announcementMessage = "announcementMessage" + getRandomNumber();
-    Serenity.setSessionVariable("announcementMessage").to(announcementMessage);
+  @And("^I announce challenge '(.*)' with message '(.*)'$")
+  public void announceAction(String challengeTitle, String announcementMessage) {
     programsSteps.announceAction(challengeTitle, announcementMessage);
+  }
+
+  @And("^I announce challenge '(.*)' with message '(.*)' from activity$")
+  public void announceActionFromActivity(String challengeTitle, String announcementMessage) {
+    programsSteps.announceActionFromActivity(challengeTitle, announcementMessage);
+  }
+
+  @And("^I announce action with message '(.*)'$")
+  public void sendAnnouncementMessage(String announcementMessage) {
+    programsSteps.sendAnnouncementMessage(announcementMessage);
   }
 
   @Then("Actions Filter dropdown is displayed")
