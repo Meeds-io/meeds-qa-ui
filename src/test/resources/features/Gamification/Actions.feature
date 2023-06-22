@@ -106,7 +106,6 @@ Feature: Actions
 
     Then Confirmation message is displayed 'Action has been successfully created'
 
-  @test
   Scenario: Announce an action from its activity
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
