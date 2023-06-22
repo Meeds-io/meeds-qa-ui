@@ -285,17 +285,21 @@ Feature: Achievements
     And I go to the random space
     And I go to 'Contributions' application
     When I open 'Test Program Achievements sort' random program card
-    And I announce challenge 'Announce an achievement'
+    And I announce challenge 'Announce an achievement' with message 'announcement1'
     And I click on 'See' link
 
-    Then The activity 'Announce an achievement' is displayed
-    When I cancel the announcement challenge 'Announce an achievement'
+    Then The comment 'announcement1' is displayed in Comments drawer
+    When I close the opened drawer
+    Then The comment 'announcement1' is displayed
+    And I click on three dots button related to comment 'announcement1'
+    And I click on 'Cancel' button related to comment 'announcement1'
+    And I click on Yes button
 
-    And I login as 'tenthachievement' random user
+    When I login as 'tenthachievement' random user
     And I go to the random space
     And I go to 'Contributions' application
     When I open 'Test Program Achievements sort' random program card
-    And I announce challenge 'Announce an achievement'
+    And I announce challenge 'Announce an achievement' with message 'announcement2'
 
     When I select engagement Achievements tab
     When I filter achievements using 'Test Program Achievements sort' random program

@@ -2,6 +2,7 @@ package io.meeds.qa.ui.pages;
 
 import static io.meeds.qa.ui.utils.Utils.MAX_WAIT_RETRIES;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -45,10 +46,6 @@ public class ActionsPage extends GenericPage {
     }
   }
 
-  public void cancelAnnouncementChallenge(String announcement) {
-    getCancelAnnouncementChallengeIcon(announcement).click();
-  }
-
   public void isOverviewChallengeDisplayed(String challengeTitle, String participantsCount) {
     getOverviewChallengeItemElement(challengeTitle, participantsCount).isVisible();
   }
@@ -59,6 +56,53 @@ public class ActionsPage extends GenericPage {
 
   public void checkChallengePoints(String challengeName, String points) {
     challengeByNameAndPoints(challengeName, points).assertVisible();
+  }
+
+  public void enableActionPublication() {
+    ElementFacade publicationSwitchButton = publicationSwitchButton();
+    publicationSwitchButton.assertVisible();
+    publicationSwitchButton.click();
+    waitFor(200).milliseconds(); // Wait for animation
+  }
+
+  public void setActionPublicationMessage(String message) {
+    waitCKEditorLoading("//*[@id='engagementCenterRulePublishMessage']");
+    ElementFacade ckEditorFrame = ckEditorFramePublicationElement();
+    ckEditorFrame.waitUntilVisible();
+    getDriver().switchTo().frame(ckEditorFrame);
+    try {
+      TextBoxElementFacade ckEditorTextBoxElement = ckEditorTextBoxElement();
+      ckEditorTextBoxElement.waitUntilVisible();
+      ckEditorTextBoxElement.setTextValue(message);
+    } finally {
+      getDriver().switchTo().defaultContent();
+    }
+  }
+
+  public void openActionActivity() {
+    waitForDrawerToOpen();
+    ElementFacade actionDrawerThreeDots = actionDrawerThreeDots();
+    actionDrawerThreeDots.assertVisible();
+    actionDrawerThreeDots.click();
+    waitFor(200).milliseconds(); // Wait for animation
+    clickLink("Open activity");
+    waitForLoading();
+  }
+
+  public void openActionFromActivity() {
+    waitForDrawerToOpen();
+    ElementFacade actionDrawerThreeDots = actionDrawerThreeDots();
+    actionDrawerThreeDots.assertVisible();
+    actionDrawerThreeDots.click();
+    waitFor(200).milliseconds(); // Wait for animation
+    clickLink("Open action");
+    waitForLoading();
+  }
+
+  public void checkParticipantsCount(int count) {
+    assertThat(findAll("//*[contains(@class, 'rule-realizations')]//button//*[contains(@class, 'v-avatar')]").size())
+                                                                                                                     .isEqualTo(count)
+                                                                                                                     .as("Number of participants doesn't match");
   }
 
   private TextBoxElementFacade searchChallengeElement() {
@@ -86,14 +130,26 @@ public class ActionsPage extends GenericPage {
                                           challengeName));
   }
 
-  private ElementFacade getCancelAnnouncementChallengeIcon(String announcement) {
-    return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@id, 'activity-detail')]//*[contains(@class, 'menuable__content__active')]//*[contains(@class, 'undo')]",
-                                          announcement));
-  }
-
   private ElementFacade getOverviewChallengeItemElement(String challengeTitle, String participantsCount) {
     return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]/following::*[contains(text(), '%s')]",
-            challengeTitle, participantsCount + " Participants"));
+                                          challengeTitle,
+                                          participantsCount + " Participants"));
+  }
+
+  private ElementFacade publicationSwitchButton() {
+    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[@id='engagementCenterRulePublishSwitch' and @aria-checked='false']//ancestor::*[contains(@class, 'v-input--switch')]");
+  }
+
+  private ElementFacade actionDrawerThreeDots() {
+    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'drawerHeader')]//*[contains(@class, 'fa-ellipsis-v')]");
+  }
+
+  private ElementFacade ckEditorFramePublicationElement() {
+    return findByXPathOrCSS("//*[@id='engagementCenterRulePublishMessage']//iframe[contains(@class,'cke_wysiwyg_frame')]");
+  }
+
+  private TextBoxElementFacade ckEditorTextBoxElement() {
+    return findTextBoxByXPathOrCSS("//body[contains(@class,'cke_editable_themed')]");
   }
 
 }
