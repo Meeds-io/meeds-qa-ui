@@ -135,6 +135,12 @@ public class LoginPage extends GenericPage implements IsHidden {
     }
   }
 
+  public void waitForUsernameInputDisplay(int retries) {
+    while (usernameInputElement().isNotVisible() && retries-- > 0) {
+      waitFor(1).seconds();
+    }
+  }
+
   public boolean isLoginPageDisplayed() {
     return StringUtils.contains(getDriver().getCurrentUrl(), "/portal/login");
   }

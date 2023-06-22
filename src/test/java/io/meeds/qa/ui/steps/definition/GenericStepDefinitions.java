@@ -146,9 +146,19 @@ public class GenericStepDefinitions {
     genericSteps.clickButton(buttonText);
   }
 
+  @When("^I click on '(.*)' menu item$")
+  public void clickMenuItem(String menuText) {
+    genericSteps.clickMenuItem(menuText);
+  }
+
   @When("^I click on '(.*)' link$")
   public void clickOnLink(String linkText) {
     genericSteps.clickLink(linkText);
+  }
+
+  @When("^I click on '(.*)' text$")
+  public void clickOnText(String text) {
+    genericSteps.clickOnText(text);
   }
 
   @When("^I click on '(.*)' button in drawer$")
