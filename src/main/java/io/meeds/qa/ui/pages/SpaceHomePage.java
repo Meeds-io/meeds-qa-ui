@@ -370,7 +370,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void clickOnActivityComment(String comment) {
-    getCommentElement(comment).click();
+    getCommentTitleActivityStream(comment).click();
   }
 
   public void clickOnCommentActivityButton(String activity) {
@@ -814,7 +814,7 @@ public class SpaceHomePage extends GenericPage {
 
   public void openLinkInNewTab(String link) {
     Actions newTab = new Actions(getDriver());
-    newTab.keyDown(Keys.CONTROL).click(getCommentElement(link)).keyUp(Keys.CONTROL).build().perform();
+    newTab.keyDown(Keys.CONTROL).click(getCommentTitleActivityStream(link)).keyUp(Keys.CONTROL).build().perform();
   }
 
   public void openThreeDotsActivityMenu(String activity) {
@@ -1287,6 +1287,11 @@ public class SpaceHomePage extends GenericPage {
 
   private ElementFacade getCommentElementInDrawer(String comment) {
     return findByXPathOrCSS(String.format("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@class,'activity-comment')]",
+                                          comment));
+  }
+
+  private ElementFacade getCommentTitleActivityStream(String comment) {
+    return findByXPathOrCSS(String.format("//*[contains(@id,'activity-comment-detail')]//*[contains(@id,'Extactivity-content-extensions')]//a[contains(text(),'%s')]",
                                           comment));
   }
 
