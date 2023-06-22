@@ -238,7 +238,7 @@ Feature: Programs
 
     And I go to 'Contributions' application
     And I open random program card
-    And I announce challenge 'Internal users action'
+    And I announce challenge 'Internal users action' with message 'announcement3'
 
     When I go to 'Contributions' application
     And I select engagement Achievements tab
