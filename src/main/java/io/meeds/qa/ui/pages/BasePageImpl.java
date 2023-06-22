@@ -213,10 +213,24 @@ public class BasePageImpl extends PageObject implements BasePage {
     waitForLoading();
   }
 
+  public void clickMenuItem(String menuItemText) {
+    ElementFacade menuItem = getMenuItem(menuItemText);
+    menuItem.assertVisible();
+    menuItem.click();
+    waitForLoading();
+  }
+
   public void clickLink(String linkText) {
     ElementFacade button = getLink(linkText);
     button.assertEnabled();
     button.click();
+    waitForLoading();
+  }
+
+  public void clickOnText(String text) {
+    ElementFacade textElement = getText(text);
+    textElement.assertEnabled();
+    textElement.click();
     waitForLoading();
   }
 
@@ -498,8 +512,16 @@ public class BasePageImpl extends PageObject implements BasePage {
     return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor-or-self::button", buttonText));
   }
 
+  public ElementFacade getMenuItem(String menuItemText) {
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@role, 'menuitem')]", menuItemText));
+  }
+
   public ElementFacade getLink(String linkText) {
     return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor-or-self::a", linkText));
+  }
+
+  public ElementFacade getText(String text) {
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]", text));
   }
 
   public ElementFacade getDrawerButton(String buttonName) {

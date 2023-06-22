@@ -469,6 +469,12 @@ public class HomePage extends GenericPage {
     getHamburgerNavigationMenuDrawer().checkNotVisible();
   }
 
+  public void waitPortalDisplayed(int retries) {
+    while (!isPortalDisplayed() && retries-- > 0) {
+      waitFor(1).seconds();
+    }
+  }
+
   private void goToAdministrationPage(String uri) {
     if (!StringUtils.contains(getDriver().getCurrentUrl(), uri)) {
       accessToAdministrationMenu();
