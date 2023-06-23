@@ -74,7 +74,7 @@ Feature: SideBar
 
   Scenario: Display Red Dot In Unstickied Hamburger Menu
     Given I am authenticated as 'admin' random user
-    When I create the reddot random user if not existing, no wait
+    When I inject the 'reddot' random user, no wait
     And I create a random space
     And I login as 'reddot' random user
     And I go to the random space
@@ -93,7 +93,7 @@ Feature: SideBar
     When I refresh the page
     Then The hamburger menu is displayed as unstickied
     And The red dot is not displayed in the hamburger menu
-    
+
   Scenario: Open Unstickied Hamburger Menu On Hover in Desktop
     Given I am authenticated as 'admin' if random users doesn't exists
       | hmenu  |

@@ -323,7 +323,6 @@ public class TestHooks {
         "eighthachievement",
         "firstrule",
         "secondrule",
-        "reddot",
         "homeicon",
     };
     if (!Arrays.stream(randomUsers).map(this::addRandomUser).allMatch(userCreated -> userCreated)) {
