@@ -842,4 +842,9 @@ public class SpaceHomeStepDefinition {
   public void viewAllRepliesInCommentsDrawer(String comment) {
     spaceHomeSteps.viewAllRepliesInCommentsDrawer(comment);
   }
+  
+  @Then("^The attached images should be displayed in the published activity '(.*)'$")
+  public void checkActivityAttachedImages(String activity) {
+    spaceHomeSteps.checkActivityAttachedImages(activity);
+  }
 }

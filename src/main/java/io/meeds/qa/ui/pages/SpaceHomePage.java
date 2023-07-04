@@ -876,7 +876,8 @@ public class SpaceHomePage extends GenericPage {
     ElementFacade fileInput = ckEditorAttachImageInput();
     fileInput.assertEnabled();
     attachImageToFileInput(fileInput);
-    // TODO continue assertions...
+    activityDrawerAttachedImagesCarousel().assertVisible();
+    activityDrawerAttachedImagesCarouselPlusIcon().assertVisible();
   }
 
   public void publishActivityInArabicLanguage() {
@@ -945,6 +946,10 @@ public class SpaceHomePage extends GenericPage {
 
   public void unPinActivityButtonIsDisplayed(String activity) {
     getUnpinActivityIcon(activity).assertVisible();
+  }
+  
+  public void checkActivityAttachedImages(String activity) {
+    getAttachedImagesActivity(activity).assertVisible();
   }
 
   public void updateActivityComment(String comment) {
@@ -1034,6 +1039,14 @@ public class SpaceHomePage extends GenericPage {
 
   private ElementFacade ckEditorAttachImageButton() {
     return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')]//a[contains(@class, 'cke_button__attachimage')]");
+  }
+  
+  private ElementFacade activityDrawerAttachedImagesCarousel() {
+    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')]/parent::*//*[contains(@class, 'carousel-top-parent')]");
+  }
+  
+  private ElementFacade activityDrawerAttachedImagesCarouselPlusIcon() {
+    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')]/parent::*//*[contains(@class, 'carousel-top-parent')]//*[contains(@class, 'fa-plus')]");
   }
 
   private ElementFacade installedApplicationCard(String applicationName) {
@@ -1426,6 +1439,12 @@ public class SpaceHomePage extends GenericPage {
 
   private ElementFacade getPinnedActivity(String activity) {
     return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'pinnedActivity')]",
+                                          activity));
+  }
+  
+
+  private ElementFacade getAttachedImagesActivity(String activity) {
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'activityStream')]//*[contains(@class,'contentBox')][1]//*[contains(@class, 'attachment-card-item')][1]//*[contains(@class, 'attachment-card-item-thumbnail')][1]",
                                           activity));
   }
 

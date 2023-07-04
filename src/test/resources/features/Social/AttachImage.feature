@@ -8,6 +8,8 @@ Feature: Attach images activities
     And I login as 'first' random user
     And I go to the random space
     When I click on post in space
-    And I enter an activity 'activity with attached image'
+    And I enter an activity 'activity with attached images'
     And I attach an image to the activity
     And I publish the activity
+    Then the activity 'activity with attached images' is displayed in activity stream
+    And The attached images should be displayed in the published activity 'activity with attached images'

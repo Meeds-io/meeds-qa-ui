@@ -542,4 +542,9 @@ public class SpaceHomeSteps {
   public void viewAllRepliesInCommentsDrawer(String comment) {
     spaceHomePage.viewAllRepliesInCommentsDrawer(comment);
   }
+  
+  public void checkActivityAttachedImages(String activity) {
+    spaceHomePage.checkActivityAttachedImages(activity);
+  }
+  
 }
