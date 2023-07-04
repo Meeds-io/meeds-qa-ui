@@ -847,4 +847,25 @@ public class SpaceHomeStepDefinition {
   public void checkActivityAttachedImages(String activity) {
     spaceHomeSteps.checkActivityAttachedImages(activity);
   }
+
+  @When("^I click on attached image related to activity '(.*)'$")
+  public void clickPreviewAttachedImage(String activity) {
+    spaceHomeSteps.clickPreviewAttachedImage(activity);
+  }
+
+  @Then("^the preview of the attached image is displayed")
+  public void previewAttachedImage() {
+    spaceHomeSteps.previewAttachedImage();
+  }
+
+  @When("^I click on close icon in preview attached image")
+  public void clickClosePreviewAttachedImage() {
+    spaceHomeSteps.clickClosePreviewAttachedImage();
+  }
+
+  @Then("^the preview of the attached image is not displayed")
+  public void checkPreviewAttachedImageIsClosed() {
+    spaceHomeSteps.checkPreviewAttachedImageIsClosed();
+  }
+
 }

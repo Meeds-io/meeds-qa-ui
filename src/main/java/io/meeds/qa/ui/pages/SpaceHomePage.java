@@ -880,6 +880,22 @@ public class SpaceHomePage extends GenericPage {
     activityDrawerAttachedImagesCarouselPlusIcon().assertVisible();
   }
 
+  public void clickPreviewAttachedImage(String activity) {
+    getAttachedImagesActivity(activity).click();
+  }
+  
+  public void clickClosePreviewAttachedImage() {
+    previewAttachedImageCloseBtn().click();
+  }
+
+  public void checkPreviewAttachedImageIsClosed() {
+    getPreviewAttachedImage().assertNotVisible();
+  }
+
+  public void previewAttachedImage() {
+    getPreviewAttachedImage().assertVisible();
+  }
+  
   public void publishActivityInArabicLanguage() {
     newActivityButtonInArabicLanguageElement().click();
   }
@@ -1444,8 +1460,17 @@ public class SpaceHomePage extends GenericPage {
   
 
   private ElementFacade getAttachedImagesActivity(String activity) {
-    return findByXPathOrCSS(String.format("//*[contains(@class, 'activityStream')]//*[contains(@class,'contentBox')][1]//*[contains(@class, 'attachment-card-item')][1]//*[contains(@class, 'attachment-card-item-thumbnail')][1]",
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'activityStream')]//*[contains(@class,'contentBox')][1]//*[contains(@class, 'attachments-image-item')][1]",
                                           activity));
+  }
+  
+  private ElementFacade getPreviewAttachedImage() {
+    return findByXPathOrCSS("//*[@id='previewCarousel-activity' and contains(@class, 'AttachmentCarouselPreview')]");
+  }
+  
+  
+  private ElementFacade previewAttachedImageCloseBtn() {
+    return findByXPathOrCSS("//*[contains(@class,'preview-attachment-action')]//button[@id='preview-attachment-close']");
   }
 
   private ElementFacade getReactionActivityLink(String activity) {

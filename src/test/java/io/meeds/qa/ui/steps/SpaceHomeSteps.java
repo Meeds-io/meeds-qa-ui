@@ -470,6 +470,22 @@ public class SpaceHomeSteps {
   public void attachImageToActivity() {
     spaceHomePage.attachImagesToActivity();
   }
+  
+  public void clickPreviewAttachedImage(String activity) {
+    spaceHomePage.clickPreviewAttachedImage(activity);
+  }
+  
+  public void previewAttachedImage() {
+    spaceHomePage.previewAttachedImage();
+  }
+  
+  public void clickClosePreviewAttachedImage() {
+    spaceHomePage.clickClosePreviewAttachedImage();
+  }
+  
+  public void checkPreviewAttachedImageIsClosed() {
+    spaceHomePage.checkPreviewAttachedImageIsClosed();
+  }
 
   public void publishActivityInArabicLanguage() {
     spaceHomePage.publishActivityInArabicLanguage();
