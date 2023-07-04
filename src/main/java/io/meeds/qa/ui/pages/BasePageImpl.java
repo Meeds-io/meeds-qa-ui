@@ -541,13 +541,6 @@ public class BasePageImpl extends PageObject implements BasePage {
     attachImageToFileInput(fileInput);
     clickButton("Apply");
   }
-  
-  public void attachImageToActivity() {
-    ElementFacade fileInput = attachImageInput();
-    fileInput.assertEnabled();
-    attachImageToFileInput(fileInput);
-    clickButton("Apply");
-  }
 
   public ElementFacade attachFileInput(boolean secondLevel) {
     String fileInputXPath = (secondLevel ? "//*[contains(@class, 'v-navigation-drawer--open')]" : "")
@@ -578,10 +571,6 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   private ElementFacade goBackButtonInDrawer() {
     return findByXPathOrCSS(OPNENED_DRAWER_CSS_SELECTOR + " .fa-arrow-left");
-  }
-  
-  private ElementFacade attachImageInput() {
-    return findByXPathOrCSS(".activityRichEditor input[type=file]");
   }
 
   private void waitOverlayToClose() {

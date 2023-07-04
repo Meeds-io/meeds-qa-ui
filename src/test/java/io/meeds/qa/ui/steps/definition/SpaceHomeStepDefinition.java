@@ -735,6 +735,11 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.publishActicity();
   }
 
+  @And("I attach an image to the activity")
+  public void attachImageToActivity() {
+    spaceHomeSteps.attachImageToActivity();
+  }
+
   @When("^I publish the activity stream in arabic language$")
   public void publishActivityInArabicLanguage() {
     spaceHomeSteps.publishActivityInArabicLanguage();

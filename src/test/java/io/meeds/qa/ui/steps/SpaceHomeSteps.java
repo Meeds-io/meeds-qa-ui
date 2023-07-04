@@ -467,6 +467,10 @@ public class SpaceHomeSteps {
     spaceHomePage.publishActivity(true);
   }
 
+  public void attachImageToActivity() {
+    spaceHomePage.attachImagesToActivity();
+  }
+
   public void publishActivityInArabicLanguage() {
     spaceHomePage.publishActivityInArabicLanguage();
   }

@@ -4,7 +4,7 @@ Feature: Attach images activities
   Scenario: [AttachImage_US01.10] Attach an image to an activity
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
-    And I create the first random user if not existing
+    And I inject the first random user if not existing
     And I login as 'first' random user
     And I go to the random space
     When I click on post in space

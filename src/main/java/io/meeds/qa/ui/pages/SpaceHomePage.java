@@ -870,6 +870,15 @@ public class SpaceHomePage extends GenericPage {
     }
   }
 
+  public void attachImagesToActivity() {
+    waitCKEditorLoading(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR);
+    ckEditorAttachImageButton().assertVisible();
+    ElementFacade fileInput = ckEditorAttachImageInput();
+    fileInput.assertEnabled();
+    attachImageToFileInput(fileInput);
+    // TODO continue assertions...
+  }
+
   public void publishActivityInArabicLanguage() {
     newActivityButtonInArabicLanguageElement().click();
   }
@@ -1017,6 +1026,14 @@ public class SpaceHomePage extends GenericPage {
       waitFor(1000).milliseconds(); // Wait for animation end
     }
     return tabElement(tabName);
+  }
+
+  private ElementFacade ckEditorAttachImageInput() {
+    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')]/parent::*//input[@type='file']");
+  }
+
+  private ElementFacade ckEditorAttachImageButton() {
+    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')]//a[contains(@class, 'cke_button__attachimage')]");
   }
 
   private ElementFacade installedApplicationCard(String applicationName) {
