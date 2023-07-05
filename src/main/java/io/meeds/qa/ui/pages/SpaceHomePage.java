@@ -876,6 +876,7 @@ public class SpaceHomePage extends GenericPage {
     ElementFacade fileInput = ckEditorAttachImageInput();
     fileInput.assertEnabled();
     attachImageToFileInput(fileInput);
+    waitForLoading();
     activityDrawerAttachedImagesCarousel().assertVisible();
     activityDrawerAttachedImagesCarouselPlusIcon().assertVisible();
   }
