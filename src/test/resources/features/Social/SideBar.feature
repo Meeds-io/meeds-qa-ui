@@ -7,12 +7,12 @@ Feature: SideBar
       | first  |
     And I create the first random user if not existing, no wait
     When I login as 'first' random user
-    And I go to the first random space
-    And I go to the second random space
+    And I go to the fourth random space
+    And I go to the fifth random space
     And I access to Recent spaces
-    And I search for the second created space in Side Bar Filter
-    Then Second searched space is displayed in Side Bar Filter
-    And First searched space is not displayed in Side Bar Filter
+    And I search for the fifth created space in Side Bar Filter
+    Then Fifth searched space is displayed in Side Bar Filter
+    And Fourth searched space is not displayed in Side Bar Filter
 
   @smoke
   Scenario:CAP34-US 6.5[FRONT]_(01):My Settings in the Side bar for Desktop
