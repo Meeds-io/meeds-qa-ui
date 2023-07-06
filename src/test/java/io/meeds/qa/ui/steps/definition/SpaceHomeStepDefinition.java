@@ -123,6 +123,7 @@ public class SpaceHomeStepDefinition {
   @And("^the activity '(.*)' is no more displayed in the activity stream$")
   @Then("^the activity '(.*)' is not displayed in activity stream$")
   @When("^the activity '(.*)' is not displayed in stream page$")
+  @And("^The activity '(.*)' is not displayed$")
   public void checkActivityNotVisible(String activity) {
     spaceHomeSteps.checkActivityNotVisible(activity);
   }
