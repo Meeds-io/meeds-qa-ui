@@ -872,6 +872,33 @@ public class SpaceHomePage extends GenericPage {
     }
   }
 
+  public void attachImagesToActivity() {
+    waitCKEditorLoading(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR);
+    ckEditorAttachImageButton().assertVisible();
+    ElementFacade fileInput = ckEditorAttachImageInput();
+    fileInput.assertEnabled();
+    attachImageToFileInput(fileInput);
+    waitForLoading();
+    activityDrawerAttachedImagesCarousel().assertVisible();
+    activityDrawerAttachedImagesCarouselPlusIcon().assertVisible();
+  }
+
+  public void clickPreviewAttachedImage(String activity) {
+    getAttachedImagesActivity(activity).click();
+  }
+  
+  public void clickClosePreviewAttachedImage() {
+    previewAttachedImageCloseBtn().click();
+  }
+
+  public void checkPreviewAttachedImageIsClosed() {
+    getPreviewAttachedImage().assertNotVisible();
+  }
+
+  public void previewAttachedImage() {
+    getPreviewAttachedImage().assertVisible();
+  }
+  
   public void publishActivityInArabicLanguage() {
     newActivityButtonInArabicLanguageElement().click();
   }
@@ -938,6 +965,10 @@ public class SpaceHomePage extends GenericPage {
 
   public void unPinActivityButtonIsDisplayed(String activity) {
     getUnpinActivityIcon(activity).assertVisible();
+  }
+  
+  public void checkActivityAttachedImages(String activity) {
+    getAttachedImagesActivity(activity).assertVisible();
   }
 
   public void updateActivityComment(String comment) {
@@ -1019,6 +1050,22 @@ public class SpaceHomePage extends GenericPage {
       waitFor(1000).milliseconds(); // Wait for animation end
     }
     return tabElement(tabName);
+  }
+
+  private ElementFacade ckEditorAttachImageInput() {
+    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')]/parent::*//input[@type='file']");
+  }
+
+  private ElementFacade ckEditorAttachImageButton() {
+    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')]//a[contains(@class, 'cke_button__attachimage')]");
+  }
+  
+  private ElementFacade activityDrawerAttachedImagesCarousel() {
+    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')]/parent::*//*[contains(@class, 'carousel-top-parent')]");
+  }
+  
+  private ElementFacade activityDrawerAttachedImagesCarouselPlusIcon() {
+    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')]/parent::*//*[contains(@class, 'carousel-top-parent')]//*[contains(@class, 'fa-plus')]");
   }
 
   private ElementFacade installedApplicationCard(String applicationName) {
@@ -1412,6 +1459,21 @@ public class SpaceHomePage extends GenericPage {
   private ElementFacade getPinnedActivity(String activity) {
     return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'pinnedActivity')]",
                                           activity));
+  }
+  
+
+  private ElementFacade getAttachedImagesActivity(String activity) {
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'activityStream')]//*[contains(@class,'contentBox')][1]//*[contains(@class, 'attachments-image-item')][1]",
+                                          activity));
+  }
+  
+  private ElementFacade getPreviewAttachedImage() {
+    return findByXPathOrCSS("//*[@id='previewCarousel-activity' and contains(@class, 'AttachmentCarouselPreview')]");
+  }
+  
+  
+  private ElementFacade previewAttachedImageCloseBtn() {
+    return findByXPathOrCSS("//*[contains(@class,'preview-attachment-action')]//button[@id='preview-attachment-close']");
   }
 
   private ElementFacade getReactionActivityLink(String activity) {
