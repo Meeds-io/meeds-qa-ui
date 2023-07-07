@@ -735,6 +735,11 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.publishActicity();
   }
 
+  @And("I attach an image to the activity")
+  public void attachImageToActivity() {
+    spaceHomeSteps.attachImageToActivity();
+  }
+
   @When("^I publish the activity stream in arabic language$")
   public void publishActivityInArabicLanguage() {
     spaceHomeSteps.publishActivityInArabicLanguage();
@@ -837,4 +842,30 @@ public class SpaceHomeStepDefinition {
   public void viewAllRepliesInCommentsDrawer(String comment) {
     spaceHomeSteps.viewAllRepliesInCommentsDrawer(comment);
   }
+  
+  @Then("^The attached images should be displayed in the published activity '(.*)'$")
+  public void checkActivityAttachedImages(String activity) {
+    spaceHomeSteps.checkActivityAttachedImages(activity);
+  }
+
+  @When("^I click on attached image related to activity '(.*)'$")
+  public void clickPreviewAttachedImage(String activity) {
+    spaceHomeSteps.clickPreviewAttachedImage(activity);
+  }
+
+  @Then("^the preview of the attached image is displayed")
+  public void previewAttachedImage() {
+    spaceHomeSteps.previewAttachedImage();
+  }
+
+  @When("^I click on close icon in preview attached image")
+  public void clickClosePreviewAttachedImage() {
+    spaceHomeSteps.clickClosePreviewAttachedImage();
+  }
+
+  @Then("^the preview of the attached image is not displayed")
+  public void checkPreviewAttachedImageIsClosed() {
+    spaceHomeSteps.checkPreviewAttachedImageIsClosed();
+  }
+
 }
