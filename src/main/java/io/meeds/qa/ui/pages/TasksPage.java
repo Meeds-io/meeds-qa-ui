@@ -294,11 +294,6 @@ public class TasksPage extends GenericPage {
     getTaskStatus(taskStatus).assertVisible();
   }
 
-  public void checkThatEditTaskDrawerIsDisplayed() {
-    String checkEditTaskDrawerText = checkEditTaskDrawerElement().getText();
-    assertEquals("Edit task", checkEditTaskDrawerText);
-  }
-
   public void checkThatSecondLevelDrawerChangesIsOpened() {
     String checkChangesDrawerText = checkChangesDrawerElement().getText();
     assertEquals("Changes", checkChangesDrawerText);
@@ -1234,10 +1229,6 @@ public class TasksPage extends GenericPage {
 
   private ElementFacade checkChangesDrawerElement() {
     return findByXPathOrCSS("//*[@class='ps-2' and text()='Changes']");
-  }
-
-  private ElementFacade checkEditTaskDrawerElement() {
-    return findByXPathOrCSS("//*[contains(text(),'Edit task')]");
   }
 
   private ElementFacade ckEditorFrameDescriptionElement() {
