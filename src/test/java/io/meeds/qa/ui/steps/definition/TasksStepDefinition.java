@@ -367,11 +367,6 @@ public class TasksStepDefinition {
     tasksSteps.checkTaskPriority(taskPriority);
   }
 
-  @Then("^I check that Edit task drawer is displayed$")
-  public void checkThatEditTaskDrawerIsDisplayed() {
-    tasksSteps.checkThatEditTaskDrawerIsDisplayed();
-  }
-
   @Then("^I check that a new second level drawer Changes is opened$")
   public void checkThatSecondLevelDrawerChangesIsOpened() {
     tasksSteps.checkThatSecondLevelDrawerChangesIsOpened();

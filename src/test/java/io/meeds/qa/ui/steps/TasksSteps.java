@@ -240,10 +240,6 @@ public class TasksSteps {
     tasksPage.checkTaskStatus(taskStatus);
   }
 
-  public void checkThatEditTaskDrawerIsDisplayed() {
-    tasksPage.checkThatEditTaskDrawerIsDisplayed();
-  }
-
   public void checkThatSecondLevelDrawerChangesIsOpened() {
     tasksPage.checkThatSecondLevelDrawerChangesIsOpened();
   }
