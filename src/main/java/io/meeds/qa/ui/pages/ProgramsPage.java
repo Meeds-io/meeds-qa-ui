@@ -29,6 +29,9 @@ import io.meeds.qa.ui.elements.TextBoxElementFacade;
 
 public class ProgramsPage extends GenericPage {
 
+  private static final String PROGRAM_OVERVIEW_PARENT_ITEM_PATH =
+                                                                "//*[@id='programsOverview']//*[contains(@class, 'v-avatar')]/parent::*/parent::*";
+
   public ProgramsPage(WebDriver driver) {
     super(driver);
   }
@@ -299,13 +302,15 @@ public class ProgramsPage extends GenericPage {
   }
 
   private ElementFacade topProgramsElement(String programName, int listPosition) {
-    return findByXPathOrCSS(String.format("(//*[@id='programsOverview']//a[contains(@href, 'programs/')])[%s]//*[contains(text(), '%s')]",
+    return findByXPathOrCSS(String.format("(%s)[%s]//*[contains(text(), '%s')]",
+                                          PROGRAM_OVERVIEW_PARENT_ITEM_PATH,
                                           listPosition,
                                           programName));
   }
 
   private ElementFacade topProgramsElement(String programName) {
-    return findByXPathOrCSS(String.format("//*[@id='programsOverview']//a[contains(@href, 'programs/')]//*[contains(text(), '%s')]",
+    return findByXPathOrCSS(String.format("%s//*[contains(text(), '%s')]",
+                                          PROGRAM_OVERVIEW_PARENT_ITEM_PATH,
                                           programName));
   }
 
