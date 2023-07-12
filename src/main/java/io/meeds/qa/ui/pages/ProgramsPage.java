@@ -69,10 +69,6 @@ public class ProgramsPage extends GenericPage {
     mentionInField(audienceSpaceFieldElement(), randomSpaceName, 5);
   }
 
-  public void checkEngagementAppOpened() {
-    findByXPathOrCSS("//*[@id='EngagementCenterApplication']").assertVisible();
-  }
-
   public void checkProgramCardDisplay(String title) {
     getProgramCardTitle(title).assertNotVisible();
   }
@@ -143,9 +139,11 @@ public class ProgramsPage extends GenericPage {
     }
   }
 
-  public void selectEngagementTab(String tab) {
-    clickOnElement(getEngagementTab(tab));
-    waitFor(300).milliseconds(); // Wait for Tab switch
+  public void selectEngagementApplication(String link) {
+    engagementApplicationLink().hover();
+    ElementFacade engagementApplicationLink = engagementApplicationLink(link);
+    engagementApplicationLink.waitUntilVisible();
+    engagementApplicationLink.click();
     waitForLoading();
     waitFor(300).milliseconds(); // Wait for Tab switch
   }
@@ -342,8 +340,13 @@ public class ProgramsPage extends GenericPage {
     return findByXPathOrCSS("//*[contains(@class,'fas fa-edit')]");
   }
 
-  private ElementFacade getEngagementTab(String tab) {
-    return findByXPathOrCSS(String.format("//*[@id='engagementCenterTabs']//*[contains(text(),'%s')]", tab));
+  private ElementFacade engagementApplicationLink() {
+    return findByXPathOrCSS("//*[@id = 'topBarMenu']//a[contains(@href, 'contributions')]");
+  }
+
+  private ElementFacade engagementApplicationLink(String link) {
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'v-menu__content')]//a[contains(@href, 'contributions/%s')]",
+                                          link));
   }
 
   private ElementFacade getProgramCard(String programName) {

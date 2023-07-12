@@ -6,7 +6,7 @@ Feature: Rules
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
     And I go to 'Contributions' application
-    And I select engagement Programs tab
+    And I go to engagement application 'programs'
     And I click on the button add program
     And I enter a random program title
     And I add program with random description
@@ -50,7 +50,7 @@ Feature: Rules
     And I set as a space manager
 
     When I go to 'Contributions' application
-    And I select engagement Programs tab
+    And I go to engagement application 'programs'
     And I click on the button add program
     And I enter the program title 'Test Rule Space Host'
     And I add program with random description
@@ -60,7 +60,7 @@ Feature: Rules
 
     When I login as 'firstrule' random user
     And I go to 'Contributions' application
-    And I select engagement Programs tab
+    And I go to engagement application 'programs'
     And I filter programs by value 'ALL'
     And I open 'Test Rule Space Host' program card
 
@@ -89,7 +89,7 @@ Feature: Rules
 
     When I login as 'admin' random user
     And I go to 'Contributions' application
-    And I select engagement Programs tab
+    And I go to engagement application 'programs'
     And I click on the button add program
     And I enter the program title 'Test Rule Program Owner'
     And I add program with random description

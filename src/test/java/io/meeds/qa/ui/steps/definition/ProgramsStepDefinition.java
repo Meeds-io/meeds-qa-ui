@@ -220,14 +220,9 @@ public class ProgramsStepDefinition {
     programsSteps.enterProgramTitle(programTitle);
   }
 
-  @Then("Engagement application center is displayed")
-  public void isEngagementAppOpened() {
-    programsSteps.isEngagementAppOpened();
-  }
-
-  @When("^I select engagement (.*) tab$")
-  public void selectEngagementTab(String tab) {
-    programsSteps.selectEngagementTab(tab);
+  @When("^I go to engagement application '(.*)'$")
+  public void selectEngagementApplication(String tab) {
+    programsSteps.selectEngagementApplication(tab);
   }
 
   @When("^I set user '(.*)' as program owner$")

@@ -18,14 +18,14 @@ Feature: Programs should be displayed in Top Programs in sorted way
       | points | 9998 |
     And I click on 'Activate the program' button
 
-    And I select engagement Programs tab
+    And I go to engagement application 'programs'
     And I create the 'thirtyone' random program with
       | audience | thirtyone |
     And I create the 'thirtyone' random manual action with
       | points | 9997 |
     And I click on 'Activate the program' button
 
-    And I select engagement Programs tab
+    And I go to engagement application 'programs'
     And I create the 'thirtythree' random program with
       | audience | thirtythree |
     And I create the 'thirtythree' random manual action with
@@ -51,7 +51,7 @@ Feature: Programs should be displayed in Top Programs in sorted way
     When I login as 'admin' random user
 
     And I go to 'Contributions' application
-    And I select engagement Actions tab
+    And I go to engagement application 'actions'
     And I click on 'All' button
     And I update the 'thirtyone' random challenge with
       | points | 9999 |

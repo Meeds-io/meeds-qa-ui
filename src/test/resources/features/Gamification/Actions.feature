@@ -53,10 +53,10 @@ Feature: Actions
     Then The activity 'Challenge to announce' is displayed
 
     When I go to 'Contributions' application
-    And I select engagement Achievements tab
+    And I go to engagement application 'achievements'
     Then Achievement for 'Challenge to announce' is accepted
 
-    When I select engagement Programs tab
+    When I go to engagement application 'programs'
     And I open random program card
 
     When I open program action 'Challenge to announce'
@@ -66,7 +66,7 @@ Feature: Actions
     When I login as 'admin' random user
 
     When I go to 'Contributions' application
-    And I select engagement Programs tab
+    And I go to engagement application 'programs'
     And I open random program card
     And I edit program action 'Challenge to announce'
     And I click on 'Next' button in drawer
@@ -316,7 +316,7 @@ Feature: Actions
     And I click on Yes button
 
     And I go to 'Contributions' application
-    When I select engagement Achievements tab
+    When I go to engagement application 'achievements'
     Then Achievement for 'Announce activity to delete' is canceled
 
   Scenario: Overview top challenge
