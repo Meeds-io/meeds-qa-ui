@@ -7,7 +7,7 @@ Feature: Achievements
     And I create the random space if not existing
     And I go to 'Contributions' application
 
-    When I select engagement Programs tab
+    When I go to engagement application 'programs'
     And I click on the button add program
     And I enter the program title 'Achievements program'
     And I add program with random description
@@ -65,7 +65,7 @@ Feature: Achievements
     And I send in the activity 'Achievements - Kudos Post activity' a kudos message 'Achievements - kudos activity comment to cancel'
 
     And I go to 'Contributions' application
-    When I select engagement Achievements tab
+    When I go to engagement application 'achievements'
     Then Achievement for 'Send kudos' is accepted
 
     When I go to My Profile page
@@ -79,19 +79,19 @@ Feature: Achievements
     And I refresh the page
 
     And I go to 'Contributions' application
-    When I select engagement Achievements tab
+    When I go to engagement application 'achievements'
     Then Achievement for 'Send kudos' is canceled
 
     When I login as 'secondachievement' random user
     And I go to 'Contributions' application
-    And I select engagement Achievements tab
+    And I go to engagement application 'achievements'
     And Achievement for 'Receive kudos' is canceled
 
   Scenario: Achievements for Send/Cancel Kudos from user profile
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
     And I go to 'Contributions' application
-    When I select engagement Programs tab
+    When I go to engagement application 'programs'
     And I click on the button add program
     And I enter the program title 'Achievements program'
     And I add program with random description
@@ -141,19 +141,19 @@ Feature: Achievements
     And I send kudos with message 'Achievements - Kudos Post activity to cancel'
 
     And I go to 'Contributions' application
-    When I select engagement Achievements tab
+    When I go to engagement application 'achievements'
     Then Achievement for 'Send kudos' is accepted
 
     And I go to Stream page
     When I cancel the sent kudos activity 'Achievements - Kudos Post activity to cancel'
 
     And I go to 'Contributions' application
-    When I select engagement Achievements tab
+    When I go to engagement application 'achievements'
     Then Achievement for 'Send kudos' is canceled
 
     When I login as 'fourachievement' random user
     And I go to 'Contributions' application
-    And I select engagement Achievements tab
+    And I go to engagement application 'achievements'
     Then Achievement for 'Receive kudos' is canceled
 
   Scenario: Achievements listing for program owner/space host
@@ -163,7 +163,7 @@ Feature: Achievements
     And I create the sixthachievement random user if not existing, no wait
 
     When I go to 'Contributions' application
-    And I select engagement Programs tab
+    And I go to engagement application 'programs'
     And I click on the button add program
     And I enter the random program title 'Test Program Host'
     And I add program with random description
@@ -210,7 +210,7 @@ Feature: Achievements
 
     When I login as 'admin' random user
     And I go to 'Contributions' application
-    And I select engagement Achievements tab
+    And I go to engagement application 'achievements'
 
     Then The achievement 'Join space' is displayed '2' times when enabling program owner view for 'Test Program Host' random program
 
@@ -222,7 +222,7 @@ Feature: Achievements
 
     When I login as 'sixthachievement' random user
     And I go to 'Contributions' application
-    And I select engagement Achievements tab
+    And I go to engagement application 'achievements'
     Then The achievement 'Join space' is displayed '1' times
     And The button 'Hosted' is not displayed
 
@@ -238,7 +238,7 @@ Feature: Achievements
     Then In drawer, user 'fifthachievement' achievement is display 'second'
 
     When I close the opened drawer
-    And I select engagement Achievements tab
+    And I go to engagement application 'achievements'
     And I filter achievements using 'Test Program Host' random program
     Then The achievement 'Join space' is displayed '1' times
     And The button 'Hosted' is displayed
@@ -301,14 +301,14 @@ Feature: Achievements
     When I open 'Test Program Achievements sort' random program card
     And I announce challenge 'Announce an achievement' with message 'announcement2'
 
-    When I select engagement Achievements tab
+    When I go to engagement application 'achievements'
     When I filter achievements using 'Test Program Achievements sort' random program
     And Current user achievement 'Announce an achievement' is displayed 'first'
     And Current user achievement 'Join space' is displayed 'second'
 
     When I login as 'admin' random user
     And I go to 'Contributions' application
-    And I select engagement Achievements tab
+    And I go to engagement application 'achievements'
 
     When I click on 'Hosted' button
     Then I wait for application loading
@@ -371,7 +371,7 @@ Feature: Achievements
     And I create the seventhachievement random user if not existing, no wait
 
     And I go to 'Contributions' application
-    And I select engagement Programs tab
+    And I go to engagement application 'programs'
 
     And I click on the button add program
     And I enter the program title 'Activity Post Achievement Reject'
@@ -410,7 +410,7 @@ Feature: Achievements
     And the activity 'Activity to cancel' is no more displayed in the activity stream
 
     When I go to 'Contributions' application
-    And I select engagement Achievements tab
+    And I go to engagement application 'achievements'
 
     Then Achievement for 'Post activity in a space' is rejected
 
@@ -420,7 +420,7 @@ Feature: Achievements
     And I create the seventhachievement random user if not existing, no wait
 
     And I go to 'Contributions' application
-    And I select engagement Programs tab
+    And I go to engagement application 'programs'
 
     And I click on the button add program
     And I enter the program title 'Comment Post Achievement Reject'
@@ -473,7 +473,7 @@ Feature: Achievements
     And Comment 'comment to delete' is not displayed in activity 'Activity with comment to cancel'
 
     When I go to 'Contributions' application
-    And I select engagement Achievements tab
+    And I go to engagement application 'achievements'
 
     Then Achievement for 'Comment activity in space' is rejected
     And Achievement for 'Receive comment activity in space' is rejected
@@ -484,7 +484,7 @@ Feature: Achievements
     And I create the seventhachievement random user if not existing, no wait
 
     And I go to 'Contributions' application
-    And I select engagement Programs tab
+    And I go to engagement application 'programs'
 
     And I click on the button add program
     And I enter the program title 'Like Activity Achievement Reject'
@@ -535,7 +535,7 @@ Feature: Achievements
     And I unlike the activity 'Activity to like + unlike'
 
     When I go to 'Contributions' application
-    And I select engagement Achievements tab
+    And I go to engagement application 'achievements'
 
     Then Achievement for 'Receive activity like in space' is canceled
     And Achievement for 'Like activity in space' is canceled
@@ -546,7 +546,7 @@ Feature: Achievements
     And I create the seventhachievement random user if not existing, no wait
 
     And I go to 'Contributions' application
-    And I select engagement Programs tab
+    And I go to engagement application 'programs'
 
     And I click on the button add program
     And I enter the program title 'Like Stream Comment Achievement Reject'
@@ -599,7 +599,7 @@ Feature: Achievements
     And I unlike the activity comment 'comment to unlike'
 
     When I go to 'Contributions' application
-    And I select engagement Achievements tab
+    And I go to engagement application 'achievements'
 
     Then Achievement for 'Receive Like on stream comment in space' is canceled
     Then Achievement for 'Like stream comment in space' is canceled
@@ -610,7 +610,7 @@ Feature: Achievements
     And I create the eighthachievement random user if not existing, no wait
 
     When I go to 'Contributions' application
-    And I select engagement Programs tab
+    And I go to engagement application 'programs'
     And I click on the button add program
     And I enter the program title 'Cancel Space Join Program'
     And I add program with random description
@@ -638,7 +638,7 @@ Feature: Achievements
     When I login as 'eighthachievement' random user
     And I go to the random space
     And I go to 'Contributions' application
-    And I select engagement Achievements tab
+    And I go to engagement application 'achievements'
 
     Then Achievement for 'Cancel Space Join' is accepted
 
@@ -646,6 +646,6 @@ Feature: Achievements
     And I search for the random space
     And I leave found space
     And I go to 'Contributions' application
-    And I select engagement Achievements tab
+    And I go to engagement application 'achievements'
 
     Then Achievement for 'Cancel Space Join' is canceled
