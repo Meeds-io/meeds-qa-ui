@@ -259,14 +259,19 @@ public class TestHooks {
     addAdminRandomUser();
     loginAsRandomAdmin();
     if (INIT_DATA) {
-      injectData();
+      injectSpaces();
+      injectUsers();
     }
 
     LOGGER.info("---- End warmup phase in {} seconds", (System.currentTimeMillis() - start) / 1000);
   }
 
-  private void injectData() {
-    manageSpaceSteps.injectRandomSpace("randomSpaceName");
+  private void injectSpaces() {
+    // Need to not use injection to determine default space template
+    manageSpaceSteps.addOrGoToSpace("randomSpaceName");
+  }
+
+  private void injectUsers() {
     String[] randomUsers = new String[] {
         "first",
         "second",
