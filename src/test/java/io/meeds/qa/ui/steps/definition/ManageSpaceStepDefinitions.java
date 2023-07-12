@@ -398,6 +398,16 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.addOrGoToSpace(spacePrefix + "RandomSpaceName");
   }
 
+  @Given("I inject the random space")
+  public void injectRandomSpace() {
+    manageSpaceSteps.injectRandomSpace(RANDOM_SPACE_NAME);
+  }
+
+  @Given("^I inject the (.*) random space$")
+  public void injectRandomSpace(String spacePrefix) {
+    manageSpaceSteps.injectRandomSpace(spacePrefix);
+  }
+
   @Given("^I go to Settings in space tab$")
   public void goToSettingsTab() {
     manageSpaceSteps.goToSettingsTab();

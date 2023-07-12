@@ -7,8 +7,6 @@ Feature: Programs
     And I create the random space if not existing
     And I join the random space
     And I go to 'Contributions' application
-    Then Engagement application center is displayed
-    When I select engagement Programs tab
     And I click on the button add program
     Then The drawer add program should be displayed
 
@@ -32,7 +30,7 @@ Feature: Programs
     When I enter a random program title
     Then The button 'Create' is enabled in drawer
 
-    When I enter the program description 'Test for a long Text having more than 500 characters' '10' times
+    When I enter the program description 'Test for a long Text having more than 1300 characters' '30' times
     Then The button 'Create' is disabled in drawer
     When I enter a random description for program
     Then The button 'Create' is enabled in drawer
@@ -65,8 +63,6 @@ Feature: Programs
     And I inject the 'fourty' random user if not existing, no wait
 
     And I go to 'Contributions' application
-    Then Engagement application center is displayed
-    When I select engagement Programs tab
     And I click on the button add program
     And I wait for drawer to open
 
@@ -200,7 +196,7 @@ Feature: Programs
       | member:/platform/externals |
 
     And I go to 'Contributions' application
-    And I select engagement Programs tab
+    And I go to engagement application 'programs'
     And I click on the button add program
     And I enter a random program title
     And I enter a random description for program
@@ -241,7 +237,7 @@ Feature: Programs
     And I announce challenge 'Internal users action' with message 'announcement3'
 
     When I go to 'Contributions' application
-    And I select engagement Achievements tab
+    And I go to engagement application 'achievements'
     Then Achievement for 'Internal users action' is accepted
 
     When I login as 'admin' random user
@@ -277,7 +273,7 @@ Feature: Programs
     And I join the random space
 
     And I go to 'Contributions' application
-    And I select engagement Programs tab
+    And I go to engagement application 'programs'
     And I click on the button add program
     And I enter a random program title
     And I enter a random description for program
@@ -343,9 +339,6 @@ Feature: Programs
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
     And I go to 'Contributions' application
-    Then Engagement application center is displayed
-
-    When I select engagement Programs tab
     And I click on the button add program
     Then The drawer add program should be displayed
 
@@ -373,8 +366,6 @@ Feature: Programs
     And I create the random space if not existing
     And I join the random space
     And I go to 'Contributions' application
-    Then Engagement application center is displayed
-    When I select engagement Programs tab
     And I click on the button add program
     Then The drawer add program should be displayed
     And I enter a random program title
@@ -385,7 +376,7 @@ Feature: Programs
     Then Confirmation message is displayed 'New program created successfully'
 
     When I close the notification
-    And I select engagement Programs tab
+    And I go to engagement application 'programs'
     And I filter programs by value 'DISABLED'
     Then The program title should be displayed on the card
 

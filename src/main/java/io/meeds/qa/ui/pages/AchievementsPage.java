@@ -201,7 +201,7 @@ public class AchievementsPage extends GenericPage {
   }
 
   private ElementFacade achievementsFilterButton() {
-    return findByXPathOrCSS("//*[@id = 'Realizations']//*[contains(text(), 'Filter')]//ancestor-or-self::button");
+    return findByXPathOrCSS("//*[@id = 'applicationToolbar']//*[contains(text(), 'Filter')]//ancestor-or-self::button");
   }
 
   private TextBoxElementFacade achievementsFilterProgramSuggester() {
