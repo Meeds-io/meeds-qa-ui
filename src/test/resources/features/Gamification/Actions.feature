@@ -108,7 +108,7 @@ Feature: Actions
 
   Scenario: Announce an action from its activity
     Given I am authenticated as 'admin' random user
-    And I create the random space if not existing
+    And I inject the random space
 
     And I go to 'Contributions' application
     And I click on the button add program
@@ -141,7 +141,7 @@ Feature: Actions
     When I close the notification
 
     When I go to Stream page
-    Then The message 'Action with activity' is not displayed
+    Then The activity 'Action with activity' is not displayed
 
     When I go to 'Contributions' application
     And I open random program card

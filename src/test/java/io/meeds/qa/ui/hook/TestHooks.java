@@ -266,7 +266,7 @@ public class TestHooks {
   }
 
   private void injectData() {
-    manageSpaceSteps.addOrGoToSpace("randomSpaceName");
+    manageSpaceSteps.injectRandomSpace("randomSpaceName");
     String[] randomUsers = new String[] {
         "first",
         "second",

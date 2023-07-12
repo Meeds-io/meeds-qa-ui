@@ -17,20 +17,25 @@
  */
 package io.meeds.qa.ui.steps;
 
+import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION_MILLIS;
 import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import java.time.Duration;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.meeds.qa.ui.hook.TestHooks;
 import io.meeds.qa.ui.pages.HomePage;
 import io.meeds.qa.ui.pages.ManageSpacesPage;
 import io.meeds.qa.ui.utils.Utils;
+import net.serenitybdd.core.Serenity;
 
 public class ManageSpaceSteps {
 
@@ -382,5 +387,40 @@ public class ManageSpaceSteps {
 
   public void moveApplicationBefore(String appName) {
     manageSpacesPage.moveApplicationBefore(appName);
+  }
+
+  public void injectRandomSpace(String spaceNamePrefix) {
+    String spaceName = Utils.getRandomString(spaceNamePrefix);
+    String addSpaceScript =
+                         String.format("""
+                              const callback = arguments[arguments.length - 1];
+                              fetch("/portal/rest/v1/social/spaces/", {
+                                "headers": {
+                                  "content-type": "application/json",
+                                },
+                                "body": `{"subscription":"%s","visibility":"%s","template":"%s","invitedMembers":[],"displayName":"%s","description":"%s"}`,
+                                "method": "POST",
+                                "credentials": "include"
+                              })
+                              .then(resp => {
+                                if (!resp || !resp.ok) {
+                                  throw new Error("Error creating space");
+                                }
+                              })
+                              .then(user => callback(true))
+                              .catch(() => callback(false));
+                             """,
+                                       "open",
+                                       "private",
+                                       SPACE_TEMPLATE_INDEX,
+                                       spaceName,
+                                       spaceName);
+    WebDriverWait wait = new WebDriverWait(Serenity.getDriver(),
+                                           Duration.ofSeconds(10),
+                                           Duration.ofMillis(SHORT_WAIT_DURATION_MILLIS));
+    wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeAsyncScript(addSpaceScript)
+                                                            .toString()
+                                                            .equals("true"));
+    setSessionVariable(spaceNamePrefix).to(spaceName);
   }
 }
