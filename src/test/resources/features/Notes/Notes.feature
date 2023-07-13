@@ -7,7 +7,7 @@ Feature: Notes
   Scenario: Edit a Note in full screen
     Given I am authenticated as 'admin' random user
     And I create the hmenu random user, no wait
-    And I create the random space if not existing
+    And I inject the random space
     And I go to the random space
     And I add application 'Notes' in random space if not existing
     When I login as 'hmenu' random user
