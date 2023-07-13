@@ -22,22 +22,42 @@ import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
-import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import io.meeds.qa.ui.hook.TestHooks;
+import io.meeds.qa.ui.hook.TestInitHook;
 import io.meeds.qa.ui.pages.HomePage;
 import io.meeds.qa.ui.pages.ManageSpacesPage;
 import io.meeds.qa.ui.utils.Utils;
 import net.serenitybdd.core.Serenity;
 
 public class ManageSpaceSteps {
+
+  private static final String CREATE_SPACE_SCRIPT  =
+                                                  """
+                                                       const callback = arguments[arguments.length - 1];
+                                                       fetch("/portal/rest/v1/social/spaces/", {
+                                                         "headers": {
+                                                           "content-type": "application/json",
+                                                         },
+                                                         "body": `{"subscription":"%s","visibility":"%s","template":"%s","invitedMembers":[],"displayName":"%s","description":"%s"}`,
+                                                         "method": "POST",
+                                                         "credentials": "include"
+                                                       })
+                                                       .then(resp => {
+                                                         if (!resp || !resp.ok) {
+                                                           throw new Error("Error creating space");
+                                                         }
+                                                       })
+                                                       .then(() => callback(true))
+                                                       .catch(() => callback(false));
+                                                      """;
 
   private static final int SPACE_TEMPLATE_INDEX = Integer.parseInt(System.getProperty("io.meeds.space.template.index", "0"));
 
@@ -85,7 +105,7 @@ public class ManageSpaceSteps {
       } else {
         addSpaceWithRegistration(spaceName, "Open");
       }
-      TestHooks.spaceWithPrefixCreated(spaceNamePrefix, spaceName, homePage.getCurrentUrl());
+      TestInitHook.spaceWithPrefixCreated(spaceNamePrefix, spaceName, homePage.getCurrentUrl());
     } else if (findSpaceCard(spaceName)) {
       goOrJoinToSpace(spaceName);
     } else {
@@ -112,10 +132,6 @@ public class ManageSpaceSteps {
     manageSpacesPage.checkSpaceRegistration(registration);
     manageSpacesPage.clickSecondProcessButton();
     manageSpacesPage.saveSpace();
-
-    String spaceNamePrefix = "randomSpaceName";
-    setSessionVariable(spaceNamePrefix).to(spaceName);
-    setSessionVariable(spaceNamePrefix + "-url").to(manageSpacesPage.getCurrentUrl());
   }
 
   public void addUserToSpace(String user) {
@@ -240,6 +256,7 @@ public class ManageSpaceSteps {
       for (int i = 0; i < 30; i++) {
         String randomSpaceName = "randomSpaceName" + getRandomNumber();
         addSpaceWithRegistration(randomSpaceName, "Open");
+        TestInitHook.spaceWithPrefixCreated("randomSpaceName", randomSpaceName, homePage.getCurrentUrl());
         homePage.goToSpacesPage();
       }
     }
@@ -394,24 +411,7 @@ public class ManageSpaceSteps {
   public void injectRandomSpace(String spaceNamePrefix) {
     String spaceName = Utils.getRandomString(spaceNamePrefix);
     String addSpaceScript =
-                          String.format("""
-                               const callback = arguments[arguments.length - 1];
-                               fetch("/portal/rest/v1/social/spaces/", {
-                                 "headers": {
-                                   "content-type": "application/json",
-                                 },
-                                 "body": `{"subscription":"%s","visibility":"%s","template":"%s","invitedMembers":[],"displayName":"%s","description":"%s"}`,
-                                 "method": "POST",
-                                 "credentials": "include"
-                               })
-                               .then(resp => {
-                                 if (!resp || !resp.ok) {
-                                   throw new Error("Error creating space");
-                                 }
-                               })
-                               .then(user => callback(true))
-                               .catch(() => callback(false));
-                              """,
+                          String.format(CREATE_SPACE_SCRIPT,
                                         "open",
                                         "private",
                                         spaceTemplate == null ? "" : spaceTemplate,
@@ -424,6 +424,7 @@ public class ManageSpaceSteps {
                                                             .toString()
                                                             .equals("true"));
     String spaceUrl = homePage.getCurrentUrl().split("/portal")[0] + "/portal/g/:spaces:" + spaceName;
-    TestHooks.spaceWithPrefixCreated(spaceNamePrefix, spaceName, spaceUrl);
+    TestInitHook.spaceWithPrefixCreated(spaceNamePrefix, spaceName, spaceUrl);
   }
+
 }
