@@ -31,6 +31,13 @@ import net.serenitybdd.core.Serenity;
 
 public class TestCleanupHook { // NOSONAR
 
+  /**
+   * Experimental overall cleanup phase, not relevant to use right now, but to improve later
+   */
+  public static final boolean CLEAN_DATA          =
+                                         Boolean.parseBoolean(System.getProperty("io.meeds.cleanData", "false")
+                                                                    .toLowerCase());
+
   private static final String DELETE_SPACE_SCRIPT =
                                                   """
                                                        const callback = arguments && arguments.length && arguments[arguments.length - 1] || null;
@@ -87,7 +94,7 @@ public class TestCleanupHook { // NOSONAR
 
   @AfterAll
   public static void cleanDatas() {
-    if (TestInitHook.instance == null) {
+    if (TestInitHook.instance == null || !CLEAN_DATA) {
       return;
     }
     LOGGER.info("---- Start cleanup phase");
