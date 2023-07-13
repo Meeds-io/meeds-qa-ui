@@ -28,7 +28,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.meeds.qa.ui.hook.TestHooks;
+import io.meeds.qa.ui.hook.TestInitHook;
 import io.meeds.qa.ui.pages.ManageSpacesPage;
 import io.meeds.qa.ui.steps.HomeSteps;
 import io.meeds.qa.ui.steps.ManageSpaceSteps;
@@ -69,6 +69,7 @@ public class ManageSpaceStepDefinitions {
     String randomSpaceName = RANDOM_SPACE_NAME + getRandomNumber();
     homeSteps.goToManageSpacesPage();
     manageSpaceSteps.addSpaceWithRegistration(randomSpaceName, "Open");
+    TestInitHook.spaceWithPrefixCreated(RANDOM_SPACE_NAME, randomSpaceName, Serenity.getDriver().getCurrentUrl());
   }
 
   @Given("^I create a random space with the (.*) random user$")
@@ -86,7 +87,7 @@ public class ManageSpaceStepDefinitions {
     String randomSpaceName = RANDOM_SPACE_NAME + getRandomNumber();
     homeSteps.goToManageSpacesPage();
     manageSpaceSteps.addSpaceWithRegistration(randomSpaceName, "Open");
-    setSessionVariable(spacePrefix + "RandomSpaceName").to(randomSpaceName);
+    TestInitHook.spaceWithPrefixCreated(spacePrefix + "RandomSpaceName", randomSpaceName, Serenity.getDriver().getCurrentUrl());
   }
 
   @Given("^I create a (.*) random space with the (.*) created user as member$")
@@ -359,14 +360,14 @@ public class ManageSpaceStepDefinitions {
   public void deleteFirstSpace() {
     homeSteps.goToManageSpacesPage();
     manageSpaceSteps.deleteSpace(sessionVariableCalled("spaceName"));
-    TestHooks.spaceWithPrefixDeleted("spaceName");
+    TestInitHook.spaceWithPrefixDeleted("spaceName");
   }
 
   @Given("^The Second space was deleted successfully$")
   public void deleteSecondSpace() {
     homeSteps.goToManageSpacesPage();
     manageSpaceSteps.deleteSpace("secondRandomSpaceName");
-    TestHooks.spaceWithPrefixDeleted("secondRandomSpaceName");
+    TestInitHook.spaceWithPrefixDeleted("secondRandomSpaceName");
   }
 
   @Given("^I go to members tab$")

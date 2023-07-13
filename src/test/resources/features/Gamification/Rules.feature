@@ -36,7 +36,7 @@ Feature: Rules
 
   Scenario: Space host can add action in program
     Given I am authenticated as 'admin' random user
-    And I create the random space if not existing
+    And I inject the random space
     And I create the firstrule random user if not existing, no wait
 
     When I login as 'firstrule' random user
@@ -81,7 +81,7 @@ Feature: Rules
 
   Scenario: Space member as program owner can add action
     Given I am authenticated as 'admin' random user
-    And I create the random space if not existing
+    And I inject the random space
     And I create the secondrule random user if not existing, no wait
 
     When I login as 'secondrule' random user
