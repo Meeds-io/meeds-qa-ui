@@ -30,7 +30,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import io.meeds.qa.ui.hook.TestHooks;
+import io.meeds.qa.ui.hook.TestInitHook;
 import io.meeds.qa.ui.pages.AddUserPage;
 import io.meeds.qa.ui.pages.HomePage;
 import net.serenitybdd.core.Serenity;
@@ -72,7 +72,7 @@ public class AddUserSteps {
       setSessionVariable(userPrefix + "UserLastName").to(lastName);
       setSessionVariable(userPrefix + "UserPassword").to(password);
       setSessionVariable(userName + "-password").to(password);
-      TestHooks.userWithPrefixCreated(userPrefix, userName, firstName, lastName, email, password);
+      TestInitHook.userWithPrefixCreated(userPrefix, userName, firstName, lastName, email, password);
     }
   }
 
@@ -254,7 +254,7 @@ public class AddUserSteps {
     setSessionVariable(userPrefix + "UserLastName").to(lastName);
     setSessionVariable(userPrefix + "UserPassword").to(password);
     setSessionVariable(userName + "-password").to(password);
-    TestHooks.userWithPrefixCreated(userPrefix, userName, firstName, lastName, email, password);
+    TestInitHook.userWithPrefixCreated(userPrefix, userName, firstName, lastName, email, password);
   }
 
   public void injectRandomUserWithGroups(String userPrefix, List<String> memberships, boolean deleteInternalMembership) {
