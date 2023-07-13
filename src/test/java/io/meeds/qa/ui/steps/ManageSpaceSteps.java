@@ -423,6 +423,7 @@ public class ManageSpaceSteps {
     wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeAsyncScript(addSpaceScript)
                                                             .toString()
                                                             .equals("true"));
-    TestHooks.spaceWithPrefixCreated(spaceNamePrefix, spaceName, "");
+    String spaceUrl = homePage.getCurrentUrl().split("/portal")[0] + "/portal/g/:spaces:" + spaceName;
+    TestHooks.spaceWithPrefixCreated(spaceNamePrefix, spaceName, spaceUrl);
   }
 }

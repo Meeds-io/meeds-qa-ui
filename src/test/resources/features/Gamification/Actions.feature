@@ -267,7 +267,7 @@ Feature: Actions
   Scenario: Cancel an announcement
     Given I am authenticated as 'admin' random user
     And I create the first random user if not existing, no wait
-    And I create the random space if not existing
+    And I inject the random space
     And I go to 'Contributions' application
     And I click on the button add program
     And I enter a random program title
@@ -322,7 +322,7 @@ Feature: Actions
   Scenario: Overview top challenge
     Given I am authenticated as 'admin' random user
     When I create the first random user if not existing, no wait
-    And I create the random space if not existing
+    And I inject the random space
     And I go to 'Contributions' application
     And I click on the button add program
     And I enter a random program title
