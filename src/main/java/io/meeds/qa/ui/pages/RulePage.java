@@ -18,6 +18,7 @@
 package io.meeds.qa.ui.pages;
 
 import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.ButtonElementFacade;
@@ -98,8 +99,12 @@ public class RulePage extends GenericPage {
   }
 
   public void setActionEvent(String eventName) {
-    eventSelectAutoComplete().click();
-    eventSelectAutoComplete().typeAndEnter(eventName);
+    ElementFacade eventSelectAutoComplete = eventSelectAutoComplete();
+    eventSelectAutoComplete.click();
+    eventSelectAutoComplete.type(eventName);
+    eventSelectAutoComplete.type(Keys.ARROW_DOWN);
+    eventSelectAutoComplete.type(Keys.ENTER);
+    eventSelectedAutoComplete(eventName).assertVisible();
   }
 
   public void deleteActionDuration() {
@@ -225,6 +230,11 @@ public class RulePage extends GenericPage {
 
   private ElementFacade eventSelectAutoComplete() {
     return findByXPathOrCSS("#EventSelectAutoComplete");
+  }
+
+  private ElementFacade eventSelectedAutoComplete(String eventName) {
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'v-chip')]//*[contains(text(), '%s')]",
+                                          eventName));
   }
 
   private TextBoxElementFacade actionPointsTextbox() {
