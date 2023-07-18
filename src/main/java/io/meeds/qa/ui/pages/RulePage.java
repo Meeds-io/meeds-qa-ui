@@ -236,7 +236,7 @@ public class RulePage extends GenericPage {
   }
 
   private TextBoxElementFacade actionEndDateElement() {
-    return findTextBoxByXPathOrCSS("//*[contains(@class,'challengeDates')]//*[contains(@class, 'datePickerText')]");
+    return findTextBoxByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(@class,'ruleDates')]//*[contains(@class, 'datePickerText')]");
   }
 
   private TextBoxElementFacade randomDateCalenderElement() {
