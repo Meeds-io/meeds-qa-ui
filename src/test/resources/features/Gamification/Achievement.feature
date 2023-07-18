@@ -385,7 +385,7 @@ Feature: Achievements
     And I enter the rule title 'Post activity in a space'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    And I add an event 'Activity Stream (space) : Post activity'
+    And I add an event 'Activity stream: Post an activity'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -434,7 +434,7 @@ Feature: Achievements
     And I enter the rule title 'Comment activity in space'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    And I add an event 'Activity Stream (space) : Comment activity'
+    And I add an event 'Activity stream: Comment an activity'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -447,7 +447,7 @@ Feature: Achievements
     And I enter the rule title 'Receive comment activity in space'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    And I add an event 'Activity Stream (space) : Receive comment'
+    And I add an event 'Activity stream: Receive a comment'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -498,7 +498,7 @@ Feature: Achievements
     And I enter the rule title 'Like activity in space'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    And I add an event 'Activity Stream (space) : Like activity'
+    And I add an event 'Activity stream: Like an activity'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -511,7 +511,7 @@ Feature: Achievements
     And I enter the rule title 'Receive activity like in space'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    And I add an event 'Activity Stream (space) : Receive like'
+    And I add an event 'Activity stream: Receive a like'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -530,15 +530,19 @@ Feature: Achievements
     And I publish the activity
     Then the activity 'Activity to like + unlike' is displayed in activity stream
 
-    When I like the activity 'Activity to like + unlike'
+    When I login as 'admin' random user
+    And I go to the random space
+    And I like the activity 'Activity to like + unlike'
     And I wait for '1' seconds
     And I unlike the activity 'Activity to like + unlike'
 
     When I go to 'Contributions' application
     And I go to engagement application 'achievements'
+    Then Achievement for 'Like activity in space' is canceled
 
+    When I login as 'seventhachievement' random user
+    And I go to engagement application 'achievements'
     Then Achievement for 'Receive activity like in space' is canceled
-    And Achievement for 'Like activity in space' is canceled
 
   Scenario: Cancel Like Stream Comment changes the Achievement as Canceled
     Given I am authenticated as 'admin' random user
@@ -560,7 +564,7 @@ Feature: Achievements
     And I enter the rule title 'Like stream comment in space'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    And I add an event 'Activity Stream : Like comment in space'
+    And I add an event 'Activity stream: Like a comment'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -573,7 +577,7 @@ Feature: Achievements
     And I enter the rule title 'Receive Like on stream comment in space'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    And I add an event 'Activity Stream : Receive like comment in space'
+    And I add an event 'Receive a like on a comment'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -594,15 +598,19 @@ Feature: Achievements
 
     When I add in activity 'Activity with comment to like + unlike' a comment 'comment to unlike'
 
-    When I like the activity comment 'comment to unlike'
+    When I login as 'admin' random user
+    And I go to the random space
+    And I like the activity comment 'comment to unlike'
     And I wait for '1' seconds
     And I unlike the activity comment 'comment to unlike'
 
     When I go to 'Contributions' application
     And I go to engagement application 'achievements'
-
-    Then Achievement for 'Receive Like on stream comment in space' is canceled
     Then Achievement for 'Like stream comment in space' is canceled
+
+    When I login as 'seventhachievement' random user
+    And I go to engagement application 'achievements'
+    Then Achievement for 'Receive Like on stream comment in space' is canceled
 
   Scenario: Cancel Space Join changes the Achievement as Canceled
     Given I am authenticated as 'admin' random user
