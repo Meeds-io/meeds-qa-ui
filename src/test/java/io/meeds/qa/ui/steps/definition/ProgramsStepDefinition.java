@@ -220,14 +220,9 @@ public class ProgramsStepDefinition {
     programsSteps.enterProgramTitle(programTitle);
   }
 
-  @Then("Engagement application center is displayed")
-  public void isEngagementAppOpened() {
-    programsSteps.isEngagementAppOpened();
-  }
-
-  @When("^I select engagement (.*) tab$")
-  public void selectEngagementTab(String tab) {
-    programsSteps.selectEngagementTab(tab);
+  @When("^I go to engagement application '(.*)'$")
+  public void selectEngagementApplication(String tab) {
+    programsSteps.selectEngagementApplication(tab);
   }
 
   @When("^I set user '(.*)' as program owner$")
@@ -296,11 +291,19 @@ public class ProgramsStepDefinition {
     programsSteps.checkProgramActionContainsDurationLimitation();
   }
 
-  @And("^I announce challenge '(.*)'$")
-  public void announceAction(String challengeTitle) {
-    String announcementMessage = "announcementMessage" + getRandomNumber();
-    Serenity.setSessionVariable("announcementMessage").to(announcementMessage);
+  @And("^I announce challenge '(.*)' with message '(.*)'$")
+  public void announceAction(String challengeTitle, String announcementMessage) {
     programsSteps.announceAction(challengeTitle, announcementMessage);
+  }
+
+  @And("^I announce challenge '(.*)' with message '(.*)' from activity$")
+  public void announceActionFromActivity(String challengeTitle, String announcementMessage) {
+    programsSteps.announceActionFromActivity(challengeTitle, announcementMessage);
+  }
+
+  @And("^I announce action with message '(.*)'$")
+  public void sendAnnouncementMessage(String announcementMessage) {
+    programsSteps.sendAnnouncementMessage(announcementMessage);
   }
 
   @Then("Actions Filter dropdown is displayed")

@@ -27,7 +27,9 @@ import java.io.IOException;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.WebDriver;
@@ -47,41 +49,46 @@ import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.webdriver.exceptions.ElementShouldBeVisibleException;
 
-public class TestHooks {
+public class TestInitHook {
 
-  private static final String                ADMIN_PREFIX              = "admin";
+  public static final String              ADMIN_PREFIX              = "admin";
 
-  private static final String                ADMIN_USERNAME            = System.getProperty("adminUser", "admin");
+  public static final String              ADMIN_USERNAME            = System.getProperty("adminUser", "admin");
 
-  private static final String                ADMIN_PASSWORD            = System.getProperty("adminPassword", "Test1234@");
+  public static final String              ADMIN_PASSWORD            = System.getProperty("adminPassword", "Test1234@");
 
-  protected static final String[]            ADMIN_GROUPS              = System.getProperty("io.meeds.admin.groups",
-                                                                                            "/platform/administrators,/platform/rewarding,/platform/analytics")
-                                                                               .split(",");
+  public static final String[]            ADMIN_GROUPS              = System.getProperty("io.meeds.admin.groups",                                           // NOSONAR
+                                                                                         "/platform/administrators,/platform/rewarding,/platform/analytics")
+                                                                            .split(",");
 
-  protected static final boolean             INIT_DATA                 =
-                                                       Boolean.parseBoolean(System.getProperty("io.meeds.initData",
-                                                                                               "true")
-                                                                                  .toLowerCase());
+  public static final boolean             INIT_DATA                 =
+                                                    Boolean.parseBoolean(System.getProperty("io.meeds.initData",
+                                                                                            "true")
+                                                                               .toLowerCase());
 
-  protected static final String              WARMUP_FILE_PATH          = System.getProperty("io.meeds.warmUp.file",
-                                                                                            "warmUpFile.tmp");
+  public static final String              WARMUP_FILE_PATH          = System.getProperty("io.meeds.warmUp.file",
+                                                                                         "warmUpFile.tmp");
 
-  private static final int                   WARM_UP_PAGE_LOADING_WAIT = 10;
+  public static final int                 WARM_UP_PAGE_LOADING_WAIT = 30;
 
-  private static final int                   MAX_WARM_UP_STEP_WAIT     = 5;
+  public static final int                 MAX_WARM_UP_STEP_WAIT     = 5;
 
-  private static final int                   MAX_WARM_UP_RETRIES       = 100;
+  public static final int                 MAX_WARM_UP_RETRIES       = 30;
 
-  protected static final Map<String, String> SPACES                    = new HashMap<>();
+  public static final Set<String>         SPACE_NAMES               = new HashSet<>();                                                                      // NOSONAR
 
-  protected static final Map<String, String> SPACES_URLS               = new HashMap<>();
+  public static final Set<String>         USER_NAMES                = new HashSet<>();                                                                      // NOSONAR
 
-  protected static final Map<String, String> USERS                     = new HashMap<>();
+  public static final Map<String, String> SPACES                    = new HashMap<>();                                                                      // NOSONAR
+
+  public static final Map<String, String> SPACES_URLS               = new HashMap<>();                                                                      // NOSONAR
+
+  public static final Map<String, String> USERS                     = new HashMap<>();                                                                      // NOSONAR
 
   public static void spaceWithPrefixCreated(String spaceNamePrefix, String spaceName, String spaceUrl) {
     SPACES.put(spaceNamePrefix, spaceName);
     SPACES_URLS.put(spaceNamePrefix, spaceUrl);
+    SPACE_NAMES.add(spaceName);
     setSessionVariable(spaceNamePrefix).to(spaceName);
     setSessionVariable(spaceNamePrefix + "-url").to(spaceUrl);
   }
@@ -103,31 +110,38 @@ public class TestHooks {
     USERS.put(userPrefix + "UserPassword", password);
     USERS.put(userPrefix + "UserEmail", email);
     USERS.put(userName + "-password", password);
+    USER_NAMES.add(userName);
   }
 
   @Steps
-  private AdminApplicationSteps      adminApplicationSteps;
+  public AdminApplicationSteps      adminApplicationSteps;
 
   @Steps
-  private HomeSteps                  homeSteps;
+  public HomeSteps                  homeSteps;
 
   @Steps
-  private LoginSteps                 loginSteps;
+  public LoginSteps                 loginSteps;
 
   @Steps
-  private GenericSteps               genericSteps;
+  public GenericSteps               genericSteps;
 
   @Steps
-  private ManageBadgesSteps          manageBadgesSteps;
+  public ManageBadgesSteps          manageBadgesSteps;
 
   @Steps
-  private ManageSpaceStepDefinitions manageSpaceStepDefinitions;
+  public ManageSpaceStepDefinitions manageSpaceStepDefinitions;
 
   @Steps
-  private ManageSpaceSteps           manageSpaceSteps;
+  public ManageSpaceSteps           manageSpaceSteps;
 
   @Steps
-  private AddUserSteps               addUserSteps;
+  public AddUserSteps               addUserSteps;
+
+  public static TestInitHook        instance;                  // NOSONAR
+
+  public TestInitHook() {
+    TestInitHook.instance = this; // NOSONAR
+  }
 
   @After
   public void deleteDatas() {
@@ -174,14 +188,6 @@ public class TestHooks {
       driver.close(); // Close current window to refresh static resources
     } catch (Throwable e) { // NOSONAR
       // no need to throw an exception, the window may be already closed
-    }
-  }
-
-  private boolean isPortalDisplayed() {
-    try {
-      return homeSteps.isPortalDisplayed();
-    } catch (Exception e) {
-      return false;
     }
   }
 
@@ -239,9 +245,11 @@ public class TestHooks {
         driver.navigate().to(System.getProperty("webdriver.base.url"));
         Utils.waitForLoading(WARM_UP_PAGE_LOADING_WAIT, true);
         driver.navigate().refresh();
+        loginSteps.waitForUsernameInputDisplay(MAX_WARM_UP_RETRIES);
         loginAsAdmin();
         Utils.waitForLoading(WARM_UP_PAGE_LOADING_WAIT, true);
-        homePageDisplayed = isPortalDisplayed();
+        homeSteps.waitPortalDisplayed(MAX_WARM_UP_RETRIES);
+        homePageDisplayed = homeSteps.isPortalDisplayed();
         if (!homePageDisplayed) {
           throw new ElementShouldBeVisibleException("Home Page isn't displayed", null);
         }
@@ -265,14 +273,19 @@ public class TestHooks {
     addAdminRandomUser();
     loginAsRandomAdmin();
     if (INIT_DATA) {
-      injectData();
+      injectSpaces();
+      injectUsers();
     }
 
     LOGGER.info("---- End warmup phase in {} seconds", (System.currentTimeMillis() - start) / 1000);
   }
 
-  private void injectData() {
+  private void injectSpaces() {
+    // Need to not use injection to determine default space template
     manageSpaceSteps.addOrGoToSpace("randomSpaceName");
+  }
+
+  private void injectUsers() {
     String[] randomUsers = new String[] {
         "first",
         "second",
@@ -329,7 +342,6 @@ public class TestHooks {
         "eighthachievement",
         "firstrule",
         "secondrule",
-        "reddot",
         "homeicon",
     };
     if (!Arrays.stream(randomUsers).map(this::addRandomUser).allMatch(userCreated -> userCreated)) {

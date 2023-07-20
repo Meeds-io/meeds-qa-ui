@@ -68,8 +68,16 @@ public class GenericSteps {
     genericPage.clickButton(buttonText);
   }
 
+  public void clickMenuItem(String buttonText) {
+    genericPage.clickMenuItem(buttonText);
+  }
+
   public void clickLink(String linkText) {
     genericPage.clickLink(linkText);
+  }
+
+  public void clickOnText(String text) {
+    genericPage.clickOnText(text);
   }
 
   public void clickDrawerButton(String buttonText) {

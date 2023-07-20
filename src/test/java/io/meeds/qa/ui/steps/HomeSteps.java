@@ -354,5 +354,9 @@ public class HomeSteps {
   public void closeHamburgerMenu() {
     homePage.closeHamburgerMenu();
   }
+
+  public void waitPortalDisplayed(int retries) {
+    homePage.waitPortalDisplayed(retries);
+  }
   
 }

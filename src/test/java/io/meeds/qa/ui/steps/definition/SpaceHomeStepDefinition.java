@@ -110,6 +110,7 @@ public class SpaceHomeStepDefinition {
   }
 
   @Then("^Activity Comment '(.*)' is displayed in Comments drawer$")
+  @And("^The comment '(.*)' is displayed in Comments drawer$")
   public void checkActivityCommentInDrawer(String comment) {
     spaceHomeSteps.checkActivityCommentInDrawer(comment);
   }
@@ -122,6 +123,7 @@ public class SpaceHomeStepDefinition {
   @And("^the activity '(.*)' is no more displayed in the activity stream$")
   @Then("^the activity '(.*)' is not displayed in activity stream$")
   @When("^the activity '(.*)' is not displayed in stream page$")
+  @And("^The activity '(.*)' is not displayed$")
   public void checkActivityNotVisible(String activity) {
     spaceHomeSteps.checkActivityNotVisible(activity);
   }
@@ -142,6 +144,11 @@ public class SpaceHomeStepDefinition {
   @And("^The activity '(.*)' is displayed$")
   public void checkActivityVisible(String activity) {
     spaceHomeSteps.checkActivityVisible(activity);
+  }
+
+  @When("^The comment '(.*)' is displayed$")
+  public void checkCommentVisible(String comment) {
+    spaceHomeSteps.checkCommentVisible(comment);
   }
 
   @Then("^Comment is displayed in comments drawer at the sixth position$")
@@ -258,6 +265,11 @@ public class SpaceHomeStepDefinition {
   @When("^I click on Delete button related to activity '(.*)'$")
   public void clickDeleteActivityButton(String activity) {
     spaceHomeSteps.clickDeleteActivityButton(activity);
+  }
+
+  @When("^I click on '(.*)' button related to comment '(.*)'$")
+  public void clickCommentButton(String buttonName, String comment) {
+    spaceHomeSteps.clickCommentButton(buttonName, comment);
   }
 
   @When("^I click on comment '(.*)'$")
@@ -684,6 +696,11 @@ public class SpaceHomeStepDefinition {
   @When("^I click on three dots button related to activity '(.*)'$")
   public void openThreeDotsActivityMenu(String activity) {
     spaceHomeSteps.openThreeDotsActivityMenu(activity);
+  }
+
+  @When("^I click on three dots button related to comment '(.*)'$")
+  public void openThreeDotsCommentMenu(String comment) {
+    spaceHomeSteps.openThreeDotsCommentMenu(comment);
   }
 
   @When("^Pin button related to activity '(.*)' is displayed$")

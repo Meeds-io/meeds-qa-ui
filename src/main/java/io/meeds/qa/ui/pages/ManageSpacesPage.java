@@ -425,10 +425,11 @@ public class ManageSpacesPage extends GenericPage {
       selectSpaceFilterElement.select().byValue("all");
   }
 
-  public void selectTemplate(int index) {
+  public String selectTemplate(int index) {
     ElementFacade spaceTemplateFilterElement = spaceTemplateFilterElement();
     spaceTemplateFilterElement.click();
     spaceTemplateFilterElement.selectByIndex(index);
+    return spaceTemplateFilterElement.getSelectedValue();
   }
 
   public void setSpaceName(String spaceName) {

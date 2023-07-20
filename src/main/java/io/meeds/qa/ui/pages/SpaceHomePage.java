@@ -217,7 +217,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void checkActivityCommentInDrawer(String comment) {
-    Assert.assertEquals(commentTitleInDrawerElement().getText(), comment);
+    getCommentElementInDrawer(comment).assertVisible();
     closeDrawerIfDisplayed();
   }
 
@@ -242,6 +242,10 @@ public class SpaceHomePage extends GenericPage {
 
   public void checkActivityVisible(String activity) {
     getActivityText(activity).assertVisible();
+  }
+
+  public void checkCommentVisible(String comment) {
+    getCommentElement(comment).assertVisible();
   }
 
   public void checkCommentReplyDisplayed(String activity, String comment, String reply) {
@@ -359,6 +363,10 @@ public class SpaceHomePage extends GenericPage {
 
   public void clickDeleteActivityButton(String activity) {
     getDeleteActivityIcon(activity).click();
+  }
+
+  public void clickCommentButton(String buttonName, String comment) {
+    getCommentMenuButton(buttonName, comment).click();
   }
 
   public void clickOnActivityComment(String comment) {
@@ -813,6 +821,10 @@ public class SpaceHomePage extends GenericPage {
     getDropDownActivityMenu(activity).click();
   }
 
+  public void openThreeDotsCommentMenu(String comment) {
+    getDropDownCommentMenu(comment).click();
+  }
+
   public boolean isThreeDotsActivityMenuOpen(String activity) {
     return getDropDownActivityMenu(activity).isVisible();
   }
@@ -1129,10 +1141,6 @@ public class SpaceHomePage extends GenericPage {
     return findByXPathOrCSS("//*[contains(@id,'activity-comment-detail')]//*[contains(@id,'Extactivity-content-extensions')]//p//div");
   }
 
-  private ElementFacade commentTitleInDrawerElement() {
-    return findByXPathOrCSS("//*[@id='activityCommentsDrawer']//*[contains(@id,'Extactivity-content-extensions')]//p//div");
-  }
-
   private ElementFacade createPollLinkElement() {
     return findByXPathOrCSS("//*[contains(@class,'createPollComposerIcon')]//ancestor::*[contains(@class, 'actionItem')]");
   }
@@ -1277,8 +1285,18 @@ public class SpaceHomePage extends GenericPage {
                                           comment));
   }
 
+  private ElementFacade getCommentElementInDrawer(String comment) {
+    return findByXPathOrCSS(String.format("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@class,'activity-comment')]",
+                                          comment));
+  }
+
   private ElementFacade getCommentTitleActivityStream(String comment) {
     return findByXPathOrCSS(String.format("//*[contains(@id,'activity-comment-detail')]//*[contains(@id,'Extactivity-content-extensions')]//a[contains(text(),'%s')]",
+                                          comment));
+  }
+
+  private ElementFacade getCommentElement(String comment) {
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@class,'activity-comment')]",
                                           comment));
   }
 
@@ -1299,6 +1317,12 @@ public class SpaceHomePage extends GenericPage {
   private ElementFacade getDeleteCommentLabel(String comment) {
     return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]/preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Delete')]",
                                           comment));
+  }
+
+  private ElementFacade getCommentMenuButton(String buttonName, String comment) {
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@class,'activity-comment')]//*[@role='menuitem']//*[contains(text(), '%s')]",
+                                          comment,
+                                          buttonName));
   }
 
   private ElementFacade getDeleteReplyLabel(String comment) {
@@ -1335,6 +1359,11 @@ public class SpaceHomePage extends GenericPage {
   private ElementFacade getDropDownCommentMenu(String activity, String comment) {
     return findByXPathOrCSS(String.format("//*[contains(@class,'activity-detail')]//*[contains(@class, 'postContent')]//*[contains(text(),'%s')]//ancestor::*[contains(@class,'activity-detail')]//*[contains(@class,'activity-comment')]//*[contains(@class,'activity-comment')]//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@class,'activity-comment') and contains(@id, 'ActivityCommment_')][1]//i[contains(@class, 'mdi-dots-vertical')]//ancestor::button",
                                           activity,
+                                          comment));
+  }
+
+  private ElementFacade getDropDownCommentMenu(String comment) {
+    return findByXPathOrCSS(String.format("//*[contains(@class,'activity-detail')]//*[contains(@class,'activity-comment')]//*[contains(@class,'activity-comment')]//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@class,'activity-comment') and contains(@id, 'ActivityCommment_')][1]//i[contains(@class, 'mdi-dots-vertical')]//ancestor::button",
                                           comment));
   }
 

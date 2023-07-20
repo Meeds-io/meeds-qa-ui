@@ -33,7 +33,7 @@ import io.meeds.qa.ui.utils.Utils;
 
 public class AchievementsPage extends GenericPage {
 
-  private static final int MAX_REFRESH_RETRIES = 20;
+  private static final int MAX_REFRESH_RETRIES = 5;
 
   public AchievementsPage(WebDriver driver) {
     super(driver);
@@ -201,7 +201,7 @@ public class AchievementsPage extends GenericPage {
   }
 
   private ElementFacade achievementsFilterButton() {
-    return findByXPathOrCSS("//*[@id = 'Realizations']//*[contains(text(), 'Filter')]//ancestor-or-self::button");
+    return findByXPathOrCSS("//*[@id = 'applicationToolbar']//*[contains(text(), 'Filter')]//ancestor-or-self::button");
   }
 
   private TextBoxElementFacade achievementsFilterProgramSuggester() {

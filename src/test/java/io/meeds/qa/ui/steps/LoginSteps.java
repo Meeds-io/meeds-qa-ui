@@ -77,4 +77,8 @@ public class LoginSteps {
     loginPage.checkLoginPageDisplay();
   }
 
+  public void waitForUsernameInputDisplay(int retries) {
+    loginPage.waitForUsernameInputDisplay(retries);
+  }
+
 }

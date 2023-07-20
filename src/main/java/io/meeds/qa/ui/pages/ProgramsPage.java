@@ -29,6 +29,9 @@ import io.meeds.qa.ui.elements.TextBoxElementFacade;
 
 public class ProgramsPage extends GenericPage {
 
+  private static final String PROGRAM_OVERVIEW_PARENT_ITEM_PATH =
+                                                                "//*[@id='programsOverview']//*[contains(@class, 'v-avatar')]/parent::*/parent::*";
+
   public ProgramsPage(WebDriver driver) {
     super(driver);
   }
@@ -64,10 +67,6 @@ public class ProgramsPage extends GenericPage {
 
   public void addSpaceAudience(String randomSpaceName) {
     mentionInField(audienceSpaceFieldElement(), randomSpaceName, 5);
-  }
-
-  public void checkEngagementAppOpened() {
-    findByXPathOrCSS("//*[@id='EngagementCenterApplication']").assertVisible();
   }
 
   public void checkProgramCardDisplay(String title) {
@@ -140,9 +139,11 @@ public class ProgramsPage extends GenericPage {
     }
   }
 
-  public void selectEngagementTab(String tab) {
-    clickOnElement(getEngagementTab(tab));
-    waitFor(300).milliseconds(); // Wait for Tab switch
+  public void selectEngagementApplication(String link) {
+    engagementApplicationLink().hover();
+    ElementFacade engagementApplicationLink = engagementApplicationLink(link);
+    engagementApplicationLink.waitUntilVisible();
+    engagementApplicationLink.click();
     waitForLoading();
     waitFor(300).milliseconds(); // Wait for Tab switch
   }
@@ -194,6 +195,15 @@ public class ProgramsPage extends GenericPage {
   public void announceAction(String actionTitle, String announcementMessage) {
     getActionItemElement(actionTitle).hover();
     announceButton().click();
+    sendAnnouncementMessage(announcementMessage);
+  }
+
+  public void announceActionFromActivity(String actionTitle, String announcementMessage) {
+    activityAnnounceButton(actionTitle).click();
+    sendAnnouncementMessage(announcementMessage);
+  }
+
+  public void sendAnnouncementMessage(String announcementMessage) {
     ElementFacade ckEditorFrameAnnouncementElement = ckEditorFrameElement();
     ckEditorFrameAnnouncementElement.waitUntilVisible();
     getDriver().switchTo().frame(ckEditorFrameAnnouncementElement);
@@ -290,13 +300,15 @@ public class ProgramsPage extends GenericPage {
   }
 
   private ElementFacade topProgramsElement(String programName, int listPosition) {
-    return findByXPathOrCSS(String.format("(//*[@id='programsOverview']//a[contains(@href, 'programs/')])[%s]//*[contains(text(), '%s')]",
+    return findByXPathOrCSS(String.format("(%s)[%s]//*[contains(text(), '%s')]",
+                                          PROGRAM_OVERVIEW_PARENT_ITEM_PATH,
                                           listPosition,
                                           programName));
   }
 
   private ElementFacade topProgramsElement(String programName) {
-    return findByXPathOrCSS(String.format("//*[@id='programsOverview']//a[contains(@href, 'programs/')]//*[contains(text(), '%s')]",
+    return findByXPathOrCSS(String.format("%s//*[contains(text(), '%s')]",
+                                          PROGRAM_OVERVIEW_PARENT_ITEM_PATH,
                                           programName));
   }
 
@@ -328,8 +340,13 @@ public class ProgramsPage extends GenericPage {
     return findByXPathOrCSS("//*[contains(@class,'fas fa-edit')]");
   }
 
-  private ElementFacade getEngagementTab(String tab) {
-    return findByXPathOrCSS(String.format("//*[@id='engagementCenterTabs']//*[contains(text(),'%s')]", tab));
+  private ElementFacade engagementApplicationLink() {
+    return findByXPathOrCSS("//*[@id = 'topBarMenu']//a[contains(@href, 'contributions')]");
+  }
+
+  private ElementFacade engagementApplicationLink(String link) {
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'v-menu__content')]//a[contains(@href, 'contributions/%s')]",
+                                          link));
   }
 
   private ElementFacade getProgramCard(String programName) {
@@ -380,8 +397,13 @@ public class ProgramsPage extends GenericPage {
     return findByXPathOrCSS(String.format("//ancestor::tbody//ancestor::*[contains(@title,'%s')]", challengeTitle));
   }
 
+  private ElementFacade activityAnnounceButton(String ruleTitle) {
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'activity-detail')]//*[contains(@class, 'activity-footer')]//*[contains(@class, 'bullhorn')]",
+                                          ruleTitle));
+  }
+
   private ElementFacade announceButton() {
-    return findByXPathOrCSS("//*[@id = 'engagementCenterProgramDetail']//*[contains(@class, 'v-data-table')]//*[contains(@class, 'fa-bullhorn')]");
+    return findByXPathOrCSS("//*[contains(@class, 'fa-bullhorn')]");
   }
 
   private ElementFacade actionMenuButton() {
