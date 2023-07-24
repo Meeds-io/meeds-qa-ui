@@ -155,6 +155,7 @@ Feature: Actions
 
     When I go to Stream page
     Then The activity 'Action with activity' is displayed
+    And The message 'Action publication message' is displayed
 
     When I click on 'Action with activity' text
     Then '0' participants is displayed in action drawer
@@ -176,7 +177,6 @@ Feature: Actions
 
     When I go to the random space
     Then The activity 'Action with activity' is displayed
-    And The message 'Action publication message' is displayed
     And The comment 'announcement12' is displayed
 
     When I click on three dots button related to activity 'Action with activity'

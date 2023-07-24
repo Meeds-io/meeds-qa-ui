@@ -87,10 +87,13 @@ public class KudosPage extends GenericPage {
   }
 
   public void cancelKudosComment(String activity, String kudos) {
-    if (!getCancelKudosCommentIcon(kudos).isVisible()) {
+    ElementFacade cancelKudosCommentIcon = getCancelKudosCommentIcon(kudos);
+    if (!cancelKudosCommentIcon.isVisible()) {
       spaceHomePage.openThreeDotsCommentMenu(activity, kudos);
     }
-    getCancelKudosCommentIcon(kudos).click();
+    cancelKudosCommentIcon.assertVisible();
+    cancelKudosCommentIcon.click();
+    cancelKudosCommentIcon.assertNotVisible();
   }
 
   public void enterKudosNumber(String val) {

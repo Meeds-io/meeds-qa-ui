@@ -222,6 +222,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void checkActivityCommentNotDisplayed(String activity, String comment) {
+    waitForLoading();
     retryOnCondition(() -> getDropDownCommentMenu(activity, comment).checkNotVisible(), () -> {
       waitFor(3).seconds();
       Utils.refreshPage();
@@ -470,6 +471,7 @@ public class SpaceHomePage extends GenericPage {
 
   public void clickYesbutton() {
     findByXPathOrCSS(CONFIRMATION_BUTTON_TO_DELETE_ACTIVITY_SELECTOR).click();
+    waitFor(200).milliseconds();
     waitForLoading();
   }
 
