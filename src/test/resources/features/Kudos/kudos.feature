@@ -118,35 +118,36 @@ Feature: Kudos
 
   Scenario: Cancel Kudos sending from the activity author
     Given I am authenticated as 'admin' random user
-    And I inject the cancelfirst random user, no wait
-    And I inject the cancelsecond random user, no wait
+    And I inject the cancelthird random user, no wait
+    And I inject the cancelfourth random user, no wait
+    And I inject the random space
 
-    When I login as 'cancelsecond' random user
+    When I login as 'cancelfourth' random user
     And I go to the random space
     And I click on post in space
     And I enter an activity 'Kudos Post activity - Kudos comment to cancel'
     And I publish the activity
 
-    And I login as 'cancelfirst' random user
+    And I login as 'cancelthird' random user
     When I go to the random space
     And I send in the activity 'Kudos Post activity - Kudos comment to cancel' a kudos message 'Kudos comment to cancel'
 
-    And I login as 'admin' random user
-    When I go to the random space
-    Then In activity 'Kudos Post activity - Kudos comment to cancel' the cancel option in kudos comment 'Kudos comment to cancel' is not displayed
+    When I login as 'admin' random user
+    And I go to the random space
+    And In activity 'Kudos Post activity - Kudos comment to cancel' the cancel option in kudos comment 'Kudos comment to cancel' is not displayed
     Then In activity 'Kudos Post activity - Kudos comment to cancel' the delete option in kudos comment 'Kudos comment to cancel' is displayed
 
-    When I login as 'cancelfirst' random user
+    When I login as 'cancelthird' random user
     And I go to the random space
     Then In activity 'Kudos Post activity - Kudos comment to cancel' the delete option in kudos comment 'Kudos comment to cancel' is not displayed
 
     When In activity 'Kudos Post activity - Kudos comment to cancel' I cancel the sent kudos comment 'Kudos comment to cancel'
-    And I refresh the page
     Then Comment 'Kudos comment to cancel' is not displayed in activity 'Kudos Post activity - Kudos comment to cancel'
-    And I go to My Profile page
+
+    When I go to My Profile page
     Then '0' kudos are sent
 
-    When I login as 'cancelsecond' random user
+    When I login as 'cancelfourth' random user
     And I go to My Profile page
     Then '0' kudos are received
 
