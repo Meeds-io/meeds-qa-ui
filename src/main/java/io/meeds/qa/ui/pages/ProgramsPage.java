@@ -29,8 +29,14 @@ import io.meeds.qa.ui.elements.TextBoxElementFacade;
 
 public class ProgramsPage extends GenericPage {
 
+  private static final boolean APPS_ACCESS_VIA_MENU              =
+                                                    Boolean.parseBoolean(System.getProperty("io.meeds.engagementApps.useMenu",
+                                                                                            "true"));
+
   private static final String PROGRAM_OVERVIEW_PARENT_ITEM_PATH =
                                                                 "//*[@id='programsOverview']//*[contains(@class, 'v-avatar')]/parent::*/parent::*";
+
+  private ApplicationPage applicationPage;
 
   public ProgramsPage(WebDriver driver) {
     super(driver);
@@ -140,12 +146,20 @@ public class ProgramsPage extends GenericPage {
   }
 
   public void selectEngagementApplication(String link) {
-    engagementApplicationLink().hover();
-    ElementFacade engagementApplicationLink = engagementApplicationLink(link);
-    engagementApplicationLink.waitUntilVisible();
-    engagementApplicationLink.click();
-    waitForLoading();
-    waitFor(300).milliseconds(); // Wait for Tab switch
+    if (APPS_ACCESS_VIA_MENU) {
+      engagementApplicationLink().hover();
+      ElementFacade engagementApplicationLink = engagementApplicationLink(link);
+      engagementApplicationLink.waitUntilVisible();
+      engagementApplicationLink.click();
+      waitForLoading();
+      waitFor(300).milliseconds(); // Wait for Tab switch
+    } else {
+      applicationPage.goToApplication("Contributions");
+      if (!StringUtils.equals(link, "programs")) {
+        String currentUrl = getDriver().getCurrentUrl();
+        getDriver().navigate().to(currentUrl + "/" + link);
+      }
+    }
   }
 
   public void selectProgramsFilter(String value) {
