@@ -17,6 +17,7 @@
  */
 package io.meeds.qa.ui.pages;
 
+import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
@@ -62,7 +63,8 @@ public class LoginPage extends GenericPage implements IsHidden {
   }
 
   public void login(String login, String password) {
-    login(login, password, true);
+    retryOnCondition(() -> login(login, password, true),
+                     () -> logout(Utils.MAX_WAIT_RETRIES));
   }
 
   public boolean login(String login, String password, boolean throwException) { // NOSONAR
@@ -73,7 +75,7 @@ public class LoginPage extends GenericPage implements IsHidden {
       if (StringUtils.equals(getLastLoggedInUser(), login)) {
         closeAllDrawers();
       } else {
-        logout(1, Utils.MAX_WAIT_RETRIES);
+        logout(Utils.MAX_WAIT_RETRIES);
         if (!usernameInputElement().isVisible()) {
           return returnError("Username Field isn't displayed", throwException);
         } else {
@@ -146,8 +148,12 @@ public class LoginPage extends GenericPage implements IsHidden {
   }
 
   public void logout() {
-    logout(1, Utils.MAX_WAIT_RETRIES);
+    logout(Utils.MAX_WAIT_RETRIES);
     usernameInputElement().assertVisible();
+  }
+
+  private void logout(int max) {
+    logout(1, max); // recursive method
   }
 
   private void logout(int tentative, int max) {
