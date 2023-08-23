@@ -382,6 +382,11 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.clickPostIcon();
   }
 
+  @when("And I click on kudos action")
+  public void clickKudosComposerAction() {
+    spaceHomeSteps.clickKudosComposerAction();
+  }
+
   @When("^I click to the Unpin button related to activity '(.*)'$")
   public void clickUnpinActivityButton(String activity) {
     spaceHomeSteps.clickUnpinActivityButton(activity);

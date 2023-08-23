@@ -465,6 +465,10 @@ public class SpaceHomePage extends GenericPage {
     activityPostLink.click();
   }
 
+  public void clickKudosComposerAction() {
+    
+  }
+
   public void clickUnpinActivityButton(String activity) {
     getUnpinActivityIcon(activity).click();
   }

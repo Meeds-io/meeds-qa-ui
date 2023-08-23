@@ -2007,3 +2007,18 @@ Feature: Activity Stream
     And the activity 'act_Pin_US04_1' is not displayed in stream page
     And the activity 'act_Pin_US04_2' is not displayed in stream page
     When I select 'All' from the filter proposed
+
+  @mayssa
+  Scenario: CAP117 - Add a kudos from the composer
+    Given I am authenticated as 'admin' random user
+    And I create the random space if not existing
+    And I create the kudosreceiver random user if not existing
+
+    When I go to the random space
+    And I click on post in space
+    And I click on kudos action //new 
+    And I send a kudos message 'Kudos Message CAP-117' to 'kudosreceiver' user //new
+
+    And I login as 'kudosreceiver' random user
+    And I go to My Profile page
+    Then '1' kudos are received
