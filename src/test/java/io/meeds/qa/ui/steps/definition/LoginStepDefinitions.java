@@ -21,6 +21,8 @@ import java.util.List;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+
 import io.meeds.qa.ui.steps.LoginSteps;
 import net.thucydides.core.annotations.Steps;
 
@@ -53,6 +55,16 @@ public class LoginStepDefinitions {
   @Given("I check login page display")
   public void checkLoginPageDisplay() {
     loginSteps.checkLoginPageDisplay();
+  }
+
+  @Then("Register link is displayed")
+  public void checkRegisterLinkIsDisplayed() {
+    loginSteps.checkRegisterLinkIsDisplayed();
+  }
+
+  @Then("Register link is not displayed")
+  public void checkRegisterLinkIsNotDisplayed() {
+    loginSteps.checkRegisterLinkIsNotDisplayed();
   }
 
 }

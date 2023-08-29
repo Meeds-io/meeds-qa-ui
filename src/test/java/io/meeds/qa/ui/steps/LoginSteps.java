@@ -81,4 +81,14 @@ public class LoginSteps {
     loginPage.waitForUsernameInputDisplay(retries);
   }
 
+  public void checkRegisterLinkIsDisplayed() {
+    loginPage.checkLoginPageDisplay();
+    loginPage.registerLinkIsDisplayed();
+  }
+
+  public void checkRegisterLinkIsNotDisplayed() {
+    loginPage.checkLoginPageDisplay();
+    loginPage.registerLinkIsNotDisplayed();
+  }
+
 }

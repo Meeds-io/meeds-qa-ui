@@ -223,9 +223,13 @@ public class HomePage extends GenericPage {
   public void goToAddGroups() {
     goToAdministrationPage("/groupsManagement");
   }
-
+  
   public void goToAddUser() {
     goToAdministrationPage("/usersManagement");
+  }
+
+  public void goToMainSettings() {
+    goToAdministrationPage("/generalSettings");
   }
 
   public void goToAppCenterAdminSetupPage() {

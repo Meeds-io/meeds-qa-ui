@@ -152,6 +152,14 @@ public class LoginPage extends GenericPage implements IsHidden {
     usernameInputElement().assertVisible();
   }
 
+  public void registerLinkIsDisplayed() {
+    registerLink().isVisible();
+  }
+
+  public void registerLinkIsNotDisplayed() {
+    registerLink().isNotVisible();
+  }
+
   private void logout(int max) {
     logout(1, max); // recursive method
   }
@@ -233,6 +241,10 @@ public class LoginPage extends GenericPage implements IsHidden {
 
   private ElementFacade loginButtonElement() {
     return findButtonByXPathOrCSS("//*[contains(@class, 'loginButton')]//button");
+  }
+
+  private ElementFacade registerLink() {
+    return findButtonByXPathOrCSS("//a[@href = '/portal/register']");
   }
 
   private TextBoxElementFacade passwordInputElement() {

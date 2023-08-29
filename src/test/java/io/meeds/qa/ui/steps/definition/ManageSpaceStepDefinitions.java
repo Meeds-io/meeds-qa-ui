@@ -36,7 +36,8 @@ import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 
 public class ManageSpaceStepDefinitions {
-  private static final String RANDOM_SPACE_NAME = "randomSpaceName";
+
+  public static final String RANDOM_SPACE_NAME = "randomSpaceName";
 
   @Steps
   private HomeSteps        homeSteps;
@@ -79,6 +80,26 @@ public class ManageSpaceStepDefinitions {
     homeSteps.goToManageSpacesPage();
     manageSpaceSteps.addSpaceWithInviteUser(randomSpaceName, userFirstName);
     setSessionVariable(RANDOM_SPACE_NAME).to(randomSpaceName);
+  }
+
+  @Given("I open space invitation drawer")
+  public void openSpaceInvitationDrawer() {
+    manageSpaceSteps.openSpaceInvitationDrawer();
+  }
+  
+  @Given("^I enter email '(.*)' to invite in random space$")
+  public void inviteEmailAsSpaceMember(String email) {
+    manageSpaceSteps.inviteEmailAsSpaceMember(email);
+  }
+
+  @Then("^The email '(.*)' is set to '(.*)' in invitations list$")
+  public void emailIsListedInInvitationList(String email, String status) {
+    manageSpaceSteps.emailIsListedInInvitationList(email, status);
+  }
+
+  @Then("^The email '(.*)' is not displayed in invitations list$")
+  public void emailIsNotListedInInvitationList(String email) {
+    manageSpaceSteps.emailIsNotListedInInvitationList(email);
   }
 
   @Given("^I create a (.*) random space$")
@@ -370,7 +391,7 @@ public class ManageSpaceStepDefinitions {
     TestInitHook.spaceWithPrefixDeleted("secondRandomSpaceName");
   }
 
-  @Given("^I go to members tab$")
+  @Given("I go to members tab")
   public void goToMembersTab() {
     manageSpaceSteps.goToMembersTab();
   }

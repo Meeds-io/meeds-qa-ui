@@ -112,6 +112,10 @@ public class GenericPage extends BasePageImpl {
     findByXPathOrCSS("//*[contains(@class, 'v-alert')]//*[contains(@class, 'success')]").assertVisible();
   }
 
+  public void checkInformationMessageDisplayed() {
+    findByXPathOrCSS("//*[contains(@class, 'v-alert')]//*[contains(@class, 'info')]").assertVisible();
+  }
+
   public void checkSwitchButtonNotDisplayed(String buttonName) {
     findByXPathOrCSS(String.format("//*[contains(@class, 'v-input--switch')]/parent::*//*[contains(text(), '%s')]",
                                    buttonName)).assertNotVisible();
