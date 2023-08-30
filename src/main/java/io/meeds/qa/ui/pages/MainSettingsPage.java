@@ -122,10 +122,16 @@ public class MainSettingsPage extends GenericPage {
   }
 
   public void setLoginTitle(String title) {
+    if (clearLoginTitleButton().isVisible()) {
+      clearLoginTitleButton().click();
+    }
     loginTitleInput().setTextValue(title);
   }
 
   public void setLoginSubTitle(String subtitle) {
+    if (clearSubTitleTitleButton().isVisible()) {
+      clearSubTitleTitleButton().click();
+    }
     loginSubTitleInput().setTextValue(subtitle);
   }
 
@@ -204,11 +210,19 @@ public class MainSettingsPage extends GenericPage {
   }
 
   private TextBoxElementFacade loginTitleInput() {
-    return findTextBoxByXPathOrCSS("//*[@id='generalSettings']//*[@name = 'loginTitle']");
+    return findTextBoxByXPathOrCSS("//*[@id='generalSettings']//input[@name='loginTitle']");
+  }
+
+  private TextBoxElementFacade clearLoginTitleButton() {
+    return findTextBoxByXPathOrCSS("//*[@id='generalSettings']//*[@name = 'loginTitle']//ancestor::*[contains(@class, 'v-input')]//*[contains(@class, 'fa-times')]");
   }
 
   private TextBoxElementFacade loginSubTitleInput() {
-    return findTextBoxByXPathOrCSS("//*[@id='generalSettings']//*[@name = 'loginSubtitle']");
+    return findTextBoxByXPathOrCSS("//*[@id='generalSettings']//input[@name='loginSubtitle']");
+  }
+
+  private TextBoxElementFacade clearSubTitleTitleButton() {
+    return findTextBoxByXPathOrCSS("//*[@id='generalSettings']//*[@name = 'loginSubtitle']//ancestor::*[contains(@class, 'v-input')]//*[contains(@class, 'fa-times')]");
   }
 
   private ElementFacade loginBackgroundButton() {

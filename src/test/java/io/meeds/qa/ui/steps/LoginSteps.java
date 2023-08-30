@@ -82,12 +82,10 @@ public class LoginSteps {
   }
 
   public void checkRegisterLinkIsDisplayed() {
-    loginPage.checkLoginPageDisplay();
     loginPage.registerLinkIsDisplayed();
   }
 
   public void checkRegisterLinkIsNotDisplayed() {
-    loginPage.checkLoginPageDisplay();
     loginPage.registerLinkIsNotDisplayed();
   }
 

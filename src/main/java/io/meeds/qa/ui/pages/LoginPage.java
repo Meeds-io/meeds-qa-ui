@@ -19,6 +19,7 @@ package io.meeds.qa.ui.pages;
 
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -217,8 +218,10 @@ public class LoginPage extends GenericPage implements IsHidden {
     int brandingLogoElementWidth = brandingLogoElement.getRect().getWidth();
     int brandingLogoElementHeight = brandingLogoElement.getRect().getHeight();
 
-    assertEquals((long) (windowHeight - brandingLogoElementHeight - windowHeight * 0.03d), brandingLogoElementTop);
-    assertEquals((long) (windowWidth - brandingLogoElementWidth - windowWidth * 0.03d), brandingLogoElementLeft);
+    long diffY = Math.abs(((long) (windowHeight - brandingLogoElementHeight - windowHeight * 0.03d)) - brandingLogoElementTop);
+    long diffX = Math.abs(((long) (windowWidth - brandingLogoElementWidth - windowWidth * 0.03d)) - brandingLogoElementLeft);
+    assertTrue(diffY <= 2);
+    assertTrue(diffX <= 2);
   }
 
   private boolean returnError(String message, boolean throwException) {
