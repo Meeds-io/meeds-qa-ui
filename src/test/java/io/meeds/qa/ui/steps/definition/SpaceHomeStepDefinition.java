@@ -931,5 +931,25 @@ public class SpaceHomeStepDefinition {
   public void checkPreviewAttachedImageIsClosed() {
     spaceHomeSteps.checkPreviewAttachedImageIsClosed();
   }
+  
+  @Then("^The attached images should be displayed in the activity '(.*)' drawer with the delete icon")
+  public void checkActivityDrawerAttachedImages(String activity) {
+    spaceHomeSteps.checkActivityDrawerAttachedImages(activity);
+  }
+  
+  @Then("^I click on delete an attached image")
+  public void clickDeleteAttachment() {
+    spaceHomeSteps.clickDeleteAttachment();
+  }
+  
+  @Then("^The attached image is not displayed")
+  public void checkActivityAttachImageDeleted () {
+    spaceHomeSteps.checkActivityAttachImageDeleted();
+  }
+  
+  @Then("^The attached images should not be displayed in the published activity '(.*)'$")
+  public void checkActivityAttachedImagesIsNotDisplayed(String activity) {
+    spaceHomeSteps.checkActivityAttachedImagesIsNotDisplayed(activity);
+  }
 
 }
