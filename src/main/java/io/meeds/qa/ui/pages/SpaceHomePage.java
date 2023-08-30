@@ -902,6 +902,14 @@ public class SpaceHomePage extends GenericPage {
     getPreviewAttachedImage().assertVisible();
   }
   
+  public void clickDeleteAttachment() {
+    deleteAttachmentBtn().click();
+  }
+  
+  public void checkActivityAttachImageDeleted() {
+    getActivityAttachedImage().assertNotVisible();
+  }
+  
   public void publishActivityInArabicLanguage() {
     newActivityButtonInArabicLanguageElement().click();
   }
@@ -973,6 +981,15 @@ public class SpaceHomePage extends GenericPage {
   public void checkActivityAttachedImages(String activity) {
     getAttachedImagesActivity(activity).assertVisible();
   }
+  
+  public void checkActivityAttachedImagesIsNotDisplayed(String activity) {
+    getAttachedImagesActivity(activity).assertNotVisible();
+  }
+  
+  public void checkActivityDrawerAttachedImages(String activity) {
+    getActivityAttachedImageWithDeleteIcon(activity).assertVisible();
+  }
+
 
   public void updateActivityComment(String comment) {
     waitOnCommentRichText();
@@ -1477,6 +1494,19 @@ public class SpaceHomePage extends GenericPage {
   
   private ElementFacade previewAttachedImageCloseBtn() {
     return findByXPathOrCSS("//*[contains(@class,'preview-attachment-action')]//button[@id='preview-attachment-close']");
+  }
+  
+  private ElementFacade deleteAttachmentBtn() {
+    return findByXPathOrCSS(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR + "//*[contains(@class, 'activityRichEditor')]//*[contains(@class, 'carousel-top-parent')]//button[contains(@class, 'v-btn')][2]");
+  }
+  
+  
+  private ElementFacade getActivityAttachedImage() {
+    return findByXPathOrCSS(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR + "//*[contains(@class, 'activityRichEditor')]//*[contains(@class, 'carousel-top-parent')]");
+  }
+  
+  private ElementFacade getActivityAttachedImageWithDeleteIcon(String activity) {
+    return findByXPathOrCSS(String.format(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR + "//*[contains(@class, 'activityRichEditor')]//*[contains(@class, 'carousel-top-parent')]//button[contains(@class, 'v-btn')]//*[contains(@class, 'fa-trash')]", activity));
   }
 
   private ElementFacade getReactionActivityLink(String activity) {
