@@ -29,23 +29,14 @@ public class MainSettingsPage extends GenericPage {
   }
 
   public void goToLoginCustomization() {
-    if (backToMainButton().isCurrentlyVisible()) {
-      goBackToMainSettings();
-    }
     loginCustomizationEditButton().click();
   }
 
   public void goToBrandingCustomization() {
-    if (backToMainButton().isCurrentlyVisible()) {
-      goBackToMainSettings();
-    }
     brandingCustomizationEditButton().click();
   }
 
   public void goToAccessCustomization() {
-    if (backToMainButton().isCurrentlyVisible()) {
-      goBackToMainSettings();
-    }
     accessCustomizationEditButton().click();
   }
 
