@@ -223,9 +223,13 @@ public class HomePage extends GenericPage {
   public void goToAddGroups() {
     goToAdministrationPage("/groupsManagement");
   }
-
+  
   public void goToAddUser() {
     goToAdministrationPage("/usersManagement");
+  }
+
+  public void goToMainSettings() {
+    goToAdministrationPage("/generalSettings", true);
   }
 
   public void goToAppCenterAdminSetupPage() {
@@ -476,7 +480,11 @@ public class HomePage extends GenericPage {
   }
 
   private void goToAdministrationPage(String uri) {
-    if (!StringUtils.contains(getDriver().getCurrentUrl(), uri)) {
+    goToAdministrationPage(uri, false);
+  }
+
+  private void goToAdministrationPage(String uri, boolean forceRefresh) {
+    if (forceRefresh || !StringUtils.contains(getDriver().getCurrentUrl(), uri)) {
       accessToAdministrationMenu();
       waitFor(50).milliseconds();
       findByXPathOrCSS(String.format("//*[@id = 'AdministrationHamburgerNavigation']//a[contains(@href, '%s')]", uri)).click();

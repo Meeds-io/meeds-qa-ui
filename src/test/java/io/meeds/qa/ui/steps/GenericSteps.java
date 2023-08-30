@@ -172,6 +172,10 @@ public class GenericSteps {
     genericPage.checkSuccessMessageDisplayed();
   }
 
+  public void checkInformationMessageDisplayed() {
+    genericPage.checkInformationMessageDisplayed();
+  }
+
   public void waitInSeconds(int seconds) {
     genericPage.waitFor(seconds).seconds();
   }

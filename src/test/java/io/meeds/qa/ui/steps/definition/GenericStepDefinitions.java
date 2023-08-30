@@ -131,9 +131,14 @@ public class GenericStepDefinitions {
                                                      .isTrue();
   }
 
-  @When("success message is displayed")
+  @When("Success message is displayed")
   public void checkSuccessMessage() {
     genericSteps.checkSuccessMessageDisplayed();
+  }
+
+  @When("Information message is displayed")
+  public void checkInformationMessageDisplayed() {
+    genericSteps.checkInformationMessageDisplayed();
   }
 
   @When("^I confirm$")
