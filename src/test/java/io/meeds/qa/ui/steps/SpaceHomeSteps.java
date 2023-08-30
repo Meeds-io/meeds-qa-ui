@@ -614,4 +614,21 @@ public class SpaceHomeSteps {
     spaceHomePage.checkActivityAttachedImages(activity);
   }
   
+  public void checkActivityDrawerAttachedImages(String activity) {
+    spaceHomePage.checkActivityDrawerAttachedImages(activity);
+  }
+  
+  public void clickDeleteAttachment() {
+    spaceHomePage.clickDeleteAttachment();
+  }
+  
+  public void checkActivityAttachImageDeleted() {
+    spaceHomePage.checkActivityAttachImageDeleted();
+  }
+  
+  public void checkActivityAttachedImagesIsNotDisplayed(String activity) {
+    spaceHomePage.checkActivityAttachedImagesIsNotDisplayed(activity);
+  }
+  
+  
 }
