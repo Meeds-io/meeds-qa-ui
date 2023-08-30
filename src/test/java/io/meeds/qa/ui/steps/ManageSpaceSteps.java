@@ -25,7 +25,6 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.JavascriptExecutor;
@@ -394,6 +393,22 @@ public class ManageSpaceSteps {
     if (!manageSpacesPage.isSpaceMenuDisplayed()) {
       manageSpacesPage.clickSpaceActionToJoin();
     }
+  }
+
+  public void openSpaceInvitationDrawer() {
+    manageSpacesPage.openSpaceInvitationDrawer();    
+  }
+
+  public void inviteEmailAsSpaceMember(String email) {
+    manageSpacesPage.inviteEmailAsSpaceMember(email);    
+  }
+
+  public void emailIsListedInInvitationList(String email, String status) {
+    manageSpacesPage.emailIsListedInInvitationList(email, status);    
+  }
+
+  public void emailIsNotListedInInvitationList(String email) {
+    manageSpacesPage.emailIsNotListedInInvitationList(email);
   }
 
   public String moveApplicationAfter(int appPosition) {
