@@ -34,6 +34,7 @@ public class SpaceHomeStepDefinition {
 
   private SpaceHomePage  spaceHomePage;
 
+
   @Steps
   private SpaceHomeSteps spaceHomeSteps;
 
@@ -104,7 +105,12 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.cancelDeleteComment();
   }
 
-  @Then("^Activity Comment '(.*)' is displayed in activity stream$")
+  @And("^Activity Comment kudos '(.*)' is displayed in activity stream$")
+  public void checkActivityCommentKudos(String comment) {
+    spaceHomeSteps.checkActivityCommentKudos(comment);
+  }
+  
+  @And("^Activity Comment '(.*)' is displayed in activity stream$")
   public void checkActivityComment(String comment) {
     spaceHomeSteps.checkActivityComment(comment);
   }
@@ -784,6 +790,36 @@ public class SpaceHomeStepDefinition {
   public void attachImageToActivity() {
     spaceHomeSteps.attachImageToActivity();
   }
+  
+  @And("I attach a gif image to the activity")
+  public void attachGifImageToActivity() {
+    spaceHomeSteps.attachGifImageToActivity();
+  }
+  
+  @And("the crop zone should be blurred")
+  public void checkCropDrawerBlurredZone() {
+    spaceHomeSteps.checkCropDrawerBlurredZone();
+  }
+  
+  @And("I attach an image to the kudos")
+  public void attachImageToKudos() {
+    spaceHomeSteps.attachImageToKudos();
+  }
+  
+  @And("I attach an image to the activity comment")
+  public void attachImageToActivityComment() {
+    spaceHomeSteps.attachImageToActivityComment();
+  }
+  
+  @And("I attach an image to the announcement")
+  public void attachImageToAnnouncement() {
+    spaceHomeSteps.attachImageToAnnouncement();
+  }
+  
+  @And("I attach an image to the program action")
+  public void attachImageToProgramAction() {
+    spaceHomeSteps.attachImageToProgramAction();
+  }
 
   @When("^I publish the activity stream in arabic language$")
   public void publishActivityInArabicLanguage() {
@@ -907,6 +943,16 @@ public class SpaceHomeStepDefinition {
   public void checkActivityAttachedImages(String activity) {
     spaceHomeSteps.checkActivityAttachedImages(activity);
   }
+  
+  @And("^The second attached image should be displayed in the published activity '(.*)'$")
+  public void checkActivitySecondAttachedImage(String activity) {
+    spaceHomeSteps.checkActivitySecondAttachedImage(activity);
+  }
+  
+  @Then("^The attached images should be displayed in the activity comment '(.*)'$")
+  public void checkKudosCommentAttachedImages(String comment) {
+    spaceHomeSteps.checkKudosCommentAttachedImages(comment);
+  }
 
   @When("^I click on attached image related to activity '(.*)'$")
   public void clickPreviewAttachedImage(String activity) {
@@ -916,6 +962,11 @@ public class SpaceHomeStepDefinition {
   @Then("^the preview of the attached image is displayed")
   public void previewAttachedImage() {
     spaceHomeSteps.previewAttachedImage();
+  }
+  
+  @And("^The preview arrows are not displayed")
+  public void checkPreviewAttachedImageArrows() {
+    spaceHomeSteps.checkPreviewAttachedImageArrows();
   }
 
   @When("^I click on close icon in preview attached image")
@@ -929,13 +980,44 @@ public class SpaceHomeStepDefinition {
   }
   
   @Then("^The attached images should be displayed in the activity '(.*)' drawer with the delete icon")
-  public void checkActivityDrawerAttachedImages(String activity) {
-    spaceHomeSteps.checkActivityDrawerAttachedImages(activity);
+  public void checkActivityDrawerAttachedImagesDeleteIcon(String activity) {
+    spaceHomeSteps.checkActivityDrawerAttachedImagesDeleteIcon(activity);
+  }
+  
+  @Then("^The attached images should be displayed in the activity '(.*)' drawer with the edit icon")
+  public void checkActivityDrawerAttachedImagesEditIcon(String activity) {
+    spaceHomeSteps.checkActivityDrawerAttachedImagesEditIcon(activity);
   }
   
   @Then("^I click on delete an attached image")
   public void clickDeleteAttachment() {
     spaceHomeSteps.clickDeleteAttachment();
+  }
+  
+  @Then("^I update the attached image")
+  public void clickUpdateAttachment() {
+    spaceHomeSteps.clickEditAttachment();
+  }
+  
+  @Then("^I click on edit an attached image")
+  public void clickEditAttachment() {
+    spaceHomeSteps.clickEditAttachment();
+  }
+  
+  @When("^I click to zoom attached image")
+  public void zoomAttachedImage() {
+    spaceHomeSteps.zoomAttachedImage();
+  }
+  
+  @When("^The cancel option is displayed")
+  public void checkAttachedImageCropDrawerCancelOption() {
+    spaceHomeSteps.checkAttachedImageCropDrawerCancelOption();
+  }
+  
+  
+  @Then("^The attached image crop drawer displayed")
+  public void checkAttachedImageCropDrawer() {
+    spaceHomeSteps.checkAttachedImageCropDrawer();
   }
   
   @Then("^The attached image is not displayed")

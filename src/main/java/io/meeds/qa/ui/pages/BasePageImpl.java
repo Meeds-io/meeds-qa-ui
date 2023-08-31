@@ -63,6 +63,8 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   public static final String    USER_AVATAR_PNG             = "cap02.png";
 
+  public static final String    GIF_IMAGE                   = "cap04.gif";
+
   protected String              url;
 
   public BasePageImpl() {
@@ -574,6 +576,11 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   public void attachImageToFileInput(ElementFacade fileInput) {
     upload(UPLOAD_DIRECTORY_PATH + USER_AVATAR_PNG).fromLocalMachine().to(fileInput.getElement());
+    waitForProgressBar();
+  }
+  
+  public void attachImageGifToFileInput(ElementFacade fileInput) {
+    upload(UPLOAD_DIRECTORY_PATH + GIF_IMAGE).fromLocalMachine().to(fileInput.getElement());
     waitForProgressBar();
   }
 
