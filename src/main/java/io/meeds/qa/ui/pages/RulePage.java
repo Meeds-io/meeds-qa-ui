@@ -115,7 +115,9 @@ public class RulePage extends GenericPage {
     selectActionDateChoice("BEFORE");
     actionEndDateElement().click();
     waitForMenuToOpen();
-    randomDateCalenderElement().waitUntilVisible();
+    if (!randomDateCalenderElement().isVisible()) {
+      nextMonthDateCalenderButton().click();
+    }
     randomDateCalenderElement().click();
     waitForMenuToClose();
   }
@@ -251,6 +253,10 @@ public class RulePage extends GenericPage {
 
   private TextBoxElementFacade randomDateCalenderElement() {
     return findTextBoxByXPathOrCSS("//*[contains(@class,'menuable__content__active')]//*[contains(@class,'v-date-picker-table')]//button[not(@disabled)]");
+  }
+
+  private TextBoxElementFacade nextMonthDateCalenderButton() {
+    return findTextBoxByXPathOrCSS("//*[contains(@class,'menuable__content__active')]//*[contains(@class,'v-date-picker-header')]//button[not(@disabled)]//i[contains(@class, 'right')]");
   }
 
   private TextBoxElementFacade ruleDescriptionFieldElement() {
