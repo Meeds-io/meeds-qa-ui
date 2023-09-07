@@ -1,7 +1,7 @@
 @task
 Feature: Filter Drawer
 
-  Scenario: CAP110 - [Filter_Drawer_US03]Group by Labels [Group and Sort" tab under project]
+  Scenario: Group and Sort tab under project
     Given I am authenticated as 'admin' random user
 
     When I create a random space
