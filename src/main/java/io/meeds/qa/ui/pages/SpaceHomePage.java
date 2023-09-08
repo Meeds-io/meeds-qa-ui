@@ -17,7 +17,7 @@
  */
 package io.meeds.qa.ui.pages;
 
-import static io.meeds.qa.ui.utils.Utils.refreshPage;
+import static io.meeds.qa.ui.utils.Utils.*;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import static org.junit.Assert.assertTrue;
@@ -76,7 +76,10 @@ public class SpaceHomePage extends GenericPage {
         getDriver().switchTo().frame(ckEditorFrameElement());
         activityContentTextBoxElement = activityContentTextBoxElement();
         activityContentTextBoxElement.sendKeys(Keys.CONTROL + "v");
-        activityLinkPreviewElement().waitUntilVisible();
+        int i = MAX_WAIT_RETRIES;
+        while (!activityLinkPreviewElement().isVisible() && i-- > 0) {
+          waitFor(2).seconds();
+        }
       } else if (activity.contains("lien")) {
         activityContentTextBoxElement.click();
         activityContentTextBoxElement.sendKeys(Keys.PAGE_UP);

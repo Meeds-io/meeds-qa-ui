@@ -32,10 +32,12 @@ Feature: General new composer
     Then the activity 'modifier le lien' is displayed in activity stream
     And The link is displayed with the preview
 
-  Scenario: CAP110 - [US-General-07] update posts - text update with video Link (space case)
+  Scenario: Text update with video Link (space case)
     Given I am authenticated as 'admin' random user
+
+    When I inject the random space
     And I go to the random space
-    When I click on post in space
+    And I click on post in space
     And I enter an activity 'https://www.youtube.com/watch?v=wgpduVyZT50'
     And I wait '5' seconds
     And I insert text 'activity110'
