@@ -232,6 +232,10 @@ public class HomePage extends GenericPage {
     goToAdministrationPage("/appCenterAdminSetup");
   }
 
+  public void goToNotificationAdminPage() {
+    goToAdministrationPage("/notification");
+  }
+
   public void goToHomePage() {
     closeAlertIfOpened();
     getDriver().get(getDriver().getCurrentUrl().split("/portal/")[0]);
