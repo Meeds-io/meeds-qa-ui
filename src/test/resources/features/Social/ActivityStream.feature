@@ -824,13 +824,14 @@ Feature: Activity Stream
     When In comment 'commenttest109', I hover on Like icon
     Then Tooltip Remove Like on 'commenttest109' is displayed in activity stream
 
-  Scenario: CAP110 - [ActivityStream_US40][02] DisLike my comment/reply from activity stream
+  Scenario: DisLike my comment/reply from activity stream
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
 
     And I create the first random user if not existing, no wait
-    And I create the second random user if not existing
+    And I create the second random user if not existing, no wait
+    And I inject the random space
 
     And I login as 'first' random user
 
@@ -1344,13 +1345,12 @@ Feature: Activity Stream
     Then Sixth User is not mentioned in the comment
     And I close the opened drawer
 
-  Scenario: Cap146 - [ActivityStream_US40][01] Notifications for comments to my activity
-    Given I am authenticated as 'admin' if random users doesn't exists
-      | first  |
-      | second  |
+  Scenario: Notifications for comments to my activity
+    Given I am authenticated as 'admin' random user
 
     When I create the first random user if not existing, no wait
-    And I create the second random user if not existing
+    And I create the second random user if not existing, no wait
+    And I inject the random space
 
     And I login as 'first' random user
     And I go to the random space
