@@ -78,8 +78,7 @@ public class GenericPage extends BasePageImpl {
   }
 
   public void checkDrawerDisplayed(String title) {
-    assertTrue(findByXPathOrCSS(String.format("//*[contains(@class, 'drawerTitle') and contains(text(),'%s')]",
-                                              title)).isVisible());
+    findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@class, 'drawerTitle')]", title)).assertVisible();
   }
 
   public void clickConfirm() {
