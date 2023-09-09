@@ -149,6 +149,33 @@ public class KudosPage extends GenericPage {
     refreshPage();
   }
 
+  public void sendKudosMessageWithReceiverFromOpenedDrawer(String kudosMessage, String kudosReceiver) {
+    waitForDrawerToOpen("#activityKudosDrawer", false);
+    waitCKEditorLoading(ACTIVITY_KUDOS_DRAWER_SELECTOR);
+    mentionInField(kudosReceiverField(), kudosReceiver, 5);
+    retryOnCondition(() -> {
+      ElementFacade ckEditorFrameKudos = getCkEditorFrameKudos();
+      ckEditorFrameKudos.waitUntilVisible();
+      getDriver().switchTo().frame(ckEditorFrameKudos);
+    }, () -> {
+      getDriver().switchTo().defaultContent();
+      waitFor(500).milliseconds(); // Kudos Iframe seems very slow
+    });
+    try {
+      TextBoxElementFacade kudosFieldElement = kudosFieldElement();
+      kudosFieldElement.waitUntilVisible();
+      kudosFieldElement.setTextValue(kudosMessage);
+    } finally {
+      getDriver().switchTo().defaultContent();
+    }
+    getDriver().switchTo().defaultContent();
+    ElementFacade kudosButtonInDrawerElement = kudosButtonInDrawerElement();
+    kudosButtonInDrawerElement.assertVisible();
+    kudosButtonInDrawerElement.click();
+    kudosButtonInDrawerElement.waitUntilNotVisible();
+    refreshPage();
+  }
+
   public void threeDotsMenuSendKudos() {
     ElementFacade sendKudosMenuElement = sendKudosMenuElement();
     sendKudosMenuElement.assertVisible();
@@ -253,6 +280,10 @@ public class KudosPage extends GenericPage {
     return findTextBoxByXPathOrCSS("//header[@id='peopleListToolbar']//input");
   }
 
+  private TextBoxElementFacade kudosReceiverField() {
+    return findTextBoxByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class,'user-suggester')]//input[@type = 'text']");
+  }
+  
   private ElementFacade semesterPeriodElement() {
     return findByXPathOrCSS("//*[contains(text(),'Semester')]");
   }

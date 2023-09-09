@@ -18,11 +18,14 @@
 package io.meeds.qa.ui.steps;
 
 import io.meeds.qa.ui.pages.SpaceHomePage;
+import io.meeds.qa.ui.pages.KudosPage;
 import io.meeds.qa.ui.utils.Utils;
 
 public class SpaceHomeSteps {
 
   private SpaceHomePage spaceHomePage;
+
+  private KudosPage kudosPage;
 
   public void addActivity(String activity) {
     spaceHomePage.addActivityTextInOpenedEditor(activity);
@@ -152,6 +155,22 @@ public class SpaceHomeSteps {
     spaceHomePage.clickCreatePoll();
   }
 
+  public void clickSendKudos() {
+    spaceHomePage.clickSendKudos();
+  }
+
+  public void clickKudosBtnBelowPostField() {
+    spaceHomePage.clickKudosBtnBelowPostField();
+  }
+
+  public void clickPollBtnBelowPostField() {
+    spaceHomePage.clickPollBtnBelowPostField();
+  }
+
+  public void sendKudosWithReceiver(String kudos, String receiver) {
+    kudosPage.sendKudosMessageWithReceiverFromOpenedDrawer(kudos, receiver);
+  }
+
   public void clickCreatePollButton() {
     spaceHomePage.clickCreatePollButton();
   }
@@ -234,6 +253,26 @@ public class SpaceHomeSteps {
 
   public void clickPostIcon() {
     spaceHomePage.clickPostIcon();
+  }
+
+  public void clickUserAvatar() {
+    spaceHomePage.clickUserAvatar();
+  }
+
+  public void clickCloseKudosDrawer() {
+    spaceHomePage.clickCloseKudosDrawer();
+  }
+
+  public void composerDrawerIsDisplayed() {
+    spaceHomePage.composerDrawerIsDisplayed();
+  }
+
+  public void kudosDrawerIsDisplayed() {
+    spaceHomePage.kudosDrawerIsDisplayed();
+  }
+
+  public void pollDrawerIsDisplayed() {
+    spaceHomePage.pollDrawerIsDisplayed();
   }
 
   public void clickUnpinActivityButton(String activity) {
