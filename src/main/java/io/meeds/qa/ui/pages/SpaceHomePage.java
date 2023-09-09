@@ -361,6 +361,20 @@ public class SpaceHomePage extends GenericPage {
     createPollLinkElement().click();
   }
 
+  public void clickSendKudos() {
+    sendKudosLinkElement().click();
+  }
+
+  public void clickKudosBtnBelowPostField() {
+    ElementFacade sendKudos = findByXPathOrCSS("//*[contains(@class,'activityComposer')]//*[contains(@id,'kudosBtnToolbar')]");
+    sendKudos.click();
+  }
+
+  public void clickPollBtnBelowPostField() {
+    ElementFacade createPoll= findByXPathOrCSS("//*[contains(@class,'activityComposer')]//*[contains(@id,'pollBtnToolbar')]");
+    createPoll.click();
+  }
+
   public void clickCreatePollButton() {
     buttonCreatePollElement().click();
   }
@@ -466,6 +480,28 @@ public class SpaceHomePage extends GenericPage {
     waitForLoading();
     ElementFacade activityPostLink = findByXPathOrCSS(".activityComposer .openLink");
     activityPostLink.click();
+  }
+
+  public void composerDrawerIsDisplayed() {
+    findByXPathOrCSS("#activityComposerDrawer").assertVisible(); 
+  }
+
+  public void kudosDrawerIsDisplayed() {
+    findByXPathOrCSS("#activityKudosDrawer").assertVisible(); 
+  }
+
+  public void pollDrawerIsDisplayed() {
+    findByXPathOrCSS("#createPollDrawer").assertVisible(); 
+  }
+
+  public void clickUserAvatar() {
+    ElementFacade userAvatarLink = findByXPathOrCSS("//*[contains(@class,'openLink')]//descendant::*[starts-with(@id,'userAvatar')]");
+    userAvatarLink.click();
+  }
+
+  public void clickCloseKudosDrawer() {
+    ElementFacade closeKudosDrawerIcon = findByXPathOrCSS("//*[contains(@id,'activityKudosDrawer')]//*[contains(@class,'drawerIcons')]//button[@title='Close']");
+    closeKudosDrawerIcon.click();
   }
 
   public void clickUnpinActivityButton(String activity) {
@@ -1211,9 +1247,13 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private ElementFacade createPollLinkElement() {
-    return findByXPathOrCSS("//*[contains(@class,'createPollComposerIcon')]//ancestor::*[contains(@class, 'actionItem')]");
+    return findByXPathOrCSS("//*[contains(@id,'activityComposerDrawer')]//*[contains(@id,'createPollComposerButton')]");
   }
 
+  private ElementFacade sendKudosLinkElement() {
+    return findByXPathOrCSS("//*[contains(@id,'activityComposerDrawer')]//*[contains(@id,'sendKudosComposerButton')]");
+  }
+  
   private ElementFacade dotsMenuElement() {
     return findByXPathOrCSS("//i[@class='v-icon notranslate primary--text mdi mdi-dots-vertical theme--light']");
   }
