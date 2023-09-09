@@ -2007,3 +2007,50 @@ Feature: Activity Stream
     And the activity 'act_Pin_US04_1' is not displayed in stream page
     And the activity 'act_Pin_US04_2' is not displayed in stream page
     When I select 'All' from the filter proposed
+
+  Scenario: Access user profile through user avatar
+    Given I am authenticated as 'admin' random user
+    And I go to the random space
+
+    When I click on user avatar in space stream
+    Then The page '/profile' is opened
+
+  Scenario: Open composer drawer
+    Given I am authenticated as 'admin' random user
+    And I go to the random space
+
+    When I click on post in space
+    Then the composer is opened
+
+  Scenario: Send kudos from composer
+    Given I am authenticated as 'admin' random user
+    And I create the random space if not existing
+    And I create the kudosreceiver random user if not existing
+
+    When I login as 'kudosreceiver' random user
+    Then I go to the random space
+
+    When I login as 'admin' random user
+    And I go to the random space
+    And I click on post in space
+    And I click on send kudos
+    And I send kudos to 'kudosreceiver' with message 'Composer - send Kudos'
+
+    And I login as 'kudosreceiver' random user
+    And I go to My Profile page
+    Then '1' kudos are received
+
+    Scenario: Open kudos/poll drawer from CTAs below the post CTA
+    Given I am authenticated as 'admin' random user
+    And I create the random space if not existing
+    And I go to the random space
+
+    When I click on kudos button below the post field
+    Then the kudos drawer is opened
+
+    When I close kudos drawer 
+    And I click on poll button below the post field
+    Then the poll drawer is opened
+    And I create a simple poll with title 'Poll from space toolbar' and Choice One 'Option1' and Choice Two 'Option2'
+    And I publish the Poll
+    Then The Poll 'Poll from space toolbar' is displayed in stream page
