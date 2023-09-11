@@ -167,6 +167,10 @@ public class HomeSteps {
     homePage.goToAppCenterAdminSetupPage();
   }
 
+  public void goToNotificationAdminPage() {
+    homePage.goToNotificationAdminPage();
+  }
+
   public void goToHomePage() {
     homePage.goToHomePage();
   }
