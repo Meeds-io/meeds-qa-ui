@@ -21,6 +21,7 @@ import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.ButtonElementFacade;
@@ -481,6 +482,24 @@ public class ManageSpacesPage extends GenericPage {
     moveApplication(appName, "Move before");
   }
 
+  public void openSpaceInvitationDrawer() {
+    inviteUserButtonElement().click();
+    waitForDrawerToOpen();
+  }
+
+  public void inviteEmailAsSpaceMember(String email) {
+    inviteUserInputElement().setTextValue(email);
+    inviteUserInputElement().sendKeys(Keys.ENTER);
+  }
+
+  public void emailIsListedInInvitationList(String email, String status) {
+    inviteEmailStatusElement(email, status).assertVisible();
+  }
+
+  public void emailIsNotListedInInvitationList(String email) {
+    inviteEmailStatusElement(email).assertNotVisible();
+  }
+
   private String moveApplication(int appPosition, String actionName) {
     String appTitle = spaceSettingAppTitle(appPosition).getText();
     spaceSettingAppMenu(appPosition).click();
@@ -627,11 +646,22 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   private ElementFacade inviteUserButtonElement() {
-    return findByXPathOrCSS("//*[@class='uiIconInviteUser ms-2 me-1']");
+    return findByXPathOrCSS("//*[contains(@class, 'inviteUserToSpaceButton')]");
   }
 
   private TextBoxElementFacade inviteUserInputElement() {
     return findTextBoxByXPathOrCSS("(//div[@name='inviteMembers']//input)[1]");
+  }
+
+  private ElementFacade inviteEmailStatusElement(String email, String status) {
+    return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]/ancestor::*[contains(@class, 'externalList')]//*[contains(text(), '%s')]",
+                                          email,
+                                          status));
+  }
+
+  private ElementFacade inviteEmailStatusElement(String email) {
+    return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]/ancestor::*[contains(@class, 'externalList')]",
+                                          email));
   }
 
   private ElementFacade moveAfterAppButtonElement() {

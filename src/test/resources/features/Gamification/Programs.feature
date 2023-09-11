@@ -118,7 +118,7 @@ Feature: Programs
     And I click on 'Add' button in drawer
 
     And I click on 'Activate the program' button
-    Then success message is displayed
+    Then Success message is displayed
     When I close the notification
 
     When I login as 'fourty' random user
@@ -211,7 +211,7 @@ Feature: Programs
 
     And I save the program details
 
-    Then success message is displayed
+    Then Success message is displayed
     When I close the notification
 
     And I click on 'Add action' button
@@ -223,11 +223,11 @@ Feature: Programs
     And I set rule end date
     And I click on 'Add' button in drawer
 
-    Then success message is displayed
+    Then Success message is displayed
     When I close the notification
 
     And I click on 'Activate the program' button
-    Then success message is displayed
+    Then Success message is displayed
     When I close the notification
 
     When I login as 'first' random user
@@ -247,7 +247,7 @@ Feature: Programs
     And I click on 'Next' button in drawer
     And I set user 'first' as program owner
     And I click on 'Save' button in drawer
-    Then success message is displayed
+    Then Success message is displayed
     And I close the notification
 
     When I edit the program from list
@@ -264,7 +264,7 @@ Feature: Programs
     And I click on 'Next' button in drawer
     And I click on 'Save' button in drawer
 
-    Then success message is displayed
+    Then Success message is displayed
     And I close the notification
 
   Scenario: Can't Activate program when no active action

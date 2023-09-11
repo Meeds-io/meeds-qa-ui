@@ -159,6 +159,10 @@ public class HomeSteps {
     homePage.goToAddUser();
   }
 
+  public void goToMainSettings() {
+    homePage.goToMainSettings();
+  }
+
   public void goToAppCenterAdminSetupPage() {
     homePage.goToAppCenterAdminSetupPage();
   }
