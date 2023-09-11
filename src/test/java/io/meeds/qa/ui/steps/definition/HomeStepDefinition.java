@@ -295,6 +295,11 @@ public class HomeStepDefinition {
     homeSteps.goToAppCenterAdminSetupPage();
   }
 
+  @Given("I go to notification administration Page")
+  public void goToNotificationAdminPage() {
+    homeSteps.goToNotificationAdminPage();
+  }
+
   @When("^I go to the home page$")
   public void goToHomePage() {
     homeSteps.goToHomePage();
@@ -310,7 +315,7 @@ public class HomeStepDefinition {
     homeSteps.goToMyProfile();
   }
 
-  @Given("^I go to Settings page$")
+  @Given("I go to Settings page")
   public void goToSettingsPage() {
     homeSteps.goToSettingsPage();
   }
