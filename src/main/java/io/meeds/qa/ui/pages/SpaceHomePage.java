@@ -475,11 +475,15 @@ public class SpaceHomePage extends GenericPage {
     getPinActivityIcon(activity).click();
   }
 
-  public void clickPostIcon() {
-    goToSpecificTab("Stream");
+  public void clickStartPostIcon() {
     waitForLoading();
     ElementFacade activityPostLink = findByXPathOrCSS(".activityComposer .openLink");
     activityPostLink.click();
+  }
+
+  public void clickPostIcon() {
+    goToSpecificTab("Stream");
+    clickStartPostIcon();
   }
 
   public void composerDrawerIsDisplayed() {

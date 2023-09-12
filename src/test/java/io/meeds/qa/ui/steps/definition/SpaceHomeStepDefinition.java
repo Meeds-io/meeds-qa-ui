@@ -392,6 +392,11 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.clickPostIcon();
   }
 
+  @When("I click on start post in stream page")
+  public void clickPostIconInStream() {
+    spaceHomeSteps.clickPostIconInStream();
+  }
+
   @When("I click on user avatar in space stream")
   public void clickUserAvatar() {
     spaceHomeSteps.clickUserAvatar();

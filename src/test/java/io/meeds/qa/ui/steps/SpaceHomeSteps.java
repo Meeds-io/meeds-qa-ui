@@ -254,6 +254,10 @@ public class SpaceHomeSteps {
   public void clickPostIcon() {
     spaceHomePage.clickPostIcon();
   }
+  
+  public void clickPostIconInStream() {
+    spaceHomePage.clickStartPostIcon();
+  }
 
   public void clickUserAvatar() {
     spaceHomePage.clickUserAvatar();

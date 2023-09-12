@@ -2015,11 +2015,18 @@ Feature: Activity Stream
     When I click on user avatar in space stream
     Then The page '/profile' is opened
 
-  Scenario: Open composer drawer
+  Scenario: Open composer drawer from space stream
     Given I am authenticated as 'admin' random user
     And I go to the random space
 
     When I click on post in space
+    Then the composer is opened
+
+  Scenario: Open composer drawer from stream
+    Given I am authenticated as 'admin' random user
+    And I go to Stream page
+
+    When I click on start post in stream page
     Then the composer is opened
 
   Scenario: Send kudos from composer
