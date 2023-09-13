@@ -538,8 +538,24 @@ public class SpaceHomeSteps {
     spaceHomePage.kudosLabelIsBlue(comment);
   }
 
-  public void selectPinnedActivity(String filter) {
-    spaceHomePage.selectPinnedActivity(filter);
+  public void selectActivityFilter(String filter) {
+    spaceHomePage.selectActivityFilter(filter);
+  }
+
+  public void clickFilterIcon() {
+    spaceHomePage.clickFilterIcon();
+  }
+
+  public void clickApplyButton() {
+    spaceHomePage.clickApplyButton();
+  }
+
+  public void PrimaryFilterIconColor() {
+    spaceHomePage.PrimaryFilterIconColor();
+  }
+
+  public void DefaultFilterIconColor() {
+    spaceHomePage.DefaultFilterIconColor();
   }
 
   public void tooltipActivityStreamIsDisplayed(String comment) {
