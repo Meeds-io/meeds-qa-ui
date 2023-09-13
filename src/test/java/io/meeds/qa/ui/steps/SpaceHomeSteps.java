@@ -562,20 +562,16 @@ public class SpaceHomeSteps {
     spaceHomePage.selectActivityFilter(filter);
   }
 
-  public void clickFilterIcon() {
-    spaceHomePage.clickFilterIcon();
+  public void clickFilterIconFromComposer() {
+    spaceHomePage.clickFilterIconFromComposer();
   }
 
-  public void clickApplyButton() {
-    spaceHomePage.clickApplyButton();
+  public void filterIsSelected() {
+    spaceHomePage.filterIsSelected();
   }
 
-  public void PrimaryFilterIconColor() {
-    spaceHomePage.PrimaryFilterIconColor();
-  }
-
-  public void DefaultFilterIconColor() {
-    spaceHomePage.DefaultFilterIconColor();
+  public void filterIsntSelected() {
+    spaceHomePage.filterIsntSelected();
   }
 
   public void tooltipActivityStreamIsDisplayed(String comment) {
