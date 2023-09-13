@@ -1019,22 +1019,17 @@ public class SpaceHomePage extends GenericPage {
     ActivityFilterRadioButton.click();
   }
 
-  public void clickFilterIcon() {
+  public void clickFilterIconFromComposer() {
     ElementFacade filterLink = findByXPathOrCSS(".activityComposer .v-btn--icon");
     filterLink.click();
     waitForDrawerToOpen();
   }
 
-  public void clickApplyButton() {
-    ElementFacade applyButton = findByXPathOrCSS("//*[@class='btn btn-primary v-btn v-btn--contained theme--light v-size--default']");
-    applyButton.click();
-  }
-
-  public void PrimaryFilterIconColor() {
+  public void filterIsSelected() {
     assertTrue(FilterIcon().getAttribute("class").contains("primary--text"));
   }
 
-  public void DefaultFilterIconColor() {
+  public void filterIsntSelected() {
     assertFalse(FilterIcon().getAttribute("class").contains("primary--text"));
   }
 
