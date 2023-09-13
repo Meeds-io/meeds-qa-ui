@@ -217,8 +217,12 @@ Feature: Favorite activities
     Given I go to Stream page
     Then the activity 'Test1' is displayed in stream page
     And the activity 'Test2' is displayed in stream page
-    When I select 'My favorite spaces' from the filter proposed
+    When I click on filter icon
+    And I click on 'My favorite spaces' radio button
+    And I click on apply button
     And the activity 'Test1' is displayed in stream page
     Then the activity 'Test2' is not displayed in stream page
-    And I select 'All' from the filter proposed
+    And I click on filter icon
+    And I click on 'All' radio button
+    And I click on apply button
 

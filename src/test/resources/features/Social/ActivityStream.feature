@@ -2001,12 +2001,18 @@ Feature: Activity Stream
     And the activity 'act_Pin_US04_1' is displayed in stream page
     And the activity 'act_Pin_US04_2' is displayed in stream page
     And the activity 'PinTest' is displayed in stream page
-    When I select 'Pinned activities' from the filter proposed
+    When I click on filter icon
+    And I click on 'Pinned activities' radio button
+    And I click on apply button
     And the activity 'PinTest' is displayed in stream page
+    And the filter icon color is set to primary
     Then the activity 'act_Pin_US04_0' is not displayed in stream page
     And the activity 'act_Pin_US04_1' is not displayed in stream page
     And the activity 'act_Pin_US04_2' is not displayed in stream page
-    When I select 'All' from the filter proposed
+    When I click on filter icon
+    And I click on 'All' radio button
+    And I click on apply button
+    And the filter icon color is set to default
 
   Scenario: Access user profile through user avatar
     Given I am authenticated as 'admin' random user
