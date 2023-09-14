@@ -846,9 +846,24 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.replykudosLabelIsBlue(comment);
   }
 
-  @When("^I select '(.*)' from the filter proposed$")
-  public void selectPinnedActivity(String filter) {
-    spaceHomeSteps.selectPinnedActivity(filter);
+  @When("^I click on filter icon from composer$")
+  public void clickFilterIconFromComposer() {
+    spaceHomeSteps.clickFilterIconFromComposer();
+  }
+
+  @Then("^I click on '(.*)' activity filter radio button$")
+  public void selectActivityFilter(String filter) {
+    spaceHomeSteps.selectActivityFilter(filter);
+  }
+
+  @Then("^the stream filter is selected$")
+  public void filterIsSelected() {
+    spaceHomeSteps.filterIsSelected();
+  }
+  
+  @Then("^the stream filter isn't selected$")
+  public void filterIsntSelected() {
+    spaceHomeSteps.filterIsntSelected();
   }
 
   @When("^Tooltip Like on '(.*)' is displayed in activity stream$")
