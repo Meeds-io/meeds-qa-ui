@@ -501,7 +501,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void clickUserAvatar() {
-    ElementFacade userAvatarLink = findByXPathOrCSS("//*[contains(@class,'openLink')]//descendant::*[starts-with(@id,'userAvatar')]");
+    ElementFacade userAvatarLink = findByXPathOrCSS("//*[contains(@class,'activityComposer')]//descendant::*[starts-with(@id,'userAvatar')]");
     userAvatarLink.click();
   }
 
