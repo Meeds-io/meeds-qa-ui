@@ -567,8 +567,7 @@ public class TasksStepDefinition {
 
   @When("^I click on the notification that mention third user in a task in Project '(.*)' project$")
   public void clickOnTheNotificationThatMentioneFirstUserInATaskInProject(String projectName) {
-    String message = "You have been mentioned in a task in" + " " + projectName + " " + "project";
-    tasksSteps.clickOnTheNotificationThatMentionThirdUserInATaskInProject(message, projectName);
+    tasksSteps.clickOnTheNotificationThatMentionThirdUserInATaskInProject("mentioned", projectName);
   }
 
   @When("^I click on the timestamp$")

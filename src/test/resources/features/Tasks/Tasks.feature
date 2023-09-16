@@ -306,12 +306,12 @@ Feature: Tasks
     And Label 'label6' is displayed in edit task drawer and x icon is not displayed
     And I close the opened drawer
 
-  Scenario:[Task] when click on notification, user is redirected under the specific project
+  Scenario: when click on notification, user is redirected under the specific project
     Given I am authenticated as 'admin' if random users doesn't exists
       | third  |
       | second  |
-    And I create the third random user if not existing, no wait
-    And I create the second random user if not existing
+    And I inject the third random user if not existing, no wait
+    And I inject the second random user if not existing
 
     When I login as 'second' random user
     And I go to 'Tasks' application

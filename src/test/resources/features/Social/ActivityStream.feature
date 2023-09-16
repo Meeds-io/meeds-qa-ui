@@ -1376,7 +1376,7 @@ Feature: Activity Stream
     And Activity Comment 'commenttest146' is displayed in activity stream
     And I go to the home page
 
-  Scenario: Cap147 - [ActivityStream_US40][02] Notifications for comment to my comment
+  Scenario: Notifications for comment to my comment
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
