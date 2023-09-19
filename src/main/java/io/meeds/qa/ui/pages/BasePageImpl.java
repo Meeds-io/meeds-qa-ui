@@ -401,6 +401,17 @@ public class BasePageImpl extends PageObject implements BasePage {
     return findByXPathOrCSS(OPNENED_DRAWER_CSS_SELECTOR + " .mdi-arrow-expand");
   }
 
+  public ElementFacade notificationContentElement(String message) {
+    return findByXPathOrCSS(String.format("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(@id, 'notifItem-')]//*[contains(text(),'%s')]/parent::*",
+                                          message));
+  }
+
+  public ElementFacade notificationContentElement(String message, String content) {
+    return findByXPathOrCSS(String.format("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(@id, 'notifItem-')]//*[contains(text(),'%s')]//ancestor::*[contains(@id, 'notifItem-')]//*[contains(text(),'%s')]/parent::*",
+                                          message,
+                                          content));
+  }
+
   @WhenPageOpens
   public void verifyPageLoaded() {
     waitForLoading(DEFAULT_WAIT_PAGE_LOADING, false);

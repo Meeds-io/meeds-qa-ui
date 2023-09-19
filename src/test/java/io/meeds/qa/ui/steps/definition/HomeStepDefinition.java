@@ -215,11 +215,10 @@ public class HomeStepDefinition {
   public void clickOnFirstUserActivityCommentedBySecondUserNotification(String activity, String comment) {
     String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
     String secondUserLastName = Serenity.sessionVariableCalled("secondUserLastName");
-
     String secondUserFullName = secondUserFirstName + " " + secondUserLastName;
 
-    String message = secondUserFullName + " has commented on a post";
-    homeSteps.clickOnCommentActivityNotification(message, activity, comment);
+    homeSteps.commentActivityNotificationIsDisplayed("has commented on a post", activity, comment);
+    homeSteps.clickOnCommentActivityNotification(secondUserFullName, activity, comment);
   }
 
   @Given("^My home icon is on '(.*)'")
@@ -244,8 +243,8 @@ public class HomeStepDefinition {
 
     String firstUserFullName = firstUserFirstName + " " + firstUserLastName;
 
-    String message = firstUserFullName + " replied to your comment";
-    homeSteps.clickOnCommentActivityNotification(message, comment, reply);
+    homeSteps.commentActivityNotificationIsDisplayed("replied to your comment", comment, reply);
+    homeSteps.clickOnCommentActivityNotification(firstUserFullName, comment, reply);
   }
 
   @When("^I click on space invitation widget$")
@@ -281,8 +280,8 @@ public class HomeStepDefinition {
 
     String secondUserFullName = secondUserFirstName + " " + secondUserLastName;
 
-    String message = secondUserFullName + " has commented on a post";
-    homeSteps.commentActivityNotificationIsDisplayed(message, activity, comment);
+    homeSteps.commentActivityNotificationIsDisplayed("has commented on a post", activity, comment);
+    homeSteps.commentActivityNotificationIsDisplayed(secondUserFullName, activity, comment);
   }
 
   @When("^I go to groups Management page$")
@@ -458,8 +457,8 @@ public class HomeStepDefinition {
 
     String firstUserFullName = firstUserFirstName + " " + firstUserLastName;
 
-    String message = firstUserFullName + " replied to your comment";
-    homeSteps.commentActivityNotificationIsDisplayed(message, comment, reply);
+    homeSteps.commentActivityNotificationIsDisplayed("replied to your comment", comment, reply);
+    homeSteps.commentActivityNotificationIsDisplayed(firstUserFullName, comment, reply);
   }
 
   @Given("^I select '(.*)'$")

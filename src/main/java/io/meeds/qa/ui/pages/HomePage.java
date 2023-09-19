@@ -26,7 +26,6 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 
@@ -125,7 +124,7 @@ public class HomePage extends GenericPage {
   }
 
   public void checkPageIsDisplayed(String pageUri) {
-    assertThat(getDriver().getCurrentUrl()).contains(pageUri);
+    assertThat(getDriver().getCurrentUrl()).contains(pageUri); // NOSONAR
   }
 
   public void clickOnArrowIcon() {
@@ -133,20 +132,8 @@ public class HomePage extends GenericPage {
   }
 
   public void clickOnCommentActivityNotification(String message, String activity, String comment) {
-    ElementFacade firstNotificationContentElement = firstNotificationContentElement();
-    if (firstNotificationContentElement.getText().contains(message)) {
-      Assert.assertTrue(firstNotificationContentElement.getText().contains(message));
-      Assert.assertTrue(firstNotificationContentElement.getText().contains(activity));
-      Assert.assertTrue(firstNotificationContentElement.getText().contains(comment));
-      clickOnElement(firstNotificationContentElement);
-
-    } else {
-      ElementFacade secondNotificationContentElement = secondNotificationContentElement();
-      Assert.assertTrue(secondNotificationContentElement.getText().contains(message));
-      Assert.assertTrue(secondNotificationContentElement.getText().contains(activity));
-      Assert.assertTrue(secondNotificationContentElement.getText().contains(comment));
-      clickOnElement(secondNotificationContentElement);
-    }
+    commentActivityNotificationIsDisplayed(message, activity, comment);
+    notificationContentElement(message, comment).click();
   }
 
   public void clickOnConnectionsBagde() {
@@ -191,18 +178,12 @@ public class HomePage extends GenericPage {
   }
 
   public void commentActivityNotificationIsDisplayed(String message, String activity, String comment) {
-    ElementFacade firstNotificationContentElement = firstNotificationContentElement();
-    String text = firstNotificationContentElement.getText();
-    if (text.contains(message)) {
-      Assert.assertTrue(text.contains(activity));
-      Assert.assertTrue(text.contains(comment));
-    } else {
-      ElementFacade secondNotificationContentElement = secondNotificationContentElement();
-      String secondNotificationText = secondNotificationContentElement.getText();
-      Assert.assertTrue(secondNotificationText.contains(message));
-      Assert.assertTrue(secondNotificationText.contains(activity));
-      Assert.assertTrue(secondNotificationText.contains(comment));
-    }
+    retryOnCondition(() -> notificationContentElement(message).checkVisible(),
+                     () -> waitFor(2).seconds(),
+                     10);
+    notificationContentElement(message).assertVisible();
+    notificationContentElement(message, activity).assertVisible();
+    notificationContentElement(message, comment).assertVisible();
   }
 
   public void confirmationForChangeSiteHomeLink() {
@@ -570,10 +551,6 @@ public class HomePage extends GenericPage {
     return findByXPathOrCSS("//*[@id='ActivityContextBoxWelcomeActivity']");
   }
 
-  private ElementFacade firstNotificationContentElement() {
-    return findByXPathOrCSS("(//*[contains(@class,'drawerContent')]//*[@class='contentSmall'])[1]");
-  }
-
   private ElementFacade getAcceptIconConnectionFromDrawer(String spaceName) {
     return findByXPathOrCSS(String.format("//aside[contains(@class,'connectionsDrawer ')]//descendant::div[contains(text(),'%s')]//following::i[contains(@class,'mdi-checkbox-marked')]",
                                           spaceName));
@@ -692,10 +669,6 @@ public class HomePage extends GenericPage {
   private ElementFacade searchedSpaceInSideBarFilterHover(String space) {
     return findByXPathOrCSS(String.format("//*[contains(@class,'recentSpacesWrapper')]//*[@class='v-list-item__content']//*[contains(text(), '%s')]",
                                           space));
-  }
-
-  private ElementFacade secondNotificationContentElement() {
-    return findByXPathOrCSS("(//*[contains(@class,'drawerContent')]//*[@class='contentSmall'])[2]");
   }
 
   private ElementFacade seeAllLinkElement() {

@@ -492,11 +492,11 @@ public class TasksPage extends GenericPage {
   }
 
   public void clickOnTheNotificationThatMentioneThirdUserInATaskInProject(String message, String projectName) {
-    ElementFacade firstNotificationContentElement = firstNotificationContentElement();
-    firstNotificationContentElement.waitUntilVisible();
-    Assert.assertTrue(firstNotificationContentElement.getText().contains(message));
-    Assert.assertTrue(firstNotificationContentElement.getText().contains(projectName));
-    firstNotificationContentElement.click();
+    retryOnCondition(() -> notificationContentElement(projectName).checkVisible(),
+                     () -> waitFor(2).seconds(),
+                     10);
+    notificationContentElement(message, projectName).assertVisible();
+    notificationContentElement(message, projectName).click();
   }
 
   public void clickOnTheTimestamp() {
@@ -1268,7 +1268,7 @@ public class TasksPage extends GenericPage {
   }
 
   private ElementFacade commentTaskButtonElement() {
-    return findByXPathOrCSS("//*[contains(@class,'newCommentEditor')]//button");
+    return findByXPathOrCSS("//*[contains(@class,'newCommentEditor')]//button[contains(@class,'commentBtn')]");
   }
 
   private TextBoxElementFacade commentTaskMaxCharsMsgElement() {
@@ -1337,10 +1337,6 @@ public class TasksPage extends GenericPage {
 
   private ElementFacade filterTabElement() {
     return findByXPathOrCSS("//*[contains(@class,'filterTasksDrawer ')]//*[contains(@class,'v-tab') and contains(text(),'Filter')]");
-  }
-
-  private ElementFacade firstNotificationContentElement() {
-    return findByXPathOrCSS("(//*[contains(@class,'drawerContent')]//*[@class='contentSmall'])[1]");
   }
 
   private ElementFacade firstStatusColumnElement() {
