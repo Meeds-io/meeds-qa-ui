@@ -87,10 +87,10 @@ public class KudosPage extends GenericPage {
   }
 
   public void cancelKudosComment(String activity, String kudos) {
-    ElementFacade cancelKudosCommentIcon = getCancelKudosCommentIcon(kudos);
-    if (!cancelKudosCommentIcon.isVisible()) {
+    if (!getCancelKudosCommentIcon(kudos).isVisible()) {
       spaceHomePage.openThreeDotsCommentMenu(activity, kudos);
     }
+    ElementFacade cancelKudosCommentIcon = getCancelKudosCommentIcon(kudos);
     cancelKudosCommentIcon.assertVisible();
     cancelKudosCommentIcon.click();
     cancelKudosCommentIcon.assertNotVisible();
@@ -157,18 +157,22 @@ public class KudosPage extends GenericPage {
 
   public void checkCancelKudosActivityIsNotVisible(String kudos) {
     getCancelKudosActivityIcon(kudos).assertNotVisible();
+    closeMenu();
   }
 
   public void checkCancelKudosCommentIsNotVisible(String kudos) {
     getCancelKudosCommentIcon(kudos).assertNotVisible();
+    closeMenu();
   }
 
   public void checkDeleteKudosCommentIsNotVisible(String kudos) {
     getDeleteCommentIcon(kudos).assertNotVisible();
+    closeMenu();
   }
 
   public void checkDeleteKudosCommentIsVisible(String kudos) {
     getDeleteCommentIcon(kudos).assertVisible();
+    closeMenu();
   }
 
   private ElementFacade addministrationMenuElement() {

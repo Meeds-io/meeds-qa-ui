@@ -172,6 +172,19 @@ public class BasePageImpl extends PageObject implements BasePage {
     }
   }
 
+  public void closeMenu() {
+    findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
+    waitFor(300).milliseconds(); // Wait for animation to finish
+  }
+
+  public boolean isMenuDisplayed() {
+    return activeMenuElement().isCurrentlyVisible();
+  }
+
+  public void waitMenuToDisplay() {
+    activeMenuElement().waitUntilVisible();
+  }
+
   public void closeAllDrawers() {
     int i = MAX_WAIT_RETRIES * 2;
     while (openedDrawerElement().isCurrentlyVisible() && i-- > 0) {
@@ -586,6 +599,10 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   private void waitOverlayToClose() {
     findByXPathOrCSS(".v-overlay").waitUntilNotVisible();
+  }
+
+  private ElementFacade activeMenuElement() {
+    return findByXPathOrCSS(".menuable__content__active");
   }
 
 }
