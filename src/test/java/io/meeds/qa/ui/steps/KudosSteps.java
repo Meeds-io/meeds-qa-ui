@@ -62,17 +62,6 @@ public class KudosSteps {
     kudosPage.editKudos();
   }
 
-  public void cancelActivityKudos(String activity) {
-    kudosPage.cancelKudosActivity(activity);
-    spaceHomePage.clickYesbutton();
-  }
-
-  public void cancelCommentKudos(String activity, String comment) {
-    spaceHomePage.clickOnCommentThreeDotsButton(activity, comment);
-    kudosPage.cancelKudosComment(activity, comment);
-    spaceHomePage.clickYesbutton();
-  }
-
   public void enterKudosNumber(String val) {
     kudosPage.enterKudosNumber(val);
   }
@@ -122,24 +111,32 @@ public class KudosSteps {
   public void checkCancelKudosActivityIsNotVisible(String kudos) {
     spaceHomePage.openThreeDotsActivityMenu(kudos);
     kudosPage.checkCancelKudosActivityIsNotVisible(kudos);
-    spaceHomePage.openThreeDotsActivityMenu(kudos);
   }
 
   public void checkCancelKudosCommentIsNotVisible(String activity, String kudos) {
     spaceHomePage.clickOnCommentThreeDotsButton(activity, kudos);
     kudosPage.checkCancelKudosCommentIsNotVisible(kudos);
-    spaceHomePage.clickOnCommentThreeDotsButton(activity, kudos);
   }
 
   public void checkDeleteKudosCommentIsNotVisible(String activity, String kudos) {
     spaceHomePage.clickOnCommentThreeDotsButton(activity, kudos);
     kudosPage.checkDeleteKudosCommentIsNotVisible(kudos);
-    spaceHomePage.clickOnCommentThreeDotsButton(activity, kudos);
   }
 
   public void checkDeleteKudosCommentIsVisible(String activity, String kudos) {
     spaceHomePage.clickOnCommentThreeDotsButton(activity, kudos);
     kudosPage.checkDeleteKudosCommentIsVisible(kudos);
-    spaceHomePage.clickOnCommentThreeDotsButton(activity, kudos);
   }
+
+  public void cancelCommentKudos(String activity, String comment) {
+    spaceHomePage.clickOnCommentThreeDotsButton(activity, comment);
+    kudosPage.cancelKudosComment(activity, comment);
+    spaceHomePage.clickYesbutton();
+  }
+
+  public void cancelActivityKudos(String activity) {
+    kudosPage.cancelKudosActivity(activity);
+    spaceHomePage.clickYesbutton();
+  }
+
 }
