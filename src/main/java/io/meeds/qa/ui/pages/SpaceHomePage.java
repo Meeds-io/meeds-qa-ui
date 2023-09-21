@@ -390,7 +390,13 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void clickOnCommentThreeDotsButton(String activity, String comment) {
-    getDropDownCommentMenu(activity, comment).click();
+    if (isMenuDisplayed()) {
+      closeMenu();
+    }
+    retryOnCondition(() -> {
+      getDropDownCommentMenu(activity, comment).click();
+      waitMenuToDisplay();
+    });
   }
 
   public void clickOnCommentThreeDotsButtonFromCommentsDrawer(String comment) {
@@ -823,11 +829,23 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void openThreeDotsActivityMenu(String activity) {
-    getDropDownActivityMenu(activity).click();
+    if (isMenuDisplayed()) {
+      closeMenu();
+    }
+    retryOnCondition(() -> {
+      getDropDownActivityMenu(activity).click();
+      waitMenuToDisplay();
+    });
   }
 
   public void openThreeDotsCommentMenu(String comment) {
-    getDropDownCommentMenu(comment).click();
+    if (isMenuDisplayed()) {
+      closeMenu();
+    }
+    retryOnCondition(() -> {
+      getDropDownCommentMenu(comment).click();
+      waitMenuToDisplay();
+    });
   }
 
   public boolean isThreeDotsActivityMenuOpen(String activity) {
