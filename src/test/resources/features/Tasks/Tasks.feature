@@ -368,7 +368,7 @@ Feature: Tasks
     And I clear browsing data cache and cookies
     Then I check that grouping 'assignee' is selected
     And I refresh the page
-
+    
   Scenario: CAP341 [TASK] when refresh task drawer, the description should not be lost
     Given I am authenticated as 'admin' random user
     And I create the first random user if not existing
