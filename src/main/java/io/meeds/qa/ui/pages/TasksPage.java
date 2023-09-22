@@ -1338,7 +1338,7 @@ public class TasksPage extends GenericPage {
   }
 
   private ElementFacade ckEditorFrameTaskElement() {
-    return findByXPathOrCSS(OPENED_TASK_COMMENTS_DRAWER_SELECTOR + "//iframe[contains(@class,'cke_wysiwyg_frame')]");
+    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//iframe[contains(@class,'cke_wysiwyg_frame')]");
   }
 
   private ElementFacade ckEditorFrameTaskMentioningUserElement() {
