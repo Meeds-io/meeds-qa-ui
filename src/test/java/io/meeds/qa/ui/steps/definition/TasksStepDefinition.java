@@ -76,6 +76,21 @@ public class TasksStepDefinition {
     tasksSteps.addNewCommentInTask(comment);
   }
 
+  @And("^I click to add a new comment$")
+  public void clickToAddNewComment() {
+    tasksSteps.clickToAddNewComment();
+  }
+
+  @And("^I add this comment '(.*)'$")
+  public void addNewComment(String comment) {
+    tasksSteps.clickToAddComment(comment);
+  }
+  
+  @And("^I add this comment '(.*)' with attached images$")
+  public void addNewCommentWIthAttachedImages(String comment) {
+    tasksSteps.addNewCommentWithAttachedImages(comment);
+  }
+
   @When("^I enter a comment '(.*)' with mentioning the '(.*)' user in task$")
   public void addNewCommentInTaskWithMentioningTheFirstUserInTask(String comment, String userSuffix) {
     String user = Serenity.sessionVariableCalled(userSuffix + "UserName");
@@ -555,6 +570,47 @@ public class TasksStepDefinition {
     tasksSteps.clickOnSaveButtonToAddTask();
   }
 
+  @And("^I click on apply Button To Add description$")
+  public void clickOnApplyButtonToSaveDescription() {
+    tasksSteps.clickOnApplyButtonToSaveDescription();
+  }
+
+  @And("^The attached image is displayed in the task description$")
+  public void checkAttachedImagesToTaskDescription() {
+    tasksSteps.checkAttachedImagesToTaskDescription();
+  }
+
+  @Then("^The attached images are displayed in the task comment$")
+  public void checkAttachedImagesToTaskComment() {
+    tasksSteps.checkAttachedImagesToTaskComment();
+  }
+
+  @And("^I click to edit task description$")
+  public void openTaskDescriptionEditor() {
+    tasksSteps.openTaskDescriptionEditor();
+  }
+ 
+
+  @And("^I attach image to the task description$")
+  public void attachImageToTaskDescription() {
+    tasksSteps.attachImageToTaskDescription();
+  }
+
+  @And("^I attach a second image to the task description$")
+  public void attachSecondImageToTaskDescription() {
+    tasksSteps.attachSecondImageToTaskDescription();
+  }
+
+  @And("^I click outside the task description$")
+  public void clickOutsideTaskDescription() {
+    tasksSteps.clickOutsideTaskDescription();
+  }
+
+  @And("^The new attached image is not displayed$")
+  public void checkTaskDescriptionNewAttachImage() {
+    tasksSteps.checkTaskDescriptionNewAttachImage();
+  }
+
   @And("^I click on save Button To Add Task in space project$")
   public void clickOnSaveButtonToAddTaskSpaceProject() {
     tasksSteps.clickOnSaveButtonToAddTaskSpaceProject();
@@ -761,6 +817,11 @@ public class TasksStepDefinition {
     String comment = StringUtils.repeat("tasks", 251);
     tasksSteps.enterTaskComment(comment);
   }
+  
+  @And("^I enter a comment '(.*)'$")
+  public void enterComment(String comment) {
+    tasksSteps.enterNewTaskComment(comment);
+  }
 
   @When("^I enter description for task '(.*)'$")
   public void enterDescriptionForTask(String description) {
@@ -877,14 +938,12 @@ public class TasksStepDefinition {
 
   @When("^Status name '(.*)' Edit mode is opened successfully$")
   public void isStatusEditModeDisplayed(String statusColumn) {
-    assertThat(tasksSteps.isStatusEditModeDisplayed(statusColumn)).as("Status edit mode is opened successfully")
-                                                                  .isTrue();
+    assertThat(tasksSteps.isStatusEditModeDisplayed(statusColumn)).as("Status edit mode is opened successfully").isTrue();
   }
 
   @When("^Status name '(.*)' Edit mode is not opened successfully$")
   public void isStatusEditModeNotDisplayed(String statusColumn) {
-    assertThat(tasksSteps.isStatusEditModeDisplayed(statusColumn)).as("Status edit mode is opened successfully")
-                                                                  .isFalse();
+    assertThat(tasksSteps.isStatusEditModeDisplayed(statusColumn)).as("Status edit mode is opened successfully").isFalse();
   }
 
   @When("^Label '(.*)' is displayed in edit project drawer$")
@@ -959,7 +1018,7 @@ public class TasksStepDefinition {
     tasksSteps.openProject(project);
   }
 
-  @When("^I open the created project$")
+  @And("^I open the created project$")
   public void openRandomProject() {
     String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
     tasksSteps.openProject(randomSpaceName);

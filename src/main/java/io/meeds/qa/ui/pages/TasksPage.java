@@ -35,6 +35,12 @@ import io.meeds.qa.ui.elements.TextBoxElementFacade;
 
 public class TasksPage extends GenericPage {
 
+  private static final String OPENED_TASK_COMMENTS_DRAWER_SELECTOR =
+                                                                   "//*[@id = 'taskCommentDrawer' and contains(@class, 'v-navigation-drawer--open')]";
+
+  private static final String OPENED_TASK__DRAWER_SELECTOR         =
+                                                           "//*[@id = 'task-Drawer' and contains(@class, 'v-navigation-drawer--open')]";
+
   public TasksPage(WebDriver driver) {
     super(driver);
   }
@@ -481,7 +487,81 @@ public class TasksPage extends GenericPage {
   public void clickOnSaveButtonToAddTask() {
     saveButtonTaskElement().click();
   }
+  
+  public void clickOnApplyButtonToSaveDescription() {
+    getApplyTaskDescriptionBtn().click();
+  }
+  
+  public void attachImageToTaskDescription() {
+    waitCKEditorLoading("//*[@id='task-Drawer']");
+    taskDescriptionAttachImageButton().assertVisible();
+    ElementFacade fileInput = taskDescriptionEditorAttachImageInput();
+    fileInput.assertEnabled();
+    attachImageToFileInput(fileInput);
+    waitForLoading();
+    taskDescriptionAttachImageCarousel().assertVisible();
+  }
+  
+  public void attachSecondImageToTaskDescription() {
+    waitCKEditorLoading("//*[@id='task-Drawer']");
+    taskDescriptionAttachImageButton().assertVisible();
+    ElementFacade fileInput = taskDescriptionEditorAttachImageInput();
+    fileInput.assertEnabled();
+    attachImageGifToFileInput(fileInput);
+    waitForLoading();
+    taskDescriptionAttachImageCarousel().assertVisible();
+  }
+  
+  public void addNewCommentWithAttachedImages(String comment) {
+    waitCKEditorLoading(OPENED_TASK_COMMENTS_DRAWER_SELECTOR);
+    ElementFacade ckEditorFrameTaskElement = ckEditorFrameTaskElement();
+    ckEditorFrameTaskElement.waitUntilVisible();
+    taskCommentAttachImageButton().assertVisible();
+    ElementFacade fileInput = taskCommentEditorAttachImageInput();
+    fileInput.assertEnabled();
+    attachImageToFileInput(fileInput);
+    waitForLoading();
+    taskCommentAttachImageCarousel().assertVisible();
+    getDriver().switchTo().frame(ckEditorFrameTaskElement);
+    try {
+      TextBoxElementFacade taskCommentContentTextBoxElement = taskCommentContentTextBoxElement();
+      taskCommentContentTextBoxElement.waitUntilVisible();
+      taskCommentContentTextBoxElement.setTextValue(comment);
+    } finally {
+      getDriver().switchTo().defaultContent();
+    }
 
+    ElementFacade commentTaskButtonElement = commentTaskButtonElement();
+    commentTaskButtonElement.waitUntilVisible();
+    commentTaskButtonElement.click();
+    closeDrawerIfDisplayed();
+  }
+
+  public void clickOutsideTaskDescription() {
+    getTaskDrawerProject().click();
+  }
+  
+  public void checkTaskDescriptionNewAttachImage() {
+    getTaskDescriptionSecondeAttachImage().assertNotVisible();
+  }
+  
+  
+  public void checkAttachedImagesToTaskDescription() {
+    getTaskDescriptionAttachedImage().assertVisible();
+  }
+  
+  public void checkAttachedImagesToTaskComment() {
+    getTaskCommentAttachedImage().assertVisible();
+  }
+  
+  public void openTaskDescriptionEditor() {
+    taskDescriptionTextFieldElement().click();
+  }
+  
+  public void closeTaskCommentDrawer() {
+    taskCommentDrawerCloseBtn().click();
+  }
+  
   public void clickOnSaveButtonToAddTaskSpaceProject() {
     saveButtonTaskSpaceProjectElement().click();
   }
@@ -574,7 +654,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void commentTask(String comment) {
-    waitCKEditorLoading();
+    waitCKEditorLoading(OPENED_TASK_COMMENTS_DRAWER_SELECTOR);
     ElementFacade ckEditorFrameTaskElement = ckEditorFrameTaskElement();
     ckEditorFrameTaskElement.waitUntilVisible();
     getDriver().switchTo().frame(ckEditorFrameTaskElement);
@@ -590,6 +670,13 @@ public class TasksPage extends GenericPage {
     commentTaskButtonElement.waitUntilVisible();
     commentTaskButtonElement.click();
     closeDrawerIfDisplayed();
+  }
+  
+  public void attachImagesToComment(String comment) {
+    waitCKEditorLoading(OPENED_TASK_COMMENTS_DRAWER_SELECTOR);
+    ElementFacade ckEditorFrameTaskElement = ckEditorFrameTaskElement();
+    ckEditorFrameTaskElement.assertVisible();
+   
   }
 
   public void commentTaskWithUser(String user, String comment) {
@@ -633,7 +720,7 @@ public class TasksPage extends GenericPage {
 
   public void editDescriptionForTask(String newDescription) {
     clickOnTaskDescription();
-
+    waitCKEditorLoading(OPENED_TASK__DRAWER_SELECTOR);
     ElementFacade switchToFrameTaskUserElement = switchToFrameTaskUserElement();
     switchToFrameTaskUserElement.waitUntilVisible();
     getDriver().switchTo().frame(switchToFrameTaskUserElement);
@@ -745,6 +832,21 @@ public class TasksPage extends GenericPage {
   }
 
   public void enterTaskComment(String comment) {
+    waitCKEditorLoading();
+    ElementFacade ckEditorFrameTaskElement = ckEditorFrameTaskElement();
+    ckEditorFrameTaskElement.waitUntilVisible();
+    getDriver().switchTo().frame(ckEditorFrameTaskElement);
+    try {
+      TextBoxElementFacade taskCommentContentTextBoxElement = taskCommentContentTextBoxElement();
+      taskCommentContentTextBoxElement.waitUntilVisible();
+      taskCommentContentTextBoxElement.setTextValue(comment);
+    } finally {
+      getDriver().switchTo().defaultContent();
+    }
+
+  }
+  
+  public void enterNewTaskComment(String comment) {
     waitCKEditorLoading();
     ElementFacade ckEditorFrameTaskElement = ckEditorFrameTaskElement();
     ckEditorFrameTaskElement.waitUntilVisible();
@@ -1236,7 +1338,7 @@ public class TasksPage extends GenericPage {
   }
 
   private ElementFacade ckEditorFrameTaskElement() {
-    return findByXPathOrCSS("//iframe[contains(@class,'cke_wysiwyg_frame')]");
+    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//iframe[contains(@class,'cke_wysiwyg_frame')]");
   }
 
   private ElementFacade ckEditorFrameTaskMentioningUserElement() {
@@ -1268,7 +1370,7 @@ public class TasksPage extends GenericPage {
   }
 
   private ElementFacade commentTaskButtonElement() {
-    return findByXPathOrCSS("//*[contains(@class,'newCommentEditor')]//button[contains(@class,'commentBtn')]");
+    return findByXPathOrCSS("//*[contains(@class,'newCommentEditor')]//button[contains(@class , 'commentBtn')]");
   }
 
   private TextBoxElementFacade commentTaskMaxCharsMsgElement() {
@@ -1656,6 +1758,50 @@ public class TasksPage extends GenericPage {
     return findByXPathOrCSS("(//*[@class='d-flex']//button[2])[2]");
   }
 
+  private ElementFacade getApplyTaskDescriptionBtn() {
+    return findByXPathOrCSS("//*[contains(@class, 'taskDescription')]//*[@id = 'saveDescriptionButton']");
+  }
+  
+  private ElementFacade taskDescriptionAttachImageButton() {
+    return findByXPathOrCSS("//*[contains(@class, 'taskDescription')]//*[@id = 'taskDescriptionId']//*[contains(@class, 'richEditor')]//a[contains(@class, 'cke_button__attachimage')]");
+  }
+  
+  private ElementFacade taskCommentAttachImageButton() {
+    return findByXPathOrCSS(OPENED_TASK_COMMENTS_DRAWER_SELECTOR + "//*[@id = 'commentDrawerContent']//*[contains(@class, 'richEditor')]//a[contains(@class, 'cke_button__attachimage')]");
+  }
+
+  private ElementFacade taskDescriptionEditorAttachImageInput() {
+    return findByXPathOrCSS("//*[@id = 'task-Drawer' and contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')]/parent::*//input[@type='file']");
+  }
+  
+  private ElementFacade taskCommentEditorAttachImageInput() {
+    return findByXPathOrCSS(OPENED_TASK_COMMENTS_DRAWER_SELECTOR + "//*[contains(@class, 'richEditor')]/parent::*//input[@type='file']");
+  }
+  
+  private ElementFacade getTaskDrawerProject() {
+    return findByXPathOrCSS("//*[@id = 'task-Drawer' and contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'drawerTitleAndProject')]//span");
+  }
+  
+  private ElementFacade getTaskDescriptionSecondeAttachImage() {
+    return findByXPathOrCSS("//*[@id = 'task-Drawer' and contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'attachments-image-item')][2]");
+  }
+  
+  private ElementFacade getTaskDescriptionAttachedImage() {
+    return findByXPathOrCSS("//*[(@id = 'taskDescriptionId')]//*[contains(@class, 'carousel-top-parent')]//*[contains(@class, 'attachments-image-item')][1]");
+  }
+  
+  private ElementFacade getTaskCommentAttachedImage() {
+    return findByXPathOrCSS(OPENED_TASK__DRAWER_SELECTOR + "//*[contains(@class, 'commentItem')]//*[contains(@class, 'carousel-top-parent')]//*[contains(@class, 'attachments-image-item')][1]");
+  }
+  
+  private ElementFacade taskDescriptionAttachImageCarousel() {
+    return findByXPathOrCSS("//*[contains(@class, 'taskDescription')]//*[@id = 'taskDescriptionId']//*[contains(@class, 'richEditor')]/parent::*//*[contains(@class, 'carousel-top-parent')]");
+  }
+
+  private ElementFacade taskCommentAttachImageCarousel() {
+    return findByXPathOrCSS("//*[@id = 'commentDrawerContent']//*[contains(@class, 'richEditor')]/parent::*//*[contains(@class, 'carousel-top-parent')]");
+  }
+
   private ElementFacade saveButtonTaskSpaceProjectElement() {
     return findByXPathOrCSS("(//*[@class='d-flex']//button[2])");
   }
@@ -1708,7 +1854,7 @@ public class TasksPage extends GenericPage {
   }
 
   private ElementFacade switchToFrameTaskUserElement() {
-    return findByXPathOrCSS("(//iframe[contains(@class,'cke_wysiwyg_frame')])");
+    return findByXPathOrCSS(OPENED_TASK__DRAWER_SELECTOR + "(//iframe[contains(@class,'cke_wysiwyg_frame')])");
   }
 
   private ElementFacade taskAssignLinkElement() {
@@ -1734,6 +1880,15 @@ public class TasksPage extends GenericPage {
   private TextBoxElementFacade taskDescriptionFieldElement() {
     return findTextBoxByXPathOrCSS("//*[@id='taskDescriptionId']");
   }
+  
+  private TextBoxElementFacade taskDescriptionTextFieldElement() {
+    return findTextBoxByXPathOrCSS("//*[@id='taskDescriptionId']//*[@contenteditable = 'true']");
+  }
+  
+  private TextBoxElementFacade taskCommentDrawerCloseBtn() {
+    return findTextBoxByXPathOrCSS("//*[@id = 'taskCommentDrawer' and contains(@class, 'v-navigation-drawer--open')]//*[contains(@class , 'drawerHeader')]//button[contains(@class, 'mdi-close')]");
+  }
+
 
   private TextBoxElementFacade taskDueDateElement() {
     return findTextBoxByXPathOrCSS("(//*[contains(@id,'DatePicker')])[2]//input");

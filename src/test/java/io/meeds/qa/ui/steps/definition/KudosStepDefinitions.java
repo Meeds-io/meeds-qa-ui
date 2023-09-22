@@ -111,7 +111,7 @@ public class KudosStepDefinitions {
   public void saveChanges() {
     kudoSteps.saveChanges();
   }
-
+  
   @And("I search for second user card")
   public void searchSecondUserCard() {
     String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
