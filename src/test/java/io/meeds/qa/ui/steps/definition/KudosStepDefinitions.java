@@ -39,7 +39,7 @@ public class KudosStepDefinitions {
   public void addActivityKudos(String activity, String kudos) {
     kudoSteps.addActivityKudos(activity, kudos);
   }
-  
+
   @When("^I send in the activity '(.*)' a kudos message '(.*)' to '(.*)' user$")
   public void addActivityKudosToSomeoneDifferent(String activity, String message, String userPrefix) {
     String firstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");
@@ -47,7 +47,6 @@ public class KudosStepDefinitions {
     String fullName = firstName + " " + lastName;
     kudoSteps.addActivityKudosToSomeoneDifferent(activity, message, fullName);
   }
-
   
   @When("^I attempt to send a kudos in the activity '(.*)' with message '(.*)' to '(.*)' user$")
   public void attemptSendActivityKudosToSomeoneDifferent(String activity, String message, String userPrefix) {
