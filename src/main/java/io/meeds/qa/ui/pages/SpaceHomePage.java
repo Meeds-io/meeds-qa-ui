@@ -985,7 +985,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void clickFilterIconFromComposer() {
-    ElementFacade filterLink = findByXPathOrCSS(".activityComposer .v-btn--icon");
+    ElementFacade filterLink = findByXPathOrCSS("//*[contains(@class,'activityComposer')]//*[contains(@id,'toolbarFilterButton')]");
     filterLink.click();
     waitForDrawerToOpen();
   }

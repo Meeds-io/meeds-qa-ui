@@ -42,6 +42,10 @@ public class KudosSteps {
     kudosPage.addActivityKudosToSomeoneDifferent(activity, message, user);
   }
 
+  public void attemptSendActivityKudosToSomeoneDifferent(String activity, String message, String user) {
+    kudosPage.attemptSendActivityKudosToSomeoneDifferent(activity, message, user);
+  }
+
   public void checkKudosIconDisabled(String activityId) {
     kudosPage.checkKudosIconDisabled(activityId);
   }

@@ -101,9 +101,10 @@ Feature: Kudos
       | fiftyonekudos |
       | fiftytwokudos |
       | fiftythreekudos |
-    And I create the fiftyonekudos random user if not existing, no wait
-    And I create the fiftytwokudos random user if not existing, no wait
-    And I create the fiftythreekudos random user if not existing
+    And I inject the fiftyonekudos random user if not existing, no wait
+    And I inject the fiftytwokudos random user if not existing, no wait
+    And I inject the fiftythreekudos random user if not existing
+    And I inject the random space
 
     When I login as 'fiftyonekudos' random user
     And I go to the random space
@@ -114,7 +115,9 @@ Feature: Kudos
 
     And I login as 'fiftytwokudos' random user
     When I go to the random space
-    Then I send in the activity 'Hello Team - USX' a kudos message 'Kudos Message USX' to 'fiftythreekudos' user
+    And I attempt to send a kudos in the activity 'Hello Team - USX' with message 'Kudos Message USX' to 'fiftythreekudos' user
+    Then The message 'Not found in space' is displayed
+    And The button 'Send' is disabled in drawer 
 
   Scenario: Cancel Kudos sending from the activity author
     Given I am authenticated as 'admin' random user
