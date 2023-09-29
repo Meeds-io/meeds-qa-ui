@@ -631,7 +631,7 @@ Feature: Achievements
     And I enter the rule title 'Cancel Space Join'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    And I add an event 'Spaces : Join space'
+    And I add an event 'Join space'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
