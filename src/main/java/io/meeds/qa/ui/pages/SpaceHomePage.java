@@ -20,7 +20,7 @@ package io.meeds.qa.ui.pages;
 import static io.meeds.qa.ui.utils.Utils.*;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.Iterator;
 import java.util.List;
@@ -361,6 +361,20 @@ public class SpaceHomePage extends GenericPage {
     createPollLinkElement().click();
   }
 
+  public void clickSendKudos() {
+    sendKudosLinkElement().click();
+  }
+
+  public void clickKudosBtnBelowPostField() {
+    ElementFacade sendKudos = findByXPathOrCSS("//*[contains(@class,'activityComposer')]//*[contains(@id,'kudosBtnToolbar')]");
+    sendKudos.click();
+  }
+
+  public void clickPollBtnBelowPostField() {
+    ElementFacade createPoll= findByXPathOrCSS("//*[contains(@class,'activityComposer')]//*[contains(@id,'pollBtnToolbar')]");
+    createPoll.click();
+  }
+
   public void clickCreatePollButton() {
     buttonCreatePollElement().click();
   }
@@ -472,6 +486,28 @@ public class SpaceHomePage extends GenericPage {
     waitForLoading();
     ElementFacade activityPostLink = findByXPathOrCSS(".activityComposer .openLink");
     activityPostLink.click();
+  }
+
+  public void composerDrawerIsDisplayed() {
+    findByXPathOrCSS("#activityComposerDrawer").assertVisible(); 
+  }
+
+  public void kudosDrawerIsDisplayed() {
+    findByXPathOrCSS("#activityKudosDrawer").assertVisible(); 
+  }
+
+  public void pollDrawerIsDisplayed() {
+    findByXPathOrCSS("#createPollDrawer").assertVisible(); 
+  }
+
+  public void clickUserAvatar() {
+    ElementFacade userAvatarLink = findByXPathOrCSS("//*[contains(@class,'activityComposer')]//descendant::*[starts-with(@id,'userAvatar')]");
+    userAvatarLink.click();
+  }
+
+  public void clickCloseKudosDrawer() {
+    ElementFacade closeKudosDrawerIcon = findByXPathOrCSS("//*[contains(@id,'activityKudosDrawer')]//*[contains(@class,'drawerIcons')]//button[@title='Close']");
+    closeKudosDrawerIcon.click();
   }
 
   public void clickUnpinActivityButton(String activity) {
@@ -943,10 +979,23 @@ public class SpaceHomePage extends GenericPage {
     waitFor(500).milliseconds(); // Wait until UI refreshes
   }
 
-  public void selectPinnedActivity(String filter) {
-    WebElement staticDropdown = findByXPathOrCSS("//*[contains(@class,'ignore-vuetify-classes')]");
-    Select dropdown = new Select(staticDropdown);
-    dropdown.selectByVisibleText(filter);
+  public void selectActivityFilter(String filter) {
+    ElementFacade ActivityFilterRadioButton = findByXPathOrCSS(String.format("//*[contains(@id,'filterStreamDrawer')]//*[contains(text(),'%s')]",filter));
+    ActivityFilterRadioButton.click();
+  }
+
+  public void clickFilterIconFromComposer() {
+    ElementFacade filterLink = findByXPathOrCSS("//*[contains(@class,'activityComposer')]//*[contains(@id,'toolbarFilterButton')]");
+    filterLink.click();
+    waitForDrawerToOpen();
+  }
+
+  public void filterIsSelected() {
+    assertTrue(FilterIcon().getAttribute("class").contains("primary--text"));
+  }
+
+  public void filterIsntSelected() {
+    assertFalse(FilterIcon().getAttribute("class").contains("primary--text"));
   }
 
   public void tooltipActivityStreamIsDisplayed(String comment) {
@@ -1165,9 +1214,13 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private ElementFacade createPollLinkElement() {
-    return findByXPathOrCSS("//*[contains(@class,'createPollComposerIcon')]//ancestor::*[contains(@class, 'actionItem')]");
+    return findByXPathOrCSS("//*[contains(@id,'activityComposerDrawer')]//*[contains(@id,'createPollComposerButton')]");
   }
 
+  private ElementFacade sendKudosLinkElement() {
+    return findByXPathOrCSS("//*[contains(@id,'activityComposerDrawer')]//*[contains(@id,'sendKudosComposerButton')]");
+  }
+  
   private ElementFacade dotsMenuElement() {
     return findByXPathOrCSS("//i[@class='v-icon notranslate primary--text mdi mdi-dots-vertical theme--light']");
   }
@@ -1596,6 +1649,10 @@ public class SpaceHomePage extends GenericPage {
 
   private void waitOnReplyRichText() {
     waitCKEditorLoading("//*[@id = 'activityCommentsDrawer' and contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'activity-comment')]");
+  }
+
+  private ElementFacade FilterIcon() {
+    return findByXPathOrCSS(".activityComposer .v-btn--icon .fa-sliders-h");
   }
 
 }

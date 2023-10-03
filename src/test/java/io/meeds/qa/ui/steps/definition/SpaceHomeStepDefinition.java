@@ -257,6 +257,16 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.clickCreatePoll();
   }
 
+  @When("^I click on send kudos$")
+  public void clickSendKudos() {
+    spaceHomeSteps.clickSendKudos();
+  }
+
+  @When("^I send kudos to '(.*)' with message '(.*)'$")
+  public void sendKudosWithReceiver(String receiver, String message) {
+    spaceHomeSteps.sendKudosWithReceiver(message, receiver);
+  }
+
   @When("^I click Create Poll$")
   public void clickCreatePollButton() {
     spaceHomeSteps.clickCreatePollButton();
@@ -380,6 +390,41 @@ public class SpaceHomeStepDefinition {
   @When("I click on post in space")
   public void clickPostIcon() {
     spaceHomeSteps.clickPostIcon();
+  }
+
+  @When("I click on user avatar in space stream")
+  public void clickUserAvatar() {
+    spaceHomeSteps.clickUserAvatar();
+  }
+
+  @When("^I click on kudos button below the post field$")
+  public void clickKudosBtnBelowPostField() {
+    spaceHomeSteps.clickKudosBtnBelowPostField();
+  }
+
+  @When("^I click on poll button below the post field$")
+  public void clickPollBtnBelowPostField() {
+    spaceHomeSteps.clickPollBtnBelowPostField();
+  }
+
+  @Then("the composer is opened")
+  public void composerDrawerIsDisplayed() {
+    spaceHomeSteps.composerDrawerIsDisplayed();
+  }
+
+  @Then("the kudos drawer is opened")
+  public void kudosDrawerIsDisplayed() {
+    spaceHomeSteps.kudosDrawerIsDisplayed();
+  }
+
+  @When("^I close kudos drawer$")
+  public void clickCloseKudosDrawer() {
+    spaceHomeSteps.clickCloseKudosDrawer();
+  } 
+  
+  @Then("the poll drawer is opened")
+  public void pollDrawerIsDisplayed() {
+    spaceHomeSteps.pollDrawerIsDisplayed();
   }
 
   @When("^I click to the Unpin button related to activity '(.*)'$")
@@ -796,9 +841,24 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.replykudosLabelIsBlue(comment);
   }
 
-  @When("^I select '(.*)' from the filter proposed$")
-  public void selectPinnedActivity(String filter) {
-    spaceHomeSteps.selectPinnedActivity(filter);
+  @When("^I click on filter icon from composer$")
+  public void clickFilterIconFromComposer() {
+    spaceHomeSteps.clickFilterIconFromComposer();
+  }
+
+  @Then("^I click on '(.*)' activity filter radio button$")
+  public void selectActivityFilter(String filter) {
+    spaceHomeSteps.selectActivityFilter(filter);
+  }
+
+  @Then("^the stream filter is selected$")
+  public void filterIsSelected() {
+    spaceHomeSteps.filterIsSelected();
+  }
+  
+  @Then("^the stream filter isn't selected$")
+  public void filterIsntSelected() {
+    spaceHomeSteps.filterIsntSelected();
   }
 
   @When("^Tooltip Like on '(.*)' is displayed in activity stream$")
