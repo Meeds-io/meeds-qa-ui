@@ -213,12 +213,12 @@ public class SpaceHomeStepDefinition {
 
   @Then("^Internal link '(.*)' is displayed in activity stream as a comment$")
   public void checkInternalLinkCommentAS(String comment) {
-    spaceHomeSteps.checkActivityComment(spaceHomePage.getCurrentUrl() + comment);
+    spaceHomeSteps.checkActivityComment(currentUrlNoProtocol() + comment);
   }
 
   @Then("^Internal link '(.*)' is displayed in Comments drawer as a comment$")
   public void checkInternalLinkCommentInDrawer(String comment) {
-    spaceHomeSteps.checkActivityCommentInDrawer(spaceHomePage.getCurrentUrl() + comment);
+    spaceHomeSteps.checkActivityCommentInDrawer(currentUrlNoProtocol() + comment);
   }
 
   @Then("The link is displayed with the preview")
@@ -310,7 +310,7 @@ public class SpaceHomeStepDefinition {
 
   @When("^I click on the internal link '(.*)'$")
   public void clickOnInternalLinkComment(String comment) {
-    spaceHomeSteps.clickOnActivityComment(spaceHomePage.getCurrentUrl() + comment);
+    spaceHomeSteps.clickOnActivityComment(currentUrlNoProtocol() + comment);
   }
 
   @When("^I click on Load more button$")
@@ -685,7 +685,7 @@ public class SpaceHomeStepDefinition {
 
   @Then("^I open the internal link '(.*)' in new tab$")
   public void openInternalLinkInNewTab(String link) {
-    spaceHomeSteps.openLinkInNewTab(spaceHomePage.getCurrentUrl() + link);
+    spaceHomeSteps.openLinkInNewTab(currentUrlNoProtocol() + link);
   }
 
   @Then("^I open link '(.*)' in new tab$")
@@ -837,4 +837,9 @@ public class SpaceHomeStepDefinition {
   public void viewAllRepliesInCommentsDrawer(String comment) {
     spaceHomeSteps.viewAllRepliesInCommentsDrawer(comment);
   }
+
+  private String currentUrlNoProtocol() {
+    return spaceHomePage.getCurrentUrl().replace("https://", "").replace("http://", "").replace("www.", "");
+  }
+
 }

@@ -1240,13 +1240,13 @@ Feature: Activity Stream
 
     When I add in activity 'activityTestCAP158-158' a comment 'https://www.meeds.io/'
     And I open in activity 'activityTestCAP158-158' the Comments drawer
-    Then Activity Comment 'https://www.meeds.io/' is displayed in Comments drawer
-    And Activity Comment 'https://www.meeds.io/' is displayed in activity stream
+    Then Activity Comment 'meeds.io' is displayed in Comments drawer
+    And Activity Comment 'meeds.io' is displayed in activity stream
 
-    When I click on comment 'https://www.meeds.io/'
+    When I click on comment 'meeds.io'
     Then Link 'https://www.meeds.io/' is opened in new tab
 
-    When I open link 'https://www.meeds.io/' in new tab
+    When I open link 'meeds.io' in new tab
     Then Link 'https://www.meeds.io/' is opened in new tab
 
   Scenario: CAP97 - [ActivityStream_US38][01] Delete a simple comment from the activity stream
