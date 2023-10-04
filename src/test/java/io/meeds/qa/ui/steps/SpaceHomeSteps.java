@@ -506,6 +506,54 @@ public class SpaceHomeSteps {
     spaceHomePage.publishActivity(true);
   }
 
+  public void attachImageToActivity() {
+    spaceHomePage.attachImagesToActivity();
+  }
+  
+  public void attachGifImageToActivity() {
+    spaceHomePage.attachGifImageToActivity();
+  }
+  
+  public void checkCropDrawerBlurredZone() {
+    spaceHomePage.checkCropDrawerBlurredZone();
+  }
+  
+  public void attachImageToKudos() {
+    spaceHomePage.attachImagesToKudos();
+  }
+  
+  public void attachImageToActivityComment() {
+    spaceHomePage.attachImagesToActivityComment();
+  }
+  
+  public void attachImageToAnnouncement() {
+    spaceHomePage.attachImageToAnnouncement();
+  }
+  
+  public void attachImageToProgramAction() {
+    spaceHomePage.attachImageToProgramAction();
+  }
+  
+  public void clickPreviewAttachedImage(String activity) {
+    spaceHomePage.clickPreviewAttachedImage(activity);
+  }
+  
+  public void previewAttachedImage() {
+    spaceHomePage.previewAttachedImage();
+  }
+  
+  public void checkPreviewAttachedImageArrows() {
+    spaceHomePage.checkPreviewAttachedImageArrows();
+  }
+  
+  public void clickClosePreviewAttachedImage() {
+    spaceHomePage.clickClosePreviewAttachedImage();
+  }
+  
+  public void checkPreviewAttachedImageIsClosed() {
+    spaceHomePage.checkPreviewAttachedImageIsClosed();
+  }
+
   public void publishActivityInArabicLanguage() {
     spaceHomePage.publishActivityInArabicLanguage();
   }
@@ -589,4 +637,62 @@ public class SpaceHomeSteps {
   public void viewAllRepliesInCommentsDrawer(String comment) {
     spaceHomePage.viewAllRepliesInCommentsDrawer(comment);
   }
+  
+  public void checkActivityAttachedImages(String activity) {
+    spaceHomePage.checkActivityAttachedImages(activity);
+  }
+  
+  public void checkActivitySecondAttachedImage(String activity) {
+    spaceHomePage.checkActivitySecondAttachedImage(activity);
+  }
+  
+  public void checkActivityDrawerAttachedImagesDeleteIcon(String activity) {
+    spaceHomePage.checkActivityDrawerAttachedImagesDeleteIcon(activity);
+  }
+  
+  public void checkActivityDrawerAttachedImagesEditIcon(String activity) {
+    spaceHomePage.checkActivityDrawerAttachedImagesEditIcon(activity);
+  }
+  
+  public void clickDeleteAttachment() {
+    spaceHomePage.clickDeleteAttachment();
+  }
+  
+  public void clickEditAttachment() {
+    spaceHomePage.clickEditAttachment();
+  }
+  
+  public void clickUpdateAttachment() {
+    spaceHomePage.clickUpdateAttachment();
+  }
+  
+  public void zoomAttachedImage() {
+    spaceHomePage.zoomAttachedImage();
+  }
+  
+  public void checkAttachedImageCropDrawerCancelOption() {
+    spaceHomePage.checkAttachedImageCropDrawerCancelOption();
+  }
+  
+  public void checkAttachedImageCropDrawer() {
+    spaceHomePage.checkAttachedImageCropDrawer();
+  }
+  
+  public void checkActivityAttachImageDeleted() {
+    spaceHomePage.checkActivityAttachImageDeleted();
+  }
+  
+  public void checkActivityAttachedImagesIsNotDisplayed(String activity) {
+    spaceHomePage.checkActivityAttachedImagesIsNotDisplayed(activity);
+  }
+  
+  public void checkActivityCommentKudos(String comment) {
+    spaceHomePage.checkActivityCommentKudos(comment);
+  }
+  
+  public void checkKudosCommentAttachedImages(String comment) {
+    spaceHomePage.checkKudosCommentAttachedImages(comment);
+  }
+  
+  
 }

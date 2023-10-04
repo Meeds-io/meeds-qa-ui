@@ -43,6 +43,19 @@ public class TasksSteps {
     tasksPage.addNewCommentInTask();
     tasksPage.commentTask(comment);
   }
+  
+  public void clickToAddNewComment() {
+    tasksPage.addNewCommentInTask();
+  }
+  
+  public void addNewCommentWithAttachedImages(String comment) {
+    tasksPage.addNewCommentInTask();
+    tasksPage.addNewCommentWithAttachedImages(comment);
+  }
+  
+  public void clickToAddComment(String comment) {
+    tasksPage.commentTask(comment);
+  }
 
   public void addNewCommentInTaskWithMentioningTheFirstUserInTask(String comment, String user) {
     tasksPage.addNewCommentInTaskWithMentioningTheFirstUserInTask(comment, user);
@@ -397,6 +410,38 @@ public class TasksSteps {
     tasksPage.clickOnSaveButtonToAddTask();
   }
 
+  public void clickOnApplyButtonToSaveDescription() {
+    tasksPage.clickOnApplyButtonToSaveDescription();
+  }
+  
+  public void attachImageToTaskDescription() {
+    tasksPage.attachImageToTaskDescription();
+  }
+  
+  public void attachSecondImageToTaskDescription() {
+    tasksPage.attachSecondImageToTaskDescription();
+  }
+  
+  public void clickOutsideTaskDescription() {
+    tasksPage.clickOutsideTaskDescription();
+  }
+  
+  public void checkTaskDescriptionNewAttachImage() {
+    tasksPage.checkTaskDescriptionNewAttachImage();
+  }
+  
+  public void checkAttachedImagesToTaskDescription() {
+    tasksPage.checkAttachedImagesToTaskDescription();
+  }
+  
+  public void checkAttachedImagesToTaskComment() {
+    tasksPage.checkAttachedImagesToTaskComment();
+  }
+  
+  public void openTaskDescriptionEditor() {
+    tasksPage.openTaskDescriptionEditor();
+  }
+  
   public void clickOnSaveButtonToAddTaskSpaceProject() {
     tasksPage.clickOnSaveButtonToAddTaskSpaceProject();
   }
@@ -547,6 +592,10 @@ public class TasksSteps {
 
   public void enterTaskComment(String comment) {
     tasksPage.enterTaskComment(comment);
+  }
+  
+  public void enterNewTaskComment(String comment) {
+    tasksPage.enterNewTaskComment(comment);
   }
 
   public void enterTitleForTask(String title) {

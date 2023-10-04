@@ -49,6 +49,12 @@ public class SpaceHomePage extends GenericPage {
   private static final String OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR        =
                                                                        "//*[@id = 'activityComposerDrawer' and contains(@class, 'v-navigation-drawer--open')]";
 
+  private static final String OPENED_KUDOS_DRAWER_SELECTOR                    =
+                                                           "//*[@id = 'activityKudosDrawer' and contains(@class, 'v-navigation-drawer--open')]";
+
+  private static final String OPENED_RULE_DRAWER_SELECTOR                    =
+                                                           "//*[@id = 'ruleDetailDrawer' and contains(@class, 'v-navigation-drawer--open')]";
+
   private static final String CONFIRMATION_BUTTON_TO_DELETE_ACTIVITY_SELECTOR = "//*[contains(text(),'Yes')]";
 
   public SpaceHomePage(WebDriver driver) {
@@ -928,7 +934,111 @@ public class SpaceHomePage extends GenericPage {
       refreshPage();
     }
   }
+  
+  public void attachImagesToActivity() {
+    waitCKEditorLoading(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR);
+    this.attachImageToCKeditorInstance();
+  }
+  
+  public void attachGifImageToActivity() {
+    waitCKEditorLoading(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR);
+    this.attachGifImageToCKeditorInstance();
+  }
+  
+  public void attachImagesToActivityComment() {
+    waitCKEditorLoading(OPENED_ACTIVITY_COMMENTS_DRAWER_SELECTOR);
+    this.attachImageToCKeditorInstance();
+  }
+  
+  public void attachImagesToKudos() {
+    waitCKEditorLoading(OPENED_KUDOS_DRAWER_SELECTOR);
+    this.attachImageToCKeditorInstance();
+  }
+  
+  public void attachImageToAnnouncement() {
+    waitCKEditorLoading(OPENED_RULE_DRAWER_SELECTOR);
+    this.attachImageToCKeditorInstance();
+  }
+  
+  public void attachImageToProgramAction() {
+    waitCKEditorLoading("//*[@id='engagementCenterRulePublication']");
+    this.attachImageToCKeditorInstance();
+  }
+  
+  public void attachImageToCKeditorInstance() {
+    ckEditorAttachImageButton().assertVisible();
+    ElementFacade fileInput = ckEditorAttachImageInput();
+    fileInput.assertEnabled();
+    attachImageToFileInput(fileInput);
+    waitForLoading();
+    activityDrawerAttachedImagesCarousel().assertVisible();
+    activityDrawerAttachedImagesCarouselPlusIcon().assertVisible();
+  }
+  
+  public void attachGifImageToCKeditorInstance() {
+    ckEditorAttachImageButton().assertVisible();
+    ElementFacade fileInput = ckEditorAttachImageInput();
+    fileInput.assertEnabled();
+    attachImageGifToFileInput(fileInput);
+    waitForLoading();
+    activityDrawerAttachedImagesCarousel().assertVisible();
+    activityDrawerAttachedImagesCarouselPlusIcon().assertVisible();
+  }
 
+  public void clickPreviewAttachedImage(String activity) {
+    getAttachedImagesActivity(activity).click();
+  }
+  
+  public void clickClosePreviewAttachedImage() {
+    previewAttachedImageCloseBtn().click();
+  }
+
+  public void checkPreviewAttachedImageIsClosed() {
+    getPreviewAttachedImage().assertNotVisible();
+  }
+  
+
+  public void previewAttachedImage() {
+    getPreviewAttachedImage().assertVisible();
+  }
+  
+  public void checkPreviewAttachedImageArrows() {
+    getPreviewAttachedImageNextArrow().assertNotVisible();
+    getPreviewAttachedImagePrevArrow().assertNotVisible();
+  }
+  
+  public void clickDeleteAttachment() {
+    deleteAttachmentBtn().click();
+  }
+  
+  public void clickEditAttachment() {
+    editAttachmentBtn().click();
+  }
+  
+  public void clickUpdateAttachment() {
+    getAttachedImageCropDrawerUpdateBtn().click();
+  }
+  
+  public void zoomAttachedImage() {
+    getAttachedImageCropDrawerZoomBtn().click();
+  }
+  
+  public void checkAttachedImageCropDrawerCancelOption() {
+    getAttachedImageCropDrawerCancekBtn().assertVisible();
+  }
+  
+  public void checkAttachedImageCropDrawer() {
+    getAttachedImageCropDrawer().assertVisible();
+  }
+  
+  public void checkCropDrawerBlurredZone() {
+    getAttachedImageCropDrawerBlurredZone().assertVisible();
+  }
+  
+  public void checkActivityAttachImageDeleted() {
+    getActivityAttachedImage().assertNotVisible();
+  }
+  
   public void publishActivityInArabicLanguage() {
     newActivityButtonInArabicLanguageElement().click();
   }
@@ -1008,6 +1118,34 @@ public class SpaceHomePage extends GenericPage {
 
   public void unPinActivityButtonIsDisplayed(String activity) {
     getUnpinActivityIcon(activity).assertVisible();
+  }
+  
+  public void checkActivityAttachedImages(String activity) {
+    getAttachedImagesActivity(activity).assertVisible();
+  }
+  
+  public void checkActivitySecondAttachedImage(String activity) {
+    getSecondAttachedImageActivity(activity).assertVisible();
+  }
+  
+  public void checkActivityCommentKudos(String comment) {
+    Assert.assertEquals(commentKudosTitleElement().getText(), comment);
+  }
+  
+  public void checkKudosCommentAttachedImages(String comment) {
+    getAttachedImagesKudosComment(comment).assertVisible();
+  }
+  
+  public void checkActivityAttachedImagesIsNotDisplayed(String activity) {
+    getAttachedImagesActivity(activity).assertNotVisible();
+  }
+ 
+  public void checkActivityDrawerAttachedImagesDeleteIcon(String activity) {
+    getActivityAttachedImageWithDeleteIcon(activity).assertVisible();
+  }
+  
+  public void checkActivityDrawerAttachedImagesEditIcon(String activity) {
+    getActivityAttachedImageWithEditIcon(activity).assertVisible();
   }
 
   public void updateActivityComment(String comment) {
@@ -1089,6 +1227,22 @@ public class SpaceHomePage extends GenericPage {
       waitFor(1000).milliseconds(); // Wait for animation end
     }
     return tabElement(tabName);
+  }
+
+  private ElementFacade ckEditorAttachImageInput() {
+    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')]/parent::*//input[@type='file']");
+  }
+
+  private ElementFacade ckEditorAttachImageButton() {
+    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')]//a[contains(@class, 'cke_button__attachimage')]");
+  }
+  
+  private ElementFacade activityDrawerAttachedImagesCarousel() {
+    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')]/parent::*//*[contains(@class, 'carousel-top-parent')]");
+  }
+  
+  private ElementFacade activityDrawerAttachedImagesCarouselPlusIcon() {
+    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')]/parent::*//*[contains(@class, 'carousel-top-parent')]//*[contains(@class, 'fa-plus')]");
   }
 
   private ElementFacade installedApplicationCard(String applicationName) {
@@ -1211,6 +1365,10 @@ public class SpaceHomePage extends GenericPage {
 
   private ElementFacade commentTitleElement() {
     return findByXPathOrCSS("//*[contains(@id,'activity-comment-detail')]//*[contains(@id,'Extactivity-content-extensions')]//p//div");
+  }
+  
+  private ElementFacade commentKudosTitleElement() {
+    return findByXPathOrCSS("//*[contains(@id,'activity-comment-detail')]//*[contains(@id,'Extactivity-content-extensions')]//*[contains(@class,'rich-editor-content')]//div");
   }
 
   private ElementFacade createPollLinkElement() {
@@ -1486,6 +1644,83 @@ public class SpaceHomePage extends GenericPage {
   private ElementFacade getPinnedActivity(String activity) {
     return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'pinnedActivity')]",
                                           activity));
+  }
+  
+
+  private ElementFacade getAttachedImagesActivity(String activity) {
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'activityStream')]//*[contains(@class,'contentBox')][1]//*[contains(@class, 'attachments-image-item')][1]",
+                                          activity));
+  }
+  
+  private ElementFacade getSecondAttachedImageActivity(String activity) {
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'activityStream')]//*[contains(@class,'contentBox')][1]//*[contains(@class, 'attachments-image-item')][2]",
+                                          activity));
+  }
+  
+  private ElementFacade getAttachedImagesKudosComment(String comment) {
+    return findByXPathOrCSS(String.format("//*[contains(@id,'ActivityCommment_comment')][1]//*[contains(@id,'Extcomment-content-extensions')]//*[contains(@class, 'attachments-image-item')][1]",
+                                          comment));
+  }
+  
+  private ElementFacade getPreviewAttachedImage() {
+    return findByXPathOrCSS("//*[@id='previewCarousel-activity' and contains(@class, 'AttachmentCarouselPreview')]");
+  }
+  
+  private ElementFacade getPreviewAttachedImageNextArrow() {
+    return findByXPathOrCSS("//*[@id='previewCarousel-activity' and contains(@class, 'AttachmentCarouselPreview')]//*[contains(@class, 'v-window__next')]");
+  }
+  
+  private ElementFacade getPreviewAttachedImagePrevArrow() {
+    return findByXPathOrCSS("//*[@id='previewCarousel-activity' and contains(@class, 'AttachmentCarouselPreview')]//*[contains(@class, 'v-window__prev')]");
+  }
+  
+  
+  private ElementFacade previewAttachedImageCloseBtn() {
+    return findByXPathOrCSS("//*[contains(@class,'preview-attachment-action')]//button[@id='preview-attachment-close']");
+  }
+  
+  private ElementFacade deleteAttachmentBtn() {
+    return findByXPathOrCSS(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR + "//*[contains(@class, 'activityRichEditor')]//*[contains(@class, 'carousel-top-parent')]//*[contains(@class, 'v-card__actions')]//button[2]");
+  }
+  
+  private ElementFacade editAttachmentBtn() {
+    return findByXPathOrCSS(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR + "//*[contains(@class, 'activityRichEditor')]//*[contains(@class, 'carousel-top-parent')]//*[contains(@class, 'v-card__actions')]//button[1]");
+  }
+  
+  private ElementFacade updateAttachmentCropDrawerBtn() {
+    return findByXPathOrCSS(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR + "//*[contains(@class, 'activityRichEditor')]//*[contains(@class, 'carousel-top-parent')]//*[contains(@class, 'v-card__actions')]//button[1]");
+  }
+  
+  private ElementFacade getAttachedImageCropDrawer() {
+    return findByXPathOrCSS("//*[contains(@id,'Extactivity-stream-drawers')]//*[@id = 'cropperDrawer']");
+  } 
+  private ElementFacade getAttachedImageCropDrawerBlurredZone() {
+    return findByXPathOrCSS("//*[contains(@id,'Extactivity-stream-drawers')]//*[@id = 'cropperDrawer']//*[contains(@class, 'filter-blur-3')]");
+  } 
+  
+  
+  private ElementFacade getAttachedImageCropDrawerZoomBtn() {
+    return findByXPathOrCSS("//*[contains(@id,'Extactivity-stream-drawers')]//*[@id = 'cropperDrawer']//*[@id = 'zoomImageIn']");
+  } 
+  
+  private ElementFacade getAttachedImageCropDrawerCancekBtn() {
+    return findByXPathOrCSS("//*[contains(@id,'Extactivity-stream-drawers')]//*[@id = 'cropperDrawer']//*[@id = 'cancelChanges']");
+  } 
+  
+  private ElementFacade getAttachedImageCropDrawerUpdateBtn() {
+    return findByXPathOrCSS("//*[contains(@id,'Extactivity-stream-drawers')]//*[@id = 'cropperDrawer']//*[@id = 'imageCropDrawerApply']");
+  } 
+  
+  private ElementFacade getActivityAttachedImage() {
+    return findByXPathOrCSS(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR + "//*[contains(@class, 'activityRichEditor')]//*[contains(@class, 'carousel-top-parent')]");
+  }
+  
+  private ElementFacade getActivityAttachedImageWithDeleteIcon(String activity) {
+    return findByXPathOrCSS(String.format(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR + "//*[contains(@class, 'activityRichEditor')]//*[contains(@class, 'carousel-top-parent')]//button[contains(@class, 'v-btn')]//*[contains(@class, 'fa-trash')]", activity));
+  }
+  
+  private ElementFacade getActivityAttachedImageWithEditIcon(String activity) {
+    return findByXPathOrCSS(String.format(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR + "//*[contains(@class, 'activityRichEditor')]//*[contains(@class, 'carousel-top-parent')]//button[contains(@class, 'v-btn')]//*[contains(@class, 'fa-edit')]", activity));
   }
 
   private ElementFacade getReactionActivityLink(String activity) {
