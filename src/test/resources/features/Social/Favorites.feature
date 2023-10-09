@@ -162,10 +162,12 @@ Feature: Favorite activities
     When I bookmark the random space as favorite from topbar space popover
     Then Confirmation message is displayed 'Favorite added successfully. Find it easily from the search'
     When I close the notification
+    And I hover on space name from top bar
     Then  I check that the random space is bookmarked as favorite from topbar space popover
     When I unfavorite the random space from topbar space popover
     Then Confirmation message is displayed 'The item has been removed from favorites successfully.'
     When I close the notification
+    And I hover on space name from top bar
     Then I check that the random space is unbookmarked from topbar space popover
 
   Scenario: Left Nav US02.2: Bookmark space from the left menu (desktop)
