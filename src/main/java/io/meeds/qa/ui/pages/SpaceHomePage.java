@@ -30,9 +30,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.Select;
 
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
@@ -768,8 +766,7 @@ public class SpaceHomePage extends GenericPage {
 
   public void insertNameContact(String contact) {
     filterTextBoxElement().setTextValue(contact);
-    waitFor(500).milliseconds();
-    waitForLoading();
+    waitForProgressBar(true);
   }
 
   public void isActivityNameUserSpaceDisplayed(String activity, String user, String space) {
