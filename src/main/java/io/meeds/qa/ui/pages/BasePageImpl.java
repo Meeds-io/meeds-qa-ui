@@ -506,14 +506,30 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void waitForProgressBar() {
+    waitForProgressBar(false);
+  }
+
+  public void waitForProgressBar(boolean waitForProgress) {
+    if (waitForProgress) {
+      try {
+        pageProgressBar().waitUntilVisible();
+      } catch (Exception e) {
+        LOGGER.warn("Can't wait for progress bar to appear", e);
+      }
+    }
     try {
-      ElementFacade progressBar = findByXPathOrCSS(".UISiteBody .v-progress-linear");
+      ElementFacade progressBar = pageProgressBar();
       if (progressBar.isCurrentlyVisible()) {
         progressBar.waitUntilNotVisible();
       }
     } catch (Exception e) {
       LOGGER.warn("Can't wait for progress bar to finish loading", e);
     }
+  }
+
+
+  public ElementFacade pageProgressBar() {
+    return findByXPathOrCSS(".UISiteBody .v-progress-linear");
   }
 
   public void waitForMenuToOpen() {
