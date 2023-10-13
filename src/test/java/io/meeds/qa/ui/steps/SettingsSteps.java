@@ -179,11 +179,6 @@ public class SettingsSteps {
 
   }
 
-  public void goToEditGeneralNotifications() {
-    settingsPage.goToEditGeneralNotifications();
-
-  }
-
   public void goToManageNotifications() {
     settingsPage.goToManageNotifications();
 

@@ -20,7 +20,6 @@ package io.meeds.qa.ui.pages;
 import static io.meeds.qa.ui.utils.Utils.refreshPage;
 
 import org.junit.Assert;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.ElementFacade;
@@ -228,19 +227,6 @@ public class SettingsPage extends GenericPage {
 
   }
 
-  public void goToEditGeneralNotifications() {
-    JavascriptExecutor js = (JavascriptExecutor) getDriver();
-
-    try {
-      editGeneralNotificationsElement().waitUntilClickable();
-      editGeneralNotificationsElement().click();
-
-    } catch (Exception ex) {
-      js.executeScript("arguments[0].click();", editGeneralNotificationsElement());
-    }
-
-  }
-
   public void goToManageNotifications() {
     clickOnElement(manageNotificationsElement());
   }
@@ -360,10 +346,6 @@ public class SettingsPage extends GenericPage {
 
   private ElementFacade confirmEditPasswordElement() {
     return findByXPathOrCSS("(//input[@type='password'])[3]/following::*[@class='v-btn__content'][2]");
-  }
-
-  private ElementFacade editGeneralNotificationsElement() {
-    return findByXPathOrCSS("(//*[@class='uiIconEdit uiIconLightBlue pb-2'])[1]");
   }
 
   private ElementFacade editPasswordElement() {
