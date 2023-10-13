@@ -186,25 +186,13 @@ public class TasksPage extends GenericPage {
     cancelFilterButtonElement().assertVisible();
   }
 
-  public void checkAlertMessageAfterDeleteTask() {
-    findByXPathOrCSS("//*[contains(@class, 'v-alert')]//*[contains(text(),'Task successfully deleted')]").assertVisible();
-  }
-
-  public void checkAlertMessageAfterMarkTaskAsCompleted() {
-    alertMessageAfterMarkTaskAsCompletedElement().assertVisible();
-  }
-
-  public void checkAlertMessageMoveStatusAfter() {
-    alertMessageAfterStatusMovedElement().assertVisible();
-  }
-
   public void checkAttachmentDisplay(String attachmentName) {
     getAttachmentName(attachmentName).assertNotVisible();
   }
 
   public void checkClonedProject(String projectName) {
     getProjectCard(projectName).assertVisible();
-    alertMessageAfterProjectCloneElement().assertVisible();
+    checkSuccessMessageDisplayed();
   }
 
   public void checkClonedTask(String taskName) {
@@ -213,7 +201,7 @@ public class TasksPage extends GenericPage {
 
   public void checkDeletedProject(String projectName) {
     getProjectCard(projectName).assertNotVisible();
-    alertMessageAfterProjectDeletionElement().assertVisible();
+    checkSuccessMessageDisplayed();
   }
 
   public void checkDeletedStatus(String statusColumn) {
@@ -267,11 +255,7 @@ public class TasksPage extends GenericPage {
 
   public void checkProject(String projectName) {
     getProjectCard(projectName).assertVisible();
-    alertMessageAfterProjectCreationElement().assertVisible();
-  }
-
-  public void checkProjectIsCreated() {
-    alertMessageAfterProjectCreationElement().assertVisible();
+    checkSuccessMessageDisplayed();
   }
 
   public void checkProjectNameIsDisplayedInProjectCard(String projectName, String description) {
@@ -281,15 +265,11 @@ public class TasksPage extends GenericPage {
 
   public void checkProjectNotDisplayed(String projectName) {
     getProjectCard(projectName).assertNotVisible();
-    alertMessageAfterProjectCreationElement().assertNotVisible();
+    checkSuccessMessageDisplayed();
   }
 
   public void checkSecondStatusColumn(String columnStatus) {
     assertEquals(secondStatusColumnElement().getText(), columnStatus);
-  }
-
-  public void checkSuccessMessage(String message) {
-    assertTrue(successMessageElement().getText().contains(message));
   }
 
   public void checkTaskPriority(String taskPriority) {
@@ -347,7 +327,7 @@ public class TasksPage extends GenericPage {
   public void checkUpdatedProject(String projectName, String description) {
     getProjectCard(projectName).assertVisible();
     getProjectCardDescription(description).assertVisible();
-    alertMessageAfterProjectUpdateElement().assertVisible();
+    checkSuccessMessageDisplayed();
   }
 
   public void checkViewLinkAttachments() {
@@ -1146,10 +1126,6 @@ public class TasksPage extends GenericPage {
     backDrawerElement().click();
   }
 
-  public void taskAlertIsDisplayed(String message) {
-    getTaskAlert(message).assertVisible();
-  }
-
   public void taskIsMarkedAndDisplayedInCompletedSection(String taskName) {
     Assert.assertEquals(getCompletedTask(taskName).getText(), taskName);
   }
@@ -1279,30 +1255,6 @@ public class TasksPage extends GenericPage {
 
   private ElementFacade addTaskInProjectButtonElement() {
     return findByXPathOrCSS(".tasksViewBoardRowContainer .tasksViewHeader .uiIconSocSimplePlus");
-  }
-
-  private TextBoxElementFacade alertMessageAfterMarkTaskAsCompletedElement() {
-    return findTextBoxByXPathOrCSS("//*[contains(text(),'Task successfully marked as archived')]");
-  }
-
-  private TextBoxElementFacade alertMessageAfterProjectCloneElement() {
-    return findTextBoxByXPathOrCSS("//*[@class='v-alert v-sheet theme--dark success']//*[@class='v-alert__content' and contains(text(),'Project successfully cloned')]");
-  }
-
-  private TextBoxElementFacade alertMessageAfterProjectCreationElement() {
-    return findTextBoxByXPathOrCSS("//*[@class='v-alert v-sheet theme--dark success']//*[@class='v-alert__content' and contains(text(),'Project successfully created')]");
-  }
-
-  private TextBoxElementFacade alertMessageAfterProjectDeletionElement() {
-    return findTextBoxByXPathOrCSS("//*[@class='v-alert v-sheet theme--dark success']//*[@class='v-alert__content' and contains(text(),'Project successfully deleted')]");
-  }
-
-  private TextBoxElementFacade alertMessageAfterProjectUpdateElement() {
-    return findTextBoxByXPathOrCSS("//*[@class='v-alert v-sheet theme--dark success']//*[@class='v-alert__content' and contains(text(),'Project successfully updated')]");
-  }
-
-  private TextBoxElementFacade alertMessageAfterStatusMovedElement() {
-    return findTextBoxByXPathOrCSS("//*[@class='v-alert v-sheet theme--dark success']//*[@class='v-alert__content' and contains(text(),'Status successfully moved')]");
   }
 
   private ElementFacade arrowBackButtonElement() {
@@ -1517,11 +1469,6 @@ public class TasksPage extends GenericPage {
   private ElementFacade getStatusColumn(String statusColumn) {
     return findByXPathOrCSS(String.format("(//*[@class='d-flex tasksViewHeaderLeft']//*[contains(text(),'%s')][1])[1]",
                                           statusColumn));
-  }
-
-  private ElementFacade getTaskAlert(String message) {
-    return findByXPathOrCSS(
-                            String.format("//*[@class='v-alert__content' and contains(text(),'%s')]", message));
   }
 
   private ElementFacade getTaskCommentReplyBtn(String comment) {
@@ -1843,10 +1790,6 @@ public class TasksPage extends GenericPage {
 
   private ElementFacade statusFieldElement() {
     return findByXPathOrCSS("//*[@placeholder='Enter a name for this status']");
-  }
-
-  private TextBoxElementFacade successMessageElement() {
-    return findTextBoxByXPathOrCSS("//*[contains(@class,'drawerParent attachmentsListDrawer')]/following::*[@class='v-alert__content'][1]//span");
   }
 
   private ElementFacade switchToFrameTaskElement() {

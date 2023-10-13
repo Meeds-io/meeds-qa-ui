@@ -15,7 +15,7 @@ Feature: Tasks
     And I create the following task in selected project
       | taskName | tasktest |
     And I mark the task as completed from the task card
-    Then An alert message Task successfully marked as archived is displayed
+    Then Success message is displayed
     And Task name 'tasktest' is not displayed in project details
     And Tasks number '0' is displayed in the column To Do
 
@@ -70,7 +70,7 @@ Feature: Tasks
     And I create the following task in selected project
       | taskName | task11 |
     And I mark the task as completed from the task card
-    Then An alert message Task successfully marked as archived is displayed
+    Then Success message is displayed
     And Task name 'task11' is not displayed in project details
     And Tasks number '0' is displayed in the column To Do
 
@@ -95,7 +95,7 @@ Feature: Tasks
     Then Delete task option is displayed
     When I click on task delete option
     And I confirm deletion Task message
-    Then An alert message Task successfully deleted is displayed
+    Then Success message is displayed
     When I close the opened drawer
     Then Task name 'taskessai' is not displayed in project details
 
@@ -137,7 +137,7 @@ Feature: Tasks
     And I create a random space
     And I go to Tasks in space tab
     And I create the project 'new project test'
-    Then the project is created successfully and displayed on Tasks Space tab
+    Then Success message is displayed
 
     And I go to 'Tasks' application
     And Project 'new project test' is displayed in Tasks App Center
@@ -150,7 +150,7 @@ Feature: Tasks
     When I refresh the page
     And I go to Tasks in space tab
     And I create the project 'second project test'
-    Then the project is created successfully and displayed on Tasks Space tab
+    Then Success message is displayed
     And Project 'second project test' is displayed in Tasks space
 
     And I go to 'Tasks' application
@@ -241,7 +241,7 @@ Feature: Tasks
     And I open the task 'task E'
     And I mark the task as completed in task drawer without closing the drawer
     Then The task is marked as completed in task drawer
-    Then An alert message Task successfully marked as archived is displayed
+    Then Success message is displayed
 
     When I close the opened drawer
     And Task name 'taskE' is not displayed in project details
