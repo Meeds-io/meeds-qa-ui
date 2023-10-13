@@ -111,10 +111,6 @@ public class HomePage extends GenericPage {
     getFavoriteIconActivity(activity).assertVisible();
   }
 
-  public void checkFavSuccessMessage(String message) {
-    getFavoriteSucessMessage(message).assertVisible();
-  }
-
   public void checkNoActivityDisplayed() {
     contextBoxWelcomeActivityElement().assertVisible();
   }
@@ -575,10 +571,6 @@ public class HomePage extends GenericPage {
     return findByXPathOrCSS(String.format(
                                           "//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::i[contains(@class,'fa-star')][01]",
                                           activity));
-  }
-
-  private ElementFacade getFavoriteSucessMessage(String message) {
-    return findByXPathOrCSS(String.format("//div[@class='v-alert__content']//*[contains(text(),'%s')]", message));
   }
 
   private ElementFacade getHamburgerNavigationMenu() {

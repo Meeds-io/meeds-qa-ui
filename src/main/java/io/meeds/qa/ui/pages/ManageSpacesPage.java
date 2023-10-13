@@ -579,7 +579,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   private ElementFacade editIconOfGeneralSpaceSettingsElement() {
-    return findByXPathOrCSS("//i[@class='uiIconEdit uiIconLightBlue pb-2']");
+    return findByXPathOrCSS("//*[contains(text(), 'General')]//ancestor::*[contains(@class, 'v-application')]//*[contains(@class, 'fa-edit')]");
   }
 
   private ElementFacade firstProcessButtonElement() {

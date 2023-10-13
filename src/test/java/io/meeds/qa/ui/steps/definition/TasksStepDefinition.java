@@ -242,21 +242,6 @@ public class TasksStepDefinition {
     tasksSteps.cancelFilterButtonIsDisplayed();
   }
 
-  @And("^An alert message Task successfully deleted is displayed$")
-  public void checkAlertMessageAfterDeleteTask() {
-    tasksSteps.checkAlertMessageAfterDeleteTask();
-  }
-
-  @Then("An alert message Task successfully marked as archived is displayed")
-  public void checkAlertMessageAfterMarkTaskAsCompleted() {
-    tasksSteps.checkAlertMessageAfterMarkTaskAsCompleted();
-  }
-
-  @Then("^An alert message Status column is moved successfully is displayed$")
-  public void checkAlertMessageMoveStatusAfter() {
-    tasksSteps.checkAlertMessageMoveStatusAfter();
-  }
-
   @Then("^The random created project with description '(.*)' is displayed in Project Card$")
   public void checkCreatedTasksProjectNameIsDisplayedInProjectCard(String projectDescription) {
     String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
@@ -328,11 +313,6 @@ public class TasksStepDefinition {
     tasksSteps.checkClonedProject(randomSpaceName);
   }
 
-  @Then("the project is created successfully and displayed on Tasks Space tab")
-  public void checkProjectIsCreated() {
-    tasksSteps.checkProjectIsCreated();
-  }
-
   @Then("the project is created successfully and displayed on Projects tab")
   public void checkProjectIsDisplayed() {
     String projectName = Serenity.sessionVariableCalled("projectName");
@@ -360,11 +340,6 @@ public class TasksStepDefinition {
   @Then("^Status column '(.*)' is displayed in the second position$")
   public void checkSecondStatusColumn(String columnStatus) {
     tasksSteps.checkSecondStatusColumn(columnStatus);
-  }
-
-  @Then("^The success message '(.*)' should be displayed$")
-  public void checkSuccessMessage(String message) {
-    tasksSteps.checkSuccessMessage(message);
   }
 
   @Then("^Task status '(.*)' is modified successfully$")
@@ -1194,11 +1169,6 @@ public class TasksStepDefinition {
   @And("^I switch to TASKS tab$")
   public void switchToTASKSTab() {
     tasksSteps.switchToTASKSTab();
-  }
-
-  @When("^Alert '(.*)' is displayed$")
-  public void taskAlertIsDisplayed(String message) {
-    tasksSteps.taskAlertIsDisplayed(message);
   }
 
   @When("^Task name '(.*)' is displayed in project details$")
