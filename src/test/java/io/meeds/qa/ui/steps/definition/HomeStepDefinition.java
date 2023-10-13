@@ -150,11 +150,6 @@ public class HomeStepDefinition {
     homeSteps.checkFavIcon(activity);
   }
 
-  @Then("^The favorite success message '(.*)' should be displayed$")
-  public void checkFavSuccessMessage(String message) {
-    homeSteps.checkFavSuccessMessage(message);
-  }
-
   @Given("No activity is displayed in stream$")
   public void checkNoActivityDisplayed() {
     homeSteps.checkNoActivityDisplayed();

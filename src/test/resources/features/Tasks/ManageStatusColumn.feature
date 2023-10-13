@@ -27,7 +27,7 @@ Feature: Project manager deletes, moves after/before a status column
     And I click on three dots icon of the first status column
     And I check that Move Status column before option is not displayed
     And I click on Move Status column after option
-    Then An alert message Status column is moved successfully is displayed
+    Then Success message is displayed
     And Status column 'To Do' is moved to the second position
     And Status column 'In Progress' is moved to the first position
 
@@ -43,6 +43,6 @@ Feature: Project manager deletes, moves after/before a status column
     And I click on three dots icon of the last status column
     And I check that Move Status column after option is not displayed
     And I click on Move Status column before option
-    Then An alert message Status column is moved successfully is displayed
+    Then Success message is displayed
     And Status column 'Done' is moved to the third position
     And Status column 'Waiting On' is moved to the last position

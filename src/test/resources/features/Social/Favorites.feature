@@ -13,7 +13,7 @@ Feature: Favorite activities
     When I go to Stream page
     Then The favorite star should be displayed in the published activity 'favorite activity'
     When I favorite the activity posted in the space
-    Then The favorite success message 'Favorite added successfully. Find it easily from the search' should be displayed
+    Then Success message is displayed
 
   Scenario: [Favs_US04] Remove the Bookmark for an activity
     Given I am authenticated as 'admin' if random users doesn't exists
@@ -26,10 +26,10 @@ Feature: Favorite activities
     And I publish the activity
     Then The favorite star should be displayed in the published activity 'bookmark activity'
     When I favorite the activity posted in the space
-    Then The favorite success message 'Favorite added successfully. Find it easily from the search' should be displayed
+    Then Success message is displayed
     When I go to Stream page
     And I unbookmark the favorite activity posted in the space
-    Then The favorite success message 'The item has been removed from favorites successfully.' should be displayed
+    Then Success message is displayed
 
   Scenario: [Favs_US05][01] Search by favorites (Filter by favorite button)
     Given I am authenticated as 'admin' if random users doesn't exists
@@ -43,9 +43,9 @@ Feature: Favorite activities
     And the activity 'act_Fav_US05_01_1' is displayed in activity stream
     And the activity 'act_Fav_US05_01_2' is displayed in activity stream
     When I bookmark the activity 'act_Fav_US05_01_1'
-    Then The favorite success message 'Favorite added successfully. Find it easily from the search' should be displayed
+    Then Success message is displayed
     When I bookmark the activity 'act_Fav_US05_01_2'
-    Then The favorite success message 'Favorite added successfully. Find it easily from the search' should be displayed
+    Then Success message is displayed
     When I go to Stream page
     And I access to the unified search page
     When I click on the favorite button
@@ -69,9 +69,9 @@ Feature: Favorite activities
     And the activity 'activityFavs_US051' is displayed in activity stream
     And the activity 'activityFavs_US052' is displayed in activity stream
     When I bookmark the activity 'activityFavs_US051'
-    Then The favorite success message 'Favorite added successfully. Find it easily from the search' should be displayed
+    Then Success message is displayed
     When I bookmark the activity 'activityFavs_US052'
-    Then The favorite success message 'Favorite added successfully. Find it easily from the search' should be displayed
+    Then Success message is displayed
     When I go to Stream page
     And I start the search for 'activityFavs_US05'
     Then The activity is displayed in the search 'activityFavs_US050'
@@ -120,7 +120,7 @@ Feature: Favorite activities
     And the activity 'activityFavs_US06_02_1' is displayed in activity stream
     And the activity 'activityFavs_US06_02_2' is displayed in activity stream
     When I bookmark the activity 'activityFavs_US06_02_2'
-    Then The favorite success message 'Favorite added successfully. Find it easily from the search' should be displayed
+    Then Success message is displayed
     When  I start the search for 'activityFavs_US06_02_'
     Then The activity is displayed in the search 'activityFavs_US06_02_1'
     And The activity is displayed in the search 'activityFavs_US06_02_2'

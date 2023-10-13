@@ -207,11 +207,6 @@ public class SettingsStepDefinition {
     settingsSteps.generalNotificationsSendingMailTypeIsWeekly();
   }
 
-  @When("^I click on Edit General Notifications$")
-  public void goToEditGeneralNotifications() {
-    settingsSteps.goToEditGeneralNotifications();
-  }
-
   @When("^I go to Manage Notifications$")
   public void goToManageNotifications() {
     settingsSteps.goToManageNotifications();

@@ -138,18 +138,6 @@ public class TasksSteps {
     tasksPage.cancelFilterButtonIsDisplayed();
   }
 
-  public void checkAlertMessageAfterDeleteTask() {
-    tasksPage.checkAlertMessageAfterDeleteTask();
-  }
-
-  public void checkAlertMessageAfterMarkTaskAsCompleted() {
-    tasksPage.checkAlertMessageAfterMarkTaskAsCompleted();
-  }
-
-  public void checkAlertMessageMoveStatusAfter() {
-    tasksPage.checkAlertMessageMoveStatusAfter();
-  }
-
   public void checkAttachmentDisplay(String attachmentName) {
     tasksPage.checkAttachmentDisplay(attachmentName);
   }
@@ -221,10 +209,6 @@ public class TasksSteps {
     tasksPage.checkMoveStatusBeforeIconIsNotDisplayed();
   }
 
-  public void checkProjectIsCreated() {
-    tasksPage.checkProjectIsCreated();
-  }
-
   public void checkProjectIsDisplayed(String projectName) {
     tasksPage.checkProject(projectName);
   }
@@ -239,10 +223,6 @@ public class TasksSteps {
 
   public void checkSecondStatusColumn(String columnStatus) {
     tasksPage.checkSecondStatusColumn(columnStatus);
-  }
-
-  public void checkSuccessMessage(String message) {
-    tasksPage.checkSuccessMessage(message);
   }
 
   public void checkTaskPriority(String taskPriority) {
@@ -816,10 +796,6 @@ public class TasksSteps {
 
   public void switchToTASKSTab() {
     tasksPage.switchToTASKSTab();
-  }
-
-  public void taskAlertIsDisplayed(String message) {
-    tasksPage.taskAlertIsDisplayed(message);
   }
 
   public void taskIsDisplayedInProjectDetails(String taskName) {

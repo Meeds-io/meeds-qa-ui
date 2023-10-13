@@ -69,10 +69,6 @@ public class HomeSteps {
     homePage.checkFavIcon(activity);
   }
 
-  public void checkFavSuccessMessage(String message) {
-    homePage.checkFavSuccessMessage(message);
-  }
-
   public void checkNoActivityDisplayed() {
     homePage.checkNoActivityDisplayed();
   }
