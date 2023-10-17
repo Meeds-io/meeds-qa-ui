@@ -86,7 +86,7 @@ Feature: Filter Drawer
     And Tasks number '3' is displayed in the column To Do
 
     When I mark the task 'task111-1' as completed in project details
-    Then An alert message Task successfully marked as archived is displayed
+    Then Success message is displayed
     And Task name 'task111-1' is not displayed in project details
 
     When I refresh the page
