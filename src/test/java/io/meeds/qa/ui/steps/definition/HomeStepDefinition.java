@@ -352,6 +352,12 @@ public class HomeStepDefinition {
                                                 .isTrue();
   }
 
+  @Then("^The spaces badge isn't displayed$")
+  public void thereIsNoSpacesBadge() {
+    assertThat(homeSteps.thereIsNoSpacesBadge()).as("The spaces badge shouldn't be displayed")
+            .isTrue();
+  }
+
   @And("^The third level Navigation should display the space details panel$")
   public void checkThirdLevelNavigationDisplayed() {
     homeSteps.checkThirdLevelNavigationDisplayed();

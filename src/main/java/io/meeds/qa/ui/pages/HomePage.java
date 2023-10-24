@@ -272,6 +272,10 @@ public class HomePage extends GenericPage {
     return getConnectionsBadge().isNotVisible();
   }
 
+  public boolean thereIsNoSpacesBadge() {
+    return spacesBadgeElement().isNotVisible();
+  }
+
   public void checkNumberOfConnectionsInDrawer(int expectedNumber) {
     waitForLoading();
     assertThat(getListConnectionInDrawer().size()).isEqualTo(expectedNumber);

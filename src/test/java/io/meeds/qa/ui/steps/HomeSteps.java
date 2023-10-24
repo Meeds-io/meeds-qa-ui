@@ -216,6 +216,10 @@ public class HomeSteps {
     return homePage.isNoConnectionsBadge();
   }
 
+  public boolean thereIsNoSpacesBadge() {
+    homePage.goToStreamPage();
+    return homePage.thereIsNoSpacesBadge();
+  }
   public void checkNumberOfConnectionsInDrawer(String number) {
     homePage.checkNumberOfConnectionsInDrawer(Integer.valueOf(number));
   }
