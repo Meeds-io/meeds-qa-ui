@@ -129,10 +129,15 @@ public class HomeStepDefinition {
   }
 
   @Then("^the number of connection requests is '(.*)'$")
-  public void checkConnectionBagde(String number) {
+  public void checkConnectionBadge(String number) {
     assertThat(homeSteps.isConnectionsBadgeWithNumberVisible(number)).as(String.format("The badge must contains %s connections",
                                                                                        number))
                                                                      .isTrue();
+  }
+
+  @Then("^Connections badge is hidden$")
+  public void checkConnectionBadgeIsHidden() {
+    assertThat(homeSteps.isConnectionsBadgeWithNumberVisible("0")).isFalse();
   }
 
   @Then("^the drawer with '(.*)' connections is opened$")
