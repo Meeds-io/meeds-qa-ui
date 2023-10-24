@@ -292,6 +292,9 @@ public class TasksSteps {
   public void clickAddProjectButton() {
     tasksPage.clickAddProjectButton();
   }
+  public void clickAddTaskButton() {
+    tasksPage.clickAddTaskButton();
+  }
 
   public void clickCancel() {
     tasksPage.clickCancel();

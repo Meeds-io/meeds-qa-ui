@@ -465,3 +465,12 @@ Feature: Tasks
     And I enter the project name 'pr'
     And I click on save project button
     Then The 'Add Project' drawer is displayed
+
+  Scenario: CAP75-[Add_Task_Drawer_US01]: Add Task in "TASKS" tab (task NOT belong to project)
+    Given I am authenticated as 'admin' random user
+    And I open the app center menu
+    And I open all application page
+    When I go to 'Tasks' application
+    And I select tasks tab
+    And I click on add new task button
+    Then The 'Add Task' drawer is displayed
