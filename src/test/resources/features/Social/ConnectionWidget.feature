@@ -12,7 +12,7 @@ Feature: Space widgets checking
     And I create the simpleuser random user if not existing, no wait
     When I login as 'simpleuser' random user
     And I go to Stream page
-    Then Connections badge is hidden
+    Then The badge isn't displayed
 
   Scenario: US 3.3.3_(02) [BACK] No Connection requests number
     Given I am authenticated as 'admin' if random users doesn't exists

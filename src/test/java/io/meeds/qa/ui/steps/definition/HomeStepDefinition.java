@@ -135,11 +135,6 @@ public class HomeStepDefinition {
                                                                      .isTrue();
   }
 
-  @Then("^Connections badge is hidden$")
-  public void checkConnectionBadgeIsHidden() {
-    assertThat(homeSteps.isConnectionsBadgeWithNumberVisible("0")).isFalse();
-  }
-
   @Then("^the drawer with '(.*)' connections is opened$")
   public void checkNumberOfConnectionsInDrawer(String number) {
     homeSteps.checkNumberOfConnectionsInDrawer(number);
