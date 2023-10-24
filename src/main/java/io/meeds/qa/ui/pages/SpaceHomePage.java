@@ -1780,7 +1780,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private ElementFacade kudosButtonToCommentActivityElement() {
-    return findByXPathOrCSS("//div[contains(@class,'white border-radius')][1]//div[contains(@class,'v-list flex')]//div[contains(@class,'d-inline-flex')][1]//div[@role='button']//span[@class='v-btn__content'][last()]");
+    return findByXPathOrCSS("//div[contains(@class,'white card-border-radius')][1]//div[contains(@class,'v-list flex')]//div[contains(@class,'d-inline-flex')][1]//div[@role='button']//span[@class='v-btn__content'][last()]");
   }
 
   private ElementFacade loadMoreActivitiesBtnElement() {
