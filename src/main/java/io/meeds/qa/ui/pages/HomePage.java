@@ -273,8 +273,7 @@ public class HomePage extends GenericPage {
   }
 
   public void checkNoSpacesBadge() {
-    assertThat(spacesBadgeElement().isNotVisible()).as("The spaces badge shouldn't be displayed")
-            .isTrue();
+    assertTrue(spacesBadgeElement().isNotVisible())
   }
 
   public void checkNumberOfConnectionsInDrawer(int expectedNumber) {
