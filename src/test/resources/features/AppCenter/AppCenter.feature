@@ -192,3 +192,12 @@ Feature: Application center Addon
     And I search for the random created application
     Then The application is not bookmarked as my favorites
     And The created application is not displayed in Favorites Applications
+
+  Scenario: CAP34-US 6.5 :My Application in the top bar for Desktop
+    Given I am authenticated as 'admin' random user
+    And I create the first random user if not existing, no wait
+    And I login as 'first' random user
+
+    Then My application top bar button is displayed
+    When I click on My Application top bar Button
+    Then My application drawer is opened

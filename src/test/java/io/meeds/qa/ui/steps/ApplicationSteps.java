@@ -103,5 +103,11 @@ public class ApplicationSteps {
   public void unbookmarkApplication(String appTitle) {
     applicationPage.unbookmarkApplication(appTitle);
   }
+  public void checkMyApplicationButtonIsDisplayed() {
+    applicationPage.isMyApplicationButtonDisplayed();
+  }
+  public void myApplicationDrawerIsOpened() {
+    applicationPage.isMyApplicationDrawerDisplayed();
+  }
 
 }
