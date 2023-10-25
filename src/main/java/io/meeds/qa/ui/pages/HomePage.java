@@ -268,7 +268,7 @@ public class HomePage extends GenericPage {
     return getSiteBody().isCurrentlyVisible();
   }
 
-  public void isNoConnectionsBadge() {
+  public void checkNoConnectionsBadge() {
     assertTrue(getConnectionsBadge().isNotVisible());
   }
 
