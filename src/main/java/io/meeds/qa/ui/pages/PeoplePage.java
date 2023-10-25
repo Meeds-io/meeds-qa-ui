@@ -245,10 +245,6 @@ public class PeoplePage extends GenericPage {
     Assert.assertEquals(leaderboardTitleElement.getText(), title);
   }
 
-  public void checkThatPeopleCardItemDisplayed() {
-    peopleCardItemElement().assertVisible();
-  }
-
   public ElementFacade sentRequestsUsersElement(String user) {
     return findByXPathOrCSS(String.format("//*[@class='layout column']//*[@class='v-list-item__title']//a[contains(text(),'%s')]",
                                           user));
@@ -375,10 +371,6 @@ public class PeoplePage extends GenericPage {
     return findByXPathOrCSS("//*[@class='peopleOverviewCard d-flex flex-column clickable']");
   }
 
-  private ElementFacade peopleCardItemElement() {
-    return findByXPathOrCSS(".peopleCardFront");
-  }
-
   public boolean searchUser(String user) {
     TextBoxElementFacade inputField = searchPeopleInputElement();
     inputField.checkVisible();
@@ -400,6 +392,31 @@ public class PeoplePage extends GenericPage {
       }
     } while (!visible && retry++ < MAX_WAIT_RETRIES); // NOSONAR
     return false;
+  }
+  public void searchUserProfile(String user) {
+    searchPeopleInputElement().setTextValue(user);
+  }
+
+  public Boolean userProfileIsDisplayed(String user) {
+    boolean visible = false;
+    int retry = 0;
+    Duration retryWaitTime = Duration.ofSeconds(1);
+    ElementFacade userCard;
+    do {
+      waitFor(300).milliseconds();
+      waitForLoading();
+      userCard = getUserButton(user);
+      userCard.setImplicitTimeout(retryWaitTime);
+      visible = userCard.isVisible();
+      if (visible) {
+        return true;
+      }
+    } while (!visible && retry++ < MAX_WAIT_RETRIES); // NOSONAR
+    return false;
+  }
+
+  public void checkThatTheSearchedUserProfileIsDisplayed(String user) {
+    assertThat(userProfileIsDisplayed(user)).isTrue().as("User " + user + " wasn't found");
   }
 
 }

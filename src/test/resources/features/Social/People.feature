@@ -4,11 +4,10 @@ Feature: People
 
   Scenario: People US1 : People card list application
     Given I am authenticated as 'admin' if random users doesn't exists
-      | firstprofile  |
-    When I create the firstprofile random user if not existing, no wait
-    And  I create the secondprofile random user if not existing, no wait
-    And I login as 'firstprofile' random user
+      | first |
+    When I create the first random user if not existing, no wait
+    And I create the second random user if not existing, no wait
+    And I login as 'first' random user
     And I go to People Page
-    Given People Showing Results is displayed in People page
-    Then People card item is displayed on the people page
-    Then Contact cover in People page is displayed
+    When I search the second user profile
+    Then User profile 'second' is displayed

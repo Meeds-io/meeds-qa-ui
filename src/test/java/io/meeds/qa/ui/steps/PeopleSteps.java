@@ -131,8 +131,11 @@ public class PeopleSteps {
     peoplePage.isLeaderBoardWidgetDisplayed(title);
   }
 
-  public void checkThatPeopleCardItemDisplayed() {
-    peoplePage.checkThatPeopleCardItemDisplayed();
+  public void searchUserProfile(String user) {
+    peoplePage.searchUserProfile(user);
+  }
+  public void checkThatTheSearchedUserProfileIsDisplayed(String user) {
+    peoplePage.checkThatTheSearchedUserProfileIsDisplayed(user);
   }
 
 }
