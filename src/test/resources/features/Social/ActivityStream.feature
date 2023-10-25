@@ -1528,7 +1528,6 @@ Feature: Activity Stream
     And I open in activity 'activitycap88' the Comments drawer
     Then Comment is displayed in comments drawer at the sixth position
 
-    @test
   Scenario: CAP128 - [ActivityStream_US47][01] Send a kudos from a comment
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -1782,7 +1781,6 @@ Feature: Activity Stream
     And I open in activity 'activitycap87' the Comments drawer
     Then Fourth comment is displayed in comments drawer
 
-    @test
   Scenario: [ActivityStream_US52][03] Edit a kudos from a comment
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |

@@ -190,6 +190,7 @@ public class SpaceHomeSteps {
   public void clickOnCommentKudosButton(String comment) {
     spaceHomePage.getCommentKudosButton(comment);
   }
+  
   public void clickKudosFromCommentsDrawer() {
     spaceHomePage.clickOnkudosButtonFromCommentsDrawerToCommentActivity();
   }
