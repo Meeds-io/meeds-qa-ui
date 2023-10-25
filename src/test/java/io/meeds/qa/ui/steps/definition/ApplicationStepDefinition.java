@@ -211,4 +211,19 @@ public class ApplicationStepDefinition {
     applicationSteps.unbookmarkApplication(randomApplicationTitle);
   }
 
+  @Then("My application top bar button is displayed")
+  public void checkThatMyApplicationButtonIsDisplayed() {
+    applicationSteps.checkMyApplicationButtonIsDisplayed();
+  }
+
+  @When("I click on My Application top bar Button")
+  public void clickOnMyApplicationButton() {
+    applicationSteps.clickOnTheAppLauncherIcon();
+  }
+
+  @Then("My application drawer is opened")
+  public void checkThatMyApplicationDrawerIsOpened() {
+    applicationSteps.myApplicationDrawerIsOpened();
+  }
+
 }

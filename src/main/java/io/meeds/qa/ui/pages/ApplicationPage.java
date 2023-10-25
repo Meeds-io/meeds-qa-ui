@@ -345,6 +345,9 @@ public class ApplicationPage extends GenericPage {
     return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::tr//img[contains(@src, 'defaultApp.png')]",
                                           appTitle));
   }
+  private ElementFacade myApplicationDrawerElement() {
+    return findByXPathOrCSS("//*[@id='appLauncher']");
+  }
 
   private ElementFacade appUrlInApplicationsTable(String appUrl) {
     return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::tr",
@@ -492,5 +495,12 @@ public class ApplicationPage extends GenericPage {
       LOGGER.debug("Search on AppCenter hasn't finished loading at time", e);
     }
     waitFor(500).milliseconds(); // Wait until application finishes its display
+  }
+
+  public void isMyApplicationButtonDisplayed() {
+    elementApplicationsTopbarElement().assertVisible();
+  }
+  public void isMyApplicationDrawerDisplayed() {
+    myApplicationDrawerElement().assertVisible();
   }
 }
