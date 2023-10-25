@@ -1528,6 +1528,7 @@ Feature: Activity Stream
     And I open in activity 'activitycap88' the Comments drawer
     Then Comment is displayed in comments drawer at the sixth position
 
+    @test
   Scenario: CAP128 - [ActivityStream_US47][01] Send a kudos from a comment
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -1558,7 +1559,7 @@ Feature: Activity Stream
     And I go to the random space
     Then the activity 'activitytestkudosCAP128' is displayed in activity stream
     When In comment 'activitytestkudoscommentCAP128', Kudos label should be black
-    Then I click on the kudos button from the comment
+    Then I click on the kudos button from the comment 'activitytestkudoscommentCAP128'
     And I send to the comment activity a kudos message 'Test Auto comment Kudos CAP128'
     Then In comment 'activitytestkudoscommentCAP128', Kudos label should be blue
     And I click on the kudos button number
@@ -1781,6 +1782,7 @@ Feature: Activity Stream
     And I open in activity 'activitycap87' the Comments drawer
     Then Fourth comment is displayed in comments drawer
 
+    @test
   Scenario: [ActivityStream_US52][03] Edit a kudos from a comment
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -1811,7 +1813,7 @@ Feature: Activity Stream
     And I go to the random space
     Then the activity 'activitytestkudosUS52' is displayed in activity stream
     When In comment 'activitytestkudoscommentUS52', Kudos label should be black
-    And I click on the kudos button from the comment
+    And I click on the kudos button from the comment 'activitytestkudoscommentUS52'
     And I send to the comment activity a kudos message 'Test Auto comment Kudos US52'
     And I click to edit the kudos text
     And I set the new kudos comment text 'updated kudos message' and I click on update button

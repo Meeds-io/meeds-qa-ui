@@ -454,9 +454,8 @@ public class SpaceHomePage extends GenericPage {
                                            findByXPathOrCSS("(//*[contains(@class, 'activity-detail')])[1]//*[contains(@class, 'activity-footer-actions')]//*[contains(@id, 'KudosActivity')]");
     firstActivityKudosButton.click();
   }
-
-  public void clickOnkudosButtonToCommentActivity() {
-    kudosButtonToCommentActivityElement().click();
+  public void getCommentKudosButton(String comment) {
+    getCommentKudosFooterButton(comment, "ActivityCommment_comment", "KudosActivity").click();
   }
 
   public void clickOnLoadMoreActivities() {
@@ -1422,6 +1421,12 @@ public class SpaceHomePage extends GenericPage {
                                           buttonIdPart));
   }
 
+  private ElementFacade getCommentKudosFooterButton(String comment, String commentIdPart, String buttonIdPart) {
+    return findByXPathOrCSS(String.format("//div[contains(text(),'%s')]//ancestor::*[contains(@id, '%s')]//button[contains(@id,'%s')]",
+                                          comment,
+                                          commentIdPart,
+                                          buttonIdPart));
+  }
   private ElementFacade getActivityLikeButton(String activity) {
     return getActivityFooterButton(activity, "LikeLink");
   }
@@ -1777,10 +1782,6 @@ public class SpaceHomePage extends GenericPage {
 
   private ElementFacade kudosButtonNumberToCommentActivityElement() {
     return findByXPathOrCSS("(//button[contains(@id,'KudusCountLinkcomment') and @style=''])[1]");
-  }
-
-  private ElementFacade kudosButtonToCommentActivityElement() {
-    return findByXPathOrCSS("//div[contains(@class,'white card-border-radius')][1]//div[contains(@class,'v-list flex')]//div[contains(@class,'d-inline-flex')][1]//div[@role='button']//span[@class='v-btn__content'][last()]");
   }
 
   private ElementFacade loadMoreActivitiesBtnElement() {
