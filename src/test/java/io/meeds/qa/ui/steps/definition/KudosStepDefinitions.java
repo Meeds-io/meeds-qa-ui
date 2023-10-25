@@ -166,4 +166,9 @@ public class KudosStepDefinitions {
     kudoSteps.checkDeleteKudosCommentIsVisible(activity, kudos);
   }
 
+  @And("^I send kudos to '(.*)' random user '(.*)' from user popover")
+  public void sendKudosFromUserPopover(String user, String kudosMessage) {
+    kudoSteps.sendKudosFromUserPopover(user, kudosMessage);
+  }
+
 }
