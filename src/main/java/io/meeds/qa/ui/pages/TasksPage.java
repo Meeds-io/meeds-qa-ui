@@ -1222,7 +1222,7 @@ public class TasksPage extends GenericPage {
   }
 
   private ElementFacade filterTasksButton() {
-    return findByXPathOrCSS("(//i[contains(@class,'uiIconFilterSetting')])[last()]");
+    return findByXPathOrCSS("#projectListApplication .tasksToolbar button.filterTasksSetting");
   }
 
   private ElementFacade getFilterType(String type) {
