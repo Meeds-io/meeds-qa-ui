@@ -870,4 +870,12 @@ public class TasksSteps {
     tasksPage.viewAllCommentsTaskButton();
   }
 
+  public void clickFilterTasksButton() {
+    tasksPage.clickFilterTasksButton();
+  }
+
+  public void goToFilterType(String filterType) {
+    tasksPage.goToFilterType(filterType);
+  }
+
 }
