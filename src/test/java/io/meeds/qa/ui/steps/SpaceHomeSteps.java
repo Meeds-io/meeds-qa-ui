@@ -693,6 +693,17 @@ public class SpaceHomeSteps {
   public void checkKudosCommentAttachedImages(String comment) {
     spaceHomePage.checkKudosCommentAttachedImages(comment);
   }
-  
+
+  public void clickOnShareActivity(String activity) {
+    spaceHomePage.clickOnShareActivity(activity);
+  }
+
+  public void selectSpaceInShareActivityDrawer(String space) {
+    spaceHomePage.selectSpaceInShareActivityDrawer(space);
+  }
+
+  public void clickOnShareActivityButton() {
+    spaceHomePage.clickOnShareActivityButton();
+  }
   
 }
