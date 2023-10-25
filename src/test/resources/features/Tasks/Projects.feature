@@ -175,3 +175,17 @@ Feature: Tasks - Projects
     And I click on delete project button
     And I click on delete to confirm project deletion
     And the project is deleted successfully from Projects tab
+
+  Scenario:Edit a Project
+    Given I am authenticated as 'admin' random user
+    And I create a random space
+    And I open the app center menu
+    And I open all application page
+    When I go to 'Tasks' application
+    And I select projects tab
+    And I search for the created project
+    And I edit this project title 'test project edited'
+    And I refresh the page
+    And I search for the created project 'test project edited'
+    And I open the project 'test project edited'
+    Then The project 'test project edited' is displayed in project details
