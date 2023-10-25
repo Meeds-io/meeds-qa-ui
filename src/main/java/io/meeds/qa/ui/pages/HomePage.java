@@ -269,8 +269,7 @@ public class HomePage extends GenericPage {
   }
 
   public void isNoConnectionsBadge() {
-    assertThat(getConnectionsBadge().isNotVisible()).as("The badge shouldn't be displayed")
-            .isTrue();
+    assertTrue(getConnectionsBadge().isNotVisible());
   }
 
   public void thereIsNoSpacesBadge() {
