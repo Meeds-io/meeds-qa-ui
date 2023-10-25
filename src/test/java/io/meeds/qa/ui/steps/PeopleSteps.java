@@ -131,4 +131,8 @@ public class PeopleSteps {
     peoplePage.isLeaderBoardWidgetDisplayed(title);
   }
 
+  public void checkThatPeopleCardItemDisplayed() {
+    peoplePage.checkThatPeopleCardItemDisplayed();
+  }
+
 }

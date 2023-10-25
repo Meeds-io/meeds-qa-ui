@@ -245,6 +245,10 @@ public class PeoplePage extends GenericPage {
     Assert.assertEquals(leaderboardTitleElement.getText(), title);
   }
 
+  public void checkThatPeopleCardItemDisplayed() {
+    peopleCardItemElement().assertVisible();
+  }
+
   public ElementFacade sentRequestsUsersElement(String user) {
     return findByXPathOrCSS(String.format("//*[@class='layout column']//*[@class='v-list-item__title']//a[contains(text(),'%s')]",
                                           user));
@@ -369,6 +373,10 @@ public class PeoplePage extends GenericPage {
 
   private ElementFacade sentRequestsButtonElement() {
     return findByXPathOrCSS("//*[@class='peopleOverviewCard d-flex flex-column clickable']");
+  }
+
+  private ElementFacade peopleCardItemElement() {
+    return findByXPathOrCSS(".peopleCardFront");
   }
 
   public boolean searchUser(String user) {

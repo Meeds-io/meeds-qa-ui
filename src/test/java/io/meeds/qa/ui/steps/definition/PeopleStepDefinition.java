@@ -21,6 +21,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.meeds.qa.ui.steps.PeopleSteps;
 import net.serenitybdd.core.Serenity;
+import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
 
 public class PeopleStepDefinition {
@@ -148,6 +149,11 @@ public class PeopleStepDefinition {
   @Then("^Leaderboard Widget is displayed with title '(.*)'$")
   public void isLeaderBoardWidgetDisplayed(String title) {
     peopleSteps.isLeaderBoardWidgetDisplayed(title);
+  }
+
+  @Then("People card item is displayed on the people page")
+  public void checkThatPeopleCardItemIsDisplayed() {
+    peopleSteps.checkThatPeopleCardItemDisplayed();
   }
 
 }
