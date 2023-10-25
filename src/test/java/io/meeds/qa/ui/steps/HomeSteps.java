@@ -211,14 +211,14 @@ public class HomeSteps {
     return homePage.isConnectionsBadgeWithNumberVisible(number);
   }
 
-  public boolean isNoConnectionsBadge() {
+  public void isNoConnectionsBadge() {
     homePage.goToStreamPage();
-    return homePage.isNoConnectionsBadge();
+    homePage.isNoConnectionsBadge();
   }
 
-  public boolean thereIsNoSpacesBadge() {
+  public void thereIsNoSpacesBadge() {
     homePage.goToStreamPage();
-    return homePage.thereIsNoSpacesBadge();
+    homePage.thereIsNoSpacesBadge();
   }
   public void checkNumberOfConnectionsInDrawer(String number) {
     homePage.checkNumberOfConnectionsInDrawer(Integer.valueOf(number));

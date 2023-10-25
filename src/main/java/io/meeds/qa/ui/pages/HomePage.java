@@ -268,12 +268,14 @@ public class HomePage extends GenericPage {
     return getSiteBody().isCurrentlyVisible();
   }
 
-  public boolean isNoConnectionsBadge() {
-    return getConnectionsBadge().isNotVisible();
+  public void isNoConnectionsBadge() {
+    assertThat(getConnectionsBadge().isNotVisible()).as("The badge shouldn't be displayed")
+            .isTrue();
   }
 
-  public boolean thereIsNoSpacesBadge() {
-    return spacesBadgeElement().isNotVisible();
+  public void thereIsNoSpacesBadge() {
+    assertThat(spacesBadgeElement().isNotVisible()).as("The spaces badge shouldn't be displayed")
+            .isTrue();
   }
 
   public void checkNumberOfConnectionsInDrawer(int expectedNumber) {
