@@ -174,3 +174,23 @@ Feature: Kudos
 
     When I go to My Profile page
     Then '0' kudos are sent
+
+  Scenario: Sending Kudos from user popover
+    Given I am authenticated as 'admin' random user
+    And I create the 'first' random user if not existing
+    And I create the 'second' random user if not existing
+
+    When I login as 'first' random user
+    And I go to the random space
+    And I click on post in space
+    And I enter an activity 'Sending Kudos from user popover'
+    And I publish the activity
+    Then the activity 'Sending Kudos from user popover' is displayed in activity stream
+
+    When I login as 'second' random user
+    And I go to the random space
+    And I send kudos to 'first' random user 'Good Job Dear' from user popover
+
+    When I login as 'first' random user
+    And I go to My Profile page
+    Then '1' kudos are received

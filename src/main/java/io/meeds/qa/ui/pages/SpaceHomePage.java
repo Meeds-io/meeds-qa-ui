@@ -509,6 +509,11 @@ public class SpaceHomePage extends GenericPage {
     userAvatarLink.click();
   }
 
+  public void showUserPopover(String user) {
+    String userName = Serenity.sessionVariableCalled(user + "UserName");
+    ElementFacade userAvatar = findByXPathOrCSS("a[href*='" + userName + "'] > div.v-avatar");
+    userAvatar.hover();
+  }
   public void clickCloseKudosDrawer() {
     ElementFacade closeKudosDrawerIcon = findByXPathOrCSS("//*[contains(@id,'activityKudosDrawer')]//*[contains(@class,'drawerIcons')]//button[@title='Close']");
     closeKudosDrawerIcon.click();
