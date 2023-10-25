@@ -273,7 +273,7 @@ public class HomePage extends GenericPage {
   }
 
   public void checkNoSpacesBadge() {
-    assertTrue(spacesBadgeElement().isNotVisible())
+    assertTrue(spacesBadgeElement().isNotVisible());
   }
 
   public void checkNumberOfConnectionsInDrawer(int expectedNumber) {
