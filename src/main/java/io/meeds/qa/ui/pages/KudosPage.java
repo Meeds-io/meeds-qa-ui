@@ -343,4 +343,8 @@ public class KudosPage extends GenericPage {
                                           comment));
   }
 
+  public void clickOnKudosButtonFromOpenedUserPopover() {
+    ElementFacade kudosButton = findButtonByXPathOrCSS("div[id*='popover-action']:first-child button");
+    kudosButton.click();
+  }
 }

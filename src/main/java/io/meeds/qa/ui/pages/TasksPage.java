@@ -17,21 +17,17 @@
  */
 package io.meeds.qa.ui.pages;
 
-import static io.meeds.qa.ui.utils.Utils.refreshPage;
-import static io.meeds.qa.ui.utils.Utils.retryGetOnCondition;
-import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
-import static io.meeds.qa.ui.utils.Utils.waitForLoading;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import io.meeds.qa.ui.elements.ElementFacade;
+import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import org.junit.Assert;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 
-import io.meeds.qa.ui.elements.ElementFacade;
-import io.meeds.qa.ui.elements.TextBoxElementFacade;
+import static io.meeds.qa.ui.utils.Utils.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TasksPage extends GenericPage {
 
@@ -1216,6 +1212,25 @@ public class TasksPage extends GenericPage {
     taskDescriptionFieldElement().click();
     waitFor(200).milliseconds();
   }
+
+  public void clickFilterTasksButton() {
+    filterTasksButton().click();
+  }
+
+  public void goToFilterType(String filterType) {
+    getFilterType(filterType).click();
+  }
+
+  private ElementFacade filterTasksButton() {
+    return findByXPathOrCSS("#projectListApplication .tasksToolbar button.filterTasksSetting");
+  }
+
+  private ElementFacade getFilterType(String type) {
+    return findByXPathOrCSS(String.format(
+            "//aside[contains(@class,'filterTasksDrawer')]//div[contains(@class,'taskFilter')]//div[contains(text(),'%s')]",
+            type));
+  }
+
 
   private ElementFacade activeTabFilterDrawerElement() {
     return findByXPathOrCSS("//*[contains(@class,'filterTasksDrawer ')]//*[contains(@class,'v-tab--active') and @aria-selected='true']");

@@ -6,6 +6,14 @@ Feature: Space widgets checking
   I want to check the connections in home page
   In order to validate the page
 
+  Scenario: US 3.3.3_(01)[BACK] No Connection requests to join
+    Given I am authenticated as 'admin' if random users doesn't exists
+      | simpleuser  |
+    And I create the simpleuser random user if not existing, no wait
+    When I login as 'simpleuser' random user
+    And I go to Stream page
+    Then The badge isn't displayed
+
   Scenario: US 3.3.3_(02) [BACK] No Connection requests number
     Given I am authenticated as 'admin' if random users doesn't exists
       | firstnoconn  |

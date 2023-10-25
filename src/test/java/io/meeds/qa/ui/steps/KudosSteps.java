@@ -143,4 +143,9 @@ public class KudosSteps {
     spaceHomePage.clickYesbutton();
   }
 
+  public void sendKudosFromUserPopover(String user, String kudosMessage) {
+    spaceHomePage.showUserPopover(user);
+    kudosPage.clickOnKudosButtonFromOpenedUserPopover();
+    kudosPage.sendKudosMessageFromOpenedDrawer(kudosMessage);
+  }
 }

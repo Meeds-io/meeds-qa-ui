@@ -466,7 +466,29 @@ Feature: Tasks
     And I click on save project button
     Then The 'Add Project' drawer is displayed
 
-  Scenario: CAP75-[Add_Task_Drawer_US01]: Add Task in "TASKS" tab (task NOT belong to project)
+  @functional
+  Scenario: CAP54 - [Filter_Drawer_US04]: [Filter button in a project] Open and navigate on tabs in Filter Tasks drawer
+    Given I am authenticated as 'admin' if random users doesn't exists
+      | first |
+    And I create the first random user if not existing
+    And I login as 'first' random user
+    And I open the app center menu
+    And I open all application page
+    When I go to 'Tasks' application
+    And I select projects tab
+    And I create the project 'Automation test project'
+    And I open the project 'Automation test project'
+    And I click on filter tasks button
+    Then The 'Sort And Filter' drawer is displayed
+    When I select the 'Filter' filter type
+    Then 'Filter' Tab is displayed
+    When I select the 'Group and Sort' filter type
+    Then 'Group And Sort' Tab is displayed
+    When I select the 'Labels' filter type
+    Then 'Labels' Tab is displayed
+    
+  @functional
+  Scenario:  Add Task in "TASKS" tab (task NOT belong to project)
     Given I am authenticated as 'admin' random user
     And I open the app center menu
     And I open all application page

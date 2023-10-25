@@ -1277,4 +1277,14 @@ public class TasksStepDefinition {
   public void viewAllCommentsTaskButton() {
     tasksSteps.viewAllCommentsTaskButton();
   }
+
+  @When("^I click on filter tasks button$")
+  public void clickFilterTasksButton() {
+    tasksSteps.clickFilterTasksButton();
+  }
+
+  @When("^I select the '(.*)' filter type$")
+  public void goToFilterType(String filterType) {
+    tasksSteps.goToFilterType(filterType);
+  }
 }
