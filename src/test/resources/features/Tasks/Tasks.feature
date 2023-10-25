@@ -467,7 +467,7 @@ Feature: Tasks
     Then The 'Add Project' drawer is displayed
 
   @functional
-  Scenario: CAP54 - [Filter_Drawer_US04]: [Filter button in a project] Check all tabs in "Sort And Filter" drawer
+  Scenario: CAP54 - [Filter_Drawer_US04]: [Filter button in a project] Open and navigate on tabs in Filter Tasks drawer
     Given I am authenticated as 'admin' if random users doesn't exists
       | first |
     And I create the first random user if not existing
@@ -476,8 +476,8 @@ Feature: Tasks
     And I open all application page
     When I go to 'Tasks' application
     And I select projects tab
-    And I create the project 'project001'
-    And I open the project 'project001'
+    And I create the project 'Automation test project'
+    And I open the project 'Automation test project'
     And I click on filter tasks button
     Then The 'Sort And Filter' drawer is displayed
     When I select the 'Filter' filter type
