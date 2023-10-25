@@ -129,7 +129,7 @@ public class HomeStepDefinition {
   }
 
   @Then("^the number of connection requests is '(.*)'$")
-  public void checkConnectionBagde(String number) {
+  public void checkConnectionBadge(String number) {
     assertThat(homeSteps.isConnectionsBadgeWithNumberVisible(number)).as(String.format("The badge must contains %s connections",
                                                                                        number))
                                                                      .isTrue();
