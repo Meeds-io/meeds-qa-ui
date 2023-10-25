@@ -349,9 +349,9 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.clickKudosFromActivityStream();
   }
 
-  @Then("I click on the kudos button from the comment")
-  public void clickOnTheKudosButtonFromTheComment() {
-    spaceHomeSteps.clickKudosFromComment();
+  @Then("I click on the kudos button from the comment '(.*)'$")
+  public void clickOnCommentKudosButton(String comment) {
+    spaceHomeSteps.clickOnCommentKudosButton(comment);
   }
 
   @Then("I click on the kudos button from the comments drawer")
