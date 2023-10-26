@@ -248,6 +248,13 @@ public class TasksStepDefinition {
     tasksSteps.checkProjectNameIsDisplayedInProjectCard(randomSpaceName, projectDescription);
   }
 
+  @Then("^The random created project is Not displayed in Project Card$")
+  public void checkCreatedTasksProjectNameIsNotDisplayedInProjectCard() {
+    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
+    tasksSteps.checkProjectNotDisplayed(randomSpaceName);
+  }
+
+
   @Then("^the project is deleted successfully from Projects tab$")
   public void checkDeletedProject() {
     String projectName = Serenity.sessionVariableCalled("projectName");
@@ -313,9 +320,9 @@ public class TasksStepDefinition {
     tasksSteps.checkClonedProject(randomSpaceName);
   }
 
-  @Then("the project is created successfully and displayed on Projects tab")
+  @Then("^The random project is displayed on Projects tab$")
   public void checkProjectIsDisplayed() {
-    String projectName = Serenity.sessionVariableCalled("projectName");
+    String projectName = Serenity.sessionVariableCalled("randomSpaceName");
     tasksSteps.checkProjectIsDisplayed(projectName);
   }
 
@@ -326,8 +333,13 @@ public class TasksStepDefinition {
     tasksSteps.checkEditedProject(projectName, description);
   }
 
-  @Then("^The project '(.*)' is not created successfully and not displayed in Projects tab$")
+  @Then("^The project '(.*)' is not displayed in Projects tab$")
   public void checkProjectIsNotDisplayed(String projectName) {
+    tasksSteps.checkProjectNotDisplayed(projectName);
+  }
+ @Then("^The random project is not displayed in Projects tab$")
+  public void checkRandomProjectIsNotDisplayed() {
+    String projectName = Serenity.sessionVariableCalled("randomSpaceName");
     tasksSteps.checkProjectNotDisplayed(projectName);
   }
 
@@ -1281,5 +1293,10 @@ public class TasksStepDefinition {
   @When("^I select the '(.*)' filter type$")
   public void goToFilterType(String filterType) {
     tasksSteps.goToFilterType(filterType);
+  }
+
+  @When("^I select the filter project option '(.*)'$")
+  public void selectOption(String option) {
+    tasksSteps.selectProjectFilterOption(option);
   }
 }

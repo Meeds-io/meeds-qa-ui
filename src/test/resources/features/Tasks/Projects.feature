@@ -175,3 +175,24 @@ Feature: Tasks - Projects
     And I click on delete project button
     And I click on delete to confirm project deletion
     And the project is deleted successfully from Projects tab
+
+  @functional
+  Scenario: Filter Projectsby button " I Manage" in Projects tab
+    Given I am authenticated as 'admin' random user
+    And I create the first random user if not existing, no wait
+    And I create the second random user if not existing
+    And I go to 'Tasks' application
+    When I select projects tab
+    And I add the random project with first user as the manager and second user as the participant
+    Then The random project is displayed on Projects tab
+    And I login as 'first' random user
+    And I go to 'Tasks' application
+    When I select projects tab
+    And I select the filter project option 'I manage'
+    Then The random project is displayed on Projects tab
+    And I login as 'second' random user
+    And I go to 'Tasks' application
+    When I select projects tab
+    Then The random project is displayed on Projects tab
+    And I select the filter project option 'I manage'
+    Then The random project is not displayed in Projects tab
