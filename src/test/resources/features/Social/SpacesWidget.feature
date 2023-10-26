@@ -8,8 +8,8 @@ Feature: Spaces widget checking
   @smoke
   Scenario: US 3.3.2_(01) [BACK] No Spaces requests to join
     Given I am authenticated as 'admin' random user
-    And I create the tenth random user if not existing
-    When I login as 'tenth' random user
+    And I create the third random user if not existing
+    When I login as 'third' random user
     And I go to Stream page
     Then The spaces badge isn't displayed
 
