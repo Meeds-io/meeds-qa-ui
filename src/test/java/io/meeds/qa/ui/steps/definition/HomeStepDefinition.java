@@ -347,9 +347,13 @@ public class HomeStepDefinition {
   }
 
   @Then("The badge isn't displayed")
-  public void isNoConnectionsBadge() {
-    assertThat(homeSteps.isNoConnectionsBadge()).as("The badge shouldn't be displayed")
-                                                .isTrue();
+  public void checkNoConnectionsBadge() {
+    homeSteps.checkNoConnectionsBadge();
+  }
+
+  @Then("^The spaces badge isn't displayed$")
+  public void checkNoSpacesBadge() {
+    homeSteps.checkNoSpacesBadge();
   }
 
   @And("^The third level Navigation should display the space details panel$")
