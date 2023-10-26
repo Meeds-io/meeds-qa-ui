@@ -115,6 +115,14 @@ public class TasksSteps {
     tasksPage.saveAddTaskButton();
   }
 
+  public void setTaskName(String taskName) {
+    tasksPage.setTaskName(taskName);
+  }
+
+  public void clickSaveTaskButton() {
+    tasksPage.saveAddTaskButton();
+  }
+
   public void addTaskWithLabelInProject(String label, Map<String, String> taskDetails) {
     tasksPage.clickAddTaskButton();
     tasksPage.setTaskName(taskDetails.get(TASK_NAME_PARAM));
@@ -295,6 +303,7 @@ public class TasksSteps {
   public void clickAddTaskButton() {
     tasksPage.clickAddTaskButton();
   }
+
 
   public void clickCancel() {
     tasksPage.clickCancel();

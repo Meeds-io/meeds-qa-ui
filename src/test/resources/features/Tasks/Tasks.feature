@@ -487,12 +487,18 @@ Feature: Tasks
     When I select the 'Labels' filter type
     Then 'Labels' Tab is displayed
     
-  @functional
+  @now
   Scenario:  Add Task in "TASKS" tab (task NOT belong to project)
-    Given I am authenticated as 'admin' random user
+    Given I am authenticated as 'admin' if random users doesn't exists
+      | first |
+    And I create the first random user if not existing
+    And I login as 'first' random user
     And I open the app center menu
     And I open all application page
     When I go to 'Tasks' application
     And I select tasks tab
     And I click on add new task button
     Then The 'Add Task' drawer is displayed
+    When I set task name 'Test add task'
+    And I click on save new task button
+    Then Success message is displayed

@@ -1027,6 +1027,7 @@ public class TasksPage extends GenericPage {
 
   public void saveAddTaskButton() {
     saveButtonElement().click();
+    waitForDrawerToClose();
   }
 
   public void saveQuickTask() {
