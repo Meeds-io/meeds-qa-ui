@@ -102,6 +102,10 @@ public class UnifiedSearchPage extends GenericPage {
     waitForLoading();
   }
 
+  public void searchWithSelectedOptions(String text) {
+    searchInputElement().setTextValue(text);
+  }
+
   public void selectDropDown(String object) {
     shipFormAllElement().click();
     getObjectFromDropDown(object).click();

@@ -78,6 +78,14 @@ public class ManageUnifiedSearchSteps {
     unifiedSearchPage.search(text);
   }
 
+  public void search(String text, boolean isAnOptionsSelected) {
+    if (isAnOptionsSelected) {
+      unifiedSearchPage.searchWithSelectedOptions(text);
+    } else {
+      unifiedSearchPage.search(text);
+    }
+  }
+
   public void selectDropDown(String object) {
     unifiedSearchPage.selectDropDown(object);
   }
