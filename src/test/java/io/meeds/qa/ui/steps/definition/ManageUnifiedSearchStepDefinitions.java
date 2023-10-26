@@ -138,5 +138,9 @@ public class ManageUnifiedSearchStepDefinitions {
   public void selectDropDown(String object) {
     manageUnifiedSearchSteps.selectDropDown(object);
   }
+  @When("^I start the search for the application created by the name '(.*)'$")
+  public void searchForApplication(String element) {
+    manageUnifiedSearchSteps.search(element, true);
+  }
 
 }
