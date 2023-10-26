@@ -177,7 +177,7 @@ Feature: Tasks - Projects
     And the project is deleted successfully from Projects tab
 
   @functional
-  Scenario: Filter Projectsby button " I Manage" in Projects tab
+  Scenario: Filter Projects by button "I Manage" in Projects tab
     Given I am authenticated as 'admin' random user
     And I create the first random user if not existing, no wait
     And I create the second random user if not existing
