@@ -163,4 +163,24 @@ public class PeopleStepDefinition {
     String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
     peopleSteps.checkThatTheSearchedUserProfileIsDisplayed(userLastName);
   }
+
+  @Then("I click on my connection on the people filter options")
+  public void clickOnMyConnectionsSelectPeopleFilterOptions() {
+    peopleSteps.clickOnMyConnectionsPeopleFilterOptions();
+  }
+
+  @When("I click on all on the people filter options")
+  public void clickOnAllSelectPeopleFilterOptions() {
+    peopleSteps.clickOnAllPeopleFilterOptions();
+  }
+
+  @Then("No people icon is displayed")
+  public void checkThatNoPeopleIconIsDisplayed() {
+    peopleSteps.checkThatNoPeopleIconIsDisplayed();
+  }
+
+  @Then("The people list is displayed")
+  public void checkThatThePeopleListIsDisplayed() {
+    peopleSteps.checkThatThePeopleListIsDisplayed();
+  }
 }

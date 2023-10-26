@@ -375,6 +375,21 @@ public class PeoplePage extends GenericPage {
     return findByXPathOrCSS(String.format("//a[contains(text(),'%s') and contains(@class,'userFullname')]", user));
   }
 
+  private TextBoxElementFacade selectMyConnectionsPeopleFilterElement() {
+    return findTextBoxByXPathOrCSS("//*[@id='peopleListToolbar']/div/div[2]/select/option[2]");
+  }
+
+  private TextBoxElementFacade selectAllPeopleFilterElement() {
+    return findTextBoxByXPathOrCSS("//*[@id='peopleListToolbar']/div/div[2]/select/option[1]");
+  }
+
+  private ElementFacade noPeopleYetIconElement() {
+    return findByXPathOrCSS(".noPeopleYetIcons");
+  }
+  private ElementFacade peopleCardItemElement() {
+    return findByXPathOrCSS(".peopleCardItem");
+  }
+
   public boolean searchUser(String user) {
     TextBoxElementFacade inputField = searchPeopleInputElement();
     inputField.checkVisible();
@@ -403,5 +418,22 @@ public class PeoplePage extends GenericPage {
 
   public void checkThatTheSearchedUserProfileIsDisplayed(String user) {
     getUserProfileFullName(user).waitUntilVisible();
+  }
+
+  public void clickOnMyConnectionsPeopleFilterOptions() {
+    selectMyConnectionsPeopleFilterElement().click();
+  }
+
+  public void checkThatNoPeopleIconIsDisplayed() {
+    noPeopleYetIconElement().assertVisible();
+  }
+
+  public void clickOnAllPeopleFilterOptions() {
+    selectAllPeopleFilterElement().click();
+  }
+
+  public void checkThatThePeopleListIsDisplayed() {
+    noPeopleYetIconElement().assertNotVisible();
+    peopleCardItemElement().waitUntilVisible();
   }
 }

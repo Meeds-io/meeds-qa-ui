@@ -138,4 +138,19 @@ public class PeopleSteps {
     peoplePage.checkThatTheSearchedUserProfileIsDisplayed(user);
   }
 
+  public void clickOnMyConnectionsPeopleFilterOptions() {
+    peoplePage.clickOnMyConnectionsPeopleFilterOptions();
+  }
+
+  public void checkThatNoPeopleIconIsDisplayed() {
+    peoplePage.checkThatNoPeopleIconIsDisplayed();
+  }
+
+  public void clickOnAllPeopleFilterOptions() {
+    peoplePage.clickOnAllPeopleFilterOptions();
+  }
+
+  public void checkThatThePeopleListIsDisplayed() {
+    peoplePage.checkThatThePeopleListIsDisplayed();
+  }
 }
