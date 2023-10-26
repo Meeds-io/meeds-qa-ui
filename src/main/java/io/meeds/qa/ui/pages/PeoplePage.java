@@ -371,6 +371,10 @@ public class PeoplePage extends GenericPage {
     return findByXPathOrCSS("//*[@class='peopleOverviewCard d-flex flex-column clickable']");
   }
 
+  private ElementFacade getUserProfileFullName(String user) {
+    return findByXPathOrCSS(String.format("//a[contains(text(),'%s') and contains(@class,'userFullname')]", user));
+  }
+
   public boolean searchUser(String user) {
     TextBoxElementFacade inputField = searchPeopleInputElement();
     inputField.checkVisible();
@@ -397,26 +401,7 @@ public class PeoplePage extends GenericPage {
     searchPeopleInputElement().setTextValue(user);
   }
 
-  public Boolean userProfileIsDisplayed(String user) {
-    boolean visible = false;
-    int retry = 0;
-    Duration retryWaitTime = Duration.ofSeconds(1);
-    ElementFacade userCard;
-    do {
-      waitFor(300).milliseconds();
-      waitForLoading();
-      userCard = getUserButton(user);
-      userCard.setImplicitTimeout(retryWaitTime);
-      visible = userCard.isVisible();
-      if (visible) {
-        return true;
-      }
-    } while (!visible && retry++ < MAX_WAIT_RETRIES); // NOSONAR
-    return false;
-  }
-
   public void checkThatTheSearchedUserProfileIsDisplayed(String user) {
-    assertThat(userProfileIsDisplayed(user)).isTrue().as("User " + user + " wasn't found");
+    getUserProfileFullName(user).waitUntilVisible();
   }
-
 }
