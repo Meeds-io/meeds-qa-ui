@@ -1,7 +1,6 @@
-@People
-@smoke
+@people
 Feature: People
-
+  @smoke
   Scenario: People US1 : People card list application
     Given I am authenticated as 'admin' if random users doesn't exists
       | first |
