@@ -19,8 +19,10 @@ package io.meeds.qa.ui.steps.definition;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import io.meeds.qa.ui.steps.PeopleSteps;
 import net.serenitybdd.core.Serenity;
+import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
 
 public class PeopleStepDefinition {
@@ -150,4 +152,15 @@ public class PeopleStepDefinition {
     peopleSteps.isLeaderBoardWidgetDisplayed(title);
   }
 
+  @When("^I search the (.*) user profile$")
+  public void searchUserProfile(String userPrefix) {
+    String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
+    peopleSteps.searchUserProfile(userLastName);
+  }
+
+  @Then("^User profile '(.*)' is displayed$")
+  public void checkThatTheSearchedUserProfileIsDisplayed(String userPrefix) {
+    String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
+    peopleSteps.checkThatTheSearchedUserProfileIsDisplayed(userLastName);
+  }
 }
