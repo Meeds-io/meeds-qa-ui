@@ -487,7 +487,7 @@ Feature: Tasks
     When I select the 'Labels' filter type
     Then 'Labels' Tab is displayed
     
-  @now
+  @functional
   Scenario:  Add Task in "TASKS" tab (task NOT belong to project)
     Given I am authenticated as 'admin' if random users doesn't exists
       | first |

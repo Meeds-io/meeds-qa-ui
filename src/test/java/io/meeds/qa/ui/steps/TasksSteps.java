@@ -304,7 +304,6 @@ public class TasksSteps {
     tasksPage.clickAddTaskButton();
   }
 
-
   public void clickCancel() {
     tasksPage.clickCancel();
   }
