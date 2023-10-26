@@ -58,7 +58,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   private static final String   OPNENED_DRAWER_CSS_SELECTOR = ".v-navigation-drawer--open";
 
   public static final String    UPLOAD_DIRECTORY_PATH       =
-                                                      GenericPage.class.getResource(File.separator + "DataFiles" + File.separator)
+                                                      GenericPage.class.getResource("/DataFiles/")
                                                                        .getFile();
 
   public static final String    USER_AVATAR_PNG             = "cap02.png";
