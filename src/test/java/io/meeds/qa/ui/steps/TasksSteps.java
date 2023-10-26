@@ -878,4 +878,8 @@ public class TasksSteps {
     tasksPage.goToFilterType(filterType);
   }
 
+  public void selectProjectFilterOption(String option) {
+    tasksPage.selectProjectFilterOption(option);
+  }
+
 }
