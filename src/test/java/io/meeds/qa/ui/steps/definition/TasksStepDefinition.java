@@ -446,6 +446,21 @@ public class TasksStepDefinition {
     tasksSteps.clickAddProjectButton();
   }
 
+  @When("^I click on save new task button$")
+  public void clickSaveTaskButton() {
+    tasksSteps.clickSaveTaskButton();
+  }
+
+  @When("^I set task name '(.*)'$")
+  public void clickAddTaskButton(String taskName) {
+    tasksSteps.setTaskName(taskName);
+  }
+
+  @When("^I click on add new task button$")
+  public void clickAddTaskButton() {
+    tasksSteps.clickAddTaskButton();
+  }
+
   @When("^I click on (add project|add tasks) button$")
   public void clickAddProjectButton(String buttonName) {
     tasksSteps.clickAddProjectButton();
