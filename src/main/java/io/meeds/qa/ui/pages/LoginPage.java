@@ -77,6 +77,10 @@ public class LoginPage extends GenericPage implements IsHidden {
         closeAllDrawers();
       } else {
         logout(Utils.MAX_WAIT_RETRIES);
+        if (StringUtils.equals(getCurrentUrl(), PUBLIC_SITE_URL)) {
+          topbarLoginButton().click();
+          verifyPageLoaded();
+        }
         if (!usernameInputElement().isVisible()) {
           return returnError("Username Field isn't displayed", throwException);
         } else {
@@ -256,6 +260,10 @@ public class LoginPage extends GenericPage implements IsHidden {
 
   private TextBoxElementFacade usernameInputElement() {
     return findTextBoxByXPathOrCSS("//*[@id='username']");
+  }
+
+  private TextBoxElementFacade topbarLoginButton() {
+    return findTextBoxByXPathOrCSS("//*[@id='topbarLogin']");
   }
 
 }
