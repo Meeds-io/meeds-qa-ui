@@ -65,6 +65,8 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   public static final String    GIF_IMAGE                   = "cap04.gif";
 
+  public static final String    PUBLIC_SITE_URL             = "/portal/public";
+
   protected String              url;
 
   public BasePageImpl() {
