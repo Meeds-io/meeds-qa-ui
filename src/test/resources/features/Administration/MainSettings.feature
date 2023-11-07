@@ -2,6 +2,7 @@
 @mainSettings
 Feature: Main settings page features
 
+  @test
   Scenario: Main settings elements are displayed
     Given I am authenticated as 'admin' random user
     And I go to main settings page
@@ -40,6 +41,7 @@ Feature: Main settings page features
     When I add login page sub title 'Test Login Sub Title'
     And The apply button is enabled in Main settings customization
 
+  @test
   Scenario: Main settings - Access modification
     Given I am authenticated as 'admin' random user
     And I inject the random space
@@ -64,6 +66,7 @@ Feature: Main settings page features
     When I select random space as default for registered users
     Then '1' default spaces are selected for registered users
 
+  @test
   Scenario: Main settings - Open Access Type
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
@@ -91,6 +94,7 @@ Feature: Main settings page features
     When I logout
     Then Register link is displayed
 
+  @test
   Scenario: Main settings - Restricted Access Type
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
