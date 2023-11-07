@@ -122,6 +122,17 @@ public class ManageSpaceSteps {
     manageSpacesPage.saveSpace();
   }
 
+  public void addSpaceWithRegistrationAndInviteUser(String spaceName, String registration, String user) {
+    manageSpacesPage.openSpaceFormDrawer();
+    manageSpacesPage.setSpaceName(spaceName);
+    manageSpacesPage.setSpaceDescription(spaceName);
+    manageSpacesPage.clickFirstProcessButton();
+    manageSpacesPage.checkSpaceRegistration(registration);
+    manageSpacesPage.clickSecondProcessButton();
+    manageSpacesPage.inviteUserToSpace(user);
+    manageSpacesPage.saveSpace();
+  }
+
   public void addSpaceWithRegistration(String spaceName, String registration) {
     manageSpacesPage.openSpaceFormDrawer();
     manageSpacesPage.setSpaceName(spaceName);

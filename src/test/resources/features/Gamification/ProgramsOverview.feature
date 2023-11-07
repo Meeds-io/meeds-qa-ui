@@ -7,9 +7,9 @@ Feature: Programs should be displayed in Top Programs in sorted way
     Given I am authenticated as 'admin' random user
 
     When I create the thirtyone random user
-    And I create the thirtyone random space with the thirtyone random user as member
-    And I create the thirtytwo random space with the thirtyone random user as member
-    And I create the thirtythree random space
+    And I create the 'thirtyone' random space with the 'thirtyone' random user as member and registration 'Validation'
+    And I create the 'thirtytwo' random space with the 'thirtyone' random user as member and registration 'Validation'
+    And I create the 'thirtythree' random space with registration 'Validation'
 
     When I go to 'Contributions' application
     And I create the 'thirtytwo' random program with
