@@ -251,6 +251,7 @@ public class TasksPage extends GenericPage {
 
   public void checkProject(String projectName) {
     getProjectCard(projectName).assertVisible();
+    checkSuccessMessageDisplayed();
   }
 
   public void checkProjectNameIsDisplayedInProjectCard(String projectName, String description) {
@@ -260,6 +261,7 @@ public class TasksPage extends GenericPage {
 
   public void checkProjectNotDisplayed(String projectName) {
     getProjectCard(projectName).assertNotVisible();
+    checkSuccessMessageDisplayed();
   }
 
   public void checkSecondStatusColumn(String columnStatus) {

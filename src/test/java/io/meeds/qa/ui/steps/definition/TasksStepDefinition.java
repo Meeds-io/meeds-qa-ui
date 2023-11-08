@@ -320,7 +320,8 @@ public class TasksStepDefinition {
     tasksSteps.checkClonedProject(randomSpaceName);
   }
 
-  @Then("^The random project is displayed on Projects tab$")
+
+  @Then("the project is created successfully and displayed on Projects tab")
   public void checkProjectIsDisplayed() {
     String projectName = Serenity.sessionVariableCalled("randomSpaceName");
     tasksSteps.checkProjectIsDisplayed(projectName);
