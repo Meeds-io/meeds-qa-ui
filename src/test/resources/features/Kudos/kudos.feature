@@ -51,7 +51,6 @@ Feature: Kudos
     And I go to My Profile page
     Then '1' kudos are received
 
-  @test
   Scenario: Edit a kudos activity
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -120,7 +119,6 @@ Feature: Kudos
     Then The message 'Not found in space' is displayed
     And The button 'Send' is disabled in drawer 
 
-  @test
   Scenario: Cancel Kudos sending from the activity author
     Given I am authenticated as 'admin' random user
     And I inject the cancelthird random user, no wait
@@ -156,7 +154,6 @@ Feature: Kudos
     And I go to My Profile page
     Then No kudos are received
 
-  @test
   Scenario: Cancel Kudos sending from user profile
     Given I am authenticated as 'admin' random user
     And I inject the cancelfirst random user, no wait
