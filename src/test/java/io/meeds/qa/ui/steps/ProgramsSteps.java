@@ -19,6 +19,7 @@ package io.meeds.qa.ui.steps;
 
 import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
@@ -27,7 +28,11 @@ import io.meeds.qa.ui.pages.ProgramsPage;
 import net.serenitybdd.core.Serenity;
 
 public class ProgramsSteps {
-  private ProgramsPage programsPage;
+  private ProgramsPage        programsPage;
+
+  private String              currentProgramTitle;
+
+  private Map<String, String> programUrls = new HashMap<>();
 
   public void enableDisableProgram() {
     programsPage.enableDisableProgram();
@@ -51,6 +56,12 @@ public class ProgramsSteps {
 
   public void clickSaveProgramButton() {
     programsPage.clickSaveProgramButton();
+    if (currentProgramTitle != null) {
+      programUrls.computeIfAbsent(currentProgramTitle, k -> {
+        programsPage.waitFor(200).milliseconds();
+        return programsPage.getCurrentUrl();
+      });
+    }
   }
 
   public void checkProgramCardDisplay(String programName) {
@@ -67,6 +78,12 @@ public class ProgramsSteps {
 
   public void clickAddProgramBtn() {
     programsPage.clickAddProgramBtn();
+    if (currentProgramTitle != null) {
+      programUrls.computeIfAbsent(currentProgramTitle, k -> {
+        programsPage.waitFor(200).milliseconds();
+        return programsPage.getCurrentUrl();
+      });
+    }
   }
 
   public void deleteCreatedProgram(String programName) {
@@ -87,6 +104,7 @@ public class ProgramsSteps {
 
   public void enterProgramTitle(String programTitle) {
     programsPage.enterProgramTitle(programTitle);
+    currentProgramTitle = programTitle;
   }
 
   public void selectEngagementApplication(String tab) {
@@ -101,8 +119,15 @@ public class ProgramsSteps {
     programsPage.selectProgramActionsFilter(value);
   }
 
-  public void openProgramCard(String value) {
-    programsPage.openProgramCard(value);
+  public void openProgramCard(String programTitle) {
+    programUrls.compute(programTitle, (k, v) -> {
+      if (StringUtils.isBlank(v)) {
+        programsPage.openProgramCard(programTitle);
+      } else {
+        programsPage.getDriver().navigate().to(v);
+      }
+      return v;
+    });
   }
 
   public void editProgramAction(String actionTitle) {
@@ -153,7 +178,7 @@ public class ProgramsSteps {
       programAudience = Serenity.sessionVariableCalled(programAudience + "RandomSpaceName");
     }
     programsPage.saveProgram(programName, programDescription, programAudience);
-    programsPage.closeAlert();
+    programsPage.closeToastNotification(false);
   }
 
   public void checkProgramPositionInTopPrograms(String programName, int listPosition) {

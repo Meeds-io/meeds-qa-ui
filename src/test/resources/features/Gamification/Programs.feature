@@ -135,6 +135,7 @@ Feature: Programs
     And The message 'French Program Description' is not displayed in page
     And The message 'French Action Title' is not displayed in page
 
+  @test
   Scenario: Attach a cover and avatar to a program
     Given I am authenticated as 'admin' random user
     And I inject the 'first' random user if not existing, no wait
@@ -189,6 +190,7 @@ Feature: Programs
     When I open program action 'Program With Image Action'
     Then The program is displayed with default avatar
 
+  @test
   Scenario: Create a program with internal users as audience
     Given I am authenticated as 'admin' random user
     And I inject the 'first' random user if not existing, no wait
@@ -267,6 +269,7 @@ Feature: Programs
     Then Success message is displayed
     And I close the notification
 
+  @test
   Scenario: Can't Activate program when no active action
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing

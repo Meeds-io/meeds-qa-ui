@@ -68,6 +68,14 @@ public class RulesSteps {
     rulePage.openActionDrawer(ruleTitle);
   }
 
+  public void attachImageToAnnouncement() {
+    rulePage.attachImageToAnnouncement();
+  }
+
+  public void attachImageToProgramAction() {
+    rulePage.attachImageToProgramAction();
+  }
+
   public void createAction(String title, boolean declarative, Map<String, String> details) {
     rulePage.clickAddActionButton();
 

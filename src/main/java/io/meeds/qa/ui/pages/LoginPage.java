@@ -18,6 +18,7 @@
 package io.meeds.qa.ui.pages;
 
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
+import static io.meeds.qa.ui.utils.Utils.retryGetOnCondition;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -30,20 +31,19 @@ import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
-import io.meeds.qa.ui.utils.Utils;
 import net.serenitybdd.markers.IsHidden;
 import net.thucydides.core.annotations.DefaultUrl;
 
 @DefaultUrl("https://baseUrl/")
 public class LoginPage extends GenericPage implements IsHidden {
 
+  private static final String PORTAL_LOGIN_URI                = "/portal/login";
+
   private static final String LAST_LOGGED_IN_USER_COOKIE_NAME = "lastLoggedInUser";
 
   private String              lastLoggedInUser                = null;
 
   private HomePage            homePage;
-
-  private String              loginUrl;
 
   public LoginPage(WebDriver driver) {
     super(driver);
@@ -65,7 +65,7 @@ public class LoginPage extends GenericPage implements IsHidden {
 
   public void login(String login, String password) {
     retryOnCondition(() -> login(login, password, true),
-                     () -> logout(Utils.MAX_WAIT_RETRIES));
+                     this::logout);
   }
 
   public boolean login(String login, String password, boolean throwException) { // NOSONAR
@@ -76,28 +76,17 @@ public class LoginPage extends GenericPage implements IsHidden {
       if (StringUtils.equals(getLastLoggedInUser(), login)) {
         closeAllDrawers();
       } else {
-        logout(Utils.MAX_WAIT_RETRIES);
-        if (StringUtils.equals(getCurrentUrl(), PUBLIC_SITE_URL)) {
-          topbarLoginButton().click();
-          verifyPageLoaded();
-        }
-        if (!usernameInputElement().isVisible()) {
-          return returnError("Username Field isn't displayed", throwException);
-        } else {
-          setLoginUrl(getCurrentUrl());
-        }
+        logout();
         usernameInputElement().setTextValue(login);
-        if (!passwordInputElement().isVisible()) {
-          return returnError("Username Field isn't displayed", throwException);
-        }
         passwordInputElement().setTextValue(password);
         if (!loginButtonElement().isEnabled()) {
-          return returnError("Login button isn't enabled", throwException);
+          return returnError("Login button is disabled", throwException);
         }
         loginButtonElement().click();
         verifyPageLoaded();
-        if (!homePage.isPortalDisplayed()) {
-          return returnError("Home Page isn't displayed", throwException);
+        boolean notLoggedIn = retryGetOnCondition(() -> !homePage.isLoggedIn() && returnError("User not logged in", throwException));
+        if (notLoggedIn) {
+          return notLoggedIn;
         }
         getDriver().manage().addCookie(new Cookie(LAST_LOGGED_IN_USER_COOKIE_NAME, login, "/"));
         lastLoggedInUser = login;
@@ -114,31 +103,16 @@ public class LoginPage extends GenericPage implements IsHidden {
   }
 
   public void openLoginPage() {
+    verifyPageLoaded();
     int maxRetries = 3;
     int i = 0;
     do {
       deleteCookies();
-      String currentUrl = getCurrentUrl();
-      if (StringUtils.isNotBlank(currentUrl)) {
-        getDriver().get(currentUrl);
-      } else {
-        open();
-      }
+      openLoginPageIfNotDisplayed();
+      verifyPageLoaded();
     } while (!isLoginPageDisplayed() && i++ < maxRetries);
     if (i >= maxRetries) {
       throw new IllegalStateException("Can't display login page after 3 retries");
-    }
-  }
-
-  @Override
-  public String getCurrentUrl() {
-    String currentUrl = super.getCurrentUrl();
-    return StringUtils.isNotBlank(loginUrl) ? loginUrl : currentUrl;
-  }
-
-  public void setLoginUrl(String loginUrl) {
-    if (StringUtils.isNotBlank(loginUrl)) {
-      this.loginUrl = loginUrl;
     }
   }
 
@@ -149,11 +123,15 @@ public class LoginPage extends GenericPage implements IsHidden {
   }
 
   public boolean isLoginPageDisplayed() {
-    return StringUtils.contains(getDriver().getCurrentUrl(), "/portal/login");
+    return StringUtils.contains(getDriver().getCurrentUrl(), PORTAL_LOGIN_URI);
   }
 
   public void logout() {
-    logout(Utils.MAX_WAIT_RETRIES);
+    try {
+      goToLoginPage();
+    } finally {
+      deleteLastLoginCookie();      
+    }
     usernameInputElement().assertVisible();
   }
 
@@ -165,30 +143,26 @@ public class LoginPage extends GenericPage implements IsHidden {
     registerLink().isNotVisible();
   }
 
-  private void logout(int max) {
-    logout(1, max); // recursive method
+  private void goToLoginPage() {
+    ElementFacade logOutMenuElement = logOutMenuElement();
+    if (logOutMenuElement.isCurrentlyVisible()) {
+      logOutMenuElement.click();
+    } else if (homePage.isHamburgerMenuPresent()) {
+      homePage.clickOnHamburgerMenu();
+      logOutMenuElement.click();
+    }
+    openLoginPage();
   }
 
-  private void logout(int tentative, int max) {
-    if (homePage.isPortalDisplayed()) {
-      ElementFacade logOutMenuElement = logOutMenuElement();
-      if (!logOutMenuElement.isCurrentlyVisible()) {
-        closeAllDrawers();
-        waitFor(200).milliseconds();
-        homePage.clickOnHamburgerMenu();
-      }
-      logOutMenuElement.click();
+  private void openLoginPageIfNotDisplayed() {
+    String currentUrl = getCurrentUrl();
+    if (StringUtils.isBlank(currentUrl)) {
+      getDriver().navigate().to(System.getProperty("webdriver.base.url"));
       verifyPageLoaded();
-      if (usernameInputElement().isVisible()) {
-        deleteLastLoginCookie();
-      } else {
-        LOGGER.warn("Error logout, tentative {}/{}. Retry by refreshing page.", tentative, max);
-        Utils.refreshPage(true);
-        logout(tentative + 1, max);
-      }
-    } else if (!isLoginPageDisplayed()) {
-      deleteCookies();
-      openLoginPage();
+      currentUrl = getCurrentUrl();
+    }
+    if (!StringUtils.contains(currentUrl, PORTAL_LOGIN_URI)) {
+      getDriver().get(currentUrl.split("/portal")[0] + PORTAL_LOGIN_URI);
     }
   }
 
@@ -260,10 +234,6 @@ public class LoginPage extends GenericPage implements IsHidden {
 
   private TextBoxElementFacade usernameInputElement() {
     return findTextBoxByXPathOrCSS("//*[@id='username']");
-  }
-
-  private TextBoxElementFacade topbarLoginButton() {
-    return findTextBoxByXPathOrCSS("//*[@id='topbarLogin']");
   }
 
 }

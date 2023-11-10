@@ -1,6 +1,7 @@
 @attachment
 Feature: Attach images activities
  
+  @test
   Scenario: Attach and preview an image to an activity
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -21,6 +22,7 @@ Feature: Attach images activities
     When I click on close icon in preview attached image
     Then the preview of the attached image is not displayed
 
+  @test
   Scenario: Attached gif image should not be edited
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -82,6 +84,7 @@ Feature: Attach images activities
     When I click on Update
     Then The attached images should not be displayed in the published activity 'activity with attached images'
   
+  @test
  Scenario: Edit an activity - add images
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -103,6 +106,7 @@ Feature: Attach images activities
     Then the activity 'activity with attached images' is displayed in activity stream
     And The second attached image should be displayed in the published activity 'activity with attached images'
  
+  @test
   Scenario: Edit an activity - Edit images
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -151,7 +155,8 @@ Feature: Attach images activities
     And I send to the comment activity a kudos message 'Kudos with attached image'
     Then Activity Comment kudos 'Kudos with attached image' is displayed in activity stream
     And The attached images should be displayed in the activity comment 'Kudos with attached image'
-    
+
+  @test
   Scenario: Announce an action with attached image
     Given I am authenticated as 'admin' random user
     And I inject the random space
