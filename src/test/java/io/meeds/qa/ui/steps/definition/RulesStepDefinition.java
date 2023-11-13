@@ -113,4 +113,15 @@ public class RulesStepDefinition {
   public void openActionDrawer(String actionTitle) {
     rulesSteps.openActionDrawer(actionTitle);
   }
+
+  @And("I attach an image to the program action")
+  public void attachImageToProgramAction() {
+    rulesSteps.attachImageToProgramAction();
+  }
+
+  @And("I attach an image to the announcement")
+  public void attachImageToAnnouncement() {
+    rulesSteps.attachImageToAnnouncement();
+  }
+
 }
