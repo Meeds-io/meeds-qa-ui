@@ -148,11 +148,11 @@ Feature: Kudos
     Then Comment 'Kudos comment to cancel' is not displayed in activity 'Kudos Post activity - Kudos comment to cancel'
 
     When I go to My Profile page
-    Then '0' kudos are sent
+    Then No kudos are sent
 
     When I login as 'cancelfourth' random user
     And I go to My Profile page
-    Then '0' kudos are received
+    Then No kudos are received
 
   Scenario: Cancel Kudos sending from user profile
     Given I am authenticated as 'admin' random user
@@ -173,4 +173,4 @@ Feature: Kudos
     Then the activity 'Message for kudos - Kudos to cancel' is no more displayed in the activity stream
 
     When I go to My Profile page
-    Then '0' kudos are sent
+    Then No kudos are sent

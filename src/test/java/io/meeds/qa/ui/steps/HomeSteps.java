@@ -362,5 +362,5 @@ public class HomeSteps {
   public void waitPortalDisplayed(int retries) {
     homePage.waitPortalDisplayed(retries);
   }
-  
+
 }

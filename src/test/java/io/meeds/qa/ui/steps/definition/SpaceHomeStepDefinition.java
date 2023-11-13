@@ -810,16 +810,6 @@ public class SpaceHomeStepDefinition {
   public void attachImageToActivityComment() {
     spaceHomeSteps.attachImageToActivityComment();
   }
-  
-  @And("I attach an image to the announcement")
-  public void attachImageToAnnouncement() {
-    spaceHomeSteps.attachImageToAnnouncement();
-  }
-  
-  @And("I attach an image to the program action")
-  public void attachImageToProgramAction() {
-    spaceHomeSteps.attachImageToProgramAction();
-  }
 
   @When("^I publish the activity stream in arabic language$")
   public void publishActivityInArabicLanguage() {

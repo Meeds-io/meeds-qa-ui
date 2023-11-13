@@ -227,8 +227,8 @@ public class GenericStepDefinitions {
   }
 
   @When("I close the notification")
-  public void closeOpenedNotification() {
-    genericSteps.closeOpenedNotification();
+  public void closeToastNotification() {
+    genericSteps.closeToastNotification();
   }
 
   @When("I close browser tab {int}")

@@ -71,7 +71,7 @@ public class TasksStepDefinition {
     tasksSteps.addLabelToTask(label);
   }
 
-  @When("^I add this comment '(.*)' in task$")
+  @When("^I add a comment '(.*)' in task$")
   public void addNewCommentInTask(String comment) {
     tasksSteps.addNewCommentInTask(comment);
   }
@@ -81,12 +81,7 @@ public class TasksStepDefinition {
     tasksSteps.clickToAddNewComment();
   }
 
-  @And("^I add this comment '(.*)'$")
-  public void addNewComment(String comment) {
-    tasksSteps.clickToAddComment(comment);
-  }
-  
-  @And("^I add this comment '(.*)' with attached images$")
+  @And("^I add a Task comment '(.*)' with attached images$")
   public void addNewCommentWIthAttachedImages(String comment) {
     tasksSteps.addNewCommentWithAttachedImages(comment);
   }
