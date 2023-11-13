@@ -29,8 +29,7 @@ import io.meeds.qa.ui.elements.TextBoxElementFacade;
 
 public class KudosPage extends GenericPage {
 
-  private static final String ACTIVITY_KUDOS_DRAWER_SELECTOR =
-                                                             "//*[@id='activityKudosDrawer' and contains(@class, 'v-navigation-drawer--open')]";
+  private static final String ACTIVITY_KUDOS_DRAWER_SELECTOR = "//*[@id='activityKudosDrawer' and contains(@class, 'v-navigation-drawer--open')]";
 
   private SpaceHomePage       spaceHomePage;
 
@@ -131,7 +130,7 @@ public class KudosPage extends GenericPage {
   }
 
   public void sendKudosMessageFromOpenedDrawer(String kudosMessage) {
-    waitForDrawerToOpen("#activityKudosDrawer", false);
+    waitForDrawerToOpen(ACTIVITY_KUDOS_DRAWER_SELECTOR, false);
     waitCKEditorLoading(ACTIVITY_KUDOS_DRAWER_SELECTOR);
     retryOnCondition(() -> {
       ElementFacade ckEditorFrameKudos = getCkEditorFrameKudos();
@@ -157,7 +156,7 @@ public class KudosPage extends GenericPage {
   }
 
   public void enterKudosMessageFromOpenedDrawer(String kudosMessage) {
-    waitForDrawerToOpen("#activityKudosDrawer", false);
+    waitForDrawerToOpen(ACTIVITY_KUDOS_DRAWER_SELECTOR, false);
     waitCKEditorLoading(ACTIVITY_KUDOS_DRAWER_SELECTOR);
     retryOnCondition(() -> {
       ElementFacade ckEditorFrameKudos = getCkEditorFrameKudos();
@@ -178,7 +177,7 @@ public class KudosPage extends GenericPage {
   }
 
   public void sendKudosMessageWithReceiverFromOpenedDrawer(String kudosMessage, String kudosReceiver) {
-    waitForDrawerToOpen("#activityKudosDrawer", false);
+    waitForDrawerToOpen(ACTIVITY_KUDOS_DRAWER_SELECTOR, false);
     waitCKEditorLoading(ACTIVITY_KUDOS_DRAWER_SELECTOR);
     mentionInField(kudosReceiverField(), kudosReceiver, 5);
     retryOnCondition(() -> {
