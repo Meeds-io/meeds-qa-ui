@@ -19,6 +19,7 @@ package io.meeds.qa.ui.pages;
 
 import static io.meeds.qa.ui.utils.Utils.refreshPage;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
+import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import static org.junit.Assert.assertTrue;
 
 import org.openqa.selenium.WebDriver;
@@ -121,7 +122,10 @@ public class KudosPage extends GenericPage {
   }
 
   public void searchForUsersByName(String fullName) {
+    searchUsersFieldElement().checkVisible();
     searchUsersFieldElement().setTextValue(fullName);
+    waitFor(200).milliseconds();
+    waitForLoading();
   }
 
   public void selectType() {
