@@ -525,15 +525,7 @@ public class SpaceHomeSteps {
   public void attachImageToActivityComment() {
     spaceHomePage.attachImagesToActivityComment();
   }
-  
-  public void attachImageToAnnouncement() {
-    spaceHomePage.attachImageToAnnouncement();
-  }
-  
-  public void attachImageToProgramAction() {
-    spaceHomePage.attachImageToProgramAction();
-  }
-  
+
   public void clickPreviewAttachedImage(String activity) {
     spaceHomePage.clickPreviewAttachedImage(activity);
   }

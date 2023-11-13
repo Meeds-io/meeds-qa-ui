@@ -1,6 +1,5 @@
 @administration
 @mainSettings
-@standardConfigurationOnly
 Feature: Main settings page features
 
   Scenario: Main settings elements are displayed

@@ -8,13 +8,13 @@ Feature: Attach images activities
     And I login as 'first' random user
     And I go to the random space
     When I click on post in space
-    And I enter an activity 'activity with attached images'
+    And I enter an activity 'activity with attached image to preview'
     And I attach an image to the activity
     And I publish the activity
-    Then the activity 'activity with attached images' is displayed in activity stream
-    And The attached images should be displayed in the published activity 'activity with attached images'
+    Then the activity 'activity with attached image to preview' is displayed in activity stream
+    And The attached images should be displayed in the published activity 'activity with attached image to preview'
     
-    When I click on attached image related to activity 'activity with attached images'
+    When I click on attached image related to activity 'activity with attached image to preview'
     Then the preview of the attached image is displayed
     And The preview arrows are not displayed
     
@@ -28,15 +28,15 @@ Feature: Attach images activities
     And I login as 'first' random user
     And I go to the random space
     When I click on post in space
-    And I enter an activity 'activity with attached images'
+    And I enter an activity 'activity with attached gif image'
     And I attach a gif image to the activity
     And I publish the activity
-    Then the activity 'activity with attached images' is displayed in activity stream
-    And The attached images should be displayed in the published activity 'activity with attached images'
-    
-    When I click on modify the activity 'activity with attached images'
-    And I enter an activity 'activity with attached images'
-    Then The attached images should be displayed in the activity 'activity with attached images' drawer with the edit icon
+    Then the activity 'activity with attached gif image' is displayed in activity stream
+    And The attached images should be displayed in the published activity 'activity with attached gif image'
+
+    When I click on modify the activity 'activity with attached gif image'
+    And I enter an activity 'activity with attached gif image'
+    Then The attached images should be displayed in the activity 'activity with attached gif image' drawer with the edit icon
       
     When I click on edit an attached image
     Then The attached image crop drawer displayed
@@ -49,16 +49,16 @@ Feature: Attach images activities
     And I login as 'first' random user
     And I go to the random space
     When I click on post in space
-    And I enter an activity 'activity with attached images'
+    And I enter an activity 'activity comment with attached image'
     And I publish the activity
-    Then the activity 'activity with attached images' is displayed in activity stream
+    Then the activity 'activity comment with attached image' is displayed in activity stream
     
-    When I open in activity 'activity with attached images' the Comments drawer
+    When I open in activity 'activity comment with attached image' the Comments drawer
     And I attach an image to the activity comment 
-    And I add in activity 'activity with attached images' a comment 'comment with attached images'
-    And I open in activity 'activity with attached images' the Comments drawer
-    Then Activity Comment 'comment with attached images' is displayed in Comments drawer
-    And Activity Comment 'comment with attached images' is displayed in activity stream
+    And I add in activity 'activity comment with attached image' a comment 'comment with an attached image'
+    And I open in activity 'activity comment with attached image' the Comments drawer
+    Then Activity Comment 'comment with an attached image' is displayed in Comments drawer
+    And Activity Comment 'comment with an attached image' is displayed in activity stream
 
   Scenario: Edit an activity - Remove images
     Given I am authenticated as 'admin' if random users doesn't exists
@@ -67,42 +67,42 @@ Feature: Attach images activities
     And I login as 'first' random user
     And I go to the random space
     When I click on post in space
-    And I enter an activity 'activity with attached images'
+    And I enter an activity 'activity with attached image to remove'
     And I attach an image to the activity
     And I publish the activity
-    Then the activity 'activity with attached images' is displayed in activity stream
+    Then the activity 'activity with attached image to remove' is displayed in activity stream
       
-    When I click on modify the activity 'activity with attached images'
-    And I enter an activity 'activity with attached images'
-    Then The attached images should be displayed in the activity 'activity with attached images' drawer with the delete icon
+    When I click on modify the activity 'activity with attached image to remove'
+    And I enter an activity 'activity with attached image to remove'
+    Then The attached images should be displayed in the activity 'activity with attached image to remove' drawer with the delete icon
       
     When I click on delete an attached image
     Then The attached image is not displayed
       
     When I click on Update
-    Then The attached images should not be displayed in the published activity 'activity with attached images'
-  
- Scenario: Edit an activity - add images
+    Then The attached images should not be displayed in the published activity 'activity with attached image to remove'
+
+  Scenario: Edit an activity - add images
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I inject the first random user if not existing
     And I login as 'first' random user
     And I go to the random space
     When I click on post in space
-    And I enter an activity 'activity with attached images'
+    And I enter an activity 'activity with attached image, add images'
     And I attach an image to the activity
     And I publish the activity
-    Then the activity 'activity with attached images' is displayed in activity stream
+    Then the activity 'activity with attached image, add images' is displayed in activity stream
       
-    When I click on modify the activity 'activity with attached images'
-    And I enter an activity 'activity with attached images'
-    And The attached images should be displayed in the activity 'activity with attached images' drawer with the delete icon
+    When I click on modify the activity 'activity with attached image, add images'
+    And I enter an activity 'activity with attached image, add images'
+    And The attached images should be displayed in the activity 'activity with attached image, add images' drawer with the delete icon
     
     When I attach an image to the activity
     And I click on Update
-    Then the activity 'activity with attached images' is displayed in activity stream
-    And The second attached image should be displayed in the published activity 'activity with attached images'
- 
+    Then the activity 'activity with attached image, add images' is displayed in activity stream
+    And The second attached image should be displayed in the published activity 'activity with attached image, add images'
+
   Scenario: Edit an activity - Edit images
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -110,14 +110,14 @@ Feature: Attach images activities
     And I login as 'first' random user
     And I go to the random space
     When I click on post in space
-    And I enter an activity 'activity with attached images'
+    And I enter an activity 'activity with attached image, edit image'
     And I attach an image to the activity
     And I publish the activity
-    Then the activity 'activity with attached images' is displayed in activity stream
+    Then the activity 'activity with attached image, edit image' is displayed in activity stream
       
-    When I click on modify the activity 'activity with attached images'
-    And I enter an activity 'activity with attached images'
-    Then The attached images should be displayed in the activity 'activity with attached images' drawer with the edit icon
+    When I click on modify the activity 'activity with attached image, edit image'
+    And I enter an activity 'activity with attached image, edit image'
+    Then The attached images should be displayed in the activity 'activity with attached image, edit image' drawer with the edit icon
       
     When I click on edit an attached image
     Then The attached image crop drawer displayed
@@ -127,7 +127,7 @@ Feature: Attach images activities
     And I update the attached image
     And I click on Update
     
-    Then The attached images should be displayed in the published activity 'activity with attached images'
+    Then The attached images should be displayed in the published activity 'activity with attached image, edit image'
  
   Scenario: Send a kudos with attached image
     Given I am authenticated as 'admin' if random users doesn't exists
@@ -151,7 +151,7 @@ Feature: Attach images activities
     And I send to the comment activity a kudos message 'Kudos with attached image'
     Then Activity Comment kudos 'Kudos with attached image' is displayed in activity stream
     And The attached images should be displayed in the activity comment 'Kudos with attached image'
-    
+
   Scenario: Announce an action with attached image
     Given I am authenticated as 'admin' random user
     And I inject the random space
@@ -213,7 +213,7 @@ Feature: Attach images activities
     And I close the notification
     Then The comment 'announcement with attached image' is displayed
     And The attached images should be displayed in the activity comment 'announcement with attached image'
-    
+
   Scenario: Attach an image to a task description
     Given I am authenticated as 'admin' random user
     And I create the first random user if not existing
@@ -259,12 +259,12 @@ Feature: Attach images activities
     And I click on apply Button To Add description
 
     And The attached image is displayed in the task description
-    
-    When I click to edit task description
+
+    And I click to edit task description
     And I enter description for task 'Task Description attached images edited'
     And I click on apply Button To Add description
     And The attached image is displayed in the task description
-   
+
   Scenario: Attach image to task description without saving
     Given I am authenticated as 'admin' random user
     And I create the first random user if not existing
@@ -296,7 +296,7 @@ Feature: Attach images activities
     
     When I click outside the task description
     Then The new attached image is not displayed
-    
+
   Scenario: Attach image to task comment
     Given I am authenticated as 'admin' random user
     And I create the first random user if not existing
@@ -311,14 +311,9 @@ Feature: Attach images activities
     And I click on plus Button To Add Task
     And I enter title for task 'Task with comment attached images'
     And I click on save Button To Add Task
-    
-    When I open the task 'Task with comment attached images'
-    And I click on Add new comment button
-    And I add this comment 'Comment with attached images' with attached images
-    
-    When I open the task 'Task with comment attached images'
-    Then The attached images are displayed in the task comment 
 
-    
-   
-   
+    When I open the task 'Task with comment attached images'
+    And I add a Task comment 'Comment of a Task with attached images' with attached images
+
+    When I open the task 'Task with comment attached images'
+    Then The attached images are displayed in the task comment

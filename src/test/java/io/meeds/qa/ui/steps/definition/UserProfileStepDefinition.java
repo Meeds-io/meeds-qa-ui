@@ -231,6 +231,16 @@ public class UserProfileStepDefinition {
     userProfileSteps.receivedKudosUsersSectionIsDisplayed(userLastName);
   }
 
+  @Then("No kudos are received")
+  public void checkNoReceivedKudos() {
+    userProfileSteps.checkNoReceivedKudos();
+  }
+
+  @Then("No kudos are sent")
+  public void checkNoSentKudos() {
+    userProfileSteps.checkNoSentKudos();
+  }
+
   @Then("^'(.*)' kudos are received$")
   public void receivedKudosSectionIsDisplayed(String kudosNumber) {
     userProfileSteps.receivedKudosSectionIsDisplayed(kudosNumber);

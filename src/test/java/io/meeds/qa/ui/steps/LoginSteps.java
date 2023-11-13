@@ -78,6 +78,10 @@ public class LoginSteps {
   }
 
   public void waitForUsernameInputDisplay(int retries) {
+    if (!loginPage.getCurrentUrl().contains("/portal/login")) {
+      loginPage.openLoginPage();
+      loginPage.verifyPageLoaded();
+    }
     loginPage.waitForUsernameInputDisplay(retries);
   }
 

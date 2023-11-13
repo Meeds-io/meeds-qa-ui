@@ -50,9 +50,6 @@ public class SpaceHomePage extends GenericPage {
   private static final String OPENED_KUDOS_DRAWER_SELECTOR                    =
                                                            "//*[@id = 'activityKudosDrawer' and contains(@class, 'v-navigation-drawer--open')]";
 
-  private static final String OPENED_RULE_DRAWER_SELECTOR                    =
-                                                           "//*[@id = 'ruleDetailDrawer' and contains(@class, 'v-navigation-drawer--open')]";
-
   private static final String CONFIRMATION_BUTTON_TO_DELETE_ACTIVITY_SELECTOR = "//*[contains(text(),'Yes')]";
 
   public SpaceHomePage(WebDriver driver) {
@@ -933,52 +930,22 @@ public class SpaceHomePage extends GenericPage {
   
   public void attachImagesToActivity() {
     waitCKEditorLoading(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR);
-    this.attachImageToCKeditorInstance();
+    this.attachImageToCKeditor();
   }
   
   public void attachGifImageToActivity() {
     waitCKEditorLoading(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR);
-    this.attachGifImageToCKeditorInstance();
+    this.attachGifImageToCKeditor();
   }
   
   public void attachImagesToActivityComment() {
     waitCKEditorLoading(OPENED_ACTIVITY_COMMENTS_DRAWER_SELECTOR);
-    this.attachImageToCKeditorInstance();
+    this.attachImageToCKeditor();
   }
   
   public void attachImagesToKudos() {
     waitCKEditorLoading(OPENED_KUDOS_DRAWER_SELECTOR);
-    this.attachImageToCKeditorInstance();
-  }
-  
-  public void attachImageToAnnouncement() {
-    waitCKEditorLoading(OPENED_RULE_DRAWER_SELECTOR);
-    this.attachImageToCKeditorInstance();
-  }
-  
-  public void attachImageToProgramAction() {
-    waitCKEditorLoading("//*[@id='engagementCenterRulePublication']");
-    this.attachImageToCKeditorInstance();
-  }
-  
-  public void attachImageToCKeditorInstance() {
-    ckEditorAttachImageButton().assertVisible();
-    ElementFacade fileInput = ckEditorAttachImageInput();
-    fileInput.assertEnabled();
-    attachImageToFileInput(fileInput);
-    waitForLoading();
-    activityDrawerAttachedImagesCarousel().assertVisible();
-    activityDrawerAttachedImagesCarouselPlusIcon().assertVisible();
-  }
-  
-  public void attachGifImageToCKeditorInstance() {
-    ckEditorAttachImageButton().assertVisible();
-    ElementFacade fileInput = ckEditorAttachImageInput();
-    fileInput.assertEnabled();
-    attachImageGifToFileInput(fileInput);
-    waitForLoading();
-    activityDrawerAttachedImagesCarousel().assertVisible();
-    activityDrawerAttachedImagesCarouselPlusIcon().assertVisible();
+    this.attachImageToCKeditor();
   }
 
   public void clickPreviewAttachedImage(String activity) {
@@ -1223,22 +1190,6 @@ public class SpaceHomePage extends GenericPage {
       waitFor(1000).milliseconds(); // Wait for animation end
     }
     return tabElement(tabName);
-  }
-
-  private ElementFacade ckEditorAttachImageInput() {
-    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')]/parent::*//input[@type='file']");
-  }
-
-  private ElementFacade ckEditorAttachImageButton() {
-    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')]//a[contains(@class, 'cke_button__attachimage')]");
-  }
-  
-  private ElementFacade activityDrawerAttachedImagesCarousel() {
-    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')]/parent::*//*[contains(@class, 'carousel-top-parent')]");
-  }
-  
-  private ElementFacade activityDrawerAttachedImagesCarouselPlusIcon() {
-    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')]/parent::*//*[contains(@class, 'carousel-top-parent')]//*[contains(@class, 'fa-plus')]");
   }
 
   private ElementFacade installedApplicationCard(String applicationName) {
