@@ -56,10 +56,12 @@ public class ProgramsPage extends GenericPage {
     saveButtonElement().click();
     waitForDrawerToClose();
     waitForLoading();
+    waitFor(200).milliseconds();
   }
 
   public void enableDisableProgram() {
     programStatusSwitcher().click();
+    waitForLoading();
     waitFor(200).milliseconds();
   }
 
@@ -95,6 +97,8 @@ public class ProgramsPage extends GenericPage {
   public void clickSaveProgramButton() {
     createButtonElement().click();
     waitForDrawerToClose();
+    waitForLoading();
+    waitFor(200).milliseconds();
   }
 
   public void deleteCreatedProgram(String programName) {
@@ -293,6 +297,11 @@ public class ProgramsPage extends GenericPage {
 
   public void checkProgramCoverIsDefaultInDetail() {
     assertThat(coverImageElement().getAttribute("src")).contains("default").as("Program Cover should be default");
+  }
+
+  public String getProgramTitleFromDrawer() {
+    TextBoxElementFacade programTitleElement = programTitleFieldElement();
+    return programTitleElement.isCurrentlyVisible() ? programTitleElement.getTextValue() : null;
   }
 
   private void searchProgram(String title) {

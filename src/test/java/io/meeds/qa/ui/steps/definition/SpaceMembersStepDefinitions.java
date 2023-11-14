@@ -37,11 +37,6 @@ public class SpaceMembersStepDefinitions {
     spaceMembersSteps.clickOnThreeDotsMenu();
   }
 
-  @And("^I set as a space manager$")
-  public void setAsSpaceManager() {
-    spaceMembersSteps.setAsSpaceManager();
-  }
-
   @And("^I set as a redactor$")
   public void setRedactor() {
     spaceMembersSteps.setRedactor();

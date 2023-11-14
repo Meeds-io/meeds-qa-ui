@@ -153,8 +153,8 @@ public class AchievementsPage extends GenericPage {
     achievementRowElement(ruleTitle, userName, index).assertVisible();
   }
 
-  public void checkThatAchievementInDrawerIsDisplayedInPosition(String userName, int index) {
-    achievementDrawerElement(userName, index).assertVisible();
+  public void checkThatAchievementInDrawerIsDisplayedInPosition(String fullName, int index) {
+    achievementDrawerElement(fullName, index).assertVisible();
   }
 
   public void checkThatAchievementIsDisplayedInPosition(String ruleTitle, int index) {
@@ -184,7 +184,7 @@ public class AchievementsPage extends GenericPage {
   }
 
   private ElementFacade achievementDrawerElement(String userName, int index) {
-    return findByXPathOrCSS(String.format("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'profile-popover')])[%s]//a[contains(@href, '/profile/%s')]",
+    return findByXPathOrCSS(String.format("(//*[@id = 'AchievementsDrawer']//*[contains(@class, 'profile-popover')])[%s]//*[contains(text(), '%s')]",
                                           index,
                                           userName));
   }
