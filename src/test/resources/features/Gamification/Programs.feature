@@ -58,6 +58,7 @@ Feature: Programs
     When I filter programs by value 'ALL'
     Then The program title should be displayed on the card
 
+  @test
   Scenario: Translate a program with its associated rule
     Given I am authenticated as 'admin' random user
     And I inject the 'fourty' random user if not existing, no wait
@@ -189,6 +190,7 @@ Feature: Programs
     When I open program action 'Program With Image Action'
     Then The program is displayed with default avatar
 
+  @test
   Scenario: Create a program with internal users as audience
     Given I am authenticated as 'admin' random user
     And I inject the 'first' random user if not existing, no wait
