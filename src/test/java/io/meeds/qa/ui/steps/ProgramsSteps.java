@@ -56,11 +56,8 @@ public class ProgramsSteps {
 
   public void clickSaveProgramButton() {
     programsPage.clickSaveProgramButton();
-    if (currentProgramTitle != null) {
-      programUrls.computeIfAbsent(currentProgramTitle, k -> {
-        programsPage.waitFor(200).milliseconds();
-        return programsPage.getCurrentUrl();
-      });
+    if (currentProgramTitle != null && programsPage.getCurrentUrl().contains("programs/")) {
+      programUrls.put(currentProgramTitle, programsPage.getCurrentUrl());
     }
   }
 
@@ -78,12 +75,6 @@ public class ProgramsSteps {
 
   public void clickAddProgramBtn() {
     programsPage.clickAddProgramBtn();
-    if (currentProgramTitle != null) {
-      programUrls.computeIfAbsent(currentProgramTitle, k -> {
-        programsPage.waitFor(200).milliseconds();
-        return programsPage.getCurrentUrl();
-      });
-    }
   }
 
   public void deleteCreatedProgram(String programName) {
@@ -100,6 +91,7 @@ public class ProgramsSteps {
 
   public void editProgramWithDescription(String programName, String newProgramName, String newProgramDescription) {
     programsPage.editProgramWithDescription(programName, newProgramName, newProgramDescription);
+    programUrls.remove(programName);
   }
 
   public void enterProgramTitle(String programTitle) {
@@ -179,6 +171,9 @@ public class ProgramsSteps {
     }
     programsPage.saveProgram(programName, programDescription, programAudience);
     programsPage.closeToastNotification(false);
+    if (programName != null && programsPage.getCurrentUrl().contains("programs/")) {
+      programUrls.put(programName, programsPage.getCurrentUrl());
+    }
   }
 
   public void checkProgramPositionInTopPrograms(String programName, int listPosition) {

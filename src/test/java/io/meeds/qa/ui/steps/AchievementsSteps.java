@@ -67,8 +67,8 @@ public class AchievementsSteps {
     achievementsPage.checkThatAchievementIsDisplayedInPosition(ruleTitle, index);
   }
 
-  public void checkThatAchievementInDrawerIsDisplayedInPosition(String userName, int index) {
-    achievementsPage.checkThatAchievementInDrawerIsDisplayedInPosition(userName, index);
+  public void checkThatAchievementInDrawerIsDisplayedInPosition(String fullName, int index) {
+    achievementsPage.checkThatAchievementInDrawerIsDisplayedInPosition(fullName, index);
   }
 
   public void openAchievementsDrawerFromProgramDetail(String ruleTitle) {
