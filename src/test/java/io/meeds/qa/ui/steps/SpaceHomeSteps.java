@@ -187,10 +187,10 @@ public class SpaceHomeSteps {
     spaceHomePage.clickOnkudosButtonToActivityStream();
   }
 
-  public void clickKudosFromComment() {
-    spaceHomePage.clickOnkudosButtonToCommentActivity();
+  public void clickOnCommentKudosButton(String comment) {
+    spaceHomePage.getCommentKudosButton(comment);
   }
-
+  
   public void clickKudosFromCommentsDrawer() {
     spaceHomePage.clickOnkudosButtonFromCommentsDrawerToCommentActivity();
   }
