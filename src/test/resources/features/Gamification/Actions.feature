@@ -123,7 +123,7 @@ Feature: Actions
     And I click on 'Add action' button
     And I wait for drawer to open
 
-    When I enter the rule title 'Action with activity'
+    When I enter the rule title 'Announce an action from its activity'
     Then The button 'Next' is disabled in drawer
 
     And I add rule random description
@@ -137,17 +137,17 @@ Feature: Actions
     Then Confirmation message is displayed 'Action has been successfully created'
     When I close the notification
 
-    Then The action 'Action with activity' is displayed in program detail
+    Then The action 'Announce an action from its activity' is displayed in program detail
     When I click on 'Activate the program' button
     Then Confirmation message is displayed 'Program activated'
     When I close the notification
 
     When I go to Stream page
-    Then The activity 'Action with activity' is not displayed
+    Then The activity 'Announce an action from its activity' is not displayed
 
     When I go to 'Contributions' application
     And I open random program card
-    And I edit program action 'Action with activity'
+    And I edit program action 'Announce an action from its activity'
     And I click on 'Next' button in drawer
     And I enable rule publication
     And I set rule publication message 'Action publication message'
@@ -156,10 +156,10 @@ Feature: Actions
     When I close the notification
 
     When I go to Stream page
-    Then The activity 'Action with activity' is displayed
+    Then The activity 'Announce an action from its activity' is displayed
     And The message 'Action publication message' is displayed
 
-    When I click on 'Action with activity' text
+    When I click on 'Announce an action from its activity' text
     Then '0' participants is displayed in action drawer
 
     When I click on 'Announce' button in drawer
@@ -167,34 +167,34 @@ Feature: Actions
     And I close the notification
     Then The comment 'announcement12' is displayed
 
-    When I click on 'Action with activity' text
+    When I click on 'Announce an action from its activity' text
     Then '1' participants is displayed in action drawer
 
     When I go to the action from opened drawer
     Then '1' participants is displayed in action drawer
 
     When I go to the activity of opened action
-    And I click on 'Action with activity' text
+    And I click on 'Announce an action from its activity' text
     Then '1' participants is displayed in action drawer
 
     When I go to the random space
-    Then The activity 'Action with activity' is displayed
+    Then The activity 'Announce an action from its activity' is displayed
     And The comment 'announcement12' is displayed
 
-    When I click on three dots button related to activity 'Action with activity'
+    When I click on three dots button related to activity 'Announce an action from its activity'
     And I click on 'Hide' menu item
     And I confirm
-    Then The activity 'Action with activity' is not displayed
+    Then The activity 'Announce an action from its activity' is not displayed
 
     When I go to 'Contributions' application
     And I open random program card
-    And I click on 'Action with activity' text
+    And I click on 'Announce an action from its activity' text
     And I go to the activity of opened action
-    And I click on three dots button related to activity 'Action with activity'
+    And I click on three dots button related to activity 'Announce an action from its activity'
     And I click on 'Unhide' menu item
     And I go to the random space
 
-    Then The activity 'Action with activity' is displayed
+    Then The activity 'Announce an action from its activity' is displayed
 
     When I go to 'Contributions' application
     And I open random program card

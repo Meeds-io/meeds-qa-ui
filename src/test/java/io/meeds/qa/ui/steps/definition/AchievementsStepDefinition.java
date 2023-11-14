@@ -51,9 +51,11 @@ public class AchievementsStepDefinition {
 
   @Then("In drawer, user '{}' achievement is display '{}'")
   public void checkThatAchievementInDrawerIsDisplayedInPosition(String userPrefix, String indexName) {
-    String userName = sessionVariableCalled(userPrefix + "UserName");
+    String firstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");
+    String lastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
+    String fullName = firstName + " " + lastName;
     int index = Utils.getIndexFomName(indexName);
-    achievementsSteps.checkThatAchievementInDrawerIsDisplayedInPosition(userName, index);
+    achievementsSteps.checkThatAchievementInDrawerIsDisplayedInPosition(fullName, index);
   }
 
   @Then("^Achievement for '(.*)' is accepted$")

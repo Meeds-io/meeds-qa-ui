@@ -31,10 +31,6 @@ public class SpaceMembersSteps {
     spaceMembersPage.clickOnThreeDotsMenu();
   }
 
-  public void setAsSpaceManager() {
-    spaceMembersPage.setAsSpaceManager();
-  }
-
   public void setRedactor() {
     spaceMembersPage.setRedactor();
   }

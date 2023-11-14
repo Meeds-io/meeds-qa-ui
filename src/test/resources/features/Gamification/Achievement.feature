@@ -217,9 +217,7 @@ Feature: Achievements
 
     When I go to the random space
     And I click on 'Members' space menu tab
-    And I search for 'fifthachievement' random user
-    And I click on three dots menu
-    And I set as a space manager
+    And I promote 'fifthachievement' random user as a space manager
 
     When I login as 'sixthachievement' random user
     And I go to 'Contributions' application

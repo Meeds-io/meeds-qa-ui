@@ -71,9 +71,13 @@ public class Utils {
   }
 
   public static String getRandomString(String base) {
+    return getRandomString(base, 8);
+  }
+
+  public static String getRandomString(String base, int length) {
     char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
     StringBuilder sb = new StringBuilder(base);
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < length; i++) {
       char c = chars[RANDOM.nextInt(chars.length)];
       sb.append(c);
     }

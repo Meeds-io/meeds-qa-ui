@@ -168,7 +168,7 @@ Feature: Attach images activities
     And I click on 'Add action' button
     And I wait for drawer to open
 
-    When I enter the rule title 'Action with activity'
+    When I enter the rule title 'Announce an action with attached image'
     Then The button 'Next' is disabled in drawer
 
     And I add rule random description
@@ -182,17 +182,17 @@ Feature: Attach images activities
     Then Confirmation message is displayed 'Action has been successfully created'
     When I close the notification
 
-    Then The action 'Action with activity' is displayed in program detail
+    Then The action 'Announce an action with attached image' is displayed in program detail
     When I click on 'Activate the program' button
     Then Confirmation message is displayed 'Program activated'
     When I close the notification
 
     When I go to Stream page
-    Then The activity 'Action with activity' is not displayed
+    Then The activity 'Announce an action with attached image' is not displayed
     
     When I go to 'Contributions' application
     And I open random program card
-    And I edit program action 'Action with activity'
+    And I edit program action 'Announce an action with attached image'
     And I click on 'Next' button in drawer
     And I enable rule publication
     And I set rule publication message 'Action publication message'
@@ -202,10 +202,10 @@ Feature: Attach images activities
     When I close the notification
 
     When I go to Stream page
-    Then The activity 'Action with activity' is displayed
+    Then The activity 'Announce an action with attached image' is displayed
     And The message 'Action publication message' is displayed
-    And The attached images should be displayed in the published activity 'Action with activity'
-    When I click on 'Action with activity' text
+    And The attached images should be displayed in the published activity 'Announce an action with attached image'
+    When I click on 'Announce an action with attached image' text
     Then '0' participants is displayed in action drawer
 
     When I click on 'Announce' button in drawer

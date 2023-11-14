@@ -40,21 +40,8 @@ public class SpaceMembersPage extends GenericPage {
     });
   }
 
-  public void setAsSpaceManager() {
-    setAsManagerBtnElement().click();
-    managerIcon().assertVisible();
-  }
-
   public void setRedactor() {
     retryOnCondition(setAsRedactorBtnElement()::click, this::clickOnThreeDotsMenu);
-  }
-
-  private ElementFacade managerIcon() {
-    return findByXPathOrCSS("//*[contains(@class, 'peopleInfoIcon')]//*[contains(@class, 'mdi-account-cog')]");
-  }
-
-  private ElementFacade setAsManagerBtnElement() {
-    return findByXPathOrCSS("//*[contains(@class, 'uiIconMemberAdmin')]//ancestor::*[contains(@class, 'peopleActionItem')]");
   }
 
   private ElementFacade setAsRedactorBtnElement() {
