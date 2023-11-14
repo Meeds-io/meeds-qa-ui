@@ -2,7 +2,6 @@
 @actions
 Feature: Actions
 
-  @test
   Scenario: Announce a challenge
     Given I am authenticated as 'admin' random user
     And I create the first random user if not existing, no wait
@@ -107,7 +106,6 @@ Feature: Actions
 
     Then Confirmation message is displayed 'Action has been successfully created'
 
-  @test
   Scenario: Announce an action from its activity
     Given I am authenticated as 'admin' random user
     And I inject the random space
@@ -266,7 +264,6 @@ Feature: Actions
     Then I cannot announce program action
     And I close the opened drawer
 
-  @test
   Scenario: Cancel an announcement
     Given I am authenticated as 'admin' random user
     And I create the first random user if not existing, no wait
@@ -322,7 +319,6 @@ Feature: Actions
     When I go to engagement application 'achievements'
     Then Achievement for 'Announce activity to delete' is canceled
 
-  @test
   Scenario: Overview top challenge
     Given I am authenticated as 'admin' random user
     When I create the first random user if not existing, no wait

@@ -156,7 +156,6 @@ Feature: Achievements
     And I go to engagement application 'achievements'
     Then Achievement for 'Receive kudos' is canceled
 
-  @test
   Scenario: Achievements listing for program owner/space host
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
@@ -244,7 +243,6 @@ Feature: Achievements
 
     Then The achievement 'Join space' is displayed '2' times when enabling program owner view for 'Test Program Host' random program
 
-  @test
   Scenario: Achievements sort
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
