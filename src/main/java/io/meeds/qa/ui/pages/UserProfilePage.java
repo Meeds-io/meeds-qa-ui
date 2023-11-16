@@ -175,7 +175,11 @@ public class UserProfilePage extends GenericPage {
   }
 
   public int getMyWeeklyPoint() {
-    return Integer.valueOf(myWeeklyPointElement().getText());
+    if (myWeeklyPointElement().isVisible()) {
+      return Integer.valueOf(myWeeklyPointElement().getText());
+    } else {
+      return 0;
+    }
   }
 
   public void goToReceivedKudos() {

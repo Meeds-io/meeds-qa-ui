@@ -23,6 +23,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -41,23 +42,14 @@ public class HomeStepDefinition {
   @Steps
   private PeopleSteps peopleSteps;
 
-  @When("^I accept the following connection invitation$")
-  public void acceptConnection(List<String> listOfPeople) {
-    homeSteps.acceptConnectionInvitation(listOfPeople);
-  }
-
-  @When("^I accept the connection invitation sent by '(.*)' user$")
-  public void acceptConnectionInvitationSentByRandomUser(String userPrefix) {
-    String userFirstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");
-    homeSteps.acceptSingleConnectionInvitation(userFirstName);
-  }
-
   @When("^I accept the following connection invitation from random user$")
-  public void acceptConnexion(List<String> listOfPeople) {
-    listOfPeople.forEach(userPrefix -> {
-      String userFirstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");
-      homeSteps.acceptSingleConnectionInvitation(userFirstName);
-    });
+  public void acceptRandomUsersConnection(List<String> names) {
+    homeSteps.acceptConnectionInvitations(names, true);
+  }
+
+  @When("^I reject the following connection invitation from random user$")
+  public void rejectRandomUsersConnection(List<String> names) {
+    homeSteps.rejectConnectionInvitations(names, true);
   }
 
   @When("^I accept the invitation of the following four random spaces$")
@@ -77,14 +69,7 @@ public class HomeStepDefinition {
 
   @When("^I accept the following connection invitation sent by first user and second user$")
   public void acceptRandomConnections() {
-    List<String> connections = new ArrayList<>();
-    String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
-    String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
-
-    connections.add(firstUserFirstName);
-    connections.add(secondUserFirstName);
-
-    homeSteps.acceptConnectionInvitation(connections);
+    homeSteps.acceptConnectionInvitations(Stream.of("first", "second").toList(), false);
   }
 
   @When("^I accept the invitation of the following spaces$")
@@ -393,11 +378,6 @@ public class HomeStepDefinition {
   public void rejectConnectionInvitationSentBySecondUser() {
     String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
     homeSteps.rejectSingleConnectionInvitation(secondUserFirstName);
-  }
-
-  @When("^I reject the invitation of the following connections$")
-  public void rejectConnexion(List<String> listOfPeople) {
-    homeSteps.rejectConnexionInvitation(listOfPeople);
   }
 
   @When("^I reject the invitation of the following spaces$")

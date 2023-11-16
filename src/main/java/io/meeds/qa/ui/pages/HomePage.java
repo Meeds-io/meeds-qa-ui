@@ -44,11 +44,11 @@ public class HomePage extends GenericPage {
   }
 
   public void acceptConnectionInvitation(String userName) {
-    clickOnElement(getAcceptIconConnectionFromDrawer(userName));
+    getAcceptIconConnectionFromDrawer(userName).click();
   }
 
   public void acceptSpaceInvitation(String spaceName) {
-    clickOnElement(getAcceptIconSpaceFromDrawer(spaceName));
+    getAcceptIconSpaceFromDrawer(spaceName).click();
   }
 
   public void accessToAdministrationMenu() {
@@ -545,7 +545,7 @@ public class HomePage extends GenericPage {
   }
 
   private ElementFacade checkSpaceFromDrawer(String spaceName) {
-    return findByXPathOrCSS(String.format("//aside[contains(@class,'spaceDrawer ')]//descendant::div[contains(text(),'%s')]//following::i[contains(@class,'mdi-checkbox-marked')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'spaceDrawer')]//descendant::div[contains(text(),'%s')]//ancestor::*[@role = 'listitem']//*[contains(@class,'check')]",
                                           spaceName));
   }
 
@@ -558,7 +558,7 @@ public class HomePage extends GenericPage {
   }
 
   private ElementFacade getAcceptIconConnectionFromDrawer(String spaceName) {
-    return findByXPathOrCSS(String.format("//aside[contains(@class,'connectionsDrawer ')]//descendant::div[contains(text(),'%s')]//following::i[contains(@class,'mdi-checkbox-marked')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class,'connectionsDrawer')]//descendant::div[contains(text(),'%s')]//ancestor::*[@role = 'listitem']//*[contains(@class,'check')]",
                                           spaceName));
   }
 
