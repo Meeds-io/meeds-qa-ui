@@ -30,26 +30,18 @@ public class SpaceMembersPage extends GenericPage {
 
   public void clickOnThreeDotsMenu() {
     retryOnCondition(() -> {
-      threeDotsButton().click();
-      threeDotsMenuElement().checkVisible();
+      if (isMenuDisplayed()) {
+        closeMenu();
+      }
+      retryOnCondition(() -> {
+        threeDotsButton().click();
+        waitMenuToDisplay();
+      });
     });
-  }
-
-  public void setAsSpaceManager() {
-    setAsManagerBtnElement().click();
-    managerIcon().assertVisible();
   }
 
   public void setRedactor() {
     retryOnCondition(setAsRedactorBtnElement()::click, this::clickOnThreeDotsMenu);
-  }
-
-  private ElementFacade managerIcon() {
-    return findByXPathOrCSS("//*[contains(@class, 'peopleInfoIcon')]//*[contains(@class, 'mdi-account-cog')]");
-  }
-
-  private ElementFacade setAsManagerBtnElement() {
-    return findByXPathOrCSS("//*[contains(@class, 'uiIconMemberAdmin')]//ancestor::*[contains(@class, 'peopleActionItem')]");
   }
 
   private ElementFacade setAsRedactorBtnElement() {
@@ -58,10 +50,6 @@ public class SpaceMembersPage extends GenericPage {
 
   private ElementFacade threeDotsButton() {
     return findByXPathOrCSS("//*[contains(@class, 'peopleCardItem')]//button[contains(@class, 'peopleMenuIcon')]");
-  }
-
-  private ElementFacade threeDotsMenuElement() {
-    return findByXPathOrCSS("//*[contains(@class, 'peopleActionMenu')]//*[contains(@class, 'peopleActionItem')]");
   }
 
   private ElementFacade writeShortMessageDrawerElement() {

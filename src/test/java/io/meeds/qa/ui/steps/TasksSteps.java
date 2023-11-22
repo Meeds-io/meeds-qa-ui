@@ -40,21 +40,17 @@ public class TasksSteps {
   }
 
   public void addNewCommentInTask(String comment) {
-    tasksPage.addNewCommentInTask();
+    tasksPage.clickToAddNewCommentInTask();
     tasksPage.commentTask(comment);
   }
-  
+
   public void clickToAddNewComment() {
-    tasksPage.addNewCommentInTask();
+    tasksPage.clickToAddNewCommentInTask();
   }
-  
+
   public void addNewCommentWithAttachedImages(String comment) {
-    tasksPage.addNewCommentInTask();
+    tasksPage.clickToAddNewCommentInTask();
     tasksPage.addNewCommentWithAttachedImages(comment);
-  }
-  
-  public void clickToAddComment(String comment) {
-    tasksPage.commentTask(comment);
   }
 
   public void addNewCommentInTaskWithMentioningTheFirstUserInTask(String comment, String user) {
@@ -294,7 +290,7 @@ public class TasksSteps {
   }
 
   public void clickAddNewComment() {
-    tasksPage.addNewCommentInTask();
+    tasksPage.clickToAddNewCommentInTask();
   }
 
   public void clickAddProjectButton() {
@@ -404,35 +400,35 @@ public class TasksSteps {
   public void clickOnApplyButtonToSaveDescription() {
     tasksPage.clickOnApplyButtonToSaveDescription();
   }
-  
+
   public void attachImageToTaskDescription() {
     tasksPage.attachImageToTaskDescription();
   }
-  
+
   public void attachSecondImageToTaskDescription() {
-    tasksPage.attachSecondImageToTaskDescription();
+    tasksPage.attachImageToTaskDescription();
   }
-  
+
   public void clickOutsideTaskDescription() {
     tasksPage.clickOutsideTaskDescription();
   }
-  
+
   public void checkTaskDescriptionNewAttachImage() {
     tasksPage.checkTaskDescriptionNewAttachImage();
   }
-  
+
   public void checkAttachedImagesToTaskDescription() {
     tasksPage.checkAttachedImagesToTaskDescription();
   }
-  
+
   public void checkAttachedImagesToTaskComment() {
     tasksPage.checkAttachedImagesToTaskComment();
   }
-  
+
   public void openTaskDescriptionEditor() {
     tasksPage.openTaskDescriptionEditor();
   }
-  
+
   public void clickOnSaveButtonToAddTaskSpaceProject() {
     tasksPage.clickOnSaveButtonToAddTaskSpaceProject();
   }
@@ -584,7 +580,7 @@ public class TasksSteps {
   public void enterTaskComment(String comment) {
     tasksPage.enterTaskComment(comment);
   }
-  
+
   public void enterNewTaskComment(String comment) {
     tasksPage.enterNewTaskComment(comment);
   }

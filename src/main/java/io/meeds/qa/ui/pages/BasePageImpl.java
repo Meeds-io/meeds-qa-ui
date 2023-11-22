@@ -112,9 +112,9 @@ public class BasePageImpl extends PageObject implements BasePage {
     cancelButton.waitUntilNotVisible();
   }
 
-  public void closeDisplayedAlert() {
-    ElementFacade closeAlertButton = findByXPathOrCSS(".v-snack--active .v-alert .v-alert__dismissible");
-    if (closeAlertButton.isVisible()) {
+  public void closeToastNotification(boolean waitElement) {
+    ElementFacade closeAlertButton = findByXPathOrCSS(".v-snack--active .v-alert .fa-times");
+    if (waitElement ? closeAlertButton.isVisible() : closeAlertButton.isCurrentlyVisible()) {
       try {
         closeAlertButton.click();
         closeAlertButton.waitUntilNotVisible();
@@ -122,30 +122,8 @@ public class BasePageImpl extends PageObject implements BasePage {
         // It can be already closed by timeout
       }
     } else {
-      closeAlertButton = findByXPathOrCSS(".v-alert .v-alert__dismissible");
-      if (closeAlertButton.isVisible()) {
-        try {
-          closeAlertButton.click();
-          closeAlertButton.waitUntilNotVisible();
-        } catch (Exception e) {
-          // It can be already closed by timeout
-        }
-      }
-    }
-  }
-
-  public void closeAlert() {
-    ElementFacade closeAlertButton = findByXPathOrCSS(".v-snack--active .v-alert .v-alert__dismissible");
-    if (closeAlertButton.isCurrentlyVisible()) {
-      try {
-        closeAlertButton.click();
-        closeAlertButton.waitUntilNotVisible();
-      } catch (Exception e) {
-        // It can be already closed by timeout
-      }
-    } else {
-      closeAlertButton = findByXPathOrCSS(".v-alert .v-alert__dismissible");
-      if (closeAlertButton.isCurrentlyVisible()) {
+      closeAlertButton = findByXPathOrCSS(".v-alert .fa-times");
+      if (waitElement ? closeAlertButton.isVisible() : closeAlertButton.isCurrentlyVisible()) {
         try {
           closeAlertButton.click();
           closeAlertButton.waitUntilNotVisible();
@@ -582,8 +560,28 @@ public class BasePageImpl extends PageObject implements BasePage {
     ElementFacade fileInput = findByXPathOrCSS((secondLevel ? OPNENED_DRAWER_CSS_SELECTOR : "") + " "
         + OPNENED_DRAWER_CSS_SELECTOR + " input[type=file]");
     fileInput.assertEnabled();
-    attachImageToFileInput(fileInput);
+    attachImageToFileInput(fileInput, USER_AVATAR_PNG);
     clickButton("Apply");
+  }
+
+  public void attachGifImageToCKeditor() {
+    attachImageToCKeditor(GIF_IMAGE);
+  }
+
+  public void attachImageToCKeditor() {
+    attachImageToCKeditor(USER_AVATAR_PNG);
+  }
+
+  public void attachImageToCKeditor(String fileName) {
+    ckEditorAttachImageButton().assertVisible();
+    ElementFacade fileInput = ckEditorAttachImageInput();
+    fileInput.assertEnabled();
+    attachImageToFileInput(fileInput, fileName);
+    waitForLoading();
+    ckEditorImageAttachmentCarousel().checkVisible();
+    ckEditorImageAttachmentPlusIcon().assertVisible();
+    retryOnCondition(() -> ckEditorImageAttachmentProgressElement().waitUntilNotVisible());
+    waitFor(500).milliseconds();
   }
 
   public ElementFacade attachFileInput(boolean secondLevel) {
@@ -592,13 +590,8 @@ public class BasePageImpl extends PageObject implements BasePage {
     return findByXPathOrCSS(fileInputXPath);
   }
 
-  public void attachImageToFileInput(ElementFacade fileInput) {
-    upload(UPLOAD_DIRECTORY_PATH + USER_AVATAR_PNG).fromLocalMachine().to(fileInput.getElement());
-    waitForProgressBar();
-  }
-  
-  public void attachImageGifToFileInput(ElementFacade fileInput) {
-    upload(UPLOAD_DIRECTORY_PATH + GIF_IMAGE).fromLocalMachine().to(fileInput.getElement());
+  public void attachImageToFileInput(ElementFacade fileInput, String fileName) {
+    upload(UPLOAD_DIRECTORY_PATH + fileName).fromLocalMachine().to(fileInput.getElement());
     waitForProgressBar();
   }
 
@@ -628,6 +621,26 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   private ElementFacade activeMenuElement() {
     return findByXPathOrCSS(".menuable__content__active");
+  }
+
+  private ElementFacade ckEditorAttachImageInput() {
+    return findByXPathOrCSS("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[last()]/parent::*//input[@type='file']");
+  }
+
+  private ElementFacade ckEditorAttachImageButton() {
+    return findByXPathOrCSS("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[last()]//a[contains(@class, 'cke_button__attachimage')]");
+  }
+
+  private ElementFacade ckEditorImageAttachmentCarousel() {
+    return findByXPathOrCSS("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[last()]/parent::*//*[contains(@class, 'carousel-top-parent')]");
+  }
+  
+  private ElementFacade ckEditorImageAttachmentPlusIcon() {
+    return findByXPathOrCSS("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[last()]/parent::*//*[contains(@class, 'carousel-top-parent')]//*[contains(@class, 'fa-plus')]");
+  }
+
+  private ElementFacade ckEditorImageAttachmentProgressElement() {
+    return findByXPathOrCSS("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[last()]/parent::*//*[contains(@class, 'v-progress-circular')]");
   }
 
 }

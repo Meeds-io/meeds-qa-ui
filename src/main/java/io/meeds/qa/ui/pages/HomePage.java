@@ -26,12 +26,14 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.utils.Utils;
+
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.webdriver.exceptions.ElementShouldBeVisibleException;
 
@@ -42,11 +44,11 @@ public class HomePage extends GenericPage {
   }
 
   public void acceptConnectionInvitation(String userName) {
-    clickOnElement(getAcceptIconConnectionFromDrawer(userName));
+    getAcceptIconConnectionFromDrawer(userName).click();
   }
 
   public void acceptSpaceInvitation(String spaceName) {
-    clickOnElement(getAcceptIconSpaceFromDrawer(spaceName));
+    getAcceptIconSpaceFromDrawer(spaceName).click();
   }
 
   public void accessToAdministrationMenu() {
@@ -263,7 +265,7 @@ public class HomePage extends GenericPage {
   public boolean isConnectionsBadgeWithNumberVisible(String number) {
     return getConnectionsBadgeWithNumber(number).isVisible();
   }
-
+  
   public boolean isPortalDisplayed() {
     return getSiteBody().isCurrentlyVisible();
   }
@@ -274,6 +276,20 @@ public class HomePage extends GenericPage {
 
   public void checkNoSpacesBadge() {
     assertTrue(spacesBadgeElement().isNotVisible());
+  }
+
+  public boolean isHamburgerMenuPresent() {
+    return getHamburgerNavigationMenu().isCurrentlyVisible();
+  }
+
+  public boolean isLoggedIn() {
+    return ((JavascriptExecutor) getDriver()).executeScript("return !!window?.eXo?.env?.portal?.userName?.length")
+                                             .toString()
+                                             .equals("true");
+  }
+
+  public boolean isNoConnectionsBadge() {
+    return getConnectionsBadge().isNotVisible();
   }
 
   public void checkNumberOfConnectionsInDrawer(int expectedNumber) {
@@ -364,14 +380,12 @@ public class HomePage extends GenericPage {
   }
 
   public void clickOnHamburgerMenu() {
-    closeAlert();
-    closeAllDialogs();
-    closeAllDrawers();
-    retryOnCondition(() -> getHamburgerNavigationMenu().click(),
-                     () -> {
-                       LOGGER.warn("Hamburger Menu isn't visible, retry by waiting until application is built");
-                       closeAllDrawers();
-                     });
+    retryOnCondition(() -> {
+      closeToastNotification(false);
+      closeAllDialogs();
+      closeAllDrawers();
+      getHamburgerNavigationMenu().click();
+    }, () -> LOGGER.warn("Hamburger Menu isn't visible, retry by waiting until application is built"));
     waitForDrawerToOpen();
   }
 
@@ -539,7 +553,7 @@ public class HomePage extends GenericPage {
   }
 
   private ElementFacade checkSpaceFromDrawer(String spaceName) {
-    return findByXPathOrCSS(String.format("//aside[contains(@class,'spaceDrawer ')]//descendant::div[contains(text(),'%s')]//following::i[contains(@class,'mdi-checkbox-marked')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'spaceDrawer')]//descendant::div[contains(text(),'%s')]//ancestor::*[@role = 'listitem']//*[contains(@class,'check')]",
                                           spaceName));
   }
 
@@ -552,7 +566,7 @@ public class HomePage extends GenericPage {
   }
 
   private ElementFacade getAcceptIconConnectionFromDrawer(String spaceName) {
-    return findByXPathOrCSS(String.format("//aside[contains(@class,'connectionsDrawer ')]//descendant::div[contains(text(),'%s')]//following::i[contains(@class,'mdi-checkbox-marked')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class,'connectionsDrawer')]//descendant::div[contains(text(),'%s')]//ancestor::*[@role = 'listitem']//*[contains(@class,'check')]",
                                           spaceName));
   }
 

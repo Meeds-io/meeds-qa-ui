@@ -45,9 +45,7 @@ Feature: Rules
     When I login as 'admin' random user
     And I go to the random space
     And I click on 'Members' space menu tab
-    And I search for 'firstrule' random user
-    And I click on three dots menu
-    And I set as a space manager
+    And I promote 'firstrule' random user as a space manager
 
     When I go to 'Contributions' application
     And I go to engagement application 'programs'

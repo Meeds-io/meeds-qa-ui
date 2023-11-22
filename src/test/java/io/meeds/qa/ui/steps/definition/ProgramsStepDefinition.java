@@ -215,7 +215,7 @@ public class ProgramsStepDefinition {
 
   @And("^I enter the random program title '(.*)'$")
   public void enterRandomProgramTitle(String suffix) {
-    String programTitle = StringUtils.truncate(getRandomString(suffix) + suffix, 49);
+    String programTitle = StringUtils.truncate(getRandomString(suffix, 20), 49);
     Serenity.setSessionVariable("programName" + suffix).to(programTitle);
     programsSteps.enterProgramTitle(programTitle);
   }

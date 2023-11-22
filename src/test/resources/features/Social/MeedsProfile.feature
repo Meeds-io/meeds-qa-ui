@@ -81,14 +81,6 @@ Feature: Search for User Informations in Profile page
     Then Sent kudos by user 'seventhkudos' is displayed
     And Sent kudos by user 'sixthkudos' is displayed
 
-  Scenario: : PROFILE-6 : Received and sent kudos section
-    Given I am authenticated as 'admin' random user
-
-    When I go to My Profile page
-
-    Then Received Kudos Section is displayed
-    Then Sent Kudos Section is displayed
-
   Scenario: : PROFILE-7 : Work Experiences block and its drawer
     Given I am authenticated as 'admin' if random users doesn't exists
       | thirdprofile  |

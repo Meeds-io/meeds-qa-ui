@@ -150,6 +150,14 @@ public class UserProfileSteps {
     userProfilePage.profilePageIsDisplayed();
   }
 
+  public void checkNoReceivedKudos() {
+    userProfilePage.checkNoReceivedKudos();
+  }
+
+  public void checkNoSentKudos() {
+    userProfilePage.checkNoSentKudos();
+  }
+
   public void receivedKudosSectionIsDisplayed(String kudosNumber) {
     userProfilePage.receivedKudosSectionIsDisplayed(kudosNumber);
   }

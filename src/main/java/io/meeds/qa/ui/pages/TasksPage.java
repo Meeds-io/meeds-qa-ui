@@ -59,7 +59,7 @@ public class TasksPage extends GenericPage {
     });
   }
 
-  public void addNewCommentInTask() {
+  public void clickToAddNewCommentInTask() {
     addNewCommentInTaskElement().click();
   }
 
@@ -467,38 +467,17 @@ public class TasksPage extends GenericPage {
   public void clickOnApplyButtonToSaveDescription() {
     getApplyTaskDescriptionBtn().click();
   }
-  
+
   public void attachImageToTaskDescription() {
     waitCKEditorLoading("//*[@id='task-Drawer']");
-    taskDescriptionAttachImageButton().assertVisible();
-    ElementFacade fileInput = taskDescriptionEditorAttachImageInput();
-    fileInput.assertEnabled();
-    attachImageToFileInput(fileInput);
-    waitForLoading();
-    taskDescriptionAttachImageCarousel().assertVisible();
+    attachImageToCKeditor();
   }
-  
-  public void attachSecondImageToTaskDescription() {
-    waitCKEditorLoading("//*[@id='task-Drawer']");
-    taskDescriptionAttachImageButton().assertVisible();
-    ElementFacade fileInput = taskDescriptionEditorAttachImageInput();
-    fileInput.assertEnabled();
-    attachImageGifToFileInput(fileInput);
-    waitForLoading();
-    taskDescriptionAttachImageCarousel().assertVisible();
-  }
-  
+
   public void addNewCommentWithAttachedImages(String comment) {
     waitCKEditorLoading(OPENED_TASK_COMMENTS_DRAWER_SELECTOR);
-    ElementFacade ckEditorFrameTaskElement = ckEditorFrameTaskElement();
-    ckEditorFrameTaskElement.waitUntilVisible();
-    taskCommentAttachImageButton().assertVisible();
-    ElementFacade fileInput = taskCommentEditorAttachImageInput();
-    fileInput.assertEnabled();
-    attachImageToFileInput(fileInput);
-    waitForLoading();
-    taskCommentAttachImageCarousel().assertVisible();
-    getDriver().switchTo().frame(ckEditorFrameTaskElement);
+    attachImageToCKeditor();
+
+    getDriver().switchTo().frame(ckEditorFrameTaskElement());
     try {
       TextBoxElementFacade taskCommentContentTextBoxElement = taskCommentContentTextBoxElement();
       taskCommentContentTextBoxElement.waitUntilVisible();
@@ -510,7 +489,8 @@ public class TasksPage extends GenericPage {
     ElementFacade commentTaskButtonElement = commentTaskButtonElement();
     commentTaskButtonElement.waitUntilVisible();
     commentTaskButtonElement.click();
-    closeDrawerIfDisplayed();
+    commentTaskButtonElement.waitUntilNotVisible();
+    waitForDrawerToLoad();
   }
 
   public void clickOutsideTaskDescription() {
@@ -645,14 +625,8 @@ public class TasksPage extends GenericPage {
     ElementFacade commentTaskButtonElement = commentTaskButtonElement();
     commentTaskButtonElement.waitUntilVisible();
     commentTaskButtonElement.click();
+    commentTaskButtonElement.waitUntilNotVisible();
     closeDrawerIfDisplayed();
-  }
-  
-  public void attachImagesToComment(String comment) {
-    waitCKEditorLoading(OPENED_TASK_COMMENTS_DRAWER_SELECTOR);
-    ElementFacade ckEditorFrameTaskElement = ckEditorFrameTaskElement();
-    ckEditorFrameTaskElement.assertVisible();
-   
   }
 
   public void commentTaskWithUser(String user, String comment) {
@@ -1732,23 +1706,7 @@ public class TasksPage extends GenericPage {
   private ElementFacade getApplyTaskDescriptionBtn() {
     return findByXPathOrCSS("//*[contains(@class, 'taskDescription')]//*[@id = 'saveDescriptionButton']");
   }
-  
-  private ElementFacade taskDescriptionAttachImageButton() {
-    return findByXPathOrCSS("//*[contains(@class, 'taskDescription')]//*[@id = 'taskDescriptionId']//*[contains(@class, 'richEditor')]//a[contains(@class, 'cke_button__attachimage')]");
-  }
-  
-  private ElementFacade taskCommentAttachImageButton() {
-    return findByXPathOrCSS(OPENED_TASK_COMMENTS_DRAWER_SELECTOR + "//*[@id = 'commentDrawerContent']//*[contains(@class, 'richEditor')]//a[contains(@class, 'cke_button__attachimage')]");
-  }
 
-  private ElementFacade taskDescriptionEditorAttachImageInput() {
-    return findByXPathOrCSS("//*[@id = 'task-Drawer' and contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')]/parent::*//input[@type='file']");
-  }
-  
-  private ElementFacade taskCommentEditorAttachImageInput() {
-    return findByXPathOrCSS(OPENED_TASK_COMMENTS_DRAWER_SELECTOR + "//*[contains(@class, 'richEditor')]/parent::*//input[@type='file']");
-  }
-  
   private ElementFacade getTaskDrawerProject() {
     return findByXPathOrCSS("//*[@id = 'task-Drawer' and contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'drawerTitleAndProject')]//span");
   }
