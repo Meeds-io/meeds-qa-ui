@@ -395,6 +395,9 @@ public class SpaceHomePage extends GenericPage {
     getCommentTitleActivityStream(comment).click();
   }
 
+  public void clickOnShareActivity(String activity) {
+    getActivityFooterButton(activity, "ShareActivity").click();
+  }
   public void clickOnCommentActivityButton(String activity) {
     getActivityCommentButton(activity).click();
   }
@@ -466,6 +469,22 @@ public class SpaceHomePage extends GenericPage {
     ElementFacade threeDots = getDropDownReplyMenu(activity, comment, reply);
     threeDots.waitUntilVisible();
     threeDots.click();
+  }
+
+  public void selectSpaceInShareActivityDrawer(String space) {
+    shareActivityDrawerElement().assertVisible();
+    findByXPathOrCSS("#activityShareDrawer .activitySpaceSuggester").click();
+    TextBoxElementFacade spaceSuggesterInput = findTextBoxByXPathOrCSS("(//div[@id='selectDestinationSpaceToShare']//input)[1]");
+    mentionInField(spaceSuggesterInput, space, 5);
+  }
+
+  public void clickOnShareActivityButton() {
+    shareActivityDrawerElement().assertVisible();
+    findByXPathOrCSS("#shareActivityButton").click();
+  }
+
+  private ElementFacade shareActivityDrawerElement() {
+    return findByXPathOrCSS("#activityShareDrawer");
   }
 
   public void clickOnReplyKudos(String reply) {
@@ -1229,6 +1248,8 @@ public class SpaceHomePage extends GenericPage {
     }
     return tabElement(tabName);
   }
+
+
 
   private ElementFacade ckEditorAttachImageInput() {
     return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')]/parent::*//input[@type='file']");

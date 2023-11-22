@@ -30,6 +30,8 @@ import io.meeds.qa.ui.steps.SpaceHomeSteps;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+
 public class SpaceHomeStepDefinition {
 
   private SpaceHomePage  spaceHomePage;
@@ -1032,6 +1034,22 @@ public class SpaceHomeStepDefinition {
   @Then("^The attached images should not be displayed in the published activity '(.*)'$")
   public void checkActivityAttachedImagesIsNotDisplayed(String activity) {
     spaceHomeSteps.checkActivityAttachedImagesIsNotDisplayed(activity);
+  }
+
+  @When("^I select the space '(.*)' in the share activity drawer$")
+  public void selectSpaceInShareActivityDrawer(String space) {
+    String spaceName = sessionVariableCalled(space + "RandomSpaceName");
+    spaceHomeSteps.selectSpaceInShareActivityDrawer(spaceName);
+  }
+
+  @When("^I click on the share activity button$")
+  public void clickOnShareActivityButton() {
+    spaceHomeSteps.clickOnShareActivityButton();
+  }
+
+  @When("^I click on share the activity '(.*)'$")
+  public void clickOnShareActivity(String activity) {
+    spaceHomeSteps.clickOnShareActivity(activity);
   }
 
 }
