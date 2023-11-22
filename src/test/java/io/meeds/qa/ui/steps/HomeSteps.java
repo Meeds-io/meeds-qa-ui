@@ -21,30 +21,38 @@ import java.util.List;
 
 import io.meeds.qa.ui.pages.HomePage;
 
+import net.serenitybdd.core.Serenity;
+
 public class HomeSteps {
 
   private HomePage homePage;
 
-  public void acceptConnectionInvitation(List<String> listOfPeople) {
-    for (String peopleName : listOfPeople)
-      homePage.acceptConnectionInvitation(peopleName);
+  public void acceptConnectionInvitations(List<String> names, boolean isPrefix) {
+    for (String name : names) {
+      if (isPrefix) {
+        name = Serenity.sessionVariableCalled(name + "UserFirstName");
+      }
+      homePage.acceptConnectionInvitation(name);
+    }
+  }
+
+  public void rejectConnectionInvitations(List<String> names, boolean isPrefix) {
+    for (String name : names) {
+      if (isPrefix) {
+        name = Serenity.sessionVariableCalled(name + "UserFirstName");
+      }
+      homePage.rejectConnexionInvitation(name);
+    }
   }
 
   public void acceptRandomSpaceInvitation(String spaceName) {
     homePage.acceptSpaceInvitation(spaceName);
   }
 
-  public void acceptSingleConnectionInvitation(String userName) {
-    homePage.goToStreamPage();
-    homePage.openConnectionRequestDrawer();
-    homePage.acceptConnectionInvitation(userName);
-  }
-
   public void acceptSpaceInvitation(List<String> listOfSpaces) {
     for (String spaceName : listOfSpaces) {
       homePage.acceptSpaceInvitation(spaceName);
     }
-
   }
 
   public void accessToRecentSpaces() {
@@ -252,11 +260,6 @@ public class HomeSteps {
     homePage.openNotifications();
   }
 
-  public void rejectConnexionInvitation(List<String> listOfPeople) {
-    for (String peopleName : listOfPeople)
-      homePage.rejectConnexionInvitation(peopleName);
-  }
-
   public void rejectRandomSpaceInvitation(String spaceName) {
     homePage.rejectSpaceInvitation(spaceName);
   }
@@ -362,5 +365,5 @@ public class HomeSteps {
   public void waitPortalDisplayed(int retries) {
     homePage.waitPortalDisplayed(retries);
   }
-  
+
 }

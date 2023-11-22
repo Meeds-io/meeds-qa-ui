@@ -27,6 +27,11 @@ import io.meeds.qa.ui.elements.TextBoxElementFacade;
 
 public class RulePage extends GenericPage {
 
+  private static final String OPENED_RULE_PUBLICATION_DRAWER_SELECTOR = "//*[@id='engagementCenterRulePublication']";
+
+  private static final String OPENED_RULE_DRAWER_SELECTOR             =
+                                                          "//*[@id = 'ruleDetailDrawer' and contains(@class, 'v-navigation-drawer--open')]";
+
   public RulePage(WebDriver driver) {
     super(driver);
   }
@@ -163,6 +168,29 @@ public class RulePage extends GenericPage {
     clearSearchBtnElement().click();
   }
 
+  public void attachImageToAnnouncement() {
+    waitCKEditorLoading(OPENED_RULE_DRAWER_SELECTOR);
+    this.attachImageToCKeditor();
+  }
+
+  public void attachImageToProgramAction() {
+    waitCKEditorLoading(OPENED_RULE_PUBLICATION_DRAWER_SELECTOR);
+    attachImageToCKeditor();
+  }
+
+  public void isActionDisplayedInProgramDetail(String actionTitle) {
+    actionInProgramDetailElement(actionTitle).assertVisible();
+  }
+
+  public void isActionNotDisplayedInProgramDetail(String actionTitle) {
+    actionInProgramDetailElement(actionTitle).assertNotVisible();
+  }
+
+  public void openActionDrawer(String actionTitle) {
+    actionInProgramDetailElement(actionTitle).click();
+    waitForDrawerToOpen();
+  }
+
   private void selectActionDateChoice(String value) {
     ElementFacade selectActionDateElement = selectActionDateElement(value);
     selectActionDateElement.waitUntilVisible();
@@ -178,19 +206,6 @@ public class RulePage extends GenericPage {
 
   private ElementFacade ruleEnableSwitchButton() {
     return findByXPathOrCSS("//*[contains(text(), 'Enabled')]/parent::*//*[contains(@class, 'v-input--switch') and contains(@class, 'v-input--selection-controls')]");
-  }
-
-  public void isActionDisplayedInProgramDetail(String actionTitle) {
-    actionInProgramDetailElement(actionTitle).assertVisible();
-  }
-
-  public void isActionNotDisplayedInProgramDetail(String actionTitle) {
-    actionInProgramDetailElement(actionTitle).assertNotVisible();
-  }
-
-  public void openActionDrawer(String actionTitle) {
-    actionInProgramDetailElement(actionTitle).click();
-    waitForDrawerToOpen();
   }
 
   private ElementFacade durationDeselectedChip() {
@@ -240,7 +255,7 @@ public class RulePage extends GenericPage {
   }
 
   private TextBoxElementFacade actionPointsTextbox() {
-    return findTextBoxByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(),'Points')]/parent::*//input[@type = 'number']");
+    return findTextBoxByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(),'points') or contains(text(),'Points')]/parent::*//input[@type = 'number']");
   }
 
   private ElementFacade ckEditorFrameRuleElement() {

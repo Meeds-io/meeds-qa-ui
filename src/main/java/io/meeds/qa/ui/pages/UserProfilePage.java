@@ -20,6 +20,7 @@ package io.meeds.qa.ui.pages;
 import static io.meeds.qa.ui.utils.Utils.refreshPage;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
@@ -86,9 +87,9 @@ public class UserProfilePage extends GenericPage {
   public boolean checkFieldVisible(String fieldName) {
     switch (fieldName) {
     case "Weekly points":
-      return getUserStatElement("Points").isVisible();
+      return getUserStatElement("points").isVisible();
     case "Weekly rank":
-      return getUserStatElement("Rank").isVisible();
+      return getUserStatElement("rank").isVisible();
     case "Achievements":
       return achievementsDrawerElement().isVisible();
     case "badge details":
@@ -174,7 +175,11 @@ public class UserProfilePage extends GenericPage {
   }
 
   public int getMyWeeklyPoint() {
-    return Integer.valueOf(myWeeklyPointElement().getText());
+    if (myWeeklyPointElement().isVisible()) {
+      return Integer.valueOf(myWeeklyPointElement().getText());
+    } else {
+      return 0;
+    }
   }
 
   public void goToReceivedKudos() {
@@ -218,6 +223,24 @@ public class UserProfilePage extends GenericPage {
 
   public void receivedKudosSectionIsDisplayed(String kudosNumber) {
     getReceivedKudosNumber(kudosNumber).assertVisible();
+  }
+  
+  public void checkNoSentKudos() {
+    ElementFacade sentKudosNumber = getSentKudosNumber();
+    if (sentKudosNumber.isCurrentlyVisible()) {
+      String text = sentKudosNumber.getText();
+      int count = Integer.parseInt(text.trim());
+      assertThat(count).isZero().as("Sent Kudos seems to be greated than 0: " + count);
+    }
+  }
+
+  public void checkNoReceivedKudos() {
+    ElementFacade receivedKudosNumber = getReceivedKudosNumber();
+    if (receivedKudosNumber.isCurrentlyVisible()) {
+      String text = receivedKudosNumber.getText();
+      int count = Integer.parseInt(text.trim());
+      assertThat(count).isZero().as("Received Kudos seems to be greated than 0: " + count);
+    }
   }
 
   public void receivedKudosUsersSectionIsDisplayed(String user) {
@@ -434,7 +457,7 @@ public class UserProfilePage extends GenericPage {
   }
 
   private ElementFacade achievementsWeeklyPointInDrawerElement() {
-    return findByXPathOrCSS("//aside[contains(@class,'achievementsDrawer')]//div[contains(text(),'Points')]");
+    return findByXPathOrCSS("//aside[contains(@class,'achievementsDrawer')]//div[contains(text(),'points') or contains(text(),'Points')]");
   }
 
   private ElementFacade addWorkExperiencesElement() {
@@ -571,6 +594,10 @@ public class UserProfilePage extends GenericPage {
                                           organization));
   }
 
+  private ElementFacade getReceivedKudosNumber() {
+    return findByXPathOrCSS("//*[@id='kudosOverviewCardsParent']//*[contains(@class,'kudosReceivedOverviewPeriod')]//*[contains(@class,'kudosOverviewCount')]");
+  }
+
   private ElementFacade getReceivedKudosNumber(String kudosNumber) {
     return findByXPathOrCSS(String.format("//*[@id='kudosOverviewCardsParent']//*[contains(@class,'kudosReceivedOverviewPeriod')]//*[contains(@class,'kudosOverviewCount') and contains(text(),'%s')]",
                                           kudosNumber));
@@ -579,6 +606,10 @@ public class UserProfilePage extends GenericPage {
   private ElementFacade getReceivedKudosUsers(String user) {
     return findByXPathOrCSS(String.format("//*[contains(@class,'kudosOverviewDrawer')]//*[contains(@class,'drawerTitle') and contains(text(),'Kudos Received')]/following::*[contains(@id,'avatar') and contains(text(),'%s')]",
                                           user));
+  }
+
+  private ElementFacade getSentKudosNumber() {
+    return findByXPathOrCSS("//*[@id='kudosOverviewCardsParent']//*[contains(@class,'kudosSentOverviewPeriod')]//*[contains(@class,'kudosOverviewCount')]");
   }
 
   private ElementFacade getSentKudosNumber(String kudosNumber) {
@@ -605,7 +636,7 @@ public class UserProfilePage extends GenericPage {
   }
 
   private ElementFacade myWeeklyPointElement() {
-    return findByXPathOrCSS("//div[@id='profile-stats-portlet']//span[contains(text(),'Points')]//preceding::span[1]");
+    return findByXPathOrCSS("//div[@id='profile-stats-portlet']//span[contains(text(),'points') or contains(text(),'Points')]//preceding::span[1]");
   }
 
   private ElementFacade openWorkExperience(String jobTitle) {
