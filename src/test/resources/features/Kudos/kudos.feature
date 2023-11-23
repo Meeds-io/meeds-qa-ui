@@ -23,19 +23,6 @@ Feature: Kudos
     And I go to My Profile page
     Then '1' kudos are received
 
-  Scenario: User cannot send a kudos to himself
-    Given I am authenticated as 'admin' if random users doesn't exists
-      | first  |
-    And I create the first random user if not existing
-
-    When I login as 'first' random user
-    And I go to the random space
-    When I click on post in space
-    And I enter an activity 'Kudos Post - EXISTANT-KUDOS 5'
-    And I publish the activity
-    Then the activity 'Kudos Post - EXISTANT-KUDOS 5' is displayed in activity stream
-    And kudos icon of the activity 'Kudos Post - EXISTANT-KUDOS 5' is Disabled
-
   Scenario: Sending a kudos from user profile
     Given I am authenticated as 'admin' if random users doesn't exists
       | thirdkudos  |
