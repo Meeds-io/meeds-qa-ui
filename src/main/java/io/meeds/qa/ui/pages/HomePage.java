@@ -52,29 +52,8 @@ public class HomePage extends GenericPage {
   }
 
   public void accessToAdministrationMenu() {
-    retryOnCondition(() -> {
-      clickOnHamburgerMenu();
-      administrationMenuElement().waitUntilVisible();
-      ElementFacade administrationIconElement = administrationIconElement();
-      if (administrationIconElement.isVisible()) {
-        waitFor(300).milliseconds(); // Wait for animations to finish
-        Actions action = new Actions(getDriver());
-        action.moveToElement(administrationIconElement).build().perform();
-        ElementFacade arrowAdminstrationMenuElement = arrowAdminstrationMenuElement();
-        if (arrowAdminstrationMenuElement.isVisible()) {
-          arrowAdminstrationMenuElement.click();
-        } else {
-          throw new ElementShouldBeVisibleException(String.format("Administration menu arrow should be visible %s",
-                                                                  arrowAdminstrationMenuElement),
-                                                    null);
-        }
-      } else {
-        throw new ElementShouldBeVisibleException(String.format("Administration menu cog icon should be visible %s",
-                                                                administrationIconElement),
-                                                  null);
-      }
-      findByXPathOrCSS("#AdministrationHamburgerNavigation .subItemTitle").checkVisible();
-    }, Utils::refreshPage);
+    administrationMenuElement().waitUntilVisible();
+    getDriver().navigate().to(administrationMenuElement().getAttribute("href"));
   }
 
   public void accessToRecentSpaces() {
@@ -200,23 +179,23 @@ public class HomePage extends GenericPage {
   }
 
   public void goToAddGroups() {
-    goToAdministrationPage("/groupsManagement");
+    goToAdministrationPage("organisation/groups");
   }
   
   public void goToAddUser() {
-    goToAdministrationPage("/usersManagement");
+    goToAdministrationPage("organisation/users");
   }
 
   public void goToMainSettings() {
-    goToAdministrationPage("/generalSettings", true);
+    goToAdministrationPage("general/mainsettings", true);
   }
 
   public void goToAppCenterAdminSetupPage() {
-    goToAdministrationPage("/appCenterAdminSetup");
+    goToAdministrationPage("general/applicationsCenter");
   }
 
   public void goToNotificationAdminPage() {
-    goToAdministrationPage("/notification");
+    goToAdministrationPage("general/notification");
   }
 
   public void goToHomePage() {
@@ -372,6 +351,10 @@ public class HomePage extends GenericPage {
   }
 
   public void clickOnHamburgerMenu() {
+    if (getCurrentUrl().contains("/portal/administration")) {
+      getDriver().navigate().to(getCurrentUrl().split("/portal")[0]);
+      verifyPageLoaded();
+    }
     retryOnCondition(() -> {
       closeToastNotification(false);
       closeAllDialogs();
@@ -478,7 +461,7 @@ public class HomePage extends GenericPage {
     if (forceRefresh || !StringUtils.contains(getDriver().getCurrentUrl(), uri)) {
       accessToAdministrationMenu();
       waitFor(50).milliseconds();
-      findByXPathOrCSS(String.format("//*[@id = 'AdministrationHamburgerNavigation']//a[contains(@href, '%s')]", uri)).click();
+      findByXPathOrCSS(String.format("//*[@id = 'siteNavigationTree']//a[contains(@href, '%s')]", uri)).click();
       waitForPageLoading();
     }
   }
@@ -528,20 +511,12 @@ public class HomePage extends GenericPage {
     return findByXPathOrCSS(String.format("//*[contains(@class, 'HamburgerMenuSecondLevelParent')]//p[contains(text(), '%s')]", spaceName));
   }
 
-  private ElementFacade administrationIconElement() {
-    return findByXPathOrCSS("//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'titleIcon')]");
-  }
-
   private ElementFacade administrationMenuElement() {
-    return findByXPathOrCSS("#AdministrationHamburgerNavigation");
+    return findByXPathOrCSS("//*[@id='platformSettings']/parent::*/a");
   }
 
   private ElementFacade appCenterButtonElement() {
     return findByXPathOrCSS("#appcenterLauncherButton");
-  }
-
-  private ElementFacade arrowAdminstrationMenuElement() {
-    return findByXPathOrCSS("//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'fa fa-arrow')]");
   }
 
   private ElementFacade checkSpaceFromDrawer(String spaceName) {
