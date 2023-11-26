@@ -15,7 +15,6 @@ Feature: Application center Addon
     And Edit application permissions '/platform/analytics' and '/platform/administrators' are displayed in drawer
     And I refresh the page
 
-  @test
   Scenario: CAP79-[Admin_UI_US07][02]Delete an app
     Given I am authenticated as 'admin' random user
     And I go to Administer application center Page
