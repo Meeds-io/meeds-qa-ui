@@ -111,6 +111,10 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void goToApplication(String application) {
+    if (getCurrentUrl().contains("/portal/administration")) {
+      getDriver().navigate().to(getCurrentUrl().split("/portal")[0]);
+      verifyPageLoaded();
+    }
     clickOnTheAppLauncherIcon();
     getApplication(application).click();
     waitForLoading();

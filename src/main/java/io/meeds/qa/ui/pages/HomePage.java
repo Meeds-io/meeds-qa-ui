@@ -52,8 +52,11 @@ public class HomePage extends GenericPage {
   }
 
   public void accessToAdministrationMenu() {
-    administrationMenuElement().waitUntilVisible();
-    getDriver().navigate().to(administrationMenuElement().getAttribute("href"));
+    if (!getCurrentUrl().contains("/portal/administration")) {
+      administrationMenuElement().waitUntilVisible();
+      getDriver().navigate().to(administrationMenuElement().getAttribute("href"));
+      verifyPageLoaded();
+    }
   }
 
   public void accessToRecentSpaces() {
@@ -460,8 +463,7 @@ public class HomePage extends GenericPage {
   private void goToAdministrationPage(String uri, boolean forceRefresh) {
     if (forceRefresh || !StringUtils.contains(getDriver().getCurrentUrl(), uri)) {
       accessToAdministrationMenu();
-      waitFor(50).milliseconds();
-      findByXPathOrCSS(String.format("//*[@id = 'siteNavigationTree']//a[contains(@href, '%s')]", uri)).click();
+      administrationMenuItem(uri).click();
       waitForPageLoading();
     }
   }
@@ -477,6 +479,11 @@ public class HomePage extends GenericPage {
     pageLinkElement(linkSuffix).click();
     waitForPageLoading();
     assertThat(getDriver().getCurrentUrl()).endsWith(linkSuffix);
+  }
+
+  private ElementFacade administrationMenuItem(String uri) {
+    return findByXPathOrCSS(String.format("//*[@id = 'siteNavigationTree']//a[contains(@href, '%s')]",
+                                          uri));
   }
 
   private ElementFacade stickHamburgerMenuElement() {
