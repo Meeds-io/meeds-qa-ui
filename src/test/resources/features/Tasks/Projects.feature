@@ -149,7 +149,7 @@ Feature: Tasks - Projects
   Scenario: Delete a Project
     Given I am authenticated as 'admin' random user
     And I create a random space
-    And I open the app center menu
+    And I go To AppCenter Drawer
     And I open all application page
     When I go to 'Tasks' application
     And I select projects tab
@@ -162,7 +162,7 @@ Feature: Tasks - Projects
   Scenario: Cancel Deletion of Project
     Given I am authenticated as 'admin' random user
     And I create a random space
-    And I open the app center menu
+    And I go To AppCenter Drawer
     And I open all application page
     When I go to 'Tasks' application
     And I select projects tab

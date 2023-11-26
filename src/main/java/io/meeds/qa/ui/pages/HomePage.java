@@ -295,12 +295,6 @@ public class HomePage extends GenericPage {
     waitForPageLoading();
   }
 
-  public void openAppCenterMenu() {
-    waitForPageLoading();
-    clickOnElement(appCenterButtonElement());
-    waitForLoading();
-  }
-
   public void openConnectionRequestDrawer() {
     ElementFacade badgeButton = findByXPathOrCSS("#profile-stats-connectionsCount .v-badge button");
     clickOnElement(badgeButton);
@@ -520,10 +514,6 @@ public class HomePage extends GenericPage {
 
   private ElementFacade administrationMenuElement() {
     return findByXPathOrCSS("//*[@id='platformSettings']/parent::*/a");
-  }
-
-  private ElementFacade appCenterButtonElement() {
-    return findByXPathOrCSS("#appcenterLauncherButton");
   }
 
   private ElementFacade checkSpaceFromDrawer(String spaceName) {

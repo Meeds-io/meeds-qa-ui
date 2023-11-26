@@ -25,7 +25,7 @@ import net.serenitybdd.core.Serenity;
 
 public class HomeSteps {
 
-  private HomePage homePage;
+  private HomePage        homePage;
 
   public void acceptConnectionInvitations(List<String> names, boolean isPrefix) {
     for (String name : names) {
@@ -250,10 +250,6 @@ public class HomeSteps {
 
   public void openAllApplicationPage() {
     homePage.openAllApplicationPage();
-  }
-
-  public void openAppCenterMenu() {
-    homePage.openAppCenterMenu();
   }
 
   public void openNotifications() {
