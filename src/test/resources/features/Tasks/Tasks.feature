@@ -457,7 +457,7 @@ Feature: Tasks
 
   Scenario: CAP37 - [User_UI_US18.1] Check message when project title contains less than 3 characters
     Given I am authenticated as 'admin' random user
-    And I open the app center menu
+    And I go To AppCenter Drawer
     And I open all application page
     When I go to 'Tasks' application
     And I select projects tab

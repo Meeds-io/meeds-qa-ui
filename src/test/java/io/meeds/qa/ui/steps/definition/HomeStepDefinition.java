@@ -351,11 +351,6 @@ public class HomeStepDefinition {
     homeSteps.openAllApplicationPage();
   }
 
-  @When("^I open the app center menu$")
-  public void openAppCenterMenu() {
-    homeSteps.openAppCenterMenu();
-  }
-
   @When("^I open Notifications$")
   public void openNotifications() {
     homeSteps.openNotifications();

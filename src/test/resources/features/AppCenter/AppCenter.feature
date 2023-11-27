@@ -21,7 +21,7 @@ Feature: Application center Addon
     When I add a new random application
     And I search for the random created application
     And I delete the created application
-    And I open the app center menu
+    And I go To AppCenter Drawer
     And I open all application page
     And I search for the random created application
     Then The random application is not displayed in application list
@@ -119,7 +119,7 @@ Feature: Application center Addon
     And I go to Administer application center Page
     When I add a new random application
     And I login as 'first' random user
-    And I open the app center menu
+    And I go To AppCenter Drawer
     And I open all application page
     And I search for the random created application
     Then The random application is displayed in application list
@@ -127,7 +127,7 @@ Feature: Application center Addon
     And I go to Administer application center Page
     And I click on the added application active button
     And I login as 'first' random user
-    And I open the app center menu
+    And I go To AppCenter Drawer
     And I open all application page
     And I search for the random created application
     Then The random application is not displayed in application list
