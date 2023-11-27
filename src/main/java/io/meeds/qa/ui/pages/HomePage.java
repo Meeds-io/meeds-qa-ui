@@ -52,29 +52,11 @@ public class HomePage extends GenericPage {
   }
 
   public void accessToAdministrationMenu() {
-    retryOnCondition(() -> {
-      clickOnHamburgerMenu();
+    if (!getCurrentUrl().contains("/portal/administration")) {
       administrationMenuElement().waitUntilVisible();
-      ElementFacade administrationIconElement = administrationIconElement();
-      if (administrationIconElement.isVisible()) {
-        waitFor(300).milliseconds(); // Wait for animations to finish
-        Actions action = new Actions(getDriver());
-        action.moveToElement(administrationIconElement).build().perform();
-        ElementFacade arrowAdminstrationMenuElement = arrowAdminstrationMenuElement();
-        if (arrowAdminstrationMenuElement.isVisible()) {
-          arrowAdminstrationMenuElement.click();
-        } else {
-          throw new ElementShouldBeVisibleException(String.format("Administration menu arrow should be visible %s",
-                                                                  arrowAdminstrationMenuElement),
-                                                    null);
-        }
-      } else {
-        throw new ElementShouldBeVisibleException(String.format("Administration menu cog icon should be visible %s",
-                                                                administrationIconElement),
-                                                  null);
-      }
-      findByXPathOrCSS("#AdministrationHamburgerNavigation .subItemTitle").checkVisible();
-    }, Utils::refreshPage);
+      getDriver().navigate().to(administrationMenuElement().getAttribute("href"));
+      verifyPageLoaded();
+    }
   }
 
   public void accessToRecentSpaces() {
@@ -200,23 +182,23 @@ public class HomePage extends GenericPage {
   }
 
   public void goToAddGroups() {
-    goToAdministrationPage("/groupsManagement");
+    goToAdministrationPage("organisation/groups");
   }
   
   public void goToAddUser() {
-    goToAdministrationPage("/usersManagement");
+    goToAdministrationPage("organisation/users");
   }
 
   public void goToMainSettings() {
-    goToAdministrationPage("/generalSettings", true);
+    goToAdministrationPage("general/mainsettings", true);
   }
 
   public void goToAppCenterAdminSetupPage() {
-    goToAdministrationPage("/appCenterAdminSetup");
+    goToAdministrationPage("general/applicationsCenter");
   }
 
   public void goToNotificationAdminPage() {
-    goToAdministrationPage("/notification");
+    goToAdministrationPage("general/notification");
   }
 
   public void goToHomePage() {
@@ -313,12 +295,6 @@ public class HomePage extends GenericPage {
     waitForPageLoading();
   }
 
-  public void openAppCenterMenu() {
-    waitForPageLoading();
-    clickOnElement(appCenterButtonElement());
-    waitForLoading();
-  }
-
   public void openConnectionRequestDrawer() {
     ElementFacade badgeButton = findByXPathOrCSS("#profile-stats-connectionsCount .v-badge button");
     clickOnElement(badgeButton);
@@ -372,6 +348,10 @@ public class HomePage extends GenericPage {
   }
 
   public void clickOnHamburgerMenu() {
+    if (getCurrentUrl().contains("/portal/administration")) {
+      getDriver().navigate().to(getCurrentUrl().split("/portal")[0]);
+      verifyPageLoaded();
+    }
     retryOnCondition(() -> {
       closeToastNotification(false);
       closeAllDialogs();
@@ -477,8 +457,7 @@ public class HomePage extends GenericPage {
   private void goToAdministrationPage(String uri, boolean forceRefresh) {
     if (forceRefresh || !StringUtils.contains(getDriver().getCurrentUrl(), uri)) {
       accessToAdministrationMenu();
-      waitFor(50).milliseconds();
-      findByXPathOrCSS(String.format("//*[@id = 'AdministrationHamburgerNavigation']//a[contains(@href, '%s')]", uri)).click();
+      administrationMenuItem(uri).click();
       waitForPageLoading();
     }
   }
@@ -494,6 +473,11 @@ public class HomePage extends GenericPage {
     pageLinkElement(linkSuffix).click();
     waitForPageLoading();
     assertThat(getDriver().getCurrentUrl()).endsWith(linkSuffix);
+  }
+
+  private ElementFacade administrationMenuItem(String uri) {
+    return findByXPathOrCSS(String.format("//*[@id = 'siteNavigationTree']//a[contains(@href, '%s')]",
+                                          uri));
   }
 
   private ElementFacade stickHamburgerMenuElement() {
@@ -528,20 +512,8 @@ public class HomePage extends GenericPage {
     return findByXPathOrCSS(String.format("//*[contains(@class, 'HamburgerMenuSecondLevelParent')]//p[contains(text(), '%s')]", spaceName));
   }
 
-  private ElementFacade administrationIconElement() {
-    return findByXPathOrCSS("//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'titleIcon')]");
-  }
-
   private ElementFacade administrationMenuElement() {
-    return findByXPathOrCSS("#AdministrationHamburgerNavigation");
-  }
-
-  private ElementFacade appCenterButtonElement() {
-    return findByXPathOrCSS("#appcenterLauncherButton");
-  }
-
-  private ElementFacade arrowAdminstrationMenuElement() {
-    return findByXPathOrCSS("//*[@id='AdministrationHamburgerNavigation']//*[contains(@class,'fa fa-arrow')]");
+    return findByXPathOrCSS("//*[@id='platformSettings']/parent::*/a");
   }
 
   private ElementFacade checkSpaceFromDrawer(String spaceName) {
