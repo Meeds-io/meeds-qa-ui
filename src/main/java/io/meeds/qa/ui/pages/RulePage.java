@@ -255,7 +255,7 @@ public class RulePage extends GenericPage {
   }
 
   private TextBoxElementFacade actionPointsTextbox() {
-    return findTextBoxByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(),'points') or contains(text(),'Points')]/parent::*//input[@type = 'number']");
+    return findTextBoxByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(),'points') or contains(text(),'Points')]/ancestor::*//input[@type = 'number']");
   }
 
   private ElementFacade ckEditorFrameRuleElement() {
