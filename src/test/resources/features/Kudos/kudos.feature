@@ -6,8 +6,8 @@ Feature: Kudos
     Given I am authenticated as 'admin' if random users doesn't exists
       | firstkudos  |
       | secondkudos  |
-    And I create the firstkudos random user if not existing, no wait
-    And I create the secondkudos random user if not existing
+    And I inject the firstkudos random user if not existing, no wait
+    And I inject the secondkudos random user if not existing
     When I login as 'secondkudos' random user
     And I go to the random space
     And I click on post in space
@@ -27,8 +27,8 @@ Feature: Kudos
     Given I am authenticated as 'admin' if random users doesn't exists
       | thirdkudos  |
       | fourthkudos  |
-    And I create the thirdkudos random user if not existing, no wait
-    And I create the fourthkudos random user if not existing
+    And I inject the thirdkudos random user if not existing, no wait
+    And I inject the fourthkudos random user if not existing
 
     When I login as 'fourthkudos' random user
     And I go to the thirdkudos user profile
@@ -42,8 +42,8 @@ Feature: Kudos
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing
 
     When I login as 'first' random user
 
@@ -61,9 +61,9 @@ Feature: Kudos
       | fortyonekudos |
       | fortytwokudos |
       | fortythreekudos |
-    And I create the fortyonekudos random user if not existing, no wait
-    And I create the fortytwokudos random user if not existing, no wait
-    And I create the fortythreekudos random user if not existing
+    And I inject the fortyonekudos random user if not existing, no wait
+    And I inject the fortytwokudos random user if not existing, no wait
+    And I inject the fortythreekudos random user if not existing
 
     When I login as 'fortyonekudos' random user
     And I go to the random space

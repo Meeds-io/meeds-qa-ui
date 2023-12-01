@@ -232,6 +232,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   public void clickDrawerButton(String buttonText) {
     ElementFacade button = getDrawerButton(buttonText);
     button.assertEnabled();
+    button.assertVisible();
     button.click();
     waitForLoading();
   }

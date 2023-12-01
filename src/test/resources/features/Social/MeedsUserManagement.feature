@@ -8,8 +8,8 @@ Feature: Users Management
   Scenario: [USR_MNG-1.1] Users Grid
     Given I am authenticated as 'admin' random user
 
-    When I create the seconddisabled random user if not existing
-    And I create the first random user if not existing
+    When I inject the seconddisabled random user if not existing
+    And I inject the first random user if not existing
     And I go to Add Users page
     And I search for the seconddisabled random user
     When I disable User Status 'seconddisabled'

@@ -43,7 +43,7 @@ Feature: Application center Addon
   Scenario: CAP72 - [Admin_UI_US06][02] Applications table/ Editable fields(Mandatory option)
     Given I am authenticated as 'admin' random user
 
-    When I create the first random user if not existing, no wait
+    When I inject the first random user if not existing, no wait
     And I go to Administer application center Page
     And I add a new random application
     And I login as 'first' random user
@@ -71,7 +71,7 @@ Feature: Application center Addon
   Scenario: CAP71 - [Admin_UI_US06][01] Applications table/ Editable fields (Active option)
     Given I am authenticated as 'admin' random user
 
-    And I create the first random user if not existing, no wait
+    And I inject the first random user if not existing, no wait
     And I go to Administer application center Page
     And I add a new random application
 
@@ -115,7 +115,7 @@ Feature: Application center Addon
 
   Scenario: CAP50 - Admin_Settings_US06 - Active option
     Given I am authenticated as 'admin' random user
-    And I create the first random user if not existing, no wait
+    And I inject the first random user if not existing, no wait
     And I go to Administer application center Page
     When I add a new random application
     And I login as 'first' random user
@@ -179,7 +179,7 @@ Feature: Application center Addon
 
   Scenario: CAP56 - Admin_Settings_US04: Default permissions for an app
     Given I am authenticated as 'admin' random user
-    And I create the first random user if not existing, no wait
+    And I inject the first random user if not existing, no wait
 
     And I go to Administer application center Page
     When I add a new random application with the title, the url and the description
