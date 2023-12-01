@@ -25,7 +25,7 @@ Feature: Actions
     And I add rule random description
     Then The button 'Next' is disabled in drawer
 
-    When I click on 'Declarative' button in drawer
+    When I click on 'Manually' button in drawer
     And I click on 'Next' button in drawer
 
     Then The button 'Duration' is not displayed in drawer
@@ -99,7 +99,7 @@ Feature: Actions
     And I add rule random description
     Then The button 'Next' is disabled in drawer
 
-    When I click on 'Declarative' button in drawer
+    When I click on 'Manually' button in drawer
     And I click on 'Next' button in drawer
     And I set rule end date
     And I click on 'Add' button in drawer
@@ -127,7 +127,7 @@ Feature: Actions
     And I add rule random description
     Then The button 'Next' is disabled in drawer
 
-    When I click on 'Declarative' button in drawer
+    When I click on 'Manually' button in drawer
     And I click on 'Next' button in drawer
     And I set rule end date
     And I click on 'Add' button in drawer
@@ -201,7 +201,7 @@ Feature: Actions
 
     When I enter the rule title 'Action with second activity'
     And I add rule random description
-    When I click on 'Declarative' button in drawer
+    When I click on 'Manually' button in drawer
     And I click on 'Next' button in drawer
     And I set rule end date
     And I click on 'Add' button in drawer
@@ -234,7 +234,7 @@ Feature: Actions
     And I add rule random description
     Then The button 'Next' is disabled in drawer
 
-    When I click on 'Declarative' button in drawer
+    When I click on 'Manually' button in drawer
     And I click on 'Next' button in drawer
     And I set rule end date
     And I click on 'Add' button in drawer
@@ -280,7 +280,7 @@ Feature: Actions
     And I wait for drawer to open
     And I enter the rule title 'Announce activity to delete'
     And I add rule random description
-    And I click on 'Declarative' button in drawer
+    And I click on 'Manually' button in drawer
     And I click on 'Next' button in drawer
     And I set rule end date
     And I click on 'Add' button in drawer
@@ -335,7 +335,7 @@ Feature: Actions
     And I wait for drawer to open
     And I enter the rule title 'Top challenge'
     And I add rule random description
-    And I click on 'Declarative' button in drawer
+    And I click on 'Manually' button in drawer
     And I click on 'Next' button in drawer
     And I set rule end date
     And I click on 'Add' button in drawer

@@ -271,7 +271,7 @@ Feature: Achievements
     And I wait for drawer to open
     And I enter the rule title 'Announce an achievement'
     And I add rule random description
-    And I click on 'Declarative' button in drawer
+    And I click on 'Manually' button in drawer
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
     And I close the notification
