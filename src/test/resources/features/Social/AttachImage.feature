@@ -173,7 +173,7 @@ Feature: Attach images activities
     And I add rule random description
     Then The button 'Next' is disabled in drawer
 
-    When I click on 'Declarative' button in drawer
+    When I click on 'Manually' button in drawer
     And I click on 'Next' button in drawer
     And I set rule end date
     And I click on 'Add' button in drawer

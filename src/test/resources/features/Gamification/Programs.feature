@@ -112,7 +112,7 @@ Feature: Programs
     Then The 'first' translations button is primary
     And The 'second' translations button is primary
 
-    When I click on 'Declarative' button in drawer
+    When I click on 'Manually' button in drawer
     And I click on 'Next' button in drawer
     And I set rule end date
     And I click on 'Add' button in drawer
@@ -160,7 +160,7 @@ Feature: Programs
     And I wait for drawer to open
     When I enter the rule title 'Program With Image Action'
     When I add rule random description
-    When I click on 'Declarative' button in drawer
+    When I click on 'Manually' button in drawer
     And I click on 'Next' button in drawer
     And I set rule end date
     And I click on 'Add' button in drawer
@@ -202,11 +202,11 @@ Feature: Programs
     And I enter a random description for program
 
     When I click on 'Next' button in drawer
-    Then The message 'Only space members' is displayed
+    Then The message 'Select a space' is displayed
     And The message 'Any rewarding administrator' is not displayed
 
     When I enable the switch button 'All'
-    Then The message 'Only space members' is not displayed
+    Then The message 'Select a space' is not displayed
     And The message 'Any rewarding administrator' is displayed
 
     And I save the program details
@@ -218,7 +218,7 @@ Feature: Programs
     And I wait for drawer to open
     When I enter the rule title 'Internal users action'
     When I add rule random description
-    When I click on 'Declarative' button in drawer
+    When I click on 'Manually' button in drawer
     And I click on 'Next' button in drawer
     And I set rule end date
     And I click on 'Add' button in drawer
@@ -292,7 +292,7 @@ Feature: Programs
     Then The button 'Next' is disabled
     When I add rule random description
     Then The button 'Next' is disabled
-    When I click on 'Declarative' button in drawer
+    When I click on 'Manually' button in drawer
     And I click on 'Next' button in drawer
     Then The button 'Add' is enabled
     And I set rule end date
