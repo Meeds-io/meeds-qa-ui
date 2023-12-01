@@ -76,7 +76,7 @@ public class RulesSteps {
     rulePage.attachImageToProgramAction();
   }
 
-  public void createAction(String title, boolean declarative, Map<String, String> details) {
+  public void createAction(String title, boolean manual, Map<String, String> details) {
     rulePage.clickAddActionButton();
 
     String description = details.get("description");
@@ -84,7 +84,7 @@ public class RulesSteps {
       description = "challengeDescription" + getRandomNumber();
     }
     String points = details.get("points");
-    rulePage.saveAction(title, description, points, declarative, true, true);
+    rulePage.saveAction(title, description, points, manual, true, true);
   }
 
   public void setActionEndDate() {

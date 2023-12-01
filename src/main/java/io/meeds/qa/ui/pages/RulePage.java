@@ -43,7 +43,7 @@ public class RulePage extends GenericPage {
   public void saveAction(String title,
                          String description,
                          String points,
-                         boolean declarative,
+                         boolean manual,
                          boolean changeDates,
                          boolean newRule) {
     if (StringUtils.isNotBlank(title)) {
@@ -57,8 +57,8 @@ public class RulePage extends GenericPage {
     }
 
     if (newRule) {
-      if (declarative) {
-        declarativeChoiceButton().click();
+      if (manual) {
+        manualChoiceButton().click();
       } else {
         automaticChoiceButton().click();
       }
@@ -216,8 +216,8 @@ public class RulePage extends GenericPage {
     return findByXPathOrCSS("//*[contains(text(),'Duration')]//ancestor-or-self::*[contains(@class, 'v-chip--clickable') and contains(@class, 'primary')]");
   }
 
-  private ElementFacade declarativeChoiceButton() {
-    return findByXPathOrCSS("//*[contains(text(),'Declarative')]//ancestor-or-self::button");
+  private ElementFacade manualChoiceButton() {
+    return findByXPathOrCSS("//*[contains(text(),'Manual')]//ancestor-or-self::button");
   }
 
   private ElementFacade automaticChoiceButton() {
