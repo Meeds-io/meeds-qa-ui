@@ -199,8 +199,12 @@ public class HomeSteps {
     homePage.goToStreamPage();
   }
 
-  public void goToOverviewPage() {
-    homePage.goToOverviewPage();
+  public void goToSite(String siteName) {
+    homePage.goToSite(siteName);
+  }
+
+  public void gotToSiteNavigation(String siteName, String uriPart) {
+    homePage.gotToSiteNavigation(siteName, uriPart);
   }
 
   public void hoverOnPageHomeIcon(String pageName) {

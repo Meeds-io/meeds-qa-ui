@@ -6,8 +6,8 @@ Feature: Redactor Role
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing, no wait
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing, no wait
     When I login as 'first' random user
     And I create a random space
     And I login as 'second' random user

@@ -45,7 +45,7 @@ Feature: Meeds Space
 
   Scenario: SPACES-4: Spaces Request
     Given I am authenticated as 'admin' random user
-    And I create the first random user if not existing
+    And I inject the first random user if not existing
     And I create a first random space with the first created user as member
     And I create a second random space with the first created user as member
     And I create a third random space with the first created user as member

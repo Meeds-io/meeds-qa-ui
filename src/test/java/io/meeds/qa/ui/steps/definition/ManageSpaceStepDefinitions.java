@@ -442,6 +442,13 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.injectRandomSpace(RANDOM_SPACE_NAME);
   }
 
+  @Given("I inject the random space if not existing")
+  public void injectRandomSpaceIfNotExisting() {
+    if (StringUtils.isBlank(sessionVariableCalled(RANDOM_SPACE_NAME))) {
+      manageSpaceSteps.injectRandomSpace(RANDOM_SPACE_NAME);
+    }
+  }
+
   @Given("^I inject the (.*) random space$")
   public void injectRandomSpace(String spacePrefix) {
     manageSpaceSteps.injectRandomSpace(spacePrefix);

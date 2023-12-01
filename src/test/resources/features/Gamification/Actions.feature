@@ -4,9 +4,9 @@ Feature: Actions
 
   Scenario: Announce a challenge
     Given I am authenticated as 'admin' random user
-    And I create the first random user if not existing, no wait
+    And I inject the first random user if not existing, no wait
     And I create the random space if not existing
-    And I go to 'Contributions' application
+    And I go to 'programs' in site 'contribute'
     And I click on the button add program
     And I enter a random program title
     And I add program with random description
@@ -44,7 +44,7 @@ Feature: Actions
     When I login as 'first' random user
     And I go to the random space
 
-    And I go to 'Contributions' application
+    And I go to 'programs' in site 'contribute'
     And I open random program card
     And I announce challenge 'Challenge to announce' with message 'announcement10'
 
@@ -52,11 +52,10 @@ Feature: Actions
 
     Then The activity 'Challenge to announce' is displayed
 
-    When I go to 'Contributions' application
-    And I go to engagement application 'achievements'
+    When I go to 'achievements' in site 'mycraft'
     Then Achievement for 'Challenge to announce' is accepted
 
-    When I go to engagement application 'programs'
+    When I go to 'programs' in site 'contribute'
     And I open random program card
 
     When I open program action 'Challenge to announce'
@@ -65,8 +64,7 @@ Feature: Actions
 
     When I login as 'admin' random user
 
-    When I go to 'Contributions' application
-    And I go to engagement application 'programs'
+    When I go to 'programs' in site 'contribute'
     And I open random program card
     And I edit program action 'Challenge to announce'
     And I click on 'Next' button in drawer
@@ -82,7 +80,7 @@ Feature: Actions
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
 
-    And I go to 'Contributions' application
+    And I go to 'programs' in site 'contribute'
     And I click on the button add program
     And I enter a random program title
     And I add program with random description
@@ -110,7 +108,7 @@ Feature: Actions
     Given I am authenticated as 'admin' random user
     And I inject the random space
 
-    And I go to 'Contributions' application
+    And I go to 'programs' in site 'contribute'
     And I click on the button add program
     And I enter a random program title
     And I add program with random description
@@ -143,7 +141,7 @@ Feature: Actions
     When I go to Stream page
     Then The activity 'Announce an action from its activity' is not displayed
 
-    When I go to 'Contributions' application
+    When I go to 'programs' in site 'contribute'
     And I open random program card
     And I edit program action 'Announce an action from its activity'
     And I click on 'Next' button in drawer
@@ -184,7 +182,7 @@ Feature: Actions
     And I confirm
     Then The activity 'Announce an action from its activity' is not displayed
 
-    When I go to 'Contributions' application
+    When I go to 'programs' in site 'contribute'
     And I open random program card
     And I click on 'Announce an action from its activity' text
     And I go to the activity of opened action
@@ -194,7 +192,7 @@ Feature: Actions
 
     Then The activity 'Announce an action from its activity' is displayed
 
-    When I go to 'Contributions' application
+    When I go to 'programs' in site 'contribute'
     And I open random program card
     And I click on 'Add Action' button
     And I wait for drawer to open
@@ -217,7 +215,7 @@ Feature: Actions
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
 
-    And I go to 'Contributions' application
+    And I go to 'programs' in site 'contribute'
     And I click on the button add program
     And I enter a random program title
     And I add program with random description
@@ -266,9 +264,9 @@ Feature: Actions
 
   Scenario: Cancel an announcement
     Given I am authenticated as 'admin' random user
-    And I create the first random user if not existing, no wait
+    And I inject the first random user if not existing, no wait
     And I inject the random space
-    And I go to 'Contributions' application
+    And I go to 'programs' in site 'contribute'
     And I click on the button add program
     And I enter a random program title
     And I add program with random description
@@ -296,7 +294,7 @@ Feature: Actions
     When I login as 'first' random user
     And I go to the random space
 
-    And I go to 'Contributions' application
+    And I go to 'programs' in site 'contribute'
     And I open random program card
     And I announce challenge 'Announce activity to delete' with message 'announcement8'
 
@@ -315,15 +313,14 @@ Feature: Actions
     And I click on 'Cancel' button related to comment 'announcement11'
     And I click on Yes button
 
-    And I go to 'Contributions' application
-    When I go to engagement application 'achievements'
+    And I go to 'achievements' in site 'mycraft'
     Then Achievement for 'Announce activity to delete' is canceled
 
   Scenario: Overview top challenge
     Given I am authenticated as 'admin' random user
-    When I create the first random user if not existing, no wait
+    When I inject the first random user if not existing, no wait
     And I inject the random space
-    And I go to 'Contributions' application
+    And I go to 'programs' in site 'contribute'
     And I click on the button add program
     And I enter a random program title
     And I add program with random description
@@ -354,7 +351,7 @@ Feature: Actions
     When I login as 'first' random user
     And I go to the random space
 
-    And I go to 'Contributions' application
+    And I go to 'programs' in site 'contribute'
     And I open random program card
     And I announce challenge 'Top challenge' with message 'announcement7'
     And I close the notification
@@ -365,15 +362,15 @@ Feature: Actions
     And I announce challenge 'Top challenge' with message 'announcement4'
     And I close the notification
 
-    And I go to Overview page
+    And I go to 'dashboard' in site 'mycraft'
     Then 'Top challenge' is displayed in challenge portlet with '4' participants
 
     When I login as 'admin' random user
 
-    And I go to 'Contributions' application
+    And I go to 'programs' in site 'contribute'
     And I filter programs by value 'ALL'
     And I delete the created program
     And I login as 'first' random user
-    And I go to Overview page
+    And I go to 'dashboard' in site 'mycraft'
 
     Then 'Top challenge' with '4' participants is not displayed in challenge portlet
