@@ -5,7 +5,7 @@ Feature: Filter Drawer
     Given I am authenticated as 'admin' random user
 
     When I create a random space
-    And I go to 'Tasks' application
+    And I go to 'tasks' in site 'mycraft'
     And I select projects tab
     And I search for the created project
     And I open the created project
@@ -37,7 +37,7 @@ Feature: Filter Drawer
     Given I am authenticated as 'admin' random user
 
     When I create a random space
-    And I go to 'Tasks' application
+    And I go to 'tasks' in site 'mycraft'
     And I select projects tab
     And I search for the created project
     And I open the created project
@@ -67,7 +67,7 @@ Feature: Filter Drawer
     Given I am authenticated as 'admin' random user
 
     And I create a random space
-    And I go to 'Tasks' application
+    And I go to 'tasks' in site 'mycraft'
     And I select projects tab
     And I search for the created project
     And I open the created project
@@ -111,7 +111,7 @@ Feature: Filter Drawer
     Given I am authenticated as 'admin' random user
 
     When I create a random space
-    And I go to 'Tasks' application
+    And I go to 'tasks' in site 'mycraft'
     And I select projects tab
     And I search for the created project
     And I open the created project
@@ -139,7 +139,7 @@ Feature: Filter Drawer
   Scenario: Filter project
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
-    And I create the first random user if not existing, no wait
+    And I inject the first random user if not existing, no wait
 
     When I login as 'first' random user
     And I create a random space

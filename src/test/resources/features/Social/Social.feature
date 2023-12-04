@@ -7,8 +7,8 @@ Feature: Social
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing, no wait
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing, no wait
     And I login as 'first' random user
     And I go to the random space
     And I click on post in space
@@ -27,8 +27,8 @@ Feature: Social
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing
     And I login as 'first' random user
     And I connect to second user
     And I login as 'second' random user
@@ -48,7 +48,7 @@ Feature: Social
   Scenario: Cancel edit comment
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
-    And I create the first random user if not existing, no wait
+    And I inject the first random user if not existing, no wait
     When I login as 'first' random user
     And I go to the random space
     And I click on post in space
@@ -69,9 +69,9 @@ Feature: Social
       | first  |
       | second  |
       | third  |
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing, no wait
-    And I create the third random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing, no wait
+    And I inject the third random user if not existing
 
     When I login as 'first' random user
     And I go to the random space

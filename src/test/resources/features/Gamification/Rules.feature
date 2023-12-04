@@ -5,8 +5,7 @@ Feature: Rules
   Scenario: Quick filter rules
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
-    And I go to 'Contributions' application
-    And I go to engagement application 'programs'
+    And I go to 'programs' in site 'contribute'
     And I click on the button add program
     And I enter a random program title
     And I add program with random description
@@ -37,7 +36,7 @@ Feature: Rules
   Scenario: Space host can add action in program
     Given I am authenticated as 'admin' random user
     And I inject the random space
-    And I create the firstrule random user if not existing, no wait
+    And I inject the firstrule random user if not existing, no wait
 
     When I login as 'firstrule' random user
     And I go to the random space
@@ -47,8 +46,7 @@ Feature: Rules
     And I click on 'Members' space menu tab
     And I promote 'firstrule' random user as a space manager
 
-    When I go to 'Contributions' application
-    And I go to engagement application 'programs'
+    When I go to 'programs' in site 'contribute'
     And I click on the button add program
     And I enter the program title 'Test Rule Space Host'
     And I add program with random description
@@ -57,8 +55,7 @@ Feature: Rules
     And I save the program details
 
     When I login as 'firstrule' random user
-    And I go to 'Contributions' application
-    And I go to engagement application 'programs'
+    And I go to 'programs' in site 'contribute'
     And I filter programs by value 'ALL'
     And I open 'Test Rule Space Host' program card
 
@@ -80,14 +77,13 @@ Feature: Rules
   Scenario: Space member as program owner can add action
     Given I am authenticated as 'admin' random user
     And I inject the random space
-    And I create the secondrule random user if not existing, no wait
+    And I inject the secondrule random user if not existing, no wait
 
     When I login as 'secondrule' random user
     And I go to the random space
 
     When I login as 'admin' random user
-    And I go to 'Contributions' application
-    And I go to engagement application 'programs'
+    And I go to 'programs' in site 'contribute'
     And I click on the button add program
     And I enter the program title 'Test Rule Program Owner'
     And I add program with random description
@@ -97,7 +93,7 @@ Feature: Rules
     And I save the program details
 
     When I login as 'secondrule' random user
-    And I go to 'Contributions' application
+    And I go to 'programs' in site 'contribute'
     And I filter programs by value 'ALL'
     Then I open 'Test Rule Program Owner' program card
 

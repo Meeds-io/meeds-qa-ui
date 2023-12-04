@@ -4,9 +4,9 @@ Feature: Tasks - Projects
   Scenario: Add project with a description
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
-    And I create the first random user if not existing
+    And I inject the first random user if not existing
     And I login as 'first' random user
-    And I go to 'Tasks' application
+    And I go to 'tasks' in site 'mycraft'
     When I select projects tab
     And I add a new project with a description
     Then Success message is displayed
@@ -14,10 +14,10 @@ Feature: Tasks - Projects
   Scenario: Clone a project
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
-    And I create the first random user if not existing
+    And I inject the first random user if not existing
     And I login as 'first' random user
     And I create a random space
-    And I go to 'Tasks' application
+    And I go to 'tasks' in site 'mycraft'
     When I select projects tab
     And I search for the created project
     And I open the created project
@@ -32,9 +32,9 @@ Feature: Tasks - Projects
   Scenario: Add Clear typed characters icon "Filter by project"
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
-    And I create the first random user if not existing
+    And I inject the first random user if not existing
     And I login as 'first' random user
-    And I go to 'Tasks' application
+    And I go to 'tasks' in site 'mycraft'
     When I select projects tab
     And I create the project 'Project2'
     And I search for the project 'Project2'
@@ -46,10 +46,10 @@ Feature: Tasks - Projects
 
   Scenario: check the display of users avatars with managing permissions
     Given I am authenticated as 'admin' random user
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing
 
-    And I go to 'Tasks' application
+    And I go to 'tasks' in site 'mycraft'
 
     When I select projects tab
     And I add the random project with first user as the manager and second user as the participant
@@ -62,7 +62,7 @@ Feature: Tasks - Projects
   Scenario: Project's Tasks "BOARD" view
     Given I am authenticated as 'admin' random user
 
-    And I go to 'Tasks' application
+    And I go to 'tasks' in site 'mycraft'
 
     When I select projects tab
     And I add a new project
@@ -77,7 +77,7 @@ Feature: Tasks - Projects
   Scenario: Check  message when  Project title is empty
     Given I am authenticated as 'admin' random user
 
-    And I go to 'Tasks' application
+    And I go to 'tasks' in site 'mycraft'
 
     When I click to add new project
     And I click on save project button
@@ -85,9 +85,9 @@ Feature: Tasks - Projects
 
   Scenario: Project participant cannot open the edit status mode
     Given I am authenticated as 'admin' random user
-    And I create the first random user if not existing
+    And I inject the first random user if not existing
 
-    And I go to 'Tasks' application
+    And I go to 'tasks' in site 'mycraft'
 
     When I select projects tab
     And I create the random project with the first created user as participant
@@ -102,7 +102,7 @@ Feature: Tasks - Projects
 
     When I return to Projects tab
     And I login as 'first' random user
-    And I go to 'Tasks' application
+    And I go to 'tasks' in site 'mycraft'
 
     When I select projects tab
     And I search for the created project
@@ -117,10 +117,10 @@ Feature: Tasks - Projects
   Scenario: Task card should be well displayed when task title is long
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
-    And I create the first random user if not existing
+    And I inject the first random user if not existing
 
     When I login as 'first' random user
-    And I go to 'Tasks' application
+    And I go to 'tasks' in site 'mycraft'
 
     When I select projects tab
     And I create the project 'teamcap216'
@@ -136,8 +136,8 @@ Feature: Tasks - Projects
   @smoke
   Scenario: check the display "project's creator avatar"
     Given I am authenticated as 'admin' random user
-    And I create the first random user if not existing
-    And I go to 'Tasks' application
+    And I inject the first random user if not existing
+    And I go to 'tasks' in site 'mycraft'
     When I select projects tab
     And I add the random project with first user as the participant
     And I search for the created project
@@ -151,7 +151,7 @@ Feature: Tasks - Projects
     And I create a random space
     And I go To AppCenter Drawer
     And I open all application page
-    When I go to 'Tasks' application
+    When I go to 'tasks' in site 'mycraft'
     And I select projects tab
     And I search for the created project
     And I click on three dots project button
@@ -164,7 +164,7 @@ Feature: Tasks - Projects
     And I create a random space
     And I go To AppCenter Drawer
     And I open all application page
-    When I go to 'Tasks' application
+    When I go to 'tasks' in site 'mycraft'
     And I select projects tab
     And I search for the created project
     And I click on three dots project button

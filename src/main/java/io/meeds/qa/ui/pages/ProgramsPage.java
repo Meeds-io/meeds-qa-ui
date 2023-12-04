@@ -151,7 +151,6 @@ public class ProgramsPage extends GenericPage {
 
   public void selectEngagementApplication(String link) {
     if (APPS_ACCESS_VIA_MENU) {
-      engagementApplicationLink().hover();
       ElementFacade engagementApplicationLink = engagementApplicationLink(link);
       engagementApplicationLink.waitUntilVisible();
       engagementApplicationLink.click();
@@ -363,12 +362,8 @@ public class ProgramsPage extends GenericPage {
     return findByXPathOrCSS("//*[contains(@class,'fas fa-edit')]");
   }
 
-  private ElementFacade engagementApplicationLink() {
-    return findByXPathOrCSS("//*[@id = 'topBarMenu']//a[contains(@href, 'contributions')]");
-  }
-
   private ElementFacade engagementApplicationLink(String link) {
-    return findByXPathOrCSS(String.format("//*[contains(@class, 'v-menu__content')]//a[contains(@href, 'contributions/%s')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'topBarMenu')]//a[contains(@href, '%s')]",
                                           link));
   }
 

@@ -4,7 +4,7 @@ Feature: Poll
   Scenario: Poll_US05_(01) : Post a poll_simple case
     Given I am authenticated as 'admin' if random space and random users doesn't exists
       | first  |
-    And I create the first random user if not existing, no wait
+    And I inject the first random user if not existing, no wait
     And I create the random space if not existing
 
     When I login as 'first' random user
@@ -19,7 +19,7 @@ Feature: Poll
   Scenario: Poll_US05_(02) : Post a poll_all options
     Given I am authenticated as 'admin' if random space and random users doesn't exists
       | first  |
-    And I create the first random user if not existing, no wait
+    And I inject the first random user if not existing, no wait
     And I create the random space if not existing
 
     When I login as 'first' random user
@@ -46,7 +46,7 @@ Feature: Poll
   Scenario: Poll_US04_(01) : Edit a poll_edit informations
     Given I am authenticated as 'admin' if random space and random users doesn't exists
       | first  |
-    And I create the first random user if not existing, no wait
+    And I inject the first random user if not existing, no wait
     And I create the random space if not existing
 
     When I login as 'first' random user
@@ -63,7 +63,7 @@ Feature: Poll
   Scenario: Poll_US05.1_(01) : Post a poll : create poll activity_with message
     Given I am authenticated as 'admin' if random space and random users doesn't exists
       | first  |
-    And I create the first random user if not existing, no wait
+    And I inject the first random user if not existing, no wait
     And I create the random space if not existing
 
     When I login as 'first' random user

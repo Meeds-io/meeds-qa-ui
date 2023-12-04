@@ -6,8 +6,8 @@ Feature: Activity Stream
       | first  |
       | second |
 
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing
 
     And I login as 'first' random user
 
@@ -64,9 +64,9 @@ Feature: Activity Stream
       | second |
       | third |
 
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing, no wait
-    And I create the third random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing, no wait
+    And I inject the third random user if not existing
 
     And I create the random space if not existing
 
@@ -126,9 +126,9 @@ Feature: Activity Stream
       | second  |
       | third  |
 
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing, no wait
-    And I create the third random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing, no wait
+    And I inject the third random user if not existing
 
     And I create the random space if not existing
 
@@ -213,9 +213,9 @@ Feature: Activity Stream
       | second  |
       | third  |
 
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing, no wait
-    And I create the third random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing, no wait
+    And I inject the third random user if not existing
 
     And I create the random space if not existing
 
@@ -291,9 +291,9 @@ Feature: Activity Stream
       | second  |
       | third  |
 
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing, no wait
-    And I create the third random user if not existing, no wait
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing, no wait
+    And I inject the third random user if not existing, no wait
 
     And I create the random space if not existing
 
@@ -366,9 +366,9 @@ Feature: Activity Stream
       | second  |
       | third  |
 
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing, no wait
-    And I create the third random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing, no wait
+    And I inject the third random user if not existing
 
     And I create the random space if not existing
 
@@ -469,9 +469,9 @@ Feature: Activity Stream
       | second  |
       | third  |
 
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing, no wait
-    And I create the third random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing, no wait
+    And I inject the third random user if not existing
 
     And I create the random space if not existing
 
@@ -571,9 +571,9 @@ Feature: Activity Stream
       | second  |
       | third  |
 
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing, no wait
-    And I create the third random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing, no wait
+    And I inject the third random user if not existing
 
     And I create the random space if not existing
 
@@ -680,9 +680,9 @@ Feature: Activity Stream
       | second  |
       | third  |
 
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing, no wait
-    And I create the third random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing, no wait
+    And I inject the third random user if not existing
 
     And I create the random space if not existing
 
@@ -790,8 +790,8 @@ Feature: Activity Stream
       | first  |
       | second  |
 
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing
 
     When I login as 'first' random user
     And I go to the random space
@@ -829,8 +829,8 @@ Feature: Activity Stream
       | first  |
       | second  |
 
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing, no wait
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing, no wait
     And I inject the random space
 
     And I login as 'first' random user
@@ -867,9 +867,9 @@ Feature: Activity Stream
       | second  |
       | third  |
 
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing, no wait
-    And I create the third random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing, no wait
+    And I inject the third random user if not existing
 
     When I login as 'first' random user
 
@@ -914,9 +914,9 @@ Feature: Activity Stream
       | second  |
       | third  |
 
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing, no wait
-    And I create the third random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing, no wait
+    And I inject the third random user if not existing
 
     And I login as 'first' random user
 
@@ -955,8 +955,8 @@ Feature: Activity Stream
       | first  |
       | second  |
 
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing
 
     When I login as 'first' random user
 
@@ -998,8 +998,8 @@ Feature: Activity Stream
       | first  |
       | second  |
 
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing
 
     And I login as 'first' random user
 
@@ -1036,8 +1036,8 @@ Feature: Activity Stream
       | first  |
       | second  |
 
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing
 
     When I login as 'first' random user
 
@@ -1076,8 +1076,8 @@ Feature: Activity Stream
       | first  |
       | second  |
 
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing
 
     When I login as 'first' random user
 
@@ -1120,8 +1120,8 @@ Feature: Activity Stream
       | first  |
       | second  |
 
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing
 
     When I login as 'first' random user
 
@@ -1189,8 +1189,8 @@ Feature: Activity Stream
       | first  |
       | second  |
 
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing
 
     When I login as 'first' random user
 
@@ -1222,8 +1222,8 @@ Feature: Activity Stream
       | first  |
       | second  |
 
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing
 
     When I login as 'first' random user
 
@@ -1252,10 +1252,10 @@ Feature: Activity Stream
   Scenario: CAP97 - [ActivityStream_US38][01] Delete a simple comment from the activity stream
     Given I am authenticated as 'admin' random user
 
-    When I create the firstadm random user if not existing, no wait
-    And I create the second random user if not existing, no wait
-    And I create the third random user if not existing, no wait
-    And I create the fourth random user if not existing
+    When I inject the firstadm random user if not existing, no wait
+    And I inject the second random user if not existing, no wait
+    And I inject the third random user if not existing, no wait
+    And I inject the fourth random user if not existing
     And I go to groups Management page
     And I open the group 'Platform'
     And I select the group 'Administration'
@@ -1298,12 +1298,12 @@ Feature: Activity Stream
       | fifth  |
       | sixth  |
 
-    When I create the first random user if not existing, no wait
-    And I create the second random user if not existing, no wait
-    And I create the third random user if not existing, no wait
-    And I create the fourth random user if not existing, no wait
-    And I create the fifth random user if not existing, no wait
-    And I create the sixth random user if not existing
+    When I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing, no wait
+    And I inject the third random user if not existing, no wait
+    And I inject the fourth random user if not existing, no wait
+    And I inject the fifth random user if not existing, no wait
+    And I inject the sixth random user if not existing
 
     And I login as 'first' random user
     And I create a random space
@@ -1348,8 +1348,8 @@ Feature: Activity Stream
   Scenario: Notifications for comments to my activity
     Given I am authenticated as 'admin' random user
 
-    When I create the first random user if not existing, no wait
-    And I create the second random user if not existing, no wait
+    When I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing, no wait
     And I inject the random space
 
     And I login as 'first' random user
@@ -1381,8 +1381,8 @@ Feature: Activity Stream
       | first  |
       | second  |
 
-    When I create the first random user if not existing, no wait
-    And I create the second random user if not existing
+    When I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing
 
     And I login as 'first' random user
     And I go to the random space
@@ -1421,8 +1421,8 @@ Feature: Activity Stream
       | first  |
       | second  |
 
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing
 
     When I login as 'first' random user
     And I go to the random space
@@ -1450,8 +1450,8 @@ Feature: Activity Stream
       | first  |
       | second  |
 
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing
 
     When I login as 'first' random user
     And I go to the random space
@@ -1481,10 +1481,10 @@ Feature: Activity Stream
       | third  |
       | fourth  |
 
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing, no wait
-    And I create the third random user if not existing, no wait
-    And I create the fourth random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing, no wait
+    And I inject the third random user if not existing, no wait
+    And I inject the fourth random user if not existing
 
     When I login as 'first' random user
     And I go to the random space
@@ -1534,9 +1534,9 @@ Feature: Activity Stream
       | second  |
       | third  |
 
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing, no wait
-    And I create the third random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing, no wait
+    And I inject the third random user if not existing
 
     And I login as 'first' random user
     And I go to the random space
@@ -1570,9 +1570,9 @@ Feature: Activity Stream
       | sixth  |
       | third  |
 
-    And I create the first random user if not existing, no wait
-    And I create the sixth random user if not existing, no wait
-    And I create the third random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the sixth random user if not existing, no wait
+    And I inject the third random user if not existing
 
     And I login as 'first' random user
     And I go to the random space
@@ -1605,7 +1605,7 @@ Feature: Activity Stream
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
 
-    And I create the first random user if not existing, no wait
+    And I inject the first random user if not existing, no wait
 
     When I login as 'first' random user
     And I go to the random space
@@ -1663,7 +1663,7 @@ Feature: Activity Stream
 
   Scenario: [STREAM-12] Activity Likers in drawer
     Given I am authenticated as 'admin' random user
-    And I create the first random user if not existing, no wait
+    And I inject the first random user if not existing, no wait
     And I go to the random space
     And I click on post in space
     And I enter an activity 'stream activité'
@@ -1686,10 +1686,10 @@ Feature: Activity Stream
       | third  |
       | fourth  |
 
-    And I create the first random user if not existing, no wait
-    And I create the sixth random user if not existing, no wait
-    And I create the third random user if not existing, no wait
-    And I create the fourth random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the sixth random user if not existing, no wait
+    And I inject the third random user if not existing, no wait
+    And I inject the fourth random user if not existing
 
     And I login as 'first' random user
     And I go to the random space
@@ -1730,10 +1730,10 @@ Feature: Activity Stream
       | third  |
       | fourth  |
 
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing, no wait
-    And I create the third random user if not existing, no wait
-    And I create the fourth random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing, no wait
+    And I inject the third random user if not existing, no wait
+    And I inject the fourth random user if not existing
 
     When I login as 'first' random user
     And I go to the random space
@@ -1787,9 +1787,9 @@ Feature: Activity Stream
       | second  |
       | fourth  |
 
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing, no wait
-    And I create the fourth random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing, no wait
+    And I inject the fourth random user if not existing
 
     And I login as 'fourth' random user
     And I go to the random space
@@ -1824,10 +1824,10 @@ Feature: Activity Stream
       | third  |
       | fourth  |
 
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing, no wait
-    And I create the third random user if not existing, no wait
-    And I create the fourth random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing, no wait
+    And I inject the third random user if not existing, no wait
+    And I inject the fourth random user if not existing
 
     And I login as 'first' random user
     And I go to the random space
@@ -1869,8 +1869,8 @@ Feature: Activity Stream
       | first  |
       | fifth  |
 
-    And I create the first random user if not existing, no wait
-    And I create the fifth random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the fifth random user if not existing
 
     And I login as 'first' random user
     And I go to the random space
@@ -1912,8 +1912,8 @@ Feature: Activity Stream
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing, no wait
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing, no wait
     When I login as 'first' random user
     And I create a random space
     And I login as 'second' random user
@@ -1945,8 +1945,8 @@ Feature: Activity Stream
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing, no wait
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing, no wait
     When I login as 'first' random user
     And I create a random space
     And I login as 'second' random user
@@ -2031,7 +2031,7 @@ Feature: Activity Stream
   Scenario: Send kudos from composer
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
-    And I create the kudosreceiver random user if not existing
+    And I inject the kudosreceiver random user if not existing
 
     When I login as 'kudosreceiver' random user
     Then I go to the random space
