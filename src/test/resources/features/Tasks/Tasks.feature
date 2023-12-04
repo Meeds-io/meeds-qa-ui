@@ -5,10 +5,10 @@ Feature: Tasks
   Scenario: CAP81 - [User_UI_US22] Mark as completed for "TASKS" in a Project (Manager case)
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
-    And I create the first random user if not existing
+    And I inject the first random user if not existing
     And I login as 'first' random user
     And I create a random space
-    And I go to 'Tasks' application
+    And I go to 'tasks' in site 'mycraft'
     When I select projects tab
     And I search for the created project
     And I open the created project
@@ -23,9 +23,9 @@ Feature: Tasks
   Scenario: CAP176 - [US_Filterfield_01] Add Clear typed characters icon (Filter by task under TASKS tab)
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
-    And I create the first random user if not existing
+    And I inject the first random user if not existing
     And I login as 'first' random user
-    And I go to 'Tasks' application
+    And I go to 'tasks' in site 'mycraft'
     When I select tasks tab
     And I create the following task
       | taskName | task1 |
@@ -40,7 +40,7 @@ Feature: Tasks
   Scenario: CAP94_[Add_Task_Drawer_US04] (3 dots menu-Delete action) "Tasks TAB"
     Given I am authenticated as 'admin' random user
 
-    And I go to 'Tasks' application
+    And I go to 'tasks' in site 'mycraft'
     When I select tasks tab
     And I create the following task
       | taskName | testE |
@@ -54,15 +54,15 @@ Feature: Tasks
 
   Scenario: CAP82 - [User_UI_US22] Mark as completed for "TASKS" in a Project (Participant case)
     Given I am authenticated as 'admin' random user
-    And I create the first random user if not existing
+    And I inject the first random user if not existing
 
-    And I go to 'Tasks' application
+    And I go to 'tasks' in site 'mycraft'
 
     When I select projects tab
     And I create the random project with the first created user as participant
     And I login as 'first' random user
 
-    And I go to 'Tasks' application
+    And I go to 'tasks' in site 'mycraft'
 
     When I select projects tab
     And I search for the created project
@@ -79,10 +79,10 @@ Feature: Tasks
   Scenario: CAP95 - [Add_Task_Drawer_US04] 3 dots menu (Delete action) "Task under project"
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
-    And I create the first random user if not existing
+    And I inject the first random user if not existing
     And I login as 'first' random user
 
-    And I go to 'Tasks' application
+    And I go to 'tasks' in site 'mycraft'
 
     When I select projects tab
     And I create the project 'newtestessai'
@@ -103,8 +103,8 @@ Feature: Tasks
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing
 
     And I login as 'second' random user
     And I create a random space
@@ -113,7 +113,7 @@ Feature: Tasks
     Then I go to the random space
 
     When I login as 'second' random user
-    And I go to 'Tasks' application
+    And I go to 'tasks' in site 'mycraft'
     When I select projects tab
     And I search for the created project
     And I open the created project
@@ -131,7 +131,7 @@ Feature: Tasks
   Scenario: CAP188 - [Lost Projects] check that project isn't lost after renaming space name
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
-    And I create the first random user if not existing
+    And I inject the first random user if not existing
     And I login as 'first' random user
 
     And I create a random space
@@ -139,7 +139,7 @@ Feature: Tasks
     And I create the project 'new project test'
     Then Success message is displayed
 
-    And I go to 'Tasks' application
+    And I go to 'tasks' in site 'mycraft'
     And Project 'new project test' is displayed in Tasks App Center
 
     When I go to the random space
@@ -153,17 +153,17 @@ Feature: Tasks
     Then Success message is displayed
     And Project 'second project test' is displayed in Tasks space
 
-    And I go to 'Tasks' application
+    And I go to 'tasks' in site 'mycraft'
     And Project 'new project test' is displayed in Tasks App Center
     And Project 'second project test' is displayed in Tasks App Center
 
   Scenario: Create Task with a new status
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
-    And I create the first random user if not existing, no wait
+    And I inject the first random user if not existing, no wait
     And I login as 'first' random user
 
-    And I go to 'Tasks' application
+    And I go to 'tasks' in site 'mycraft'
 
     When I select projects tab
     And I create the project 'TestProject'
@@ -193,10 +193,10 @@ Feature: Tasks
   Scenario: CAP269 - [US_Sharedlabels_02] Manage labels in Project
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
-    And I create the first random user if not existing
+    And I inject the first random user if not existing
     And I login as 'first' random user
 
-    And I go to 'Tasks' application
+    And I go to 'tasks' in site 'mycraft'
     And I create the project 'project test labels'
     And I click on three dots project button
     And I click on Edit project button
@@ -227,11 +227,11 @@ Feature: Tasks
   Scenario: Mark task as completed from the task drawer [1]
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
-    And I create the first random user if not existing
+    And I inject the first random user if not existing
     And I login as 'first' random user
     And I create a random space
 
-    And I go to 'Tasks' application
+    And I go to 'tasks' in site 'mycraft'
 
     When I select projects tab
     And I search for the created project
@@ -249,10 +249,10 @@ Feature: Tasks
 
   Scenario: CAP264 - [NF] [US_Sharedlabels_01]All project members can use added labels
     Given I am authenticated as 'admin' random user
-    And I create the first random user if not existing, no wait
-    And I create the second random user if not existing
+    And I inject the first random user if not existing, no wait
+    And I inject the second random user if not existing
 
-    And I go to 'Tasks' application
+    And I go to 'tasks' in site 'mycraft'
 
     When I select projects tab
     And I create the random project with the first created user as participant
@@ -269,7 +269,7 @@ Feature: Tasks
     And I click on save project button
 
     When I login as 'first' random user
-    And I go to 'Tasks' application
+    And I go to 'tasks' in site 'mycraft'
     And I select projects tab
     And I search for the created project
     And I open the created project
@@ -278,7 +278,7 @@ Feature: Tasks
     Then Task name 'newtask' is displayed in project details
 
     When I login as 'second' random user
-    And I go to 'Tasks' application
+    And I go to 'tasks' in site 'mycraft'
     And I select projects tab
     And I search for the created project
     And I open the created project
@@ -314,7 +314,7 @@ Feature: Tasks
     And I inject the second random user if not existing
 
     When I login as 'second' random user
-    And I go to 'Tasks' application
+    And I go to 'tasks' in site 'mycraft'
 
     When I select projects tab
     And I create the project 'Test Compagne' with the 'third' created user as manager
@@ -334,9 +334,9 @@ Feature: Tasks
   Scenario: CAP190 -[IMP] [US_SortGroupeBy_01] Memorize Group and Sort filters (Group by)
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
-    And  I create the first random user if not existing
+    And  I inject the first random user if not existing
     And  I login as 'first' random user
-    And  I go to 'Tasks' application
+    And  I go to 'tasks' in site 'mycraft'
     And I create the project 'project01'
     And I open the project 'project01'
     When I click on plus Button To Add Task
@@ -371,9 +371,9 @@ Feature: Tasks
     
   Scenario: CAP341 [TASK] when refresh task drawer, the description should not be lost
     Given I am authenticated as 'admin' random user
-    And I create the first random user if not existing
+    And I inject the first random user if not existing
 
-    And I go to 'Tasks' application
+    And I go to 'tasks' in site 'mycraft'
     And I select projects tab
     And I create the random project with the first created user as participant
 
@@ -390,7 +390,7 @@ Feature: Tasks
     And Task name 'Test Tasks' is displayed in project details
 
     When I login as 'first' random user
-    And I go to 'Tasks' application
+    And I go to 'tasks' in site 'mycraft'
     And I select projects tab
     And I search for the created project
     And I open the created project
@@ -403,9 +403,9 @@ Feature: Tasks
   Scenario: [IMP] [US_ChangesDrawer_01] Display last Update and Changes drawer
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
-    And  I create the first random user if not existing
+    And  I inject the first random user if not existing
     And  I login as 'first' random user
-    And  I go to 'Tasks' application
+    And  I go to 'tasks' in site 'mycraft'
     And I create the project 'project001'
     And I open the project 'project001'
     When I click on plus Button To Add Task
@@ -427,7 +427,7 @@ Feature: Tasks
   Scenario: Description update should not be lost due to cloning task and assigning it or changing its status
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
-    And I create the first random user if not existing
+    And I inject the first random user if not existing
     And I login as 'first' random user
 
     And I create a random space
@@ -459,7 +459,7 @@ Feature: Tasks
     Given I am authenticated as 'admin' random user
     And I go To AppCenter Drawer
     And I open all application page
-    When I go to 'Tasks' application
+    When I go to 'tasks' in site 'mycraft'
     And I select projects tab
     And I click on add project button
     And I enter the project name 'pr'

@@ -121,7 +121,7 @@ Feature: Connection widgets checking
     When I click on connections badge
     Then the drawer with '3' connections is opened
     And I click on see all
-    And The page '/connexions/receivedInvitations' is opened
+    And The page '/people/receivedInvitations' is opened
 
     When I go to Stream page
     And I click on connections badge

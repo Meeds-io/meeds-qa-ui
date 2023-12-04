@@ -17,7 +17,7 @@ Feature: Spaces widget checking
   @smoke
   Scenario: US 3.3.2_(02) [BACK] Spaces requests to join: See All
     Given I am authenticated as 'admin' random user
-    And I create the eighteenth random user if not existing
+    And I inject the eighteenth random user if not existing
     And I create a random space with the eighteenth random user
     And I create a random space with the eighteenth random user
     And I create a random space with the eighteenth random user
@@ -30,4 +30,4 @@ Feature: Spaces widget checking
     When I click on spaces badge
     Then the drawer with '3' spaces is opened
     When I click on see all
-    And The page '/invitationSpace' is opened
+    And The page '/spaces/receivedInvitations' is opened

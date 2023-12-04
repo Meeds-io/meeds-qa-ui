@@ -6,7 +6,7 @@ Feature: Edit sections in Settings page
   Scenario: [SETTINGS-5] Language and its drawer
     Given I am authenticated as 'admin' if random users doesn't exists
       | firstlang  |
-    And I create the firstlang random user if not existing
+    And I inject the firstlang random user if not existing
     And I login as 'firstlang' random user
 
     And I go to Settings page
@@ -31,7 +31,7 @@ Feature: Edit sections in Settings page
   Scenario: SETTINGS-4 : Add the home icon for Homepage default view
     Given I am authenticated as 'admin' if random users doesn't exists
       | homeicon  |
-    And I create the homeicon random user if not existing, no wait
+    And I inject the homeicon random user if not existing, no wait
     And I login as 'homeicon' random user
 
     When I open hamburger menu drawer

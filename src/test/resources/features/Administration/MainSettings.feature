@@ -66,7 +66,7 @@ Feature: Main settings page features
 
   Scenario: Main settings - Open Access Type
     Given I am authenticated as 'admin' random user
-    And I create the random space if not existing
+    And I inject the random space if not existing
     And I go to main settings page
 
     When I open access customizations settings
@@ -93,7 +93,7 @@ Feature: Main settings page features
 
   Scenario: Main settings - Restricted Access Type
     Given I am authenticated as 'admin' random user
-    And I create the random space if not existing
+    And I inject the random space if not existing
     And I go to main settings page
 
     When I open access customizations settings

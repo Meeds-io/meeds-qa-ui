@@ -67,6 +67,16 @@ public class HomeStepDefinition {
     homeSteps.acceptSpaceInvitation(spaces);
   }
 
+  @When("^I go to '(.*)' site$")
+  public void gotToSite(String siteName) {
+    homeSteps.goToSite(siteName);
+  }
+
+  @When("^I go to '(.*)' in site '(.*)'")
+  public void gotToSiteNavigation(String uriPart, String siteName) {
+    homeSteps.gotToSiteNavigation(siteName, uriPart);
+  }
+
   @When("^I accept the following connection invitation sent by first user and second user$")
   public void acceptRandomConnections() {
     homeSteps.acceptConnectionInvitations(Stream.of("first", "second").toList(), false);
@@ -307,11 +317,6 @@ public class HomeStepDefinition {
   @Given("^I go to Stream page$")
   public void goToStreamPage() {
     homeSteps.goToStreamPage();
-  }
-
-  @Given("^I go to Overview page$")
-  public void goToOverviewPage() {
-    homeSteps.goToOverviewPage();
   }
 
   @And("^I mouse over the '(.*)' icon in sidebar menu$")
