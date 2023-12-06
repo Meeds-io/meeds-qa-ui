@@ -2,7 +2,6 @@
 @rules
 Feature: Rules
 
-  @test
   Scenario: Quick filter rules
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
@@ -35,7 +34,6 @@ Feature: Rules
     When I clear rules search filter
     Then The action 'Receive kudos' is displayed in program detail
 
-  @test
   Scenario: Space host can add action in program
     Given I am authenticated as 'admin' random user
     And I inject the random space
@@ -78,7 +76,6 @@ Feature: Rules
     Then The action 'Join space' is displayed in program detail
     And The button 'Activate the program' is displayed
 
-  @test
   Scenario: Space member as program owner can add action
     Given I am authenticated as 'admin' random user
     And I inject the random space
