@@ -158,7 +158,7 @@ Feature: Actions
     When I click on 'Announce an action from its activity' text
     Then '0' participants is displayed in action drawer
 
-    When I click on 'Announce' button in drawer
+    When I click on 'Contribute' button in drawer
     And I announce action with message 'announcement12'
     And I close the notification
     Then The comment 'announcement12' is displayed
@@ -209,7 +209,7 @@ Feature: Actions
 
     When I go to the random space
     Then The message 'Action with second activity' is displayed
-    And The button 'Announce' is displayed
+    And The button 'Contribute' is displayed
 
   Scenario: Cannot Announce a disabled challenge
     Given I am authenticated as 'admin' random user

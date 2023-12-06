@@ -209,7 +209,7 @@ Feature: Achievements
     When I login as 'sixthachievement' random user
     And I go to 'achievements' in site 'mycraft'
     Then The achievement 'Join space' is displayed '1' times
-    And The button 'Hosted' is not displayed
+    And The button 'Review' is not displayed
 
     When I login as 'fifthachievement' random user
     And I go to 'programs' in site 'contribute'
@@ -226,7 +226,7 @@ Feature: Achievements
     And I go to 'achievements' in site 'mycraft'
     And I filter achievements using 'Test Program Host' random program
     Then The achievement 'Join space' is displayed '1' times
-    And The button 'Hosted' is displayed
+    And The button 'Review' is displayed
 
     Then The achievement 'Join space' is displayed '2' times when enabling program owner view for 'Test Program Host' random program
 
@@ -294,7 +294,7 @@ Feature: Achievements
     When I login as 'admin' random user
     And I go to 'achievements' in site 'mycraft'
 
-    When I click on 'Hosted' button
+    When I click on 'Review' button
     Then I wait for application loading
 
     When I filter achievements using 'Test Program Achievements sort' random program

@@ -561,7 +561,7 @@ public class HomePage extends GenericPage {
   }
 
   private ElementFacade administrationMenuElement() {
-    return findByXPathOrCSS("//*[@id='platformSettings']/parent::*/a");
+    return findByXPathOrCSS("//*[@id='platformSettings']//a");
   }
 
   private ElementFacade checkSpaceFromDrawer(String spaceName) {
