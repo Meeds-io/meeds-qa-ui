@@ -190,7 +190,7 @@ public class AchievementsPage extends GenericPage {
   }
 
   private void enableProgramOwnerView() {
-    getButton("Hosted").click();
+    getButton("Review").click();
     waitFor(200).milliseconds();
     waitForLoading();
   }
@@ -209,7 +209,7 @@ public class AchievementsPage extends GenericPage {
   }
 
   private TextBoxElementFacade achievementsFilterUserSuggester() {
-    return findTextBoxByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(text(), 'Grantee')]/parent::*//*[contains(@class, 'identitySuggesterInputStyle')]//input[@type = 'text']");
+    return findTextBoxByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(text(), 'Contributor')]/parent::*//*[contains(@class, 'identitySuggesterInputStyle')]//input[@type = 'text']");
   }
 
   private ElementFacade acceptedAchievementElement(String actionTitle) {

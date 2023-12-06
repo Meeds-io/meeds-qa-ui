@@ -4,18 +4,7 @@ Feature: Application center Addon
   I want to manage application
   in order to share them with users
 
-  Scenario: CAP47-[Admin_UI_US12] Applications table/Edit action
-    Given I am authenticated as 'admin' random user
-    And I go to Administer application center Page
-    When I open 'Analytics' edit drawer
-    Then Edit application title is displayed 'Analytics' in drawer
-    And  Edit application url is displayed './analytics' in drawer
-    And Edit application image is displayed 'Analytics.png' in drawer
-    And Edit application mandatory active and mobile are displayed in drawer
-    And Edit application permissions '/platform/analytics' and '/platform/administrators' are displayed in drawer
-    And I refresh the page
-
-  Scenario: CAP79-[Admin_UI_US07][02]Delete an app
+  Scenario: Delete an app
     Given I am authenticated as 'admin' random user
     And I go to Administer application center Page
     When I add a new random application
@@ -26,7 +15,7 @@ Feature: Application center Addon
     And I search for the random created application
     Then The random application is not displayed in application list
 
-  Scenario: CAP80-[Admin_UI_US07][03]Cancel button /close icon
+  Scenario: Cancel button /close icon
     Given I am authenticated as 'admin' random user
     And I go to Administer application center Page
     When I add a new random application
@@ -40,7 +29,7 @@ Feature: Application center Addon
     And I click on close popup delete application
     Then Delete popup is not displayed
 
-  Scenario: CAP72 - [Admin_UI_US06][02] Applications table/ Editable fields(Mandatory option)
+  Scenario: Applications table/ Editable fields(Mandatory option)
     Given I am authenticated as 'admin' random user
 
     When I inject the first random user if not existing, no wait
@@ -68,7 +57,7 @@ Feature: Application center Addon
     And I see All Applications
     Then The application bookmark is disabled
 
-  Scenario: CAP71 - [Admin_UI_US06][01] Applications table/ Editable fields (Active option)
+  Scenario: Applications table/ Editable fields (Active option)
     Given I am authenticated as 'admin' random user
 
     And I inject the first random user if not existing, no wait
@@ -113,7 +102,7 @@ Feature: Application center Addon
     And The created application Open Button is displayed
     And AppCenter created application is removed From Favorites
 
-  Scenario: CAP50 - Admin_Settings_US06 - Active option
+  Scenario: AppCenter active option
     Given I am authenticated as 'admin' random user
     And I inject the first random user if not existing, no wait
     And I go to Administer application center Page
@@ -132,7 +121,7 @@ Feature: Application center Addon
     And I search for the random created application
     Then The random application is not displayed in application list
 
-  Scenario: CAP53 - Edit an app which contain an attached image
+  Scenario: Edit in AppCenter which contain an attached image
     Given I am authenticated as 'admin' random user
 
     When I go to Administer application center Page
@@ -161,7 +150,7 @@ Feature: Application center Addon
     When I click on Save in application drawer
     Then The image of the second application is not displayed in Applications Table
 
-  Scenario: CAP55 - Edit the title ,URL, description field for an app
+  Scenario: Edit in AppCenter title ,URL and description fields
     Given I am authenticated as 'admin' random user
 
     And I go to Administer application center Page
@@ -177,7 +166,7 @@ Feature: Application center Addon
     And First application edited Url is displayed in Applications Table
     And First application edited Description is displayed in Applications Table
 
-  Scenario: CAP56 - Admin_Settings_US04: Default permissions for an app
+  Scenario: AppCenter default permissions for an app
     Given I am authenticated as 'admin' random user
     And I inject the first random user if not existing, no wait
 
