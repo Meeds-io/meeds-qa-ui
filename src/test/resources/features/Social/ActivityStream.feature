@@ -1249,7 +1249,7 @@ Feature: Activity Stream
     When I open link 'meeds.io' in new tab
     Then Link 'https://www.meeds.io/' is opened in new tab
 
-  Scenario: CAP97 - [ActivityStream_US38][01] Delete a simple comment from the activity stream
+  Scenario: Delete a simple comment from the activity stream
     Given I am authenticated as 'admin' random user
 
     When I inject the firstadm random user if not existing, no wait

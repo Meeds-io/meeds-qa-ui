@@ -207,7 +207,7 @@ Feature: Attach images activities
     When I click on 'Announce an action with attached image' text
     Then '0' participants is displayed in action drawer
 
-    When I click on 'Announce' button in drawer
+    When I click on 'Contribute' button in drawer
     And I attach an image to the announcement
     And I announce action with message 'announcement with attached image'
     And I close the notification
