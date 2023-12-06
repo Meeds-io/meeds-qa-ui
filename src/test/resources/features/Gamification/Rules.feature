@@ -2,6 +2,7 @@
 @rules
 Feature: Rules
 
+  @test
   Scenario: Quick filter rules
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
@@ -18,7 +19,8 @@ Feature: Rules
     And I enter the rule title 'Receive kudos'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    When I add an event 'Receive kudos'
+    And I click on 'Next' button in drawer
+    And I select a 'meeds' event 'Receive kudos'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -33,6 +35,7 @@ Feature: Rules
     When I clear rules search filter
     Then The action 'Receive kudos' is displayed in program detail
 
+  @test
   Scenario: Space host can add action in program
     Given I am authenticated as 'admin' random user
     And I inject the random space
@@ -64,7 +67,8 @@ Feature: Rules
     And I enter the rule title 'Join space'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    And I add an event 'Join space'
+    And I click on 'Next' button in drawer
+    And I select a 'meeds' event 'Join space'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -74,6 +78,7 @@ Feature: Rules
     Then The action 'Join space' is displayed in program detail
     And The button 'Activate the program' is displayed
 
+  @test
   Scenario: Space member as program owner can add action
     Given I am authenticated as 'admin' random user
     And I inject the random space
@@ -102,7 +107,8 @@ Feature: Rules
     And I enter the rule title 'Join space'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    And I add an event 'Join space'
+    And I click on 'Next' button in drawer
+    And I select a 'meeds' event 'Join space'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
