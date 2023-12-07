@@ -32,8 +32,8 @@ public class RulesSteps {
     rulePage.setActionTitle(ruleTitle);
   }
 
-  public void addRuleEvent(String eventName) {
-    rulePage.setActionEvent(eventName);
+  public void addRuleEvent(String applicationName, String triggerName) {
+    rulePage.setActionEvent(applicationName, triggerName);
   }
 
   public void clickAddActionButton() {
