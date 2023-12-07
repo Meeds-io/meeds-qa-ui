@@ -103,13 +103,19 @@ public class RulePage extends GenericPage {
     actionPointsTextbox().setTextValue(challengePoints);
   }
 
-  public void setActionEvent(String eventName) {
-    ElementFacade eventSelectAutoComplete = eventSelectAutoComplete();
-    eventSelectAutoComplete.click();
-    eventSelectAutoComplete.type(eventName);
-    eventSelectAutoComplete.type(Keys.ARROW_DOWN);
-    eventSelectAutoComplete.type(Keys.ENTER);
-    eventSelectedAutoComplete(eventName).assertVisible();
+  public void setActionEvent(String applicationName, String triggerName) {
+    ElementFacade applicationSelectAutoComplete = applicationSelectAutoComplete();
+    applicationSelectAutoComplete.click();
+    applicationSelectAutoComplete.type(applicationName);
+    applicationSelectAutoComplete.type(Keys.ARROW_DOWN);
+    applicationSelectAutoComplete.type(Keys.ENTER);
+
+    ElementFacade triggerSelectAutoComplete = triggerSelectAutoComplete();
+    triggerSelectAutoComplete.click();
+    triggerSelectAutoComplete.type(triggerName);
+    triggerSelectAutoComplete.type(Keys.ARROW_DOWN);
+    triggerSelectAutoComplete.type(Keys.ENTER);
+    triggerSelectedAutoComplete(triggerName).assertVisible();
   }
 
   public void deleteActionDuration() {
@@ -245,11 +251,15 @@ public class RulePage extends GenericPage {
                                                 eventName));
   }
 
-  private ElementFacade eventSelectAutoComplete() {
-    return findByXPathOrCSS("#EventSelectAutoComplete");
+  private ElementFacade triggerSelectAutoComplete() {
+    return findByXPathOrCSS("#triggerAutoComplete");
   }
 
-  private ElementFacade eventSelectedAutoComplete(String eventName) {
+  private ElementFacade applicationSelectAutoComplete() {
+    return findByXPathOrCSS("#applicationAutoComplete");
+  }
+
+  private ElementFacade triggerSelectedAutoComplete(String eventName) {
     return findByXPathOrCSS(String.format("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'v-chip')]//*[contains(text(), '%s')]",
                                           eventName));
   }
