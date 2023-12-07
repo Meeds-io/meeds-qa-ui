@@ -18,7 +18,8 @@ Feature: Rules
     And I enter the rule title 'Receive kudos'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    When I add an event 'Receive kudos'
+    And I click on 'Next' button in drawer
+    And I select a 'meeds' event 'Receive kudos'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -64,7 +65,8 @@ Feature: Rules
     And I enter the rule title 'Join space'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    And I add an event 'Join space'
+    And I click on 'Next' button in drawer
+    And I select a 'meeds' event 'Join space'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -102,7 +104,8 @@ Feature: Rules
     And I enter the rule title 'Join space'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    And I add an event 'Join space'
+    And I click on 'Next' button in drawer
+    And I select a 'meeds' event 'Join space'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 

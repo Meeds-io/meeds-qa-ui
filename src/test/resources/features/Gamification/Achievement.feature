@@ -19,9 +19,8 @@ Feature: Achievements
     And I add rule random description
     And I click on 'Automatic' button in drawer
 
-    Then The button 'Next' is disabled in drawer
-
-    When I add an event 'Send kudos'
+    And I click on 'Next' button in drawer
+    And I select a 'meeds' event 'Send kudos'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -34,7 +33,8 @@ Feature: Achievements
     And I enter the rule title 'Receive kudos'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    And I add an event 'Receive kudos'
+    And I click on 'Next' button in drawer
+    And I select a 'meeds' event 'Receive kudos'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -94,7 +94,8 @@ Feature: Achievements
     And I enter the rule title 'Send kudos'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    And I add an event 'Send kudos'
+    And I click on 'Next' button in drawer
+    And I select a 'meeds' event 'Send kudos'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -107,7 +108,8 @@ Feature: Achievements
     And I enter the rule title 'Receive kudos'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    And I add an event 'Receive kudos'
+    And I click on 'Next' button in drawer
+    And I select a 'meeds' event 'Receive kudos'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -162,7 +164,8 @@ Feature: Achievements
     And I enter the rule title 'Join space'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    And I add an event 'Join space'
+    And I click on 'Next' button in drawer
+    And I select a 'meeds' event 'Join space'
     And I click on 'Next' button in drawer
 
     Then The button 'Duration' is not displayed in drawer
@@ -246,7 +249,8 @@ Feature: Achievements
     And I enter the rule title 'Join space'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    And I add an event 'Join space'
+    And I click on 'Next' button in drawer
+    And I select a 'meeds' event 'Join space'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
     And I close the notification
@@ -365,7 +369,8 @@ Feature: Achievements
     And I enter the rule title 'Post activity in a space'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    And I add an event 'Add a Post'
+    And I click on 'Next' button in drawer
+    And I select a 'meeds' event 'Add a Post'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -412,7 +417,8 @@ Feature: Achievements
     And I enter the rule title 'Comment activity in space'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    And I add an event 'Comment a Post'
+    And I click on 'Next' button in drawer
+    And I select a 'meeds' event 'Comment a Post'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -425,7 +431,8 @@ Feature: Achievements
     And I enter the rule title 'Receive comment activity in space'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    And I add an event 'Receive a Comment'
+    And I click on 'Next' button in drawer
+    And I select a 'meeds' event 'Receive a Comment'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -474,7 +481,8 @@ Feature: Achievements
     And I enter the rule title 'Like activity in space'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    And I add an event 'Like a Post'
+    And I click on 'Next' button in drawer
+    And I select a 'meeds' event 'Like a Post'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -487,7 +495,8 @@ Feature: Achievements
     And I enter the rule title 'Receive activity like in space'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    And I add an event 'Receive a Like'
+    And I click on 'Next' button in drawer
+    And I select a 'meeds' event 'Receive a Like'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -538,7 +547,8 @@ Feature: Achievements
     And I enter the rule title 'Like stream comment in space'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    And I add an event 'Like a Comment'
+    And I click on 'Next' button in drawer
+    And I select a 'meeds' event 'Like a Comment'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -551,7 +561,8 @@ Feature: Achievements
     And I enter the rule title 'Receive Like on stream comment in space'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    And I add an event 'Receive a Like on a Comment'
+    And I click on 'Next' button in drawer
+    And I select a 'meeds' event 'Receive a Like on a Comment'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -603,7 +614,8 @@ Feature: Achievements
     And I enter the rule title 'Cancel Space Join'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    And I add an event 'Join space'
+    And I click on 'Next' button in drawer
+    And I select a 'meeds' event 'Join space'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
