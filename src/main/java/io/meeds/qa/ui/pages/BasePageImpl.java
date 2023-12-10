@@ -170,7 +170,11 @@ public class BasePageImpl extends PageObject implements BasePage {
   public void closeAllDrawers() {
     int i = MAX_WAIT_RETRIES * 2;
     while (openedDrawerElement().isCurrentlyVisible() && i-- > 0) {
-      findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
+      if (drawerCloseIcon().isClickable()) {
+        drawerCloseIcon().click();
+      } else {
+        findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
+      }
       closeAlertIfOpened();
       closeConfirmDialogIfDisplayed();
       waitForDrawerToClose();
@@ -178,6 +182,13 @@ public class BasePageImpl extends PageObject implements BasePage {
     if (i == 0) {
       openedDrawerElement().assertNotVisible();
     }
+  }
+
+  /**
+   * @return
+   */
+  private ElementFacade drawerCloseIcon() {
+    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'drawerIcons')]//*[contains(@class, 'close') or contains(@class, 'times')]");
   }
 
   public void closeDrawerIfDisplayed() {

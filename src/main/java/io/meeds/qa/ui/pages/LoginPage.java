@@ -144,14 +144,19 @@ public class LoginPage extends GenericPage implements IsHidden {
   }
 
   private void goToLoginPage() {
-    ElementFacade logOutMenuElement = logOutMenuElement();
-    if (logOutMenuElement.isCurrentlyVisible()) {
-      logOutMenuElement.click();
-    } else if (homePage.isHamburgerMenuPresent()) {
-      homePage.clickOnHamburgerMenu();
-      logOutMenuElement.click();
+    try {
+      ElementFacade logOutMenuElement = logOutMenuElement();
+      if (logOutMenuElement.isCurrentlyVisible()) {
+        logOutMenuElement.click();
+      } else if (homePage.isHamburgerMenuPresent()) {
+        closeAllDrawers();
+        closeAllDialogs();
+        homePage.clickOnHamburgerMenu();
+        logOutMenuElement.click();
+      }
+    } finally {
+      openLoginPage();
     }
-    openLoginPage();
   }
 
   private void openLoginPageIfNotDisplayed() {

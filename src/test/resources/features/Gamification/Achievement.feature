@@ -373,7 +373,7 @@ Feature: Achievements
     And I add rule random description
     And I click on 'Automatic' button in drawer
     And I click on 'Next' button in drawer
-    And I select a 'meeds' event 'Activity stream: Post an activity'
+    And I select a 'meeds' event 'Add a Post'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -421,7 +421,7 @@ Feature: Achievements
     And I add rule random description
     And I click on 'Automatic' button in drawer
     And I click on 'Next' button in drawer
-    And I select a 'meeds' event 'Activity stream: Comment an activity'
+    And I select a 'meeds' event 'Comment a Post'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -435,7 +435,7 @@ Feature: Achievements
     And I add rule random description
     And I click on 'Automatic' button in drawer
     And I click on 'Next' button in drawer
-    And I select a 'meeds' event 'Activity stream: Receive a comment'
+    And I select a 'meeds' event 'Receive a Comment'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -485,7 +485,7 @@ Feature: Achievements
     And I add rule random description
     And I click on 'Automatic' button in drawer
     And I click on 'Next' button in drawer
-    And I select a 'meeds' event 'Activity stream: Like an activity'
+    And I select a 'meeds' event 'Like a Post'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -499,7 +499,7 @@ Feature: Achievements
     And I add rule random description
     And I click on 'Automatic' button in drawer
     And I click on 'Next' button in drawer
-    And I select a 'meeds' event 'Activity stream: Receive a like'
+    And I select a 'meeds' event 'Receive a Like'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -551,7 +551,7 @@ Feature: Achievements
     And I add rule random description
     And I click on 'Automatic' button in drawer
     And I click on 'Next' button in drawer
-    And I select a 'meeds' event 'Activity stream: Like a comment'
+    And I select a 'meeds' event 'Like a Comment'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -565,7 +565,7 @@ Feature: Achievements
     And I add rule random description
     And I click on 'Automatic' button in drawer
     And I click on 'Next' button in drawer
-    And I select a 'meeds' event 'Receive a like on a comment'
+    And I select a 'meeds' event 'Receive a Like on a Comment'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
