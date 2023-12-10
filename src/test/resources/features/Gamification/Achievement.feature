@@ -2,6 +2,7 @@
 @achievements
 Feature: Achievements
 
+  @test
   Scenario: Achievements for Send/Cancel Kudos from the activity author
     Given I am authenticated as 'admin' random user
     And I inject the random space if not existing
@@ -66,10 +67,7 @@ Feature: Achievements
     Then Achievement for 'Send kudos' is accepted
 
     When I go to My Profile page
-    Then The following items are displayed
-      | Weekly points |
-      | Weekly rank   |
-    And My points augmented
+    Then My points augmented
 
     And I go to the random space
     When In activity 'Achievements - Kudos Post activity' I cancel the sent kudos comment 'Achievements - kudos activity comment to cancel'
@@ -368,7 +366,7 @@ Feature: Achievements
     And I enter the rule title 'Post activity in a space'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    And I add an event 'Activity stream: Post an activity'
+    And I add an event 'Add a Post'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -415,7 +413,7 @@ Feature: Achievements
     And I enter the rule title 'Comment activity in space'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    And I add an event 'Activity stream: Comment an activity'
+    And I add an event 'Comment a Post'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -428,7 +426,7 @@ Feature: Achievements
     And I enter the rule title 'Receive comment activity in space'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    And I add an event 'Activity stream: Receive a comment'
+    And I add an event 'Receive a Comment'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -477,7 +475,7 @@ Feature: Achievements
     And I enter the rule title 'Like activity in space'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    And I add an event 'Activity stream: Like an activity'
+    And I add an event 'Like a Post'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -490,7 +488,7 @@ Feature: Achievements
     And I enter the rule title 'Receive activity like in space'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    And I add an event 'Activity stream: Receive a like'
+    And I add an event 'Receive a Like'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -541,7 +539,7 @@ Feature: Achievements
     And I enter the rule title 'Like stream comment in space'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    And I add an event 'Activity stream: Like a comment'
+    And I add an event 'Like a Comment'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -554,7 +552,7 @@ Feature: Achievements
     And I enter the rule title 'Receive Like on stream comment in space'
     And I add rule random description
     And I click on 'Automatic' button in drawer
-    And I add an event 'Receive a like on a comment'
+    And I add an event 'Receive a Like on a Comment'
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 

@@ -2056,7 +2056,7 @@ Feature: Activity Stream
 
     When I close kudos drawer 
     And I click on poll button below the post field
-    Then the poll drawer is opened
+    Then The Poll drawer is opened
     And I create a simple poll with title 'Poll from space toolbar' and Choice One 'Option1' and Choice Two 'Option2'
     And I publish the Poll
     Then The Poll 'Poll from space toolbar' is displayed in stream page
