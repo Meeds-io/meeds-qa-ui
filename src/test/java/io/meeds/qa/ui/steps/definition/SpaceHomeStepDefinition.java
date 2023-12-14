@@ -428,7 +428,7 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.clickCloseKudosDrawer();
   }
 
-  @Then("the poll drawer is opened")
+  @Then("The Poll drawer is opened")
   public void pollDrawerIsDisplayed() {
     spaceHomeSteps.pollDrawerIsDisplayed();
   }

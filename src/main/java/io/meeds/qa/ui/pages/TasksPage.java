@@ -1698,14 +1698,6 @@ public class TasksPage extends GenericPage {
   private ElementFacade getTaskCommentAttachedImage() {
     return findByXPathOrCSS(OPENED_TASK__DRAWER_SELECTOR + "//*[contains(@class, 'commentItem')]//*[contains(@class, 'carousel-top-parent')]//*[contains(@class, 'attachments-image-item')][1]");
   }
-  
-  private ElementFacade taskDescriptionAttachImageCarousel() {
-    return findByXPathOrCSS("//*[contains(@class, 'taskDescription')]//*[@id = 'taskDescriptionId']//*[contains(@class, 'richEditor')]/parent::*//*[contains(@class, 'carousel-top-parent')]");
-  }
-
-  private ElementFacade taskCommentAttachImageCarousel() {
-    return findByXPathOrCSS("//*[@id = 'commentDrawerContent']//*[contains(@class, 'richEditor')]/parent::*//*[contains(@class, 'carousel-top-parent')]");
-  }
 
   private ElementFacade saveButtonTaskSpaceProjectElement() {
     return findByXPathOrCSS("(//*[@class='d-flex']//button[2])");

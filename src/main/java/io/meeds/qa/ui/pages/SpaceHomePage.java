@@ -38,6 +38,9 @@ import io.meeds.qa.ui.utils.Utils;
 import net.serenitybdd.core.Serenity;
 
 public class SpaceHomePage extends GenericPage {
+
+  private static final String CREATE_POLL_DRAWER_ID                           = "#createPollDrawer";
+
   private static final String OPENED_ACTIVITY_COMMENTS_DRAWER_SELECTOR        =
                                                                        "//*[@id='activityCommentsDrawer' and contains(@class, 'v-navigation-drawer--open')]";
 
@@ -497,7 +500,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void pollDrawerIsDisplayed() {
-    findByXPathOrCSS("#createPollDrawer").assertVisible(); 
+    findByXPathOrCSS(CREATE_POLL_DRAWER_ID).assertVisible();
   }
 
   public void clickUserAvatar() {
@@ -545,12 +548,12 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void createPoll(String pollTitle, String choiceOne, String choiceTow) {
-    waitForDrawerToOpen("#createPollDrawer", false);
+    waitForDrawerToOpen(CREATE_POLL_DRAWER_ID, false);
     titlePollElement().setTextValue(pollTitle);
     choiceOnePollElement().setTextValue(choiceOne);
     choiceTwoPollElement().setTextValue(choiceTow);
     buttonCreatePollElement().click();
-    waitForDrawerToClose("#createPollDrawer", false);
+    waitForDrawerToClose(CREATE_POLL_DRAWER_ID, false);
   }
 
   public void createPollDrawerClosed() {
@@ -1053,8 +1056,8 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void selectActivityFilter(String filter) {
-    ElementFacade ActivityFilterRadioButton = findByXPathOrCSS(String.format("//*[contains(@id,'filterStreamDrawer')]//*[contains(text(),'%s')]",filter));
-    ActivityFilterRadioButton.click();
+    ElementFacade activityFilterRadioButton = findByXPathOrCSS(String.format("//*[contains(@id,'filterStreamDrawer')]//*[contains(text(),'%s')]",filter));
+    activityFilterRadioButton.click();
   }
 
   public void clickFilterIconFromComposer() {
@@ -1639,11 +1642,7 @@ public class SpaceHomePage extends GenericPage {
   private ElementFacade editAttachmentBtn() {
     return findByXPathOrCSS(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR + "//*[contains(@class, 'activityRichEditor')]//*[contains(@class, 'carousel-top-parent')]//*[contains(@class, 'v-card__actions')]//button[1]");
   }
-  
-  private ElementFacade updateAttachmentCropDrawerBtn() {
-    return findByXPathOrCSS(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR + "//*[contains(@class, 'activityRichEditor')]//*[contains(@class, 'carousel-top-parent')]//*[contains(@class, 'v-card__actions')]//button[1]");
-  }
-  
+
   private ElementFacade getAttachedImageCropDrawer() {
     return findByXPathOrCSS("//*[contains(@id,'Extactivity-stream-drawers')]//*[@id = 'cropperDrawer']");
   } 

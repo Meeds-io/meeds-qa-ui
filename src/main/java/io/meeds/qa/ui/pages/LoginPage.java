@@ -132,7 +132,7 @@ public class LoginPage extends GenericPage implements IsHidden {
     } finally {
       deleteLastLoginCookie();      
     }
-    usernameInputElement().assertVisible();
+    usernameInputElement().checkVisible();
   }
 
   public void registerLinkIsDisplayed() {
@@ -144,14 +144,22 @@ public class LoginPage extends GenericPage implements IsHidden {
   }
 
   private void goToLoginPage() {
-    ElementFacade logOutMenuElement = logOutMenuElement();
-    if (logOutMenuElement.isCurrentlyVisible()) {
-      logOutMenuElement.click();
-    } else if (homePage.isHamburgerMenuPresent()) {
-      homePage.clickOnHamburgerMenu();
-      logOutMenuElement.click();
+    try {
+      ElementFacade logOutMenuElement = logOutMenuElement();
+      if (logOutMenuElement.isCurrentlyVisible()) {
+        logOutMenuElement.click();
+      } else if (homePage.isHamburgerMenuPresent()) {
+        closeAllDrawers();
+        closeAllDialogs();
+        homePage.clickOnHamburgerMenu();
+        logOutMenuElement.click();
+      }
+    } catch (Exception e) {
+      LOGGER.warn("Error while logout. Try by deleting all cookies", e);
+      deleteCookies();
+    } finally {
+      openLoginPage();
     }
-    openLoginPage();
   }
 
   private void openLoginPageIfNotDisplayed() {
