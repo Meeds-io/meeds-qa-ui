@@ -53,6 +53,8 @@ public class HomePage extends GenericPage {
 
   public void accessToAdministrationMenu() {
     if (!getCurrentUrl().contains("/portal/administration")) {
+      closeAllDrawers();
+      closeAllDialogs();
       administrationMenuElement().waitUntilVisible();
       getDriver().navigate().to(administrationMenuElement().getAttribute("href"));
       verifyPageLoaded();
@@ -202,17 +204,19 @@ public class HomePage extends GenericPage {
     }
   }
 
-  public void gotToSiteNavigation(String siteName, String uriPart) {
-    retryOnCondition(() -> gotToSiteNavigation(siteName, uriPart, false), () -> closeAllDrawers());
+  public void goToSiteNavigation(String siteName, String uriPart) {
+    retryOnCondition(() -> goToSiteNavigation(siteName, uriPart, false), () -> closeAllDrawers());
     assertThat(getDriver().getCurrentUrl()).contains("/portal/" + siteName);
     assertThat(getDriver().getCurrentUrl()).contains(uriPart);
   }
 
-  public void gotToSiteNavigation(String siteName, String uriPart, boolean forceRefresh) {
+  public void goToSiteNavigation(String siteName, String uriPart, boolean forceRefresh) {
     if (forceRefresh
         || !StringUtils.contains(getDriver().getCurrentUrl(), "/portal/" + siteName)
         || !StringUtils.endsWith(getDriver().getCurrentUrl(), uriPart)) {
       if (!getHamburgerNavigationMenuDrawer().isCurrentlyVisible()) {
+        closeAllDrawers();
+        closeAllDialogs();
         clickOnHamburgerMenu();
       }
       ElementFacade hamburgerMenuItemLink = hamburgerMenuItemLink(siteName);
@@ -413,8 +417,9 @@ public class HomePage extends GenericPage {
       closeAllDialogs();
       closeAllDrawers();
       getHamburgerNavigationMenu().click();
+      waitForDrawerToOpen();
+      myProfileButtonElement().checkVisible();
     }, () -> LOGGER.warn("Hamburger Menu isn't visible, retry by waiting until application is built"));
-    waitForDrawerToOpen();
   }
 
   public void checkHamburgerMenuSpacePosition(String spaceName, int spaceMenuPosition) {
@@ -525,7 +530,7 @@ public class HomePage extends GenericPage {
       return;
     }
     clickOnHamburgerMenu();
-    hamburgerMenuItemLink(linkSuffix).assertVisible();
+    hamburgerMenuItemLink(linkSuffix).checkVisible();
     hamburgerMenuItemLink(linkSuffix).click();
     waitForPageLoading();
     assertThat(getDriver().getCurrentUrl()).endsWith(linkSuffix);

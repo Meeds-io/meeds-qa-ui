@@ -70,10 +70,6 @@ public class UserProfilePage extends GenericPage {
     waitForDrawerToClose(".profileWorkExperiencesDrawer.v-navigation-drawer--open", true);
   }
 
-  public void checkAchievementsDrawer() {
-    achievementsDrawerElement().assertVisible();
-  }
-
   public void checkAvatarVisible() {
     // Check That User Avatar is displayed in Profile Page
     profileAvatarElement().assertVisible();
@@ -82,23 +78,6 @@ public class UserProfilePage extends GenericPage {
   public void checkCoverVisible() {
     // Check That User Cover is displayed in Profile Page
     profileCoverElement().assertVisible();
-  }
-
-  public boolean checkFieldVisible(String fieldName) {
-    switch (fieldName) {
-    case "Weekly points":
-      return getUserStatElement("points").isVisible();
-    case "Weekly rank":
-      return getUserStatElement("rank").isVisible();
-    case "Achievements":
-      return achievementsDrawerElement().isVisible();
-    case "badge details":
-      return badgesDrawerElement().isVisible();
-    case "Total point achievement":
-      return achievementsWeeklyPointInDrawerElement().isVisible();
-    default:
-      return false;
-    }
   }
 
   public void checkGainedCaurisVisible() {
@@ -143,27 +122,11 @@ public class UserProfilePage extends GenericPage {
     profileContactInformationURLElement(profileUrl).assertVisible();
   }
 
-  public void checkReceivedKudosVisible() {
-    contactReceivedKudosElement().assertVisible();
-  }
-
-  public void checkSentKudosVisible() {
-    contactSentKudosElement().assertVisible();
-  }
-
-  public void checkWeeklyPointChart() {
-    weeklyChartElement().assertVisible();
-  }
-
   public void checkWorkExperiencesSection(String jobTitle, String organization, String jobDetails, String usedSkills) {
-    getJobTitleWorkExperience(jobTitle).assertVisible();
-    getOrganizationWorkExperience(organization).assertVisible();
-    getJobDetailsWorkExperience(jobDetails).assertVisible();
-    getUsedSkillsWorkExperience(usedSkills).assertVisible();
-  }
-
-  public void clickConfirmConnect() {
-    confirmConnectionElement().click();
+    getJobDetailElement(jobTitle).assertVisible();
+    getJobDetailElement(organization).assertVisible();
+    getJobDetailElement(jobDetails).assertVisible();
+    getJobDetailElement(usedSkills).assertVisible();
   }
 
   public void clickOnSendKudosBtn() {
@@ -193,32 +156,6 @@ public class UserProfilePage extends GenericPage {
 
   public void howToEarnPointsPageIsDisplayed() {
     howToEarnPointsPageElement().assertVisible();
-  }
-
-  public void openAchievementTab() {
-    getUserStatElement("Points").click();
-    waitFor(2).seconds(); // Wait until card is displayed
-    ElementFacade iconProfile = findByXPathOrCSS("#profile-stats-portlet .uiIconInformation");
-    clickOnElement(iconProfile);
-  }
-
-  public void openBadgeDetails() {
-    closeAchievementsDrawerButtonElement().click();
-    badgePortletElement().click();
-  }
-
-  public void openHowToEarnPointPage() {
-    waitFor(2).seconds(); // Wait until drawer is displayed
-    ElementFacade achievementIconInfo = findByXPathOrCSS(".achievementsDrawer .drawerHeader .uiIconInformation");
-    clickOnElement(achievementIconInfo);
-  }
-
-  public void openWeeklyPointsChart() {
-    getUserStatElement("Points").click();
-  }
-
-  public void profilePageIsDisplayed() {
-    profilePageElement().assertVisible();
   }
 
   public void receivedKudosSectionIsDisplayed(String kudosNumber) {
@@ -395,37 +332,6 @@ public class UserProfilePage extends GenericPage {
     contactEditSaveButtonElement().click();
   }
 
-  public void updateWorkExperiences(String organization, String jobTitle, String jobDetails, String usedSkills) {
-    // Add work experience
-    ElementFacade editWorkExperiencesElement = editWorkExperiencesElement();
-    editWorkExperiencesElement.click();
-    waitForDrawerToOpen(".profileWorkExperiencesDrawer.v-navigation-drawer--open", true);
-    ElementFacade addWorkExperiencesElement = addWorkExperiencesElement();
-    if (!addWorkExperiencesElement.isCurrentlyVisible()) {
-      closeWorkExperiencesDrawerBtnElement().click();
-      editWorkExperiencesElement.click();
-    }
-    addWorkExperiencesElement.click();
-    elementWorkExperiencesOrganizationElement().setTextValue(organization);
-    elementWorkExperiencesJobTitleElement().setTextValue(jobTitle);
-    elementWorkExperiencesJobDetailsElement().setTextValue(jobDetails);
-    elementWorkExperiencesUsedSkillsElement().setTextValue(usedSkills);
-
-    elementWorkExperiencesStartDateElement().click();
-    elementWorkExperiencesStartDateGoToPreviousMonthElement().click();
-    waitFor(200).milliseconds(); // Wait until animation finishes
-    ElementFacade elementWorkExperiencesStartDateFirstMonthDay =
-                                                               findByXPathOrCSS("(//*[contains(@class, 'profileWorkExperiencesDates')]//*[contains(@class, 'datePickerComponent')])[1]//*[contains(@class,'menuable__content__active')]//*[contains(@class,'v-date-picker-table')]//td//*[text() = '1']//ancestor::button");
-    elementWorkExperiencesStartDateFirstMonthDay.click();
-    waitFor(200).milliseconds(); // Wait until animation finishes
-
-    elementWorkExperiencesEndDateElement().click();
-    elementWorkExperiencesEndDateTodayElement().click();
-
-    saveWorkExperiencesElement().click();
-    waitForDrawerToClose(".profileWorkExperiencesDrawer.v-navigation-drawer--open", true);
-  }
-
   public void uploadProfileAvatar(String fileName) {
     Actions builder = new Actions(getDriver());
     builder.moveToElement(profileAvatarElement()).build().perform();
@@ -452,36 +358,12 @@ public class UserProfilePage extends GenericPage {
     }, 10);
   }
 
-  private ElementFacade achievementsDrawerElement() {
-    return findByXPathOrCSS("//aside[contains(@class,'achievementsDrawer')]");
-  }
-
-  private ElementFacade achievementsWeeklyPointInDrawerElement() {
-    return findByXPathOrCSS("//aside[contains(@class,'achievementsDrawer')]//div[contains(text(),'points') or contains(text(),'Points')]");
-  }
-
   private ElementFacade addWorkExperiencesElement() {
     return findByXPathOrCSS("//*[@id='ProfileWorkExperience']//*[contains(@class,' fa-plus')]");
   }
 
-  private ElementFacade badgePortletElement() {
-    return findByXPathOrCSS("//div[@id='badgesOverview']//div[contains(@class,'BadgeItemAvatar')]");
-  }
-
-  private ElementFacade badgesDrawerElement() {
-    return findByXPathOrCSS("//aside[contains(@class,'badgesDrawer')]");
-  }
-
-  private ElementFacade closeAchievementsDrawerButtonElement() {
-    return findByXPathOrCSS("//*[contains(@class,'achievementsDrawer')]//button[contains(@class,'mdi-close')]");
-  }
-
   private ElementFacade closeWorkExperiencesDrawerBtnElement() {
     return findByXPathOrCSS("//*[contains(@class,'drawerParent profileWorkExperiencesDrawer')]//*[contains(@class,'mdi mdi-close')]");
-  }
-
-  private ElementFacade confirmConnectionElement() {
-    return findByXPathOrCSS("//button[contains(@class,'acceptToConnectButton')]");
   }
 
   private ElementFacade contactCompanyTitleEditButtonElement() {
@@ -580,18 +462,9 @@ public class UserProfilePage extends GenericPage {
     return findTextBoxByXPathOrCSS("(//*[@class='v-expansion-panel-content']//input)[3]");
   }
 
-  private ElementFacade getJobDetailsWorkExperience(String jobDetails) {
-    return findByXPathOrCSS(String.format("//*[contains(@class,'v-timeline-item')]//*[contains (text(),'%s')]", jobDetails));
-  }
-
-  private ElementFacade getJobTitleWorkExperience(String jobTitle) {
+  private ElementFacade getJobDetailElement(String jobDetails) {
     return findByXPathOrCSS(String.format("//*[contains(@class,'v-timeline-item')]//*[contains (text(),'%s')]",
-                                          jobTitle));
-  }
-
-  private ElementFacade getOrganizationWorkExperience(String organization) {
-    return findByXPathOrCSS(String.format("//*[contains(@class,'v-timeline-item')]//*[contains (text(),'%s')]",
-                                          organization));
+                                          jobDetails));
   }
 
   private ElementFacade getReceivedKudosNumber() {
@@ -620,15 +493,6 @@ public class UserProfilePage extends GenericPage {
   private ElementFacade getSentKudosUsers(String user) {
     return findByXPathOrCSS(String.format("//*[contains(@class,'kudosOverviewDrawer')]//*[contains(@class,'drawerTitle') and contains(text(),'Kudos Sent')]/following::*[contains(@id,'avatar') and contains(text(),'%s')]",
                                           user));
-  }
-
-  private ElementFacade getUsedSkillsWorkExperience(String usedSkill) {
-    return findByXPathOrCSS(String.format("//*[contains(@class,'v-timeline-item')]//*[contains (text(),'%s')]",
-                                          usedSkill));
-  }
-
-  private ElementFacade getUserStatElement(String statType) {
-    return findByXPathOrCSS(String.format("//div[@id='profile-stats-portlet']//span[contains(text(),'%s')]", statType));
   }
 
   private ElementFacade howToEarnPointsPageElement() {
@@ -696,10 +560,6 @@ public class UserProfilePage extends GenericPage {
     return findByXPathOrCSS("(//*[@id='ProfileHeader']//*[@class='v-image__image v-image__image--cover'])[1]");
   }
 
-  private ElementFacade profilePageElement() {
-    return findByXPathOrCSS("//*[@id='ProfileHeader']");
-  }
-
   private ElementFacade removeWorkExperienceElement() {
     return findByXPathOrCSS("//*[contains(@class,'uiIconTrash')]");
   }
@@ -722,10 +582,6 @@ public class UserProfilePage extends GenericPage {
 
   private ElementFacade uploadProfileAvatarBtnElement() {
     return findByXPathOrCSS("(//*[contains(@class,'v-input__icon--prepend')]//button)[1]");
-  }
-
-  private ElementFacade weeklyChartElement() {
-    return findByXPathOrCSS("//*[@id='echartUserPoints']");
   }
 
 }

@@ -74,7 +74,7 @@ public class HomeStepDefinition {
 
   @When("^I go to '(.*)' in site '(.*)'")
   public void gotToSiteNavigation(String uriPart, String siteName) {
-    homeSteps.gotToSiteNavigation(siteName, uriPart);
+    homeSteps.goToSiteNavigation(siteName, uriPart);
   }
 
   @When("^I accept the following connection invitation sent by first user and second user$")

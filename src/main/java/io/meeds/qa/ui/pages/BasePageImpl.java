@@ -55,7 +55,9 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   protected static final Logger LOGGER                      = LoggerFactory.getLogger(BasePageImpl.class);
 
-  private static final String   OPNENED_DRAWER_CSS_SELECTOR = ".v-navigation-drawer--open";
+  private static final String   OPENED_DRAWER_XPATH         = "//*[contains(@class, 'v-navigation-drawer--open')]";
+
+  private static final String   OPENED_DRAWER_CSS_SELECTOR  = ".v-navigation-drawer--open";
 
   public static final String    UPLOAD_DIRECTORY_PATH       =
                                                       GenericPage.class.getResource("/DataFiles/")
@@ -137,11 +139,10 @@ public class BasePageImpl extends PageObject implements BasePage {
   public void closeAllDialogs() {
     int i = MAX_WAIT_RETRIES * 2;
     while (openedDialogElement().isCurrentlyVisible() && i-- > 0) {
-      try {
-        findByXPathOrCSS(".v-dialog--active .uiIconClose").click();
-      } catch (Exception e) {
-        LOGGER.warn("Can't find dialog close button, try to use escape key", e);
-        findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
+      if (dialogCloseIcon().isCurrentlyVisible()) {
+        dialogCloseIcon().click();
+      } else {
+        pressEscape();
       }
       try {
         waitOverlayToClose();
@@ -155,7 +156,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void closeMenu() {
-    findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
+    pressEscape();
     waitFor(300).milliseconds(); // Wait for animation to finish
   }
 
@@ -170,7 +171,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   public void closeAllDrawers() {
     int i = MAX_WAIT_RETRIES * 2;
     while (openedDrawerElement().isCurrentlyVisible() && i-- > 0) {
-      findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
+      closeDrawer();
       closeAlertIfOpened();
       closeConfirmDialogIfDisplayed();
       waitForDrawerToClose();
@@ -180,9 +181,17 @@ public class BasePageImpl extends PageObject implements BasePage {
     }
   }
 
+  private ElementFacade drawerCloseIcon() {
+    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'drawerIcons')]//*[contains(@class, 'close') or contains(@class, 'times')]");
+  }
+
+  private ElementFacade dialogCloseIcon() {
+    return findByXPathOrCSS("//*[contains(@class, 'v-dialog--active')]//*[contains(@class, 'close') or contains(@class, 'times')]");
+  }
+
   public void closeDrawerIfDisplayed() {
     if (openedDrawerElement().isCurrentlyVisible()) {
-      findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
+      closeDrawer();
       closeAlertIfOpened();
       waitForDrawerToClose();
     }
@@ -390,11 +399,11 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public ElementFacade openedDrawerElement() {
-    return findByXPathOrCSS(OPNENED_DRAWER_CSS_SELECTOR);
+    return findByXPathOrCSS(OPENED_DRAWER_CSS_SELECTOR);
   }
 
   public ElementFacade expandDrawerButton() {
-    return findByXPathOrCSS(OPNENED_DRAWER_CSS_SELECTOR + " .mdi-arrow-expand");
+    return findByXPathOrCSS(OPENED_DRAWER_CSS_SELECTOR + " .mdi-arrow-expand");
   }
 
   public ElementFacade notificationContentElement(String message) {
@@ -418,7 +427,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void waitDrawerCKEditorLoading() {
-    waitCKEditorLoading("//*[contains(@class, 'v-navigation-drawer--open')]");
+    waitCKEditorLoading(OPENED_DRAWER_XPATH);
   }
 
   public void waitCKEditorLoading(String parentXPath) {
@@ -446,7 +455,7 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   public void waitForDrawerToClose(String drawerId, boolean withOverlay) {
     closeAlertIfOpened();
-    String drawerSelector = StringUtils.isBlank(drawerId) ? OPNENED_DRAWER_CSS_SELECTOR : drawerId;
+    String drawerSelector = StringUtils.isBlank(drawerId) ? OPENED_DRAWER_CSS_SELECTOR : drawerId;
     ElementFacade drawerElement = findByXPathOrCSS(drawerSelector);
     if (drawerElement.isCurrentlyVisible()) {
       try {
@@ -475,7 +484,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void waitForDrawerToOpen(String drawerId, boolean withOverlay) {
-    String drawerSelector = StringUtils.isBlank(drawerId) ? OPNENED_DRAWER_CSS_SELECTOR : drawerId;
+    String drawerSelector = StringUtils.isBlank(drawerId) ? OPENED_DRAWER_CSS_SELECTOR : drawerId;
     try {
       findByXPathOrCSS(drawerSelector).waitUntilVisible();
       if (withOverlay) {
@@ -558,8 +567,8 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void attachImageToOpenedDrawer(boolean secondLevel) {
-    ElementFacade fileInput = findByXPathOrCSS((secondLevel ? OPNENED_DRAWER_CSS_SELECTOR : "") + " "
-        + OPNENED_DRAWER_CSS_SELECTOR + " input[type=file]");
+    ElementFacade fileInput = findByXPathOrCSS((secondLevel ? OPENED_DRAWER_CSS_SELECTOR : "") + " "
+        + OPENED_DRAWER_CSS_SELECTOR + " input[type=file]");
     fileInput.assertEnabled();
     attachImageToFileInput(fileInput, USER_AVATAR_PNG);
     clickButton("Apply");
@@ -586,7 +595,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public ElementFacade attachFileInput(boolean secondLevel) {
-    String fileInputXPath = (secondLevel ? "//*[contains(@class, 'v-navigation-drawer--open')]" : "")
+    String fileInputXPath = (secondLevel ? OPENED_DRAWER_XPATH : "")
         + "//*[contains(@class, 'v-navigation-drawer--open')]//*[@type='file']";
     return findByXPathOrCSS(fileInputXPath);
   }
@@ -596,9 +605,28 @@ public class BasePageImpl extends PageObject implements BasePage {
     waitForProgressBar();
   }
 
-  /**********************************************************
-   * Methods for finding element facade in the page
-   **********************************************************/
+  private void closeDrawer() {
+    closeDrawer(MAX_WAIT_RETRIES);
+  }
+
+  private void closeDrawer(int i) {
+    if (i == 0) {
+      throw new IllegalStateException("Drawer can't be closed");
+    }
+    if (drawerCloseIcon().isClickable()) {
+      try {
+        drawerCloseIcon().click();
+      } catch (Exception e) {
+        pressEscape();
+      }
+    } else {
+      pressEscape();
+    }
+  }
+
+  private void pressEscape() {
+    findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
+  }
 
   private WebElementFacade getWebElementFacadeByXPathOrCSS(String xpathOrCss) {
     if (StringUtils.contains(xpathOrCss, "//")) {
@@ -613,7 +641,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   private ElementFacade goBackButtonInDrawer() {
-    return findByXPathOrCSS(OPNENED_DRAWER_CSS_SELECTOR + " .fa-arrow-left");
+    return findByXPathOrCSS(OPENED_DRAWER_CSS_SELECTOR + " .fa-arrow-left");
   }
 
   private void waitOverlayToClose() {

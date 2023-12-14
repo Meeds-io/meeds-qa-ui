@@ -17,8 +17,6 @@
  */
 package io.meeds.qa.ui.steps;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import io.meeds.qa.ui.pages.KudosPage;
@@ -37,19 +35,6 @@ public class UserProfileSteps {
                                        workExperiences.get("usedSkills"));
   }
 
-  public void checkAchievementsDrawer() {
-    userProfilePage.checkAchievementsDrawer();
-  }
-
-  public List<String> checkListOfFields(List<String> listIfFields) {
-    List<String> missingValues = new ArrayList<>();
-    for (String fieldName : listIfFields) {
-      if (!userProfilePage.checkFieldVisible(fieldName))
-        missingValues.add(fieldName);
-    }
-    return missingValues;
-  }
-
   public void checkProfileContactInstantMessagingVisible(String instantMessagingType, String instantMessaging) {
     userProfilePage.checkProfileContactInstantMessagingVisible(instantMessagingType, instantMessaging);
   }
@@ -58,16 +43,8 @@ public class UserProfileSteps {
     userProfilePage.checkProfileContactPhoneVisible(phoneType, phone);
   }
 
-  public void checkWeeklyPointChart() {
-    userProfilePage.checkWeeklyPointChart();
-  }
-
   public void checkWorkExperiencesSection(String jobTitle, String organization, String jobDetails, String usedSkills) {
     userProfilePage.checkWorkExperiencesSection(jobTitle, organization, jobDetails, usedSkills);
-  }
-
-  public void clickConfirmConnect() {
-    userProfilePage.clickConfirmConnect();
   }
 
   public int getMyWeeklyPoint() {
@@ -118,36 +95,8 @@ public class UserProfileSteps {
     userProfilePage.checkProfileContactUrlVisible(url);
   }
 
-  public void isReceivedKudosVisible() {
-    userProfilePage.checkReceivedKudosVisible();
-  }
-
-  public void isSentKudosVisible() {
-    userProfilePage.checkSentKudosVisible();
-  }
-
   public void isUserJobVisible(String job) {
     userProfilePage.checkProfileContactJobTitleVisible(job);
-  }
-
-  public void openAchievementTab() {
-    userProfilePage.openAchievementTab();
-  }
-
-  public void openBadgeDetails() {
-    userProfilePage.openBadgeDetails();
-  }
-
-  public void openHowToEarnPointPage() {
-    userProfilePage.openHowToEarnPointPage();
-  }
-
-  public void openWeeklyPointsChart() {
-    userProfilePage.openWeeklyPointsChart();
-  }
-
-  public void profilePageIsDisplayed() {
-    userProfilePage.profilePageIsDisplayed();
   }
 
   public void checkNoReceivedKudos() {
@@ -197,13 +146,6 @@ public class UserProfileSteps {
                                                    basicInformations.get("instantMessagingType"),
                                                    basicInformations.get("instantMessaging"),
                                                    basicInformations.get("url"));
-  }
-
-  public void updateWorkExperiences(Map<String, String> workExperiences) {
-    userProfilePage.updateWorkExperiences(workExperiences.get("organization"),
-                                          workExperiences.get("jobTitle"),
-                                          workExperiences.get("jobDetails"),
-                                          workExperiences.get("usedSkills"));
   }
 
   public void uploadProfileAvatar(String fileName) {
