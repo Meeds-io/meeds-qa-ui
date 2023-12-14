@@ -2,6 +2,7 @@
 @achievements
 Feature: Achievements
 
+  @test
   Scenario: Achievements for Send/Cancel Kudos from the activity author
     Given I am authenticated as 'admin' random user
     And I inject the random space if not existing
