@@ -351,7 +351,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void clickAddTaskButton() {
-    ElementFacade addTaskButton = findByXPathOrCSS(".tasksToolbar button.btn-primary");
+    ElementFacade addTaskButton = findByXPathOrCSS("//*[contains(@class, 'noTasksProject')]//*[contains(@class, 'btn btn-primary')][1]");
     if (addTaskButton.isCurrentlyVisible() && addTaskButton.isVisible() && addTaskButton.isClickable()) {
       addTaskButton.click();
     } else {
