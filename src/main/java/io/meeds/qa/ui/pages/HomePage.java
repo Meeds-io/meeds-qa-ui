@@ -735,7 +735,7 @@ public class HomePage extends GenericPage {
   }
 
   private ElementFacade hamburgerMenuItemLink(String pageUri) {
-    return findByXPathOrCSS(String.format("//*[contains(@class, 'HamburgerNavigationMenu')]//*[contains(@href, '%s')]//*[contains(@class, 'v-list-item__content')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'HamburgerNavigationMenu')]//*[contains(@href, '%s')]",
                                           pageUri));
   }
 
