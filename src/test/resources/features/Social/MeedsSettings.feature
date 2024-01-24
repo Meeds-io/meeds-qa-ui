@@ -3,6 +3,7 @@ Feature: Edit sections in Settings page
   As a user
   I want to edit in Settings page many sections
 
+//@test
   Scenario: [SETTINGS-5] Language and its drawer
     Given I am authenticated as 'admin' if random users doesn't exists
       | firstlang  |
