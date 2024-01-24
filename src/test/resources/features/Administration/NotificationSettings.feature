@@ -1,7 +1,6 @@
 @notificationSettings
 Feature: Notification Settings
 
-@test
   Scenario: Enable/Disbale global email notification channel
     Given I am authenticated as 'admin' random user
 
