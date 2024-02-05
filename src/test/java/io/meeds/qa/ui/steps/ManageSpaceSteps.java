@@ -58,6 +58,26 @@ public class ManageSpaceSteps {
                                                        .catch(() => callback(false));
                                                       """;
 
+  private static final String CONFIGURE_SPACE_CREATION_PERMISSION_SCRIPT =
+                                                                         """
+                                                                              const callback = arguments[arguments.length - 1];
+                                                                              fetch("/portal/rest/v1/social/spacesAdministration/permissions/spacesCreators", {
+                                                                                "headers": {
+                                                                                  "content-type": "application/json",
+                                                                                },
+                                                                                "body": `[{"membershipType":"*","group":"/platform/users"}]`,
+                                                                                "method": "PUT",
+                                                                                "credentials": "include"
+                                                                              })
+                                                                              .then(resp => {
+                                                                                if (!resp || !resp.ok) {
+                                                                                  throw new Error("Error changing space creation permissions");
+                                                                                }
+                                                                              })
+                                                                              .then(() => callback(true))
+                                                                              .catch(() => callback(false));
+                                                                             """;
+
   private static final int SPACE_TEMPLATE_INDEX = Integer.parseInt(System.getProperty("io.meeds.space.template.index", "0"));
 
   private String           spaceTemplate;
@@ -437,20 +457,29 @@ public class ManageSpaceSteps {
   public void injectRandomSpace(String spaceNamePrefix) {
     String spaceName = Utils.getRandomString(spaceNamePrefix);
     String addSpaceScript =
-                          String.format(CREATE_SPACE_SCRIPT,
-                                        "open",
-                                        "private",
-                                        spaceTemplate == null ? "" : spaceTemplate,
-                                        spaceName,
-                                        spaceName);
+        String.format(CREATE_SPACE_SCRIPT,
+                      "open",
+                      "private",
+                      spaceTemplate == null ? "" : spaceTemplate,
+                                            spaceName,
+                                            spaceName);
     WebDriverWait wait = new WebDriverWait(Serenity.getDriver(),
                                            Duration.ofSeconds(10),
                                            Duration.ofMillis(SHORT_WAIT_DURATION_MILLIS));
     wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeAsyncScript(addSpaceScript)
-                                                            .toString()
-                                                            .equals("true"));
+               .toString()
+               .equals("true"));
     String spaceUrl = homePage.getCurrentUrl().split("/portal")[0] + "/portal/g/:spaces:" + spaceName;
     TestInitHook.spaceWithPrefixCreated(spaceNamePrefix, spaceName, spaceUrl);
+  }
+
+  public void configureSpaceCreationPermission() {
+    WebDriverWait wait = new WebDriverWait(Serenity.getDriver(),
+                                           Duration.ofSeconds(10),
+                                           Duration.ofMillis(SHORT_WAIT_DURATION_MILLIS));
+    wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeAsyncScript(CONFIGURE_SPACE_CREATION_PERMISSION_SCRIPT)
+                                                            .toString()
+                                                            .equals("true"));
   }
 
 }
