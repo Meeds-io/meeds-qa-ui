@@ -271,6 +271,7 @@ public class TestInitHook {
     }
 
     addAdminRandomUser();
+    manageSpaceSteps.configureSpaceCreationPermission();
     loginAsRandomAdmin();
     if (INIT_DATA) {
       injectSpaces();
