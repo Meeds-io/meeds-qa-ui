@@ -416,9 +416,11 @@ public class HomePage extends GenericPage {
       closeToastNotification(false);
       closeAllDialogs();
       closeAllDrawers();
-      getHamburgerNavigationMenu().click();
-      waitForDrawerToOpen();
-      myProfileButtonElement().checkVisible();
+      if (myProfileButtonElement().isNotVisible()) {
+        getHamburgerNavigationMenu().click();
+        waitForDrawerToOpen();
+        myProfileButtonElement().checkVisible();
+      }
     }, () -> LOGGER.warn("Hamburger Menu isn't visible, retry by waiting until application is built"));
   }
 
