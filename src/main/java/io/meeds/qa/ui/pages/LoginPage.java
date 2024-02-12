@@ -152,7 +152,10 @@ public class LoginPage extends GenericPage implements IsHidden {
         closeAllDrawers();
         closeAllDialogs();
         homePage.clickOnHamburgerMenu();
-        logOutMenuElement.click();
+        logOutMenuElement = logOutMenuElement();
+        logOutMenuElement.waitUntilVisible();
+        logOutMenuElement.hover();
+        clickOnElement(logOutMenuElement);
       }
     } catch (Exception e) {
       LOGGER.warn("Error while logout. Try by deleting all cookies", e);
@@ -225,7 +228,7 @@ public class LoginPage extends GenericPage implements IsHidden {
   }
 
   private ElementFacade logOutMenuElement() {
-    return findByXPathOrCSS("//i[contains(@class,'logoutIcon')]");
+    return findByXPathOrCSS("//i[contains(@class,'fa-power-off')]");
   }
 
   private ElementFacade loginButtonElement() {
