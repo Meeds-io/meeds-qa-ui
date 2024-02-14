@@ -581,10 +581,6 @@ public class TasksSteps {
     tasksPage.enterTaskComment(comment);
   }
 
-  public void enterNewTaskComment(String comment) {
-    tasksPage.enterNewTaskComment(comment);
-  }
-
   public void enterTitleForTask(String title) {
     tasksPage.enterTitleForTask(title);
   }

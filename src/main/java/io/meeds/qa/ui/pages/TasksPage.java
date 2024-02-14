@@ -19,6 +19,16 @@ package io.meeds.qa.ui.pages;
 
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
+import static io.meeds.qa.ui.utils.Utils.refreshPage;
+import static io.meeds.qa.ui.utils.Utils.retryGetOnCondition;
+import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
+import static io.meeds.qa.ui.utils.Utils.waitForLoading;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.stream.Stream;
+
 import org.junit.Assert;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -351,12 +361,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void clickAddTaskButton() {
-    ElementFacade addTaskButton = findByXPathOrCSS("//*[contains(@class, 'noTasksProject')]//*[contains(@class, 'btn btn-primary')][1]");
-    if (addTaskButton.isCurrentlyVisible() && addTaskButton.isVisible() && addTaskButton.isClickable()) {
-      addTaskButton.click();
-    } else {
-      addTaskInProjectButtonElement().click();
-    }
+    addTaskInProjectButtonElement().click();
   }
 
   public void clickCancel() {
@@ -463,7 +468,7 @@ public class TasksPage extends GenericPage {
   public void clickOnSaveButtonToAddTask() {
     saveButtonTaskElement().click();
   }
-  
+
   public void clickOnApplyButtonToSaveDescription() {
     getApplyTaskDescriptionBtn().click();
   }
@@ -496,28 +501,27 @@ public class TasksPage extends GenericPage {
   public void clickOutsideTaskDescription() {
     getTaskDrawerProject().click();
   }
-  
+
   public void checkTaskDescriptionNewAttachImage() {
     getTaskDescriptionSecondeAttachImage().assertNotVisible();
   }
-  
-  
+
   public void checkAttachedImagesToTaskDescription() {
     getTaskDescriptionAttachedImage().assertVisible();
   }
-  
+
   public void checkAttachedImagesToTaskComment() {
     getTaskCommentAttachedImage().assertVisible();
   }
-  
+
   public void openTaskDescriptionEditor() {
     taskDescriptionTextFieldElement().click();
   }
-  
+
   public void closeTaskCommentDrawer() {
     taskCommentDrawerCloseBtn().click();
   }
-  
+
   public void clickOnSaveButtonToAddTaskSpaceProject() {
     saveButtonTaskSpaceProjectElement().click();
   }
@@ -552,7 +556,7 @@ public class TasksPage extends GenericPage {
     validateStatusNameElement().click();
     // Wait until column is added
     retryGetOnCondition(() -> getStatusColumn(currentStatusName).waitUntilVisible(),
-                     () -> waitFor(2).seconds());
+                        () -> waitFor(2).seconds());
   }
 
   public void clickPlusIcon() {
@@ -782,21 +786,6 @@ public class TasksPage extends GenericPage {
   }
 
   public void enterTaskComment(String comment) {
-    waitCKEditorLoading();
-    ElementFacade ckEditorFrameTaskElement = ckEditorFrameTaskElement();
-    ckEditorFrameTaskElement.waitUntilVisible();
-    getDriver().switchTo().frame(ckEditorFrameTaskElement);
-    try {
-      TextBoxElementFacade taskCommentContentTextBoxElement = taskCommentContentTextBoxElement();
-      taskCommentContentTextBoxElement.waitUntilVisible();
-      taskCommentContentTextBoxElement.setTextValue(comment);
-    } finally {
-      getDriver().switchTo().defaultContent();
-    }
-
-  }
-  
-  public void enterNewTaskComment(String comment) {
     waitCKEditorLoading();
     ElementFacade ckEditorFrameTaskElement = ckEditorFrameTaskElement();
     ckEditorFrameTaskElement.waitUntilVisible();
@@ -1240,7 +1229,14 @@ public class TasksPage extends GenericPage {
   }
 
   private ElementFacade addProjectOrTaskElement() {
-    return findByXPathOrCSS("//*[@id = 'projectBoardToolbar']//*[contains(@class, 'tasksToolbar')]//button[contains(@class, 'btn-primary')]");
+    return retryGetOnCondition(() -> {
+      return Stream.of("//*[@id = 'projectBoardToolbar']//*[contains(@class, 'tasksToolbar')]//button[contains(@class, 'btn-primary')]",
+                       "//*[contains(@class, 'noTasksProject')]//*[contains(@class, 'btn btn-primary')][1]")
+                   .map(this::findByXPathOrCSS)
+                   .filter(ElementFacade::isCurrentlyVisible)
+                   .findFirst()
+                   .orElseThrow();
+    });
   }
 
   private ElementFacade addStatusafteroptionElement() {
@@ -1252,7 +1248,15 @@ public class TasksPage extends GenericPage {
   }
 
   private ElementFacade addTaskInProjectButtonElement() {
-    return findByXPathOrCSS(".tasksViewBoardRowContainer .tasksViewHeader .uiIconSocSimplePlus");
+    return retryGetOnCondition(() -> {
+      return Stream.of("//*[contains(@class,'tasksToolbar')]//button//*[contains(text(), 'Add')]",
+                       ".tasksViewBoardRowContainer .tasksViewHeader .uiIconSocSimplePlus",
+                       "//*[contains(@class, 'noTasksProject')]//*[contains(@class, 'btn btn-primary')][1]")
+                   .map(this::findByXPathOrCSS)
+                   .filter(ElementFacade::isCurrentlyVisible)
+                   .findFirst()
+                   .orElseThrow();
+    });
   }
 
   private ElementFacade arrowBackButtonElement() {
@@ -1710,17 +1714,18 @@ public class TasksPage extends GenericPage {
   private ElementFacade getTaskDrawerProject() {
     return findByXPathOrCSS("//*[@id = 'task-Drawer' and contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'drawerTitleAndProject')]//span");
   }
-  
+
   private ElementFacade getTaskDescriptionSecondeAttachImage() {
     return findByXPathOrCSS("//*[@id = 'task-Drawer' and contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'attachments-image-item')][2]");
   }
-  
+
   private ElementFacade getTaskDescriptionAttachedImage() {
     return findByXPathOrCSS("//*[(@id = 'taskDescriptionId')]//*[contains(@class, 'carousel-top-parent')]//*[contains(@class, 'attachments-image-item')][1]");
   }
-  
+
   private ElementFacade getTaskCommentAttachedImage() {
-    return findByXPathOrCSS(OPENED_TASK__DRAWER_SELECTOR + "//*[contains(@class, 'commentItem')]//*[contains(@class, 'carousel-top-parent')]//*[contains(@class, 'attachments-image-item')][1]");
+    return findByXPathOrCSS(OPENED_TASK__DRAWER_SELECTOR +
+        "//*[contains(@class, 'commentItem')]//*[contains(@class, 'carousel-top-parent')]//*[contains(@class, 'attachments-image-item')][1]");
   }
 
   private ElementFacade saveButtonTaskSpaceProjectElement() {
@@ -1797,15 +1802,14 @@ public class TasksPage extends GenericPage {
   private TextBoxElementFacade taskDescriptionFieldElement() {
     return findTextBoxByXPathOrCSS("//*[@id='taskDescriptionId']");
   }
-  
+
   private TextBoxElementFacade taskDescriptionTextFieldElement() {
     return findTextBoxByXPathOrCSS("//*[@id='taskDescriptionId']//*[@contenteditable = 'true']");
   }
-  
+
   private TextBoxElementFacade taskCommentDrawerCloseBtn() {
     return findTextBoxByXPathOrCSS("//*[@id = 'taskCommentDrawer' and contains(@class, 'v-navigation-drawer--open')]//*[contains(@class , 'drawerHeader')]//button[contains(@class, 'mdi-close')]");
   }
-
 
   private TextBoxElementFacade taskDueDateElement() {
     return findTextBoxByXPathOrCSS("(//*[contains(@id,'DatePicker')])[2]//input");

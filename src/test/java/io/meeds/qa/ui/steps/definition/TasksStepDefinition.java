@@ -818,7 +818,7 @@ public class TasksStepDefinition {
   
   @And("^I enter a comment '(.*)'$")
   public void enterComment(String comment) {
-    tasksSteps.enterNewTaskComment(comment);
+    tasksSteps.enterTaskComment(comment);
   }
 
   @When("^I enter description for task '(.*)'$")
