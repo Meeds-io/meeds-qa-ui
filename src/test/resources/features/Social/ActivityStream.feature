@@ -1660,23 +1660,50 @@ Feature: Activity Stream
     When I click on comment button related to activity 'activitycap220'
     And Comment 'commenttestCAP220-1020' is not displayed in the drawer
     Then Check Four comment is displayed in comments drawer
-
+    
   Scenario: [STREAM-12] Activity Likers in drawer
-    Given I am authenticated as 'admin' random user
+    Given I am authenticated as 'admin' if random users doesn't exists
+      | first  |
+      | sixth  |
+      | third  |
+      | fourth  |
     And I inject the first random user if not existing, no wait
+    And I inject the sixth random user if not existing, no wait
+    And I inject the third random user if not existing, no wait
+    And I inject the fourth random user if not existing
+
+    And I login as 'admin' random user
     And I go to the random space
     And I click on post in space
     And I enter an activity 'stream activité'
     And I publish the activity
+
     And I login as 'first' random user
     And I go to the random space
     And I like the activity 'stream activité'
-    And I login as 'admin' random user
+
+    And I login as 'third' random user
     And I go to the random space
     And I like the activity 'stream activité'
+
+    And I login as 'fourth' random user
+    And I go to the random space
+    And I like the activity 'stream activité'
+
+    And I login as 'sixth' random user
+    And I go to the random space
+    Then the activity 'stream activité' is displayed in activity stream
+    And The activity likers number is not diplayed in 'stream activité'
+
+    When I like the activity 'stream activité'
+    Then The activity likers number is diplayed in 'stream activité'
+
+    When I login as 'admin' random user
+    And I go to the random space
+
     When I click on likers number of the activity 'stream activité'
-    Then The first user is displayed in activity likers drawer
-    And I open user profile of first user from activity likers drawer
+    Then The sixth user is displayed in activity likers drawer
+    And I open user profile of sixth user from activity likers drawer
     And The page '/profile' is opened
 
   Scenario: CAP129 - [ActivityStream_US47][02] Send a kudos from a reply

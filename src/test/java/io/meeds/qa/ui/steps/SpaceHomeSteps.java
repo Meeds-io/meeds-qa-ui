@@ -456,6 +456,15 @@ public class SpaceHomeSteps {
     spaceHomePage.openActivityReactionsDrawer(activity);
   }
 
+  public void checkActivityReactionsNumberDisplayed(String activity) {
+    spaceHomePage.checkActivityReactionsNumberDisplayed(activity);
+  }
+
+  public void checkActivityReactionsNumberNotDisplayed(String activity) {
+    spaceHomePage.checkActivityReactionsNumberNotDisplayed(activity);
+  }
+
+
   public void openDeleteActivityMenu(String activity) {
     spaceHomePage.openDeleteActivityMenu(activity);
   }
