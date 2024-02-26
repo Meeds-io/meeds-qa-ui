@@ -707,6 +707,15 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.openActivityReactionsDrawer(activity);
   }
 
+  @Then("^The activity likers number is diplayed in '(.*)'$")
+  public void checkActivityReactionsNumberDisplayed(String activity) {
+    spaceHomeSteps.checkActivityReactionsNumberDisplayed(activity);
+  }
+  @And("^The activity likers number is not diplayed in '(.*)'$")
+  public void checkActivityReactionsNumberNotDisplayed(String activity) {
+    spaceHomeSteps.checkActivityReactionsNumberNotDisplayed(activity);
+  }
+
   @When("^I open in activity '(.*)' the Comments drawer$")
   public void openCommentsDrawer(String activity) {
     spaceHomePage.openCommentsDrawer(activity);

@@ -846,6 +846,14 @@ public class SpaceHomePage extends GenericPage {
     waitForDrawerToOpen();
   }
 
+  public void checkActivityReactionsNumberDisplayed(String activity) {
+    getReactionActivityLink(activity).assertVisible();
+  }
+
+  public void checkActivityReactionsNumberNotDisplayed(String activity) {
+    getReactionActivityLink(activity).assertNotVisible();
+  }
+
   public void openCommentsDrawer(String activity) {
     getActivityCommentButton(activity).click();
     waitForDrawerToLoad();
@@ -1681,7 +1689,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private ElementFacade getReactionActivityLink(String activity) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'activity-detail')]//*[contains(@class,'likersNumber')]",
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'activity-detail')]//*[contains(@class,'seeMoreLikers')]",
                                           activity));
   }
 
