@@ -1423,7 +1423,7 @@ public class TasksPage extends GenericPage {
 
   private ElementFacade getProjectCardUserAvatar(String userName) {
     return findByXPathOrCSS(
-                            String.format("//*[contains(@id,'userAvatar') and contains(@href,'%s')]", userName));
+                            String.format("//*[contains(@id,'userAvatar') and contains(@aria-label,'%s')]", userName));
   }
 
   private ElementFacade getRemoveLabelButton(String label) {
