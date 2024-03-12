@@ -44,6 +44,7 @@ Feature: Tasks - Projects
     And The placeholder Filter by project should be displayed
     And The clear button is disappeared from the Filter by project field
 
+  @test
   Scenario: check the display of users avatars with managing permissions
     Given I am authenticated as 'admin' random user
     And I inject the first random user if not existing, no wait
