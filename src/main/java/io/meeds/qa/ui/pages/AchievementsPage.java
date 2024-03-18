@@ -65,6 +65,21 @@ public class AchievementsPage extends GenericPage {
                      MAX_REFRESH_RETRIES);
   }
 
+  public void checkThatAchievementIsPending(String actionTitle) {
+    waitForPageLoading();
+    retryOnCondition(() -> pendingAchievementElement(actionTitle).checkVisible(),
+                     () -> {
+                       waitFor(2).seconds();
+                       Utils.refreshPage(true);
+                     },
+                     MAX_REFRESH_RETRIES);
+  }
+
+  public void acceptAchievement(String actionTitle) {
+    waitForPageLoading();
+    acceptedAchievementElement(actionTitle).click();
+  }
+
   public void checkThatAchievementIsRejected(String actionTitle) {
     waitForPageLoading();
     retryOnCondition(() -> {
@@ -214,6 +229,11 @@ public class AchievementsPage extends GenericPage {
 
   private ElementFacade acceptedAchievementElement(String actionTitle) {
     return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@id, 'GamificationRealizationItem')]//*[contains(@class, 'fas fa-check')]",
+                                          actionTitle));
+  }
+
+  private ElementFacade pendingAchievementElement(String actionTitle) {
+    return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@id, 'GamificationRealizationItem')]//*[contains(@class, 'fas fa-question')]",
                                           actionTitle));
   }
 

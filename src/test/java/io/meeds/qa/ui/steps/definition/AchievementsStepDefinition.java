@@ -64,6 +64,16 @@ public class AchievementsStepDefinition {
     achievementsSteps.checkThatAchievementIsAccepted(appDescription);
   }
 
+  @Then("^Achievement for '(.*)' is pending")
+  public void checkThatAchievementIsPending(String appDescription) {
+    achievementsSteps.checkThatAchievementIsPending(appDescription);
+  }
+
+  @Then("^I accept the achievements '(.*)'")
+  public void acceptAchievement(String appDescription) {
+    achievementsSteps.acceptAchievement(appDescription);
+  }
+
   @Then("^Achievement for '(.*)' is rejected$")
   public void checkThatAchievementIsRejected(String actionTitle) {
     achievementsSteps.checkThatAchievementIsRejected(actionTitle);

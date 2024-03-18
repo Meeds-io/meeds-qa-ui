@@ -446,7 +446,6 @@ Feature: Achievements
     Then Achievement for 'Comment activity in space' is rejected
     And Achievement for 'Receive comment activity in space' is rejected
 
-  @test
   Scenario: Cancel Like Stream Activity changes the Achievement as Canceled
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
@@ -513,7 +512,6 @@ Feature: Achievements
     And I go to 'achievements' in site 'mycraft'
     Then Achievement for 'Receive activity like in space' is canceled
 
-  @test
   Scenario: Cancel Like Stream Comment changes the Achievement as Canceled
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
@@ -582,7 +580,6 @@ Feature: Achievements
     And I go to 'achievements' in site 'mycraft'
     Then Achievement for 'Receive Like on stream comment in space' is canceled
 
-  @test
   Scenario: Cancel Space Join changes the Achievement as Canceled
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
