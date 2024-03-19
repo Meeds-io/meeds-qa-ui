@@ -236,7 +236,7 @@ Feature: Programs
     And I announce challenge 'Internal users action' with message 'announcement3'
 
     When I go to 'achievements' in site 'mycraft'
-    Then Achievement for 'Internal users action' is accepted
+    Then Achievement for 'Internal users action' is pending
 
     When I login as 'admin' random user
     And I go to 'programs' in site 'contribute'
