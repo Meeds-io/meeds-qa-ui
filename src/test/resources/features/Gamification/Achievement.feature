@@ -314,35 +314,19 @@ Feature: Achievements
     And Achievement 'Join space' of user 'tenthachievement' is displayed 'third'
     And Achievement 'Announce an achievement' of user 'tenthachievement' is displayed 'fourth'
 
-    When I sort table by 'Type'
+    When I sort table by 'Status'
     And I wait for application loading
 
     Then Achievement 'Join space' of user 'tenthachievement' is displayed 'first'
     And Achievement 'Join space' of user 'ninethachievement' is displayed 'second'
-    And Achievement 'Announce an achievement' of user 'tenthachievement' is displayed 'third'
-    And Achievement 'Announce an achievement' of user 'ninethachievement' is displayed 'fourth'
+    And Achievement 'Announce an achievement' of user 'ninethachievement' is displayed 'third'
+    And Achievement 'Announce an achievement' of user 'tenthachievement' is displayed 'fourth'
 
-    When I sort table by 'Type'
+    When I sort table by 'Status'
     And I wait for application loading
 
     Then Achievement 'Announce an achievement' of user 'tenthachievement' is displayed 'first'
     And Achievement 'Announce an achievement' of user 'ninethachievement' is displayed 'second'
-    And Achievement 'Join space' of user 'tenthachievement' is displayed 'third'
-    And Achievement 'Join space' of user 'ninethachievement' is displayed 'fourth'
-
-    When I sort table by 'Status'
-    And I wait for application loading
-
-    Then Achievement 'Announce an achievement' of user 'tenthachievement' is displayed 'first'
-    And Achievement 'Join space' of user 'tenthachievement' is displayed 'second'
-    And Achievement 'Join space' of user 'ninethachievement' is displayed 'third'
-    And Achievement 'Announce an achievement' of user 'ninethachievement' is displayed 'fourth'
-
-    When I sort table by 'Status'
-    And I wait for application loading
-
-    Then Achievement 'Announce an achievement' of user 'ninethachievement' is displayed 'first'
-    And Achievement 'Announce an achievement' of user 'tenthachievement' is displayed 'second'
     And Achievement 'Join space' of user 'tenthachievement' is displayed 'third'
     And Achievement 'Join space' of user 'ninethachievement' is displayed 'fourth'
 

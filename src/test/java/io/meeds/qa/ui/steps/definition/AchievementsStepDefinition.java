@@ -21,6 +21,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import io.meeds.qa.ui.steps.AchievementsSteps;
 import io.meeds.qa.ui.utils.Utils;
 import net.serenitybdd.core.Serenity;
@@ -31,7 +32,7 @@ public class AchievementsStepDefinition {
   @Steps
   private AchievementsSteps achievementsSteps;
 
-  @Then("I open '{}' achivements drawer from program detail")
+  @When("I open '{}' achivements drawer from program detail")
   public void openAchievementsDrawerFromProgramDetail(String ruleTitle) {
     achievementsSteps.openAchievementsDrawerFromProgramDetail(ruleTitle);
   }
@@ -61,6 +62,16 @@ public class AchievementsStepDefinition {
   @Then("^Achievement for '(.*)' is accepted$")
   public void checkThatAchievementIsAccepted(String appDescription) {
     achievementsSteps.checkThatAchievementIsAccepted(appDescription);
+  }
+
+  @Then("^Achievement for '(.*)' is pending")
+  public void checkThatAchievementIsPending(String appDescription) {
+    achievementsSteps.checkThatAchievementIsPending(appDescription);
+  }
+
+  @Then("^I accept the achievements '(.*)'")
+  public void acceptAchievement(String appDescription) {
+    achievementsSteps.acceptAchievement(appDescription);
   }
 
   @Then("^Achievement for '(.*)' is rejected$")
