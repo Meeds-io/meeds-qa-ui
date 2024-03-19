@@ -53,7 +53,7 @@ Feature: Actions
     Then The activity 'Challenge to announce' is displayed
 
     When I go to 'achievements' in site 'mycraft'
-    Then Achievement for 'Challenge to announce' is accepted
+    Then Achievement for 'Challenge to announce' is pending
 
     When I go to 'programs' in site 'contribute'
     And I open random program card
@@ -162,6 +162,25 @@ Feature: Actions
     And I announce action with message 'announcement12'
     And I close the notification
     Then The comment 'announcement12' is displayed
+
+    When I click on 'Announce an action from its activity' text
+    Then '0' participants is displayed in action drawer
+
+    When I go to the action from opened drawer
+    Then '0' participants is displayed in action drawer
+
+    When I go to the activity of opened action
+    And I click on 'Announce an action from its activity' text
+    Then '0' participants is displayed in action drawer
+
+    When I go to 'achievements' in site 'mycraft'
+    Then Achievement for 'Announce an action from its activity' is pending
+    Then I click on 'Review' button
+    Then I wait for application loading
+    When I accept the achievements 'Announce an action from its activity'
+
+    Then I go to Stream page
+    Then The activity 'Announce an action from its activity' is displayed
 
     When I click on 'Announce an action from its activity' text
     Then '1' participants is displayed in action drawer
