@@ -97,9 +97,9 @@ public class AchievementsPage extends GenericPage {
   public void checkThatAchievementIsCanceled(String actionTitle) {
     waitForPageLoading();
     retryOnCondition(() -> {
-      ElementFacade rejectedAchievementElement = rejectedAchievementElement(actionTitle);
-      rejectedAchievementElement.checkVisible();
-      rejectedAchievementElement.hover();
+      ElementFacade canceledAchievementElement = canceledOrDeletedAchievementElement(actionTitle);
+      canceledAchievementElement.checkVisible();
+      canceledAchievementElement.hover();
       ElementFacade tooltipCanceledElement = tooltipCanceledElement();
       tooltipCanceledElement.checkVisible();
     }, () -> {
@@ -111,7 +111,7 @@ public class AchievementsPage extends GenericPage {
   public void checkThatAchievementIsDeleted(String actionTitle) {
     waitForPageLoading();
     retryOnCondition(() -> {
-      ElementFacade rejectedAchievementElement = rejectedAchievementElement(actionTitle);
+      ElementFacade rejectedAchievementElement = canceledOrDeletedAchievementElement(actionTitle);
       rejectedAchievementElement.checkVisible();
       rejectedAchievementElement.hover();
       ElementFacade tooltipDeletedActivity = tooltipDeletedActivity();
@@ -213,6 +213,11 @@ public class AchievementsPage extends GenericPage {
   private ElementFacade rejectedAchievementElement(String actionTitle) {
     return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@id, 'GamificationRealizationItem')]//*[contains(@class, 'fas fa-times')]",
                                           actionTitle));
+  }
+
+  private ElementFacade canceledOrDeletedAchievementElement(String actionTitle) {
+    return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@id, 'GamificationRealizationItem')]//*[contains(text(), '-')]/../..//span[@class='not-clickable']",
+            actionTitle));
   }
 
   private ElementFacade achievementsFilterButton() {
