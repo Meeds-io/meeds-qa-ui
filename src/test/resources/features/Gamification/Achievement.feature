@@ -377,10 +377,8 @@ Feature: Achievements
     And I click on Yes button
     Then the confirmation popup is not displayed
     And the activity 'Activity to cancel' is no more displayed in the activity stream
-
     When I go to 'achievements' in site 'mycraft'
-
-    Then Achievement for 'Post activity in a space' is rejected
+    Then Achievement for 'Post activity in a space' is rejected due to activity deletion
 
   Scenario: Cancel Comment changes the Achievement as Rejected
     Given I am authenticated as 'admin' random user
@@ -443,8 +441,8 @@ Feature: Achievements
 
     When I go to 'achievements' in site 'mycraft'
 
-    Then Achievement for 'Comment activity in space' is rejected
-    And Achievement for 'Receive comment activity in space' is rejected
+    Then Achievement for 'Comment activity in space' is rejected due to activity deletion
+    And Achievement for 'Receive comment activity in space' is rejected due to activity deletion
 
   Scenario: Cancel Like Stream Activity changes the Achievement as Canceled
     Given I am authenticated as 'admin' random user
