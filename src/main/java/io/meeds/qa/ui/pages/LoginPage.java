@@ -128,7 +128,8 @@ public class LoginPage extends GenericPage implements IsHidden {
 
   public void logout() {
     try {
-      goToLoginPage();
+      deleteCookies();
+      openLoginPage();
     } finally {
       deleteLastLoginCookie();      
     }
