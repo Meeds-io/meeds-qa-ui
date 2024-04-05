@@ -438,6 +438,7 @@ public class ManageSpaceStepDefinitions {
   }
 
   @Given("I inject the random space")
+  @And("I inject a random space")
   public void injectRandomSpace() {
     manageSpaceSteps.injectRandomSpace(RANDOM_SPACE_NAME);
   }

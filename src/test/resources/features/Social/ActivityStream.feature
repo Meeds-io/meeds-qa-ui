@@ -1539,6 +1539,7 @@ Feature: Activity Stream
     And I inject the third random user if not existing
 
     And I login as 'first' random user
+    And I inject a random space
     And I go to the random space
     And I click on post in space
     And I enter an activity 'activitytestkudosCAP128'
@@ -1575,6 +1576,7 @@ Feature: Activity Stream
     And I inject the third random user if not existing
 
     And I login as 'first' random user
+    And I inject a random space
     And I go to the random space
     And I click on post in space
     And I enter an activity 'activitytestkudosCAP129'
@@ -1857,6 +1859,7 @@ Feature: Activity Stream
     And I inject the fourth random user if not existing
 
     And I login as 'first' random user
+    And I inject a random space
     And I go to the random space
     And I click on post in space
     And I enter an activity 'activitytestkudosUS52_05'

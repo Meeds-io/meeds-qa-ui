@@ -78,7 +78,7 @@ Feature: Actions
 
   Scenario: Cannot Announce a disabled challenge
     Given I am authenticated as 'admin' random user
-    And I create the random space if not existing
+    And I inject a random space
 
     And I go to 'programs' in site 'contribute'
     And I click on the button add program
@@ -213,7 +213,7 @@ Feature: Actions
 
   Scenario: Cannot Announce a disabled challenge
     Given I am authenticated as 'admin' random user
-    And I create the random space if not existing
+    And I inject a random space
 
     And I go to 'programs' in site 'contribute'
     And I click on the button add program
