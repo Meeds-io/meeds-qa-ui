@@ -89,18 +89,20 @@ public interface ElementFacade extends WebElementFacade {
   default void assertVisible() {
     long start = System.currentTimeMillis();
     boolean visible = isVisible();
-    assertTrue(String.format("Element %s wasn't visible after waiting %s ms",
+    assertTrue(String.format("Element %s wasn't visible after waiting %s ms. Current URL: %s",
                              this,
-                             System.currentTimeMillis() - start),
+                             System.currentTimeMillis() - start,
+                             getDriver().getCurrentUrl()),
                visible);
   }
 
   default void checkClickable() {
     long start = System.currentTimeMillis();
     if (!isClickable()) {
-      throw new ElementClickInterceptedException(String.format("Unable to locate a clickable element %s after %s ms",
+      throw new ElementClickInterceptedException(String.format("Unable to locate a clickable element %s after %s ms. Current URL: %s",
                                                                this,
-                                                               System.currentTimeMillis() - start));
+                                                               System.currentTimeMillis() - start,
+                                                               getDriver().getCurrentUrl()));
     }
   }
 

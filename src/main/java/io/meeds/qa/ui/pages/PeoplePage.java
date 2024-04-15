@@ -234,7 +234,7 @@ public class PeoplePage extends GenericPage {
       searchPeopleInputElement().setTextValue(user);
       waitForLoading();
       getUserProfileButton(user).click();
-    }, () -> waitFor(1).seconds() // User may not have been indexed yet
+    }, () -> waitFor(2).seconds() // User may not have been indexed yet
     );
   }
 

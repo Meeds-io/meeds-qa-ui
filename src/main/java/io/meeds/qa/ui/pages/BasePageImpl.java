@@ -171,22 +171,29 @@ public class BasePageImpl extends PageObject implements BasePage {
   public void closeAllDrawers() {
     int i = MAX_WAIT_RETRIES * 2;
     while (openedDrawerElement().isCurrentlyVisible() && i-- > 0) {
-      closeDrawer();
+      if (i > MAX_WAIT_RETRIES) {
+        pressEscape();
+      } else {
+        ElementFacade drawerCloseIcon = drawerCloseIcon();
+        drawerCloseIcon.assertVisible();
+        drawerCloseIcon.click();
+      }
       closeAlertIfOpened();
       closeConfirmDialogIfDisplayed();
-      waitForDrawerToClose();
+      waitFor(200).milliseconds(); // Animation duration
     }
+    waitForDrawerToClose();
     if (i == 0) {
       openedDrawerElement().assertNotVisible();
     }
   }
 
   private ElementFacade drawerCloseIcon() {
-    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'drawerIcons')]//*[contains(@class, 'close') or contains(@class, 'times')]");
+    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'drawerIcons')]//*[contains(@class, 'close') or contains(@class, 'times')][last()]");
   }
 
   private ElementFacade dialogCloseIcon() {
-    return findByXPathOrCSS("//*[contains(@class, 'v-dialog--active')]//*[contains(@class, 'close') or contains(@class, 'times')]");
+    return findByXPathOrCSS("//*[contains(@class, 'v-dialog--active')]//*[contains(@class, 'close') or contains(@class, 'times')][last()]");
   }
 
   public void closeDrawerIfDisplayed() {
@@ -616,7 +623,7 @@ public class BasePageImpl extends PageObject implements BasePage {
     if (drawerCloseIcon().isClickable()) {
       try {
         drawerCloseIcon().click();
-      } catch (Exception e) {
+      } catch (Throwable e) { // NOSONAR
         pressEscape();
       }
     } else {
