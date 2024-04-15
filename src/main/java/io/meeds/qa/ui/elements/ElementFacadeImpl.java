@@ -30,6 +30,7 @@ import java.util.function.BooleanSupplier;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
+import org.openqa.selenium.JavascriptException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
@@ -113,7 +114,12 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
     do {
       try {
         checkVisible();
-        getResolvedWebElement(this).click();
+        WebElement resolvedWebElement = getResolvedWebElement(this);
+        if (resolvedWebElement == null) {
+          throw new NoSuchElementException("Element not found " + xPathOrCSSSelector);
+        } else {
+          resolvedWebElement.click();
+        }
         return;
       } catch (ElementClickInterceptedException e) {
         // Normal behavior since this can happen when the page is reloaded
@@ -361,7 +367,12 @@ public class ElementFacadeImpl extends WebElementFacadeImpl implements ElementFa
 
   private WebElement getResolvedWebElement(WebElement element) {
     if (element instanceof WebElementFacadeImpl webElementFacadeImpl) {
-      return getResolvedWebElement(webElementFacadeImpl.getElement());
+      try {
+        return getResolvedWebElement(webElementFacadeImpl.getElement());
+      } catch (JavascriptException e) {
+        LOGGER.warn(e.getRawMessage(), this);
+        return null;
+      }
     } else {
       return element;
     }

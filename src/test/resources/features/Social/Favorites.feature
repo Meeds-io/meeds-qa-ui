@@ -113,6 +113,7 @@ Feature: Favorite activities
       | first  |
     And I inject the first random user if not existing
     And I login as 'first' random user
+    And I inject a random space
     And I go to the random space
     When I post '2' activities with prefix 'activityFavs_US06_02_'
     And I refresh the page
