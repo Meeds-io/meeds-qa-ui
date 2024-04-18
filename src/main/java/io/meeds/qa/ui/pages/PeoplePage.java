@@ -120,13 +120,6 @@ public class PeoplePage extends GenericPage {
     sentRequestsUsersElement(isSecondUserSuggestion).waitUntilNotVisible();
   }
 
-  public void checkThatFilterIsDisplayed() {
-    // Check that Filter is displayed
-    TextBoxElementFacade searchPeopleInputElement = searchPeopleInputElement();
-    searchPeopleInputElement.assertVisible();
-    Assert.assertEquals(searchPeopleInputElement.getAttribute("placeholder"), "Filter by name, position or skill");
-  }
-
   public void checkThatFirstUserSuggestionIsNotDisplayed() {
     String thirdUserFirstName = Serenity.sessionVariableCalled("thirdUserFirstName");
     String thirdUserLastName = Serenity.sessionVariableCalled("thirdUserLastName");
@@ -231,7 +224,7 @@ public class PeoplePage extends GenericPage {
 
   public void goToUserProfile(String user) {
     retryOnCondition(() -> {
-      searchPeopleInputElement().setTextValue(user);
+      searchUser(user);
       waitForLoading();
       getUserProfileButton(user).click();
     }, () -> waitFor(2).seconds() // User may not have been indexed yet
@@ -352,7 +345,7 @@ public class PeoplePage extends GenericPage {
   }
 
   private TextBoxElementFacade searchPeopleInputElement() {
-    return findTextBoxByXPathOrCSS("//header[@id='peopleListToolbar']//input");
+    return findTextBoxByXPathOrCSS("//*[contains(@class, 'fa-filter')]//ancestor::*[contains(@class, 'v-input')]//input");
   }
 
   private ElementFacade secondSuggestionElement() {
@@ -376,6 +369,8 @@ public class PeoplePage extends GenericPage {
   }
 
   public boolean searchUser(String user) {
+    clickOnApplicationFilterButton();
+
     TextBoxElementFacade inputField = searchPeopleInputElement();
     inputField.checkVisible();
     inputField.setTextValue(user + "x");

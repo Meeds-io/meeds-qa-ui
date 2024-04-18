@@ -55,6 +55,8 @@ public class SpaceHomePage extends GenericPage {
 
   private static final String CONFIRMATION_BUTTON_TO_DELETE_ACTIVITY_SELECTOR = "//*[contains(text(),'Yes')]";
 
+  private PeoplePage          peoplePage;
+
   public SpaceHomePage(WebDriver driver) {
     super(driver);
   }
@@ -309,11 +311,7 @@ public class SpaceHomePage extends GenericPage {
   public void checkSearchedUserWellMatched(String fullName) {
     insertNameContact(fullName);
     retryOnCondition(() -> getUserProfileButton(fullName).checkVisible(),
-                     () -> {
-                       filterTextBoxElement().sendKeys(Keys.BACK_SPACE);
-                       waitFor(300).milliseconds();
-                       waitForLoading();
-                     });
+                     () -> peoplePage.searchUser(fullName));
   }
 
   public void checkSecondActivityComment() {
@@ -708,6 +706,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void filterByMyConnections() {
+    clickOnApplicationFilterButton();
     ElementFacade filterByMyConnectionsElement = filterByMyConnectionsElement();
     filterByMyConnectionsElement.waitUntilVisible();
     filterByMyConnectionsElement.click();
@@ -769,8 +768,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void insertNameContact(String contact) {
-    filterTextBoxElement().setTextValue(contact);
-    waitForProgressBar(true);
+    peoplePage.searchUser(contact);
   }
 
   public void isActivityNameUserSpaceDisplayed(String activity, String user, String space) {
@@ -1062,10 +1060,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void searchMember(String name) {
-    spaceMembersFilterTextBoxElement().waitUntilVisible();
-    spaceMembersFilterTextBoxElement().setTextValue(name);
-    waitForProgressBar();
-    waitFor(500).milliseconds(); // Wait until UI refreshes
+    peoplePage.searchUser(name);
   }
 
   public void selectActivityFilter(String filter) {
@@ -1359,11 +1354,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private ElementFacade filterByMyConnectionsElement() {
-    return findByXPathOrCSS("//select[contains(@class,'selectPeopleFilter')]");
-  }
-
-  private TextBoxElementFacade filterTextBoxElement() {
-    return findTextBoxByXPathOrCSS("//header[@id='peopleListToolbar']//input");
+    return findByXPathOrCSS("//*[@id = 'applicationToolbarFilterSelect']");
   }
 
   private ElementFacade firstASDisplayedCommentElement() {
@@ -1793,10 +1784,6 @@ public class SpaceHomePage extends GenericPage {
 
   private ElementFacade sixthPositionInDrawerElement() {
     return findByXPathOrCSS("(//*[@id='activityCommentsDrawer']//*[contains(@id,'Extactivity-content-extensions')]//div)[6]");
-  }
-
-  private TextBoxElementFacade spaceMembersFilterTextBoxElement() {
-    return findTextBoxByXPathOrCSS("//header[@id='peopleListToolbar']//input");
   }
 
   private ElementFacade tabElement(String tabName) {
