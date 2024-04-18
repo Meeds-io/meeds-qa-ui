@@ -63,11 +63,6 @@ public class PeopleStepDefinition {
     peopleSteps.checkThatDeletedUserSuggestionIsNotDisplayed();
   }
 
-  @Given("^Search Filter is displayed in People page$")
-  public void checkThatFilterIsDisplayed() {
-    peopleSteps.checkThatFilterIsDisplayed();
-  }
-
   @Then("^Contact Fullname in People page is displayed$")
   public void checkThatFullNameIsDisplayed() {
     peopleSteps.checkThatFullNameIsDisplayed();
