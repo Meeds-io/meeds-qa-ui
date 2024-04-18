@@ -34,6 +34,8 @@ public class KudosPage extends GenericPage {
 
   private SpaceHomePage       spaceHomePage;
 
+  private PeoplePage          peoplePage;
+
   public KudosPage(WebDriver driver) {
     super(driver);
   }
@@ -122,10 +124,7 @@ public class KudosPage extends GenericPage {
   }
 
   public void searchForUsersByName(String fullName) {
-    searchUsersFieldElement().checkVisible();
-    searchUsersFieldElement().setTextValue(fullName);
-    waitFor(200).milliseconds();
-    waitForLoading();
+    peoplePage.searchUser(fullName);
   }
 
   public void selectType() {
@@ -307,10 +306,6 @@ public class KudosPage extends GenericPage {
     return findByXPathOrCSS("//button[@class='btn btn-primary ignore-vuetify-classes mb-3']");
   }
 
-  private TextBoxElementFacade searchUsersFieldElement() {
-    return findTextBoxByXPathOrCSS("//header[@id='peopleListToolbar']//input");
-  }
-
   private TextBoxElementFacade kudosReceiverField() {
     return findTextBoxByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class,'user-suggester')]//input[@type = 'text']");
   }
@@ -320,7 +315,7 @@ public class KudosPage extends GenericPage {
   }
 
   private ElementFacade sendKudosMenuElement() {
-    return findByXPathOrCSS("//*[contains(@class, 'fa-award')]//ancestor::*[contains(@class, 'peopleActionItem')]");
+    return findByXPathOrCSS("//*[contains(@class, 'fa-award')]//ancestor::*[contains(@role, 'menuitem')]");
   }
 
   private ElementFacade threedotsKudosCommentElement() {

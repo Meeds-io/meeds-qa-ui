@@ -185,6 +185,16 @@ public class GenericPage extends BasePageImpl {
     tableHeaderElement(fieldText).click();
   }
 
+  public void clickOnApplicationFilterButton() {
+    if (applicationToolbarConeButton().isVisible()) {
+      applicationToolbarConeButton().click();
+    }
+  }
+
+  private ElementFacade applicationToolbarConeButton() {
+    return findByXPathOrCSS("//*[@id='applicationToolbarConeButton']");
+  }
+
   private ElementFacade getDisplayedConfirmMessage() {
     return findByXPathOrCSS(".v-snack--active .v-alert__content");
   }

@@ -60,10 +60,6 @@ public class PeopleSteps {
     peoplePage.checkThatUserSuggestionIsDisplayed(thirdUserFirstName, thirdUserLastName);
   }
 
-  public void checkThatFilterIsDisplayed() {
-    peoplePage.checkThatFilterIsDisplayed();
-  }
-
   public void checkThatFullNameIsDisplayed() {
     peoplePage.checkThatFullNameIsDisplayed();
   }

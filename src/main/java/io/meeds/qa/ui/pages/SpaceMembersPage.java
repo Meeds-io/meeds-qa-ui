@@ -45,7 +45,7 @@ public class SpaceMembersPage extends GenericPage {
   }
 
   private ElementFacade setAsRedactorBtnElement() {
-    return findByXPathOrCSS("//*[contains(@class, 'uiIconEditMembership')]//ancestor::*[contains(@class, 'peopleActionItem')]");
+    return findByXPathOrCSS("//*[contains(@class, 'uiIconEditMembership')]//ancestor::*[contains(@role, 'menuitem')]");
   }
 
   private ElementFacade threeDotsButton() {
