@@ -85,9 +85,11 @@ Feature: Social
     And I go to the random space
     Then the activity 'comment activity' is displayed in activity stream
 
-    When I add in activity 'comment activity' a comment 'commenttest'
+    And I open in activity 'comment activity' the Comments drawer
+    And I add in activity 'comment activity' a comment 'commenttest'
     And I login as 'third' random user
     And I go to the random space
     Then the activity 'comment activity' is displayed in activity stream
+    And I open in activity 'comment activity' the Comments drawer
     When I add a reply 'reply' to comment 'commenttest' in activity 'comment activity'
     Then In activity 'comment activity' with comment 'commenttest', the reply 'reply' is displayed

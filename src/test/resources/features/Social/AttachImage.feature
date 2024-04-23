@@ -128,7 +128,7 @@ Feature: Attach images activities
     And I click on Update
     
     Then The attached images should be displayed in the published activity 'activity with attached image, edit image'
- 
+
   Scenario: Send a kudos with attached image
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -149,7 +149,8 @@ Feature: Attach images activities
     
     And I attach an image to the kudos
     And I send to the comment activity a kudos message 'Kudos with attached image'
-    Then Activity Comment kudos 'Kudos with attached image' is displayed in activity stream
+    And I open in activity 'activity with kudos attached image' the Comments drawer
+    Then Comment 'Kudos with attached image' is not displayed in the drawer
     And The attached images should be displayed in the activity comment 'Kudos with attached image'
 
   Scenario: Announce an action with attached image
