@@ -83,6 +83,10 @@ public class SpaceHomeSteps {
     spaceHomePage.checkCommentReplyDisplayed(activity, comment, reply);
   }
 
+  public void checkCommentReplyDisplayedInDrawer(String activity, String comment, String reply) {
+    spaceHomePage.checkCommentReplyDisplayedInDrawer(activity, comment, reply);
+  }
+
   public void checkCommentReplyNotDisplayed(String activity, String comment, String reply) {
     spaceHomePage.checkCommentReplyNotDisplayed(activity, comment, reply);
   }
@@ -213,6 +217,10 @@ public class SpaceHomeSteps {
 
   public void clickOnCommentThreeDotsButtonFromCommentsDrawer(String comment) {
     spaceHomePage.clickOnCommentThreeDotsButtonFromCommentsDrawer(comment);
+  }
+
+  public void clickOnFirstCommentThreeDotsButtonFromCommentsDrawer(String comment) {
+    spaceHomePage.clickOnFirstCommentThreeDotsButtonFromCommentsDrawer(comment);
   }
 
   public void clickOnCommentThreeDotsInCommentsDrawer(String comment) {
