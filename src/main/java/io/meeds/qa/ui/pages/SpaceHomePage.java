@@ -175,7 +175,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void addCommentReply(String reply, String comment, String activity) {
-    clickOnReplyToComment(comment, activity, false);
+    clickOnReplyToComment(comment, activity, true);
     waitForDrawerToOpen();
     waitForDrawerToLoad();
 
@@ -259,7 +259,11 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void checkCommentReplyDisplayed(String activity, String comment, String reply) {
-    getReplyBox(comment, reply, StringUtils.isBlank(activity)).assertVisible();
+    getReplyBox(comment, reply, false).assertVisible();
+  }
+
+  public void checkCommentReplyDisplayedInDrawer(String activity, String comment, String reply) {
+    getReplyBox(comment, reply, true).assertVisible();
   }
 
   public void checkCommentReplyNotDisplayed(String activity, String comment, String reply) {
@@ -417,6 +421,10 @@ public class SpaceHomePage extends GenericPage {
 
   public void clickOnCommentThreeDotsButtonFromCommentsDrawer(String comment) {
     getDropDownCommentMenuFromCommentsDrawer(comment).click();
+  }
+
+  public void clickOnFirstCommentThreeDotsButtonFromCommentsDrawer(String comment) {
+    getDropDownFirstCommentMenuFromCommentsDrawer(comment).click();
   }
 
   public void clickOnCommentThreeDotsInCommentsDrawer(String comment) {
@@ -1553,6 +1561,11 @@ public class SpaceHomePage extends GenericPage {
 
   private ElementFacade getDropDownCommentMenu(String comment) {
     return findByXPathOrCSS(String.format("//*[contains(@class,'activity-detail')]//*[contains(@class,'activity-comment')]//*[contains(@class,'activity-comment')]//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@class,'activity-comment') and contains(@id, 'ActivityCommment_')][1]//i[contains(@class, 'mdi-dots-vertical')]//ancestor::button",
+                                          comment));
+  }
+
+  private ElementFacade getDropDownFirstCommentMenuFromCommentsDrawer(String comment) {
+    return findByXPathOrCSS(String.format("(//*[@id='activityCommentsDrawer']//*[contains(@class,'d-inline-flex flex-column activity-comment')][1]//*[contains(@class,'v-icon notranslate primary--text')])[1]", // NOSONAR
                                           comment));
   }
 
