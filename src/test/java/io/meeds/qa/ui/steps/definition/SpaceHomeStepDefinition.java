@@ -167,6 +167,11 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.checkCommentReplyDisplayed(activity, comment, reply);
   }
 
+  @And("^In activity '(.*)' with comment '(.*)', the reply '(.*)' is displayed in Comment Drawer$")
+  public void checkCommentReplyDisplayedInDrawer(String activity, String comment, String reply) {
+    spaceHomeSteps.checkCommentReplyDisplayedInDrawer(activity, comment, reply);
+  }
+
   @When("^In activity '(.*)' with comment '(.*)', the reply '(.*)' is not displayed$")
   public void checkCommentReplyNotDisplayed(String activity, String comment, String reply) {
     spaceHomeSteps.checkCommentReplyNotDisplayed(activity, comment, reply);
@@ -316,6 +321,11 @@ public class SpaceHomeStepDefinition {
   @Then("^I click on the comment '(.*)' three dots icon from comments drawer$")
   public void clickOnCommentThreeDotsButtonFromCommentsDrawer(String comment) {
     spaceHomeSteps.clickOnCommentThreeDotsButtonFromCommentsDrawer(comment);
+  }
+
+  @And("^I click on the first comment '(.*)' three dots icon from comments drawer$")
+  public void clickOnFirstCommentThreeDotsButtonFromCommentsDrawer(String comment) {
+    spaceHomeSteps.clickOnFirstCommentThreeDotsButtonFromCommentsDrawer(comment);
   }
 
   @Then("^In comments drawer, I click on the comment '(.*)' three dots icon$")
