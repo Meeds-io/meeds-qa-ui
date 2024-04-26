@@ -1271,6 +1271,7 @@ Feature: Activity Stream
     Then Space Top Bar Elements are displayed
 
     When I go to the random space
+    And I open in activity 'activityTestCAP157-157' the Comments drawer
     And I open the internal link '/members' in new tab
     Then The internal link '/members' is opened in new tab
 
@@ -1303,6 +1304,7 @@ Feature: Activity Stream
     When I click on comment 'meeds.io'
     Then Link 'https://www.meeds.io/' is opened in new tab
 
+    And I open in activity 'activityTestCAP158-158' the Comments drawer
     When I open link 'meeds.io' in new tab
     Then Link 'https://www.meeds.io/' is opened in new tab
 
