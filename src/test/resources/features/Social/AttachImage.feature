@@ -129,10 +129,9 @@ Feature: Attach images activities
     Then The attached images should be displayed in the published activity 'activity with attached image, edit image'
 
   Scenario: Send a kudos with attached image
-    Given I am authenticated as 'admin' if random users doesn't exists
-      | first  |
-    And I inject the first random user if not existing
-    And I inject the second random user if not existing
+    Given I am authenticated as 'admin' random user
+    And I inject the 'first' random user
+    And I inject the 'second' random user
     And I login as 'first' random user
     And I inject the random space
     And I go to the random space
