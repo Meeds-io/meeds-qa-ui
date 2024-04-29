@@ -51,10 +51,6 @@ public class NotificationSettingsStep {
     notificationSettingsPage.checkEmailNotificationIsHiddenForAllTypes();
   }
 
-  public void checkEmailNotificationIsDisplayedForAllTypes() {
-    notificationSettingsPage.checkEmailNotificationIsDisplayedForAllTypes();
-  }
-
   public void disableEmailNotification(String notificationType) {
     notificationSettingsPage.disableEmailNotification(notificationType);
   }
