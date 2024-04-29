@@ -69,12 +69,6 @@ public class NotificationSettingsPage extends GenericPage {
     personalSettingEmailNotificationElement().assertNotVisible();
   }
 
-  public void checkEmailNotificationIsDisplayedForAllTypes() {
-    personalSettingNotificationTypeButton("activity").click();
-    emailNotifDrawerSwitch().assertVisible();
-    closeDrawerIfDisplayed();
-  }
-
   public void disableEmailNotification(String notificationType) {
     personalSettingNotificationTypeButton(notificationType).click();
     waitForDrawerToOpen();

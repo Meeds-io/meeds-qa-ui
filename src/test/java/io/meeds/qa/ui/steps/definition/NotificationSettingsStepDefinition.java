@@ -62,11 +62,6 @@ public class NotificationSettingsStepDefinition {
     notificationSettingsStep.checkEmailNotificationIsHiddenForAllTypes();
   }
 
-  @Then("The email notification settings are displayed in some notification types")
-  public void checkEmailNotificationIsDisplayedForAllTypes() {
-    notificationSettingsStep.checkEmailNotificationIsDisplayedForAllTypes();
-  }
-
   @When("I enable email notification personal setting")
   public void enablePersonalEmailNotification() {
     notificationSettingsStep.enablePersonalEmailNotification();
