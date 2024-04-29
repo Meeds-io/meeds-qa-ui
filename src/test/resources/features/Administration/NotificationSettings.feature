@@ -15,13 +15,14 @@ Feature: Notification Settings
 
     When I go to notification administration Page
     And I enable email notifications for all users
+    And I enable email notification for 'User is mentioned in a message'
     And I go to Settings page
 
     Then The email notification setting is displayed
 
     When I enable email notification personal setting
     And I go to manage notifications from settings page
-    Then The email notification settings are displayed in some notification types
+    Then The email notification setting for 'Someone @mentions me' is displayed
 
   Scenario: Enable/Disbale email channel for a notification type
     Given I am authenticated as 'admin' random user
