@@ -47,8 +47,8 @@ public class SpaceHomeSteps {
     spaceHomePage.cancelDeleteComment();
   }
 
-  public void checkActivityComment(String comment) {
-    spaceHomePage.checkActivityComment(comment);
+  public void checkActivityCommentDisplayed(String activity, String comment) {
+    spaceHomePage.checkActivityCommentDisplayed(activity, comment);
   }
 
   public void checkActivityCommentInDrawer(String comment) {
@@ -609,10 +609,6 @@ public class SpaceHomeSteps {
 
   public void filterIsntSelected() {
     spaceHomePage.filterIsntSelected();
-  }
-
-  public void tooltipActivityStreamIsDisplayed(String comment) {
-    spaceHomePage.tooltipActivityStreamIsDisplayed(comment);
   }
 
   public void tooltipCommentsDrawerIsDisplayed(String comment) {

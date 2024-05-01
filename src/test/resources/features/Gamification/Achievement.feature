@@ -439,7 +439,7 @@ Feature: Achievements
     And In comment 'comment to delete', I click on delete button
     And I click on Yes button
     Then the confirmation popup is not displayed
-    And Comment 'comment to delete' is not displayed in activity 'Activity with comment to cancel'
+    And The comment 'comment to delete' is not displayed in Comments drawer of activity 'Activity with comment to cancel'
 
     When I go to 'achievements' in site 'mycraft'
 

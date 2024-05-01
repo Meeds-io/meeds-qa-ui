@@ -590,15 +590,17 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void attachImageToCKeditor(String fileName) {
+    waitCKEditorLoading();
     ckEditorAttachImageButton().assertVisible();
     ElementFacade fileInput = ckEditorAttachImageInput();
     fileInput.assertEnabled();
     attachImageToFileInput(fileInput, fileName);
     waitForLoading();
-    ckEditorImageAttachmentCarousel().checkVisible();
-    ckEditorImageAttachmentPlusIcon().assertVisible();
     retryOnCondition(() -> ckEditorImageAttachmentProgressElement().waitUntilNotVisible());
-    waitFor(500).milliseconds();
+    retryOnCondition(() -> ckEditorImageAttachmentEditButton().waitUntilVisible());
+    ckEditorImageAttachmentCarousel().assertVisible();
+    ckEditorImageAttachmentPlusIcon().assertVisible();
+    waitFor(1000).milliseconds();
   }
 
   public ElementFacade attachFileInput(boolean secondLevel) {
@@ -677,6 +679,10 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   private ElementFacade ckEditorImageAttachmentProgressElement() {
     return findByXPathOrCSS("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[last()]/parent::*//*[contains(@class, 'v-progress-circular')]");
+  }
+
+  private ElementFacade ckEditorImageAttachmentEditButton() {
+    return findByXPathOrCSS("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[last()]/parent::*//*[contains(@class, 'fa-edit')]");
   }
 
 }
