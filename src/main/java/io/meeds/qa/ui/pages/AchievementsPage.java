@@ -139,6 +139,7 @@ public class AchievementsPage extends GenericPage {
     String errorMessage = retryGetOnCondition(() -> {
       enableProgramOwnerView();
       filterAchievementByProgram(programName);
+      waitForLoading();
       long found = achievementsCount(actionTitle);
       return checkAchievementsCount(actionTitle, times, found);
     }, () -> {
