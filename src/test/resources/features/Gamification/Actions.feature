@@ -194,9 +194,7 @@ Feature: Actions
 
     When I go to the random space
     Then The activity 'Announce an action from its activity' is displayed
-    And I open in activity 'Announce an action from its activity' the Comments drawer
-    And The comment 'announcement12' is displayed
-    And I close the opened drawer
+    And The comment 'announcement12' is displayed in Comments drawer of activity 'Announce an action from its activity'
 
     When I click on three dots button related to activity 'Announce an action from its activity'
     And I click on 'Hide' menu item
