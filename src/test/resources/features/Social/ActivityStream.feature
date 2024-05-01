@@ -83,16 +83,13 @@ Feature: Activity Stream
     And I go to the random space
     Then the activity 'activityTestCAP100-100' is displayed in activity stream
     When I add in activity 'activityTestCAP100-100' a comment 'commenttestCAP100-100'
-    And I open in activity 'activityTestCAP100-100' the Comments drawer
-    Then Activity Comment 'commenttestCAP100-100' is displayed in Comments drawer
-    And Activity Comment 'commenttestCAP100-100' is displayed in activity stream
+    Then The comment 'commenttestCAP100-100' is displayed in Comments drawer of activity 'activityTestCAP100-100'
 
     When I login as 'third' random user
 
     And I go to the random space
     Then the activity 'activityTestCAP100-100' is displayed in activity stream
-    And I open in activity 'activityTestCAP100-100' the Comments drawer
-    Then Activity Comment 'commenttestCAP100-100' is displayed in Comments drawer
+    Then The comment 'commenttestCAP100-100' is displayed in Comments drawer of activity 'activityTestCAP100-100'
     And I open in activity 'activityTestCAP100-100' the Comments drawer
     When I add a reply 'replyTestCAP100-100' to comment 'commenttestCAP100-100' in activity 'activityTestCAP100-100'
     Then In activity 'activityTestCAP100-100' with comment 'commenttestCAP100-100', the reply 'replyTestCAP100-100' is displayed
@@ -101,8 +98,7 @@ Feature: Activity Stream
 
     And I go to the random space
     Then the activity 'activityTestCAP100-100' is displayed in activity stream
-    And I open in activity 'activityTestCAP100-100' the Comments drawer
-    Then Activity Comment 'commenttestCAP100-100' is displayed in Comments drawer
+    Then The comment 'commenttestCAP100-100' is displayed in Comments drawer of activity 'activityTestCAP100-100'
     And I open in activity 'activityTestCAP100-100' the Comments drawer
     And In activity 'activityTestCAP100-100' with comment 'commenttestCAP100-100', the reply 'replyTestCAP100-100' is displayed in Comment Drawer
     When I add a reply 'replyTestCAP100-101' to comment 'commenttestCAP100-100' in activity 'activityTestCAP100-100'
@@ -113,8 +109,7 @@ Feature: Activity Stream
 
     And I go to the random space
     Then the activity 'activityTestCAP100-100' is displayed in activity stream
-    And I open in activity 'activityTestCAP100-100' the Comments drawer
-    Then Activity Comment 'commenttestCAP100-100' is displayed in Comments drawer
+    Then The comment 'commenttestCAP100-100' is displayed in Comments drawer of activity 'activityTestCAP100-100'
     And I open in activity 'activityTestCAP100-100' the Comments drawer
     And In activity 'activityTestCAP100-100' with comment 'commenttestCAP100-100', the reply 'replyTestCAP100-100' is displayed in Comment Drawer
     And In activity 'activityTestCAP100-100' with comment 'commenttestCAP100-100', the reply 'replyTestCAP100-101' is displayed in Comment Drawer
@@ -123,7 +118,6 @@ Feature: Activity Stream
     And In comment 'commenttestCAP100-100', I click on delete button
     And I click on Cancel button
     Then the confirmation popup is not displayed
-    And Activity Comment 'commenttestCAP100-100' is displayed in activity stream
     And In activity 'activityTestCAP100-100' with comment 'commenttestCAP100-100', the reply 'replyTestCAP100-100' is displayed
     And In activity 'activityTestCAP100-100' with comment 'commenttestCAP100-100', the reply 'replyTestCAP100-101' is displayed
 
@@ -152,9 +146,7 @@ Feature: Activity Stream
     And I go to the random space
     Then the activity 'activityTestCAP102-102' is displayed in activity stream
     When I add in activity 'activityTestCAP102-102' a comment 'commenttestCAP102-102'
-    And I open in activity 'activityTestCAP102-102' the Comments drawer
-    Then Activity Comment 'commenttestCAP102-102' is displayed in Comments drawer
-    And Activity Comment 'commenttestCAP102-102' is displayed in activity stream
+    Then The comment 'commenttestCAP102-102' is displayed in Comments drawer of activity 'activityTestCAP102-102'
 
     When I login as 'third' random user
 
@@ -243,9 +235,7 @@ Feature: Activity Stream
     And I go to the random space
     Then the activity 'activityTestCAP103-103' is displayed in activity stream
     When I add in activity 'activityTestCAP103-103' a comment 'commenttestCAP103-103'
-    And I open in activity 'activityTestCAP103-103' the Comments drawer
-    Then Activity Comment 'commenttestCAP103-103' is displayed in Comments drawer
-    And Activity Comment 'commenttestCAP103-103' is displayed in activity stream
+    Then The comment 'commenttestCAP103-103' is displayed in Comments drawer of activity 'activityTestCAP103-103'
 
     When I login as 'third' random user
 
@@ -270,7 +260,7 @@ Feature: Activity Stream
     And Comment 'commenttestCAP103-103' is not displayed in the drawer
     And No comments displayed in the drawer
     When I close the opened drawer
-    Then Comment 'commenttestCAP103-103' is not displayed in activity 'activityTestCAP103-103'
+    Then The comment 'commenttestCAP103-103' is not displayed in Comments drawer of activity 'activityTestCAP103-103'
 
     When I login as 'first' random user
 
@@ -281,7 +271,7 @@ Feature: Activity Stream
     Then Comment 'commenttestCAP103-103' is not displayed in the drawer
     And No comments displayed in the drawer
     When I close the opened drawer
-    Then Comment 'commenttestCAP103-103' is not displayed in activity 'activityTestCAP103-103'
+    Then The comment 'commenttestCAP103-103' is not displayed in Comments drawer of activity 'activityTestCAP103-103'
 
     When I login as 'third' random user
 
@@ -292,7 +282,7 @@ Feature: Activity Stream
     Then Comment 'commenttestCAP103-103' is not displayed in the drawer
     And No comments displayed in the drawer
     When I close the opened drawer
-    Then Comment 'commenttestCAP104-CAP103-103' is not displayed in activity 'activityTestCAP103-103'
+    Then The comment 'commenttestCAP104-CAP103-103' is not displayed in Comments drawer of activity 'activityTestCAP103-103'
 
   Scenario: CAP104 - [ActivityStream_US39][02] Cancel Delete a simple comment from the comment drawer
     Given I am authenticated as 'admin' if random space and random users doesn't exists
@@ -319,9 +309,7 @@ Feature: Activity Stream
     And I go to the random space
     Then the activity 'activityTestCAP104-104' is displayed in activity stream
     When I add in activity 'activityTestCAP104-104' a comment 'commenttestCAP104-104'
-    And I open in activity 'activityTestCAP104-104' the Comments drawer
-    Then Activity Comment 'commenttestCAP104-104' is displayed in Comments drawer
-    And Activity Comment 'commenttestCAP104-104' is displayed in activity stream
+    Then The comment 'commenttestCAP104-104' is displayed in Comments drawer of activity 'activityTestCAP104-104'
 
     When I login as 'third' random user
 
@@ -344,10 +332,6 @@ Feature: Activity Stream
     And I click on Cancel button
     Then the confirmation popup is not displayed
     And '1 comment', only 'commenttestCAP104-104' is displayed in Comments drawer
-    When I close the opened drawer
-
-    When I open in activity 'activityTestCAP104-104' the Comments drawer
-    Then Activity Comment 'commenttestCAP104-104' is displayed in activity stream
 
     When I login as 'first' random user
 
@@ -390,8 +374,7 @@ Feature: Activity Stream
     And I go to the random space
     Then the activity 'activityTestCAP105-105' is displayed in activity stream
     When I add in activity 'activityTestCAP105-105' a comment 'commenttestCAP105-105'
-    And I open in activity 'activityTestCAP105-105' the Comments drawer
-    Then Activity Comment 'commenttestCAP105-105' is displayed in Comments drawer
+    Then The comment 'commenttestCAP105-105' is displayed in Comments drawer of activity 'activityTestCAP105-105'
 
     When I open in activity 'activityTestCAP105-105' the Comments drawer
     And I add a reply 'replyTest101' to comment 'commenttestCAP105-105' in activity 'activityTestCAP105-105'
@@ -401,9 +384,7 @@ Feature: Activity Stream
 
     And I go to the random space
     Then the activity 'activityTestCAP105-105' is displayed in activity stream
-
-    When I open in activity 'activityTestCAP105-105' the Comments drawer
-    Then Activity Comment 'commenttestCAP105-105' is displayed in Comments drawer
+    Then The comment 'commenttestCAP105-105' is displayed in Comments drawer of activity 'activityTestCAP105-105'
 
     When I open in activity 'activityTestCAP105-105' the Comments drawer
     Then In activity 'activityTestCAP105-105' with comment 'commenttestCAP105-105', the reply 'replyTest101' is displayed in Comment Drawer
@@ -414,8 +395,7 @@ Feature: Activity Stream
 
     And I go to the random space
     Then the activity 'activityTestCAP105-105' is displayed in activity stream
-    When I open in activity 'activityTestCAP105-105' the Comments drawer
-    Then Activity Comment 'commenttestCAP105-105' is displayed in Comments drawer
+    Then The comment 'commenttestCAP105-105' is displayed in Comments drawer of activity 'activityTestCAP105-105'
 
     When I open in activity 'activityTestCAP105-105' the Comments drawer
     Then '1 comment', only 'commenttestCAP105-105' is displayed in Comments drawer
@@ -445,7 +425,7 @@ Feature: Activity Stream
     And The reply 'replyTest102' is not displayed in the drawer
     And The reply 'replyTest103' is not displayed in the drawer
     When I close the opened drawer
-    Then Comment 'commenttestCAP105-105' is not displayed in activity 'activityTestCAP105-105'
+    Then The comment 'commenttestCAP105-105' is not displayed in Comments drawer of activity 'activityTestCAP105-105'
 
     When I login as 'first' random user
 
@@ -459,7 +439,7 @@ Feature: Activity Stream
     And The reply 'replyTest102' is not displayed in the drawer
     And The reply 'replyTest103' is not displayed in the drawer
     When I close the opened drawer
-    Then Comment 'commenttestCAP105-105' is not displayed in activity 'activityTestCAP105-105'
+    Then The comment 'commenttestCAP105-105' is not displayed in Comments drawer of activity 'activityTestCAP105-105'
 
     When I login as 'third' random user
 
@@ -473,7 +453,7 @@ Feature: Activity Stream
     And The reply 'replyTest102' is not displayed in the drawer
     And The reply 'replyTest103' is not displayed in the drawer
     When I close the opened drawer
-    Then Comment 'commenttestCAP105-105' is not displayed in activity 'activityTestCAP105-105'
+    Then The comment 'commenttestCAP105-105' is not displayed in Comments drawer of activity 'activityTestCAP105-105'
 
   Scenario: CAP106 - [ActivityStream_US39][04] Cancel Delete comment with replies from the comments drawer
     Given I am authenticated as 'admin' if random space and random users doesn't exists
@@ -500,9 +480,7 @@ Feature: Activity Stream
     And I go to the random space
     Then the activity 'activityTestCAP106-106' is displayed in activity stream
     When I add in activity 'activityTestCAP106-106' a comment 'commenttestCAP106-106'
-    And I open in activity 'activityTestCAP106-106' the Comments drawer
-    Then Activity Comment 'commenttestCAP106-106' is displayed in Comments drawer
-    And Activity Comment 'commenttestCAP106-106' is displayed in activity stream
+    Then The comment 'commenttestCAP106-106' is displayed in Comments drawer of activity 'activityTestCAP106-106'
 
     When I open in activity 'activityTestCAP106-106' the Comments drawer
     And I add a reply 'replyTestCAP106-101' to comment 'commenttestCAP106-106' in activity 'activityTestCAP106-106'
@@ -512,8 +490,7 @@ Feature: Activity Stream
 
     And I go to the random space
     Then the activity 'activityTestCAP106-106' is displayed in activity stream
-    And I open in activity 'activityTestCAP106-106' the Comments drawer
-    Then Activity Comment 'commenttestCAP106-106' is displayed in Comments drawer
+    Then The comment 'commenttestCAP106-106' is displayed in Comments drawer of activity 'activityTestCAP106-106'
     And I open in activity 'activityTestCAP106-106' the Comments drawer
     And In activity 'activityTestCAP106-106' with comment 'commenttestCAP106-106', the reply 'replyTestCAP106-101' is displayed in Comment Drawer
     When I add a reply 'replyTestCAP106-102' to comment 'commenttestCAP106-106' in activity 'activityTestCAP106-106'
@@ -523,8 +500,7 @@ Feature: Activity Stream
 
     And I go to the random space
     Then the activity 'activityTestCAP106-106' is displayed in activity stream
-    And I open in activity 'activityTestCAP106-106' the Comments drawer
-    Then Activity Comment 'commenttestCAP106-106' is displayed in Comments drawer
+    Then The comment 'commenttestCAP106-106' is displayed in Comments drawer of activity 'activityTestCAP106-106'
 
     When I open in activity 'activityTestCAP106-106' the Comments drawer
     Then '1 comment', only 'commenttestCAP106-106' is displayed in Comments drawer
@@ -537,8 +513,7 @@ Feature: Activity Stream
 
     And I go to the random space
     Then the activity 'activityTestCAP106-106' is displayed in activity stream
-    And I open in activity 'activityTestCAP106-106' the Comments drawer
-    And Activity Comment 'commenttestCAP106-106' is displayed in Comments drawer
+    And The comment 'commenttestCAP106-106' is displayed in Comments drawer of activity 'activityTestCAP106-106'
 
     When I open in activity 'activityTestCAP106-106' the Comments drawer
     Then '1 comment', only 'commenttestCAP106-106' is displayed in Comments drawer
@@ -554,9 +529,6 @@ Feature: Activity Stream
     And In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-101' is displayed in the drawer
     And In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-102' is displayed in the drawer
     And In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-103' is displayed in the drawer
-    When I close the opened drawer
-    And I open in activity 'activityTestCAP106-106' the Comments drawer
-    Then Activity Comment 'commenttestCAP106-106' is displayed in Comments drawer
 
     When I login as 'first' random user
 
@@ -569,9 +541,6 @@ Feature: Activity Stream
     Then In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-101' is displayed in the drawer
     And In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-102' is displayed in the drawer
     And In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-103' is displayed in the drawer
-    When I close the opened drawer
-    And I open in activity 'activityTestCAP106-106' the Comments drawer
-    Then Activity Comment 'commenttestCAP106-106' is displayed in Comments drawer
 
     When I login as 'third' random user
 
@@ -584,10 +553,6 @@ Feature: Activity Stream
     Then In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-101' is displayed in the drawer
     And In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-102' is displayed in the drawer
     And In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-103' is displayed in the drawer
-    When I close the opened drawer
-
-    And I open in activity 'activityTestCAP106-106' the Comments drawer
-    Then Activity Comment 'commenttestCAP106-106' is displayed in Comments drawer
 
   Scenario: CAP107 - [ActivityStream_US39][05] Delete a reply from comments drawer
     Given I am authenticated as 'admin' if random space and random users doesn't exists
@@ -614,9 +579,7 @@ Feature: Activity Stream
     And I go to the random space
     Then the activity 'activityTestCAP107-107' is displayed in activity stream
     When I add in activity 'activityTestCAP107-107' a comment 'commenttestCAP107-107'
-    And I open in activity 'activityTestCAP107-107' the Comments drawer
-    Then Activity Comment 'commenttestCAP107-107' is displayed in Comments drawer
-    And Activity Comment 'commenttestCAP107-107' is displayed in activity stream
+    Then The comment 'commenttestCAP107-107' is displayed in Comments drawer of activity 'activityTestCAP107-107'
     And I open in activity 'activityTestCAP107-107' the Comments drawer
     When I add a reply 'replyTestCAP107-101' to comment 'commenttestCAP107-107' in activity 'activityTestCAP107-107'
     Then In activity 'activityTestCAP107-107' with comment 'commenttestCAP107-107', the reply 'replyTestCAP107-101' is displayed
@@ -662,7 +625,6 @@ Feature: Activity Stream
     And In comment 'commenttestCAP107-107', the reply 'replyTestCAP107-103' is displayed in the drawer
     And The reply 'replyTestCAP107-102' is not displayed in the drawer
     When I close the opened drawer
-    Then Activity Comment 'commenttestCAP107-107' is displayed in activity stream
     And In activity 'activityTestCAP107-107' with comment 'commenttestCAP107-107', the reply 'replyTestCAP107-101' is displayed
     And In activity 'activityTestCAP107-107' with comment 'commenttestCAP107-107', the reply 'replyTestCAP107-103' is displayed
     And In activity 'activityTestCAP107-107' with comment 'commenttestCAP107-107', the reply 'replyTestCAP107-102' is not displayed
@@ -678,7 +640,6 @@ Feature: Activity Stream
     And In comment 'commenttestCAP107-107', the reply 'replyTestCAP107-103' is displayed in the drawer
     And The reply 'replyTestCAP107-102' is not displayed in the drawer
     When I close the opened drawer
-    Then Activity Comment 'commenttestCAP107-107' is displayed in activity stream
     And In activity 'activityTestCAP107-107' with comment 'commenttestCAP107-107', the reply 'replyTestCAP107-101' is displayed
     And In activity 'activityTestCAP107-107' with comment 'commenttestCAP107-107', the reply 'replyTestCAP107-103' is displayed
     And In activity 'activityTestCAP107-107' with comment 'commenttestCAP107-107', the reply 'replyTestCAP107-102' is not displayed
@@ -694,9 +655,7 @@ Feature: Activity Stream
     And In comment 'commenttestCAP107-107', the reply 'replyTestCAP107-103' is displayed in the drawer
     And The reply 'replyTestCAP107-102' is not displayed in the drawer
     When I close the opened drawer
-
-    And I open in activity 'activityTestCAP107-107' the Comments drawer
-    Then Activity Comment 'commenttestCAP107-107' is displayed in Comments drawer
+    Then The comment 'commenttestCAP107-107' is displayed in Comments drawer of activity 'activityTestCAP107-107'
 
     When I close the opened drawer
     And I open in activity 'activityTestCAP107-107' the Comments drawer
@@ -729,9 +688,7 @@ Feature: Activity Stream
     And I go to the random space
     Then the activity 'activityTestCAP108-108' is displayed in activity stream
     When I add in activity 'activityTestCAP108-108' a comment 'commenttestCAP108-108'
-    And I open in activity 'activityTestCAP108-108' the Comments drawer
-    Then Activity Comment 'commenttestCAP108-108' is displayed in Comments drawer
-    And Activity Comment 'commenttestCAP108-108' is displayed in activity stream
+    Then The comment 'commenttestCAP108-108' is displayed in Comments drawer of activity 'activityTestCAP108-108'
 
     When I open in activity 'activityTestCAP108-108' the Comments drawer
     And I add a reply 'replyTestCAP108-101' to comment 'commenttestCAP108-108' in activity 'activityTestCAP108-108'
@@ -741,8 +698,7 @@ Feature: Activity Stream
 
     And I go to the random space
     Then the activity 'activityTestCAP108-108' is displayed in activity stream
-    And I open in activity 'activityTestCAP108-108' the Comments drawer
-    And Activity Comment 'commenttestCAP108-108' is displayed in Comments drawer
+    And The comment 'commenttestCAP108-108' is displayed in Comments drawer of activity 'activityTestCAP108-108'
 
     And I open in activity 'activityTestCAP108-108' the Comments drawer
     And In activity 'activityTestCAP108-108' with comment 'commenttestCAP108-108', the reply 'replyTestCAP108-101' is displayed in Comment Drawer
@@ -753,9 +709,7 @@ Feature: Activity Stream
 
     And I go to the random space
     Then the activity 'activityTestCAP108-108' is displayed in activity stream
-
-    When I open in activity 'activityTestCAP108-108' the Comments drawer
-    Then Activity Comment 'commenttestCAP108-108' is displayed in Comments drawer
+    Then The comment 'commenttestCAP108-108' is displayed in Comments drawer of activity 'activityTestCAP108-108'
 
     When I open in activity 'activityTestCAP108-108' the Comments drawer
     Then '1 comment', only 'commenttestCAP108-108' is displayed in Comments drawer
@@ -845,9 +799,7 @@ Feature: Activity Stream
     Then the activity 'activitytest009' is displayed in activity stream
 
     When I add in activity 'activitytest009' a comment 'commenttest109'
-    And I open in activity 'activitytest009' the Comments drawer
-    Then Activity Comment 'commenttest109' is displayed in Comments drawer
-    And Activity Comment 'commenttest109' is displayed in activity stream
+    Then The comment 'commenttest109' is displayed in Comments drawer of activity 'activitytest009'
 
     When I open in activity 'activitytest009' the Comments drawer
     And I add a reply 'replyTest101' to comment 'commenttest109' in activity 'activitytest009'
@@ -855,17 +807,17 @@ Feature: Activity Stream
     And In comment 'commenttest109', Like label should be black
     And On comment 'commenttest109', '(0)' like is displayed
 
-    When In comment 'commenttest109', I hover on Like icon
-    Then Tooltip Like on 'commenttest109' is displayed in activity stream
+    When In comments drawer, in comment 'commenttest109', I hover on Like icon
+    Then Tooltip Like on 'commenttest109' is displayed in comments drawer
 
-    When I like the activity comment 'commenttest109'
+    When In comments drawer, I like the activity comment 'commenttest109'
     Then In comment 'commenttest109', Like label should be blue
     And On comment 'commenttest109', '(1)' like is displayed
 
-    When In comment 'commenttest109', I hover on Like icon
-    Then Tooltip Remove Like on 'commenttest109' is displayed in activity stream
+    When In comments drawer, in comment 'commenttest109', I hover on Like icon
+    Then Tooltip Remove Like on 'commenttest109' is displayed in comments drawer
 
-  Scenario: DisLike my comment/reply from activity stream
+  Scenario: Unlike my comment/reply from activity stream
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
@@ -887,21 +839,19 @@ Feature: Activity Stream
     Then the activity 'activityTestCAP110-010' is displayed in activity stream
 
     When I add in activity 'activityTestCAP110-010' a comment 'commenttestCAP110-110'
-    And I open in activity 'activityTestCAP110-010' the Comments drawer
-    Then Activity Comment 'commenttestCAP110-110' is displayed in Comments drawer
-    And Activity Comment 'commenttestCAP110-110' is displayed in activity stream
+    Then The comment 'commenttestCAP110-110' is displayed in Comments drawer of activity 'activityTestCAP110-010'
     And I open in activity 'activityTestCAP110-010' the Comments drawer
 
     When I add a reply 'replyTestCAP110-101' to comment 'commenttestCAP110-110' in activity 'activityTestCAP110-010'
     Then In activity 'activityTestCAP110-010' with comment 'commenttestCAP110-110', the reply 'replyTestCAP110-101' is displayed
 
-    When I like the activity comment 'commenttestCAP110-110'
+    When In comments drawer, I like the activity comment 'commenttestCAP110-110'
     Then In comment 'commenttestCAP110-110', Like label should be blue
     And On comment 'commenttestCAP110-110', '(1)' like is displayed
 
-    When I unlike the activity comment 'commenttestCAP110-110'
-    And In comment 'commenttestCAP110-110', Like label should be black
-    And On comment 'commenttestCAP110-110', '(0)' like is displayed
+    When In comments drawer, I unlike the activity comment 'commenttestCAP110-110'
+    Then In comments drawer, in comment 'commenttestCAP110-110', Like label should be black
+    And In comments drawer, on comment 'commenttestCAP110-110', '(0)' like is displayed
 
   Scenario: CAP111 - [ActivityStream_US40][03] Like comment/reply of other user from activity stream
     Given I am authenticated as 'admin' if random users doesn't exists
@@ -927,8 +877,7 @@ Feature: Activity Stream
 
     When I add in activity 'activitytest011' a comment 'commenttest111'
     And I open in activity 'activitytest011' the Comments drawer
-    Then Activity Comment 'commenttest111' is displayed in Comments drawer
-    And Activity Comment 'commenttest111' is displayed in activity stream
+    Then The comment 'commenttest111' is displayed in Comments drawer of activity 'activitytest011'
 
     When I open in activity 'activitytest011' the Comments drawer
     And I add a reply 'replyTest101' to comment 'commenttest111' in activity 'activitytest011'
@@ -939,20 +888,20 @@ Feature: Activity Stream
     Then the activity 'activitytest011' is displayed in activity stream
 
     When I open in activity 'activitytest011' the Comments drawer
-    Then In comment 'commenttest111', Like label should be black
+    Then In comments drawer, in comment 'commenttest111', Like label should be black
     And On comment 'commenttest111', '(0)' like is displayed
 
-    When In comment 'commenttest111', I hover on Like icon
-    Then Tooltip Like on 'commenttest111' is displayed in activity stream
+    When In comments drawer, in comment 'commenttest111', I hover on Like icon
+    Then Tooltip Like on 'commenttest111' is displayed in comments drawer
 
-    When I like the activity comment 'commenttest111'
+    When In comments drawer, I like the activity comment 'commenttest111'
     Then In comment 'commenttest111', Like label should be blue
     And On comment 'commenttest111', '(1)' like is displayed
 
-    When In comment 'commenttest111', I hover on Like icon
-    Then Tooltip Remove Like on 'commenttest111' is displayed in activity stream
+    When In comments drawer, in comment 'commenttest111', I hover on Like icon
+    Then Tooltip Remove Like on 'commenttest111' is displayed in comments drawer
 
-  Scenario: CAP112 [ActivityStream_US40][04] DisLike comment/reply of other user from activity stream
+  Scenario: CAP112 [ActivityStream_US40][04] Unlike comment/reply of other user from activity stream
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
@@ -975,9 +924,7 @@ Feature: Activity Stream
     Then the activity 'activityTestCAP1112-012' is displayed in activity stream
 
     When I add in activity 'activityTestCAP1112-012' a comment 'commenttestCAP112-112'
-    And I open in activity 'activityTestCAP1112-012' the Comments drawer
-    Then Activity Comment 'commenttestCAP112-112' is displayed in Comments drawer
-    And Activity Comment 'commenttestCAP112-112' is displayed in activity stream
+    Then The comment 'commenttestCAP112-112' is displayed in Comments drawer of activity 'activityTestCAP1112-012'
 
     When I open in activity 'activityTestCAP1112-012' the Comments drawer
     And I add a reply 'replyTestCAP112-101' to comment 'commenttestCAP112-112' in activity 'activityTestCAP1112-012'
@@ -988,13 +935,13 @@ Feature: Activity Stream
     Then the activity 'activityTestCAP1112-012' is displayed in activity stream
 
     When I open in activity 'activityTestCAP1112-012' the Comments drawer
-    When I like the activity comment 'commenttestCAP112-112'
+    When In comments drawer, I like the activity comment 'commenttestCAP112-112'
     Then In comment 'commenttestCAP112-112', Like label should be blue
     And On comment 'commenttestCAP112-112', '(1)' like is displayed
 
-    When I unlike the activity comment 'commenttestCAP112-112'
-    And In comment 'commenttestCAP112-112', Like label should be black
-    And On comment 'commenttestCAP112-112', '(0)' like is displayed
+    When In comments drawer, I unlike the activity comment 'commenttestCAP112-112'
+    Then In comments drawer, in comment 'commenttestCAP112-112', Like label should be black
+    And In comments drawer, on comment 'commenttestCAP112-112', '(0)' like is displayed
 
   Scenario: CAP115 - [ActivityStream_US41][01] Like my comment/reply from the comment drawer
     Given I am authenticated as 'admin' if random users doesn't exists
@@ -1017,9 +964,7 @@ Feature: Activity Stream
     Then the activity 'activitytest015' is displayed in activity stream
 
     When I add in activity 'activitytest015' a comment 'commenttest115'
-    And I open in activity 'activitytest015' the Comments drawer
-    Then Activity Comment 'commenttest115' is displayed in Comments drawer
-    And Activity Comment 'commenttest115' is displayed in activity stream
+    Then The comment 'commenttest115' is displayed in Comments drawer of activity 'activitytest015'
 
     When I open in activity 'activitytest015' the Comments drawer
     And I add a reply 'replyTest115' to comment 'commenttest115' in activity 'activitytest015'
@@ -1040,7 +985,7 @@ Feature: Activity Stream
     And Tooltip Remove Like on 'commenttest115' is displayed in comments drawer
     And I close the opened drawer
 
-  Scenario: CAP116 - [ActivityStream_US41][02] DisLike my comment/reply from the comments drawer
+  Scenario: CAP116 - [ActivityStream_US41][02] Unlike my comment/reply from the comments drawer
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
@@ -1061,9 +1006,7 @@ Feature: Activity Stream
     Then the activity 'activityTestCAP1116-016' is displayed in activity stream
 
     When I add in activity 'activityTestCAP1116-016' a comment 'commenttestCAP116-116'
-    And I open in activity 'activityTestCAP1116-016' the Comments drawer
-    Then Activity Comment 'commenttestCAP116-116' is displayed in Comments drawer
-    And Activity Comment 'commenttestCAP116-116' is displayed in activity stream
+    Then The comment 'commenttestCAP116-116' is displayed in Comments drawer of activity 'activityTestCAP1116'
 
     When I open in activity 'activityTestCAP1116-016' the Comments drawer
     And I add a reply 'replyTestCAP116-116' to comment 'commenttestCAP116-116' in activity 'activityTestCAP1116-016'
@@ -1077,168 +1020,6 @@ Feature: Activity Stream
     When In comments drawer, I unlike the activity comment 'commenttestCAP116-116'
     Then In comments drawer, Like label in comment 'commenttestCAP116-116' should be black
     And In comments drawer, on comment 'commenttestCAP116-116', '(0)' like is displayed
-    And I close the opened drawer
-
-  Scenario: CAP121 - [ActivityStream_IMPV14][01] Display maximum only the last 2 comments/replies below each activity
-    Given I am authenticated as 'admin' if random users doesn't exists
-      | first  |
-      | second  |
-
-    And I inject the first random user if not existing, no wait
-    And I inject the second random user if not existing
-
-    When I login as 'first' random user
-
-    And I go to the random space
-    And I click on post in space
-    And I enter an activity 'activityTest121'
-    And I publish the activity
-    Then the activity 'activityTest121' is displayed in activity stream
-
-    When I login as 'second' random user
-
-    And I go to the random space
-    Then the activity 'activityTest121' is displayed in activity stream
-    When I add in activity 'activityTest121' a comment 'commenttest101'
-    And I open in activity 'activityTest121' the Comments drawer
-    Then First comment 'commenttest101' is displayed in comments drawer
-
-    When I add in activity 'activityTest121' a comment 'commenttest102'
-    And I open in activity 'activityTest121' the Comments drawer
-    Then Second comment is displayed in comments drawer
-
-    When I add in activity 'activityTest121' a comment 'commenttest103'
-    And I open in activity 'activityTest121' the Comments drawer
-    Then Third comment is displayed in comments drawer
-
-    When I add in activity 'activityTest121' a comment 'commenttest104'
-    And I open in activity 'activityTest121' the Comments drawer
-    Then Fourth comment is displayed in comments drawer
-    And First comment 'commenttest103' is displayed in activity stream
-    And Second comment is displayed in activity stream
-    And Comment 'commenttest101' is not displayed in activity 'activityTest121'
-    And Comment 'commenttest102' is not displayed in activity 'activityTest121'
-
-  Scenario: CAP122 - [ActivityStream_IMPV14][02] Display maximum only the last 2 comments/replies below each activity
-    Given I am authenticated as 'admin' if random users doesn't exists
-      | first  |
-      | second  |
-
-    And I inject the first random user if not existing, no wait
-    And I inject the second random user if not existing
-
-    When I login as 'first' random user
-
-    And I go to the random space
-    And I click on post in space
-    And I enter an activity 'activityTestCAP122-122-02'
-    And I publish the activity
-    Then the activity 'activityTestCAP122-122-02' is displayed in activity stream
-
-    When I login as 'second' random user
-
-    And I go to the random space
-    Then the activity 'activityTestCAP122-122-02' is displayed in activity stream
-
-    When I add in activity 'activityTestCAP122-122-02' a comment 'commenttestCAP122-101-02'
-    And I add in activity 'activityTestCAP122-122-02' a comment 'commenttestCAP122-102-02'
-    And I add in activity 'activityTestCAP122-122-02' a comment 'commenttestCAP122-103-02'
-    And I add in activity 'activityTestCAP122-122-02' a comment 'commenttestCAP122-104-02'
-
-    Then First comment 'commenttestCAP122-103-02' is displayed in activity stream
-    And Second comment is displayed in activity stream
-    And Comment 'commenttestCAP122-101-02' is not displayed in activity 'activityTestCAP122-122-02'
-    And Comment 'commenttestCAP122-102-02' is not displayed in activity 'activityTestCAP122-122-02'
-
-    When I open in activity 'activityTestCAP122-122-02' the Comments drawer
-    When I add a reply 'replyTestCAP122-101-02' to comment 'commenttestCAP122-103-02' in activity 'activityTestCAP122-122-02'
-    When I open in activity 'activityTestCAP122-122-02' the Comments drawer
-    And I add a reply 'replyTestCAP122-102-02' to comment 'commenttestCAP122-103-02' in activity 'activityTestCAP122-122-02'
-    When I open in activity 'activityTestCAP122-122-02' the Comments drawer
-    And I add a reply 'replyTestCAP122-103-02' to comment 'commenttestCAP122-104-02' in activity 'activityTestCAP122-122-02'
-    When I open in activity 'activityTestCAP122-122-02' the Comments drawer
-    And I add a reply 'replyTestCAP122-104-02' to comment 'commenttestCAP122-104-02' in activity 'activityTestCAP122-122-02'
-
-    Then Comment 'commenttestCAP122-101-02' is not displayed in activity 'activityTestCAP122-122-02'
-    And Comment 'commenttestCAP122-102-02' is not displayed in activity 'activityTestCAP122-122-02'
-    And In activity 'activityTestCAP122-122-02' with comment 'commenttestCAP122-103-02', the reply 'replyTestCAP122-101-02' is displayed
-    And In activity 'activityTestCAP122-122-02' with comment 'commenttestCAP122-103-02', the reply 'replyTestCAP122-102-02' is displayed
-    And In activity 'activityTestCAP122-122-02' with comment 'commenttestCAP122-104-02', the reply 'replyTestCAP122-103-02' is displayed
-    And In activity 'activityTestCAP122-122-02' with comment 'commenttestCAP122-104-02', the reply 'replyTestCAP122-104-02' is displayed
-
-  Scenario: CAP123 - [ActivityStream_IMPV14][03] Display maximum only the last 2 comments/replies below each activity
-    Given I am authenticated as 'admin' if random users doesn't exists
-      | first  |
-      | second  |
-
-    And I inject the first random user if not existing, no wait
-    And I inject the second random user if not existing
-
-    When I login as 'first' random user
-
-    And I go to the random space
-    And I click on post in space
-    And I enter an activity 'activityTestCAP123-123'
-    And I publish the activity
-    Then the activity 'activityTestCAP123-123' is displayed in activity stream
-
-    When I login as 'second' random user
-
-    And I go to the random space
-    Then the activity 'activityTestCAP123-123' is displayed in activity stream
-
-    When I add in activity 'activityTestCAP123-123' a comment 'commenttestCAP123-101'
-    And I add in activity 'activityTestCAP123-123' a comment 'commenttestCAP123-102'
-    And I add in activity 'activityTestCAP123-123' a comment 'commenttestCAP123-103'
-    And I add in activity 'activityTestCAP123-123' a comment 'commenttestCAP123-104'
-
-    Then First comment 'commenttestCAP123-103' is displayed in activity stream
-    And Second comment is displayed in activity stream
-    And Comment 'commenttestCAP123-101' is not displayed in activity 'activityTestCAP123-123'
-    And Comment 'commenttestCAP123-102' is not displayed in activity 'activityTestCAP123-123'
-
-    When I open in activity 'activityTestCAP123-123' the Comments drawer
-    And I add a reply 'replyTestCAP123-101' to comment 'commenttestCAP123-103' in activity 'activityTestCAP123-123'
-    And I open in activity 'activityTestCAP123-123' the Comments drawer
-    And I add a reply 'replyTestCAP123-102' to comment 'commenttestCAP123-103' in activity 'activityTestCAP123-123'
-    And I open in activity 'activityTestCAP123-123' the Comments drawer
-    And I add a reply 'replyTestCAP123-103' to comment 'commenttestCAP123-103' in activity 'activityTestCAP123-123'
-
-    And I open in activity 'activityTestCAP123-123' the Comments drawer
-    And I add a reply 'replyTestCAP123-104' to comment 'commenttestCAP123-104' in activity 'activityTestCAP123-123'
-    And I open in activity 'activityTestCAP123-123' the Comments drawer
-    And I add a reply 'replyTestCAP123-105' to comment 'commenttestCAP123-104' in activity 'activityTestCAP123-123'
-    And I open in activity 'activityTestCAP123-123' the Comments drawer
-    And I add a reply 'replyTestCAP123-106' to comment 'commenttestCAP123-104' in activity 'activityTestCAP123-123'
-
-    Then Comment 'commenttestCAP123-101' is not displayed in activity 'activityTestCAP123-123'
-    And Comment 'commenttestCAP123-102' is not displayed in activity 'activityTestCAP123-123'
-    And In activity 'activityTestCAP123-123' with comment 'commenttestCAP123-103', the reply 'replyTestCAP123-102' is displayed
-    And In activity 'activityTestCAP123-123' with comment 'commenttestCAP123-103', the reply 'replyTestCAP123-103' is displayed
-    And In activity 'activityTestCAP123-123' with comment 'commenttestCAP123-103', the reply 'replyTestCAP123-101' is not displayed
-
-    And In activity 'activityTestCAP123-123' with comment 'commenttestCAP123-104', the reply 'replyTestCAP123-105' is displayed
-    And In activity 'activityTestCAP123-123' with comment 'commenttestCAP123-104', the reply 'replyTestCAP123-106' is displayed
-    And In activity 'activityTestCAP123-123' with comment 'commenttestCAP123-104', the reply 'replyTestCAP123-104' is not displayed
-
-    When I click on View All replies related to the comment 'commenttestCAP123-103' in activity stream
-    Then In comment 'commenttestCAP123-103', the reply 'replyTestCAP123-101' is displayed in the drawer
-    And In comment 'commenttestCAP123-103', the reply 'replyTestCAP123-102' is displayed in the drawer
-    And In comment 'commenttestCAP123-103', the reply 'replyTestCAP123-103' is displayed in the drawer
-
-    And In comment 'commenttestCAP123-104', the reply 'replyTestCAP123-105' is displayed in the drawer
-    And In comment 'commenttestCAP123-104', the reply 'replyTestCAP123-106' is displayed in the drawer
-    And In comment 'commenttestCAP123-104', the reply 'replyTestCAP123-104' is not displayed in the drawer
-
-    When I close the opened drawer
-    And I click on View All replies related to the comment 'commenttestCAP123-104' in activity stream
-    Then In comment 'commenttestCAP123-104', the reply 'replyTestCAP123-105' is displayed in the drawer
-    And In comment 'commenttestCAP123-104', the reply 'replyTestCAP123-106' is displayed in the drawer
-    And In comment 'commenttestCAP123-104', the reply 'replyTestCAP123-104' is displayed in the drawer
-
-    And In comment 'commenttestCAP123-103', the reply 'replyTestCAP123-101' is not displayed in the drawer
-    And In comment 'commenttestCAP123-103', the reply 'replyTestCAP123-102' is displayed in the drawer
-    And In comment 'commenttestCAP123-103', the reply 'replyTestCAP123-103' is displayed in the drawer
     And I close the opened drawer
 
   Scenario: CAP157 - [ActivityStream_IMPV15][01] Internal Link opening behaviors inside comments
@@ -1263,11 +1044,10 @@ Feature: Activity Stream
     Then the activity 'activityTestCAP157-157' is displayed in activity stream
 
     When I add in activity 'activityTestCAP157-157' an internal link '/members' as a comment
-    And I open in activity 'activityTestCAP157-157' the Comments drawer
-    Then Internal link '/members' is displayed in Comments drawer as a comment
-    And Internal link '/members' is displayed in activity stream as a comment
+    Then Internal link '/members' is displayed in Comments drawer of activity 'activityTestCAP157-157'
 
-    When I click on the internal link '/members'
+    When I open in activity 'activityTestCAP157-157' the Comments drawer
+    And I click on the internal link '/members'
     Then Space Top Bar Elements are displayed
 
     When I go to the random space
@@ -1297,9 +1077,7 @@ Feature: Activity Stream
     Then the activity 'activityTestCAP158-158' is displayed in activity stream
 
     When I add in activity 'activityTestCAP158-158' a comment 'https://www.meeds.io/'
-    And I open in activity 'activityTestCAP158-158' the Comments drawer
-    Then Activity Comment 'meeds.io' is displayed in Comments drawer
-    And Activity Comment 'meeds.io' is displayed in activity stream
+    Then The comment 'meeds.io' is displayed in Comments drawer of activity 'activityTestCAP158-158'
 
     When I click on comment 'meeds.io'
     Then Link 'https://www.meeds.io/' is opened in new tab
@@ -1311,10 +1089,15 @@ Feature: Activity Stream
   Scenario: Delete a simple comment from the activity stream
     Given I am authenticated as 'admin' random user
 
-    When I inject the firstadm random user if not existing, no wait
+    When I inject the random space
     And I inject the second random user if not existing, no wait
     And I inject the third random user if not existing, no wait
-    And I inject the fourth random user if not existing
+    And I inject the fourth random user if not existing, no wait
+    And I inject the firstadm random user if not existing
+    And I login as 'firstadm' random user
+    And I join the random space
+    And I login as 'admin' random user
+
     And I go to groups Management page
     And I open the group 'Platform'
     And I select the group 'Administration'
@@ -1333,16 +1116,13 @@ Feature: Activity Stream
     And I go to the random space
     Then the activity 'activityTest97' is displayed in activity stream
     When I add in activity 'activityTest97' a comment 'commenttest97'
-    And I open in activity 'activityTest97' the Comments drawer
-    Then Activity Comment 'commenttest97' is displayed in Comments drawer
-    And Activity Comment 'commenttest97' is displayed in activity stream
+    Then The comment 'commenttest97' is displayed in Comments drawer of activity 'activityTest97'
 
     When I login as 'firstadm' random user
     And I go to the random space
     Then the activity 'activityTest97' is displayed in activity stream
 
-    And I open in activity 'activityTest97' the Comments drawer
-    And Activity Comment 'commenttest97' is displayed in Comments drawer
+    And The comment 'commenttest97' is displayed in Comments drawer of activity 'activityTest97'
     And I close the opened drawer
 
     When I open in activity 'activityTest97' the Comments drawer
@@ -1350,7 +1130,7 @@ Feature: Activity Stream
     And In comment 'commenttest97', I click on delete button
     And I click on Yes button
     Then the confirmation popup is not displayed
-    And Comment 'commenttest97' is not displayed in activity 'activityTest97'
+    And The comment 'commenttest97' is not displayed in Comments drawer of activity 'activityTest97'
 
   Scenario: Cap155 - ActivityStream_US58: Mention a user in the comments
     Given I am authenticated as 'admin' if random users doesn't exists
@@ -1426,18 +1206,14 @@ Feature: Activity Stream
     And I go to the random space
     Then the activity 'activityTest146' is displayed in activity stream
     When I add in activity 'activityTest146' a comment 'commenttest146'
-    And I open in activity 'activityTest146' the Comments drawer
-    Then Activity Comment 'commenttest146' is displayed in Comments drawer
-    And Activity Comment 'commenttest146' is displayed in activity stream
+    Then The comment 'commenttest146' is displayed in Comments drawer of activity 'activityTest146'
 
     When I login as 'first' random user
     And I open Notifications
     Then The notification that shows that activity 'activityTest146' posted by first user is commented by second user with comment 'activityTest146', is displayed
 
     When I click on the notification that shows that activity 'activityTest146' posted by first user is commented by second user with comment 'activityTest146'
-    Then Activity Comment 'commenttest146' is displayed in Comments drawer
-    And Activity Comment 'commenttest146' is displayed in activity stream
-    And I go to the home page
+    Then The comment 'commenttest146' is displayed in Comments drawer
 
   Scenario: Notifications for comment to my comment
     Given I am authenticated as 'admin' if random users doesn't exists
@@ -1458,16 +1234,11 @@ Feature: Activity Stream
     And I go to the random space
     Then the activity 'activityTest147' is displayed in activity stream
     When I add in activity 'activityTest147' a comment 'commenttest147'
-    And I open in activity 'activityTest147' the Comments drawer
-    Then Activity Comment 'commenttest147' is displayed in Comments drawer
-    And Activity Comment 'commenttest147' is displayed in activity stream
+    Then The comment 'commenttest147' is displayed in Comments drawer of activity 'activityTest147'
 
     When I login as 'first' random user
     And I go to the random space
-    Then the activity 'activityTest147' is displayed in activity stream
-    And Activity Comment 'commenttest147' is displayed in activity stream
-    And I open in activity 'activityTest147' the Comments drawer
-    When I add a reply 'replyTest147' to comment 'commenttest147' in activity 'activityTest147'
+    And I add a reply 'replyTest147' to comment 'commenttest147' in activity 'activityTest147'
     Then In activity 'activityTest147' with comment 'commenttest147', the reply 'replyTest147' is displayed
 
     When I login as 'second' random user
@@ -1475,8 +1246,7 @@ Feature: Activity Stream
     Then The notification that shows that comment 'commenttest147' posted by second user is replied by first user with 'replyTest147', is displayed
 
     When I click on the notification that shows that comment 'commenttest147' posted by second user is replied by first user with 'replyTest147'
-    Then Activity Comment 'commenttest147' is displayed in Comments drawer
-    And Activity Comment 'commenttest147' is displayed in activity stream
+    Then The comment 'commenttest147' is displayed in Comments drawer
     And In activity 'activityTest147' with comment 'commenttest147', the reply 'replyTest147' is displayed
     And I go to the home page
 
@@ -1560,9 +1330,7 @@ Feature: Activity Stream
     And I publish the activity
     Then the activity 'activitycap88' is displayed in activity stream
     When I add in activity 'activitycap88' a comment 'commenttestCAP88-101'
-    And I open in activity 'activitycap88' the Comments drawer
-    Then Activity Comment 'commenttestCAP88-101' is displayed in Comments drawer
-    And Activity Comment 'commenttestCAP88-101' is displayed in activity stream
+    Then The comment 'commenttestCAP88-101' is displayed in Comments drawer of activity 'activitycap88'
 
     When I login as 'first' random user
     And I go to the random space
@@ -1620,9 +1388,7 @@ Feature: Activity Stream
     Then the activity 'activitytestkudosCAP128' is displayed in activity stream
 
     When I add in activity 'activitytestkudosCAP128' a comment 'activitytestkudoscommentCAP128'
-    And I open in activity 'activitytestkudosCAP128' the Comments drawer
-    Then Activity Comment 'activitytestkudoscommentCAP128' is displayed in Comments drawer
-    And Activity Comment 'activitytestkudoscommentCAP128' is displayed in activity stream
+    Then The comment 'activitytestkudoscommentCAP128' is displayed in Comments drawer of activity 'activitytestkudosCAP128'
 
     When I login as 'second' random user
     And I go to the random space
@@ -1660,9 +1426,7 @@ Feature: Activity Stream
     And I go to the random space
     Then the activity 'activitytestkudosCAP129' is displayed in activity stream
     When I add in activity 'activitytestkudosCAP129' a comment 'activitytestkudoscommentCAP129'
-    And Activity Comment 'activitytestkudoscommentCAP129' is displayed in activity stream
-    And I open in activity 'activitytestkudosCAP129' the Comments drawer
-    Then Activity Comment 'activitytestkudoscommentCAP129' is displayed in Comments drawer
+    Then The comment 'activitytestkudoscommentCAP129' is displayed in Comments drawer of activity 'activitytestkudosCAP129'
 
     When I login as 'sixth' random user
     And I go to the random space
@@ -1718,8 +1482,7 @@ Feature: Activity Stream
       | commenttestCAP220-1022  |
       | commenttestCAP220-1023  |
       | commenttestCAP220-1024  |
-    And I click on comment button related to activity 'activitycap220'
-    Then Activity Comment 'commenttestCAP220-1021' is displayed in Comments drawer
+    Then The comment 'commenttestCAP220-1021' is displayed in Comments drawer of activity 'activitycap220'
 
     When I click on comment button related to activity 'activitycap220'
     And I go to the comments drawer first page
@@ -1805,9 +1568,7 @@ Feature: Activity Stream
     Then the activity 'activitytestkudosCAP129' is displayed in activity stream
 
     When I add in activity 'activitytestkudosCAP129' a comment 'activitytestkudosCAP129comment'
-    And I open in activity 'activitytestkudosCAP129' the Comments drawer
-    Then Activity Comment 'activitytestkudosCAP129comment' is displayed in Comments drawer
-    And Activity Comment 'activitytestkudosCAP129comment' is displayed in activity stream
+    Then The comment 'activitytestkudosCAP129comment' is displayed in Comments drawer of activity 'activitytestkudosCAP129'
 
     When I login as 'fourth' random user
     And I go to the random space
@@ -1852,8 +1613,7 @@ Feature: Activity Stream
 
     When I add in activity 'activitycap87' a comment 'commenttest101'
     And I click on comment button related to activity 'activitycap87'
-    Then Activity Comment 'commenttest101' is displayed in Comments drawer
-    And Activity Comment 'commenttest101' is displayed in activity stream
+    Then The comment 'commenttest101' is displayed in Comments drawer of activity 'activitycap87'
 
     When I login as 'first' random user
     And I go to the random space
@@ -1908,9 +1668,7 @@ Feature: Activity Stream
     Then the activity 'activitytestkudosUS52' is displayed in activity stream
 
     When I add in activity 'activitytestkudosUS52' a comment 'activitytestkudoscommentUS52'
-    And I open in activity 'activitytestkudosUS52' the Comments drawer
-    Then Activity Comment 'activitytestkudoscommentUS52' is displayed in Comments drawer
-    And Activity Comment 'activitytestkudoscommentUS52' is displayed in activity stream
+    Then The comment 'activitytestkudoscommentUS52' is displayed in Comments drawer of activity 'activitytestkudosUS52'
 
     When I login as 'fourth' random user
     And I go to the random space
@@ -1947,16 +1705,14 @@ Feature: Activity Stream
     Then the activity 'activitytestkudosUS52_05' is displayed in activity stream
 
     When I add in activity 'activitytestkudosUS52_05' a comment 'activitytestkudoscommentUS52_05'
-    And I open in activity 'activitytestkudosUS52_05' the Comments drawer
-    Then Activity Comment 'activitytestkudoscommentUS52_05' is displayed in Comments drawer
-    And Activity Comment 'activitytestkudoscommentUS52_05' is displayed in activity stream
+    Then The comment 'activitytestkudoscommentUS52_05' is displayed in Comments drawer of activity 'activitytestkudosUS52_05'
 
     When I login as 'fourth' random user
     And I go to the random space
     Then the activity 'activitytestkudosUS52_05' is displayed in activity stream
     And I open in activity 'activitytestkudosUS52_05' the Comments drawer
     When I add a reply 'activitytestkudoscommentreplyUS52_05' to comment 'activitytestkudoscommentUS52_05' in activity 'activitytestkudosUS52_05'
-    Then In activity 'activitytestkudoUS52_05s' with comment 'activitytestkudoscommentUS52_05', the reply 'activitytestkudoscommentreplyUS52_05' is displayed
+    Then In activity 'activitytestkudosUS52_05' with comment 'activitytestkudoscommentUS52_05', the reply 'activitytestkudoscommentreplyUS52_05' is displayed
 
     When I login as 'second' random user
     And I go to the random space
@@ -1982,6 +1738,7 @@ Feature: Activity Stream
     And I inject the fifth random user if not existing
 
     And I login as 'first' random user
+    And I inject the random space
     And I go to the random space
     And I click on post in space
     And I enter an activity 'activitytestkudosUS52_01'

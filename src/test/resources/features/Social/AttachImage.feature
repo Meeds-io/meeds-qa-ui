@@ -1,6 +1,6 @@
 @attachment
 Feature: Attach images activities
- 
+
   Scenario: Attach and preview an image to an activity
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -13,11 +13,11 @@ Feature: Attach images activities
     And I publish the activity
     Then the activity 'activity with attached image to preview' is displayed in activity stream
     And The attached images should be displayed in the published activity 'activity with attached image to preview'
-    
+
     When I click on attached image related to activity 'activity with attached image to preview'
     Then the preview of the attached image is displayed
     And The preview arrows are not displayed
-    
+
     When I click on close icon in preview attached image
     Then the preview of the attached image is not displayed
 
@@ -56,9 +56,7 @@ Feature: Attach images activities
     When I open in activity 'activity comment with attached image' the Comments drawer
     And I attach an image to the activity comment 
     And I add in activity 'activity comment with attached image' a comment 'comment with an attached image'
-    And I open in activity 'activity comment with attached image' the Comments drawer
-    Then Activity Comment 'comment with an attached image' is displayed in Comments drawer
-    And Activity Comment 'comment with an attached image' is displayed in activity stream
+    Then The comment 'comment with an attached image' is displayed in Comments drawer of activity 'activity comment with attached image'
 
   Scenario: Edit an activity - Remove images
     Given I am authenticated as 'admin' if random users doesn't exists
@@ -87,6 +85,7 @@ Feature: Attach images activities
       | first  |
     And I inject the first random user if not existing
     And I login as 'first' random user
+    And I inject the random space
     And I go to the random space
     When I click on post in space
     And I enter an activity 'activity with attached image, add images'
@@ -134,6 +133,7 @@ Feature: Attach images activities
     And I inject the 'first' random user
     And I inject the 'second' random user
     And I login as 'first' random user
+    And I inject the random space
     And I go to the random space
     When I click on post in space
     And I enter an activity 'activity with kudos attached image'

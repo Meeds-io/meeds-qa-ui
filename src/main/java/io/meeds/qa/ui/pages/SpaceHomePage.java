@@ -34,10 +34,17 @@ import org.openqa.selenium.interactions.Actions;
 
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
-import io.meeds.qa.ui.utils.Utils;
 import net.serenitybdd.core.Serenity;
 
 public class SpaceHomePage extends GenericPage {
+
+  private static final String COMMENT_SESSION_VARIABLE                        = "comment";
+
+  private static final String CKE_EDITOR_BODY                                 = "//body[contains(@class,'cke_editable_themed')]";
+
+  private static final String CKE_WYSIWYG_FRAME_SUFFIX                        = "//iframe[contains(@class,'cke_wysiwyg_frame')]";
+
+  private static final String COMMENT_LINK                                    = "CommentLink";
 
   private static final String CREATE_POLL_DRAWER_ID                           = "#createPollDrawer";
 
@@ -106,6 +113,7 @@ public class SpaceHomePage extends GenericPage {
 
     addActivityCommentEditorContent(comment, false, true);
     closeDrawerIfDisplayed();
+    waitForDrawerToClose();
   }
 
   public void addActivityComments(String activity, List<String> comments) {
@@ -158,7 +166,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void addCommentReplies(List<String> replies, String comment, String activity) {
-    clickOnReplyToComment(comment, activity, false);
+    clickOnReplyToComment(comment, activity);
     Iterator<String> repliesIterator = replies.iterator();
     while (repliesIterator.hasNext()) {
       String reply = repliesIterator.next();
@@ -168,14 +176,14 @@ public class SpaceHomePage extends GenericPage {
       if (repliesIterator.hasNext()) {
         ckEditorFrameCommentElement().checkNotVisible(); // Wait for CKEditor to
                                                          // completely close
-        clickOnReplyToComment(comment, activity, true);
+        clickOnReplyToComment(comment, activity);
       }
     }
     closeDrawerIfDisplayed();
   }
 
   public void addCommentReply(String reply, String comment, String activity) {
-    clickOnReplyToComment(comment, activity, true);
+    clickOnReplyToComment(comment, activity);
     waitForDrawerToOpen();
     waitForDrawerToLoad();
 
@@ -221,21 +229,22 @@ public class SpaceHomePage extends GenericPage {
     closeCommentsDrawerElement().click();
   }
 
-  public void checkActivityComment(String comment) {
-    Assert.assertEquals(commentTitleElement().getText(), comment);
+  public void checkActivityCommentInDrawer(String comment) {
+    commentsDrawerElement().assertVisible();
+    getCommentElementInDrawer(comment).assertVisible();
+    closeDrawerIfDisplayed();
   }
 
-  public void checkActivityCommentInDrawer(String comment) {
+  public void checkActivityCommentDisplayed(String activity, String comment) {
+    checkCommentDrawerOpened(activity);
     getCommentElementInDrawer(comment).assertVisible();
     closeDrawerIfDisplayed();
   }
 
   public void checkActivityCommentNotDisplayed(String activity, String comment) {
-    waitForLoading();
-    retryOnCondition(() -> getDropDownCommentMenu(activity, comment).checkNotVisible(), () -> {
-      waitFor(3).seconds();
-      Utils.refreshPage();
-    });
+    checkCommentDrawerOpened(activity);
+    getCommentElementInDrawer(comment).assertNotVisible();
+    closeDrawerIfDisplayed();
   }
 
   public void checkActivityNotVisible(String activity) {
@@ -259,10 +268,12 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void checkCommentReplyDisplayed(String activity, String comment, String reply) {
+    checkCommentDrawerOpened(activity);
     getReplyBox(comment, reply, false).assertVisible();
   }
 
   public void checkCommentReplyDisplayedInDrawer(String activity, String comment, String reply) {
+    checkCommentDrawerOpened(activity);
     getReplyBox(comment, reply, true).assertVisible();
   }
 
@@ -377,7 +388,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void clickPollBtnBelowPostField() {
-    ElementFacade createPoll= findByXPathOrCSS("//*[contains(@class,'activityComposer')]//*[contains(@id,'pollBtnToolbar')]");
+    ElementFacade createPoll = findByXPathOrCSS("//*[contains(@class,'activityComposer')]//*[contains(@id,'pollBtnToolbar')]");
     createPoll.click();
   }
 
@@ -460,6 +471,7 @@ public class SpaceHomePage extends GenericPage {
                                            findByXPathOrCSS("(//*[contains(@class, 'activity-detail')])[1]//*[contains(@class, 'activity-footer-actions')]//*[contains(@id, 'KudosActivity')]");
     firstActivityKudosButton.click();
   }
+
   public void getCommentKudosButton(String comment) {
     getCommentKudosFooterButton(comment, "ActivityCommment_comment", "KudosActivity").click();
   }
@@ -498,11 +510,11 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void composerDrawerIsDisplayed() {
-    findByXPathOrCSS("#activityComposerDrawer").assertVisible(); 
+    findByXPathOrCSS("#activityComposerDrawer").assertVisible();
   }
 
   public void kudosDrawerIsDisplayed() {
-    findByXPathOrCSS("#activityKudosDrawer").assertVisible(); 
+    findByXPathOrCSS("#activityKudosDrawer").assertVisible();
   }
 
   public void pollDrawerIsDisplayed() {
@@ -510,12 +522,14 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void clickUserAvatar() {
-    ElementFacade userAvatarLink = findByXPathOrCSS("//*[contains(@class,'activityComposer')]//descendant::*[starts-with(@id,'userAvatar')]");
+    ElementFacade userAvatarLink =
+                                 findByXPathOrCSS("//*[contains(@class,'activityComposer')]//descendant::*[starts-with(@id,'userAvatar')]");
     userAvatarLink.click();
   }
 
   public void clickCloseKudosDrawer() {
-    ElementFacade closeKudosDrawerIcon = findByXPathOrCSS("//*[contains(@id,'activityKudosDrawer')]//*[contains(@class,'drawerIcons')]//button[@title='Close']");
+    ElementFacade closeKudosDrawerIcon =
+                                       findByXPathOrCSS("//*[contains(@id,'activityKudosDrawer')]//*[contains(@class,'drawerIcons')]//button[@title='Close']");
     closeKudosDrawerIcon.click();
   }
 
@@ -684,7 +698,7 @@ public class SpaceHomePage extends GenericPage {
         ckEditorBodyCommentElement.sendKeys(comment);
       } else {
         ckEditorBodyCommentElement.setTextValue(comment);
-        Serenity.setSessionVariable("comment").to(comment);
+        Serenity.setSessionVariable(COMMENT_SESSION_VARIABLE).to(comment);
       }
     } finally {
       getDriver().switchTo().defaultContent();
@@ -705,7 +719,7 @@ public class SpaceHomePage extends GenericPage {
     } finally {
       getDriver().switchTo().defaultContent();
     }
-    Serenity.setSessionVariable("comment").to(comment);
+    Serenity.setSessionVariable(COMMENT_SESSION_VARIABLE).to(comment);
   }
 
   public void filterByMyConnections() {
@@ -944,22 +958,22 @@ public class SpaceHomePage extends GenericPage {
       refreshPage();
     }
   }
-  
+
   public void attachImagesToActivity() {
     waitCKEditorLoading(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR);
     this.attachImageToCKeditor();
   }
-  
+
   public void attachGifImageToActivity() {
     waitCKEditorLoading(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR);
     this.attachGifImageToCKeditor();
   }
-  
+
   public void attachImagesToActivityComment() {
     waitCKEditorLoading(OPENED_ACTIVITY_COMMENTS_DRAWER_SELECTOR);
     this.attachImageToCKeditor();
   }
-  
+
   public void attachImagesToKudos() {
     waitCKEditorLoading(OPENED_KUDOS_DRAWER_SELECTOR);
     this.attachImageToCKeditor();
@@ -968,7 +982,7 @@ public class SpaceHomePage extends GenericPage {
   public void clickPreviewAttachedImage(String activity) {
     getAttachedImagesActivity(activity).click();
   }
-  
+
   public void clickClosePreviewAttachedImage() {
     previewAttachedImageCloseBtn().click();
   }
@@ -976,49 +990,48 @@ public class SpaceHomePage extends GenericPage {
   public void checkPreviewAttachedImageIsClosed() {
     getPreviewAttachedImage().assertNotVisible();
   }
-  
 
   public void previewAttachedImage() {
     getPreviewAttachedImage().assertVisible();
   }
-  
+
   public void checkPreviewAttachedImageArrows() {
     getPreviewAttachedImageNextArrow().assertNotVisible();
     getPreviewAttachedImagePrevArrow().assertNotVisible();
   }
-  
+
   public void clickDeleteAttachment() {
     deleteAttachmentBtn().click();
   }
-  
+
   public void clickEditAttachment() {
     editAttachmentBtn().click();
   }
-  
+
   public void clickUpdateAttachment() {
     getAttachedImageCropDrawerUpdateBtn().click();
   }
-  
+
   public void zoomAttachedImage() {
     getAttachedImageCropDrawerZoomBtn().click();
   }
-  
+
   public void checkAttachedImageCropDrawerCancelOption() {
     getAttachedImageCropDrawerCancekBtn().assertVisible();
   }
-  
+
   public void checkAttachedImageCropDrawer() {
     getAttachedImageCropDrawer().assertVisible();
   }
-  
+
   public void checkCropDrawerBlurredZone() {
     getAttachedImageCropDrawerBlurredZone().assertVisible();
   }
-  
+
   public void checkActivityAttachImageDeleted() {
     getActivityAttachedImage().assertNotVisible();
   }
-  
+
   public void publishActivityInArabicLanguage() {
     newActivityButtonInArabicLanguageElement().click();
   }
@@ -1067,26 +1080,25 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void selectActivityFilter(String filter) {
-    ElementFacade activityFilterRadioButton = findByXPathOrCSS(String.format("//*[contains(@id,'filterStreamDrawer')]//*[contains(text(),'%s')]",filter));
+    ElementFacade activityFilterRadioButton =
+                                            findByXPathOrCSS(String.format("//*[contains(@id,'filterStreamDrawer')]//*[contains(text(),'%s')]",
+                                                                           filter));
     activityFilterRadioButton.click();
   }
 
   public void clickFilterIconFromComposer() {
-    ElementFacade filterLink = findByXPathOrCSS("//*[contains(@class,'activityComposer')]//*[contains(@id,'toolbarFilterButton')]");
+    ElementFacade filterLink =
+                             findByXPathOrCSS("//*[contains(@class,'activityComposer')]//*[contains(@id,'toolbarFilterButton')]");
     filterLink.click();
     waitForDrawerToOpen();
   }
 
   public void filterIsSelected() {
-    assertTrue(FilterIcon().getAttribute("class").contains("primary--text"));
+    assertTrue(filterIcon().getAttribute("class").contains("primary--text"));
   }
 
   public void filterIsntSelected() {
-    assertFalse(FilterIcon().getAttribute("class").contains("primary--text"));
-  }
-
-  public void tooltipActivityStreamIsDisplayed(String comment) {
-    assertTrue(getLikeCommentIcon(comment).getAttribute("aria-expanded").contains("true"));
+    assertFalse(filterIcon().getAttribute("class").contains("primary--text"));
   }
 
   public void tooltipCommentsDrawerIsDisplayed(String comment) {
@@ -1096,31 +1108,31 @@ public class SpaceHomePage extends GenericPage {
   public void unPinActivityButtonIsDisplayed(String activity) {
     getUnpinActivityIcon(activity).assertVisible();
   }
-  
+
   public void checkActivityAttachedImages(String activity) {
     getAttachedImagesActivity(activity).assertVisible();
   }
-  
+
   public void checkActivitySecondAttachedImage(String activity) {
     getSecondAttachedImageActivity(activity).assertVisible();
   }
-  
+
   public void checkActivityCommentKudos(String comment) {
     Assert.assertEquals(commentKudosTitleElement().getText(), comment);
   }
-  
+
   public void checkKudosCommentAttachedImages(String comment) {
     getAttachedImagesKudosComment(comment).assertVisible();
   }
-  
+
   public void checkActivityAttachedImagesIsNotDisplayed(String activity) {
     getAttachedImagesActivity(activity).assertNotVisible();
   }
- 
+
   public void checkActivityDrawerAttachedImagesDeleteIcon(String activity) {
     getActivityAttachedImageWithDeleteIcon(activity).assertVisible();
   }
-  
+
   public void checkActivityDrawerAttachedImagesEditIcon(String activity) {
     getActivityAttachedImageWithEditIcon(activity).assertVisible();
   }
@@ -1159,7 +1171,7 @@ public class SpaceHomePage extends GenericPage {
     } finally {
       getDriver().switchTo().defaultContent();
     }
-    Serenity.setSessionVariable("comment").to(comment);
+    Serenity.setSessionVariable(COMMENT_SESSION_VARIABLE).to(comment);
   }
 
   public void userIsMentionedInCommentEntered(String user) {
@@ -1225,7 +1237,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private TextBoxElementFacade activityContentTextBoxElement() {
-    return findTextBoxByXPathOrCSS("//body[contains(@class,'cke_editable_themed')]");
+    return findTextBoxByXPathOrCSS(CKE_EDITOR_BODY);
   }
 
   private ElementFacade activityLinkPreviewElement() {
@@ -1278,23 +1290,24 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private TextBoxElementFacade ckEditorBodyCommentElement() {
-    return findTextBoxByXPathOrCSS("//body[contains(@class,'cke_editable_themed')]");
+    return findTextBoxByXPathOrCSS(CKE_EDITOR_BODY);
   }
 
   private ElementFacade ckEditorFrameCommentElement() {
-    return findByXPathOrCSS(OPENED_ACTIVITY_COMMENTS_DRAWER_SELECTOR + "//iframe[contains(@class,'cke_wysiwyg_frame')]");
+    return findByXPathOrCSS(OPENED_ACTIVITY_COMMENTS_DRAWER_SELECTOR + CKE_WYSIWYG_FRAME_SUFFIX);
   }
 
   private ElementFacade ckEditorFrameReplyElement() {
-    return findByXPathOrCSS(OPENED_ACTIVITY_REPLIES_DRAWER_SELECTOR + "//iframe[contains(@class,'cke_wysiwyg_frame')]");
+    return findByXPathOrCSS(OPENED_ACTIVITY_REPLIES_DRAWER_SELECTOR + CKE_WYSIWYG_FRAME_SUFFIX);
   }
 
   private ElementFacade ckEditorFrameElement() {
-    return findByXPathOrCSS(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR + "//iframe[contains(@class,'cke_wysiwyg_frame')]");
+    return findByXPathOrCSS(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR + CKE_WYSIWYG_FRAME_SUFFIX);
   }
 
-  private void clickOnReplyToComment(String comment, String activity, boolean inDrawer) { // NOSONAR
-    getCommentReply(comment, inDrawer).click();
+  private void clickOnReplyToComment(String comment, String activity) { // NOSONAR
+    checkCommentDrawerOpened(activity);
+    getCommentReply(comment).click();
     waitForDrawerToOpen();
   }
 
@@ -1303,17 +1316,17 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private ElementFacade closeCommentsDrawerElement() {
-    return findByXPathOrCSS(OPENED_ACTIVITY_COMMENTS_DRAWER_SELECTOR
-        + "//button[contains(@class, 'close') or contains(@title, 'Close')]");
+    return findByXPathOrCSS(OPENED_ACTIVITY_COMMENTS_DRAWER_SELECTOR +
+        "//button[contains(@class, 'close') or contains(@title, 'Close')]");
   }
 
   private ElementFacade saveCommentButtonInDrawerElement() {
-    return findByXPathOrCSS(OPENED_ACTIVITY_COMMENTS_DRAWER_SELECTOR
-        + "//*[contains(@class,'drawerContent')]//button//*[contains(text(),'Comment') or contains(text(),'Update')]");
+    return findByXPathOrCSS(OPENED_ACTIVITY_COMMENTS_DRAWER_SELECTOR +
+        "//*[contains(@class,'drawerContent')]//button//*[contains(text(),'Comment') or contains(text(),'Update')]");
   }
 
   private TextBoxElementFacade commentFieldElement() {
-    return findTextBoxByXPathOrCSS("//body[contains(@class,'cke_editable_themed')]");
+    return findTextBoxByXPathOrCSS(CKE_EDITOR_BODY);
   }
 
   private ElementFacade commentsDrawerFirstPageBtnElement() {
@@ -1324,10 +1337,6 @@ public class SpaceHomePage extends GenericPage {
     return findByXPathOrCSS("(//*[contains(@class, 'v-pagination__item')])[2]");
   }
 
-  private ElementFacade commentTitleElement() {
-    return findByXPathOrCSS("//*[contains(@id,'activity-comment-detail')]//*[contains(@id,'Extactivity-content-extensions')]//p//div");
-  }
-  
   private ElementFacade commentKudosTitleElement() {
     return findByXPathOrCSS("//*[contains(@id,'activity-comment-detail')]//*[contains(@id,'Extactivity-content-extensions')]//*[contains(@class,'rich-editor-content')]//div");
   }
@@ -1339,7 +1348,7 @@ public class SpaceHomePage extends GenericPage {
   private ElementFacade sendKudosLinkElement() {
     return findByXPathOrCSS("//*[contains(@id,'activityComposerDrawer')]//*[contains(@id,'sendKudosComposerButton')]");
   }
-  
+
   private ElementFacade dotsMenuElement() {
     return findByXPathOrCSS("//i[@class='v-icon notranslate primary--text mdi mdi-dots-vertical theme--light']");
   }
@@ -1373,7 +1382,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private ElementFacade getActivityCommentButton(String activity) {
-    return getActivityFooterButton(activity, "CommentLink");
+    return getActivityFooterButton(activity, COMMENT_LINK);
   }
 
   private ElementFacade getActivityFooterButton(String activity, String buttonIdPart) {
@@ -1388,6 +1397,7 @@ public class SpaceHomePage extends GenericPage {
                                           commentIdPart,
                                           buttonIdPart));
   }
+
   private ElementFacade getActivityLikeButton(String activity) {
     return getActivityFooterButton(activity, "LikeLink");
   }
@@ -1438,12 +1448,6 @@ public class SpaceHomePage extends GenericPage {
                                           buttonIdPart));
   }
 
-  private ElementFacade getCommentFooterButton(String comment, String buttonIdPart) {
-    return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'v-list-item')]//*[contains(@id, 'Extactivity-comment-footer-action')]//button[contains(@id,'%s')]",
-                                          comment,
-                                          buttonIdPart));
-  }
-
   private ElementFacade getCommentLikesNumber(String comment) {
     return findByXPathOrCSS(String.format("(//div[contains(text(),'%s')]//following::button[contains(@id,'LikersListLinkcomment')])[1]//span",
                                           comment));
@@ -1454,12 +1458,8 @@ public class SpaceHomePage extends GenericPage {
                                           comment));
   }
 
-  private ElementFacade getCommentReply(String comment, boolean drawer) {
-    if (drawer) {
-      return getCommentDrawerButton(comment, "CommentLink");
-    } else {
-      return getCommentFooterButton(comment, "CommentLink");
-    }
+  private ElementFacade getCommentReply(String comment) {
+    return getCommentDrawerButton(comment, COMMENT_LINK);
   }
 
   private ElementFacade getCommentsDrawerBlueLikeCommentIcon(String activityComment) {
@@ -1613,78 +1613,81 @@ public class SpaceHomePage extends GenericPage {
     return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'pinnedActivity')]",
                                           activity));
   }
-  
 
   private ElementFacade getAttachedImagesActivity(String activity) {
-    return findByXPathOrCSS(String.format("//*[contains(@class, 'activityStream')]//*[contains(@class,'contentBox')][1]//*[contains(@class, 'attachments-image-item')][1]",
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@class,'activity-detail')]//*[contains(@class, 'attachments-image-item')]",
                                           activity));
   }
-  
+
   private ElementFacade getSecondAttachedImageActivity(String activity) {
-    return findByXPathOrCSS(String.format("//*[contains(@class, 'activityStream')]//*[contains(@class,'contentBox')][1]//*[contains(@class, 'attachments-image-item')][2]",
-                                          activity));
+    return findByXPathOrCSS("//*[contains(@class, 'activityStream')]//*[contains(@class,'contentBox')][1]//*[contains(@class, 'attachments-image-item')][2]");
   }
-  
+
   private ElementFacade getAttachedImagesKudosComment(String comment) {
-    return findByXPathOrCSS(String.format("//*[contains(@id,'ActivityCommment_comment')][1]//*[contains(@id,'Extcomment-content-extensions')]//*[contains(@class, 'attachments-image-item')][1]",
-                                          comment));
+    return findByXPathOrCSS("//*[contains(@id,'ActivityCommment_comment')][1]//*[contains(@id,'Extcomment-content-extensions')]//*[contains(@class, 'attachments-image-item')][1]");
   }
-  
+
   private ElementFacade getPreviewAttachedImage() {
     return findByXPathOrCSS("//*[@id='previewCarousel-activity' and contains(@class, 'AttachmentCarouselPreview')]");
   }
-  
+
   private ElementFacade getPreviewAttachedImageNextArrow() {
     return findByXPathOrCSS("//*[@id='previewCarousel-activity' and contains(@class, 'AttachmentCarouselPreview')]//*[contains(@class, 'v-window__next')]");
   }
-  
+
   private ElementFacade getPreviewAttachedImagePrevArrow() {
     return findByXPathOrCSS("//*[@id='previewCarousel-activity' and contains(@class, 'AttachmentCarouselPreview')]//*[contains(@class, 'v-window__prev')]");
   }
-  
-  
+
   private ElementFacade previewAttachedImageCloseBtn() {
     return findByXPathOrCSS("//*[contains(@class,'preview-attachment-action')]//button[@id='preview-attachment-close']");
   }
-  
+
   private ElementFacade deleteAttachmentBtn() {
-    return findByXPathOrCSS(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR + "//*[contains(@class, 'activityRichEditor')]//*[contains(@class, 'carousel-top-parent')]//*[contains(@class, 'v-card__actions')]//button[2]");
+    return findByXPathOrCSS(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR +
+        "//*[contains(@class, 'activityRichEditor')]//*[contains(@class, 'carousel-top-parent')]//*[contains(@class, 'v-card__actions')]//button[2]");
   }
-  
+
   private ElementFacade editAttachmentBtn() {
-    return findByXPathOrCSS(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR + "//*[contains(@class, 'activityRichEditor')]//*[contains(@class, 'carousel-top-parent')]//*[contains(@class, 'v-card__actions')]//button[1]");
+    return findByXPathOrCSS(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR +
+        "//*[contains(@class, 'activityRichEditor')]//*[contains(@class, 'carousel-top-parent')]//*[contains(@class, 'v-card__actions')]//button[1]");
   }
 
   private ElementFacade getAttachedImageCropDrawer() {
     return findByXPathOrCSS("//*[contains(@id,'Extactivity-stream-drawers')]//*[@id = 'cropperDrawer']");
-  } 
+  }
+
   private ElementFacade getAttachedImageCropDrawerBlurredZone() {
     return findByXPathOrCSS("//*[contains(@id,'Extactivity-stream-drawers')]//*[@id = 'cropperDrawer']//*[contains(@class, 'filter-blur-3')]");
-  } 
-  
-  
+  }
+
   private ElementFacade getAttachedImageCropDrawerZoomBtn() {
     return findByXPathOrCSS("//*[contains(@id,'Extactivity-stream-drawers')]//*[@id = 'cropperDrawer']//*[@id = 'zoomImageIn']");
-  } 
-  
+  }
+
   private ElementFacade getAttachedImageCropDrawerCancekBtn() {
     return findByXPathOrCSS("//*[contains(@id,'Extactivity-stream-drawers')]//*[@id = 'cropperDrawer']//*[@id = 'cancelChanges']");
-  } 
-  
+  }
+
   private ElementFacade getAttachedImageCropDrawerUpdateBtn() {
     return findByXPathOrCSS("//*[contains(@id,'Extactivity-stream-drawers')]//*[@id = 'cropperDrawer']//*[@id = 'imageCropDrawerApply']");
-  } 
-  
+  }
+
   private ElementFacade getActivityAttachedImage() {
-    return findByXPathOrCSS(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR + "//*[contains(@class, 'activityRichEditor')]//*[contains(@class, 'carousel-top-parent')]");
+    return findByXPathOrCSS(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR +
+        "//*[contains(@class, 'activityRichEditor')]//*[contains(@class, 'carousel-top-parent')]");
   }
-  
+
   private ElementFacade getActivityAttachedImageWithDeleteIcon(String activity) {
-    return findByXPathOrCSS(String.format(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR + "//*[contains(@class, 'activityRichEditor')]//*[contains(@class, 'carousel-top-parent')]//button[contains(@class, 'v-btn')]//*[contains(@class, 'fa-trash')]", activity));
+    return findByXPathOrCSS(String.format(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR +
+        "//*[contains(@class, 'activityRichEditor')]//*[contains(@class, 'carousel-top-parent')]//button[contains(@class, 'v-btn')]//*[contains(@class, 'fa-trash')]",
+                                          activity));
   }
-  
+
   private ElementFacade getActivityAttachedImageWithEditIcon(String activity) {
-    return findByXPathOrCSS(String.format(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR + "//*[contains(@class, 'activityRichEditor')]//*[contains(@class, 'carousel-top-parent')]//button[contains(@class, 'v-btn')]//*[contains(@class, 'fa-edit')]", activity));
+    return findByXPathOrCSS(String.format(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR +
+        "//*[contains(@class, 'activityRichEditor')]//*[contains(@class, 'carousel-top-parent')]//button[contains(@class, 'v-btn')]//*[contains(@class, 'fa-edit')]",
+                                          activity));
   }
 
   private ElementFacade getReactionActivityLink(String activity) {
@@ -1699,10 +1702,10 @@ public class SpaceHomePage extends GenericPage {
 
   private ElementFacade getReplyBox(String comment, String reply, boolean inDrawer) {
     String parentXPath = inDrawer ? "//*[@id='activityCommentsDrawer']" : "//*[contains(@class,'activity-detail')]";
-    String replyXPath = parentXPath
-        + String.format("//*[contains(@class,'activity-comment')]//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@class,'activity-comment') and contains(@id, 'ActivityCommment_')]//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@class,'activity-comment') and contains(@id, 'ActivityCommment_')][1]",
-                        comment,
-                        reply);
+    String replyXPath = parentXPath +
+        String.format("//*[contains(@class,'activity-comment')]//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@class,'activity-comment') and contains(@id, 'ActivityCommment_')]//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@class,'activity-comment') and contains(@id, 'ActivityCommment_')][1]",
+                      comment,
+                      reply);
     return findByXPathOrCSS(replyXPath);
   }
 
@@ -1842,8 +1845,27 @@ public class SpaceHomePage extends GenericPage {
     waitCKEditorLoading("//*[@id = 'activityCommentsDrawer' and contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'activity-comment')]");
   }
 
-  private ElementFacade FilterIcon() {
+  private ElementFacade filterIcon() {
     return findByXPathOrCSS(".activityComposer .v-btn--icon .fa-sliders-h");
+  }
+
+  private void checkCommentDrawerOpened(String activity) {
+    retryOnCondition(() -> {
+      if (!isCommentsDrawerOpened()) {
+        closeAllDrawers();
+        waitForDrawerToClose();
+        openCommentsDrawer(activity);
+      }
+      commentsDrawerElement().checkVisible();
+    });
+  }
+
+  private boolean isCommentsDrawerOpened() {
+    return commentsDrawerElement().isCurrentlyVisible();
+  }
+
+  private ElementFacade commentsDrawerElement() {
+    return findByXPathOrCSS("//*[@id = 'activityCommentsDrawer' and contains(@class, 'v-navigation-drawer--open')]");
   }
 
 }

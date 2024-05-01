@@ -17,7 +17,7 @@
  */
 package io.meeds.qa.ui.pages;
 
-import static io.meeds.qa.ui.utils.Utils.refreshPage;
+import static io.meeds.qa.ui.utils.Utils.*;
 
 import org.openqa.selenium.WebDriver;
 
@@ -30,6 +30,10 @@ public class AddGroupsPage extends GenericPage {
   }
 
   public void addMemberInGroup(String role, String member) {
+    retryOnCondition(() -> addMember(role, member));
+  }
+
+  public void addMember(String role, String member) {
     ElementFacade addMemberInGroupBtnElement = addMemberInGroupBtnElement();
     if (!addMemberInGroupBtnElement.isClickable() || !addMemberInGroupBtnElement.isVisible()) {
       refreshPage();

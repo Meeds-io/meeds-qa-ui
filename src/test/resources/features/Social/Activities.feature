@@ -22,12 +22,11 @@ Feature: Activities
     Then the activity 'activity with comment to delete' is displayed in activity stream
     When I add in activity 'activity with comment to delete' a comment 'A comment to delete'
     And I open in activity 'activity with comment to delete' the Comments drawer
-    Then Activity Comment 'A comment to delete' is displayed in Comments drawer
-    And Activity Comment 'A comment to delete' is displayed in activity stream
+    Then The comment 'A comment to delete' is displayed in Comments drawer of activity 'activity with comment to delete'
     When In activity 'activity with comment to delete' I delete the comment 'A comment to delete'
     And I click on Yes button
     Then the confirmation popup is not displayed
-    And Comment 'A comment to delete' is not displayed in activity 'activity with comment to delete'
+    And The comment 'A comment to delete' is not displayed in Comments drawer of activity 'activity with comment to delete'
 
   Scenario: comment your activity
     Given I am authenticated as 'admin' random user
@@ -38,5 +37,4 @@ Feature: Activities
     Then the activity 'activity to comment' is displayed in activity stream
     When I add in activity 'activity to comment' a comment 'comment to display'
     And I open in activity 'activity to comment' the Comments drawer
-    Then Activity Comment 'comment to display' is displayed in Comments drawer
-    And Activity Comment 'comment to display' is displayed in activity stream
+    Then The comment 'comment to display' is displayed in Comments drawer of activity 'activity to comment'
