@@ -17,6 +17,7 @@
  */
 package io.meeds.qa.ui.pages;
 
+import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -29,7 +30,9 @@ import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 
 public class ManageSpacesPage extends GenericPage {
+
   private static final String SPACE_SETTING_APPLICATION_CARD_TEMPLATE = "(//*[contains(@class, 'SpaceApplicationCard')][1]/parent::*[1])[1]/*[contains(@class, 'SpaceApplicationCard')][%s]";
+
   private SpaceHomePage spaceHomePage;
 
   public ManageSpacesPage(WebDriver driver) {
@@ -72,7 +75,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void checkDescriptionSpaceSection() {
-    descriptionSpaceSectionElement().assertVisible();
+    ckEditorDescription().assertVisible();
   }
 
   public void checkDisplayOfOtherSpaces() {
@@ -438,7 +441,24 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void setSpaceDescription(String spaceDescription) {
-    descriptionSpaceSectionElement().setTextValue(spaceDescription);
+    waitForDrawerToOpen(OPENED_DRAWER_XPATH, false);
+    waitCKEditorLoading(OPENED_DRAWER_XPATH);
+    retryOnCondition(() -> {
+      ElementFacade ckEditorFrameKudos = ckEditorDescription();
+      ckEditorFrameKudos.waitUntilVisible();
+      getDriver().switchTo().frame(ckEditorFrameKudos);
+    }, () -> {
+      getDriver().switchTo().defaultContent();
+      waitFor(500).milliseconds(); // Kudos Iframe seems very slow
+    });
+    try {
+      TextBoxElementFacade kudosFieldElement = ckEditorDescriptionElement();
+      kudosFieldElement.waitUntilVisible();
+      kudosFieldElement.setTextValue(spaceDescription);
+    } finally {
+      getDriver().switchTo().defaultContent();
+    }
+    getDriver().switchTo().defaultContent();
   }
 
   public void showMoreSpaces() {
@@ -572,10 +592,6 @@ public class ManageSpacesPage extends GenericPage {
 
   private ElementFacade closedRadioBtnElement() {
     return findByXPathOrCSS("//*[@class='v-input--selection-controls__input']/following::label[contains(text(),'Closed')]");
-  }
-
-  private TextBoxElementFacade descriptionSpaceSectionElement() {
-    return findTextBoxByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//textarea[@name='description']");
   }
 
   private ElementFacade editIconOfGeneralSpaceSettingsElement() {
@@ -814,6 +830,14 @@ public class ManageSpacesPage extends GenericPage {
 
   private ElementFacade validationRadioBtnElement() {
     return findByXPathOrCSS("//*[@class='v-input--selection-controls__input']/following::label[contains(text(),'Validation')]");
+  }
+
+  private ElementFacade ckEditorDescription() {
+    return findByXPathOrCSS(OPENED_DRAWER_XPATH + "//iframe[contains(@class,'cke_wysiwyg_frame')]");
+  }
+
+  private TextBoxElementFacade ckEditorDescriptionElement() {
+    return findTextBoxByXPathOrCSS("//body[contains(@class,'cke_editable')]");
   }
 
 }
