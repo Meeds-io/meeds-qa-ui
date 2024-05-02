@@ -55,9 +55,9 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   protected static final Logger LOGGER                      = LoggerFactory.getLogger(BasePageImpl.class);
 
-  private static final String   OPENED_DRAWER_XPATH         = "//*[contains(@class, 'v-navigation-drawer--open')]";
+  public static final String    OPENED_DRAWER_XPATH        = "//*[contains(@class, 'v-navigation-drawer--open')]";
 
-  private static final String   OPENED_DRAWER_CSS_SELECTOR  = ".v-navigation-drawer--open";
+  public static final String    OPENED_DRAWER_CSS_SELECTOR = ".v-navigation-drawer--open";
 
   public static final String    UPLOAD_DIRECTORY_PATH       =
                                                       GenericPage.class.getResource("/DataFiles/")
