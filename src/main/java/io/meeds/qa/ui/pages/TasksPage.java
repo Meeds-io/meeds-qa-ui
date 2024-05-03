@@ -1264,7 +1264,7 @@ public class TasksPage extends GenericPage {
   }
 
   private ElementFacade ckEditorFrameTaskMentioningUserElement() {
-    return findByXPathOrCSS("(//iframe[contains(@class,'cke_wysiwyg_frame')])[2]");
+    return findByXPathOrCSS("//*[@id = 'taskCommentDrawer']//iframe[contains(@class,'cke_wysiwyg_frame')]");
   }
 
   private TextBoxElementFacade clearButtonInFilterByProjectElement() {
