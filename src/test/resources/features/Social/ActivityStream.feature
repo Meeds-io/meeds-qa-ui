@@ -1557,6 +1557,7 @@ Feature: Activity Stream
     And I inject the fourth random user if not existing
 
     And I login as 'first' random user
+    And I inject the random space
     And I go to the random space
     And I click on post in space
     And I enter an activity 'activitytestkudosCAP129'
@@ -1883,6 +1884,7 @@ Feature: Activity Stream
 
   Scenario: Access user profile through user avatar
     Given I am authenticated as 'admin' random user
+    And I inject the random space
     And I go to the random space
 
     When I click on user avatar in space stream
@@ -1890,6 +1892,7 @@ Feature: Activity Stream
 
   Scenario: Open composer drawer
     Given I am authenticated as 'admin' random user
+    And I inject the random space
     And I go to the random space
 
     When I click on post in space
