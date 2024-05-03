@@ -1661,23 +1661,23 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private ElementFacade getAttachedImageCropDrawer() {
-    return findByXPathOrCSS("//*[contains(@id,'Extactivity-stream-drawers')]//*[@id = 'cropperDrawer']");
+    return findByXPathOrCSS("//*[@id = 'cropperDrawer']");
   }
 
   private ElementFacade getAttachedImageCropDrawerBlurredZone() {
-    return findByXPathOrCSS("//*[contains(@id,'Extactivity-stream-drawers')]//*[@id = 'cropperDrawer']//*[contains(@class, 'filter-blur-3')]");
+    return findByXPathOrCSS("//*[@id = 'cropperDrawer']//*[contains(@class, 'filter-blur-3')]");
   }
 
   private ElementFacade getAttachedImageCropDrawerZoomBtn() {
-    return findByXPathOrCSS("//*[contains(@id,'Extactivity-stream-drawers')]//*[@id = 'cropperDrawer']//*[@id = 'zoomImageIn']");
+    return findByXPathOrCSS("//*[@id = 'cropperDrawer']//*[@id = 'zoomImageIn']");
   }
 
   private ElementFacade getAttachedImageCropDrawerCancekBtn() {
-    return findByXPathOrCSS("//*[contains(@id,'Extactivity-stream-drawers')]//*[@id = 'cropperDrawer']//*[@id = 'cancelChanges']");
+    return findByXPathOrCSS("//*[@id = 'cropperDrawer']//*[@id = 'cancelChanges']");
   }
 
   private ElementFacade getAttachedImageCropDrawerUpdateBtn() {
-    return findByXPathOrCSS("//*[contains(@id,'Extactivity-stream-drawers')]//*[@id = 'cropperDrawer']//*[@id = 'imageCropDrawerApply']");
+    return findByXPathOrCSS("//*[@id = 'cropperDrawer']//*[@id = 'imageCropDrawerApply']");
   }
 
   private ElementFacade getActivityAttachedImage() {

@@ -263,13 +263,13 @@ public class ProgramsPage extends GenericPage {
   public void attachAvatarToProgram() {
     attachAvatarButton().click();
     waitForDrawerToOpen();
-    attachImageToOpenedDrawer(true);
+    attachImageToOpenedDrawer();
   }
 
   public void attachCoverToProgram() {
     attachCoverButton().click();
     waitForDrawerToOpen();
-    attachImageToOpenedDrawer(true);
+    attachImageToOpenedDrawer();
   }
 
   public void deleteAvatarFromProgram() {

@@ -27,6 +27,7 @@ import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 
 import java.io.File;
 import java.time.Duration;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
@@ -217,6 +218,13 @@ public class BasePageImpl extends PageObject implements BasePage {
     goBackButtonInDrawer().click();
   }
 
+  public void clickButton(String buttonText, int index) {
+    ElementFacade button = getButton(buttonText, index);
+    button.assertEnabled();
+    button.click();
+    waitForLoading();
+  }
+
   public void clickButton(String buttonText) {
     ElementFacade button = getButton(buttonText);
     button.assertEnabled();
@@ -254,9 +262,12 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void clickSelecdLevelDrawerButton(String buttonText) {
-    ElementFacade button = getSelecdLevelDrawerButton(buttonText);
-    button.assertEnabled();
-    button.click();
+    AtomicInteger index = new AtomicInteger();
+    retryOnCondition(() -> {
+      ElementFacade button = getSelecdLevelDrawerButton(buttonText, index.getAndIncrement());
+      button.assertEnabled();
+      button.click();
+    });
     waitForLoading();
   }
 
@@ -551,6 +562,10 @@ public class BasePageImpl extends PageObject implements BasePage {
     return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor-or-self::button", buttonText));
   }
 
+  public ElementFacade getButton(String buttonText, int index) {
+    return findByXPathOrCSS(String.format("(//*[contains(text(),'%s')]//ancestor-or-self::button)[%s]", buttonText, index + 1));
+  }
+
   public ElementFacade getMenuItem(String menuItemText) {
     return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@role, 'menuitem')]", menuItemText));
   }
@@ -568,17 +583,18 @@ public class BasePageImpl extends PageObject implements BasePage {
                                           buttonName));
   }
 
-  public ElementFacade getSelecdLevelDrawerButton(String buttonName) {
-    return findByXPathOrCSS(String.format("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(),'%s')]//ancestor-or-self::button",
-                                          buttonName));
+  public ElementFacade getSelecdLevelDrawerButton(String buttonName, int index) {
+    return findByXPathOrCSS(String.format("(//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(),'%s')]//ancestor-or-self::button)[%s]",
+                                          buttonName,
+                                          index));
   }
 
-  public void attachImageToOpenedDrawer(boolean secondLevel) {
-    ElementFacade fileInput = findByXPathOrCSS((secondLevel ? OPENED_DRAWER_CSS_SELECTOR : "") + " "
-        + OPENED_DRAWER_CSS_SELECTOR + " input[type=file]");
+  public void attachImageToOpenedDrawer() {
+    ElementFacade fileInput = findByXPathOrCSS(OPENED_DRAWER_CSS_SELECTOR + " input[type=file]");
     fileInput.assertEnabled();
     attachImageToFileInput(fileInput, USER_AVATAR_PNG);
-    clickButton("Apply");
+    AtomicInteger index = new AtomicInteger();
+    retryOnCondition(() -> clickButton("Apply", index.getAndIncrement()));
   }
 
   public void attachGifImageToCKeditor() {
@@ -591,16 +607,20 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   public void attachImageToCKeditor(String fileName) {
     waitCKEditorLoading();
-    ckEditorAttachImageButton().assertVisible();
-    ElementFacade fileInput = ckEditorAttachImageInput();
-    fileInput.assertEnabled();
-    attachImageToFileInput(fileInput, fileName);
-    waitForLoading();
-    retryOnCondition(() -> ckEditorImageAttachmentProgressElement().waitUntilNotVisible());
-    retryOnCondition(() -> ckEditorImageAttachmentEditButton().waitUntilVisible());
-    ckEditorImageAttachmentCarousel().assertVisible();
-    ckEditorImageAttachmentPlusIcon().assertVisible();
-    waitFor(1000).milliseconds();
+
+    AtomicInteger index = new AtomicInteger();
+    retryOnCondition(() -> {
+      ckEditorAttachImageButton(index.incrementAndGet()).assertVisible();
+      ElementFacade fileInput = ckEditorAttachImageInput(index.get());
+      fileInput.assertEnabled();
+      attachImageToFileInput(fileInput, fileName);
+      waitForLoading();
+      retryOnCondition(() -> ckEditorImageAttachmentProgressElement(index.get()).waitUntilNotVisible());
+      retryOnCondition(() -> ckEditorImageAttachmentEditButton(index.get()).waitUntilVisible());
+      ckEditorImageAttachmentCarousel(index.get()).assertVisible();
+      ckEditorImageAttachmentPlusIcon(index.get()).assertVisible();
+      waitFor(1000).milliseconds();
+    });
   }
 
   public ElementFacade attachFileInput(boolean secondLevel) {
@@ -661,28 +681,28 @@ public class BasePageImpl extends PageObject implements BasePage {
     return findByXPathOrCSS(".menuable__content__active");
   }
 
-  private ElementFacade ckEditorAttachImageInput() {
-    return findByXPathOrCSS("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[last()]/parent::*//input[@type='file']");
+  private ElementFacade ckEditorAttachImageInput(int index) {
+    return findByXPathOrCSS(String.format("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[%s]/parent::*//input[@type='file']", index));
   }
 
-  private ElementFacade ckEditorAttachImageButton() {
-    return findByXPathOrCSS("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[last()]//a[contains(@class, 'cke_button__attachimage')]");
+  private ElementFacade ckEditorAttachImageButton(int index) {
+    return findByXPathOrCSS(String.format("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[%s]//a[contains(@class, 'cke_button__attachimage')]", index));
   }
 
-  private ElementFacade ckEditorImageAttachmentCarousel() {
-    return findByXPathOrCSS("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[last()]/parent::*//*[contains(@class, 'carousel-top-parent')]");
+  private ElementFacade ckEditorImageAttachmentCarousel(int index) {
+    return findByXPathOrCSS(String.format("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[%s]/parent::*//*[contains(@class, 'carousel-top-parent')]", index));
   }
   
-  private ElementFacade ckEditorImageAttachmentPlusIcon() {
-    return findByXPathOrCSS("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[last()]/parent::*//*[contains(@class, 'carousel-top-parent')]//*[contains(@class, 'fa-plus')]");
+  private ElementFacade ckEditorImageAttachmentPlusIcon(int index) {
+    return findByXPathOrCSS(String.format("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[%s]/parent::*//*[contains(@class, 'carousel-top-parent')]//*[contains(@class, 'fa-plus')]", index));
   }
 
-  private ElementFacade ckEditorImageAttachmentProgressElement() {
-    return findByXPathOrCSS("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[last()]/parent::*//*[contains(@class, 'v-progress-circular')]");
+  private ElementFacade ckEditorImageAttachmentProgressElement(int index) {
+    return findByXPathOrCSS(String.format("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[%s]/parent::*//*[contains(@class, 'v-progress-circular')]", index));
   }
 
-  private ElementFacade ckEditorImageAttachmentEditButton() {
-    return findByXPathOrCSS("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[last()]/parent::*//*[contains(@class, 'fa-edit')]");
+  private ElementFacade ckEditorImageAttachmentEditButton(int index) {
+    return findByXPathOrCSS(String.format("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[%s]/parent::*//*[contains(@class, 'fa-edit')]", index));
   }
 
 }
