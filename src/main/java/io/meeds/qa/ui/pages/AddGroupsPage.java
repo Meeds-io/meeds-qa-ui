@@ -37,6 +37,7 @@ public class AddGroupsPage extends GenericPage {
     closeAllDrawers();
     addMemberInGroupBtnElement.click();
     ElementFacade selectedRoleFieldElement = selectedRoleFieldElement();
+    selectedRoleFieldElement.checkVisible();
     selectedRoleFieldElement.selectByValue(role);
     selectedRoleFieldElement.click();
     TextBoxElementFacade inviteMemberInputElement = inviteMemberInputElement();

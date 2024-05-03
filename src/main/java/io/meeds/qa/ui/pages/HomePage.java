@@ -725,7 +725,7 @@ public class HomePage extends GenericPage {
   }
 
   private ElementFacade spaceArrowIconElement() {
-    return findByXPathOrCSS("//*[contains(@class,'recentSpacesWrapper')]//*[contains(@class,'clickable fa fa-arrow')]");
+    return findByXPathOrCSS("//*[contains(@class,'recentSpacesWrapper')]//*[contains(@class,'fa-arrow')]");
   }
 
   private ElementFacade spaceInvitaitationWidgetElement() {
