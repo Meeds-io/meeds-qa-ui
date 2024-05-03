@@ -188,7 +188,7 @@ public class UserProfilePage extends GenericPage {
     // Remove Work Experience
     editWorkExperiencesElement().click();
     openWorkExperience(jobTitle).click();
-    removeWorkExperienceElement().click();
+    removeWorkExperienceElement(jobTitle).click();
     JavascriptExecutor executor = (JavascriptExecutor) getDriver();
     executor.executeScript("arguments[0].click();", saveWorkExperiencesElement());
     saveWorkExperiencesElement().waitUntilNotVisible();
@@ -560,8 +560,9 @@ public class UserProfilePage extends GenericPage {
     return findByXPathOrCSS("(//*[@id='ProfileHeader']//*[@class='v-image__image v-image__image--cover'])[1]");
   }
 
-  private ElementFacade removeWorkExperienceElement() {
-    return findByXPathOrCSS("//*[contains(@class,'uiIconTrash')]");
+  private WebElement removeWorkExperienceElement(String jobTitle) {
+    return findButtonByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@class,'profileWorkExperiencesEditItem')]//*[contains(@class,'uiIconTrash')]//ancestor::button",
+                                                jobTitle));
   }
 
   private ElementFacade saveWorkExperiencesElement() {
