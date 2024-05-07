@@ -315,35 +315,19 @@ Feature: Achievements
     And Achievement 'Join space' of user 'tenthachievement' is displayed 'third'
     And Achievement 'Announce an achievement' of user 'tenthachievement' is displayed 'fourth'
 
-    When I sort table by 'Type'
+    When I sort table by 'Status'
     And I wait for application loading
 
     Then Achievement 'Join space' of user 'tenthachievement' is displayed 'first'
     And Achievement 'Join space' of user 'ninethachievement' is displayed 'second'
-    And Achievement 'Announce an achievement' of user 'tenthachievement' is displayed 'third'
-    And Achievement 'Announce an achievement' of user 'ninethachievement' is displayed 'fourth'
+    And Achievement 'Announce an achievement' of user 'ninethachievement' is displayed 'third'
+    And Achievement 'Announce an achievement' of user 'tenthachievement' is displayed 'fourth'
 
-    When I sort table by 'Type'
+    When I sort table by 'Status'
     And I wait for application loading
 
     Then Achievement 'Announce an achievement' of user 'tenthachievement' is displayed 'first'
     And Achievement 'Announce an achievement' of user 'ninethachievement' is displayed 'second'
-    And Achievement 'Join space' of user 'tenthachievement' is displayed 'third'
-    And Achievement 'Join space' of user 'ninethachievement' is displayed 'fourth'
-
-    When I sort table by 'Status'
-    And I wait for application loading
-
-    Then Achievement 'Announce an achievement' of user 'tenthachievement' is displayed 'first'
-    And Achievement 'Join space' of user 'tenthachievement' is displayed 'second'
-    And Achievement 'Join space' of user 'ninethachievement' is displayed 'third'
-    And Achievement 'Announce an achievement' of user 'ninethachievement' is displayed 'fourth'
-
-    When I sort table by 'Status'
-    And I wait for application loading
-
-    Then Achievement 'Announce an achievement' of user 'ninethachievement' is displayed 'first'
-    And Achievement 'Announce an achievement' of user 'tenthachievement' is displayed 'second'
     And Achievement 'Join space' of user 'tenthachievement' is displayed 'third'
     And Achievement 'Join space' of user 'ninethachievement' is displayed 'fourth'
 
@@ -394,10 +378,8 @@ Feature: Achievements
     And I click on Yes button
     Then the confirmation popup is not displayed
     And the activity 'Activity to cancel' is no more displayed in the activity stream
-
     When I go to 'achievements' in site 'mycraft'
-
-    Then Achievement for 'Post activity in a space' is rejected
+    Then Achievement for 'Post activity in a space' is rejected due to activity deletion
 
   Scenario: Cancel Comment changes the Achievement as Rejected
     Given I am authenticated as 'admin' random user
@@ -460,8 +442,8 @@ Feature: Achievements
 
     When I go to 'achievements' in site 'mycraft'
 
-    Then Achievement for 'Comment activity in space' is rejected
-    And Achievement for 'Receive comment activity in space' is rejected
+    Then Achievement for 'Comment activity in space' is rejected due to activity deletion
+    And Achievement for 'Receive comment activity in space' is rejected due to activity deletion
 
   Scenario: Cancel Like Stream Activity changes the Achievement as Canceled
     Given I am authenticated as 'admin' random user

@@ -26,9 +26,16 @@ public class AchievementsSteps {
     achievementsPage.checkThatAchievementIsAccepted(actionTitle);
   }
 
+  public void checkThatAchievementIsPending(String actionTitle) {
+    achievementsPage.checkThatAchievementIsPending(actionTitle);
+  }
+
+  public void acceptAchievement(String actionTitle) {
+    achievementsPage.acceptAchievement(actionTitle);
+  }
+
   public void checkThatAchievementIsRejected(String actionTitle) {
     achievementsPage.checkThatAchievementIsRejected(actionTitle);
-
   }
 
   public void checkThatAchievementIsCanceled(String actionTitle) {
