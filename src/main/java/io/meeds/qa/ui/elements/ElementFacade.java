@@ -126,6 +126,16 @@ public interface ElementFacade extends WebElementFacade {
     }
   }
 
+  default void checkEnabled() {
+    long start = System.currentTimeMillis();
+    if (!isEnabled()) {
+      throw new ElementShouldBeVisibleException(String.format("Unable to locate an enabled element %s after %s ms",
+                                                              this,
+                                                              System.currentTimeMillis() - start),
+                                                null);
+    }
+  }
+
   /**
    * this method will check if element is displayed or not without implicit
    * timeout

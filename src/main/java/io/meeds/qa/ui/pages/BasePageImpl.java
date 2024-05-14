@@ -152,7 +152,7 @@ public class BasePageImpl extends PageObject implements BasePage {
       }
     }
     if (i == 0) {
-      openedDialogElement().assertNotVisible();
+      openedDialogElement().checkNotVisible();
     }
   }
 
@@ -176,7 +176,7 @@ public class BasePageImpl extends PageObject implements BasePage {
         pressEscape();
       } else {
         ElementFacade drawerCloseIcon = drawerCloseIcon();
-        drawerCloseIcon.assertVisible();
+        drawerCloseIcon.checkVisible();
         drawerCloseIcon.click();
       }
       closeAlertIfOpened();
@@ -185,7 +185,7 @@ public class BasePageImpl extends PageObject implements BasePage {
     }
     waitForDrawerToClose();
     if (i == 0) {
-      openedDrawerElement().assertNotVisible();
+      openedDrawerElement().checkNotVisible();
     }
   }
 
@@ -206,7 +206,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void expandDrawer() {
-    expandDrawerButton().assertVisible();
+    expandDrawerButton().checkVisible();
     expandDrawerButton().click();
   }
 
@@ -220,43 +220,44 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   public void clickButton(String buttonText, int index) {
     ElementFacade button = getButton(buttonText, index);
-    button.assertEnabled();
+    button.checkVisible();
+    button.checkEnabled();
     button.click();
     waitForLoading();
   }
 
   public void clickButton(String buttonText) {
     ElementFacade button = getButton(buttonText);
-    button.assertEnabled();
+    button.checkEnabled();
     button.click();
     waitForLoading();
   }
 
   public void clickMenuItem(String menuItemText) {
     ElementFacade menuItem = getMenuItem(menuItemText);
-    menuItem.assertVisible();
+    menuItem.checkVisible();
     menuItem.click();
     waitForLoading();
   }
 
   public void clickLink(String linkText) {
     ElementFacade button = getLink(linkText);
-    button.assertEnabled();
+    button.checkEnabled();
     button.click();
     waitForLoading();
   }
 
   public void clickOnText(String text) {
     ElementFacade textElement = getText(text);
-    textElement.assertEnabled();
+    textElement.checkEnabled();
     textElement.click();
     waitForLoading();
   }
 
   public void clickDrawerButton(String buttonText) {
     ElementFacade button = getDrawerButton(buttonText);
-    button.assertEnabled();
-    button.assertVisible();
+    button.checkVisible();
+    button.checkEnabled();
     button.click();
     waitForLoading();
   }
@@ -265,7 +266,7 @@ public class BasePageImpl extends PageObject implements BasePage {
     AtomicInteger index = new AtomicInteger();
     retryOnCondition(() -> {
       ElementFacade button = getSelecdLevelDrawerButton(buttonText, index.getAndIncrement());
-      button.assertEnabled();
+      button.checkEnabled();
       button.click();
     });
     waitForLoading();
@@ -591,8 +592,9 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   public void attachImageToOpenedDrawer() {
     ElementFacade fileInput = findByXPathOrCSS(OPENED_DRAWER_CSS_SELECTOR + " input[type=file]");
-    fileInput.assertEnabled();
+    fileInput.checkEnabled();
     attachImageToFileInput(fileInput, USER_AVATAR_PNG);
+    waitFor(200).milliseconds();
     AtomicInteger index = new AtomicInteger();
     retryOnCondition(() -> clickButton("Apply", index.getAndIncrement()));
   }
@@ -610,15 +612,15 @@ public class BasePageImpl extends PageObject implements BasePage {
 
     AtomicInteger index = new AtomicInteger();
     retryOnCondition(() -> {
-      ckEditorAttachImageButton(index.incrementAndGet()).assertVisible();
+      ckEditorAttachImageButton(index.incrementAndGet()).checkVisible();
       ElementFacade fileInput = ckEditorAttachImageInput(index.get());
-      fileInput.assertEnabled();
+      fileInput.checkEnabled();
       attachImageToFileInput(fileInput, fileName);
       waitForLoading();
       retryOnCondition(() -> ckEditorImageAttachmentProgressElement(index.get()).waitUntilNotVisible());
       retryOnCondition(() -> ckEditorImageAttachmentEditButton(index.get()).waitUntilVisible());
-      ckEditorImageAttachmentCarousel(index.get()).assertVisible();
-      ckEditorImageAttachmentPlusIcon(index.get()).assertVisible();
+      ckEditorImageAttachmentCarousel(index.get()).checkVisible();
+      ckEditorImageAttachmentPlusIcon(index.get()).checkVisible();
       waitFor(1000).milliseconds();
     });
   }
@@ -630,7 +632,9 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void attachImageToFileInput(ElementFacade fileInput, String fileName) {
-    upload(UPLOAD_DIRECTORY_PATH + fileName).fromLocalMachine().to(fileInput.getElement());
+    retryOnCondition(() -> upload(UPLOAD_DIRECTORY_PATH + fileName).fromLocalMachine()
+                                                                   .to(fileInput.getElement()),
+                     () -> waitFor(200).milliseconds());
     waitForProgressBar();
   }
 
