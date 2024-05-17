@@ -18,15 +18,20 @@ Feature: Connection widgets checking
     And I inject the thirdcommconn random user if not existing, no wait
     And I inject the fourthcommconn random user if not existing, no wait
     And I inject the fifthcommconn random user if not existing, no wait
-    And I connect to fifthcommconn user
+    And I go to the fifthcommconn user profile
+    And I connect to the user using the profile
     And I login as 'firstcommconn' random user
-    And I connect to fifthcommconn user
+    And I go to the fifthcommconn user profile
+    And I connect to the user using the profile
     And I login as 'secondcommconn' random user
-    And I connect to fifthcommconn user
+    And I go to the fifthcommconn user profile
+    And I connect to the user using the profile
     And I login as 'thirdcommconn' random user
-    And I connect to fifthcommconn user
+    And I go to the fifthcommconn user profile
+    And I connect to the user using the profile
     And I login as 'fourthcommconn' random user
-    And I connect to fifthcommconn user
+    And I go to the fifthcommconn user profile
+    And I connect to the user using the profile
     When I login as 'fifthcommconn' random user
     And I go to Stream page
     Then the number of connection requests is '5'

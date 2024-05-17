@@ -92,15 +92,15 @@ public class KudosSteps {
     kudosPage.selectType();
   }
 
-  public void threeDotsMenuSendKudos(String kudosMessage) {
+  public void userCardMenuSendKudos(String kudosMessage) {
     retryOnCondition(() -> {
-      kudosPage.threeDotsMenuSendKudos();
-      kudosPage.sendKudosMessageFromOpenedDrawer(kudosMessage);
-    },
-    () -> {
-      kudosPage.closeAllDrawers();
-      kudosPage.threeDotsMenuSendKudos();
-    });
+       kudosPage.userCardSendKudos();
+       kudosPage.sendKudosMessageFromOpenedDrawer(kudosMessage);
+     },
+     () -> {
+       kudosPage.closeAllDrawers();
+       kudosPage.userCardSendKudos();
+     });
   }
 
   public void updateKudosMessage(String kudos) {
