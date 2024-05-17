@@ -329,7 +329,7 @@ public class PeoplePage extends GenericPage {
   }
 
   private ElementFacade getUserProfileButton(String user) {
-    return findByXPathOrCSS(String.format("//a[contains(text(),'%s') and contains(@class,'userFullname')]", user));
+    return findByXPathOrCSS(String.format("//p[contains(text(),'%s')]/ancestor::a[contains(@class,'socialUserCard')]", user));
   }
 
   private TextBoxElementFacade leaderboardTitleElement() {

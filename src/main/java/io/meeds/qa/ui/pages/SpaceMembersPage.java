@@ -45,11 +45,13 @@ public class SpaceMembersPage extends GenericPage {
   }
 
   private ElementFacade setAsRedactorBtnElement() {
-    return findByXPathOrCSS("//*[contains(@class, 'uiIconEditMembership')]//ancestor::*[contains(@role, 'menuitem')]");
+    return findByXPathOrCSS("//*[contains(@class, 'fa-user-edit')]//ancestor::*[contains(@role, 'menuitem')]");
   }
 
+
   private ElementFacade threeDotsButton() {
-    return findByXPathOrCSS("//*[contains(@class, 'peopleCardItem')]//button[contains(@class, 'peopleMenuIcon')]");
+    findByXPathOrCSS("//*[contains(@id, 'peopleCardItem')]").hover();
+    return findByXPathOrCSS("//*[contains(@id, 'peopleCardItem')]//button[1]");
   }
 
   private ElementFacade writeShortMessageDrawerElement() {

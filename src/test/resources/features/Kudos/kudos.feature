@@ -48,7 +48,6 @@ Feature: Kudos
     When I login as 'first' random user
 
     And I search for second user card
-    And I click on three dots menu
     And I click on send kudos button and I send kudos with message 'Message for kudos - US51'
     And I go to Stream page
     Then the kudos activity UI 'Message for kudos - US51' is displayed in stream page
