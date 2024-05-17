@@ -206,7 +206,7 @@ public class KudosPage extends GenericPage {
     refreshPage();
   }
 
-  public void threeDotsMenuSendKudos() {
+  public void userCardSendKudos() {
     ElementFacade sendKudosMenuElement = sendKudosMenuElement();
     sendKudosMenuElement.assertVisible();
     sendKudosMenuElement.click();
@@ -315,7 +315,7 @@ public class KudosPage extends GenericPage {
   }
 
   private ElementFacade sendKudosMenuElement() {
-    return findByXPathOrCSS("//*[contains(@class, 'fa-award')]//ancestor::*[contains(@role, 'menuitem')]");
+    return findByXPathOrCSS("//div[contains(@id, 'peopleCard')]//*[contains(@class, 'fa-award')]//ancestor::button");
   }
 
   private ElementFacade threedotsKudosCommentElement() {

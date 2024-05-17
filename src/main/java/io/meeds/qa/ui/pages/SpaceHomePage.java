@@ -919,12 +919,14 @@ public class SpaceHomePage extends GenericPage {
 
   public void promoteSpaceMemberAsManager(String name) {
     searchMember(name);
+    findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@id, 'peopleCardItem')]",name)).hover();
+
     ElementFacade threeDots =
-                            findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'peopleCardItem')]//*[contains(@class, 'mdi-dots-vertical')]//ancestor::button",
+                            findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@id, 'peopleCardItem')]//*[contains(@class, 'fa-ellipsis-v')]//ancestor::button",
                                                            name));
     threeDots.click();
     ElementFacade promoteAsAdminButton =
-                                       findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'peopleCardItem')]//ancestor::*[contains(@class, 'v-list-item')]//*[contains(@class, 'uiIconMemberAdmin')]",
+                                       findByXPathOrCSS(String.format("//*[contains(@class, 'fa-user-cog')]//ancestor::*[contains(@role, 'menuitem')]",
                                                                       name));
     promoteAsAdminButton.click();
   }
@@ -1723,7 +1725,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private ElementFacade getUserProfileButton(String fullName) {
-    return findByXPathOrCSS(String.format("//a[contains(text(),'%s')and contains(@class,'userFullname')]", fullName));
+    return findByXPathOrCSS(String.format("//p[contains(text(),'%s')]/ancestor::a[contains(@class,'socialUserCard')]", fullName));
   }
 
   private ElementFacade kudosButtonFromCommentsDrawerToCommentActivityElement() {

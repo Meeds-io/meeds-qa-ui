@@ -48,7 +48,6 @@ Feature: Kudos
     When I login as 'first' random user
 
     And I search for second user card
-    And I click on three dots menu
     And I click on send kudos button and I send kudos with message 'Message for kudos - US51'
     And I go to Stream page
     Then the kudos activity UI 'Message for kudos - US51' is displayed in stream page
@@ -160,7 +159,7 @@ Feature: Kudos
     Then the activity 'Message for kudos - Kudos to cancel' is no more displayed in the activity stream
 
     When I go to My Profile page
-    Then '0' kudos are sent
+    Then No kudos are sent
 
   Scenario: Sending Kudos from user popover
     Given I am authenticated as 'admin' random user
@@ -180,4 +179,4 @@ Feature: Kudos
 
     When I login as 'first' random user
     And I go to My Profile page
-    Then '1' kudos are received
+

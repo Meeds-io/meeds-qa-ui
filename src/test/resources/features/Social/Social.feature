@@ -30,7 +30,8 @@ Feature: Social
     And I inject the first random user if not existing, no wait
     And I inject the second random user if not existing
     And I login as 'first' random user
-    And I connect to second user
+    And I go to the second user profile
+    And I connect to the user using the profile
     And I login as 'second' random user
     And I go to Stream page
     Then The 'Connections' badge is '1'

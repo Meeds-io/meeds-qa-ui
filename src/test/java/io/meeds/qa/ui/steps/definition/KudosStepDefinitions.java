@@ -132,8 +132,8 @@ public class KudosStepDefinitions {
   }
 
   @And("^I click on send kudos button and I send kudos with message '(.*)'$")
-  public void threeDotsMenuSendKudos(String kudosMessage) {
-    kudoSteps.threeDotsMenuSendKudos(kudosMessage);
+  public void userCardSendKudos(String kudosMessage) {
+    kudoSteps.userCardMenuSendKudos(kudosMessage);
   }
 
   @Given("^I set the new kudos '(.*)' and I click on update button$")
