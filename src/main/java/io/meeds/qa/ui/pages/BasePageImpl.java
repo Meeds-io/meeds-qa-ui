@@ -54,21 +54,21 @@ import net.thucydides.core.pages.PageObject;
 
 public class BasePageImpl extends PageObject implements BasePage {
 
-  protected static final Logger LOGGER                      = LoggerFactory.getLogger(BasePageImpl.class);
+  protected static final Logger LOGGER                     = LoggerFactory.getLogger(BasePageImpl.class);
 
   public static final String    OPENED_DRAWER_XPATH        = "//*[contains(@class, 'v-navigation-drawer--open')]";
 
   public static final String    OPENED_DRAWER_CSS_SELECTOR = ".v-navigation-drawer--open";
 
-  public static final String    UPLOAD_DIRECTORY_PATH       =
+  public static final String    UPLOAD_DIRECTORY_PATH      =
                                                       GenericPage.class.getResource(File.separator + "DataFiles" + File.separator)
                                                                        .getFile();
 
-  public static final String    USER_AVATAR_PNG             = "cap02.png";
+  public static final String    USER_AVATAR_PNG            = "cap02.png";
 
-  public static final String    GIF_IMAGE                   = "cap04.gif";
+  public static final String    GIF_IMAGE                  = "cap04.gif";
 
-  public static final String    PUBLIC_SITE_URL             = "/portal/public";
+  public static final String    PUBLIC_SITE_URL            = "/portal/public";
 
   protected String              url;
 
@@ -492,10 +492,10 @@ public class BasePageImpl extends PageObject implements BasePage {
     WebDriverWait wait = new WebDriverWait(Serenity.getDriver(),
                                            Duration.ofSeconds(30),
                                            Duration.ofMillis(SHORT_WAIT_DURATION_MILLIS));
-    wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState === 'complete' "
-        + " && (!document.getElementById('TopbarLoadingContainer') || !!document.querySelector('.TopbarLoadingContainer.hidden'))"
-        + " && !!document.querySelector('.v-navigation-drawer--open')"
-        + " && !document.querySelector('.v-navigation-drawer--open .v-progress-linear')").toString().equals("true"));
+    wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState === 'complete' " +
+        " && (!document.getElementById('TopbarLoadingContainer') || !!document.querySelector('.TopbarLoadingContainer.hidden'))" +
+        " && !!document.querySelector('.v-navigation-drawer--open')" +
+        " && !document.querySelector('.v-navigation-drawer--open .v-progress-linear')").toString().equals("true"));
   }
 
   public void waitForDrawerToOpen() {
@@ -536,7 +536,6 @@ public class BasePageImpl extends PageObject implements BasePage {
     }
   }
 
-
   public ElementFacade pageProgressBar() {
     return findByXPathOrCSS(".UISiteBody .v-progress-linear");
   }
@@ -568,7 +567,8 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public ElementFacade getMenuItem(String menuItemText) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@role, 'menuitem')]", menuItemText));
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@role, 'menuitem')]",
+                                          menuItemText));
   }
 
   public ElementFacade getLink(String linkText) {
@@ -591,12 +591,11 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void attachImageToOpenedDrawer() {
-    ElementFacade fileInput = findByXPathOrCSS(OPENED_DRAWER_CSS_SELECTOR + " input[type=file]");
-    fileInput.checkEnabled();
-    attachImageToFileInput(fileInput, USER_AVATAR_PNG);
+    attachImageToFileInput(OPENED_DRAWER_CSS_SELECTOR + " input[type=file]", USER_AVATAR_PNG);
     waitFor(200).milliseconds();
     AtomicInteger index = new AtomicInteger();
-    retryOnCondition(() -> clickButton("Apply", index.getAndIncrement()));
+    retryOnCondition(() -> clickButton("Apply", index.getAndIncrement()),
+                     () -> waitFor(200).milliseconds());
   }
 
   public void attachGifImageToCKeditor() {
@@ -626,15 +625,26 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public ElementFacade attachFileInput(boolean secondLevel) {
-    String fileInputXPath = (secondLevel ? OPENED_DRAWER_XPATH : "")
-        + "//*[contains(@class, 'v-navigation-drawer--open')]//*[@type='file']";
+    String fileInputXPath = (secondLevel ? OPENED_DRAWER_XPATH : "") +
+        "//*[contains(@class, 'v-navigation-drawer--open')]//*[@type='file']";
     return findByXPathOrCSS(fileInputXPath);
+  }
+
+  public void attachImageToFileInput(String xPathOrCss, String fileName) {
+    retryOnCondition(() -> {
+      ElementFacade fileInput = findByXPathOrCSS(xPathOrCss);
+      fileInput.waitUntilEnabled();
+      upload(UPLOAD_DIRECTORY_PATH + fileName).fromLocalMachine()
+                                              .to(fileInput.getElement());
+    },
+                     () -> waitFor(500).milliseconds());
+    waitForProgressBar();
   }
 
   public void attachImageToFileInput(ElementFacade fileInput, String fileName) {
     retryOnCondition(() -> upload(UPLOAD_DIRECTORY_PATH + fileName).fromLocalMachine()
                                                                    .to(fileInput.getElement()),
-                     () -> waitFor(200).milliseconds());
+                     () -> waitFor(500).milliseconds());
     waitForProgressBar();
   }
 
@@ -686,27 +696,33 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   private ElementFacade ckEditorAttachImageInput(int index) {
-    return findByXPathOrCSS(String.format("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[%s]/parent::*//input[@type='file']", index));
+    return findByXPathOrCSS(String.format("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[%s]/parent::*//input[@type='file']",
+                                          index));
   }
 
   private ElementFacade ckEditorAttachImageButton(int index) {
-    return findByXPathOrCSS(String.format("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[%s]//a[contains(@class, 'cke_button__attachimage')]", index));
+    return findByXPathOrCSS(String.format("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[%s]//a[contains(@class, 'cke_button__attachimage')]",
+                                          index));
   }
 
   private ElementFacade ckEditorImageAttachmentCarousel(int index) {
-    return findByXPathOrCSS(String.format("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[%s]/parent::*//*[contains(@class, 'carousel-top-parent')]", index));
+    return findByXPathOrCSS(String.format("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[%s]/parent::*//*[contains(@class, 'carousel-top-parent')]",
+                                          index));
   }
-  
+
   private ElementFacade ckEditorImageAttachmentPlusIcon(int index) {
-    return findByXPathOrCSS(String.format("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[%s]/parent::*//*[contains(@class, 'carousel-top-parent')]//*[contains(@class, 'fa-plus')]", index));
+    return findByXPathOrCSS(String.format("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[%s]/parent::*//*[contains(@class, 'carousel-top-parent')]//*[contains(@class, 'fa-plus')]",
+                                          index));
   }
 
   private ElementFacade ckEditorImageAttachmentProgressElement(int index) {
-    return findByXPathOrCSS(String.format("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[%s]/parent::*//*[contains(@class, 'v-progress-circular')]", index));
+    return findByXPathOrCSS(String.format("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[%s]/parent::*//*[contains(@class, 'v-progress-circular')]",
+                                          index));
   }
 
   private ElementFacade ckEditorImageAttachmentEditButton(int index) {
-    return findByXPathOrCSS(String.format("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[%s]/parent::*//*[contains(@class, 'fa-edit')]", index));
+    return findByXPathOrCSS(String.format("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[%s]/parent::*//*[contains(@class, 'fa-edit')]",
+                                          index));
   }
 
 }
