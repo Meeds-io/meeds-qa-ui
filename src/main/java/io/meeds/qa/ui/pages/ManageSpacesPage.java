@@ -265,7 +265,7 @@ public class ManageSpacesPage extends GenericPage {
       clickOnElement(spaceFirstNavigationTab);
     } else {
       ElementFacade spaceAction = getSpaceAction(action);
-      if (spaceAction != null && spaceAction.isVisible()) {
+      if (spaceAction != null) {
         clickOnElement(spaceAction);
       }
     }
@@ -630,7 +630,7 @@ public class ManageSpacesPage extends GenericPage {
   private ElementFacade getSpaceAction(String action) {
     try {
       ElementFacade webElementFacade = findByXPathOrCSS(String.format("//*[@id = 'SpaceAccess']//button//*[contains(text(), '%s')]", action));
-      return webElementFacade.isCurrentlyVisible() ? webElementFacade : null;
+      return webElementFacade.isVisible() ? webElementFacade : null;
     } catch (RuntimeException e) {
       return null;
     }
