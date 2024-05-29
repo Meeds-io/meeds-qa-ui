@@ -5,6 +5,7 @@ Feature: General new composer
   I want to handle activities via the new composer
   In order to share them with my collaborators
 
+  @test
   Scenario: CAP97 [US-General-04] update posts - text update (space case)
     Given I am authenticated as 'admin' random user
     And I go to the random space
@@ -32,6 +33,7 @@ Feature: General new composer
     Then the activity 'modifier le lien' is displayed in activity stream
     And The link is displayed with the preview
 
+  @test
   Scenario: Text update with video Link (space case)
     Given I am authenticated as 'admin' random user
 
