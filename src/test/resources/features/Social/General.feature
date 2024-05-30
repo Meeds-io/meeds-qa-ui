@@ -5,7 +5,6 @@ Feature: General new composer
   I want to handle activities via the new composer
   In order to share them with my collaborators
 
-  @test
   Scenario: CAP97 [US-General-04] update posts - text update (space case)
     Given I am authenticated as 'admin' random user
     And I go to the random space
