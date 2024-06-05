@@ -17,25 +17,35 @@
  */
 package io.meeds.qa.ui.steps.definition;
 
-import static io.meeds.qa.ui.utils.Utils.getIndexFomName;
 import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import org.apache.commons.lang3.StringUtils;
 
-import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
 import io.meeds.qa.ui.hook.TestInitHook;
 import io.meeds.qa.ui.pages.ManageSpacesPage;
 import io.meeds.qa.ui.steps.HomeSteps;
 import io.meeds.qa.ui.steps.ManageSpaceSteps;
+
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 
 public class ManageSpaceStepDefinitions {
+
+  private static final String RANDOM_SPACE_NAME2 = "RandomSpaceName";
+
+  private static final String THIRD_RANDOM_SPACE_NAME = "thirdRandomSpaceName";
+
+  private static final String USER_FIRST_NAME = "UserFirstName";
+
+  private static final String SECOND_RANDOM_SPACE_NAME = "secondRandomSpaceName";
+
+  private static final String SPACE_NAME = "spaceName";
 
   public static final String RANDOM_SPACE_NAME = "randomSpaceName";
 
@@ -55,13 +65,13 @@ public class ManageSpaceStepDefinitions {
 
   @When("^I accept the invitation of the (.*) created space$")
   public void acceptRandomSpace(String spacePrefix) {
-    String randomSpaceName = sessionVariableCalled(spacePrefix + "RandomSpaceName");
+    String randomSpaceName = sessionVariableCalled(spacePrefix + RANDOM_SPACE_NAME2);
     homeSteps.acceptRandomSpaceInvitation(randomSpaceName);
   }
 
   @When("^I accept the invitation of the third created space$")
   public void acceptThirdRandomSpace() {
-    String thirdRandomSpaceName = sessionVariableCalled("thirdRandomSpaceName");
+    String thirdRandomSpaceName = sessionVariableCalled(THIRD_RANDOM_SPACE_NAME);
     homeSteps.acceptRandomSpaceInvitation(thirdRandomSpaceName);
   }
 
@@ -76,7 +86,7 @@ public class ManageSpaceStepDefinitions {
   @Given("^I create a random space with the (.*) random user$")
   public void addARandomSpaceWithRandomUserInvited(String userPrefix) {
     String randomSpaceName = RANDOM_SPACE_NAME + getRandomNumber();
-    String userFirstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");
+    String userFirstName = Serenity.sessionVariableCalled(userPrefix + USER_FIRST_NAME);
     homeSteps.goToManageSpacesPage();
     manageSpaceSteps.addSpaceWithInviteUser(randomSpaceName, userFirstName);
     setSessionVariable(RANDOM_SPACE_NAME).to(randomSpaceName);
@@ -85,10 +95,10 @@ public class ManageSpaceStepDefinitions {
   @Given("^I create the '(.*)' random space with the '(.*)' random user as member and registration '(.*)'$")
   public void addARandomSpaceWithRegistrationAndRandomUserInvited(String spacePrefix, String userPrefix, String registration) {
     String randomSpaceName = RANDOM_SPACE_NAME + getRandomNumber();
-    String userFirstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");
+    String userFirstName = Serenity.sessionVariableCalled(userPrefix + USER_FIRST_NAME);
     homeSteps.goToManageSpacesPage();
     manageSpaceSteps.addSpaceWithRegistrationAndInviteUser(randomSpaceName, registration, userFirstName);
-    setSessionVariable(spacePrefix + "RandomSpaceName").to(randomSpaceName);
+    setSessionVariable(spacePrefix + RANDOM_SPACE_NAME2).to(randomSpaceName);
   }
 
   @Given("^I create the '(.*)' random space with registration '(.*)'$")
@@ -96,7 +106,7 @@ public class ManageSpaceStepDefinitions {
     String randomSpaceName = RANDOM_SPACE_NAME + getRandomNumber();
     homeSteps.goToManageSpacesPage();
     manageSpaceSteps.addSpaceWithRegistration(randomSpaceName, registration);
-    TestInitHook.spaceWithPrefixCreated(spacePrefix + "RandomSpaceName", randomSpaceName, Serenity.getDriver().getCurrentUrl());
+    TestInitHook.spaceWithPrefixCreated(spacePrefix + RANDOM_SPACE_NAME2, randomSpaceName, Serenity.getDriver().getCurrentUrl());
   }
 
   @Given("I open space invitation drawer")
@@ -125,32 +135,17 @@ public class ManageSpaceStepDefinitions {
     String randomSpaceName = RANDOM_SPACE_NAME + getRandomNumber();
     homeSteps.goToManageSpacesPage();
     manageSpaceSteps.addSpaceWithRegistration(randomSpaceName, "Open");
-    TestInitHook.spaceWithPrefixCreated(spacePrefix + "RandomSpaceName", randomSpaceName, Serenity.getDriver().getCurrentUrl());
+    TestInitHook.spaceWithPrefixCreated(spacePrefix + RANDOM_SPACE_NAME2, randomSpaceName, Serenity.getDriver().getCurrentUrl());
   }
 
   @Given("^I create a (.*) random space with the (.*) created user as member$")
   @And("^I create the (.*) random space with the (.*) random user as member$")
   public void addARandomSpaceWithRandomUserInvited(String spacePrefix, String userPrefix) {
     String randomSpaceName = RANDOM_SPACE_NAME + getRandomNumber();
-    String userFirstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");
+    String userFirstName = Serenity.sessionVariableCalled(userPrefix + USER_FIRST_NAME);
     homeSteps.goToManageSpacesPage();
     manageSpaceSteps.addSpaceWithInviteUser(randomSpaceName, userFirstName);
-    setSessionVariable(spacePrefix + "RandomSpaceName").to(randomSpaceName);
-  }
-
-  @Given("^Application card is displayed$")
-  public void appCardIsDisplayed() {
-    manageSpaceSteps.appCardIsDisplayed();
-  }
-
-  @Given("^I check that applications are displayed$")
-  public void checkApplicationsAreDisplayed() {
-    manageSpaceSteps.checkApplicationsAreDisplayed();
-  }
-
-  @Given("^I check that Applications section is displayed with his edit icon$")
-  public void checkApplicationsSpaceSettings() {
-    manageSpaceSteps.checkApplicationsSpaceSettings();
+    setSessionVariable(spacePrefix + RANDOM_SPACE_NAME2).to(randomSpaceName);
   }
 
   @Given("^I check that avatar section is displayed$")
@@ -214,30 +209,6 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.checkNameSpaceSection();
   }
 
-  @Given("^I move (.*) application after$")
-  public void moveApplicationAfter(String appSettingPosition) {
-    int appPosition = getIndexFomName(appSettingPosition);
-    String appName = manageSpaceSteps.moveApplicationAfter(appPosition);
-    Serenity.setSessionVariable(appSettingPosition + "SettingApplication").to(appName);
-  }
-
-  @Given("^I move (.*) application before$")
-  public void moveApplicationBefore(String appSettingPosition) {
-    int appPosition = getIndexFomName(appSettingPosition);
-    String appName = manageSpaceSteps.moveApplicationBefore(appPosition);
-    Serenity.setSessionVariable(appSettingPosition + "SettingApplication").to(appName);
-  }
-
-  @Given("^I click to move '(.*)' application before$")
-  public void moveApplicationByNameBefore(String appName) {
-    manageSpaceSteps.moveApplicationBefore(appName);
-  }
-
-  @Given("^'(.*)' option of the application '(.*)' is displayed$")
-  public void checkOptionFromApplicationMenuIsDisplayed(String option, String appName) {
-    manageSpaceSteps.checkOptionFromApplicationMenuIsDisplayed(appName, option);
-  }
-
   @Given("^I check that registration section is displayed$")
   public void checkRegistrationSection() {
     manageSpaceSteps.checkRegistrationSection();
@@ -245,13 +216,8 @@ public class ManageSpaceStepDefinitions {
 
   @When("The second created space is not displayed in Spaces Requests section")
   public void checkSecondRandomNotDisplaySpaceInvitation() {
-    String secondRandomSpaceName = sessionVariableCalled("secondRandomSpaceName");
+    String secondRandomSpaceName = sessionVariableCalled(SECOND_RANDOM_SPACE_NAME);
     homeSteps.checkRandomNotDisplaySpaceInvitation(secondRandomSpaceName);
-  }
-
-  @Given("^I check that space application installer drawer is displayed$")
-  public void checkSpaceAppInstallerDrawerIsDisplayed() {
-    manageSpaceSteps.checkSpaceAppInstallerDrawerIsDisplayed();
   }
 
   @When("I check that the random space is bookmarked as favorite from space card")
@@ -289,29 +255,24 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.checkSpaceUnBookmarkFromTopbarSpacePopover();
   }
 
-  @Given("^I check that application '(.*)' is added to applications page$")
-  public void checkThatAppIsDisplayed(String application) {
-    manageSpaceSteps.checkThatAppIsDisplayed(application);
-  }
-
   @Given("^First space details are displayed in spaces page search results with '(.*)'$")
   public void checkThatFirstSpaceDetailsInSearchResultsAreDisplayed(String members) {
-    manageSpaceSteps.checkThatSpaceDetailsInSearchResultsAreDisplayed(sessionVariableCalled("spaceName"), members);
+    manageSpaceSteps.checkThatSpaceDetailsInSearchResultsAreDisplayed(sessionVariableCalled(SPACE_NAME), members);
   }
 
   @Given("First space name is not displayed in spaces page search results$")
   public void checkThatFirstSpaceInSearchResultsIsNotDisplayed() {
-    manageSpaceSteps.checkThatSpaceInSearchResultsIsNotDisplayed(sessionVariableCalled("spaceName"));
+    manageSpaceSteps.checkThatSpaceInSearchResultsIsNotDisplayed(sessionVariableCalled(SPACE_NAME));
   }
 
   @Given("^Second space details are displayed in spaces page search results with '(.*)'$")
   public void checkThatSecondSpaceDetailsInSearchResultsAreDisplayed(String members) {
-    manageSpaceSteps.checkThatSpaceDetailsInSearchResultsAreDisplayed(sessionVariableCalled("secondRandomSpaceName"), members);
+    manageSpaceSteps.checkThatSpaceDetailsInSearchResultsAreDisplayed(sessionVariableCalled(SECOND_RANDOM_SPACE_NAME), members);
   }
 
   @Given("Second space name is not displayed in spaces page search results$")
   public void checkThatSecondSpaceInSearchResultsIsNotDisplayed() {
-    manageSpaceSteps.checkThatSpaceInSearchResultsIsNotDisplayed(sessionVariableCalled("secondRandomSpaceName"));
+    manageSpaceSteps.checkThatSpaceInSearchResultsIsNotDisplayed(sessionVariableCalled(SECOND_RANDOM_SPACE_NAME));
   }
 
   @Given("^The created space details are displayed in spaces page search results with '(.*)'$")
@@ -327,12 +288,12 @@ public class ManageSpaceStepDefinitions {
 
   @Given("^Third space details are displayed in spaces page search results with '(.*)'$")
   public void checkThatThirdSpaceDetailsInSearchResultsAreDisplayed(String members) {
-    manageSpaceSteps.checkThatSpaceDetailsInSearchResultsAreDisplayed(sessionVariableCalled("thirdRandomSpaceName"), members);
+    manageSpaceSteps.checkThatSpaceDetailsInSearchResultsAreDisplayed(sessionVariableCalled(THIRD_RANDOM_SPACE_NAME), members);
   }
 
   @When("The third created space is displayed in Spaces Requests section")
   public void checkThirdRandomDisplaySpaceInvitation() {
-    String thirdRandomSpaceName = sessionVariableCalled("thirdRandomSpaceName");
+    String thirdRandomSpaceName = sessionVariableCalled(THIRD_RANDOM_SPACE_NAME);
     homeSteps.checkRandomDisplaySpaceInvitation(thirdRandomSpaceName);
   }
 
@@ -341,24 +302,9 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.checkThirtyRandomSpacesArePresent();
   }
 
-  @Given("^I check that update button is displayed$")
-  public void checkUpdateButton() {
-    manageSpaceSteps.checkUpdateButton();
-  }
-
-  @Given("^I click on arrow icon of application space settings$")
-  public void clickOnArrowIconAppSpaceSettings() {
-    manageSpaceSteps.clickOnArrowIconAppSpaceSettings();
-  }
-
   @Given("^I click on edit general space settings$")
   public void clickOnGeneralSpaceSettings() {
     manageSpaceSteps.clickOnGeneralSpaceSettings();
-  }
-
-  @Given("^I click on plus button to add application$")
-  public void clickOnPlusButton() {
-    manageSpaceSteps.clickOnPlusButton();
   }
 
   @Then("I bookmark the random space as favorite from space card")
@@ -379,33 +325,18 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.clickOnSpaceBookmarkIconFromTopbarSpacePopover();
   }
 
-  @Given("^I click on three dots icon of '(.*)' application$")
-  public void clickOnThreedotsAppCard(String appName) {
-    manageSpaceSteps.clickOnThreeDotsAppCard(appName);
-  }
-
-  @Given("^I click to add application '(.*)'$")
-  public void clickToAddApp(String application) {
-    manageSpaceSteps.clickToAddApp(application);
-  }
-
-  @And("^I confirm to remove the application$")
-  public void confirmRemoveApplication() {
-    manageSpaceSteps.confirmRemoveApplication();
-  }
-
   @Given("^The First space was deleted successfully$")
   public void deleteFirstSpace() {
     homeSteps.goToManageSpacesPage();
-    manageSpaceSteps.deleteSpace(sessionVariableCalled("spaceName"));
-    TestInitHook.spaceWithPrefixDeleted("spaceName");
+    manageSpaceSteps.deleteSpace(sessionVariableCalled(SPACE_NAME));
+    TestInitHook.spaceWithPrefixDeleted(SPACE_NAME);
   }
 
   @Given("^The Second space was deleted successfully$")
   public void deleteSecondSpace() {
     homeSteps.goToManageSpacesPage();
-    manageSpaceSteps.deleteSpace("secondRandomSpaceName");
-    TestInitHook.spaceWithPrefixDeleted("secondRandomSpaceName");
+    manageSpaceSteps.deleteSpace(SECOND_RANDOM_SPACE_NAME);
+    TestInitHook.spaceWithPrefixDeleted(SECOND_RANDOM_SPACE_NAME);
   }
 
   @Given("I go to members tab")
@@ -434,7 +365,7 @@ public class ManageSpaceStepDefinitions {
   @And("^I create the (.*) random space if not existing$")
   @And("^I create or go to the (.*) random space$")
   public void goToRandomSpaceWithPrefix(String spacePrefix) {
-    manageSpaceSteps.addOrGoToSpace(spacePrefix + "RandomSpaceName");
+    manageSpaceSteps.addOrGoToSpace(spacePrefix + RANDOM_SPACE_NAME2);
   }
 
   @Given("I inject the random space")
@@ -485,11 +416,6 @@ public class ManageSpaceStepDefinitions {
     manageSpacesPage.isSpacePageOpened(space);
   }
 
-  @Given("^Plus button is displayed$")
-  public void plusButtonIsDisplayed() {
-    manageSpaceSteps.plusButtonIsDisplayed();
-  }
-
   @Given("^The created space name is displayed$")
   public void randomSpaceNameIsDisplayed() {
     String randomSpaceName = sessionVariableCalled(RANDOM_SPACE_NAME);
@@ -498,13 +424,8 @@ public class ManageSpaceStepDefinitions {
 
   @When("^I reject the invitation of the (.*) created space$")
   public void rejectRandomSpace(String spacePrefix) {
-    String randomSpaceName = sessionVariableCalled(spacePrefix + "RandomSpaceName");
+    String randomSpaceName = sessionVariableCalled(spacePrefix + RANDOM_SPACE_NAME2);
     homeSteps.rejectRandomSpaceInvitation(randomSpaceName);
-  }
-
-  @And("^I click on '(.*)' option from application '(.*)' menu$")
-  public void removeApplication(String option, String appName) {
-    manageSpaceSteps.clickOptionApplicationCard(appName, option);
   }
 
   @Given("^I search the space '(.*)'$")
@@ -514,7 +435,7 @@ public class ManageSpaceStepDefinitions {
 
   @Given("^The second created space name is displayed$")
   public void secondRandomSpaceNameIsDisplayed() {
-    String secondRandomSpaceName = sessionVariableCalled("secondRandomSpaceName");
+    String secondRandomSpaceName = sessionVariableCalled(SECOND_RANDOM_SPACE_NAME);
     manageSpaceSteps.spaceNameIsDisplayed(secondRandomSpaceName);
   }
 
@@ -542,11 +463,6 @@ public class ManageSpaceStepDefinitions {
   @Given("^I click on Show more button$")
   public void showMoreSpaces() {
     manageSpaceSteps.showMoreSpaces();
-  }
-
-  @Given("^Space application settings page is opened$")
-  public void spaceAppSettingsIsOpened() {
-    manageSpaceSteps.spaceAppSettingsIsOpened();
   }
 
   @Given("^Space Avatar is displayed$")
