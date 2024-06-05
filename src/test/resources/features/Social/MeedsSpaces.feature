@@ -62,31 +62,3 @@ Feature: Meeds Space
     And The third created space is displayed in Spaces Requests section
     And The first created space is not displayed in Spaces Requests section
     And The second created space is not displayed in Spaces Requests section
-
-  Scenario: [SPC_MNG-8] Spaces applications management
-    Given I am authenticated as 'admin' random user
-    When I create a random space
-    And I add application 'Notes' in random space if not existing
-    When I go to Settings in space tab
-    Then I check that general settings section is displayed with his edit icon
-    And I check that Applications section is displayed with his edit icon
-
-    When I click on arrow icon of application space settings
-    Then Space application settings page is opened
-    And Application card is displayed
-    And Plus button is displayed
-
-    When I click on three dots icon of 'Notes' application
-    Then 'Remove' option of the application 'Notes' is displayed
-    And 'Move before' option of the application 'Notes' is displayed
-    When I click to move 'Notes' application before
-    And I click on three dots icon of 'Notes' application
-    Then 'Move after' option of the application 'Notes' is displayed
-    And I click on 'Remove' option from application 'Notes' menu
-    And  I confirm to remove the application
-
-    When I click on plus button to add application
-    Then I check that space application installer drawer is displayed
-    And I check that applications are displayed
-    And I click to add application 'Notes'
-    Then I check that application 'Notes' is added to applications page

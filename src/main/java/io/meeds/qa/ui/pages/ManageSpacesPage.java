@@ -25,13 +25,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
-import io.meeds.qa.ui.elements.ButtonElementFacade;
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 
 public class ManageSpacesPage extends GenericPage {
-
-  private static final String SPACE_SETTING_APPLICATION_CARD_TEMPLATE = "(//*[contains(@class, 'SpaceApplicationCard')][1]/parent::*[1])[1]/*[contains(@class, 'SpaceApplicationCard')][%s]";
 
   private SpaceHomePage spaceHomePage;
 
@@ -52,18 +49,6 @@ public class ManageSpacesPage extends GenericPage {
     inviteUserButtonElement.click();
     inviteUserToSpace(user);
     inviteUserButtonDrawerElement().click();
-  }
-
-  public void appCardIsDisplayed() {
-    appCardElement().assertVisible();
-  }
-
-  public void checkApplicationsAreDisplayed() {
-    addAppButtonElement().assertVisible();
-  }
-
-  public void checkApplicationsSpaceSettings() {
-    arrowIconOfApplicationsSpaceSettingsElement().assertVisible();
   }
 
   public void checkAvatarSection() {
@@ -112,16 +97,8 @@ public class ManageSpacesPage extends GenericPage {
     nameSpaceSectionElement().assertVisible();
   }
 
-  public void checkOptionFromApplicationMenuIsDisplayed(String appName, String option) {
-    getOptionFromApplicationMenu(appName, option).assertVisible();
-  }
-
   public void checkRegistrationSection() {
     registrationSectionElement().assertVisible();
-  }
-
-  public void checkSpaceAppInstallerDrawerIsDisplayed() {
-    spaceAppInstallerDrawerElement().click();
   }
 
   public void checkSpaceBookmarkStatusFromSpaceCard(boolean shouldBeBookmarked) {
@@ -172,10 +149,6 @@ public class ManageSpacesPage extends GenericPage {
     spaceTemplateSectionElement().assertVisible();
   }
 
-  public void checkThatAppIsAdded(String application) {
-    getAppCardNameDisplayed(application).assertVisible();
-  }
-
   public void checkThatSpaceDetailsInSearchResultsAreDisplayed(String spaceName, String members) {
     spaceSearchDetailsCoverElement().assertVisible();
     spaceSearchDetailsAvatarElement().assertVisible();
@@ -204,10 +177,6 @@ public class ManageSpacesPage extends GenericPage {
     spaceMenuItemElement().assertVisible();
   }
 
-  public void checkUpdateButton() {
-    spaceAppInstallerDrawerElement().assertVisible();
-  }
-
   public void saveSpace() {
     addSpaceButtonElement().click();
     waitForDrawerToClose();
@@ -219,20 +188,8 @@ public class ManageSpacesPage extends GenericPage {
     firstProcessButtonElement().click();
   }
 
-  public void clickOn3dotsAppCard() {
-    button3dotAppCardElement().click();
-  }
-
-  public void clickOnArrowIconAppSpaceSettings() {
-    arrowIconAppSpaceSettingsElement().click();
-  }
-
   public void clickOnGeneralSpaceSettings() {
     editIconOfGeneralSpaceSettingsElement().click();
-  }
-
-  public void clickOnPlusButton() {
-    plusButtonAppSpaceSettingsElement().click();
   }
 
   public void clickOnSpaceBookmarkIconFromSpaceCard() {
@@ -245,14 +202,6 @@ public class ManageSpacesPage extends GenericPage {
 
   public void clickOnSpaceBookmarkIconFromTopbarSpacePopover() {
     findByXPathOrCSS("//*[contains(@class,'v-card')]//*[contains(@class,'fa-star')]").click();
-  }
-
-  public void clickOnThreeDotsAppCard(String appName) {
-    getApplicationThreeDotsMenu(appName).click();
-  }
-
-  public void clickOptionApplicationCard(String appName, String option) {
-    getOptionFromApplicationMenu(appName, option).click();
   }
 
   public void clickSecondProcessButton() {
@@ -288,14 +237,6 @@ public class ManageSpacesPage extends GenericPage {
       }
     }
     return false;
-  }
-
-  public void clickToAddApp(String application) {
-    getAppCardNameDrawer(application).click();
-  }
-
-  public void confirmRemoveApplication() {
-    removeConfirmationButtonElement().click();
   }
 
   public void deleteSpace(String spaceName) {
@@ -400,25 +341,9 @@ public class ManageSpacesPage extends GenericPage {
     webElementFacade.click();
   }
 
-  public void moveAfterAppButtonIsDisplayed() {
-    moveAfterAppButtonElement().assertVisible();
-  }
-
-  public void moveBeforeAppButtonIsDisplayed() {
-    moveBeforeAppButtonElement().assertVisible();
-  }
-
   public void openSpaceFormDrawer() {
     addNewSpaceButtonElement().click();
     waitForDrawerToOpen();
-  }
-
-  public void plusButtonIsDisplayed() {
-    plusButtonAppSpaceSettingsElement().assertVisible();
-  }
-
-  public void removeAppButtonIsDisplayed() {
-    removeAppButtonElement().assertVisible();
   }
 
   public void selectFilter(String filter) {
@@ -466,10 +391,6 @@ public class ManageSpacesPage extends GenericPage {
     showMoreButtonElement().click();
   }
 
-  public void spaceAppSettingsIsOpened() {
-    spaceAppSettingsPageElement().assertVisible();
-  }
-
   public void spaceAvatarIsDisplayed() {
     spaceAvatarElement().assertVisible();
   }
@@ -490,18 +411,6 @@ public class ManageSpacesPage extends GenericPage {
     waitForDrawerToClose();
   }
 
-  public String moveApplicationAfter(int appPosition) {
-    return moveApplication(appPosition, "Move after");
-  }
-
-  public String moveApplicationBefore(int appPosition) {
-    return moveApplication(appPosition, "Move before");
-  }
-
-  public void moveApplicationBefore(String appName) {
-    moveApplication(appName, "Move before");
-  }
-
   public void openSpaceInvitationDrawer() {
     inviteUserButtonElement().click();
     waitForDrawerToOpen();
@@ -520,44 +429,6 @@ public class ManageSpacesPage extends GenericPage {
     inviteEmailStatusElement(email).assertNotVisible();
   }
 
-  private String moveApplication(int appPosition, String actionName) {
-    String appTitle = spaceSettingAppTitle(appPosition).getText();
-    spaceSettingAppMenu(appPosition).click();
-    spaceSettingAppMenuItem(appPosition, actionName).click();
-    return appTitle;
-  }
-
-  private void moveApplication(String appName, String actionName) {
-    if (!spaceSettingAppMenuItem(appName, actionName).isCurrentlyVisible()) {
-      spaceSettingAppMenu(appName).click();
-    }
-    spaceSettingAppMenuItem(appName, actionName).click();
-  }
-
-  private ButtonElementFacade spaceSettingAppTitle(int appPosition) {
-    return findButtonByXPathOrCSS(String.format(SPACE_SETTING_APPLICATION_CARD_TEMPLATE + "//*[contains(@class, 'SpaceApplicationCardTitle')]", appPosition));
-  }
-
-  private ButtonElementFacade spaceSettingAppMenu(int appPosition) {
-    return findButtonByXPathOrCSS(String.format(SPACE_SETTING_APPLICATION_CARD_TEMPLATE + "//*[contains(@class, 'SpaceApplicationCardAction')]//button", appPosition));
-  }
-
-  private ButtonElementFacade spaceSettingAppMenu(String appName) {
-    return findButtonByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@class,'SpaceApplicationCard')]//*[contains(@class, 'SpaceApplicationCardAction')]//button", appName));
-  }
-
-  private ButtonElementFacade spaceSettingAppMenuItem(int appPosition, String actionName) {
-    return findButtonByXPathOrCSS(String.format(SPACE_SETTING_APPLICATION_CARD_TEMPLATE + "//*[contains(@class, 'menuable__content__active')]//*[contains(text(), '%s')]", appPosition, actionName));
-  }
-
-  private ButtonElementFacade spaceSettingAppMenuItem(String appName, String actionName) {
-    return findButtonByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@class,'SpaceApplicationCard')]//*[contains(@class, 'menuable__content__active')]//*[contains(text(), '%s')]", appName, actionName));
-  }
-
-  private ElementFacade addAppButtonElement() {
-    return findByXPathOrCSS("(//*[@class='d-flex flex-no-wrap']//i[@class='v-icon notranslate mdi mdi-plus theme--light'])[1]");
-  }
-
   private ElementFacade addNewSpaceButtonElement() {
     return findByXPathOrCSS("#spacesListApplication button#addNewSpaceButton");
   }
@@ -566,24 +437,8 @@ public class ManageSpacesPage extends GenericPage {
     return findByXPathOrCSS(".v-navigation-drawer--open .drawerFooter button.btn-primary");
   }
 
-  private ElementFacade appCardElement() {
-    return findByXPathOrCSS("//*[@class='SpaceApplicationCard my-1 mx-auto mx-sm-1 col']");
-  }
-
-  private ElementFacade arrowIconAppSpaceSettingsElement() {
-    return findByXPathOrCSS("//i[@class='v-icon notranslate text-sub-title fa fa-caret-right theme--light']");
-  }
-
-  private ElementFacade arrowIconOfApplicationsSpaceSettingsElement() {
-    return findByXPathOrCSS("//i[@class='v-icon notranslate text-sub-title fa fa-caret-right theme--light']");
-  }
-
   private ElementFacade avatarSectionElement() {
     return findByXPathOrCSS("//*[@class='v-avatar spaceAvatar mx-auto mb-6 mt-2 rounded-0 spaceAvatarHoverEdit']");
-  }
-
-  private ElementFacade button3dotAppCardElement() {
-    return findByXPathOrCSS("(//*[@class='v-icon notranslate mdi mdi-dots-vertical theme--light'])[2]");
   }
 
   private ElementFacade cancelButtonElement() {
@@ -602,29 +457,8 @@ public class ManageSpacesPage extends GenericPage {
     return findByXPathOrCSS("(//aside[contains(@class,'spaceFormDrawer')]//button[contains(@class,'btn-primary')])[1]");
   }
 
-  private ElementFacade getAppCardNameDisplayed(String application) {
-    return findByXPathOrCSS(String.format("//*[contains(@title,'%s') and @class='text-truncate subtitle-1 px-1 pt-4 text-color SpaceApplicationCardTitle']",
-                                          application));
-  }
-
-  private ElementFacade getAppCardNameDrawer(String application) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@class,'d-flex')]//ancestor::*[@class='SpaceApplicationCardAction']",
-                                          application));
-  }
-
-  private ElementFacade getApplicationThreeDotsMenu(String appName) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@Class,'SpaceApplicationCard')]//*[contains(@Class, 'mdi-dots-vertical')]//ancestor::button",
-                                          appName));
-  }
-
   private ElementFacade getDeleteSpaceButton(String spaceName) {
     return findByXPathOrCSS(String.format("//a[contains(@title,'%s')]//following::i[contains(@class,'uiIconTrash')]", spaceName));
-  }
-
-  private ElementFacade getOptionFromApplicationMenu(String appName, String option) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@class,'SpaceApplicationCard')]//ancestor::*[contains(@class,'v-list--dense')]//*[contains(text(),'%s')]",
-                                          appName,
-                                          option));
   }
 
   private ElementFacade getSpaceAction(String action) {
@@ -680,14 +514,6 @@ public class ManageSpacesPage extends GenericPage {
                                           email));
   }
 
-  private ElementFacade moveAfterAppButtonElement() {
-    return findByXPathOrCSS("(//div[contains(text(), 'Move after')])[2]");
-  }
-
-  private ElementFacade moveBeforeAppButtonElement() {
-    return findByXPathOrCSS("//div[contains(text(), 'Move before')]");
-  }
-
   private ElementFacade nameSpaceSectionElement() {
     return findByXPathOrCSS("//*[@for='name']");
   }
@@ -700,20 +526,8 @@ public class ManageSpacesPage extends GenericPage {
     return findByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//input[@value='open']//ancestor::*[contains(@class,'v-radio')]");
   }
 
-  private ElementFacade plusButtonAppSpaceSettingsElement() {
-    return findByXPathOrCSS("//*[@class='v-icon notranslate mdi mdi-plus theme--light']");
-  }
-
   private ElementFacade registrationSectionElement() {
     return findByXPathOrCSS("//div[contains(@class,'v-input--selection-controls v-input--radio-group')]");
-  }
-
-  private ElementFacade removeAppButtonElement() {
-    return findByXPathOrCSS("(//div[contains(text(), 'Remove')])[2]");
-  }
-
-  private ElementFacade removeConfirmationButtonElement() {
-    return findByXPathOrCSS("//*[contains(@class, 'v-dialog--active')]//button[contains(@class, 'btn-primary')]");
   }
 
   private TextBoxElementFacade searchSpaceInputElement() {
@@ -730,14 +544,6 @@ public class ManageSpacesPage extends GenericPage {
 
   private ElementFacade showMoreButtonElement() {
     return findByXPathOrCSS("//*[@id='spacesListFooter']//button");
-  }
-
-  private ElementFacade spaceAppInstallerDrawerElement() {
-    return findByXPathOrCSS("//div[@class='v-list-item__content drawerTitle align-start text-header-title text-truncate']");
-  }
-
-  private ElementFacade spaceAppSettingsPageElement() {
-    return findByXPathOrCSS("//*[@class='v-toolbar__title ps-0']");
   }
 
   private ElementFacade spaceAvatarElement() {
