@@ -194,7 +194,7 @@ Feature: Actions
 
     When I go to the random space
     Then The activity 'Announce an action from its activity' is displayed
-    And The comment 'announcement12' is displayed
+    And The comment 'announcement12' is displayed in Comments drawer of activity 'Announce an action from its activity'
 
     When I click on three dots button related to activity 'Announce an action from its activity'
     And I click on 'Hide' menu item
@@ -320,12 +320,12 @@ Feature: Actions
     When I click on 'See' link
     Then The comment 'announcement8' is displayed in Comments drawer
 
-    When I close the opened drawer
-    Then The comment 'announcement8' is displayed
-    And I click on three dots button related to comment 'announcement8'
+    When I open in activity 'Announce activity to delete' the Comments drawer
+    And I click on the first comment 'announcement8' three dots icon from comments drawer
     And I click on 'Cancel' button related to comment 'announcement8'
     And I click on Yes button
 
+    And I close the opened drawer
     And I announce challenge 'Announce activity to delete' with message 'announcement11' from activity
     Then The comment 'announcement11' is displayed
     And I click on three dots button related to comment 'announcement11'

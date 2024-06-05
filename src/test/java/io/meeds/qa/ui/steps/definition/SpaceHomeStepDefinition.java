@@ -105,23 +105,17 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.cancelDeleteComment();
   }
 
-  @And("^Activity Comment kudos '(.*)' is displayed in activity stream$")
-  public void checkActivityCommentKudos(String comment) {
-    spaceHomeSteps.checkActivityCommentKudos(comment);
-  }
-  
-  @And("^Activity Comment '(.*)' is displayed in activity stream$")
-  public void checkActivityComment(String comment) {
-    spaceHomeSteps.checkActivityComment(comment);
-  }
-
-  @Then("^Activity Comment '(.*)' is displayed in Comments drawer$")
-  @And("^The comment '(.*)' is displayed in Comments drawer$")
+  @Then("^The comment '(.*)' is displayed in Comments drawer$")
   public void checkActivityCommentInDrawer(String comment) {
     spaceHomeSteps.checkActivityCommentInDrawer(comment);
   }
 
-  @Then("^Comment '(.*)' is not displayed in activity '(.*)'$")
+  @Then("^The comment '(.*)' is displayed in Comments drawer of activity '(.*)'$")
+  public void checkActivityCommentInDrawer(String comment, String activity) {
+    spaceHomeSteps.checkActivityCommentDisplayed(activity, comment);
+  }
+
+  @Then("^The comment '(.*)' is not displayed in Comments drawer of activity '(.*)'$")
   public void checkActivityCommentNotDisplayed(String comment, String activity) {
     spaceHomeSteps.checkActivityCommentNotDisplayed(activity, comment);
   }
@@ -165,6 +159,11 @@ public class SpaceHomeStepDefinition {
   @When("^In activity '(.*)' with comment '(.*)', the reply '(.*)' is displayed$")
   public void checkCommentReplyDisplayed(String activity, String comment, String reply) {
     spaceHomeSteps.checkCommentReplyDisplayed(activity, comment, reply);
+  }
+
+  @And("^In activity '(.*)' with comment '(.*)', the reply '(.*)' is displayed in Comment Drawer$")
+  public void checkCommentReplyDisplayedInDrawer(String activity, String comment, String reply) {
+    spaceHomeSteps.checkCommentReplyDisplayedInDrawer(activity, comment, reply);
   }
 
   @When("^In activity '(.*)' with comment '(.*)', the reply '(.*)' is not displayed$")
@@ -217,14 +216,9 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.checkFourthCommentInDrawer();
   }
 
-  @Then("^Internal link '(.*)' is displayed in activity stream as a comment$")
-  public void checkInternalLinkCommentAS(String comment) {
-    spaceHomeSteps.checkActivityComment(currentUrlNoProtocol() + comment);
-  }
-
-  @Then("^Internal link '(.*)' is displayed in Comments drawer as a comment$")
-  public void checkInternalLinkCommentInDrawer(String comment) {
-    spaceHomeSteps.checkActivityCommentInDrawer(currentUrlNoProtocol() + comment);
+  @Then("^Internal link '(.*)' is displayed in Comments drawer of activity '(.*)'$")
+  public void checkInternalLinkCommentInDrawer(String comment, String activity) {
+    spaceHomeSteps.checkActivityCommentDisplayed(activity, currentUrlNoProtocol() + comment);
   }
 
   @Then("The link is displayed with the preview")
@@ -316,6 +310,11 @@ public class SpaceHomeStepDefinition {
   @Then("^I click on the comment '(.*)' three dots icon from comments drawer$")
   public void clickOnCommentThreeDotsButtonFromCommentsDrawer(String comment) {
     spaceHomeSteps.clickOnCommentThreeDotsButtonFromCommentsDrawer(comment);
+  }
+
+  @And("^I click on the first comment '(.*)' three dots icon from comments drawer$")
+  public void clickOnFirstCommentThreeDotsButtonFromCommentsDrawer(String comment) {
+    spaceHomeSteps.clickOnFirstCommentThreeDotsButtonFromCommentsDrawer(comment);
   }
 
   @Then("^In comments drawer, I click on the comment '(.*)' three dots icon$")
@@ -673,11 +672,13 @@ public class SpaceHomeStepDefinition {
   }
 
   @When("^In comments drawer, Like label in comment '(.*)' should be black$")
+  @And("^In comments drawer, in comment '(.*)', Like label should be black$")
   public void likeLabelInCommentsDrawerIsBlack(String comment) {
     spaceHomeSteps.likeLabelInCommentsDrawerIsBlack(comment);
   }
 
   @When("^In comments drawer, Like label in comment '(.*)' should be blue$")
+  @And("^In comments drawer, in comment '(.*)', Like label should be blue$")
   public void likeLabelInCommentsDrawerIsBlue(String comment) {
     spaceHomeSteps.likeLabelInCommentsDrawerIsBlue(comment);
   }
@@ -899,12 +900,6 @@ public class SpaceHomeStepDefinition {
   @Then("^the stream filter isn't selected$")
   public void filterIsntSelected() {
     spaceHomeSteps.filterIsntSelected();
-  }
-
-  @When("^Tooltip Like on '(.*)' is displayed in activity stream$")
-  @And("^Tooltip Remove Like on '(.*)' is displayed in activity stream$")
-  public void tooltipActivityStreamIsDisplayed(String comment) {
-    spaceHomeSteps.tooltipActivityStreamIsDisplayed(comment);
   }
 
   @When("^Tooltip Like on '(.*)' is displayed in comments drawer$")

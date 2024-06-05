@@ -123,15 +123,19 @@ Feature: Kudos
 
     When I login as 'admin' random user
     And I go to the random space
+    And I open in activity 'Kudos Post activity - Kudos comment to cancel' the Comments drawer
     And In activity 'Kudos Post activity - Kudos comment to cancel' the cancel option in kudos comment 'Kudos comment to cancel' is not displayed
+    And I open in activity 'Kudos Post activity - Kudos comment to cancel' the Comments drawer
     Then In activity 'Kudos Post activity - Kudos comment to cancel' the delete option in kudos comment 'Kudos comment to cancel' is displayed
 
     When I login as 'cancelthird' random user
     And I go to the random space
+    And I open in activity 'Kudos Post activity - Kudos comment to cancel' the Comments drawer
     Then In activity 'Kudos Post activity - Kudos comment to cancel' the delete option in kudos comment 'Kudos comment to cancel' is not displayed
 
+    And I open in activity 'Kudos Post activity - Kudos comment to cancel' the Comments drawer
     When In activity 'Kudos Post activity - Kudos comment to cancel' I cancel the sent kudos comment 'Kudos comment to cancel'
-    Then Comment 'Kudos comment to cancel' is not displayed in activity 'Kudos Post activity - Kudos comment to cancel'
+    Then The comment 'Kudos comment to cancel' is not displayed in Comments drawer of activity 'Kudos Post activity - Kudos comment to cancel'
 
     When I go to My Profile page
     Then No kudos are sent

@@ -69,6 +69,7 @@ Feature: Achievements
     Then My points augmented
 
     And I go to the random space
+    And I open in activity 'Achievements - Kudos Post activity' the Comments drawer
     When In activity 'Achievements - Kudos Post activity' I cancel the sent kudos comment 'Achievements - kudos activity comment to cancel'
 
     And I go to 'achievements' in site 'mycraft'
@@ -275,9 +276,9 @@ Feature: Achievements
     And I click on 'See' link
 
     Then The comment 'announcement1' is displayed in Comments drawer
-    When I close the opened drawer
-    Then The comment 'announcement1' is displayed
-    And I click on three dots button related to comment 'announcement1'
+
+    When I open in activity 'Announce an achievement' the Comments drawer
+    And I click on the first comment 'announcement1' three dots icon from comments drawer
     And I click on 'Cancel' button related to comment 'announcement1'
     And I click on Yes button
 
@@ -437,7 +438,7 @@ Feature: Achievements
     And In comment 'comment to delete', I click on delete button
     And I click on Yes button
     Then the confirmation popup is not displayed
-    And Comment 'comment to delete' is not displayed in activity 'Activity with comment to cancel'
+    And The comment 'comment to delete' is not displayed in Comments drawer of activity 'Activity with comment to cancel'
 
     When I go to 'achievements' in site 'mycraft'
 
@@ -567,6 +568,7 @@ Feature: Achievements
 
     When I login as 'admin' random user
     And I go to the random space
+    And I open in activity 'Activity with comment to like + unlike' the Comments drawer
     And I like the activity comment 'comment to unlike'
     And I wait for '1' seconds
     And I unlike the activity comment 'comment to unlike'

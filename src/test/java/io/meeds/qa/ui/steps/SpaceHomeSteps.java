@@ -47,8 +47,8 @@ public class SpaceHomeSteps {
     spaceHomePage.cancelDeleteComment();
   }
 
-  public void checkActivityComment(String comment) {
-    spaceHomePage.checkActivityComment(comment);
+  public void checkActivityCommentDisplayed(String activity, String comment) {
+    spaceHomePage.checkActivityCommentDisplayed(activity, comment);
   }
 
   public void checkActivityCommentInDrawer(String comment) {
@@ -81,6 +81,10 @@ public class SpaceHomeSteps {
 
   public void checkCommentReplyDisplayed(String activity, String comment, String reply) {
     spaceHomePage.checkCommentReplyDisplayed(activity, comment, reply);
+  }
+
+  public void checkCommentReplyDisplayedInDrawer(String activity, String comment, String reply) {
+    spaceHomePage.checkCommentReplyDisplayedInDrawer(activity, comment, reply);
   }
 
   public void checkCommentReplyNotDisplayed(String activity, String comment, String reply) {
@@ -213,6 +217,10 @@ public class SpaceHomeSteps {
 
   public void clickOnCommentThreeDotsButtonFromCommentsDrawer(String comment) {
     spaceHomePage.clickOnCommentThreeDotsButtonFromCommentsDrawer(comment);
+  }
+
+  public void clickOnFirstCommentThreeDotsButtonFromCommentsDrawer(String comment) {
+    spaceHomePage.clickOnFirstCommentThreeDotsButtonFromCommentsDrawer(comment);
   }
 
   public void clickOnCommentThreeDotsInCommentsDrawer(String comment) {
@@ -601,10 +609,6 @@ public class SpaceHomeSteps {
 
   public void filterIsntSelected() {
     spaceHomePage.filterIsntSelected();
-  }
-
-  public void tooltipActivityStreamIsDisplayed(String comment) {
-    spaceHomePage.tooltipActivityStreamIsDisplayed(comment);
   }
 
   public void tooltipCommentsDrawerIsDisplayed(String comment) {
