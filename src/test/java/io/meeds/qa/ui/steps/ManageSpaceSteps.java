@@ -168,18 +168,6 @@ public class ManageSpaceSteps {
     manageSpacesPage.addUserToSpace(user);
   }
 
-  public void appCardIsDisplayed() {
-    manageSpacesPage.appCardIsDisplayed();
-  }
-
-  public void checkApplicationsAreDisplayed() {
-    manageSpacesPage.checkApplicationsAreDisplayed();
-  }
-
-  public void checkApplicationsSpaceSettings() {
-    manageSpacesPage.checkApplicationsSpaceSettings();
-  }
-
   public void checkAvatarSection() {
     manageSpacesPage.checkAvatarSection();
   }
@@ -224,16 +212,8 @@ public class ManageSpaceSteps {
     manageSpacesPage.checkNameSpaceSection();
   }
 
-  public void checkOptionFromApplicationMenuIsDisplayed(String appName, String option) {
-    manageSpacesPage.checkOptionFromApplicationMenuIsDisplayed(appName, option);
-  }
-
   public void checkRegistrationSection() {
     manageSpacesPage.checkRegistrationSection();
-  }
-
-  public void checkSpaceAppInstallerDrawerIsDisplayed() {
-    manageSpacesPage.checkSpaceAppInstallerDrawerIsDisplayed();
   }
 
   public void checkSpaceBookmarkedFromSpaceCard() {
@@ -264,10 +244,6 @@ public class ManageSpaceSteps {
     manageSpacesPage.checkSpaceBookmarkStatusFromTopbarSpacePopover(false);
   }
 
-  public void checkThatAppIsDisplayed(String application) {
-    manageSpacesPage.checkThatAppIsAdded(application);
-  }
-
   public void checkThatSpaceDetailsInSearchResultsAreDisplayed(String spaceName, String members) {
     manageSpacesPage.checkThatSpaceDetailsInSearchResultsAreDisplayed(spaceName, members);
   }
@@ -292,20 +268,8 @@ public class ManageSpaceSteps {
     }
   }
 
-  public void checkUpdateButton() {
-    manageSpacesPage.checkUpdateButton();
-  }
-
-  public void clickOnArrowIconAppSpaceSettings() {
-    manageSpacesPage.clickOnArrowIconAppSpaceSettings();
-  }
-
   public void clickOnGeneralSpaceSettings() {
     manageSpacesPage.clickOnGeneralSpaceSettings();
-  }
-
-  public void clickOnPlusButton() {
-    manageSpacesPage.clickOnPlusButton();
   }
 
   public void clickOnSpaceBookmarkIconFromSpaceCard() {
@@ -320,24 +284,8 @@ public class ManageSpaceSteps {
     manageSpacesPage.clickOnSpaceBookmarkIconFromTopbarSpacePopover();
   }
 
-  public void clickOnThreeDotsAppCard(String appName) {
-    manageSpacesPage.clickOnThreeDotsAppCard(appName);
-  }
-
-  public void clickOptionApplicationCard(String appName, String option) {
-    manageSpacesPage.clickOptionApplicationCard(appName, option);
-  }
-
   public void clickSpaceAction(String action) {
     manageSpacesPage.clickSpaceAction(action);
-  }
-
-  public void clickToAddApp(String application) {
-    manageSpacesPage.clickToAddApp(application);
-  }
-
-  public void confirmRemoveApplication() {
-    manageSpacesPage.confirmRemoveApplication();
   }
 
   public void deleteSpace(String spaceName) {
@@ -375,10 +323,6 @@ public class ManageSpaceSteps {
     manageSpacesPage.isSpaceBannerUpdated();
   }
 
-  public void plusButtonIsDisplayed() {
-    manageSpacesPage.plusButtonIsDisplayed();
-  }
-
   public void searchSpace(String spaceName) {
     manageSpacesPage.insertSpaceNameInSearchField(spaceName);
   }
@@ -393,10 +337,6 @@ public class ManageSpaceSteps {
 
   public void showMoreSpaces() {
     manageSpacesPage.showMoreSpaces();
-  }
-
-  public void spaceAppSettingsIsOpened() {
-    manageSpacesPage.spaceAppSettingsIsOpened();
   }
 
   public void spaceAvatarIsDisplayed() {
@@ -440,18 +380,6 @@ public class ManageSpaceSteps {
 
   public void emailIsNotListedInInvitationList(String email) {
     manageSpacesPage.emailIsNotListedInInvitationList(email);
-  }
-
-  public String moveApplicationAfter(int appPosition) {
-    return manageSpacesPage.moveApplicationAfter(appPosition);
-  }
-
-  public String moveApplicationBefore(int appPosition) {
-    return manageSpacesPage.moveApplicationBefore(appPosition);
-  }
-
-  public void moveApplicationBefore(String appName) {
-    manageSpacesPage.moveApplicationBefore(appName);
   }
 
   public void injectRandomSpace(String spaceNamePrefix) {
