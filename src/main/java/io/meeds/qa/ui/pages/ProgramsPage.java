@@ -263,13 +263,13 @@ public class ProgramsPage extends GenericPage {
   public void attachAvatarToProgram() {
     attachAvatarButton().click();
     waitForDrawerToOpen();
-    attachImageToOpenedDrawer(true);
+    attachImageToOpenedDrawer();
   }
 
   public void attachCoverToProgram() {
     attachCoverButton().click();
     waitForDrawerToOpen();
-    attachImageToOpenedDrawer(true);
+    attachImageToOpenedDrawer();
   }
 
   public void deleteAvatarFromProgram() {
@@ -494,7 +494,7 @@ public class ProgramsPage extends GenericPage {
         throw new IllegalStateException(String.format("Element doesn't have adequate style for background image: %s",
                                                       avatarImageElement()));
       }
-    }, () -> waitFor(200).milliseconds());
+    }, () -> waitFor(500).milliseconds());
   }
 
 }
