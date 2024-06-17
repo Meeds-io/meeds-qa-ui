@@ -2,7 +2,7 @@
 
 Feature: Activity Stream
 
-  Scenario: CAP04 - [ActivityStream_US05] Display 10 activities in Activity Stream
+  Scenario: Display 10 activities in Activity Stream
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second |
@@ -59,7 +59,7 @@ Feature: Activity Stream
     Then the activity 'act_CAP04_6' is displayed in activity stream
     Then the activity 'act_CAP04_1' is displayed in activity stream
 
-  Scenario: CAP100 - [ActivityStream_US38][04] Cancel Delete comment with replies from the activity stream
+  Scenario: Cancel Delete comment with replies from the activity stream
     Given I am authenticated as 'admin' if random space and random users doesn't exists
       | first  |
       | second |
@@ -122,7 +122,7 @@ Feature: Activity Stream
     And In activity 'activityTestCAP100-100' with comment 'commenttestCAP100-100', the reply 'replyTestCAP100-100' is displayed
     And In activity 'activityTestCAP100-100' with comment 'commenttestCAP100-100', the reply 'replyTestCAP100-101' is displayed
 
-  Scenario: CAP102 - [ActivityStream_US38][06] Cancel Delete a reply from the activity stream
+  Scenario: Cancel Delete a reply from the activity stream
     Given I am authenticated as 'admin' if random space and random users doesn't exists
       | first  |
       | second  |
@@ -199,9 +199,8 @@ Feature: Activity Stream
     And In comment 'commenttestCAP102-102', the reply 'replyTestCAP102-102' is not displayed in the drawer
     And In comment 'commenttestCAP102-102', the reply 'replyTestCAP102-103' is displayed in the drawer
     And In comment 'commenttestCAP102-102', the reply 'replyTestCAP102-104' is displayed in the drawer
-    And I close the opened drawer
 
-    When In activity 'activityTestCAP102-102' with comment 'commenttestCAP102-102', I click on the reply 'replyTestCAP102-103' three dots icon
+    When I click on the reply 'replyTestCAP102-103' three dots icon from comments drawer
     And In reply 'replyTestCAP102-103', I click on delete button
     And I click on Cancel button
     Then the confirmation popup is not displayed
@@ -211,7 +210,7 @@ Feature: Activity Stream
     And In comment 'commenttestCAP102-102', the reply 'replyTestCAP102-103' is displayed in the drawer
     And In comment 'commenttestCAP102-102', the reply 'replyTestCAP102-104' is displayed in the drawer
 
-  Scenario: CAP103 - [ActivityStream_US39][01] Delete a simple comment from the comment drawer
+  Scenario: Delete a simple comment from the comment drawer
     Given I am authenticated as 'admin' if random space and random users doesn't exists
       | first  |
       | second  |
@@ -254,7 +253,8 @@ Feature: Activity Stream
 
     When I open in activity 'activityTestCAP103-103' the Comments drawer
     Then '1 comment', only 'commenttestCAP103-103' is displayed in Comments drawer
-    When In comments drawer, I click on the comment 'commenttestCAP103-103' three dots icon
+    And I open in activity 'activityTestCAP103-103' the Comments drawer
+    And I click on the comment 'commenttestCAP103-103' three dots icon from comments drawer
     And In comment 'commenttestCAP103-103', I click on delete button
     And I click on Yes button
     Then the confirmation popup is not displayed
@@ -285,7 +285,7 @@ Feature: Activity Stream
     When I close the opened drawer
     Then The comment 'commenttestCAP104-CAP103-103' is not displayed in Comments drawer of activity 'activityTestCAP103-103'
 
-  Scenario: CAP104 - [ActivityStream_US39][02] Cancel Delete a simple comment from the comment drawer
+  Scenario: Cancel Delete a simple comment from the comment drawer
     Given I am authenticated as 'admin' if random space and random users doesn't exists
       | first  |
       | second  |
@@ -328,7 +328,8 @@ Feature: Activity Stream
 
     When I open in activity 'activityTestCAP104-104' the Comments drawer
     Then '1 comment', only 'commenttestCAP104-104' is displayed in Comments drawer
-    When In comments drawer, I click on the comment 'commenttestCAP104-104' three dots icon
+    And I open in activity 'activityTestCAP104-104' the Comments drawer
+    And I click on the comment 'commenttestCAP104' three dots icon from comments drawer
     And In comment 'commenttestCAP104-104', I click on delete button
     And I click on Cancel button
     Then the confirmation popup is not displayed
@@ -350,7 +351,7 @@ Feature: Activity Stream
     When I open in activity 'activityTestCAP104-104' the Comments drawer
     Then '1 comment', only 'commenttestCAP104-104' is displayed in Comments drawer
 
-  Scenario: CAP105 - [ActivityStream_US39][03] Delete comment with replies from the comment drawer
+  Scenario: Delete comment with replies from the comment drawer
     Given I am authenticated as 'admin' if random space and random users doesn't exists
       | first  |
       | second  |
@@ -415,7 +416,8 @@ Feature: Activity Stream
     Then In comment 'commenttestCAP105-105', the reply 'replyTest101' is displayed in the drawer
     And In comment 'commenttestCAP105-105', the reply 'replyTest102' is displayed in the drawer
     And In comment 'commenttestCAP105-105', the reply 'replyTest103' is displayed in the drawer
-    When In comments drawer, I click on the comment 'commenttestCAP105-105' three dots icon
+    And I open in activity 'activityTestCAP105-105' the Comments drawer
+    And I click on the comment 'commenttestCAP105-105' three dots icon from comments drawer
     And In comment 'commenttestCAP105-105', I click on delete button
     And I click on Yes button
     Then the confirmation popup is not displayed
@@ -455,7 +457,7 @@ Feature: Activity Stream
     When I close the opened drawer
     Then The comment 'commenttestCAP105-105' is not displayed in Comments drawer of activity 'activityTestCAP105-105'
 
-  Scenario: CAP106 - [ActivityStream_US39][04] Cancel Delete comment with replies from the comments drawer
+  Scenario: Cancel Delete comment with replies from the comments drawer
     Given I am authenticated as 'admin' if random space and random users doesn't exists
       | first  |
       | second  |
@@ -521,7 +523,7 @@ Feature: Activity Stream
     Then In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-101' is displayed in the drawer
     And In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-102' is displayed in the drawer
     And In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-103' is displayed in the drawer
-    When In comments drawer, I click on the comment 'commenttestCAP106-106' three dots icon
+    When I click on the comment 'commenttestCAP106-106' three dots icon from comments drawer
     And In comment 'commenttestCAP106-106', I click on delete button
     And I click on Cancel button
     Then the confirmation popup is not displayed
@@ -554,7 +556,7 @@ Feature: Activity Stream
     And In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-102' is displayed in the drawer
     And In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-103' is displayed in the drawer
 
-  Scenario: CAP107 - [ActivityStream_US39][05] Delete a reply from comments drawer
+  Scenario: Delete a reply from comments drawer
     Given I am authenticated as 'admin' if random space and random users doesn't exists
       | first  |
       | second  |
@@ -616,7 +618,7 @@ Feature: Activity Stream
     Then In comment 'commenttestCAP107-107', the reply 'replyTestCAP107-101' is displayed in the drawer
     And In comment 'commenttestCAP107-107', the reply 'replyTestCAP107-102' is displayed in the drawer
     And In comment 'commenttestCAP107-107', the reply 'replyTestCAP107-103' is displayed in the drawer
-    When In comments drawer, I click on the reply 'replyTestCAP107-102' three dots icon
+    When I click on the reply 'replyTestCAP107-102' three dots icon from comments drawer
     And In reply 'replyTestCAP107-102', I click on delete button
     And I click on Yes button
     Then the confirmation popup is not displayed
@@ -663,7 +665,7 @@ Feature: Activity Stream
     And In activity 'activityTestCAP107-107' with comment 'commenttestCAP107-107', the reply 'replyTestCAP107-103' is displayed in Comment Drawer
     And In activity 'activityTestCAP107-107' with comment 'commenttestCAP107-107', the reply 'replyTestCAP107-102' is not displayed
 
-  Scenario: CAP108 - [ActivityStream_US39][06] Cancel Delete a reply from the comments drawer
+  Scenario: Cancel Delete a reply from the comments drawer
     Given I am authenticated as 'admin' if random space and random users doesn't exists
       | first  |
       | second  |
@@ -727,7 +729,7 @@ Feature: Activity Stream
     Then In comment 'commenttestCAP108-108', the reply 'replyTestCAP108-101' is displayed in the drawer
     And In comment 'commenttestCAP108-108', the reply 'replyTestCAP108-102' is displayed in the drawer
     And In comment 'commenttestCAP108-108', the reply 'replyTestCAP108-103' is displayed in the drawer
-    When In comments drawer, I click on the reply 'replyTestCAP108-102' three dots icon
+    When I click on the reply 'replyTestCAP108-102' three dots icon from comments drawer
     And In reply 'replyTestCAP108-102', I click on delete button
     And I click on Cancel button
     Then the confirmation popup is not displayed
@@ -779,7 +781,7 @@ Feature: Activity Stream
     And In activity 'activityTestCAP108-108' with comment 'commenttestCAP108-108', the reply 'replyTestCAP108-102' is displayed in Comment Drawer
     And In activity 'activityTestCAP108-108' with comment 'commenttestCAP108-108', the reply 'replyTestCAP108-103' is displayed in Comment Drawer
 
-  Scenario: CAP109 - [ActivityStream_US40][01] Like my comment/reply from activity stream
+  Scenario: Like my comment/reply from activity stream
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
@@ -854,7 +856,7 @@ Feature: Activity Stream
     Then In comments drawer, in comment 'commenttestCAP110-110', Like label should be black
     And In comments drawer, on comment 'commenttestCAP110-110', '(0)' like is displayed
 
-  Scenario: CAP111 - [ActivityStream_US40][03] Like comment/reply of other user from activity stream
+  Scenario: Like comment/reply of other user from activity stream
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
@@ -903,7 +905,7 @@ Feature: Activity Stream
     When In comments drawer, in comment 'commenttest111', I hover on Like icon
     Then Tooltip Remove Like on 'commenttest111' is displayed in comments drawer
 
-  Scenario: CAP112 [ActivityStream_US40][04] Unlike comment/reply of other user from activity stream
+  Scenario: Unlike comment/reply of other user from activity stream
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
@@ -946,7 +948,7 @@ Feature: Activity Stream
     Then In comments drawer, in comment 'commenttestCAP112-112', Like label should be black
     And In comments drawer, on comment 'commenttestCAP112-112', '(0)' like is displayed
 
-  Scenario: CAP115 - [ActivityStream_US41][01] Like my comment/reply from the comment drawer
+  Scenario: Like my comment/reply from the comment drawer
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
@@ -990,7 +992,7 @@ Feature: Activity Stream
     And Tooltip Remove Like on 'commenttest115' is displayed in comments drawer
     And I close the opened drawer
 
-  Scenario: CAP116 - [ActivityStream_US41][02] Unlike my comment/reply from the comments drawer
+  Scenario: Unlike my comment/reply from the comments drawer
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
@@ -1029,7 +1031,7 @@ Feature: Activity Stream
     And In comments drawer, on comment 'commenttestCAP116-116', '(0)' like is displayed
     And I close the opened drawer
 
-  Scenario: CAP157 - [ActivityStream_IMPV15][01] Internal Link opening behaviors inside comments
+  Scenario: Internal Link opening behaviors inside comments
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
@@ -1062,7 +1064,7 @@ Feature: Activity Stream
     And I open the internal link '/members' in new tab
     Then The internal link '/members' is opened in new tab
 
-  Scenario: CAP158 - [ActivityStream_IMPV15][02] External Link opening behaviors inside comments
+  Scenario: External Link opening behaviors inside comments
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
@@ -1141,7 +1143,7 @@ Feature: Activity Stream
     Then the confirmation popup is not displayed
     And The comment 'commenttest97' is not displayed in Comments drawer of activity 'activityTest97'
 
-  Scenario: Cap155 - ActivityStream_US58: Mention a user in the comments
+  Scenario: Mention a user in the comments
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
@@ -1259,7 +1261,7 @@ Feature: Activity Stream
     And In activity 'activityTest147' with comment 'commenttest147', the reply 'replyTest147' is displayed
     And I go to the home page
 
-  Scenario: CAP20 - [ActivityStream_US10][09] Activity with text or link options (3 dots) (Author delete the post)
+  Scenario: Activity with text or link options (3 dots) (Author delete the post)
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
@@ -1288,7 +1290,7 @@ Feature: Activity Stream
     When I go to Stream page
     Then the activity 'activityus1009cap20' is not displayed in stream page
 
-  Scenario: CAP21 - [ActivityStream_US10][10] Activity with text or link options (3 dots) ( Author cancel delete post)
+  Scenario: Activity with text or link options (3 dots) ( Author cancel delete post)
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
@@ -1317,7 +1319,7 @@ Feature: Activity Stream
     When I go to Stream page
     Then the activity 'activityus1010cap21' is displayed in stream page
 
-  Scenario: CAP88 - [ActivityStream_US04.1][01] Edit comment from the comment drawer
+  Scenario: Edit comment from the comment drawer
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
@@ -1374,7 +1376,7 @@ Feature: Activity Stream
     And I open in activity 'activitycap88' the Comments drawer
     Then Comment is displayed in comments drawer at the sixth position
 
-  Scenario: CAP128 - [ActivityStream_US47][01] Send a kudos from a comment
+  Scenario: Send a kudos from a comment
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
@@ -1413,7 +1415,7 @@ Feature: Activity Stream
     And I click on the kudos button number
     Then '1' kudos are displayed on the reaction drawer
 
-  Scenario: CAP129 - [ActivityStream_US47][03] Send a kudos from the comments drawer
+  Scenario: Send a kudos from the comments drawer
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | sixth  |
@@ -1449,7 +1451,7 @@ Feature: Activity Stream
     And I click on the kudos button number from the comments drawer
     Then '1' kudos are displayed on the reaction drawer
 
-  Scenario: CAP220 - [ActivityStream_IMPV07][01] Pagination in comments drawer
+  Scenario: Pagination in comments drawer
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
 
@@ -1508,7 +1510,7 @@ Feature: Activity Stream
     And Comment 'commenttestCAP220-1020' is not displayed in the drawer
     Then Check Four comment is displayed in comments drawer
     
-  Scenario: [STREAM-12] Activity Likers in drawer
+  Scenario: Activity Likers in drawer
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | sixth  |
@@ -1553,7 +1555,7 @@ Feature: Activity Stream
     And I open user profile of sixth user from activity likers drawer
     And The page '/profile' is opened
 
-  Scenario: CAP129 - [ActivityStream_US47][02] Send a kudos from a reply
+  Scenario: Send a kudos from a reply
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | sixth  |
@@ -1599,7 +1601,7 @@ Feature: Activity Stream
     When I click on the kudos button number
     Then '1' kudos are displayed on the reaction drawer
 
-  Scenario: CAP89 - [ActivityStream_US04][03] Edit reply in Activity stream
+  Scenario: Edit reply in Activity stream
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
@@ -1649,14 +1651,15 @@ Feature: Activity Stream
     And I click on comment button related to activity 'activitycap87'
     Then Fourth comment is displayed in comments drawer
 
-    When In activity 'activitycap87', I click on the comment 'commenttest104' three dots icon
+    When I open in activity 'activitycap87' the Comments drawer
+    And I click on the comment 'commenttest104' three dots icon from comments drawer
     And In comment 'commenttest104', I click on edit button
     And I update comment with a new one 'commenttestupdated104'
     And I click on update comment
     And I open in activity 'activitycap87' the Comments drawer
     Then Fourth comment is displayed in comments drawer
 
-  Scenario: [ActivityStream_US52][03] Edit a kudos from a comment
+  Scenario: Edit a kudos from a comment
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
@@ -1690,7 +1693,7 @@ Feature: Activity Stream
     And I set the new kudos comment text 'updated kudos message' and I click on update button
     Then the updated Kudos activity 'updated kudos message' is displayed in stream page
 
-  Scenario: [ActivityStream_US52][05] Edit a kudos from a reply
+  Scenario: Edit a kudos from a reply
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
@@ -1739,7 +1742,7 @@ Feature: Activity Stream
     And I set the new kudos comment text 'updated kudos message' and I click on update button
     Then the updated Kudos activity 'updated kudos message' is displayed in stream page
 
-  Scenario: CAP132 - [ActivityStream_US52][01] Edit a kudos comment from an activity
+  Scenario: Edit a kudos comment from an activity
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | fifth  |
@@ -1766,7 +1769,7 @@ Feature: Activity Stream
     And I set the new kudos comment text 'updated Test Auto reply Kudos US52_01' and I click on update button
     Then the updated Kudos activity 'updated Test Auto reply Kudos US52_01' is displayed in stream page
 
-  Scenario: PinActivity_US01: Space host or redactor can pin an activity (from Space Stream -  Space host Case)
+  Scenario: Space host or redactor can pin an activity (from Space Stream -  Space host Case)
     Given I am authenticated as 'admin' random user
     And I create a random space
     And I go to the random space
@@ -1785,7 +1788,7 @@ Feature: Activity Stream
     Given I click on three dots button related to activity 'PinTest'
     Then Unpin button related to activity 'PinTest' is displayed
 
-  Scenario: Pin Activity US01: Space host or redactor can pin an activity (from General Stream -  Space redactor Case)
+  Scenario: Space host or redactor can pin an activity (from General Stream -  Space redactor Case)
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
@@ -1818,7 +1821,7 @@ Feature: Activity Stream
     Given I click on three dots button related to activity 'PinTest'
     Then Unpin button related to activity 'PinTest' is displayed
 
-  Scenario: Pin Activity US03: Unpin an activity
+  Scenario: Unpin an activity
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
@@ -1855,7 +1858,7 @@ Feature: Activity Stream
     When I close the notification
     Then The activity 'PinTest' should be not pinned in space stream
 
-  Scenario: Pin Activity US04: Pinned activities filter
+  Scenario: Pinned activities filter
     Given I am authenticated as 'admin' random user
     And I create a random space
     And I click on post in space
