@@ -211,20 +211,8 @@ public class SpaceHomeSteps {
     spaceHomePage.clickOnCommentsDrawerSecondPage();
   }
 
-  public void clickOnCommentThreeDotsButton(String activity, String comment) {
-    spaceHomePage.clickOnCommentThreeDotsButton(activity, comment);
-  }
-
-  public void clickOnCommentThreeDotsButtonFromCommentsDrawer(String comment) {
-    spaceHomePage.clickOnCommentThreeDotsButtonFromCommentsDrawer(comment);
-  }
-
-  public void clickOnFirstCommentThreeDotsButtonFromCommentsDrawer(String comment) {
-    spaceHomePage.clickOnFirstCommentThreeDotsButtonFromCommentsDrawer(comment);
-  }
-
-  public void clickOnCommentThreeDotsInCommentsDrawer(String comment) {
-    spaceHomePage.clickOnCommentThreeDotsInCommentsDrawer(comment);
+  public void clickOnCommentThreeDotsButtonFromCommentsDrawer(String comment, boolean reply) {
+    spaceHomePage.clickOnCommentThreeDotsButtonFromCommentsDrawer(comment, reply);
   }
 
   public void clickOnKudosNumberButton() {
@@ -237,10 +225,6 @@ public class SpaceHomeSteps {
 
   public void clickOnLoadMoreActivities() {
     spaceHomePage.clickOnLoadMoreActivities();
-  }
-
-  public void clickOnReplyDropDownMenu(String activity, String comment, String reply) {
-    spaceHomePage.clickOnReplyDropDownMenu(activity, comment, reply);
   }
 
   public void clickOnReplyKudos(String reply) {
@@ -477,10 +461,6 @@ public class SpaceHomeSteps {
     spaceHomePage.openDeleteActivityMenu(activity);
   }
 
-  public void openDeleteCommentMenu(String activity, String comment) {
-    spaceHomePage.openDeleteCommentMenu(activity, comment);
-  }
-
   public void openEditActivityMenu(String activity) {
     spaceHomePage.openEditActivityMenu(activity);
   }
@@ -491,10 +471,6 @@ public class SpaceHomeSteps {
 
   public void openThreeDotsActivityMenu(String activity) {
     spaceHomePage.openThreeDotsActivityMenu(activity);
-  }
-
-  public void openThreeDotsCommentMenu(String comment) {
-    spaceHomePage.openThreeDotsCommentMenu(comment);
   }
 
   public void pinActivityButtonIsDisplayed(String activity) {
