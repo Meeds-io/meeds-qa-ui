@@ -327,8 +327,8 @@ Feature: Actions
 
     And I close the opened drawer
     And I announce challenge 'Announce activity to delete' with message 'announcement11' from activity
-    Then The comment 'announcement11' is displayed
-    And I click on three dots button related to comment 'announcement11'
+    And I open in activity 'Announce activity to delete' the Comments drawer
+    And I click on the comment 'announcement11' three dots icon from comments drawer
     And I click on 'Cancel' button related to comment 'announcement11'
     And I click on Yes button
 
