@@ -302,25 +302,15 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.clickOnCommentsDrawerSecondPage();
   }
 
-  @Then("^In activity '(.*)', I click on the comment '(.*)' three dots icon$")
-  public void clickOnCommentThreeDotsButton(String activity, String comment) {
-    spaceHomeSteps.clickOnCommentThreeDotsButton(activity, comment);
-  }
-
   @Then("^I click on the comment '(.*)' three dots icon from comments drawer$")
-  public void clickOnCommentThreeDotsButtonFromCommentsDrawer(String comment) {
-    spaceHomeSteps.clickOnCommentThreeDotsButtonFromCommentsDrawer(comment);
-  }
-
   @And("^I click on the first comment '(.*)' three dots icon from comments drawer$")
-  public void clickOnFirstCommentThreeDotsButtonFromCommentsDrawer(String comment) {
-    spaceHomeSteps.clickOnFirstCommentThreeDotsButtonFromCommentsDrawer(comment);
+  public void clickOnCommentThreeDotsButtonFromCommentsDrawer(String comment) {
+    spaceHomeSteps.clickOnCommentThreeDotsButtonFromCommentsDrawer(comment, false);
   }
 
-  @Then("^In comments drawer, I click on the comment '(.*)' three dots icon$")
-  @And("^In comments drawer, I click on the reply '(.*)' three dots icon$")
-  public void clickOnCommentThreeDotsInCommentsDrawer(String comment) {
-    spaceHomeSteps.clickOnCommentThreeDotsInCommentsDrawer(comment);
+  @When("^I click on the reply '(.*)' three dots icon from comments drawer$")
+  public void clickOnReplyThreeDotsButtonFromCommentsDrawer(String comment) {
+    spaceHomeSteps.clickOnCommentThreeDotsButtonFromCommentsDrawer(comment, true);
   }
 
   @When("^I click on the internal link '(.*)'$")
@@ -331,11 +321,6 @@ public class SpaceHomeStepDefinition {
   @When("^I click on Load more button$")
   public void clickOnLoadMoreActivities() {
     spaceHomeSteps.clickOnLoadMoreActivities();
-  }
-
-  @Then("^In activity '(.*)' with comment '(.*)', I click on the reply '(.*)' three dots icon$")
-  public void clickOnReplyDropDownMenu(String activity, String comment, String reply) {
-    spaceHomeSteps.clickOnReplyDropDownMenu(activity, comment, reply);
   }
 
   @Then("^In reply '(.*)', I click on kudos button$")
@@ -728,11 +713,6 @@ public class SpaceHomeStepDefinition {
     spaceHomeSteps.openDeleteActivityMenu(oldActiviyy);
   }
 
-  @When("^In activity '(.*)' I delete the comment '(.*)'$")
-  public void openDeleteCommentMenu(String activity, String comment) {
-    spaceHomeSteps.openDeleteCommentMenu(activity, comment);
-  }
-
   @When("^I click on modify the activity$")
   public void openEditActivityMenu() {
     String oldActiviyy = Serenity.sessionVariableCalled("activity");
@@ -757,11 +737,6 @@ public class SpaceHomeStepDefinition {
   @When("^I click on three dots button related to activity '(.*)'$")
   public void openThreeDotsActivityMenu(String activity) {
     spaceHomeSteps.openThreeDotsActivityMenu(activity);
-  }
-
-  @When("^I click on three dots button related to comment '(.*)'$")
-  public void openThreeDotsCommentMenu(String comment) {
-    spaceHomeSteps.openThreeDotsCommentMenu(comment);
   }
 
   @When("^Pin button related to activity '(.*)' is displayed$")
