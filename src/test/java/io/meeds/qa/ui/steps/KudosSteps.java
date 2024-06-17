@@ -118,22 +118,26 @@ public class KudosSteps {
   }
 
   public void checkCancelKudosCommentIsNotVisible(String activity, String kudos) {
-    spaceHomePage.clickOnFirstCommentThreeDotsButtonFromCommentsDrawer(kudos);
+    spaceHomePage.openCommentsDrawer(activity);
+    spaceHomePage.clickOnCommentThreeDotsButtonFromCommentsDrawer(kudos, false);
     kudosPage.checkCancelKudosCommentIsNotVisible(kudos);
   }
 
   public void checkDeleteKudosCommentIsNotVisible(String activity, String kudos) {
-    spaceHomePage.clickOnFirstCommentThreeDotsButtonFromCommentsDrawer(kudos);
+    spaceHomePage.openCommentsDrawer(activity);
+    spaceHomePage.clickOnCommentThreeDotsButtonFromCommentsDrawer(kudos, false);
     kudosPage.checkDeleteKudosCommentIsNotVisible(kudos);
   }
 
   public void checkDeleteKudosCommentIsVisible(String activity, String kudos) {
-    spaceHomePage.clickOnFirstCommentThreeDotsButtonFromCommentsDrawer(kudos);
+    spaceHomePage.openCommentsDrawer(activity);
+    spaceHomePage.clickOnCommentThreeDotsButtonFromCommentsDrawer(kudos, false);
     kudosPage.checkDeleteKudosCommentIsVisible(kudos);
   }
 
   public void cancelCommentKudos(String activity, String comment) {
-    spaceHomePage.clickOnFirstCommentThreeDotsButtonFromCommentsDrawer(comment);
+    spaceHomePage.openCommentsDrawer(activity);
+    spaceHomePage.clickOnCommentThreeDotsButtonFromCommentsDrawer(comment, false);
     kudosPage.cancelKudosComment(activity, comment);
     spaceHomePage.clickYesbutton();
   }
