@@ -2,7 +2,7 @@
 Feature: Tasks
 
   @smoke
-  Scenario: CAP81 - [User_UI_US22] Mark as completed for "TASKS" in a Project (Manager case)
+  Scenario: Mark as completed for "TASKS" in a Project (Manager case)
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I inject the first random user if not existing
@@ -20,7 +20,7 @@ Feature: Tasks
     And Tasks number '0' is displayed in the column To Do
 
   @smoke
-  Scenario: CAP176 - [US_Filterfield_01] Add Clear typed characters icon (Filter by task under TASKS tab)
+  Scenario: Add Clear typed characters icon (Filter by task under TASKS tab)
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I inject the first random user if not existing
@@ -37,7 +37,7 @@ Feature: Tasks
     And The clear button is disappeared from Filter by task field
 
   @smoke
-  Scenario: CAP94_[Add_Task_Drawer_US04] (3 dots menu-Delete action) "Tasks TAB"
+  Scenario: (3 dots menu-Delete action) "Tasks TAB"
     Given I am authenticated as 'admin' random user
 
     And I go to 'tasks' in site 'mycraft'
@@ -52,7 +52,7 @@ Feature: Tasks
     And I close the opened drawer
     Then Task '<TestE>' is deleted successfully
 
-  Scenario: CAP82 - [User_UI_US22] Mark as completed for "TASKS" in a Project (Participant case)
+  Scenario: Mark as completed for "TASKS" in a Project (Participant case)
     Given I am authenticated as 'admin' random user
     And I inject the first random user if not existing
 
@@ -76,7 +76,7 @@ Feature: Tasks
 
   @smoke
   @standardConfigurationOnly
-  Scenario: CAP95 - [Add_Task_Drawer_US04] 3 dots menu (Delete action) "Task under project"
+  Scenario: 3 dots menu (Delete action) "Task under project"
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I inject the first random user if not existing
@@ -128,7 +128,7 @@ Feature: Tasks
     And I set task due date TODAY
     And I close the opened drawer
 
-  Scenario: CAP188 - [Lost Projects] check that project isn't lost after renaming space name
+  Scenario: check that project isn't lost after renaming space name
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I inject the first random user if not existing
@@ -190,7 +190,7 @@ Feature: Tasks
     Then In column status 'TestStatus2' , Task name 'Collaboration FT Task' is displayed
 
   @smoke
-  Scenario: CAP269 - [US_Sharedlabels_02] Manage labels in Project
+  Scenario: Manage labels in Project
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I inject the first random user if not existing
@@ -247,7 +247,7 @@ Feature: Tasks
     And Task name 'taskE' is not displayed in project details
     And Tasks number '0' is displayed in the column To Do
 
-  Scenario: CAP264 - [NF] [US_Sharedlabels_01]All project members can use added labels
+  Scenario: All project members can use added labels
     Given I am authenticated as 'admin' random user
     And I inject the first random user if not existing, no wait
     And I inject the second random user if not existing
@@ -331,7 +331,7 @@ Feature: Tasks
     Then Third user with the task comment 'Start working on it' is displayed in task comments drawer
 
   @smoke
-  Scenario: CAP190 -[IMP] [US_SortGroupeBy_01] Memorize Group and Sort filters (Group by)
+  Scenario: Memorize Group and Sort filters (Group by)
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And  I inject the first random user if not existing
@@ -369,7 +369,7 @@ Feature: Tasks
     Then I check that grouping 'assignee' is selected
     And I refresh the page
     
-  Scenario: CAP341 [TASK] when refresh task drawer, the description should not be lost
+  Scenario: when refresh task drawer, the description should not be lost
     Given I am authenticated as 'admin' random user
     And I inject the first random user if not existing
 
@@ -400,7 +400,7 @@ Feature: Tasks
     When I refresh the page
     Then The edit description in the task 'Edit Automation Test Task' is displayed
 
-  Scenario: [IMP] [US_ChangesDrawer_01] Display last Update and Changes drawer
+  Scenario: Display last Update and Changes drawer
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And  I inject the first random user if not existing
@@ -455,7 +455,7 @@ Feature: Tasks
     And I open the task 'Automation Test Task'
     Then The update description 'Decription Task updated' is displayed in origin task
 
-  Scenario: CAP37 - [User_UI_US18.1] Check message when project title contains less than 3 characters
+  Scenario: Check message when project title contains less than 3 characters
     Given I am authenticated as 'admin' random user
     And I go To AppCenter Drawer
     And I open all application page

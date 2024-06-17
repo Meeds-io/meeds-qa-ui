@@ -86,7 +86,7 @@ public class TasksPage extends GenericPage {
   public void addProject(String projectName) {
     addProjectOrTaskElement().click();
     projectTitleElement().setTextValue(projectName);
-    saveButtonElement().click();
+    primaryButtonDrawerElement().click();
     waitForDrawerToClose();
   }
 
@@ -116,7 +116,7 @@ public class TasksPage extends GenericPage {
       getDriver().switchTo().defaultContent();
     }
 
-    saveButtonElement().click();
+    primaryButtonDrawerElement().click();
     waitForDrawerToClose();
   }
 
@@ -124,7 +124,7 @@ public class TasksPage extends GenericPage {
     addProjectOrTaskElement().click();
     projectTitleElement().setTextValue(projectName);
     addProjectManagerInput(fullName);
-    saveButtonElement().click();
+    primaryButtonDrawerElement().click();
     waitForDrawerToClose();
   }
 
@@ -132,7 +132,7 @@ public class TasksPage extends GenericPage {
     addProjectOrTaskElement().click();
     projectTitleElement().setTextValue(projectName);
     addProjectParticipantInput(participant);
-    saveButtonElement().click();
+    primaryButtonDrawerElement().click();
     waitForDrawerToClose();
   }
 
@@ -141,7 +141,7 @@ public class TasksPage extends GenericPage {
     projectTitleElement().setTextValue(projectName);
     addManagerBtnElement().click();
     mentionInField(inviteProjectManagerInputElement(), fullName, 5);
-    saveButtonElement().click();
+    primaryButtonDrawerElement().click();
     waitForDrawerToClose();
   }
 
@@ -150,7 +150,7 @@ public class TasksPage extends GenericPage {
     projectTitleElement().setTextValue(projectName);
     addProjectManagerInput(manager);
     addProjectParticipantInput(participant);
-    saveButtonElement().click();
+    primaryButtonDrawerElement().click();
     waitForDrawerToClose();
   }
 
@@ -158,7 +158,7 @@ public class TasksPage extends GenericPage {
     addProjectOrTaskElement().click();
     projectTitleElement().setTextValue(projectName);
     addProjectParticipantInput(lastName);
-    saveButtonElement().click();
+    primaryButtonDrawerElement().click();
     waitForDrawerToClose();
   }
 
@@ -420,7 +420,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void clickOnConfirmButton() {
-    confirmButtonDrawerElement().click();
+    primaryButtonDrawerElement().click();
   }
 
   public void clickOnDeleteStatusIcon() {
@@ -572,7 +572,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void clickSaveProjectButton() {
-    saveButtonElement().click();
+    primaryButtonDrawerElement().click();
     waitForDrawerToClose();
   }
 
@@ -650,11 +650,11 @@ public class TasksPage extends GenericPage {
   }
 
   public void confirmFilter() {
-    confirmFilterButtonElement().click();
+    primaryButtonDrawerElement().click();
   }
 
   public void confirmFilterButtonIsDisplayed() {
-    confirmFilterButtonElement().assertVisible();
+    primaryButtonDrawerElement().assertVisible();
   }
 
   public void deleteProject(String projectName) {
@@ -698,7 +698,7 @@ public class TasksPage extends GenericPage {
     projectThreeDotsButtonElement().click();
     editProjectButtonElement().click();
     projectTitleElement().setTextValue(projectName);
-    saveButtonElement().click();
+    primaryButtonDrawerElement().click();
   }
 
   public void editProjectNameWithDescription(String projectName, String newProjectName, String newDescription) {
@@ -719,7 +719,7 @@ public class TasksPage extends GenericPage {
       getDriver().switchTo().defaultContent();
     }
 
-    saveButtonElement().click();
+    primaryButtonDrawerElement().click();
   }
 
   public void editSpaceName(String spaceName) {
@@ -985,12 +985,11 @@ public class TasksPage extends GenericPage {
   }
 
   public void saveAddingProject() {
-    saveButtonElement().click();
+    primaryButtonDrawerElement().click();
   }
 
   public void saveAddTaskButton() {
-    saveButtonElement().click();
-    waitForDrawerToClose();
+    primaryButtonDrawerElement().click();
   }
 
   public void saveQuickTask() {
@@ -1331,12 +1330,8 @@ public class TasksPage extends GenericPage {
     return findTextBoxByXPathOrCSS(")]");
   }
 
-  private ElementFacade confirmButtonDrawerElement() {
-    return findByXPathOrCSS("//*[@class='btn btn-primary v-btn v-btn--contained theme--light v-size--default']");
-  }
-
-  private ElementFacade confirmFilterButtonElement() {
-    return findByXPathOrCSS("//*[contains(@class,'filterSortTasksDrawer')]//following::*[contains(text(),'Confirm')]");
+  private ElementFacade primaryButtonDrawerElement() {
+    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'drawerFooter')]//*[contains(@class, 'btn-primary')]");
   }
 
   private ElementFacade deleteButtonElement() {
@@ -1697,10 +1692,6 @@ public class TasksPage extends GenericPage {
 
   private ElementFacade resetFilterButtonElement() {
     return findByXPathOrCSS("//*[contains(@class,'filterSortTasksDrawer')]//following::*[contains(text(),'Reset')]");
-  }
-
-  private ElementFacade saveButtonElement() {
-    return findByXPathOrCSS("//*[@class='d-flex']//button[2]");
   }
 
   private ElementFacade saveButtonTaskElement() {

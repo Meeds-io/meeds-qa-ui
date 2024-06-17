@@ -435,7 +435,8 @@ Feature: Achievements
     And I publish the activity
     Then the activity 'Activity with comment to cancel' is displayed in activity stream
     When I add in activity 'Activity with comment to cancel' a comment 'comment to delete'
-    And In activity 'Activity with comment to cancel', I click on the comment 'comment to delete' three dots icon
+    And I open in activity 'Activity with comment to cancel' the Comments drawer
+    And I click on the comment 'comment to delete' three dots icon from comments drawer
     And In comment 'comment to delete', I click on delete button
     And I click on Yes button
     Then the confirmation popup is not displayed
