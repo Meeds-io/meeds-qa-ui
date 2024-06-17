@@ -61,7 +61,21 @@ public class RulePage extends GenericPage {
     if (StringUtils.isNotBlank(description)) {
       setActionDescription(description);
     }
+
+    if (newRule) {
+      if (manual) {
+        manualChoiceButton().click();
+      } else {
+        automaticChoiceButton().click();
+      }
+    }
+
     clickOnNextButton();
+
+    if (StringUtils.isNotBlank(points)) {
+      setActionPoints(points);
+    }
+
     if (changeDates) {
       selectDurationChoice();
       setActionEndDate();
