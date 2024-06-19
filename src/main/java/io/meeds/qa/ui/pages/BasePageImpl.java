@@ -190,11 +190,11 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   private ElementFacade drawerCloseIcon() {
-    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'drawerIcons')]//*[contains(@class, 'close') or contains(@class, 'times')][last()]");
+    return findByXPathOrCSS("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'drawerIcons')]//*[contains(@class, 'close') or contains(@class, 'times')])[last()]");
   }
 
   private ElementFacade dialogCloseIcon() {
-    return findByXPathOrCSS("//*[contains(@class, 'v-dialog--active')]//*[contains(@class, 'close') or contains(@class, 'times')][last()]");
+    return findByXPathOrCSS("(//*[contains(@class, 'v-dialog--active')]//*[contains(@class, 'close') or contains(@class, 'times')])[last()]");
   }
 
   public void closeDrawerIfDisplayed() {

@@ -411,13 +411,14 @@ Feature: Tasks
     When I click on plus Button To Add Task
     And I enter title for task 'Task001'
     And I click on save Button To Add Task
+    And I close the notification
     And I open the task 'Task001'
     And I check the timestamp update just below Task title Last Update
     When I hover on the Changes timestamp
     Then I check a tooltip is displayed Click to view all changes
     When I click on the timestamp
     Then I check that a new second level drawer Changes is opened
-    And I switch to TASKS tab
+    And I close the opened drawer
     And I check the timestamp update just below Task title Last Update
     When I hover on the Changes timestamp
     Then I check a tooltip is displayed Click to view all changes
