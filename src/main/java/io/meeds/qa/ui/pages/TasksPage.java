@@ -283,8 +283,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void checkThatSecondLevelDrawerChangesIsOpened() {
-    String checkChangesDrawerText = checkChangesDrawerElement().getText();
-    assertEquals("Changes", checkChangesDrawerText);
+    checkChangesDrawerElement().assertVisible();
   }
 
   public void checkThatTasksAreGroupedByAssignee() {
@@ -1252,7 +1251,7 @@ public class TasksPage extends GenericPage {
   }
 
   private ElementFacade checkChangesDrawerElement() {
-    return findByXPathOrCSS("//*[@class='ps-2' and text()='Changes']");
+    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'drawerTitle') and contains(text(), 'Changes')]");
   }
 
   private ElementFacade ckEditorFrameDescriptionElement() {

@@ -241,6 +241,11 @@ public class GenericStepDefinitions {
     genericSteps.closeDrawerIfDisplayed();
   }
 
+  @Then("I close all opened drawer")
+  public void closeAllDrawerIfDisplayed() {
+    genericSteps.closeAllDrawers();
+  }
+
   @Then("I expand the drawer")
   public void expandDrawer() {
     genericSteps.expandDrawer();
