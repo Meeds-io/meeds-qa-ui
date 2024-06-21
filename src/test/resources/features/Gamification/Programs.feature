@@ -96,25 +96,28 @@ Feature: Programs
     And I click on 'Add action' button
     And I wait for drawer to open
     When I enter the rule title 'Program Translation Action'
+    Then The 'first' translations button is not primary
 
-    And I open translations drawer for the 'first' input
+    When  I open translations drawer for the 'first' input
     And I add the following 'field' translations
       | fr | French Action Title |
     And I click on 'Apply' button in second level drawer
     Then The 'first' translations button is primary
-    And The 'second' translations button is not primary
 
-    When I add rule random description
-    And I open translations drawer for the 'second' input
+    When I select a 'Let them submit their contribution' application
+    And I click on 'Start' button in drawer
+    And I add rule random description
+    Then The 'second' translations button is not primary
+
+    When I open translations drawer for the 'second' input
     And I add the following 'rich editor' translations
       | fr | French Action Description |
     And I click on 'Apply' button in second level drawer
-    Then The 'first' translations button is primary
-    And The 'second' translations button is primary
-
-    When I click on 'Manually' button in drawer
+    Then The 'second' translations button is primary
     And I click on 'Next' button in drawer
     And I set rule end date
+    And I click on 'Next' button in drawer
+    And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
     And I click on 'Activate the program' button
