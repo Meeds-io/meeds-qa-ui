@@ -159,10 +159,13 @@ Feature: Programs
     And I click on 'Add action' button
     And I wait for drawer to open
     When I enter the rule title 'Program With Image Action'
+    And I select a 'Let them submit their contribution' application
+    And I click on 'Start' button in drawer
     When I add rule random description
-    When I click on 'Manually' button in drawer
     And I click on 'Next' button in drawer
     And I set rule end date
+    And I click on 'Next' button in drawer
+    And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
     And I close the notification
 
@@ -216,10 +219,13 @@ Feature: Programs
     And I click on 'Add action' button
     And I wait for drawer to open
     When I enter the rule title 'Internal users action'
+    And I select a 'Let them submit their contribution' application
+    And I click on 'Start' button in drawer
     When I add rule random description
-    When I click on 'Manually' button in drawer
     And I click on 'Next' button in drawer
     And I set rule end date
+    And I click on 'Next' button in drawer
+    And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
     Then Success message is displayed
@@ -284,15 +290,17 @@ Feature: Programs
 
     And I click on 'Add action' button
     And I wait for drawer to open
-    Then The button 'Next' is disabled
+    Then The button 'Start' is disabled
     When I enter the rule title 'Program activation test'
-    Then The button 'Next' is disabled
-    When I add rule random description
-    Then The button 'Next' is disabled
-    When I click on 'Manually' button in drawer
+    And I select a 'Let them submit their contribution' application
+    Then The button 'Start' is enabled
+    When I click on 'Start' button in drawer
+    And I add rule random description
+    And I click on 'Next' button in drawer
+    And I set rule end date
+    And I click on 'Next' button in drawer
     And I click on 'Next' button in drawer
     Then The button 'Add' is enabled
-    And I set rule end date
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
@@ -305,7 +313,10 @@ Feature: Programs
     And I close the notification
 
     When I edit program action 'Program activation test'
+    And I click on 'Start' button in drawer
     And I set rule as disabled
+    And I click on 'Next' button in drawer
+    And I click on 'Next' button in drawer
     And I click on 'Next' button in drawer
     And I click on 'Update' button in drawer
 
@@ -317,7 +328,10 @@ Feature: Programs
 
     When I filter program actions by value 'ALL'
     And I edit program action 'Program activation test'
+    When I click on 'Start' button in drawer
     And I set rule as enabled
+    And I click on 'Next' button in drawer
+    And I click on 'Next' button in drawer
     And I click on 'Next' button in drawer
     And I click on 'Update' button in drawer
 
