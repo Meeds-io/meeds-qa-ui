@@ -168,14 +168,17 @@ Feature: Attach images activities
     And I wait for drawer to open
 
     When I enter the rule title 'Announce an action with attached image'
-    Then The button 'Next' is disabled in drawer
+    Then The button 'Start' is disabled in drawer
 
+    When I select a 'Let them submit their contribution' application
+    Then The button 'Start' is enabled in drawer
+
+    When I click on 'Start' button in drawer
     And I add rule random description
-    Then The button 'Next' is disabled in drawer
-
-    When I click on 'Manually' button in drawer
     And I click on 'Next' button in drawer
     And I set rule end date
+    And I click on 'Next' button in drawer
+    And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
@@ -192,6 +195,9 @@ Feature: Attach images activities
     When I go to 'programs' in site 'contribute'
     And I open random program card
     And I edit program action 'Announce an action with attached image'
+    And I click on 'Start' button in drawer
+    And I click on 'Next' button in drawer
+    And I click on 'Next' button in drawer
     And I click on 'Next' button in drawer
     And I enable rule publication
     And I set rule publication message 'Action publication message'

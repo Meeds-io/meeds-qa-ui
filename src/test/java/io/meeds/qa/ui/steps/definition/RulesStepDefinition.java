@@ -44,9 +44,14 @@ public class RulesStepDefinition {
     rulesSteps.enterRuleTitle(ruleTitle);
   }
 
-  @And("^I select a '(.*)' event '(.*)'")
-  public void addRuleEvent(String applicationName, String triggerName) {
-    rulesSteps.addRuleEvent(applicationName, triggerName);
+  @And("^I select a '(.*)' application")
+  public void selectActionApplication(String applicationLabel) {
+    rulesSteps.selectActionApplication(applicationLabel);
+  }
+
+  @And("^I select a '(.*)' event")
+  public void addRuleEvent(String triggerName) {
+    rulesSteps.addRuleEvent(triggerName);
   }
 
   @And("I set rule end date")
