@@ -49,29 +49,28 @@ public class RulePage extends GenericPage {
     if (StringUtils.isNotBlank(title)) {
       setActionTitle(title);
     }
+    if (newRule) {
+      if (manual) {
+        applicationElement("Let them submit their contribution").click();
+      } else {
+        applicationElement("Boost Collaboration").click();
+      }
+    }
+    clickOnStartButton();
+
     if (StringUtils.isNotBlank(description)) {
       setActionDescription(description);
     }
-
-    if (newRule) {
-      if (manual) {
-        manualChoiceButton().click();
-      } else {
-        automaticChoiceButton().click();
-      }
-    }
-
     clickOnNextButton();
-
-    if (StringUtils.isNotBlank(points)) {
-      setActionPoints(points);
-    }
-
     if (changeDates) {
       selectDurationChoice();
       setActionEndDate();
     }
-
+    clickOnNextButton();
+    if (StringUtils.isNotBlank(points)) {
+      setActionPoints(points);
+    }
+    clickOnNextButton();
     clickOnSaveButton(newRule);
     waitForDrawerToClose();
   }
@@ -104,13 +103,11 @@ public class RulePage extends GenericPage {
     actionPointsTextbox().setTextValue(challengePoints);
   }
 
-  public void setActionEvent(String applicationName, String triggerName) {
-    ElementFacade applicationSelectAutoComplete = applicationSelectAutoComplete();
-    applicationSelectAutoComplete.click();
-    applicationSelectAutoComplete.type(applicationName);
-    applicationSelectAutoComplete.type(Keys.ARROW_DOWN);
-    applicationSelectAutoComplete.type(Keys.ENTER);
+  public void selectActionApplication(String applicationLabel) {
+    applicationElement(applicationLabel).click();
+  }
 
+  public void setActionEvent(String triggerName) {
     ElementFacade triggerSelectAutoComplete = triggerSelectAutoComplete();
     triggerSelectAutoComplete.click();
     triggerSelectAutoComplete.type(triggerName);
@@ -132,6 +129,9 @@ public class RulePage extends GenericPage {
     }
     randomDateCalenderElement().click();
     waitForMenuToClose();
+  }
+  public void clickOnStartButton() {
+    startButton().click();
   }
 
   public void clickOnNextButton() {
@@ -223,12 +223,8 @@ public class RulePage extends GenericPage {
     return findByXPathOrCSS("//*[contains(text(),'Duration')]//ancestor-or-self::*[contains(@class, 'v-chip--clickable') and contains(@class, 'primary')]");
   }
 
-  private ElementFacade manualChoiceButton() {
-    return findByXPathOrCSS("//*[contains(text(),'Manual')]//ancestor-or-self::button");
-  }
-
-  private ElementFacade automaticChoiceButton() {
-    return findByXPathOrCSS("//*[contains(text(),'Automatic')]//ancestor-or-self::button");
+  private ElementFacade startButton() {
+    return findByXPathOrCSS("//*[contains(text(),'Start')]//ancestor-or-self::button");
   }
 
   private ElementFacade nextStepButton() {
@@ -254,10 +250,6 @@ public class RulePage extends GenericPage {
 
   private ElementFacade triggerSelectAutoComplete() {
     return findByXPathOrCSS("#triggerAutoComplete");
-  }
-
-  private ElementFacade applicationSelectAutoComplete() {
-    return findByXPathOrCSS("#applicationAutoComplete");
   }
 
   private ElementFacade triggerSelectedAutoComplete(String eventName) {
@@ -308,6 +300,10 @@ public class RulePage extends GenericPage {
 
   public ElementFacade clearSearchBtnElement() {
     return findByXPathOrCSS("//button[contains(@class, 'fa-times')]");
+  }
+
+  private ElementFacade applicationElement(String applicationLabel) {
+    return findByXPathOrCSS(String.format("//*[@class='border-color-grey border-radius my-2 ps-3 v-list-item v-list-item--dense v-list-item--link theme--light']//*[@class='v-list-item__title' and contains(text(),'%s')]", applicationLabel));
   }
 
 }
