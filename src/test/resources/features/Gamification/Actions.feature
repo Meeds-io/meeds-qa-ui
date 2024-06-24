@@ -17,20 +17,22 @@ Feature: Actions
     And I click on 'Add action' button
     And I wait for drawer to open
 
-    Then The button 'Next' is disabled in drawer
+    Then The button 'Start' is disabled in drawer
 
     When I enter the rule title 'Challenge to announce'
-    Then The button 'Next' is disabled in drawer
+    And I select a 'Let them submit their contribution' application
+    Then The button 'Start' is enabled in drawer
 
+    When I click on 'Start' button in drawer
     And I add rule random description
-    Then The button 'Next' is disabled in drawer
-
-    When I click on 'Manually' button in drawer
+    Then The button 'Next' is enabled in drawer
     And I click on 'Next' button in drawer
 
     Then The button 'Duration' is not displayed in drawer
 
     When I set rule end date
+    And I click on 'Next' button in drawer
+    And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
@@ -67,8 +69,11 @@ Feature: Actions
     When I go to 'programs' in site 'contribute'
     And I open random program card
     And I edit program action 'Challenge to announce'
+    And I click on 'Start' button in drawer
     And I click on 'Next' button in drawer
     And I delete rule duration
+    And I click on 'Next' button in drawer
+    And I click on 'Next' button in drawer
     And I click on 'Update' button in drawer
     And I close the notification
 
@@ -92,14 +97,17 @@ Feature: Actions
     And I wait for drawer to open
 
     When I enter the rule title 'Challenge to disable'
-    Then The button 'Next' is disabled in drawer
+    And I select a 'Let them submit their contribution' application
+    Then The button 'Start' is enabled in drawer
 
+    When I click on 'Start' button in drawer
     And I add rule random description
-    Then The button 'Next' is disabled in drawer
+    Then The button 'Next' is enabled in drawer
 
-    When I click on 'Manually' button in drawer
     And I click on 'Next' button in drawer
     And I set rule end date
+    And I click on 'Next' button in drawer
+    And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
@@ -120,14 +128,17 @@ Feature: Actions
     And I wait for drawer to open
 
     When I enter the rule title 'Announce an action from its activity'
-    Then The button 'Next' is disabled in drawer
+    And I select a 'Let them submit their contribution' application
+    Then The button 'Start' is enabled in drawer
 
+    And I click on 'Start' button in drawer
     And I add rule random description
-    Then The button 'Next' is disabled in drawer
+    Then The button 'Next' is enabled in drawer
 
-    When I click on 'Manually' button in drawer
     And I click on 'Next' button in drawer
     And I set rule end date
+    And I click on 'Next' button in drawer
+    And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
@@ -144,6 +155,9 @@ Feature: Actions
     When I go to 'programs' in site 'contribute'
     And I open random program card
     And I edit program action 'Announce an action from its activity'
+    And I click on 'Start' button in drawer
+    And I click on 'Next' button in drawer
+    And I click on 'Next' button in drawer
     And I click on 'Next' button in drawer
     And I enable rule publication
     And I set rule publication message 'Action publication message'
@@ -217,10 +231,13 @@ Feature: Actions
     And I wait for drawer to open
 
     When I enter the rule title 'Action with second activity'
+    And I select a 'Let them submit their contribution' application
+    And I click on 'Start' button in drawer
     And I add rule random description
-    When I click on 'Manually' button in drawer
     And I click on 'Next' button in drawer
     And I set rule end date
+    And I click on 'Next' button in drawer
+    And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
@@ -246,14 +263,19 @@ Feature: Actions
     And I wait for drawer to open
 
     When I enter the rule title 'Challenge to disable'
-    Then The button 'Next' is disabled in drawer
+    Then The button 'Start' is disabled in drawer
 
+    When I select a 'Let them submit their contribution' application
+    Then The button 'Start' is enabled in drawer
+
+    When I click on 'Start' button in drawer
     And I add rule random description
-    Then The button 'Next' is disabled in drawer
+    Then The button 'Next' is enabled in drawer
 
-    When I click on 'Manually' button in drawer
-    And I click on 'Next' button in drawer
+    When I click on 'Next' button in drawer
     And I set rule end date
+    And I click on 'Next' button in drawer
+    And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
@@ -266,7 +288,10 @@ Feature: Actions
     When I close the notification
 
     When I edit program action 'Challenge to disable'
+    When I click on 'Start' button in drawer
     And I set rule as disabled
+    And I click on 'Next' button in drawer
+    And I click on 'Next' button in drawer
     And I click on 'Next' button in drawer
     And I click on 'Update' button in drawer
 
@@ -296,10 +321,15 @@ Feature: Actions
     And I click on 'Add action' button
     And I wait for drawer to open
     And I enter the rule title 'Announce activity to delete'
+    And I select a 'Let them submit their contribution' application
+    Then The button 'Start' is enabled in drawer
+
+    When I click on 'Start' button in drawer
     And I add rule random description
-    And I click on 'Manually' button in drawer
     And I click on 'Next' button in drawer
     And I set rule end date
+    And I click on 'Next' button in drawer
+    And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
@@ -350,10 +380,15 @@ Feature: Actions
     And I click on 'Add action' button
     And I wait for drawer to open
     And I enter the rule title 'Top challenge'
+    And I select a 'Let them submit their contribution' application
+    Then The button 'Start' is enabled in drawer
+
+    When I click on 'Start' button in drawer
     And I add rule random description
-    And I click on 'Manually' button in drawer
     And I click on 'Next' button in drawer
     And I set rule end date
+    And I click on 'Next' button in drawer
+    And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully created'
