@@ -16,10 +16,12 @@ Feature: Rules
     And I click on 'Add action' button
     And I wait for drawer to open
     And I enter the rule title 'Receive kudos'
+    And I select a 'Boost Collaboration' application
+    And I click on 'Start' button in drawer
     And I add rule random description
-    And I click on 'Automatic' button in drawer
+    And I select a 'Receive kudos' event
     And I click on 'Next' button in drawer
-    And I select a 'meeds' event 'Receive kudos'
+    And I click on 'Next' button in drawer
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -63,10 +65,12 @@ Feature: Rules
     And I click on 'Add Action' button
     And I wait for drawer to open
     And I enter the rule title 'Join space'
+    And I select a 'Boost Collaboration' application
+    And I click on 'Start' button in drawer
     And I add rule random description
-    And I click on 'Automatic' button in drawer
+    And I select a 'Join space' event
     And I click on 'Next' button in drawer
-    And I select a 'meeds' event 'Join space'
+    And I click on 'Next' button in drawer
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -102,10 +106,12 @@ Feature: Rules
     When I click on 'Add Action' button
     And I wait for drawer to open
     And I enter the rule title 'Join space'
+    And I select a 'Boost Collaboration' application
+    And I click on 'Start' button in drawer
     And I add rule random description
-    And I click on 'Automatic' button in drawer
+    And I select a 'Join space' event
     And I click on 'Next' button in drawer
-    And I select a 'meeds' event 'Join space'
+    And I click on 'Next' button in drawer
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
