@@ -84,7 +84,7 @@ public class SpaceHomeSteps {
   }
 
   public void checkCommentReplyDisplayedInDrawer(String activity, String comment, String reply) {
-    spaceHomePage.checkCommentReplyDisplayedInDrawer(activity, comment, reply);
+    spaceHomePage.checkCommentReplyDisplayed(activity, comment, reply);
   }
 
   public void checkCommentReplyNotDisplayed(String activity, String comment, String reply) {
