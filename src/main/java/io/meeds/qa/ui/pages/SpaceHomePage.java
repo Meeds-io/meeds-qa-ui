@@ -1538,17 +1538,17 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private ElementFacade getAttachedImagesActivity(String activity) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@class,'activity-detail')]//*[contains(@class, 'attachments-image-item')]",
+    return findByXPathOrCSS(String.format("(//*[contains(text(),'%s')]//ancestor::*[contains(@class,'activity-detail')])[1]//*[contains(@class, 'attachments-image-item')]",
                                           activity));
   }
 
   private ElementFacade getSecondAttachedImageActivity(String activity) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@class,'activity-detail')]//*[contains(@class,'contentBox')][1]//*[contains(@class, 'attachments-image-item')][2]",
+    return findByXPathOrCSS(String.format("(//*[contains(text(),'%s')]//ancestor::*[contains(@class,'activity-detail')])[1]//*[contains(@class, 'attachments-image-item')][2]",
                                           activity));
   }
 
   private ElementFacade getAttachedImagesKudosComment(String comment) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@class,'activity-comment')]//*[contains(@id,'ActivityCommment_comment')][1]//*[contains(@id,'Extcomment-content-extensions')]//*[contains(@class, 'attachments-image-item')][1]",
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@class,'activity-comment') and contains(@id,'ActivityCommment_comment')][1]//*[contains(@id,'Extcomment-content-extensions')]//*[contains(@class, 'attachments-image-item')][1]",
                                           comment));
   }
 
@@ -1579,23 +1579,23 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private ElementFacade getAttachedImageCropDrawer() {
-    return findByXPathOrCSS("//*[@id = 'cropperDrawer']");
+    return findByXPathOrCSS("//*[@id = 'cropperDrawer' and contains(@class, 'v-navigation-drawer--open')]");
   }
 
   private ElementFacade getAttachedImageCropDrawerBlurredZone() {
-    return findByXPathOrCSS("//*[@id = 'cropperDrawer']//*[contains(@class, 'filter-blur-3')]");
+    return findByXPathOrCSS("//*[@id = 'cropperDrawer' and contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'filter-blur-3')]");
   }
 
   private ElementFacade getAttachedImageCropDrawerZoomBtn() {
-    return findByXPathOrCSS("//*[@id = 'cropperDrawer']//*[@id = 'zoomImageIn']");
+    return findByXPathOrCSS("//*[@id = 'cropperDrawer' and contains(@class, 'v-navigation-drawer--open')]//*[@id = 'zoomImageIn']");
   }
 
   private ElementFacade getAttachedImageCropDrawerCancekBtn() {
-    return findByXPathOrCSS("//*[@id = 'cropperDrawer']//*[@id = 'cancelChanges']");
+    return findByXPathOrCSS("//*[@id = 'cropperDrawer' and contains(@class, 'v-navigation-drawer--open')]//*[@id = 'cancelChanges']");
   }
 
   private ElementFacade getAttachedImageCropDrawerUpdateBtn() {
-    return findByXPathOrCSS("//*[@id = 'cropperDrawer']//*[@id = 'imageCropDrawerApply']");
+    return findByXPathOrCSS("//*[@id = 'cropperDrawer' and contains(@class, 'v-navigation-drawer--open')]//*[@id = 'imageCropDrawerApply']");
   }
 
   private ElementFacade getActivityAttachedImage() {
