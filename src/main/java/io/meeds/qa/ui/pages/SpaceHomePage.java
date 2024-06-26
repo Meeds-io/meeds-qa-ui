@@ -26,7 +26,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -269,16 +268,12 @@ public class SpaceHomePage extends GenericPage {
 
   public void checkCommentReplyDisplayed(String activity, String comment, String reply) {
     checkCommentDrawerOpened(activity);
-    getReplyBox(comment, reply, false).assertVisible();
-  }
-
-  public void checkCommentReplyDisplayedInDrawer(String activity, String comment, String reply) {
-    checkCommentDrawerOpened(activity);
-    getReplyBox(comment, reply, true).assertVisible();
+    getReplyBox(comment, reply).assertVisible();
   }
 
   public void checkCommentReplyNotDisplayed(String activity, String comment, String reply) {
-    getReplyBox(comment, reply, StringUtils.isBlank(activity)).assertNotVisible();
+    checkCommentDrawerOpened(activity);
+    getReplyBox(comment, reply).assertNotVisible();
   }
 
   public void checkConfirmationPopupNotVisible() {
@@ -889,15 +884,14 @@ public class SpaceHomePage extends GenericPage {
 
   public void promoteSpaceMemberAsManager(String name) {
     searchMember(name);
-    findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@id, 'peopleCardItem')]",name)).hover();
+    findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@id, 'peopleCardItem')]", name)).hover();
 
     ElementFacade threeDots =
                             findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@id, 'peopleCardItem')]//*[contains(@class, 'fa-ellipsis-v')]//ancestor::button",
                                                            name));
     threeDots.click();
     ElementFacade promoteAsAdminButton =
-                                       findByXPathOrCSS(String.format("//*[contains(@class, 'fa-user-cog')]//ancestor::*[contains(@role, 'menuitem')]",
-                                                                      name));
+                                       findByXPathOrCSS("//*[contains(@class, 'fa-user-cog')]//ancestor::*[contains(@role, 'menuitem')]");
     promoteAsAdminButton.click();
   }
 
@@ -1023,11 +1017,11 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void replyIsDisplayedInCommentsDrawer(String comment, String reply) {
-    getReplyBox(comment, reply, true).assertVisible();
+    getReplyBox(comment, reply).assertVisible();
   }
 
   public void replyIsNotDisplayedInCommentsDrawer(String comment, String reply) {
-    getReplyBox(comment, reply, true).assertNotVisible();
+    getReplyBox(comment, reply).assertNotVisible();
   }
 
   public void searchMember(String name) {
@@ -1549,11 +1543,13 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private ElementFacade getSecondAttachedImageActivity(String activity) {
-    return findByXPathOrCSS("//*[contains(@class, 'activityStream')]//*[contains(@class,'contentBox')][1]//*[contains(@class, 'attachments-image-item')][2]");
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@class,'activity-detail')]//*[contains(@class,'contentBox')][1]//*[contains(@class, 'attachments-image-item')][2]",
+                                          activity));
   }
 
   private ElementFacade getAttachedImagesKudosComment(String comment) {
-    return findByXPathOrCSS("//*[contains(@id,'ActivityCommment_comment')][1]//*[contains(@id,'Extcomment-content-extensions')]//*[contains(@class, 'attachments-image-item')][1]");
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@class,'activity-comment')]//*[contains(@id,'ActivityCommment_comment')][1]//*[contains(@id,'Extcomment-content-extensions')]//*[contains(@class, 'attachments-image-item')][1]",
+                                          comment));
   }
 
   private ElementFacade getPreviewAttachedImage() {
@@ -1629,13 +1625,10 @@ public class SpaceHomePage extends GenericPage {
                                           kudosNumber));
   }
 
-  private ElementFacade getReplyBox(String comment, String reply, boolean inDrawer) {
-    String parentXPath = inDrawer ? "//*[@id='activityCommentsDrawer']" : "//*[contains(@class,'activity-detail')]";
-    String replyXPath = parentXPath +
-        String.format("//*[contains(@class,'activity-comment')]//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@class,'activity-comment') and contains(@id, 'ActivityCommment_')]//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@class,'activity-comment') and contains(@id, 'ActivityCommment_')][1]",
-                      comment,
-                      reply);
-    return findByXPathOrCSS(replyXPath);
+  private ElementFacade getReplyBox(String comment, String reply) {
+    return findByXPathOrCSS(String.format("//*[@id='activityCommentsDrawer']//*[contains(@class,'activity-comment')]//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@class,'activity-comment') and contains(@id, 'ActivityCommment_')]//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@class,'activity-comment') and contains(@id, 'ActivityCommment_')][1]",
+                                          comment,
+                                          reply));
   }
 
   private ElementFacade getSharedVideoPreview(String link) {
