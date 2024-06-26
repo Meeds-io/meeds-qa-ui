@@ -144,28 +144,6 @@ public class LoginPage extends GenericPage implements IsHidden {
     registerLink().isNotVisible();
   }
 
-  private void goToLoginPage() {
-    try {
-      ElementFacade logOutMenuElement = logOutMenuElement();
-      if (logOutMenuElement.isCurrentlyVisible()) {
-        logOutMenuElement.click();
-      } else if (homePage.isHamburgerMenuPresent()) {
-        closeAllDrawers();
-        closeAllDialogs();
-        homePage.clickOnHamburgerMenu();
-        logOutMenuElement = logOutMenuElement();
-        logOutMenuElement.waitUntilVisible();
-        logOutMenuElement.hover();
-        clickOnElement(logOutMenuElement);
-      }
-    } catch (Exception e) {
-      LOGGER.warn("Error while logout. Try by deleting all cookies", e);
-      deleteCookies();
-    } finally {
-      openLoginPage();
-    }
-  }
-
   private void openLoginPageIfNotDisplayed() {
     String currentUrl = getCurrentUrl();
     if (StringUtils.isBlank(currentUrl)) {
@@ -226,10 +204,6 @@ public class LoginPage extends GenericPage implements IsHidden {
     lastLoggedInUser = null;
     closeAlertIfOpened();
     getDriver().manage().deleteCookieNamed(LAST_LOGGED_IN_USER_COOKIE_NAME);
-  }
-
-  private ElementFacade logOutMenuElement() {
-    return findByXPathOrCSS("//i[contains(@class,'fa-power-off')]");
   }
 
   private ElementFacade loginButtonElement() {
