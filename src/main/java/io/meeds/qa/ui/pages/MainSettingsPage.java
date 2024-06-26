@@ -177,15 +177,15 @@ public class MainSettingsPage extends GenericPage {
   }
 
   private ElementFacade brandingPrimaryColorInput() {
-    return findByXPathOrCSS("(//*[@id='generalSettings']//*[contains(text(), 'Theme colors')]/parent::*//*[contains(@class, 'v-card--link')])[1]");
+    return findByXPathOrCSS("((//*[@id='generalSettings']//*[contains(text(), 'Theme colors')]/ancestor::*[contains(@class, 'col')])[last()]//*[contains(@class, 'v-card--link')])[1]");
   }
 
   private ElementFacade brandingSecondaryColorInput() {
-    return findByXPathOrCSS("(//*[@id='generalSettings']//*[contains(text(), 'Theme colors')]/parent::*//*[contains(@class, 'v-card--link')])[2]");
+    return findByXPathOrCSS("((//*[@id='generalSettings']//*[contains(text(), 'Theme colors')]/ancestor::*[contains(@class, 'col')])[last()]//*[contains(@class, 'v-card--link')])[2]");
   }
 
   private ElementFacade brandingTerciaryColorInput() {
-    return findByXPathOrCSS("(//*[@id='generalSettings']//*[contains(text(), 'Theme colors')]/parent::*//*[contains(@class, 'v-card--link')])[3]");
+    return findByXPathOrCSS("((//*[@id='generalSettings']//*[contains(text(), 'Theme colors')]/ancestor::*[contains(@class, 'col')])[last()]//*[contains(@class, 'v-card--link')])[3]");
   }
 
   private ElementFacade cancelButton() {
