@@ -98,7 +98,7 @@ public class SettingsPage extends GenericPage {
 
   public void checkThatLanguageIsDisplayed(String language) {
     // Check that language is displayed
-    Assert.assertTrue(languageTextElement().getText().contains(language));
+    languageTextElement(language).assertVisible();
   }
 
   public void checkThatManageNotificationPageIsOpened() {
@@ -353,15 +353,16 @@ public class SettingsPage extends GenericPage {
   }
 
   private ElementFacade generalNotificationsSectionElement() {
-    return findByXPathOrCSS("(//*[@class='v-list-item__content pa-0'])[1]");
+    return findByXPathOrCSS("//*[contains(text(), 'Manage notifications')]//ancestor::*[contains(@class, 'application-body')]");
   }
 
   private ElementFacade generalNotificationsSelectMailSendingTypeElement() {
     return findByXPathOrCSS("//select[@name='EMAIL_DIGEST']");
   }
 
-  private ElementFacade languageTextElement() {
-    return findByXPathOrCSS("(//*[@class='v-list-item__subtitle text-sub-title text-capitalize font-italic'])[1]");
+  private ElementFacade languageTextElement(String language) {
+    return findByXPathOrCSS(String.format("//*[@id='UserSettingLanguage']//*[contains(text(), '%s')]",
+                                          language));
   }
 
   private ElementFacade manageNoticiationActivityStreamSectionElement() {
