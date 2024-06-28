@@ -413,4 +413,13 @@ public class PeoplePage extends GenericPage {
     return inputField;
   }
 
+  public TextBoxElementFacade insertSearchTerm(String term) {
+    clickOnApplicationFilterButton();
+    
+    TextBoxElementFacade inputField = searchPeopleInputElement();
+    inputField.checkVisible();
+    inputField.setTextValue(term + "x");
+    return inputField;
+  }
+
 }
