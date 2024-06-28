@@ -46,12 +46,14 @@ Feature: Kudos
     And I inject the second random user if not existing
 
     When I login as 'first' random user
+    And I go to People Page
+    Then The search result is well matched with the username entered of the second user
 
-    And I search for second user card
-    And I click on send kudos button and I send kudos with message 'Message for kudos - US51'
+    When I click on send kudos button and I send kudos with message 'Message for kudos - US51'
     And I go to Stream page
     Then the kudos activity UI 'Message for kudos - US51' is displayed in stream page
-    And I click on three dots menu click on the edit button
+
+    When I click on three dots menu click on the edit button
     And I set the new kudos 'updated Message for kudos - US51' and I click on update button
     Then the updated Kudos activity 'updated Message for kudos - US51' is displayed in stream page
 

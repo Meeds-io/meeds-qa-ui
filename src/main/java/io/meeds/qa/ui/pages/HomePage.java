@@ -149,7 +149,7 @@ public class HomePage extends GenericPage {
   }
 
   public void clickOnSpaceInvitationWidget() {
-    clickOnElement(spaceInvitaitationWidgetElement());
+    clickOnElement(spaceInvitationWidgetElement());
   }
 
   public void clickOnSpacesBagde() {
@@ -720,8 +720,8 @@ public class HomePage extends GenericPage {
     return findByXPathOrCSS("//*[contains(@class,'recentSpacesWrapper')]//*[contains(@class,'fa-arrow')]");
   }
 
-  private ElementFacade spaceInvitaitationWidgetElement() {
-    return findByXPathOrCSS("//*[@class='v-card v-card--flat v-sheet theme--light']//div[@class='headline text-color font-weight-bold pa-1']");
+  private ElementFacade spaceInvitationWidgetElement() {
+    return findByXPathOrCSS("//*[@id='profile-stats-spacesCount']//*[contains(@class, 'v-badge')]");
   }
 
   private ElementFacade spacesBadgeElement() {
