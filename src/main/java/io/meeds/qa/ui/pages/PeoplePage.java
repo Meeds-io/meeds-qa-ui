@@ -329,7 +329,7 @@ public class PeoplePage extends GenericPage {
   }
 
   private ElementFacade getUserProfileButton(String user) {
-    return findByXPathOrCSS(String.format("//p[contains(text(),'%s')]/ancestor::a[contains(@class,'socialUserCard')]", user));
+    return findByXPathOrCSS(String.format("//*[contains(@id, 'peopleCardItem')]//*[contains(text(), '%s')]", user));
   }
 
   private TextBoxElementFacade leaderboardTitleElement() {
@@ -365,11 +365,7 @@ public class PeoplePage extends GenericPage {
   }
 
   public boolean searchUser(String user) {
-    clickOnApplicationFilterButton();
-
-    TextBoxElementFacade inputField = searchPeopleInputElement();
-    inputField.checkVisible();
-    inputField.setTextValue(user + "x");
+    TextBoxElementFacade inputField = insertSearchTerm(user);
 
     boolean visible = false;
     int retry = 0;
@@ -379,7 +375,7 @@ public class PeoplePage extends GenericPage {
       inputField.sendKeys(Keys.BACK_SPACE);
       waitFor(300).milliseconds();
       waitForLoading();
-      userCard = getUserButton(user);
+      userCard = getUserProfileButton(user);
       userCard.setImplicitTimeout(retryWaitTime);
       visible = userCard.isVisible();
       if (visible) {
@@ -387,6 +383,15 @@ public class PeoplePage extends GenericPage {
       }
     } while (!visible && retry++ < MAX_WAIT_RETRIES); // NOSONAR
     return false;
+  }
+
+  public TextBoxElementFacade insertSearchTerm(String term) {
+    clickOnApplicationFilterButton();
+    
+    TextBoxElementFacade inputField = searchPeopleInputElement();
+    inputField.checkVisible();
+    inputField.setTextValue(term + "x");
+    return inputField;
   }
 
 }

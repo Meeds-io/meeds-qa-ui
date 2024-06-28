@@ -33,8 +33,6 @@ public class KudosPage extends GenericPage {
 
   private SpaceHomePage       spaceHomePage;
 
-  private PeoplePage          peoplePage;
-
   public KudosPage(WebDriver driver) {
     super(driver);
   }
@@ -120,10 +118,6 @@ public class KudosPage extends GenericPage {
 
   public void saveChange() {
     saveBtnElement().click();
-  }
-
-  public void searchForUsersByName(String fullName) {
-    peoplePage.searchUser(fullName);
   }
 
   public void selectType() {
@@ -256,7 +250,7 @@ public class KudosPage extends GenericPage {
   }
 
   private ElementFacade editButtonElement() {
-    return findByXPathOrCSS("//i[@class='v-icon notranslate dark-grey-color fa fa-edit theme--light']");
+    return findByXPathOrCSS("//*[contains(@class,'contentBox')]//*[contains(@class, 'v-menu')]//*[contains(@class,'fa-edit')]");
   }
 
   private ElementFacade editKudosCommentElement() {
