@@ -484,7 +484,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   private ElementFacade getSpaceNameInListOfSpace(String spaceName) {
-    return findByXPathOrCSS(String.format("//a[@title = '%s']", spaceName));
+    return findByXPathOrCSS(String.format("//a[contains(text(), '%s')]", spaceName));
   }
 
   private ElementFacade hiddenSectionElement() {
