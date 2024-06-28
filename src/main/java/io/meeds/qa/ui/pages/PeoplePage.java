@@ -367,7 +367,7 @@ public class PeoplePage extends GenericPage {
   private ElementFacade getUserProfileFullName(String user) {
     return findByXPathOrCSS(String.format("//a[contains(text(),'%s') and contains(@class,'userFullname')]", user));
   }
-
+  
   public boolean searchUser(String user) {
     TextBoxElementFacade inputField = insertSearchTerm(user);
 
@@ -395,6 +395,15 @@ public class PeoplePage extends GenericPage {
   public void checkThatTheSearchedUserProfileIsDisplayed(String user) {
     getUserProfileFullName(user).waitUntilVisible();
   }
+  public TextBoxElementFacade insertSearchTerm(String term) {
+    clickOnApplicationFilterButton();
+    
+    TextBoxElementFacade inputField = searchPeopleInputElement();
+    inputField.checkVisible();
+    inputField.setTextValue(term + "x");
+    return inputField;
+  }
+
   public TextBoxElementFacade insertSearchTerm(String term) {
     clickOnApplicationFilterButton();
     
