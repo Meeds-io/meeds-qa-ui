@@ -17,14 +17,12 @@
  */
 package io.meeds.qa.ui.steps;
 
-import static io.meeds.qa.ui.utils.Utils.*;
+import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 
-import io.meeds.qa.ui.pages.HomePage;
 import io.meeds.qa.ui.pages.KudosPage;
 import io.meeds.qa.ui.pages.SpaceHomePage;
 
 public class KudosSteps {
-  private HomePage                homePage;
 
   private KudosPage kudosPage;
 
@@ -80,12 +78,6 @@ public class KudosSteps {
 
   public void saveChanges() {
     kudosPage.saveChange();
-  }
-
-  public void searchUserCard(String user) {
-    refreshPage();
-    homePage.goToPeoplePage();
-    kudosPage.searchForUsersByName(user);
   }
 
   public void selectType() {

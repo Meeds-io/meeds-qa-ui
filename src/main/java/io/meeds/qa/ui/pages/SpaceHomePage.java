@@ -505,6 +505,8 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void clickUnpinActivityButton(String activity) {
+    getUnpinActivityIcon(activity).checkVisible();
+    waitFor(200).milliseconds();
     getUnpinActivityIcon(activity).click();
   }
 
@@ -1533,7 +1535,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private ElementFacade getPinActivityIcon(String activity) {
-    return findByXPathOrCSS(String.format("//*[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[contains(@class,'mdi mdi-pin')]",
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@class,'contentBox')]//*[contains(@class, 'v-menu')]//*[contains(@class,'fa-thumbtack')]",
                                           activity));
   }
 
@@ -1642,7 +1644,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private ElementFacade getUnpinActivityIcon(String activity) {
-    return findByXPathOrCSS(String.format("//*[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[contains(@class,'mdi-pin-off')]",
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@class,'contentBox')]//*[contains(@class, 'v-menu')]//*[contains(@class,'fa-thumbtack')]",
                                           activity));
   }
 

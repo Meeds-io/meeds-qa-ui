@@ -111,20 +111,6 @@ public class KudosStepDefinitions {
   public void saveChanges() {
     kudoSteps.saveChanges();
   }
-  
-  @And("I search for second user card")
-  public void searchSecondUserCard() {
-    String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
-    String secondUserLastName = Serenity.sessionVariableCalled("secondUserLastName");
-
-    String fullName = secondUserFirstName + " " + secondUserLastName;
-    kudoSteps.searchUserCard(fullName);
-  }
-
-  @And("I search for '{}' card")
-  public void searchUserCard(String user) {
-    kudoSteps.searchUserCard(user);
-  }
 
   @And("I select type period per semester")
   public void selectType() {
