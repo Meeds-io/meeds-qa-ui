@@ -353,7 +353,7 @@ public class SettingsPage extends GenericPage {
   }
 
   private ElementFacade generalNotificationsSectionElement() {
-    return findByXPathOrCSS("(//*[@class='v-list-item__content pa-0'])[1]");
+    return findByXPathOrCSS("//*[contains(text(), 'Manage notifications')]//ancestor::*[contains(@class, 'application-body')]");
   }
 
   private ElementFacade generalNotificationsSelectMailSendingTypeElement() {
@@ -361,7 +361,7 @@ public class SettingsPage extends GenericPage {
   }
 
   private ElementFacade languageTextElement() {
-    return findByXPathOrCSS("(//*[@class='v-list-item__subtitle text-sub-title text-capitalize font-italic'])[1]");
+    return findByXPathOrCSS("//*[contains(text(), 'Language')]//ancestor::*[contains(@class, 'application-body')]//button");
   }
 
   private ElementFacade manageNoticiationActivityStreamSectionElement() {

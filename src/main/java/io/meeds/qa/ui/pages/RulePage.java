@@ -303,7 +303,7 @@ public class RulePage extends GenericPage {
   }
 
   private ElementFacade applicationElement(String applicationLabel) {
-    return findByXPathOrCSS(String.format("//*[@class='border-color-grey border-radius my-2 ps-3 v-list-item v-list-item--dense v-list-item--link theme--light']//*[@class='v-list-item__title' and contains(text(),'%s')]", applicationLabel));
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'v-list-item')]//*[contains(text(), '%s')]", applicationLabel));
   }
 
 }
