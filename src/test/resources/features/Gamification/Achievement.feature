@@ -22,6 +22,7 @@ Feature: Achievements
     And I select a 'Send kudos' event
     And I click on 'Next' button in drawer
     And I click on 'Next' button in drawer
+    And I select 'Accepted' as default contribution status
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -38,6 +39,7 @@ Feature: Achievements
     And I select a 'Receive kudos' event
     And I click on 'Next' button in drawer
     And I click on 'Next' button in drawer
+    And I select 'Accepted' as default contribution status
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -102,6 +104,7 @@ Feature: Achievements
     And I select a 'Send kudos' event
     And I click on 'Next' button in drawer
     And I click on 'Next' button in drawer
+    And I select 'Accepted' as default contribution status
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -118,6 +121,7 @@ Feature: Achievements
     And I select a 'Receive kudos' event
     And I click on 'Next' button in drawer
     And I click on 'Next' button in drawer
+    And I select 'Accepted' as default contribution status
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -179,6 +183,7 @@ Feature: Achievements
     Then The button 'Duration' is not displayed in drawer
 
     And I click on 'Next' button in drawer
+    And I select 'Accepted' as default contribution status
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -263,6 +268,7 @@ Feature: Achievements
     And I select a 'Join space' event
     And I click on 'Next' button in drawer
     And I click on 'Next' button in drawer
+    And I select 'Accepted' as default contribution status
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
     And I close the notification
@@ -372,6 +378,7 @@ Feature: Achievements
     And I select a 'Add a Post' event
     And I click on 'Next' button in drawer
     And I click on 'Next' button in drawer
+    And I select 'Accepted' as default contribution status
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -420,6 +427,7 @@ Feature: Achievements
     And I select a 'Comment a Post' event
     And I click on 'Next' button in drawer
     And I click on 'Next' button in drawer
+    And I select 'Accepted' as default contribution status
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -436,6 +444,7 @@ Feature: Achievements
     And I select a 'Receive a Comment' event
     And I click on 'Next' button in drawer
     And I click on 'Next' button in drawer
+    And I select 'Accepted' as default contribution status
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -489,6 +498,7 @@ Feature: Achievements
     And I select a 'Like a Post' event
     And I click on 'Next' button in drawer
     And I click on 'Next' button in drawer
+    And I select 'Accepted' as default contribution status
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -505,6 +515,7 @@ Feature: Achievements
     And I select a 'Receive a Like' event
     And I click on 'Next' button in drawer
     And I click on 'Next' button in drawer
+    And I select 'Accepted' as default contribution status
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -559,6 +570,7 @@ Feature: Achievements
     And I select a 'Like a Comment' event
     And I click on 'Next' button in drawer
     And I click on 'Next' button in drawer
+    And I select 'Accepted' as default contribution status
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -575,6 +587,7 @@ Feature: Achievements
     And I select a 'Receive a Like on a Comment' event
     And I click on 'Next' button in drawer
     And I click on 'Next' button in drawer
+    And I select 'Accepted' as default contribution status
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
@@ -631,6 +644,7 @@ Feature: Achievements
     And I select a 'Join space' event
     And I click on 'Next' button in drawer
     And I click on 'Next' button in drawer
+    And I select 'Accepted' as default contribution status
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 

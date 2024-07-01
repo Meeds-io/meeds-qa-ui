@@ -317,10 +317,10 @@ Feature: Programs
 
     When I edit program action 'Program activation test'
     And I click on 'Start' button in drawer
+    And I click on 'Next' button in drawer
+    And I click on 'Next' button in drawer
+    And I click on 'Next' button in drawer
     And I set rule as disabled
-    And I click on 'Next' button in drawer
-    And I click on 'Next' button in drawer
-    And I click on 'Next' button in drawer
     And I click on 'Update' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully updated'
@@ -332,10 +332,10 @@ Feature: Programs
     When I filter program actions by value 'ALL'
     And I edit program action 'Program activation test'
     When I click on 'Start' button in drawer
+    And I click on 'Next' button in drawer
+    And I click on 'Next' button in drawer
+    And I click on 'Next' button in drawer
     And I set rule as enabled
-    And I click on 'Next' button in drawer
-    And I click on 'Next' button in drawer
-    And I click on 'Next' button in drawer
     And I click on 'Update' button in drawer
 
     Then The button 'Activate the program' is displayed

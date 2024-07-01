@@ -289,10 +289,10 @@ Feature: Actions
 
     When I edit program action 'Challenge to disable'
     When I click on 'Start' button in drawer
+    And I click on 'Next' button in drawer
+    And I click on 'Next' button in drawer
+    And I click on 'Next' button in drawer
     And I set rule as disabled
-    And I click on 'Next' button in drawer
-    And I click on 'Next' button in drawer
-    And I click on 'Next' button in drawer
     And I click on 'Update' button in drawer
 
     Then Confirmation message is displayed 'Action has been successfully updated'
