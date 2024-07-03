@@ -40,6 +40,10 @@ public class RulesSteps {
     rulePage.setActionEvent(triggerName);
   }
 
+  public void selectDefaultContributionStatus(String status) {
+    rulePage.selectDefaultContributionStatus(status);
+  }
+
   public void clickAddActionButton() {
     rulePage.clickAddActionButton();
   }
