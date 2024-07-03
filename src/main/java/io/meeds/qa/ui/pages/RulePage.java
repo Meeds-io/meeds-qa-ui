@@ -116,6 +116,19 @@ public class RulePage extends GenericPage {
     triggerSelectedAutoComplete(triggerName).assertVisible();
   }
 
+  public void selectDefaultContributionStatus(String status) {
+    switch (status) {
+    case "Accepted":
+      acceptedRadioBtnElement().click();
+      break;
+    case "Pending":
+      pendingRadioBtnElement().click();
+      break;
+    default:
+      break;
+    }
+  }
+
   public void deleteActionDuration() {
     durationSelectedChip().click();
   }
@@ -304,6 +317,14 @@ public class RulePage extends GenericPage {
 
   private ElementFacade applicationElement(String applicationLabel) {
     return findByXPathOrCSS(String.format("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'v-list-item')]//*[contains(text(), '%s')]", applicationLabel));
+  }
+
+  private ElementFacade acceptedRadioBtnElement() {
+    return findByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//input[@value='ACCEPTED']//ancestor::*[contains(@class,'v-radio')]");
+  }  
+  
+  private ElementFacade pendingRadioBtnElement() {
+    return findByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//input[@value='PENDING']//ancestor::*[contains(@class,'v-radio')]");
   }
 
 }
