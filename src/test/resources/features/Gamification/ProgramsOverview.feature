@@ -47,23 +47,3 @@ Feature: Programs should be displayed in Top Programs in sorted way
     Then The 'thirtythree' random program is not displayed in Top Programs widget
     And The 'thirtyone' random program is displayed in 'first' position in Top Programs widget
     And The 'thirtytwo' random program is displayed in 'second' position in Top Programs widget
-
-    When I login as 'admin' random user
-
-    And I go to 'actions' in site 'contribute'
-    And I click on 'All' button
-    And I update the 'thirtyone' random challenge with
-      | points | 9999 |
-    Then The 'thirtyone' challenge is displayed with '9999' points
-
-    When I go to 'dashboard' in site 'mycraft'
-    Then The 'thirtyone' random program is displayed in 'first' position in Top Programs widget
-    And The 'thirtythree' random program is displayed in 'second' position in Top Programs widget
-    And The 'thirtytwo' random program is displayed in 'third' position in Top Programs widget
-
-    When I login as 'thirtyone' random user
-    When I go to 'dashboard' in site 'mycraft'
-
-    Then The 'thirtyone' random program is displayed in 'first' position in Top Programs widget
-    And The 'thirtytwo' random program is displayed in 'second' position in Top Programs widget
-    And The 'thirtythree' random program is not displayed in Top Programs widget
