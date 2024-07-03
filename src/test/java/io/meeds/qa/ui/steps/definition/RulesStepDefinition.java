@@ -54,6 +54,11 @@ public class RulesStepDefinition {
     rulesSteps.addRuleEvent(triggerName);
   }
 
+  @And("^I select '(.*)' as default contribution status")
+  public void selectDefaultContributionStatus(String status) {
+    rulesSteps.selectDefaultContributionStatus(status);
+  }
+
   @And("I set rule end date")
   public void setActionEndDate() {
     rulesSteps.setActionEndDate();
