@@ -195,7 +195,6 @@ Feature: Attach images activities
     When I go to 'programs' in site 'contribute'
     And I open random program card
     And I edit program action 'Announce an action with attached image'
-    And I click on 'Start' button in drawer
     And I click on 'Next' button in drawer
     And I click on 'Next' button in drawer
     And I click on 'Next' button in drawer
