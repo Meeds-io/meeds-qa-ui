@@ -580,7 +580,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public ElementFacade getDrawerButton(String buttonName) {
-    return findByXPathOrCSS(String.format("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(),'%s')]//ancestor-or-self::button",
+    return findByXPathOrCSS(String.format("(//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(),'%s')]//ancestor-or-self::button)[last()]",
                                           buttonName));
   }
 

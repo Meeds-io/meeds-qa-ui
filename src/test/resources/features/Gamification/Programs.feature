@@ -316,7 +316,6 @@ Feature: Programs
     And I close the notification
 
     When I edit program action 'Program activation test'
-    And I click on 'Start' button in drawer
     And I click on 'Next' button in drawer
     And I click on 'Next' button in drawer
     And I click on 'Next' button in drawer
@@ -331,7 +330,6 @@ Feature: Programs
 
     When I filter program actions by value 'ALL'
     And I edit program action 'Program activation test'
-    When I click on 'Start' button in drawer
     And I click on 'Next' button in drawer
     And I click on 'Next' button in drawer
     And I click on 'Next' button in drawer
