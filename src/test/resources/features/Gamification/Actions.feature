@@ -69,7 +69,6 @@ Feature: Actions
     When I go to 'programs' in site 'contribute'
     And I open random program card
     And I edit program action 'Challenge to announce'
-    And I click on 'Start' button in drawer
     And I click on 'Next' button in drawer
     And I delete rule duration
     And I click on 'Next' button in drawer
@@ -155,7 +154,6 @@ Feature: Actions
     When I go to 'programs' in site 'contribute'
     And I open random program card
     And I edit program action 'Announce an action from its activity'
-    And I click on 'Start' button in drawer
     And I click on 'Next' button in drawer
     And I click on 'Next' button in drawer
     And I click on 'Next' button in drawer
@@ -288,7 +286,6 @@ Feature: Actions
     When I close the notification
 
     When I edit program action 'Challenge to disable'
-    When I click on 'Start' button in drawer
     And I click on 'Next' button in drawer
     And I click on 'Next' button in drawer
     And I click on 'Next' button in drawer
