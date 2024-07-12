@@ -151,10 +151,6 @@ public class RulePage extends GenericPage {
     nextStepButton().click();
   }
 
-  public void changeRuleEnablement() {
-    ruleEnableSwitchButton().click();
-  }
-
   public void clickOnSaveButton(boolean newRule) {
     if (newRule) {
       addButton().click();
@@ -222,10 +218,6 @@ public class RulePage extends GenericPage {
   private ElementFacade selectActionDateElement(String value) {
     return findByXPathOrCSS(String.format("//*[contains(@class, 'v-navigation-drawer--open')]//option[@value='%s']//parent::select",
                                           value));
-  }
-
-  private ElementFacade ruleEnableSwitchButton() {
-    return findByXPathOrCSS("//*[contains(text(), 'Enabled')]/parent::*//*[contains(@class, 'v-input--switch') and contains(@class, 'v-input--selection-controls')]");
   }
 
   private ElementFacade durationDeselectedChip() {

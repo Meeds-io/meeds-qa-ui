@@ -103,8 +103,4 @@ public class RulesSteps {
   public void deleteActionDuration() {
     rulePage.deleteActionDuration();
   }
-
-  public void changeRuleEnablement() {
-    rulePage.changeRuleEnablement();
-  }
 }
