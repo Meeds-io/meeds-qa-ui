@@ -69,12 +69,6 @@ public class RulesStepDefinition {
     rulesSteps.deleteActionDuration();
   }
 
-  @When("I set rule as disabled")
-  @And("I set rule as enabled")
-  public void changeRuleEnablement() {
-    rulesSteps.changeRuleEnablement();
-  }
-
   @And("I click on the button to add a rule")
   public void clickAddActionButton() {
     rulesSteps.clickAddActionButton();
