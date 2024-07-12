@@ -271,6 +271,16 @@ public class ProgramsStepDefinition {
     programsSteps.editProgramAction(actionTitle);
   }
 
+  @And("^I enable program action '(.*)'$")
+  public void enableProgramAction(String actionTitle) {
+    programsSteps.enableProgramAction(actionTitle);
+  }
+
+  @And("^I disable program action '(.*)'$")
+  public void disableProgramAction(String actionTitle) {
+    programsSteps.disableProgramAction(actionTitle);
+  }
+
   @And("^I delete program action '(.*)'$")
   public void deleteProgramAction(String actionTitle) {
     programsSteps.deleteProgramAction(actionTitle);

@@ -285,14 +285,8 @@ Feature: Actions
 
     When I close the notification
 
-    When I edit program action 'Challenge to disable'
-    And I click on 'Next' button in drawer
-    And I click on 'Next' button in drawer
-    And I click on 'Next' button in drawer
-    And I set rule as disabled
-    And I click on 'Update' button in drawer
-
-    Then Confirmation message is displayed 'Action has been successfully updated'
+    When I disable program action 'Challenge to disable'
+    Then Confirmation message is displayed 'Action status successfully updated'
 
     When I close the notification
     Then The action 'Challenge to disable' is not displayed in program detail
