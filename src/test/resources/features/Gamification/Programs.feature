@@ -315,27 +315,15 @@ Feature: Programs
     Then Confirmation message is displayed 'Program activated'
     And I close the notification
 
-    When I edit program action 'Program activation test'
-    And I click on 'Next' button in drawer
-    And I click on 'Next' button in drawer
-    And I click on 'Next' button in drawer
-    And I set rule as disabled
-    And I click on 'Update' button in drawer
-
-    Then Confirmation message is displayed 'Action has been successfully updated'
+    When I disable program action 'Program activation test'
+    Then Confirmation message is displayed 'Action status successfully updated'
     And I close the notification
 
     Then The button 'Activate the program' is not displayed
     And The message 'No active action' is displayed
 
     When I filter program actions by value 'ALL'
-    And I edit program action 'Program activation test'
-    And I click on 'Next' button in drawer
-    And I click on 'Next' button in drawer
-    And I click on 'Next' button in drawer
-    And I set rule as enabled
-    And I click on 'Update' button in drawer
-
+    And I enable program action 'Program activation test'
     Then The button 'Activate the program' is displayed
 
     When I click on 'Activate the program' button

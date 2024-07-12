@@ -126,6 +126,14 @@ public class ProgramsSteps {
     programsPage.editProgramAction(actionTitle);
   }
 
+  public void enableProgramAction(String actionTitle) {
+    programsPage.enableProgramAction(actionTitle);
+  }
+
+  public void disableProgramAction(String actionTitle) {
+    programsPage.disableProgramAction(actionTitle);
+  }
+
   public void deleteProgramAction(String actionTitle) {
     programsPage.deleteProgramAction(actionTitle);
   }

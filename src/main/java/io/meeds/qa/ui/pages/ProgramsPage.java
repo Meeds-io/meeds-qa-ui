@@ -202,6 +202,18 @@ public class ProgramsPage extends GenericPage {
     editActionMenuItem().click();
   }
 
+  public void enableProgramAction(String actionTitle) {
+    getActionItemElement(actionTitle).hover();
+    actionMenuButton().click();
+    enableActionMenuItem().click();
+  }
+
+  public void disableProgramAction(String actionTitle) {
+    getActionItemElement(actionTitle).hover();
+    actionMenuButton().click();
+    disableActionMenuItem().click();
+  }
+
   public void deleteProgramAction(String actionTitle) {
     getActionItemElement(actionTitle).hover();
     actionMenuButton().click();
@@ -430,6 +442,14 @@ public class ProgramsPage extends GenericPage {
 
   private ElementFacade editActionMenuItem() {
     return findByXPathOrCSS("//*[contains(@class, 'v-menu')]//*[contains(text(), 'Edit')]");
+  }
+
+  private ElementFacade enableActionMenuItem() {
+    return findByXPathOrCSS("//*[contains(@class, 'v-menu')]//*[contains(text(), 'Enable')]");
+  }
+
+  private ElementFacade disableActionMenuItem() {
+    return findByXPathOrCSS("//*[contains(@class, 'v-menu')]//*[contains(text(), 'Disable')]");
   }
 
   private ElementFacade deleteActionMenuItem() {
