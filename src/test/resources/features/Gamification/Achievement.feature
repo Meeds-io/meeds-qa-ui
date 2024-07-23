@@ -150,8 +150,8 @@ Feature: Achievements
   Scenario: Achievements listing for program owner/space host
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
-    And I inject the fifthachievement random user if not existing, no wait
-    And I inject the sixthachievement random user if not existing, no wait
+    And I inject the fifthachievement random user, no wait
+    And I inject the sixthachievement random user, no wait
 
     When I go to 'programs' in site 'contribute'
     And I click on the button add program
