@@ -637,7 +637,7 @@ Feature: Achievements
 
     And I click on 'Add action' button
     And I wait for drawer to open
-    And I enter the rule title 'Cancel Space Join'
+    And I enter the rule title 'Space Join'
     And I select a 'Boost collaboration' application
     And I click on 'Start' button in drawer
     And I add rule random description
@@ -650,7 +650,7 @@ Feature: Achievements
 
     Then Confirmation message is displayed 'Action has been successfully created'
     When I close the notification
-    Then The action 'Cancel Space Join' is displayed in program detail
+    Then The action 'Space Join' is displayed in program detail
 
     When I click on 'Activate the program' button
     Then Confirmation message is displayed 'Program activated'
@@ -660,11 +660,11 @@ Feature: Achievements
     And I go to the random space
     And I go to 'achievements' in site 'mycraft'
 
-    Then Achievement for 'Cancel Space Join' is accepted
+    Then Achievement for 'Space Join' is accepted
 
     And I go to spaces page
     And I search for the random space
     And I leave found space
     And I go to 'achievements' in site 'mycraft'
 
-    Then Achievement for 'Cancel Space Join' is canceled
+    Then Achievement for 'Space Join' is canceled

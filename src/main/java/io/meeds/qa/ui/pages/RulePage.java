@@ -304,7 +304,7 @@ public class RulePage extends GenericPage {
   }
 
   public ElementFacade clearSearchBtnElement() {
-    return findByXPathOrCSS("//button[contains(@class, 'fa-times')]");
+    return findByXPathOrCSS("#engagementCenterProgramDetail .v-input button.fa-times");
   }
 
   private ElementFacade applicationElement(String applicationLabel) {
