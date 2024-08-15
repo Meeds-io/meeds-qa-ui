@@ -53,7 +53,9 @@ public class TestInitHook {
 
   public static final String              ADMIN_PREFIX              = "admin";
 
-  public static final String              ADMIN_USERNAME            = System.getProperty("adminUser", "admin");
+  public static final String              URL                       = System.getProperty("webdriver.base.url", "http://localhost:8080/");
+
+  public static final String              ADMIN_USERNAME            = System.getProperty("adminUser", ADMIN_PREFIX);
 
   public static final String              ADMIN_PASSWORD            = System.getProperty("adminPassword", "Test1234@");
 
@@ -242,7 +244,7 @@ public class TestInitHook {
                   retryCount,
                   MAX_WARM_UP_RETRIES);
       try {
-        driver.navigate().to(System.getProperty("webdriver.base.url"));
+        driver.navigate().to(URL);
         Utils.waitForLoading(WARM_UP_PAGE_LOADING_WAIT, true);
         driver.navigate().refresh();
         loginSteps.waitForUsernameInputDisplay(MAX_WARM_UP_RETRIES);

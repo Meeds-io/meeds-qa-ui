@@ -249,12 +249,12 @@ public class HomePage extends GenericPage {
     goToAdministrationPage("general/mainsettings", true);
   }
 
-  public void goToAppCenterAdminSetupPage() {
-    goToAdministrationPage("general/applicationsCenter");
-  }
-
   public void goToNotificationAdminPage() {
     goToAdministrationPage("general/notification");
+  }
+
+  public void goToAppCenterAdminSetupPage() {
+    goToAdministrationPage("applications/applicationsCenter");
   }
 
   public void goToHomePage() {
@@ -520,6 +520,9 @@ public class HomePage extends GenericPage {
   private void goToAdministrationPage(String uri, boolean forceRefresh) {
     if (forceRefresh || !StringUtils.contains(getDriver().getCurrentUrl(), uri)) {
       accessToAdministrationMenu();
+      administrationMenuItem(uri).checkEnabled();
+      administrationMenuItem(uri).scrollToWebElement();
+      administrationMenuItem(uri).checkVisible();
       administrationMenuItem(uri).click();
       waitForPageLoading();
     }
