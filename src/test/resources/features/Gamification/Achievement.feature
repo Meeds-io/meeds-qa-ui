@@ -15,8 +15,8 @@ Feature: Achievements
 
     And I click on 'Add action' button
     And I wait for drawer to open
-    And I enter the rule title 'Send kudos'
-    And I select a 'Boost collaboration' application
+    And I enter the rule title 'Send kudos 6'
+    And I select a 'Boost Collaboration' application
     And I click on 'Start' button in drawer
     And I add rule random description
     And I select a 'Send kudos' event
@@ -28,12 +28,12 @@ Feature: Achievements
 
     Then Confirmation message is displayed 'Action has been successfully created'
     When I close the notification
-    Then The action 'Send kudos' is displayed in program detail
+    Then The action 'Send kudos 6' is displayed in program detail
 
     And I click on 'Add Action' button
     And I wait for drawer to open
-    And I enter the rule title 'Receive kudos'
-    And I select a 'Boost collaboration' application
+    And I enter the rule title 'Receive kudos 6'
+    And I select a 'Boost Collaboration' application
     And I click on 'Start' button in drawer
     And I add rule random description
     And I select a 'Receive kudos' event
@@ -45,7 +45,7 @@ Feature: Achievements
 
     Then Confirmation message is displayed 'Action has been successfully created'
     When I close the notification
-    Then The action 'Receive kudos' is displayed in program detail
+    Then The action 'Receive kudos 6' is displayed in program detail
 
     When I click on 'Activate the program' button
     Then Confirmation message is displayed 'Program activated'
@@ -68,7 +68,7 @@ Feature: Achievements
     And I send in the activity 'Achievements - Kudos Post activity' a kudos message 'Achievements - kudos activity comment to cancel'
 
     And I go to 'achievements' in site 'mycraft'
-    Then Achievement for 'Send kudos' is accepted
+    Then Achievement for 'Send kudos 6' is accepted
 
     When I go to My Profile page
     Then My points augmented
@@ -78,11 +78,11 @@ Feature: Achievements
     When In activity 'Achievements - Kudos Post activity' I cancel the sent kudos comment 'Achievements - kudos activity comment to cancel'
 
     And I go to 'achievements' in site 'mycraft'
-    Then Achievement for 'Send kudos' is canceled
+    Then Achievement for 'Send kudos 6' is canceled
 
     When I login as 'secondachievement' random user
     And I go to 'achievements' in site 'mycraft'
-    And Achievement for 'Receive kudos' is canceled
+    And Achievement for 'Receive kudos 6' is canceled
 
   Scenario: Achievements for Send/Cancel Kudos from user profile
     Given I am authenticated as 'admin' random user
@@ -97,8 +97,8 @@ Feature: Achievements
 
     And I click on 'Add action' button
     And I wait for drawer to open
-    And I enter the rule title 'Send kudos'
-    And I select a 'Boost collaboration' application
+    And I enter the rule title 'Send kudos 86'
+    And I select a 'Boost Collaboration' application
     And I click on 'Start' button in drawer
     And I add rule random description
     And I select a 'Send kudos' event
@@ -110,12 +110,12 @@ Feature: Achievements
 
     Then Confirmation message is displayed 'Action has been successfully created'
     When I close the notification
-    Then The action 'Send kudos' is displayed in program detail
+    Then The action 'Send kudos 86' is displayed in program detail
 
     When I click on 'Add Action' button
     And I wait for drawer to open
-    And I enter the rule title 'Receive kudos'
-    And I select a 'Boost collaboration' application
+    And I enter the rule title 'Receive kudos 86'
+    And I select a 'Boost Collaboration' application
     And I click on 'Start' button in drawer
     And I add rule random description
     And I select a 'Receive kudos' event
@@ -127,7 +127,7 @@ Feature: Achievements
 
     Then Confirmation message is displayed 'Action has been successfully created'
     When I close the notification
-    Then The action 'Receive kudos' is displayed in program detail
+    Then The action 'Receive kudos 86' is displayed in program detail
 
     When I click on 'Activate the program' button
     Then Confirmation message is displayed 'Program activated'
@@ -145,17 +145,17 @@ Feature: Achievements
     And I send kudos with message 'Achievements - Kudos Post activity to cancel'
 
     And I go to 'achievements' in site 'mycraft'
-    Then Achievement for 'Send kudos' is accepted
+    Then Achievement for 'Send kudos 86' is accepted
 
     And I go to Stream page
     When I cancel the sent kudos activity 'Achievements - Kudos Post activity to cancel'
 
     And I go to 'achievements' in site 'mycraft'
-    Then Achievement for 'Send kudos' is canceled
+    Then Achievement for 'Send kudos 86' is canceled
 
     When I login as 'fourachievement' random user
     And I go to 'achievements' in site 'mycraft'
-    Then Achievement for 'Receive kudos' is canceled
+    Then Achievement for 'Receive kudos 86' is canceled
 
   Scenario: Achievements listing for program owner/space host
     Given I am authenticated as 'admin' random user
@@ -174,7 +174,7 @@ Feature: Achievements
     And I click on 'Add action' button
     And I wait for drawer to open
     And I enter the rule title 'Join space'
-    And I select a 'Boost collaboration' application
+    And I select a 'Boost Collaboration' application
     And I click on 'Start' button in drawer
     And I add rule random description
     And I select a 'Join space' event
@@ -262,7 +262,7 @@ Feature: Achievements
     And I click on 'Add action' button
     And I wait for drawer to open
     And I enter the rule title 'Join space'
-    And I select a 'Boost collaboration' application
+    And I select a 'Boost Collaboration' application
     And I click on 'Start' button in drawer
     And I add rule random description
     And I select a 'Join space' event
@@ -372,7 +372,7 @@ Feature: Achievements
     When I click on 'Add action' button
     And I wait for drawer to open
     And I enter the rule title 'Post activity in a space'
-    And I select a 'Boost collaboration' application
+    And I select a 'Boost Collaboration' application
     And I click on 'Start' button in drawer
     And I add rule random description
     And I select a 'Add a Post' event
@@ -421,7 +421,7 @@ Feature: Achievements
     When I click on 'Add action' button
     And I wait for drawer to open
     And I enter the rule title 'Comment activity in space'
-    And I select a 'Boost collaboration' application
+    And I select a 'Boost Collaboration' application
     And I click on 'Start' button in drawer
     And I add rule random description
     And I select a 'Comment a Post' event
@@ -438,7 +438,7 @@ Feature: Achievements
     When I click on 'Add Action' button
     And I wait for drawer to open
     And I enter the rule title 'Receive comment activity in space'
-    And I select a 'Boost collaboration' application
+    And I select a 'Boost Collaboration' application
     And I click on 'Start' button in drawer
     And I add rule random description
     And I select a 'Receive a Comment' event
@@ -492,7 +492,7 @@ Feature: Achievements
     When I click on 'Add action' button
     And I wait for drawer to open
     And I enter the rule title 'Like activity in space'
-    And I select a 'Boost collaboration' application
+    And I select a 'Boost Collaboration' application
     And I click on 'Start' button in drawer
     And I add rule random description
     And I select a 'Like a Post' event
@@ -509,7 +509,7 @@ Feature: Achievements
     When I click on 'Add Action' button
     And I wait for drawer to open
     And I enter the rule title 'Receive activity like in space'
-    And I select a 'Boost collaboration' application
+    And I select a 'Boost Collaboration' application
     And I click on 'Start' button in drawer
     And I add rule random description
     And I select a 'Receive a Like' event
@@ -564,7 +564,7 @@ Feature: Achievements
     When I click on 'Add action' button
     And I wait for drawer to open
     And I enter the rule title 'Like stream comment in space'
-    And I select a 'Boost collaboration' application
+    And I select a 'Boost Collaboration' application
     And I click on 'Start' button in drawer
     And I add rule random description
     And I select a 'Like a Comment' event
@@ -581,7 +581,7 @@ Feature: Achievements
     When I click on 'Add Action' button
     And I wait for drawer to open
     And I enter the rule title 'Receive Like on stream comment in space'
-    And I select a 'Boost collaboration' application
+    And I select a 'Boost Collaboration' application
     And I click on 'Start' button in drawer
     And I add rule random description
     And I select a 'Receive a Like on a Comment' event
@@ -638,7 +638,7 @@ Feature: Achievements
     And I click on 'Add action' button
     And I wait for drawer to open
     And I enter the rule title 'Space Join'
-    And I select a 'Boost collaboration' application
+    And I select a 'Boost Collaboration' application
     And I click on 'Start' button in drawer
     And I add rule random description
     And I select a 'Join space' event
