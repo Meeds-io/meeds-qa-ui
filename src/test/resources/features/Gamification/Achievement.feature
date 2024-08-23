@@ -16,8 +16,8 @@ Feature: Achievements
 
     And I click on 'Add action' button
     And I wait for drawer to open
-    And I enter the rule title 'Send kudos'
-    And I select a 'Boost collaboration' application
+    And I enter the rule title 'Send kudos 6'
+    And I select a 'Boost Collaboration' application
     And I click on 'Start' button in drawer
     And I add rule random description
     And I select a 'Send kudos' event
@@ -33,8 +33,8 @@ Feature: Achievements
 
     And I click on 'Add Action' button
     And I wait for drawer to open
-    And I enter the rule title 'Receive kudos'
-    And I select a 'Boost collaboration' application
+    And I enter the rule title 'Receive kudos 6'
+    And I select a 'Boost Collaboration' application
     And I click on 'Start' button in drawer
     And I add rule random description
     And I select a 'Receive kudos' event
@@ -98,8 +98,8 @@ Feature: Achievements
 
     And I click on 'Add action' button
     And I wait for drawer to open
-    And I enter the rule title 'Send kudos'
-    And I select a 'Boost collaboration' application
+    And I enter the rule title 'Send kudos 86'
+    And I select a 'Boost Collaboration' application
     And I click on 'Start' button in drawer
     And I add rule random description
     And I select a 'Send kudos' event
@@ -115,8 +115,8 @@ Feature: Achievements
 
     When I click on 'Add Action' button
     And I wait for drawer to open
-    And I enter the rule title 'Receive kudos'
-    And I select a 'Boost collaboration' application
+    And I enter the rule title 'Receive kudos 86'
+    And I select a 'Boost Collaboration' application
     And I click on 'Start' button in drawer
     And I add rule random description
     And I select a 'Receive kudos' event
@@ -175,7 +175,7 @@ Feature: Achievements
     And I click on 'Add action' button
     And I wait for drawer to open
     And I enter the rule title 'Join space'
-    And I select a 'Boost collaboration' application
+    And I select a 'Boost Collaboration' application
     And I click on 'Start' button in drawer
     And I add rule random description
     And I select a 'Join space' event
@@ -263,7 +263,7 @@ Feature: Achievements
     And I click on 'Add action' button
     And I wait for drawer to open
     And I enter the rule title 'Join space'
-    And I select a 'Boost collaboration' application
+    And I select a 'Boost Collaboration' application
     And I click on 'Start' button in drawer
     And I add rule random description
     And I select a 'Join space' event
@@ -373,7 +373,7 @@ Feature: Achievements
     When I click on 'Add action' button
     And I wait for drawer to open
     And I enter the rule title 'Post activity in a space'
-    And I select a 'Boost collaboration' application
+    And I select a 'Boost Collaboration' application
     And I click on 'Start' button in drawer
     And I add rule random description
     And I select a 'Add a Post' event
@@ -422,7 +422,7 @@ Feature: Achievements
     When I click on 'Add action' button
     And I wait for drawer to open
     And I enter the rule title 'Comment activity in space'
-    And I select a 'Boost collaboration' application
+    And I select a 'Boost Collaboration' application
     And I click on 'Start' button in drawer
     And I add rule random description
     And I select a 'Comment a Post' event
@@ -439,7 +439,7 @@ Feature: Achievements
     When I click on 'Add Action' button
     And I wait for drawer to open
     And I enter the rule title 'Receive comment activity in space'
-    And I select a 'Boost collaboration' application
+    And I select a 'Boost Collaboration' application
     And I click on 'Start' button in drawer
     And I add rule random description
     And I select a 'Receive a Comment' event
@@ -493,7 +493,7 @@ Feature: Achievements
     When I click on 'Add action' button
     And I wait for drawer to open
     And I enter the rule title 'Like activity in space'
-    And I select a 'Boost collaboration' application
+    And I select a 'Boost Collaboration' application
     And I click on 'Start' button in drawer
     And I add rule random description
     And I select a 'Like a Post' event
@@ -510,7 +510,7 @@ Feature: Achievements
     When I click on 'Add Action' button
     And I wait for drawer to open
     And I enter the rule title 'Receive activity like in space'
-    And I select a 'Boost collaboration' application
+    And I select a 'Boost Collaboration' application
     And I click on 'Start' button in drawer
     And I add rule random description
     And I select a 'Receive a Like' event
@@ -565,7 +565,7 @@ Feature: Achievements
     When I click on 'Add action' button
     And I wait for drawer to open
     And I enter the rule title 'Like stream comment in space'
-    And I select a 'Boost collaboration' application
+    And I select a 'Boost Collaboration' application
     And I click on 'Start' button in drawer
     And I add rule random description
     And I select a 'Like a Comment' event
@@ -582,7 +582,7 @@ Feature: Achievements
     When I click on 'Add Action' button
     And I wait for drawer to open
     And I enter the rule title 'Receive Like on stream comment in space'
-    And I select a 'Boost collaboration' application
+    And I select a 'Boost Collaboration' application
     And I click on 'Start' button in drawer
     And I add rule random description
     And I select a 'Receive a Like on a Comment' event
@@ -638,8 +638,8 @@ Feature: Achievements
 
     And I click on 'Add action' button
     And I wait for drawer to open
-    And I enter the rule title 'Cancel Space Join'
-    And I select a 'Boost collaboration' application
+    And I enter the rule title 'Space Join'
+    And I select a 'Boost Collaboration' application
     And I click on 'Start' button in drawer
     And I add rule random description
     And I select a 'Join space' event

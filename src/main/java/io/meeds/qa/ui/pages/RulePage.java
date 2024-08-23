@@ -53,7 +53,11 @@ public class RulePage extends GenericPage {
       if (manual) {
         applicationElement("Let them submit their contribution").click();
       } else {
+<<<<<<< HEAD
         applicationElement("Boost collaboration").click();
+=======
+        applicationElement("Boost Collaboration").click();
+>>>>>>> origin/develop
       }
     }
     clickOnStartButton();
@@ -61,6 +65,7 @@ public class RulePage extends GenericPage {
     if (StringUtils.isNotBlank(description)) {
       setActionDescription(description);
     }
+<<<<<<< HEAD
 
     if (newRule) {
       if (manual) {
@@ -76,6 +81,9 @@ public class RulePage extends GenericPage {
       setActionPoints(points);
     }
 
+=======
+    clickOnNextButton();
+>>>>>>> origin/develop
     if (changeDates) {
       selectDurationChoice();
       setActionEndDate();
@@ -331,7 +339,6 @@ public class RulePage extends GenericPage {
   
   private ElementFacade pendingRadioBtnElement() {
     return findByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//input[@value='PENDING']//ancestor::*[contains(@class,'v-radio')]");
-
   }
 
 }
