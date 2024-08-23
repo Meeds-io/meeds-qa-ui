@@ -53,11 +53,7 @@ public class RulePage extends GenericPage {
       if (manual) {
         applicationElement("Let them submit their contribution").click();
       } else {
-<<<<<<< HEAD
-        applicationElement("Boost collaboration").click();
-=======
         applicationElement("Boost Collaboration").click();
->>>>>>> origin/develop
       }
     }
     clickOnStartButton();
@@ -65,25 +61,7 @@ public class RulePage extends GenericPage {
     if (StringUtils.isNotBlank(description)) {
       setActionDescription(description);
     }
-<<<<<<< HEAD
-
-    if (newRule) {
-      if (manual) {
-        manualChoiceButton().click();
-      } else {
-        automaticChoiceButton().click();
-      }
-    }
-
     clickOnNextButton();
-
-    if (StringUtils.isNotBlank(points)) {
-      setActionPoints(points);
-    }
-
-=======
-    clickOnNextButton();
->>>>>>> origin/develop
     if (changeDates) {
       selectDurationChoice();
       setActionEndDate();
