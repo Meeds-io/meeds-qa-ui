@@ -64,6 +64,8 @@
     <version.surefire.plugin>3.0.0-M8</version.surefire.plugin>
     <!-- Specific target snapshot repository -->
     <exo.snapshots.repo.url>https://repository.exoplatform.org/content/repositories/meeds-snapshots</exo.snapshots.repo.url>
+   <timestamp>${maven.build.timestamp}</timestamp>
+   <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -198,7 +200,7 @@
             <!-- Max retry when getting element -->
             <io.meeds.retry.max>${io.meeds.retry.max}</io.meeds.retry.max>
             <!-- Max implicit timeout for each retry on element fetching -->
-            <io.meeds.warmUp.file>${project.build.directory}/warmUp.tmp</io.meeds.warmUp.file>
+            <io.meeds.warmUp.file>${project.build.directory}/warmUp-${timestamp}.tmp</io.meeds.warmUp.file>
             <io.meeds.page.loading.wait>${io.meeds.page.loading.wait}</io.meeds.page.loading.wait>
             <io.meeds.retry.wait.millis>${io.meeds.retry.wait.millis}</io.meeds.retry.wait.millis>
             <io.meeds.forkNumber>${surefire.forkNumber}</io.meeds.forkNumber>
