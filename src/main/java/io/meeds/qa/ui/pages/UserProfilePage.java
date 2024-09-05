@@ -411,11 +411,11 @@ public class UserProfilePage extends GenericPage {
   }
 
   private ElementFacade contactReceivedKudosElement() {
-    return findByXPathOrCSS("//*[@id='kudosOverviewCardsParent']//*[@class='kudosOverviewCard col'][1]//*[contains(@class, 'kudosOverviewCount')]");
+    return findByXPathOrCSS("//*[@id='kudosOverviewCardsParent']//*[contains(@class, 'kudosOverviewCard')][1]//*[contains(@class, 'kudosOverviewCount')]");
   }
 
   private ElementFacade contactSentKudosElement() {
-    return findByXPathOrCSS("//*[@id='kudosOverviewCardsParent']//*[@class='kudosOverviewCard col'][2]//*[contains(@class, 'kudosOverviewCount')]");
+    return findByXPathOrCSS("//*[@id='kudosOverviewCardsParent']//*[contains(@class, 'kudosOverviewCard')][2]//*[contains(@class, 'kudosOverviewCount')]");
   }
 
   private ElementFacade contactUrlTitleButtonElement() {
@@ -477,7 +477,7 @@ public class UserProfilePage extends GenericPage {
   }
 
   private ElementFacade getReceivedKudosUsers(String user) {
-    return findByXPathOrCSS(String.format("//*[contains(@class,'kudosOverviewDrawer')]//*[contains(@class,'drawerTitle') and contains(text(),'Kudos Received')]/following::*[contains(@id,'avatar') and contains(text(),'%s')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class,'kudosOverviewDrawer')]//*[contains(text(),'%s')]",
                                           user));
   }
 
@@ -491,7 +491,7 @@ public class UserProfilePage extends GenericPage {
   }
 
   private ElementFacade getSentKudosUsers(String user) {
-    return findByXPathOrCSS(String.format("//*[contains(@class,'kudosOverviewDrawer')]//*[contains(@class,'drawerTitle') and contains(text(),'Kudos Sent')]/following::*[contains(@id,'avatar') and contains(text(),'%s')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class,'kudosOverviewDrawer')]//*[contains(text(),'%s')]",
                                           user));
   }
 
