@@ -17,12 +17,40 @@
  */
 package io.meeds.qa.ui.steps;
 
+import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION_MILLIS;
+
+import java.time.Duration;
 import java.util.Map;
+
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.meeds.qa.ui.pages.GenericPage;
 
+import net.serenitybdd.core.Serenity;
+
 public class GenericSteps {
-  private GenericPage genericPage;
+  private static final String DISABLE_PWA_SCRIPT =
+                                                 """
+                                                      const callback = arguments[arguments.length - 1];
+                                                      fetch("/pwa/rest/manifest", {
+                                                        "headers": {
+                                                          "content-type": "application/json",
+                                                        },
+                                                        "body": `{"enabled":false,"name":"Web3 Hub","description":"Your Application for Communication, Collaboration, Teamwork and Engagement","themeColor":"#BC99E7","backgroundColor":"#BC99E7"}`,
+                                                        "method": "PUT",
+                                                        "credentials": "include"
+                                                      })
+                                                     .then(resp => {
+                                                       if (!resp || !resp.ok) {
+                                                         throw new Error("Error changing space creation permissions");
+                                                       }
+                                                     })
+                                                     .then(() => callback(true))
+                                                     .catch(() => callback(false));
+                                                      """;
+
+  private GenericPage         genericPage;
 
   public void checkConfirmMessageIsDisplayed(String message) {
     genericPage.checkConfirmMessageIsDisplayed(message);
@@ -206,6 +234,15 @@ public class GenericSteps {
 
   public void sortTableByField(String fieldText) {
     genericPage.sortTableByField(fieldText);
+  }
+
+  public void disablePwa() {
+    WebDriverWait wait = new WebDriverWait(Serenity.getDriver(),
+                                           Duration.ofSeconds(10),
+                                           Duration.ofMillis(SHORT_WAIT_DURATION_MILLIS));
+    wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeAsyncScript(DISABLE_PWA_SCRIPT)
+                                                            .toString()
+                                                            .equals("true"));
   }
 
 }

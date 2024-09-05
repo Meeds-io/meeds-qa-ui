@@ -274,8 +274,10 @@ public class TestInitHook {
 
     addAdminRandomUser();
     manageSpaceSteps.configureSpaceCreationPermission();
+    genericSteps.disablePwa();
     loginAsRandomAdmin();
     if (INIT_DATA) {
+      LOGGER.info("---- FOR LOCAL TESTS, disable WARMUP Phase (used to improve global test execution time only) by adding \n\n\t\t******* -Dio.meeds.initData=false ******* \n\n\n");
       injectSpaces();
       injectUsers();
     }
