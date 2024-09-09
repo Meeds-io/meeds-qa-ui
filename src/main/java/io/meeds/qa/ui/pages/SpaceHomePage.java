@@ -1386,11 +1386,11 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private ElementFacade goToSpaceRightTabsElement() {
-    return findByXPathOrCSS("//*[@id = 'SpaceMenu']//*[contains(@class,'chevron-right')]");
+    return findByXPathOrCSS("//*[@id = 'topBarMenu']//*[contains(@class,'chevron-right')]");
   }
 
   private ElementFacade goToSpaceLeftTabsElement() {
-    return findByXPathOrCSS("//*[@id = 'SpaceMenu']//*[contains(@class,'chevron-left')]");
+    return findByXPathOrCSS("//*[@id = 'topBarMenu']//*[contains(@class,'chevron-left')]");
   }
 
   private ElementFacade getCommentDrawerButton(String comment, String buttonIdPart) {
@@ -1722,15 +1722,17 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private ElementFacade tabElement(String tabName) {
-    return findByXPathOrCSS("//*[@id = 'SpaceMenu']//a[contains(text(),'" + tabName + "')]");
+    return findByXPathOrCSS(String.format("//*[@id = 'topBarMenu']//*[contains(text(),'%s')]//ancestor-or-self::a",
+                                          tabName));
   }
 
   private ElementFacade selectedTabElement() {
-    return findByXPathOrCSS("//*[@id = 'SpaceMenu']//a[contains(@class, 'SelectedTab')]");
+    return findByXPathOrCSS("//*[@id = 'topBarMenu']//a[contains(@class, 'v-tab--active')]");
   }
 
   private ElementFacade selectedTabElement(String tabName) {
-    return findByXPathOrCSS("//*[@id = 'SpaceMenu']//a[contains(@class, 'SelectedTab') and contains(text(),'" + tabName + "')]");
+    return findByXPathOrCSS(String.format("//*[@id = 'topBarMenu']//*[contains(text(),'%s')]//ancestor-or-self::a[contains(@class, 'v-tab--active')]",
+                                          tabName));
   }
 
   private ElementFacade tenthCommentInDrawerElement() {

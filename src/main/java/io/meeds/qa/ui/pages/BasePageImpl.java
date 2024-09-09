@@ -176,8 +176,11 @@ public class BasePageImpl extends PageObject implements BasePage {
         pressEscape();
       } else {
         ElementFacade drawerCloseIcon = drawerCloseIcon();
-        drawerCloseIcon.checkVisible();
-        drawerCloseIcon.click();
+        if (drawerCloseIcon.isCurrentlyVisible()) {
+          drawerCloseIcon.click();
+        } else {
+          return;
+        }
       }
       closeAlertIfOpened();
       closeConfirmDialogIfDisplayed();
