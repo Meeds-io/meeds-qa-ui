@@ -35,6 +35,11 @@ public class GenericStepDefinitions {
   @Steps
   private GenericSteps genericSteps;
 
+  @When("^I go to '([^']*)'$")
+  public void gotToSite(String link) {
+    genericSteps.goToPage(link);
+  }
+
   @When("The button '{}' is displayed")
   public void checkButton(String button) {
     assertThat(genericSteps.isButtonDisplayed(button)).as(String.format("The button %s should be displayed but it is not",

@@ -1156,17 +1156,29 @@ public class SpaceHomePage extends GenericPage {
   }
 
   private ElementFacade searchSpaceTabElement(String tabName) {
-    waitForLoading();
-    selectedTabElement().waitUntilPresent();
-    while (!tabElement(tabName).isCurrentlyVisible() && goToSpaceLeftTabsElement().isVisible()) {
-      goToSpaceLeftTabsElement().click();
-      waitFor(1000).milliseconds(); // Wait for animation end
+    try {
+      selectedTabElement().waitUntilVisible();
+    } catch (Exception e) {
+      LOGGER.debug("Selected Tab element not present, attempt continue to search for space tabs", e);
     }
-    while (!tabElement(tabName).isCurrentlyVisible() && goToSpaceRightTabsElement().isVisible()) {
-      goToSpaceRightTabsElement().click();
-      waitFor(1000).milliseconds(); // Wait for animation end
-    }
-    return tabElement(tabName);
+    return retryGetOnCondition(() -> {
+      waitForLoading();
+      while (!tabElement(tabName).isCurrentlyVisible() && goToSpaceLeftTabsElement().isVisible()) {
+        goToSpaceLeftTabsElement().click();
+        waitFor(200).milliseconds(); // Wait for animation end
+      }
+      while (!tabElement(tabName).isCurrentlyVisible() && goToSpaceRightTabsElement().isVisible()) {
+        goToSpaceRightTabsElement().click();
+        waitFor(200).milliseconds(); // Wait for animation end
+      }
+      while (!tabElement(tabName).isCurrentlyVisible() && goToSpaceLeftTabsElement().isVisible()) {
+        goToSpaceLeftTabsElement().click();
+        waitFor(200).milliseconds(); // Wait for animation end
+      }
+      ElementFacade tabElement = tabElement(tabName);
+      tabElement.checkVisible();
+      return tabElement;
+    });
   }
 
   private ElementFacade installedApplicationCard(String applicationName) {
@@ -1725,9 +1737,13 @@ public class SpaceHomePage extends GenericPage {
     return findByXPathOrCSS(String.format("//*[@id = 'topBarMenu']//*[contains(text(),'%s')]//ancestor-or-self::a",
                                           tabName));
   }
-
+  
   private ElementFacade selectedTabElement() {
     return findByXPathOrCSS("//*[@id = 'topBarMenu']//a[contains(@class, 'v-tab--active')]");
+  }
+
+  private ElementFacade topBarElement() {
+    return findByXPathOrCSS("//*[@id = 'topBarMenu']");
   }
 
   private ElementFacade selectedTabElement(String tabName) {

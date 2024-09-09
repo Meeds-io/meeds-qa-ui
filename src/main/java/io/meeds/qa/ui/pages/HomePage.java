@@ -138,7 +138,6 @@ public class HomePage extends GenericPage {
   public void checkHomeButtonPosition(String pageName) {
     if (getStickiedHamburgerMenuParent().isVisible()) {
       clickOnHamburgerMenu(true);
-      stickHamburgerMenu();
     }
     if (homeButtonElement(pageName).isNotVisible()) {
       hoverOnPageHomeIcon(pageName);
@@ -193,7 +192,6 @@ public class HomePage extends GenericPage {
     if (forceRefresh || !StringUtils.contains(getDriver().getCurrentUrl(), PORTAL_ROOT_CONTEXT + siteName)) {
       if (!getStickiedHamburgerMenuParent().isCurrentlyVisible()) {
         clickOnHamburgerMenu(true);
-        stickHamburgerMenu();
       }
       hamburgerMenuItemLink(siteName).assertVisible();
       hamburgerMenuItemLink(siteName).click();
@@ -217,7 +215,6 @@ public class HomePage extends GenericPage {
         || !StringUtils.endsWith(getDriver().getCurrentUrl(), uriPart)) {
       if (!getStickiedHamburgerMenuParent().isCurrentlyVisible()) {
         clickOnHamburgerMenu(true);
-        stickHamburgerMenu();
       }
       ElementFacade hamburgerMenuItemLink = hamburgerMenuItemLink(siteName);
       hamburgerMenuItemLink.checkVisible();
@@ -238,23 +235,23 @@ public class HomePage extends GenericPage {
   }
 
   public void goToAddGroups() {
-    goToAdministrationPage("organisation/groups");
+    goToAdministrationPage("Organisation/Groups");
   }
 
   public void goToAddUser() {
-    goToAdministrationPage("organisation/users");
+    goToAdministrationPage("Organisation/Users");
   }
 
   public void goToMainSettings() {
-    goToAdministrationPage("general/mainsettings", true);
+    goToAdministrationPage("General/Main Settings", true);
   }
 
   public void goToNotificationAdminPage() {
-    goToAdministrationPage("general/notification");
+    goToAdministrationPage("General/Notifications");
   }
 
   public void goToAppCenterAdminSetupPage() {
-    goToAdministrationPage("applications/applicationsCenter");
+    goToAdministrationPage("Applications/Applications center");
   }
 
   public void goToHomePage() {
@@ -470,7 +467,6 @@ public class HomePage extends GenericPage {
   }
 
   public void stickHamburgerMenu() {
-    stickHamburgerMenuElement().hover();
     stickHamburgerMenuElement().click();
   }
 
@@ -510,13 +506,15 @@ public class HomePage extends GenericPage {
     goToAdministrationPage(uri, false);
   }
 
-  private void goToAdministrationPage(String uri, boolean forceRefresh) {
-    if (forceRefresh || !StringUtils.contains(getDriver().getCurrentUrl(), uri)) {
+  private void goToAdministrationPage(String menuItem, boolean forceRefresh) {
+    if (forceRefresh || !StringUtils.contains(getDriver().getCurrentUrl(), menuItem)) {
       accessToAdministrationMenu();
-      administrationMenuItem(uri).checkEnabled();
-      administrationMenuItem(uri).scrollToWebElement();
-      administrationMenuItem(uri).checkVisible();
-      administrationMenuItem(uri).click();
+      String[] menuParts = menuItem.split("/");
+      retryOnCondition(() -> {
+        administrationMenuItem(menuParts[0]).click();
+        administrationMenuItem(menuParts[1]).checkVisible();
+        administrationMenuItem(menuParts[1]).click();
+      });
       waitForPageLoading();
     }
   }
@@ -529,27 +527,17 @@ public class HomePage extends GenericPage {
     } else if (!getStickiedHamburgerMenuParent().isCurrentlyVisible()) {
       clickOnHamburgerMenu(stickMenu);
     }
-    String siteName = null;
-    if (linkSuffix.equals("/programs")
-        || linkSuffix.equals("/actions")
-        || linkSuffix.equals("/wallet")) {
-      siteName = "contribute";
-    } else if (linkSuffix.equals("/dashboard")
-               || linkSuffix.equals("/tasks")
-               || linkSuffix.equals("/contents")
-               || linkSuffix.equals("/myteam")) {
-      siteName = "mycraft";
-    }
+    String siteName = getSiteName(linkSuffix);
     if (StringUtils.isNotBlank(siteName)) {
-      ElementFacade menuItem = siteFirstLevelMenuItem(siteName);
-      menuItem.assertVisible();
-      menuItem.hover();
-      waitFor(200).milliseconds(); // Wait for drawer to completely open
-      ElementFacade arrowIcon = siteFirstLevelMenuItemArrowIcon(siteName);
-      arrowIcon.assertVisible();
-      arrowIcon.hover();
-      waitFor(200).milliseconds(); // Wait for drawer to completely open
-      siteSecondLevelMenuItem(linkSuffix).waitUntilVisible();
+      retryOnCondition(() -> {
+        ElementFacade menuItem = siteFirstLevelMenuItem(siteName);
+        menuItem.assertVisible();
+        menuItem.hover();
+        ElementFacade arrowIcon = siteFirstLevelMenuItemArrowIcon(siteName);
+        arrowIcon.assertVisible();
+        arrowIcon.hover();
+      });
+      siteSecondLevelMenuItem(linkSuffix).checkVisible();
       siteSecondLevelMenuItem(linkSuffix).click();
     } else {
       hamburgerMenuItemLink(linkSuffix).checkVisible();
@@ -559,9 +547,9 @@ public class HomePage extends GenericPage {
     assertThat(getDriver().getCurrentUrl()).endsWith(linkSuffix);
   }
 
-  private ElementFacade administrationMenuItem(String uri) {
-    return findByXPathOrCSS(String.format("//*[@id = 'siteNavigationTree']//a[contains(@href, '%s')]",
-                                          uri));
+  private ElementFacade administrationMenuItem(String name) {
+    return findByXPathOrCSS(String.format("//*[@id = 'siteNavigationTree']//*[contains(text(), '%s')]",
+                                          name));
   }
 
   private ElementFacade stickHamburgerMenuElement() {
@@ -821,6 +809,20 @@ public class HomePage extends GenericPage {
     } else {
       findByXPathOrCSS("(//*[contains(@class, 'userAuthorizedApplications')]//*[contains(@class, 'authorizedApplication')])[2]").waitUntilNotVisible();
     }
+  }
+
+  private String getSiteName(String linkSuffix) {
+    if (linkSuffix.equals("/programs")
+        || linkSuffix.equals("/actions")
+        || linkSuffix.equals("/wallet")) {
+      return "contribute";
+    } else if (linkSuffix.equals("/dashboard")
+               || linkSuffix.equals("/tasks")
+               || linkSuffix.equals("/contents")
+               || linkSuffix.equals("/myteam")) {
+      return "mycraft";
+    }
+    return null;
   }
 
 }

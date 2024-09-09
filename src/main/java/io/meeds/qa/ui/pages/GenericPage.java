@@ -17,7 +17,7 @@
  */
 package io.meeds.qa.ui.pages;
 
-import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
+import static io.meeds.qa.ui.utils.Utils.*;
 import static io.meeds.qa.ui.utils.Utils.switchToTabByIndex;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -189,6 +189,11 @@ public class GenericPage extends BasePageImpl {
     if (applicationToolbarConeButton().isVisible()) {
       applicationToolbarConeButton().click();
     }
+  }
+
+  public void goToPage(String link) {
+    getDriver().navigate().to(getDriver().getCurrentUrl().split("/portal/")[0] + link);
+    verifyPageLoaded();
   }
 
   private ElementFacade applicationToolbarConeButton() {
