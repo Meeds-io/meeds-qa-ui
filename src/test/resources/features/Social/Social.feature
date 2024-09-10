@@ -31,7 +31,7 @@ Feature: Social
     And I go to the second user profile
     And I connect to the user using the profile
     And I login as 'second' random user
-    And I go to Stream page
+    And I go to My Profile page
     Then The 'Connections' badge is '1'
     When I click on connections badge
     And I accept the following connection invitation from random user

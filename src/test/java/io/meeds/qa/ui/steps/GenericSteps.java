@@ -245,4 +245,8 @@ public class GenericSteps {
                                                             .equals("true"));
   }
 
+  public void goToPage(String link) {
+    genericPage.goToPage(link);
+  }
+
 }

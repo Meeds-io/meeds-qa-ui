@@ -88,9 +88,7 @@ public class ManageSpaceSteps {
 
   public void joinOrGoToSpace(String spaceNamePrefix) {
     String spaceName = sessionVariableCalled(spaceNamePrefix);
-    if (!manageSpacesPage.getCurrentUrl().contains("/spaces")) {
-      homePage.goToSpacesPage();
-    }
+    homePage.goToSpacesPage(false);
     if (findSpaceCard(spaceName)) {
       goOrJoinToSpace(spaceName);
     } else {
@@ -114,9 +112,7 @@ public class ManageSpaceSteps {
         }
       }
     }
-    if (!manageSpacesPage.getCurrentUrl().contains("/spaces")) {
-      homePage.goToSpacesPage();
-    }
+    homePage.goToSpacesPage(false);
     if (StringUtils.isBlank(spaceName)) {
       spaceName = Utils.getRandomString(spaceNamePrefix);
       if (findSpaceCard(spaceName)) {
@@ -257,13 +253,13 @@ public class ManageSpaceSteps {
   }
 
   public void checkThirtyRandomSpacesArePresent() {
-    homePage.goToSpacesPage();
+    homePage.goToSpacesPage(true);
     if (!manageSpacesPage.isLoadMoreButtonDisplayed()) {
       for (int i = 0; i < 30; i++) {
         String randomSpaceName = "randomSpaceName" + getRandomNumber();
         addSpaceWithRegistration(randomSpaceName, "Open");
         TestInitHook.spaceWithPrefixCreated("randomSpaceName", randomSpaceName, homePage.getCurrentUrl());
-        homePage.goToSpacesPage();
+        homePage.goToSpacesPage(true);
       }
     }
   }

@@ -32,18 +32,18 @@ Feature: Programs should be displayed in Top Programs in sorted way
       | points | 9999 |
     And I click on 'Activate the program' button
 
-    When I go to 'dashboard' in site 'mycraft'
+    When I go to 'home' in site 'contribute'
     Then The 'thirtythree' random program is displayed in 'first' position in Top Programs widget
     And The 'thirtyone' random program is displayed in 'second' position in Top Programs widget
     And The 'thirtytwo' random program is displayed in 'third' position in Top Programs widget
 
     When I login as 'thirtyone' random user
-    And I go to Stream page
+    And I go to My Profile page
     And I click on spaces badge
     And I accept the invitation of the thirtyone created space
     And I accept the invitation of the thirtytwo created space
 
-    When I go to 'dashboard' in site 'mycraft'
+    When I go to 'home' in site 'contribute'
     Then The 'thirtythree' random program is not displayed in Top Programs widget
     And The 'thirtyone' random program is displayed in 'first' position in Top Programs widget
     And The 'thirtytwo' random program is displayed in 'second' position in Top Programs widget

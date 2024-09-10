@@ -28,6 +28,7 @@ Feature: Edit sections in Settings page
     When I refresh the page
     Then Language 'English / English' is displayed
 
+  @test
   Scenario: SETTINGS-4 : Add the home icon for Homepage default view
     Given I am authenticated as 'admin' if random users doesn't exists
       | homeicon  |
@@ -43,9 +44,9 @@ Feature: Edit sections in Settings page
     Then '/spaces' page is displayed
 
     When I open hamburger menu drawer
-    And I mouse over the 'Stream' icon in sidebar menu
+    And I mouse over the 'People' icon in sidebar menu
     And I click on home icon
     And I click to confirm the new home page
     And I open hamburger menu drawer
     And I click on home page link
-    Then '/stream' page is displayed
+    Then '/people' page is displayed

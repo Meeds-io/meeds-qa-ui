@@ -3,7 +3,7 @@ Feature: Meeds Space
   As a user
   I want to check spaces page
 
-  Scenario: SPC_MNG-1 : Spaces avatar and title
+  Scenario: Spaces avatar and title
     Given I am authenticated as 'admin' random user
 
     When I go to the random space
@@ -11,7 +11,7 @@ Feature: Meeds Space
     Then Space Avatar is displayed
     And The created space name is displayed
 
-  Scenario: SPC_MNG-3 : Home space page banner
+  Scenario: Home space page banner
     Given I am authenticated as 'admin' random user
 
     When I go to the random space
@@ -23,7 +23,7 @@ Feature: Meeds Space
     And I go to the random space
     Then Space banner is changed successfully
 
-  Scenario: SPC_MNG-4 : Clickable Space avatar
+  Scenario: Clickable Space avatar
     Given I am authenticated as 'admin' random user
 
     When I go to the random space
@@ -34,7 +34,7 @@ Feature: Meeds Space
     When I go to space Home
     Then Space Top Bar Elements are displayed
 
-  Scenario: [SPACES-2] Spaces Cards bloc
+  Scenario: Spaces Cards bloc
     Given I am authenticated as 'admin' random user
 
     When I create or check that thirty spaces are created
@@ -43,7 +43,7 @@ Feature: Meeds Space
     When I click on Show more button
     Then I check that other spaces are displayed
 
-  Scenario: SPACES-4: Spaces Request
+  Scenario: Spaces Request
     Given I am authenticated as 'admin' random user
     And I inject the first random user if not existing
     And I create a first random space with the first created user as member
@@ -51,7 +51,7 @@ Feature: Meeds Space
     And I create a third random space with the first created user as member
 
     When I login as 'first' random user
-    And I go to Stream page
+    And I go to My Profile page
     Then The Spaces badge is '3'
     When I click on spaces badge
     And I accept the invitation of the first created space

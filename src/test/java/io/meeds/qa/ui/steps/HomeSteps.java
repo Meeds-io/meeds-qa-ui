@@ -180,7 +180,7 @@ public class HomeSteps {
   }
 
   public void goToManageSpacesPage() {
-    homePage.goToSpacesPage();
+    homePage.goToSpacesPage(false);
   }
 
   public void goToMyProfile() {
