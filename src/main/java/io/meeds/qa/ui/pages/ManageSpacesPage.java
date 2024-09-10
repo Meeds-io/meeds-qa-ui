@@ -323,7 +323,7 @@ public class ManageSpacesPage extends GenericPage {
 
   public boolean isSpaceMenuDisplayed() {
     try {
-      ElementFacade webElementFacade = findByXPathOrCSS("#SpaceMenu .v-tab--active");
+      ElementFacade webElementFacade = findByXPathOrCSS("#topBarMenu .v-tab--active");
       return webElementFacade.isCurrentlyVisible();
     } catch (RuntimeException e) {
       return false;
@@ -571,7 +571,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   private ElementFacade spaceMenuItemElement() {
-    return findByXPathOrCSS("#SpaceMenu .v-tabs-bar .v-tab");
+    return findByXPathOrCSS("#topBarMenu .v-tabs-bar .v-tab");
   }
 
   private ElementFacade spaceName() {

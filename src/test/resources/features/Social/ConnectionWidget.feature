@@ -121,14 +121,14 @@ Feature: Connection widgets checking
     And I go to the fifthcommconn user profile
     And I connect to the user using the profile
     When I login as 'fifthcommconn' random user
-    And I go to Stream page
+    And I go to My Profile page
     Then the number of connection requests is '5'
     When I click on connections badge
     Then the drawer with '3' connections is opened
     And I click on see all
     And The page '/people/receivedInvitations' is opened
 
-    When I go to Stream page
+    When I go to My Profile page
     And I click on connections badge
     And I accept the following connection invitation from random user
       | firstcommconn |

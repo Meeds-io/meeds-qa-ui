@@ -24,7 +24,7 @@ Feature: Spaces widget checking
     And I create a random space with the eighteenth random user
     And I create a random space with the eighteenth random user
     When I login as 'eighteenth' random user
-    And I go to Stream page
+    And I go to My Profile page
     Then the invitation number for spaces is '5'
     And The Spaces badge is '5'
     When I click on spaces badge

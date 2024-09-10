@@ -244,7 +244,7 @@ Feature: Programs
     And I open random program card
     And I announce challenge 'Internal users action' with message 'announcement3'
 
-    When I go to 'achievements' in site 'mycraft'
+    When I go to '/portal/contribute/contributions/achievements'
     Then Achievement for 'Internal users action' is pending
 
     When I login as 'admin' random user

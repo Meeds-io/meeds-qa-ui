@@ -17,8 +17,8 @@
  */
 package io.meeds.qa.ui.pages;
 
-import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.retryGetOnCondition;
+import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -31,6 +31,7 @@ import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
+
 import net.serenitybdd.markers.IsHidden;
 import net.thucydides.core.annotations.DefaultUrl;
 

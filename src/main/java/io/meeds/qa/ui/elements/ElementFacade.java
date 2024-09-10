@@ -39,8 +39,8 @@ public interface ElementFacade extends WebElementFacade {
    * Method to find an element inside an element using the xpath and to wrapp it
    * in a BaseElementFacade instance
    * 
-   * @param  xpath XPath of Sub element
-   * @return       BaseElementFacade instance of the found element
+   * @param xpath XPath of Sub element
+   * @return BaseElementFacade instance of the found element
    */
   public <T extends ElementFacade> T findByXPath(String xpath);
 
@@ -89,6 +89,10 @@ public interface ElementFacade extends WebElementFacade {
   default void assertVisible() {
     long start = System.currentTimeMillis();
     boolean visible = isVisible();
+    if (!visible && isPresent()) {
+      scrollToWebElement();
+      visible = isVisible();
+    }
     assertTrue(String.format("Element %s wasn't visible after waiting %s ms. Current URL: %s",
                              this,
                              System.currentTimeMillis() - start,
@@ -119,6 +123,9 @@ public interface ElementFacade extends WebElementFacade {
   default void checkVisible() {
     long start = System.currentTimeMillis();
     if (!isVisible()) {
+      if (isPresent()) {
+        scrollToWebElement();
+      }
       throw new ElementShouldBeVisibleException(String.format("Unable to locate a visible element %s after %s ms",
                                                               this,
                                                               System.currentTimeMillis() - start),

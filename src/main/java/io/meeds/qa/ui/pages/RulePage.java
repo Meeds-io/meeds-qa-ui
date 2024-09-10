@@ -120,9 +120,11 @@ public class RulePage extends GenericPage {
     switch (status) {
     case "Accepted":
       acceptedRadioBtnElement().click();
+      acceptedRadioBtnActiveElement().waitUntilVisible();
       break;
     case "Pending":
       pendingRadioBtnElement().click();
+      pendingRadioBtnActiveElement().waitUntilVisible();
       break;
     default:
       break;
@@ -313,10 +315,18 @@ public class RulePage extends GenericPage {
 
   private ElementFacade acceptedRadioBtnElement() {
     return findByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//input[@value='ACCEPTED']//ancestor::*[contains(@class,'v-radio')]");
+  }
+
+  private ElementFacade acceptedRadioBtnActiveElement() {
+    return findByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//input[@value='ACCEPTED']//ancestor::*[contains(@class,'v-radio') and contains(@class,'v-item--active')]");
   }  
-  
+
   private ElementFacade pendingRadioBtnElement() {
     return findByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//input[@value='PENDING']//ancestor::*[contains(@class,'v-radio')]");
+  }
+
+  private ElementFacade pendingRadioBtnActiveElement() {
+    return findByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//input[@value='PENDING']//ancestor::*[contains(@class,'v-radio') and contains(@class,'v-item--active')]");
   }
 
 }
