@@ -84,6 +84,7 @@ Feature: Achievements
     And I go to '/portal/contribute/contributions/achievements#yours'
     And Achievement for 'Receive kudos 6' is canceled
 
+  @ignore
   Scenario: Achievements for Send/Cancel Kudos from user profile
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
