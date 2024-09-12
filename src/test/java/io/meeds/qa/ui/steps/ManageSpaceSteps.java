@@ -18,10 +18,10 @@
 package io.meeds.qa.ui.steps;
 
 import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION_MILLIS;
-import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.Duration;
 import java.util.List;
@@ -34,11 +34,12 @@ import io.meeds.qa.ui.hook.TestInitHook;
 import io.meeds.qa.ui.pages.HomePage;
 import io.meeds.qa.ui.pages.ManageSpacesPage;
 import io.meeds.qa.ui.utils.Utils;
+
 import net.serenitybdd.core.Serenity;
 
 public class ManageSpaceSteps {
 
-  private static final String CREATE_SPACE_SCRIPT  =
+  private static final String CREATE_SPACE_SCRIPT                        =
                                                   """
                                                        const callback = arguments[arguments.length - 1];
                                                        fetch("/portal/rest/v1/social/spaces/", {
@@ -78,13 +79,14 @@ public class ManageSpaceSteps {
                                                                               .catch(() => callback(false));
                                                                              """;
 
-  private static final int SPACE_TEMPLATE_INDEX = Integer.parseInt(System.getProperty("io.meeds.space.template.index", "0"));
+  private static final int    SPACE_TEMPLATE_INDEX                       =
+                                                   Integer.parseInt(System.getProperty("io.meeds.space.template.index", "0"));
 
-  private String           spaceTemplate;
+  private String              spaceTemplate;
 
-  private HomePage         homePage;
+  private HomePage            homePage;
 
-  private ManageSpacesPage manageSpacesPage;
+  private ManageSpacesPage    manageSpacesPage;
 
   public void joinOrGoToSpace(String spaceNamePrefix) {
     String spaceName = sessionVariableCalled(spaceNamePrefix);
@@ -254,13 +256,15 @@ public class ManageSpaceSteps {
 
   public void checkThirtyRandomSpacesArePresent() {
     homePage.goToSpacesPage(true);
-    if (!manageSpacesPage.isLoadMoreButtonDisplayed()) {
+    waitForLoading();
+    if (!manageSpacesPage.isLoadMoreButtonPresent()) {
       for (int i = 0; i < 30; i++) {
-        String randomSpaceName = "randomSpaceName" + getRandomNumber();
-        addSpaceWithRegistration(randomSpaceName, "Open");
-        TestInitHook.spaceWithPrefixCreated("randomSpaceName", randomSpaceName, homePage.getCurrentUrl());
-        homePage.goToSpacesPage(true);
+        injectRandomSpace("randomSpaceName");
       }
+      homePage.goToSpacesPage(true);
+      waitForLoading();
+      assertThat(manageSpacesPage.isLoadMoreButtonPresent()).as("Spaces Load More button isn't displayed after adding 30 spaces")
+                                                            .isTrue();
     }
   }
 
@@ -363,15 +367,15 @@ public class ManageSpaceSteps {
   }
 
   public void openSpaceInvitationDrawer() {
-    manageSpacesPage.openSpaceInvitationDrawer();    
+    manageSpacesPage.openSpaceInvitationDrawer();
   }
 
   public void inviteEmailAsSpaceMember(String email) {
-    manageSpacesPage.inviteEmailAsSpaceMember(email);    
+    manageSpacesPage.inviteEmailAsSpaceMember(email);
   }
 
   public void emailIsListedInInvitationList(String email, String status) {
-    manageSpacesPage.emailIsListedInInvitationList(email, status);    
+    manageSpacesPage.emailIsListedInInvitationList(email, status);
   }
 
   public void emailIsNotListedInInvitationList(String email) {
@@ -381,18 +385,18 @@ public class ManageSpaceSteps {
   public void injectRandomSpace(String spaceNamePrefix) {
     String spaceName = Utils.getRandomString(spaceNamePrefix);
     String addSpaceScript =
-        String.format(CREATE_SPACE_SCRIPT,
-                      "open",
-                      "private",
-                      spaceTemplate == null ? "" : spaceTemplate,
-                                            spaceName,
-                                            spaceName);
+                          String.format(CREATE_SPACE_SCRIPT,
+                                        "open",
+                                        "private",
+                                        spaceTemplate == null ? "" : spaceTemplate,
+                                        spaceName,
+                                        spaceName);
     WebDriverWait wait = new WebDriverWait(Serenity.getDriver(),
                                            Duration.ofSeconds(10),
                                            Duration.ofMillis(SHORT_WAIT_DURATION_MILLIS));
     wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeAsyncScript(addSpaceScript)
-               .toString()
-               .equals("true"));
+                                                            .toString()
+                                                            .equals("true"));
     String spaceUrl = homePage.getCurrentUrl().split("/portal")[0] + "/portal/g/:spaces:" + spaceName;
     TestInitHook.spaceWithPrefixCreated(spaceNamePrefix, spaceName, spaceUrl);
   }
