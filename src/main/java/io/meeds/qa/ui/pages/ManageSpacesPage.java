@@ -291,8 +291,8 @@ public class ManageSpacesPage extends GenericPage {
     mentionInField(inviteUserInputElement(), user, 5);
   }
 
-  public boolean isLoadMoreButtonDisplayed() {
-    return findByXPathOrCSS("#spacesListFooter .loadMoreButton").isCurrentlyVisible();
+  public boolean isLoadMoreButtonPresent() {
+    return findByXPathOrCSS("#spacesListFooter .loadMoreButton").isPresent();
   }
 
   public void isSpaceBannerUpdated() {
