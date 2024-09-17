@@ -24,6 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.JavascriptExecutor;
@@ -193,8 +194,9 @@ public class HomePage extends GenericPage {
       if (!getStickiedHamburgerMenuParent().isCurrentlyVisible()) {
         clickOnHamburgerMenu(true);
       }
-      hamburgerMenuItemLink(siteName).assertVisible();
-      hamburgerMenuItemLink(siteName).click();
+      ElementFacade hamburgerMenuItemLink = hamburgerMenuItemLink(siteName);
+      hamburgerMenuItemLink.assertVisible();
+      hamburgerMenuItemLink.click();
       waitForPageLoading();
       assertThat(getDriver().getCurrentUrl()).contains(PORTAL_ROOT_CONTEXT + siteName);
     } else {
@@ -511,8 +513,10 @@ public class HomePage extends GenericPage {
       accessToAdministrationMenu();
       String[] menuParts = menuItem.split("/");
       retryOnCondition(() -> {
-        administrationMenuItem(menuParts[0]).click();
-        administrationMenuItem(menuParts[1]).checkVisible();
+        if (!administrationMenuItem(menuParts[1]).isCurrentlyVisible()) {
+          administrationMenuItem(menuParts[0]).click();
+          administrationMenuItem(menuParts[1]).checkVisible();
+        }
         administrationMenuItem(menuParts[1]).click();
       });
       waitForPageLoading();
@@ -540,9 +544,12 @@ public class HomePage extends GenericPage {
       siteSecondLevelMenuItem(linkSuffix).checkVisible();
       siteSecondLevelMenuItem(linkSuffix).click();
     } else {
-      hamburgerMenuItemLink(linkSuffix).checkVisible();
-      hamburgerMenuItemLink(linkSuffix).click();
-      waitForPageLoading();
+      retryOnCondition(() -> {
+        ElementFacade hamburgerMenuItemLink = hamburgerMenuItemLink(linkSuffix);
+        hamburgerMenuItemLink.checkVisible();
+        hamburgerMenuItemLink.click();
+        waitForPageLoading();
+      });
     }
     assertThat(getDriver().getCurrentUrl()).endsWith(linkSuffix);
   }
@@ -773,7 +780,19 @@ public class HomePage extends GenericPage {
   }
 
   private ElementFacade hamburgerMenuItemLink(String pageUri) {
+    return Stream.of(hamburgerMenuItemLinkText(pageUri), hamburgerMenuItemLinkParent(pageUri))
+                 .filter(ElementFacade::isCurrentlyVisible)
+                 .findFirst()
+                 .orElseThrow();
+  }
+
+  private ElementFacade hamburgerMenuItemLinkText(String pageUri) {
     return findByXPathOrCSS(String.format("//*[contains(@class, 'HamburgerNavigationMenu')]//a[contains(@href, '%s')]//*[contains(@class, 'menu-text-color')]",
+                                          pageUri));
+  }
+
+  private ElementFacade hamburgerMenuItemLinkParent(String pageUri) {
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'HamburgerNavigationMenu')]//a[contains(@href, '%s')]",
                                           pageUri));
   }
 
