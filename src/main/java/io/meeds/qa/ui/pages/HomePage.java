@@ -773,12 +773,12 @@ public class HomePage extends GenericPage {
   }
 
   private ElementFacade hamburgerMenuItemLink(String pageUri) {
-    return findByXPathOrCSS(String.format("//*[contains(@class, 'HamburgerNavigationMenu')]//*[contains(@href, '%s')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'HamburgerNavigationMenu')]//a[contains(@href, '%s')]//*[contains(@class, 'menu-text-color')]",
                                           pageUri));
   }
 
   private ElementFacade hamburgerMenuSecondLevelItemLink(String pageUri) {
-    return findByXPathOrCSS(String.format("//*[contains(@class, 'HamburgerMenuSecondLevelParent')]//a[contains(@href, '%s')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'HamburgerMenuSecondLevelParent')]//a[contains(@href, '%s')]//*[contains(@class, 'menu-text-color')]",
                                           pageUri));
   }
 

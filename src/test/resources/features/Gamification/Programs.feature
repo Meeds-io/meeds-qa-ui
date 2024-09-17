@@ -104,7 +104,7 @@ Feature: Programs
     And I click on 'Apply' button in second level drawer
     Then The 'first' translations button is primary
 
-    When I select a 'Let them submit their contribution' application
+    When I select a 'manual' application
     And I click on 'Start' button in drawer
     And I add rule random description
     Then The 'second' translations button is not primary
@@ -162,7 +162,7 @@ Feature: Programs
     And I click on 'Add action' button
     And I wait for drawer to open
     When I enter the rule title 'Program With Image Action'
-    And I select a 'Let them submit their contribution' application
+    And I select a 'manual' application
     And I click on 'Start' button in drawer
     When I add rule random description
     And I click on 'Next' button in drawer
@@ -222,7 +222,7 @@ Feature: Programs
     And I click on 'Add action' button
     And I wait for drawer to open
     When I enter the rule title 'Internal users action'
-    And I select a 'Let them submit their contribution' application
+    And I select a 'manual' application
     And I click on 'Start' button in drawer
     When I add rule random description
     And I click on 'Next' button in drawer
@@ -295,7 +295,7 @@ Feature: Programs
     And I wait for drawer to open
     Then The button 'Start' is disabled
     When I enter the rule title 'Program activation test'
-    And I select a 'Let them submit their contribution' application
+    And I select a 'manual' application
     Then The button 'Start' is enabled
     When I click on 'Start' button in drawer
     And I add rule random description
