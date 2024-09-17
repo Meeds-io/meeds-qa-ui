@@ -16,7 +16,7 @@ Feature: Rules
     And I click on 'Add action' button
     And I wait for drawer to open
     And I enter the rule title 'Receive kudos'
-    And I select a 'Boost Collaboration' application
+    And I select a 'meeds' application
     And I click on 'Start' button in drawer
     And I add rule random description
     And I select a 'Receive kudos' event
@@ -65,7 +65,7 @@ Feature: Rules
     And I click on 'Add Action' button
     And I wait for drawer to open
     And I enter the rule title 'Join space'
-    And I select a 'Boost Collaboration' application
+    And I select a 'meeds' application
     And I click on 'Start' button in drawer
     And I add rule random description
     And I select a 'Join space' event
@@ -106,7 +106,7 @@ Feature: Rules
     When I click on 'Add Action' button
     And I wait for drawer to open
     And I enter the rule title 'Join space'
-    And I select a 'Boost Collaboration' application
+    And I select a 'meeds' application
     And I click on 'Start' button in drawer
     And I add rule random description
     And I select a 'Join space' event
