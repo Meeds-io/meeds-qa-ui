@@ -3,7 +3,7 @@ Feature: Edit sections in Settings page
   As a user
   I want to edit in Settings page many sections
 
-  Scenario: [SETTINGS-5] Language and its drawer
+  Scenario: Language and its drawer
     Given I am authenticated as 'admin' if random users doesn't exists
       | firstlang  |
     And I inject the firstlang random user if not existing
@@ -28,7 +28,7 @@ Feature: Edit sections in Settings page
     When I refresh the page
     Then Language 'English / English' is displayed
 
-  Scenario: SETTINGS-4 : Add the home icon for Homepage default view
+  Scenario: Add the home icon for Homepage default view
     Given I am authenticated as 'admin' if random users doesn't exists
       | homeicon  |
     And I inject the homeicon random user if not existing, no wait

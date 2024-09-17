@@ -170,7 +170,7 @@ Feature: Attach images activities
     When I enter the rule title 'Announce an action with attached image'
     Then The button 'Start' is disabled in drawer
 
-    When I select a 'Let them submit their contribution' application
+    When I select a 'manual' application
     Then The button 'Start' is enabled in drawer
 
     When I click on 'Start' button in drawer

@@ -20,7 +20,7 @@ Feature: Actions
     Then The button 'Start' is disabled in drawer
 
     When I enter the rule title 'Challenge to announce'
-    And I select a 'Let them submit their contribution' application
+    And I select a 'manual' application
     Then The button 'Start' is enabled in drawer
 
     When I click on 'Start' button in drawer
@@ -96,7 +96,7 @@ Feature: Actions
     And I wait for drawer to open
 
     When I enter the rule title 'Challenge to disable'
-    And I select a 'Let them submit their contribution' application
+    And I select a 'manual' application
     Then The button 'Start' is enabled in drawer
 
     When I click on 'Start' button in drawer
@@ -127,7 +127,7 @@ Feature: Actions
     And I wait for drawer to open
 
     When I enter the rule title 'Announce an action from its activity'
-    And I select a 'Let them submit their contribution' application
+    And I select a 'manual' application
     Then The button 'Start' is enabled in drawer
 
     And I click on 'Start' button in drawer
@@ -229,7 +229,7 @@ Feature: Actions
     And I wait for drawer to open
 
     When I enter the rule title 'Action with second activity'
-    And I select a 'Let them submit their contribution' application
+    And I select a 'manual' application
     And I click on 'Start' button in drawer
     And I add rule random description
     And I click on 'Next' button in drawer
@@ -263,7 +263,7 @@ Feature: Actions
     When I enter the rule title 'Challenge to disable'
     Then The button 'Start' is disabled in drawer
 
-    When I select a 'Let them submit their contribution' application
+    When I select a 'manual' application
     Then The button 'Start' is enabled in drawer
 
     When I click on 'Start' button in drawer
@@ -312,7 +312,7 @@ Feature: Actions
     And I click on 'Add action' button
     And I wait for drawer to open
     And I enter the rule title 'Announce activity to delete'
-    And I select a 'Let them submit their contribution' application
+    And I select a 'manual' application
     Then The button 'Start' is enabled in drawer
 
     When I click on 'Start' button in drawer
@@ -371,7 +371,7 @@ Feature: Actions
     And I click on 'Add action' button
     And I wait for drawer to open
     And I enter the rule title 'Top challenge'
-    And I select a 'Let them submit their contribution' application
+    And I select a 'manual' application
     Then The button 'Start' is enabled in drawer
 
     When I click on 'Start' button in drawer

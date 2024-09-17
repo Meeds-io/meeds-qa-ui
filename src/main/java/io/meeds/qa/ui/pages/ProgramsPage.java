@@ -215,14 +215,20 @@ public class ProgramsPage extends GenericPage {
   }
 
   public void deleteProgramAction(String actionTitle) {
-    getActionItemElement(actionTitle).hover();
+    retryOnCondition(() -> {
+      getActionItemElement(actionTitle).assertVisible();
+      getActionItemElement(actionTitle).hover();
+    });
     actionMenuButton().click();
     deleteActionMenuItem().click();
     clickToConfirmDialog();
   }
 
   public void announceAction(String actionTitle, String announcementMessage) {
-    getActionItemElement(actionTitle).hover();
+    retryOnCondition(() -> {
+      getActionItemElement(actionTitle).assertVisible();
+      getActionItemElement(actionTitle).hover();
+    });
     announceButton().click();
     sendAnnouncementMessage(announcementMessage);
   }

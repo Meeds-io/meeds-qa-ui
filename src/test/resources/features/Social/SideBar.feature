@@ -2,7 +2,7 @@
 Feature: SideBar
 
   @smoke
-  Scenario: CAP37 - US 6.2.2 [FRONT]_(01) : Filter Recent Spaces in the Second level side bar in Desktop
+  Scenario: Filter Recent Spaces in the Second level side bar in Desktop
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I inject the first random user if not existing, no wait
@@ -15,7 +15,7 @@ Feature: SideBar
     And Fourth searched space is not displayed in Side Bar Filter
 
   @smoke
-  Scenario:CAP34-US 6.5[FRONT]_(01):My Settings in the Side bar for Desktop
+  Scenario: My Settings in the Side bar for Desktop
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I inject the first random user if not existing, no wait

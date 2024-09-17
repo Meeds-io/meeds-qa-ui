@@ -27,6 +27,10 @@ import io.meeds.qa.ui.elements.TextBoxElementFacade;
 
 public class RulePage extends GenericPage {
 
+  private static final String MEEDS_APPLICATION                       = "meeds";
+
+  private static final String MANUAL_SUBMISSION_APPLICATION           = "manual";
+
   private static final String OPENED_RULE_PUBLICATION_DRAWER_SELECTOR = "//*[@id='engagementCenterRulePublication']";
 
   private static final String OPENED_RULE_DRAWER_SELECTOR             =
@@ -51,9 +55,9 @@ public class RulePage extends GenericPage {
     }
     if (newRule) {
       if (manual) {
-        applicationElement("Let them submit their contribution").click();
+        applicationElement(MANUAL_SUBMISSION_APPLICATION).click();
       } else {
-        applicationElement("Boost Collaboration").click();
+        applicationElement(MEEDS_APPLICATION).click();
       }
     }
     clickOnStartButton();
@@ -310,7 +314,8 @@ public class RulePage extends GenericPage {
   }
 
   private ElementFacade applicationElement(String applicationLabel) {
-    return findByXPathOrCSS(String.format("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'v-list-item')]//*[contains(text(), '%s')]", applicationLabel));
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'v-navigation-drawer--open')]//*[@id = '%sApplicationSubmissionOption']",
+                                          applicationLabel));
   }
 
   private ElementFacade acceptedRadioBtnElement() {
