@@ -113,15 +113,35 @@ public class ManageSpaceStepDefinitions {
   public void openSpaceInvitationDrawer() {
     manageSpaceSteps.openSpaceInvitationDrawer();
   }
+
+  @Given("I open space external invitation drawer")
+  public void openSpaceExternalInvitationDrawer() {
+    manageSpaceSteps.openSpaceExternalInvitationDrawer();
+  }
   
   @Given("^I enter email '(.*)' to invite in random space$")
   public void inviteEmailAsSpaceMember(String email) {
     manageSpaceSteps.inviteEmailAsSpaceMember(email);
   }
-
+  
   @Then("^The email '(.*)' is set to '(.*)' in invitations list$")
   public void emailIsListedInInvitationList(String email, String status) {
     manageSpaceSteps.emailIsListedInInvitationList(email, status);
+  }
+
+  @Then("I open the space pending invitations drawer")
+  public void openSpacePendingInvitationsDrawer() {
+    manageSpaceSteps.openSpacePendingInvitationsDrawer();
+  }
+
+  @Then("I open the space extenal invitations tab")
+  public void openSpaceExternalInvitationsTab() {
+    manageSpaceSteps.openSpaceExternalInvitationsTab();
+  }
+
+  @Then("I cannot access space external invitation drawer")
+  public void checkExternalInviteButtonNotDisplayed() {
+    manageSpaceSteps.checkExternalInviteButtonNotDisplayed();
   }
 
   @Then("^The email '(.*)' is not displayed in invitations list$")

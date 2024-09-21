@@ -6,7 +6,7 @@ Feature: Spaces widget checking
   In order to validate the page
 
   @smoke
-  Scenario: Spaces requests to join: See All
+  Scenario: Spaces requests to join
     Given I am authenticated as 'admin' random user
     And I inject the eighteenth random user if not existing
     And I create a random space with the eighteenth random user

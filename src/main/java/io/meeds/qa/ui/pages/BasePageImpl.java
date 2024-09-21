@@ -350,6 +350,10 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   public boolean mentionInField(TextBoxElementFacade inputField, String user, int maxRetries) {
     inputField.waitUntilVisible();
+    if (!inputField.getTagName().equals("input")) {
+      inputField = inputField.findBy("input");
+      inputField.checkVisible();
+    }
     inputField.setTextValue(user + "x");
 
     boolean visible = false;

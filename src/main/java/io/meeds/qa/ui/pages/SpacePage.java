@@ -26,16 +26,19 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 
+import io.meeds.qa.ui.elements.ButtonElementFacade;
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import net.serenitybdd.core.Serenity;
 
-public class SpaceHomePage extends GenericPage {
+public class SpacePage extends GenericPage {
 
   private static final String COMMENT_SESSION_VARIABLE                        = "comment";
 
@@ -63,7 +66,7 @@ public class SpaceHomePage extends GenericPage {
 
   private PeoplePage          peoplePage;
 
-  public SpaceHomePage(WebDriver driver) {
+  public SpacePage(WebDriver driver) {
     super(driver);
   }
 
@@ -880,6 +883,10 @@ public class SpaceHomePage extends GenericPage {
     getPinActivityIcon(activity).assertVisible();
   }
 
+  public void pinActivityButtonIsNotDisplayed(String activity) {
+    getPinActivityIcon(activity).assertNotVisible();
+  }
+
   public void pinnedActivityDisappears(String activity) {
     getPinnedActivity(activity).assertNotVisible();
   }
@@ -1153,6 +1160,87 @@ public class SpaceHomePage extends GenericPage {
 
   public void viewAllRepliesInCommentsDrawer(String comment) {
     getCommentsDrawerViewAllReplies(comment).click();
+  }
+
+  public void openSpaceSettingsSection(String sectionId) {
+    getSpaceSettingSectionButton(sectionId).click();
+  }
+
+  public void enableRedactionalSpaceSettings() {
+    ElementFacade switchButton = getRedactionalSpaceSwitchButton();
+    getRedactionalSpaceSwitchButtonParent().checkVisible();
+    int i = MAX_WAIT_RETRIES;
+    while (--i > 0 && StringUtils.equals("true", switchButton.getAttribute("aria-checked"))) {
+      getRedactionalSpaceSwitchButtonParent().click();
+      waitFor(50).seconds();
+    }
+    if (i <= 0) {
+      throw new ElementClickInterceptedException(String.format("Restrict content creation switch button wasn't enabled after %s retries",
+                                                               MAX_WAIT_RETRIES));
+    }
+    getRedactionalSpaceSwitchButtonParent().click();
+    waitForDrawerToOpen();
+    getSpaceSettingsRedactorsDrawer().checkVisible();
+  }
+
+  public void promoteUserAsSpaceRedactor(String userFirstName) {
+    mentionInField(getUserMemberSuggester(), userFirstName, 3);
+    getRedactorItemInList(userFirstName).assertVisible();
+  }
+
+  public void addUserWithRoleInSpace(String userFirstName) {
+    mentionInField(getUserMemberSuggester(), userFirstName, 3);
+    getAddedUserToRoleItemInList(userFirstName).assertVisible();
+  }
+
+  public void openSpaceSettingsRoleDrawer(String role) {
+    getSpaceSettingRoleButtonToOpenDrawer(role).assertVisible();
+    getSpaceSettingRoleButtonToOpenDrawer(role).click();
+    waitForDrawerToOpen();
+    retryOnCondition(() -> {
+      if (getSpaceSettingRoleAddButton(role).isCurrentlyVisible()) {
+        getSpaceSettingRoleAddButton(role).click();
+        waitForDrawerToOpen();
+      }
+      findButtonByXPathOrCSS("#SpaceSettingsUsersSelectionDrawer #userMemberSuggester").checkVisible();
+    });
+    
+  }
+
+  private ElementFacade getSpaceSettingRoleAddButton(String role) {
+    return findByXPathOrCSS(String.format("#SpaceSettingsUsersDrawer #%sAddUser", role));
+  }
+
+  private ElementFacade getSpaceSettingRoleButtonToOpenDrawer(String role) {
+    return findByXPathOrCSS(String.format("//*[@id='%sSpaceSettingRoleRow']//button", role));
+  }
+
+  private TextBoxElementFacade getUserMemberSuggester() {
+    return findTextBoxByXPathOrCSS("#userMemberSuggester input");
+  }
+
+  private ElementFacade getRedactorItemInList(String userFirstName) {
+    return findByXPathOrCSS(String.format("//*[@id='SpaceSettingsRedactorsList']//*[contains(text(), '%s')]", userFirstName));
+  }
+
+  private ElementFacade getAddedUserToRoleItemInList(String userFirstName) {
+    return findByXPathOrCSS(String.format("//*[@id='SpaceSettingsUsersSelectionDrawer']//*[contains(text(), '%s')]", userFirstName));
+  }
+
+  private ElementFacade getRedactionalSpaceSwitchButton() {
+    return findByXPathOrCSS("#SpaceSettingRestrictContent");
+  }
+
+  private ElementFacade getRedactionalSpaceSwitchButtonParent() {
+    return findByXPathOrCSS("//*[@id='SpaceSettingRestrictContent']//ancestor::*[contains(@class, 'v-input--switch')]");
+  }
+
+  private ElementFacade getSpaceSettingsRedactorsDrawer() {
+    return findByXPathOrCSS("#SpaceSettingsRedactorsDrawer");
+  }
+
+  private ButtonElementFacade getSpaceSettingSectionButton(String sectionId) {
+    return findButtonByXPathOrCSS(String.format("#SpaceSettings%s button", sectionId));
   }
 
   private ElementFacade searchSpaceTabElement(String tabName) {
@@ -1737,13 +1825,9 @@ public class SpaceHomePage extends GenericPage {
     return findByXPathOrCSS(String.format("//*[@id = 'topBarMenu']//*[contains(text(),'%s')]//ancestor-or-self::a",
                                           tabName));
   }
-  
+
   private ElementFacade selectedTabElement() {
     return findByXPathOrCSS("//*[@id = 'topBarMenu']//a[contains(@class, 'v-tab--active')]");
-  }
-
-  private ElementFacade topBarElement() {
-    return findByXPathOrCSS("//*[@id = 'topBarMenu']");
   }
 
   private ElementFacade selectedTabElement(String tabName) {
