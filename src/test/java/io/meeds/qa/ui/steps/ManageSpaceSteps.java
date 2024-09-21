@@ -370,12 +370,28 @@ public class ManageSpaceSteps {
     manageSpacesPage.openSpaceInvitationDrawer();
   }
 
+  public void openSpaceExternalInvitationDrawer() {
+    manageSpacesPage.openSpaceExternalInvitationDrawer();
+  }
+
   public void inviteEmailAsSpaceMember(String email) {
     manageSpacesPage.inviteEmailAsSpaceMember(email);
   }
 
   public void emailIsListedInInvitationList(String email, String status) {
     manageSpacesPage.emailIsListedInInvitationList(email, status);
+  }
+
+  public void openSpacePendingInvitationsDrawer() {
+    manageSpacesPage.openSpacePendingInvitationsDrawer();
+  }
+
+  public void openSpaceExternalInvitationsTab() {
+    manageSpacesPage.openSpaceExternalInvitationsTab();
+  }
+
+  public void checkExternalInviteButtonNotDisplayed() {
+    manageSpacesPage.checkExternalInviteButtonNotDisplayed();
   }
 
   public void emailIsNotListedInInvitationList(String email) {

@@ -30,7 +30,7 @@ import io.meeds.qa.ui.elements.TextBoxElementFacade;
 
 public class ManageSpacesPage extends GenericPage {
 
-  private SpaceHomePage spaceHomePage;
+  private SpacePage spaceHomePage;
 
   public ManageSpacesPage(WebDriver driver) {
     super(driver);
@@ -38,11 +38,10 @@ public class ManageSpacesPage extends GenericPage {
 
   public void addUserToSpace(String user) {
     spaceMembersTabElement().click();
-    ElementFacade inviteUserButtonElement = inviteUserButtonElement();
+    ElementFacade inviteUserButtonElement = inviteUserButton();
     inviteUserButtonElement.waitUntilVisible();
-    ElementFacade memberCard =
-                             findByXPathOrCSS(String.format("//*[contains(@class, 'userFullname') and contains(text(), '%s')]",
-                                                            user));
+    ElementFacade memberCard = findByXPathOrCSS(String.format("//*[contains(@class, 'userFullname') and contains(text(), '%s')]",
+                                                              user));
     if (memberCard.isPresent()) {
       spaceHomePage.removeMember(user);
     }
@@ -400,25 +399,31 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void uploadSpaceBanner(String fileName) {
-    spaceBannerElement().click();
+    spaceBannerButton().click();
     uploadSpaceBannerButtonElement().click();
-    waitForDrawerToOpen();
     ElementFacade fileInput = findByXPathOrCSS(".v-navigation-drawer--open input[type=file]");
     upload(UPLOAD_DIRECTORY_PATH + fileName).fromLocalMachine().to(fileInput);
     waitForProgressBar();
     ElementFacade imageApplyButton = findByXPathOrCSS("#imageCropDrawerApply");
     imageApplyButton.click();
-    waitForDrawerToClose();
+    spaceBannerResetButton().assertVisible();
   }
 
   public void openSpaceInvitationDrawer() {
-    inviteUserButtonElement().click();
+    inviteUserButton().click();
+    findByXPathOrCSS("#InvitePlatformUserToSpaceButton").click();
+    waitForDrawerToOpen();
+  }
+
+  public void openSpaceExternalInvitationDrawer() {
+    inviteUserButton().click();
+    findByXPathOrCSS("#InviteUserByEmailToSpaceButton").click();
     waitForDrawerToOpen();
   }
 
   public void inviteEmailAsSpaceMember(String email) {
-    inviteUserInputElement().setTextValue(email);
-    inviteUserInputElement().sendKeys(Keys.ENTER);
+    inviteEmailAsSpaceMemberInput().setTextValue(email);
+    inviteEmailAsSpaceMemberInput().sendKeys(Keys.ENTER);
   }
 
   public void emailIsListedInInvitationList(String email, String status) {
@@ -427,6 +432,23 @@ public class ManageSpacesPage extends GenericPage {
 
   public void emailIsNotListedInInvitationList(String email) {
     inviteEmailStatusElement(email).assertNotVisible();
+  }
+  
+  public void openSpacePendingInvitationsDrawer() {
+    findByXPathOrCSS("#SpacePendingUsersButton").click();
+  }
+
+  public void openSpaceExternalInvitationsTab() {
+    findByXPathOrCSS("[tab-value='external']").click();
+  }
+
+  public void checkExternalInviteButtonNotDisplayed() {
+    inviteUserButton().assertNotVisible();
+    invitePlatformUserButton().assertVisible();
+  }
+
+  private ElementFacade invitePlatformUserButton() {
+    return findByXPathOrCSS("#spaceSettingUsersListToolbar");
   }
 
   private ElementFacade addNewSpaceButtonElement() {
@@ -495,22 +517,26 @@ public class ManageSpacesPage extends GenericPage {
     return findByXPathOrCSS("//*[@class='btn btn-primary v-btn v-btn--contained theme--light v-size--default']");
   }
 
-  private ElementFacade inviteUserButtonElement() {
-    return findByXPathOrCSS("//*[contains(@class, 'inviteUserToSpaceButton')]");
+  private ElementFacade inviteUserButton() {
+    return findByXPathOrCSS("#InviteUserToSpaceButton");
   }
 
   private TextBoxElementFacade inviteUserInputElement() {
     return findTextBoxByXPathOrCSS("(//div[@name='inviteMembers']//input)[1]");
   }
 
+  private TextBoxElementFacade inviteEmailAsSpaceMemberInput() {
+    return findTextBoxByXPathOrCSS("#spaceEmailInvitationDrawer [contenteditable=true]");
+  }
+
   private ElementFacade inviteEmailStatusElement(String email, String status) {
-    return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]/ancestor::*[contains(@class, 'externalList')]//*[contains(text(), '%s')]",
+    return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]/ancestor::*[contains(@class, 'v-list-item')]//*[contains(text(), '%s')]",
                                           email,
                                           status));
   }
 
   private ElementFacade inviteEmailStatusElement(String email) {
-    return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]/ancestor::*[contains(@class, 'externalList')]",
+    return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]/ancestor::*[contains(@class, 'v-list-item')]",
                                           email));
   }
 
@@ -550,12 +576,16 @@ public class ManageSpacesPage extends GenericPage {
     return findByXPathOrCSS("//*[@id='UserHomePortalLink']");
   }
 
-  private TextBoxElementFacade spaceBannerElement() {
-    return findTextBoxByXPathOrCSS("//*[@id='spaceAvatarImg']");
+  private TextBoxElementFacade spaceBannerButton() {
+    return findTextBoxByXPathOrCSS("//*[@id='spaceBannerEditButton']");
+  }
+
+  private TextBoxElementFacade spaceBannerResetButton() {
+    return findTextBoxByXPathOrCSS("//*[@id='spaceBannerDeleteButton']");
   }
 
   private TextBoxElementFacade spaceBannerUpdatedElement() {
-    return findTextBoxByXPathOrCSS("//*[@id='SpaceHeader']//*[@class='v-responsive__content']");
+    return findTextBoxByXPathOrCSS("//*[contains(@class,'spaceCardItem')]//*[contains(@class,'spaceBannerImg')]//*[contains(@style, '/social/spaces/')]");
   }
 
   private ElementFacade spaceCardN20Element() {

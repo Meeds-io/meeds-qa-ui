@@ -19,8 +19,15 @@ Feature: Meeds Space
     Then Space Avatar is displayed
     And The created space name is displayed
 
+    And I click on 'Settings' space menu tab
+    And I open 'Overview' Section from Space Settings
+    And I close the notification
+
     When I upload the Space banner 'cap02.png'
-    And I go to the random space
+    And I click on 'Update' button
+
+    And I go to spaces page
+    And  I search for the random space
     Then Space banner is changed successfully
 
   Scenario: Clickable Space avatar

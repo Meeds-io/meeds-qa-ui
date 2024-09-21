@@ -81,7 +81,7 @@ Feature: Search for User Informations in Profile page
     Then Sent kudos by user 'seventhkudos' is displayed
     And Sent kudos by user 'sixthkudos' is displayed
 
-  Scenario: : PROFILE-7 : Work Experiences block and its drawer
+  Scenario: Work Experiences block and its drawer
     Given I am authenticated as 'admin' if random users doesn't exists
       | thirdprofile  |
     And I create the thirdprofile random user if not existing, no wait

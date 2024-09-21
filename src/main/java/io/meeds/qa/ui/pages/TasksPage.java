@@ -720,6 +720,8 @@ public class TasksPage extends GenericPage {
   public void editSpaceName(String spaceName) {
     spaceNameTitleElement().setTextValue(spaceName);
     updateNameSpaceButtonElement().click();
+    waitForLoading();
+    waitFor(200).milliseconds();
   }
 
   public void editTaskDrawerIsDisplayed() {
@@ -1723,7 +1725,7 @@ public class TasksPage extends GenericPage {
   }
 
   private TextBoxElementFacade spaceNameTitleElement() {
-    return findTextBoxByXPathOrCSS("//*[@placeholder='Display name']");
+    return findTextBoxByXPathOrCSS("//*[@name='name']");
   }
 
   private ElementFacade statusFieldElement() {
@@ -1869,7 +1871,7 @@ public class TasksPage extends GenericPage {
   }
 
   private ElementFacade updateNameSpaceButtonElement() {
-    return findByXPathOrCSS("//*[@class='btn btn-primary v-btn v-btn--contained theme--light v-size--default']");
+    return findByXPathOrCSS("button#updateSpaceButton");
   }
 
   private ElementFacade validateStatusNameElement() {

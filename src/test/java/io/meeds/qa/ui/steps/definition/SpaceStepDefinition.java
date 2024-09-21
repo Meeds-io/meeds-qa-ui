@@ -25,44 +25,45 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.meeds.qa.ui.pages.SpaceHomePage;
-import io.meeds.qa.ui.steps.SpaceHomeSteps;
+import io.meeds.qa.ui.pages.SpacePage;
+import io.meeds.qa.ui.steps.SpaceSteps;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 
-public class SpaceHomeStepDefinition {
+public class SpaceStepDefinition {
 
-  private SpaceHomePage  spaceHomePage;
+  private static final String USER_FIRST_NAME = "UserFirstName";
 
+  private SpacePage  spacePage;
 
   @Steps
-  private SpaceHomeSteps spaceHomeSteps;
+  private SpaceSteps spaceSteps;
 
   @When("^I enter an activity '(.*)'$")
   @And("^I add a short message '(.*)' for the Poll$")
   public void addActivity(String activity) {
-    spaceHomeSteps.addActivity(activity);
+    spaceSteps.addActivity(activity);
   }
 
   @When("^I add in activity '(.*)' a comment '(.*)'$")
   public void addActivityComment(String activity, String comment) {
-    spaceHomePage.addActivityComment(activity, comment);
+    spacePage.addActivityComment(activity, comment);
   }
 
   @When("^I add in activity '(.*)' the following comments$")
   public void addActivityComments(String activity, List<String> comments) {
-    spaceHomePage.addActivityComments(activity, comments);
+    spacePage.addActivityComments(activity, comments);
   }
 
   @When("^I add in comment '(.*)' of activity '(.*)' the following replies$")
   public void addActivityComments(String comment, String activity, List<String> replies) {
-    spaceHomePage.addCommentReplies(replies, comment, activity);
+    spacePage.addCommentReplies(replies, comment, activity);
   }
 
   @When("^I enter an activity more than 1300 characters$")
   public void addActivityExceed() {
     String activity = StringUtils.repeat("activity to add", 90);
-    spaceHomeSteps.addActivity(activity);
+    spaceSteps.addActivity(activity);
     Serenity.setSessionVariable("activity").to(activity);
   }
 
@@ -70,54 +71,54 @@ public class SpaceHomeStepDefinition {
   public void addActivityMentioningRandomUser(String activity, String userPrefix) {
     String userName = Serenity.sessionVariableCalled(userPrefix + "UserName");
     String newActivity = activity + " @" + userName;
-    spaceHomeSteps.addActivity(newActivity);
+    spaceSteps.addActivity(newActivity);
   }
 
   @When("^I add a reply '(.*)' to comment '(.*)' in activity '(.*)'$")
   public void addCommentReply(String reply, String comment, String activity) {
-    spaceHomePage.addCommentReply(reply, comment, activity);
+    spacePage.addCommentReply(reply, comment, activity);
   }
 
   @When("^I add description with less than 1000 characters In the poll$")
   public void addDescriptionLess1000CharsInThePoll() {
     String description = StringUtils.repeat("Description ", 80);
-    spaceHomeSteps.addDescriptionLess1000CharsInThePoll(description);
+    spaceSteps.addDescriptionLess1000CharsInThePoll(description);
   }
 
   @When("^I add description with more than 1000 characters In the poll$")
   public void addDescriptionMore1000CharsInThePoll() {
     String description = StringUtils.repeat("Description ", 100);
-    spaceHomeSteps.addOptionThreeInThePoll(description);
+    spaceSteps.addOptionThreeInThePoll(description);
   }
 
   @When("^I add in activity '(.*)' an internal link '(.*)' as a comment$")
   public void addInternalLinkComment(String activity, String comment) {
-    spaceHomePage.addActivityComment(activity, spaceHomePage.getCurrentUrl() + comment);
+    spacePage.addActivityComment(activity, spacePage.getCurrentUrl() + comment);
   }
 
   @When("^I added the second choice '(.*)' in the poll$")
   public void addOptionTwoInThePoll(String choiceTow) {
-    spaceHomeSteps.addOptionTwoInThePoll(choiceTow);
+    spaceSteps.addOptionTwoInThePoll(choiceTow);
   }
 
   @Then("^I click on Cancel button$")
   public void cancelDeleteComment() {
-    spaceHomeSteps.cancelDeleteComment();
+    spaceSteps.cancelDeleteComment();
   }
 
   @Then("^The comment '(.*)' is displayed in Comments drawer$")
   public void checkActivityCommentInDrawer(String comment) {
-    spaceHomeSteps.checkActivityCommentInDrawer(comment);
+    spaceSteps.checkActivityCommentInDrawer(comment);
   }
 
   @Then("^The comment '(.*)' is displayed in Comments drawer of activity '(.*)'$")
   public void checkActivityCommentInDrawer(String comment, String activity) {
-    spaceHomeSteps.checkActivityCommentDisplayed(activity, comment);
+    spaceSteps.checkActivityCommentDisplayed(activity, comment);
   }
 
   @Then("^The comment '(.*)' is not displayed in Comments drawer of activity '(.*)'$")
   public void checkActivityCommentNotDisplayed(String comment, String activity) {
-    spaceHomeSteps.checkActivityCommentNotDisplayed(activity, comment);
+    spaceSteps.checkActivityCommentNotDisplayed(activity, comment);
   }
 
   @And("^the activity '(.*)' is no more displayed in the activity stream$")
@@ -125,17 +126,17 @@ public class SpaceHomeStepDefinition {
   @When("^the activity '(.*)' is not displayed in stream page$")
   @And("^The activity '(.*)' is not displayed$")
   public void checkActivityNotVisible(String activity) {
-    spaceHomeSteps.checkActivityNotVisible(activity);
+    spaceSteps.checkActivityNotVisible(activity);
   }
 
   @Then("^The activity '(.*)' is pinned in space stream$")
   public void checkActivityPinned(String activity) {
-    spaceHomeSteps.checkActivityPinned(activity);
+    spaceSteps.checkActivityPinned(activity);
   }
 
   @Then("^The activity page is opened '(.*)'$")
   public void checkActivityTitle(String activity) {
-    spaceHomeSteps.checkActivityTitle(activity);
+    spaceSteps.checkActivityTitle(activity);
   }
 
   @When("^the activity '(.*)' is displayed in activity stream$")
@@ -143,452 +144,452 @@ public class SpaceHomeStepDefinition {
   @And("^The Poll '(.*)' is displayed in stream page$")
   @And("^The activity '(.*)' is displayed$")
   public void checkActivityVisible(String activity) {
-    spaceHomeSteps.checkActivityVisible(activity);
+    spaceSteps.checkActivityVisible(activity);
   }
 
   @When("^The comment '(.*)' is displayed$")
   public void checkCommentVisible(String comment) {
-    spaceHomeSteps.checkCommentVisible(comment);
+    spaceSteps.checkCommentVisible(comment);
   }
 
   @Then("^Comment is displayed in comments drawer at the sixth position$")
   public void checkCommentInDrawerSixthPosition() {
-    spaceHomeSteps.checkSixthPositionInDrawer();
+    spaceSteps.checkSixthPositionInDrawer();
   }
 
   @When("^In activity '(.*)' with comment '(.*)', the reply '(.*)' is displayed$")
   public void checkCommentReplyDisplayed(String activity, String comment, String reply) {
-    spaceHomeSteps.checkCommentReplyDisplayed(activity, comment, reply);
+    spaceSteps.checkCommentReplyDisplayed(activity, comment, reply);
   }
 
   @And("^In activity '(.*)' with comment '(.*)', the reply '(.*)' is displayed in Comment Drawer$")
   public void checkCommentReplyDisplayedInDrawer(String activity, String comment, String reply) {
-    spaceHomeSteps.checkCommentReplyDisplayedInDrawer(activity, comment, reply);
+    spaceSteps.checkCommentReplyDisplayedInDrawer(activity, comment, reply);
   }
 
   @When("^In activity '(.*)' with comment '(.*)', the reply '(.*)' is not displayed$")
   public void checkCommentReplyNotDisplayed(String activity, String comment, String reply) {
-    spaceHomeSteps.checkCommentReplyNotDisplayed(activity, comment, reply);
+    spaceSteps.checkCommentReplyNotDisplayed(activity, comment, reply);
   }
 
   @Then("The confirmation popup is displayed")
   public void checkConfirmationPopupIsVisible() {
-    spaceHomeSteps.checkConfirmationPopupVisible();
+    spaceSteps.checkConfirmationPopupVisible();
   }
 
   @Then("the confirmation popup is not displayed")
   public void checkConfirmationPopupNotVisible() {
-    spaceHomeSteps.checkConfirmationPopupNotVisible();
+    spaceSteps.checkConfirmationPopupNotVisible();
   }
 
   @When("^Create Poll Button is Disabled$")
   public void checkCreatePollButtonIsDisabled() {
-    spaceHomeSteps.checkCreatePollButtonIsDisabled();
+    spaceSteps.checkCreatePollButtonIsDisabled();
   }
 
   @When("^Create Poll Button is Enabled$")
   public void checkCreatePollButtonIsEnabled() {
-    spaceHomeSteps.checkCreatePollButtonIsEnabled();
+    spaceSteps.checkCreatePollButtonIsEnabled();
   }
 
   @Then("^the video '(.*)' is displayed in the activity stream$")
   public void checkDisplayVideo(String videoLink) {
-    spaceHomeSteps.checkVideoActivityVisible(videoLink);
+    spaceSteps.checkVideoActivityVisible(videoLink);
   }
 
   @Then("^First comment '(.*)' is displayed in activity stream$")
   public void checkFirstActivityComment(String comment) {
-    spaceHomeSteps.checkFirstActivityComment(comment);
+    spaceSteps.checkFirstActivityComment(comment);
   }
 
   @Then("^First comment '(.*)' is displayed in comments drawer$")
   public void checkFirstCommentInDrawer(String comment) {
-    spaceHomeSteps.checkFirstCommentInDrawer(comment);
+    spaceSteps.checkFirstCommentInDrawer(comment);
   }
 
   @Then("Check Four comment is displayed in comments drawer")
   public void checkFourCommentIsDisplayedInDrawer() {
-    spaceHomeSteps.checkFourCommentIsDisplayedInDrawer();
+    spaceSteps.checkFourCommentIsDisplayedInDrawer();
   }
 
   @Then("^Fourth comment is displayed in comments drawer$")
   public void checkFourthCommentInDrawer() {
-    spaceHomeSteps.checkFourthCommentInDrawer();
+    spaceSteps.checkFourthCommentInDrawer();
   }
 
   @Then("^Internal link '(.*)' is displayed in Comments drawer of activity '(.*)'$")
   public void checkInternalLinkCommentInDrawer(String comment, String activity) {
-    spaceHomeSteps.checkActivityCommentDisplayed(activity, currentUrlNoProtocol() + comment);
+    spaceSteps.checkActivityCommentDisplayed(activity, currentUrlNoProtocol() + comment);
   }
 
   @Then("The link is displayed with the preview")
   public void checkPreviewLink() {
-    spaceHomeSteps.checkLinkPreviewVisible();
+    spaceSteps.checkLinkPreviewVisible();
   }
 
   @Then("^The (.*) user is displayed in activity likers drawer$")
   public void checkReactionsDrawerDisplay(String userPrefix) {
     String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
-    spaceHomeSteps.checkUserDisplayedInReactionsDrawer(userLastName);
+    spaceSteps.checkUserDisplayedInReactionsDrawer(userLastName);
   }
 
   @Then("^Second comment is displayed in activity stream$")
   public void checkSecondActivityComment() {
-    spaceHomeSteps.checkSecondActivityComment();
+    spaceSteps.checkSecondActivityComment();
   }
 
   @Then("^Second comment is displayed in comments drawer$")
   public void checkSecondCommentInDrawer() {
-    spaceHomeSteps.checkSecondCommentInDrawer();
+    spaceSteps.checkSecondCommentInDrawer();
   }
 
   @Then("Check Ten comment is displayed in comments drawer")
   public void checkTenCommentIsDisplayedInDrawer() {
-    spaceHomeSteps.checkTenCommentIsDisplayedInDrawer();
+    spaceSteps.checkTenCommentIsDisplayedInDrawer();
   }
 
   @Then("^Third comment is displayed in comments drawer$")
   public void checkThirdCommentInDrawer() {
-    spaceHomeSteps.checkThirdCommentInDrawer();
+    spaceSteps.checkThirdCommentInDrawer();
   }
 
   @When("^I click on Create Poll$")
   public void clickCreatePoll() {
-    spaceHomeSteps.clickCreatePoll();
+    spaceSteps.clickCreatePoll();
   }
 
   @When("^I click on send kudos$")
   public void clickSendKudos() {
-    spaceHomeSteps.clickSendKudos();
+    spaceSteps.clickSendKudos();
   }
 
   @When("^I send kudos to '(.*)' with message '(.*)'$")
   public void sendKudosWithReceiver(String receiver, String message) {
-    spaceHomeSteps.sendKudosWithReceiver(message, receiver);
+    spaceSteps.sendKudosWithReceiver(message, receiver);
   }
 
   @When("^I click Create Poll$")
   public void clickCreatePollButton() {
-    spaceHomeSteps.clickCreatePollButton();
+    spaceSteps.clickCreatePollButton();
   }
 
   @When("^I click on Delete button related to activity '(.*)'$")
   public void clickDeleteActivityButton(String activity) {
-    spaceHomeSteps.clickDeleteActivityButton(activity);
+    spaceSteps.clickDeleteActivityButton(activity);
   }
 
   @When("^I click on '(.*)' button related to comment '(.*)'$")
   public void clickCommentButton(String buttonName, String comment) {
-    spaceHomeSteps.clickCommentButton(buttonName, comment);
+    spaceSteps.clickCommentButton(buttonName, comment);
   }
 
   @When("^I click on comment '(.*)'$")
   public void clickOnActivityComment(String comment) {
-    spaceHomeSteps.clickOnActivityComment(comment);
+    spaceSteps.clickOnActivityComment(comment);
   }
 
   @When("^I click on comment button related to activity '(.*)'$")
   public void clickOnCommentActivity(String activity) {
-    spaceHomePage.clickOnCommentActivityButton(activity);
+    spacePage.clickOnCommentActivityButton(activity);
   }
 
   @When("^I go to the comments drawer first page$")
   public void clickOnCommentsDrawerFirstPage() {
-    spaceHomeSteps.clickOnCommentsDrawerFirstPage();
+    spaceSteps.clickOnCommentsDrawerFirstPage();
   }
 
   @When("^I go to the comments drawer second page$")
   public void clickOnCommentsDrawerSecondPage() {
-    spaceHomeSteps.clickOnCommentsDrawerSecondPage();
+    spaceSteps.clickOnCommentsDrawerSecondPage();
   }
 
   @Then("^I click on the comment '(.*)' three dots icon from comments drawer$")
   @And("^I click on the first comment '(.*)' three dots icon from comments drawer$")
   public void clickOnCommentThreeDotsButtonFromCommentsDrawer(String comment) {
-    spaceHomeSteps.clickOnCommentThreeDotsButtonFromCommentsDrawer(comment, false);
+    spaceSteps.clickOnCommentThreeDotsButtonFromCommentsDrawer(comment, false);
   }
 
   @When("^I click on the reply '(.*)' three dots icon from comments drawer$")
   public void clickOnReplyThreeDotsButtonFromCommentsDrawer(String comment) {
-    spaceHomeSteps.clickOnCommentThreeDotsButtonFromCommentsDrawer(comment, true);
+    spaceSteps.clickOnCommentThreeDotsButtonFromCommentsDrawer(comment, true);
   }
 
   @When("^I click on the internal link '(.*)'$")
   public void clickOnInternalLinkComment(String comment) {
-    spaceHomeSteps.clickOnActivityComment(currentUrlNoProtocol() + comment);
+    spaceSteps.clickOnActivityComment(currentUrlNoProtocol() + comment);
   }
 
   @When("^I click on Load more button$")
   public void clickOnLoadMoreActivities() {
-    spaceHomeSteps.clickOnLoadMoreActivities();
+    spaceSteps.clickOnLoadMoreActivities();
   }
 
   @Then("^In reply '(.*)', I click on kudos button$")
   public void clickOnReplyKudos(String reply) {
-    spaceHomeSteps.clickOnReplyKudos(reply);
+    spaceSteps.clickOnReplyKudos(reply);
   }
 
   @Then("I click on the kudos button on first displayed Activity")
   public void clickOnTheKudosButtonFromTheActivityStream() {
-    spaceHomeSteps.clickKudosFromActivityStream();
+    spaceSteps.clickKudosFromActivityStream();
   }
 
   @Then("I click on the kudos button from the comment '(.*)'$")
   public void clickOnCommentKudosButton(String comment) {
-    spaceHomeSteps.clickOnCommentKudosButton(comment);
+    spaceSteps.clickOnCommentKudosButton(comment);
   }
 
   @Then("I click on the kudos button from the comments drawer")
   public void clickOnTheKudosButtonFromTheCommentsDrawer() {
-    spaceHomeSteps.clickKudosFromCommentsDrawer();
+    spaceSteps.clickKudosFromCommentsDrawer();
   }
 
   @And("I click on the kudos button number")
   public void clickOnTheKudosButtonNumber() {
-    spaceHomeSteps.clickOnKudosNumberButton();
+    spaceSteps.clickOnKudosNumberButton();
   }
 
   @And("I click on the kudos button number from the comments drawer")
   public void clickOnTheKudosButtonNumberFromTheCommentsDrawer() {
-    spaceHomeSteps.clickOnKudosNumberButtonFromTheCommentsDrawer();
+    spaceSteps.clickOnKudosNumberButtonFromTheCommentsDrawer();
   }
 
   @Then("^I click on the (.*) user Popover$")
   public void clickOnTheRandomUserPopover(String userPrefix) {
-    String userFirstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");
+    String userFirstName = Serenity.sessionVariableCalled(userPrefix + USER_FIRST_NAME);
     String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
 
     String fullName = userFirstName + " " + userLastName;
-    spaceHomeSteps.clickOnTheUserPopover(fullName);
+    spaceSteps.clickOnTheUserPopover(fullName);
   }
 
   @Then("^I click on the user Popover '(.*)'$")
   public void clickOnTheUserPopover(String user) {
-    spaceHomeSteps.clickOnTheUserPopover(user);
+    spaceSteps.clickOnTheUserPopover(user);
   }
 
   @When("^I click on View all X comments$")
   public void clickOnViewallXcomments() {
-    spaceHomeSteps.clickOnViewallXcomments();
+    spaceSteps.clickOnViewallXcomments();
   }
 
   @When("^I click on Pin button related to activity '(.*)'$")
   public void clickPinActivityButton(String activity) {
-    spaceHomeSteps.clickPinActivityButton(activity);
+    spaceSteps.clickPinActivityButton(activity);
   }
 
   @When("I click on post in space")
   public void clickPostIcon() {
-    spaceHomeSteps.clickPostIcon();
+    spaceSteps.clickPostIcon();
   }
 
   @When("I click on user avatar in space stream")
   public void clickUserAvatar() {
-    spaceHomeSteps.clickUserAvatar();
+    spaceSteps.clickUserAvatar();
   }
 
   @When("^I click on kudos button below the post field$")
   public void clickKudosBtnBelowPostField() {
-    spaceHomeSteps.clickKudosBtnBelowPostField();
+    spaceSteps.clickKudosBtnBelowPostField();
   }
 
   @When("^I click on poll button below the post field$")
   public void clickPollBtnBelowPostField() {
-    spaceHomeSteps.clickPollBtnBelowPostField();
+    spaceSteps.clickPollBtnBelowPostField();
   }
 
   @Then("the composer is opened")
   public void composerDrawerIsDisplayed() {
-    spaceHomeSteps.composerDrawerIsDisplayed();
+    spaceSteps.composerDrawerIsDisplayed();
   }
 
   @Then("the kudos drawer is opened")
   public void kudosDrawerIsDisplayed() {
-    spaceHomeSteps.kudosDrawerIsDisplayed();
+    spaceSteps.kudosDrawerIsDisplayed();
   }
 
   @When("^I close kudos drawer$")
   public void clickCloseKudosDrawer() {
-    spaceHomeSteps.clickCloseKudosDrawer();
+    spaceSteps.clickCloseKudosDrawer();
   }
 
   @Then("The Poll drawer is opened")
   public void pollDrawerIsDisplayed() {
-    spaceHomeSteps.pollDrawerIsDisplayed();
+    spaceSteps.pollDrawerIsDisplayed();
   }
 
   @When("^I click to the Unpin button related to activity '(.*)'$")
   public void clickUnpinActivityButton(String activity) {
-    spaceHomeSteps.clickUnpinActivityButton(activity);
+    spaceSteps.clickUnpinActivityButton(activity);
   }
 
   @Then("^'(.*)' among them '(.*)' are displayed in Comments drawer$")
   @And("^'(.*)', only '(.*)' is displayed in Comments drawer$")
   public void commentIsDisplayedInDrawer(String commentsNumber, String comment) {
-    spaceHomeSteps.commentIsDisplayedInDrawer(commentsNumber, comment);
+    spaceSteps.commentIsDisplayedInDrawer(commentsNumber, comment);
   }
 
   @Then("^'(.*)' among them '(.*)' are not displayed in Comments drawer$")
   @And("^'(.*)', only '(.*)' is not displayed in Comments drawer$")
   public void commentIsNotDisplayedInDrawer(String commentsNumber, String comment) {
-    spaceHomeSteps.commentIsNotDisplayedInDrawer(commentsNumber, comment);
+    spaceSteps.commentIsNotDisplayedInDrawer(commentsNumber, comment);
   }
 
   @When("^Comment '(.*)' is not displayed in the drawer$")
   public void commentNameIsNotDisplayedInDrawer(String comment) {
-    spaceHomeSteps.commentNameIsNotDisplayedInDrawer(comment);
+    spaceSteps.commentNameIsNotDisplayedInDrawer(comment);
   }
 
   @Then("^In comments drawer, on comment '(.*)', '(.*)' like is displayed$")
   public void commentsDrawerDisplayedLikesOnComment(String comment, String number) {
-    spaceHomeSteps.commentsDrawerDisplayedLikesOnComment(comment, number);
+    spaceSteps.commentsDrawerDisplayedLikesOnComment(comment, number);
   }
 
   @When("^In comments drawer, I like the activity comment '(.*)'$")
   @And("^In comments drawer, I unlike the activity comment '(.*)'$")
   public void commentsDrawerlikeActivityComment(String activityComment) {
-    spaceHomeSteps.commentsDrawerlikeActivityComment(activityComment);
+    spaceSteps.commentsDrawerlikeActivityComment(activityComment);
   }
 
   @When("^Copy link button related to activity '(.*)' is displayed$")
   public void copyLinkActivityButtonIsDisplayed(String activity) {
-    spaceHomeSteps.copyLinkActivityButtonIsDisplayed(activity);
+    spaceSteps.copyLinkActivityButtonIsDisplayed(activity);
   }
 
   @When("^I create a simple poll with title '(.*)' and Choice One '(.*)' and Choice Two '(.*)'$")
   public void createPoll(String pollTitle, String choiceOne, String choiceTow) {
-    spaceHomeSteps.createPoll(pollTitle, choiceOne, choiceTow);
+    spaceSteps.createPoll(pollTitle, choiceOne, choiceTow);
   }
 
   @When("^create poll drawer is closed$")
   public void createPollDrawerClosed() {
-    spaceHomeSteps.createPollDrawerClosed();
+    spaceSteps.createPollDrawerClosed();
   }
 
   @When("^I try to create a poll with title '(.*)' and with a single choice '(.*)'$")
   public void createPollWithOneChoice(String pollTitle, String choiceOne) {
-    spaceHomeSteps.createPollWithOneChoice(pollTitle, choiceOne);
+    spaceSteps.createPollWithOneChoice(pollTitle, choiceOne);
   }
 
   @When("^Delete button related to activity '(.*)' is displayed$")
   public void deleteActivityButtonIsDisplayed(String activity) {
-    spaceHomeSteps.deleteActivityButtonIsDisplayed(activity);
+    spaceSteps.deleteActivityButtonIsDisplayed(activity);
   }
 
   @When("^In comment '(.*)', I click on delete button$")
   public void deleteComment(String comment) {
-    spaceHomeSteps.deleteComment(comment);
+    spaceSteps.deleteComment(comment);
   }
 
   @When("^In reply '(.*)', I click on delete button$")
   public void deleteReply(String reply) {
-    spaceHomeSteps.deleteReply(reply);
+    spaceSteps.deleteReply(reply);
   }
 
   @Then("^On comment '(.*)', '(.*)' like is displayed$")
   public void displayedLikesOnComment(String comment, String number) {
-    spaceHomeSteps.displayedLikesOnComment(comment, number);
+    spaceSteps.displayedLikesOnComment(comment, number);
   }
 
   @When("^Download button related to activity '(.*)' is displayed$")
   public void downloadActivityButtonIsDisplayed(String activity) {
-    spaceHomeSteps.downloadActivityButtonIsDisplayed(activity);
+    spaceSteps.downloadActivityButtonIsDisplayed(activity);
   }
 
   @When("I click on Update")
   public void editActivity() {
-    spaceHomeSteps.editActivity();
+    spaceSteps.editActivity();
   }
 
   @When("^Edit button related to activity '(.*)' is displayed$")
   public void editActivityButtonIsDisplayed(String activity) {
-    spaceHomeSteps.editActivityButtonIsDisplayed(activity);
+    spaceSteps.editActivityButtonIsDisplayed(activity);
   }
 
   @When("^In comment '(.*)', I click on edit button$")
   public void editComment(String comment) {
-    spaceHomeSteps.editComment(comment);
+    spaceSteps.editComment(comment);
   }
 
   @When("^In comment '(.*)', I click on edit button from comments drawer$")
   public void editCommentFromCommentsDrawer(String comment) {
-    spaceHomeSteps.editCommentFromCommentsDrawer(comment);
+    spaceSteps.editCommentFromCommentsDrawer(comment);
   }
 
   @When("^I edited created poll with title '(.*)' and Choice One '(.*)' and Choice Two '(.*)'$")
   public void editPoll(String pollTitle, String choiceOne, String choiceTow) {
-    spaceHomeSteps.editPoll(pollTitle, choiceOne, choiceTow);
+    spaceSteps.editPoll(pollTitle, choiceOne, choiceTow);
   }
 
   @When("^I enter a comment '(.*)' with mentioning the (.*) user$")
   public void enterActivityCommentWithRandomUser(String comment, String userPrefix) {
     String lastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
-    spaceHomeSteps.enterActivityCommentWithUser(comment, lastName);
+    spaceSteps.enterActivityCommentWithUser(comment, lastName);
   }
 
   @When("^I enter a comment '(.*)' with attempting to mention the (.*) user$")
   public void enterActivityCommentWithRandomUserNoMention(String comment, String userPrefix) {
     String lastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
-    spaceHomeSteps.enterActivityCommentWithUserNoMention(comment, lastName);
+    spaceSteps.enterActivityCommentWithUserNoMention(comment, lastName);
   }
 
   @When("^I insert text '(.*)'$")
   public void enterActivityText(String activity) {
-    spaceHomeSteps.enterActivityText(activity);
+    spaceSteps.enterActivityText(activity);
   }
 
   @When("^In activity '(.*)' I enter the link '(.*)' as comment$")
   public void enterCommentLink(String activity, String link) {
-    spaceHomePage.enterCommentLink(activity, link);
+    spacePage.enterCommentLink(activity, link);
   }
 
   @When("^I insert text '(.*)' as comment$")
   public void enterCommentText(String comment) {
-    spaceHomeSteps.enterCommentText(comment);
+    spaceSteps.enterCommentText(comment);
   }
 
   @Then("^I click on '(.*)' space menu tab$")
   public void goToTab(String tabName) {
-    spaceHomeSteps.goToSpecificTab(tabName);
+    spaceSteps.goToSpecificTab(tabName);
   }
 
   @Given("^I add application '(.*)' in random space if not existing$")
   public void addSpaceApplicationIfNotExisting(String appName) {
-    spaceHomeSteps.addSpaceApplicationIfNotExisting(appName);
+    spaceSteps.addSpaceApplicationIfNotExisting(appName);
   }
 
   @When("^I open user profile of (.*) user from activity likers drawer$")
   public void goToUserProfileFromLikersDrawer(String prefix) {
-    spaceHomeSteps.goToUserProfileFromLikersDrawer(prefix);
+    spaceSteps.goToUserProfileFromLikersDrawer(prefix);
   }
 
   @When("^In comment '(.*)', I hover on Like icon$")
   public void hoverOnLikeIcon(String comment) {
-    spaceHomeSteps.hoverOnLikeIcon(comment);
+    spaceSteps.hoverOnLikeIcon(comment);
   }
 
   @When("^In comments drawer, in comment '(.*)', I hover on Like icon$")
   public void hoverOnLikeIconCommentsDrawer(String comment) {
-    spaceHomeSteps.hoverOnLikeIconCommentsDrawer(comment);
+    spaceSteps.hoverOnLikeIconCommentsDrawer(comment);
   }
 
   @When("^In post '(.*)', I mouse over the mentioned (.*) user$")
   public void hoverOnMentionedRandomUserInPost(String activity, String userPrefix) {
-    String userFirstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");
+    String userFirstName = Serenity.sessionVariableCalled(userPrefix + USER_FIRST_NAME);
     String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
 
     String fullName = userFirstName + " " + userLastName;
-    spaceHomeSteps.hoverOnMentionedUserInPost(activity, fullName);
+    spaceSteps.hoverOnMentionedUserInPost(activity, fullName);
   }
 
   @When("^In post '(.*)', I mouse over the mentioned user '(.*)'$")
   public void hoverOnMentionedUserInPost(String activity, String user) {
-    spaceHomeSteps.hoverOnMentionedUserInPost(activity, user);
+    spaceSteps.hoverOnMentionedUserInPost(activity, user);
   }
 
   @Then("^The internal link '(.*)' is opened in new tab$")
   public void internalLinkIsOpenedNewTab(String link) {
-    spaceHomeSteps.linkIsOpenedNewTab(link);
+    spaceSteps.linkIsOpenedNewTab(link);
   }
 
   @Then("^The activity '(.*)' posted by the (.*) user in the created space is displayed with its timestamp in space stream page$")
@@ -597,410 +598,444 @@ public class SpaceHomeStepDefinition {
     String user = Serenity.sessionVariableCalled(userPrefix + "UserName");
     String space = Serenity.sessionVariableCalled("randomSpaceName");
 
-    spaceHomeSteps.isActivityNameUserSpaceDisplayed(activity, user, space);
+    spaceSteps.isActivityNameUserSpaceDisplayed(activity, user, space);
   }
 
   @Then("^The activity '(.*)' posted by the user '(.*)' in space '(.*)' is displayed with its timestamp in activity stream$")
   @And("^The activity '(.*)' posted by the user '(.*)' in space '(.*)' is displayed with its timestamp in streams page$")
   public void isActivityNameUserSpaceDisplayed(String activity, String user, String space) {
-    spaceHomeSteps.isActivityNameUserSpaceDisplayed(activity, user, space);
+    spaceSteps.isActivityNameUserSpaceDisplayed(activity, user, space);
   }
 
   @When("^In post '(.*)', the mentioned (.*) user is displayed$")
   public void isMentionedRandomUserDisplayedInPost(String activity, String userPrefix) {
-    String userFirstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");
+    String userFirstName = Serenity.sessionVariableCalled(userPrefix + USER_FIRST_NAME);
     String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
 
     String fullName = userFirstName + " " + userLastName;
-    spaceHomeSteps.isMentionedUserDisplayedInPost(activity, fullName);
+    spaceSteps.isMentionedUserDisplayedInPost(activity, fullName);
   }
 
   @When("^In post '(.*)', the mentioned user '(.*)' is displayed$")
   public void isMentionedUserDisplayedInPost(String activity, String user) {
-    spaceHomeSteps.isMentionedUserDisplayedInPost(activity, user);
+    spaceSteps.isMentionedUserDisplayedInPost(activity, user);
   }
 
   @Then("User Popover of the (.*) user is displayed")
   public void isRandomUserPopoverDisplayed(String userPrefix) {
-    String userFirstName = Serenity.sessionVariableCalled(userPrefix + "UserFirstName");
+    String userFirstName = Serenity.sessionVariableCalled(userPrefix + USER_FIRST_NAME);
     String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
 
     String fullName = userFirstName + " " + userLastName;
-    spaceHomeSteps.isUserPopoverDisplayed(fullName);
+    spaceSteps.isUserPopoverDisplayed(fullName);
   }
 
   @Then("^User Popover '(.*)' is displayed$")
   public void isUserPopoverDisplayed(String user) {
-    spaceHomeSteps.isUserPopoverDisplayed(user);
+    spaceSteps.isUserPopoverDisplayed(user);
   }
 
   @Then("^In comment '(.*)', Kudos label should be black$")
   public void kudosLabelIsBlack(String comment) {
-    spaceHomeSteps.kudosLabelIsBlack(comment);
+    spaceSteps.kudosLabelIsBlack(comment);
   }
 
   @Then("^In comment '(.*)', Kudos label should be blue$")
   public void kudosLabelIsBlue(String comment) {
-    spaceHomeSteps.kudosLabelIsBlue(comment);
+    spaceSteps.kudosLabelIsBlue(comment);
   }
 
   @When("^I like the activity '(.*)'$")
   @And("^I unlike the activity '(.*)'$")
   public void likeActivity(String activity) {
-    spaceHomeSteps.likeActivity(activity);
+    spaceSteps.likeActivity(activity);
   }
 
   @When("^I like the activity comment '(.*)'$")
   @And("^I unlike the activity comment '(.*)'$")
   public void likeActivityComment(String activityComment) {
-    spaceHomeSteps.likeActivityComment(activityComment);
+    spaceSteps.likeActivityComment(activityComment);
   }
 
   @When("^In comments drawer, Like label in comment '(.*)' should be black$")
   @And("^In comments drawer, in comment '(.*)', Like label should be black$")
   public void likeLabelInCommentsDrawerIsBlack(String comment) {
-    spaceHomeSteps.likeLabelInCommentsDrawerIsBlack(comment);
+    spaceSteps.likeLabelInCommentsDrawerIsBlack(comment);
   }
 
   @When("^In comments drawer, Like label in comment '(.*)' should be blue$")
   @And("^In comments drawer, in comment '(.*)', Like label should be blue$")
   public void likeLabelInCommentsDrawerIsBlue(String comment) {
-    spaceHomeSteps.likeLabelInCommentsDrawerIsBlue(comment);
+    spaceSteps.likeLabelInCommentsDrawerIsBlue(comment);
   }
 
   @When("^In comment '(.*)', Like label should be black$")
   public void likeLabelIsBlack(String comment) {
-    spaceHomeSteps.likeLabelIsBlack(comment);
+    spaceSteps.likeLabelIsBlack(comment);
   }
 
   @When("^In comment '(.*)', Like label should be blue$")
   public void likeLabelIsBlue(String comment) {
-    spaceHomeSteps.likeLabelIsBlue(comment);
+    spaceSteps.likeLabelIsBlue(comment);
   }
 
   @Then("^Link '(.*)' is opened in new tab$")
   public void linkIsOpenedNewTab(String link) {
-    spaceHomeSteps.linkIsOpenedNewTab(link);
+    spaceSteps.linkIsOpenedNewTab(link);
   }
 
   @When("^No comments displayed in the drawer$")
   public void noCommentDisplayedInDrawer() {
-    spaceHomeSteps.noCommentDisplayedInDrawer();
+    spaceSteps.noCommentDisplayedInDrawer();
   }
 
   @When("^I click on likers number of the activity '(.*)'$")
   public void openActivityReactionsDrawer(String activity) {
-    spaceHomeSteps.openActivityReactionsDrawer(activity);
+    spaceSteps.openActivityReactionsDrawer(activity);
   }
 
   @Then("^The activity likers number is diplayed in '(.*)'$")
   public void checkActivityReactionsNumberDisplayed(String activity) {
-    spaceHomeSteps.checkActivityReactionsNumberDisplayed(activity);
+    spaceSteps.checkActivityReactionsNumberDisplayed(activity);
   }
   @And("^The activity likers number is not diplayed in '(.*)'$")
   public void checkActivityReactionsNumberNotDisplayed(String activity) {
-    spaceHomeSteps.checkActivityReactionsNumberNotDisplayed(activity);
+    spaceSteps.checkActivityReactionsNumberNotDisplayed(activity);
   }
 
   @When("^I open in activity '(.*)' the Comments drawer$")
   public void openCommentsDrawer(String activity) {
-    spaceHomePage.openCommentsDrawer(activity);
+    spacePage.openCommentsDrawer(activity);
   }
 
   @When("^I click to delete from the dropdownActivitymenu$")
   public void openDeleteActivityMenu() {
     String oldActiviyy = Serenity.sessionVariableCalled("activity");
-    spaceHomeSteps.openDeleteActivityMenu(oldActiviyy);
+    spaceSteps.openDeleteActivityMenu(oldActiviyy);
   }
 
   @When("^I click on modify the activity$")
   public void openEditActivityMenu() {
     String oldActiviyy = Serenity.sessionVariableCalled("activity");
-    spaceHomeSteps.openEditActivityMenu(oldActiviyy);
+    spaceSteps.openEditActivityMenu(oldActiviyy);
   }
 
   @When("^I click on modify the activity '(.*)'$")
   public void openEditSpecificActivityMenu(String activiyy) {
-    spaceHomeSteps.openEditActivityMenu(activiyy);
+    spaceSteps.openEditActivityMenu(activiyy);
   }
 
   @Then("^I open the internal link '(.*)' in new tab$")
   public void openInternalLinkInNewTab(String link) {
-    spaceHomeSteps.openLinkInNewTab(currentUrlNoProtocol() + link);
+    spaceSteps.openLinkInNewTab(currentUrlNoProtocol() + link);
   }
 
   @Then("^I open link '(.*)' in new tab$")
   public void openLinkInNewTab(String link) {
-    spaceHomeSteps.openLinkInNewTab(link);
+    spaceSteps.openLinkInNewTab(link);
   }
 
   @When("^I click on three dots button related to activity '(.*)'$")
   public void openThreeDotsActivityMenu(String activity) {
-    spaceHomeSteps.openThreeDotsActivityMenu(activity);
+    spaceSteps.openThreeDotsActivityMenu(activity);
   }
 
   @When("^Pin button related to activity '(.*)' is displayed$")
   public void pinActivityButtonIsDisplayed(String activity) {
-    spaceHomeSteps.pinActivityButtonIsDisplayed(activity);
+    spaceSteps.pinActivityButtonIsDisplayed(activity);
+  }
+
+  @When("^Pin button related to activity '(.*)' is not displayed$")
+  public void pinActivityButtonIsNotDisplayed(String activity) {
+    spaceSteps.pinActivityButtonIsNotDisplayed(activity);
   }
 
   @Then("^The activity '(.*)' should be not pinned in space stream$")
   public void pinnedActivityDisappears(String activity) {
-    spaceHomeSteps.pinnedActivityDisappears(activity);
+    spaceSteps.pinnedActivityDisappears(activity);
   }
 
   @When("^I post '(.*)' activities with prefix '(.*)'$")
   public void postManyActivities(String activityNumber, String activityPrefix) {
-    spaceHomeSteps.postManyActivities(activityNumber, activityPrefix);
+    spaceSteps.postManyActivities(activityNumber, activityPrefix);
   }
 
   @When("^I promote '(.*)' random user as a space manager$")
   public void promoteRandomUserAsSpaceManager(String userPrefix) {
     String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
-    spaceHomeSteps.promoteSpaceMemberAsManager(userLastName);
+    spaceSteps.promoteSpaceMemberAsManager(userLastName);
   }
 
   @When("^I promote '(.*)' as a space manager$")
   public void promoteSpaceMemberAsManager(String name) {
-    spaceHomeSteps.promoteSpaceMemberAsManager(name);
+    spaceSteps.promoteSpaceMemberAsManager(name);
   }
 
   @When("^I publish the activity$")
   @And("^I publish the Poll$")
   public void publishActivity() {
-    spaceHomeSteps.publishActicity();
+    spaceSteps.publishActicity();
   }
 
   @And("I attach an image to the activity")
   public void attachImageToActivity() {
-    spaceHomeSteps.attachImageToActivity();
+    spaceSteps.attachImageToActivity();
   }
   
   @And("I attach a gif image to the activity")
   public void attachGifImageToActivity() {
-    spaceHomeSteps.attachGifImageToActivity();
+    spaceSteps.attachGifImageToActivity();
   }
   
   @And("the crop zone should be blurred")
   public void checkCropDrawerBlurredZone() {
-    spaceHomeSteps.checkCropDrawerBlurredZone();
+    spaceSteps.checkCropDrawerBlurredZone();
   }
   
   @And("I attach an image to the kudos")
   public void attachImageToKudos() {
-    spaceHomeSteps.attachImageToKudos();
+    spaceSteps.attachImageToKudos();
   }
   
   @And("I attach an image to the activity comment")
   public void attachImageToActivityComment() {
-    spaceHomeSteps.attachImageToActivityComment();
+    spaceSteps.attachImageToActivityComment();
   }
 
   @When("^I publish the activity stream in arabic language$")
   public void publishActivityInArabicLanguage() {
-    spaceHomeSteps.publishActivityInArabicLanguage();
+    spaceSteps.publishActivityInArabicLanguage();
   }
 
   @When("^I publish the comment$")
   public void publishComment() {
-    spaceHomeSteps.publishComment();
+    spaceSteps.publishComment();
   }
 
   @When("^(.*) User is mentioned in the comment$")
   public void randomUserIsMentionedInCommentEntered(String userPrefix) {
-    String userFirstName = Serenity.sessionVariableCalled(userPrefix.toLowerCase() + "UserFirstName");
+    String userFirstName = Serenity.sessionVariableCalled(userPrefix.toLowerCase() + USER_FIRST_NAME);
     String userLastName = Serenity.sessionVariableCalled(userPrefix.toLowerCase() + "UserLastName");
     String fullName = userFirstName + " " + userLastName;
-    spaceHomeSteps.userIsMentionedInCommentEntered(fullName);
+    spaceSteps.userIsMentionedInCommentEntered(fullName);
   }
 
   @When("^(.*) User is not mentioned in the comment$")
   public void randomUserIsNotMentionedInCommentEntered(String userPrefix) {
-    String userFirstName = Serenity.sessionVariableCalled(userPrefix.toLowerCase() + "UserFirstName");
+    String userFirstName = Serenity.sessionVariableCalled(userPrefix.toLowerCase() + USER_FIRST_NAME);
     String userLastName = Serenity.sessionVariableCalled(userPrefix.toLowerCase() + "UserLastName");
     String fullName = userFirstName + " " + userLastName;
-    spaceHomeSteps.userIsNotMentionedInCommentEntered(fullName);
+    spaceSteps.userIsNotMentionedInCommentEntered(fullName);
   }
 
   @Then("^'(.*)' kudos are displayed on the reaction drawer$")
   public void receivedKudosOnDrawerIsDisplayed(String kudosNumber) {
-    spaceHomeSteps.receivedKudosDrawerIsDisplayed(kudosNumber);
+    spaceSteps.receivedKudosDrawerIsDisplayed(kudosNumber);
   }
 
   @And("^I click on Yes button$")
   public void removeactivity() {
-    spaceHomeSteps.deleteactivity();
+    spaceSteps.deleteactivity();
   }
 
   @When("^The reply '(.*)' is not displayed in the drawer$")
   public void replyInDrawerIsNotDisplayed(String reply) {
-    spaceHomeSteps.replyInDrawerIsNotDisplayed(reply);
+    spaceSteps.replyInDrawerIsNotDisplayed(reply);
   }
 
   @When("^In comment '(.*)', the reply '(.*)' is displayed in the drawer$")
   public void replyIsDisplayedInCommentsDrawer(String comment, String reply) {
-    spaceHomeSteps.replyIsDisplayedInCommentsDrawer(comment, reply);
+    spaceSteps.replyIsDisplayedInCommentsDrawer(comment, reply);
   }
 
   @When("^In comment '(.*)', the reply '(.*)' is not displayed in the drawer$")
   public void replyIsNotDisplayedInCommentsDrawer(String comment, String reply) {
-    spaceHomeSteps.replyIsNotDisplayedInCommentsDrawer(comment, reply);
+    spaceSteps.replyIsNotDisplayedInCommentsDrawer(comment, reply);
   }
 
   @Then("^In reply '(.*)', Kudos label should be black$")
   public void replyKudosLabelIsBlack(String comment) {
-    spaceHomeSteps.replyKudosLabelIsBlack(comment);
+    spaceSteps.replyKudosLabelIsBlack(comment);
   }
 
   @Then("^In reply '(.*)', Kudos label should be blue$")
   public void replyKudosLabelIsBlue(String comment) {
-    spaceHomeSteps.replykudosLabelIsBlue(comment);
+    spaceSteps.replykudosLabelIsBlue(comment);
   }
 
   @When("^I click on filter icon from composer$")
   public void clickFilterIconFromComposer() {
-    spaceHomeSteps.clickFilterIconFromComposer();
+    spaceSteps.clickFilterIconFromComposer();
   }
 
   @Then("^I click on '(.*)' activity filter radio button$")
   public void selectActivityFilter(String filter) {
-    spaceHomeSteps.selectActivityFilter(filter);
+    spaceSteps.selectActivityFilter(filter);
   }
 
   @Then("^the stream filter is selected$")
   public void filterIsSelected() {
-    spaceHomeSteps.filterIsSelected();
+    spaceSteps.filterIsSelected();
   }
 
   @Then("^the stream filter isn't selected$")
   public void filterIsntSelected() {
-    spaceHomeSteps.filterIsntSelected();
+    spaceSteps.filterIsntSelected();
   }
 
   @When("^Tooltip Like on '(.*)' is displayed in comments drawer$")
   @And("^Tooltip Remove Like on '(.*)' is displayed in comments drawer$")
   public void tooltipCommentsDrawerIsDisplayed(String comment) {
-    spaceHomeSteps.tooltipCommentsDrawerIsDisplayed(comment);
+    spaceSteps.tooltipCommentsDrawerIsDisplayed(comment);
   }
 
   @When("^Unpin button related to activity '(.*)' is displayed$")
   public void unPinActivityButtonIsDisplayed(String activity) {
-    spaceHomeSteps.unPinActivityButtonIsDisplayed(activity);
+    spaceSteps.unPinActivityButtonIsDisplayed(activity);
   }
 
   @When("^I click on update comment$")
   public void updateComment() {
-    spaceHomeSteps.updateComment();
+    spaceSteps.updateComment();
   }
 
   @When("^I update comment with a new one '(.*)'$")
   public void updateCommentText(String comment) {
-    spaceHomeSteps.updateCommentText(comment);
+    spaceSteps.updateCommentText(comment);
   }
 
   @Then("^I click on View All replies related to the comment '(.*)' in activity stream$")
   public void viewAllRepliesInActivityStream(String comment) {
-    spaceHomeSteps.viewAllRepliesInActivityStream(comment);
+    spaceSteps.viewAllRepliesInActivityStream(comment);
   }
 
   @Then("^I click on View All replies related to the comment '(.*)'$")
   public void viewAllRepliesInCommentsDrawer(String comment) {
-    spaceHomeSteps.viewAllRepliesInCommentsDrawer(comment);
+    spaceSteps.viewAllRepliesInCommentsDrawer(comment);
   }
 
   private String currentUrlNoProtocol() {
-    return spaceHomePage.getCurrentUrl().replace("https://", "").replace("http://", "").replace("www.", "");
+    return spacePage.getCurrentUrl().replace("https://", "").replace("http://", "").replace("www.", "");
   }
 
   @Then("^The attached images should be displayed in the published activity '(.*)'$")
   public void checkActivityAttachedImages(String activity) {
-    spaceHomeSteps.checkActivityAttachedImages(activity);
+    spaceSteps.checkActivityAttachedImages(activity);
   }
   
   @And("^The second attached image should be displayed in the published activity '(.*)'$")
   public void checkActivitySecondAttachedImage(String activity) {
-    spaceHomeSteps.checkActivitySecondAttachedImage(activity);
+    spaceSteps.checkActivitySecondAttachedImage(activity);
   }
   
   @Then("^The attached images should be displayed in the activity comment '(.*)'$")
   public void checkKudosCommentAttachedImages(String comment) {
-    spaceHomeSteps.checkKudosCommentAttachedImages(comment);
+    spaceSteps.checkKudosCommentAttachedImages(comment);
   }
 
   @When("^I click on attached image related to activity '(.*)'$")
   public void clickPreviewAttachedImage(String activity) {
-    spaceHomeSteps.clickPreviewAttachedImage(activity);
+    spaceSteps.clickPreviewAttachedImage(activity);
   }
 
   @Then("^the preview of the attached image is displayed")
   public void previewAttachedImage() {
-    spaceHomeSteps.previewAttachedImage();
+    spaceSteps.previewAttachedImage();
   }
   
   @And("^The preview arrows are not displayed")
   public void checkPreviewAttachedImageArrows() {
-    spaceHomeSteps.checkPreviewAttachedImageArrows();
+    spaceSteps.checkPreviewAttachedImageArrows();
   }
 
   @When("^I click on close icon in preview attached image")
   public void clickClosePreviewAttachedImage() {
-    spaceHomeSteps.clickClosePreviewAttachedImage();
+    spaceSteps.clickClosePreviewAttachedImage();
   }
 
   @Then("^the preview of the attached image is not displayed")
   public void checkPreviewAttachedImageIsClosed() {
-    spaceHomeSteps.checkPreviewAttachedImageIsClosed();
+    spaceSteps.checkPreviewAttachedImageIsClosed();
   }
   
   @Then("^The attached images should be displayed in the activity '(.*)' drawer with the delete icon")
   public void checkActivityDrawerAttachedImagesDeleteIcon(String activity) {
-    spaceHomeSteps.checkActivityDrawerAttachedImagesDeleteIcon(activity);
+    spaceSteps.checkActivityDrawerAttachedImagesDeleteIcon(activity);
   }
   
   @Then("^The attached images should be displayed in the activity '(.*)' drawer with the edit icon")
   public void checkActivityDrawerAttachedImagesEditIcon(String activity) {
-    spaceHomeSteps.checkActivityDrawerAttachedImagesEditIcon(activity);
+    spaceSteps.checkActivityDrawerAttachedImagesEditIcon(activity);
   }
   
   @Then("^I click on delete an attached image")
   public void clickDeleteAttachment() {
-    spaceHomeSteps.clickDeleteAttachment();
+    spaceSteps.clickDeleteAttachment();
   }
   
   @Then("^I update the attached image")
   public void clickUpdateAttachment() {
-    spaceHomeSteps.clickEditAttachment();
+    spaceSteps.clickEditAttachment();
   }
   
   @Then("^I click on edit an attached image")
   public void clickEditAttachment() {
-    spaceHomeSteps.clickEditAttachment();
+    spaceSteps.clickEditAttachment();
   }
   
   @When("^I click to zoom attached image")
   public void zoomAttachedImage() {
-    spaceHomeSteps.zoomAttachedImage();
+    spaceSteps.zoomAttachedImage();
   }
   
   @When("^The cancel option is displayed")
   public void checkAttachedImageCropDrawerCancelOption() {
-    spaceHomeSteps.checkAttachedImageCropDrawerCancelOption();
+    spaceSteps.checkAttachedImageCropDrawerCancelOption();
   }
   
   
   @Then("^The attached image crop drawer displayed")
   public void checkAttachedImageCropDrawer() {
-    spaceHomeSteps.checkAttachedImageCropDrawer();
+    spaceSteps.checkAttachedImageCropDrawer();
   }
   
   @Then("^The attached image is not displayed")
   public void checkActivityAttachImageDeleted () {
-    spaceHomeSteps.checkActivityAttachImageDeleted();
+    spaceSteps.checkActivityAttachImageDeleted();
   }
   
   @Then("^The attached images should not be displayed in the published activity '(.*)'$")
   public void checkActivityAttachedImagesIsNotDisplayed(String activity) {
-    spaceHomeSteps.checkActivityAttachedImagesIsNotDisplayed(activity);
+    spaceSteps.checkActivityAttachedImagesIsNotDisplayed(activity);
+  }
+
+  @When("^I open '(.*)' Section from Space Settings$")
+  public void openSpaceSettingsSection(String sectionId) {
+    spaceSteps.openSpaceSettingsSection(sectionId);
+  }
+
+  @When("I enable redactional settings for the space")
+  public void enableRedactionalSpaceSettings() {
+    spaceSteps.enableRedactionalSpaceSettings();
+  }
+
+  @When("^I add the '(.*)' user as redactor$")
+  public void promoteUserAsSpaceRedactor(String userPrefix) {
+    String userFirstName = Serenity.sessionVariableCalled(userPrefix + USER_FIRST_NAME);
+    spaceSteps.promoteUserAsSpaceRedactor(userFirstName);
+  }
+
+  @When("^I open the drawer to add a '(.*)'$")
+  public void openSpaceSettingsRoleDrawer(String role) {
+    spaceSteps.openSpaceSettingsRoleDrawer(role);
+  }
+
+  @When("^I promote the '(.*)' user as manager$")
+  @When("^I promote the '(.*)' user as publisher$")
+  @When("^I promote the '(.*)' user as redactor$")
+  public void addUserWithRoleInSpace(String userPrefix) {
+    String userFirstName = Serenity.sessionVariableCalled(userPrefix + USER_FIRST_NAME);
+    spaceSteps.addUserWithRoleInSpace(userFirstName);
   }
 
 }

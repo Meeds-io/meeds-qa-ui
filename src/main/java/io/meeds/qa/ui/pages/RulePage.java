@@ -142,13 +142,14 @@ public class RulePage extends GenericPage {
   public void setActionEndDate() {
     selectActionDateChoice("BEFORE");
     actionEndDateElement().click();
-    waitForMenuToOpen();
+    waitForMenuToOpen("DatePickerMenu");
     if (!randomDateCalenderElement().isVisible()) {
       nextMonthDateCalenderButton().click();
     }
     randomDateCalenderElement().click();
-    waitForMenuToClose();
+    waitForMenuToClose("DatePickerMenu");
   }
+
   public void clickOnStartButton() {
     startButton().click();
   }
