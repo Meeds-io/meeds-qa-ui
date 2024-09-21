@@ -12,10 +12,9 @@ Feature: Spaces widget checking
     When I login as 'third' random user
     And I go to Stream page
     Then The spaces badge isn't displayed
-
-
+    
   @smoke
-  Scenario: US 3.3.2_(02) [BACK] Spaces requests to join: See All
+  Scenario: Spaces requests to join
     Given I am authenticated as 'admin' random user
     And I inject the eighteenth random user if not existing
     And I create a random space with the eighteenth random user

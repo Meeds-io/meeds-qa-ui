@@ -17,10 +17,10 @@
  */
 package io.meeds.qa.ui.steps;
 
-import io.meeds.qa.ui.pages.SpaceHomePage;
+import io.meeds.qa.ui.pages.SpacePage;
 
 public class SocialSteps {
-  private SpaceHomePage spaceHomePage;
+  private SpacePage spaceHomePage;
 
   public void cancelUpdateActivityComment(String comment) {
     spaceHomePage.cancelUpdateActivityComment(comment);

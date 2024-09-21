@@ -31,7 +31,7 @@ public class KudosPage extends GenericPage {
 
   private static final String ACTIVITY_KUDOS_DRAWER_SELECTOR = "//*[@id='activityKudosDrawer' and contains(@class, 'v-navigation-drawer--open')]";
 
-  private SpaceHomePage       spaceHomePage;
+  private SpacePage       spaceHomePage;
 
   public KudosPage(WebDriver driver) {
     super(driver);

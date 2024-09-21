@@ -25,6 +25,7 @@ import org.openqa.selenium.WebDriver;
 import net.serenitybdd.core.annotations.ImplementedBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.webdriver.exceptions.ElementShouldBeInvisibleException;
+import net.thucydides.core.webdriver.exceptions.ElementShouldBePresentException;
 import net.thucydides.core.webdriver.exceptions.ElementShouldBeVisibleException;
 
 @ImplementedBy(ElementFacadeImpl.class)
@@ -127,6 +128,26 @@ public interface ElementFacade extends WebElementFacade {
         scrollToWebElement();
       }
       throw new ElementShouldBeVisibleException(String.format("Unable to locate a visible element %s after %s ms",
+                                                              this,
+                                                              System.currentTimeMillis() - start),
+                                                null);
+    }
+  }
+
+  default void checkCurrentlyVisible() {
+    long start = System.currentTimeMillis();
+    if (!isCurrentlyVisible()) {
+      throw new ElementShouldBeVisibleException(String.format("Unable to locate a visible element %s after %s ms",
+                                                              this,
+                                                              System.currentTimeMillis() - start),
+                                                null);
+    }
+  }
+
+  default void checkPresent() {
+    long start = System.currentTimeMillis();
+    if (!isPresent()) {
+      throw new ElementShouldBePresentException(String.format("Unable to locate a present element %s after %s ms",
                                                               this,
                                                               System.currentTimeMillis() - start),
                                                 null);

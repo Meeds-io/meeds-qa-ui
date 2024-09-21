@@ -1087,15 +1087,15 @@ Feature: Activity Stream
     And I go to the random space
     Then the activity 'activityTestCAP158-158' is displayed in activity stream
 
-    When I add in activity 'activityTestCAP158-158' a comment 'https://www.meeds.io/'
+    When I add in activity 'activityTestCAP158-158' a comment 'https://www.meeds.io/stake'
     Then The comment 'meeds.io' is displayed in Comments drawer of activity 'activityTestCAP158-158'
 
     When I click on comment 'meeds.io'
-    Then Link 'https://www.meeds.io/' is opened in new tab
+    Then Link 'https://www.meeds.io/stake' is opened in new tab
 
     And I open in activity 'activityTestCAP158-158' the Comments drawer
     When I open link 'meeds.io' in new tab
-    Then Link 'https://www.meeds.io/' is opened in new tab
+    Then Link 'https://www.meeds.io/stake' is opened in new tab
 
   Scenario: Delete a simple comment from the activity stream
     Given I am authenticated as 'admin' random user
@@ -1769,7 +1769,7 @@ Feature: Activity Stream
     And I set the new kudos comment text 'updated Test Auto reply Kudos US52_01' and I click on update button
     Then the updated Kudos activity 'updated Test Auto reply Kudos US52_01' is displayed in stream page
 
-  Scenario: Space host or redactor can pin an activity (from Space Stream -  Space host Case)
+  Scenario: Space host or redactor can pin an activity from Space Stream
     Given I am authenticated as 'admin' random user
     And I create a random space
     And I go to the random space
@@ -1788,27 +1788,55 @@ Feature: Activity Stream
     Given I click on three dots button related to activity 'PinTest'
     Then Unpin button related to activity 'PinTest' is displayed
 
-  Scenario: Space host or redactor can pin an activity (from General Stream -  Space redactor Case)
+  Scenario: Space host or redactor can pin an activity from General Stream
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
       | second  |
     And I inject the first random user if not existing, no wait
     And I inject the second random user if not existing, no wait
+
     When I login as 'first' random user
     And I create a random space
     And I login as 'second' random user
-    Then I go to the random space
-    And I login as 'first' random user
+    Then I join the random space
+
+    When I login as 'first' random user
     And I go to the random space
-    And I click on 'Members' space menu tab
-    Then The search result is well matched with the username entered of the second user
-    And I click on three dots menu
-    And I set as a redactor
-    Given I click on 'Stream' space menu tab
     And I click on post in space
     And I enter an activity 'PinTest'
     When I publish the activity
     Then the activity 'PinTest' is displayed in activity stream
+    And I click on three dots button related to activity 'PinTest'
+    Then Pin button related to activity 'PinTest' is displayed
+
+    When I login as 'second' random user
+    And I go to Stream page
+    And I click on three dots button related to activity 'PinTest'
+    Then Pin button related to activity 'PinTest' is not displayed
+
+    When I login as 'first' random user
+    And I go to the random space
+    And I click on 'Settings' space menu tab
+    And I open 'Roles' Section from Space Settings
+    And I enable redactional settings for the space
+    And I add the 'second' user as redactor
+    And I click on 'Apply' button in drawer
+    And I close the notification
+
+    When I login as 'second' random user
+    And I go to Stream page
+    And I click on three dots button related to activity 'PinTest'
+    Then Pin button related to activity 'PinTest' is not displayed
+
+    When I login as 'first' random user
+    And I go to the random space
+    And I click on 'Settings' space menu tab
+    And I open 'Roles' Section from Space Settings
+    And I open the drawer to add a 'publisher'
+    And I promote the 'second' user as publisher
+    And I click on 'Apply' button in drawer
+    And I close the notification
+
     When I login as 'second' random user
     And I go to Stream page
     And I click on three dots button related to activity 'PinTest'
@@ -1819,41 +1847,7 @@ Feature: Activity Stream
     Then The activity 'PinTest' is pinned in space stream
     Given I click on three dots button related to activity 'PinTest'
     Then Unpin button related to activity 'PinTest' is displayed
-
-  Scenario: Unpin an activity
-    Given I am authenticated as 'admin' if random users doesn't exists
-      | first  |
-      | second  |
-    And I inject the first random user if not existing, no wait
-    And I inject the second random user if not existing, no wait
-    When I login as 'first' random user
-    And I create a random space
-    And I login as 'second' random user
-    Then I go to the random space
-    And I login as 'first' random user
-    And I go to the random space
-    And I click on 'Members' space menu tab
-    Then The search result is well matched with the username entered of the second user
-    And I click on three dots menu
-    And I set as a redactor
-    Given I click on 'Stream' space menu tab
-    And I click on post in space
-    And I enter an activity 'PinTest'
-    When I publish the activity
-    Then the activity 'PinTest' is displayed in activity stream
-    When I login as 'first' random user
-    And I go to Stream page
-    And I click on three dots button related to activity 'PinTest'
-    Then Pin button related to activity 'PinTest' is displayed
-    Given I click on Pin button related to activity 'PinTest'
-    Then Confirmation message is displayed 'This activity has been pinned to the space stream.'
-    When I close the notification
-    And I go to the random space
-    Then The activity 'PinTest' is pinned in space stream
-    Given I click on three dots button related to activity 'PinTest'
-    Then Unpin button related to activity 'PinTest' is displayed
     Given I click to the Unpin button related to activity 'PinTest'
-    Then Confirmation message is displayed 'This activity has been unpinned.'
     When I close the notification
     Then The activity 'PinTest' should be not pinned in space stream
 

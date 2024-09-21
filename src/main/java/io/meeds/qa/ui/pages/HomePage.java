@@ -237,11 +237,11 @@ public class HomePage extends GenericPage {
   }
 
   public void goToAddGroups() {
-    goToAdministrationPage("Organisation/Groups");
+    goToAdministrationPage("Organization/Groups");
   }
 
   public void goToAddUser() {
-    goToAdministrationPage("Organisation/Users");
+    goToAdministrationPage("Organization/Users");
   }
 
   public void goToMainSettings() {

@@ -20,13 +20,13 @@ package io.meeds.qa.ui.steps;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 
 import io.meeds.qa.ui.pages.KudosPage;
-import io.meeds.qa.ui.pages.SpaceHomePage;
+import io.meeds.qa.ui.pages.SpacePage;
 
 public class KudosSteps {
 
   private KudosPage kudosPage;
 
-  private SpaceHomePage           spaceHomePage;
+  private SpacePage           spaceHomePage;
 
   public void addActivityCommentKudos(String kudos) {
     kudosPage.sendKudosMessageFromOpenedDrawer(kudos);
