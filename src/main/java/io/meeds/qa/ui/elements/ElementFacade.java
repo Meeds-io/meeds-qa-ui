@@ -134,6 +134,16 @@ public interface ElementFacade extends WebElementFacade {
     }
   }
 
+  default void checkCurrentlyVisible() {
+    long start = System.currentTimeMillis();
+    if (!isCurrentlyVisible()) {
+      throw new ElementShouldBeVisibleException(String.format("Unable to locate a visible element %s after %s ms",
+                                                              this,
+                                                              System.currentTimeMillis() - start),
+                                                null);
+    }
+  }
+
   default void checkPresent() {
     long start = System.currentTimeMillis();
     if (!isPresent()) {

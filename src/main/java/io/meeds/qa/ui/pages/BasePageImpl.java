@@ -51,6 +51,7 @@ import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.WhenPageOpens;
 import net.thucydides.core.pages.PageObject;
+import net.thucydides.core.webdriver.exceptions.ElementNotFoundAfterTimeoutError;
 
 public class BasePageImpl extends PageObject implements BasePage {
 
@@ -547,18 +548,18 @@ public class BasePageImpl extends PageObject implements BasePage {
     return findByXPathOrCSS(".UISiteBody .v-progress-linear");
   }
 
-  public void waitForMenuToOpen() {
+  public void waitForMenuToOpen(String contentClass) {
     try {
-      ElementFacade menu = findByXPathOrCSS(".menuable__content__active");
+      ElementFacade menu = findByXPathOrCSS(String.format("//*[contains(@class, 'menuable__content__active') and contains(@class, '%s')]", contentClass));
       menu.waitUntilVisible();
     } catch (Exception e) {
       LOGGER.warn("Can't wait for progress bar to finish loading", e);
     }
   }
 
-  public void waitForMenuToClose() {
+  public void waitForMenuToClose(String contentClass) {
     try {
-      ElementFacade menu = findByXPathOrCSS(".menuable__content__active");
+      ElementFacade menu = findByXPathOrCSS(String.format("//*[contains(@class, 'menuable__content__active') and contains(@class, '%s')]", contentClass));
       menu.waitUntilNotVisible();
     } catch (Exception e) {
       LOGGER.warn("Can't wait for progress bar to finish loading", e);
@@ -614,20 +615,32 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void attachImageToCKeditor(String fileName) {
-    waitCKEditorLoading();
-
-    AtomicInteger index = new AtomicInteger();
+    int i = -1;
+    while (++i < 5) {
+      if (ckEditorAttachImageButton(i).isCurrentlyVisible()) {
+        break;
+      }
+    }
+    AtomicInteger index = i < 5 && i > 0 ? new AtomicInteger(--i) : new AtomicInteger();
     retryOnCondition(() -> {
-      ckEditorAttachImageButton(index.incrementAndGet()).checkVisible();
+      ckEditorAttachImageButton(index.incrementAndGet()).checkCurrentlyVisible();
       ElementFacade fileInput = ckEditorAttachImageInput(index.get());
       fileInput.checkEnabled();
+      waitFor(1).seconds();
+      int initialImagesCount = ckEditorAttachImageCount(index.get());
       attachImageToFileInput(fileInput, fileName);
-      waitForLoading();
+      ckEditorImageAttachmentProgressElement(index.get()).checkVisible();
       retryOnCondition(() -> ckEditorImageAttachmentProgressElement(index.get()).waitUntilNotVisible());
       retryOnCondition(() -> ckEditorImageAttachmentEditButton(index.get()).waitUntilVisible());
       ckEditorImageAttachmentCarousel(index.get()).checkVisible();
       ckEditorImageAttachmentPlusIcon(index.get()).checkVisible();
-      waitFor(1000).milliseconds();
+      ckEditorAttachImageInputParent(index.get()).checkVisible();
+      retryOnCondition(() -> {
+        if (ckEditorAttachImageCount(index.get()) != initialImagesCount + 1) {
+          throw new ElementNotFoundAfterTimeoutError("Image isn't attached yet");
+        }
+      },
+      () -> waitFor(1).seconds());
     });
   }
 
@@ -705,6 +718,16 @@ public class BasePageImpl extends PageObject implements BasePage {
   private ElementFacade ckEditorAttachImageInput(int index) {
     return findByXPathOrCSS(String.format("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[%s]/parent::*//input[@type='file']",
                                           index));
+  }
+
+  private ElementFacade ckEditorAttachImageInputParent(int index) {
+    return findByXPathOrCSS(String.format("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[%s]/parent::*//input[@type='file']/ancestor::*[contains(@class, 'v-input')]/parent::*",
+                                          index));
+  }
+
+  private int ckEditorAttachImageCount(int index) {
+    return findAll(String.format("(//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'richEditor')])[%s]/parent::*//input[@type='file']/ancestor::*[contains(@class, 'v-input')]/parent::*//*[contains(@class, 'v-image')]/parent::*[contains(@class,'v-card')]",
+                                 index)).size();
   }
 
   private ElementFacade ckEditorAttachImageButton(int index) {

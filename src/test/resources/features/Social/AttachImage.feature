@@ -203,7 +203,9 @@ Feature: Attach images activities
     And I attach an image to the program action
     And I click on 'Update' button in drawer
     Then Confirmation message is displayed 'Action has been successfully updated'
-    When I close the notification
+    And I close the notification
+    Then The action 'Announce an action with attached image' is displayed in program detail
+    And I wait for '1' seconds
 
     When I go to Stream page
     Then The activity 'Announce an action with attached image' is displayed
