@@ -720,6 +720,8 @@ public class TasksPage extends GenericPage {
   public void editSpaceName(String spaceName) {
     spaceNameTitleElement().setTextValue(spaceName);
     updateNameSpaceButtonElement().click();
+    waitForLoading();
+    waitFor(200).milliseconds();
   }
 
   public void editTaskDrawerIsDisplayed() {

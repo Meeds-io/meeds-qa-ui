@@ -1251,15 +1251,15 @@ public class SpacePage extends GenericPage {
     }
     return retryGetOnCondition(() -> {
       waitForLoading();
-      while (!tabElement(tabName).isCurrentlyVisible() && goToSpaceLeftTabsElement().isVisible()) {
+      while (!tabElement(tabName).findBy("span").isCurrentlyVisible() && goToSpaceLeftTabsElement().isVisible()) {
         goToSpaceLeftTabsElement().click();
         waitFor(200).milliseconds(); // Wait for animation end
       }
-      while (!tabElement(tabName).isCurrentlyVisible() && goToSpaceRightTabsElement().isVisible()) {
+      while (!tabElement(tabName).findBy("span").isCurrentlyVisible() && goToSpaceRightTabsElement().isVisible()) {
         goToSpaceRightTabsElement().click();
         waitFor(200).milliseconds(); // Wait for animation end
       }
-      while (!tabElement(tabName).isCurrentlyVisible() && goToSpaceLeftTabsElement().isVisible()) {
+      while (!tabElement(tabName).findBy("span").isCurrentlyVisible() && goToSpaceLeftTabsElement().isVisible()) {
         goToSpaceLeftTabsElement().click();
         waitFor(200).milliseconds(); // Wait for animation end
       }

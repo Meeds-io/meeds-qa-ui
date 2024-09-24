@@ -146,7 +146,6 @@ Feature: Tasks
     And I go to Settings in space tab
     And I open 'Overview' Section from Space Settings
     And I edit the old Space Name with a new random Space Name
-    And I refresh the page
     And I go to Tasks in space tab
     And I create the project 'second project test'
     Then Success message is displayed

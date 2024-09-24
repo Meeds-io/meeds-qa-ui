@@ -622,25 +622,22 @@ public class BasePageImpl extends PageObject implements BasePage {
       }
     }
     AtomicInteger index = i < 5 && i > 0 ? new AtomicInteger(--i) : new AtomicInteger();
+    retryOnCondition(() -> ckEditorAttachImageButton(index.incrementAndGet()).checkCurrentlyVisible());
+    int initialImagesCount = ckEditorAttachImageCount(index.get());
     retryOnCondition(() -> {
-      ckEditorAttachImageButton(index.incrementAndGet()).checkCurrentlyVisible();
-      ElementFacade fileInput = ckEditorAttachImageInput(index.get());
-      fileInput.checkEnabled();
-      waitFor(1).seconds();
-      int initialImagesCount = ckEditorAttachImageCount(index.get());
-      attachImageToFileInput(fileInput, fileName);
-      ckEditorImageAttachmentProgressElement(index.get()).checkVisible();
-      retryOnCondition(() -> ckEditorImageAttachmentProgressElement(index.get()).waitUntilNotVisible());
-      retryOnCondition(() -> ckEditorImageAttachmentEditButton(index.get()).waitUntilVisible());
-      ckEditorImageAttachmentCarousel(index.get()).checkVisible();
-      ckEditorImageAttachmentPlusIcon(index.get()).checkVisible();
-      ckEditorAttachImageInputParent(index.get()).checkVisible();
-      retryOnCondition(() -> {
-        if (ckEditorAttachImageCount(index.get()) != initialImagesCount + 1) {
-          throw new ElementNotFoundAfterTimeoutError("Image isn't attached yet");
-        }
-      },
-      () -> waitFor(1).seconds());
+      if (ckEditorAttachImageCount(index.get()) == initialImagesCount) {
+        ElementFacade fileInput = ckEditorAttachImageInput(index.get());
+        fileInput.checkEnabled();
+        waitFor(1).seconds();
+        attachImageToFileInput(fileInput, fileName);
+        ckEditorImageAttachmentProgressElement(index.get()).checkVisible();
+        retryOnCondition(() -> ckEditorImageAttachmentProgressElement(index.get()).waitUntilNotVisible());
+        retryOnCondition(() -> ckEditorImageAttachmentEditButton(index.get()).waitUntilVisible());
+
+        ckEditorImageAttachmentCarousel(index.get()).checkVisible();
+        ckEditorImageAttachmentPlusIcon(index.get()).checkVisible();
+        ckEditorAttachImageInputParent(index.get()).checkVisible();
+      }
     });
   }
 
@@ -656,8 +653,7 @@ public class BasePageImpl extends PageObject implements BasePage {
       fileInput.waitUntilEnabled();
       upload(UPLOAD_DIRECTORY_PATH + fileName).fromLocalMachine()
                                               .to(fileInput.getElement());
-    },
-                     () -> waitFor(500).milliseconds());
+    }, () -> waitFor(500).milliseconds());
     waitForProgressBar();
   }
 
