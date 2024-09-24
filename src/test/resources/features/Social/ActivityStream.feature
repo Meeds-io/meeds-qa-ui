@@ -1064,6 +1064,7 @@ Feature: Activity Stream
     And I open the internal link '/members' in new tab
     Then The internal link '/members' is opened in new tab
 
+  @test
   Scenario: External Link opening behaviors inside comments
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -1097,6 +1098,7 @@ Feature: Activity Stream
     When I open link 'meeds.io' in new tab
     Then Link 'https://www.meeds.io/' is opened in new tab
 
+  @test
   Scenario: Delete a simple comment from the activity stream
     Given I am authenticated as 'admin' random user
 

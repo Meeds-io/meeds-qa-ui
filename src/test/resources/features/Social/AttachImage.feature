@@ -152,6 +152,7 @@ Feature: Attach images activities
     Then Comment 'Kudos with attached image' is not displayed in the drawer
     And The attached images should be displayed in the activity comment 'Kudos with attached image'
 
+  @test
   Scenario: Announce an action with attached image
     Given I am authenticated as 'admin' random user
     And I inject the random space
