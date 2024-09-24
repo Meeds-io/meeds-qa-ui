@@ -46,7 +46,6 @@ Feature: Search for User Informations in Profile page
     And Updated Profile Contact instantMessaging is displayed
     And Updated Profile Contact Url is displayed
 
-  @test
   Scenario: PROFILE-5 Kudos block
     Given I am authenticated as 'admin' if random users doesn't exists
       | fifthkudos  |
@@ -82,7 +81,6 @@ Feature: Search for User Informations in Profile page
     Then Sent kudos by user 'seventhkudos' is displayed
     And Sent kudos by user 'sixthkudos' is displayed
 
-  @test
   Scenario: Work Experiences block and its drawer
     Given I am authenticated as 'admin' if random users doesn't exists
       | thirdprofile  |
