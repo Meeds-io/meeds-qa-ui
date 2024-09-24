@@ -1064,7 +1064,6 @@ Feature: Activity Stream
     And I open the internal link '/members' in new tab
     Then The internal link '/members' is opened in new tab
 
-  @test
   Scenario: External Link opening behaviors inside comments
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -1088,17 +1087,16 @@ Feature: Activity Stream
     And I go to the random space
     Then the activity 'activityTestCAP158-158' is displayed in activity stream
 
-    When I add in activity 'activityTestCAP158-158' a comment 'https://www.meeds.io/'
+    When I add in activity 'activityTestCAP158-158' a comment 'https://www.meeds.io/stake'
     Then The comment 'meeds.io' is displayed in Comments drawer of activity 'activityTestCAP158-158'
 
     When I click on comment 'meeds.io'
-    Then Link 'https://www.meeds.io/' is opened in new tab
+    Then Link 'https://www.meeds.io/stake' is opened in new tab
 
     And I open in activity 'activityTestCAP158-158' the Comments drawer
     When I open link 'meeds.io' in new tab
-    Then Link 'https://www.meeds.io/' is opened in new tab
+    Then Link 'https://www.meeds.io/stake' is opened in new tab
 
-  @test
   Scenario: Delete a simple comment from the activity stream
     Given I am authenticated as 'admin' random user
 

@@ -806,17 +806,20 @@ public class SpacePage extends GenericPage {
   }
 
   public void linkIsOpenedNewTab(String link) {
+    waitFor(1).seconds();
     Set<String> windowHandles = getDriver().getWindowHandles();
     try {
-      boolean tabFound = windowHandles.size() > 1 && windowHandles.stream().anyMatch(windowId -> {
-        getDriver().switchTo().window(windowId);
-        String currentUrl = getDriver().getCurrentUrl();
-        boolean found = currentUrl.contains(link);
-        if (!currentUrl.contains("/portal")) {
-          getDriver().close();
-        }
-        return found;
-      });
+      boolean tabFound = windowHandles.size() > 1 && windowHandles.stream()
+                                                                  .anyMatch(windowId -> {
+                                                                    getDriver().switchTo().window(windowId);
+                                                                    waitFor(50).milliseconds();
+                                                                    String currentUrl = getDriver().getCurrentUrl();
+                                                                    boolean found = currentUrl.contains(link);
+                                                                    if (!currentUrl.contains("/portal")) {
+                                                                      getDriver().close();
+                                                                    }
+                                                                    return found;
+                                                                  });
       assertTrue(tabFound);
     } finally {
       getDriver().switchTo().window(windowHandles.iterator().next());
