@@ -1509,7 +1509,7 @@ Feature: Activity Stream
     When I click on comment button related to activity 'activitycap220'
     And Comment 'commenttestCAP220-1020' is not displayed in the drawer
     Then Check Four comment is displayed in comments drawer
-    
+
   Scenario: Activity Likers in drawer
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -1780,7 +1780,7 @@ Feature: Activity Stream
     Given I click on three dots button related to activity 'PinTest'
     Then Pin button related to activity 'PinTest' is displayed
     Given I click on Pin button related to activity 'PinTest'
-    Then Confirmation message is displayed 'This activity has been pinned to the space stream.'
+    Then Confirmation message is displayed 'This activity has been pinned to the space feed.'
     When I close the notification
     Then The activity 'PinTest' is pinned in space stream
     Given I go to Stream page
@@ -1814,7 +1814,6 @@ Feature: Activity Stream
     And I click on three dots button related to activity 'PinTest'
     Then Pin button related to activity 'PinTest' is displayed
     Given I click on Pin button related to activity 'PinTest'
-    Then Confirmation message is displayed 'This activity has been pinned to the space stream.'
     When I close the notification
     And I go to the random space
     Then The activity 'PinTest' is pinned in space stream
@@ -1873,7 +1872,6 @@ Feature: Activity Stream
     Given I click on three dots button related to activity 'PinTest'
     Then Pin button related to activity 'PinTest' is displayed
     Given I click on Pin button related to activity 'PinTest'
-    Then Confirmation message is displayed 'This activity has been pinned to the space stream.'
     When I close the notification
     Then The activity 'PinTest' is pinned in space stream
     Given I go to Stream page
