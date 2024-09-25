@@ -469,7 +469,7 @@ public class SpaceHomePage extends GenericPage {
   }
 
   public void clickPostIcon() {
-    goToSpecificTab("Stream");
+    goToSpecificTab("Feed");
     waitForLoading();
     ElementFacade activityPostLink = findByXPathOrCSS(".activityComposer .openLink");
     activityPostLink.click();
