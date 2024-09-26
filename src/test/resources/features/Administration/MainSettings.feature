@@ -79,14 +79,14 @@ Feature: Main settings page features
 
     When I go to the random space
     And I go to members tab
-    And I open space invitation drawer
+    And I open space external invitation drawer
     And I enter email 'openregisteruserinvitation@test.com' to invite in random space
     Then The email 'openregisteruserinvitation@test.com' is set to 'Pending' in invitations list
 
     When I click on 'Invite' button in drawer
-    And I wait '3' seconds
-    And I open space invitation drawer
-    Then The email 'openregisteruserinvitation@test.com' is set to 'Invitation Sent' in invitations list
+    And I open the space pending invitations drawer
+    And I open the space extenal invitations tab
+    Then The email 'openregisteruserinvitation@test.com' is set to 'Sent' in invitations list
 
     When I logout
     Then Register link is displayed
@@ -106,9 +106,7 @@ Feature: Main settings page features
 
     When I go to the random space
     And I go to members tab
-    And I open space invitation drawer
-    And I enter email 'restrictedregisteruserinvitation@test.com' to invite in random space
-    Then The email 'restrictedregisteruserinvitation@test.com' is not displayed in invitations list
+    Then I cannot access space external invitation drawer
 
     When I logout
     Then Register link is not displayed
@@ -120,17 +118,16 @@ Feature: Main settings page features
 
     When I switch 'Restricted' access type to enable external users registration
     And I apply main settings customizations
-
-    When I go to the random space
+    And I go to the random space
     And I go to members tab
-    And I open space invitation drawer
+    And I open space external invitation drawer
     And I enter email 'restrictedregisteruserinvitation@test.com' to invite in random space
     Then The email 'restrictedregisteruserinvitation@test.com' is set to 'Pending' in invitations list
 
     When I click on 'Invite' button in drawer
-    And I wait '3' seconds
-    And I open space invitation drawer
-    Then The email 'restrictedregisteruserinvitation@test.com' is set to 'Invitation Sent' in invitations list
+    And I open the space pending invitations drawer
+    And I open the space extenal invitations tab
+    Then The email 'restrictedregisteruserinvitation@test.com' is set to 'Sent' in invitations list
 
     When I logout
     Then Register link is not displayed

@@ -17,158 +17,158 @@
  */
 package io.meeds.qa.ui.steps;
 
-import io.meeds.qa.ui.pages.SpaceHomePage;
+import io.meeds.qa.ui.pages.SpacePage;
 import io.meeds.qa.ui.pages.KudosPage;
 import io.meeds.qa.ui.utils.Utils;
 
-public class SpaceHomeSteps {
+public class SpaceSteps {
 
-  private SpaceHomePage spaceHomePage;
+  private SpacePage spacePage;
 
   private KudosPage kudosPage;
 
   public void addActivity(String activity) {
-    spaceHomePage.addActivityTextInOpenedEditor(activity);
+    spacePage.addActivityTextInOpenedEditor(activity);
   }
 
   public void addDescriptionLess1000CharsInThePoll(String choiceThree) {
-    spaceHomePage.addDescriptionLess1000CharsInThePoll(choiceThree);
+    spacePage.addDescriptionLess1000CharsInThePoll(choiceThree);
   }
 
   public void addOptionThreeInThePoll(String choiceThree) {
-    spaceHomePage.addOptionThreeInThePoll(choiceThree);
+    spacePage.addOptionThreeInThePoll(choiceThree);
   }
 
   public void addOptionTwoInThePoll(String choiceTow) {
-    spaceHomePage.addOptionTwoInThePoll(choiceTow);
+    spacePage.addOptionTwoInThePoll(choiceTow);
   }
 
   public void cancelDeleteComment() {
-    spaceHomePage.cancelDeleteComment();
+    spacePage.cancelDeleteComment();
   }
 
   public void checkActivityCommentDisplayed(String activity, String comment) {
-    spaceHomePage.checkActivityCommentDisplayed(activity, comment);
+    spacePage.checkActivityCommentDisplayed(activity, comment);
   }
 
   public void checkActivityCommentInDrawer(String comment) {
-    spaceHomePage.checkActivityCommentInDrawer(comment);
+    spacePage.checkActivityCommentInDrawer(comment);
   }
 
   public void checkActivityCommentNotDisplayed(String activity, String comment) {
-    spaceHomePage.checkActivityCommentNotDisplayed(activity, comment);
+    spacePage.checkActivityCommentNotDisplayed(activity, comment);
   }
 
   public void checkActivityNotVisible(String activity) {
-    spaceHomePage.checkActivityNotVisible(activity);
+    spacePage.checkActivityNotVisible(activity);
   }
 
   public void checkActivityPinned(String activity) {
-    spaceHomePage.checkActivityPinned(activity);
+    spacePage.checkActivityPinned(activity);
   }
 
   public void checkActivityTitle(String activity) {
-    spaceHomePage.checkActivityTitle(activity);
+    spacePage.checkActivityTitle(activity);
   }
 
   public void checkActivityVisible(String activity) {
-    spaceHomePage.checkActivityVisible(activity);
+    spacePage.checkActivityVisible(activity);
   }
 
   public void checkCommentVisible(String comment) {
-    spaceHomePage.checkCommentVisible(comment);
+    spacePage.checkCommentVisible(comment);
   }
 
   public void checkCommentReplyDisplayed(String activity, String comment, String reply) {
-    spaceHomePage.checkCommentReplyDisplayed(activity, comment, reply);
+    spacePage.checkCommentReplyDisplayed(activity, comment, reply);
   }
 
   public void checkCommentReplyDisplayedInDrawer(String activity, String comment, String reply) {
-    spaceHomePage.checkCommentReplyDisplayed(activity, comment, reply);
+    spacePage.checkCommentReplyDisplayed(activity, comment, reply);
   }
 
   public void checkCommentReplyNotDisplayed(String activity, String comment, String reply) {
-    spaceHomePage.checkCommentReplyNotDisplayed(activity, comment, reply);
+    spacePage.checkCommentReplyNotDisplayed(activity, comment, reply);
   }
 
   public void checkConfirmationPopupNotVisible() {
-    spaceHomePage.checkConfirmationPopupNotVisible();
+    spacePage.checkConfirmationPopupNotVisible();
   }
 
   public void checkConfirmationPopupVisible() {
-    spaceHomePage.checkConfirmationPopupVisible();
+    spacePage.checkConfirmationPopupVisible();
   }
 
   public void checkCreatePollButtonIsDisabled() {
-    spaceHomePage.checkCreatePollButtonIsDisabled();
+    spacePage.checkCreatePollButtonIsDisabled();
   }
 
   public void checkCreatePollButtonIsEnabled() {
-    spaceHomePage.checkCreatePollButtonIsEnabled();
+    spacePage.checkCreatePollButtonIsEnabled();
   }
 
   public void checkFirstActivityComment(String comment) {
-    spaceHomePage.checkFirstActivityComment(comment);
+    spacePage.checkFirstActivityComment(comment);
   }
 
   public void checkFirstCommentInDrawer(String comment) {
-    spaceHomePage.checkFirstCommentInDrawer(comment);
+    spacePage.checkFirstCommentInDrawer(comment);
   }
 
   public void checkFourCommentIsDisplayedInDrawer() {
-    spaceHomePage.checkFourCommentIsDisplayedInDrawer();
+    spacePage.checkFourCommentIsDisplayedInDrawer();
   }
 
   public void checkFourthCommentInDrawer() {
-    spaceHomePage.checkFourthCommentInDrawer();
+    spacePage.checkFourthCommentInDrawer();
   }
 
   public void checkLinkPreviewVisible() {
-    spaceHomePage.checkLinkPreviewVisible();
+    spacePage.checkLinkPreviewVisible();
   }
 
   public void checkSecondActivityComment() {
-    spaceHomePage.checkSecondActivityComment();
+    spacePage.checkSecondActivityComment();
   }
 
   public void checkSecondCommentInDrawer() {
-    spaceHomePage.checkSecondCommentInDrawer();
+    spacePage.checkSecondCommentInDrawer();
   }
 
   public void checkSixthPositionInDrawer() {
-    spaceHomePage.checkSixthPositionInDrawer();
+    spacePage.checkSixthPositionInDrawer();
   }
 
   public void checkTenCommentIsDisplayedInDrawer() {
-    spaceHomePage.checkTenCommentIsDisplayedInDrawer();
+    spacePage.checkTenCommentIsDisplayedInDrawer();
   }
 
   public void checkThirdCommentInDrawer() {
-    spaceHomePage.checkThirdCommentInDrawer();
+    spacePage.checkThirdCommentInDrawer();
   }
 
   public void checkUserDisplayedInReactionsDrawer(String userLastName) {
-    spaceHomePage.checkUserDisplayedInReactionsDrawer(userLastName);
+    spacePage.checkUserDisplayedInReactionsDrawer(userLastName);
   }
 
   public void checkVideoActivityVisible(String videoLink) {
-    spaceHomePage.checkVideoActivityVisible(videoLink);
+    spacePage.checkVideoActivityVisible(videoLink);
   }
 
   public void clickCreatePoll() {
-    spaceHomePage.clickCreatePoll();
+    spacePage.clickCreatePoll();
   }
 
   public void clickSendKudos() {
-    spaceHomePage.clickSendKudos();
+    spacePage.clickSendKudos();
   }
 
   public void clickKudosBtnBelowPostField() {
-    spaceHomePage.clickKudosBtnBelowPostField();
+    spacePage.clickKudosBtnBelowPostField();
   }
 
   public void clickPollBtnBelowPostField() {
-    spaceHomePage.clickPollBtnBelowPostField();
+    spacePage.clickPollBtnBelowPostField();
   }
 
   public void sendKudosWithReceiver(String kudos, String receiver) {
@@ -176,504 +176,526 @@ public class SpaceHomeSteps {
   }
 
   public void clickCreatePollButton() {
-    spaceHomePage.clickCreatePollButton();
+    spacePage.clickCreatePollButton();
   }
 
   public void clickDeleteActivityButton(String activity) {
-    spaceHomePage.clickDeleteActivityButton(activity);
+    spacePage.clickDeleteActivityButton(activity);
   }
 
   public void clickCommentButton(String buttonName, String comment) {
-    spaceHomePage.clickCommentButton(buttonName, comment);
+    spacePage.clickCommentButton(buttonName, comment);
   }
 
   public void clickKudosFromActivityStream() {
-    spaceHomePage.clickOnkudosButtonToActivityStream();
+    spacePage.clickOnkudosButtonToActivityStream();
   }
 
   public void clickOnCommentKudosButton(String comment) {
-    spaceHomePage.getCommentKudosButton(comment);
+    spacePage.getCommentKudosButton(comment);
   }
   
   public void clickKudosFromCommentsDrawer() {
-    spaceHomePage.clickOnkudosButtonFromCommentsDrawerToCommentActivity();
+    spacePage.clickOnkudosButtonFromCommentsDrawerToCommentActivity();
   }
 
   public void clickOnActivityComment(String comment) {
-    spaceHomePage.clickOnActivityComment(comment);
+    spacePage.clickOnActivityComment(comment);
   }
 
   public void clickOnCommentsDrawerFirstPage() {
-    spaceHomePage.clickOnCommentsDrawerFirstPage();
+    spacePage.clickOnCommentsDrawerFirstPage();
   }
 
   public void clickOnCommentsDrawerSecondPage() {
-    spaceHomePage.clickOnCommentsDrawerSecondPage();
+    spacePage.clickOnCommentsDrawerSecondPage();
   }
 
   public void clickOnCommentThreeDotsButtonFromCommentsDrawer(String comment, boolean reply) {
-    spaceHomePage.clickOnCommentThreeDotsButtonFromCommentsDrawer(comment, reply);
+    spacePage.clickOnCommentThreeDotsButtonFromCommentsDrawer(comment, reply);
   }
 
   public void clickOnKudosNumberButton() {
-    spaceHomePage.clickOnKudosButtonNumberToCommentActivity();
+    spacePage.clickOnKudosButtonNumberToCommentActivity();
   }
 
   public void clickOnKudosNumberButtonFromTheCommentsDrawer() {
-    spaceHomePage.clickOnKudosButtonNumberFromCommentsDrawerToCommentActivity();
+    spacePage.clickOnKudosButtonNumberFromCommentsDrawerToCommentActivity();
   }
 
   public void clickOnLoadMoreActivities() {
-    spaceHomePage.clickOnLoadMoreActivities();
+    spacePage.clickOnLoadMoreActivities();
   }
 
   public void clickOnReplyKudos(String reply) {
-    spaceHomePage.clickOnReplyKudos(reply);
+    spacePage.clickOnReplyKudos(reply);
   }
 
   public void clickOnTheUserPopover(String user) {
-    spaceHomePage.clickOnTheUserPopover(user);
+    spacePage.clickOnTheUserPopover(user);
   }
 
   public void clickOnViewallXcomments() {
-    spaceHomePage.clickOnViewallXcomments();
+    spacePage.clickOnViewallXcomments();
   }
 
   public void clickPinActivityButton(String activity) {
-    spaceHomePage.clickPinActivityButton(activity);
+    spacePage.clickPinActivityButton(activity);
   }
 
   public void clickPostIcon() {
-    spaceHomePage.clickPostIcon();
+    spacePage.clickPostIcon();
   }
 
   public void clickUserAvatar() {
-    spaceHomePage.clickUserAvatar();
+    spacePage.clickUserAvatar();
   }
 
   public void clickCloseKudosDrawer() {
-    spaceHomePage.clickCloseKudosDrawer();
+    spacePage.clickCloseKudosDrawer();
   }
 
   public void composerDrawerIsDisplayed() {
-    spaceHomePage.composerDrawerIsDisplayed();
+    spacePage.composerDrawerIsDisplayed();
   }
 
   public void kudosDrawerIsDisplayed() {
-    spaceHomePage.kudosDrawerIsDisplayed();
+    spacePage.kudosDrawerIsDisplayed();
   }
 
   public void pollDrawerIsDisplayed() {
-    spaceHomePage.pollDrawerIsDisplayed();
+    spacePage.pollDrawerIsDisplayed();
   }
 
   public void clickUnpinActivityButton(String activity) {
-    spaceHomePage.clickUnpinActivityButton(activity);
+    spacePage.clickUnpinActivityButton(activity);
   }
 
   public void commentIsDisplayedInDrawer(String commentsNumber, String comment) {
-    spaceHomePage.commentIsDisplayedInDrawer(commentsNumber, comment);
+    spacePage.commentIsDisplayedInDrawer(commentsNumber, comment);
   }
 
   public void commentIsNotDisplayedInDrawer(String commentsNumber, String comment) {
-    spaceHomePage.commentIsNotDisplayedInDrawer(commentsNumber, comment);
+    spacePage.commentIsNotDisplayedInDrawer(commentsNumber, comment);
   }
 
   public void commentNameIsNotDisplayedInDrawer(String comment) {
-    spaceHomePage.commentNameIsNotDisplayedInDrawer(comment);
+    spacePage.commentNameIsNotDisplayedInDrawer(comment);
   }
 
   public void commentsDrawerDisplayedLikesOnComment(String comment, String number) {
-    spaceHomePage.commentsDrawerDisplayedLikesOnComment(comment, number);
+    spacePage.commentsDrawerDisplayedLikesOnComment(comment, number);
   }
 
   public void commentsDrawerlikeActivityComment(String activityComment) {
-    spaceHomePage.commentsDrawerlikeActivityComment(activityComment);
+    spacePage.commentsDrawerlikeActivityComment(activityComment);
   }
 
   public void copyLinkActivityButtonIsDisplayed(String activity) {
-    spaceHomePage.copyLinkActivityButtonIsDisplayed(activity);
+    spacePage.copyLinkActivityButtonIsDisplayed(activity);
   }
 
   public void createPoll(String pollTitle, String choiceOne, String choiceTow) {
-    spaceHomePage.createPoll(pollTitle, choiceOne, choiceTow);
+    spacePage.createPoll(pollTitle, choiceOne, choiceTow);
   }
 
   public void createPollDrawerClosed() {
-    spaceHomePage.createPollDrawerClosed();
+    spacePage.createPollDrawerClosed();
   }
 
   public void createPollWithOneChoice(String pollTitle, String choiceOne) {
-    spaceHomePage.createPollWithOneChoice(pollTitle, choiceOne);
+    spacePage.createPollWithOneChoice(pollTitle, choiceOne);
   }
 
   public void deleteactivity() {
-    spaceHomePage.clickYesbutton();
+    spacePage.clickYesbutton();
   }
 
   public void deleteActivityButtonIsDisplayed(String activity) {
-    spaceHomePage.deleteActivityButtonIsDisplayed(activity);
+    spacePage.deleteActivityButtonIsDisplayed(activity);
   }
 
   public void deleteComment(String comment) {
-    spaceHomePage.deleteComment(comment);
+    spacePage.deleteComment(comment);
   }
 
   public void deleteReply(String reply) {
-    spaceHomePage.deleteReply(reply);
+    spacePage.deleteReply(reply);
   }
 
   public void displayedLikesOnComment(String comment, String number) {
-    spaceHomePage.displayedLikesOnComment(comment, number);
+    spacePage.displayedLikesOnComment(comment, number);
   }
 
   public void downloadActivityButtonIsDisplayed(String activity) {
-    spaceHomePage.downloadActivityButtonIsDisplayed(activity);
+    spacePage.downloadActivityButtonIsDisplayed(activity);
   }
 
   public void editActivity() {
-    spaceHomePage.clickOnUpdateActivity();
+    spacePage.clickOnUpdateActivity();
   }
 
   public void editActivityButtonIsDisplayed(String activity) {
-    spaceHomePage.editActivityButtonIsDisplayed(activity);
+    spacePage.editActivityButtonIsDisplayed(activity);
   }
 
   public void editComment(String comment) {
-    spaceHomePage.editComment(comment);
+    spacePage.editComment(comment);
   }
 
   public void editCommentFromCommentsDrawer(String comment) {
-    spaceHomePage.editCommentFromCommentsDrawer(comment);
+    spacePage.editCommentFromCommentsDrawer(comment);
   }
 
   public void editPoll(String pollTitle, String choiceOne, String choiceTow) {
-    spaceHomePage.createPoll(pollTitle, choiceOne, choiceTow);
+    spacePage.createPoll(pollTitle, choiceOne, choiceTow);
   }
 
   public void enterActivityCommentWithUser(String comment, String user) {
-    spaceHomePage.enterActivityCommentWithUser(comment, user);
+    spacePage.enterActivityCommentWithUser(comment, user);
   }
 
   public void enterActivityCommentWithUserNoMention(String comment, String user) {
-    spaceHomePage.enterActivityCommentWithUserNoMention(comment, user);
+    spacePage.enterActivityCommentWithUserNoMention(comment, user);
   }
 
   public void enterActivityText(String activity) {
-    spaceHomePage.enterActivityText(activity);
+    spacePage.enterActivityText(activity);
   }
 
   public void enterCommentText(String comment) {
-    spaceHomePage.enterCommentText(comment);
+    spacePage.enterCommentText(comment);
   }
 
   public void goToSpecificTab(String tabName) {
-    spaceHomePage.goToSpecificTab(tabName);
+    spacePage.goToSpecificTab(tabName);
   }
 
   public void addSpaceApplicationIfNotExisting(String appName) {
-    spaceHomePage.addSpaceApplicationIfNotExisting(appName);
+    spacePage.addSpaceApplicationIfNotExisting(appName);
   }
 
   public void goToUserProfileFromLikersDrawer(String prefix) {
-    spaceHomePage.goToUserProfileFromLikersDrawer(prefix);
+    spacePage.goToUserProfileFromLikersDrawer(prefix);
   }
 
   public void hoverOnLikeIcon(String comment) {
-    spaceHomePage.hoverOnLikeIcon(comment);
+    spacePage.hoverOnLikeIcon(comment);
   }
 
   public void hoverOnLikeIconCommentsDrawer(String comment) {
-    spaceHomePage.hoverOnLikeIconCommentsDrawer(comment);
+    spacePage.hoverOnLikeIconCommentsDrawer(comment);
   }
 
   public void hoverOnMentionedUserInPost(String activity, String user) {
-    spaceHomePage.hoverOnMentionedUserInPost(activity, user);
+    spacePage.hoverOnMentionedUserInPost(activity, user);
   }
 
   public void isActivityNameUserSpaceDisplayed(String activity, String user, String space) {
-    spaceHomePage.isActivityNameUserSpaceDisplayed(activity, user, space);
+    spacePage.isActivityNameUserSpaceDisplayed(activity, user, space);
   }
 
   public void isMentionedUserDisplayedInPost(String activity, String user) {
-    spaceHomePage.isMentionedUserDisplayedInPost(activity, user);
+    spacePage.isMentionedUserDisplayedInPost(activity, user);
   }
 
   public void isUserPopoverDisplayed(String user) {
-    spaceHomePage.isUserPopoverDisplayed(user);
+    spacePage.isUserPopoverDisplayed(user);
   }
 
   public void kudosLabelIsBlack(String comment) {
-    spaceHomePage.kudosLabelIsBlack(comment);
+    spacePage.kudosLabelIsBlack(comment);
   }
 
   public void kudosLabelIsBlue(String comment) {
-    spaceHomePage.kudosLabelIsBlue(comment);
+    spacePage.kudosLabelIsBlue(comment);
   }
 
   public void likeActivity(String activity) {
-    spaceHomePage.likeActivity(activity);
+    spacePage.likeActivity(activity);
   }
 
   public void likeActivityComment(String activity) {
-    spaceHomePage.likeActivityComment(activity);
+    spacePage.likeActivityComment(activity);
   }
 
   public void likeLabelInCommentsDrawerIsBlack(String comment) {
-    spaceHomePage.likeLabelInCommentsDrawerIsBlack(comment);
+    spacePage.likeLabelInCommentsDrawerIsBlack(comment);
   }
 
   public void likeLabelInCommentsDrawerIsBlue(String comment) {
-    spaceHomePage.likeLabelInCommentsDrawerIsBlue(comment);
+    spacePage.likeLabelInCommentsDrawerIsBlue(comment);
   }
 
   public void likeLabelIsBlack(String comment) {
-    spaceHomePage.likeLabelIsBlack(comment);
+    spacePage.likeLabelIsBlack(comment);
   }
 
   public void likeLabelIsBlue(String comment) {
-    spaceHomePage.likeLabelIsBlue(comment);
+    spacePage.likeLabelIsBlue(comment);
   }
 
   public void linkIsOpenedNewTab(String link) {
-    spaceHomePage.linkIsOpenedNewTab(link);
+    spacePage.linkIsOpenedNewTab(link);
     Utils.refreshPage();
   }
 
   public void noCommentDisplayedInDrawer() {
-    spaceHomePage.noCommentDisplayedInDrawer();
+    spacePage.noCommentDisplayedInDrawer();
   }
 
   public void openActivityReactionsDrawer(String activity) {
-    spaceHomePage.openActivityReactionsDrawer(activity);
+    spacePage.openActivityReactionsDrawer(activity);
   }
 
   public void checkActivityReactionsNumberDisplayed(String activity) {
-    spaceHomePage.checkActivityReactionsNumberDisplayed(activity);
+    spacePage.checkActivityReactionsNumberDisplayed(activity);
   }
 
   public void checkActivityReactionsNumberNotDisplayed(String activity) {
-    spaceHomePage.checkActivityReactionsNumberNotDisplayed(activity);
+    spacePage.checkActivityReactionsNumberNotDisplayed(activity);
   }
 
 
   public void openDeleteActivityMenu(String activity) {
-    spaceHomePage.openDeleteActivityMenu(activity);
+    spacePage.openDeleteActivityMenu(activity);
   }
 
   public void openEditActivityMenu(String activity) {
-    spaceHomePage.openEditActivityMenu(activity);
+    spacePage.openEditActivityMenu(activity);
   }
 
   public void openLinkInNewTab(String link) {
-    spaceHomePage.openLinkInNewTab(link);
+    spacePage.openLinkInNewTab(link);
   }
 
   public void openThreeDotsActivityMenu(String activity) {
-    spaceHomePage.openThreeDotsActivityMenu(activity);
+    spacePage.openThreeDotsActivityMenu(activity);
   }
 
   public void pinActivityButtonIsDisplayed(String activity) {
-    spaceHomePage.pinActivityButtonIsDisplayed(activity);
+    spacePage.pinActivityButtonIsDisplayed(activity);
+  }
+  public void pinActivityButtonIsNotDisplayed(String activity) {
+    spacePage.pinActivityButtonIsNotDisplayed(activity);
   }
 
   public void pinnedActivityDisappears(String activity) {
-    spaceHomePage.pinnedActivityDisappears(activity);
+    spacePage.pinnedActivityDisappears(activity);
   }
 
   public void postManyActivities(String activityNumber, String activityPrefix) {
     for (int i = 0; i < Integer.parseInt(activityNumber) + 1; i++) {
       String activity = activityPrefix + i;
-      spaceHomePage.clickPostIcon();
-      spaceHomePage.addActivityTextInOpenedEditor(activity);
-      spaceHomePage.publishActivity(false);
+      spacePage.clickPostIcon();
+      spacePage.addActivityTextInOpenedEditor(activity);
+      spacePage.publishActivity(false);
     }
-    spaceHomePage.refreshStream();
+    spacePage.refreshStream();
   }
 
   public void promoteSpaceMemberAsManager(String name) {
-    spaceHomePage.promoteSpaceMemberAsManager(name);
+    spacePage.promoteSpaceMemberAsManager(name);
   }
 
   public void publishActicity() {
-    spaceHomePage.publishActivity(true);
+    spacePage.publishActivity(true);
   }
 
   public void attachImageToActivity() {
-    spaceHomePage.attachImagesToActivity();
+    spacePage.attachImagesToActivity();
   }
   
   public void attachGifImageToActivity() {
-    spaceHomePage.attachGifImageToActivity();
+    spacePage.attachGifImageToActivity();
   }
   
   public void checkCropDrawerBlurredZone() {
-    spaceHomePage.checkCropDrawerBlurredZone();
+    spacePage.checkCropDrawerBlurredZone();
   }
   
   public void attachImageToKudos() {
-    spaceHomePage.attachImagesToKudos();
+    spacePage.attachImagesToKudos();
   }
   
   public void attachImageToActivityComment() {
-    spaceHomePage.attachImagesToActivityComment();
+    spacePage.attachImagesToActivityComment();
   }
 
   public void clickPreviewAttachedImage(String activity) {
-    spaceHomePage.clickPreviewAttachedImage(activity);
+    spacePage.clickPreviewAttachedImage(activity);
   }
   
   public void previewAttachedImage() {
-    spaceHomePage.previewAttachedImage();
+    spacePage.previewAttachedImage();
   }
   
   public void checkPreviewAttachedImageArrows() {
-    spaceHomePage.checkPreviewAttachedImageArrows();
+    spacePage.checkPreviewAttachedImageArrows();
   }
   
   public void clickClosePreviewAttachedImage() {
-    spaceHomePage.clickClosePreviewAttachedImage();
+    spacePage.clickClosePreviewAttachedImage();
   }
   
   public void checkPreviewAttachedImageIsClosed() {
-    spaceHomePage.checkPreviewAttachedImageIsClosed();
+    spacePage.checkPreviewAttachedImageIsClosed();
   }
 
   public void publishActivityInArabicLanguage() {
-    spaceHomePage.publishActivityInArabicLanguage();
+    spacePage.publishActivityInArabicLanguage();
   }
 
   public void publishComment() {
-    spaceHomePage.publishComment();
+    spacePage.publishComment();
   }
 
   public void receivedKudosDrawerIsDisplayed(String kudosNumber) {
-    spaceHomePage.getReceivedKudosSectionIsDisplayed(kudosNumber);
+    spacePage.getReceivedKudosSectionIsDisplayed(kudosNumber);
   }
 
   public void replyInDrawerIsNotDisplayed(String reply) {
-    spaceHomePage.replyInDrawerIsNotDisplayed(reply);
+    spacePage.replyInDrawerIsNotDisplayed(reply);
   }
 
   public void replyIsDisplayedInCommentsDrawer(String comment, String reply) {
-    spaceHomePage.replyIsDisplayedInCommentsDrawer(comment, reply);
+    spacePage.replyIsDisplayedInCommentsDrawer(comment, reply);
   }
 
   public void replyIsNotDisplayedInCommentsDrawer(String comment, String reply) {
-    spaceHomePage.replyIsNotDisplayedInCommentsDrawer(comment, reply);
+    spacePage.replyIsNotDisplayedInCommentsDrawer(comment, reply);
   }
 
   public void replyKudosLabelIsBlack(String comment) {
-    spaceHomePage.kudosLabelIsBlack(comment);
+    spacePage.kudosLabelIsBlack(comment);
   }
 
   public void replykudosLabelIsBlue(String comment) {
-    spaceHomePage.kudosLabelIsBlue(comment);
+    spacePage.kudosLabelIsBlue(comment);
   }
 
   public void selectActivityFilter(String filter) {
-    spaceHomePage.selectActivityFilter(filter);
+    spacePage.selectActivityFilter(filter);
   }
 
   public void clickFilterIconFromComposer() {
-    spaceHomePage.clickFilterIconFromComposer();
+    spacePage.clickFilterIconFromComposer();
   }
 
   public void filterIsSelected() {
-    spaceHomePage.filterIsSelected();
+    spacePage.filterIsSelected();
   }
 
   public void filterIsntSelected() {
-    spaceHomePage.filterIsntSelected();
+    spacePage.filterIsntSelected();
   }
 
   public void tooltipCommentsDrawerIsDisplayed(String comment) {
-    spaceHomePage.tooltipCommentsDrawerIsDisplayed(comment);
+    spacePage.tooltipCommentsDrawerIsDisplayed(comment);
   }
 
   public void unPinActivityButtonIsDisplayed(String activity) {
-    spaceHomePage.unPinActivityButtonIsDisplayed(activity);
+    spacePage.unPinActivityButtonIsDisplayed(activity);
   }
 
   public void updateComment() {
-    spaceHomePage.updateComment();
+    spacePage.updateComment();
   }
 
   public void updateCommentText(String comment) {
-    spaceHomePage.updateCommentText(comment);
+    spacePage.updateCommentText(comment);
   }
 
   public void userIsMentionedInCommentEntered(String user) {
-    spaceHomePage.userIsMentionedInCommentEntered(user);
+    spacePage.userIsMentionedInCommentEntered(user);
   }
 
   public void userIsNotMentionedInCommentEntered(String user) {
-    spaceHomePage.userIsNotMentionedInCommentEntered(user);
+    spacePage.userIsNotMentionedInCommentEntered(user);
   }
 
   public void viewAllRepliesInActivityStream(String comment) {
-    spaceHomePage.viewAllRepliesInActivityStream(comment);
+    spacePage.viewAllRepliesInActivityStream(comment);
   }
 
   public void viewAllRepliesInCommentsDrawer(String comment) {
-    spaceHomePage.viewAllRepliesInCommentsDrawer(comment);
+    spacePage.viewAllRepliesInCommentsDrawer(comment);
   }
   
   public void checkActivityAttachedImages(String activity) {
-    spaceHomePage.checkActivityAttachedImages(activity);
+    spacePage.checkActivityAttachedImages(activity);
   }
   
   public void checkActivitySecondAttachedImage(String activity) {
-    spaceHomePage.checkActivitySecondAttachedImage(activity);
+    spacePage.checkActivitySecondAttachedImage(activity);
   }
   
   public void checkActivityDrawerAttachedImagesDeleteIcon(String activity) {
-    spaceHomePage.checkActivityDrawerAttachedImagesDeleteIcon(activity);
+    spacePage.checkActivityDrawerAttachedImagesDeleteIcon(activity);
   }
   
   public void checkActivityDrawerAttachedImagesEditIcon(String activity) {
-    spaceHomePage.checkActivityDrawerAttachedImagesEditIcon(activity);
+    spacePage.checkActivityDrawerAttachedImagesEditIcon(activity);
   }
   
   public void clickDeleteAttachment() {
-    spaceHomePage.clickDeleteAttachment();
+    spacePage.clickDeleteAttachment();
   }
   
   public void clickEditAttachment() {
-    spaceHomePage.clickEditAttachment();
+    spacePage.clickEditAttachment();
   }
   
   public void clickUpdateAttachment() {
-    spaceHomePage.clickUpdateAttachment();
+    spacePage.clickUpdateAttachment();
   }
   
   public void zoomAttachedImage() {
-    spaceHomePage.zoomAttachedImage();
+    spacePage.zoomAttachedImage();
   }
   
   public void checkAttachedImageCropDrawerCancelOption() {
-    spaceHomePage.checkAttachedImageCropDrawerCancelOption();
+    spacePage.checkAttachedImageCropDrawerCancelOption();
   }
   
   public void checkAttachedImageCropDrawer() {
-    spaceHomePage.checkAttachedImageCropDrawer();
+    spacePage.checkAttachedImageCropDrawer();
   }
   
   public void checkActivityAttachImageDeleted() {
-    spaceHomePage.checkActivityAttachImageDeleted();
+    spacePage.checkActivityAttachImageDeleted();
   }
   
   public void checkActivityAttachedImagesIsNotDisplayed(String activity) {
-    spaceHomePage.checkActivityAttachedImagesIsNotDisplayed(activity);
+    spacePage.checkActivityAttachedImagesIsNotDisplayed(activity);
   }
   
   public void checkActivityCommentKudos(String comment) {
-    spaceHomePage.checkActivityCommentKudos(comment);
+    spacePage.checkActivityCommentKudos(comment);
   }
   
   public void checkKudosCommentAttachedImages(String comment) {
-    spaceHomePage.checkKudosCommentAttachedImages(comment);
+    spacePage.checkKudosCommentAttachedImages(comment);
   }
-  
-  
+
+  public void openSpaceSettingsSection(String sectionId) {
+    spacePage.openSpaceSettingsSection(sectionId);
+  }
+
+  public void enableRedactionalSpaceSettings() {
+    spacePage.enableRedactionalSpaceSettings();
+  }
+
+  public void promoteUserAsSpaceRedactor(String userFirstName) {
+    spacePage.promoteUserAsSpaceRedactor(userFirstName);
+  }
+
+  public void openSpaceSettingsRoleDrawer(String role) {
+    spacePage.openSpaceSettingsRoleDrawer(role);
+  }
+
+  public void addUserWithRoleInSpace(String userFirstName) {
+    spacePage.addUserWithRoleInSpace(userFirstName);
+  }
+
 }
