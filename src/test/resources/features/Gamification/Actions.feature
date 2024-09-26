@@ -54,7 +54,7 @@ Feature: Actions
 
     Then The activity 'Challenge to announce' is displayed
 
-    When I go to '/portal/contribute/contributions/achievements'
+    When I go to '/portal/contribute/contributions/achievements#yours'
     Then Achievement for 'Challenge to announce' is pending
 
     When I go to 'programs' in site 'contribute'
@@ -185,7 +185,7 @@ Feature: Actions
     And I click on 'Announce an action from its activity' text
     Then '0' participants is displayed in action drawer
 
-    When I go to '/portal/contribute/contributions/achievements'
+    When I go to '/portal/contribute/contributions/achievements#yours'
     Then Achievement for 'Announce an action from its activity' is pending
     Then I click on 'Review' button
     Then I wait for application loading
@@ -353,7 +353,7 @@ Feature: Actions
     And I click on 'Cancel' button related to comment 'announcement11'
     And I click on Yes button
 
-    And I go to '/portal/contribute/contributions/achievements'
+    And I go to '/portal/contribute/contributions/achievements#yours'
     Then Achievement for 'Announce activity to delete' is canceled
 
   Scenario: Overview top challenge
