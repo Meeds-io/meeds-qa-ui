@@ -468,7 +468,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   private ElementFacade closedRadioBtnElement() {
-    return findByXPathOrCSS("//*[@class='v-input--selection-controls__input']/following::label[contains(text(),'Closed')]");
+    return findByXPathOrCSS("(//*[contains(@class, 'v-radio')])[3]");
   }
 
   private ElementFacade editIconOfGeneralSpaceSettingsElement() {
@@ -549,7 +549,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   private ElementFacade openRadioBtnElement() {
-    return findByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//input[@value='open']//ancestor::*[contains(@class,'v-radio')]");
+    return findByXPathOrCSS("(//*[contains(@class, 'v-radio')])[1]");
   }
 
   private ElementFacade registrationSectionElement() {
@@ -665,7 +665,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   private ElementFacade validationRadioBtnElement() {
-    return findByXPathOrCSS("//*[@class='v-input--selection-controls__input']/following::label[contains(text(),'Validation')]");
+    return findByXPathOrCSS("(//*[contains(@class, 'v-radio')])[2]");
   }
 
   private ElementFacade ckEditorDescription() {

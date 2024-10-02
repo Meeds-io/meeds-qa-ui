@@ -148,7 +148,7 @@ public class MainSettingsPage extends GenericPage {
   }
 
   public void checkAccessDefaultSpacesCount(int count) {
-    findByXPathOrCSS(String.format("//*[@id='generalSettings']//*[contains(text(), 'default space')]//ancestor::*[contains(@class, 'v-list-item')]//*[contains(text(), '%s selected space')]",
+    findByXPathOrCSS(String.format("//*[@id='generalSettings']//*[contains(@class, 'v-list-item')]//*[contains(text(), '%s space selected')]",
                                    count)).assertVisible();
   }
 
@@ -245,7 +245,7 @@ public class MainSettingsPage extends GenericPage {
   }
 
   private ElementFacade accessEditDefaultSpaceButton() {
-    return findByXPathOrCSS("//*[@id='generalSettings']//*[contains(text(), 'default space')]//ancestor::*[contains(@class, 'v-list-item')]//*[contains(@class, 'fa-edit')]");
+    return findByXPathOrCSS("//*[@id='generalSettings']//*[contains(@class, 'v-list-item')]//*[contains(@class, 'fa-edit')]");
   }
 
   private TextBoxElementFacade accessDefaultSpaceInput() {
