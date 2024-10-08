@@ -11,25 +11,6 @@ Feature: Meeds Space
     Then Space Avatar is displayed
     And The created space name is displayed
 
-  Scenario: Home space page banner
-    Given I am authenticated as 'admin' random user
-
-    When I go to the random space
-
-    Then Space Avatar is displayed
-    And The created space name is displayed
-
-    And I click on 'Settings' space menu tab
-    And I open 'Overview' Section from Space Settings
-    And I close the notification
-
-    When I upload the Space banner 'cap02.png'
-    And I click on 'Update' button
-
-    And I go to spaces page
-    And  I search for the random space
-    Then Space banner is changed successfully
-
   Scenario: Clickable Space avatar
     Given I am authenticated as 'admin' random user
 
@@ -40,15 +21,6 @@ Feature: Meeds Space
 
     When I go to space Home
     Then Space Top Bar Elements are displayed
-
-  Scenario: Spaces Cards bloc
-    Given I am authenticated as 'admin' random user
-
-    When I create or check that thirty spaces are created
-    And I go to spaces page
-    Then I check that only 20 spaces are displayed
-    When I click on Show more button
-    Then I check that other spaces are displayed
 
   Scenario: Spaces Request
     Given I am authenticated as 'admin' random user

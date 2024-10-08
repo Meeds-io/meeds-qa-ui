@@ -25,6 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
+import io.meeds.qa.ui.elements.ButtonElementFacade;
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 
@@ -62,17 +63,8 @@ public class ManageSpacesPage extends GenericPage {
     ckEditorDescription().assertVisible();
   }
 
-  public void checkDisplayOfOtherSpaces() {
-    spaceCardN21Element().assertVisible();
-  }
-
-  public void checkDisplayOfTwentySpaces() {
-    spaceCardN20Element().assertVisible();
-    spaceCardN21Element().assertNotVisible();
-  }
-
   public void checkFavIconInSpaceCard() {
-    findByXPathOrCSS("//* [@class='spaceCardFront']//*[contains(@class,'fa-star')]").assertVisible();
+    findByXPathOrCSS("//*[@id = 'spacesListBody']//*[contains(@class,'fa-star')]").assertVisible();
   }
 
   public void checkFavIconInSpacePopoverFromTopbar() {
@@ -102,9 +94,9 @@ public class ManageSpacesPage extends GenericPage {
 
   public void checkSpaceBookmarkStatusFromSpaceCard(boolean shouldBeBookmarked) {
     if (shouldBeBookmarked) {
-      findByXPathOrCSS("//* [@class='spaceCardFront']//*[contains(@class,'fas fa-star')]").assertVisible();
+      findByXPathOrCSS("//*[@id = 'spacesListBody']//*[contains(@class,'fas fa-star')]").assertVisible();
     } else {
-      findByXPathOrCSS("//* [@class='spaceCardFront']//*[contains(@class,'far fa-star')]").assertVisible();
+      findByXPathOrCSS("//*[@id = 'spacesListBody']//*[contains(@class,'far fa-star')]").assertVisible();
     }
   }
 
@@ -149,23 +141,18 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void checkThatSpaceDetailsInSearchResultsAreDisplayed(String spaceName, String members) {
-    spaceSearchDetailsCoverElement().assertVisible();
-    spaceSearchDetailsAvatarElement().assertVisible();
-    spaceSearchDetailsInfoElement().assertVisible();
-    spaceSearchDetailsThreeDotsElement().assertVisible();
-    spaceSearchDetailsLeaveButtonElement().assertVisible();
+    spaceSearchDetailsAvatarElement(spaceName).assertVisible();
+    spaceSearchDetailsInfoElement(spaceName).assertVisible();
+    spaceThreeDotsButtonElement(spaceName).assertVisible();
     spaceSearchDetailsSpaceName(spaceName).assertVisible();
     spaceSearchDetailsSpaceMembers(members).assertVisible();
   }
 
   public void checkThatSpaceDetailsInSearchResultsAreDisplayedByOtherUser(String spaceName, String members) {
-    spaceSearchDetailsCoverElement().assertVisible();
-    spaceSearchDetailsAvatarElement().assertVisible();
-    spaceSearchDetailsInfoElement().assertVisible();
-    spaceSearchDetailsLeaveButtonElement().assertVisible();
+    spaceSearchDetailsAvatarElement(spaceName).assertVisible();
+    spaceSearchDetailsInfoElement(spaceName).assertVisible();
     spaceSearchDetailsSpaceName(spaceName).assertVisible();
     spaceSearchDetailsSpaceMembers(members).assertVisible();
-
   }
 
   public void checkThatSpaceInSearchResultsIsNotDisplayed(String spaceName) {
@@ -192,7 +179,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void clickOnSpaceBookmarkIconFromSpaceCard() {
-    findByXPathOrCSS("//* [@class='spaceCardFront']//*[contains(@class,'fa-star')]").click();
+    findByXPathOrCSS("//*[@id = 'spacesListBody']//*[contains(@class,'fa-star')]").click();
   }
 
   public void clickOnSpaceBookmarkIconFromThirdNavigationLevel() {
@@ -239,7 +226,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void deleteSpace(String spaceName) {
-    searchSpaceInputElement().setTextValue(spaceName);
+    insertSpaceNameInSearchField(spaceName);
     getSpaceMenu(spaceName).click();
     getDeleteSpaceButton(spaceName).click();
     TextBoxElementFacade okButtonElement = okButtonElement();
@@ -273,14 +260,21 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void insertSpaceNameInSearchField(String spaceName) {
+    openAdvancedSpacesFilterToolbar();
     TextBoxElementFacade searchSpaceInputElement = searchSpaceInputElement();
     searchSpaceInputElement.waitUntilVisible();
     searchSpaceInputElement.setTextValue(spaceName);
+    waitFor(200).milliseconds();
     waitForProgressBar();
   }
 
   public void leaveSpace() {
-    spaceSearchDetailsLeaveButtonElement().click();
+    if (spaceLeaveButtonElement().isVisible()) {
+      spaceLeaveButtonElement().click();
+    } else {
+      spaceThreeDotsButtonElement().click();
+      spaceLeaveMenuItem().click();
+    }
     waitFor(200).milliseconds(); // Wait for animation until the home icon changes its location
     clickToConfirmDialog();
     waitFor(200).milliseconds(); // Wait for animation until the home icon changes its location
@@ -294,26 +288,31 @@ public class ManageSpacesPage extends GenericPage {
     return findByXPathOrCSS("#spacesListFooter .loadMoreButton").isPresent();
   }
 
-  public void isSpaceBannerUpdated() {
-    spaceBannerUpdatedElement().assertVisible();
-  }
-
-  public boolean isSpaceCardDisplayed(String space) {
+  public boolean isSpaceCardDisplayed(String space, boolean mandatory) {
     try {
       ElementFacade webElementFacade =
-                                     findByXPathOrCSS(String.format("//*[contains(@class, 'spaceDisplayName') and contains(@href, ':%s/')]",
-                                                                    space.toLowerCase()));
-      return webElementFacade.isCurrentlyVisible();
+                                     findByXPathOrCSS(String.format("//*[@id = 'spacesListBody']//*[contains(text(), '%s')]//ancestor::a[@href]",
+                                                                    space));
+      if (mandatory) {
+        webElementFacade.checkVisible();
+        return true;
+      } else {
+        return webElementFacade.isCurrentlyVisible();
+      }
     } catch (RuntimeException e) {
-      return false;
+      if (mandatory) {
+        throw e;
+      } else {
+        return false;
+      }
     }
   }
 
   public boolean isSpaceCardJoinButtonDisplayed(String space) {
     try {
       ElementFacade webElementFacade =
-                                     findByXPathOrCSS(String.format("//*[contains(@class, 'spaceDisplayName') and contains(@href, ':%s/')]//ancestor::*[contains(@class, 'spaceCardItem')]//*[contains(text(), 'Join')]//ancestor::button",
-                                                                    space.toLowerCase()));
+                                     findByXPathOrCSS(String.format("//*[@id = 'spacesListBody']//*[contains(text(), '%s')]//ancestor::a[@href]//*[contains(text(), 'Join')]//ancestor::button",
+                                                                    space));
       return webElementFacade.isCurrentlyVisible();
     } catch (RuntimeException e) {
       return false;
@@ -335,12 +334,16 @@ public class ManageSpacesPage extends GenericPage {
 
   public void joinSpaceFromCard(String space) {
     ElementFacade webElementFacade =
-                                   findByXPathOrCSS(String.format("//*[contains(@class, 'spaceDisplayName') and contains(@href, ':%s/')]//ancestor::*[contains(@class, 'spaceCardItem')]//*[contains(text(), 'Join')]//ancestor::button",
-                                                                  space.toLowerCase()));
+                                   findByXPathOrCSS(String.format("//*[@id = 'spacesListBody']//*[contains(text(), '%s')]//ancestor::a[@href]//*[contains(text(), 'Join')]//ancestor::button",
+                                                                  space));
     webElementFacade.click();
   }
 
   public void openSpaceFormDrawer() {
+    if (applicationToolbarCollpseButton().isCurrentlyEnabled()) {
+      applicationToolbarCollpseButton().click();
+      waitFor(200).milliseconds();
+    }
     addNewSpaceButtonElement().click();
     waitForDrawerToOpen();
   }
@@ -447,6 +450,10 @@ public class ManageSpacesPage extends GenericPage {
     invitePlatformUserButton().assertVisible();
   }
 
+  private ElementFacade applicationToolbarCollpseButton() {
+    return findByXPathOrCSS("#applicationToolbarRight .fa-arrow-left");
+  }
+
   private ElementFacade invitePlatformUserButton() {
     return findByXPathOrCSS("#spaceSettingUsersListToolbar");
   }
@@ -492,6 +499,18 @@ public class ManageSpacesPage extends GenericPage {
     }
   }
 
+  public void openAdvancedSpacesFilterToolbar() {
+    ButtonElementFacade spacesListFilterButton = spacesListFilterButton();
+    if (spacesListFilterButton.isVisible()) {
+      spacesListFilterButton.click();
+      waitFor(200).milliseconds();
+    }
+  }
+
+  public ButtonElementFacade spacesListFilterButton() {
+    return findButtonByXPathOrCSS("#spacesListToolbar #applicationToolbarConeButton");
+  }
+
   private ElementFacade getSpaceElement(String space) {
     return findByXPathOrCSS(String.format("//*[contains(@class, 'brandingContainer space')]//*[contains(text(),'%s')]", space));
   }
@@ -506,7 +525,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   private ElementFacade getSpaceNameInListOfSpace(String spaceName) {
-    return findByXPathOrCSS(String.format("//a[contains(text(), '%s')]", spaceName));
+    return findByXPathOrCSS(String.format("//*[@id = 'spacesListBody']//*[contains(text(), '%s')]//ancestor::a[@href]", spaceName));
   }
 
   private ElementFacade hiddenSectionElement() {
@@ -557,7 +576,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   private TextBoxElementFacade searchSpaceInputElement() {
-    return findTextBoxByXPathOrCSS("//div[contains(@class,'inputSpacesFilter')]//input");
+    return findTextBoxByXPathOrCSS("#spacesListToolbar #applicationToolbarFilterInput");
   }
 
   private ElementFacade secondProcessButtonElement() {
@@ -584,18 +603,6 @@ public class ManageSpacesPage extends GenericPage {
     return findTextBoxByXPathOrCSS("//*[@id='spaceBannerDeleteButton']");
   }
 
-  private TextBoxElementFacade spaceBannerUpdatedElement() {
-    return findTextBoxByXPathOrCSS("//*[contains(@class,'spaceCardItem')]//*[contains(@class,'spaceBannerImg')]//*[contains(@style, '/social/spaces/')]");
-  }
-
-  private ElementFacade spaceCardN20Element() {
-    return findByXPathOrCSS("(//*[contains(@class, 'spaceCardFlip')])[20]");
-  }
-
-  private ElementFacade spaceCardN21Element() {
-    return findByXPathOrCSS("(//*[contains(@class, 'spaceCardFlip')])[21]");
-  }
-
   private ElementFacade spaceMembersTabElement() {
     return findByXPathOrCSS("(//a[contains(@href,'/members') and @tabindex='0'])");
   }
@@ -616,20 +623,30 @@ public class ManageSpacesPage extends GenericPage {
     return findTextBoxByXPathOrCSS("//*[@name='name']");
   }
 
-  private TextBoxElementFacade spaceSearchDetailsAvatarElement() {
-    return findTextBoxByXPathOrCSS("(//*[@class='spaceCardFront']//*[@class='v-responsive__content'])[2]");
+  private TextBoxElementFacade spaceSearchDetailsAvatarElement(String spaceName) {
+    return findTextBoxByXPathOrCSS(String.format("//*[@id = 'spacesListBody']//*[contains(text(), '%s')]//ancestor::a[@href]//img[contains(@src,'/avatar')]",
+                                                 spaceName));
   }
 
-  private TextBoxElementFacade spaceSearchDetailsCoverElement() {
-    return findTextBoxByXPathOrCSS("(//*[@class='spaceCardFront']//*[@class='v-image__image v-image__image--cover'])[1]");
+  private TextBoxElementFacade spaceSearchDetailsInfoElement(String spaceName) {
+    return findTextBoxByXPathOrCSS(String.format("//*[@id = 'spacesListBody']//*[contains(text(), '%s')]//ancestor::a[@href]//*[contains(text(),'Members')]",
+                                                 spaceName));
   }
 
-  private TextBoxElementFacade spaceSearchDetailsInfoElement() {
-    return findTextBoxByXPathOrCSS("//*[contains(@class,'spaceToolbarIcons')]//*[contains(@class,'spaceInfoIcon')]");
+  private TextBoxElementFacade spaceLeaveButtonElement() {
+    return findTextBoxByXPathOrCSS("//*[@id = 'spacesListBody']//*[contains(text(), '%s')]//ancestor::a[@href]//*[contains(text(),'Leave')]");
   }
 
-  private TextBoxElementFacade spaceSearchDetailsLeaveButtonElement() {
-    return findTextBoxByXPathOrCSS("//*[contains(@class,'spaceMembershipButtonText') and contains(text(),'Leave')]");
+  private TextBoxElementFacade spaceLeaveMenuItem() {
+    return findTextBoxByXPathOrCSS("//*[contains(@class, 'menuable__content__active')]//*[contains(@class, 'sign-out')]");
+  }
+
+  private TextBoxElementFacade spaceThreeDotsButtonElement(String spaceName) {
+    return findTextBoxByXPathOrCSS(String.format("//*[@id = 'spacesListBody']//*[contains(text(), '%s')]//ancestor::a[@href]//*[contains(@class,'fa-ellipsis-v')]", spaceName));
+  }
+
+  private TextBoxElementFacade spaceThreeDotsButtonElement() {
+    return findTextBoxByXPathOrCSS("//*[@id = 'spacesListBody']//a[@href]//*[contains(@class,'fa-ellipsis-v')]");
   }
 
   private ElementFacade spaceSearchDetailsSpaceMembers(String members) {
@@ -638,10 +655,6 @@ public class ManageSpacesPage extends GenericPage {
 
   private ElementFacade spaceSearchDetailsSpaceName(String spaceName) {
     return findByXPathOrCSS(String.format("//*[contains(@class,'spaceCardBody')]//a[contains(text(),'%s')]", spaceName));
-  }
-
-  private TextBoxElementFacade spaceSearchDetailsThreeDotsElement() {
-    return findTextBoxByXPathOrCSS("//*[contains(@class,'spaceToolbarIcons')]//button[contains(@class,'spaceMenuIcon')]");
   }
 
   private ElementFacade spacesPageElement() {

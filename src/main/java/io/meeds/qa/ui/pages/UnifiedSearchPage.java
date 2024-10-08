@@ -146,7 +146,7 @@ public class UnifiedSearchPage extends GenericPage {
   }
 
   private ElementFacade getSpaceSearchTitle(String space) {
-    return findByXPathOrCSS(String.format("//*[@class='spaceCardFront']//*[contains(text(),'%s')]", space));
+    return findByXPathOrCSS(String.format("//*[@id = 'spacesListBody']//*[contains(text(),'%s')]", space));
   }
 
   private ElementFacade getUserSearchTitle(String user) {
