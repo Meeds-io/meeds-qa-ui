@@ -1284,7 +1284,7 @@ public class TasksPage extends GenericPage {
   }
 
   private ElementFacade checkChangesDrawerElement() {
-    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'drawerTitle') and contains(text(), 'Changes')]");
+    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'drawerTitle')]//*[contains(text(), 'Changes')]");
   }
 
   private ElementFacade ckEditorFrameDescriptionElement() {
