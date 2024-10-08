@@ -183,16 +183,6 @@ public class ManageSpaceStepDefinitions {
     manageSpaceSteps.checkDescriptionSpaceSection();
   }
 
-  @Given("^I check that other spaces are displayed$")
-  public void checkDisplayOfOtherSpaces() {
-    manageSpaceSteps.checkDisplayOfOtherSpaces();
-  }
-
-  @Given("^I check that only 20 spaces are displayed$")
-  public void checkDisplayOfTwentySpaces() {
-    manageSpaceSteps.checkDisplayOfTwentySpaces();
-  }
-
   @Then("The favorite icon should be displayed in space card")
   public void checkFavIconInSpaceCard() {
     manageSpaceSteps.checkFavIconInSpaceCard();
@@ -424,11 +414,6 @@ public class ManageSpaceStepDefinitions {
   @When("^I hover on space name from top bar$")
   public void hoverOnSpaceName() {
     manageSpaceSteps.hoverOnSpaceName();
-  }
-
-  @Given("^Space banner is changed successfully$")
-  public void isSpaceBannerUpdated() {
-    manageSpaceSteps.isSpaceBannerUpdated();
   }
 
   @Then("^The space page is displayed '(.*)'$")

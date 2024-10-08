@@ -32,6 +32,10 @@ import net.thucydides.core.annotations.Steps;
 
 public class SpaceStepDefinition {
 
+  private static final String USER_LAST_NAME = "UserLastName";
+
+  private static final String ACTIVITY = "activity";
+
   private static final String USER_FIRST_NAME = "UserFirstName";
 
   private SpacePage  spacePage;
@@ -64,7 +68,7 @@ public class SpaceStepDefinition {
   public void addActivityExceed() {
     String activity = StringUtils.repeat("activity to add", 90);
     spaceSteps.addActivity(activity);
-    Serenity.setSessionVariable("activity").to(activity);
+    Serenity.setSessionVariable(ACTIVITY).to(activity);
   }
 
   @When("^I enter an activity '(.*)' mentioning the (.*) user$")
@@ -229,7 +233,7 @@ public class SpaceStepDefinition {
 
   @Then("^The (.*) user is displayed in activity likers drawer$")
   public void checkReactionsDrawerDisplay(String userPrefix) {
-    String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
+    String userLastName = Serenity.sessionVariableCalled(userPrefix + USER_LAST_NAME);
     spaceSteps.checkUserDisplayedInReactionsDrawer(userLastName);
   }
 
@@ -357,7 +361,7 @@ public class SpaceStepDefinition {
   @Then("^I click on the (.*) user Popover$")
   public void clickOnTheRandomUserPopover(String userPrefix) {
     String userFirstName = Serenity.sessionVariableCalled(userPrefix + USER_FIRST_NAME);
-    String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
+    String userLastName = Serenity.sessionVariableCalled(userPrefix + USER_LAST_NAME);
 
     String fullName = userFirstName + " " + userLastName;
     spaceSteps.clickOnTheUserPopover(fullName);
@@ -523,13 +527,13 @@ public class SpaceStepDefinition {
 
   @When("^I enter a comment '(.*)' with mentioning the (.*) user$")
   public void enterActivityCommentWithRandomUser(String comment, String userPrefix) {
-    String lastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
+    String lastName = Serenity.sessionVariableCalled(userPrefix + USER_LAST_NAME);
     spaceSteps.enterActivityCommentWithUser(comment, lastName);
   }
 
   @When("^I enter a comment '(.*)' with attempting to mention the (.*) user$")
   public void enterActivityCommentWithRandomUserNoMention(String comment, String userPrefix) {
-    String lastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
+    String lastName = Serenity.sessionVariableCalled(userPrefix + USER_LAST_NAME);
     spaceSteps.enterActivityCommentWithUserNoMention(comment, lastName);
   }
 
@@ -576,7 +580,7 @@ public class SpaceStepDefinition {
   @When("^In post '(.*)', I mouse over the mentioned (.*) user$")
   public void hoverOnMentionedRandomUserInPost(String activity, String userPrefix) {
     String userFirstName = Serenity.sessionVariableCalled(userPrefix + USER_FIRST_NAME);
-    String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
+    String userLastName = Serenity.sessionVariableCalled(userPrefix + USER_LAST_NAME);
 
     String fullName = userFirstName + " " + userLastName;
     spaceSteps.hoverOnMentionedUserInPost(activity, fullName);
@@ -610,7 +614,7 @@ public class SpaceStepDefinition {
   @When("^In post '(.*)', the mentioned (.*) user is displayed$")
   public void isMentionedRandomUserDisplayedInPost(String activity, String userPrefix) {
     String userFirstName = Serenity.sessionVariableCalled(userPrefix + USER_FIRST_NAME);
-    String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
+    String userLastName = Serenity.sessionVariableCalled(userPrefix + USER_LAST_NAME);
 
     String fullName = userFirstName + " " + userLastName;
     spaceSteps.isMentionedUserDisplayedInPost(activity, fullName);
@@ -624,7 +628,7 @@ public class SpaceStepDefinition {
   @Then("User Popover of the (.*) user is displayed")
   public void isRandomUserPopoverDisplayed(String userPrefix) {
     String userFirstName = Serenity.sessionVariableCalled(userPrefix + USER_FIRST_NAME);
-    String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
+    String userLastName = Serenity.sessionVariableCalled(userPrefix + USER_LAST_NAME);
 
     String fullName = userFirstName + " " + userLastName;
     spaceSteps.isUserPopoverDisplayed(fullName);
@@ -710,13 +714,13 @@ public class SpaceStepDefinition {
 
   @When("^I click to delete from the dropdownActivitymenu$")
   public void openDeleteActivityMenu() {
-    String oldActiviyy = Serenity.sessionVariableCalled("activity");
+    String oldActiviyy = Serenity.sessionVariableCalled(ACTIVITY);
     spaceSteps.openDeleteActivityMenu(oldActiviyy);
   }
 
   @When("^I click on modify the activity$")
   public void openEditActivityMenu() {
-    String oldActiviyy = Serenity.sessionVariableCalled("activity");
+    String oldActiviyy = Serenity.sessionVariableCalled(ACTIVITY);
     spaceSteps.openEditActivityMenu(oldActiviyy);
   }
 
@@ -762,7 +766,7 @@ public class SpaceStepDefinition {
 
   @When("^I promote '(.*)' random user as a space manager$")
   public void promoteRandomUserAsSpaceManager(String userPrefix) {
-    String userLastName = Serenity.sessionVariableCalled(userPrefix + "UserLastName");
+    String userLastName = Serenity.sessionVariableCalled(userPrefix + USER_LAST_NAME);
     spaceSteps.promoteSpaceMemberAsManager(userLastName);
   }
 
@@ -815,7 +819,7 @@ public class SpaceStepDefinition {
   @When("^(.*) User is mentioned in the comment$")
   public void randomUserIsMentionedInCommentEntered(String userPrefix) {
     String userFirstName = Serenity.sessionVariableCalled(userPrefix.toLowerCase() + USER_FIRST_NAME);
-    String userLastName = Serenity.sessionVariableCalled(userPrefix.toLowerCase() + "UserLastName");
+    String userLastName = Serenity.sessionVariableCalled(userPrefix.toLowerCase() + USER_LAST_NAME);
     String fullName = userFirstName + " " + userLastName;
     spaceSteps.userIsMentionedInCommentEntered(fullName);
   }
@@ -823,7 +827,7 @@ public class SpaceStepDefinition {
   @When("^(.*) User is not mentioned in the comment$")
   public void randomUserIsNotMentionedInCommentEntered(String userPrefix) {
     String userFirstName = Serenity.sessionVariableCalled(userPrefix.toLowerCase() + USER_FIRST_NAME);
-    String userLastName = Serenity.sessionVariableCalled(userPrefix.toLowerCase() + "UserLastName");
+    String userLastName = Serenity.sessionVariableCalled(userPrefix.toLowerCase() + USER_LAST_NAME);
     String fullName = userFirstName + " " + userLastName;
     spaceSteps.userIsNotMentionedInCommentEntered(fullName);
   }
