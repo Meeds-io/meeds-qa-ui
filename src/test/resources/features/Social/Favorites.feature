@@ -1,7 +1,7 @@
 @favorite
 Feature: Favorite activities
 
-  Scenario: [Favs_US03] Bookmark an activity
+  Scenario: Bookmark an activity
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I inject the first random user if not existing
@@ -15,7 +15,7 @@ Feature: Favorite activities
     When I favorite the activity posted in the space
     Then Success message is displayed
 
-  Scenario: [Favs_US04] Remove the Bookmark for an activity
+  Scenario: Remove the Bookmark for an activity
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I inject the first random user if not existing
@@ -31,7 +31,7 @@ Feature: Favorite activities
     And I unbookmark the favorite activity posted in the space
     Then Success message is displayed
 
-  Scenario: [Favs_US05][01] Search by favorites (Filter by favorite button)
+  Scenario: Search by favorites (Filter by favorite button)
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I inject the first random user if not existing
@@ -57,7 +57,7 @@ Feature: Favorite activities
     And The activity is not displayed in the search 'act_Fav_US05_01_1'
     And The activity is not displayed in the search 'act_Fav_US05_01_2'
 
-  Scenario:  [Favs_US05][02] Search by favorites (Filter by keyword and favorite button)
+  Scenario: Search by favorites (Filter by keyword and favorite button)
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I inject the first random user if not existing
@@ -86,7 +86,7 @@ Feature: Favorite activities
     And The activity is displayed in the search 'activityFavs_US052'
     And The activity is displayed in the search 'activityFavs_US050'
 
-  Scenario: [Favs_US06][01] Manage favorites from the search card ( Bookmark an activity)
+  Scenario: Manage favorites from the search card ( Bookmark an activity)
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I inject the first random user if not existing
@@ -108,7 +108,7 @@ Feature: Favorite activities
     And The activity is not displayed in the search 'activityFavs_US06_01_2'
     And The activity is not displayed in the search 'activityFavs_US06_01_0'
 
-  Scenario: [Favs_US06][02] Manage favorites from the search card ( UnBookmark an activity)
+  Scenario: Manage favorites from the search card ( UnBookmark an activity)
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I inject the first random user if not existing
@@ -133,7 +133,7 @@ Feature: Favorite activities
     And The activity is not displayed in the search 'activityFavs_US06_02_1'
     And The activity is not displayed in the search 'activityFavs_US06_02_0'
 
-  Scenario: SpaceFav_US01.11: Bookmark a space as a favorite (space page)
+  Scenario: Bookmark a space as a favorite (space page)
     Given I am authenticated as 'admin' random user
     And I inject the first random user if not existing
     And I create a random space
@@ -152,7 +152,7 @@ Feature: Favorite activities
     When I close the notification
     Then I check that the random space is unbookmarked from space card
 
-  Scenario: SpacePopover_IMP02.3: Bookmark space from topbar space popover
+  Scenario: Bookmark space from topbar space popover
     Given I am authenticated as 'admin' random user
     And I inject the first random user if not existing
     And I create a random space
@@ -171,7 +171,7 @@ Feature: Favorite activities
     And I hover on space name from top bar
     Then I check that the random space is unbookmarked from topbar space popover
 
-  Scenario: Left Nav US02.2: Bookmark space from the left menu (desktop)
+  Scenario: Bookmark space from the left menu (desktop)
     Given I am authenticated as 'admin' random user
     And I go to the seven random space
     And I go to the nine random space
@@ -192,7 +192,7 @@ Feature: Favorite activities
     When I close the notification
     Then I check that the random space is unbookmarked from Third Navigation Level
 
-  Scenario: StreamFiltering_US04.2: Filter my stream by favorite spaces
+  Scenario: Filter my stream by favorite spaces
     Given I am authenticated as 'admin' random user
     And I go to the ninety random space
     And I click on post in space

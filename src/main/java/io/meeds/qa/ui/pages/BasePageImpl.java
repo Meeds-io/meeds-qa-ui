@@ -51,9 +51,10 @@ import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.WhenPageOpens;
 import net.thucydides.core.pages.PageObject;
-import net.thucydides.core.webdriver.exceptions.ElementNotFoundAfterTimeoutError;
 
 public class BasePageImpl extends PageObject implements BasePage {
+
+  private static final String CAN_T_WAIT_FOR_PROGRESS_BAR_TO_FINISH_LOADING = "Can't wait for progress bar to finish loading";
 
   protected static final Logger LOGGER                     = LoggerFactory.getLogger(BasePageImpl.class);
 
@@ -472,7 +473,7 @@ public class BasePageImpl extends PageObject implements BasePage {
         }, () -> getDriver().switchTo().defaultContent());
       }
     } catch (Exception e) {
-      LOGGER.warn("Can't wait for progress bar to finish loading", e);
+      LOGGER.warn(CAN_T_WAIT_FOR_PROGRESS_BAR_TO_FINISH_LOADING, e);
     }
   }
 
@@ -540,7 +541,7 @@ public class BasePageImpl extends PageObject implements BasePage {
         progressBar.waitUntilNotVisible();
       }
     } catch (Exception e) {
-      LOGGER.warn("Can't wait for progress bar to finish loading", e);
+      LOGGER.warn(CAN_T_WAIT_FOR_PROGRESS_BAR_TO_FINISH_LOADING, e);
     }
   }
 
@@ -553,7 +554,7 @@ public class BasePageImpl extends PageObject implements BasePage {
       ElementFacade menu = findByXPathOrCSS(String.format("//*[contains(@class, 'menuable__content__active') and contains(@class, '%s')]", contentClass));
       menu.waitUntilVisible();
     } catch (Exception e) {
-      LOGGER.warn("Can't wait for progress bar to finish loading", e);
+      LOGGER.warn(CAN_T_WAIT_FOR_PROGRESS_BAR_TO_FINISH_LOADING, e);
     }
   }
 
@@ -562,7 +563,7 @@ public class BasePageImpl extends PageObject implements BasePage {
       ElementFacade menu = findByXPathOrCSS(String.format("//*[contains(@class, 'menuable__content__active') and contains(@class, '%s')]", contentClass));
       menu.waitUntilNotVisible();
     } catch (Exception e) {
-      LOGGER.warn("Can't wait for progress bar to finish loading", e);
+      LOGGER.warn(CAN_T_WAIT_FOR_PROGRESS_BAR_TO_FINISH_LOADING, e);
     }
   }
 

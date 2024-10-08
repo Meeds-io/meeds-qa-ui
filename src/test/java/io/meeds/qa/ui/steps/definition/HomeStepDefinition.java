@@ -36,6 +36,12 @@ import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 
 public class HomeStepDefinition {
+  private static final String SECOND_USER_LAST_NAME = "secondUserLastName";
+
+  private static final String SECOND_USER_FIRST_NAME = "secondUserFirstName";
+
+  private static final String RANDOM_SPACE_NAME = "RandomSpaceName";
+
   @Steps
   private HomeSteps   homeSteps;
 
@@ -203,8 +209,8 @@ public class HomeStepDefinition {
 
   @When("^I click on the notification that shows that activity '(.*)' posted by first user is commented by second user with comment '(.*)'$")
   public void clickOnFirstUserActivityCommentedBySecondUserNotification(String activity, String comment) {
-    String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
-    String secondUserLastName = Serenity.sessionVariableCalled("secondUserLastName");
+    String secondUserFirstName = Serenity.sessionVariableCalled(SECOND_USER_FIRST_NAME);
+    String secondUserLastName = Serenity.sessionVariableCalled(SECOND_USER_LAST_NAME);
     String secondUserFullName = secondUserFirstName + " " + secondUserLastName;
 
     homeSteps.commentActivityNotificationIsDisplayed("has commented on a post", activity, comment);
@@ -265,8 +271,8 @@ public class HomeStepDefinition {
 
   @Then("^The notification that shows that activity '(.*)' posted by first user is commented by second user with comment '(.*)', is displayed$")
   public void firstUserActivityCommentedBySecondUserNotificationIsDisplayed(String activity, String comment) {
-    String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
-    String secondUserLastName = Serenity.sessionVariableCalled("secondUserLastName");
+    String secondUserFirstName = Serenity.sessionVariableCalled(SECOND_USER_FIRST_NAME);
+    String secondUserLastName = Serenity.sessionVariableCalled(SECOND_USER_LAST_NAME);
 
     String secondUserFullName = secondUserFirstName + " " + secondUserLastName;
 
@@ -327,7 +333,7 @@ public class HomeStepDefinition {
 
   @And("^I hover on the (.*) searched Space In side bar filter$")
   public void hoverSearchedSpaceInSideBarFilter(String spacePrefix) {
-    String spaceName = Serenity.sessionVariableCalled(spacePrefix + "RandomSpaceName");
+    String spaceName = Serenity.sessionVariableCalled(spacePrefix + RANDOM_SPACE_NAME);
     homeSteps.hoverSearchedSpaceInSideBarFilter(spaceName);
   }
 
@@ -363,13 +369,13 @@ public class HomeStepDefinition {
 
   @When("^(.*) searched space is displayed in Side Bar Filter$")
   public void randomSearchedSpaceIsDisplayedInSideBarFilter(String spacePrefix) {
-    String randomSpaceName = Serenity.sessionVariableCalled(spacePrefix.toLowerCase() + "RandomSpaceName");
+    String randomSpaceName = Serenity.sessionVariableCalled(spacePrefix.toLowerCase() + RANDOM_SPACE_NAME);
     homeSteps.searchedSpaceIsDisplayedInSideBarFilter(randomSpaceName);
   }
 
   @When("^(.*) searched space is not displayed in Side Bar Filter$")
   public void randomSearchedSpaceIsNotDisplayedInSideBarFilter(String spacePrefix) {
-    String randomSpaceName = Serenity.sessionVariableCalled(spacePrefix.toLowerCase() + "RandomSpaceName");
+    String randomSpaceName = Serenity.sessionVariableCalled(spacePrefix.toLowerCase() + RANDOM_SPACE_NAME);
     homeSteps.searchedSpaceIsNotDisplayedInSideBarFilter(randomSpaceName);
   }
 
@@ -380,7 +386,7 @@ public class HomeStepDefinition {
 
   @When("^I reject the following connection invitation sent by second user$")
   public void rejectConnectionInvitationSentBySecondUser() {
-    String secondUserFirstName = Serenity.sessionVariableCalled("secondUserFirstName");
+    String secondUserFirstName = Serenity.sessionVariableCalled(SECOND_USER_FIRST_NAME);
     homeSteps.rejectSingleConnectionInvitation(secondUserFirstName);
   }
 
@@ -413,7 +419,7 @@ public class HomeStepDefinition {
 
   @When("^I search for the (.*) created space in Side Bar Filter$")
   public void searchRandomSpaceInSideBarFilter(String spacePrefix) {
-    String spaceName = Serenity.sessionVariableCalled(spacePrefix + "RandomSpaceName");
+    String spaceName = Serenity.sessionVariableCalled(spacePrefix + RANDOM_SPACE_NAME);
     homeSteps.searchSpaceInSideBarFilter(spaceName);
   }
 
@@ -483,21 +489,21 @@ public class HomeStepDefinition {
 
   @Then("^The (.*) random space is displayed as (.*) item in recent spaces menu$")
   public void checkHamburgerMenuSpacePosition(String spacePrefix, String spacePosition) {
-    String spaceName = Serenity.sessionVariableCalled(spacePrefix + "RandomSpaceName");
+    String spaceName = Serenity.sessionVariableCalled(spacePrefix + RANDOM_SPACE_NAME);
     int spaceMenuPosition = getIndexFomName(spacePosition);
     homeSteps.checkHamburgerMenuSpacePosition(spaceName, spaceMenuPosition);
   }
 
   @Given("^The (.*) random space name and description are displayed in second menu level$")
   public void checkHamburgerMenuSpaceDescriptionAndName(String spacePrefix) {
-    String randomSpaceName = sessionVariableCalled(spacePrefix + "RandomSpaceName");
+    String randomSpaceName = sessionVariableCalled(spacePrefix + RANDOM_SPACE_NAME);
     homeSteps.checkHamburgerMenuSpaceDescriptionAndName(randomSpaceName);
   }
 
   @Then("^Previously (.*) application in settings is displayed as (.*) menu item in (.*) random space left menu$")
   @And("^The (.*) application in settings is displayed as (.*) menu item in (.*) random space left menu$")
   public void checkHamburgerMenuRecentSpaceMenuApplication(String appSettingPosition, String appMenuPosition, String spacePrefix) {
-    String spaceName = Serenity.sessionVariableCalled(spacePrefix + "RandomSpaceName");
+    String spaceName = Serenity.sessionVariableCalled(spacePrefix + RANDOM_SPACE_NAME);
     String appName = Serenity.sessionVariableCalled(appSettingPosition + "SettingApplication");
     int appPosition = getIndexFomName(appMenuPosition);
     homeSteps.checkHamburgerMenuRecentSpaceMenuApplication(spaceName, appName, appPosition);
@@ -505,7 +511,7 @@ public class HomeStepDefinition {
 
   @Then("^I open the (.*) random space menu details$")
   public void openHamburgerMenuRecentSpaceDetails(String spacePrefix) {
-    String spaceName = Serenity.sessionVariableCalled(spacePrefix + "RandomSpaceName");
+    String spaceName = Serenity.sessionVariableCalled(spacePrefix + RANDOM_SPACE_NAME);
     homeSteps.openHamburgerMenuRecentSpaceDetails(spaceName);
   }
   
