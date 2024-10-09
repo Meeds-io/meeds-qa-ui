@@ -91,10 +91,8 @@ public class ManageSpaceSteps {
   public void joinOrGoToSpace(String spaceNamePrefix) {
     String spaceName = sessionVariableCalled(spaceNamePrefix);
     homePage.goToSpacesPage(false);
-    if (findSpaceCard(spaceName)) {
+    if (findSpaceCard(spaceName, true)) {
       goOrJoinToSpace(spaceName);
-    } else {
-      throw new IllegalStateException("Can't find previously created space with name " + spaceName);
     }
   }
 
@@ -123,10 +121,8 @@ public class ManageSpaceSteps {
         addSpaceWithRegistration(spaceName, "Open");
       }
       TestInitHook.spaceWithPrefixCreated(spaceNamePrefix, spaceName, homePage.getCurrentUrl());
-    } else if (findSpaceCard(spaceName)) {
+    } else if (findSpaceCard(spaceName, true)) {
       goOrJoinToSpace(spaceName);
-    } else {
-      throw new IllegalStateException("Can't find previously created space with name " + spaceName);
     }
   }
 
@@ -176,14 +172,6 @@ public class ManageSpaceSteps {
 
   public void checkDescriptionSpaceSection() {
     manageSpacesPage.checkDescriptionSpaceSection();
-  }
-
-  public void checkDisplayOfOtherSpaces() {
-    manageSpacesPage.checkDisplayOfOtherSpaces();
-  }
-
-  public void checkDisplayOfTwentySpaces() {
-    manageSpacesPage.checkDisplayOfTwentySpaces();
   }
 
   public void checkFavIconInSpaceCard() {
@@ -319,10 +307,6 @@ public class ManageSpaceSteps {
     manageSpacesPage.hoverOnSpaceName();
   }
 
-  public void isSpaceBannerUpdated() {
-    manageSpacesPage.isSpaceBannerUpdated();
-  }
-
   public void searchSpace(String spaceName) {
     manageSpacesPage.insertSpaceNameInSearchField(spaceName);
   }
@@ -350,10 +334,14 @@ public class ManageSpaceSteps {
   public void uploadSpaceBanner(String fileName) {
     manageSpacesPage.uploadSpaceBanner(fileName);
   }
-
+  
   private boolean findSpaceCard(String spaceName) {
+    return findSpaceCard(spaceName, false);
+  }
+
+  private boolean findSpaceCard(String spaceName, boolean mandatory) {
     manageSpacesPage.insertSpaceNameInSearchField(spaceName);
-    return manageSpacesPage.isSpaceCardDisplayed(spaceName);
+    return manageSpacesPage.isSpaceCardDisplayed(spaceName, mandatory);
   }
 
   private void goOrJoinToSpace(String spaceName) {
