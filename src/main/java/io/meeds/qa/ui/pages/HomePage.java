@@ -23,7 +23,9 @@ import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
@@ -40,7 +42,9 @@ import net.thucydides.core.webdriver.exceptions.ElementShouldBeVisibleException;
 
 public class HomePage extends GenericPage {
 
-  private static final String PORTAL_ROOT_CONTEXT = "/portal/";
+  private static final String              PORTAL_ROOT_CONTEXT = "/portal/";
+
+  private static final Map<String, String> ADMIN_URLS          = new HashMap<>();
 
   public HomePage(WebDriver driver) {
     super(driver);
@@ -513,10 +517,16 @@ public class HomePage extends GenericPage {
   }
 
   private void goToAdministrationPage(String uri) {
-    goToAdministrationPage(uri, false);
+    ADMIN_URLS.computeIfPresent(uri, (k, v) -> {
+      if (!getDriver().getCurrentUrl().equals(v)) {
+        getDriver().navigate().to(v);
+      }
+      return v;
+    });
+    ADMIN_URLS.computeIfAbsent(uri, k -> goToAdministrationPage(k, false));
   }
 
-  private void goToAdministrationPage(String menuItem, boolean forceRefresh) {
+  private String goToAdministrationPage(String menuItem, boolean forceRefresh) {
     if (forceRefresh || !StringUtils.contains(getDriver().getCurrentUrl(), menuItem)) {
       accessToAdministrationMenu();
       String[] menuParts = menuItem.split("/");
@@ -529,6 +539,7 @@ public class HomePage extends GenericPage {
       });
       waitForPageLoading();
     }
+    return getCurrentUrl();
   }
 
   private void goToPageWithLink(String linkSuffix, boolean stickMenu) {
