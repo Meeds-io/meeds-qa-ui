@@ -1761,7 +1761,7 @@ public class SpacePage extends GenericPage {
   }
 
   private ElementFacade getUserProfileButton(String fullName) {
-    return findByXPathOrCSS(String.format("//p[contains(text(),'%s')]/ancestor::a[contains(@class,'socialUserCard')]", fullName));
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]/ancestor::a[contains(@class,'socialUserCard')]", fullName));
   }
 
   private ElementFacade kudosButtonFromCommentsDrawerToCommentActivityElement() {
