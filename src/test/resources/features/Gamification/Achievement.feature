@@ -219,7 +219,7 @@ Feature: Achievements
     Then The achievement 'Join space' is displayed '2' times when enabling program owner view for 'Test Program Host' random program
 
     When I go to the random space
-    And I click on 'Members' space menu tab
+    And I click on 'More/Members' space menu tab
     And I promote 'fifthachievement' random user as a space manager
 
     When I login as 'sixthachievement' random user
