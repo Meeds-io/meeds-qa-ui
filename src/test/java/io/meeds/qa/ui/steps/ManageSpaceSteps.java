@@ -17,10 +17,11 @@
  */
 package io.meeds.qa.ui.steps;
 
-import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION_MILLIS;
+import static io.meeds.qa.ui.utils.Utils.*;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.Duration;
@@ -39,14 +40,61 @@ import net.serenitybdd.core.Serenity;
 
 public class ManageSpaceSteps {
 
-  private static final String CREATE_SPACE_SCRIPT                        =
+  private static final String GET_CREATE_SPACE_TEMPLATE_SCRIPT =
+                                                               """
+                                                                    const callback = arguments[arguments.length - 1];
+                                                                    fetch("/social/rest/space/templates?includeDisabled=true", {
+                                                                      "method": "GET",
+                                                                      "credentials": "include"
+                                                                    })
+                                                                        .then(resp => resp.json())
+                                                                        .then(spaceTemplates => spaceTemplates.find(t => t.name === '000 Automatic Test Template'))
+                                                                        .then(template => {
+                                                                          if (template) {
+                                                                            return template;
+                                                                          } else {
+                                                                            return fetch("/social/rest/space/templates", {
+                                                                              "headers": {
+                                                                                "content-type": "application/json",
+                                                                              },
+                                                                              "body": `{"icon":"fab fa-adn","enabled":true,"order":0,"permissions":["*:/platform/users"],"spaceLayoutPermissions":["spaceAdmin"],"spaceDeletePermissions":["spaceAdmin"],"spaceFields":["name"],"spaceDefaultVisibility":"PRIVATE","spaceDefaultRegistration":"OPEN","spaceAllowContentCreation":false}`,
+                                                                              "method": "POST",
+                                                                              "credentials": "include"
+                                                                            })
+                                                                              .then(r => r.json())
+                                                                              .then(async temp => {
+                                                                                  await fetch(`/portal/rest/social/translations/spaceTemplate/${temp.id}/name`, {
+                                                                                    "headers": {
+                                                                                      "content-type": "application/json",
+                                                                                    },
+                                                                                    "body": `{"en":"000 Automatic Test Template"}`,
+                                                                                    "method": "POST",
+                                                                                    "credentials": "include"
+                                                                                  });
+                                                                                  await fetch(`/portal/rest/social/translations/spaceTemplate/${temp.id}/description`, {
+                                                                                    "headers": {
+                                                                                      "content-type": "application/json",
+                                                                                    },
+                                                                                    "body": `{"en":"Automatic Test Template"}`,
+                                                                                    "method": "POST",
+                                                                                    "credentials": "include"
+                                                                                  });
+                                                                                  return temp;
+                                                                              });
+                                                                          }
+                                                                        })
+                                                                        .then(spaceTemplate => callback(spaceTemplate.id))
+                                                                        .catch(() => callback());
+                                                                   """;
+
+  private static final String CREATE_SPACE_SCRIPT              =
                                                   """
                                                        const callback = arguments[arguments.length - 1];
                                                        fetch("/portal/rest/v1/social/spaces/", {
                                                          "headers": {
                                                            "content-type": "application/json",
                                                          },
-                                                         "body": `{"subscription":"%s","visibility":"%s","template":"%s","invitedMembers":[],"displayName":"%s","description":"%s"}`,
+                                                         "body": `{"subscription":"%s","visibility":"%s","templateId":%s,"invitedMembers":[],"displayName":"%s","description":"%s"}`,
                                                          "method": "POST",
                                                          "credentials": "include"
                                                        })
@@ -59,31 +107,6 @@ public class ManageSpaceSteps {
                                                        .catch(() => callback(false));
                                                       """;
 
-  private static final String CONFIGURE_SPACE_CREATION_PERMISSION_SCRIPT =
-                                                                         """
-                                                                              const callback = arguments[arguments.length - 1];
-                                                                              fetch("/portal/rest/v1/social/spacesAdministration/permissions/spacesCreators", {
-                                                                                "headers": {
-                                                                                  "content-type": "application/json",
-                                                                                },
-                                                                                "body": `[{"membershipType":"*","group":"/platform/users"}]`,
-                                                                                "method": "PUT",
-                                                                                "credentials": "include"
-                                                                              })
-                                                                              .then(resp => {
-                                                                                if (!resp || !resp.ok) {
-                                                                                  throw new Error("Error changing space creation permissions");
-                                                                                }
-                                                                              })
-                                                                              .then(() => callback(true))
-                                                                              .catch(() => callback(false));
-                                                                             """;
-
-  private static final int    SPACE_TEMPLATE_INDEX                       =
-                                                   Integer.parseInt(System.getProperty("io.meeds.space.template.index", "0"));
-
-  private String              spaceTemplate;
-
   private HomePage            homePage;
 
   private ManageSpacesPage    manageSpacesPage;
@@ -91,7 +114,7 @@ public class ManageSpaceSteps {
   public void joinOrGoToSpace(String spaceNamePrefix) {
     String spaceName = sessionVariableCalled(spaceNamePrefix);
     homePage.goToSpacesPage(false);
-    if (findSpaceCard(spaceName, true)) {
+    if (findSpaceCard(spaceName, spaceNamePrefix, true)) {
       goOrJoinToSpace(spaceName);
     }
   }
@@ -115,13 +138,13 @@ public class ManageSpaceSteps {
     homePage.goToSpacesPage(false);
     if (StringUtils.isBlank(spaceName)) {
       spaceName = Utils.getRandomString(spaceNamePrefix);
-      if (findSpaceCard(spaceName)) {
+      if (findSpaceCard(spaceName, spaceNamePrefix)) {
         goOrJoinToSpace(spaceName);
       } else {
         addSpaceWithRegistration(spaceName, "Open");
       }
       TestInitHook.spaceWithPrefixCreated(spaceNamePrefix, spaceName, homePage.getCurrentUrl());
-    } else if (findSpaceCard(spaceName, true)) {
+    } else if (findSpaceCard(spaceName, spaceNamePrefix, true)) {
       goOrJoinToSpace(spaceName);
     }
   }
@@ -130,16 +153,22 @@ public class ManageSpaceSteps {
     manageSpacesPage.openSpaceFormDrawer();
     manageSpacesPage.setSpaceName(spaceName);
     manageSpacesPage.setSpaceDescription(spaceName);
+    manageSpacesPage.selectTemplate(String.valueOf(getSpaceTemplateId()));
     manageSpacesPage.clickFirstProcessButton();
     manageSpacesPage.clickSecondProcessButton();
     manageSpacesPage.inviteUserToSpace(user);
     manageSpacesPage.saveSpace();
   }
 
+  private String getSpaceTemplateId() {
+    return sessionVariableCalled("SpaceTemplateId");
+  }
+
   public void addSpaceWithRegistrationAndInviteUser(String spaceName, String registration, String user) {
     manageSpacesPage.openSpaceFormDrawer();
     manageSpacesPage.setSpaceName(spaceName);
     manageSpacesPage.setSpaceDescription(spaceName);
+    manageSpacesPage.selectTemplate(String.valueOf(getSpaceTemplateId()));
     manageSpacesPage.clickFirstProcessButton();
     manageSpacesPage.checkSpaceRegistration(registration);
     manageSpacesPage.clickSecondProcessButton();
@@ -151,7 +180,7 @@ public class ManageSpaceSteps {
     manageSpacesPage.openSpaceFormDrawer();
     manageSpacesPage.setSpaceName(spaceName);
     manageSpacesPage.setSpaceDescription(spaceName);
-    this.spaceTemplate = manageSpacesPage.selectTemplate(SPACE_TEMPLATE_INDEX);
+    manageSpacesPage.selectTemplate(String.valueOf(getSpaceTemplateId()));
     manageSpacesPage.clickFirstProcessButton();
     manageSpacesPage.checkSpaceRegistration(registration);
     manageSpacesPage.clickSecondProcessButton();
@@ -334,25 +363,6 @@ public class ManageSpaceSteps {
   public void uploadSpaceBanner(String fileName) {
     manageSpacesPage.uploadSpaceBanner(fileName);
   }
-  
-  private boolean findSpaceCard(String spaceName) {
-    return findSpaceCard(spaceName, false);
-  }
-
-  private boolean findSpaceCard(String spaceName, boolean mandatory) {
-    manageSpacesPage.insertSpaceNameInSearchField(spaceName);
-    return manageSpacesPage.isSpaceCardDisplayed(spaceName, mandatory);
-  }
-
-  private void goOrJoinToSpace(String spaceName) {
-    if (manageSpacesPage.isSpaceCardJoinButtonDisplayed(spaceName)) {
-      manageSpacesPage.joinSpaceFromCard(spaceName);
-    }
-    manageSpacesPage.goToSpecificSpace(spaceName);
-    if (!manageSpacesPage.isSpaceMenuDisplayed()) {
-      manageSpacesPage.clickSpaceActionToJoin();
-    }
-  }
 
   public void openSpaceInvitationDrawer() {
     manageSpacesPage.openSpaceInvitationDrawer();
@@ -392,7 +402,7 @@ public class ManageSpaceSteps {
                           String.format(CREATE_SPACE_SCRIPT,
                                         "open",
                                         "private",
-                                        spaceTemplate == null ? "" : spaceTemplate,
+                                        getSpaceTemplateId(),
                                         spaceName,
                                         spaceName);
     WebDriverWait wait = new WebDriverWait(Serenity.getDriver(),
@@ -405,13 +415,47 @@ public class ManageSpaceSteps {
     TestInitHook.spaceWithPrefixCreated(spaceNamePrefix, spaceName, spaceUrl);
   }
 
-  public void configureSpaceCreationPermission() {
-    WebDriverWait wait = new WebDriverWait(Serenity.getDriver(),
-                                           Duration.ofSeconds(10),
-                                           Duration.ofMillis(SHORT_WAIT_DURATION_MILLIS));
-    wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeAsyncScript(CONFIGURE_SPACE_CREATION_PERMISSION_SCRIPT)
-                                                            .toString()
-                                                            .equals("true"));
+  public void injectSpaceTemplate() {
+    String spaceTemplateId = ((JavascriptExecutor) Serenity.getDriver()).executeAsyncScript(GET_CREATE_SPACE_TEMPLATE_SCRIPT)
+                                                                        .toString();
+    setSessionVariable("SpaceTemplateId").to(spaceTemplateId);
+  }
+
+  private boolean findSpaceCard(String spaceName, String spaceNamePrefix) {
+    return findSpaceCard(spaceName, spaceNamePrefix, false);
+  }
+
+  private boolean findSpaceCard(String spaceName, String spaceNamePrefix, boolean mandatory) {
+    if (StringUtils.isNotBlank(spaceNamePrefix) && StringUtils.isNotBlank(sessionVariableCalled(spaceNamePrefix + "-url"))) {
+      try {
+        retryOnCondition(() -> {
+          manageSpacesPage.insertSpaceNameInSearchField(spaceName);
+          if (!manageSpacesPage.isSpaceCardDisplayed(spaceName, mandatory)) {
+            throw new IllegalStateException(String.format("Space %s not found", spaceName));
+          }
+        });
+        return manageSpacesPage.isSpaceCardDisplayed(spaceName, mandatory);
+      } catch (RuntimeException e) {
+        if (mandatory) {
+          throw e;
+        } else {
+          return false;
+        }
+      }
+    } else {
+      manageSpacesPage.insertSpaceNameInSearchField(spaceName);
+      return manageSpacesPage.isSpaceCardDisplayed(spaceName, mandatory);
+    }
+  }
+
+  private void goOrJoinToSpace(String spaceName) {
+    if (manageSpacesPage.isSpaceCardJoinButtonDisplayed(spaceName)) {
+      manageSpacesPage.joinSpaceFromCard(spaceName);
+    }
+    manageSpacesPage.goToSpecificSpace(spaceName);
+    if (!manageSpacesPage.isSpaceMenuDisplayed()) {
+      manageSpacesPage.clickSpaceActionToJoin();
+    }
   }
 
 }

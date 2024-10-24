@@ -1816,7 +1816,7 @@ Feature: Activity Stream
 
     When I login as 'first' random user
     And I go to the random space
-    And I click on 'Settings' space menu tab
+    And I click on 'More/Settings' space menu tab
     And I open 'Roles' Section from Space Settings
     And I enable redactional settings for the space
     And I add the 'second' user as redactor
@@ -1830,7 +1830,7 @@ Feature: Activity Stream
 
     When I login as 'first' random user
     And I go to the random space
-    And I click on 'Settings' space menu tab
+    And I click on 'More/Settings' space menu tab
     And I open 'Roles' Section from Space Settings
     And I open the drawer to add a 'publisher'
     And I promote the 'second' user as publisher
