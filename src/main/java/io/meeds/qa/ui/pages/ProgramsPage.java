@@ -261,9 +261,9 @@ public class ProgramsPage extends GenericPage {
     topProgramsElement(programName).assertNotVisible();
   }
 
-  public void addProgramOwner(String fullName) {
+  public void addProgramOwner(String firstName) {
     addProgramOwnerButton().click();
-    mentionInField(programOwnerSuggester(), fullName, 3);
+    mentionInField(programOwnerSuggester(), firstName, 5);
   }
 
   public void checkAdminActionsFilterIsDisplayed() {

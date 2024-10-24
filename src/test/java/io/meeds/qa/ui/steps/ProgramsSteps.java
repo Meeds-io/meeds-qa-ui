@@ -192,8 +192,8 @@ public class ProgramsSteps {
     programsPage.checkProgramNotDisplayedInTopPrograms(programName);
   }
 
-  public void addProgramOwner(String fullName) {
-    programsPage.addProgramOwner(fullName);
+  public void addProgramOwner(String firstName) {
+    programsPage.addProgramOwner(firstName);
   }
 
   public void checkActionsFilterIsDisplayed() {
