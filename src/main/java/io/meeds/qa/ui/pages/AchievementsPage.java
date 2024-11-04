@@ -50,6 +50,10 @@ public class AchievementsPage extends GenericPage {
   public void filterAchievementByUser(String userFullName) {
     achievementsFilterButton().click();
     waitForDrawerToOpen();
+    while (achievementsFilterUserSuggesterDeleteButton().isCurrentlyVisible()) {
+      achievementsFilterUserSuggesterDeleteButton().click();
+      waitFor(200).milliseconds();
+    }
     mentionInField(achievementsFilterUserSuggester(), userFullName, 3);
     getDrawerButton("Confirm").click();
     waitForLoading();
@@ -231,6 +235,10 @@ public class AchievementsPage extends GenericPage {
 
   private TextBoxElementFacade achievementsFilterUserSuggester() {
     return findTextBoxByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(text(), 'Contributor')]/parent::*//*[contains(@class, 'identitySuggesterInputStyle')]//input[@type = 'text']");
+  }
+
+  private TextBoxElementFacade achievementsFilterUserSuggesterDeleteButton() {
+    return findTextBoxByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'user-suggester')]//*[contains(@class, 'fa-times') or contains(@class, 'mdi-close')]");
   }
 
   private ElementFacade acceptedAchievementElement(String actionTitle) {

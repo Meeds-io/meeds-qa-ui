@@ -43,6 +43,7 @@ import io.meeds.qa.ui.steps.HomeSteps;
 import io.meeds.qa.ui.steps.LoginSteps;
 import io.meeds.qa.ui.steps.ManageBadgesSteps;
 import io.meeds.qa.ui.steps.ManageSpaceSteps;
+import io.meeds.qa.ui.steps.SocialSteps;
 import io.meeds.qa.ui.steps.definition.ManageSpaceStepDefinitions;
 import io.meeds.qa.ui.utils.Utils;
 import net.serenitybdd.core.Serenity;
@@ -138,6 +139,9 @@ public class TestInitHook {
 
   @Steps
   public AddUserSteps               addUserSteps;
+
+  @Steps
+  public SocialSteps                socialSteps;
 
   public static TestInitHook        instance;                  // NOSONAR
 
@@ -273,7 +277,7 @@ public class TestInitHook {
     }
 
     addAdminRandomUser();
-    manageSpaceSteps.configureSpaceCreationPermission();
+    manageSpaceSteps.injectSpaceTemplate();
     genericSteps.disablePwa();
     loginAsRandomAdmin();
     if (INIT_DATA) {

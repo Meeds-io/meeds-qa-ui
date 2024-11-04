@@ -472,7 +472,7 @@ public class SpacePage extends GenericPage {
   }
 
   public void clickPostIcon() {
-    goToSpecificTab("Feed");
+    goToSpecificTab("Home");
     waitForLoading();
     ElementFacade activityPostLink = findByXPathOrCSS(".activityComposer .openLink");
     activityPostLink.click();
@@ -718,7 +718,7 @@ public class SpacePage extends GenericPage {
     installedApplicationCard(applicationName).assertNotVisible(); // Check app
                                                                   // not already
                                                                   // added
-    goToSpecificTab("Settings");
+    goToSpecificTab("More/Settings");
     verifyPageLoaded();
     arrowIconAppSpaceSettingsElement().click();
     plusButtonAppSpaceSettingsElement().click();
@@ -730,13 +730,20 @@ public class SpacePage extends GenericPage {
   }
 
   public void goToSpecificTab(String tabName) {
-    ElementFacade tabElement = searchSpaceTabElement(tabName);
-    tabElement.assertVisible();
-    if (!selectedTabElement(tabName).isCurrentlyVisible()) {
-      tabElement.click();
-      waitForLoading();
+    if (tabName.contains("/")) {
+      String[] navigationParts = tabName.split("/");
+      searchNavigationTabElement(navigationParts[0]).assertVisible();
+      tabElement(navigationParts[0]).hover();
+      tabSubNavigationElement(navigationParts[1]).click();
+    } else {
+      ElementFacade tabElement = searchSpaceTabElement(tabName);
+      tabElement.assertVisible();
+      if (!selectedTabElement(tabName).isCurrentlyVisible()) {
+        tabElement.click();
+        waitForLoading();
+      }
+      selectedTabElement(tabName).assertVisible();
     }
-    selectedTabElement(tabName).assertVisible();
   }
 
   public void goToUserProfileFromLikersDrawer(String userLastName) {
@@ -1254,15 +1261,36 @@ public class SpacePage extends GenericPage {
     }
     return retryGetOnCondition(() -> {
       waitForLoading();
-      while (!tabElement(tabName).findBy("span").isCurrentlyVisible() && goToSpaceLeftTabsElement().isVisible()) {
+      while (!tabLinkElement(tabName).findBy("span").isCurrentlyVisible() && goToSpaceLeftTabsElement().isVisible()) {
         goToSpaceLeftTabsElement().click();
         waitFor(200).milliseconds(); // Wait for animation end
       }
-      while (!tabElement(tabName).findBy("span").isCurrentlyVisible() && goToSpaceRightTabsElement().isVisible()) {
+      while (!tabLinkElement(tabName).findBy("span").isCurrentlyVisible() && goToSpaceRightTabsElement().isVisible()) {
         goToSpaceRightTabsElement().click();
         waitFor(200).milliseconds(); // Wait for animation end
       }
-      while (!tabElement(tabName).findBy("span").isCurrentlyVisible() && goToSpaceLeftTabsElement().isVisible()) {
+      while (!tabLinkElement(tabName).findBy("span").isCurrentlyVisible() && goToSpaceLeftTabsElement().isVisible()) {
+        goToSpaceLeftTabsElement().click();
+        waitFor(200).milliseconds(); // Wait for animation end
+      }
+      ElementFacade tabElement = tabLinkElement(tabName);
+      tabElement.checkVisible();
+      return tabElement;
+    });
+  }
+
+  private ElementFacade searchNavigationTabElement(String tabName) {
+    return retryGetOnCondition(() -> {
+      waitForLoading();
+      while (!tabElement(tabName).isCurrentlyVisible() && goToSpaceLeftTabsElement().isVisible()) {
+        goToSpaceLeftTabsElement().click();
+        waitFor(200).milliseconds(); // Wait for animation end
+      }
+      while (!tabElement(tabName).isCurrentlyVisible() && goToSpaceRightTabsElement().isVisible()) {
+        goToSpaceRightTabsElement().click();
+        waitFor(200).milliseconds(); // Wait for animation end
+      }
+      while (!tabElement(tabName).isCurrentlyVisible() && goToSpaceLeftTabsElement().isVisible()) {
         goToSpaceLeftTabsElement().click();
         waitFor(200).milliseconds(); // Wait for animation end
       }
@@ -1824,9 +1852,19 @@ public class SpacePage extends GenericPage {
     return findByXPathOrCSS("(//*[@id='activityCommentsDrawer']//*[contains(@id,'Extactivity-content-extensions')]//div)[6]");
   }
 
-  private ElementFacade tabElement(String tabName) {
+  private ElementFacade tabLinkElement(String tabName) {
     return findByXPathOrCSS(String.format("//*[@id = 'topBarMenu']//*[contains(text(),'%s')]//ancestor-or-self::a",
                                           tabName));
+  }
+
+  private ElementFacade tabElement(String tabName) {
+    return findByXPathOrCSS(String.format("//*[@id = 'topBarMenu']//*[contains(text(),'%s')]",
+                                          tabName));
+  }
+
+  private ElementFacade tabSubNavigationElement(String name) {
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'menuable__content__active')]//*[contains(text(), '%s')]//ancestor::a",
+                                          name));
   }
 
   private ElementFacade selectedTabElement() {

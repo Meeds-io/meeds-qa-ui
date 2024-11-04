@@ -228,10 +228,8 @@ public class ProgramsStepDefinition {
   @When("^I set user '(.*)' as program owner$")
   public void addProgramOwner(String suffix) {
     String firstName = Serenity.sessionVariableCalled(suffix + "UserFirstName");
-    String lastName = Serenity.sessionVariableCalled(suffix + "UserLastName");
-    String fullName = firstName + " " + lastName;
 
-    programsSteps.addProgramOwner(fullName);
+    programsSteps.addProgramOwner(firstName);
   }
 
   @And("^I filter programs by value '(.*)'$")
