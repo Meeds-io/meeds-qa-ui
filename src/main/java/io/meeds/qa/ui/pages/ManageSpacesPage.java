@@ -235,11 +235,11 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void goToMembersTab() {
-    spaceHomePage.goToSpecificTab("Members");
+    spaceHomePage.goToSpecificTab("More/Members");
   }
 
   public void goToSettingsTab() {
-    spaceHomePage.goToSpecificTab("Settings");
+    spaceHomePage.goToSpecificTab("More/Settings");
   }
 
   public void goToTasksTab() {
@@ -356,10 +356,10 @@ public class ManageSpacesPage extends GenericPage {
       selectSpaceFilterElement.select().byValue("all");
   }
 
-  public String selectTemplate(int index) {
+  public String selectTemplate(String value) {
     ElementFacade spaceTemplateFilterElement = spaceTemplateFilterElement();
     spaceTemplateFilterElement.click();
-    spaceTemplateFilterElement.selectByIndex(index);
+    spaceTemplateFilterElement.selectByValue(value);
     return spaceTemplateFilterElement.getSelectedValue();
   }
 
