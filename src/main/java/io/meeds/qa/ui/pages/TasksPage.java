@@ -1406,7 +1406,7 @@ public class TasksPage extends GenericPage {
   }
 
   private ElementFacade getCompletedTask(String taskName) {
-    return findByXPathOrCSS(String.format("//*[@class='nameGroup' and text()='Archived']//following::*[@class='taskCardViewTitle text-color strikethrough']//span[@class='taskTitleEllipsis' and contains(text(),'%s')]",
+    return findByXPathOrCSS(String.format("//*[@class='nameGroup' and text()='Completed']//following::*[@class='taskCardViewTitle text-color strikethrough']//span[@class='taskTitleEllipsis' and contains(text(),'%s')]",
                                           taskName));
   }
 

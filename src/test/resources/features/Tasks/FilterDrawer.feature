@@ -63,7 +63,7 @@ Feature: Filter Drawer
     And In project details the task 'btask11' is displayed in '2' place
     And In project details the task 'ctask11' is displayed in '3' place
 
-  Scenario: CAP111 - [Filter_Drawer_US03] Group by Completed [Group and Sort tab under project]
+  Scenario: Group by Completed
     Given I am authenticated as 'admin' random user
 
     And I create a random space
@@ -98,10 +98,10 @@ Feature: Filter Drawer
     And Tasks number '1' is displayed in the column To Do
 
     When I open the Filter drawer
-    And I select 'Archived' from Group By Filter section
+    And I select 'Completed' from Group By Filter section
     And I click on Confirm button
 
-    Then In Section 'Archived', '(2)' tasks are displayed
+    Then In Section 'Completed', '(2)' tasks are displayed
     And  In Section 'Uncompleted', '(1)' task is displayed
     And Task 'task111-1' is marked as completed and displayed in Completed section
     And Task 'task111-2' is marked as completed and displayed in Completed section
