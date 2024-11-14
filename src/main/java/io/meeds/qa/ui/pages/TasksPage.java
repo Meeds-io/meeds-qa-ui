@@ -592,7 +592,7 @@ public class TasksPage extends GenericPage {
   }
 
   public void clonetaskinspaceproject() {
-    threeDotsIconInEditTaskElement().click();
+    taskThreeDotsOptionElement().click();
     cloneoptionElement().click();
   }
 
@@ -1831,7 +1831,7 @@ public class TasksPage extends GenericPage {
   }
 
   private ElementFacade taskThreeDotsOptionElement() {
-    return findByXPathOrCSS("//*[contains(@class,'uiThreeDotsIcon')]");
+    return findByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(@class,'drawerHeader')]//*[contains(@class,'fa-ellipsis-v')]");
   }
 
   private ElementFacade taskTooltipElement() {
@@ -1848,10 +1848,6 @@ public class TasksPage extends GenericPage {
 
   private ElementFacade threeDotsIconElement() {
     return findByXPathOrCSS("(//*[@class='d-flex tasksViewHeaderLeft']/following::*[contains(@class,'uiIconVerticalDots')][1])[1]");
-  }
-
-  private ElementFacade threeDotsIconInEditTaskElement() {
-    return findByXPathOrCSS("//*[contains(@class,'uiThreeDotsIcon')]");
   }
 
   private ElementFacade timesTampElement() {
