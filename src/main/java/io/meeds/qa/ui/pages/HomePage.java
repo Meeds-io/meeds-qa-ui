@@ -249,7 +249,7 @@ public class HomePage extends GenericPage {
   }
 
   public void goToMainSettings() {
-    goToAdministrationPage("General/Main Settings", true);
+    goToAdministrationPage("General/Main Customization", true);
   }
 
   public void goToNotificationAdminPage() {
