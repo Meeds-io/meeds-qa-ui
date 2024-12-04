@@ -21,6 +21,7 @@ import static io.meeds.qa.ui.utils.Utils.*;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
@@ -42,9 +43,11 @@ import net.thucydides.core.webdriver.exceptions.ElementShouldBeVisibleException;
 
 public class HomePage extends GenericPage {
 
-  private static final String              PORTAL_ROOT_CONTEXT = "/portal/";
+  private static final String              PORTAL_ROOT_CONTEXT_NO_SLASH = "/portal";
 
-  private static final Map<String, String> ADMIN_URLS          = new HashMap<>();
+  private static final String              PORTAL_ROOT_CONTEXT          = "/portal/";
+
+  private static final Map<String, String> ADMIN_URLS                   = new HashMap<>();
 
   public HomePage(WebDriver driver) {
     super(driver);
@@ -199,7 +202,8 @@ public class HomePage extends GenericPage {
         clickOnHamburgerMenu(true);
       }
       ElementFacade hamburgerMenuItemLink = hamburgerMenuItemLink(siteName);
-      hamburgerMenuItemLink.assertVisible();
+      assertNotNull(String.format("Can't find Site %s from Sidebar", siteName), hamburgerMenuItemLink);
+      hamburgerMenuItemLink.assertVisible(); // NOSONAR
       hamburgerMenuItemLink.click();
       waitForPageLoading();
       assertThat(getDriver().getCurrentUrl()).contains(PORTAL_ROOT_CONTEXT + siteName);
@@ -223,7 +227,8 @@ public class HomePage extends GenericPage {
         clickOnHamburgerMenu(true);
       }
       ElementFacade hamburgerMenuItemLink = hamburgerMenuItemLink(siteName);
-      hamburgerMenuItemLink.checkVisible();
+      assertNotNull(String.format("Can't find Site navigation %s from Sidebar", siteName), hamburgerMenuItemLink);
+      hamburgerMenuItemLink.checkVisible(); // NOSONAR
       hamburgerMenuItemLink.hover();
       Actions action = new Actions(getDriver());
       action.moveToElement(hamburgerMenuItemLink).build().perform();
@@ -267,23 +272,23 @@ public class HomePage extends GenericPage {
   }
 
   public void goToMyProfile() {
-    goToPageWithLink("/profile", true);
+    goToPageWithLink("/mycraft/profile", true);
   }
 
   public void goToPeoplePage() {
-    goToPageWithLink("/people", true);
+    goToPageWithLink("/mycraft/people", true);
   }
 
   public void goToSettingsPage() {
-    goToPageWithLink("/settings", true);
+    goToPageWithLink("/mycraft/settings", true);
   }
 
   public void goToSpacesPage(boolean stickMenu) {
-    goToPageWithLink("/spaces", stickMenu);
+    goToPageWithLink("/mycraft/spaces", stickMenu);
   }
 
   public void goToStreamPage() {
-    goToPageWithLink("/dashboard", true);
+    goToPageWithLink("/mycraft/dashboard", true);
   }
 
   public void hoverOnPageHomeIcon(String pageName) {
@@ -404,7 +409,7 @@ public class HomePage extends GenericPage {
 
   public void clickOnHamburgerMenu(boolean stickMenu) {
     if (getCurrentUrl().contains("/portal/administration")) {
-      getDriver().navigate().to(getCurrentUrl().split("/portal")[0]);
+      getDriver().navigate().to(getCurrentUrl().split(PORTAL_ROOT_CONTEXT_NO_SLASH)[0]);
       verifyPageLoaded();
     }
     retryOnCondition(() -> {
@@ -557,8 +562,13 @@ public class HomePage extends GenericPage {
     } else {
       retryOnCondition(() -> {
         ElementFacade hamburgerMenuItemLink = hamburgerMenuItemLink(linkSuffix);
-        hamburgerMenuItemLink.checkVisible();
-        hamburgerMenuItemLink.click();
+        if (hamburgerMenuItemLink != null && hamburgerMenuItemLink.isCurrentlyVisible()) {
+          hamburgerMenuItemLink.checkVisible();
+          hamburgerMenuItemLink.click();
+        } else {
+          getDriver().navigate()
+                     .to(getCurrentUrl().split(PORTAL_ROOT_CONTEXT_NO_SLASH)[0] + PORTAL_ROOT_CONTEXT_NO_SLASH + linkSuffix);
+        }
         waitForPageLoading();
       });
     }
@@ -733,7 +743,7 @@ public class HomePage extends GenericPage {
   }
 
   private ElementFacade myProfileButtonElement() {
-    return findByXPathOrCSS("//*[@id='ProfileHamburgerNavigation']//a[contains(@href, '/profile')]//*[contains(@class, 'v-avatar')]");
+    return findByXPathOrCSS(".HamburgerNavigationMenu a .userAvatar");
   }
 
   private ElementFacade notificationIconElement() {
@@ -794,7 +804,7 @@ public class HomePage extends GenericPage {
     return Stream.of(hamburgerMenuItemLinkText(pageUri), hamburgerMenuItemLinkParent(pageUri))
                  .filter(ElementFacade::isCurrentlyVisible)
                  .findFirst()
-                 .orElseThrow();
+                 .orElse(null);
   }
 
   private ElementFacade hamburgerMenuItemLinkText(String pageUri) {
@@ -803,7 +813,7 @@ public class HomePage extends GenericPage {
   }
 
   private ElementFacade hamburgerMenuItemLinkParent(String pageUri) {
-    return findByXPathOrCSS(String.format("//*[contains(@class, 'HamburgerNavigationMenu')]//a[contains(@href, '%s')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'HamburgerNavigationMenu')]//a[contains(@href, '%s')]//*[contains(@class, 'v-icon')]",
                                           pageUri));
   }
 
