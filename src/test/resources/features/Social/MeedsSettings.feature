@@ -28,6 +28,7 @@ Feature: Edit sections in Settings page
     When I refresh the page
     Then Language 'English / English' is displayed
 
+  @test
   Scenario: Add the home icon for Homepage default view
     Given I am authenticated as 'admin' if random users doesn't exists
       | homeicon  |

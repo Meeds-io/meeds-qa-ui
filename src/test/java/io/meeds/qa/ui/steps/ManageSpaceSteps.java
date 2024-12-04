@@ -179,6 +179,7 @@ public class ManageSpaceSteps {
     manageSpacesPage.setSpaceDescription(spaceName);
     manageSpacesPage.clickNextButton();
     manageSpacesPage.inviteUserToSpace(user);
+    manageSpacesPage.clickNextButton();
     manageSpacesPage.saveSpace();
   }
 

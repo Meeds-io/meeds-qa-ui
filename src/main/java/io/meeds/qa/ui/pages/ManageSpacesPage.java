@@ -144,7 +144,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void saveSpace() {
-    addSpaceButtonElement().click();
+    clickDrawerButton("Create");
     waitForDrawerToClose();
     waitForLoading();
     assertThat(getCurrentUrl()).contains("/g/");
@@ -454,10 +454,6 @@ public class ManageSpacesPage extends GenericPage {
 
   private ElementFacade addNewSpaceButtonElement() {
     return findByXPathOrCSS("#spacesListApplication button#addNewSpaceButton");
-  }
-
-  private ElementFacade addSpaceButtonElement() {
-    return findByXPathOrCSS(".v-navigation-drawer--open .drawerFooter button.btn-primary");
   }
 
   private ElementFacade avatarSectionElement() {
