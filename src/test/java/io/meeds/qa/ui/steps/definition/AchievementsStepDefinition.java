@@ -29,6 +29,7 @@ import net.thucydides.core.annotations.Steps;
 
 public class AchievementsStepDefinition {
 
+  private static final String PROGRAM_NAME_PREFIX = "programName";
   @Steps
   private AchievementsSteps achievementsSteps;
 
@@ -96,13 +97,13 @@ public class AchievementsStepDefinition {
 
   @Then("^The achievement '(.*)' is displayed '(.*)' times when enabling program owner view for '(.*)' random program$")
   public void checkThatAchievementIsDisplayedWithProgramOwnerView(String actionTitle, String times, String randomProgramSuffix) {
-    String programName = Serenity.sessionVariableCalled("programName" + randomProgramSuffix);
+    String programName = Serenity.sessionVariableCalled(PROGRAM_NAME_PREFIX + randomProgramSuffix);
     achievementsSteps.checkThatAchievementIsDisplayedWithProgramOwnerView(actionTitle, Long.parseLong(times), programName);
   }
 
   @Then("^The achievement '(.*)' is displayed '(.*)' times for '(.*)' random program$")
   public void checkThatAchievementIsDisplayed(String actionTitle, String times, String randomProgramSuffix) {
-    String programName = Serenity.sessionVariableCalled("programName" + randomProgramSuffix);
+    String programName = Serenity.sessionVariableCalled(PROGRAM_NAME_PREFIX + randomProgramSuffix);
     achievementsSteps.checkThatAchievementIsDisplayed(actionTitle, Long.parseLong(times), programName);
   }
 
@@ -113,7 +114,7 @@ public class AchievementsStepDefinition {
 
   @And("^I filter achievements using '(.*)' random program$")
   public void filterAchievementByRandomProgram(String suffix) {
-    String programName = Serenity.sessionVariableCalled("programName" + suffix);
+    String programName = Serenity.sessionVariableCalled(PROGRAM_NAME_PREFIX + suffix);
     achievementsSteps.filterAchievementByProgram(programName);
   }
 

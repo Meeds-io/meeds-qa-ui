@@ -472,11 +472,6 @@ public class HomeStepDefinition {
     homeSteps.unstickHamburgerMenu();
   }
 
-  @Then("The hamburger menu has all navigation elements into it")
-  public void checkHamburgerMenuNavigations() {
-    homeSteps.checkHamburgerMenuNavigations();
-  }
-
   @Then("The hamburger menu is displayed as stickied")
   public void checkHamburgerMenuSticky() {
     homeSteps.checkHamburgerMenuSticky();
@@ -525,14 +520,14 @@ public class HomeStepDefinition {
     homeSteps.checkRedDotNotInHamburgerMenu();
   }
   
-  @When("I hover on the hambuger menu")
-  public void hoverOnHamburgerMenu() {
-    homeSteps.hoverOnHamburgerMenu();
+  @When("I click on the hambuger menu")
+  public void clickOnHamburgerMenu() {
+    homeSteps.clickOnHamburgerMenu();
   }
   
-  @When("I hover on the drawer overlay")
-  public void hoverOutsideHamburgerMenu() {
-    homeSteps.hoverOutsideHamburgerMenu();
+  @When("I click on the drawer overlay")
+  public void clickOutsideHamburgerMenu() {
+    homeSteps.clickOutsideHamburgerMenu();
   }
   
   @Then ("The hamburger menu is closed")

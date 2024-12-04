@@ -35,14 +35,6 @@ Feature: Edit sections in Settings page
     And I login as 'homeicon' random user
 
     When I open hamburger menu drawer
-    And I mouse over the 'Spaces' icon in sidebar menu
-    And I click on home icon
-    And I click to confirm the new home page
-    And I open hamburger menu drawer
-    And I click on home page link
-    Then '/spaces' page is displayed
-
-    When I open hamburger menu drawer
     And I mouse over the 'People' icon in sidebar menu
     And I click on home icon
     And I click to confirm the new home page
