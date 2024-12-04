@@ -37,6 +37,8 @@ import net.serenitybdd.core.SystemTimeouts;
 
 public class Utils {
 
+  public static final String   DEFAULT_SPACE_TEMPLATE            = "000 Automatic Test Template";
+
   public static final int      DEFAULT_WAIT_PAGE_LOADING         =
                                                          Integer.parseInt(System.getProperty("io.meeds.page.loading.wait",
                                                                                              "10"));

@@ -277,6 +277,7 @@ public class TestInitHook {
     }
 
     addAdminRandomUser();
+    manageSpaceSteps.setSideBarDefaultMode();
     manageSpaceSteps.injectSpaceTemplate();
     genericSteps.disablePwa();
     loginAsRandomAdmin();

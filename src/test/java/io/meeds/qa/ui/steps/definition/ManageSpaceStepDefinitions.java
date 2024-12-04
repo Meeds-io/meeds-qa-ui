@@ -204,26 +204,6 @@ public class ManageSpaceStepDefinitions {
     homeSteps.checkRandomNotDisplaySpaceInvitation(randomSpaceName);
   }
 
-  @Given("^I check that general settings section is displayed with his edit icon$")
-  public void checkGeneralSpaceSettings() {
-    manageSpaceSteps.checkGeneralSpaceSettings();
-  }
-
-  @Given("^I check that hidden section and switch button are displayed$")
-  public void checkHiddenAndSwitchButtonSection() {
-    manageSpaceSteps.checkHiddenAndSwitchButtonSection();
-  }
-
-  @Given("^I check that space name section is displayed$")
-  public void checkNameSpaceSection() {
-    manageSpaceSteps.checkNameSpaceSection();
-  }
-
-  @Given("^I check that registration section is displayed$")
-  public void checkRegistrationSection() {
-    manageSpaceSteps.checkRegistrationSection();
-  }
-
   @When("The second created space is not displayed in Spaces Requests section")
   public void checkSecondRandomNotDisplaySpaceInvitation() {
     String secondRandomSpaceName = sessionVariableCalled(SECOND_RANDOM_SPACE_NAME);
@@ -243,11 +223,6 @@ public class ManageSpaceStepDefinitions {
   @When("I check that the random space is bookmarked as favorite from Third Navigation Level")
   public void checkSpaceBookmarkThirdNavigationLevel() {
     manageSpaceSteps.checkSpaceBookmarkThirdNavigationLevel();
-  }
-
-  @Given("^I check that space template section is displayed$")
-  public void checkSpaceTemplateSection() {
-    manageSpaceSteps.checkSpaceTemplateSection();
   }
 
   @When("I check that the random space is unbookmarked from space card")

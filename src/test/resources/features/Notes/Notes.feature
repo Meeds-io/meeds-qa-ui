@@ -12,8 +12,6 @@ Feature: Notes
     And I add application 'Notes' in random space if not existing
     When I login as 'hmenu' random user
     And I go to the random space
-    And I open hamburger menu drawer
-    And I stick the hamburger menu
     And I click on 'Notes' space menu tab
     Then The hamburger menu is displayed as stickied
     And I edit displayed note

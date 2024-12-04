@@ -23,6 +23,7 @@ import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.Duration;
 import java.util.List;
@@ -50,41 +51,40 @@ public class ManageSpaceSteps {
                                                                         .then(resp => resp.json())
                                                                         .then(spaceTemplates => spaceTemplates.find(t => t.name === '000 Automatic Test Template'))
                                                                         .then(template => {
-                                                                          if (template) {
-                                                                            return template;
-                                                                          } else {
-                                                                            return fetch("/social/rest/space/templates", {
-                                                                              "headers": {
-                                                                                "content-type": "application/json",
-                                                                              },
-                                                                              "body": `{"icon":"fab fa-adn","enabled":true,"order":0,"permissions":["*:/platform/users"],"spaceLayoutPermissions":["spaceAdmin"],"spaceDeletePermissions":["spaceAdmin"],"spaceFields":["name"],"spaceDefaultVisibility":"PRIVATE","spaceDefaultRegistration":"OPEN","spaceAllowContentCreation":false}`,
-                                                                              "method": "POST",
-                                                                              "credentials": "include"
-                                                                            })
-                                                                              .then(r => r.json())
-                                                                              .then(async temp => {
-                                                                                  await fetch(`/portal/rest/social/translations/spaceTemplate/${temp.id}/name`, {
-                                                                                    "headers": {
-                                                                                      "content-type": "application/json",
-                                                                                    },
-                                                                                    "body": `{"en":"000 Automatic Test Template"}`,
-                                                                                    "method": "POST",
-                                                                                    "credentials": "include"
-                                                                                  });
-                                                                                  await fetch(`/portal/rest/social/translations/spaceTemplate/${temp.id}/description`, {
-                                                                                    "headers": {
-                                                                                      "content-type": "application/json",
-                                                                                    },
-                                                                                    "body": `{"en":"Automatic Test Template"}`,
-                                                                                    "method": "POST",
-                                                                                    "credentials": "include"
-                                                                                  });
-                                                                                  return temp;
-                                                                              });
-                                                                          }
+                                                                          return fetch(`/social/rest/space/templates${template?.id && ('/' + template?.id) || ''}`, {
+                                                                            "headers": {
+                                                                              "content-type": "application/json",
+                                                                            },
+                                                                            "body": `{"id": ${template?.id || 0},"icon":"fab fa-adn","enabled":true,"order":0,"permissions":["*:/platform/users"],"spaceLayoutPermissions":["spaceAdmin"],"spaceDeletePermissions":["spaceAdmin"],"spaceFields":["name", "properties", "invitation", "access"],"spaceDefaultVisibility":"PRIVATE","spaceDefaultRegistration":"OPEN","spaceAllowContentCreation":false}`,
+                                                                            "method": template?.id && "PUT" || "POST",
+                                                                            "credentials": "include"
+                                                                          })
+                                                                            .then(r => r?.ok && !template && r.json())
+                                                                            .then(async temp => {
+                                                                                if (template && !temp) {
+                                                                                  temp = template;
+                                                                                }
+                                                                                await fetch(`/portal/rest/social/translations/spaceTemplate/${temp.id}/name`, {
+                                                                                  "headers": {
+                                                                                    "content-type": "application/json",
+                                                                                  },
+                                                                                  "body": `{"en":"000 Automatic Test Template"}`,
+                                                                                  "method": "POST",
+                                                                                  "credentials": "include"
+                                                                                });
+                                                                                await fetch(`/portal/rest/social/translations/spaceTemplate/${temp.id}/description`, {
+                                                                                  "headers": {
+                                                                                    "content-type": "application/json",
+                                                                                  },
+                                                                                  "body": `{"en":"Automatic Test Template"}`,
+                                                                                  "method": "POST",
+                                                                                  "credentials": "include"
+                                                                                });
+                                                                                return temp;
+                                                                            });
                                                                         })
                                                                         .then(spaceTemplate => callback(spaceTemplate.id))
-                                                                        .catch(() => callback());
+                                                                        .catch(e => callback(String(e) + e?.stack));
                                                                    """;
 
   private static final String CREATE_SPACE_SCRIPT              =
@@ -104,8 +104,31 @@ public class ManageSpaceSteps {
                                                          }
                                                        })
                                                        .then(() => callback(true))
-                                                       .catch(() => callback(false));
+                                                       .catch(e => callback(String(e) + e?.stack));
                                                       """;
+
+  private static final String SET_SIDEBAR_DEFAULT_MODE         =
+                                                       """
+                                                            const callback = arguments[arguments.length - 1];
+                                                            fetch("/social/rest/navigation/settings", {
+                                                              "method": "GET",
+                                                              "credentials": "include"
+                                                            })
+                                                                .then(resp => resp.json())
+                                                                .then(settings => {
+                                                                  settings.sidebar.defaultMode = 'STICKY';
+                                                                  return fetch("/social/rest/navigation/settings", {
+                                                                    "headers": {
+                                                                      "content-type": "application/json",
+                                                                    },
+                                                                    "body": JSON.stringify(settings),
+                                                                    "method": "PUT",
+                                                                    "credentials": "include"
+                                                                  });
+                                                                })
+                                                                .then(() => callback(true))
+                                                                .catch(e => callback(String(e) + e?.stack));
+                                                           """;
 
   private HomePage            homePage;
 
@@ -152,11 +175,11 @@ public class ManageSpaceSteps {
   public void addSpaceWithInviteUser(String spaceName, String user) {
     manageSpacesPage.openSpaceFormDrawer();
     manageSpacesPage.setSpaceName(spaceName);
+    manageSpacesPage.clickNextButton();
     manageSpacesPage.setSpaceDescription(spaceName);
-    manageSpacesPage.selectTemplate(String.valueOf(getSpaceTemplateId()));
-    manageSpacesPage.clickFirstProcessButton();
-    manageSpacesPage.clickSecondProcessButton();
+    manageSpacesPage.clickNextButton();
     manageSpacesPage.inviteUserToSpace(user);
+    manageSpacesPage.clickNextButton();
     manageSpacesPage.saveSpace();
   }
 
@@ -167,23 +190,23 @@ public class ManageSpaceSteps {
   public void addSpaceWithRegistrationAndInviteUser(String spaceName, String registration, String user) {
     manageSpacesPage.openSpaceFormDrawer();
     manageSpacesPage.setSpaceName(spaceName);
+    manageSpacesPage.clickNextButton();
     manageSpacesPage.setSpaceDescription(spaceName);
-    manageSpacesPage.selectTemplate(String.valueOf(getSpaceTemplateId()));
-    manageSpacesPage.clickFirstProcessButton();
-    manageSpacesPage.checkSpaceRegistration(registration);
-    manageSpacesPage.clickSecondProcessButton();
+    manageSpacesPage.clickNextButton();
     manageSpacesPage.inviteUserToSpace(user);
+    manageSpacesPage.clickNextButton();
+    manageSpacesPage.checkSpaceRegistration(registration);
     manageSpacesPage.saveSpace();
   }
 
   public void addSpaceWithRegistration(String spaceName, String registration) {
     manageSpacesPage.openSpaceFormDrawer();
     manageSpacesPage.setSpaceName(spaceName);
+    manageSpacesPage.clickNextButton();
     manageSpacesPage.setSpaceDescription(spaceName);
-    manageSpacesPage.selectTemplate(String.valueOf(getSpaceTemplateId()));
-    manageSpacesPage.clickFirstProcessButton();
+    manageSpacesPage.clickNextButton();
+    manageSpacesPage.clickNextButton();
     manageSpacesPage.checkSpaceRegistration(registration);
-    manageSpacesPage.clickSecondProcessButton();
     manageSpacesPage.saveSpace();
   }
 
@@ -215,22 +238,6 @@ public class ManageSpaceSteps {
     manageSpacesPage.checkFavIconInThirdNavigationLevel();
   }
 
-  public void checkGeneralSpaceSettings() {
-    manageSpacesPage.checkGeneralSpaceSettings();
-  }
-
-  public void checkHiddenAndSwitchButtonSection() {
-    manageSpacesPage.checkHiddenAndSwitchButtonSection();
-  }
-
-  public void checkNameSpaceSection() {
-    manageSpacesPage.checkNameSpaceSection();
-  }
-
-  public void checkRegistrationSection() {
-    manageSpacesPage.checkRegistrationSection();
-  }
-
   public void checkSpaceBookmarkedFromSpaceCard() {
     manageSpacesPage.checkSpaceBookmarkStatusFromSpaceCard(true);
   }
@@ -241,10 +248,6 @@ public class ManageSpaceSteps {
 
   public void checkSpaceBookmarkThirdNavigationLevel() {
     manageSpacesPage.checkSpaceBookmarkStatusFromThirdNavigationLevel(true);
-  }
-
-  public void checkSpaceTemplateSection() {
-    manageSpacesPage.checkSpaceTemplateSection();
   }
 
   public void checkSpaceUnBookmarkFromSpaceCard() {
@@ -418,7 +421,14 @@ public class ManageSpaceSteps {
   public void injectSpaceTemplate() {
     String spaceTemplateId = ((JavascriptExecutor) Serenity.getDriver()).executeAsyncScript(GET_CREATE_SPACE_TEMPLATE_SCRIPT)
                                                                         .toString();
+    Long.parseLong(spaceTemplateId);
     setSessionVariable("SpaceTemplateId").to(spaceTemplateId);
+  }
+
+  public void setSideBarDefaultMode() {
+    String result = ((JavascriptExecutor) Serenity.getDriver()).executeAsyncScript(SET_SIDEBAR_DEFAULT_MODE)
+                                                               .toString();
+    assertEquals("true", result);
   }
 
   private boolean findSpaceCard(String spaceName, String spaceNamePrefix) {
