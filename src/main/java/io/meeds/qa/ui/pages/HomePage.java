@@ -589,12 +589,12 @@ public class HomePage extends GenericPage {
   }
 
   private ElementFacade siteFirstLevelMenuItem(String siteName) {
-    return findByXPathOrCSS(String.format("//*[@role='navigation']//a[contains(@href, '/portal/%s')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'HamburgerNavigationMenu')]//*[contains(@class, 'v-list-item-group')]//a[contains(@href, '/portal/%s')]",
                                           siteName));
   }
 
   private ElementFacade siteFirstLevelMenuItemArrowIcon(String siteName) {
-    return findByXPathOrCSS(String.format("//*[@role='navigation']//a[contains(@href, '/portal/%s')]//*[contains(@class, 'fa-arrow-right')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'HamburgerNavigationMenu')]//*[contains(@class, 'v-list-item-group')]//a[contains(@href, '%s')]//*[contains(@class, 'fa-arrow-right')]",
                                           siteName));
   }
 
@@ -808,12 +808,12 @@ public class HomePage extends GenericPage {
   }
 
   private ElementFacade hamburgerMenuItemLinkText(String pageUri) {
-    return findByXPathOrCSS(String.format("//*[contains(@class, 'HamburgerNavigationMenu')]//a[contains(@href, '%s')]//*[contains(@class, 'menu-text-color')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'HamburgerNavigationMenu')]//*[contains(@class, 'v-list-item-group')]//a[contains(@href, '%s')]//*[contains(@class, 'menu-text-color')]",
                                           pageUri));
   }
 
   private ElementFacade hamburgerMenuItemLinkParent(String pageUri) {
-    return findByXPathOrCSS(String.format("//*[contains(@class, 'HamburgerNavigationMenu')]//a[contains(@href, '%s')]//*[contains(@class, 'v-icon')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'HamburgerNavigationMenu')]//*[contains(@class, 'v-list-item-group')]//a[contains(@href, '%s')]",
                                           pageUri));
   }
 
