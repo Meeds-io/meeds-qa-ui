@@ -28,6 +28,7 @@ import org.openqa.selenium.WebDriver;
 import io.meeds.qa.ui.elements.ButtonElementFacade;
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
+import io.meeds.qa.ui.utils.Utils;
 
 public class ManageSpacesPage extends GenericPage {
 
@@ -75,23 +76,6 @@ public class ManageSpacesPage extends GenericPage {
     findByXPathOrCSS("//*[contains(@class,'HamburgerMenuThirdLevelParent')]//*[contains(@class,'fa-star')]").assertVisible();
   }
 
-  public void checkGeneralSpaceSettings() {
-    editIconOfGeneralSpaceSettingsElement().assertVisible();
-  }
-
-  public void checkHiddenAndSwitchButtonSection() {
-    hiddenSectionElement().assertVisible();
-    switchButtonElement().assertVisible();
-  }
-
-  public void checkNameSpaceSection() {
-    nameSpaceSectionElement().assertVisible();
-  }
-
-  public void checkRegistrationSection() {
-    registrationSectionElement().assertVisible();
-  }
-
   public void checkSpaceBookmarkStatusFromSpaceCard(boolean shouldBeBookmarked) {
     if (shouldBeBookmarked) {
       findByXPathOrCSS("//*[@id = 'spacesListBody']//*[contains(@class,'fas fa-star')]").assertVisible();
@@ -136,10 +120,6 @@ public class ManageSpacesPage extends GenericPage {
     }
   }
 
-  public void checkSpaceTemplateSection() {
-    spaceTemplateSectionElement().assertVisible();
-  }
-
   public void checkThatSpaceDetailsInSearchResultsAreDisplayed(String spaceName, String members) {
     spaceSearchDetailsAvatarElement(spaceName).assertVisible();
     spaceSearchDetailsInfoElement(spaceName).assertVisible();
@@ -164,14 +144,14 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void saveSpace() {
-    addSpaceButtonElement().click();
+    clickDrawerButton("Create");
     waitForDrawerToClose();
     waitForLoading();
     assertThat(getCurrentUrl()).contains("/g/");
   }
 
-  public void clickFirstProcessButton() {
-    firstProcessButtonElement().click();
+  public void clickNextButton() {
+    clickDrawerButton("Next");
   }
 
   public void clickOnGeneralSpaceSettings() {
@@ -188,10 +168,6 @@ public class ManageSpacesPage extends GenericPage {
 
   public void clickOnSpaceBookmarkIconFromTopbarSpacePopover() {
     findByXPathOrCSS("//*[contains(@class,'v-card')]//*[contains(@class,'fa-star')]").click();
-  }
-
-  public void clickSecondProcessButton() {
-    secondProcessButtonElement().click();
   }
 
   public void clickSpaceAction(String action) {
@@ -281,7 +257,21 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void inviteUserToSpace(String user) {
-    mentionInField(inviteUserInputElement(), user, 5);
+    if (inviteUserInputElement().isCurrentlyVisible()) {
+      mentionInField(inviteUserInputElement(), user, 5);
+    } else {
+      if (inviteMembersButton().isVisible()) {
+        inviteMembersButton().click();
+        waitForDrawerToOpen();
+        mentionInField(memberIdentitySuggesterInput(), user, 5);
+        clickDrawerButton("Add");
+        waitForDrawerToClose();
+      } else if (memberIdentitySuggesterInput().isCurrentlyVisible()) {
+        mentionInField(memberIdentitySuggesterInput(), user, 5);
+      } else {
+        throw new IllegalStateException("No invitation input was found");
+      }
+    }
   }
 
   public boolean isLoadMoreButtonPresent() {
@@ -346,6 +336,17 @@ public class ManageSpacesPage extends GenericPage {
     }
     addNewSpaceButtonElement().click();
     waitForDrawerToOpen();
+    waitFor(200).milliseconds();
+    defaultSpaceTemplateInSpaceFormElement().click();
+    waitFor(200).milliseconds();
+  }
+
+  private ButtonElementFacade defaultSpaceTemplateInSpaceFormElement() {
+    return findButtonByXPathOrCSS(String.format("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(text(), '%s')]", Utils.DEFAULT_SPACE_TEMPLATE));
+  }
+
+  private ElementFacade inviteMembersButton() {
+    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(text(), 'Invite Members')]");
   }
 
   public void selectFilter(String filter) {
@@ -354,13 +355,6 @@ public class ManageSpacesPage extends GenericPage {
       selectSpaceFilterElement.select().byValue("member");
     else
       selectSpaceFilterElement.select().byValue("all");
-  }
-
-  public String selectTemplate(String value) {
-    ElementFacade spaceTemplateFilterElement = spaceTemplateFilterElement();
-    spaceTemplateFilterElement.click();
-    spaceTemplateFilterElement.selectByValue(value);
-    return spaceTemplateFilterElement.getSelectedValue();
   }
 
   public void setSpaceName(String spaceName) {
@@ -462,10 +456,6 @@ public class ManageSpacesPage extends GenericPage {
     return findByXPathOrCSS("#spacesListApplication button#addNewSpaceButton");
   }
 
-  private ElementFacade addSpaceButtonElement() {
-    return findByXPathOrCSS(".v-navigation-drawer--open .drawerFooter button.btn-primary");
-  }
-
   private ElementFacade avatarSectionElement() {
     return findByXPathOrCSS("//*[@class='v-avatar spaceAvatar mx-auto mb-6 mt-2 rounded-0 spaceAvatarHoverEdit']");
   }
@@ -480,10 +470,6 @@ public class ManageSpacesPage extends GenericPage {
 
   private ElementFacade editIconOfGeneralSpaceSettingsElement() {
     return findByXPathOrCSS("//*[contains(text(), 'General')]//ancestor::*[contains(@class, 'v-application')]//*[contains(@class, 'fa-edit')]");
-  }
-
-  private ElementFacade firstProcessButtonElement() {
-    return findByXPathOrCSS("(//aside[contains(@class,'spaceFormDrawer')]//button[contains(@class,'btn-primary')])[1]");
   }
 
   private ElementFacade getDeleteSpaceButton(String spaceName) {
@@ -528,16 +514,16 @@ public class ManageSpacesPage extends GenericPage {
     return findByXPathOrCSS(String.format("//*[@id = 'spacesListBody']//*[contains(text(), '%s')]//ancestor::a[@href]", spaceName));
   }
 
-  private ElementFacade hiddenSectionElement() {
-    return findByXPathOrCSS("//*[@for='hidden']");
-  }
-
   private ElementFacade inviteUserButtonDrawerElement() {
     return findByXPathOrCSS("//*[@class='btn btn-primary v-btn v-btn--contained theme--light v-size--default']");
   }
 
   private ElementFacade inviteUserButton() {
     return findByXPathOrCSS("#InviteUserToSpaceButton");
+  }
+
+  private TextBoxElementFacade memberIdentitySuggesterInput() {
+    return findTextBoxByXPathOrCSS(".v-navigation-drawer--open .identitySuggester input");
   }
 
   private TextBoxElementFacade inviteUserInputElement() {
@@ -559,10 +545,6 @@ public class ManageSpacesPage extends GenericPage {
                                           email));
   }
 
-  private ElementFacade nameSpaceSectionElement() {
-    return findByXPathOrCSS("//*[@for='name']");
-  }
-
   private TextBoxElementFacade okButtonElement() {
     return findTextBoxByXPathOrCSS("//button[contains(text(),'OK')]");
   }
@@ -571,16 +553,8 @@ public class ManageSpacesPage extends GenericPage {
     return findByXPathOrCSS("(//*[contains(@class, 'v-radio')])[1]");
   }
 
-  private ElementFacade registrationSectionElement() {
-    return findByXPathOrCSS("//div[contains(@class,'v-input--selection-controls v-input--radio-group')]");
-  }
-
   private TextBoxElementFacade searchSpaceInputElement() {
     return findTextBoxByXPathOrCSS("#spacesListToolbar #applicationToolbarFilterInput");
-  }
-
-  private ElementFacade secondProcessButtonElement() {
-    return findByXPathOrCSS("(//aside[contains(@class,'spaceFormDrawer')]//button[contains(@class,'btn-primary')])[2]");
   }
 
   private ElementFacade selectSpaceFilterElement() {
@@ -659,18 +633,6 @@ public class ManageSpacesPage extends GenericPage {
 
   private ElementFacade spacesPageElement() {
     return findByXPathOrCSS("//*[@id='UISiteBody']");
-  }
-
-  private ElementFacade spaceTemplateFilterElement() {
-    return findByXPathOrCSS("//select[contains(@class,'input-block-level ignore-vuetify-classes my-3')]");
-  }
-
-  private ElementFacade spaceTemplateSectionElement() {
-    return findByXPathOrCSS("//*[@for='spaceTemplate']");
-  }
-
-  private ElementFacade switchButtonElement() {
-    return findByXPathOrCSS("//*[contains(@class,'drawerContent ')]//input[contains(@id,'input') and @type='checkbox']");
   }
 
   private TextBoxElementFacade uploadSpaceBannerButtonElement() {

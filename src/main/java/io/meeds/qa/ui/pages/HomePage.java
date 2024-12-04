@@ -21,6 +21,7 @@ import static io.meeds.qa.ui.utils.Utils.*;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
@@ -42,9 +43,11 @@ import net.thucydides.core.webdriver.exceptions.ElementShouldBeVisibleException;
 
 public class HomePage extends GenericPage {
 
-  private static final String              PORTAL_ROOT_CONTEXT = "/portal/";
+  private static final String              PORTAL_ROOT_CONTEXT_NO_SLASH = "/portal";
 
-  private static final Map<String, String> ADMIN_URLS          = new HashMap<>();
+  private static final String              PORTAL_ROOT_CONTEXT          = "/portal/";
+
+  private static final Map<String, String> ADMIN_URLS                   = new HashMap<>();
 
   public HomePage(WebDriver driver) {
     super(driver);
@@ -72,7 +75,8 @@ public class HomePage extends GenericPage {
     retryOnCondition(() -> {
       clickOnHamburgerMenu(true);
       ElementFacade recentSpacesIconElement = recentSpacesIconElement();
-      if (recentSpacesIconElement.isVisible()) {
+      if (recentSpacesIconElement.isPresent()) {
+        recentSpacesIconElement.scrollToWebElement();
         recentSpacesIconElement.hover();
         Actions action = new Actions(getDriver());
         action.moveToElement(recentSpacesIconElement).build().perform();
@@ -89,7 +93,6 @@ public class HomePage extends GenericPage {
                                                                 recentSpacesIconElement),
                                                   null);
       }
-      findByXPathOrCSS(".recentSpacesTitle .recentSpacesTitleLabel").checkVisible();
     }, Utils::refreshPage);
   }
 
@@ -199,7 +202,8 @@ public class HomePage extends GenericPage {
         clickOnHamburgerMenu(true);
       }
       ElementFacade hamburgerMenuItemLink = hamburgerMenuItemLink(siteName);
-      hamburgerMenuItemLink.assertVisible();
+      assertNotNull(String.format("Can't find Site %s from Sidebar", siteName), hamburgerMenuItemLink);
+      hamburgerMenuItemLink.assertVisible(); // NOSONAR
       hamburgerMenuItemLink.click();
       waitForPageLoading();
       assertThat(getDriver().getCurrentUrl()).contains(PORTAL_ROOT_CONTEXT + siteName);
@@ -223,7 +227,8 @@ public class HomePage extends GenericPage {
         clickOnHamburgerMenu(true);
       }
       ElementFacade hamburgerMenuItemLink = hamburgerMenuItemLink(siteName);
-      hamburgerMenuItemLink.checkVisible();
+      assertNotNull(String.format("Can't find Site navigation %s from Sidebar", siteName), hamburgerMenuItemLink);
+      hamburgerMenuItemLink.checkVisible(); // NOSONAR
       hamburgerMenuItemLink.hover();
       Actions action = new Actions(getDriver());
       action.moveToElement(hamburgerMenuItemLink).build().perform();
@@ -267,27 +272,28 @@ public class HomePage extends GenericPage {
   }
 
   public void goToMyProfile() {
-    goToPageWithLink("/profile", true);
+    goToPageWithLink("/mycraft/profile", true);
   }
 
   public void goToPeoplePage() {
-    goToPageWithLink("/people", true);
+    goToPageWithLink("/mycraft/people", true);
   }
 
   public void goToSettingsPage() {
-    goToPageWithLink("/settings", true);
+    goToPageWithLink("/mycraft/settings", true);
   }
 
   public void goToSpacesPage(boolean stickMenu) {
-    goToPageWithLink("/spaces", stickMenu);
+    goToPageWithLink("/mycraft/spaces", stickMenu);
   }
 
   public void goToStreamPage() {
-    goToPageWithLink("/dashboard", true);
+    goToPageWithLink("/mycraft/dashboard", true);
   }
 
   public void hoverOnPageHomeIcon(String pageName) {
     waitFor(300).milliseconds(); // Wait until drawer 'open' animation finishes
+    hamburgerMenuItemByName(pageName).assertVisible();
     hamburgerMenuItemByName(pageName).hover();
   }
 
@@ -383,7 +389,7 @@ public class HomePage extends GenericPage {
   }
 
   public void searchSpaceInSideBarFilter(String space) {
-    clickOnElement(sideBarFilterSpacesElement());
+    sideBarFilterSpacesButton().click();
     TextBoxElementFacade sideBarFilterSpacesInputElement = sideBarFilterSpacesInputElement();
     sideBarFilterSpacesInputElement.waitUntilVisible();
     sideBarFilterSpacesInputElement.setTextValue(space);
@@ -404,7 +410,7 @@ public class HomePage extends GenericPage {
 
   public void clickOnHamburgerMenu(boolean stickMenu) {
     if (getCurrentUrl().contains("/portal/administration")) {
-      getDriver().navigate().to(getCurrentUrl().split("/portal")[0]);
+      getDriver().navigate().to(getCurrentUrl().split(PORTAL_ROOT_CONTEXT_NO_SLASH)[0]);
       verifyPageLoaded();
     }
     retryOnCondition(() -> {
@@ -456,20 +462,11 @@ public class HomePage extends GenericPage {
   }
 
   public void checkHamburgerMenuUnsticked() {
-    stickHamburgerMenuElement().checkNotVisible();
+    stickySideBarMenuElement().checkNotVisible();
   }
 
   public void checkHamburgerMenuSticked() {
-    unstickHamburgerMenuElement().checkVisible();
-  }
-
-  public void checkHamburgerMenuNavigations() {
-    findByXPathOrCSS(".HamburgerNavigationMenu #ProfileHamburgerNavigation").checkVisible();
-    findByXPathOrCSS(".HamburgerNavigationMenu #SiteHamburgerNavigation").checkVisible();
-    findByXPathOrCSS(".HamburgerNavigationMenu #RecentSpaceHamburgerNavigation").checkVisible();
-    findByXPathOrCSS(".HamburgerNavigationMenu #RecentSpaceHamburgerNavigation").checkVisible();
-    findByXPathOrCSS(".HamburgerNavigationMenu #UserHamburgerNavigation .settingsTitle").checkVisible();
-    findByXPathOrCSS(".HamburgerNavigationMenu #UserHamburgerNavigation .logoutLinks").checkVisible();
+    stickySideBarMenuElement().checkVisible();
   }
 
   public void stickHamburgerMenu() {
@@ -477,6 +474,8 @@ public class HomePage extends GenericPage {
   }
 
   public void unstickHamburgerMenu() {
+    getHamburgerNavigationMenu().hover();
+    unstickHamburgerMenuElement().assertVisible();
     unstickHamburgerMenuElement().click();
   }
 
@@ -490,12 +489,12 @@ public class HomePage extends GenericPage {
     retryOnCondition(() -> findByXPathOrCSS(".hamburger-unread-badge ").checkNotVisible());
   }
 
-  public void hoverOnHamburgerMenu() {
-    getHamburgerNavigationMenu().hover();
+  public void clickOnHamburgerMenu() {
+    getHamburgerNavigationMenu().click();
   }
 
-  public void hoverOutsideHamburgerMenu() {
-    getDrawerOverlay().hover();
+  public void clickOutsideHamburgerMenu() {
+    getDrawerOverlay().click();
   }
 
   public void closeHamburgerMenu() {
@@ -557,12 +556,21 @@ public class HomePage extends GenericPage {
     } else {
       retryOnCondition(() -> {
         ElementFacade hamburgerMenuItemLink = hamburgerMenuItemLink(linkSuffix);
-        hamburgerMenuItemLink.checkVisible();
-        hamburgerMenuItemLink.click();
+        if (hamburgerMenuItemLink != null && hamburgerMenuItemLink.isCurrentlyVisible()) {
+          hamburgerMenuItemLink.checkVisible();
+          hamburgerMenuItemLink.click();
+        } else {
+          getDriver().navigate()
+                     .to(getCurrentUrl().split(PORTAL_ROOT_CONTEXT_NO_SLASH)[0] + PORTAL_ROOT_CONTEXT_NO_SLASH + linkSuffix);
+        }
         waitForPageLoading();
       });
     }
     assertThat(getDriver().getCurrentUrl()).endsWith(linkSuffix);
+  }
+
+  private ElementFacade stickySideBarMenuElement() {
+    return findByXPathOrCSS("#ParentSiteLeftContainer #ParentSiteStickyMenu .HamburgerNavigationMenu");
   }
 
   private ElementFacade administrationMenuItem(String name) {
@@ -579,12 +587,12 @@ public class HomePage extends GenericPage {
   }
 
   private ElementFacade siteFirstLevelMenuItem(String siteName) {
-    return findByXPathOrCSS(String.format("//*[@role='navigation']//a[contains(@href, '/portal/%s')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'HamburgerNavigationMenu')]//*[contains(@class, 'v-list-item-group')]//a[contains(@href, '/portal/%s')]",
                                           siteName));
   }
 
   private ElementFacade siteFirstLevelMenuItemArrowIcon(String siteName) {
-    return findByXPathOrCSS(String.format("//*[@role='navigation']//a[contains(@href, '/portal/%s')]//*[contains(@class, 'fa-arrow-right')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'HamburgerNavigationMenu')]//*[contains(@class, 'v-list-item-group')]//a[contains(@href, '%s')]//*[contains(@class, 'fa-arrow-right')]",
                                           siteName));
   }
 
@@ -677,7 +685,7 @@ public class HomePage extends GenericPage {
   }
 
   private ElementFacade getDrawerOverlay() {
-    return findByXPathOrCSS("#drawers-overlay");
+    return findByXPathOrCSS("#drawers-overlay .v-overlay--active");
   }
 
   private ElementFacade getSiteBody() {
@@ -719,21 +727,21 @@ public class HomePage extends GenericPage {
   }
 
   private ElementFacade homeHoverButton(String pageName) {
-    return findByXPathOrCSS(String.format("//*[@id='SiteHamburgerNavigation']//*[contains(text(), '%s')]/ancestor::*[contains(@class, 'UserPageLink')]//*[contains(@class, 'homePage')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'HamburgerNavigationMenu')]//*[contains(text(), '%s')]/ancestor::a//*[contains(@class, 'fa-house-user')]",
                                           pageName));
   }
 
   private ElementFacade homeButtonElement(String pageName) {
-    return findByXPathOrCSS(String.format("//*[@id='SiteHamburgerNavigation']//*[contains(text(), '%s')]/ancestor::*[contains(@class, 'UserPageLinkHome')]//*[contains(@class, 'homePage')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'HamburgerNavigationMenu')]//*[contains(text(), '%s')]/ancestor::a//*[contains(@class, 'fa-house-user') and contains(@class, 'primary')]",
                                           pageName));
   }
 
   private ElementFacade homePageLinkElement() {
-    return findByXPathOrCSS("//*[contains(@class, 'UserPageLinkHome')]//i");
+    return findByXPathOrCSS("//*[contains(@class, 'HamburgerNavigationMenu')]//*[contains(@class, 'fa-house-user') and contains(@class, 'primary')]/ancestor::a");
   }
 
   private ElementFacade myProfileButtonElement() {
-    return findByXPathOrCSS("//*[@id='ProfileHamburgerNavigation']//a[contains(@href, '/profile')]//*[contains(@class, 'v-avatar')]");
+    return findByXPathOrCSS(".HamburgerNavigationMenu a .userAvatar");
   }
 
   private ElementFacade notificationIconElement() {
@@ -746,11 +754,11 @@ public class HomePage extends GenericPage {
   }
 
   private ElementFacade recentSpacesBtnElement() {
-    return findByXPathOrCSS("//*[contains(@class,'spacesNavigationTitle')]//*[contains(@class,'fa fa-arrow')]");
+    return findByXPathOrCSS("//*[contains(@class,'HamburgerNavigationMenu')]//*[contains(@class,'fa fa-arrow')]");
   }
 
   private ElementFacade recentSpacesIconElement() {
-    return findByXPathOrCSS("//*[contains(@class,'spacesNavigationTitle')]//*[contains(@class,'titleIcon')]");
+    return findByXPathOrCSS("//*[contains(@class,'HamburgerNavigationMenu')]//*[contains(@class,'fa-layer-group')]");
   }
 
   private TextBoxElementFacade searchApplicationCenterInputElement() {
@@ -770,12 +778,12 @@ public class HomePage extends GenericPage {
     return findByXPathOrCSS("//*[contains(@class,'selectSpacesFilter')]");
   }
 
-  private TextBoxElementFacade sideBarFilterSpacesElement() {
-    return findTextBoxByXPathOrCSS("//*[contains(@class,'recentSpacesTitle')]//*[contains(@class,'recentSpacesTitleLabel')]");
+  private TextBoxElementFacade sideBarFilterSpacesButton() {
+    return findTextBoxByXPathOrCSS("//*[contains(@class,'HamburgerMenuSecondLevelParent')]//*[contains(@class,'fa-filter')]");
   }
 
   private TextBoxElementFacade sideBarFilterSpacesInputElement() {
-    return findTextBoxByXPathOrCSS("//*[contains(@class,'recentSpacesTitle')]//*[contains(@class,'recentSpacesTitleLabel')]//*[contains(@class,'v-input recentSpacesFilter')]//input");
+    return findTextBoxByXPathOrCSS("//*[contains(@class,'HamburgerMenuSecondLevelParent')]//*[contains(@class,'recentSpacesFilter')]//input");
   }
 
   private ElementFacade spaceArrowIconElement() {
@@ -794,16 +802,16 @@ public class HomePage extends GenericPage {
     return Stream.of(hamburgerMenuItemLinkText(pageUri), hamburgerMenuItemLinkParent(pageUri))
                  .filter(ElementFacade::isCurrentlyVisible)
                  .findFirst()
-                 .orElseThrow();
+                 .orElse(null);
   }
 
   private ElementFacade hamburgerMenuItemLinkText(String pageUri) {
-    return findByXPathOrCSS(String.format("//*[contains(@class, 'HamburgerNavigationMenu')]//a[contains(@href, '%s')]//*[contains(@class, 'menu-text-color')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'HamburgerNavigationMenu')]//*[contains(@class, 'v-list-item-group')]//a[contains(@href, '%s')]//*[contains(@class, 'menu-text-color')]",
                                           pageUri));
   }
 
   private ElementFacade hamburgerMenuItemLinkParent(String pageUri) {
-    return findByXPathOrCSS(String.format("//*[contains(@class, 'HamburgerNavigationMenu')]//a[contains(@href, '%s')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'HamburgerNavigationMenu')]//*[contains(@class, 'v-list-item-group')]//a[contains(@href, '%s')]",
                                           pageUri));
   }
 
@@ -813,7 +821,7 @@ public class HomePage extends GenericPage {
   }
 
   private ElementFacade hamburgerMenuItemByName(String pageName) {
-    return findByXPathOrCSS(String.format("//*[@id='SiteHamburgerNavigation']//*[contains(text(), '%s')]",
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'HamburgerNavigationMenu')]//*[contains(text(), '%s')]",
                                           pageName));
   }
 

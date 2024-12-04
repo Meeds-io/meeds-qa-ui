@@ -157,11 +157,11 @@ public class MainSettingsPage extends GenericPage {
   }
 
   private ElementFacade loginCustomizationEditButton() {
-    return findByXPathOrCSS("(//*[@id='generalSettings']//*[contains(@class, 'fa-caret')])[2]");
+    return findByXPathOrCSS("(//*[@id='generalSettings']//*[contains(@class, 'fa-caret')])[3]");
   }
 
   private ElementFacade accessCustomizationEditButton() {
-    return findByXPathOrCSS("(//*[@id='generalSettings']//*[contains(@class, 'fa-caret')])[3]");
+    return findByXPathOrCSS("(//*[@id='generalSettings']//*[contains(@class, 'fa-caret')])[4]");
   }
 
   private TextBoxElementFacade brandingCompanyNameInput() {

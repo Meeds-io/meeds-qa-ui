@@ -28,24 +28,16 @@ Feature: SideBar
     Given I am authenticated as 'admin' random user
     And I inject the hmenu random user, no wait
     When I login as 'hmenu' random user
-    Then The hamburger menu is displayed as unstickied
-    When I open hamburger menu drawer
-    Then The hamburger menu has all navigation elements into it
-    And I stick the hamburger menu
     Then The hamburger menu is displayed as stickied
-    And The hamburger menu has all navigation elements into it
-    When I refresh the page
-    Then The hamburger menu is displayed as stickied
-    And The hamburger menu has all navigation elements into it
-    When I logout
-    And I login as 'hmenu' random user
-    Then The hamburger menu is displayed as stickied
-    And The hamburger menu has all navigation elements into it
     And I unstick the hamburger menu
     Then The hamburger menu is displayed as unstickied
-    When I logout
+    When I open hamburger menu drawer
+    And I stick the hamburger menu
+    Then The hamburger menu is displayed as stickied
+    When I refresh the page
+    Then The hamburger menu is displayed as stickied
     And I login as 'hmenu' random user
-    Then The hamburger menu is displayed as unstickied
+    Then The hamburger menu is displayed as stickied
 
   Scenario: Display Red Dot In Unstickied Hamburger Menu
     Given I am authenticated as 'admin' random user
@@ -59,6 +51,8 @@ Feature: SideBar
     And I enter an activity 'Unread - This is an unread activity for the reddot user'
     And I publish the activity
     And I login as 'reddot' random user
+    Then The hamburger menu is displayed as stickied
+    And I unstick the hamburger menu
     Then The hamburger menu is displayed as unstickied
     And The red dot is displayed in the hamburger menu
     When I go to the random space
@@ -74,12 +68,11 @@ Feature: SideBar
       | hmenu  |
     And I inject the hmenu random user, no wait
     And I login as 'hmenu' random user
+    Then The hamburger menu is displayed as stickied
+    And I unstick the hamburger menu
     And The hamburger menu is displayed as unstickied
-    When I hover on the hambuger menu
+    When I click on the hambuger menu
     And I wait '500' milliseconds
-    Then The hamburger menu has all navigation elements into it
-    When I hover on the drawer overlay
+    When I click on the drawer overlay
     And I wait '500' milliseconds
     Then The hamburger menu is closed
-    
-    
