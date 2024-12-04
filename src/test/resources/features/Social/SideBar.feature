@@ -28,7 +28,7 @@ Feature: SideBar
     Given I am authenticated as 'admin' random user
     And I inject the hmenu random user, no wait
     When I login as 'hmenu' random user
-    Then The hamburger menu is displayed as unstickied
+    Then The hamburger menu is displayed as stickied
     And I unstick the hamburger menu
     Then The hamburger menu is displayed as unstickied
     When I open hamburger menu drawer
@@ -36,12 +36,8 @@ Feature: SideBar
     Then The hamburger menu is displayed as stickied
     When I refresh the page
     Then The hamburger menu is displayed as stickied
-    When I logout
     And I login as 'hmenu' random user
     Then The hamburger menu is displayed as stickied
-    When I logout
-    And I login as 'hmenu' random user
-    Then The hamburger menu is displayed as unstickied
 
   Scenario: Display Red Dot In Unstickied Hamburger Menu
     Given I am authenticated as 'admin' random user

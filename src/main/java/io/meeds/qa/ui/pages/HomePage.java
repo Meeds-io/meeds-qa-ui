@@ -462,11 +462,11 @@ public class HomePage extends GenericPage {
   }
 
   public void checkHamburgerMenuUnsticked() {
-    stickHamburgerMenuElement().checkNotVisible();
+    stickySideBarMenuElement().checkNotVisible();
   }
 
   public void checkHamburgerMenuSticked() {
-    unstickHamburgerMenuElement().checkVisible();
+    stickySideBarMenuElement().checkVisible();
   }
 
   public void stickHamburgerMenu() {
@@ -474,6 +474,8 @@ public class HomePage extends GenericPage {
   }
 
   public void unstickHamburgerMenu() {
+    getHamburgerNavigationMenu().hover();
+    unstickHamburgerMenuElement().assertVisible();
     unstickHamburgerMenuElement().click();
   }
 
@@ -565,6 +567,10 @@ public class HomePage extends GenericPage {
       });
     }
     assertThat(getDriver().getCurrentUrl()).endsWith(linkSuffix);
+  }
+
+  private ElementFacade stickySideBarMenuElement() {
+    return findByXPathOrCSS("#ParentSiteLeftContainer #ParentSiteStickyMenu .HamburgerNavigationMenu");
   }
 
   private ElementFacade administrationMenuItem(String name) {
