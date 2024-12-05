@@ -127,9 +127,10 @@ public interface ElementFacade extends WebElementFacade {
       if (isPresent()) {
         scrollToWebElement();
       }
-      throw new ElementShouldBeVisibleException(String.format("Unable to locate a visible element %s after %s ms",
+      throw new ElementShouldBeVisibleException(String.format("Unable to locate a visible element %s after %s ms. Current URL: %s",
                                                               this,
-                                                              System.currentTimeMillis() - start),
+                                                              System.currentTimeMillis() - start,
+                                                              getDriver().getCurrentUrl()),
                                                 null);
     }
   }
