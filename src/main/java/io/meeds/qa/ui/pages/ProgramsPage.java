@@ -226,8 +226,11 @@ public class ProgramsPage extends GenericPage {
 
   public void announceAction(String actionTitle, String announcementMessage) {
     retryOnCondition(() -> {
-      getActionItemElement(actionTitle).assertVisible();
+      getActionItemElement(actionTitle).checkPresent();
+      getActionItemElement(actionTitle).scrollToWebElement();
+      getActionItemElement(actionTitle).checkVisible();
       getActionItemElement(actionTitle).hover();
+      announceButton().checkVisible();
     });
     announceButton().click();
     sendAnnouncementMessage(announcementMessage);
@@ -439,7 +442,7 @@ public class ProgramsPage extends GenericPage {
   }
 
   private ElementFacade announceButton() {
-    return findByXPathOrCSS("//*[contains(@class, 'fa-bullhorn')]");
+    return findByXPathOrCSS("//*[@id = 'engagementCenterProgramDetail']//button//*[contains(@class, 'fa-bullhorn')]");
   }
 
   private ElementFacade actionMenuButton() {
