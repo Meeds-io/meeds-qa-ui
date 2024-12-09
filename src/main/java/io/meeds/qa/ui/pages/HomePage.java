@@ -306,6 +306,8 @@ public class HomePage extends GenericPage {
   }
 
   public boolean isConnectionsBadgeWithNumberVisible(String number) {
+    retryOnCondition(() -> getConnectionsBadge().checkVisible(),
+                     () -> waitFor(1).seconds());
     return getConnectionsBadgeWithNumber(number).isVisible();
   }
 
