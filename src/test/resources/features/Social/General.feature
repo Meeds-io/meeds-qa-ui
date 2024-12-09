@@ -18,7 +18,7 @@ Feature: General new composer
 
   # Bug detected and qualified as non-bloquer
   @ignored
-  Scenario: CAP109-[US-General-07]update posts - text update with normal Link (space case)
+  Scenario: Update posts - text update with normal Link (space case)
     Given I am authenticated as 'admin' random user
     And I go to the random space
     When I click on post in space

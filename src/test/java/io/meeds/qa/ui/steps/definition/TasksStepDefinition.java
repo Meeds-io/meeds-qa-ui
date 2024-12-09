@@ -282,11 +282,6 @@ public class TasksStepDefinition {
     tasksSteps.checkDisplayOfFilterByTask();
   }
 
-  @Then("^The drawer Select Folder should be displayed$")
-  public void checkDrawerDisplay() {
-    tasksSteps.checkDrawerDisplay();
-  }
-
   @And("^Status column '(.*)' is moved to the first position$")
   @Then("^Status column '(.*)' is displayed in the first position$")
   public void checkFirstStatusColumn(String columnStatus) {

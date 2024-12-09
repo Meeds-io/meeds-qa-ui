@@ -37,7 +37,7 @@ Feature: Tasks
     And The clear button is disappeared from Filter by task field
 
   @smoke
-  Scenario: (3 dots menu-Delete action) "Tasks TAB"
+  Scenario: Tasks TAB
     Given I am authenticated as 'admin' random user
 
     And I go to 'tasks' in site 'mycraft'

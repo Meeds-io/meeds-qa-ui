@@ -180,10 +180,6 @@ public class TasksSteps {
     tasksPage.checkDisplayOfFilterByTask();
   }
 
-  public void checkDrawerDisplay() {
-    tasksPage.checkDrawerDisplay();
-  }
-
   public void checkEditedProject(String projectName, String description) {
     tasksPage.checkUpdatedProject(projectName, description);
   }
