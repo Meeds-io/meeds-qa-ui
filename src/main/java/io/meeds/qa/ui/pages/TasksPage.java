@@ -226,10 +226,6 @@ public class TasksPage extends GenericPage {
     filterByTaskElement().assertVisible();
   }
 
-  public void checkDrawerDisplay() {
-    drawerTitleElement().assertVisible();
-  }
-
   public void checkFirstStatusColumn(String columnStatus) {
     assertEquals(firstStatusColumnElement().getText(), columnStatus);
   }
@@ -522,7 +518,6 @@ public class TasksPage extends GenericPage {
   }
 
   public void clickOnTaskThreeDotsOption() {
-
     taskThreeDotsOptionElement().click();
   }
 
@@ -936,9 +931,13 @@ public class TasksPage extends GenericPage {
   }
 
   public void openTaskDrawer(String taskName) {
-    closeDrawerIfDisplayed();
-    getTaskName(taskName).click();
-    waitForDrawerToOpen();
+    retryOnCondition(() -> {
+      if (closeDrawerIfDisplayed()) {
+        waitFor(200).milliseconds();
+      }
+      getTaskName(taskName).click();
+      waitForDrawerToOpen(true);
+    });
   }
 
   public void openTaskInTasksTab(String taskName) {
@@ -1322,10 +1321,6 @@ public class TasksPage extends GenericPage {
 
   private ElementFacade documentButtonElement() {
     return findByXPathOrCSS("//*[contains(@class ,'flex document-timeline-header ')]//button[contains(@class,'v-btn v-btn--flat')]");
-  }
-
-  private ElementFacade drawerTitleElement() {
-    return findByXPathOrCSS("//span[contains(text(),'Select Folder')]");
   }
 
   private ElementFacade editProjectButtonElement() {

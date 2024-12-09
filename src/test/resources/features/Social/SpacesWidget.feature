@@ -8,7 +8,7 @@ Feature: Spaces widget checking
   @smoke
   Scenario: Spaces requests to join
     Given I am authenticated as 'admin' random user
-    And I inject the eighteenth random user if not existing
+    And I inject the eighteenth random user
     And I create a random space with the eighteenth random user
     And I create a random space with the eighteenth random user
     And I create a random space with the eighteenth random user

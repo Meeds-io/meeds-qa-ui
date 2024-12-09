@@ -13,7 +13,7 @@ Feature: Search for User Informations in Profile page
 
   # Needs bugs fixes after MIP#38 merge
   @ignored
-  Scenario: PROFILE-4 Contact information block_(01) : Add informations
+  Scenario: Add Contact information
     Given I am authenticated as 'admin' if random users doesn't exists
       | firstprofile  |
 
@@ -28,7 +28,7 @@ Feature: Search for User Informations in Profile page
 
   # Needs bugs fixes after MIP#38 merge
   @ignored
-  Scenario: PROFILE-4 Contact information block_(02) : Add informations
+  Scenario: Add Contact information
     Given I am authenticated as 'admin' if random users doesn't exists
       | secondprofile  |
 
@@ -46,7 +46,7 @@ Feature: Search for User Informations in Profile page
     And Updated Profile Contact instantMessaging is displayed
     And Updated Profile Contact Url is displayed
 
-  Scenario: PROFILE-5 Kudos block
+  Scenario: Kudos block
     Given I am authenticated as 'admin' if random users doesn't exists
       | fifthkudos  |
       | sixthkudos  |

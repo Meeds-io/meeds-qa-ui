@@ -202,11 +202,14 @@ public class BasePageImpl extends PageObject implements BasePage {
     return findByXPathOrCSS("(//*[contains(@class, 'v-dialog--active')]//*[contains(@class, 'close') or contains(@class, 'times')])[last()]");
   }
 
-  public void closeDrawerIfDisplayed() {
+  public boolean closeDrawerIfDisplayed() {
     if (openedDrawerElement().isCurrentlyVisible()) {
       closeDrawer();
       closeAlertIfOpened();
       waitForDrawerToClose();
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -508,18 +511,34 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void waitForDrawerToOpen() {
-    waitForDrawerToOpen(null, true);
+    waitForDrawerToOpen(null, true, false);
+  }
+
+  public void waitForDrawerToOpen(boolean throwException) {
+    waitForDrawerToOpen(null, true, throwException);
   }
 
   public void waitForDrawerToOpen(String drawerId, boolean withOverlay) {
+    waitForDrawerToOpen(null, true, false);
+  }
+
+  public void waitForDrawerToOpen(boolean withOverlay, boolean throwException) {
+    waitForDrawerToOpen(null, withOverlay, throwException);
+  }
+
+  public void waitForDrawerToOpen(String drawerId, boolean withOverlay, boolean throwException) {
     String drawerSelector = StringUtils.isBlank(drawerId) ? OPENED_DRAWER_CSS_SELECTOR : drawerId;
     try {
       findByXPathOrCSS(drawerSelector).waitUntilVisible();
       if (withOverlay) {
         findByXPathOrCSS(".v-overlay").waitUntilVisible();
       }
-    } catch (Exception e) {
-      LOGGER.debug("Overlay seems not displayed", e);
+    } catch (RuntimeException e) {
+      if (throwException) {
+        throw e;
+      } else {
+        LOGGER.debug("Overlay seems not displayed", e);
+      }
     }
   }
 

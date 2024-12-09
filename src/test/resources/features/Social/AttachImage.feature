@@ -187,9 +187,9 @@ Feature: Attach images activities
     Then The action 'Announce an action with attached image' is displayed in program detail
     When I click on 'Activate the program' button
     Then Confirmation message is displayed 'Program activated'
-    When I close the notification
+    And I close the notification
 
-    When I go to Stream page
+    When I go to the random space
     Then The activity 'Announce an action with attached image' is not displayed
     
     When I go to 'programs' in site 'contribute'
@@ -201,13 +201,14 @@ Feature: Attach images activities
     And I enable rule publication
     And I set rule publication message 'Action publication message'
     And I attach an image to the program action
+    And I wait for '1' seconds
     And I click on 'Update' button in drawer
     Then Confirmation message is displayed 'Action has been successfully updated'
     And I close the notification
     Then The action 'Announce an action with attached image' is displayed in program detail
     And I wait for '1' seconds
 
-    When I go to Stream page
+    When I go to the random space
     Then The activity 'Announce an action with attached image' is displayed
     And The message 'Action publication message' is displayed
     And The attached images should be displayed in the published activity 'Announce an action with attached image'
@@ -216,6 +217,7 @@ Feature: Attach images activities
 
     When I click on 'Contribute' button in drawer
     And I attach an image to the announcement
+    And I wait for '1' seconds
     And I announce action with message 'announcement with attached image'
     And I close the notification
     Then The comment 'announcement with attached image' is displayed
