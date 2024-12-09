@@ -7,17 +7,12 @@ Feature: Connection widgets checking
   In order to validate the page
 
   Scenario: Connection widget accept and refuse user connections
-    Given I am authenticated as 'admin' if random users doesn't exists
-      | firstcommconn  |
-      | secondcommconn  |
-      | thirdcommconn  |
-      | fourthcommconn  |
-      | fifthcommconn  |
-    And I inject the firstcommconn random user if not existing, no wait
-    And I inject the secondcommconn random user if not existing, no wait
-    And I inject the thirdcommconn random user if not existing, no wait
-    And I inject the fourthcommconn random user if not existing, no wait
-    And I inject the fifthcommconn random user if not existing, no wait
+    Given I am authenticated as 'admin' random user
+    And I inject the firstcommconn random user, no wait
+    And I inject the secondcommconn random user, no wait
+    And I inject the thirdcommconn random user, no wait
+    And I inject the fourthcommconn random user, no wait
+    And I inject the fifthcommconn random user, no wait
     And I go to the fifthcommconn user profile
     And I connect to the user using the profile
     And I login as 'firstcommconn' random user
