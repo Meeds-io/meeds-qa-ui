@@ -340,6 +340,8 @@ public class HomePage extends GenericPage {
   }
 
   public boolean isSpacesBadgeWithNumberVisible(String number) {
+    retryOnCondition(() -> getSpacesBadge().checkVisible(),
+                     () -> waitFor(1).seconds());
     return getSpacesBadgeWithNumber(number).isVisible();
   }
 
@@ -720,6 +722,10 @@ public class HomePage extends GenericPage {
   private ElementFacade getRejectIconSpaceFromDrawer(String spaceName) {
     return findByXPathOrCSS(String.format("//aside[contains(@class,'spaceDrawer ')]//descendant::div[contains(text(),'%s')]//following::i[contains(@class,'mdi-close-circle')]",
                                           spaceName));
+  }
+
+  private ElementFacade getSpacesBadge() {
+    return findByXPathOrCSS("//div[contains(@class,'profileCard')]//*[contains(text(),'Spaces')]");
   }
 
   private ElementFacade getSpacesBadgeWithNumber(String number) {
