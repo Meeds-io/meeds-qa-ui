@@ -322,10 +322,6 @@ public class HomeSteps {
     homePage.openHamburgerMenuDrawer();
   }
 
-  public void checkHamburgerMenuNavigations() {
-    homePage.checkHamburgerMenuNavigations();
-  }
-
   public void stickHamburgerMenu() {
     homePage.stickHamburgerMenu();
   }
@@ -350,12 +346,12 @@ public class HomeSteps {
     homePage.checkRedDotNotInHamburgerMenu();
   }
 
-  public void hoverOnHamburgerMenu() {
-    homePage.hoverOnHamburgerMenu();
+  public void clickOnHamburgerMenu() {
+    homePage.clickOnHamburgerMenu();
   }
   
-  public void hoverOutsideHamburgerMenu() {
-    homePage.hoverOutsideHamburgerMenu();
+  public void clickOutsideHamburgerMenu() {
+    homePage.clickOutsideHamburgerMenu();
   }
   
   public void closeHamburgerMenu() {
