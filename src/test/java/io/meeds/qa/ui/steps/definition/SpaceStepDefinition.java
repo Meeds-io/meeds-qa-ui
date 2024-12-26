@@ -557,11 +557,6 @@ public class SpaceStepDefinition {
     spaceSteps.goToSpecificTab(tabName);
   }
 
-  @Given("^I add application '(.*)' in random space if not existing$")
-  public void addSpaceApplicationIfNotExisting(String appName) {
-    spaceSteps.addSpaceApplicationIfNotExisting(appName);
-  }
-
   @When("^I open user profile of (.*) user from activity likers drawer$")
   public void goToUserProfileFromLikersDrawer(String prefix) {
     spaceSteps.goToUserProfileFromLikersDrawer(prefix);
