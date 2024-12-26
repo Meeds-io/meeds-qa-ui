@@ -453,7 +453,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   private ElementFacade addNewSpaceButtonElement() {
-    return findByXPathOrCSS("#spacesListApplication button#addNewSpaceButton");
+    return findByXPathOrCSS("#addNewSpaceButton");
   }
 
   private ElementFacade avatarSectionElement() {
