@@ -36,7 +36,7 @@ Feature: Application center Addon
     And I go to Administer application center Page
     And I add a new random application
     And I login as 'first' random user
-    And I see All Applications
+    And I open all application page
     Then The message 'You can’t set more than 12 favorites' is displayed
     When I search for the random created application
     Then The application is not bookmarked as my favorites
@@ -54,7 +54,7 @@ Feature: Application center Addon
     And I go to Administer application center Page
     And I search for the random created application
     And I login as 'first' random user
-    And I see All Applications
+    And I open all application page
     Then The application bookmark is disabled
 
   Scenario: Applications table/ Editable fields (Active option)
@@ -65,7 +65,7 @@ Feature: Application center Addon
     And I add a new random application
 
     And I login as 'first' random user
-    And I see All Applications
+    And I open all application page
 
     When I search for the random created application
     Then The created application is not displayed in Favorites Applications
@@ -80,7 +80,7 @@ Feature: Application center Addon
     And I search for the random created application
     And I disable Active option for the created application
     And I login as 'first' random user
-    And I see All Applications
+    And I open all application page
     And I search for the random created application
     Then The created application is not displayed in Favorites Applications
     And I refresh the page
@@ -93,7 +93,7 @@ Feature: Application center Addon
     And I search for the random created application
     And I enable Active option for the created application
     And I login as 'first' random user
-    And I see All Applications
+    And I open all application page
     And I search for the random created application
     Then The created application is not displayed in Favorites Applications
     And I search for the random created application
@@ -177,7 +177,7 @@ Feature: Application center Addon
 
     When I login as 'first' random user
 
-    When I see All Applications
+    When I open all application page
     And I search for the random created application
     Then The application is not bookmarked as my favorites
     And The created application is not displayed in Favorites Applications

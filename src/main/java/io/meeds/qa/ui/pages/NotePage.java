@@ -17,16 +17,20 @@
  */
 package io.meeds.qa.ui.pages;
 
+import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
+import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.ElementFacade;
+import io.meeds.qa.ui.utils.Utils;
+
 import net.serenitybdd.core.Serenity;
 
 public class NotePage extends GenericPage {
@@ -36,12 +40,20 @@ public class NotePage extends GenericPage {
   }
 
   public void editNote() {
-    editNoteButton().click();
+    retryOnCondition(() -> {
+      editNoteButton().checkVisible();
+      editNoteButton().click();
+    }, Utils::refreshPage);
     String windowHandle = getDriver().getWindowHandle();
     Serenity.setSessionVariable("windowHandle").to(windowHandle);
     Set<String> windowHandles = getDriver().getWindowHandles();
-    String noteEditorWindow = windowHandles.stream().filter(id -> !StringUtils.equals(id, windowHandle)).findFirst().orElse(null);
-    getDriver().switchTo().window(noteEditorWindow);
+    assertTrue(String.format("Can't find Notes editor Browser Tab: tabs length: %s", windowHandles.size()),
+               windowHandles.stream()
+                            .anyMatch(id -> {
+                              getDriver().switchTo().window(id);
+                              return editNoteButton().isNotVisible();
+                            }));
+    waitForLoading();
   }
 
   @SuppressWarnings("unchecked")
@@ -50,13 +62,14 @@ public class NotePage extends GenericPage {
     notesEditorElement.assertVisible();
     assertEquals(0, notesEditorElement.getLocation().getX());
     assertEquals(0, notesEditorElement.getLocation().getY());
-    List<Long> windowDimensions = (List<Long>) ((JavascriptExecutor) getDriver()).executeScript("return [window.innerWidth, window.innerHeight];");
+    JavascriptExecutor driver = (JavascriptExecutor) getDriver();
+    List<Long> windowDimensions = (List<Long>) driver.executeScript("return [window.innerWidth, window.innerHeight];");
     assertEquals(windowDimensions.get(0).intValue(), notesEditorElement.getRect().getWidth());
     assertEquals(windowDimensions.get(1).intValue(), notesEditorElement.getRect().getHeight());
   }
 
   public ElementFacade editNoteButton() {
-    return findByXPathOrCSS("//*[contains(@class, 'notes-application-header')]//i[contains(@class, 'edit-note')]");
+    return findByXPathOrCSS("//*[contains(@class, 'notes-application-header')]//i[contains(@class, 'edit-note')]//ancestor::button");
   }
 
   public ElementFacade notesEditorElement() {

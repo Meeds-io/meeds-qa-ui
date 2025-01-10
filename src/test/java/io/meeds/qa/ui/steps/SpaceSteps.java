@@ -371,10 +371,6 @@ public class SpaceSteps {
     spacePage.goToSpecificTab(tabName);
   }
 
-  public void addSpaceApplicationIfNotExisting(String appName) {
-    spacePage.addSpaceApplicationIfNotExisting(appName);
-  }
-
   public void goToUserProfileFromLikersDrawer(String prefix) {
     spacePage.goToUserProfileFromLikersDrawer(prefix);
   }

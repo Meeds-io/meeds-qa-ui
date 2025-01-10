@@ -357,11 +357,6 @@ public class HomeStepDefinition {
     homeSteps.checkThirdLevelNavigationDisplayed();
   }
 
-  @When("^I open all application page$")
-  public void openAllApplicationPage() {
-    homeSteps.openAllApplicationPage();
-  }
-
   @When("^I open Notifications$")
   public void openNotifications() {
     homeSteps.openNotifications();

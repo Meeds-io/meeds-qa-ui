@@ -256,10 +256,6 @@ public class HomeSteps {
     return homePage.isWidgetWithNumberVisible(widget, number);
   }
 
-  public void openAllApplicationPage() {
-    homePage.openAllApplicationPage();
-  }
-
   public void openNotifications() {
     homePage.openNotifications();
   }

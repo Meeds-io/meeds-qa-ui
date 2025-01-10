@@ -715,38 +715,20 @@ public class SpacePage extends GenericPage {
     peopleBtnElement().click();
   }
 
-  public void addSpaceApplicationIfNotExisting(String applicationName) {
-    ElementFacade tabElement = searchSpaceTabElement(applicationName);
-    if (tabElement.isCurrentlyVisible()) {
-      return;
-    }
-    installedApplicationCard(applicationName).assertNotVisible(); // Check app
-                                                                  // not already
-                                                                  // added
-    goToSpecificTab("More/Settings");
-    verifyPageLoaded();
-    arrowIconAppSpaceSettingsElement().click();
-    plusButtonAppSpaceSettingsElement().click();
-    waitForDrawerToOpen();
-    addApplicationButton(applicationName).click();
-    waitForDrawerToClose();
-    refreshPage();
-    waitForLoading();
-  }
-
   public void goToSpecificTab(String tabName) {
     if (tabName.contains("/")) {
       String[] navigationParts = tabName.split("/");
       searchNavigationTabElement(navigationParts[0]).assertVisible();
       tabElement(navigationParts[0]).hover();
       tabSubNavigationElement(navigationParts[1]).click();
+      verifyPageLoaded();
     } else {
       ElementFacade tabElement = searchSpaceTabElement(tabName);
       tabElement.assertVisible();
       if (!selectedTabElement(tabName).isCurrentlyVisible()) {
         tabElement.click();
-        waitForLoading();
       }
+      verifyPageLoaded();
       selectedTabElement(tabName).assertVisible();
     }
   }
@@ -1303,24 +1285,6 @@ public class SpacePage extends GenericPage {
       tabElement.checkVisible();
       return tabElement;
     });
-  }
-
-  private ElementFacade installedApplicationCard(String applicationName) {
-    return findByXPathOrCSS(String.format("//*[contains(@class, 'SpaceApplicationCard')]//*[contains(text(), '%s')]",
-                                          applicationName));
-  }
-
-  private ElementFacade addApplicationButton(String applicationName) {
-    return findByXPathOrCSS(String.format("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'SpaceApplicationCard')]//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'SpaceApplicationCardBody')]/parent::*//button",
-                                          applicationName));
-  }
-
-  private ElementFacade plusButtonAppSpaceSettingsElement() {
-    return findByXPathOrCSS("//*[@class='v-icon notranslate mdi mdi-plus theme--light']");
-  }
-
-  private ElementFacade arrowIconAppSpaceSettingsElement() {
-    return findByXPathOrCSS("//i[@class='v-icon notranslate text-sub-title fa fa-caret-right theme--light']");
   }
 
   private TextBoxElementFacade activityContentTextBoxElement() {
