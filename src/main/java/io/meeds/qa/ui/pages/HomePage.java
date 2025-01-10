@@ -354,12 +354,6 @@ public class HomePage extends GenericPage {
     return getProfileWidgetContent(widget, number).isVisible();
   }
 
-  public void openAllApplicationPage() {
-    waitForPageLoading();
-    clickOnElement(viewAllApplicationLinkElement());
-    waitForPageLoading();
-  }
-
   public void openConnectionRequestDrawer() {
     ElementFacade badgeButton = findByXPathOrCSS("#profile-stats-connectionsCount .v-badge button");
     clickOnElement(badgeButton);
@@ -839,10 +833,6 @@ public class HomePage extends GenericPage {
 
   private ElementFacade thirdLevelNavigationElement() {
     return findByXPathOrCSS("//*[contains(@class,'HamburgerMenuThirdLevelParent')]");
-  }
-
-  private ElementFacade viewAllApplicationLinkElement() {
-    return findByXPathOrCSS("//a[contains(@class,'seeAllApplicationsBtn')]");
   }
 
   private ElementFacade hamburgerMenuSiteArrowIcon() {

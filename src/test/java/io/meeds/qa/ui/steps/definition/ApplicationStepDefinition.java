@@ -161,10 +161,9 @@ public class ApplicationStepDefinition {
     genericSteps.isPageOpened(uriPart);
   }
 
-  @When("I see All Applications")
+  @When("I open all application page")
   public void seeAllApplications() {
     applicationSteps.seeAllApplications();
-
   }
 
   @Then("Settings Application Page is displayed")
