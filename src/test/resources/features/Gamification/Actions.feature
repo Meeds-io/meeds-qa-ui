@@ -148,7 +148,7 @@ Feature: Actions
     Then Confirmation message is displayed 'Program activated'
     When I close the notification
 
-    When I go to Stream page
+    When I go to the random space
     Then The activity 'Announce an action from its activity' is not displayed
 
     When I go to 'programs' in site 'contribute'
@@ -163,7 +163,7 @@ Feature: Actions
     Then Confirmation message is displayed 'Action has been successfully updated'
     When I close the notification
 
-    When I go to Stream page
+    When I go to the random space
     Then The activity 'Announce an action from its activity' is displayed
     And The message 'Action publication message' is displayed
 
@@ -173,7 +173,9 @@ Feature: Actions
     When I click on 'Contribute' button in drawer
     And I announce action with message 'announcement12'
     And I close the notification
-    Then The comment 'announcement12' is displayed
+    And I go to the random space
+    Then The activity 'Announce an action from its activity' is displayed
+    And The comment 'announcement12' is displayed in Comments drawer of activity 'Announce an action from its activity'
 
     When I click on 'Announce an action from its activity' text
     Then '0' participants is displayed in action drawer

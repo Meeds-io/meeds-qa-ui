@@ -201,7 +201,7 @@ Feature: Attach images activities
     And I enable rule publication
     And I set rule publication message 'Action publication message'
     And I attach an image to the program action
-    And I wait for '1' seconds
+    And I wait for '3' seconds
     And I click on 'Update' button in drawer
     Then Confirmation message is displayed 'Action has been successfully updated'
     And I close the notification

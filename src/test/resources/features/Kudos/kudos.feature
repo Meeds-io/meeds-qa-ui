@@ -162,6 +162,7 @@ Feature: Kudos
     When I login as 'cancelfirst' random user
     And I go to Stream page
     And I cancel the sent kudos activity 'Message for kudos - Kudos to cancel'
+    And I go to Stream page
     Then the activity 'Message for kudos - Kudos to cancel' is no more displayed in the activity stream
 
     When I go to My Profile page
