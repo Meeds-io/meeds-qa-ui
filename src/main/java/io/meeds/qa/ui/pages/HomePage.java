@@ -254,7 +254,7 @@ public class HomePage extends GenericPage {
   }
 
   public void goToMainSettings() {
-    goToAdministrationPage("General/Main Customization", true);
+    goToAdministrationPage("General/Appearance", true);
   }
 
   public void goToNotificationAdminPage() {
