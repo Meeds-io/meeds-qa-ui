@@ -207,6 +207,7 @@ public class TestInitHook {
       throw new IllegalStateException("Couldn't login with admin");
     }
     genericSteps.disableTermsAndConditions();
+    genericSteps.goToPage("/");
   }
 
   private void loginAsRandomAdmin() {
