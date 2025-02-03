@@ -30,7 +30,7 @@ import io.meeds.qa.ui.pages.GenericPage;
 import net.serenitybdd.core.Serenity;
 
 public class GenericSteps {
-  private static final String DISABLE_PWA_SCRIPT =
+  private static final String DISABLE_PWA_SCRIPT   =
                                                  """
                                                       const callback = arguments[arguments.length - 1];
                                                       fetch("/pwa/rest/manifest", {
@@ -43,12 +43,31 @@ public class GenericSteps {
                                                       })
                                                      .then(resp => {
                                                        if (!resp || !resp.ok) {
-                                                         throw new Error("Error changing space creation permissions");
+                                                         throw new Error("Error when switching Off PWA");
                                                        }
                                                      })
                                                      .then(() => callback(true))
                                                      .catch(() => callback(false));
                                                       """;
+
+  private static final String DISABLE_TERMS_SCRIPT =
+                                                   """
+                                                        const callback = arguments[arguments.length - 1];
+                                                        fetch("/notes/rest/terms/settings?published=false&lang=en", {
+                                                          "headers": {
+                                                            "content-type": "application/json",
+                                                          },
+                                                          "method": "PUT",
+                                                          "credentials": "include"
+                                                        })
+                                                       .then(resp => {
+                                                         if (!resp || !resp.ok) {
+                                                           throw new Error("Error when switching Off Terms and Conditions");
+                                                         }
+                                                       })
+                                                       .then(() => callback(true))
+                                                       .catch(() => callback(false));
+                                                        """;
 
   private GenericPage         genericPage;
 
@@ -243,6 +262,15 @@ public class GenericSteps {
     wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeAsyncScript(DISABLE_PWA_SCRIPT)
                                                             .toString()
                                                             .equals("true"));
+  }
+
+  public void disableTermsAndConditions() {
+    WebDriverWait wait = new WebDriverWait(Serenity.getDriver(),
+                                           Duration.ofSeconds(10),
+                                           Duration.ofMillis(SHORT_WAIT_DURATION_MILLIS));
+    wait.until(driver -> ((JavascriptExecutor) driver).executeAsyncScript(DISABLE_TERMS_SCRIPT)
+                                                      .toString()
+                                                      .equals("true"));
   }
 
   public void goToPage(String link) {
