@@ -130,11 +130,13 @@ public class UserProfilePage extends GenericPage {
   }
 
   public void clickOnSendKudosBtn() {
-    ElementFacade uiIconKudosElement = uiIconKudosElement();
-    uiIconKudosElement.assertVisible();
-    uiIconKudosElement.click();
-    waitForDrawerToOpen();
-    waitCKEditorLoading();
+    retryOnCondition(() -> {
+      ElementFacade uiIconKudosElement = uiIconKudosElement();
+      uiIconKudosElement.checkVisible();
+      uiIconKudosElement.click();
+      waitForDrawerToOpen(true);
+      waitCKEditorLoading();
+    });
   }
 
   public int getMyWeeklyPoint() {
