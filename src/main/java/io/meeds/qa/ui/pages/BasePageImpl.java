@@ -684,6 +684,10 @@ public class BasePageImpl extends PageObject implements BasePage {
     waitForProgressBar();
   }
 
+  public void pressEscape() {
+    findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
+  }
+
   private void closeDrawer() {
     closeDrawer(MAX_WAIT_RETRIES);
   }
@@ -701,10 +705,6 @@ public class BasePageImpl extends PageObject implements BasePage {
     } else {
       pressEscape();
     }
-  }
-
-  private void pressEscape() {
-    findByXPathOrCSS("//body").sendKeys(Keys.ESCAPE);
   }
 
   private WebElementFacade getWebElementFacadeByXPathOrCSS(String xpathOrCss) {
