@@ -36,10 +36,6 @@ public class MainSettingsPage extends GenericPage {
     brandingCustomizationEditButton().click();
   }
 
-  public void goToAccessCustomization() {
-    accessCustomizationEditButton().click();
-  }
-
   public void goBackToMainSettings() {
     backToMainButton().click();
   }
@@ -78,8 +74,6 @@ public class MainSettingsPage extends GenericPage {
     cancelButton().assertVisible();
     cancelButton().assertEnabled();
     applyButton().assertVisible();
-    applyButton().assertDisabled();
-    backToMainButton().assertVisible();
   }
 
   public void selectOpenAccessCustomization() {
@@ -148,7 +142,7 @@ public class MainSettingsPage extends GenericPage {
   }
 
   public void checkAccessDefaultSpacesCount(int count) {
-    findByXPathOrCSS(String.format("//*[@id='generalSettings']//*[contains(@class, 'v-list-item')]//*[contains(text(), '%s space selected')]",
+    findByXPathOrCSS(String.format("//*[@id='PlatformAccess']//*[contains(@class, 'v-list-item')]//*[contains(text(), '%s ') and contains(text(), 'space')]",
                                    count)).assertVisible();
   }
 
@@ -158,10 +152,6 @@ public class MainSettingsPage extends GenericPage {
 
   private ElementFacade loginCustomizationEditButton() {
     return findByXPathOrCSS("(//*[@id='generalSettings']//*[contains(@class, 'fa-caret')])[3]");
-  }
-
-  private ElementFacade accessCustomizationEditButton() {
-    return findByXPathOrCSS("(//*[@id='generalSettings']//*[contains(@class, 'fa-caret')])[4]");
   }
 
   private TextBoxElementFacade brandingCompanyNameInput() {
@@ -189,11 +179,11 @@ public class MainSettingsPage extends GenericPage {
   }
 
   private ElementFacade cancelButton() {
-    return findByXPathOrCSS("//*[@id='generalSettings']//button//*[contains(text(), 'Cancel')]//ancestor::button");
+    return findByXPathOrCSS("//button//*[contains(text(), 'Cancel')]//ancestor::button");
   }
 
   private ElementFacade applyButton() {
-    return findByXPathOrCSS("//*[@id='generalSettings']//button//*[contains(text(), 'Apply')]//ancestor::button");
+    return findByXPathOrCSS("//button//*[contains(text(), 'Apply')]//ancestor::button");
   }
 
   private ElementFacade backToMainButton() {
@@ -221,31 +211,31 @@ public class MainSettingsPage extends GenericPage {
   }
 
   private ElementFacade accessTypeOpenInput() {
-    return findByXPathOrCSS("//*[@id='generalSettings']//input[@value = 'OPEN' and @type = 'radio']//ancestor::*[contains(@class, 'v-radio')]");
+    return findByXPathOrCSS("//*[@id='PlatformAccess']//input[@value = 'OPEN' and @type = 'radio']//ancestor::*[contains(@class, 'v-radio')]");
   }
 
   private ElementFacade accessTypeRestrictedInput() {
-    return findByXPathOrCSS("//*[@id='generalSettings']//input[@value = 'RESTRICTED' and @type = 'radio']//ancestor::*[contains(@class, 'v-radio')]");
+    return findByXPathOrCSS("//*[@id='PlatformAccess']//input[@value = 'RESTRICTED' and @type = 'radio']//ancestor::*[contains(@class, 'v-radio')]");
   }
 
   private ElementFacade accessExternalUserOpenSwitchButtonInput() {
-    return findByXPathOrCSS("(//*[@id='generalSettings']//input[@role = 'switch' and @type = 'checkbox'])[1]");
+    return findByXPathOrCSS("(//*[@id='PlatformAccess']//input[@role = 'switch' and @type = 'checkbox'])[1]");
   }
 
   private ElementFacade accessExternalUserRestrictedSwitchButtonInput() {
-    return findByXPathOrCSS("(//*[@id='generalSettings']//input[@role = 'switch' and @type = 'checkbox'])[2]");
+    return findByXPathOrCSS("(//*[@id='PlatformAccess']//input[@role = 'switch' and @type = 'checkbox'])[2]");
   }
 
   private ElementFacade accessExternalUserOpenSwitchButton() {
-    return findByXPathOrCSS("(//*[@id='generalSettings']//input[@role = 'switch' and @type = 'checkbox'])[1]//ancestor::*[contains(@class, 'v-input--switch')]");
+    return findByXPathOrCSS("(//*[@id='PlatformAccess']//input[@role = 'switch' and @type = 'checkbox'])[1]//ancestor::*[contains(@class, 'v-input--switch')]");
   }
 
   private ElementFacade accessExternalUserRestrictedSwitchButton() {
-    return findByXPathOrCSS("(//*[@id='generalSettings']//input[@role = 'switch' and @type = 'checkbox'])[2]//ancestor::*[contains(@class, 'v-input--switch')]");
+    return findByXPathOrCSS("(//*[@id='PlatformAccess']//input[@role = 'switch' and @type = 'checkbox'])[2]//ancestor::*[contains(@class, 'v-input--switch')]");
   }
 
   private ElementFacade accessEditDefaultSpaceButton() {
-    return findByXPathOrCSS("//*[@id='generalSettings']//*[contains(@class, 'v-list-item')]//*[contains(@class, 'fa-edit')]");
+    return findByXPathOrCSS("//*[@id='PlatformAccess']//*[contains(@class, 'v-list-item')]//*[contains(@class, 'fa-edit')]");
   }
 
   private TextBoxElementFacade accessDefaultSpaceInput() {
