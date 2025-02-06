@@ -500,7 +500,17 @@ public class HomePage extends GenericPage {
   }
 
   public void clickOutsideHamburgerMenu() {
-    getDrawerOverlay().click();
+    ElementFacade drawerOverlay = getDrawerOverlay();
+    if (drawerOverlay.isCurrentlyVisible()) {
+      drawerOverlay.click();
+    } else {
+      drawerOverlay = getHamburgerMenuDrawerOverlay();
+      if (drawerOverlay.isCurrentlyVisible()) {
+        drawerOverlay.click();
+      } else {
+        pressEscape();
+      }
+    }
   }
 
   public void closeHamburgerMenu() {
@@ -692,6 +702,10 @@ public class HomePage extends GenericPage {
 
   private ElementFacade getDrawerOverlay() {
     return findByXPathOrCSS("#drawers-overlay .v-overlay--active");
+  }
+
+  private ElementFacade getHamburgerMenuDrawerOverlay() {
+    return findByXPathOrCSS("#HamburgerNavigationMenu .v-overlay--active");
   }
 
   private ElementFacade getSiteBody() {

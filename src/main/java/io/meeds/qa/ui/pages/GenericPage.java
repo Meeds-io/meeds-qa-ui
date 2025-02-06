@@ -209,7 +209,8 @@ public class GenericPage extends BasePageImpl {
   }
 
   private ElementFacade messageElementInPage(String message) {
-    return findByXPathOrCSS(String.format("//*[@id = 'UIPage']//*[contains(text(), '%s') and not (@role)]", message));
+    return findByXPathOrCSS(String.format("//*[@id = 'UIPage' or contains(@class, 'layout-page-parent')]//*[contains(text(), '%s') and not (@role)]",
+                                          message));
   }
 
   private ElementFacade translationButton(int index) {

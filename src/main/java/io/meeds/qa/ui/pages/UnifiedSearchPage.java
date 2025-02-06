@@ -158,7 +158,7 @@ public class UnifiedSearchPage extends GenericPage {
   }
 
   private TextBoxElementFacade searchInputElement() {
-    return findTextBoxByXPathOrCSS("//*[@id='SearchApplication']//input[@id = 'searchInput']");
+    return findTextBoxByXPathOrCSS("//*[@id='searchDialog']//input[@id='searchInput']");
   }
 
   private ElementFacade shipFormAllElement() {
