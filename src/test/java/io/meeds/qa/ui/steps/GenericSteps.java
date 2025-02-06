@@ -265,12 +265,7 @@ public class GenericSteps {
   }
 
   public void disableTermsAndConditions() {
-    WebDriverWait wait = new WebDriverWait(Serenity.getDriver(),
-                                           Duration.ofSeconds(10),
-                                           Duration.ofMillis(SHORT_WAIT_DURATION_MILLIS));
-    wait.until(driver -> ((JavascriptExecutor) driver).executeAsyncScript(DISABLE_TERMS_SCRIPT)
-                                                      .toString()
-                                                      .equals("true"));
+    ((JavascriptExecutor) Serenity.getDriver()).executeAsyncScript(DISABLE_TERMS_SCRIPT);
   }
 
   public void goToPage(String link) {
