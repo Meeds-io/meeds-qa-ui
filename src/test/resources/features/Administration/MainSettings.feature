@@ -4,18 +4,10 @@ Feature: Main settings page features
 
   Scenario: Main settings elements are displayed
     Given I am authenticated as 'admin' random user
+    When I go to access settings
+    Then Access customization settings is displayed
+
     And I go to main settings page
-
-    When I open access customizations settings
-    Then Access customization settings is displayed
-    And The apply button is disabled in Main settings customization
-
-    When I refresh the page
-    Then Access customization settings is displayed
-
-    When I go back to Main Settings page
-    And I refresh the page
-
     When I open branding customizations settings
     Then Branding customization settings is displayed
     And The apply button is disabled in Main settings customization
@@ -43,9 +35,7 @@ Feature: Main settings page features
   Scenario: Main settings - Access modification
     Given I am authenticated as 'admin' random user
     And I inject the random space
-    And I go to main settings page
-
-    When I open access customizations settings
+    When I go to access settings
     Then Access customization settings is displayed
 
     When I select 'Open' access type
@@ -67,9 +57,8 @@ Feature: Main settings page features
   Scenario: Main settings - Open Access Type
     Given I am authenticated as 'admin' random user
     And I inject the random space if not existing
-    And I go to main settings page
 
-    When I open access customizations settings
+    When I go to access settings
     Then Access customization settings is displayed
 
     When I select 'Open' access type
@@ -94,9 +83,8 @@ Feature: Main settings page features
   Scenario: Main settings - Restricted Access Type
     Given I am authenticated as 'admin' random user
     And I inject the random space if not existing
-    And I go to main settings page
 
-    When I open access customizations settings
+    When I go to access settings
     Then Access customization settings is displayed
 
     When I select 'Restricted' access type
@@ -112,8 +100,7 @@ Feature: Main settings page features
     Then Register link is not displayed
 
     When I am authenticated as 'admin' random user
-    And I go to main settings page
-    And I open access customizations settings
+    And I go to access settings
     Then Access customization settings is displayed
 
     When I switch 'Restricted' access type to enable external users registration

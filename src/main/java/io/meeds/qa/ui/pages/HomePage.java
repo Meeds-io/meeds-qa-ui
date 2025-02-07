@@ -257,6 +257,10 @@ public class HomePage extends GenericPage {
     goToAdministrationPage("General/Appearance", true);
   }
 
+  public void goToAccessCustomization() {
+    goToAdministrationPage("General/Access", true);
+  }
+
   public void goToNotificationAdminPage() {
     goToAdministrationPage("General/Notifications");
   }
@@ -538,6 +542,7 @@ public class HomePage extends GenericPage {
       accessToAdministrationMenu();
       String[] menuParts = menuItem.split("/");
       retryOnCondition(() -> {
+        administrationMenuItem(menuParts[0]).waitUntilVisible();
         if (!administrationMenuItem(menuParts[1]).isCurrentlyVisible()) {
           administrationMenuItem(menuParts[0]).click();
           administrationMenuItem(menuParts[1]).checkVisible();

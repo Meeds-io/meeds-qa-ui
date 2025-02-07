@@ -43,9 +43,9 @@ public class MainSettingsStepDefinition {
     homeSteps.goToMainSettings();
   }
 
-  @When("I open access customizations settings")
+  @When("I go to access settings")
   public void goToAccessCustomization() {
-    mainSettingsSteps.goToAccessCustomization();
+    homeSteps.goToAccessCustomization();
   }
 
   @When("I open branding customizations settings")
