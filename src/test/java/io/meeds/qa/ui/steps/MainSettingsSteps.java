@@ -25,10 +25,6 @@ public class MainSettingsSteps {
 
   private MainSettingsPage mainSettingsPage;
 
-  public void goToAccessCustomization() {
-    mainSettingsPage.goToAccessCustomization();
-  }
-
   public void goToBrandingCustomization() {
     mainSettingsPage.goToBrandingCustomization();
   }
