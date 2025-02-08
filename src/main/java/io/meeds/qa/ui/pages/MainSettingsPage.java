@@ -55,9 +55,10 @@ public class MainSettingsPage extends GenericPage {
     brandingCompanyNameInput().assertVisible();
     brandingLogoInput().assertVisible();
     brandingFaviconInput().assertVisible();
-    brandingPrimaryColorInput().assertVisible();
-    brandingSecondaryColorInput().assertVisible();
-    brandingTerciaryColorInput().assertVisible();
+    brandingTopbarColorsInput().assertVisible();
+    brandingSidebarColorsInput().assertVisible();
+    brandingPageColorsInput().assertVisible();
+    brandingDrawerColorsInput().assertVisible();
     cancelButton().assertVisible();
     cancelButton().assertEnabled();
     applyButton().assertVisible();
@@ -166,16 +167,20 @@ public class MainSettingsPage extends GenericPage {
     return findTextBoxByXPathOrCSS("//*[@id='generalSettings']//*[@id='faviconFileInput']//ancestor::*[contains(@class, 'file-selector')]//ancestor::*[contains(@class, 'v-image')]");
   }
 
-  private ElementFacade brandingPrimaryColorInput() {
-    return findByXPathOrCSS("((//*[@id='generalSettings']//*[contains(text(), 'Theme colors')]/ancestor::*[contains(@class, 'col')])[last()]//*[contains(@class, 'v-card--link')])[1]");
+  private ElementFacade brandingTopbarColorsInput() {
+    return findByXPathOrCSS("//*[@id='generalSettings']//*[contains(text(), 'Topbar')]/ancestor::*[contains(@class, 'option-item')]//*[contains(@class, 'fa-edit')]");
   }
 
-  private ElementFacade brandingSecondaryColorInput() {
-    return findByXPathOrCSS("((//*[@id='generalSettings']//*[contains(text(), 'Theme colors')]/ancestor::*[contains(@class, 'col')])[last()]//*[contains(@class, 'v-card--link')])[2]");
+  private ElementFacade brandingSidebarColorsInput() {
+    return findByXPathOrCSS("//*[@id='generalSettings']//*[contains(text(), 'Sidebar')]/ancestor::*[contains(@class, 'option-item')]//*[contains(@class, 'fa-edit')]");
   }
 
-  private ElementFacade brandingTerciaryColorInput() {
-    return findByXPathOrCSS("((//*[@id='generalSettings']//*[contains(text(), 'Theme colors')]/ancestor::*[contains(@class, 'col')])[last()]//*[contains(@class, 'v-card--link')])[3]");
+  private ElementFacade brandingPageColorsInput() {
+    return findByXPathOrCSS("//*[@id='generalSettings']//*[contains(text(), 'Page')]/ancestor::*[contains(@class, 'option-item')]//*[contains(@class, 'fa-edit')]");
+  }
+
+  private ElementFacade brandingDrawerColorsInput() {
+    return findByXPathOrCSS("//*[@id='generalSettings']//*[contains(text(), 'Drawer')]/ancestor::*[contains(@class, 'option-item')]//*[contains(@class, 'fa-edit')]");
   }
 
   private ElementFacade cancelButton() {
