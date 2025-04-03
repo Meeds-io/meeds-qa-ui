@@ -12,21 +12,21 @@ Feature: Edit sections in Settings page
     And I go to Settings page
     Then Settings Page Is Opened
 
-    When I click on Edit language and I change it 'French'
+    When I click on Edit language and I change it 'français'
     And I cancel editing language
 
     Then Language 'English' is displayed
 
-    When I click on Edit language and I change it 'French'
+    When I click on Edit language and I change it 'français'
     And I accept editing language
 
-    Then Language 'French' is displayed
+    Then Language 'français' is displayed
 
     When I click on Edit language and I change it 'English'
     And I accept editing language
 
     When I refresh the page
-    Then Language 'English / English' is displayed
+    Then Language 'English' is displayed
 
   Scenario: Add the home icon for Homepage default view
     Given I am authenticated as 'admin' if random users doesn't exists
