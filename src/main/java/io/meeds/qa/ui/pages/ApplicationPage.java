@@ -20,11 +20,10 @@ package io.meeds.qa.ui.pages;
 import static io.meeds.qa.ui.utils.Utils.refreshPage;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Assert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -41,15 +40,14 @@ public class ApplicationPage extends GenericPage {
 
   public void addRemoveApplicationToFavorites(String app) {
     searchAppInputElement().setTextValue(app);
+    waitFor(50).milliseconds();
 
     // Add/ Remove the application To Favorites
-    ElementFacade appAsFavoriteInApplicationCenter = addApplicationAFavoriteInApplicationCenter(app);
-    clickOnElement(appAsFavoriteInApplicationCenter);
+    getFavoriteButton(app).click();
   }
 
   public void bookmarkApplication(String appTitle) {
-    findByXPathOrCSS(String.format("//*[contains(@class, 'userAuthorizedApplications')]//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'v-card')]//i[contains(@class, 'mdi-star-outline')]//ancestor::button",
-                                   appTitle)).click();
+    getNonFavoriteApplicationElement(appTitle).click();
   }
 
   public void checkApplicationIsNotVisible(String application) {
@@ -62,7 +60,7 @@ public class ApplicationPage extends GenericPage {
 
   public void checkThatAddApplicationBtnToFavoritesIsDisplayed(String app) {
     // Check that add application to favorites Button is displayed
-    addApplicationAFavoriteInApplicationCenter(app).assertVisible();
+    getFavoriteButton(app).assertVisible();
   }
 
   public void checkThatAppcenterApplicationIsDisplayed(String app) {
@@ -91,12 +89,12 @@ public class ApplicationPage extends GenericPage {
 
   public void checkThatOpenApplicationButtonIsDisplayed(String app) {
     // Check that open application Button is displayed
-    getAppCenterAllApplicationsButton(app).assertVisible();
+    getApplicationsCard(app).assertVisible();
   }
 
   public void clickOnOpenApplicationButton(String app) {
     // Click on open application
-    getAppCenterAllApplicationsButton(app).click();
+    getApplicationsCard(app).click();
   }
 
   public void clickOnTheAppLauncherIcon() {
@@ -125,7 +123,7 @@ public class ApplicationPage extends GenericPage {
     elementApplicationsTopbarElement().click();
     waitForDrawerToOpen();
     waitForDrawerToLoad();
-    elementAppcenterSeeAllApplicationsElement().click();
+    expandDrawer();
   }
 
   public void settingsPageIsOpened() {
@@ -137,28 +135,27 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void starButtonIsNotSelected(String appTitle) {
-    removeFromAppCenterFavoriteIsDisplayed(appTitle).assertVisible();
+    getNonFavoriteApplicationElement(appTitle).assertVisible();
   }
 
   public void starButtonIsSelected(String appTitle) {
-    addToAppCenterFavoriteIsDisplayed(appTitle).assertVisible();
+    getFavoriteApplicationElement(appTitle).assertVisible();
   }
 
   public void unbookmarkApplication(String appTitle) {
-    findByXPathOrCSS(String.format("//*[contains(@class, 'userAuthorizedApplications')]//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'v-card')]//i[contains(@class, 'mdi-star')]//ancestor::button",
-                                   appTitle)).click();
+    getFavoriteApplicationElement(appTitle).click();
   }
 
   public void addImageToApplication(String image) {
-    WebElement elem =
-                    getDriver().findElement(org.openqa.selenium.By.xpath("//*[contains(@class,'uploadImage')]//*[@id='imageFile']"));
-    String js = "arguments[0].style.height='auto'; arguments[0].style.visibility='visible';";
-    ((JavascriptExecutor) getDriver()).executeScript(js, elem);
-    upload(UPLOAD_DIRECTORY_PATH + image).fromLocalMachine().to(elem);
-  }
+    ElementFacade hiddenInput = findByXPathOrCSS("//input[@id='iconFileInput']//ancestor::*[contains(@class, 'v-input__control')]");
+    String js = "arguments[0].style.display='block';";
+    ((JavascriptExecutor) getDriver()).executeScript(js, hiddenInput.getWrappedElement());
 
-  public void appDescriptionInApplicationsTableIsDisplayed(String appDescription) {
-    appDescriptionInApplicationsTable(appDescription).assertVisible();
+    WebElement elem = getDriver().findElement(org.openqa.selenium.By.xpath("//input[@id='iconFileInput']"));
+    upload(UPLOAD_DIRECTORY_PATH + image).fromLocalMachine().to(elem);
+
+    js = "arguments[0].style.display='none';";
+    ((JavascriptExecutor) getDriver()).executeScript(js, hiddenInput.getWrappedElement());
   }
 
   public void applicationDrawerEnabledButtonsAreIsDisplayed() {
@@ -168,7 +165,7 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void applicationDrawerImageIsDisplayed(String image) {
-    Assert.assertEquals(editApplicationDrawerImageElement().getText(), image);
+    assertEquals(editApplicationDrawerImageElement().getText(), image);
   }
 
   public void applicationDrawerPermissionsIsDisplayed(String firstPermission, String secondPermission) {
@@ -183,44 +180,32 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void applicationDrawerTitleIsDisplayed(String title) {
-    Assert.assertEquals(editApplicationDrawerTitleElement().getTextValue(), title);
-  }
-
-  public void applicationDrawerUrlIsDisplayed(String url) {
-    Assert.assertEquals(editApplicationDrawerUrlElement().getTextValue(), url);
-  }
-
-  public void appPermissionInApplicationsTableIsDisplayed(String appTitle, String permission) {
-    appPermissionInApplicationsTable(appTitle, permission).assertVisible();
+    assertEquals(editApplicationDrawerTitleElement().getTextValue(), title);
   }
 
   public void appTitleInApplicationsTableIsDisplayed(String appTitle) {
     appTitleInApplicationsTable(appTitle).assertVisible();
   }
 
-  public void appUrlInApplicationsTableIsDisplayed(String appUrl) {
-    appUrlInApplicationsTable(appUrl).assertVisible();
-  }
-
   public void checkPopupDeleteNotVisible() {
     confirmDeleteElement().assertNotVisible();
   }
 
-  public void checkThatApplicationImageIsDisplayedInDrawer(String image) {
-    getApplicationImageInDrawer(image).assertVisible();
+  public void checkThatApplicationImageIsDisplayedInDrawer() {
+    getApplicationImageInDrawer().assertVisible();
   }
 
   public void checkThatApplicationImageIsNotDisplayedInApplicationsTable(String appTitle) {
     appTitleNoImageElement(appTitle).assertVisible();
   }
 
-  public void checkThatApplicationImageIsNotDisplayedInDrawer(String image) {
-    getApplicationImageInDrawer(image).assertNotVisible();
+  public void checkThatApplicationImageIsNotDisplayedInDrawer() {
+    getApplicationImageInDrawer().assertNotVisible();
   }
 
   public void clickActiveApp(String appTitle) {
     searchAppByTitle(appTitle);
-    getActiveButton(appTitle).click();
+    enableDisableActiveApplication(appTitle);
   }
 
   public void clickAddApplicationButton() {
@@ -236,30 +221,18 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void clickSaveAddApplication() {
-    saveAddApplicationButtonElement().click();
+    clickDrawerButton("Save");
     waitForDrawerToClose();
   }
 
   public void deleteApp(String appTitle, boolean confirm) {
-    ElementFacade deleteButton = getDeleteButton(appTitle);
-    deleteButton.click();
-    waitFor(100).milliseconds();
-    ElementFacade confirmDeleteElement = confirmDeleteElement();
+    openMenu(appTitle);
+    getDeleteButton().click();
     if (confirm) {
-      confirmDeleteElement.click();
+      waitFor(200).milliseconds();
+      clickConfirm();
     }
-  }
-
-  public void disableMandatoryApplication(String appTitle) {
-    searchAppByTitle(appTitle);
-    retryOnCondition(() -> {
-      ElementFacade mandatoryApplication = getMandatoryApplication(appTitle);
-      mandatoryApplication.checkVisible();
-      String enabled = mandatoryApplication.findByXPath("//input").getAttribute("aria-checked");
-      if (StringUtils.equals(enabled, "true")) {
-        clickOnElement(mandatoryApplication);
-      }
-    });
+    waitForLoading();
   }
 
   public void enableDisableActiveApplication(String appTitle) {
@@ -268,14 +241,42 @@ public class ApplicationPage extends GenericPage {
 
   public void enableMandatoryApplication(String appTitle) {
     searchAppByTitle(appTitle);
-    retryOnCondition(() -> {
-      ElementFacade mandatoryApplication = getMandatoryApplication(appTitle);
-      mandatoryApplication.checkVisible();
-      String enabled = mandatoryApplication.findByXPath("//input").getAttribute("aria-checked");
-      if (StringUtils.isBlank(enabled) || StringUtils.equals(enabled, "false")) {
-        clickOnElement(mandatoryApplication);
-      }
-    });
+    waitFor(50).milliseconds();
+
+    openMenu(appTitle);
+    getEditButton().click();
+
+    ElementFacade mandatoryApplication = getMandatorySwitch();
+    mandatoryApplication.checkVisible();
+    String enabled = getMandatorySwitchInput().getAttribute("aria-checked");
+    if (StringUtils.equals(enabled, "false")) {
+      clickOnElement(mandatoryApplication);
+      waitFor(200).milliseconds();
+      enabled = getMandatorySwitchInput().getAttribute("aria-checked");
+      assertEquals("true", enabled);
+      clickDrawerButton("Save");
+    } else {
+      assertEquals("true", enabled);
+      closeDrawerIfDisplayed();
+    }
+  }
+
+  public void disableMandatoryApplication(String appTitle) {
+    goToEditTheApplication(appTitle);
+
+    ElementFacade mandatoryApplication = getMandatorySwitch();
+    mandatoryApplication.checkVisible();
+    String enabled = getMandatorySwitchInput().getAttribute("aria-checked");
+    if (StringUtils.equals(enabled, "true")) {
+      clickOnElement(mandatoryApplication);
+      waitFor(200).milliseconds();
+      enabled = getMandatorySwitchInput().getAttribute("aria-checked");
+      assertEquals("false", enabled);
+      clickDrawerButton("Save");
+    } else {
+      assertEquals("false", enabled);
+      closeDrawerIfDisplayed();
+    }
   }
 
   public void enterDataValueToField(String fieldName, String value) {
@@ -305,54 +306,45 @@ public class ApplicationPage extends GenericPage {
     applicationDescriptionElement().setTextValue(desc);
   }
 
-  public void goToEditTheApplication(String app) {
-    editTheApplication(app).click();
-  }
-
-  public boolean isAppExists(String appTitle) {
+  public void goToEditTheApplication(String appTitle) {
     searchAppByTitle(appTitle);
-    return getActiveButton(appTitle).isCurrentlyVisible();
+    waitFor(50).milliseconds();
+    openMenu(appTitle);
+    getEditButton().click();
+    waitForDrawerToOpen();
   }
 
-  public void removeFileFromApplicationDrawer() {
-    removeFileInApplicationDrawerButtonElement().click();
+  public void selectApplicationIconFromDrawer(String icon) {
+    clickDrawerButton("Choose");
+    waitForDrawerToOpen("#nodeIconPickerDrawer", false);
+    searchIconInput().setTextValue(icon);
+    waitFor(50).milliseconds();
+    iconCard().click();
+    waitFor(50).milliseconds();
+    iconSaveButton().click();
   }
 
   public void searchApp(String appTitle) {
     searchAppByTitle(appTitle);
   }
 
+  private void openMenu(String appTitle) {
+    ElementFacade menuThreeDots = editApplication(appTitle);
+    menuThreeDots.waitUntilVisible();
+    menuThreeDots.click();
+  }
+
   private ElementFacade addApplicationButtonElement() {
-    return findByXPathOrCSS("//button[contains(@class,'addApplicationBtn')]");
-  }
-
-  private ElementFacade appDescriptionInApplicationsTable(String appDescription) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::tr",
-                                          appDescription));
-  }
-
-  private TextBoxElementFacade applicationDescriptionElement() {
-    return findTextBoxByXPathOrCSS("//*[@name='description']");
-  }
-
-  private ElementFacade appPermissionInApplicationsTable(String appTitle, String permission) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::tr//*[contains(text(),'%s')]",
-                                          appTitle,
-                                          permission));
+    return findByXPathOrCSS("//*[contains(@class, 'btn-primary')]//*[contains(text(), 'Add')]//ancestor::button");
   }
 
   private ElementFacade appTitleInApplicationsTable(String appTitle) {
-    return findByXPathOrCSS(String.format("//td[contains(@class, 'tableAppTitle') and contains(text(),'%s')]", appTitle));
+    return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::tr", appTitle));
   }
 
   private ElementFacade appTitleNoImageElement(String appTitle) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::tr//img[contains(@src, 'defaultApp.png')]",
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::tr/td[1]//*[contains(@class, 'v-icon')]",
                                           appTitle));
-  }
-
-  private ElementFacade appUrlInApplicationsTable(String appUrl) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::tr",
-                                          appUrl));
   }
 
   private ElementFacade closeDeletePopupButtonElement() {
@@ -383,96 +375,82 @@ public class ApplicationPage extends GenericPage {
     return findTextBoxByXPathOrCSS("//*[@class='appLauncherDrawerTitle']/following::*[@name='title']");
   }
 
-  private TextBoxElementFacade editApplicationDrawerUrlElement() {
-    return findTextBoxByXPathOrCSS("//*[@class='appLauncherDrawerTitle']/following::input[@type='url'][1]");
-  }
-
-  private ElementFacade editTheApplication(String appTitle) {
-    return findByXPathOrCSS(String.format("//td[contains(text(),'%s')]/..//i[contains(@class,'mdi-pencil')]", appTitle));
-  }
-
   private ElementFacade getActiveApplication(String appTitle) {
-    return findByXPathOrCSS(String.format("//*[contains(@class, 'tableAppTitle') and contains(text(),'%s')]/following::*[@class='v-input--selection-controls__input'][2]",
+    return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::tr//*[@class='v-input--selection-controls__input']",
                                           appTitle));
   }
 
-  private ElementFacade getActiveButton(String appTitle) {
-    return findByXPathOrCSS(String.format("(//td[contains(text(),'%s')]/..//input)[2]/..", appTitle));
+  private ElementFacade getApplicationImageInDrawer() {
+    return findByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(@class, 'v-image')]");
   }
 
-  private ElementFacade getApplicationImageInDrawer(String image) {
-    return findByXPathOrCSS(String.format("//*[@class='imageTitle' and contains(text(),'%s')]", image));
+  private ElementFacade getDeleteButton() {
+    return findByXPathOrCSS("//*[contains(@class, 'menuable__content__active')]//*[contains(@class, 'fa-trash')]");
   }
 
-  private ElementFacade getDeleteButton(String appTitle) {
-    return findByXPathOrCSS(String.format("//td[contains(text(),'%s')]//following::i[contains(@class,'mdi-delete')]", appTitle));
+  private ElementFacade getEditButton() {
+    return findByXPathOrCSS("//*[contains(@class, 'menuable__content__active')]//*[contains(@class, 'fa-edit')]");
   }
 
-  private ElementFacade getMandatoryApplication(String appTitle) {
-    return findByXPathOrCSS(String.format("//*[contains(@class, 'tableAppTitle') and contains(text(),'%s')]/following::*[@class='v-input--selection-controls__input'][1]",
-                                          appTitle));
+  private ElementFacade getMandatorySwitch() {
+    return findByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(), 'Mandatory')]/parent::*//*[@class='v-input--selection-controls__input']");
   }
 
-  private TextBoxElementFacade removeFileInApplicationDrawerButtonElement() {
-    return findTextBoxByXPathOrCSS("//*[contains(@class,'remove-file')]//i");
+  private ElementFacade getMandatorySwitchInput() {
+    return findByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(), 'Mandatory')]/parent::*//*[@class='v-input--selection-controls__input']//input");
   }
 
-  private ElementFacade saveAddApplicationButtonElement() {
-    return findByXPathOrCSS("//button[contains(@class,'applicationsActionBtn')][2]");
-  }
-
-  private ElementFacade addApplicationAFavoriteInApplicationCenter(String app) {
-    return findByXPathOrCSS(String.format("(//*[@class='authorisedAppContent']//*[contains (@class,'appTitle') and contains(text(),'%s')]/following::*[contains(@class, 'applicationActions')]//i[contains(@class, 'mdi-star')])[01]",
-                                          app));
-  }
-
-  private ElementFacade addToAppCenterFavoriteIsDisplayed(String app) {
-    return findByXPathOrCSS(String.format("//*[contains(@class, 'userAuthorizedApplications')]//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'v-card')]//i[contains(@class, 'mdi-star')]",
+  private ElementFacade getFavoriteButton(String app) {
+    return findByXPathOrCSS(String.format("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'appLauncherItemContainer')]//*[contains(@class, 'fa-star')]",
                                           app));
   }
 
   private ElementFacade disabledFavoriteIsDisplayed(String app) {
-    return findByXPathOrCSS(String.format("//*[contains(@class, 'userFavoriteApplications')]//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'v-card')]//i[contains(@class, 'mdi-star')]//ancestor::button[@disabled]",
+    return findByXPathOrCSS(String.format("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'appLauncherItemContainer')]//*[contains(@class, 'fa-star')]//ancestor::button[@disabled]",
                                           app));
-  }
-
-  private ElementFacade elementAppcenterSeeAllApplicationsElement() {
-    return findByXPathOrCSS("//*[contains(@class,'appCenterDrawer')]//*[contains(@href, 'appCenterUserSetup')]");
   }
 
   private ElementFacade elementApplicationsTopbarElement() {
     return findByXPathOrCSS("//*[@id='appcenterLauncherButton']");
   }
 
-  private ElementFacade getAppCenterAllApplicationsButton(String app) {
-    return findByXPathOrCSS(String.format("(//*[@class='authorisedAppContent']//*[contains (@class,'appTitle') and contains(text(),'%s')]/following::*[contains(@class, 'applicationActions')]//a)[01]",
+  private ElementFacade getApplicationsCard(String app) {
+    return findByXPathOrCSS(String.format("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'appLauncherItemContainer')]",
                                           app));
   }
 
   private ElementFacade getApplication(String appName) {
-    return findByXPathOrCSS(String.format("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(@class,'appLauncherTitle') and contains(text(),'%s')]", appName));
+    return findByXPathOrCSS(String.format("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(@class,'appLauncherTitle') and contains(text(),'%s')]",
+                                          appName));
   }
 
   private ElementFacade getApplicationInsideAppPage(String appName) {
-    return findByXPathOrCSS(String.format("//*[contains(@class,'authorizedApplication')]//*[contains(text(),'%s')]", appName));
+    return findByXPathOrCSS(String.format("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'appLauncherItemContainer')]",
+                                          appName));
   }
 
   private ElementFacade getFavoriteApplicationElement(String appName) {
-    return findByXPathOrCSS(String.format("//*[contains(@class,'favoriteApplication')]//*[contains(text(),'%s')]", appName));
+    return findByXPathOrCSS(String.format("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'appLauncherItemContainer')]//*[contains(@class, 'fa-star') and contains(@class, 'yellow--text')]",
+                                          appName));
   }
 
-  private ElementFacade removeFromAppCenterFavoriteIsDisplayed(String app) {
-    return findByXPathOrCSS(String.format("//*[contains(@class, 'userAuthorizedApplications')]//*[contains(text(),'%s')]//ancestor::*[contains(@class, 'v-card')]//i[contains(@class, 'mdi-star-outline')]",
-                                          app));
+  private ElementFacade getNonFavoriteApplicationElement(String appName) {
+    return findByXPathOrCSS(String.format("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'appLauncherItemContainer')]//*[contains(@class, 'fa-star') and not(contains(@class, 'yellow--text'))]",
+                                          appName));
   }
 
   private ElementFacade settingsPageElement() {
     return findByXPathOrCSS("//*[@class='drawer filterSpacesDrawer open']//*[@class='btn reset']");
   }
 
+  private ElementFacade editApplication(String appName) {
+    return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::tr//*[contains(@class, 'fa-ellipsis-v')]",
+                                          appName));
+  }
+
   private void searchAppByTitle(String appTitle) {
     refreshPage();
-    searchAppInputElement().setTextValue(appTitle);
+    searchAppInputElementInAdmin().setTextValue(appTitle);
     // when searching
     waitForSearchToComplete();
   }
@@ -481,12 +459,31 @@ public class ApplicationPage extends GenericPage {
     return findTextBoxByXPathOrCSS("//div[contains(@class,'appSearch')]//input");
   }
 
+  private TextBoxElementFacade searchAppInputElementInAdmin() {
+    return findTextBoxByXPathOrCSS("#applicationToolbarFilterInput");
+  }
+
+  private TextBoxElementFacade searchIconInput() {
+    return findTextBoxByXPathOrCSS("#nodeIconPickerDrawer input");
+  }
+
+  private ElementFacade iconCard() {
+    return findTextBoxByXPathOrCSS("#nodeIconPickerDrawer .v-card--link");
+  }
+  private ElementFacade iconSaveButton() {
+    return findTextBoxByXPathOrCSS("#nodeIconPickerDrawer .btn-primary");
+  }
+
   private TextBoxElementFacade titleAppInputElement() {
-    return findTextBoxByXPathOrCSS("//input[@name='title']");
+    return findTextBoxByXPathOrCSS("//input[@name='applicationName']");
+  }
+
+  private TextBoxElementFacade applicationDescriptionElement() {
+    return findTextBoxByXPathOrCSS("//input[@name='applicationDescription']");
   }
 
   private TextBoxElementFacade urlAppInputElement() {
-    return findTextBoxByXPathOrCSS("//input[@name='url']");
+    return findTextBoxByXPathOrCSS("//input[@name='applicationUrl']");
   }
 
   private void waitForSearchToComplete() {
