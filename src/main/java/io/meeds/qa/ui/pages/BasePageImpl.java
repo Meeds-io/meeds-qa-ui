@@ -359,6 +359,7 @@ public class BasePageImpl extends PageObject implements BasePage {
       inputField = inputField.findBy("input");
       inputField.checkVisible();
     }
+    inputField.setTextValue(" ");
     inputField.setTextValue(user + "x");
 
     boolean visible = false;
