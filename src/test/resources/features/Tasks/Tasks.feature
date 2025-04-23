@@ -457,7 +457,7 @@ Feature: Tasks
   Scenario: Check message when project title contains less than 3 characters
     Given I am authenticated as 'admin' random user
     And I go To AppCenter Drawer
-    And I open all application page
+    And I open all applications drawer
     When I go to 'tasks' in site 'mycraft'
     And I select projects tab
     And I click on add project button

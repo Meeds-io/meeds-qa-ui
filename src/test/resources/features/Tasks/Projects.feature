@@ -150,7 +150,7 @@ Feature: Tasks - Projects
     Given I am authenticated as 'admin' random user
     And I create a random space
     And I go To AppCenter Drawer
-    And I open all application page
+    And I open all applications drawer
     When I go to 'tasks' in site 'mycraft'
     And I select projects tab
     And I search for the created project
@@ -163,7 +163,7 @@ Feature: Tasks - Projects
     Given I am authenticated as 'admin' random user
     And I create a random space
     And I go To AppCenter Drawer
-    And I open all application page
+    And I open all applications drawer
     When I go to 'tasks' in site 'mycraft'
     And I select projects tab
     And I search for the created project

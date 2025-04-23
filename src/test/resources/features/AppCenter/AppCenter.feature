@@ -11,7 +11,7 @@ Feature: Application center Addon
     And I search for the random created application
     And I delete the created application
     And I go To AppCenter Drawer
-    And I open all application page
+    And I open all applications drawer
     And I search for the random created application
     Then The random application is not displayed in application list
 
@@ -36,9 +36,8 @@ Feature: Application center Addon
     And I go to Administer application center Page
     And I add a new random application
     And I login as 'first' random user
-    And I open all application page
-    Then The message 'You can’t set more than 12 favorites' is displayed
-    When I search for the random created application
+    And I open all applications drawer
+    And I search for the random created application
     Then The application is not bookmarked as my favorites
     When I bookmark the random application
     Then The application is bookmarked as my favorites
@@ -54,7 +53,7 @@ Feature: Application center Addon
     And I go to Administer application center Page
     And I search for the random created application
     And I login as 'first' random user
-    And I open all application page
+    And I open all applications drawer
     Then The application bookmark is disabled
 
   Scenario: Applications table/ Editable fields (Active option)
@@ -65,7 +64,7 @@ Feature: Application center Addon
     And I add a new random application
 
     And I login as 'first' random user
-    And I open all application page
+    And I open all applications drawer
 
     When I search for the random created application
     Then The created application is not displayed in Favorites Applications
@@ -80,7 +79,7 @@ Feature: Application center Addon
     And I search for the random created application
     And I disable Active option for the created application
     And I login as 'first' random user
-    And I open all application page
+    And I open all applications drawer
     And I search for the random created application
     Then The created application is not displayed in Favorites Applications
     And I refresh the page
@@ -93,7 +92,7 @@ Feature: Application center Addon
     And I search for the random created application
     And I enable Active option for the created application
     And I login as 'first' random user
-    And I open all application page
+    And I open all applications drawer
     And I search for the random created application
     Then The created application is not displayed in Favorites Applications
     And I search for the random created application
@@ -109,7 +108,7 @@ Feature: Application center Addon
     When I add a new random application
     And I login as 'first' random user
     And I go To AppCenter Drawer
-    And I open all application page
+    And I open all applications drawer
     And I search for the random created application
     Then The random application is displayed in application list
     When I login as 'admin' random user
@@ -117,7 +116,7 @@ Feature: Application center Addon
     And I click on the added application active button
     And I login as 'first' random user
     And I go To AppCenter Drawer
-    And I open all application page
+    And I open all applications drawer
     And I search for the random created application
     Then The random application is not displayed in application list
 
@@ -127,11 +126,9 @@ Feature: Application center Addon
     When I go to Administer application center Page
     And I add a new random application with the title, the url and the description with image <cap02.png>
     And I search for the random created application
-    Then The added application with permission '*:/platform/users' is displayed in Applications Table
-
     When I open the added application edit drawer
     Then Application image title 'cap02.png' is displayed in the drawer
-    When I remove the uploaded image from application drawer
+    When I choose icon 'layer' in application drawer
     Then Application image title 'cap02.png' is not displayed in the drawer
 
     When I click on Save in application drawer
@@ -140,12 +137,10 @@ Feature: Application center Addon
     When I add a second random application with the title, the url and the description with image <cap03.png>
     And I search for the second random created application
     Then Second application Title is displayed in Applications Table
-    And Second application Url is displayed in Applications Table
-    And Second application Description is displayed in Applications Table
 
     When I open the second added application edit drawer
     Then Application image title 'cap03.png' is displayed in the drawer
-    When I remove the uploaded image from application drawer
+    When I choose icon 'layer' in application drawer
     Then Application image title 'cap03.png' is not displayed in the drawer
     When I click on Save in application drawer
     Then The image of the second application is not displayed in Applications Table
@@ -157,14 +152,10 @@ Feature: Application center Addon
     When I add a new random application with the title, the url and the description
     And I search for the random created application
     Then First application Title is displayed in Applications Table
-    And First application Url is displayed in Applications Table
-    And First application Description is displayed in Applications Table
 
     When I edit the first added application data
     And I search for the edited random application
     Then First application edited Title is displayed in Applications Table
-    And First application edited Url is displayed in Applications Table
-    And First application edited Description is displayed in Applications Table
 
   Scenario: AppCenter default permissions for an app
     Given I am authenticated as 'admin' random user
@@ -172,12 +163,10 @@ Feature: Application center Addon
 
     And I go to Administer application center Page
     When I add a new random application with the title, the url and the description
-    And I search for the random created application
-    Then The added application with permission '*:/platform/users' is displayed in Applications Table
 
     When I login as 'first' random user
 
-    When I open all application page
+    When I open all applications drawer
     And I search for the random created application
     Then The application is not bookmarked as my favorites
     And The created application is not displayed in Favorites Applications

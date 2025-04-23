@@ -161,7 +161,7 @@ public class ApplicationStepDefinition {
     genericSteps.isPageOpened(uriPart);
   }
 
-  @When("I open all application page")
+  @When("I open all applications drawer")
   public void seeAllApplications() {
     applicationSteps.seeAllApplications();
   }

@@ -39,6 +39,7 @@ public class KudosPage extends GenericPage {
 
   public void addActivityKudosToSomeoneDifferent(String activity, String message, String user) {
     getKudosLink(activity).click();
+    waitCKEditorLoading("//*[@id='activityKudosDrawer']");
     deleteUserFromKudosButtonElement().click();
     mentionInField(userKudosInputElement(), user, 5);
     sendKudosMessageFromOpenedDrawer(message);
@@ -46,6 +47,7 @@ public class KudosPage extends GenericPage {
 
   public void attemptSendActivityKudosToSomeoneDifferent(String activity, String message, String user) {
     getKudosLink(activity).click();
+    waitCKEditorLoading("//*[@id='activityKudosDrawer']");
     deleteUserFromKudosButtonElement().click();
     mentionInField(userKudosInputElement(), user, 5);
     enterKudosMessageFromOpenedDrawer(message);
