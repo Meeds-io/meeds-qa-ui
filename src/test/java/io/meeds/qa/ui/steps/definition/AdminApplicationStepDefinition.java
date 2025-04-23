@@ -59,11 +59,6 @@ public class AdminApplicationStepDefinition {
     setCurrentlyTestingApplicationTitle(randomApplicationTitle);
   }
 
-  @Then("^Application Description '(.*)' is displayed in Applications Table$")
-  public void appDescriptionInApplicationsTableIsDisplayed(String appDescription) {
-    adminApplicationSteps.appDescriptionInApplicationsTableIsDisplayed(appDescription);
-  }
-
   @When("Edit application mandatory active and mobile are displayed in drawer")
   public void applicationDrawerEnabledButtonsAreIsDisplayed() {
     adminApplicationSteps.applicationDrawerEnabledButtonsAreIsDisplayed();
@@ -85,24 +80,9 @@ public class AdminApplicationStepDefinition {
     adminApplicationSteps.applicationDrawerTitleIsDisplayed(title);
   }
 
-  @When("Edit application url is displayed {string} in drawer")
-  public void applicationDrawerUrlIsDisplayed(String url) {
-    adminApplicationSteps.applicationDrawerUrlIsDisplayed(url);
-  }
-
-  @Then("^Application '(.*)' with permission '(.*)' is displayed in Applications Table$")
-  public void appPermissionInApplicationsTableIsDisplayed(String appTitle, String permission) {
-    adminApplicationSteps.appPermissionInApplicationsTableIsDisplayed(appTitle, permission);
-  }
-
   @Then("^Application Title '(.*)' is displayed in Applications Table$")
   public void appTitleInApplicationsTableIsDisplayed(String appTitle) {
     adminApplicationSteps.appTitleInApplicationsTableIsDisplayed(appTitle);
-  }
-
-  @Then("^Application Url '(.*)' is displayed in Applications Table$")
-  public void appUrlInApplicationsTableIsDisplayed(String appUrl) {
-    adminApplicationSteps.appUrlInApplicationsTableIsDisplayed(appUrl);
   }
 
   @Then("Delete popup is not displayed")
@@ -112,7 +92,7 @@ public class AdminApplicationStepDefinition {
 
   @Then("^Application image title '(.*)' is displayed in the drawer$")
   public void checkThatApplicationImageIsDisplayedInDrawer(String image) {
-    adminApplicationSteps.checkThatApplicationImageIsDisplayedInDrawer(image);
+    adminApplicationSteps.checkThatApplicationImageIsDisplayedInDrawer();
   }
 
   @Then("The image of the application is not displayed in Applications Table")
@@ -123,7 +103,7 @@ public class AdminApplicationStepDefinition {
 
   @Then("^Application image title '(.*)' is not displayed in the drawer$")
   public void checkThatApplicationImageIsNotDisplayedInDrawer(String image) {
-    adminApplicationSteps.checkThatApplicationImageIsNotDisplayedInDrawer(image);
+    adminApplicationSteps.checkThatApplicationImageIsNotDisplayedInDrawer();
   }
 
   @Then("The image of the second application is not displayed in Applications Table")
@@ -288,40 +268,16 @@ public class AdminApplicationStepDefinition {
 
   }
 
-  @Then("First application Description is displayed in Applications Table")
-  public void firstAppDescriptionInApplicationsTableIsDisplayed() {
-    String randomApplicationDescription = Serenity.sessionVariableCalled("randomApplicationDescription");
-    adminApplicationSteps.appDescriptionInApplicationsTableIsDisplayed(randomApplicationDescription);
-  }
-
-  @Then("First application edited Description is displayed in Applications Table")
-  public void firstAppEditedDescriptionInApplicationsTableIsDisplayed() {
-    String editedRandomApplicationDescription = Serenity.sessionVariableCalled("editedRandomApplicationDescription");
-    adminApplicationSteps.appDescriptionInApplicationsTableIsDisplayed(editedRandomApplicationDescription);
-  }
-
   @Then("First application edited Title is displayed in Applications Table")
   public void firstAppEditedTitleInApplicationsTableIsDisplayed() {
     String editedRandomApplicationTitle = Serenity.sessionVariableCalled("editedRandomApplicationTitle");
     adminApplicationSteps.appTitleInApplicationsTableIsDisplayed(editedRandomApplicationTitle);
   }
 
-  @Then("First application edited Url is displayed in Applications Table")
-  public void firstAppEditedUrlInApplicationsTableIsDisplayed() {
-    String editedRandomApplicationUrl = Serenity.sessionVariableCalled("editedRandomApplicationUrl");
-    adminApplicationSteps.appUrlInApplicationsTableIsDisplayed(editedRandomApplicationUrl);
-  }
-
   @Then("First application Title is displayed in Applications Table")
   public void firstAppTitleInApplicationsTableIsDisplayed() {
     String randomApplicationTitle = Serenity.sessionVariableCalled("randomApplicationTitle");
     adminApplicationSteps.appTitleInApplicationsTableIsDisplayed(randomApplicationTitle);
-  }
-
-  @Then("First application Url is displayed in Applications Table")
-  public void firstAppUrlInApplicationsTableIsDisplayed() {
-    String randomApplicationUrl = Serenity.sessionVariableCalled("randomApplicationUrl");
-    adminApplicationSteps.appUrlInApplicationsTableIsDisplayed(randomApplicationUrl);
   }
 
   @When("^I open '(.*)' edit drawer$")
@@ -341,15 +297,9 @@ public class AdminApplicationStepDefinition {
     adminApplicationSteps.goToEditTheApplication(secondRandomApplicationTitle);
   }
 
-  @Then("^The added application with permission '(.*)' is displayed in Applications Table$")
-  public void randomAppPermissionInApplicationsTableIsDisplayed(String permission) {
-    String randomApplicationTitle = Serenity.sessionVariableCalled("randomApplicationTitle");
-    adminApplicationSteps.appPermissionInApplicationsTableIsDisplayed(randomApplicationTitle, permission);
-  }
-
-  @When("^I remove the uploaded image from application drawer$")
-  public void removeFileFromApplicationDrawer() {
-    adminApplicationSteps.removeFileFromApplicationDrawer();
+  @When("I choose icon {string} in application drawer")
+  public void selectApplicationIconFromDrawer(String icon) {
+    adminApplicationSteps.selectApplicationIconFromDrawer(icon);
   }
 
   @When("^I search for application '(.*)'$")
@@ -357,22 +307,10 @@ public class AdminApplicationStepDefinition {
     adminApplicationSteps.searchApp(appTitle);
   }
 
-  @Then("Second application Description is displayed in Applications Table")
-  public void secondAppDescriptionInApplicationsTableIsDisplayed() {
-    String secondRandomApplicationDescription = Serenity.sessionVariableCalled("secondRandomApplicationDescription");
-    adminApplicationSteps.appDescriptionInApplicationsTableIsDisplayed(secondRandomApplicationDescription);
-  }
-
   @Then("Second application Title is displayed in Applications Table")
   public void secondAppTitleInApplicationsTableIsDisplayed() {
     String secondRandomApplicationTitle = Serenity.sessionVariableCalled("secondRandomApplicationTitle");
     adminApplicationSteps.appTitleInApplicationsTableIsDisplayed(secondRandomApplicationTitle);
-  }
-
-  @Then("Second application Url is displayed in Applications Table")
-  public void secondAppUrlInApplicationsTableIsDisplayed() {
-    String secondRandomApplicationUrl = Serenity.sessionVariableCalled("secondRandomApplicationUrl");
-    adminApplicationSteps.appUrlInApplicationsTableIsDisplayed(secondRandomApplicationUrl);
   }
 
   private void setCurrentlyTestingApplicationTitle(Map<String, String> appData) {
