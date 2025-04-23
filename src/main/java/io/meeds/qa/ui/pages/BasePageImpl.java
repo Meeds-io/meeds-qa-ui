@@ -360,6 +360,9 @@ public class BasePageImpl extends PageObject implements BasePage {
       inputField.checkVisible();
     }
     inputField.setTextValue(" ");
+    waitFor(50).milliseconds();
+    inputField.sendKeys(Keys.BACK_SPACE);
+    waitFor(50).milliseconds();
     inputField.setTextValue(user + "x");
 
     boolean visible = false;
