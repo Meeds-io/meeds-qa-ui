@@ -346,9 +346,6 @@ public class ApplicationPage extends GenericPage {
     return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::tr/td[1]//*[contains(@class, 'v-icon')]",
                                           appTitle));
   }
-  private ElementFacade myApplicationDrawerElement() {
-    return findByXPathOrCSS("//*[@id='appLauncher']");
-  }
 
   private ElementFacade closeDeletePopupButtonElement() {
     return findByXPathOrCSS(".v-dialog--active .uiIconClose");
