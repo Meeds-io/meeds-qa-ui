@@ -25,10 +25,6 @@ import io.meeds.qa.ui.pages.ApplicationPage;
 public class AdminApplicationSteps {
   private ApplicationPage applicationPage;
 
-  public void appDescriptionInApplicationsTableIsDisplayed(String appDescription) {
-    applicationPage.appDescriptionInApplicationsTableIsDisplayed(appDescription);
-  }
-
   public void applicationDrawerEnabledButtonsAreIsDisplayed() {
     applicationPage.applicationDrawerEnabledButtonsAreIsDisplayed();
   }
@@ -47,36 +43,24 @@ public class AdminApplicationSteps {
     applicationPage.applicationDrawerTitleIsDisplayed(title);
   }
 
-  public void applicationDrawerUrlIsDisplayed(String url) {
-    applicationPage.applicationDrawerUrlIsDisplayed(url);
-  }
-
-  public void appPermissionInApplicationsTableIsDisplayed(String appTitle, String permission) {
-    applicationPage.appPermissionInApplicationsTableIsDisplayed(appTitle, permission);
-  }
-
   public void appTitleInApplicationsTableIsDisplayed(String appTitle) {
     applicationPage.appTitleInApplicationsTableIsDisplayed(appTitle);
-  }
-
-  public void appUrlInApplicationsTableIsDisplayed(String appUrl) {
-    applicationPage.appUrlInApplicationsTableIsDisplayed(appUrl);
   }
 
   public void checkPopupDeleteNotVisible() {
     applicationPage.checkPopupDeleteNotVisible();
   }
 
-  public void checkThatApplicationImageIsDisplayedInDrawer(String image) {
-    applicationPage.checkThatApplicationImageIsDisplayedInDrawer(image);
+  public void checkThatApplicationImageIsDisplayedInDrawer() {
+    applicationPage.checkThatApplicationImageIsDisplayedInDrawer();
   }
 
   public void checkThatApplicationImageIsNotDisplayedInApplicationsTable(String appTitle) {
     applicationPage.checkThatApplicationImageIsNotDisplayedInApplicationsTable(appTitle);
   }
 
-  public void checkThatApplicationImageIsNotDisplayedInDrawer(String image) {
-    applicationPage.checkThatApplicationImageIsNotDisplayedInDrawer(image);
+  public void checkThatApplicationImageIsNotDisplayedInDrawer() {
+    applicationPage.checkThatApplicationImageIsNotDisplayedInDrawer();
   }
 
   public void clickActiveApp(String appName) {
@@ -174,12 +158,8 @@ public class AdminApplicationSteps {
     applicationPage.goToEditTheApplication(app);
   }
 
-  public boolean isAppExists(String appTitle) {
-    return applicationPage.isAppExists(appTitle);
-  }
-
-  public void removeFileFromApplicationDrawer() {
-    applicationPage.removeFileFromApplicationDrawer();
+  public void selectApplicationIconFromDrawer(String icon) {
+    applicationPage.selectApplicationIconFromDrawer(icon);
   }
 
   public void searchApp(String appTitle) {
