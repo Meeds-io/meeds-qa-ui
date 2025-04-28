@@ -130,6 +130,29 @@ public class ManageSpaceSteps {
                                                                 .catch(e => callback(String(e) + e?.stack));
                                                            """;
 
+  private static final String CLEAR_DEFAULT_SPACES             =
+                                                   """
+                                                        const callback = arguments[arguments.length - 1];
+                                                        fetch("/portal/rest/registration/settings", {
+                                                          "method": "GET",
+                                                          "credentials": "include"
+                                                        })
+                                                            .then(resp => resp.json())
+                                                            .then(settings => {
+                                                              settings.extraGroupIds = [];
+                                                              return fetch("/portal/rest/registration/settings", {
+                                                                "headers": {
+                                                                  "content-type": "application/json",
+                                                                },
+                                                                "body": JSON.stringify(settings),
+                                                                "method": "PUT",
+                                                                "credentials": "include"
+                                                              });
+                                                            })
+                                                            .then(() => callback(true))
+                                                            .catch(e => callback(String(e) + e?.stack));
+                                                       """;
+
   private HomePage            homePage;
 
   private ManageSpacesPage    manageSpacesPage;
@@ -427,6 +450,12 @@ public class ManageSpaceSteps {
 
   public void setSideBarDefaultMode() {
     String result = ((JavascriptExecutor) Serenity.getDriver()).executeAsyncScript(SET_SIDEBAR_DEFAULT_MODE)
+                                                               .toString();
+    assertEquals("true", result);
+  }
+
+  public void clearDefaultSpaces() {
+    String result = ((JavascriptExecutor) Serenity.getDriver()).executeAsyncScript(CLEAR_DEFAULT_SPACES)
                                                                .toString();
     assertEquals("true", result);
   }
