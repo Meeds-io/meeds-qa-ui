@@ -568,7 +568,7 @@ public class UserProfilePage extends GenericPage {
   }
 
   private ElementFacade saveWorkExperiencesElement() {
-    return findByXPathOrCSS("//*[contains(@class,'drawerFooter')]//button[contains(@class,'btn-primary')]");
+    return findByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(@class,'drawerFooter')]//button[contains(@class,'btn-primary')]");
   }
 
   private ElementFacade uiIconKudosElement() {

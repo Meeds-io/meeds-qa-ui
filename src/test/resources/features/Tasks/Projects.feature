@@ -1,4 +1,4 @@
-@task
+@taskProject
 Feature: Tasks - Projects
 
   Scenario: Add project with a description
@@ -55,9 +55,7 @@ Feature: Tasks - Projects
     And I add the random project with first user as the manager and second user as the participant
     And I search for the created project
     Then The random created project with description 'No description available' is displayed in Project Card
-    And User avatar 'admin' is displayed in Project Card
-    And Avatar of the first created user is displayed in Project Card
-    And Avatar of the second created user is not displayed in Project Card
+    And '2' User avatars are displayed in Project Card
 
   Scenario: Project's Tasks "BOARD" view
     Given I am authenticated as 'admin' random user

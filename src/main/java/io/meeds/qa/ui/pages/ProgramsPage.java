@@ -356,7 +356,7 @@ public class ProgramsPage extends GenericPage {
   }
 
   private ElementFacade addProgramBtnElement() {
-    return findByXPathOrCSS("//*[contains(text(), 'Add program')]//ancestor::*[contains(@class, 'btn-primary')]");
+    return findByXPathOrCSS("//*[contains(text(), 'Add campaign')]//ancestor::*[contains(@class, 'btn-primary')]");
   }
 
   private TextBoxElementFacade audienceSpaceFieldElement() {

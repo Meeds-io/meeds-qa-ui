@@ -252,7 +252,7 @@ public class RulePage extends GenericPage {
   }
 
   private ElementFacade addActionButton() {
-    return findByXPathOrCSS("//*[@id = 'engagementCenterProgramDetail']//*[contains(text(), 'Add Action') or contains(text(), 'Add action')]//ancestor::button");
+    return findByXPathOrCSS("//*[@id = 'engagementCenterProgramDetail']//*[contains(text(), 'Add Quest') or contains(text(), 'Add quest')]//ancestor::button");
   }
 
   private ButtonElementFacade ruleEventsMenuItem(String eventName) {
@@ -298,7 +298,7 @@ public class RulePage extends GenericPage {
   }
 
   private TextBoxElementFacade searchRulesFieldElement() {
-    return findTextBoxByXPathOrCSS("//input[@placeholder='Filter by action']");
+    return findTextBoxByXPathOrCSS("//input[@placeholder='Filter by quest']");
   }
 
   public ElementFacade actionInProgramDetailElement(String ruleTitle) {

@@ -13,7 +13,7 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
 
-    And I click on 'Add action' button
+    And I click on 'Add quest' button
     And I wait for drawer to open
     And I enter the rule title 'Send kudos 6'
     And I select a 'meeds' application
@@ -26,11 +26,11 @@ Feature: Achievements
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
-    Then Confirmation message is displayed 'Action has been successfully created'
+    Then Confirmation message is displayed 'Quest has been successfully created'
     When I close the notification
     Then The action 'Send kudos 6' is displayed in program detail
 
-    And I click on 'Add Action' button
+    And I click on 'Add Quest' button
     And I wait for drawer to open
     And I enter the rule title 'Receive kudos 6'
     And I select a 'meeds' application
@@ -43,12 +43,12 @@ Feature: Achievements
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
-    Then Confirmation message is displayed 'Action has been successfully created'
+    Then Confirmation message is displayed 'Quest has been successfully created'
     When I close the notification
     Then The action 'Receive kudos 6' is displayed in program detail
 
-    When I click on 'Activate the program' button
-    Then Confirmation message is displayed 'Program activated'
+    When I click on 'Activate the campaign' button
+    Then Confirmation message is displayed 'Campaign activated'
     And I close the notification
 
     When I inject the fisrtachievement random user if not existing, no wait
@@ -95,7 +95,7 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
 
-    And I click on 'Add action' button
+    And I click on 'Add quest' button
     And I wait for drawer to open
     And I enter the rule title 'Send kudos 86'
     And I select a 'meeds' application
@@ -108,11 +108,11 @@ Feature: Achievements
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
-    Then Confirmation message is displayed 'Action has been successfully created'
+    Then Confirmation message is displayed 'Quest has been successfully created'
     When I close the notification
     Then The action 'Send kudos 86' is displayed in program detail
 
-    When I click on 'Add Action' button
+    When I click on 'Add Quest' button
     And I wait for drawer to open
     And I enter the rule title 'Receive kudos 86'
     And I select a 'meeds' application
@@ -125,12 +125,12 @@ Feature: Achievements
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
-    Then Confirmation message is displayed 'Action has been successfully created'
+    Then Confirmation message is displayed 'Quest has been successfully created'
     When I close the notification
     Then The action 'Receive kudos 86' is displayed in program detail
 
-    When I click on 'Activate the program' button
-    Then Confirmation message is displayed 'Program activated'
+    When I click on 'Activate the campaign' button
+    Then Confirmation message is displayed 'Campaign activated'
     And I close the notification
 
     When I inject the thirdachievement random user if not existing, no wait
@@ -171,7 +171,7 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
 
-    And I click on 'Add action' button
+    And I click on 'Add quest' button
     And I wait for drawer to open
     And I enter the rule title 'Join space'
     And I select a 'meeds' application
@@ -187,12 +187,12 @@ Feature: Achievements
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
-    Then Confirmation message is displayed 'Action has been successfully created'
+    Then Confirmation message is displayed 'Quest has been successfully created'
     When I close the notification
     Then The action 'Join space' is displayed in program detail
 
-    When I click on 'Activate the program' button
-    Then Confirmation message is displayed 'Program activated'
+    When I click on 'Activate the campaign' button
+    Then Confirmation message is displayed 'Campaign activated'
     And I close the notification
 
     When I login as 'fifthachievement' random user
@@ -259,7 +259,7 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
 
-    And I click on 'Add action' button
+    And I click on 'Add quest' button
     And I wait for drawer to open
     And I enter the rule title 'Join space'
     And I select a 'meeds' application
@@ -273,7 +273,7 @@ Feature: Achievements
     And I click on 'Add' button in drawer
     And I close the notification
 
-    And I click on 'Add Action' button
+    And I click on 'Add Quest' button
     And I wait for drawer to open
     And I enter the rule title 'Announce an achievement'
     And I select a 'manual' application
@@ -285,7 +285,7 @@ Feature: Achievements
     And I click on 'Add' button in drawer
     And I close the notification
 
-    When I click on 'Activate the program' button
+    When I click on 'Activate the campaign' button
     And I close the notification
 
     When I login as 'ninethachievement' random user
@@ -369,7 +369,7 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
 
-    When I click on 'Add action' button
+    When I click on 'Add quest' button
     And I wait for drawer to open
     And I enter the rule title 'Post activity in a space'
     And I select a 'meeds' application
@@ -382,12 +382,12 @@ Feature: Achievements
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
-    Then Confirmation message is displayed 'Action has been successfully created'
+    Then Confirmation message is displayed 'Quest has been successfully created'
     When I close the notification
     Then The action 'Post activity in a space' is displayed in program detail
 
-    When I click on 'Activate the program' button
-    Then Confirmation message is displayed 'Program activated'
+    When I click on 'Activate the campaign' button
+    Then Confirmation message is displayed 'Campaign activated'
     And I close the notification
 
     When I login as 'seventhachievement' random user
@@ -418,7 +418,7 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
 
-    When I click on 'Add action' button
+    When I click on 'Add quest' button
     And I wait for drawer to open
     And I enter the rule title 'Comment activity in space'
     And I select a 'meeds' application
@@ -431,11 +431,11 @@ Feature: Achievements
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
-    Then Confirmation message is displayed 'Action has been successfully created'
+    Then Confirmation message is displayed 'Quest has been successfully created'
     When I close the notification
     Then The action 'Comment activity in space' is displayed in program detail
 
-    When I click on 'Add Action' button
+    When I click on 'Add Quest' button
     And I wait for drawer to open
     And I enter the rule title 'Receive comment activity in space'
     And I select a 'meeds' application
@@ -448,12 +448,12 @@ Feature: Achievements
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
-    Then Confirmation message is displayed 'Action has been successfully created'
+    Then Confirmation message is displayed 'Quest has been successfully created'
     When I close the notification
     Then The action 'Receive comment activity in space' is displayed in program detail
 
-    When I click on 'Activate the program' button
-    Then Confirmation message is displayed 'Program activated'
+    When I click on 'Activate the campaign' button
+    Then Confirmation message is displayed 'Campaign activated'
     And I close the notification
 
     When I login as 'seventhachievement' random user
@@ -489,7 +489,7 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
 
-    When I click on 'Add action' button
+    When I click on 'Add quest' button
     And I wait for drawer to open
     And I enter the rule title 'Like activity in space'
     And I select a 'meeds' application
@@ -502,11 +502,11 @@ Feature: Achievements
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
-    Then Confirmation message is displayed 'Action has been successfully created'
+    Then Confirmation message is displayed 'Quest has been successfully created'
     When I close the notification
     Then The action 'Like activity in space' is displayed in program detail
 
-    When I click on 'Add Action' button
+    When I click on 'Add Quest' button
     And I wait for drawer to open
     And I enter the rule title 'Receive activity like in space'
     And I select a 'meeds' application
@@ -519,12 +519,12 @@ Feature: Achievements
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
-    Then Confirmation message is displayed 'Action has been successfully created'
+    Then Confirmation message is displayed 'Quest has been successfully created'
     When I close the notification
     Then The action 'Receive activity like in space' is displayed in program detail
 
-    When I click on 'Activate the program' button
-    Then Confirmation message is displayed 'Program activated'
+    When I click on 'Activate the campaign' button
+    Then Confirmation message is displayed 'Campaign activated'
     And I close the notification
 
     When I login as 'seventhachievement' random user
@@ -561,7 +561,7 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
 
-    When I click on 'Add action' button
+    When I click on 'Add quest' button
     And I wait for drawer to open
     And I enter the rule title 'Like stream comment in space'
     And I select a 'meeds' application
@@ -574,11 +574,11 @@ Feature: Achievements
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
-    Then Confirmation message is displayed 'Action has been successfully created'
+    Then Confirmation message is displayed 'Quest has been successfully created'
     When I close the notification
     Then The action 'Like stream comment in space' is displayed in program detail
 
-    When I click on 'Add Action' button
+    When I click on 'Add Quest' button
     And I wait for drawer to open
     And I enter the rule title 'Receive Like on stream comment in space'
     And I select a 'meeds' application
@@ -591,12 +591,12 @@ Feature: Achievements
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
-    Then Confirmation message is displayed 'Action has been successfully created'
+    Then Confirmation message is displayed 'Quest has been successfully created'
     When I close the notification
     Then The action 'Receive Like on stream comment in space' is displayed in program detail
 
-    When I click on 'Activate the program' button
-    Then Confirmation message is displayed 'Program activated'
+    When I click on 'Activate the campaign' button
+    Then Confirmation message is displayed 'Campaign activated'
     And I close the notification
 
     When I login as 'seventhachievement' random user
@@ -635,7 +635,7 @@ Feature: Achievements
     And I add an audience space
     And I save the program details
 
-    And I click on 'Add action' button
+    And I click on 'Add quest' button
     And I wait for drawer to open
     And I enter the rule title 'Space Join'
     And I select a 'meeds' application
@@ -648,12 +648,12 @@ Feature: Achievements
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
-    Then Confirmation message is displayed 'Action has been successfully created'
+    Then Confirmation message is displayed 'Quest has been successfully created'
     When I close the notification
     Then The action 'Space Join' is displayed in program detail
 
-    When I click on 'Activate the program' button
-    Then Confirmation message is displayed 'Program activated'
+    When I click on 'Activate the campaign' button
+    Then Confirmation message is displayed 'Campaign activated'
     And I close the notification
 
     When I login as 'eighthachievement' random user

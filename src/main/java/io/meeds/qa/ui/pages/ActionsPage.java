@@ -95,7 +95,7 @@ public class ActionsPage extends GenericPage {
     actionDrawerThreeDots.assertVisible();
     actionDrawerThreeDots.click();
     waitFor(200).milliseconds(); // Wait for animation
-    clickLink("Open action");
+    clickLink("Open quest");
     waitForLoading();
   }
 

@@ -36,10 +36,10 @@ Feature: Programs
     Then The button 'Create' is enabled in drawer
 
     When I save the program details
-    Then Confirmation message is displayed 'New program created successfully'
+    Then Confirmation message is displayed 'New campaign created successfully'
 
     When I close the notification
-    Then The button 'Activate the program' is not displayed
+    Then The button 'Activate the campaign' is not displayed
 
     When I edit the program from detail
     And I click on 'Next' button in drawer
@@ -90,10 +90,10 @@ Feature: Programs
     When I enable the switch button 'All'
     And I click on 'Create' button in drawer
 
-    Then Confirmation message is displayed 'New program created successfully'
+    Then Confirmation message is displayed 'New campaign created successfully'
 
     When I close the notification
-    And I click on 'Add action' button
+    And I click on 'Add quest' button
     And I wait for drawer to open
     When I enter the rule title 'Program Translation Action'
     Then The 'first' translations button is not primary
@@ -120,7 +120,7 @@ Feature: Programs
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
-    And I click on 'Activate the program' button
+    And I click on 'Activate the campaign' button
     Then Success message is displayed
     When I close the notification
 
@@ -159,7 +159,7 @@ Feature: Programs
 
     Then The program is displayed with specific cover
 
-    And I click on 'Add action' button
+    And I click on 'Add quest' button
     And I wait for drawer to open
     When I enter the rule title 'Program With Image Action'
     And I select a 'manual' application
@@ -219,7 +219,7 @@ Feature: Programs
     Then Success message is displayed
     When I close the notification
 
-    And I click on 'Add action' button
+    And I click on 'Add quest' button
     And I wait for drawer to open
     When I enter the rule title 'Internal users action'
     And I select a 'manual' application
@@ -234,7 +234,7 @@ Feature: Programs
     Then Success message is displayed
     When I close the notification
 
-    And I click on 'Activate the program' button
+    And I click on 'Activate the campaign' button
     Then Success message is displayed
     When I close the notification
 
@@ -274,7 +274,7 @@ Feature: Programs
     Then Success message is displayed
     And I close the notification
 
-  Scenario: Can't Activate program when no active action
+  Scenario: Can't Activate program when no active quest
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
     And I join the random space
@@ -286,12 +286,12 @@ Feature: Programs
     And I click on 'Next' button in drawer
     And I add an audience space
     And I save the program details
-    Then Confirmation message is displayed 'New program created successfully'
+    Then Confirmation message is displayed 'New campaign created successfully'
 
     When I close the notification
-    Then The button 'Activate the program' is not displayed
+    Then The button 'Activate the campaign' is not displayed
 
-    And I click on 'Add action' button
+    And I click on 'Add quest' button
     And I wait for drawer to open
     Then The button 'Start' is disabled
     When I enter the rule title 'Program activation test'
@@ -306,32 +306,32 @@ Feature: Programs
     Then The button 'Add' is enabled
     And I click on 'Add' button in drawer
 
-    Then Confirmation message is displayed 'Action has been successfully created'
+    Then Confirmation message is displayed 'Quest has been successfully created'
 
     When I close the notification
-    Then The button 'Activate the program' is displayed
+    Then The button 'Activate the campaign' is displayed
 
-    When I click on 'Activate the program' button
-    Then Confirmation message is displayed 'Program activated'
+    When I click on 'Activate the campaign' button
+    Then Confirmation message is displayed 'Campaign activated'
     And I close the notification
 
     When I disable program action 'Program activation test'
-    Then Confirmation message is displayed 'Action status successfully updated'
+    Then Confirmation message is displayed 'Quest status successfully updated'
     And I close the notification
 
-    Then The button 'Activate the program' is not displayed
-    And The message 'No active action' is displayed
+    Then The button 'Activate the campaign' is not displayed
+    And The message 'No active quest' is displayed
 
     When I filter program actions by value 'ALL'
     And I enable program action 'Program activation test'
-    Then The button 'Activate the program' is displayed
+    Then The button 'Activate the campaign' is displayed
 
-    When I click on 'Activate the program' button
-    Then Confirmation message is displayed 'Program activated'
+    When I click on 'Activate the campaign' button
+    Then Confirmation message is displayed 'Campaign activated'
     And I close the notification
 
-    Then The button 'Activate the program' is not displayed
-    And The message 'No active action' is not displayed
+    Then The button 'Activate the campaign' is not displayed
+    And The message 'No active quest' is not displayed
 
     When I delete program action 'Program activation test'
 
@@ -347,7 +347,7 @@ Feature: Programs
     And I click on 'Next' button in drawer
     And I add an audience space
     And I save the program details
-    Then Confirmation message is displayed 'New program created successfully'
+    Then Confirmation message is displayed 'New campaign created successfully'
 
     When I close the notification
     And I click on go back button
@@ -355,7 +355,7 @@ Feature: Programs
     Then The program title should be displayed on the card
 
     When I change the created program with a random description
-    Then Confirmation message is displayed 'Program successfully updated'
+    Then Confirmation message is displayed 'Campaign successfully updated'
 
     When I close the notification
     And I filter programs by value 'DISABLED'
@@ -373,7 +373,7 @@ Feature: Programs
     And I click on 'Next' button in drawer
     And I add an audience space
     And I save the program details
-    Then Confirmation message is displayed 'New program created successfully'
+    Then Confirmation message is displayed 'New campaign created successfully'
 
     When I close the notification
     And I go to 'programs' in site 'contribute'
@@ -381,7 +381,7 @@ Feature: Programs
     Then The program title should be displayed on the card
 
     When I delete the created program
-    Then Confirmation message is displayed 'Program has been successfully removed'
+    Then Confirmation message is displayed 'Campaign has been successfully removed'
 
     When I close the notification
     And I filter programs by value 'ALL'
