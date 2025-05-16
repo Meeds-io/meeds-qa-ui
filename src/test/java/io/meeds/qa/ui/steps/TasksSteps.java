@@ -838,6 +838,10 @@ public class TasksSteps {
     tasksPage.userAvatarIsDisplayedInProjectCard(userName);
   }
 
+  public void countUserAvatarsInProjectCard(int count) {
+    tasksPage.countUserAvatarsInProjectCard(count);
+  }
+
   public void userAvatarIsNotDisplayedInProjectCard(String userName) {
     tasksPage.userAvatarIsNotDisplayedInProjectCard(userName);
   }
