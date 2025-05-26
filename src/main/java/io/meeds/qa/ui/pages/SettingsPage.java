@@ -61,19 +61,11 @@ public class SettingsPage extends GenericPage {
   }
 
   public void cancelEditLanguage() {
-    // Cancel editing language
-    ElementFacade cancelChangeLanguageButtonElement = cancelChangeLanguageButtonElement();
-    cancelChangeLanguageButtonElement.waitUntilClickable();
-    cancelChangeLanguageButtonElement.click();
-    waitForDrawerToClose();
+    clickCancelInDrawerButton();
   }
 
   public void cancelEditPassword() {
-    // Cancel editing password
-    ElementFacade cancelEditPasswordElement = cancelEditPasswordElement();
-    cancelEditPasswordElement.waitUntilClickable();
-    cancelEditPasswordElement.click();
-
+    clickCancelInDrawerButton();
   }
 
   public void checkThatActivityStreamSectionIsDisplayed() {
@@ -313,10 +305,6 @@ public class SettingsPage extends GenericPage {
     return findByXPathOrCSS("(//button[@class='btn btn-primary v-btn v-btn--contained theme--light v-size--default']//*[@class='v-btn__content'])[1]");
   }
 
-  private ElementFacade cancelChangeLanguageButtonElement() {
-    return findByXPathOrCSS("(//button[@class='btn me-2 v-btn v-btn--contained theme--light v-size--default']//*[@class='v-btn__content'])[1]");
-  }
-
   private ElementFacade cancelEditPasswordElement() {
     return findByXPathOrCSS("(//input[@type='password'])[3]/following::*[@class='v-btn__content'][1]");
   }
@@ -419,6 +407,11 @@ public class SettingsPage extends GenericPage {
 
   private TextBoxElementFacade oldPasswordElement() {
     return findTextBoxByXPathOrCSS("(//input[@type='password'])[1]");
+  }
+
+  private void clickCancelInDrawerButton() {
+    clickDrawerButton("Cancel");
+    waitForDrawerToClose();
   }
 
   public enum mailSendingType {

@@ -14,7 +14,7 @@ Feature: Actions
     And I add an audience space
     And I save the program details
 
-    And I click on 'Add action' button
+    And I click on 'Add quest' button
     And I wait for drawer to open
 
     Then The button 'Start' is disabled in drawer
@@ -35,11 +35,11 @@ Feature: Actions
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
-    Then Confirmation message is displayed 'Action has been successfully created'
+    Then Confirmation message is displayed 'Quest has been successfully created'
     When I close the notification
     Then The action 'Challenge to announce' is displayed in program detail
-    When I click on 'Activate the program' button
-    Then Confirmation message is displayed 'Program activated'
+    When I click on 'Activate the campaign' button
+    Then Confirmation message is displayed 'Campaign activated'
 
     When I close the notification
 
@@ -80,37 +80,6 @@ Feature: Actions
     Then The program action does not contain duration limitation
     And I close the opened drawer
 
-  Scenario: Cannot Announce a disabled challenge
-    Given I am authenticated as 'admin' random user
-    And I inject a random space
-
-    And I go to 'programs' in site 'contribute'
-    And I click on the button add program
-    And I enter a random program title
-    And I add program with random description
-    And I click on 'Next' button in drawer
-    And I add an audience space
-    And I save the program details
-
-    And I click on 'Add action' button
-    And I wait for drawer to open
-
-    When I enter the rule title 'Challenge to disable'
-    And I select a 'manual' application
-    Then The button 'Start' is enabled in drawer
-
-    When I click on 'Start' button in drawer
-    And I add rule random description
-    Then The button 'Next' is enabled in drawer
-
-    And I click on 'Next' button in drawer
-    And I set rule end date
-    And I click on 'Next' button in drawer
-    And I click on 'Next' button in drawer
-    And I click on 'Add' button in drawer
-
-    Then Confirmation message is displayed 'Action has been successfully created'
-
   Scenario: Announce an action from its activity
     Given I am authenticated as 'admin' random user
     And I inject the random space
@@ -123,7 +92,7 @@ Feature: Actions
     And I add an audience space
     And I save the program details
 
-    And I click on 'Add action' button
+    And I click on 'Add quest' button
     And I wait for drawer to open
 
     When I enter the rule title 'Announce an action from its activity'
@@ -140,12 +109,12 @@ Feature: Actions
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
-    Then Confirmation message is displayed 'Action has been successfully created'
+    Then Confirmation message is displayed 'Quest has been successfully created'
     When I close the notification
 
     Then The action 'Announce an action from its activity' is displayed in program detail
-    When I click on 'Activate the program' button
-    Then Confirmation message is displayed 'Program activated'
+    When I click on 'Activate the campaign' button
+    Then Confirmation message is displayed 'Campaign activated'
     When I close the notification
 
     When I go to the random space
@@ -160,7 +129,7 @@ Feature: Actions
     And I enable rule publication
     And I set rule publication message 'Action publication message'
     And I click on 'Update' button in drawer
-    Then Confirmation message is displayed 'Action has been successfully updated'
+    Then Confirmation message is displayed 'Quest has been successfully updated'
     When I close the notification
 
     When I go to the random space
@@ -227,7 +196,7 @@ Feature: Actions
 
     When I go to 'programs' in site 'contribute'
     And I open random program card
-    And I click on 'Add Action' button
+    And I click on 'Add Quest' button
     And I wait for drawer to open
 
     When I enter the rule title 'Action with second activity'
@@ -240,7 +209,7 @@ Feature: Actions
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
-    Then Confirmation message is displayed 'Action has been successfully created'
+    Then Confirmation message is displayed 'Quest has been successfully created'
     And I close the notification
 
     When I go to the random space
@@ -259,7 +228,7 @@ Feature: Actions
     And I add an audience space
     And I save the program details
 
-    And I click on 'Add action' button
+    And I click on 'Add quest' button
     And I wait for drawer to open
 
     When I enter the rule title 'Challenge to disable'
@@ -278,17 +247,17 @@ Feature: Actions
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
-    Then Confirmation message is displayed 'Action has been successfully created'
+    Then Confirmation message is displayed 'Quest has been successfully created'
 
     When I close the notification
     Then The action 'Challenge to disable' is displayed in program detail
-    When I click on 'Activate the program' button
-    Then Confirmation message is displayed 'Program activated'
+    When I click on 'Activate the campaign' button
+    Then Confirmation message is displayed 'Campaign activated'
 
     When I close the notification
 
     When I disable program action 'Challenge to disable'
-    Then Confirmation message is displayed 'Action status successfully updated'
+    Then Confirmation message is displayed 'Quest status successfully updated'
 
     When I close the notification
     Then The action 'Challenge to disable' is not displayed in program detail
@@ -311,7 +280,7 @@ Feature: Actions
     And I add an audience space
     And I save the program details
 
-    And I click on 'Add action' button
+    And I click on 'Add quest' button
     And I wait for drawer to open
     And I enter the rule title 'Announce activity to delete'
     And I select a 'manual' application
@@ -325,11 +294,11 @@ Feature: Actions
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
-    Then Confirmation message is displayed 'Action has been successfully created'
+    Then Confirmation message is displayed 'Quest has been successfully created'
     When I close the notification
     Then The action 'Announce activity to delete' is displayed in program detail
-    When I click on 'Activate the program' button
-    Then Confirmation message is displayed 'Program activated'
+    When I click on 'Activate the campaign' button
+    Then Confirmation message is displayed 'Campaign activated'
 
     When I close the notification
 
@@ -370,7 +339,7 @@ Feature: Actions
     And I add an audience space
     And I save the program details
 
-    And I click on 'Add action' button
+    And I click on 'Add quest' button
     And I wait for drawer to open
     And I enter the rule title 'Top challenge'
     And I select a 'manual' application
@@ -384,16 +353,16 @@ Feature: Actions
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
-    Then Confirmation message is displayed 'Action has been successfully created'
+    Then Confirmation message is displayed 'Quest has been successfully created'
 
     When I close the notification
     Then The action 'Top challenge' is displayed in program detail
 
-    When I click on 'Activate the program' button
-    Then Confirmation message is displayed 'Program activated'
+    When I click on 'Activate the campaign' button
+    Then Confirmation message is displayed 'Campaign activated'
 
     When I close the notification
-    Then The button 'Activate the program' is not displayed
+    Then The button 'Activate the campaign' is not displayed
 
     When I login as 'first' random user
     And I go to the random space
