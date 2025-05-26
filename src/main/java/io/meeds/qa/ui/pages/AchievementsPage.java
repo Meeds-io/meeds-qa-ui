@@ -230,7 +230,7 @@ public class AchievementsPage extends GenericPage {
   }
 
   private TextBoxElementFacade achievementsFilterProgramSuggester() {
-    return findTextBoxByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(text(), 'Program')]/parent::*//*[contains(@class, 'identitySuggesterInputStyle')]//input[@type = 'text']");
+    return findTextBoxByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(text(), 'Campaign')]/parent::*//*[contains(@class, 'identitySuggesterInputStyle')]//input[@type = 'text']");
   }
 
   private TextBoxElementFacade achievementsFilterUserSuggester() {

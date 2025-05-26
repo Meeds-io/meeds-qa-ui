@@ -1145,6 +1145,10 @@ public class TasksPage extends GenericPage {
     }
   }
 
+  public void countUserAvatarsInProjectCard(int count) {
+    assertEquals(count, countProjectCardUserAvatars());
+  }
+
   public void userAvatarIsDisplayedInProjectCard(String userName) {
     getProjectCardUserAvatar(userName).assertVisible();
   }
@@ -1447,6 +1451,10 @@ public class TasksPage extends GenericPage {
   private ElementFacade getProjectCardUserAvatar(String userName) {
     return findByXPathOrCSS(
                             String.format("//*[contains(@id,'userAvatar') and contains(@aria-label,'%s')]", userName));
+  }
+
+  private int countProjectCardUserAvatars() {
+    return findAll("//*[contains(@class,'managerAvatarsList')]//button[contains(@id,'userAvatar')]").size();
   }
 
   private ElementFacade getRemoveLabelButton(String label) {

@@ -1062,8 +1062,10 @@ public class TasksStepDefinition {
 
   @Then("^Avatar of the first created user is displayed in Project Card$")
   public void randomUserAvatarIsDisplayedInProjectCard() {
-    String firstUserName = Serenity.sessionVariableCalled("firstUserName");
-    tasksSteps.userAvatarIsDisplayedInProjectCard(firstUserName);
+    String firstUserFirstName = Serenity.sessionVariableCalled("firstUserFirstName");
+    String firstUserLastName = Serenity.sessionVariableCalled("firstUserLastName");
+    String fullName = firstUserFirstName + " " + firstUserLastName;
+    tasksSteps.userAvatarIsDisplayedInProjectCard(fullName);
   }
 
   @When("^Next to max chars number a red information icon is displayed$")
@@ -1251,7 +1253,15 @@ public class TasksStepDefinition {
 
   @Then("^User avatar '(.*)' is displayed in Project Card$")
   public void userAvatarIsDisplayedInProjectCard(String userName) {
-    tasksSteps.userAvatarIsDisplayedInProjectCard(userName);
+    String firstName = Serenity.sessionVariableCalled("adminUserFirstName");
+    String lastName = Serenity.sessionVariableCalled("adminUserLastName");
+    String fullName = firstName + " " + lastName;
+    tasksSteps.userAvatarIsDisplayedInProjectCard(fullName);
+  }
+
+  @Then("^'(.*)' User avatars are displayed in Project Card$")
+  public void userAvatarIsDisplayedInProjectCard(int count) {
+    tasksSteps.countUserAvatarsInProjectCard(count);
   }
 
   @Then("^User avatar '(.*)' is not displayed in Project Card$")

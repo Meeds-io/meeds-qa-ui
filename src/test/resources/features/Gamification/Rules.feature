@@ -13,7 +13,7 @@ Feature: Rules
     And I add an audience space
     And I save the program details
 
-    And I click on 'Add action' button
+    And I click on 'Add quest' button
     And I wait for drawer to open
     And I enter the rule title 'Receive kudos'
     And I select a 'meeds' application
@@ -25,7 +25,7 @@ Feature: Rules
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
-    Then Confirmation message is displayed 'Action has been successfully created'
+    Then Confirmation message is displayed 'Quest has been successfully created'
 
     When I close the notification
     And The action 'Receive kudos' is displayed in program detail
@@ -36,7 +36,7 @@ Feature: Rules
     When I clear rules search filter
     Then The action 'Receive kudos' is displayed in program detail
 
-  Scenario: Space host can add action in program
+  Scenario: Space host can Add Quest in program
     Given I am authenticated as 'admin' random user
     And I inject the random space
     And I inject the firstrule random user if not existing, no wait
@@ -62,7 +62,7 @@ Feature: Rules
     And I filter programs by value 'ALL'
     And I open 'Test Rule Space Host' program card
 
-    And I click on 'Add Action' button
+    And I click on 'Add Quest' button
     And I wait for drawer to open
     And I enter the rule title 'Join space'
     And I select a 'meeds' application
@@ -74,13 +74,13 @@ Feature: Rules
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
-    Then Confirmation message is displayed 'Action has been successfully created'
+    Then Confirmation message is displayed 'Quest has been successfully created'
 
     When I close the notification
     Then The action 'Join space' is displayed in program detail
-    And The button 'Activate the program' is displayed
+    And The button 'Activate the campaign' is displayed
 
-  Scenario: Space member as program owner can add action
+  Scenario: Space member as program owner can Add Quest
     Given I am authenticated as 'admin' random user
     And I inject the random space
     And I inject the secondrule random user if not existing, no wait
@@ -103,7 +103,7 @@ Feature: Rules
     And I filter programs by value 'ALL'
     Then I open 'Test Rule Program Owner' program card
 
-    When I click on 'Add Action' button
+    When I click on 'Add Quest' button
     And I wait for drawer to open
     And I enter the rule title 'Join space'
     And I select a 'meeds' application
@@ -115,7 +115,7 @@ Feature: Rules
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
-    Then Confirmation message is displayed 'Action has been successfully created'
+    Then Confirmation message is displayed 'Quest has been successfully created'
 
     When I close the notification
     Then The action 'Join space' is displayed in program detail

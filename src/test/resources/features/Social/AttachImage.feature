@@ -164,7 +164,7 @@ Feature: Attach images activities
     And I add an audience space
     And I save the program details
 
-    And I click on 'Add action' button
+    And I click on 'Add quest' button
     And I wait for drawer to open
 
     When I enter the rule title 'Announce an action with attached image'
@@ -181,12 +181,12 @@ Feature: Attach images activities
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
-    Then Confirmation message is displayed 'Action has been successfully created'
+    Then Confirmation message is displayed 'Quest has been successfully created'
     When I close the notification
 
     Then The action 'Announce an action with attached image' is displayed in program detail
-    When I click on 'Activate the program' button
-    Then Confirmation message is displayed 'Program activated'
+    When I click on 'Activate the campaign' button
+    Then Confirmation message is displayed 'Campaign activated'
     And I close the notification
 
     When I go to the random space
@@ -203,10 +203,10 @@ Feature: Attach images activities
     And I attach an image to the program action
     And I wait for '3' seconds
     And I click on 'Update' button in drawer
-    Then Confirmation message is displayed 'Action has been successfully updated'
+    Then Confirmation message is displayed 'Quest has been successfully updated and published'
     And I close the notification
     Then The action 'Announce an action with attached image' is displayed in program detail
-    And I wait for '1' seconds
+    And I wait for '3' seconds
 
     When I go to the random space
     Then The activity 'Announce an action with attached image' is displayed
