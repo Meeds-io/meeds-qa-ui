@@ -295,10 +295,26 @@ public class HomePage extends GenericPage {
     goToPageWithLink("/mycraft/dashboard", true);
   }
 
+  public void goToProgramsPage() {
+    goToPageWithLink("/mycraft/contributions/programs", true);
+  }
+
+  public void goMyAchievementsPage() {
+    goToPageWithLink("/mycraft/contributions/achievements#yours", true);
+  }
+
   public void hoverOnPageHomeIcon(String pageName) {
     waitFor(300).milliseconds(); // Wait until drawer 'open' animation finishes
     hamburgerMenuItemByName(pageName).assertVisible();
     hamburgerMenuItemByName(pageName).hover();
+  }
+
+  public void goToContributePage() {
+    closeAllDrawers();
+    if (!getStickiedHamburgerMenuParent().isCurrentlyVisible()) {
+      clickOnHamburgerMenu(true);
+    }
+    contributePageBtnElement().click();
   }
 
   public void hoverSearchedSpaceInSideBarFilter(String space) {
@@ -759,6 +775,10 @@ public class HomePage extends GenericPage {
 
   private ElementFacade homePageLinkElement() {
     return findByXPathOrCSS("//*[contains(@class, 'HamburgerNavigationMenu')]//*[contains(@class, 'fa-house-user') and contains(@class, 'primary')]/ancestor::a");
+  }
+
+  private ElementFacade contributePageBtnElement() {
+    return findByXPathOrCSS("//*[contains(@class,'HamburgerNavigationMenu')]//*[contains(@class,'fa-rocket')]");
   }
 
   private ElementFacade myProfileButtonElement() {

@@ -6,7 +6,7 @@ Feature: Programs
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
     And I join the random space
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
     And I click on the button add program
     Then The drawer add program should be displayed
 
@@ -62,7 +62,7 @@ Feature: Programs
     Given I am authenticated as 'admin' random user
     And I inject the 'fourty' random user if not existing, no wait
 
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
     And I click on the button add program
     And I wait for drawer to open
 
@@ -125,7 +125,7 @@ Feature: Programs
     When I close the notification
 
     When I login as 'fourty' random user
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
     And I switch the page to 'en' language
     And I open random program card
     And I switch the page to 'fr' language
@@ -142,7 +142,7 @@ Feature: Programs
     Given I am authenticated as 'admin' random user
     And I inject the 'first' random user if not existing, no wait
 
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
     And I click on the button add program
     And I wait for drawer to open
     And I expand the drawer
@@ -201,7 +201,7 @@ Feature: Programs
     And I inject the 'firstexternal' random user with the following memberships
       | member:/platform/externals |
 
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
     And I click on the button add program
     And I enter a random program title
     And I enter a random description for program
@@ -240,15 +240,15 @@ Feature: Programs
 
     When I login as 'first' random user
 
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
     And I open random program card
     And I announce challenge 'Internal users action' with message 'announcement3'
 
-    When I go to '/portal/contribute/contributions/achievements#yours'
+    When I go to My Achievements
     Then Achievement for 'Internal users action' is pending
 
     When I login as 'admin' random user
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
 
     When I edit the program from list
     And I click on 'Next' button in drawer
@@ -265,7 +265,7 @@ Feature: Programs
     And I confirm
 
     When I login as 'first' random user
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
     And I edit the program from list
     And I add rule random description
     And I click on 'Next' button in drawer
@@ -279,7 +279,7 @@ Feature: Programs
     And I create the random space if not existing
     And I join the random space
 
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
     And I click on the button add program
     And I enter a random program title
     And I enter a random description for program
@@ -338,7 +338,7 @@ Feature: Programs
   Scenario: Edit program
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
     And I click on the button add program
     Then The drawer add program should be displayed
 
@@ -365,7 +365,7 @@ Feature: Programs
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
     And I join the random space
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
     And I click on the button add program
     Then The drawer add program should be displayed
     And I enter a random program title
@@ -376,7 +376,7 @@ Feature: Programs
     Then Confirmation message is displayed 'New campaign created successfully'
 
     When I close the notification
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
     And I filter programs by value 'DISABLED'
     Then The program title should be displayed on the card
 
