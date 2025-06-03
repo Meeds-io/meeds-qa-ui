@@ -332,12 +332,12 @@ public class HomeStepDefinition {
 
   @Given("^I go to Programs page$")
   public void goToProgramsPage() {
-    homeSteps.goToProgramsPage();
+    homeSteps.goToPrograms();
   }
 
   @Given("^I go to My Achievements$")
   public void goMyAchievementsPage() {
-    homeSteps.goMyAchievementsPage();
+    homeSteps.goMyAchievements();
   }
 
   @And("^I mouse over the '(.*)' icon in sidebar menu$")

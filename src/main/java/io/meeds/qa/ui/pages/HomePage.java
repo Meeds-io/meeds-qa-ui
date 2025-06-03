@@ -18,12 +18,11 @@
 package io.meeds.qa.ui.pages;
 
 import static io.meeds.qa.ui.utils.Utils.*;
-import static io.meeds.qa.ui.utils.Utils.waitForLoading;
-import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,11 +32,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import io.meeds.qa.ui.elements.ButtonElementFacade;
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.utils.Utils;
 
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.webdriver.exceptions.ElementShouldBeVisibleException;
 
@@ -48,6 +50,8 @@ public class HomePage extends GenericPage {
   private static final String              PORTAL_ROOT_CONTEXT          = "/portal/";
 
   private static final Map<String, String> ADMIN_URLS                   = new HashMap<>();
+
+  private String                           metaSiteName;
 
   public HomePage(WebDriver driver) {
     super(driver);
@@ -295,26 +299,24 @@ public class HomePage extends GenericPage {
     goToPageWithLink("/mycraft/dashboard", true);
   }
 
-  public void goToProgramsPage() {
-    goToPageWithLink("/mycraft/contributions/programs", true);
+  public void goToPrograms() {
+    goToContributePage();
+    getWidgetSeeAllButton("programsOverview").click();
+    getDrawerExpandButton("programsOverviewListDrawer").click();
   }
 
-  public void goMyAchievementsPage() {
-    goToPageWithLink("/mycraft/contributions/achievements#yours", true);
+  public void goMyAchievements() {
+    goToPageWithLink("/" + getMetaSiteName() + "/contributions/achievements#yours", true);
+  }
+
+  public void goToContributePage() {
+    goToPageWithLink("/contribute", true);
   }
 
   public void hoverOnPageHomeIcon(String pageName) {
     waitFor(300).milliseconds(); // Wait until drawer 'open' animation finishes
     hamburgerMenuItemByName(pageName).assertVisible();
     hamburgerMenuItemByName(pageName).hover();
-  }
-
-  public void goToContributePage() {
-    closeAllDrawers();
-    if (!getStickiedHamburgerMenuParent().isCurrentlyVisible()) {
-      clickOnHamburgerMenu(true);
-    }
-    contributePageBtnElement().click();
   }
 
   public void hoverSearchedSpaceInSideBarFilter(String space) {
@@ -533,6 +535,19 @@ public class HomePage extends GenericPage {
     while (!isPortalDisplayed() && retries-- > 0) {
       waitFor(1).seconds();
     }
+  }
+
+  private String getMetaSiteName() {
+    if (metaSiteName == null) {
+      String getMetaPortalNameScript =
+                                     """
+                                         const callback = arguments[arguments.length - 1];
+                                         callback(eXo.env.portal.metaPortalName);
+                                         """;
+      metaSiteName = ((JavascriptExecutor) getDriver()).executeAsyncScript(getMetaPortalNameScript)
+                                                       .toString();
+    }
+    return metaSiteName;
   }
 
   private void goToAdministrationPage(String uri) {
@@ -887,14 +902,10 @@ public class HomePage extends GenericPage {
   }
 
   private String getSiteName(String linkSuffix) {
-    if (linkSuffix.equals("/programs")
-        || linkSuffix.equals("/actions")
-        || linkSuffix.equals("/wallet")) {
-      return "contribute";
-    } else if (linkSuffix.equals("/dashboard")
-               || linkSuffix.equals("/tasks")
-               || linkSuffix.equals("/contents")
-               || linkSuffix.equals("/myteam")) {
+    if (linkSuffix.equals("/dashboard")
+        || linkSuffix.equals("/tasks")
+        || linkSuffix.equals("/contents")
+        || linkSuffix.equals("/myteam")) {
       return "mycraft";
     }
     return null;

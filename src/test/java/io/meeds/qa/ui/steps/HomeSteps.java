@@ -207,12 +207,12 @@ public class HomeSteps {
     homePage.goToContributePage();
   }
 
-  public void goToProgramsPage() {
-    homePage.goToProgramsPage();
+  public void goToPrograms() {
+    homePage.goToPrograms();
   }
 
-  public void goMyAchievementsPage() {
-    homePage.goMyAchievementsPage();
+  public void goMyAchievements() {
+    homePage.goMyAchievements();
   }
 
   public void goToSite(String siteName) {

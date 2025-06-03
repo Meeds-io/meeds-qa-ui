@@ -3,7 +3,6 @@
 Feature: Programs should be displayed in Top Programs in sorted way
   I should access programs I am member of in Top Programs, sorted by points descending
 
-  @Test
   Scenario: Programs Overview Widget sorted by modified date
     Given I am authenticated as 'admin' random user
 
