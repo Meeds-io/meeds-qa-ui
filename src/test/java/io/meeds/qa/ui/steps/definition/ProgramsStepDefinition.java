@@ -329,4 +329,14 @@ public class ProgramsStepDefinition {
     programsSteps.checkAdminActionsFilterIsDisplayed();
   }
 
+  @Then("The message '{}' is displayed in program detail drawer")
+  public void checkMessageIsDisplayedInProgramDetailDrawer(String message) {
+    programsSteps.checkMessageIsDisplayedInProgramDetailDrawer(message);
+  }
+
+  @When("The message '{}' is not displayed in program detail drawer")
+  public void checkMessageIsNotDisplayedInProgramDetailDrawer(String message) {
+    programsSteps.checkMessageIsNotDisplayedInProgramDetailDrawer(message);
+  }
+
 }

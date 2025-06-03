@@ -125,18 +125,19 @@ Feature: Programs
     When I close the notification
 
     When I login as 'fourty' random user
-    And I go to Programs page
-    And I switch the page to 'en' language
-    And I open random program card
     And I switch the page to 'fr' language
-    Then The message 'French Program Title' is displayed in page
-    And The message 'French Program Description' is displayed in page
-    And The message 'French Action Title' is displayed in page
+    And I go to Programs page
+    And I open 'French Program Title' program card
+    Then The message 'French Program Title' is displayed in program detail drawer
+    And The message 'French Program Description' is displayed in program detail drawer
+    And The message 'French Action Title' is displayed in program detail drawer
 
     When I switch the page to 'en' language
-    Then The message 'French Program Title' is not displayed in page
-    And The message 'French Program Description' is not displayed in page
-    And The message 'French Action Title' is not displayed in page
+    And I go to Programs page
+    And I open random program card
+    Then The message 'French Program Title' is not displayed in program detail drawer
+    And The message 'French Program Description' is not displayed in program detail drawer
+    And The message 'French Action Title' is not displayed in program detail drawer
 
   Scenario: Attach a cover and avatar to a program
     Given I am authenticated as 'admin' random user
@@ -350,7 +351,7 @@ Feature: Programs
     Then Confirmation message is displayed 'New campaign created successfully'
 
     When I close the notification
-    And I click on go back button
+    And I click on go back button in drawer
     And I filter programs by value 'DISABLED'
     Then The program title should be displayed on the card
 
