@@ -28,6 +28,7 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.WebDriver;
 
+import io.meeds.qa.ui.elements.ButtonElementFacade;
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 
@@ -78,13 +79,24 @@ public class GenericPage extends BasePageImpl {
   }
 
   public void checkDrawerDisplayed(String title) {
-    findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@class, 'drawerTitle')]", title)).assertVisible();
+    findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@class, 'drawerTitle')]",
+                                   title)).assertVisible();
   }
 
   public void clickConfirm() {
     clickToConfirmDialog();
     waitFor(200).milliseconds(); // Wait for animation until the home icon
                                  // changes its location
+  }
+
+  public ButtonElementFacade getWidgetSeeAllButton(String widgetId) {
+    return findButtonByXPathOrCSS(String.format("//*[@id = '%s']//*[contains(@class, 'widget-text-header')]//*[contains(@class, 'primary')]//ancestor::button",
+                                                widgetId));
+  }
+
+  public ButtonElementFacade getDrawerExpandButton(String drawerId) {
+    return findButtonByXPathOrCSS(String.format("//*[@id = '%s' and contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'drawerHeader')]//*[contains(@class, 'expand')]//ancestor::button",
+                                                drawerId));
   }
 
   public void closeBrowserTab(int index) {
