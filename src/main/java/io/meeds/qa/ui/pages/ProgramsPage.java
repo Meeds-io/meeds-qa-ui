@@ -22,6 +22,7 @@ import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.ElementFacade;
@@ -273,6 +274,14 @@ public class ProgramsPage extends GenericPage {
     rulesAdminStatusDropdown().assertVisible();
   }
 
+  public void checkMessageIsDisplayedInProgramDetailDrawer(String message) {
+    messageElementInProgramDetailDrawer(message).assertVisible();
+  }
+
+  public void checkMessageIsNotDisplayedInProgramDetailDrawer(String message) {
+    messageElementInProgramDetailDrawer(message).assertNotVisible();
+  }
+
   public void checkAdminActionsFilterIsNotDisplayed() {
     rulesAdminStatusDropdown().assertNotVisible();
   }
@@ -326,9 +335,10 @@ public class ProgramsPage extends GenericPage {
 
   private void searchProgram(String title) {
     waitForLoading();
-    while (getProgramCardTitle(title).isNotVisible() && getButton("Show More").isVisible()) {
-      getButton("Show More").scrollToWebElement();
-      getButton("Show More").click();
+    String showMoreLabel = getLanguage().equals("fr") ? "Voir plus" : "Show More";
+    while (getProgramCardTitle(title).isNotVisible() && getButton(showMoreLabel).isVisible()) {
+      getButton(showMoreLabel).scrollToWebElement();
+      getButton(showMoreLabel).click();
       waitFor(200).milliseconds();
       waitForLoading();
     }
@@ -517,6 +527,11 @@ public class ProgramsPage extends GenericPage {
     return findByXPathOrCSS(".rule-program-cover .v-image__image--cover");
   }
 
+  private ElementFacade messageElementInProgramDetailDrawer(String message) {
+    return findByXPathOrCSS(String.format("//*[@id = 'engagementCenterProgramDetail' or contains(@class, 'layout-page-parent')]//*[contains(text(), '%s') and not (@role)]",
+                                          message));
+  }
+
   private void waitForAvatarBackgroundToLoad() {
     retryOnCondition(() -> {
       if (!avatarImageElement().getAttribute("style").contains("background-image")) {
@@ -524,6 +539,11 @@ public class ProgramsPage extends GenericPage {
                                                       avatarImageElement()));
       }
     }, () -> waitFor(500).milliseconds());
+  }
+
+  private String getLanguage() {
+    String script = "return eXo.env.portal.language;";
+    return ((JavascriptExecutor) getDriver()).executeScript(script).toString();
   }
 
 }

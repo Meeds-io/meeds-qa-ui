@@ -5,7 +5,7 @@ Feature: Rules
   Scenario: Quick filter rules
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
     And I click on the button add program
     And I enter a random program title
     And I add program with random description
@@ -49,7 +49,7 @@ Feature: Rules
     And I click on 'More/Members' space menu tab
     And I promote 'firstrule' random user as a space manager
 
-    When I go to 'programs' in site 'contribute'
+    When I go to Programs page
     And I click on the button add program
     And I enter the program title 'Test Rule Space Host'
     And I add program with random description
@@ -58,7 +58,7 @@ Feature: Rules
     And I save the program details
 
     When I login as 'firstrule' random user
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
     And I filter programs by value 'ALL'
     And I open 'Test Rule Space Host' program card
 
@@ -89,7 +89,7 @@ Feature: Rules
     And I go to the random space
 
     When I login as 'admin' random user
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
     And I click on the button add program
     And I enter the program title 'Test Rule Program Owner'
     And I add program with random description
@@ -99,7 +99,7 @@ Feature: Rules
     And I save the program details
 
     When I login as 'secondrule' random user
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
     And I filter programs by value 'ALL'
     Then I open 'Test Rule Program Owner' program card
 
