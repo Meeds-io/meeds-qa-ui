@@ -22,7 +22,7 @@ Feature: Notification Settings
 
     When I enable email notification personal setting
     And I go to manage notifications from settings page
-    Then The email notification setting for 'Someone @mentions me' is displayed
+    Then The email notification setting for '@Mention' is displayed
 
   Scenario: Enable/Disbale email channel for a notification type
     Given I am authenticated as 'admin' random user
@@ -31,13 +31,13 @@ Feature: Notification Settings
     And I disable email notification for 'A connection request is sent'
     And I go to Settings page
     And I go to manage notifications from settings page
-    Then The email notification setting for 'Someone sends me a connection request' is hidden
+    Then The email notification setting for 'Connection request' is hidden
 
     When I go to notification administration Page
     And I enable email notification for 'A connection request is sent'
     And I go to Settings page
     And I go to manage notifications from settings page
-    Then The email notification setting for 'Someone sends me a connection request' is displayed
+    Then The email notification setting for 'Connection request' is displayed
 
   Scenario: Edit email sender
     Given I am authenticated as 'admin' random user
