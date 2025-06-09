@@ -130,19 +130,19 @@ public class NotificationSettingsPage extends GenericPage {
   }
 
   private ElementFacade personalSettingEmailNotificationElement() {
-    return findByXPathOrCSS("//*[contains(text(), 'by email')]");
+    return findByXPathOrCSS("//*[contains(text(), 'Email')]");
   }
 
   private ElementFacade personalEmailSettingNotifSwitch() {
-    return findByXPathOrCSS("(//*[contains(text(), 'by email')]//ancestor::*[@role='listitem'])[1]//*[contains(@class, 'v-input--switch') and contains(@class, 'v-input--selection-controls')]");
+    return findByXPathOrCSS("(//*[contains(text(), 'Email')]//ancestor::*[@role='listitem'])[1]//*[contains(@class, 'v-input--switch') and contains(@class, 'v-input--selection-controls')]");
   }
 
   private ElementFacade personalEmailSettingNotifInput() {
-    return findByXPathOrCSS("(//*[contains(text(), 'by email')]//ancestor::*[@role='listitem'])[1]//*[contains(@class, 'v-input--switch') and contains(@class, 'v-input--selection-controls')]//input");
+    return findByXPathOrCSS("(//*[contains(text(), 'Email')]//ancestor::*[@role='listitem'])[1]//*[contains(@class, 'v-input--switch') and contains(@class, 'v-input--selection-controls')]//input");
   }
 
   private ElementFacade personalSettingEmailNotificationElement(String notificationType) {
-    return findByXPathOrCSS(String.format("(//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'v-list-item')])[1]/parent::*//*[contains(text(), 'by email')]",
+    return findByXPathOrCSS(String.format("(//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'v-list-item')])[1]/parent::*//*[contains(text(), 'Email')]",
                                           notificationType));
   }
 
