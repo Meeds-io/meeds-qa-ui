@@ -39,10 +39,11 @@ public class UnifiedSearchPage extends GenericPage {
   }
 
   public void favoriteSearchedActivity(String activity) {
+    getSearchCard(activity).hover();
+    waitFor(200).milliseconds();
     getFavoriteIconSearchedActivity(activity).click();
     toolbarSearchButtonElement().hover(); // A trick to hover outside user
-                                          // popover to be
-    // closed
+                                          // popover to be closed
   }
 
   public void goToTheSearchedActivity() {
@@ -135,8 +136,12 @@ public class UnifiedSearchPage extends GenericPage {
   }
 
   private ElementFacade getFavoriteIconSearchedActivity(String activity) {
-    return findByXPathOrCSS(String.format(
-                                          "(//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'searchCard')]//*[contains(@class, 'fa-star')])[1]",
+    return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'searchCard')]//*[contains(@class, 'fa-stream')]//ancestor::*[contains(@class, 'searchCard')]//*[contains(@class, 'fa-star')]",
+                                          activity));
+  }
+
+  private ElementFacade getSearchCard(String activity) {
+    return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'searchCard')]",
                                           activity));
   }
 
