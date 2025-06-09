@@ -1037,8 +1037,7 @@ public class SpacePage extends GenericPage {
   }
 
   public void clickFilterIconFromComposer() {
-    ElementFacade filterLink =
-                             findByXPathOrCSS("//*[contains(@class,'activityComposer')]//*[contains(@id,'toolbarFilterButton')]");
+    ElementFacade filterLink = getStreamFilterButton();
     filterLink.click();
     waitForDrawerToOpen();
   }
@@ -1201,6 +1200,10 @@ public class SpacePage extends GenericPage {
 
   private ElementFacade getSpaceSettingRoleAddButton(String role) {
     return findByXPathOrCSS(String.format("#SpaceSettingsUsersDrawer #%sAddUser", role));
+  }
+
+  private ElementFacade getStreamFilterButton() {
+    return findByXPathOrCSS("//*[contains(@class,'activityComposer')]//*[contains(@class,'fa-sliders-h')]//ancestor::button");
   }
 
   private ElementFacade getSpaceSettingRoleButtonToOpenDrawer(String role) {
