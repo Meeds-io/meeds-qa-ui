@@ -27,6 +27,12 @@ Feature: Activity Stream
     And the activity 'act_CAP04_6' is displayed in activity stream
     And the activity 'act_CAP04_5' is not displayed in activity stream
 
+    When I go to Stream page
+    Then the activity 'act_CAP04_15' is displayed in activity stream
+    And the activity 'act_CAP04_14' is displayed in activity stream
+    And the activity 'act_CAP04_6' is displayed in activity stream
+    And the activity 'act_CAP04_5' is not displayed in activity stream
+
     When I login as 'first' random user
     And I go to the random space
     And I click on modify the activity 'act_CAP04_15'
