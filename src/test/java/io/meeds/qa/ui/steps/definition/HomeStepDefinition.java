@@ -320,7 +320,7 @@ public class HomeStepDefinition {
     homeSteps.goToManageSpacesPage();
   }
 
-  @Given("^I go to Stream page$")
+  @Given("I go to Stream page")
   public void goToStreamPage() {
     homeSteps.goToStreamPage();
   }
