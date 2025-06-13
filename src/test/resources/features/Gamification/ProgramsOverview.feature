@@ -16,21 +16,21 @@ Feature: Programs should be displayed in Top Programs in sorted way
       | audience | thirtytwo |
     And I create the 'thirtytwo' random manual action with
       | points | 9998 |
-    And I click on 'Activate the campaign' button
+    And I click on 'Activate campaign' button
 
     And I go to Programs page
     And I create the 'thirtyone' random program with
       | audience | thirtyone |
     And I create the 'thirtyone' random manual action with
       | points | 9997 |
-    And I click on 'Activate the campaign' button
+    And I click on 'Activate campaign' button
 
     And I go to Programs page
     And I create the 'thirtythree' random program with
       | audience | thirtythree |
     And I create the 'thirtythree' random manual action with
       | points | 9999 |
-    And I click on 'Activate the campaign' button
+    And I click on 'Activate campaign' button
 
     When I go to Contribute page
     Then The 'thirtythree' random program is displayed in 'first' position in Top Programs widget

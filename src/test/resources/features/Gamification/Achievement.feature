@@ -47,7 +47,7 @@ Feature: Achievements
     When I close the notification
     Then The action 'Receive kudos 6' is displayed in program detail
 
-    When I click on 'Activate the campaign' button
+    When I click on 'Activate campaign' button
     Then Confirmation message is displayed 'Campaign activated'
     And I close the notification
 
@@ -130,7 +130,7 @@ Feature: Achievements
     When I close the notification
     Then The action 'Receive kudos 86' is displayed in program detail
 
-    When I click on 'Activate the campaign' button
+    When I click on 'Activate campaign' button
     Then Confirmation message is displayed 'Campaign activated'
     And I close the notification
 
@@ -192,7 +192,7 @@ Feature: Achievements
     When I close the notification
     Then The action 'Join space' is displayed in program detail
 
-    When I click on 'Activate the campaign' button
+    When I click on 'Activate campaign' button
     Then Confirmation message is displayed 'Campaign activated'
     And I close the notification
 
@@ -286,7 +286,7 @@ Feature: Achievements
     And I click on 'Add' button in drawer
     And I close the notification
 
-    When I click on 'Activate the campaign' button
+    When I click on 'Activate campaign' button
     And I close the notification
 
     When I login as 'ninethachievement' random user
@@ -387,7 +387,7 @@ Feature: Achievements
     When I close the notification
     Then The action 'Post activity in a space' is displayed in program detail
 
-    When I click on 'Activate the campaign' button
+    When I click on 'Activate campaign' button
     Then Confirmation message is displayed 'Campaign activated'
     And I close the notification
 
@@ -453,7 +453,7 @@ Feature: Achievements
     When I close the notification
     Then The action 'Receive comment activity in space' is displayed in program detail
 
-    When I click on 'Activate the campaign' button
+    When I click on 'Activate campaign' button
     Then Confirmation message is displayed 'Campaign activated'
     And I close the notification
 
@@ -524,7 +524,7 @@ Feature: Achievements
     When I close the notification
     Then The action 'Receive activity like in space' is displayed in program detail
 
-    When I click on 'Activate the campaign' button
+    When I click on 'Activate campaign' button
     Then Confirmation message is displayed 'Campaign activated'
     And I close the notification
 
@@ -596,7 +596,7 @@ Feature: Achievements
     When I close the notification
     Then The action 'Receive Like on stream comment in space' is displayed in program detail
 
-    When I click on 'Activate the campaign' button
+    When I click on 'Activate campaign' button
     Then Confirmation message is displayed 'Campaign activated'
     And I close the notification
 
@@ -653,7 +653,7 @@ Feature: Achievements
     When I close the notification
     Then The action 'Space Join' is displayed in program detail
 
-    When I click on 'Activate the campaign' button
+    When I click on 'Activate campaign' button
     Then Confirmation message is displayed 'Campaign activated'
     And I close the notification
 
