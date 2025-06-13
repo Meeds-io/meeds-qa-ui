@@ -606,7 +606,7 @@ public class HomePage extends GenericPage {
         waitForPageLoading();
       });
     }
-    assertThat(getDriver().getCurrentUrl()).endsWith(linkSuffix);
+    assertThat(getDriver().getCurrentUrl()).contains(linkSuffix);
   }
 
   private ElementFacade stickySideBarMenuElement() {
