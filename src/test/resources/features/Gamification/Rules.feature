@@ -78,7 +78,7 @@ Feature: Rules
 
     When I close the notification
     Then The action 'Join space' is displayed in program detail
-    And The button 'Activate the campaign' is displayed
+    And The button 'Activate campaign' is displayed
 
   Scenario: Space member as program owner can Add Quest
     Given I am authenticated as 'admin' random user
