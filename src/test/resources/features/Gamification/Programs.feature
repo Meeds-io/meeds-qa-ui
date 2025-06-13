@@ -275,6 +275,7 @@ Feature: Programs
     Then Success message is displayed
     And I close the notification
 
+  @activeRules
   Scenario: Can't Activate program when no active quest
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
@@ -321,7 +322,7 @@ Feature: Programs
     And I close the notification
 
     Then The button 'Activate campaign' is not displayed
-    And The message 'No active quest' is displayed
+    And The message 'No quests' is displayed
 
     When I filter program actions by value 'ALL'
     And I enable program action 'Program activation test'
@@ -332,7 +333,7 @@ Feature: Programs
     And I close the notification
 
     Then The button 'Activate campaign' is not displayed
-    And The message 'No active quest' is not displayed
+    And The message 'No quests' is not displayed
 
     When I delete program action 'Program activation test'
 
