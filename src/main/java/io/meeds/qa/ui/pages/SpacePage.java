@@ -1653,15 +1653,15 @@ public class SpacePage extends GenericPage {
   }
 
   private ElementFacade getPreviewAttachedImage() {
-    return findByXPathOrCSS("//*[@id='previewCarousel-activity' and contains(@class, 'AttachmentCarouselPreview')]");
+    return findByXPathOrCSS("//*[@id='previewCarousel' and contains(@class, 'AttachmentCarouselPreview')]");
   }
 
   private ElementFacade getPreviewAttachedImageNextArrow() {
-    return findByXPathOrCSS("//*[@id='previewCarousel-activity' and contains(@class, 'AttachmentCarouselPreview')]//*[contains(@class, 'v-window__next')]");
+    return findByXPathOrCSS("//*[@id='previewCarousel' and contains(@class, 'AttachmentCarouselPreview')]//*[contains(@class, 'v-window__next')]");
   }
 
   private ElementFacade getPreviewAttachedImagePrevArrow() {
-    return findByXPathOrCSS("//*[@id='previewCarousel-activity' and contains(@class, 'AttachmentCarouselPreview')]//*[contains(@class, 'v-window__prev')]");
+    return findByXPathOrCSS("//*[@id='previewCarousel' and contains(@class, 'AttachmentCarouselPreview')]//*[contains(@class, 'v-window__prev')]");
   }
 
   private ElementFacade previewAttachedImageCloseBtn() {
