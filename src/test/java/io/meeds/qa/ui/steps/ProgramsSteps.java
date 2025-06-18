@@ -208,6 +208,14 @@ public class ProgramsSteps {
     programsPage.checkAdminActionsFilterIsDisplayed();
   }
 
+  public void checkMessageIsDisplayedInProgramDetailDrawer(String message) {
+    programsPage.checkMessageIsDisplayedInProgramDetailDrawer(message);
+  }
+
+  public void checkMessageIsNotDisplayedInProgramDetailDrawer(String message) {
+    programsPage.checkMessageIsNotDisplayedInProgramDetailDrawer(message);
+  }
+
   public void attachAvatarToProgram() {
     programsPage.attachAvatarToProgram();
   }

@@ -156,7 +156,7 @@ Feature: Attach images activities
     Given I am authenticated as 'admin' random user
     And I inject the random space
 
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
     And I click on the button add program
     And I enter a random program title
     And I add program with random description
@@ -192,7 +192,7 @@ Feature: Attach images activities
     When I go to the random space
     Then The activity 'Announce an action with attached image' is not displayed
     
-    When I go to 'programs' in site 'contribute'
+    When I go to Programs page
     And I open random program card
     And I edit program action 'Announce an action with attached image'
     And I click on 'Next' button in drawer

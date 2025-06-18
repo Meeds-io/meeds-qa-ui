@@ -244,7 +244,7 @@ public class RulePage extends GenericPage {
   }
 
   private ElementFacade addButton() {
-    return findByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(),'Add')]//ancestor-or-self::button");
+    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//button[normalize-space(.) = 'Add']");
   }
 
   private ElementFacade updateButton() {

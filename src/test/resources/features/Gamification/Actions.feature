@@ -6,7 +6,7 @@ Feature: Actions
     Given I am authenticated as 'admin' random user
     And I inject the first random user if not existing, no wait
     And I create the random space if not existing
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
     And I click on the button add program
     And I enter a random program title
     And I add program with random description
@@ -46,7 +46,7 @@ Feature: Actions
     When I login as 'first' random user
     And I go to the random space
 
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
     And I open random program card
     And I announce challenge 'Challenge to announce' with message 'announcement10'
 
@@ -54,10 +54,10 @@ Feature: Actions
 
     Then The activity 'Challenge to announce' is displayed
 
-    When I go to '/portal/contribute/contributions/achievements#yours'
+    When I go to My Achievements
     Then Achievement for 'Challenge to announce' is pending
 
-    When I go to 'programs' in site 'contribute'
+    When I go to Programs page
     And I open random program card
 
     When I open program action 'Challenge to announce'
@@ -66,7 +66,7 @@ Feature: Actions
 
     When I login as 'admin' random user
 
-    When I go to 'programs' in site 'contribute'
+    When I go to Programs page
     And I open random program card
     And I edit program action 'Challenge to announce'
     And I click on 'Next' button in drawer
@@ -84,7 +84,7 @@ Feature: Actions
     Given I am authenticated as 'admin' random user
     And I inject the random space
 
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
     And I click on the button add program
     And I enter a random program title
     And I add program with random description
@@ -120,7 +120,7 @@ Feature: Actions
     When I go to the random space
     Then The activity 'Announce an action from its activity' is not displayed
 
-    When I go to 'programs' in site 'contribute'
+    When I go to Programs page
     And I open random program card
     And I edit program action 'Announce an action from its activity'
     And I click on 'Next' button in drawer
@@ -156,7 +156,7 @@ Feature: Actions
     And I click on 'Announce an action from its activity' text
     Then '0' participants is displayed in action drawer
 
-    When I go to '/portal/contribute/contributions/achievements#yours'
+    When I go to My Achievements
     Then Achievement for 'Announce an action from its activity' is pending
     Then I click on 'Review' button
     Then I wait for application loading
@@ -184,7 +184,7 @@ Feature: Actions
     And I confirm
     Then The activity 'Announce an action from its activity' is not displayed
 
-    When I go to 'programs' in site 'contribute'
+    When I go to Programs page
     And I open random program card
     And I click on 'Announce an action from its activity' text
     And I go to the activity of opened action
@@ -194,7 +194,7 @@ Feature: Actions
 
     Then The activity 'Announce an action from its activity' is displayed
 
-    When I go to 'programs' in site 'contribute'
+    When I go to Programs page
     And I open random program card
     And I click on 'Add Quest' button
     And I wait for drawer to open
@@ -220,7 +220,7 @@ Feature: Actions
     Given I am authenticated as 'admin' random user
     And I inject a random space
 
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
     And I click on the button add program
     And I enter a random program title
     And I add program with random description
@@ -272,7 +272,7 @@ Feature: Actions
     Given I am authenticated as 'admin' random user
     And I inject the first random user if not existing, no wait
     And I inject the random space
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
     And I click on the button add program
     And I enter a random program title
     And I add program with random description
@@ -305,7 +305,7 @@ Feature: Actions
     When I login as 'first' random user
     And I go to the random space
 
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
     And I open random program card
     And I announce challenge 'Announce activity to delete' with message 'announcement8'
 
@@ -324,14 +324,14 @@ Feature: Actions
     And I click on 'Cancel' button related to comment 'announcement11'
     And I click on Yes button
 
-    And I go to '/portal/contribute/contributions/achievements#yours'
+    And I go to My Achievements
     Then Achievement for 'Announce activity to delete' is canceled
 
   Scenario: Overview top challenge
     Given I am authenticated as 'admin' random user
     When I inject the first random user if not existing, no wait
     And I inject the random space
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
     And I click on the button add program
     And I enter a random program title
     And I add program with random description
@@ -367,7 +367,7 @@ Feature: Actions
     When I login as 'first' random user
     And I go to the random space
 
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
     And I open random program card
     And I announce challenge 'Top challenge' with message 'announcement7'
     And I close the notification
@@ -383,7 +383,7 @@ Feature: Actions
 
     When I login as 'admin' random user
 
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
     And I filter programs by value 'ALL'
     And I delete the created program
     And I login as 'first' random user
