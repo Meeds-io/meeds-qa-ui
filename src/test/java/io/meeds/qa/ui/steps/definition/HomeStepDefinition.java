@@ -325,6 +325,21 @@ public class HomeStepDefinition {
     homeSteps.goToStreamPage();
   }
 
+  @Given("^I go to Contribute page$")
+  public void goToContributePage() {
+    homeSteps.goToContributePage();
+  }
+
+  @Given("^I go to Programs page$")
+  public void goToProgramsPage() {
+    homeSteps.goToPrograms();
+  }
+
+  @Given("^I go to My Achievements$")
+  public void goMyAchievementsPage() {
+    homeSteps.goMyAchievements();
+  }
+
   @And("^I mouse over the '(.*)' icon in sidebar menu$")
   public void hoverOnPageHomeIcon(String pageName) {
     Serenity.setSessionVariable("hoverHomeLink").to(pageName);

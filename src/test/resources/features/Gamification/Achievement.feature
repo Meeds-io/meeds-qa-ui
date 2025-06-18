@@ -5,7 +5,7 @@ Feature: Achievements
   Scenario: Achievements for Send/Cancel Kudos from the activity author
     Given I am authenticated as 'admin' random user
     And I inject the random space if not existing
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
     And I click on the button add program
     And I enter the program title 'Achievements program'
     And I add program with random description
@@ -67,7 +67,7 @@ Feature: Achievements
     When I go to the random space
     And I send in the activity 'Achievements - Kudos Post activity' a kudos message 'Achievements - kudos activity comment to cancel'
 
-    And I go to '/portal/contribute/contributions/achievements#yours'
+    And I go to My Achievements
     Then Achievement for 'Send kudos 6' is accepted
 
     When I go to My Profile page
@@ -77,17 +77,17 @@ Feature: Achievements
     And I open in activity 'Achievements - Kudos Post activity' the Comments drawer
     When In activity 'Achievements - Kudos Post activity' I cancel the sent kudos comment 'Achievements - kudos activity comment to cancel'
 
-    And I go to '/portal/contribute/contributions/achievements#yours'
+    And I go to My Achievements
     Then Achievement for 'Send kudos 6' is canceled
 
     When I login as 'secondachievement' random user
-    And I go to '/portal/contribute/contributions/achievements#yours'
+    And I go to My Achievements
     And Achievement for 'Receive kudos 6' is canceled
 
   Scenario: Achievements for Send/Cancel Kudos from user profile
     Given I am authenticated as 'admin' random user
     And I create the random space if not existing
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
     And I click on the button add program
     And I enter the program title 'Achievements program'
     And I add program with random description
@@ -144,17 +144,17 @@ Feature: Achievements
     And I go to the fourachievement user profile
     And I send kudos with message 'Achievements - Kudos Post activity to cancel'
 
-    And I go to '/portal/contribute/contributions/achievements#yours'
+    And I go to My Achievements
     Then Achievement for 'Send kudos 86' is accepted
 
     And I go to Stream page
     When I cancel the sent kudos activity 'Achievements - Kudos Post activity to cancel'
 
-    And I go to '/portal/contribute/contributions/achievements#yours'
+    And I go to My Achievements
     Then Achievement for 'Send kudos 86' is canceled
 
     When I login as 'fourachievement' random user
-    And I go to '/portal/contribute/contributions/achievements#yours'
+    And I go to My Achievements
     Then Achievement for 'Receive kudos 86' is canceled
 
   Scenario: Achievements listing for program owner/space host
@@ -163,7 +163,7 @@ Feature: Achievements
     And I inject the fifthachievement random user, no wait
     And I inject the sixthachievement random user, no wait
 
-    When I go to 'programs' in site 'contribute'
+    When I go to Programs page
     And I click on the button add program
     And I enter the random program title 'Test Program Host'
     And I add program with random description
@@ -197,7 +197,7 @@ Feature: Achievements
 
     When I login as 'fifthachievement' random user
     And I go to the random space
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
     When I open 'Test Program Host' random program card
     Then Actions Filter dropdown is displayed
     And Admin Actions Filter dropdown is not displayed
@@ -207,13 +207,13 @@ Feature: Achievements
     When I close the opened drawer
     And I login as 'sixthachievement' random user
     And I go to the random space
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
     When I open 'Test Program Host' random program card
     Then Actions Filter dropdown is displayed
     And Admin Actions Filter dropdown is not displayed
 
     When I login as 'admin' random user
-    And I go to '/portal/contribute/contributions/achievements#yours'
+    And I go to My Achievements
 
     Then The achievement 'Join space' is displayed '2' times when enabling program owner view for 'Test Program Host' random program
 
@@ -222,12 +222,12 @@ Feature: Achievements
     And I promote 'fifthachievement' random user as a space manager
 
     When I login as 'sixthachievement' random user
-    And I go to '/portal/contribute/contributions/achievements#yours'
+    And I go to My Achievements
     Then The achievement 'Join space' is displayed '1' times
     And The button 'Review' is not displayed
 
     When I login as 'fifthachievement' random user
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
 
     When I open 'Test Program Host' random program card
     Then Actions Filter dropdown is displayed
@@ -238,7 +238,7 @@ Feature: Achievements
     Then In drawer, user 'fifthachievement' achievement is display 'second'
 
     When I close the opened drawer
-    And I go to '/portal/contribute/contributions/achievements#yours'
+    And I go to My Achievements
     And I filter achievements using 'Test Program Host' random program
     Then The achievement 'Join space' is displayed '1' times
     And The button 'Review' is displayed
@@ -251,7 +251,7 @@ Feature: Achievements
     And I inject the 'ninethachievement' random user, no wait
     And I inject the 'tenthachievement' random user, no wait
 
-    When I go to 'programs' in site 'contribute'
+    When I go to Programs page
     And I click on the button add program
     And I enter the random program title 'Test Program Achievements sort'
     And I add program with random description
@@ -290,7 +290,7 @@ Feature: Achievements
 
     When I login as 'ninethachievement' random user
     And I go to the random space
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
     When I open 'Test Program Achievements sort' random program card
     And I announce challenge 'Announce an achievement' with message 'announcement1'
     And I click on 'See' link
@@ -304,17 +304,17 @@ Feature: Achievements
 
     When I login as 'tenthachievement' random user
     And I go to the random space
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
     When I open 'Test Program Achievements sort' random program card
     And I announce challenge 'Announce an achievement' with message 'announcement2'
 
-    When I go to '/portal/contribute/contributions/achievements#yours'
+    When I go to My Achievements
     When I filter achievements using 'Test Program Achievements sort' random program
     And Current user achievement 'Announce an achievement' is displayed 'first'
     And Current user achievement 'Join space' is displayed 'second'
 
     When I login as 'admin' random user
-    And I go to '/portal/contribute/contributions/achievements#yours'
+    And I go to My Achievements
 
     When I click on 'Review' button
     Then I wait for application loading
@@ -360,7 +360,7 @@ Feature: Achievements
     And I create the random space if not existing
     And I inject the seventhachievement random user if not existing, no wait
 
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
 
     And I click on the button add program
     And I enter the program title 'Activity Post Achievement Reject'
@@ -401,7 +401,7 @@ Feature: Achievements
     And I click on Yes button
     Then the confirmation popup is not displayed
     And the activity 'Activity to cancel' is no more displayed in the activity stream
-    When I go to '/portal/contribute/contributions/achievements#yours'
+    When I go to My Achievements
     Then Achievement for 'Post activity in a space' is rejected due to activity deletion
 
   Scenario: Cancel Comment changes the Achievement as Rejected
@@ -409,7 +409,7 @@ Feature: Achievements
     And I create the random space if not existing
     And I inject the seventhachievement random user if not existing, no wait
 
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
 
     And I click on the button add program
     And I enter the program title 'Comment Post Achievement Reject'
@@ -470,7 +470,7 @@ Feature: Achievements
     Then the confirmation popup is not displayed
     And The comment 'comment to delete' is not displayed in Comments drawer of activity 'Activity with comment to cancel'
 
-    When I go to '/portal/contribute/contributions/achievements#yours'
+    When I go to My Achievements
 
     Then Achievement for 'Comment activity in space' is rejected due to activity deletion
     And Achievement for 'Receive comment activity in space' is rejected due to activity deletion
@@ -480,7 +480,7 @@ Feature: Achievements
     And I create the random space if not existing
     And I inject the seventhachievement random user if not existing, no wait
 
-    And I go to 'programs' in site 'contribute'
+      And I go to Programs page
 
     And I click on the button add program
     And I enter the program title 'Like Activity Achievement Reject'
@@ -540,11 +540,11 @@ Feature: Achievements
     And I wait for '1' seconds
     And I unlike the activity 'Activity to like + unlike'
 
-    When I go to '/portal/contribute/contributions/achievements#yours'
+    When I go to My Achievements
     Then Achievement for 'Like activity in space' is canceled
 
     When I login as 'seventhachievement' random user
-    And I go to '/portal/contribute/contributions/achievements#yours'
+    And I go to My Achievements
     Then Achievement for 'Receive activity like in space' is canceled
 
   Scenario: Cancel Like Stream Comment changes the Achievement as Canceled
@@ -552,7 +552,7 @@ Feature: Achievements
     And I create the random space if not existing
     And I inject the seventhachievement random user if not existing, no wait
 
-    And I go to 'programs' in site 'contribute'
+    And I go to Programs page
 
     And I click on the button add program
     And I enter the program title 'Like Stream Comment Achievement Reject'
@@ -615,11 +615,11 @@ Feature: Achievements
     And I wait for '1' seconds
     And I unlike the activity comment 'comment to unlike'
 
-    When I go to '/portal/contribute/contributions/achievements#yours'
+    When I go to My Achievements
     Then Achievement for 'Like stream comment in space' is canceled
 
     When I login as 'seventhachievement' random user
-    And I go to '/portal/contribute/contributions/achievements#yours'
+    And I go to My Achievements
     Then Achievement for 'Receive Like on stream comment in space' is canceled
 
   Scenario: Cancel Space Join changes the Achievement as Canceled
@@ -627,7 +627,7 @@ Feature: Achievements
     And I create the random space if not existing
     And I inject the eighthachievement random user if not existing, no wait
 
-    When I go to 'programs' in site 'contribute'
+    When I go to Programs page
     And I click on the button add program
     And I enter the program title 'Cancel Space Join Program'
     And I add program with random description
@@ -658,13 +658,13 @@ Feature: Achievements
 
     When I login as 'eighthachievement' random user
     And I go to the random space
-    And I go to '/portal/contribute/contributions/achievements#yours'
+    And I go to My Achievements
 
     Then Achievement for 'Space Join' is accepted
 
     And I go to spaces page
     And I search for the random space
     And I leave found space
-    And I go to '/portal/contribute/contributions/achievements#yours'
+    And I go to My Achievements
 
     Then Achievement for 'Space Join' is canceled
