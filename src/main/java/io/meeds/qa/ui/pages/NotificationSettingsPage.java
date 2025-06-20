@@ -164,11 +164,11 @@ public class NotificationSettingsPage extends GenericPage {
   }
 
   private ElementFacade emailNotifSwitch() {
-    return findByXPathOrCSS("//*[contains(text(), 'Enable email')]//ancestor::*[contains(@class, 'v-input--switch')]");
+    return findByXPathOrCSS("//*[contains(text(), 'mail')]//ancestor::*[contains(@class, 'v-input--switch')]");
   }
 
   private ElementFacade emailNotifSwitchInput() {
-    return findByXPathOrCSS("//*[contains(text(), 'Enable email')]//ancestor::*[contains(@class, 'v-input--switch')]//input");
+    return findByXPathOrCSS("//*[contains(text(), 'mail')]//ancestor::*[contains(@class, 'v-input--switch')]//input");
   }
 
 }
