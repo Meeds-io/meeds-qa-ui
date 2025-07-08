@@ -38,7 +38,7 @@ Feature: Actions
     Then Confirmation message is displayed 'Quest has been successfully created'
     When I close the notification
     Then The action 'Challenge to announce' is displayed in program detail
-    When I click on 'Activate campaign' button
+    When I click on 'Activate the campaign' button
     Then Confirmation message is displayed 'Campaign activated'
 
     When I close the notification
@@ -113,7 +113,7 @@ Feature: Actions
     When I close the notification
 
     Then The action 'Announce an action from its activity' is displayed in program detail
-    When I click on 'Activate campaign' button
+    When I click on 'Activate the campaign' button
     Then Confirmation message is displayed 'Campaign activated'
     When I close the notification
 
@@ -251,7 +251,7 @@ Feature: Actions
 
     When I close the notification
     Then The action 'Challenge to disable' is displayed in program detail
-    When I click on 'Activate campaign' button
+    When I click on 'Activate the campaign' button
     Then Confirmation message is displayed 'Campaign activated'
 
     When I close the notification
@@ -297,7 +297,7 @@ Feature: Actions
     Then Confirmation message is displayed 'Quest has been successfully created'
     When I close the notification
     Then The action 'Announce activity to delete' is displayed in program detail
-    When I click on 'Activate campaign' button
+    When I click on 'Activate the campaign' button
     Then Confirmation message is displayed 'Campaign activated'
 
     When I close the notification
@@ -358,11 +358,11 @@ Feature: Actions
     When I close the notification
     Then The action 'Top challenge' is displayed in program detail
 
-    When I click on 'Activate campaign' button
+    When I click on 'Activate the campaign' button
     Then Confirmation message is displayed 'Campaign activated'
 
     When I close the notification
-    Then The button 'Activate campaign' is not displayed
+    Then The button 'Activate the campaign' is not displayed
 
     When I login as 'first' random user
     And I go to the random space
