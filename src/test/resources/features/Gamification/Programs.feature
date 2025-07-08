@@ -39,7 +39,7 @@ Feature: Programs
     Then Confirmation message is displayed 'New campaign created successfully'
 
     When I close the notification
-    Then The button 'Activate campaign' is not displayed
+    Then The button 'Activate the campaign' is not displayed
 
     When I edit the program from detail
     And I click on 'Next' button in drawer
@@ -120,7 +120,7 @@ Feature: Programs
     And I click on 'Next' button in drawer
     And I click on 'Add' button in drawer
 
-    And I click on 'Activate campaign' button
+    And I click on 'Activate the campaign' button
     Then Success message is displayed
     When I close the notification
 
@@ -235,7 +235,7 @@ Feature: Programs
     Then Success message is displayed
     When I close the notification
 
-    And I click on 'Activate campaign' button
+    And I click on 'Activate the campaign' button
     Then Success message is displayed
     When I close the notification
 
@@ -291,7 +291,7 @@ Feature: Programs
     Then Confirmation message is displayed 'New campaign created successfully'
 
     When I close the notification
-    Then The button 'Activate campaign' is not displayed
+    Then The button 'Activate the campaign' is not displayed
 
     And I click on 'Add quest' button
     And I wait for drawer to open
@@ -311,9 +311,9 @@ Feature: Programs
     Then Confirmation message is displayed 'Quest has been successfully created'
 
     When I close the notification
-    Then The button 'Activate campaign' is displayed
+    Then The button 'Activate the campaign' is displayed
 
-    When I click on 'Activate campaign' button
+    When I click on 'Activate the campaign' button
     Then Confirmation message is displayed 'Campaign activated'
     And I close the notification
 
@@ -321,18 +321,18 @@ Feature: Programs
     Then Confirmation message is displayed 'Quest status successfully updated'
     And I close the notification
 
-    Then The button 'Activate campaign' is not displayed
+    Then The button 'Activate the campaign' is not displayed
     And The message 'No quests' is displayed
 
     When I filter program actions by value 'ALL'
     And I enable program action 'Program activation test'
-    Then The button 'Activate campaign' is displayed
+    Then The button 'Activate the campaign' is displayed
 
-    When I click on 'Activate campaign' button
+    When I click on 'Activate the campaign' button
     Then Confirmation message is displayed 'Campaign activated'
     And I close the notification
 
-    Then The button 'Activate campaign' is not displayed
+    Then The button 'Activate the campaign' is not displayed
     And The message 'No quests' is not displayed
 
     When I delete program action 'Program activation test'
