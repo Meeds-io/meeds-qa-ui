@@ -185,7 +185,7 @@ Feature: Attach images activities
     When I close the notification
 
     Then The action 'Announce an action with attached image' is displayed in program detail
-    When I click on 'Activate campaign' button
+    When I click on 'Activate the campaign' button
     Then Confirmation message is displayed 'Campaign activated'
     And I close the notification
 
