@@ -136,7 +136,7 @@ public class UnifiedSearchPage extends GenericPage {
   }
 
   private ElementFacade getFavoriteIconSearchedActivity(String activity) {
-    return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'searchCard')]//*[contains(@class, 'fa-stream')]//ancestor::*[contains(@class, 'searchCard')]//*[contains(@class, 'fa-star')]",
+    return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@class, 'searchCard')]//ancestor::*[contains(@class, 'searchCard')]//*[contains(@class, 'fa-star')]",
                                           activity));
   }
 
