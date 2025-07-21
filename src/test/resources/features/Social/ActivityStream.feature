@@ -405,7 +405,7 @@ Feature: Activity Stream
     Then The comment 'commenttestCAP105-105' is displayed in Comments drawer of activity 'activityTestCAP105-105'
 
     When I open in activity 'activityTestCAP105-105' the Comments drawer
-    Then '1 comment', only 'commenttestCAP105-105' is displayed in Comments drawer
+    Then '3 comments', only 'commenttestCAP105-105' is displayed in Comments drawer
     And I close the opened drawer
 
     And I open in activity 'activityTestCAP105-105' the Comments drawer
@@ -417,7 +417,7 @@ Feature: Activity Stream
     Then the activity 'activityTestCAP105-105' is displayed in activity stream
 
     When I open in activity 'activityTestCAP105-105' the Comments drawer
-    Then '1 comment', only 'commenttestCAP105-105' is displayed in Comments drawer
+    Then '4 comments', only 'commenttestCAP105-105' is displayed in Comments drawer
     When I click on View All replies related to the comment 'commenttestCAP105-105'
     Then In comment 'commenttestCAP105-105', the reply 'replyTest101' is displayed in the drawer
     And In comment 'commenttestCAP105-105', the reply 'replyTest102' is displayed in the drawer
@@ -511,7 +511,7 @@ Feature: Activity Stream
     Then The comment 'commenttestCAP106-106' is displayed in Comments drawer of activity 'activityTestCAP106-106'
 
     When I open in activity 'activityTestCAP106-106' the Comments drawer
-    Then '1 comment', only 'commenttestCAP106-106' is displayed in Comments drawer
+    Then '3 comments', only 'commenttestCAP106-106' is displayed in Comments drawer
     And I close the opened drawer
 
     And I open in activity 'activityTestCAP106-106' the Comments drawer
@@ -524,7 +524,7 @@ Feature: Activity Stream
     And The comment 'commenttestCAP106-106' is displayed in Comments drawer of activity 'activityTestCAP106-106'
 
     When I open in activity 'activityTestCAP106-106' the Comments drawer
-    Then '1 comment', only 'commenttestCAP106-106' is displayed in Comments drawer
+    Then '4 comments', only 'commenttestCAP106-106' is displayed in Comments drawer
     When I click on View All replies related to the comment 'commenttestCAP106-106'
     Then In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-101' is displayed in the drawer
     And In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-102' is displayed in the drawer
@@ -533,7 +533,7 @@ Feature: Activity Stream
     And In comment 'commenttestCAP106-106', I click on delete button
     And I click on Cancel button
     Then the confirmation popup is not displayed
-    And '1 comment', only 'commenttestCAP106-106' is displayed in Comments drawer
+    And '4 comments', only 'commenttestCAP106-106' is displayed in Comments drawer
     And In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-101' is displayed in the drawer
     And In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-102' is displayed in the drawer
     And In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-103' is displayed in the drawer
@@ -544,7 +544,7 @@ Feature: Activity Stream
     Then the activity 'activityTestCAP106-106' is displayed in activity stream
 
     When I open in activity 'activityTestCAP106-106' the Comments drawer
-    Then '1 comment', only 'commenttestCAP106-106' is displayed in Comments drawer
+    Then '4 comments', only 'commenttestCAP106-106' is displayed in Comments drawer
     When I click on View All replies related to the comment 'commenttestCAP106-106'
     Then In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-101' is displayed in the drawer
     And In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-102' is displayed in the drawer
@@ -556,7 +556,7 @@ Feature: Activity Stream
     Then the activity 'activityTestCAP106-106' is displayed in activity stream
 
     When I open in activity 'activityTestCAP106-106' the Comments drawer
-    Then '1 comment', only 'commenttestCAP106-106' is displayed in Comments drawer
+    Then '4 comments', only 'commenttestCAP106-106' is displayed in Comments drawer
     When I click on View All replies related to the comment 'commenttestCAP106-106'
     Then In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-101' is displayed in the drawer
     And In comment 'commenttestCAP106-106', the reply 'replyTestCAP106-102' is displayed in the drawer
@@ -607,7 +607,7 @@ Feature: Activity Stream
     Then the activity 'activityTestCAP107-107' is displayed in activity stream
 
     When I open in activity 'activityTestCAP107-107' the Comments drawer
-    Then '1 comment', only 'commenttestCAP107-107' is displayed in Comments drawer
+    Then '3 comments', only 'commenttestCAP107-107' is displayed in Comments drawer
     And I close the opened drawer
 
     When I open in activity 'activityTestCAP107-107' the Comments drawer
@@ -619,7 +619,7 @@ Feature: Activity Stream
     Then the activity 'activityTestCAP107-107' is displayed in activity stream
 
     When I open in activity 'activityTestCAP107-107' the Comments drawer
-    Then '1 comment', only 'commenttestCAP107-107' is displayed in Comments drawer
+    Then '4 comments', only 'commenttestCAP107-107' is displayed in Comments drawer
     When I click on View All replies related to the comment 'commenttestCAP107-107'
     Then In comment 'commenttestCAP107-107', the reply 'replyTestCAP107-101' is displayed in the drawer
     And In comment 'commenttestCAP107-107', the reply 'replyTestCAP107-102' is displayed in the drawer
@@ -628,7 +628,7 @@ Feature: Activity Stream
     And In reply 'replyTestCAP107-102', I click on delete button
     And I click on Yes button
     Then the confirmation popup is not displayed
-    And '1 comment', only 'commenttestCAP107-107' is displayed in Comments drawer
+    And '3 comments', only 'commenttestCAP107-107' is displayed in Comments drawer
     And In comment 'commenttestCAP107-107', the reply 'replyTestCAP107-101' is displayed in the drawer
     And In comment 'commenttestCAP107-107', the reply 'replyTestCAP107-103' is displayed in the drawer
     And The reply 'replyTestCAP107-102' is not displayed in the drawer
@@ -643,7 +643,7 @@ Feature: Activity Stream
     Then the activity 'activityTestCAP107-107' is displayed in activity stream
 
     When I open in activity 'activityTestCAP107-107' the Comments drawer
-    Then '1 comment', only 'commenttestCAP107-107' is displayed in Comments drawer
+    Then '3 comments', only 'commenttestCAP107-107' is displayed in Comments drawer
     And In comment 'commenttestCAP107-107', the reply 'replyTestCAP107-101' is displayed in the drawer
     And In comment 'commenttestCAP107-107', the reply 'replyTestCAP107-103' is displayed in the drawer
     And The reply 'replyTestCAP107-102' is not displayed in the drawer
@@ -658,7 +658,7 @@ Feature: Activity Stream
     Then the activity 'activityTestCAP107-107' is displayed in activity stream
 
     When I open in activity 'activityTestCAP107-107' the Comments drawer
-    Then '1 comment', only 'commenttestCAP107-107' is displayed in Comments drawer
+    Then '3 comments', only 'commenttestCAP107-107' is displayed in Comments drawer
     And In comment 'commenttestCAP107-107', the reply 'replyTestCAP107-101' is displayed in the drawer
     And In comment 'commenttestCAP107-107', the reply 'replyTestCAP107-103' is displayed in the drawer
     And The reply 'replyTestCAP107-102' is not displayed in the drawer
@@ -720,7 +720,7 @@ Feature: Activity Stream
     Then The comment 'commenttestCAP108-108' is displayed in Comments drawer of activity 'activityTestCAP108-108'
 
     When I open in activity 'activityTestCAP108-108' the Comments drawer
-    Then '1 comment', only 'commenttestCAP108-108' is displayed in Comments drawer
+    Then '3 comments', only 'commenttestCAP108-108' is displayed in Comments drawer
 
     And I add a reply 'replyTestCAP108-103' to comment 'commenttestCAP108-108' in activity 'activityTestCAP108-108'
 
@@ -730,7 +730,7 @@ Feature: Activity Stream
     Then the activity 'activityTestCAP108-108' is displayed in activity stream
 
     When I open in activity 'activityTestCAP108-108' the Comments drawer
-    Then '1 comment', only 'commenttestCAP108-108' is displayed in Comments drawer
+    Then '4 comments', only 'commenttestCAP108-108' is displayed in Comments drawer
     When I click on View All replies related to the comment 'commenttestCAP108-108'
     Then In comment 'commenttestCAP108-108', the reply 'replyTestCAP108-101' is displayed in the drawer
     And In comment 'commenttestCAP108-108', the reply 'replyTestCAP108-102' is displayed in the drawer
@@ -739,7 +739,7 @@ Feature: Activity Stream
     And In reply 'replyTestCAP108-102', I click on delete button
     And I click on Cancel button
     Then the confirmation popup is not displayed
-    And '1 comment', only 'commenttestCAP108-108' is displayed in Comments drawer
+    And '4 comments', only 'commenttestCAP108-108' is displayed in Comments drawer
     And In comment 'commenttestCAP108-108', the reply 'replyTestCAP108-101' is displayed in the drawer
     And In comment 'commenttestCAP108-108', the reply 'replyTestCAP108-102' is displayed in the drawer
     And In comment 'commenttestCAP108-108', the reply 'replyTestCAP108-103' is displayed in the drawer
@@ -756,7 +756,7 @@ Feature: Activity Stream
     Then the activity 'activityTestCAP108-108' is displayed in activity stream
 
     When I open in activity 'activityTestCAP108-108' the Comments drawer
-    Then '1 comment', only 'commenttestCAP108-108' is displayed in Comments drawer
+    Then '4 comments', only 'commenttestCAP108-108' is displayed in Comments drawer
     When I click on View All replies related to the comment 'commenttestCAP108-108'
     Then In comment 'commenttestCAP108-108', the reply 'replyTestCAP108-101' is displayed in the drawer
     And In comment 'commenttestCAP108-108', the reply 'replyTestCAP108-102' is displayed in the drawer
@@ -775,7 +775,7 @@ Feature: Activity Stream
     Then the activity 'activityTestCAP108-108' is displayed in activity stream
 
     When I open in activity 'activityTestCAP108-108' the Comments drawer
-    Then '1 comment', only 'commenttestCAP108-108' is displayed in Comments drawer
+    Then '4 comments', only 'commenttestCAP108-108' is displayed in Comments drawer
     When I click on View All replies related to the comment 'commenttestCAP108-108'
     Then In comment 'commenttestCAP108-108', the reply 'replyTestCAP108-101' is displayed in the drawer
     And In comment 'commenttestCAP108-108', the reply 'replyTestCAP108-102' is displayed in the drawer
