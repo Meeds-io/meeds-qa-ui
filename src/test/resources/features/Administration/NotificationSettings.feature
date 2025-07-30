@@ -15,7 +15,7 @@ Feature: Notification Settings
 
     When I go to notification administration Page
     And I enable email notifications for all users
-    And I enable email notification for 'User is mentioned in a message'
+    And I enable email notification for '@ Mention'
     And I go to Settings page
 
     Then The email notification setting is displayed
@@ -28,13 +28,13 @@ Feature: Notification Settings
     Given I am authenticated as 'admin' random user
 
     When I go to notification administration Page
-    And I disable email notification for 'A connection request is sent'
+    And I disable email notification for 'Connection request'
     And I go to Settings page
     And I go to manage notifications from settings page
     Then The email notification setting for 'Connection request' is hidden
 
     When I go to notification administration Page
-    And I enable email notification for 'A connection request is sent'
+    And I enable email notification for 'Connection request'
     And I go to Settings page
     And I go to manage notifications from settings page
     Then The email notification setting for 'Connection request' is displayed
