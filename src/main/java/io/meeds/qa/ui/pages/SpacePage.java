@@ -1546,12 +1546,12 @@ public class SpacePage extends GenericPage {
   }
 
   private ElementFacade getCopyLinkActivityIcon(String activity) {
-    return findByXPathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Copy link')]",
+    return findByXPathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[@class='v-list-item__title ps-3' and contains(text(),'Copy link')]",
                                           activity));
   }
 
   private ElementFacade getDeleteActivityIcon(String activity) {
-    return findByXPathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Delete')]",
+    return findByXPathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[@class='v-list-item__title ps-3' and contains(text(),'Delete')]",
                                           activity));
   }
 
@@ -1572,7 +1572,7 @@ public class SpacePage extends GenericPage {
   }
 
   private ElementFacade getDownloadActivityIcon(String activity) {
-    return findByXPathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Download')]",
+    return findByXPathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[@class='v-list-item__title ps-3' and contains(text(),'Download')]",
                                           activity));
   }
 
