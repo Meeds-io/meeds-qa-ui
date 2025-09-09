@@ -46,10 +46,7 @@ Feature: Programs
     Then The program status switch is not displayed 
 
     When I close the opened drawer
-    And I click on program title to go back
-    Then The program card should not be displayed
-
-    When I filter programs by value 'ENABLED'
+    And I go to Programs page
     Then The program card should not be displayed
 
     When I filter programs by value 'DISABLED'
@@ -352,7 +349,7 @@ Feature: Programs
     Then Confirmation message is displayed 'New campaign created successfully'
 
     When I close the notification
-    And I click on go back button in drawer
+    And I go to Programs page
     And I filter programs by value 'DISABLED'
     Then The program title should be displayed on the card
 

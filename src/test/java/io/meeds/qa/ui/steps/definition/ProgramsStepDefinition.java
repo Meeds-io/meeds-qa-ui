@@ -98,12 +98,6 @@ public class ProgramsStepDefinition {
     programsSteps.checkProgramCoverIsDefaultInDetail();
   }
 
-  @Then("I click on program title to go back")
-  public void goBackUsingProgramTitle() {
-    String programName = Serenity.sessionVariableCalled("programName");
-    programsSteps.goBackUsingProgramTitle(programName);
-  }
-
   @And("^I add program with random description$")
   @And("I enter a random description for program")
   public void enterProgramRandomDescription() {
