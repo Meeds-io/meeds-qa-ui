@@ -195,10 +195,6 @@ public class GenericSteps {
     genericPage.clickOnGoBack();
   }
 
-  public void clickOnGoBackInDrawer() {
-    genericPage.clickOnGoBackInDrawer();
-  }
-
   public boolean containsContent(String content) {
     return genericPage.containsContent(content);
   }

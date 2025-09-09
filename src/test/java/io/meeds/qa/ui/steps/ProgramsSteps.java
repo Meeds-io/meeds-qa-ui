@@ -42,10 +42,6 @@ public class ProgramsSteps {
     programsPage.checkProgramStatusSwitchNotDisplayed();
   }
 
-  public void goBackUsingProgramTitle(String programName) {
-    programsPage.goBackUsingProgramTitle(programName);
-  }
-
   public void enterProgramDescription(String programDescription) {
     programsPage.enterProgramDescription(programDescription);
   }
