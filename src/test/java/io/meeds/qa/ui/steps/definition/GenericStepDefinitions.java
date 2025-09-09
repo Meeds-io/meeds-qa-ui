@@ -261,11 +261,6 @@ public class GenericStepDefinitions {
     genericSteps.clickOnGoBack();
   }
 
-  @Then("I click on go back button in drawer")
-  public void clickOnGoBackInDrawer() {
-    genericSteps.clickOnGoBackInDrawer();
-  }
-
   @When("I wait '{int}' seconds")
   @And("I wait for '{int}' seconds")
   public void waitInSeconds(int seconds) {

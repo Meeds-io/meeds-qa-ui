@@ -222,10 +222,6 @@ public class BasePageImpl extends PageObject implements BasePage {
     goBackButton().click();
   }
 
-  public void clickOnGoBackInDrawer() {
-    goBackButtonInDrawer().click();
-  }
-
   public void clickButton(String buttonText, int index) {
     ElementFacade button = getButton(buttonText, index);
     button.checkVisible();
@@ -717,10 +713,6 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   private ElementFacade goBackButton() {
     return findByXPathOrCSS("#UIPage .fa-arrow-left");
-  }
-
-  private ElementFacade goBackButtonInDrawer() {
-    return findByXPathOrCSS(OPENED_DRAWER_CSS_SELECTOR + " .fa-arrow-left");
   }
 
   private void waitOverlayToClose() {
