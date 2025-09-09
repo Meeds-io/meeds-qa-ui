@@ -70,10 +70,6 @@ public class ProgramsPage extends GenericPage {
     programStatusSwitcher().assertNotVisible();
   }
 
-  public void goBackUsingProgramTitle(String programName) {
-    getProgramDetailTitle(programName).click();
-  }
-
   public void addSpaceAudience(String randomSpaceName) {
     mentionInField(audienceSpaceFieldElement(), randomSpaceName, 5);
   }
@@ -405,11 +401,6 @@ public class ProgramsPage extends GenericPage {
 
   private ElementFacade getProgramCardTitle(String title) {
     return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@class,'engagement-center-card')]",
-                                          title));
-  }
-
-  private ElementFacade getProgramDetailTitle(String title) {
-    return findByXPathOrCSS(String.format("//*[@id='engagementCenterProgramDetail']//*[contains(@class,'v-card')]//*[contains(text(),'%s')]",
                                           title));
   }
 
