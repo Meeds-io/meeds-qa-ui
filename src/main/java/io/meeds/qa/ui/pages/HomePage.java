@@ -793,7 +793,7 @@ public class HomePage extends GenericPage {
   }
 
   private ElementFacade myProfileButtonElement() {
-    return findByXPathOrCSS(".HamburgerNavigationMenu a .userAvatar");
+    return findByXPathOrCSS(".HamburgerNavigationMenu .userAvatar");
   }
 
   private ElementFacade notificationIconElement() {
