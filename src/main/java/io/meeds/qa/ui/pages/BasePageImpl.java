@@ -430,7 +430,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public ElementFacade expandDrawerButton() {
-    return findByXPathOrCSS(OPENED_DRAWER_CSS_SELECTOR + " .mdi-arrow-expand");
+    return findByXPathOrCSS(OPENED_DRAWER_CSS_SELECTOR + " .fa-expand-alt");
   }
 
   public ElementFacade notificationContentElement(String message) {
