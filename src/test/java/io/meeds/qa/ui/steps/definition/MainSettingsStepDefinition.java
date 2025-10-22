@@ -53,11 +53,6 @@ public class MainSettingsStepDefinition {
     mainSettingsSteps.goToBrandingCustomization();
   }
 
-  @When("I open login customizations settings")
-  public void goToLoginCustomization() {
-    mainSettingsSteps.goToLoginCustomization();
-  }
-
   @When("I go back to Main Settings page")
   public void goBackToMainSettings() {
     mainSettingsSteps.goBackToMainSettings();
@@ -71,21 +66,6 @@ public class MainSettingsStepDefinition {
   @Then("Branding customization settings is displayed")
   public void checkBrandingCustomization() {
     mainSettingsSteps.checkBrandingCustomization();
-  }
-
-  @Then("Login customization settings is displayed")
-  public void checkLoginCustomization() {
-    mainSettingsSteps.checkLoginCustomization();
-  }
-
-  @When("^I add login page title '(.*)'$")
-  public void setLoginTitle(String title) {
-    mainSettingsSteps.setLoginTitle(title);
-  }
-
-  @When("^I add login page sub title '(.*)'$")
-  public void setLoginSubTitle(String title) {
-    mainSettingsSteps.setLoginSubTitle(title);
   }
 
   @When("I select random space as default for registered users")
