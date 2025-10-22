@@ -24,6 +24,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
 import io.meeds.qa.ui.pages.LoginPage;
+
 import net.serenitybdd.core.Serenity;
 
 public class LoginSteps {
@@ -49,8 +50,8 @@ public class LoginSteps {
   public void authenticateIfRandomSpaceAndUsersNotExists(String userPrefix, String spacePrefix, List<String> userPrefixes) {
     boolean spaceDoesntExist = StringUtils.isBlank(spacePrefix) || StringUtils.isBlank(sessionVariableCalled(spacePrefix));
     boolean userDoesntExist = userPrefixes.stream()
-                                          .anyMatch(userToCreatePrefix -> StringUtils.isBlank(sessionVariableCalled(userToCreatePrefix
-                                              + "UserName")));
+                                          .anyMatch(userToCreatePrefix -> StringUtils.isBlank(sessionVariableCalled(userToCreatePrefix +
+                                              "UserName")));
     if (userDoesntExist || spaceDoesntExist) {
       authenticate(userPrefix);
     }
@@ -71,10 +72,6 @@ public class LoginSteps {
 
   public void logout() {
     loginPage.logout();
-  }
-
-  public void checkLoginPageDisplay() {
-    loginPage.checkLoginPageDisplay();
   }
 
   public void waitForUsernameInputDisplay(int retries) {
