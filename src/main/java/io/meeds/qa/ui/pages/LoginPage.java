@@ -19,14 +19,9 @@ package io.meeds.qa.ui.pages;
 
 import static io.meeds.qa.ui.utils.Utils.retryGetOnCondition;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.Cookie;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.ElementFacade;
@@ -155,42 +150,6 @@ public class LoginPage extends GenericPage implements IsHidden {
     if (!StringUtils.contains(currentUrl, PORTAL_LOGIN_URI)) {
       getDriver().get(currentUrl.split("/portal")[0] + PORTAL_LOGIN_URI);
     }
-  }
-
-  @SuppressWarnings("unchecked")
-  public void checkLoginPageDisplay() {
-    List<Long> windowDimensions =
-                                (List<Long>) ((JavascriptExecutor) getDriver()).executeScript("return [window.innerWidth, window.innerHeight];");
-    int windowWidth = windowDimensions.get(0).intValue();
-    int windowHeight = windowDimensions.get(1).intValue();
-
-    ElementFacade loginElement = findByXPathOrCSS("#loginApplication");
-    loginElement.assertVisible();
-
-    int loginElementTop = loginElement.getLocation().getY();
-    int loginElementLeft = loginElement.getLocation().getX();
-
-    assertEquals(0, loginElementTop);
-    assertEquals(0, loginElementLeft);
-
-    int loginElementWidth = loginElement.getRect().getWidth();
-    int loginElementHeight = loginElement.getRect().getHeight();
-
-    assertEquals(windowWidth, loginElementWidth);
-    assertEquals(windowHeight, loginElementHeight);
-
-    ElementFacade brandingLogoElement = findByXPathOrCSS(".brandingLogo");
-    brandingLogoElement.assertVisible();
-
-    int brandingLogoElementTop = brandingLogoElement.getLocation().getY();
-    int brandingLogoElementLeft = brandingLogoElement.getLocation().getX();
-    int brandingLogoElementWidth = brandingLogoElement.getRect().getWidth();
-    int brandingLogoElementHeight = brandingLogoElement.getRect().getHeight();
-
-    long diffY = Math.abs(((long) (windowHeight - brandingLogoElementHeight - windowHeight * 0.03d)) - brandingLogoElementTop);
-    long diffX = Math.abs(((long) (windowWidth - brandingLogoElementWidth - windowWidth * 0.03d)) - brandingLogoElementLeft);
-    assertTrue(diffY <= 2);
-    assertTrue(diffX <= 2);
   }
 
   private boolean returnError(String message, boolean throwException) {

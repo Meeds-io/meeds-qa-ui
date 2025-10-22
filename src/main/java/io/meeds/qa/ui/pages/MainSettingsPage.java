@@ -28,27 +28,12 @@ public class MainSettingsPage extends GenericPage {
     super(driver);
   }
 
-  public void goToLoginCustomization() {
-    loginCustomizationEditButton().click();
-  }
-
   public void goToBrandingCustomization() {
     brandingCustomizationEditButton().click();
   }
 
   public void goBackToMainSettings() {
     backToMainButton().click();
-  }
-
-  public void checkLoginCustomization() {
-    loginBackgroundButton().assertVisible();
-    loginTitleInput().assertVisible();
-    loginSubTitleInput().assertVisible();
-    cancelButton().assertVisible();
-    cancelButton().assertEnabled();
-    applyButton().assertVisible();
-    applyButton().assertDisabled();
-    backToMainButton().assertVisible();
   }
 
   public void checkBrandingCustomization() {
@@ -107,20 +92,6 @@ public class MainSettingsPage extends GenericPage {
     }
   }
 
-  public void setLoginTitle(String title) {
-    if (clearLoginTitleButton().isVisible()) {
-      clearLoginTitleButton().click();
-    }
-    loginTitleInput().setTextValue(title);
-  }
-
-  public void setLoginSubTitle(String subtitle) {
-    if (clearSubTitleTitleButton().isVisible()) {
-      clearSubTitleTitleButton().click();
-    }
-    loginSubTitleInput().setTextValue(subtitle);
-  }
-
   public void selectAccessDefaultSpace(String randomSpaceName) {
     accessEditDefaultSpaceButton().click();
     waitForDrawerToOpen();
@@ -149,10 +120,6 @@ public class MainSettingsPage extends GenericPage {
 
   private ElementFacade brandingCustomizationEditButton() {
     return findByXPathOrCSS("(//*[@id='generalSettings']//*[contains(@class, 'fa-caret')])[1]");
-  }
-
-  private ElementFacade loginCustomizationEditButton() {
-    return findByXPathOrCSS("(//*[@id='generalSettings']//*[contains(@class, 'fa-caret')])[3]");
   }
 
   private TextBoxElementFacade brandingCompanyNameInput() {
@@ -193,26 +160,6 @@ public class MainSettingsPage extends GenericPage {
 
   private ElementFacade backToMainButton() {
     return findByXPathOrCSS("//*[@id='generalSettings']//*[contains(@class, 'fa-arrow-left')]");
-  }
-
-  private TextBoxElementFacade loginTitleInput() {
-    return findTextBoxByXPathOrCSS("//*[@id='generalSettings']//input[@name='loginTitle']");
-  }
-
-  private TextBoxElementFacade clearLoginTitleButton() {
-    return findTextBoxByXPathOrCSS("//*[@id='generalSettings']//*[@name = 'loginTitle']//ancestor::*[contains(@class, 'v-input')]//*[contains(@class, 'fa-times')]");
-  }
-
-  private TextBoxElementFacade loginSubTitleInput() {
-    return findTextBoxByXPathOrCSS("//*[@id='generalSettings']//input[@name='loginSubtitle']");
-  }
-
-  private TextBoxElementFacade clearSubTitleTitleButton() {
-    return findTextBoxByXPathOrCSS("//*[@id='generalSettings']//*[@name = 'loginSubtitle']//ancestor::*[contains(@class, 'v-input')]//*[contains(@class, 'fa-times')]");
-  }
-
-  private ElementFacade loginBackgroundButton() {
-    return findByXPathOrCSS("//*[@id='generalSettings']//button//*[contains(text(), 'Add background') or contains(text(), 'Change background')]");
   }
 
   private ElementFacade accessTypeOpenInput() {
