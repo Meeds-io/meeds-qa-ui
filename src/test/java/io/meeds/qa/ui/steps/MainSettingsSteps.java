@@ -29,10 +29,6 @@ public class MainSettingsSteps {
     mainSettingsPage.goToBrandingCustomization();
   }
 
-  public void goToLoginCustomization() {
-    mainSettingsPage.goToLoginCustomization();
-  }
-
   public void goBackToMainSettings() {
     mainSettingsPage.goBackToMainSettings();
   }
@@ -43,10 +39,6 @@ public class MainSettingsSteps {
 
   public void checkBrandingCustomization() {
     mainSettingsPage.checkBrandingCustomization();
-  }
-
-  public void checkLoginCustomization() {
-    mainSettingsPage.checkLoginCustomization();
   }
 
   public void checkApplyButtonIsEnabled() {
@@ -75,14 +67,6 @@ public class MainSettingsSteps {
 
   public void switchRestrictedExternalUsers() {
     mainSettingsPage.switchRestrictedExternalUsers();
-  }
-
-  public void setLoginTitle(String title) {
-    mainSettingsPage.setLoginTitle(title);
-  }
-
-  public void setLoginSubTitle(String subtitle) {
-    mainSettingsPage.setLoginSubTitle(subtitle);
   }
 
   public void checkAccessDefaultSpacesCount(int count) {
