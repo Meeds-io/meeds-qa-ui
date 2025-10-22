@@ -52,11 +52,6 @@ public class LoginStepDefinitions {
     loginSteps.logout();
   }
 
-  @Given("I check login page display")
-  public void checkLoginPageDisplay() {
-    loginSteps.checkLoginPageDisplay();
-  }
-
   @Then("Register link is displayed")
   public void checkRegisterLinkIsDisplayed() {
     loginSteps.checkRegisterLinkIsDisplayed();

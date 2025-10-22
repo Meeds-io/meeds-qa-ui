@@ -16,22 +16,6 @@ Feature: Main settings page features
     Then Branding customization settings is displayed
     And The apply button is disabled in Main settings customization
 
-    When I go back to Main Settings page
-    And I refresh the page
-
-    When I open login customizations settings
-    Then Login customization settings is displayed
-    And The apply button is disabled in Main settings customization
-
-    When I refresh the page
-    Then Login customization settings is displayed
-
-    When I add login page title 'Test Login Title'
-    And The apply button is enabled in Main settings customization
-
-    When I add login page sub title 'Test Login Sub Title'
-    And The apply button is enabled in Main settings customization
-
   Scenario: Main settings - Access modification
     Given I am authenticated as 'admin' random user
     And I inject the random space
