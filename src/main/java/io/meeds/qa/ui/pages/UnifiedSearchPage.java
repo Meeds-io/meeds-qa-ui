@@ -21,6 +21,7 @@ import static io.meeds.qa.ui.utils.Utils.refreshPage;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.ElementFacade;
@@ -98,7 +99,9 @@ public class UnifiedSearchPage extends GenericPage {
 
   public void search(String text) {
     openSearchApplication();
-    searchInputElement().setTextValue(text);
+    TextBoxElementFacade searchInputElement = searchInputElement();
+    searchInputElement.setTextValue(text);
+    searchInputElement.sendKeys(Keys.ENTER);
     waitFor(300).milliseconds(); // Wait for search to be used
     waitForLoading();
   }
