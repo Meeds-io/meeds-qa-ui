@@ -272,7 +272,7 @@ public class PeoplePage extends GenericPage {
   }
 
   private ElementFacade connectUserProfileButtonElement() {
-    return findByXPathOrCSS("//*[@class='uiIconSocConnectUser']");
+    return findByXPathOrCSS("//i[contains(@class,'fas') and contains(@class,'fa-user-plus')]");
   }
 
   private ElementFacade contactAvatarElement() {
