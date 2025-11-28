@@ -1551,17 +1551,17 @@ public class SpacePage extends GenericPage {
   }
 
   private ElementFacade getDeleteActivityIcon(String activity) {
-    return findByXPathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[@class='v-list-item__title ps-3' and contains(text(),'Delete')]",
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::div[contains(@class,'contentBox')]//*[contains(@class,'v-list-item__title') and contains(text(),'Delete')]",
                                           activity));
   }
 
   private ElementFacade getDeleteCommentLabel(String comment) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]/preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Delete')]",
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]/preceding::*[contains(@class,'v-list-item__title') and contains(text(),'Delete')]",
                                           comment));
   }
 
   private ElementFacade getCommentMenuButton(String buttonName, String comment) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@class,'activity-comment')]//*[@role='menuitem']//*[contains(text(), '%s')]",
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@class,'activity-comment')]//*[@role='button']//*[contains(text(), '%s')]",
                                           comment,
                                           buttonName));
   }
