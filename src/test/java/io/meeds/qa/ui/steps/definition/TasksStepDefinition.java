@@ -1158,11 +1158,6 @@ public class TasksStepDefinition {
     tasksSteps.setTasksStatus(taskStatus);
   }
 
-  @And("^I switch to TASKS tab$")
-  public void switchToTASKSTab() {
-    tasksSteps.switchToTASKSTab();
-  }
-
   @When("^Task name '(.*)' is displayed in project details$")
   public void taskIsDisplayedInProjectDetails(String taskName) {
     tasksSteps.taskIsDisplayedInProjectDetails(taskName);

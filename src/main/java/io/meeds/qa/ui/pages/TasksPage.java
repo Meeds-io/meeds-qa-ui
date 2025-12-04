@@ -1077,10 +1077,6 @@ public class TasksPage extends GenericPage {
     selectTaskStatus(taskStatus).click();
   }
 
-  public void switchToTASKSTab() {
-    backDrawerElement().click();
-  }
-
   public void taskIsMarkedAndDisplayedInCompletedSection(String taskName) {
     Assert.assertEquals(getCompletedTask(taskName).getText(), taskName);
   }
@@ -1241,10 +1237,6 @@ public class TasksPage extends GenericPage {
 
   private ElementFacade backButtonProjectElement() {
     return findByXPathOrCSS("//*[@class='uiIcon uiBackIcon']");
-  }
-
-  private ElementFacade backDrawerElement() {
-    return findByXPathOrCSS("//*[@class='uiIcon uiArrowBAckIcon']");
   }
 
   private ElementFacade cancelFilterButtonElement() {

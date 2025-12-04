@@ -1403,7 +1403,7 @@ public class SpacePage extends GenericPage {
   }
 
   private ElementFacade editButtonElement() {
-    return findByXPathOrCSS("(//*[@class='v-list-item v-list-item--dense v-list-item--link theme--light']//*[@class='v-list-item__title pl-3'])[1]");
+    return findByXPathOrCSS("(//*[@class='v-list-item v-list-item--dense v-list-item--link theme--light']//*[contains(@class, 'v-list-item__title')])[1]");
   }
 
   private ElementFacade eighthCommentInDrawerElement() {
@@ -1556,7 +1556,7 @@ public class SpacePage extends GenericPage {
   }
 
   private ElementFacade getDeleteCommentLabel(String comment) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]/preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Delete')]",
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]/preceding::*[contains(@class, 'v-list-item__title') and contains(text(),'Delete')]",
                                           comment));
   }
 
@@ -1567,7 +1567,7 @@ public class SpacePage extends GenericPage {
   }
 
   private ElementFacade getDeleteReplyLabel(String comment) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]/preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Delete')]",
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]/preceding::*[contains(@class, 'v-list-item__title') and contains(text(),'Delete')]",
                                           comment));
   }
 
@@ -1609,7 +1609,7 @@ public class SpacePage extends GenericPage {
   }
 
   private ElementFacade getEditCommentLabel(String comment) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]/preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Edit')]",
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]/preceding::*[contains(@class, 'v-list-item__title') and contains(text(),'Edit')]",
                                           comment));
   }
 

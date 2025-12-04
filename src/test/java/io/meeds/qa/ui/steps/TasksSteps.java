@@ -782,10 +782,6 @@ public class TasksSteps {
     tasksPage.setTaskStartDateTomorrow();
   }
 
-  public void switchToTASKSTab() {
-    tasksPage.switchToTASKSTab();
-  }
-
   public void taskIsDisplayedInProjectDetails(String taskName) {
     tasksPage.taskNameIsDisplayedInProjectDetails(taskName);
   }

@@ -256,7 +256,7 @@ public class KudosPage extends GenericPage {
   }
 
   private ElementFacade editKudosCommentElement() {
-    return findByXPathOrCSS("//*[@class='v-list-item__title pl-3' and contains(text(),'Edit')]");
+    return findByXPathOrCSS("//*[contains(@class, 'v-list-item__title') and contains(text(),'Edit')]");
   }
 
   private ElementFacade getCkEditorFrameKudos() {
