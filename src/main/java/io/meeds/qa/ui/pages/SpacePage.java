@@ -1399,11 +1399,11 @@ public class SpacePage extends GenericPage {
   }
 
   private ElementFacade dotsMenuElement() {
-    return findByXPathOrCSS("//i[@class='v-icon notranslate primary--text mdi mdi-dots-vertical theme--light']");
+    return findByXPathOrCSS("//*[contains(@class, 'activity-comment')]//*[contains(@class, 'fa-ellipsis-v')]");
   }
 
   private ElementFacade editButtonElement() {
-    return findByXPathOrCSS("(//*[@class='v-list-item v-list-item--dense v-list-item--link theme--light']//*[@class='v-list-item__title pl-3'])[1]");
+    return findByXPathOrCSS("//*[contains(@class, 'activity-comment')]//*[contains(@class, 'v-list-item')]//*[contains(@class, 'fa-edit')]");
   }
 
   private ElementFacade eighthCommentInDrawerElement() {
@@ -1546,33 +1546,33 @@ public class SpacePage extends GenericPage {
   }
 
   private ElementFacade getCopyLinkActivityIcon(String activity) {
-    return findByXPathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[@class='v-list-item__title ps-3' and contains(text(),'Copy link')]",
+    return findByXPathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[contains(@class, 'v-list-item__title') and contains(text(),'Copy link')]",
                                           activity));
   }
 
   private ElementFacade getDeleteActivityIcon(String activity) {
-    return findByXPathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[@class='v-list-item__title ps-3' and contains(text(),'Delete')]",
+    return findByXPathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[contains(@class, 'v-list-item__title') and contains(text(),'Delete')]",
                                           activity));
   }
 
   private ElementFacade getDeleteCommentLabel(String comment) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]/preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Delete')]",
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]/preceding::*[contains(@class, 'v-list-item__title') and contains(text(),'Delete')]",
                                           comment));
   }
 
   private ElementFacade getCommentMenuButton(String buttonName, String comment) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@class,'activity-comment')]//*[@role='menuitem']//*[contains(text(), '%s')]",
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@class,'activity-comment')]//*[contains(@class, 'v-list-item')]//*[contains(text(), '%s')]",
                                           comment,
                                           buttonName));
   }
 
   private ElementFacade getDeleteReplyLabel(String comment) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]/preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Delete')]",
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]/preceding::*[contains(@class, 'v-list-item__title') and contains(text(),'Delete')]",
                                           comment));
   }
 
   private ElementFacade getDownloadActivityIcon(String activity) {
-    return findByXPathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[@class='v-list-item__title ps-3' and contains(text(),'Download')]",
+    return findByXPathOrCSS(String.format("//div[contains(@class,'contentBox')]//*[contains(text(),'%s')]//preceding::*[contains(@class, 'v-list-item__title') and contains(text(),'Download')]",
                                           activity));
   }
 
@@ -1609,7 +1609,7 @@ public class SpacePage extends GenericPage {
   }
 
   private ElementFacade getEditCommentLabel(String comment) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]/preceding::*[@class='v-list-item__title pl-3' and contains(text(),'Edit')]",
+    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]/preceding::*[contains(@class, 'v-list-item__title') and contains(text(),'Edit')]",
                                           comment));
   }
 
