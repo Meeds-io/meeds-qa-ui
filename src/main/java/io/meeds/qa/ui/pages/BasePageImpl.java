@@ -591,7 +591,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public ElementFacade getMenuItem(String menuItemText) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@role, 'menuitem')]",
+    return findByXPathOrCSS(String.format("//*[contains(@role, 'menu')]//*[contains(text(),'%s')]",
                                           menuItemText));
   }
 
