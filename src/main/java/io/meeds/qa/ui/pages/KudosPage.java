@@ -256,7 +256,7 @@ public class KudosPage extends GenericPage {
   }
 
   private ElementFacade editKudosCommentElement() {
-    return findByXPathOrCSS("//*[@class='v-list-item__title pl-3' and contains(text(),'Edit')]");
+    return findByXPathOrCSS("//*[contains(@class, 'v-list-item__title') and contains(text(),'Edit')]");
   }
 
   private ElementFacade getCkEditorFrameKudos() {
@@ -314,11 +314,11 @@ public class KudosPage extends GenericPage {
   }
 
   private ElementFacade threedotsKudosCommentElement() {
-    return findByXPathOrCSS("(//*[@class='flex-grow-1 flex-shrink-1 overflow-hidden']//*[@class='v-icon notranslate primary--text mdi mdi-dots-vertical theme--light'])[2]");
+    return findByXPathOrCSS("(//*[@class='flex-grow-1 flex-shrink-1 overflow-hidden']//*[contains(@class, 'fa-ellipsis-v')])[2]");
   }
 
   private ElementFacade threedotsKudosReplyCommentElement() {
-    return findByXPathOrCSS("(//*[@class='flex-grow-1 flex-shrink-1 overflow-hidden']//*[@class='v-icon notranslate primary--text mdi mdi-dots-vertical theme--light'])[3]");
+    return findByXPathOrCSS("(//*[@class='flex-grow-1 flex-shrink-1 overflow-hidden']//*[contains(@class, 'fa-ellipsis-v')])[3]");
   }
 
   private ElementFacade getCancelKudosActivityIcon(String activity) {
