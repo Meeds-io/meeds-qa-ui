@@ -39,7 +39,6 @@ public class KudosPage extends GenericPage {
 
   public void addActivityKudosToSomeoneDifferent(String activity, String message, String user) {
     getKudosLink(activity).click();
-    waitCKEditorLoading("//*[@id='activityKudosDrawer']");
     deleteUserFromKudosButtonElement().click();
     mentionInField(userKudosInputElement(), user, 5);
     sendKudosMessageFromOpenedDrawer(message);
@@ -47,7 +46,6 @@ public class KudosPage extends GenericPage {
 
   public void attemptSendActivityKudosToSomeoneDifferent(String activity, String message, String user) {
     getKudosLink(activity).click();
-    waitCKEditorLoading("//*[@id='activityKudosDrawer']");
     deleteUserFromKudosButtonElement().click();
     mentionInField(userKudosInputElement(), user, 5);
     enterKudosMessageFromOpenedDrawer(message);
@@ -129,19 +127,20 @@ public class KudosPage extends GenericPage {
 
   public void sendKudosMessageFromOpenedDrawer(String kudosMessage) {
     waitForDrawerToOpen(ACTIVITY_KUDOS_DRAWER_SELECTOR, false);
-    waitCKEditorLoading(ACTIVITY_KUDOS_DRAWER_SELECTOR);
     retryOnCondition(() -> {
       ElementFacade ckEditorFrameKudos = getCkEditorFrameKudos();
       ckEditorFrameKudos.waitUntilVisible();
+      waitCKEditorLoading(ACTIVITY_KUDOS_DRAWER_SELECTOR);
       getDriver().switchTo().frame(ckEditorFrameKudos);
     }, () -> {
       getDriver().switchTo().defaultContent();
+      waitCKEditorLoading(ACTIVITY_KUDOS_DRAWER_SELECTOR);
       waitFor(500).milliseconds(); // Kudos Iframe seems very slow
     });
     try {
       TextBoxElementFacade kudosFieldElement = kudosFieldElement();
       kudosFieldElement.waitUntilVisible();
-      kudosFieldElement.setTextValue(kudosMessage);
+      kudosFieldElement.sendKeys(kudosMessage);
     } finally {
       getDriver().switchTo().defaultContent();
     }
@@ -155,19 +154,20 @@ public class KudosPage extends GenericPage {
 
   public void enterKudosMessageFromOpenedDrawer(String kudosMessage) {
     waitForDrawerToOpen(ACTIVITY_KUDOS_DRAWER_SELECTOR, false);
-    waitCKEditorLoading(ACTIVITY_KUDOS_DRAWER_SELECTOR);
     retryOnCondition(() -> {
       ElementFacade ckEditorFrameKudos = getCkEditorFrameKudos();
       ckEditorFrameKudos.waitUntilVisible();
+      waitCKEditorLoading(ACTIVITY_KUDOS_DRAWER_SELECTOR);
       getDriver().switchTo().frame(ckEditorFrameKudos);
     }, () -> {
       getDriver().switchTo().defaultContent();
+      waitCKEditorLoading(ACTIVITY_KUDOS_DRAWER_SELECTOR);
       waitFor(500).milliseconds(); // Kudos Iframe seems very slow
     });
     try {
       TextBoxElementFacade kudosFieldElement = kudosFieldElement();
       kudosFieldElement.waitUntilVisible();
-      kudosFieldElement.setTextValue(kudosMessage);
+      kudosFieldElement.sendKeys(kudosMessage);
     } finally {
       getDriver().switchTo().defaultContent();
     }
@@ -176,20 +176,21 @@ public class KudosPage extends GenericPage {
 
   public void sendKudosMessageWithReceiverFromOpenedDrawer(String kudosMessage, String kudosReceiver) {
     waitForDrawerToOpen(ACTIVITY_KUDOS_DRAWER_SELECTOR, false);
-    waitCKEditorLoading(ACTIVITY_KUDOS_DRAWER_SELECTOR);
     mentionInField(kudosReceiverField(), kudosReceiver, 5);
     retryOnCondition(() -> {
       ElementFacade ckEditorFrameKudos = getCkEditorFrameKudos();
       ckEditorFrameKudos.waitUntilVisible();
+      waitCKEditorLoading(ACTIVITY_KUDOS_DRAWER_SELECTOR);
       getDriver().switchTo().frame(ckEditorFrameKudos);
     }, () -> {
       getDriver().switchTo().defaultContent();
+      waitCKEditorLoading(ACTIVITY_KUDOS_DRAWER_SELECTOR);
       waitFor(500).milliseconds(); // Kudos Iframe seems very slow
     });
     try {
       TextBoxElementFacade kudosFieldElement = kudosFieldElement();
       kudosFieldElement.waitUntilVisible();
-      kudosFieldElement.setTextValue(kudosMessage);
+      kudosFieldElement.sendKeys(kudosMessage);
     } finally {
       getDriver().switchTo().defaultContent();
     }

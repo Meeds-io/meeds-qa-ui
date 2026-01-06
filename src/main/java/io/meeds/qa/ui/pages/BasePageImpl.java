@@ -515,7 +515,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void waitForDrawerToOpen(String drawerId, boolean withOverlay) {
-    waitForDrawerToOpen(null, true, false);
+    waitForDrawerToOpen(drawerId, withOverlay, false);
   }
 
   public void waitForDrawerToOpen(boolean withOverlay, boolean throwException) {

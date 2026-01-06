@@ -1382,6 +1382,7 @@ Feature: Activity Stream
     And I open in activity 'activitycap88' the Comments drawer
     Then Comment is displayed in comments drawer at the sixth position
 
+  @test
   Scenario: Send a kudos from a comment
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
