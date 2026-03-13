@@ -440,8 +440,11 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   public void checkExternalInviteButtonNotDisplayed() {
-    inviteUserButton().assertNotVisible();
+    inviteUserButton().assertVisible();
+    inviteUserButton().click();
     invitePlatformUserButton().assertVisible();
+    inviteUserByInvitationToSpaceButton().assertVisible();
+    inviteUserByEmailOption().assertNotVisible();
   }
 
   private ElementFacade applicationToolbarCollpseButton() {
@@ -449,7 +452,11 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   private ElementFacade invitePlatformUserButton() {
-    return findByXPathOrCSS("#spaceSettingUsersListToolbar");
+    return findByXPathOrCSS("#InvitePlatformUserToSpaceButton");
+  }
+
+  private ElementFacade inviteUserByInvitationToSpaceButton() {
+    return findByXPathOrCSS("#InviteUserByInvitationToSpaceButton");
   }
 
   private ElementFacade addNewSpaceButtonElement() {
@@ -520,6 +527,10 @@ public class ManageSpacesPage extends GenericPage {
 
   private ElementFacade inviteUserButton() {
     return findByXPathOrCSS("#InviteUserToSpaceButton");
+  }
+
+  private ElementFacade inviteUserByEmailOption() {
+    return findByXPathOrCSS("#InviteUserByEmailToSpaceButton");
   }
 
   private TextBoxElementFacade memberIdentitySuggesterInput() {
