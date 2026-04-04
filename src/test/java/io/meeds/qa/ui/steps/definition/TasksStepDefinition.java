@@ -126,6 +126,12 @@ public class TasksStepDefinition {
     tasksSteps.addProject(projectName);
   }
 
+  @When("I create the space project")
+  public void addSpaceProject() {
+    String randomSpaceName = Serenity.sessionVariableCalled("randomSpaceName");
+    tasksSteps.addProject(randomSpaceName);
+  }
+
   @Then("^I add the project '(.*)' with the manager '(.*)' and the participant '(.*)'$")
   public void addProjectWithAManagerAndParticipant(String projectName, String manager, String participant) {
     tasksSteps.addProjectWithManagerAndParticipant(projectName, manager, participant);
@@ -383,12 +389,6 @@ public class TasksStepDefinition {
     tasksSteps.checkTypedTaskIsRemoved(typedTask);
   }
 
-  @When("^The update description '(.*)' is displayed in origin task$")
-  @Then("^The update description '(.*)' is displayed in cloned task$")
-  public void checkUpdatedDescription(String description) {
-    tasksSteps.checkUpdatedDescription(description);
-  }
-
   @Then("^The label View all attachments is displayed$")
   public void checkViewLinkAttachments() {
     tasksSteps.checkViewLinkAttachments();
@@ -574,11 +574,6 @@ public class TasksStepDefinition {
   @And("^The new attached image is not displayed$")
   public void checkTaskDescriptionNewAttachImage() {
     tasksSteps.checkTaskDescriptionNewAttachImage();
-  }
-
-  @And("^I click on save Button To Add Task in space project$")
-  public void clickOnSaveButtonToAddTaskSpaceProject() {
-    tasksSteps.clickOnSaveButtonToAddTaskSpaceProject();
   }
 
   @When("^I click on three dots task option$")
@@ -1121,11 +1116,6 @@ public class TasksStepDefinition {
   @When("^I mark the task as completed in task drawer without closing the drawer$")
   public void setTaskCompletedInDrawerWithoutClosingIt() {
     tasksSteps.setTaskCompletedInDrawerWithoutClosingIt();
-  }
-
-  @When("^I enter Description for this task '(.*)'$")
-  public void setTaskDescription(String description) {
-    tasksSteps.setTaskDescription(description);
   }
 
   @And("^I set task due date Next week$")
