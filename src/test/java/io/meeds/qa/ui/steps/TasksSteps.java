@@ -32,7 +32,7 @@ public class TasksSteps {
   }
 
   public void addLabelToProject(String label) {
-    tasksPage.addLabel(label);
+    tasksPage.addLabelToProject(label);
   }
 
   public void addLabelToTask(String label) {
@@ -253,10 +253,6 @@ public class TasksSteps {
     tasksPage.checkTypedTaskIsRemoved(typedTask);
   }
 
-  public void checkUpdatedDescription(String description) {
-    tasksPage.checkUpdatedDescription(description);
-  }
-
   public void checkViewLinkAttachments() {
     tasksPage.checkViewLinkAttachments();
   }
@@ -412,10 +408,6 @@ public class TasksSteps {
 
   public void openTaskDescriptionEditor() {
     tasksPage.openTaskDescriptionEditor();
-  }
-
-  public void clickOnSaveButtonToAddTaskSpaceProject() {
-    tasksPage.clickOnSaveButtonToAddTaskSpaceProject();
   }
 
   public void clickOnTaskThreeDotsOption() {
@@ -748,10 +740,6 @@ public class TasksSteps {
 
   public void setTaskCompletedInDrawerWithoutClosingIt() {
     tasksPage.setTaskCompletedInDrawerWithoutClosingIt();
-  }
-
-  public void setTaskDescription(String description) {
-    tasksPage.setTaskDescription(description);
   }
 
   public void setTaskDueDateNextWeek() {

@@ -10,6 +10,7 @@ Feature: Tasks
     And I create a random space
     And I go to 'tasks' in site 'mycraft'
     When I select projects tab
+    And I create the space project
     And I search for the created project
     And I open the created project
     And I create the following task in selected project
@@ -65,6 +66,7 @@ Feature: Tasks
     And I go to 'tasks' in site 'mycraft'
 
     When I select projects tab
+    And I create the space project
     And I search for the created project
     And I open the created project
     And I create the following task in selected project
@@ -108,6 +110,9 @@ Feature: Tasks
 
     And I login as 'second' random user
     And I create a random space
+    And I go to 'tasks' in site 'mycraft'
+    When I select projects tab
+    And I create the space project
 
     When I login as 'first' random user
     Then I go to the random space
@@ -232,6 +237,7 @@ Feature: Tasks
     And I go to 'tasks' in site 'mycraft'
 
     When I select projects tab
+    And I create the space project
     And I search for the created project
     And I open the created project
     And I create the following task in selected project
@@ -432,27 +438,27 @@ Feature: Tasks
     And I create a random space
     And I refresh the page
     And I go to Tasks in space tab
+    And I create the space project
     And I search for the created project
     And I open the created project
 
     When I click on plus Button To Add Task
     And I enter title for task 'Automation Test Task'
-    And I enter Description for this task 'Decription Task'
-    And I click on save Button To Add Task in space project
+    And I enter description for task 'Decription Task'
+    And I click on save Button To Add Task
     And I open the task 'Automation Test Task'
-    And I update task Description 'updated'
-    And I click on update button
+    And I edit description of the task 'Decription Task updated'
     And I clone Task in space project
     Then task 'Copy of Automation Test Task' is cloned successfully
 
     When I assign task to me
     And I close the opened drawer
     And I open the task 'Copy of Automation Test Task'
-    Then The update description 'Decription Task updated' is displayed in cloned task
+    Then The description in the task 'Decription Task updated' is displayed
 
     When I close the opened drawer
     And I open the task 'Automation Test Task'
-    Then The update description 'Decription Task updated' is displayed in origin task
+    Then The description in the task 'Decription Task updated' is displayed
 
   Scenario: Check message when project title contains less than 3 characters
     Given I am authenticated as 'admin' random user
