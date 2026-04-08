@@ -334,9 +334,12 @@ public class ManageSpacesPage extends GenericPage {
       applicationToolbarCollpseButton().click();
       waitFor(200).milliseconds();
     }
-    addNewSpaceButtonElement().click();
-    waitForDrawerToOpen();
-    waitFor(200).milliseconds();
+    retryOnCondition(() -> {
+      addNewSpaceButtonElement().click();
+      waitForDrawerToOpen();
+      waitFor(200).milliseconds();
+      defaultSpaceTemplateInSpaceFormElement().checkVisible();
+    }, () -> closeAllDrawers());
     defaultSpaceTemplateInSpaceFormElement().click();
     waitFor(200).milliseconds();
   }

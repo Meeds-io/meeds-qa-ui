@@ -19,6 +19,7 @@ Feature: Tasks - Projects
     And I create a random space
     And I go to 'tasks' in site 'mycraft'
     When I select projects tab
+    And I create the space project
     And I search for the created project
     And I open the created project
     And I create the following task in selected project
@@ -151,6 +152,7 @@ Feature: Tasks - Projects
     And I open all applications drawer
     When I go to 'tasks' in site 'mycraft'
     And I select projects tab
+    And I create the space project
     And I search for the created project
     And I click on three dots project button
     And I click on delete project button
@@ -164,6 +166,7 @@ Feature: Tasks - Projects
     And I open all applications drawer
     When I go to 'tasks' in site 'mycraft'
     And I select projects tab
+    And I create the space project
     And I search for the created project
     And I click on three dots project button
     And I click on delete project button

@@ -48,12 +48,19 @@ public class TasksPage extends GenericPage {
   }
 
   public void addFourLabelToProject(String label1, String label2, String label3, String label4) {
-    labelTaskElement().sendKeys(label1 + Keys.ENTER + label2 + Keys.ENTER + label3 + Keys.ENTER + label4 + Keys.ENTER);
+    labelProjectElement().sendKeys(label1 + Keys.ENTER + label2 + Keys.ENTER + label3 + Keys.ENTER + label4 + Keys.ENTER);
+  }
+
+  public void addLabelToProject(String label) {
+    TextBoxElementFacade labelProjectElement = labelProjectElement();
+    retryOnCondition(labelProjectElement::checkVisible);
+    labelProjectElement.setTextValue(label);
+    labelProjectElement.sendKeys(Keys.ENTER);
   }
 
   public void addLabel(String label) {
     TextBoxElementFacade labelTaskElement = labelTaskElement();
-    labelTaskElement.waitUntilVisible();
+    retryOnCondition(labelTaskElement::checkVisible);
     labelTaskElement.setTextValue(label);
     labelTaskElement.sendKeys(Keys.ENTER);
   }
@@ -163,9 +170,8 @@ public class TasksPage extends GenericPage {
   }
 
   public void addSixLabelToProject(String label1, String label2, String label3, String label4, String label5, String label6) {
-    labelTaskElement().sendKeys(label1 + Keys.ENTER + label2 + Keys.ENTER + label3 + Keys.ENTER + label4 + Keys.ENTER + label5
-        + Keys.ENTER
-        + label6 + Keys.ENTER);
+    labelProjectElement().sendKeys(label1 + Keys.ENTER + label2 + Keys.ENTER + label3 + Keys.ENTER + label4 + Keys.ENTER + label5 +
+        Keys.ENTER + label6 + Keys.ENTER);
   }
 
   public void assignTaskToMe() {
@@ -306,19 +312,6 @@ public class TasksPage extends GenericPage {
 
   public void checkTypedTaskIsRemoved(String typedTask) {
     assertFalse(filterByTaskElement().getText().contains(typedTask));
-  }
-
-  public void checkUpdatedDescription(String description) {
-    clickOnTaskDescription();
-
-    ElementFacade ckEditorFrameDescriptionElement = ckEditorFrameDescriptionElement();
-    ckEditorFrameDescriptionElement.waitUntilVisible();
-    getDriver().switchTo().frame(ckEditorFrameDescriptionElement);
-    try {
-      assertEquals(settaskDescriptionElement().getText(), description);
-    } finally {
-      getDriver().switchTo().defaultContent();
-    }
   }
 
   public void checkUpdatedProject(String projectName, String description) {
@@ -511,10 +504,6 @@ public class TasksPage extends GenericPage {
 
   public void closeTaskCommentDrawer() {
     taskCommentDrawerCloseBtn().click();
-  }
-
-  public void clickOnSaveButtonToAddTaskSpaceProject() {
-    saveButtonTaskSpaceProjectElement().click();
   }
 
   public void clickOnTaskThreeDotsOption() {
@@ -1021,20 +1010,6 @@ public class TasksPage extends GenericPage {
 
   public void setTaskCompletedInDrawerWithoutClosingIt() {
     markTaskCompletedInDrawerElement().click();
-  }
-
-  public void setTaskDescription(String description) {
-    clickOnTaskDescription();
-
-    ElementFacade ckEditorFrameDescriptionElement = ckEditorFrameDescriptionElement();
-    ckEditorFrameDescriptionElement.waitUntilVisible();
-    getDriver().switchTo().frame(ckEditorFrameDescriptionElement);
-    try {
-      settaskDescriptionElement().sendKeys(description);
-    } finally {
-      getDriver().switchTo().defaultContent();
-    }
-
   }
 
   public void setTaskDueDateNextWeek() {
@@ -1553,8 +1528,12 @@ public class TasksPage extends GenericPage {
     return findByXPathOrCSS("//*[contains(@class,'filterTasksDrawer ')]//*[contains(@class,'v-tab') and contains(text(),'Labels')]");
   }
 
+  private TextBoxElementFacade labelProjectElement() {
+    return findTextBoxByXPathOrCSS("//*[contains(@class, 'inputProjectLabel')]//*[@id='labelInput']");
+  }
+
   private TextBoxElementFacade labelTaskElement() {
-    return findTextBoxByXPathOrCSS("//*[@id='labelInput']");
+    return findTextBoxByXPathOrCSS("//*[contains(@class, 'inputTaskLabel')]//*[@id='labelInput']");
   }
 
   private ElementFacade lastColumnThreeDotsIconElement() {
@@ -1690,10 +1669,6 @@ public class TasksPage extends GenericPage {
   private ElementFacade getTaskCommentAttachedImage() {
     return findByXPathOrCSS(OPENED_TASK__DRAWER_SELECTOR +
         "//*[contains(@class, 'commentItem')]//*[contains(@class, 'carousel-top-parent')]//*[contains(@class, 'attachments-image-item')][1]");
-  }
-
-  private ElementFacade saveButtonTaskSpaceProjectElement() {
-    return findByXPathOrCSS("(//*[@class='d-flex']//button[2])");
   }
 
   private TextBoxElementFacade searchProjectInputElement() {

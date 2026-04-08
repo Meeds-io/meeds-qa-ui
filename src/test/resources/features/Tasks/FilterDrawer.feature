@@ -7,6 +7,7 @@ Feature: Filter Drawer
     When I create a random space
     And I go to 'tasks' in site 'mycraft'
     And I select projects tab
+    And I create the space project
     And I search for the created project
     And I open the created project
     And The following task with label 'testlabel110-1' is created in the specific project
@@ -39,6 +40,7 @@ Feature: Filter Drawer
     When I create a random space
     And I go to 'tasks' in site 'mycraft'
     And I select projects tab
+    And I create the space project
     And I search for the created project
     And I open the created project
     And I create the following task in selected project
@@ -69,6 +71,7 @@ Feature: Filter Drawer
     And I create a random space
     And I go to 'tasks' in site 'mycraft'
     And I select projects tab
+    And I create the space project
     And I search for the created project
     And I open the created project
     And I create the following task in selected project
@@ -113,6 +116,7 @@ Feature: Filter Drawer
     When I create a random space
     And I go to 'tasks' in site 'mycraft'
     And I select projects tab
+    And I create the space project
     And I search for the created project
     And I open the created project
     And I create the following task in selected project
