@@ -54,6 +54,7 @@ public class KudosPage extends GenericPage {
   }
 
   public void addActivityKudos(String activity, String comment) {
+    getKudosLink(activity).assertVisible();
     getKudosLink(activity).click();
     sendKudosMessageFromOpenedDrawer(comment);
   }
@@ -88,17 +89,17 @@ public class KudosPage extends GenericPage {
   }
 
   public void cancelKudosActivity(String activity) {
-    if (!getCancelKudosActivityIcon(activity).isVisible()) {
+    if (!getActiveMenuButton("undo").isVisible()) {
       spaceHomePage.openThreeDotsActivityMenu(activity);
     }
-    getCancelKudosActivityIcon(activity).click();
+    getActiveMenuButton("undo").click();
   }
 
   public void cancelKudosComment(String activity, String kudos) {
-    if (!getCancelKudosCommentIcon(kudos).isVisible()) {
+    if (!getActiveMenuButton("undo").isVisible()) {
       spaceHomePage.openThreeDotsCommentMenu(activity, kudos);
     }
-    ElementFacade cancelKudosCommentIcon = getCancelKudosCommentIcon(kudos);
+    ElementFacade cancelKudosCommentIcon = getActiveMenuButton("undo");
     cancelKudosCommentIcon.assertVisible();
     cancelKudosCommentIcon.click();
     cancelKudosCommentIcon.assertNotVisible();
@@ -208,22 +209,22 @@ public class KudosPage extends GenericPage {
   }
 
   public void checkCancelKudosActivityIsNotVisible(String kudos) {
-    getCancelKudosActivityIcon(kudos).assertNotVisible();
+    getActiveMenuButton("undo").assertNotVisible();
     closeMenu();
   }
 
   public void checkCancelKudosCommentIsNotVisible(String kudos) {
-    getCancelKudosCommentIcon(kudos).assertNotVisible();
+    getActiveMenuButton("undo").assertNotVisible();
     closeMenu();
   }
 
   public void checkDeleteKudosCommentIsNotVisible(String kudos) {
-    getDeleteCommentIcon(kudos).assertNotVisible();
+    getActiveMenuButton("trash").assertNotVisible();
     closeMenu();
   }
 
   public void checkDeleteKudosCommentIsVisible(String kudos) {
-    getDeleteCommentIcon(kudos).assertVisible();
+    getActiveMenuButton("trash").assertVisible();
     closeMenu();
   }
 
@@ -321,19 +322,9 @@ public class KudosPage extends GenericPage {
     return findByXPathOrCSS("(//*[@class='flex-grow-1 flex-shrink-1 overflow-hidden']//*[contains(@class, 'fa-ellipsis-v')])[3]");
   }
 
-  private ElementFacade getCancelKudosActivityIcon(String activity) {
-    return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@id, 'activity-detail')]//*[contains(@class, 'menuable__content__active')]//*[contains(@class, 'undo')]",
-                                          activity));
-  }
-
-  private ElementFacade getCancelKudosCommentIcon(String comment) {
-    return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@id, 'ActivityComm')]//*[contains(@class, 'menuable__content__active')]//*[contains(@class, 'undo')]",
-            comment));
-  }
-
-  private ElementFacade getDeleteCommentIcon(String comment) {
-    return findByXPathOrCSS(String.format("//*[contains(text(), '%s')]//ancestor::*[contains(@id, 'ActivityComm')]//*[contains(@class, 'menuable__content__active')]//*[contains(@class, 'fa-trash')]",
-                                          comment));
+  private ElementFacade getActiveMenuButton(String iconName) {
+    return findByXPathOrCSS(String.format("//*[contains(@class,'menuable__content__active')]//*[contains(@class, 'v-list-item')]//*[contains(@class, '%s')]",
+                                          iconName));
   }
 
 }
