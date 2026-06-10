@@ -399,7 +399,8 @@ public class SpacePage extends GenericPage {
   }
 
   public void clickCommentButton(String buttonName, String comment) {
-    getCommentMenuButton(buttonName, comment).click();
+    getCommentElement(comment).assertVisible();
+    getCommentMenuButton(buttonName).click();
   }
 
   public void clickOnActivityComment(String comment) {
@@ -565,11 +566,13 @@ public class SpacePage extends GenericPage {
   }
 
   public void deleteComment(String comment) {
-    getDeleteCommentLabel(comment).click();
+    getCommentElement(comment).assertVisible();
+    getCommentMenuButton("Delete").click();
   }
 
   public void deleteReply(String reply) {
-    getDeleteReplyLabel(reply).click();
+    getCommentElement(reply).assertVisible();
+    getCommentMenuButton("Delete").click();
   }
 
   public void displayedLikesOnComment(String comment, String number) {
@@ -598,11 +601,12 @@ public class SpacePage extends GenericPage {
   }
 
   public void editComment(String comment) {
-    getEditCommentLabel(comment).click();
+    getCommentElement(comment).assertVisible();
+    getCommentMenuButton("Edit").click();
   }
 
   public void editCommentFromCommentsDrawer(String comment) {
-    getEditCommentLabelFromCommentsDrawer(comment).click();
+    editComment(comment);
   }
 
   public void editPoll(String pollTitle, String choiceOne, String choiceTow) {
@@ -1555,20 +1559,9 @@ public class SpacePage extends GenericPage {
                                           activity));
   }
 
-  private ElementFacade getDeleteCommentLabel(String comment) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]/preceding::*[contains(@class, 'v-list-item__title') and contains(text(),'Delete')]",
-                                          comment));
-  }
-
-  private ElementFacade getCommentMenuButton(String buttonName, String comment) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@class,'activity-comment')]//*[contains(@class, 'v-list-item')]//*[contains(text(), '%s')]",
-                                          comment,
+  private ElementFacade getCommentMenuButton(String buttonName) {
+    return findByXPathOrCSS(String.format("//*[contains(@class,'menuable__content__active')]//*[contains(@class, 'v-list-item')]//*[contains(text(), '%s')]",
                                           buttonName));
-  }
-
-  private ElementFacade getDeleteReplyLabel(String comment) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]/preceding::*[contains(@class, 'v-list-item__title') and contains(text(),'Delete')]",
-                                          comment));
   }
 
   private ElementFacade getDownloadActivityIcon(String activity) {
@@ -1606,16 +1599,6 @@ public class SpacePage extends GenericPage {
   private ElementFacade getEditActivityIcon(String activity) {
     return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::div[contains(@class,'contentBox')]//*[contains(@class, 'activity-head')]//*[contains(@class, 'v-menu')]//*[contains(@class,'fa-edit')]",
                                           activity));
-  }
-
-  private ElementFacade getEditCommentLabel(String comment) {
-    return findByXPathOrCSS(String.format("//*[contains(text(),'%s')]/preceding::*[contains(@class, 'v-list-item__title') and contains(text(),'Edit')]",
-                                          comment));
-  }
-
-  private ElementFacade getEditCommentLabelFromCommentsDrawer(String comment) {
-    return findByXPathOrCSS(String.format("//*[@id='activityCommentsDrawer']//*[contains(@class,'activity-comment')]//*[contains(text(),'%s')]//ancestor-or-self::*[contains(@class,'activity-comment') and contains(@id, 'ActivityCommment_')][1]//i[contains(@class,'fa-edit')]/..",
-                                          comment));
   }
 
   private ElementFacade getLikeCommentIcon(String activityComment) {
