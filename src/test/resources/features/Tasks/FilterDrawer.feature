@@ -5,7 +5,7 @@ Feature: Filter Drawer
     Given I am authenticated as 'admin' random user
 
     When I create a random space
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
     And I select projects tab
     And I create the space project
     And I search for the created project
@@ -34,11 +34,11 @@ Feature: Filter Drawer
     And Task label 'testlabel110-1' related to task name 'task110-1' is displayed in project details
     And Task label 'testlabel110-1' related to task name 'task110-2' is displayed in project details
 
-  Scenario: CAP113 - [Filter_Drawer_US03]Sort by Title ["Group and Sort" tab under project]
+  Scenario: [Filter_Drawer_US03]Sort by Title ["Group and Sort" tab under project]
     Given I am authenticated as 'admin' random user
 
     When I create a random space
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
     And I select projects tab
     And I create the space project
     And I search for the created project
@@ -69,7 +69,7 @@ Feature: Filter Drawer
     Given I am authenticated as 'admin' random user
 
     And I create a random space
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
     And I select projects tab
     And I create the space project
     And I search for the created project
@@ -110,11 +110,11 @@ Feature: Filter Drawer
     And Task 'task111-2' is marked as completed and displayed in Completed section
     And Task 'task111-3' is not marked as completed and displayed in Uncompleted section
 
-  Scenario: CAP53 - [Filter_Drawer_US01] Filter button in a project
+  Scenario: Filter button in a project
     Given I am authenticated as 'admin' random user
 
     When I create a random space
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
     And I select projects tab
     And I create the space project
     And I search for the created project

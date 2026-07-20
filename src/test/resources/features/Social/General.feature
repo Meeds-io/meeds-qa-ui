@@ -27,7 +27,7 @@ Feature: General new composer
     And I insert text 'activity109'
     And I publish the activity
     And I click on modify the activity
-    And I insert text 'modifier le lien'
+    And I insert text ' modifier le lien'
     And I click on Update
     Then the activity 'modifier le lien' is displayed in activity stream
     And The link is displayed with the preview
@@ -43,7 +43,7 @@ Feature: General new composer
     And I insert text 'activity110'
     And I publish the activity
     And I click on modify the activity
-    And I insert text 'modifier le lien'
+    And I insert text ' modifier le lien'
     And I click on Update
     Then the activity 'modifier le lien' is displayed in activity stream
     And the video 'https://www.youtube.com/watch?v=wgpduVyZT50' is displayed in the activity stream

@@ -1715,7 +1715,7 @@ public class SpacePage extends GenericPage {
   }
 
   private ElementFacade getSharedVideoPreview(String link) {
-    return findByXPathOrCSS(String.format("//*[contains(@id,'Extactivity-content-extensions')]//following::*[@src]//following::*[@href='%s']//*[contains(@class,'font-weight-bold')]",
+    return findByXPathOrCSS(String.format("//*[contains(@id,'Extactivity-content-extensions')]//*[@href='%s']",
                                           link));
   }
 

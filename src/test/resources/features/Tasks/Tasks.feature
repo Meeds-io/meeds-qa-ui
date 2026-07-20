@@ -8,7 +8,7 @@ Feature: Tasks
     And I inject the first random user if not existing
     And I login as 'first' random user
     And I create a random space
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
     When I select projects tab
     And I create the space project
     And I search for the created project
@@ -26,7 +26,7 @@ Feature: Tasks
       | first  |
     And I inject the first random user if not existing
     And I login as 'first' random user
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
     When I select tasks tab
     And I create the following task
       | taskName | task1 |
@@ -41,7 +41,7 @@ Feature: Tasks
   Scenario: Tasks TAB
     Given I am authenticated as 'admin' random user
 
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
     When I select tasks tab
     And I create the following task
       | taskName | testE |
@@ -57,13 +57,13 @@ Feature: Tasks
     Given I am authenticated as 'admin' random user
     And I inject the first random user if not existing
 
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
 
     When I select projects tab
     And I create the random project with the first created user as participant
     And I login as 'first' random user
 
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
 
     When I select projects tab
     And I create the space project
@@ -84,7 +84,7 @@ Feature: Tasks
     And I inject the first random user if not existing
     And I login as 'first' random user
 
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
 
     When I select projects tab
     And I create the project 'newtestessai'
@@ -110,7 +110,7 @@ Feature: Tasks
 
     And I login as 'second' random user
     And I create a random space
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
     When I select projects tab
     And I create the space project
 
@@ -118,7 +118,7 @@ Feature: Tasks
     Then I go to the random space
 
     When I login as 'second' random user
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
     When I select projects tab
     And I search for the created project
     And I open the created project
@@ -144,7 +144,7 @@ Feature: Tasks
     And I create the project 'new project test'
     Then Success message is displayed
 
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
     And Project 'new project test' is displayed in Tasks App Center
 
     When I go to the random space
@@ -156,7 +156,7 @@ Feature: Tasks
     Then Success message is displayed
     And Project 'second project test' is displayed in Tasks space
 
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
     And Project 'new project test' is displayed in Tasks App Center
     And Project 'second project test' is displayed in Tasks App Center
 
@@ -166,7 +166,7 @@ Feature: Tasks
     And I inject the first random user if not existing, no wait
     And I login as 'first' random user
 
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
 
     When I select projects tab
     And I create the project 'TestProject'
@@ -199,7 +199,7 @@ Feature: Tasks
     And I inject the first random user if not existing
     And I login as 'first' random user
 
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
     And I create the project 'project test labels'
     And I click on three dots project button
     And I click on Edit project button
@@ -234,7 +234,7 @@ Feature: Tasks
     And I login as 'first' random user
     And I create a random space
 
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
 
     When I select projects tab
     And I create the space project
@@ -256,7 +256,7 @@ Feature: Tasks
     And I inject the first random user if not existing, no wait
     And I inject the second random user if not existing
 
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
 
     When I select projects tab
     And I create the random project with the first created user as participant
@@ -273,7 +273,7 @@ Feature: Tasks
     And I click on save project button
 
     When I login as 'first' random user
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
     And I select projects tab
     And I search for the created project
     And I open the created project
@@ -282,7 +282,7 @@ Feature: Tasks
     Then Task name 'newtask' is displayed in project details
 
     When I login as 'second' random user
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
     And I select projects tab
     And I search for the created project
     And I open the created project
@@ -318,7 +318,7 @@ Feature: Tasks
     And I inject the second random user if not existing
 
     When I login as 'second' random user
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
 
     When I select projects tab
     And I create the project 'Test Compagne' with the 'third' created user as manager
@@ -340,7 +340,7 @@ Feature: Tasks
       | first  |
     And  I inject the first random user if not existing
     And  I login as 'first' random user
-    And  I go to 'tasks' in site 'mycraft'
+    And  I go to 'tasks' in site 'myworkspace'
     And I create the project 'project01'
     And I open the project 'project01'
     When I click on plus Button To Add Task
@@ -377,7 +377,7 @@ Feature: Tasks
     Given I am authenticated as 'admin' random user
     And I inject the first random user if not existing
 
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
     And I select projects tab
     And I create the random project with the first created user as participant
 
@@ -394,7 +394,7 @@ Feature: Tasks
     And Task name 'Test Tasks' is displayed in project details
 
     When I login as 'first' random user
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
     And I select projects tab
     And I search for the created project
     And I open the created project
@@ -409,7 +409,7 @@ Feature: Tasks
       | first  |
     And  I inject the first random user if not existing
     And  I login as 'first' random user
-    And  I go to 'tasks' in site 'mycraft'
+    And  I go to 'tasks' in site 'myworkspace'
     And I create the project 'project001'
     And I open the project 'project001'
     When I click on plus Button To Add Task
@@ -464,7 +464,7 @@ Feature: Tasks
     Given I am authenticated as 'admin' random user
     And I go To AppCenter Drawer
     And I open all applications drawer
-    When I go to 'tasks' in site 'mycraft'
+    When I go to 'tasks' in site 'myworkspace'
     And I select projects tab
     And I click on add project button
     And I enter the project name 'pr'

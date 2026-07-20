@@ -325,11 +325,6 @@ public class HomeStepDefinition {
     homeSteps.goToStreamPage();
   }
 
-  @Given("^I go to Contribute page$")
-  public void goToContributePage() {
-    homeSteps.goToContributePage();
-  }
-
   @Given("^I go to Programs page$")
   public void goToProgramsPage() {
     homeSteps.goToPrograms();
