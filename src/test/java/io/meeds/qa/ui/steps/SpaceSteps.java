@@ -513,7 +513,15 @@ public class SpaceSteps {
   public void attachImageToKudos() {
     spacePage.attachImagesToKudos();
   }
-  
+
+  public void uploadDocumentToActivity(String fileName) {
+    spacePage.uploadDocumentToActivity(fileName);
+  }
+
+  public void checkDocumentAttachedInDrawer(String fileName) {
+    spacePage.checkDocumentAttachedInDrawer(fileName);
+  }
+
   public void attachImageToActivityComment() {
     spacePage.attachImagesToActivityComment();
   }

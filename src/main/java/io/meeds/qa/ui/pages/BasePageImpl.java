@@ -22,10 +22,14 @@ import static io.meeds.qa.ui.utils.Utils.DEFAULT_WAIT_FOR_TIMEOUT;
 import static io.meeds.qa.ui.utils.Utils.DEFAULT_WAIT_PAGE_LOADING;
 import static io.meeds.qa.ui.utils.Utils.MAX_WAIT_RETRIES;
 import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION_MILLIS;
+import static io.meeds.qa.ui.utils.Utils.getRandomString;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -678,6 +682,22 @@ public class BasePageImpl extends PageObject implements BasePage {
                                                                    .to(fileInput.getElement()),
                      () -> waitFor(500).milliseconds());
     waitForProgressBar();
+  }
+
+  // Copies a DataFiles fixture to a uniquely-named sibling file so repeated
+  // test runs don't collide with a same-named document already uploaded to
+  // the user's Personal Documents on a shared, non-reset QA server.
+  public String copyToUniqueUploadFile(String fileName) {
+    int dotIndex = fileName.lastIndexOf('.');
+    String base = dotIndex >= 0 ? fileName.substring(0, dotIndex) : fileName;
+    String extension = dotIndex >= 0 ? fileName.substring(dotIndex) : "";
+    String uniqueFileName = getRandomString(base) + extension;
+    try {
+      Files.copy(Paths.get(UPLOAD_DIRECTORY_PATH, fileName), Paths.get(UPLOAD_DIRECTORY_PATH, uniqueFileName));
+    } catch (IOException e) {
+      throw new IllegalStateException("Unable to copy upload file " + fileName, e);
+    }
+    return uniqueFileName;
   }
 
   public void pressEscape() {
