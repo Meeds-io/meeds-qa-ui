@@ -1323,7 +1323,7 @@ public class TasksPage extends GenericPage {
   }
 
   private ElementFacade filterButtonElement() {
-    return findByXPathOrCSS("//button[contains(@class,'filterTasksSetting v-btn')]");
+    return findByXPathOrCSS(".projectBoardToolbar button .fa-sliders-h");
   }
 
   private TextBoxElementFacade filterByProjectElement() {
