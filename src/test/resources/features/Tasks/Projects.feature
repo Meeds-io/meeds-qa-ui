@@ -58,7 +58,6 @@ Feature: Tasks - Projects
     Then The random created project with description 'No description available' is displayed in Project Card
     And '2' User avatars are displayed in Project Card
 
-  @test
   Scenario: Project's Tasks "BOARD" view
     Given I am authenticated as 'admin' random user
 

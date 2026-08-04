@@ -30,6 +30,7 @@ Feature: Tasks
     When I select tasks tab
     And I create the following task
       | taskName | task1 |
+    And I refresh the page
     And I start the search for Task 'task1'
     Then A clear button is displayed in the Filter by task field
     When I click on clear button in the Filter by task field

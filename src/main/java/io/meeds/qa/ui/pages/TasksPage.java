@@ -906,7 +906,7 @@ public class TasksPage extends GenericPage {
 
   public void openFilterDrawer() {
     refreshPage();
-    filterDrawerButtonElement().click();
+    clickFilterButton();
   }
 
   public void openProject(String project) {
@@ -976,6 +976,8 @@ public class TasksPage extends GenericPage {
 
   public void saveAddTaskButton() {
     primaryButtonDrawerElement().click();
+    waitForDrawerToClose();
+    waitForLoading();
   }
 
   public void saveQuickTask() {
@@ -1332,10 +1334,6 @@ public class TasksPage extends GenericPage {
 
   private TextBoxElementFacade filterByTaskElement() {
     return findTextBoxByXPathOrCSS("//input[@placeholder='Filter by task']");
-  }
-
-  private ElementFacade filterDrawerButtonElement() {
-    return findByXPathOrCSS("//button[contains(@class,'filterTasksSetting')]//span[contains(@class,'d-sm-inline')]");
   }
 
   private ElementFacade filterTabElement() {
