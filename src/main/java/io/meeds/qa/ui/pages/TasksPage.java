@@ -1606,7 +1606,7 @@ public class TasksPage extends GenericPage {
   }
 
   private ElementFacade projectActiveBoardViewElement() {
-    return findByXPathOrCSS("//*[@class='taskTabBoard v-tab v-tab--active']");
+    return findByXPathOrCSS(".tasksViewHeader");
   }
 
   private ElementFacade projectCardUserFullNameElement() {
