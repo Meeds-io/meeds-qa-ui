@@ -572,6 +572,11 @@ public class HomePage extends GenericPage {
     String currentUrl = getDriver().getCurrentUrl();
     if (currentUrl.endsWith(linkSuffix) && !currentUrl.endsWith("g:")) {
       return;
+    } else if (!getHamburgerNavigationMenu().isPresent()) {
+      getDriver().navigate()
+                 .to(getCurrentUrl().split(PORTAL_ROOT_CONTEXT_NO_SLASH)[0]);
+      waitForLoading();
+      clickOnHamburgerMenu(stickMenu);
     } else if (!getStickiedHamburgerMenuParent().isCurrentlyVisible()) {
       clickOnHamburgerMenu(stickMenu);
     }
