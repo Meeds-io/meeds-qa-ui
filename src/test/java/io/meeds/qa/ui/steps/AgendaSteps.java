@@ -59,20 +59,20 @@ public class AgendaSteps {
     agendaPage.checkEventCreationFormStep(stepLabel);
   }
 
-  public void checkEventCreationFormOpened() {
-    agendaPage.checkEventCreationFormOpened();
+  public void openSettingsPage() {
+    agendaPage.openSettingsPage();
   }
 
-  public void checkEventCreationFormClosed() {
-    agendaPage.checkEventCreationFormClosed();
+  public void checkAgendaSettingsDisplayed() {
+    agendaPage.checkAgendaSettingsDisplayed();
   }
 
-  public void closeEventCreationForm() {
-    agendaPage.closeEventCreationForm();
+  public void clickEditAgendaSettings() {
+    agendaPage.clickEditAgendaSettings();
   }
 
-  public void pressEscapeInEventCreationForm() {
-    agendaPage.pressEscapeInEventCreationForm();
+  public void checkAgendaPreferencesDrawerDisplayed() {
+    agendaPage.checkAgendaPreferencesDrawerDisplayed();
   }
 
 }

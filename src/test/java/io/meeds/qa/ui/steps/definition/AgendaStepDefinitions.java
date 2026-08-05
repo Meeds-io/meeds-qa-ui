@@ -72,24 +72,24 @@ public class AgendaStepDefinitions {
     agendaSteps.checkEventCreationFormStep(stepLabel);
   }
 
-  @Then("^The event creation form is opened$")
-  public void checkEventCreationFormOpened() {
-    agendaSteps.checkEventCreationFormOpened();
+  @When("^I go to the settings page$")
+  public void openSettingsPage() {
+    agendaSteps.openSettingsPage();
   }
 
-  @Then("^The event creation form is closed$")
-  public void checkEventCreationFormClosed() {
-    agendaSteps.checkEventCreationFormClosed();
+  @Then("^The agenda settings section is displayed$")
+  public void checkAgendaSettingsDisplayed() {
+    agendaSteps.checkAgendaSettingsDisplayed();
   }
 
-  @When("^I close the event creation form$")
-  public void closeEventCreationForm() {
-    agendaSteps.closeEventCreationForm();
+  @When("^I click on edit agenda settings$")
+  public void clickEditAgendaSettings() {
+    agendaSteps.clickEditAgendaSettings();
   }
 
-  @When("^I press ESC in the event creation form$")
-  public void pressEscapeInEventCreationForm() {
-    agendaSteps.pressEscapeInEventCreationForm();
+  @Then("^The agenda preferences drawer is displayed$")
+  public void checkAgendaPreferencesDrawerDisplayed() {
+    agendaSteps.checkAgendaPreferencesDrawerDisplayed();
   }
 
 }

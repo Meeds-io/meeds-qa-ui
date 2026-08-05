@@ -37,14 +37,9 @@ Feature: Agenda application
     Then The agenda now line is displayed
 
   @test
-  Scenario: Close the event creation form
+  Scenario: Display the agenda settings preferences
     Given I am authenticated as 'admin' random user
-    When I go to the Agenda application
-    And I click on the add event button
-    Then The event creation form step 'Event details' is displayed
-    When I close the event creation form
-    Then The event creation form is closed
-    When I click on the add event button
-    Then The event creation form is opened
-    When I press ESC in the event creation form
-    Then The event creation form is closed
+    When I go to the settings page
+    Then The agenda settings section is displayed
+    When I click on edit agenda settings
+    Then The agenda preferences drawer is displayed

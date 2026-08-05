@@ -19,11 +19,9 @@ package io.meeds.qa.ui.pages;
 
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.ElementFacade;
-import io.meeds.qa.ui.elements.TextBoxElementFacade;
 
 public class AgendaPage extends GenericPage {
 
@@ -69,22 +67,32 @@ public class AgendaPage extends GenericPage {
     eventFormStepElement(stepLabel).assertVisible();
   }
 
-  public void checkEventCreationFormOpened() {
-    eventTitleFieldElement().assertVisible();
+  public void openSettingsPage() {
+    goToPage("/portal/dw/settings");
   }
 
-  public void checkEventCreationFormClosed() {
-    eventTitleFieldElement().assertNotVisible();
+  public void checkAgendaSettingsDisplayed() {
+    agendaSettingsApplicationElement().assertVisible();
   }
 
-  public void closeEventCreationForm() {
-    eventFormCloseIconElement().click();
-    waitForLoading();
+  public void clickEditAgendaSettings() {
+    editAgendaSettingsIconElement().click();
   }
 
-  public void pressEscapeInEventCreationForm() {
-    eventTitleFieldElement().sendKeys(Keys.ESCAPE);
-    waitForLoading();
+  public void checkAgendaPreferencesDrawerDisplayed() {
+    agendaPreferencesDrawerElement().assertVisible();
+  }
+
+  private ElementFacade agendaSettingsApplicationElement() {
+    return findByXPathOrCSS("//*[@id='AgendaSettingsApplication']");
+  }
+
+  private ElementFacade editAgendaSettingsIconElement() {
+    return findByXPathOrCSS("(//*[@id='AgendaSettingsApplication']//i[contains(@class,'uiIconEdit')])[1]");
+  }
+
+  private ElementFacade agendaPreferencesDrawerElement() {
+    return findByXPathOrCSS("//*[contains(@class,'UserSettingAgendaDrawer')]");
   }
 
   private ElementFacade agendaApplicationElement() {
@@ -109,14 +117,6 @@ public class AgendaPage extends GenericPage {
 
   private ElementFacade agendaViewButtonElement(String view) {
     return findByXPathOrCSS(String.format("//i[contains(@class,'fa-calendar-%s')]", view));
-  }
-
-  private TextBoxElementFacade eventTitleFieldElement() {
-    return findTextBoxByXPathOrCSS("//*[@id='eventTitle']");
-  }
-
-  private ElementFacade eventFormCloseIconElement() {
-    return findByXPathOrCSS("(//i[contains(@class,'mdi-close')])[1]");
   }
 
   private ElementFacade eventFormStepElement(String stepLabel) {
