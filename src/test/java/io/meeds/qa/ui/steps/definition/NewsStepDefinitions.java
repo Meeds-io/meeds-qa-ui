@@ -42,4 +42,14 @@ public class NewsStepDefinitions {
     newsSteps.checkArticleEditorOpened();
   }
 
+  @When("^I enter the article title '(.*)' and content '(.*)'$")
+  public void enterArticleTitleAndContent(String title, String content) {
+    newsSteps.enterArticleTitleAndContent(title, content);
+  }
+
+  @Then("^The article draft is saved$")
+  public void checkArticleDraftSaved() {
+    newsSteps.checkArticleDraftSaved();
+  }
+
 }

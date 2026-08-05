@@ -35,4 +35,12 @@ public class NewsSteps {
     newsPage.checkArticleEditorOpened();
   }
 
+  public void enterArticleTitleAndContent(String title, String content) {
+    newsPage.enterArticleTitleAndContent(title, content);
+  }
+
+  public void checkArticleDraftSaved() {
+    newsPage.checkArticleDraftSaved();
+  }
+
 }

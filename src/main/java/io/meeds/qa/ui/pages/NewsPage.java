@@ -23,6 +23,7 @@ import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.ElementFacade;
+import io.meeds.qa.ui.elements.TextBoxElementFacade;
 
 public class NewsPage extends GenericPage {
 
@@ -46,16 +47,44 @@ public class NewsPage extends GenericPage {
     articlePublishButtonElement().assertVisible();
   }
 
+  public void enterArticleTitleAndContent(String title, String content) {
+    articleTitleFieldElement().setTextValue(title);
+    ElementFacade frame = articleContentFrameElement();
+    frame.waitUntilVisible();
+    getDriver().switchTo().frame(frame);
+    try {
+      articleContentBodyElement().sendKeys(content);
+    } finally {
+      getDriver().switchTo().defaultContent();
+    }
+  }
+
+  public void checkArticleDraftSaved() {
+    articleDraftSavedElement().assertVisible();
+  }
+
   private ElementFacade writeArticleLinkElement() {
     return findByXPathOrCSS("//*[@id='writeNewsComposerButton']");
   }
 
-  private ElementFacade articleTitleFieldElement() {
-    return findByXPathOrCSS("//*[@id='notesTitle']");
+  private TextBoxElementFacade articleTitleFieldElement() {
+    return findTextBoxByXPathOrCSS("//*[@id='notesTitle']");
   }
 
   private ElementFacade articlePublishButtonElement() {
     return findByXPathOrCSS("//*[@id='notesUpdateAndPost']");
+  }
+
+  private ElementFacade articleContentFrameElement() {
+    return findByXPathOrCSS("//iframe[contains(@class,'cke_wysiwyg_frame')]");
+  }
+
+  private TextBoxElementFacade articleContentBodyElement() {
+    return findTextBoxByXPathOrCSS("//body[contains(@class,'notesContent')]");
+  }
+
+  private ElementFacade articleDraftSavedElement() {
+    return findByXPathOrCSS("//*[contains(@class,'draftSavingStatus') and contains(text(),'Draft saved')]");
   }
 
 }
