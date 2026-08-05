@@ -92,4 +92,84 @@ public class AgendaStepDefinitions {
     agendaSteps.checkAgendaPreferencesDrawerDisplayed();
   }
 
+  @When("^I close the event creation form$")
+  public void closeEventCreationForm() {
+    agendaSteps.closeEventCreationForm();
+  }
+
+  @When("^I press ESC in the event creation form$")
+  public void pressEscapeInEventCreationForm() {
+    agendaSteps.pressEscapeInEventCreationForm();
+  }
+
+  @Then("^The event creation form is closed$")
+  public void checkEventCreationFormClosed() {
+    agendaSteps.checkEventCreationFormClosed();
+  }
+
+  @When("^I click on the repetition select box$")
+  public void clickRepetitionSelectBox() {
+    agendaSteps.clickRepetitionSelectBox();
+  }
+
+  @Then("^The repetition option '(.*)' is displayed$")
+  public void checkRepetitionOption(String option) {
+    agendaSteps.checkRepetitionOption(option);
+  }
+
+  @When("^I add an event titled '(.*)'$")
+  public void addEvent(String title) {
+    agendaSteps.addEvent(title);
+  }
+
+  @Then("^The event is created with message '(.*)'$")
+  public void checkEventCreatedAlert(String alertMessage) {
+    agendaSteps.checkEventCreatedAlert(alertMessage);
+  }
+
+  @When("^I open the event '(.*)' details$")
+  public void openEventDetails(String title) {
+    agendaSteps.openEventDetails(title);
+  }
+
+  @When("^I press ESC in the event details$")
+  public void pressEscapeInEventDetails() {
+    agendaSteps.pressEscapeInEventDetails();
+  }
+
+  @Then("^The event details are not visible$")
+  public void checkEventDetailsNotVisible() {
+    agendaSteps.checkEventDetailsNotVisible();
+  }
+
+  @When("^I open the edit event form$")
+  public void openEditEventForm() {
+    agendaSteps.openEditEventForm();
+  }
+
+  @Then("^The edit event form is displayed$")
+  public void checkEditEventFormDisplayed() {
+    agendaSteps.checkEditEventFormDisplayed();
+  }
+
+  @When("^I open the delete event form$")
+  public void openDeleteEventForm() {
+    agendaSteps.openDeleteEventForm();
+  }
+
+  @Then("^The event button '(.*)' is displayed$")
+  public void checkEventButtonDisplayed(String buttonName) {
+    agendaSteps.checkEventButtonDisplayed(buttonName);
+  }
+
+  @When("^I click on the '(.*)' event button$")
+  public void clickEventButton(String buttonName) {
+    agendaSteps.clickEventButton(buttonName);
+  }
+
+  @Then("^The event '(.*)' is deleted from the agenda$")
+  public void checkEventDeletedFromAgenda(String title) {
+    agendaSteps.checkEventDeletedFromAgenda(title);
+  }
+
 }

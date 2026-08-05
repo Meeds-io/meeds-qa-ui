@@ -910,6 +910,7 @@ public class SpacePage extends GenericPage {
       waitForLoading();
     } catch (Exception e) {
       refreshPage();
+      waitForLoading();
     }
   }
 

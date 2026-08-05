@@ -75,4 +75,68 @@ public class AgendaSteps {
     agendaPage.checkAgendaPreferencesDrawerDisplayed();
   }
 
+  public void closeEventCreationForm() {
+    agendaPage.closeEventCreationForm();
+  }
+
+  public void pressEscapeInEventCreationForm() {
+    agendaPage.pressEscapeInEventCreationForm();
+  }
+
+  public void checkEventCreationFormClosed() {
+    agendaPage.checkEventCreationFormClosed();
+  }
+
+  public void clickRepetitionSelectBox() {
+    agendaPage.clickRepetitionSelectBox();
+  }
+
+  public void checkRepetitionOption(String option) {
+    agendaPage.checkRepetitionOption(option);
+  }
+
+  public void addEvent(String title) {
+    agendaPage.addEvent(title);
+  }
+
+  public void checkEventCreatedAlert(String alertMessage) {
+    agendaPage.checkEventCreatedAlert(alertMessage);
+  }
+
+  public void openEventDetails(String title) {
+    agendaPage.openEventDetails(title);
+  }
+
+  public void pressEscapeInEventDetails() {
+    agendaPage.pressEscapeInEventDetails();
+  }
+
+  public void checkEventDetailsNotVisible() {
+    agendaPage.checkEventDetailsNotVisible();
+  }
+
+  public void openEditEventForm() {
+    agendaPage.openEditEventForm();
+  }
+
+  public void checkEditEventFormDisplayed() {
+    agendaPage.checkEditEventFormDisplayed();
+  }
+
+  public void openDeleteEventForm() {
+    agendaPage.openDeleteEventForm();
+  }
+
+  public void checkEventButtonDisplayed(String buttonName) {
+    agendaPage.checkEventButtonDisplayed(buttonName);
+  }
+
+  public void clickEventButton(String buttonName) {
+    agendaPage.clickEventButton(buttonName);
+  }
+
+  public void checkEventDeletedFromAgenda(String title) {
+    agendaPage.checkEventDeletedFromAgenda(title);
+  }
+
 }

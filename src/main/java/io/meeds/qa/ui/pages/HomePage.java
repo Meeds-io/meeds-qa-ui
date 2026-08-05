@@ -569,6 +569,7 @@ public class HomePage extends GenericPage {
 
   private void goToPageWithLink(String linkSuffix, boolean stickMenu) {
     closeAllDrawers();
+    closeAllDialogs();
     String currentUrl = getDriver().getCurrentUrl();
     if (currentUrl.endsWith(linkSuffix) && !currentUrl.endsWith("g:")) {
       return;
