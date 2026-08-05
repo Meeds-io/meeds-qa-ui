@@ -39,12 +39,40 @@ public class AgendaSteps {
     agendaPage.checkAgendaViewsSwitcherDisplayed();
   }
 
+  public void checkAgendaFilterDisplayed() {
+    agendaPage.checkAgendaFilterDisplayed();
+  }
+
+  public void checkAgendaNowLineDisplayed() {
+    agendaPage.checkAgendaNowLineDisplayed();
+  }
+
+  public void goToAgendaView(String view) {
+    agendaPage.goToAgendaView(view);
+  }
+
   public void clickAddEventButton() {
     agendaPage.clickAddEventButton();
   }
 
   public void checkEventCreationFormStep(String stepLabel) {
     agendaPage.checkEventCreationFormStep(stepLabel);
+  }
+
+  public void checkEventCreationFormOpened() {
+    agendaPage.checkEventCreationFormOpened();
+  }
+
+  public void checkEventCreationFormClosed() {
+    agendaPage.checkEventCreationFormClosed();
+  }
+
+  public void closeEventCreationForm() {
+    agendaPage.closeEventCreationForm();
+  }
+
+  public void pressEscapeInEventCreationForm() {
+    agendaPage.pressEscapeInEventCreationForm();
   }
 
 }

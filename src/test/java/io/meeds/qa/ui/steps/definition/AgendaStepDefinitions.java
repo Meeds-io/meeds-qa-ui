@@ -47,6 +47,21 @@ public class AgendaStepDefinitions {
     agendaSteps.checkAgendaViewsSwitcherDisplayed();
   }
 
+  @Then("^The agenda filter is displayed$")
+  public void checkAgendaFilterDisplayed() {
+    agendaSteps.checkAgendaFilterDisplayed();
+  }
+
+  @Then("^The agenda now line is displayed$")
+  public void checkAgendaNowLineDisplayed() {
+    agendaSteps.checkAgendaNowLineDisplayed();
+  }
+
+  @When("^I go to the '(.*)' agenda view$")
+  public void goToAgendaView(String view) {
+    agendaSteps.goToAgendaView(view);
+  }
+
   @When("^I click on the add event button$")
   public void clickAddEventButton() {
     agendaSteps.clickAddEventButton();
@@ -55,6 +70,26 @@ public class AgendaStepDefinitions {
   @Then("^The event creation form step '(.*)' is displayed$")
   public void checkEventCreationFormStep(String stepLabel) {
     agendaSteps.checkEventCreationFormStep(stepLabel);
+  }
+
+  @Then("^The event creation form is opened$")
+  public void checkEventCreationFormOpened() {
+    agendaSteps.checkEventCreationFormOpened();
+  }
+
+  @Then("^The event creation form is closed$")
+  public void checkEventCreationFormClosed() {
+    agendaSteps.checkEventCreationFormClosed();
+  }
+
+  @When("^I close the event creation form$")
+  public void closeEventCreationForm() {
+    agendaSteps.closeEventCreationForm();
+  }
+
+  @When("^I press ESC in the event creation form$")
+  public void pressEscapeInEventCreationForm() {
+    agendaSteps.pressEscapeInEventCreationForm();
   }
 
 }

@@ -17,9 +17,13 @@
  */
 package io.meeds.qa.ui.pages;
 
+import static io.meeds.qa.ui.utils.Utils.waitForLoading;
+
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.ElementFacade;
+import io.meeds.qa.ui.elements.TextBoxElementFacade;
 
 public class AgendaPage extends GenericPage {
 
@@ -43,12 +47,44 @@ public class AgendaPage extends GenericPage {
     agendaViewsSwitcherElement().assertVisible();
   }
 
+  public void checkAgendaFilterDisplayed() {
+    agendaFilterElement().assertVisible();
+  }
+
+  public void checkAgendaNowLineDisplayed() {
+    agendaNowLineElement().assertVisible();
+  }
+
+  public void goToAgendaView(String view) {
+    agendaViewsSwitcherElement().click();
+    agendaViewButtonElement(view).click();
+    waitForLoading();
+  }
+
   public void clickAddEventButton() {
     addEventButtonElement().click();
   }
 
   public void checkEventCreationFormStep(String stepLabel) {
     eventFormStepElement(stepLabel).assertVisible();
+  }
+
+  public void checkEventCreationFormOpened() {
+    eventTitleFieldElement().assertVisible();
+  }
+
+  public void checkEventCreationFormClosed() {
+    eventTitleFieldElement().assertNotVisible();
+  }
+
+  public void closeEventCreationForm() {
+    eventFormCloseIconElement().click();
+    waitForLoading();
+  }
+
+  public void pressEscapeInEventCreationForm() {
+    eventTitleFieldElement().sendKeys(Keys.ESCAPE);
+    waitForLoading();
   }
 
   private ElementFacade agendaApplicationElement() {
@@ -61,6 +97,26 @@ public class AgendaPage extends GenericPage {
 
   private ElementFacade agendaViewsSwitcherElement() {
     return findByXPathOrCSS("//*[@id='agendaDisplayOptions']");
+  }
+
+  private ElementFacade agendaFilterElement() {
+    return findByXPathOrCSS("//*[@id='AgendaApplication']//i[contains(@class,'fa-sliders-h')]");
+  }
+
+  private ElementFacade agendaNowLineElement() {
+    return findByXPathOrCSS("(//div[contains(@class,'v-present')])[2]");
+  }
+
+  private ElementFacade agendaViewButtonElement(String view) {
+    return findByXPathOrCSS(String.format("//i[contains(@class,'fa-calendar-%s')]", view));
+  }
+
+  private TextBoxElementFacade eventTitleFieldElement() {
+    return findTextBoxByXPathOrCSS("//*[@id='eventTitle']");
+  }
+
+  private ElementFacade eventFormCloseIconElement() {
+    return findByXPathOrCSS("(//i[contains(@class,'mdi-close')])[1]");
   }
 
   private ElementFacade eventFormStepElement(String stepLabel) {
