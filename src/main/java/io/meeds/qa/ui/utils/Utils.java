@@ -250,12 +250,21 @@ public class Utils {
 
   private static String getPageLoadingScript(boolean includeApps) {
     String pageLoadingScript = "return document.readyState === 'complete'";
+    // The topbar loading indicator id was renamed from 'TopbarLoadingContainer'
+    // to 'TopbarLoading': the page is considered loaded once it is absent or hidden.
+    // Activity file attachments render an indeterminate preview loader that never
+    // completes for some file types (e.g. plain text), so progress bars inside an
+    // '.activity-attachment' card are ignored - otherwise waitForLoading would never
+    // return on any activity-stream page that displays such an attachment.
     return includeApps ? pageLoadingScript
-        + " && (!document.getElementById('TopbarLoadingContainer') || !!document.querySelector('.TopbarLoadingContainer.hidden'))"
-        + " && !document.querySelector('.v-card .v-progress-linear__indeterminate')"
-        + " && !document.querySelector('.v-navigation-drawer--open .v-progress-linear__indeterminate')"
-        + " && !document.querySelector('.v-card .v-progress-circular--indeterminate')"
-        + " && !document.querySelector('.v-navigation-drawer--open .v-progress-circular--indeterminate')"
+        + " && (!document.getElementById('TopbarLoading') || !!document.querySelector('#TopbarLoading.hidden'))"
+        + " && !Array.prototype.some.call("
+        +      "document.querySelectorAll("
+        +        "'.v-card .v-progress-linear__indeterminate,"
+        +        " .v-navigation-drawer--open .v-progress-linear__indeterminate,"
+        +        " .v-card .v-progress-circular--indeterminate,"
+        +        " .v-navigation-drawer--open .v-progress-circular--indeterminate'),"
+        +      "function(e){return !e.closest('.activity-attachment');})"
                        : pageLoadingScript;
   }
 

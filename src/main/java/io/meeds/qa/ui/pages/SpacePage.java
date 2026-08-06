@@ -910,6 +910,7 @@ public class SpacePage extends GenericPage {
       waitForLoading();
     } catch (Exception e) {
       refreshPage();
+      waitForLoading();
     }
   }
 
@@ -931,6 +932,31 @@ public class SpacePage extends GenericPage {
   public void attachImagesToKudos() {
     waitCKEditorLoading(OPENED_KUDOS_DRAWER_SELECTOR);
     this.attachImageToCKeditor();
+  }
+
+  public void uploadDocumentToActivity(String fileName) {
+    waitCKEditorLoading(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR);
+    // Uploaded to a shared, non-reset QA server: reuse of the same fixture
+    // filename across runs would collide with a previous run's upload, so
+    // upload a uniquely-named copy instead and remember it for this scenario.
+    String uniqueFileName = copyToUniqueUploadFile(fileName);
+    Serenity.setSessionVariable(uploadedDocumentSessionKey(fileName)).to(uniqueFileName);
+    clickAttachDocumentButton();
+    attachImageToFileInput(attachDocumentsDrawerFileInputElement(), uniqueFileName);
+  }
+
+  public void checkDocumentAttachedInDrawer(String fileName) {
+    String uniqueFileName = Serenity.sessionVariableCalled(uploadedDocumentSessionKey(fileName));
+    attachedDocumentInDrawerElement(uniqueFileName).assertVisible();
+  }
+
+  private ElementFacade attachedDocumentInDrawerElement(String fileName) {
+    return findByXPathOrCSS(String.format("//*[contains(@class,'attachmentsAppDrawer')]//*[contains(text(),'%s')]",
+                                          fileName));
+  }
+
+  private String uploadedDocumentSessionKey(String fileName) {
+    return "uploadedDocument_" + fileName;
   }
 
   public void clickPreviewAttachedImage(String activity) {
@@ -1625,6 +1651,15 @@ public class SpacePage extends GenericPage {
                                           activity));
   }
 
+
+  private void clickAttachDocumentButton() {
+    findByXPathOrCSS("//*[@class='cke_button_icon cke_button__attachfile_icon']/parent::a").click();
+  }
+
+  private ElementFacade attachDocumentsDrawerFileInputElement() {
+    return findByXPathOrCSS("//*[contains(@class,'attachmentsAppDrawer')]//input[@type='file']");
+  }
+
   private ElementFacade getSecondAttachedImageActivity(String activity) {
     return findByXPathOrCSS(String.format("(//*[contains(text(),'%s')]//ancestor::*[contains(@class,'activity-detail')])[1]//*[contains(@class, 'attachments-image-item')][2]",
                                           activity));
@@ -1715,7 +1750,7 @@ public class SpacePage extends GenericPage {
   }
 
   private ElementFacade getSharedVideoPreview(String link) {
-    return findByXPathOrCSS(String.format("//*[contains(@id,'Extactivity-content-extensions')]//following::*[@src]//following::*[@href='%s']//*[contains(@class,'font-weight-bold')]",
+    return findByXPathOrCSS(String.format("//*[contains(@id,'Extactivity-content-extensions')]//*[@href='%s']",
                                           link));
   }
 

@@ -203,10 +203,6 @@ public class HomeSteps {
     homePage.goToStreamPage();
   }
 
-  public void goToContributePage() {
-    homePage.goToContributePage();
-  }
-
   public void goToPrograms() {
     homePage.goToPrograms();
   }

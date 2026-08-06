@@ -170,7 +170,8 @@ public class TasksPage extends GenericPage {
   }
 
   public void addSixLabelToProject(String label1, String label2, String label3, String label4, String label5, String label6) {
-    labelProjectElement().sendKeys(label1 + Keys.ENTER + label2 + Keys.ENTER + label3 + Keys.ENTER + label4 + Keys.ENTER + label5 +
+    labelProjectElement().sendKeys(label1 + Keys.ENTER + label2 + Keys.ENTER + label3 + Keys.ENTER + label4 + Keys.ENTER +
+        label5 +
         Keys.ENTER + label6 + Keys.ENTER);
   }
 
@@ -905,7 +906,7 @@ public class TasksPage extends GenericPage {
 
   public void openFilterDrawer() {
     refreshPage();
-    filterDrawerButtonElement().click();
+    clickFilterButton();
   }
 
   public void openProject(String project) {
@@ -975,6 +976,8 @@ public class TasksPage extends GenericPage {
 
   public void saveAddTaskButton() {
     primaryButtonDrawerElement().click();
+    waitForDrawerToClose();
+    waitForLoading();
   }
 
   public void saveQuickTask() {
@@ -982,7 +985,10 @@ public class TasksPage extends GenericPage {
   }
 
   public void searchTask(String taskName) {
-    searchTaskNameElement().sendKeys(taskName);
+    retryOnCondition(() -> {
+      expandTasksListToolbarFilter();
+      searchTaskNameElement().sendKeys(taskName);
+    });
   }
 
   public void selectFilterOption(String label) {
@@ -990,7 +996,10 @@ public class TasksPage extends GenericPage {
   }
 
   public void setInSearchProjectField(String project) {
-    searchProjectInputElement().setTextValue(project);
+    retryOnCondition(() -> {
+      expandProjectListToolbarFilter();
+      searchProjectInputElement().setTextValue(project);
+    });
     waitFor(1).seconds();
     waitForLoading();
   }
@@ -1178,6 +1187,7 @@ public class TasksPage extends GenericPage {
   private ElementFacade addProjectOrTaskElement() {
     return retryGetOnCondition(() -> {
       return Stream.of("//*[@id = 'projectBoardToolbar']//*[contains(@class, 'tasksToolbar')]//button[contains(@class, 'btn-primary')]",
+                       "//*[@id = 'projectListToolbar']//button[contains(@class, 'btn-primary')]",
                        "//*[contains(@class, 'noTasksProject')]//*[contains(@class, 'btn btn-primary')][1]")
                    .map(this::findByXPathOrCSS)
                    .filter(ElementFacade::isCurrentlyVisible)
@@ -1247,11 +1257,11 @@ public class TasksPage extends GenericPage {
   }
 
   private TextBoxElementFacade clearButtonInFilterByProjectElement() {
-    return findTextBoxByXPathOrCSS("//*[@id='ProjectListToolbar']//button[contains(@class,' mdi-close theme')]");
+    return findTextBoxByXPathOrCSS("//*[@id='projectListToolbar']//button[contains(@class,'fa-times')]");
   }
 
   private TextBoxElementFacade clearButtonInFilterByTaskElement() {
-    return findTextBoxByXPathOrCSS("//*[@id='TasksListToolbar']//button[contains(@class,' mdi-close theme')]");
+    return findTextBoxByXPathOrCSS("//*[@id='tasksListToolbar']//button[contains(@class,'fa-times')]");
   }
 
   private ElementFacade cloneoptionElement() {
@@ -1315,7 +1325,7 @@ public class TasksPage extends GenericPage {
   }
 
   private ElementFacade filterButtonElement() {
-    return findByXPathOrCSS("//button[contains(@class,'filterTasksSetting v-btn')]");
+    return findByXPathOrCSS(".projectBoardToolbar button .fa-sliders-h");
   }
 
   private TextBoxElementFacade filterByProjectElement() {
@@ -1324,10 +1334,6 @@ public class TasksPage extends GenericPage {
 
   private TextBoxElementFacade filterByTaskElement() {
     return findTextBoxByXPathOrCSS("//input[@placeholder='Filter by task']");
-  }
-
-  private ElementFacade filterDrawerButtonElement() {
-    return findByXPathOrCSS("//button[contains(@class,'filterTasksSetting')]//span[contains(@class,'d-sm-inline')]");
   }
 
   private ElementFacade filterTabElement() {
@@ -1383,12 +1389,12 @@ public class TasksPage extends GenericPage {
 
   private ElementFacade getProjectCard(String projectName) {
     return findByXPathOrCSS(
-                            String.format("//span[contains(@class,'projectCardTitle') and contains(text(),'%s')]", projectName));
+                            String.format("//*[contains(@class,'projectCardTitle') and contains(text(),'%s')]", projectName));
   }
 
   private ElementFacade getProjectCardDescription(String description) {
     return findByXPathOrCSS(
-                            String.format("//*[contains(@class, 'taskItemDescription')]//*[contains(text(),'%s')]",
+                            String.format("//*[contains(@class, 'projectCardDescription')]//*[contains(text(),'%s')]",
                                           description));
   }
 
@@ -1398,7 +1404,7 @@ public class TasksPage extends GenericPage {
   }
 
   private int countProjectCardUserAvatars() {
-    return findAll("//*[contains(@class,'managerAvatarsList')]//button[contains(@id,'userAvatar')]").size();
+    return findAll("//*[contains(@class,'projectCardFooter')]//*[contains(@id,'userAvatar')]").size();
   }
 
   private ElementFacade getRemoveLabelButton(String label) {
@@ -1598,7 +1604,7 @@ public class TasksPage extends GenericPage {
   }
 
   private ElementFacade projectActiveBoardViewElement() {
-    return findByXPathOrCSS("//*[@class='taskTabBoard v-tab v-tab--active']");
+    return findByXPathOrCSS(".tasksViewHeader");
   }
 
   private ElementFacade projectCardUserFullNameElement() {
@@ -1606,7 +1612,7 @@ public class TasksPage extends GenericPage {
   }
 
   private ElementFacade projectCardUserPopover() {
-    return findByXPathOrCSS("//*[contains(@class, 'spaceAdminContainer')]//*[contains(@class, 'profile-popover')]");
+    return findByXPathOrCSS("//*[contains(@class, 'projectCardFooter')]//*[contains(@class, 'profile-popover')]");
   }
 
   private TextBoxElementFacade projectDescriptionFieldElement() {
@@ -1623,7 +1629,7 @@ public class TasksPage extends GenericPage {
   }
 
   private ElementFacade projectThreeDotsButtonElement() {
-    return findByXPathOrCSS("//*[contains(@class,'uiIconVerticalDots')]");
+    return findByXPathOrCSS("//*[contains(@class,'fa-ellipsis-v')]");
   }
 
   private TextBoxElementFacade projectTitleElement() {
@@ -1671,12 +1677,26 @@ public class TasksPage extends GenericPage {
         "//*[contains(@class, 'commentItem')]//*[contains(@class, 'carousel-top-parent')]//*[contains(@class, 'attachments-image-item')][1]");
   }
 
+  private void expandProjectListToolbarFilter() {
+    ElementFacade filterToggle = findByXPathOrCSS("//*[@id = 'projectListToolbar']//*[@id = 'applicationToolbarConeButton']");
+    if (filterToggle.isCurrentlyVisible()) {
+      filterToggle.click();
+    }
+  }
+
+  private void expandTasksListToolbarFilter() {
+    ElementFacade filterToggle = findByXPathOrCSS("//*[@id = 'tasksListToolbar']//*[@id = 'applicationToolbarConeButton']");
+    if (filterToggle.isCurrentlyVisible()) {
+      filterToggle.click();
+    }
+  }
+
   private TextBoxElementFacade searchProjectInputElement() {
-    return findTextBoxByXPathOrCSS("//div[@id='projectBoardToolbar']//input");
+    return findTextBoxByXPathOrCSS("//*[@id = 'projectListToolbar']//input");
   }
 
   private ElementFacade searchTaskNameElement() {
-    return findByXPathOrCSS("//*[@id='TasksListToolbar']//*[@class='v-text-field__slot']//input");
+    return findByXPathOrCSS("//*[@id='tasksListToolbar']//input");
   }
 
   private ElementFacade secondStatusColumnElement() {

@@ -179,6 +179,10 @@ public class GenericSteps {
     genericPage.closeAllDrawers();
   }
 
+  public void closeExtraWindows() {
+    genericPage.closeExtraWindows();
+  }
+
   public void closeBrowserTab(int tabIndex) {
     genericPage.closeBrowserTab(tabIndex);
   }

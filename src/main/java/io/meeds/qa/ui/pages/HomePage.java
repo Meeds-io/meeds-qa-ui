@@ -276,37 +276,31 @@ public class HomePage extends GenericPage {
   }
 
   public void goToMyProfile() {
-    goToPageWithLink("/mycraft/profile", true);
+    goToPageWithLink("/dw/profile", true);
   }
 
   public void goToPeoplePage() {
-    goToPageWithLink("/mycraft/people", true);
+    goToPageWithLink("/dw/people", true);
   }
 
   public void goToSettingsPage() {
-    goToPageWithLink("/mycraft/settings", true);
+    goToPageWithLink("/dw/settings", true);
   }
 
   public void goToSpacesPage(boolean stickMenu) {
-    goToPageWithLink("/mycraft/spaces", stickMenu);
+    goToPageWithLink("/dw/spaces", stickMenu);
   }
 
   public void goToStreamPage() {
-    goToPageWithLink("/mycraft/dashboard", true);
+    goToPageWithLink("/myworkspace/dashboard", true);
   }
 
   public void goToPrograms() {
-    goToContributePage();
-    getWidgetSeeAllButton("programsOverview").click();
-    getDrawerExpandButton("programsOverviewListDrawer").click();
+    goToPageWithLink("/" + getMetaSiteName() + "/contributions/programs#yours", true);
   }
 
   public void goMyAchievements() {
     goToPageWithLink("/" + getMetaSiteName() + "/contributions/achievements#yours", true);
-  }
-
-  public void goToContributePage() {
-    goToPageWithLink("/contribute", true);
   }
 
   public void hoverOnPageHomeIcon(String pageName) {
@@ -575,9 +569,15 @@ public class HomePage extends GenericPage {
 
   private void goToPageWithLink(String linkSuffix, boolean stickMenu) {
     closeAllDrawers();
+    closeAllDialogs();
     String currentUrl = getDriver().getCurrentUrl();
     if (currentUrl.endsWith(linkSuffix) && !currentUrl.endsWith("g:")) {
       return;
+    } else if (!getHamburgerNavigationMenu().isPresent()) {
+      getDriver().navigate()
+                 .to(getCurrentUrl().split(PORTAL_ROOT_CONTEXT_NO_SLASH)[0]);
+      waitForLoading();
+      clickOnHamburgerMenu(stickMenu);
     } else if (!getStickiedHamburgerMenuParent().isCurrentlyVisible()) {
       clickOnHamburgerMenu(stickMenu);
     }
@@ -788,10 +788,6 @@ public class HomePage extends GenericPage {
     return findByXPathOrCSS("//*[contains(@class, 'HamburgerNavigationMenu')]//*[contains(@class, 'fa-house-user') and contains(@class, 'primary')]/ancestor::a");
   }
 
-  private ElementFacade contributePageBtnElement() {
-    return findByXPathOrCSS("//*[contains(@class,'HamburgerNavigationMenu')]//*[contains(@class,'fa-rocket')]");
-  }
-
   private ElementFacade myProfileButtonElement() {
     return findByXPathOrCSS(".HamburgerNavigationMenu .userAvatar");
   }
@@ -902,7 +898,7 @@ public class HomePage extends GenericPage {
         || linkSuffix.equals("/tasks")
         || linkSuffix.equals("/contents")
         || linkSuffix.equals("/myteam")) {
-      return "mycraft";
+      return "myworkspace";
     }
     return null;
   }

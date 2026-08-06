@@ -1,12 +1,12 @@
 @task
 Feature: Project manager deletes, moves after/before a status column
 
-  Scenario: CAP136 - [Project_Board_US04] Three dots menu - Delete
+  Scenario: [Project_Board_US04] Three dots menu - Delete
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I inject the first random user if not existing
     And I login as 'first' random user
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
     When I select projects tab
     And I add a new project
     And I open the added project
@@ -15,12 +15,12 @@ Feature: Project manager deletes, moves after/before a status column
     And I confirm the deletion message
     Then Status 'To Do' is deleted successfully
 
-  Scenario: CAP247 - [US_TaskStatusColumn_01] Move Status column after in Board view
+  Scenario: [US_TaskStatusColumn_01] Move Status column after in Board view
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I inject the first random user if not existing
     And I login as 'first' random user
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
     When I select projects tab
     And I add a new project
     And I open the added project
@@ -31,12 +31,12 @@ Feature: Project manager deletes, moves after/before a status column
     And Status column 'To Do' is moved to the second position
     And Status column 'In Progress' is moved to the first position
 
-  Scenario: CAP339 - [NewF] [US_TaskStatusColumn_01] Move Status column before in Board view
+  Scenario: [US_TaskStatusColumn_01] Move Status column before in Board view
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
     And I inject the first random user if not existing
     And I login as 'first' random user
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
     When I select projects tab
     And I add a new project
     And I open the added project
