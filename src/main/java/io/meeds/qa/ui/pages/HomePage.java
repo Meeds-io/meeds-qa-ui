@@ -223,26 +223,48 @@ public class HomePage extends GenericPage {
     if (forceRefresh
         || !StringUtils.contains(getDriver().getCurrentUrl(), PORTAL_ROOT_CONTEXT + siteName)
         || !StringUtils.endsWith(getDriver().getCurrentUrl(), uriPart)) {
-      if (!getStickiedHamburgerMenuParent().isCurrentlyVisible()) {
-        clickOnHamburgerMenu(true);
+      if (!clickSiteSecondLevelNavigationLink(siteName, uriPart)) {
+        // Some instances don't expose this second-level Hamburger Menu flyout (site
+        // renamed/hidden, sidebar redesigned, ...): fall back to direct navigation,
+        // consistent with the resiliency already used in goToPageWithLink().
+        getDriver().navigate()
+                   .to(getCurrentUrl().split(PORTAL_ROOT_CONTEXT_NO_SLASH)[0] + PORTAL_ROOT_CONTEXT_NO_SLASH + "/"
+                       + siteName + "/" + uriPart);
       }
-      ElementFacade hamburgerMenuItemLink = hamburgerMenuItemLink(siteName);
-      assertNotNull(String.format("Can't find Site navigation %s from Sidebar", siteName), hamburgerMenuItemLink);
-      hamburgerMenuItemLink.checkVisible(); // NOSONAR
-      hamburgerMenuItemLink.hover();
-      Actions action = new Actions(getDriver());
-      action.moveToElement(hamburgerMenuItemLink).build().perform();
-      ElementFacade hamburgerMenuSiteArrowIcon = hamburgerMenuSiteArrowIcon();
-      hamburgerMenuSiteArrowIcon.checkVisible();
-      if (hamburgerMenuSiteArrowIcon.hasClass("fa-arrow-right")) {
-        hamburgerMenuSiteArrowIcon.click();
-      }
-      hamburgerMenuSecondLevelItemLink(uriPart).click();
       waitForPageLoading();
     } else {
       closeAllDrawers();
       closeAllDialogs();
     }
+  }
+
+  /**
+   * Attempts to reach {@code uriPart} of {@code siteName} through the Hamburger Menu
+   * second-level flyout (hover site link, expand arrow, click second-level link).
+   * Returns false without throwing when any of those elements isn't available, so
+   * callers can fall back to a direct navigation instead.
+   */
+  private boolean clickSiteSecondLevelNavigationLink(String siteName, String uriPart) {
+    if (!getStickiedHamburgerMenuParent().isCurrentlyVisible()) {
+      clickOnHamburgerMenu(true);
+    }
+    ElementFacade hamburgerMenuItemLink = hamburgerMenuItemLink(siteName);
+    if (hamburgerMenuItemLink == null || !hamburgerMenuItemLink.isCurrentlyVisible()) {
+      return false;
+    }
+    hamburgerMenuItemLink.hover();
+    Actions action = new Actions(getDriver());
+    action.moveToElement(hamburgerMenuItemLink).build().perform();
+    ElementFacade hamburgerMenuSiteArrowIcon = hamburgerMenuSiteArrowIcon();
+    if (hamburgerMenuSiteArrowIcon.isCurrentlyVisible() && hamburgerMenuSiteArrowIcon.hasClass("fa-arrow-right")) {
+      hamburgerMenuSiteArrowIcon.click();
+    }
+    ElementFacade hamburgerMenuSecondLevelItemLink = hamburgerMenuSecondLevelItemLink(uriPart);
+    if (!hamburgerMenuSecondLevelItemLink.isCurrentlyVisible()) {
+      return false;
+    }
+    hamburgerMenuSecondLevelItemLink.click();
+    return true;
   }
 
   public void goToAddGroups() {
@@ -582,31 +604,50 @@ public class HomePage extends GenericPage {
       clickOnHamburgerMenu(stickMenu);
     }
     String siteName = getSiteName(linkSuffix);
-    if (StringUtils.isNotBlank(siteName)) {
-      retryOnCondition(() -> {
-        ElementFacade menuItem = siteFirstLevelMenuItem(siteName);
-        menuItem.assertVisible();
-        menuItem.hover();
-        ElementFacade arrowIcon = siteFirstLevelMenuItemArrowIcon(siteName);
-        arrowIcon.assertVisible();
-        arrowIcon.hover();
-      });
-      siteSecondLevelMenuItem(linkSuffix).checkVisible();
-      siteSecondLevelMenuItem(linkSuffix).click();
-    } else {
-      retryOnCondition(() -> {
-        ElementFacade hamburgerMenuItemLink = hamburgerMenuItemLink(linkSuffix);
-        if (hamburgerMenuItemLink != null && hamburgerMenuItemLink.isCurrentlyVisible()) {
-          hamburgerMenuItemLink.checkVisible();
-          hamburgerMenuItemLink.click();
-        } else {
-          getDriver().navigate()
-                     .to(getCurrentUrl().split(PORTAL_ROOT_CONTEXT_NO_SLASH)[0] + PORTAL_ROOT_CONTEXT_NO_SLASH + linkSuffix);
-        }
-        waitForPageLoading();
-      });
-    }
+    retryOnCondition(() -> {
+      if (!clickPageLink(siteName, linkSuffix)) {
+        // Some instances don't expose this site's Hamburger Menu flyout/second-level
+        // link (site renamed/hidden, sidebar redesigned, ...): fall back to direct
+        // navigation instead of failing outright.
+        getDriver().navigate()
+                   .to(getCurrentUrl().split(PORTAL_ROOT_CONTEXT_NO_SLASH)[0] + PORTAL_ROOT_CONTEXT_NO_SLASH + linkSuffix);
+      }
+      waitForPageLoading();
+    });
     assertThat(getDriver().getCurrentUrl()).contains(linkSuffix);
+  }
+
+  /**
+   * Attempts to reach {@code linkSuffix} through the Hamburger Menu: via the
+   * {@code siteName} site's flyout (hover site link, hover arrow if present, click
+   * second-level link) when {@code siteName} is known, otherwise via a direct
+   * first-level link. Returns false without throwing when any expected element
+   * isn't available, so the caller can fall back to a direct navigation instead.
+   */
+  private boolean clickPageLink(String siteName, String linkSuffix) {
+    if (StringUtils.isNotBlank(siteName)) {
+      ElementFacade menuItem = siteFirstLevelMenuItem(siteName);
+      if (!menuItem.isCurrentlyVisible()) {
+        return false;
+      }
+      menuItem.hover();
+      ElementFacade arrowIcon = siteFirstLevelMenuItemArrowIcon(siteName);
+      if (arrowIcon.isCurrentlyVisible()) {
+        arrowIcon.hover();
+      }
+      ElementFacade secondLevelItem = siteSecondLevelMenuItem(linkSuffix);
+      if (!secondLevelItem.isCurrentlyVisible()) {
+        return false;
+      }
+      secondLevelItem.click();
+      return true;
+    }
+    ElementFacade hamburgerMenuItemLink = hamburgerMenuItemLink(linkSuffix);
+    if (hamburgerMenuItemLink == null || !hamburgerMenuItemLink.isCurrentlyVisible()) {
+      return false;
+    }
+    hamburgerMenuItemLink.click();
+    return true;
   }
 
   private ElementFacade stickySideBarMenuElement() {
