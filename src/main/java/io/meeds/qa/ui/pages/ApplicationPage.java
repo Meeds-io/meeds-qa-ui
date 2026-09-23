@@ -119,10 +119,7 @@ public class ApplicationPage extends GenericPage {
   }
 
   public void seeAllApplications() {
-    // Click on App Center Application Button
-    elementApplicationsTopbarElement().click();
-    waitForDrawerToOpen();
-    waitForDrawerToLoad();
+    clickOnTheAppLauncherIcon();
     expandDrawer();
   }
 
