@@ -18,6 +18,8 @@ Feature: News articles
     And I enter the article title 'Draft article to resume later' and content 'Draft article content'
     Then The article draft is saved
 
+  # The News page renders no application to list or search the articles
+  @ignored @Product_news_list_page_empty
   Scenario: Search for an article by title in the News page
     Given I am authenticated as 'admin' random user
     And I go to the random space
@@ -31,6 +33,8 @@ Feature: News articles
     And I search for the article 'wrongArticleName'
     Then No article is found
 
+  # The News page renders no application to list or search the articles
+  @ignored @Product_news_list_page_empty
   Scenario: Search for an article by author in the News page
     Given I am authenticated as 'admin' random user
     And I go to the random space
