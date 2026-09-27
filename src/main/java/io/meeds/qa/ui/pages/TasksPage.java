@@ -88,6 +88,7 @@ public class TasksPage extends GenericPage {
 
   public void addProject(String projectName) {
     addProjectOrTaskElement().click();
+    waitForDrawerToOpen();
     projectTitleElement().setTextValue(projectName);
     primaryButtonDrawerElement().click();
     waitForDrawerToClose();
@@ -105,6 +106,7 @@ public class TasksPage extends GenericPage {
 
   public void addProjectWithDescription(String projectName, String description) {
     addProjectOrTaskElement().click();
+    waitForDrawerToOpen();
     projectTitleElement().setTextValue(projectName);
 
     waitCKEditorLoading();
@@ -125,6 +127,7 @@ public class TasksPage extends GenericPage {
 
   public void addProjectWithFirstCreatedUserAsManger(String projectName, String fullName) {
     addProjectOrTaskElement().click();
+    waitForDrawerToOpen();
     projectTitleElement().setTextValue(projectName);
     addProjectManagerInput(fullName);
     primaryButtonDrawerElement().click();
@@ -133,6 +136,7 @@ public class TasksPage extends GenericPage {
 
   public void addProjectWithFirstUserAsParticipant(String projectName, String participant) {
     addProjectOrTaskElement().click();
+    waitForDrawerToOpen();
     projectTitleElement().setTextValue(projectName);
     addProjectParticipantInput(participant);
     primaryButtonDrawerElement().click();
@@ -141,6 +145,7 @@ public class TasksPage extends GenericPage {
 
   public void addProjectWithManager(String projectName, String fullName) {
     addProjectOrTaskElement().click();
+    waitForDrawerToOpen();
     projectTitleElement().setTextValue(projectName);
     addManagerBtnElement().click();
     mentionInField(inviteProjectManagerInputElement(), fullName, 5);
@@ -150,6 +155,7 @@ public class TasksPage extends GenericPage {
 
   public void addProjectWithManagerAndParticipant(String projectName, String manager, String participant) {
     addProjectOrTaskElement().click();
+    waitForDrawerToOpen();
     projectTitleElement().setTextValue(projectName);
     addProjectManagerInput(manager);
     addProjectParticipantInput(participant);
@@ -159,6 +165,7 @@ public class TasksPage extends GenericPage {
 
   public void addProjectWithParticipant(String projectName, String lastName) {
     addProjectOrTaskElement().click();
+    waitForDrawerToOpen();
     projectTitleElement().setTextValue(projectName);
     addProjectParticipantInput(lastName);
     primaryButtonDrawerElement().click();
@@ -747,6 +754,7 @@ public class TasksPage extends GenericPage {
 
   public void enterProjectTitleAndDescription(String projectName, String description) {
     addProjectOrTaskElement().click();
+    waitForDrawerToOpen();
     projectTitleElement().setTextValue(projectName);
 
     waitCKEditorLoading();
