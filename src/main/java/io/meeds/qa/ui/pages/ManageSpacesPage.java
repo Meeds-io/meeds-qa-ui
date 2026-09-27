@@ -342,10 +342,12 @@ public class ManageSpacesPage extends GenericPage {
     }, () -> closeAllDrawers());
     defaultSpaceTemplateInSpaceFormElement().click();
     waitFor(200).milliseconds();
-    // The form of the chosen template is loaded before its name field shows
-    retryOnCondition(() -> spaceNameInputElement().checkVisible(),
-                     () -> waitFor(1).seconds(),
-                     10);
+    // The name field is below the templates list, which can push it out of
+    // the drawer's scrollable content
+    retryOnCondition(() -> {
+      spaceNameInputElement().scrollToWebElement();
+      spaceNameInputElement().checkVisible();
+    }, () -> waitFor(1).seconds(), 10);
   }
 
   private ButtonElementFacade defaultSpaceTemplateInSpaceFormElement() {
