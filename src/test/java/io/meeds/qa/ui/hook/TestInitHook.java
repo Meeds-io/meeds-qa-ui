@@ -55,6 +55,7 @@ import io.meeds.qa.ui.steps.definition.ManageSpaceStepDefinitions;
 import io.meeds.qa.ui.utils.Utils;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
+import net.thucydides.core.steps.StepEventBus;
 import net.thucydides.core.webdriver.WebDriverFacade;
 import net.thucydides.core.webdriver.exceptions.ElementShouldBeVisibleException;
 
@@ -174,6 +175,7 @@ public class TestInitHook {
     driver.manage().timeouts().implicitlyWait(Duration.ofMillis(DEFAULT_IMPLICIT_WAIT_FOR_TIMEOUT));
 
     warmUp(driver);
+    driver = Serenity.getDriver();
     openPortalIfBlankPage(driver);
     checkPageState(driver);
 
@@ -231,15 +233,19 @@ public class TestInitHook {
 
   private boolean closeLostBrowser(WebDriverException e) {
     LOGGER.warn("Browser session lost, a new browser is started for the next steps", e);
+    restartBrowser();
+    return true;
+  }
+
+  private void restartBrowser() {
     try {
       Serenity.getWebdriverManager().closeAllDrivers();
-    } catch (Exception closeException) { // NOSONAR
-      // The session is already gone on the grid side
+    } catch (Exception e) { // NOSONAR
+      // The session can already be gone on the grid side
     }
     if (Serenity.getDriver() instanceof WebDriverFacade facade) {
       facade.reset();
     }
-    return true;
   }
 
   /**
@@ -340,7 +346,11 @@ public class TestInitHook {
         Utils.waitForLoading(WARM_UP_PAGE_LOADING_WAIT, true);
       } catch (Throwable e) { // NOSONAR
         LOGGER.warn("Error authenticating admin user", e);
-        closeCurrentWindow(driver);
+        // A failed step suspends the Serenity driver calls, which would make
+        // every following attempt fail as well: the attempt restarts clean
+        StepEventBus.getEventBus().reenableWebDriver();
+        restartBrowser();
+        driver = Serenity.getDriver();
         waitRemainingTime(WARM_UP_PAGE_LOADING_WAIT * 1000l, start);
       }
     } while (!homePageDisplayed && retryCount++ < MAX_WARM_UP_RETRIES);
