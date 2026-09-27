@@ -24,6 +24,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.ConnectException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,7 +35,11 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.NoSuchSessionException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.remote.UnreachableBrowserException;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -50,6 +55,7 @@ import io.meeds.qa.ui.steps.definition.ManageSpaceStepDefinitions;
 import io.meeds.qa.ui.utils.Utils;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
+import net.thucydides.core.webdriver.WebDriverFacade;
 import net.thucydides.core.webdriver.exceptions.ElementShouldBeVisibleException;
 
 public class TestInitHook {
@@ -153,6 +159,9 @@ public class TestInitHook {
 
   @After
   public void deleteDatas() {
+    if (recoverLostBrowserSession()) {
+      return;
+    }
     genericSteps.closeExtraWindows();
     genericSteps.closeAllDrawers();
     genericSteps.closeAllDialogs();
@@ -160,10 +169,12 @@ public class TestInitHook {
 
   @Before
   public void initDatas() { // NOSONAR
+    recoverLostBrowserSession();
     WebDriver driver = Serenity.getDriver();
     driver.manage().timeouts().implicitlyWait(Duration.ofMillis(DEFAULT_IMPLICIT_WAIT_FOR_TIMEOUT));
 
     warmUp(driver);
+    openPortalIfBlankPage(driver);
     checkPageState(driver);
 
     SPACES.entrySet().forEach(entry -> {
@@ -181,6 +192,66 @@ public class TestInitHook {
         Serenity.setSessionVariable(entry.getKey()).to(entry.getValue());
       }
     });
+  }
+
+  /**
+   * The browser is shared by the scenarios of a fork: once its session is
+   * lost, every following scenario would fail on it. The session is checked
+   * when a scenario ends and when the next one starts, and the drivers are
+   * closed when it is lost, so that a new browser is started. The examples of
+   * a scenario outline still fail until then: Serenity takes their first
+   * screenshot before the hooks run.
+   *
+   * @return true when the session was lost and the drivers were closed
+   */
+  private boolean recoverLostBrowserSession() {
+    WebDriver driver = Serenity.getDriver();
+    // Serenity suspends the calls made through its facade once a step failed:
+    // the session is checked on the browser behind it
+    WebDriver browser = driver instanceof WebDriverFacade facade ? getInstantiatedBrowser(facade) : driver;
+    if (browser == null) {
+      return false;
+    }
+    try {
+      browser.getWindowHandle();
+      return false;
+    } catch (NoSuchSessionException | UnreachableBrowserException e) {
+      return closeLostBrowser(e);
+    } catch (WebDriverException e) {
+      if (ExceptionUtils.getRootCause(e) instanceof ConnectException) {
+        return closeLostBrowser(e);
+      }
+      return false;
+    }
+  }
+
+  private WebDriver getInstantiatedBrowser(WebDriverFacade facade) {
+    return facade.isInstantiated() ? facade.getProxiedDriver() : null;
+  }
+
+  private boolean closeLostBrowser(WebDriverException e) {
+    LOGGER.warn("Browser session lost, a new browser is started for the next steps", e);
+    try {
+      Serenity.getWebdriverManager().closeAllDrivers();
+    } catch (Exception closeException) { // NOSONAR
+      // The session is already gone on the grid side
+    }
+    if (Serenity.getDriver() instanceof WebDriverFacade facade) {
+      facade.reset();
+    }
+    return true;
+  }
+
+  /**
+   * Relative navigations are resolved against the current page's origin: a
+   * browser started after the warmup, like the one replacing a lost session,
+   * is still on its blank page and gets the portal URL first.
+   */
+  private void openPortalIfBlankPage(WebDriver driver) {
+    if (!StringUtils.startsWith(driver.getCurrentUrl(), "http")) {
+      driver.navigate().to(URL);
+      Utils.waitForLoading();
+    }
   }
 
   private void checkPageState(WebDriver driver) {
