@@ -499,10 +499,15 @@ public class ManageSpaceSteps {
   private void goOrJoinToSpace(String spaceName) {
     if (manageSpacesPage.isSpaceCardJoinButtonDisplayed(spaceName)) {
       manageSpacesPage.joinSpaceFromCard(spaceName);
+      // The space answers a not found page until the membership is applied
+      for (int i = 0; i < 10 && manageSpacesPage.isSpaceCardJoinButtonDisplayed(spaceName); i++) {
+        Utils.waitForInMillis(500);
+      }
     }
     manageSpacesPage.goToSpecificSpace(spaceName);
-    if (!manageSpacesPage.isSpaceMenuDisplayed()) {
-      manageSpacesPage.clickSpaceActionToJoin();
+    if (!isSpaceMenuDisplayed() && !manageSpacesPage.clickSpaceActionToJoin()) {
+      Utils.refreshPage();
+      isSpaceMenuDisplayed();
     }
   }
 
