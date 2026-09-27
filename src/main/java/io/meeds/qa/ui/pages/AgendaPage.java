@@ -197,7 +197,7 @@ public class AgendaPage extends GenericPage {
   }
 
   private ElementFacade editAgendaSettingsIconElement() {
-    return findByXPathOrCSS("(//*[@id='AgendaSettingsApplication']//i[contains(@class,'uiIconEdit')])[1]");
+    return findByXPathOrCSS("(//*[@id='AgendaSettingsApplication']//button)[1]");
   }
 
   private ElementFacade agendaPreferencesDrawerElement() {
