@@ -187,7 +187,7 @@ public class MainSettingsPage extends GenericPage {
   }
 
   private ElementFacade accessEditDefaultSpaceButton() {
-    return findByXPathOrCSS("//*[@id='PlatformAccess']//*[contains(@class, 'v-list-item')]//*[contains(@class, 'fa-edit')]");
+    return findByXPathOrCSS("//*[@id='PlatformAccess']//*[contains(@class, 'v-list-item') and contains(., 'default spaces')]//*[contains(@class, 'fa-edit')]");
   }
 
   private TextBoxElementFacade accessDefaultSpaceInput() {
