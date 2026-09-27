@@ -19,6 +19,7 @@ package io.meeds.qa.ui.pages;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.ButtonElementFacade;
@@ -120,14 +121,24 @@ public class RulePage extends GenericPage {
     triggerSelectedAutoComplete(triggerName).assertVisible();
   }
 
+  /**
+   * The label of a status radio is a two lines list item that doesn't toggle
+   * the radio when clicked: the radio input is clicked instead.
+   */
+  private void selectRadioInput(String value) {
+    ElementFacade radioInput = findByXPathOrCSS(String.format("//*[contains(@class,'v-navigation-drawer--open')]//input[@value='%s']", value));
+    radioInput.waitUntilPresent();
+    ((JavascriptExecutor) getDriver()).executeScript("arguments[0].click();", radioInput);
+  }
+
   public void selectDefaultContributionStatus(String status) {
     switch (status) {
     case "Accepted":
-      acceptedRadioBtnElement().click();
+      selectRadioInput("ACCEPTED");
       acceptedRadioBtnActiveElement().waitUntilVisible();
       break;
     case "Pending":
-      pendingRadioBtnElement().click();
+      selectRadioInput("PENDING");
       pendingRadioBtnActiveElement().waitUntilVisible();
       break;
     default:
@@ -319,17 +330,9 @@ public class RulePage extends GenericPage {
                                           applicationLabel));
   }
 
-  private ElementFacade acceptedRadioBtnElement() {
-    return findByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//input[@value='ACCEPTED']//ancestor::*[contains(@class,'v-radio')]");
-  }
-
   private ElementFacade acceptedRadioBtnActiveElement() {
     return findByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//input[@value='ACCEPTED']//ancestor::*[contains(@class,'v-radio') and contains(@class,'v-item--active')]");
   }  
-
-  private ElementFacade pendingRadioBtnElement() {
-    return findByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//input[@value='PENDING']//ancestor::*[contains(@class,'v-radio')]");
-  }
 
   private ElementFacade pendingRadioBtnActiveElement() {
     return findByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//input[@value='PENDING']//ancestor::*[contains(@class,'v-radio') and contains(@class,'v-item--active')]");
