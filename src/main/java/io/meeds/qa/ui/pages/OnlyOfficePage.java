@@ -83,7 +83,10 @@ public class OnlyOfficePage extends GenericPage {
     waitFor(1).seconds();
     attachImageToFileInput(attachDrawerFileInputElement(), fileName);
     waitForLoading();
-    checkConfirmMessageIsDisplayed("File list successfully updated");
+    // The upload can outlast the default wait of the confirmation message
+    retryOnCondition(() -> checkConfirmMessageIsDisplayed("File list successfully updated"),
+                     () -> waitFor(1).seconds(),
+                     10);
     clickDrawerButton("Done");
   }
 
