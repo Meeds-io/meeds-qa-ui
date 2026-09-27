@@ -71,6 +71,8 @@ public class OnlyOfficePage extends GenericPage {
 
   private static final String ONLINE_EDITOR_URL_PART = "oeditor";
 
+  private static final String VIEW_MODE_URL_PART     = "mode=view";
+
   public OnlyOfficePage(WebDriver driver) {
     super(driver);
   }
@@ -97,21 +99,25 @@ public class OnlyOfficePage extends GenericPage {
   }
 
   public void checkOnlineEditorRequested() {
-    retryOnCondition(() -> assertTrue("The online editor wasn't requested in a new tab, requested URLs: "
-        + getRequestedNewTabUrls(), getRequestedNewTabUrls().stream().anyMatch(url -> url.contains(ONLINE_EDITOR_URL_PART))),
+    retryOnCondition(() -> assertTrue("The online editor wasn't requested for editing in a new tab, requested URLs: "
+        + getRequestedNewTabUrls(), getRequestedNewTabUrls().stream().anyMatch(this::isEditorUrl)),
                      () -> waitFor(1).seconds(),
                      5);
   }
 
   /**
-   * Opening the preview of an editable document opens the online editor
-   * directly in a new tab: for any other type, the editor is never requested.
+   * Opening the preview of an editable document opens the online editor in a
+   * new tab; any other type is at most opened in the OnlyOffice viewer.
    */
   public void checkOnlineEditorNotRequested() {
     waitFor(3).seconds();
     List<String> requestedUrls = getRequestedNewTabUrls();
-    assertFalse("The online editor was requested in a new tab: " + requestedUrls,
-                requestedUrls.stream().anyMatch(url -> url.contains(ONLINE_EDITOR_URL_PART)));
+    assertFalse("The online editor was requested for editing in a new tab: " + requestedUrls,
+                requestedUrls.stream().anyMatch(this::isEditorUrl));
+  }
+
+  private boolean isEditorUrl(String url) {
+    return url.contains(ONLINE_EDITOR_URL_PART) && !url.contains(VIEW_MODE_URL_PART);
   }
 
   @SuppressWarnings("unchecked")

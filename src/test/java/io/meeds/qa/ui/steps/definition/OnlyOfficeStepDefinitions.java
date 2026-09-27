@@ -37,12 +37,12 @@ public class OnlyOfficeStepDefinitions {
     onlyOfficeSteps.openDocumentPreview(fileName);
   }
 
-  @Then("^The online editor is requested in a new tab$")
+  @Then("^The online editor is requested for editing in a new tab$")
   public void checkOnlineEditorRequested() {
     onlyOfficeSteps.checkOnlineEditorRequested();
   }
 
-  @Then("^The online editor is not requested in a new tab$")
+  @Then("^The online editor is not requested for editing$")
   public void checkOnlineEditorNotRequested() {
     onlyOfficeSteps.checkOnlineEditorNotRequested();
   }
