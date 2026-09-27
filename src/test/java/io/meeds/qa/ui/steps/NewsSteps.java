@@ -115,10 +115,6 @@ public class NewsSteps {
     newsPage.clearSearchArticle();
   }
 
-  public void filterNewsByType(String newsType) {
-    newsPage.filterNewsByType(newsType);
-  }
-
   public void checkSearchedArticleDisplayed(String title) {
     newsPage.checkSearchedArticleDisplayed(title);
   }

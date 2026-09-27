@@ -182,17 +182,14 @@ public class NewsPage extends GenericPage {
   }
 
   public void searchArticle(String title) {
+    expandNewsToolbarFilter();
     newsSearchInputElement().setTextValue(title);
     waitForLoading();
   }
 
   public void clearSearchArticle() {
+    expandNewsToolbarFilter();
     newsSearchInputElement().clear();
-    waitForLoading();
-  }
-
-  public void filterNewsByType(String newsType) {
-    newsTypeSelectElement().selectByVisibleText(newsType);
     waitForLoading();
   }
 
@@ -286,20 +283,27 @@ public class NewsPage extends GenericPage {
     return findByXPathOrCSS("//*[contains(@class,'drawerFooter')]//span[contains(text(),'Share')]");
   }
 
-  private TextBoxElementFacade newsSearchInputElement() {
-    return findTextBoxByXPathOrCSS("//input[@placeholder='Search in News']");
+  /**
+   * The News toolbar collapses its search field behind the cone button: it is
+   * clicked only when the field is not rendered yet.
+   */
+  private void expandNewsToolbarFilter() {
+    if (!newsSearchInputElement().isCurrentlyVisible()) {
+      findByXPathOrCSS("#applicationToolbarConeButton").click();
+      newsSearchInputElement().waitUntilVisible();
+    }
   }
 
-  private ElementFacade newsTypeSelectElement() {
-    return findByXPathOrCSS("//select[option[contains(text(),'Drafts')]]");
+  private TextBoxElementFacade newsSearchInputElement() {
+    return findTextBoxByXPathOrCSS("#applicationToolbarFilterInput");
   }
 
   private ElementFacade newsListArticleElement(String title) {
-    return findByXPathOrCSS(String.format("//*[@id='newsListItems']//*[contains(text(),'%s')]", title));
+    return findByXPathOrCSS(String.format("//a[contains(@class,'contentListItem') and contains(.,'%s')]", title));
   }
 
   private ElementFacade noArticleFoundElement() {
-    return findByXPathOrCSS("//*[contains(@class,'iconNotFound')]");
+    return findByXPathOrCSS("//div[contains(@class,'flex-column') and contains(@class,'justify-center') and contains(@class,'flex-grow-1')]//i[contains(@class,'fa-newspaper')]");
   }
 
   private ElementFacade ckEditorFrameElement() {

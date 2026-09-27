@@ -149,11 +149,6 @@ public class NewsStepDefinitions {
     newsSteps.clearSearchArticle();
   }
 
-  @When("^I filter news by '(.*)'$")
-  public void filterNewsByType(String newsType) {
-    newsSteps.filterNewsByType(newsType);
-  }
-
   @Then("^The searched article '(.*)' is displayed$")
   public void checkSearchedArticleDisplayed(String title) {
     newsSteps.checkSearchedArticleDisplayed(title);
