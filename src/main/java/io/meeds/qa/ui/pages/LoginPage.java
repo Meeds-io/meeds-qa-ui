@@ -148,7 +148,8 @@ public class LoginPage extends GenericPage implements IsHidden {
       currentUrl = getCurrentUrl();
     }
     if (!StringUtils.contains(currentUrl, PORTAL_LOGIN_URI)) {
-      getDriver().get(currentUrl.split("/portal")[0] + PORTAL_LOGIN_URI);
+      // The current page can be the site root when the server wasn't ready yet
+      getDriver().get(StringUtils.removeEnd(currentUrl.split("/portal")[0], "/") + PORTAL_LOGIN_URI);
     }
   }
 
