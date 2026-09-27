@@ -19,13 +19,57 @@ package io.meeds.qa.ui.pages;
 
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.ElementFacade;
 
 public class OnlyOfficePage extends GenericPage {
+
+  /**
+   * Records the URLs the page asks to open in a new tab, by window.open or by a
+   * target=_blank link, instead of opening them: loading the OnlyOffice editor
+   * in the shared browser can leave chromedriver unresponsive until the grid
+   * drops the session.
+   */
+  private static final String RECORD_NEW_TAB_URLS_SCRIPT = """
+      if (!window.qaNewTabUrls) {
+        window.qaNewTabUrls = [];
+        window.open = function(url) {
+          const entry = { url: String(url || '') };
+          window.qaNewTabUrls.push(entry);
+          const location = {
+            get href() { return entry.url; },
+            set href(value) { entry.url = String(value); },
+            assign(value) { entry.url = String(value); },
+            replace(value) { entry.url = String(value); },
+          };
+          return {
+            closed: false,
+            opener: null,
+            focus() {},
+            close() {},
+            get location() { return location; },
+            set location(value) { entry.url = String(value); },
+            document: { write() {}, close() {} },
+          };
+        };
+        document.addEventListener('click', function(event) {
+          const link = event.target && event.target.closest && event.target.closest('a[target="_blank"]');
+          if (link) {
+            window.qaNewTabUrls.push({ url: link.href });
+            event.preventDefault();
+          }
+        }, true);
+      }
+      """;
+
+  private static final String ONLINE_EDITOR_URL_PART = "oeditor";
 
   public OnlyOfficePage(WebDriver driver) {
     super(driver);
@@ -46,31 +90,33 @@ public class OnlyOfficePage extends GenericPage {
     retryOnCondition(preview::checkVisible,
                      () -> waitFor(1).seconds(),
                      5);
+    ((JavascriptExecutor) getDriver()).executeScript(RECORD_NEW_TAB_URLS_SCRIPT);
     preview.hover();
     preview.click();
     waitForLoading();
   }
 
+  public void checkOnlineEditorRequested() {
+    retryOnCondition(() -> assertTrue("The online editor wasn't requested in a new tab, requested URLs: "
+        + getRequestedNewTabUrls(), getRequestedNewTabUrls().stream().anyMatch(url -> url.contains(ONLINE_EDITOR_URL_PART))),
+                     () -> waitFor(1).seconds(),
+                     5);
+  }
+
   /**
    * Opening the preview of an editable document opens the online editor
-   * directly in a new tab: for any other type, no tab may land on the editor.
+   * directly in a new tab: for any other type, the editor is never requested.
    */
-  public void checkOnlineEditorNotOpened() {
+  public void checkOnlineEditorNotRequested() {
     waitFor(3).seconds();
-    String currentWindow = getDriver().getWindowHandle();
-    boolean editorOpened = false;
-    try {
-      for (String windowId : getDriver().getWindowHandles()) {
-        if (!windowId.equals(currentWindow)) {
-          getDriver().switchTo().window(windowId);
-          editorOpened |= getDriver().getCurrentUrl().contains("oeditor");
-          getDriver().close();
-        }
-      }
-    } finally {
-      getDriver().switchTo().window(currentWindow);
-    }
-    assertFalse("The online editor was opened in a new tab", editorOpened);
+    List<String> requestedUrls = getRequestedNewTabUrls();
+    assertFalse("The online editor was requested in a new tab: " + requestedUrls,
+                requestedUrls.stream().anyMatch(url -> url.contains(ONLINE_EDITOR_URL_PART)));
+  }
+
+  @SuppressWarnings("unchecked")
+  private List<String> getRequestedNewTabUrls() {
+    return (List<String>) ((JavascriptExecutor) getDriver()).executeScript("return (window.qaNewTabUrls || []).map(entry => entry.url);");
   }
 
   private ElementFacade attachFileButtonElement() {

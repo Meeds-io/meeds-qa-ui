@@ -31,8 +31,12 @@ public class OnlyOfficeSteps {
     onlyOfficePage.openDocumentPreview(fileName);
   }
 
-  public void checkOnlineEditorNotOpened() {
-    onlyOfficePage.checkOnlineEditorNotOpened();
+  public void checkOnlineEditorRequested() {
+    onlyOfficePage.checkOnlineEditorRequested();
+  }
+
+  public void checkOnlineEditorNotRequested() {
+    onlyOfficePage.checkOnlineEditorNotRequested();
   }
 
 }
