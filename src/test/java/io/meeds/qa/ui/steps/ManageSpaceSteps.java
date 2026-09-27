@@ -171,18 +171,19 @@ public class ManageSpaceSteps {
     if (StringUtils.isNotBlank(spaceUrl)) {
       homePage.openUrl(spaceUrl);
       waitForPageLoading();
-      if (StringUtils.equals(homePage.getCurrentUrl(), spaceUrl)) {
+      // A space that was deleted, or that the user can't see, answers a not
+      // found page at the same URL: only its menu tells the space is displayed
+      if (isSpaceMenuDisplayed()) {
         return;
-      } else if (!manageSpacesPage.isSpaceMenuDisplayed()) {
-        boolean joined = manageSpacesPage.clickSpaceActionToJoin();
-        if (joined) {
-          waitForLoading();
-          return;
-        }
+      } else if (manageSpacesPage.clickSpaceActionToJoin()) {
+        waitForLoading();
+        return;
       }
     }
     homePage.goToSpacesPage(false);
-    if (StringUtils.isBlank(spaceName)) {
+    if (StringUtils.isNotBlank(spaceName) && findSpaceCard(spaceName, spaceNamePrefix, true)) {
+      goOrJoinToSpace(spaceName);
+    } else {
       spaceName = Utils.getRandomString(spaceNamePrefix);
       if (findSpaceCard(spaceName, spaceNamePrefix)) {
         goOrJoinToSpace(spaceName);
@@ -190,9 +191,17 @@ public class ManageSpaceSteps {
         addSpaceWithRegistration(spaceName, "Open");
       }
       TestInitHook.spaceWithPrefixCreated(spaceNamePrefix, spaceName, homePage.getCurrentUrl());
-    } else if (findSpaceCard(spaceName, spaceNamePrefix, true)) {
-      goOrJoinToSpace(spaceName);
     }
+  }
+
+  private boolean isSpaceMenuDisplayed() {
+    for (int i = 0; i < 10; i++) {
+      if (manageSpacesPage.isSpaceMenuDisplayed()) {
+        return true;
+      }
+      Utils.waitForInMillis(500);
+    }
+    return false;
   }
 
   public void addSpaceWithInviteUser(String spaceName, String user) {
