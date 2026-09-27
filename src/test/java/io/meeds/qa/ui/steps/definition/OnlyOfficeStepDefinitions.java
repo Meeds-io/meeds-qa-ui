@@ -37,9 +37,9 @@ public class OnlyOfficeStepDefinitions {
     onlyOfficeSteps.openDocumentPreview(fileName);
   }
 
-  @Then("^The edit online button is not displayed$")
-  public void checkEditOnlineButtonNotDisplayed() {
-    onlyOfficeSteps.checkEditOnlineButtonNotDisplayed();
+  @Then("^The online editor is not opened in a new tab$")
+  public void checkOnlineEditorNotOpened() {
+    onlyOfficeSteps.checkOnlineEditorNotOpened();
   }
 
 }

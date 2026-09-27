@@ -18,6 +18,7 @@
 package io.meeds.qa.ui.pages;
 
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
+import static org.junit.Assert.assertFalse;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 
 import org.openqa.selenium.WebDriver;
@@ -50,8 +51,26 @@ public class OnlyOfficePage extends GenericPage {
     waitForLoading();
   }
 
-  public void checkEditOnlineButtonNotDisplayed() {
-    editOnlineButtonElement().assertNotVisible();
+  /**
+   * Opening the preview of an editable document opens the online editor
+   * directly in a new tab: for any other type, no tab may land on the editor.
+   */
+  public void checkOnlineEditorNotOpened() {
+    waitFor(3).seconds();
+    String currentWindow = getDriver().getWindowHandle();
+    boolean editorOpened = false;
+    try {
+      for (String windowId : getDriver().getWindowHandles()) {
+        if (!windowId.equals(currentWindow)) {
+          getDriver().switchTo().window(windowId);
+          editorOpened |= getDriver().getCurrentUrl().contains("oeditor");
+          getDriver().close();
+        }
+      }
+    } finally {
+      getDriver().switchTo().window(currentWindow);
+    }
+    assertFalse("The online editor was opened in a new tab", editorOpened);
   }
 
   private ElementFacade attachFileButtonElement() {
@@ -66,10 +85,6 @@ public class OnlyOfficePage extends GenericPage {
     return findByXPathOrCSS(String.format("//*[contains(@alt,'%s') or contains(text(),'%s')]//ancestor::*[contains(@id,'PreviewAttachment')]",
                                           fileName,
                                           fileName));
-  }
-
-  private ElementFacade editOnlineButtonElement() {
-    return findByXPathOrCSS("//div[contains(@class,'editorButtonContainer')]");
   }
 
 }

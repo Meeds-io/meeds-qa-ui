@@ -29,7 +29,7 @@ Feature: OnlyOffice online editing
       | onlyOffice.pptx  |
       | onlyOffice.xlsx  |
 
-  Scenario Outline: Non-editable document types do not offer online editing
+  Scenario Outline: Non-editable document types do not open the online editor
     Given I am authenticated as 'admin' random user
     And I go to the random space
     When I click on post in space
@@ -37,7 +37,7 @@ Feature: OnlyOffice online editing
     And I attach the file '<fileToUpload>' to the activity
     And I publish the activity
     And I open the document preview '<fileToUpload>'
-    Then The edit online button is not displayed
+    Then The online editor is not opened in a new tab
 
     Examples:
       | fileToUpload    |
