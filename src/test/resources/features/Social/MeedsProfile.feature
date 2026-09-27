@@ -107,3 +107,13 @@ Feature: Search for User Informations in Profile page
 
     And I remove my profile work experiences 'QA Engineer'
     And I remove my profile work experiences 'IT Engineer Developer'
+
+  Scenario: User spaces list block and its drawer
+    Given I am authenticated as 'admin' random user
+    And I create a random space
+
+    When I go to My Profile page
+    Then The user spaces list is displayed in the profile
+
+    When I open the user spaces list drawer
+    Then The random space is listed in the user spaces drawer

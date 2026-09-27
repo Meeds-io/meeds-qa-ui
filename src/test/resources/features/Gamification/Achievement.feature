@@ -61,17 +61,11 @@ Feature: Achievements
 
     And I login as 'fisrtachievement' random user
 
-    And I go to My Profile page
-    Then I check my points
-
     When I go to the random space
     And I send in the activity 'Achievements - Kudos Post activity' a kudos message 'Achievements - kudos activity comment to cancel'
 
     And I go to My Achievements
     Then Achievement for 'Send kudos 6' is accepted
-
-    When I go to My Profile page
-    Then My points augmented
 
     And I go to the random space
     And I open in activity 'Achievements - Kudos Post activity' the Comments drawer

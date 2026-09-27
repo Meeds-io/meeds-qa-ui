@@ -117,25 +117,6 @@ public class HomeStepDefinition {
     homeSteps.bookmarkActivity(activity);
   }
 
-  @Then("^the invitation number for spaces is '(.*)'$")
-  public void checkBagde(String number) {
-    assertThat(homeSteps.isSpacesBadgeWithNumberVisible(number)).as(String.format("The spaces invitation badge must be %s",
-                                                                                  number))
-                                                                .isTrue();
-  }
-
-  @When("The 'Connections' badge is '{}'")
-  public void checkConnectionsBadge(String badgeNumber) {
-    homeSteps.checkConnectionsBadge(badgeNumber);
-  }
-
-  @Then("^the number of connection requests is '(.*)'$")
-  public void checkConnectionBagde(String number) {
-    assertThat(homeSteps.isConnectionsBadgeWithNumberVisible(number)).as(String.format("The badge must contains %s connections",
-                                                                                       number))
-                                                                     .isTrue();
-  }
-
   @Then("^the drawer with '(.*)' connections is opened$")
   public void checkNumberOfConnectionsInDrawer(String number) {
     homeSteps.checkNumberOfConnectionsInDrawer(number);
@@ -166,11 +147,6 @@ public class HomeStepDefinition {
     homeSteps.isPageOpened(uriPart);
   }
 
-  @When("^The Spaces badge is '(.*)'$")
-  public void checkSpaceBadge(String badgeNumber) {
-    homeSteps.checkSpacesBadge(badgeNumber);
-  }
-
   @Then("^the drawer with '(.*)' spaces is opened$")
   public void checkSpaceDrawer(String number) {
     assertThat(homeSteps.isNumberOfSpacesInDrawer(number)).as(String.format("Le nombre d'espace dans le drawer n'est pas égale à %s",
@@ -183,22 +159,9 @@ public class HomeStepDefinition {
     homeSteps.checkPageIsDisplayed(pageUri);
   }
 
-  @Then("^The '(.*)' number is '(.*)'$")
-  public void checkWidgetContent(String widget, String number) {
-    assertThat(homeSteps.isWidgetWithNumberVisible(widget, number)).as(String.format("La widget %s doit avoir le nombre %s",
-                                                                                     widget,
-                                                                                     number))
-                                                                   .isTrue();
-  }
-
   @And("^I click on the arrow displayed when hovering the searched space in Side Bar Filter$")
   public void clickOnArrowIcon() {
     homeSteps.clickOnArrowIcon();
-  }
-
-  @When("^I click on connections badge$")
-  public void clickOnConnectionsBadge() {
-    homeSteps.clickOnConnectionsBagde();
   }
 
   @Given("I close current browser tab")
@@ -241,16 +204,6 @@ public class HomeStepDefinition {
 
     homeSteps.commentActivityNotificationIsDisplayed("replied to your comment", comment, reply);
     homeSteps.clickOnCommentActivityNotification(firstUserFullName, comment, reply);
-  }
-
-  @When("^I click on space invitation widget$")
-  public void clickOnSpaceInvitationWidget() {
-    homeSteps.clickOnSpaceInvitationWidget();
-  }
-
-  @When("^I click on spaces badge$")
-  public void clickOnSpacesBadge() {
-    homeSteps.clickOnSpacesBagde();
   }
 
   @Given("^I click on see all$")
@@ -350,12 +303,6 @@ public class HomeStepDefinition {
   @And("^The arrow is displayed when hovering on searched space in Side Bar Filter$")
   public void isArrowDisplayedAfterHoveringOnSpaceName() {
     homeSteps.isArrowDisplayedAfterHoveringOnSpaceName();
-  }
-
-  @Then("The badge isn't displayed")
-  public void isNoConnectionsBadge() {
-    assertThat(homeSteps.isNoConnectionsBadge()).as("The badge shouldn't be displayed")
-                                                .isTrue();
   }
 
   @And("^The third level Navigation should display the space details panel$")

@@ -129,12 +129,6 @@ public class HomePage extends GenericPage {
     notificationContentElement(message, comment).click();
   }
 
-  public void clickOnConnectionsBagde() {
-    connectionsBadgeElement().click();
-    waitForDrawerToOpen();
-    waitForLoading();
-  }
-
   public void clickOnHomeIcon(String pageName) {
     homeHoverButton(pageName).click();
   }
@@ -153,14 +147,6 @@ public class HomePage extends GenericPage {
       confirmationForChangeSiteHomeLink();
       homeButtonElement(pageName).assertVisible();
     }
-  }
-
-  public void clickOnSpaceInvitationWidget() {
-    clickOnElement(spaceInvitationWidgetElement());
-  }
-
-  public void clickOnSpacesBagde() {
-    clickOnElement(spacesBadgeElement());
   }
 
   public void clickSeeAll() {
@@ -317,12 +303,6 @@ public class HomePage extends GenericPage {
     spaceArrowIconElement().assertVisible();
   }
 
-  public boolean isConnectionsBadgeWithNumberVisible(String number) {
-    retryOnCondition(() -> getConnectionsBadge().checkVisible(),
-                     () -> waitFor(1).seconds());
-    return getConnectionsBadgeWithNumber(number).isVisible();
-  }
-
   public boolean isPortalDisplayed() {
     return getSiteBody().isCurrentlyVisible();
   }
@@ -337,10 +317,6 @@ public class HomePage extends GenericPage {
                                              .equals("true");
   }
 
-  public boolean isNoConnectionsBadge() {
-    return getConnectionsBadge().isNotVisible();
-  }
-
   public void checkNumberOfConnectionsInDrawer(int expectedNumber) {
     waitForLoading();
     assertThat(getListConnectionInDrawer().size()).isEqualTo(expectedNumber);
@@ -351,24 +327,8 @@ public class HomePage extends GenericPage {
     return listOfSpaces == expectedNumber;
   }
 
-  public boolean isSpacesBadgeWithNumberVisible(String number) {
-    retryOnCondition(() -> getSpacesBadge().checkVisible(),
-                     () -> waitFor(1).seconds());
-    return getSpacesBadgeWithNumber(number).isVisible();
-  }
-
   public void checkThirdLevelNavigationDisplayed() {
     thirdLevelNavigationElement().assertVisible();
-  }
-
-  public boolean isWidgetWithNumberVisible(String widget, String number) {
-    closeAllDrawers();
-    return getProfileWidgetContent(widget, number).isVisible();
-  }
-
-  public void openConnectionRequestDrawer() {
-    ElementFacade badgeButton = findByXPathOrCSS("#profile-stats-connectionsCount .v-badge button");
-    clickOnElement(badgeButton);
   }
 
   public void openNotifications() {
@@ -682,10 +642,6 @@ public class HomePage extends GenericPage {
                                           spaceName));
   }
 
-  private ElementFacade connectionsBadgeElement() {
-    return findByXPathOrCSS("(//div[contains(@class,'profileCard')]//*[@aria-label='Badge'])[2]");
-  }
-
   private ElementFacade contextBoxWelcomeActivityElement() {
     return findByXPathOrCSS("//*[@id='ActivityContextBoxWelcomeActivity']");
   }
@@ -698,16 +654,6 @@ public class HomePage extends GenericPage {
   private ElementFacade getAcceptIconSpaceFromDrawer(String spaceName) {
     return findByXPathOrCSS(String.format("//aside[contains(@class,'spaceDrawer ')]//descendant::div[contains(text(),'%s')]//following::i[contains(@class,'mdi-checkbox-marked')]",
                                           spaceName));
-  }
-
-  private ElementFacade getConnectionsBadge() {
-    return findByXPathOrCSS("//div[contains(@class,'profileCard')]//*[contains(text(),'Connections')]/preceding::*[@class='v-btn__content'][1]");
-  }
-
-  private ElementFacade getConnectionsBadgeWithNumber(String number) {
-    return findByXPathOrCSS(
-                            String.format("//div[contains(@class,'profileCard')]//*[contains(text(),'Connections')]/preceding::*[@class='v-btn__content' and contains(text(),'%s')][1]",
-                                          number));
   }
 
   private ElementFacade getFavoriteIconActivity(String activity) {
@@ -748,12 +694,6 @@ public class HomePage extends GenericPage {
     return findAll("//aside[contains(@class,'spaceDrawer ')]//div[@role='list']//descendant::div[@role='listitem']");
   }
 
-  private ElementFacade getProfileWidgetContent(String widget, String number) {
-    return findByXPathOrCSS(String.format("//div[contains(@class,'profileCard')]//div[contains(@class,'mx-0')]//span[text()='%s']/../..//span[text()='%s']",
-                                          widget,
-                                          number));
-  }
-
   private ElementFacade getRejectIconConnectionFromDrawer(String spaceName) {
     return findByXPathOrCSS(String.format("//aside[contains(@class,'connectionsDrawer')]//descendant::div[contains(text(),'%s')]//following::i[contains(@class,'mdi-close-circle')]",
                                           spaceName));
@@ -762,16 +702,6 @@ public class HomePage extends GenericPage {
   private ElementFacade getRejectIconSpaceFromDrawer(String spaceName) {
     return findByXPathOrCSS(String.format("//aside[contains(@class,'spaceDrawer ')]//descendant::div[contains(text(),'%s')]//following::i[contains(@class,'mdi-close-circle')]",
                                           spaceName));
-  }
-
-  private ElementFacade getSpacesBadge() {
-    return findByXPathOrCSS("//div[contains(@class,'profileCard')]//*[contains(text(),'Spaces')]");
-  }
-
-  private ElementFacade getSpacesBadgeWithNumber(String number) {
-    return findByXPathOrCSS(
-                            String.format("//div[contains(@class,'profileCard')]//*[contains(text(),'Spaces')]/preceding::*[@class='v-btn__content' and contains(text(),'%s')][1]",
-                                          number));
   }
 
   private ElementFacade homeHoverButton(String pageName) {
@@ -836,14 +766,6 @@ public class HomePage extends GenericPage {
 
   private ElementFacade spaceArrowIconElement() {
     return findByXPathOrCSS("//*[contains(@class,'recentSpacesWrapper')]//*[contains(@class,'fa-arrow')]");
-  }
-
-  private ElementFacade spaceInvitationWidgetElement() {
-    return findByXPathOrCSS("//*[@id='profile-stats-spacesCount']//*[contains(@class, 'v-badge')]");
-  }
-
-  private ElementFacade spacesBadgeElement() {
-    return findByXPathOrCSS("(//div[contains(@class,'profileCard')]//*[@aria-label='Badge'])[1]");
   }
 
   private ElementFacade hamburgerMenuItemLink(String pageUri) {

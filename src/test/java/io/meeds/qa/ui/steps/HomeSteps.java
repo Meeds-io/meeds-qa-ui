@@ -63,10 +63,6 @@ public class HomeSteps {
     homePage.bookmarkActivity(activity);
   }
 
-  public void checkConnectionsBadge(String badgeNumber) {
-    homePage.isConnectionsBadgeWithNumberVisible(badgeNumber);
-  }
-
   public void checkDisplaySpaceInvitation(List<String> listOfSpaces) {
     for (String spaceName : listOfSpaces) {
       homePage.checkExistingSpaceInvitation(spaceName);
@@ -95,10 +91,6 @@ public class HomeSteps {
     homePage.checkNotExistingSpaceInvitation(space);
   }
 
-  public void checkSpacesBadge(String badgeNumber) {
-    homePage.isSpacesBadgeWithNumberVisible(badgeNumber);
-  }
-
   public void checkPageIsDisplayed(String pageUri) {
     homePage.checkPageIsDisplayed(pageUri);
   }
@@ -111,10 +103,6 @@ public class HomeSteps {
     homePage.clickOnCommentActivityNotification(message, activity, comment);
   }
 
-  public void clickOnConnectionsBagde() {
-    homePage.clickOnConnectionsBagde();
-  }
-
   public void clickOnHomeLink() {
     homePage.clickOnHomeLink();
   }
@@ -125,14 +113,6 @@ public class HomeSteps {
 
   public void checkHomeButtonPosition(String pageName) {
     homePage.checkHomeButtonPosition(pageName);
-  }
-
-  public void clickOnSpaceInvitationWidget() {
-    homePage.clickOnSpaceInvitationWidget();
-  }
-
-  public void clickOnSpacesBagde() {
-    homePage.clickOnSpacesBagde();
   }
 
   public void clickSeeAll() {
@@ -231,15 +211,6 @@ public class HomeSteps {
     homePage.isArrowDisplayedAfterHoveringOnSpaceName();
   }
 
-  public boolean isConnectionsBadgeWithNumberVisible(String number) {
-    return homePage.isConnectionsBadgeWithNumberVisible(number);
-  }
-
-  public boolean isNoConnectionsBadge() {
-    homePage.goToStreamPage();
-    return homePage.isNoConnectionsBadge();
-  }
-
   public void checkNumberOfConnectionsInDrawer(String number) {
     homePage.checkNumberOfConnectionsInDrawer(Integer.valueOf(number));
   }
@@ -252,16 +223,8 @@ public class HomeSteps {
     homePage.isPageOpened(uriPart);
   }
 
-  public boolean isSpacesBadgeWithNumberVisible(String number) {
-    return homePage.isSpacesBadgeWithNumberVisible(number);
-  }
-
   public void checkThirdLevelNavigationDisplayed() {
     homePage.checkThirdLevelNavigationDisplayed();
-  }
-
-  public boolean isWidgetWithNumberVisible(String widget, String number) {
-    return homePage.isWidgetWithNumberVisible(widget, number);
   }
 
   public void openNotifications() {

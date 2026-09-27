@@ -19,6 +19,7 @@ package io.meeds.qa.ui.pages;
 
 import static io.meeds.qa.ui.utils.Utils.refreshPage;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
+import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 import static io.meeds.qa.ui.utils.Utils.waitForPageLoading;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -34,6 +35,8 @@ import io.meeds.qa.ui.elements.TextBoxElementFacade;
 import io.meeds.qa.ui.utils.Utils;
 
 public class UserProfilePage extends GenericPage {
+
+  private static final int    USER_SPACES_DRAWER_MAX_PAGES            = 10;
 
   private static final String PROFILE_CONTACT_INFORMATION_FORM_INPUTS = "(//*[contains(@class, 'profileContactInformationDrawer') and contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'drawerContent')]//input)";
 
@@ -139,12 +142,25 @@ public class UserProfilePage extends GenericPage {
     });
   }
 
-  public int getMyWeeklyPoint() {
-    if (myWeeklyPointElement().isVisible()) {
-      return Integer.valueOf(myWeeklyPointElement().getText());
-    } else {
-      return 0;
+  /**
+   * The drawer lists the spaces 20 at a time in alphabetical order: the space
+   * is searched page after page until the drawer has no more page to load.
+   */
+  public void checkSpaceListedInUserSpacesDrawer(String spaceName) {
+    ElementFacade spaceElement = userSpacesDrawerSpaceElement(spaceName);
+    for (int page = 0; page < USER_SPACES_DRAWER_MAX_PAGES && !spaceElement.isCurrentlyVisible(); page++) {
+      ElementFacade loadMoreButton = userSpacesDrawerLoadMoreElement();
+      if (!loadMoreButton.isCurrentlyVisible()) {
+        break;
+      }
+      clickOnElement(loadMoreButton);
+      waitForLoading();
     }
+    spaceElement.assertVisible();
+  }
+
+  public void checkUserSpacesWidgetDisplayed() {
+    userSpacesWidgetElement().assertVisible();
   }
 
   public void goToReceivedKudos() {
@@ -154,6 +170,12 @@ public class UserProfilePage extends GenericPage {
   public void goToSentKudos() {
     refreshPage();
     contactSentKudosElement().click();
+  }
+
+  public void openUserSpacesDrawer() {
+    clickOnElement(userSpacesSeeAllElement());
+    waitForDrawerToOpen();
+    waitForDrawerToLoad();
   }
 
   public void howToEarnPointsPageIsDisplayed() {
@@ -345,21 +367,6 @@ public class UserProfilePage extends GenericPage {
     upload(UPLOAD_DIRECTORY_PATH + fileName).fromLocalMachine().to(elem);
   }
 
-  public void checkMyPointIncrease(int originalWeeklyPoint) {
-    waitForPageLoading();
-    retryOnCondition(() -> {
-      int myWeeklyPoint = getMyWeeklyPoint();
-      if (myWeeklyPoint <= originalWeeklyPoint) {
-        throw new IllegalStateException(String.format("Weekly points %s wasn't increased, original points = %s",
-                                                      myWeeklyPoint,
-                                                      originalWeeklyPoint));
-      }
-    }, () -> {
-      waitFor(2).seconds();
-      Utils.refreshPage(true);
-    }, 10);
-  }
-
   private ElementFacade addWorkExperiencesElement() {
     return findByXPathOrCSS("//*[@id='ProfileWorkExperience']//*[contains(@class,' fa-plus')]");
   }
@@ -501,10 +508,6 @@ public class UserProfilePage extends GenericPage {
     return findByXPathOrCSS("//*[@id='GamificationEarnPoints']//*[@id='uiHowEarnPoint']//*[contains(text(),'How can I earn points?')]");
   }
 
-  private ElementFacade myWeeklyPointElement() {
-    return findByXPathOrCSS("//div[@id='profile-stats-portlet']//span[contains(text(),'points') or contains(text(),'Points')]//preceding::span[1]");
-  }
-
   private ElementFacade openWorkExperience(String jobTitle) {
     return findByXPathOrCSS(String.format("//button//*[@class='truncate-text']//*[contains(text(),'%s')]", jobTitle));
   }
@@ -565,6 +568,27 @@ public class UserProfilePage extends GenericPage {
   private WebElement removeWorkExperienceElement(String jobTitle) {
     return findButtonByXPathOrCSS(String.format("//*[contains(text(),'%s')]//ancestor::*[contains(@class,'profileWorkExperiencesEditItem')]//*[contains(@class,'uiIconTrash')]//ancestor::button",
                                                 jobTitle));
+  }
+
+  private ElementFacade userSpacesDrawerLoadMoreElement() {
+    return findByXPathOrCSS("//*[contains(@class,'spacesListOverviewDrawer')]//button[contains(@class,'loadMoreButton')]");
+  }
+
+  private ElementFacade userSpacesDrawerSpaceElement(String spaceName) {
+    return findByXPathOrCSS(String.format("//*[contains(@class,'spacesListOverviewDrawer')]//*[contains(@class,'spaceTitle') and contains(text(),'%s')]",
+                                          spaceName));
+  }
+
+  /**
+   * The widget header holds the "see all" button, plus a settings cog, shown on
+   * hover to users allowed to edit the page, which is excluded.
+   */
+  private ElementFacade userSpacesSeeAllElement() {
+    return findByXPathOrCSS("//*[@id='spacesListWidget']//button[not(.//i[contains(@class,'fa-cog')])]");
+  }
+
+  private ElementFacade userSpacesWidgetElement() {
+    return findByXPathOrCSS("#spacesListWidget");
   }
 
   private ElementFacade saveWorkExperiencesElement() {
