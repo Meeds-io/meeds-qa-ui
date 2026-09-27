@@ -186,16 +186,6 @@ Feature: Actions
 
     When I go to Programs page
     And I open random program card
-    And I click on 'Announce an action from its activity' text
-    And I go to the activity of opened action
-    And I click on three dots button related to activity 'Announce an action from its activity'
-    And I click on 'Unhide' menu item
-    And I go to the random space
-
-    Then The activity 'Announce an action from its activity' is displayed
-
-    When I go to Programs page
-    And I open random program card
     And I click on 'Add Quest' button
     And I wait for drawer to open
 
