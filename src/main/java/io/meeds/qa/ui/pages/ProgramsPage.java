@@ -166,11 +166,15 @@ public class ProgramsPage extends GenericPage {
   }
 
   public void selectProgramsFilter(String value) {
+    // The filter shows once the application is loaded
+    retryOnCondition(() -> programFilterDropdown().checkVisible(), () -> waitFor(1).seconds(), 10);
     programFilterDropdown().selectByValue(value);
     waitForLoading();
   }
 
   public void selectProgramActionsFilter(String value) {
+    // The filter shows once the application is loaded
+    retryOnCondition(() -> rulesStatusDropdown().checkVisible(), () -> waitFor(1).seconds(), 10);
     rulesStatusDropdown().selectByValue(value);
     waitForLoading();
   }
