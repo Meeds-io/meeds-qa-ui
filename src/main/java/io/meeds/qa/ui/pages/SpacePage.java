@@ -29,6 +29,7 @@ import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.openqa.selenium.ElementClickInterceptedException;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
@@ -382,12 +383,21 @@ public class SpacePage extends GenericPage {
 
   public void clickKudosBtnBelowPostField() {
     ElementFacade sendKudos = findByXPathOrCSS("//*[contains(@class,'activityComposer')]//*[contains(@id,'kudosBtnToolbar')]");
-    sendKudos.click();
+    clickWithoutHover(sendKudos);
   }
 
   public void clickPollBtnBelowPostField() {
     ElementFacade createPoll = findByXPathOrCSS("//*[contains(@class,'activityComposer')]//*[contains(@id,'pollBtnToolbar')]");
-    createPoll.click();
+    clickWithoutHover(createPoll);
+  }
+
+  /**
+   * Moving the mouse to the buttons below the composer can hover the user
+   * avatar next to them, whose popover then covers the button.
+   */
+  private void clickWithoutHover(ElementFacade element) {
+    element.waitUntilVisible();
+    ((JavascriptExecutor) getDriver()).executeScript("arguments[0].click();", element);
   }
 
   public void clickCreatePollButton() {
@@ -824,7 +834,8 @@ public class SpacePage extends GenericPage {
   }
 
   public void openActivityReactionsDrawer(String activity) {
-    getReactionActivityLink(activity).click();
+    // Clicking the likers avatars only shows their tooltip
+    clickWithoutHover(getReactionActivityLink(activity));
     waitForDrawerToOpen();
   }
 
