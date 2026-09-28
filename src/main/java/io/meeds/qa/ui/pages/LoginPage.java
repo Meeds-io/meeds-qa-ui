@@ -26,6 +26,7 @@ import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
+import io.meeds.qa.ui.utils.Utils;
 
 import net.serenitybdd.markers.IsHidden;
 import net.thucydides.core.annotations.DefaultUrl;
@@ -61,7 +62,20 @@ public class LoginPage extends GenericPage implements IsHidden {
 
   public void login(String login, String password) {
     retryOnCondition(() -> login(login, password, true),
-                     this::logout);
+                     this::recoverLoginPage);
+  }
+
+  /**
+   * A browser left on a login page that never finished loading keeps failing
+   * the next attempts: a new browser is started instead.
+   */
+  private void recoverLoginPage() {
+    if (StringUtils.contains(getCurrentUrl(), PORTAL_LOGIN_URI) && !usernameInputElement().isCurrentlyVisible()) {
+      LOGGER.warn("The login page doesn't display, a new browser is started");
+      Utils.restartBrowser();
+    } else {
+      logout();
+    }
   }
 
   public boolean login(String login, String password, boolean throwException) { // NOSONAR

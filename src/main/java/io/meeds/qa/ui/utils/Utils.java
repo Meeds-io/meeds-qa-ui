@@ -34,6 +34,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.SystemTimeouts;
+import net.thucydides.core.webdriver.WebDriverFacade;
 
 public class Utils {
 
@@ -88,6 +89,22 @@ public class Utils {
 
   public static boolean isStaleElementException(Throwable e) {
     return e instanceof StaleElementReferenceException || (e.getCause() != null && isStaleElementException(e.getCause()));
+  }
+
+  /**
+   * Starts a new browser on the portal, in place of one that can't be used
+   * anymore: its session was lost, or its pages don't load anymore.
+   */
+  public static void restartBrowser() {
+    try {
+      Serenity.getWebdriverManager().closeAllDrivers();
+    } catch (Exception e) { // NOSONAR
+      // The session can already be gone on the grid side
+    }
+    if (Serenity.getDriver() instanceof WebDriverFacade facade) {
+      facade.reset();
+    }
+    Serenity.getDriver().navigate().to(System.getProperty("webdriver.base.url"));
   }
 
   public static void refreshPage() {

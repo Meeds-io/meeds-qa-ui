@@ -233,20 +233,10 @@ public class TestInitHook {
 
   private boolean closeLostBrowser(WebDriverException e) {
     LOGGER.warn("Browser session lost, a new browser is started for the next steps", e);
-    restartBrowser();
+    Utils.restartBrowser();
     return true;
   }
 
-  private void restartBrowser() {
-    try {
-      Serenity.getWebdriverManager().closeAllDrivers();
-    } catch (Exception e) { // NOSONAR
-      // The session can already be gone on the grid side
-    }
-    if (Serenity.getDriver() instanceof WebDriverFacade facade) {
-      facade.reset();
-    }
-  }
 
   /**
    * Relative navigations are resolved against the current page's origin: a
@@ -349,7 +339,7 @@ public class TestInitHook {
         // A failed step suspends the Serenity driver calls, which would make
         // every following attempt fail as well: the attempt restarts clean
         StepEventBus.getEventBus().reenableWebDriver();
-        restartBrowser();
+        Utils.restartBrowser();
         driver = Serenity.getDriver();
         waitRemainingTime(WARM_UP_PAGE_LOADING_WAIT * 1000l, start);
       }
