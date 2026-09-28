@@ -387,11 +387,27 @@ public class TestInitHook {
    * of the pages and navigation run once the OVERWRITE is settled.
    */
   private void restoreSystemSites() {
-    try {
-      genericSteps.restoreSystemSites("OVERWRITE", true);
-    } finally {
-      waitForInMillis(RESTORE_SYSTEM_SITES_SETTLE_MILLIS);
-      genericSteps.restoreSystemSites("MERGE", false);
+    List<String> systemSites = genericSteps.getSystemSites();
+    for (String siteName : systemSites) {
+      try {
+        genericSteps.restoreSystemSite(siteName, "OVERWRITE", true);
+      } catch (RuntimeException e) {
+        LOGGER.warn("Error when overwriting the site {} from its packaged configuration, proceed to merge it", siteName, e);
+      }
+    }
+    waitForInMillis(RESTORE_SYSTEM_SITES_SETTLE_MILLIS);
+    // Every site is merged, not to leave one without its packaged pages
+    List<String> failedSites = new ArrayList<>();
+    for (String siteName : systemSites) {
+      try {
+        genericSteps.restoreSystemSite(siteName, "MERGE", false);
+      } catch (RuntimeException e) {
+        LOGGER.warn("Error when merging the site {} from its packaged configuration", siteName, e);
+        failedSites.add(siteName);
+      }
+    }
+    if (!failedSites.isEmpty()) {
+      throw new IllegalStateException("Error when merging the sites " + failedSites + " from their packaged configuration");
     }
   }
 
