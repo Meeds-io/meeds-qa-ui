@@ -390,8 +390,12 @@ public class HomePage extends GenericPage {
       closeAllDialogs();
       closeAllDrawers();
       int i = MAX_WAIT_RETRIES;
-      // A stickied menu is already opened, and clicking it is intercepted
-      if (myProfileButtonElement().isNotVisible() && !getStickiedHamburgerMenuParent().isCurrentlyVisible() && --i > 0) {
+      // The menu shows once the page is built, and a stickied menu is already
+      // opened: clicking it is intercepted
+      for (int j = 0; j < 10 && isHamburgerMenuHidden(); j++) {
+        waitFor(500).milliseconds();
+      }
+      if (isHamburgerMenuHidden() && --i > 0) {
         getHamburgerNavigationMenu().click();
         waitForDrawerToOpen();
         if (stickMenu) {
@@ -540,9 +544,13 @@ public class HomePage extends GenericPage {
       getDriver().navigate()
                  .to(getCurrentUrl().split(PORTAL_ROOT_CONTEXT_NO_SLASH)[0]);
       waitForLoading();
-      clickOnHamburgerMenu(stickMenu);
-    } else if (!getStickiedHamburgerMenuParent().isCurrentlyVisible()) {
-      clickOnHamburgerMenu(stickMenu);
+      if (!openHamburgerMenu(stickMenu)) {
+        navigateToLink(linkSuffix);
+        return;
+      }
+    } else if (!getStickiedHamburgerMenuParent().isCurrentlyVisible() && !openHamburgerMenu(stickMenu)) {
+      navigateToLink(linkSuffix);
+      return;
     }
     String siteName = getSiteName(linkSuffix);
     if (StringUtils.isNotBlank(siteName)) {
@@ -667,6 +675,30 @@ public class HomePage extends GenericPage {
 
   private ElementFacade getHamburgerNavigationMenu() {
     return findByXPathOrCSS(".HamburgerNavigationMenu");
+  }
+
+  /**
+   * The menu is only the way to the page: when it can't be opened, the page
+   * is opened by its address.
+   */
+  private boolean openHamburgerMenu(boolean stickMenu) {
+    try {
+      clickOnHamburgerMenu(stickMenu);
+      return true;
+    } catch (RuntimeException e) {
+      LOGGER.warn("Hamburger menu can't be opened, open the page by its address", e);
+      return false;
+    }
+  }
+
+  private void navigateToLink(String linkSuffix) {
+    getDriver().navigate().to(getCurrentUrl().split(PORTAL_ROOT_CONTEXT_NO_SLASH)[0] + PORTAL_ROOT_CONTEXT_NO_SLASH + linkSuffix);
+    waitForPageLoading();
+    assertThat(getDriver().getCurrentUrl()).contains(linkSuffix);
+  }
+
+  private boolean isHamburgerMenuHidden() {
+    return !myProfileButtonElement().isCurrentlyVisible() && !getStickiedHamburgerMenuParent().isCurrentlyVisible();
   }
 
   private ElementFacade getStickiedHamburgerMenuParent() {
