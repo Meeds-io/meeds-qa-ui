@@ -173,15 +173,12 @@ public class ManageSpaceSteps {
       waitForPageLoading();
       // A space that was deleted, or that the user can't see, answers a not
       // found page at the same URL: only its menu tells the space is displayed
-      if (isSpaceMenuDisplayed()) {
-        return;
-      } else if (manageSpacesPage.clickSpaceActionToJoin()) {
-        waitForLoading();
+      if (isSpaceMenuDisplayed() || joinFromSpaceAccessPage()) {
         return;
       }
     }
     homePage.goToSpacesPage(false);
-    if (StringUtils.isNotBlank(spaceName) && findSpaceCard(spaceName, spaceNamePrefix, true)) {
+    if (StringUtils.isNotBlank(spaceName) && findSpaceCard(spaceName, spaceNamePrefix)) {
       goOrJoinToSpace(spaceName);
     } else {
       spaceName = Utils.getRandomString(spaceNamePrefix);
@@ -192,6 +189,21 @@ public class ManageSpaceSteps {
       }
       TestInitHook.spaceWithPrefixCreated(spaceNamePrefix, spaceName, homePage.getCurrentUrl());
     }
+  }
+
+  /**
+   * A space the user isn't member of redirects to its access page, whose join
+   * button shows once the page is loaded.
+   */
+  private boolean joinFromSpaceAccessPage() {
+    for (int i = 0; i < 10; i++) {
+      if (manageSpacesPage.clickSpaceActionToJoin()) {
+        waitForLoading();
+        return isSpaceMenuDisplayed();
+      }
+      Utils.waitForInMillis(500);
+    }
+    return false;
   }
 
   private boolean isSpaceMenuDisplayed() {
