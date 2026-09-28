@@ -263,7 +263,9 @@ public class SpacePage extends GenericPage {
   }
 
   public void checkActivityVisible(String activity) {
-    getActivityText(activity).assertVisible();
+    // A published activity can be announced by a new posts button before the
+    // stream lists it
+    retryOnCondition(() -> getActivityText(activity).assertVisible(), this::refreshStream, 3);
   }
 
   public void checkCommentVisible(String comment) {
@@ -834,8 +836,7 @@ public class SpacePage extends GenericPage {
   }
 
   public void openActivityReactionsDrawer(String activity) {
-    // Clicking the likers avatars only shows their tooltip
-    clickWithoutHover(getReactionActivityLink(activity));
+    getReactionActivityLink(activity).click();
     waitForDrawerToOpen();
   }
 
@@ -1092,7 +1093,10 @@ public class SpacePage extends GenericPage {
   }
 
   public void tooltipCommentsDrawerIsDisplayed(String comment) {
-    assertTrue(getCommentsDrawerLikeCommentIcon(comment).getAttribute("aria-expanded").contains("true"));
+    // The tooltip shows while its button is hovered
+    retryOnCondition(() -> assertTrue(getCommentsDrawerLikeCommentIcon(comment).getAttribute("aria-expanded").contains("true")),
+                     () -> hoverOnLikeIconCommentsDrawer(comment),
+                     3);
   }
 
   public void unPinActivityButtonIsDisplayed(String activity) {
@@ -1558,7 +1562,7 @@ public class SpacePage extends GenericPage {
   }
 
   private ElementFacade getCommentsDrawerLikeCommentIcon(String activityComment) {
-    return findByXPathOrCSS(String.format("(//*[contains(@class,'drawerContent')]//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLinkcomment')])[1]",
+    return findByXPathOrCSS(String.format("(//*[contains(@class,'v-navigation-drawer--open')]//*[contains(@class,'drawerContent')]//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLinkcomment')])[1]",
                                           activityComment));
   }
 
