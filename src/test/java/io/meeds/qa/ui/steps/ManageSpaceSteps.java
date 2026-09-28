@@ -178,7 +178,8 @@ public class ManageSpaceSteps {
       }
     }
     homePage.goToSpacesPage(false);
-    if (StringUtils.isNotBlank(spaceName) && findSpaceCard(spaceName, spaceNamePrefix)) {
+    if (StringUtils.isNotBlank(spaceName)) {
+      findSpaceCard(spaceName, spaceNamePrefix, true);
       goOrJoinToSpace(spaceName);
     } else {
       spaceName = Utils.getRandomString(spaceNamePrefix);
@@ -458,7 +459,8 @@ public class ManageSpaceSteps {
     wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeAsyncScript(addSpaceScript)
                                                             .toString()
                                                             .equals("true"));
-    String spaceUrl = homePage.getCurrentUrl().split("/portal")[0] + "/portal/g/:spaces:" + spaceName;
+    // The space group id is its pretty name, the lower-cased display name
+    String spaceUrl = homePage.getCurrentUrl().split("/portal")[0] + "/portal/g/:spaces:" + spaceName.toLowerCase();
     TestInitHook.spaceWithPrefixCreated(spaceNamePrefix, spaceName, spaceUrl);
   }
 
