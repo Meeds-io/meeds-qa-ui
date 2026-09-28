@@ -615,7 +615,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   private TextBoxElementFacade spaceNameInputElement() {
-    return findTextBoxByXPathOrCSS("//*[@name='name']");
+    return findTextBoxByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//*[@name='name']");
   }
 
   private TextBoxElementFacade spaceSearchDetailsAvatarElement(String spaceName) {
