@@ -17,9 +17,11 @@
  */
 package io.meeds.qa.ui.pages;
 
+import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
+
 import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.ButtonElementFacade;
@@ -125,20 +127,29 @@ public class RulePage extends GenericPage {
    * The label of a status radio is a two lines list item that doesn't toggle
    * the radio when clicked: the radio input is clicked instead.
    */
-  private void selectRadioInput(String value) {
-    ElementFacade radioInput = findByXPathOrCSS(String.format("//*[contains(@class,'v-navigation-drawer--open')]//input[@value='%s']", value));
-    radioInput.waitUntilPresent();
+  private void selectRadio(String label) {
+    retryOnCondition(() -> statusRadioElement(label).checkVisible(), () -> waitFor(1).seconds(), 10);
+    ElementFacade radioInput = findByXPathOrCSS(String.format("%s//input", statusRadioXPath(label)));
     ((JavascriptExecutor) getDriver()).executeScript("arguments[0].click();", radioInput);
+  }
+
+  private ElementFacade statusRadioElement(String label) {
+    return findByXPathOrCSS(statusRadioXPath(label));
+  }
+
+  private String statusRadioXPath(String label) {
+    return String.format("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(@class,'v-radio') and not(contains(@class,'v-radio-group'))][.//*[contains(@class,'v-list-item__title') and contains(text(),'%s')]]",
+                         label);
   }
 
   public void selectDefaultContributionStatus(String status) {
     switch (status) {
     case "Accepted":
-      selectRadioInput("ACCEPTED");
+      selectRadio("Accepted");
       acceptedRadioBtnActiveElement().waitUntilVisible();
       break;
     case "Pending":
-      selectRadioInput("PENDING");
+      selectRadio("Pending");
       pendingRadioBtnActiveElement().waitUntilVisible();
       break;
     default:
@@ -331,11 +342,11 @@ public class RulePage extends GenericPage {
   }
 
   private ElementFacade acceptedRadioBtnActiveElement() {
-    return findByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//input[@value='ACCEPTED']//ancestor::*[contains(@class,'v-radio') and contains(@class,'v-item--active')]");
+    return findByXPathOrCSS(statusRadioXPath("Accepted") + "[contains(@class,'v-item--active')]");
   }  
 
   private ElementFacade pendingRadioBtnActiveElement() {
-    return findByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//input[@value='PENDING']//ancestor::*[contains(@class,'v-radio') and contains(@class,'v-item--active')]");
+    return findByXPathOrCSS(statusRadioXPath("Pending") + "[contains(@class,'v-item--active')]");
   }
 
 }
