@@ -61,15 +61,12 @@ public class AddGroupsPage extends GenericPage {
   }
 
   public ElementFacade groupOpenBtn(String group) {
-    return findByXPathOrCSS(String
-                                  .format("//*[@class='flex sm12 md4 flat']//*[@class='v-list-item__content']//*[contains(text(),'%s')]/preceding::i[@class='v-icon notranslate mdi mdi-menu-right theme--light'][1]",
+    return findByXPathOrCSS(String.format("//*[contains(@class,'v-list-item')][.//*[contains(@class,'v-list-item__title') and contains(text(),'%s')]]//i[contains(@class,'fa-caret-right')]/ancestor::button[1]",
                                           group));
   }
 
   public ElementFacade groupToSelect(String group) {
-    return findByXPathOrCSS(String
-                                  .format("//*[@class='flex sm12 md4 flat']//*[@class='v-list-item__content']//*[contains(text(),'%s')]",
-                                          group));
+    return findByXPathOrCSS(String.format("//*[contains(@class,'v-list-item__title') and contains(text(),'%s')]", group));
   }
 
   public void openGroup(String group) {
