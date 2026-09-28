@@ -16,22 +16,6 @@ Feature: General new composer
     And I click on Update
     And the activity 'activité CAP97 edited' is displayed in activity stream
 
-  # Bug detected and qualified as non-bloquer
-  @ignored
-  Scenario: Update posts - text update with normal Link (space case)
-    Given I am authenticated as 'admin' random user
-    And I go to the random space
-    When I click on post in space
-    And I enter an activity 'https://www.meeds.io/'
-    And I wait '10' seconds
-    And I insert text 'activity109'
-    And I publish the activity
-    And I click on modify the activity
-    And I insert text ' modifier le lien'
-    And I click on Update
-    Then the activity 'modifier le lien' is displayed in activity stream
-    And The link is displayed with the preview
-
   Scenario: Text update with video Link (space case)
     Given I am authenticated as 'admin' random user
 

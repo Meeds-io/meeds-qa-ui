@@ -11,41 +11,6 @@ Feature: Search for User Informations in Profile page
     Then User Cover is displayed in Profile Page
     And User Avatar is displayed in Profile Page
 
-  # Needs bugs fixes after MIP#38 merge
-  @ignored
-  Scenario: Add Contact information
-    Given I am authenticated as 'admin' if random users doesn't exists
-      | firstprofile  |
-
-    When I create the firstprofile random user if not existing, no wait
-    And I login as 'firstprofile' random user
-    And I go to My Profile page
-    And I update my profile random basic informations
-    And I refresh the page
-    Then In 'Your contact informations', Updated profile Contact Fullname is displayed
-    And Updated Profile Contact Email is displayed
-    And Updated Profile Contact Job is displayed
-
-  # Needs bugs fixes after MIP#38 merge
-  @ignored
-  Scenario: Add Contact information
-    Given I am authenticated as 'admin' if random users doesn't exists
-      | secondprofile  |
-
-    When I create the secondprofile random user if not existing, no wait
-    And I login as 'secondprofile' random user
-    And I go to My Profile page
-    And I update my profile random basic informations
-    Then In 'Your contact informations', Updated profile Contact Fullname is displayed
-    And Updated Profile Contact Email is displayed
-    And Updated Profile Contact Job is displayed
-
-    When I update my profile other random informations
-    Then Updated Profile Contact Company is displayed
-    And Updated Profile Contact Phone is displayed
-    And Updated Profile Contact instantMessaging is displayed
-    And Updated Profile Contact Url is displayed
-
   Scenario: Kudos block
     Given I am authenticated as 'admin' if random users doesn't exists
       | fifthkudos  |
