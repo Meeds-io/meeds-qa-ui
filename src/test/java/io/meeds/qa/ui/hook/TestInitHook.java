@@ -19,6 +19,7 @@ package io.meeds.qa.ui.hook;
 
 import static io.meeds.qa.ui.utils.ExceptionLauncher.LOGGER;
 import static io.meeds.qa.ui.utils.Utils.DEFAULT_IMPLICIT_WAIT_FOR_TIMEOUT;
+import static io.meeds.qa.ui.utils.Utils.waitForInMillis;
 import static io.meeds.qa.ui.utils.Utils.waitRemainingTime;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
@@ -78,7 +79,14 @@ public class TestInitHook {
                                                                                             "true")
                                                                                .toLowerCase());
 
-  public static final String              WARMUP_FILE_PATH          = System.getProperty("io.meeds.warmUp.file",
+  public static final boolean             RESTORE_SYSTEM_SITES      =
+                                                               Boolean.parseBoolean(System.getProperty("io.meeds.restoreSystemSites",
+                                                                                                       "true")
+                                                                                          .toLowerCase());
+
+  private static final long               RESTORE_SYSTEM_SITES_SETTLE_MILLIS = 30000;
+
+  public static final String              WARMUP_FILE_PATH         = System.getProperty("io.meeds.warmUp.file",
                                                                                          "warmUpFile.tmp");
 
   public static final int                 WARM_UP_PAGE_LOADING_WAIT = 30;
@@ -352,6 +360,10 @@ public class TestInitHook {
       throw new ElementShouldBeVisibleException("Home Page isn't displayed", null);
     }
 
+    if (RESTORE_SYSTEM_SITES) {
+      LOGGER.info("---- Restore the system sites to their packaged configuration, disable it by adding -Dio.meeds.restoreSystemSites=false");
+      restoreSystemSites();
+    }
     addAdminRandomUser();
     manageSpaceSteps.setSideBarDefaultMode();
     manageSpaceSteps.injectSpaceTemplate();
@@ -365,6 +377,22 @@ public class TestInitHook {
     }
 
     LOGGER.info("---- End warmup phase in {} seconds", (System.currentTimeMillis() - start) / 1000);
+  }
+
+  /**
+   * The OVERWRITE mode deletes what was added on the server, but imports each
+   * extension's configuration of a site after deleting what the previous one
+   * imported, which deletes packaged pages such as the login one. A MERGE
+   * right after it misses some of them: they are imported back by a MERGE
+   * of the pages and navigation run once the OVERWRITE is settled.
+   */
+  private void restoreSystemSites() {
+    try {
+      genericSteps.restoreSystemSites("OVERWRITE", true);
+    } finally {
+      waitForInMillis(RESTORE_SYSTEM_SITES_SETTLE_MILLIS);
+      genericSteps.restoreSystemSites("MERGE", false);
+    }
   }
 
   private void injectSpaces() {

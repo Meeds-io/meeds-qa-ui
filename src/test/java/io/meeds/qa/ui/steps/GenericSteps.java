@@ -69,6 +69,51 @@ public class GenericSteps {
                                                        .catch(() => callback(false));
                                                         """;
 
+  /**
+   * Restores every site shipped with the platform from its packaged
+   * configuration, with the import mode and whether to restore the site
+   * layout as arguments
+   */
+  private static final String RESTORE_SYSTEM_SITES_SCRIPT =
+                                                          """
+                                                               const [importMode, siteLayout] = arguments;
+                                                               const callback = arguments[arguments.length - 1];
+                                                               fetch("/portal/rest/v1/social/sites?siteType=PORTAL&excludeSpaceSites=true&expand=canRestore", {
+                                                                 "credentials": "include"
+                                                               })
+                                                              .then(resp => {
+                                                                if (!resp || !resp.ok) {
+                                                                  throw new Error("Error when retrieving sites");
+                                                                }
+                                                                return resp.json();
+                                                              })
+                                                              .then(async sites => {
+                                                                const systemSites = sites.filter(site => site.canRestore && !site.properties?.IS_SPACE_PUBLIC_SITE);
+                                                                for (const site of systemSites) {
+                                                                  const resp = await fetch("/layout/rest/sites/restore", {
+                                                                    "headers": {
+                                                                      "content-type": "application/x-www-form-urlencoded",
+                                                                    },
+                                                                    "body": new URLSearchParams({
+                                                                      "siteType": "PORTAL",
+                                                                      "siteName": site.name,
+                                                                      "importMode": importMode,
+                                                                      "siteLayout": siteLayout,
+                                                                      "pagesLayout": true,
+                                                                      "navigation": true,
+                                                                    }),
+                                                                    "method": "PUT",
+                                                                    "credentials": "include"
+                                                                  });
+                                                                  if (!resp || !resp.ok) {
+                                                                    throw new Error("Error when restoring site " + site.name);
+                                                                  }
+                                                                }
+                                                              })
+                                                              .then(() => callback(true))
+                                                              .catch(() => callback(false));
+                                                               """;
+
   private GenericPage         genericPage;
 
   public void checkConfirmMessageIsDisplayed(String message) {
@@ -260,6 +305,17 @@ public class GenericSteps {
                                            Duration.ofSeconds(10),
                                            Duration.ofMillis(SHORT_WAIT_DURATION_MILLIS));
     wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeAsyncScript(DISABLE_PWA_SCRIPT)
+                                                            .toString()
+                                                            .equals("true"));
+  }
+
+  public void restoreSystemSites(String importMode, boolean siteLayout) {
+    WebDriverWait wait = new WebDriverWait(Serenity.getDriver(),
+                                           Duration.ofSeconds(60),
+                                           Duration.ofMillis(SHORT_WAIT_DURATION_MILLIS));
+    wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeAsyncScript(RESTORE_SYSTEM_SITES_SCRIPT,
+                                                                               importMode,
+                                                                               siteLayout)
                                                             .toString()
                                                             .equals("true"));
   }
