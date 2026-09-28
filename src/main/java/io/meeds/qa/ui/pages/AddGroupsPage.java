@@ -19,6 +19,7 @@ package io.meeds.qa.ui.pages;
 
 import static io.meeds.qa.ui.utils.Utils.*;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.ElementFacade;
@@ -38,27 +39,22 @@ public class AddGroupsPage extends GenericPage {
 
   public void addMember(String role, String member) {
     closeAllDrawers();
-    // A member is added from the menu of the group row
-    groupMenuButton(selectedGroup).click();
+    // A member is added from the menu of the selected group row
+    retryOnCondition(() -> groupMenuButton(selectedGroup).click(), () -> waitFor(500).milliseconds(), 5);
     // The menu items can't be clicked until the menu has finished opening
     retryOnCondition(() -> groupMenuItem("Add member").click(), () -> waitFor(500).milliseconds(), 5);
     ElementFacade selectedRoleFieldElement = selectedRoleFieldElement();
     selectedRoleFieldElement.checkVisible();
     selectedRoleFieldElement.selectByValue(role);
     selectedRoleFieldElement.click();
+    // The user field adds the user whose name is typed when Enter is pressed,
+    // once the user is found: an earlier Enter closes the drawer
     TextBoxElementFacade inviteMemberInputElement = inviteMemberInputElement();
     inviteMemberInputElement.setTextValue(member);
-    boolean found = mentionInField(inviteMemberInputElement, member, 3);
-    if (found) {
-      ElementFacade saveMemberAddedInGroupElement = saveMemberAddedInGroupElement();
-      try {
-        saveMemberAddedInGroupElement.click();
-      } catch (Exception e) {
-        findByXPathOrCSS("//*[contains(@class,'drawerTitle')]").click();
-        saveMemberAddedInGroupElement.click();
-      }
-    }
-    closeAllDrawers();
+    waitFor(3).seconds();
+    inviteMemberInputElement.sendKeys(Keys.ENTER);
+    addedMemberElement().assertVisible();
+    saveMemberAddedInGroupElement().click();
     waitForDrawerToClose();
   }
 
@@ -80,7 +76,8 @@ public class AddGroupsPage extends GenericPage {
   }
 
   public void selectGroup(String group) {
-    groupToSelect(group).click();
+    // Selecting the group displays its details and the menu button of its row
+    retryOnCondition(() -> groupToSelect(group).click(), () -> waitFor(500).milliseconds(), 5);
     selectedGroup = group;
   }
 
@@ -92,6 +89,10 @@ public class AddGroupsPage extends GenericPage {
   private ElementFacade groupMenuItem(String label) {
     return findByXPathOrCSS(String.format("//*[contains(@class,'menuable__content__active')]//*[contains(@class,'v-list-item') and normalize-space(.)='%s']",
                                           label));
+  }
+
+  private ElementFacade addedMemberElement() {
+    return findByXPathOrCSS("//*[@id='membershipFormDrawer']//*[contains(@class,'v-chip') or contains(@class,'identitySuggesterItem')]");
   }
 
   private TextBoxElementFacade inviteMemberInputElement() {
