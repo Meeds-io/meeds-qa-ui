@@ -311,7 +311,8 @@ public class ManageSpacesPage extends GenericPage {
 
   public boolean isSpaceMenuDisplayed() {
     try {
-      ElementFacade webElementFacade = findByXPathOrCSS("#topBarMenu .v-tab--active");
+      // A space URL without page part selects no tab
+      ElementFacade webElementFacade = findByXPathOrCSS("#topBarMenu .v-tab");
       return webElementFacade.isCurrentlyVisible();
     } catch (RuntimeException e) {
       return false;
