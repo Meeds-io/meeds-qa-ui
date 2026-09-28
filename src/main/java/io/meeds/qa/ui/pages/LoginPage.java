@@ -156,7 +156,8 @@ public class LoginPage extends GenericPage implements IsHidden {
 
   private void openLoginPageIfNotDisplayed() {
     String currentUrl = getCurrentUrl();
-    if (StringUtils.isBlank(currentUrl)) {
+    // A new browser is still on its blank page, which has no portal address
+    if (!StringUtils.startsWith(currentUrl, "http")) {
       getDriver().navigate().to(System.getProperty("webdriver.base.url"));
       verifyPageLoaded();
       currentUrl = getCurrentUrl();
