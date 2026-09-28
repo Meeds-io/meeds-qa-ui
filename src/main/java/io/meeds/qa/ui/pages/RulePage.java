@@ -85,7 +85,7 @@ public class RulePage extends GenericPage {
   public void selectDurationChoice() {
     ElementFacade durationChip = durationDeselectedChip();
     durationChip.waitUntilVisible();
-    durationChip.click();
+    ((JavascriptExecutor) getDriver()).executeScript("arguments[0].click();", durationChip);
     durationSelectedChip().assertVisible();
   }
 
@@ -250,11 +250,11 @@ public class RulePage extends GenericPage {
   }
 
   private ElementFacade durationDeselectedChip() {
-    return findByXPathOrCSS("//*[contains(text(),'Duration')]//ancestor-or-self::*[contains(@class, 'v-chip--clickable') and not(contains(@class, 'primary'))]");
+    return findByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(),'Duration')]//ancestor-or-self::*[contains(@class, 'v-chip--clickable') and not(contains(@class, 'primary'))]");
   }
 
   private ElementFacade durationSelectedChip() {
-    return findByXPathOrCSS("//*[contains(text(),'Duration')]//ancestor-or-self::*[contains(@class, 'v-chip--clickable') and contains(@class, 'primary')]");
+    return findByXPathOrCSS("//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(),'Duration')]//ancestor-or-self::*[contains(@class, 'v-chip--clickable') and contains(@class, 'primary')]");
   }
 
   private ElementFacade startButton() {
