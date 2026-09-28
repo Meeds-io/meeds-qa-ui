@@ -390,7 +390,8 @@ public class HomePage extends GenericPage {
       closeAllDialogs();
       closeAllDrawers();
       int i = MAX_WAIT_RETRIES;
-      if (myProfileButtonElement().isNotVisible() && --i > 0) {
+      // A stickied menu is already opened, and clicking it is intercepted
+      if (myProfileButtonElement().isNotVisible() && !getStickiedHamburgerMenuParent().isCurrentlyVisible() && --i > 0) {
         getHamburgerNavigationMenu().click();
         waitForDrawerToOpen();
         if (stickMenu) {
