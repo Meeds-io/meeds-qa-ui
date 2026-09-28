@@ -25,6 +25,9 @@ import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 
 public class AddGroupsPage extends GenericPage {
+
+  private String selectedGroup;
+
   public AddGroupsPage(WebDriver driver) {
     super(driver);
   }
@@ -34,12 +37,11 @@ public class AddGroupsPage extends GenericPage {
   }
 
   public void addMember(String role, String member) {
-    ElementFacade addMemberInGroupBtnElement = addMemberInGroupBtnElement();
-    if (!addMemberInGroupBtnElement.isClickable() || !addMemberInGroupBtnElement.isVisible()) {
-      refreshPage();
-    }
     closeAllDrawers();
-    addMemberInGroupBtnElement.click();
+    // A member is added from the menu of the group row
+    groupMenuButton(selectedGroup).click();
+    // The menu items can't be clicked until the menu has finished opening
+    retryOnCondition(() -> groupMenuItem("Add member").click(), () -> waitFor(500).milliseconds(), 5);
     ElementFacade selectedRoleFieldElement = selectedRoleFieldElement();
     selectedRoleFieldElement.checkVisible();
     selectedRoleFieldElement.selectByValue(role);
@@ -79,14 +81,21 @@ public class AddGroupsPage extends GenericPage {
 
   public void selectGroup(String group) {
     groupToSelect(group).click();
+    selectedGroup = group;
   }
 
-  private ElementFacade addMemberInGroupBtnElement() {
-    return findByXPathOrCSS("//*[contains(@class,'addNewMembershipButton')]");
+  private ElementFacade groupMenuButton(String group) {
+    return findByXPathOrCSS(String.format("%s/ancestor::*[contains(concat(' ', normalize-space(@class), ' '), ' v-list-item ')][1]//i[contains(@class,'fa-ellipsis-v')]/ancestor::button[1]",
+                                          groupTitleXPath(group)));
+  }
+
+  private ElementFacade groupMenuItem(String label) {
+    return findByXPathOrCSS(String.format("//*[contains(@class,'menuable__content__active')]//*[contains(@class,'v-list-item') and normalize-space(.)='%s']",
+                                          label));
   }
 
   private TextBoxElementFacade inviteMemberInputElement() {
-    return findTextBoxByXPathOrCSS("//input[@id='userNameInput']");
+    return findTextBoxByXPathOrCSS("//input[@id='membershipUserNameInput']");
   }
 
   private ElementFacade saveMemberAddedInGroupElement() {
