@@ -188,8 +188,11 @@ public class AgendaPage extends GenericPage {
   }
 
   private void clickDiscardChangesPopup() {
-    waitFor(200).milliseconds();
-    closeConfirmDialogIfDisplayed();
+    // The discard confirmation fades in after the close request
+    for (int i = 0; i < 10 && eventCreationFormElement().isCurrentlyVisible(); i++) {
+      waitFor(200).milliseconds();
+      closeConfirmDialogIfDisplayed();
+    }
   }
 
   private ElementFacade agendaSettingsApplicationElement() {
