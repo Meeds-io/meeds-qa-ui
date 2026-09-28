@@ -340,15 +340,16 @@ public class ManageSpacesPage extends GenericPage {
       waitForDrawerToOpen();
       waitFor(200).milliseconds();
       defaultSpaceTemplateInSpaceFormElement().checkVisible();
+      defaultSpaceTemplateInSpaceFormElement().click();
+      waitFor(200).milliseconds();
+      // The name field is below the templates list, which can push it out of
+      // the drawer's scrollable content. A step transition interrupted by the
+      // template selection leaves it clipped for good: reopen the drawer then
+      retryOnCondition(() -> {
+        spaceNameInputElement().scrollToWebElement();
+        spaceNameInputElement().checkVisible();
+      }, () -> waitFor(1).seconds(), 5);
     }, () -> closeAllDrawers());
-    defaultSpaceTemplateInSpaceFormElement().click();
-    waitFor(200).milliseconds();
-    // The name field is below the templates list, which can push it out of
-    // the drawer's scrollable content
-    retryOnCondition(() -> {
-      spaceNameInputElement().scrollToWebElement();
-      spaceNameInputElement().checkVisible();
-    }, () -> waitFor(1).seconds(), 10);
   }
 
   private ButtonElementFacade defaultSpaceTemplateInSpaceFormElement() {
