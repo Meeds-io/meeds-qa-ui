@@ -126,7 +126,9 @@ public class HomePage extends GenericPage {
 
   public void clickOnCommentActivityNotification(String message, String activity, String comment) {
     commentActivityNotificationIsDisplayed(message, activity, comment);
-    notificationContentElement(message, comment).click();
+    // Moving the mouse to the notification can hover the drawer's expand
+    // button, whose menu then covers the notification
+    ((JavascriptExecutor) getDriver()).executeScript("arguments[0].click();", notificationContentElement(message, comment));
   }
 
   public void clickOnHomeIcon(String pageName) {
