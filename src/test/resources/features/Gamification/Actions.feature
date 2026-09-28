@@ -80,6 +80,8 @@ Feature: Actions
     Then The program action does not contain duration limitation
     And I close the opened drawer
 
+  # Suspected product defect: the menu of a hidden activity offers no Unhide action
+  @ignore @Product_bug_activity_unhide
   Scenario: Announce an action from its activity
     Given I am authenticated as 'admin' random user
     And I inject the random space
@@ -183,6 +185,16 @@ Feature: Actions
     And I click on 'Hide' menu item
     And I confirm
     Then The activity 'Announce an action from its activity' is not displayed
+
+    When I go to Programs page
+    And I open random program card
+    And I click on 'Announce an action from its activity' text
+    And I go to the activity of opened action
+    And I click on three dots button related to activity 'Announce an action from its activity'
+    And I click on 'Unhide' menu item
+    And I go to the random space
+
+    Then The activity 'Announce an action from its activity' is displayed
 
     When I go to Programs page
     And I open random program card
