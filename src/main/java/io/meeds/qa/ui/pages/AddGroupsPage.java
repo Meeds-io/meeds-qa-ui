@@ -61,12 +61,16 @@ public class AddGroupsPage extends GenericPage {
   }
 
   public ElementFacade groupOpenBtn(String group) {
-    return findByXPathOrCSS(String.format("//*[contains(@class,'v-list-item')][.//*[contains(@class,'v-list-item__title') and contains(text(),'%s')]]//i[contains(@class,'fa-caret-right')]/ancestor::button[1]",
-                                          group));
+    return findByXPathOrCSS(String.format("%s/ancestor::*[contains(concat(' ', normalize-space(@class), ' '), ' v-list-item ')][1]//i[contains(@class,'fa-caret-right')]/ancestor::button[1]",
+                                          groupTitleXPath(group)));
   }
 
   public ElementFacade groupToSelect(String group) {
-    return findByXPathOrCSS(String.format("//*[contains(@class,'v-list-item__title') and contains(text(),'%s')]", group));
+    return findByXPathOrCSS(groupTitleXPath(group));
+  }
+
+  private String groupTitleXPath(String group) {
+    return String.format("//*[@id='GroupsManagement']//*[contains(@class,'v-list-item__title') and contains(text(),'%s')]", group);
   }
 
   public void openGroup(String group) {
