@@ -171,7 +171,6 @@ Feature: Favorite activities
     And I hover on space name from top bar
     Then I check that the random space is unbookmarked from topbar space popover
 
-  @pprFailed
   Scenario: Bookmark space from the left menu (desktop)
     Given I am authenticated as 'admin' random user
     And I go to the seven random space
@@ -193,7 +192,6 @@ Feature: Favorite activities
     When I close the notification
     Then I check that the random space is unbookmarked from Third Navigation Level
 
-  @pprFailed
   Scenario: Filter my stream by favorite spaces
     Given I am authenticated as 'admin' random user
     And I go to the ninety random space

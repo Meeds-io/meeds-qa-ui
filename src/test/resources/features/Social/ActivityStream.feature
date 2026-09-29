@@ -1672,7 +1672,6 @@ Feature: Activity Stream
     And I open in activity 'activitycap87' the Comments drawer
     Then Fourth comment is displayed in comments drawer
 
-  @pprFailed
   Scenario: Edit a kudos from a comment
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |

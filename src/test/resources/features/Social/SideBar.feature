@@ -1,7 +1,7 @@
 @sidebar
 Feature: SideBar
 
-  @smoke @pprFailed
+  @smoke
   Scenario: Filter Recent Spaces in the Second level side bar in Desktop
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
