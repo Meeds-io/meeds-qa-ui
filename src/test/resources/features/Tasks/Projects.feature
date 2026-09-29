@@ -1,6 +1,7 @@
 @taskProject
 Feature: Tasks - Projects
 
+  @restoreCheck
   Scenario: Add project with a description
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |

@@ -161,6 +161,7 @@ Feature: Tasks
     And Project 'new project test' is displayed in Tasks App Center
     And Project 'second project test' is displayed in Tasks App Center
 
+  @restoreCheck
   Scenario: Create Task with a new status
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |

@@ -1,6 +1,7 @@
 @favorite
 Feature: Favorite activities
 
+  @restoreCheck
   Scenario: Bookmark an activity
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -15,6 +16,7 @@ Feature: Favorite activities
     When I favorite the activity posted in the space
     Then Success message is displayed
 
+  @restoreCheck
   Scenario: Remove the Bookmark for an activity
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -171,6 +173,7 @@ Feature: Favorite activities
     And I hover on space name from top bar
     Then I check that the random space is unbookmarked from topbar space popover
 
+  @restoreCheck
   Scenario: Bookmark space from the left menu (desktop)
     Given I am authenticated as 'admin' random user
     And I go to the seven random space
