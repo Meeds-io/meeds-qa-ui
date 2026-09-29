@@ -1,0 +1,178 @@
+{
+  "allowUserCustomHome": true,
+  "allowedModes": [
+    "HIDDEN",
+    "ICON",
+    "STICKY"
+  ],
+  "defaultMode": "STICKY",
+  "items": [
+    {
+      "avatar": null,
+      "defaultPath": true,
+      "icon": "fa-dice-d6",
+      "items": null,
+      "name": "My Workspace",
+      "properties": {
+        "siteName": "myworkspace",
+        "siteType": "portal"
+      },
+      "target": null,
+      "type": "SITE",
+      "url": "/portal/myworkspace"
+    },
+    {
+      "avatar": null,
+      "defaultPath": true,
+      "icon": "fas fa-users",
+      "items": [
+        {
+          "avatar": null,
+          "defaultPath": true,
+          "icon": "fas fa-users",
+          "items": null,
+          "name": "People",
+          "properties": {
+            "siteName": "dw",
+            "siteIcon": "fas fa-users",
+            "siteDisplayName": "dw",
+            "siteType": "portal"
+          },
+          "target": null,
+          "type": "PAGE",
+          "url": "/portal/dw/people"
+        },
+        {
+          "avatar": null,
+          "defaultPath": true,
+          "icon": "fas fa-people-arrows",
+          "items": null,
+          "name": "Spaces",
+          "properties": {
+            "siteName": "dw",
+            "siteIcon": "fas fa-users",
+            "siteDisplayName": "dw",
+            "siteType": "portal"
+          },
+          "target": null,
+          "type": "PAGE",
+          "url": "/portal/dw/spaces"
+        }
+      ],
+      "name": "dw",
+      "properties": {
+        "siteName": "dw",
+        "expandPages": "true",
+        "siteType": "portal"
+      },
+      "target": null,
+      "type": "SITE",
+      "url": "/portal/dw"
+    },
+    {
+      "avatar": null,
+      "defaultPath": true,
+      "icon": "fa-chart-line",
+      "items": null,
+      "name": "Analytics",
+      "properties": {
+        "siteName": "analytics",
+        "siteType": "portal"
+      },
+      "target": null,
+      "type": "SITE",
+      "url": "/portal/analytics"
+    },
+    {
+      "avatar": null,
+      "defaultPath": false,
+      "icon": null,
+      "items": null,
+      "name": null,
+      "properties": null,
+      "target": null,
+      "type": "SEPARATOR",
+      "url": null
+    },
+    {
+      "avatar": null,
+      "defaultPath": false,
+      "icon": "fa-bullhorn",
+      "items": [],
+      "name": "Announcements",
+      "properties": {
+        "limit": "4",
+        "notMember": "true",
+        "sortBy": "LAST_ACCESS",
+        "displayOnlyWhenMember": "true"
+      },
+      "target": null,
+      "type": "SPACE_TEMPLATE",
+      "url": null
+    },
+    {
+      "avatar": null,
+      "defaultPath": false,
+      "icon": "fa-people-carry",
+      "items": [],
+      "name": "Communities",
+      "properties": {
+        "limit": "4",
+        "notMember": "true",
+        "sortBy": "LAST_ACCESS",
+        "displayOnlyWhenMember": "true"
+      },
+      "target": null,
+      "type": "SPACE_TEMPLATE",
+      "url": null
+    },
+    {
+      "avatar": null,
+      "defaultPath": false,
+      "icon": "fa-tasks",
+      "items": [],
+      "name": "Projects",
+      "properties": {
+        "limit": "4",
+        "notMember": "true",
+        "sortBy": "LAST_ACCESS",
+        "displayOnlyWhenMember": "true"
+      },
+      "target": null,
+      "type": "SPACE_TEMPLATE",
+      "url": null
+    },
+    {
+      "avatar": null,
+      "defaultPath": false,
+      "icon": "fa-circle-notch",
+      "items": [],
+      "name": "Circles",
+      "properties": {
+        "limit": "4",
+        "notMember": "true",
+        "sortBy": "LAST_ACCESS",
+        "displayOnlyWhenMember": "true"
+      },
+      "target": null,
+      "type": "SPACE_TEMPLATE",
+      "url": null
+    },
+    {
+      "avatar": null,
+      "defaultPath": false,
+      "icon": "fa-layer-group",
+      "items": [],
+      "name": "sidebar.viewAllSpaces",
+      "properties": {
+        "limit": "0",
+        "sortBy": "TITLE",
+        "names": "{\"en\": \"sidebar.viewAllSpaces\"}"
+      },
+      "target": null,
+      "type": "SPACES",
+      "url": "/portal/dw/spaces"
+    }
+  ],
+  "userMode": null
+}

@@ -394,6 +394,10 @@ public class TestInitHook {
       if (RESTORE_SYSTEM_SITES) {
         LOGGER.info("---- Restore the system sites to their packaged configuration, disable it by adding -Dio.meeds.restoreSystemSites=false");
         restoreSystemSites();
+        List<String> droppedSidebarItems = manageSpaceSteps.restoreSidebarSettings();
+        if (!droppedSidebarItems.isEmpty()) {
+          LOGGER.warn("Sidebar items {} not restored, their site, page or space template doesn't exist", droppedSidebarItems);
+        }
       }
     }
 
