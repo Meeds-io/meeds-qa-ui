@@ -1700,10 +1700,12 @@ Feature: Activity Stream
     When I login as 'fourth' random user
     And I go to the random space
     Then the activity 'activitytestkudosUS52' is displayed in activity stream
-    When In comment 'activitytestkudoscommentUS52', Kudos label should be black
-    And I click on the kudos button from the comment 'activitytestkudoscommentUS52'
+    And I open in activity 'activitytestkudosUS52' the Comments drawer
+    And In comment 'activitytestkudoscommentUS52', Kudos label should be black
+    When I click on the kudos button from the comments drawer
     And I send to the comment activity a kudos message 'Test Auto comment Kudos US52'
-    And I click to edit the kudos text
+    And I open in activity 'activitytestkudosUS52' the Comments drawer
+    And I click to edit the kudos 'Test Auto comment Kudos US52' from the comments drawer
     And I set the new kudos comment text 'updated kudos message' and I click on update button
     Then the updated Kudos activity 'updated kudos message' is displayed in stream page
 

@@ -73,8 +73,8 @@ public class KudosPage extends GenericPage {
     assertTrue(displayedPeriodTypeElement().getTextValue().contains(period));
   }
 
-  public void clickEditKudos() {
-    threedotsKudosCommentElement().click();
+  public void clickEditKudos(String kudosMessage) {
+    threedotsKudosCommentInDrawerElement(kudosMessage).click();
     editKudosCommentElement().click();
   }
 
@@ -314,8 +314,11 @@ public class KudosPage extends GenericPage {
     return findByXPathOrCSS("//div[contains(@id, 'peopleCard')]//*[contains(@class, 'fa-award')]//ancestor::button");
   }
 
-  private ElementFacade threedotsKudosCommentElement() {
-    return findByXPathOrCSS("(//*[@class='flex-grow-1 flex-shrink-1 overflow-hidden']//*[contains(@class, 'fa-ellipsis-v')])[2]");
+  private ElementFacade threedotsKudosCommentInDrawerElement(String kudosMessage) {
+    // The kudos is displayed as a reply inside its comment: its own menu is
+    // the closest one before its message
+    return findByXPathOrCSS(String.format("(//*[contains(@class,'v-navigation-drawer--open')]//*[contains(text(),'%s')]/preceding::*[contains(@class, 'fa-ellipsis-v')])[last()]",
+                                          kudosMessage));
   }
 
   private ElementFacade threedotsKudosReplyCommentElement() {
