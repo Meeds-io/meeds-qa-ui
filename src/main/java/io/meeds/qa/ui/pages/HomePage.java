@@ -214,7 +214,12 @@ public class HomePage extends GenericPage {
       if (!getStickiedHamburgerMenuParent().isCurrentlyVisible()) {
         clickOnHamburgerMenu(true);
       }
+      // The sidebar items show once the menu is opened
       ElementFacade hamburgerMenuItemLink = hamburgerMenuItemLink(siteName);
+      for (int i = 0; hamburgerMenuItemLink == null && i < 10; i++) {
+        Utils.waitForInMillis(500);
+        hamburgerMenuItemLink = hamburgerMenuItemLink(siteName);
+      }
       assertNotNull(String.format("Can't find Site navigation %s from Sidebar", siteName), hamburgerMenuItemLink);
       hamburgerMenuItemLink.checkVisible(); // NOSONAR
       hamburgerMenuItemLink.hover();
@@ -225,7 +230,13 @@ public class HomePage extends GenericPage {
       if (hamburgerMenuSiteArrowIcon.hasClass("fa-arrow-right")) {
         hamburgerMenuSiteArrowIcon.click();
       }
-      hamburgerMenuSecondLevelItemLink(uriPart).click();
+      // A hover out of the first level closes the second level: the retry
+      // opens it again from the first level
+      ElementFacade hamburgerMenuSecondLevelItemLink = hamburgerMenuSecondLevelItemLink(uriPart);
+      if (!hamburgerMenuSecondLevelItemLink.isVisible()) {
+        throw new IllegalStateException(String.format("Second level of Site navigation %s isn't opened", siteName));
+      }
+      hamburgerMenuSecondLevelItemLink.click();
       waitForPageLoading();
     } else {
       closeAllDrawers();
