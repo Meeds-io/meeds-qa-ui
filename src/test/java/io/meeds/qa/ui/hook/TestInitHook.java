@@ -86,6 +86,27 @@ public class TestInitHook {
 
   private static final long               RESTORE_SYSTEM_SITES_SETTLE_MILLIS = 30000;
 
+  /**
+   * The packaged access permissions of the system sites, which aren't the
+   * default ones: restoring a site keeps the permissions changed on the server
+   */
+  private static final Map<String, List<String>> SYSTEM_SITES_ACCESS_PERMISSIONS =
+                                                                          Map.of("administration",
+                                                                                 List.of("*:/platform/users"),
+                                                                                 "analytics",
+                                                                                 List.of("*:/platform/administrators",
+                                                                                         "*:/platform/analytics"),
+                                                                                 "global",
+                                                                                 List.of("Everyone"),
+                                                                                 "public",
+                                                                                 List.of("*:/platform/administrators",
+                                                                                         "publisher:/platform/web-contributors"));
+
+  private static final List<String>       SYSTEM_SITES_DEFAULT_ACCESS_PERMISSIONS = List.of("member:/platform/users",
+                                                                                            "member:/platform/externals");
+
+  private static final String             SYSTEM_SITES_EDIT_PERMISSION = "manager:/platform/administrators";
+
   public static final String              WARMUP_FILE_PATH         = System.getProperty("io.meeds.warmUp.file",
                                                                                          "warmUpFile.tmp");
 
@@ -360,10 +381,6 @@ public class TestInitHook {
       throw new ElementShouldBeVisibleException("Home Page isn't displayed", null);
     }
 
-    if (RESTORE_SYSTEM_SITES) {
-      LOGGER.info("---- Restore the system sites to their packaged configuration, disable it by adding -Dio.meeds.restoreSystemSites=false");
-      restoreSystemSites();
-    }
     addAdminRandomUser();
     manageSpaceSteps.setSideBarDefaultMode();
     manageSpaceSteps.injectSpaceTemplate();
@@ -374,6 +391,10 @@ public class TestInitHook {
       LOGGER.info("---- FOR LOCAL TESTS, disable WARMUP Phase (used to improve global test execution time only) by adding \n\n\t\t******* -Dio.meeds.initData=false ******* \n\n\n");
       injectSpaces();
       injectUsers();
+      if (RESTORE_SYSTEM_SITES) {
+        LOGGER.info("---- Restore the system sites to their packaged configuration, disable it by adding -Dio.meeds.restoreSystemSites=false");
+        restoreSystemSites();
+      }
     }
 
     LOGGER.info("---- End warmup phase in {} seconds", (System.currentTimeMillis() - start) / 1000);
@@ -406,8 +427,18 @@ public class TestInitHook {
         failedSites.add(siteName);
       }
     }
+    for (String siteName : systemSites) {
+      List<String> accessPermissions = SYSTEM_SITES_ACCESS_PERMISSIONS.getOrDefault(siteName,
+                                                                                SYSTEM_SITES_DEFAULT_ACCESS_PERMISSIONS);
+      try {
+        genericSteps.restoreSitePermissions(siteName, accessPermissions, SYSTEM_SITES_EDIT_PERMISSION);
+      } catch (RuntimeException e) {
+        LOGGER.warn("Error when restoring the permissions of the site {}", siteName, e);
+        failedSites.add(siteName);
+      }
+    }
     if (!failedSites.isEmpty()) {
-      throw new IllegalStateException("Error when merging the sites " + failedSites + " from their packaged configuration");
+      throw new IllegalStateException("Error when restoring the sites " + failedSites + " from their packaged configuration");
     }
   }
 

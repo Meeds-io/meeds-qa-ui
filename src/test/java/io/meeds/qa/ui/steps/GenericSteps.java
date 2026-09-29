@@ -112,6 +112,27 @@ public class GenericSteps {
                                                              .catch(() => callback(false));
                                                               """;
 
+  private static final String RESTORE_SITE_PERMISSIONS_SCRIPT =
+                                                              """
+                                                                   const [siteName, accessPermissions, editPermission] = arguments;
+                                                                   const callback = arguments[arguments.length - 1];
+                                                                   fetch("/layout/rest/sites/permissions", {
+                                                                     "headers": {
+                                                                       "content-type": "application/json",
+                                                                     },
+                                                                     "body": JSON.stringify({
+                                                                       "siteType": "PORTAL",
+                                                                       "siteName": siteName,
+                                                                       "accessPermissions": accessPermissions,
+                                                                       "editPermission": editPermission,
+                                                                     }),
+                                                                     "method": "PATCH",
+                                                                     "credentials": "include"
+                                                                   })
+                                                                  .then(resp => callback(!!resp?.ok))
+                                                                  .catch(() => callback(false));
+                                                                   """;
+
   /** A site restore can take longer than the default script timeout */
   private static final Duration RESTORE_SYSTEM_SITE_TIMEOUT = Duration.ofMinutes(3);
 
@@ -323,6 +344,16 @@ public class GenericSteps {
       throw new IllegalStateException("Error when retrieving the system sites");
     }
     return (List<String>) sites;
+  }
+
+  public void restoreSitePermissions(String siteName, List<String> accessPermissions, String editPermission) {
+    Object restored = ((JavascriptExecutor) Serenity.getDriver()).executeAsyncScript(RESTORE_SITE_PERMISSIONS_SCRIPT,
+                                                                                   siteName,
+                                                                                   accessPermissions,
+                                                                                   editPermission);
+    if (!Boolean.TRUE.equals(restored)) {
+      throw new IllegalStateException(String.format("Error when restoring the permissions of site %s", siteName));
+    }
   }
 
   public void restoreSystemSite(String siteName, String importMode, boolean siteLayout) {
