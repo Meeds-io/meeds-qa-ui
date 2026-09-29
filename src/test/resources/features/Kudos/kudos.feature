@@ -38,6 +38,7 @@ Feature: Kudos
     And I go to My Profile page
     Then '1' kudos are received
 
+  @pprFailed
   Scenario: Edit a kudos activity
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -146,6 +147,7 @@ Feature: Kudos
     And I go to My Profile page
     Then No kudos are received
 
+  @pprFailed
   Scenario: Cancel Kudos sending from user profile
     Given I am authenticated as 'admin' random user
     And I inject the cancelfirst random user, no wait

@@ -1,7 +1,7 @@
 @task
 Feature: Tasks
 
-  @smoke
+  @smoke @pprFailed
   Scenario: Mark as completed for "TASKS" in a Project (Manager case)
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -20,7 +20,7 @@ Feature: Tasks
     And Task name 'tasktest' is not displayed in project details
     And Tasks number '0' is displayed in the column To Do
 
-  @smoke
+  @smoke @pprFailed
   Scenario: Add Clear typed characters icon (Filter by task under TASKS tab)
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -38,7 +38,7 @@ Feature: Tasks
     And The placeholder Filter by task should be displayed
     And The clear button is disappeared from Filter by task field
 
-  @smoke
+  @smoke @pprFailed
   Scenario: Tasks TAB
     Given I am authenticated as 'admin' random user
 
@@ -54,6 +54,7 @@ Feature: Tasks
     And I close the opened drawer
     Then Task '<TestE>' is deleted successfully
 
+  @pprFailed
   Scenario: Mark as completed for "TASKS" in a Project (Participant case)
     Given I am authenticated as 'admin' random user
     And I inject the first random user if not existing
@@ -102,6 +103,7 @@ Feature: Tasks
     When I close the opened drawer
     Then Task name 'taskessai' is not displayed in project details
 
+  @pprFailed
   Scenario: Check tasks display in project
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -134,6 +136,7 @@ Feature: Tasks
     And I set task due date TODAY
     And I close the opened drawer
 
+  @pprFailed
   Scenario: check that project isn't lost after renaming space name
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -161,6 +164,7 @@ Feature: Tasks
     And Project 'new project test' is displayed in Tasks App Center
     And Project 'second project test' is displayed in Tasks App Center
 
+  @pprFailed
   Scenario: Create Task with a new status
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -193,7 +197,7 @@ Feature: Tasks
     And I click on save Button To Add Task
     Then In column status 'TestStatus2' , Task name 'Collaboration FT Task' is displayed
 
-  @smoke
+  @smoke @pprFailed
   Scenario: Manage labels in Project
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -227,7 +231,7 @@ Feature: Tasks
     And Label 'label4' is displayed in edit project drawer
     And Label 'label5' is displayed in edit project drawer
 
-  @smoke
+  @smoke @pprFailed
   Scenario: Mark task as completed from the task drawer [1]
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -313,6 +317,7 @@ Feature: Tasks
     And Label 'label6' is displayed in edit task drawer and x icon is not displayed
     And I close the opened drawer
 
+  @pprFailed
   Scenario: when click on notification, user is redirected under the specific project
     Given I am authenticated as 'admin' if random users doesn't exists
       | third  |
@@ -337,7 +342,7 @@ Feature: Tasks
     And I click on the notification that mention third user in a task in Project 'Test Compagne' project
     Then Third user with the task comment 'Start working on it' is displayed in task comments drawer
 
-  @smoke
+  @smoke @pprFailed
   Scenario: Memorize Group and Sort filters (Group by)
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -376,6 +381,7 @@ Feature: Tasks
     Then I check that grouping 'assignee' is selected
     And I refresh the page
     
+  @pprFailed
   Scenario: when refresh task drawer, the description should not be lost
     Given I am authenticated as 'admin' random user
     And I inject the first random user if not existing
@@ -407,6 +413,7 @@ Feature: Tasks
     When I refresh the page
     Then The edit description in the task 'Edit Automation Test Task' is displayed
 
+  @pprFailed
   Scenario: Display last Update and Changes drawer
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |

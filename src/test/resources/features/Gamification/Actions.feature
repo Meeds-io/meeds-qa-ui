@@ -329,6 +329,7 @@ Feature: Actions
     And I go to My Achievements
     Then Achievement for 'Announce activity to delete' is canceled
 
+  @pprFailed
   Scenario: Overview top challenge
     Given I am authenticated as 'admin' random user
     When I inject the first random user if not existing, no wait

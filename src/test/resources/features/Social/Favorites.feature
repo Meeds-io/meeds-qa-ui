@@ -1,7 +1,7 @@
 @favorite
 Feature: Favorite activities
 
-  @restoreCheck
+  @restoreCheck @pprFailed
   Scenario: Bookmark an activity
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -16,7 +16,7 @@ Feature: Favorite activities
     When I favorite the activity posted in the space
     Then Success message is displayed
 
-  @restoreCheck
+  @restoreCheck @pprFailed
   Scenario: Remove the Bookmark for an activity
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -33,6 +33,7 @@ Feature: Favorite activities
     And I unbookmark the favorite activity posted in the space
     Then Success message is displayed
 
+  @pprFailed
   Scenario: Search by favorites (Filter by favorite button)
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -59,6 +60,7 @@ Feature: Favorite activities
     And The activity is not displayed in the search 'act_Fav_US05_01_1'
     And The activity is not displayed in the search 'act_Fav_US05_01_2'
 
+  @pprFailed
   Scenario: Search by favorites (Filter by keyword and favorite button)
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -173,6 +175,7 @@ Feature: Favorite activities
     And I hover on space name from top bar
     Then I check that the random space is unbookmarked from topbar space popover
 
+  @pprFailed
   Scenario: Bookmark space from the left menu (desktop)
     Given I am authenticated as 'admin' random user
     And I go to the seven random space
@@ -194,6 +197,7 @@ Feature: Favorite activities
     When I close the notification
     Then I check that the random space is unbookmarked from Third Navigation Level
 
+  @pprFailed
   Scenario: Filter my stream by favorite spaces
     Given I am authenticated as 'admin' random user
     And I go to the ninety random space

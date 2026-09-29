@@ -2,6 +2,7 @@
 
 Feature: Activity Stream
 
+  @pprFailed
   Scenario: Display 10 activities in Activity Stream
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -1039,6 +1040,7 @@ Feature: Activity Stream
     And In comments drawer, on comment 'commenttestCAP116-116', '(0)' like is displayed
     And I close the opened drawer
 
+  @pprFailed
   Scenario: Internal Link opening behaviors inside comments
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -1207,6 +1209,7 @@ Feature: Activity Stream
     Then Sixth User is not mentioned in the comment
     And I close the opened drawer
 
+  @pprFailed
   Scenario: Notifications for comments to my activity
     Given I am authenticated as 'admin' random user
 
@@ -1234,6 +1237,7 @@ Feature: Activity Stream
     When I click on the notification that shows that activity 'activityTest146' posted by first user is commented by second user with comment 'activityTest146'
     Then The comment 'commenttest146' is displayed in Comments drawer
 
+  @pprFailed
   Scenario: Notifications for comment to my comment
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -1269,6 +1273,7 @@ Feature: Activity Stream
     And In activity 'activityTest147' with comment 'commenttest147', the reply 'replyTest147' is displayed
     And I go to the home page
 
+  @pprFailed
   Scenario: Activity with text or link options (3 dots) (Author delete the post)
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -1298,6 +1303,7 @@ Feature: Activity Stream
     When I go to Stream page
     Then the activity 'activityus1009cap20' is not displayed in stream page
 
+  @pprFailed
   Scenario: Activity with text or link options (3 dots) ( Author cancel delete post)
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -1669,6 +1675,7 @@ Feature: Activity Stream
     And I open in activity 'activitycap87' the Comments drawer
     Then Fourth comment is displayed in comments drawer
 
+  @pprFailed
   Scenario: Edit a kudos from a comment
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -1798,6 +1805,7 @@ Feature: Activity Stream
     Given I click on three dots button related to activity 'PinTest'
     Then Unpin button related to activity 'PinTest' is displayed
 
+  @pprFailed
   Scenario: Space host or redactor can pin an activity from General Stream
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
