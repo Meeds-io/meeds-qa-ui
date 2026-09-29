@@ -2,7 +2,6 @@
 
 Feature: Activity Stream
 
-  @pprFailed
   Scenario: Display 10 activities in Activity Stream
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -1273,7 +1272,6 @@ Feature: Activity Stream
     And In activity 'activityTest147' with comment 'commenttest147', the reply 'replyTest147' is displayed
     And I go to the home page
 
-  @pprFailed
   Scenario: Activity with text or link options (3 dots) (Author delete the post)
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -1303,7 +1301,6 @@ Feature: Activity Stream
     When I go to Stream page
     Then the activity 'activityus1009cap20' is not displayed in stream page
 
-  @pprFailed
   Scenario: Activity with text or link options (3 dots) ( Author cancel delete post)
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -1805,7 +1802,6 @@ Feature: Activity Stream
     Given I click on three dots button related to activity 'PinTest'
     Then Unpin button related to activity 'PinTest' is displayed
 
-  @pprFailed
   Scenario: Space host or redactor can pin an activity from General Stream
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |

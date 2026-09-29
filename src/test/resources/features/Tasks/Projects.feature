@@ -1,7 +1,6 @@
 @taskProject
 Feature: Tasks - Projects
 
-  @pprFailed
   Scenario: Add project with a description
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -12,7 +11,6 @@ Feature: Tasks - Projects
     And I add a new project with a description
     Then Success message is displayed
 
-  @pprFailed
   Scenario: Clone a project
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -32,7 +30,6 @@ Feature: Tasks - Projects
     And I open the cloned project
     Then task 'Copy of task1414' is cloned successfully
 
-  @pprFailed
   Scenario: Add Clear typed characters icon "Filter by project"
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -85,7 +82,6 @@ Feature: Tasks - Projects
     And I click on save project button
     Then Message Project Title is mandatory is displayed
 
-  @pprFailed
   Scenario: Project participant cannot open the edit status mode
     Given I am authenticated as 'admin' random user
     And I inject the first random user if not existing
@@ -117,7 +113,6 @@ Feature: Tasks - Projects
     When I click on Status name 'To Do'
     Then Status name 'To Do' Edit mode is not opened successfully
 
-  @pprFailed
   Scenario: Task card should be well displayed when task title is long
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
