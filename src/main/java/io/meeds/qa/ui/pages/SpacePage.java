@@ -29,6 +29,7 @@ import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.openqa.selenium.ElementClickInterceptedException;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
@@ -262,7 +263,9 @@ public class SpacePage extends GenericPage {
   }
 
   public void checkActivityVisible(String activity) {
-    getActivityText(activity).assertVisible();
+    // A published activity can be announced by a new posts button before the
+    // stream lists it
+    retryOnCondition(() -> getActivityText(activity).assertVisible(), this::refreshStream, 3);
   }
 
   public void checkCommentVisible(String comment) {
@@ -382,12 +385,21 @@ public class SpacePage extends GenericPage {
 
   public void clickKudosBtnBelowPostField() {
     ElementFacade sendKudos = findByXPathOrCSS("//*[contains(@class,'activityComposer')]//*[contains(@id,'kudosBtnToolbar')]");
-    sendKudos.click();
+    clickWithoutHover(sendKudos);
   }
 
   public void clickPollBtnBelowPostField() {
     ElementFacade createPoll = findByXPathOrCSS("//*[contains(@class,'activityComposer')]//*[contains(@id,'pollBtnToolbar')]");
-    createPoll.click();
+    clickWithoutHover(createPoll);
+  }
+
+  /**
+   * Moving the mouse to the buttons below the composer can hover the user
+   * avatar next to them, whose popover then covers the button.
+   */
+  private void clickWithoutHover(ElementFacade element) {
+    element.waitUntilVisible();
+    ((JavascriptExecutor) getDriver()).executeScript("arguments[0].click();", element);
   }
 
   public void clickCreatePollButton() {
@@ -910,6 +922,7 @@ public class SpacePage extends GenericPage {
       waitForLoading();
     } catch (Exception e) {
       refreshPage();
+      waitForLoading();
     }
   }
 
@@ -931,6 +944,31 @@ public class SpacePage extends GenericPage {
   public void attachImagesToKudos() {
     waitCKEditorLoading(OPENED_KUDOS_DRAWER_SELECTOR);
     this.attachImageToCKeditor();
+  }
+
+  public void uploadDocumentToActivity(String fileName) {
+    waitCKEditorLoading(OPENED_ACTIVITY_COMPOSER_DRAWER_SELECTOR);
+    // Uploaded to a shared, non-reset QA server: reuse of the same fixture
+    // filename across runs would collide with a previous run's upload, so
+    // upload a uniquely-named copy instead and remember it for this scenario.
+    String uniqueFileName = copyToUniqueUploadFile(fileName);
+    Serenity.setSessionVariable(uploadedDocumentSessionKey(fileName)).to(uniqueFileName);
+    clickAttachDocumentButton();
+    attachImageToFileInput(attachDocumentsDrawerFileInputElement(), uniqueFileName);
+  }
+
+  public void checkDocumentAttachedInDrawer(String fileName) {
+    String uniqueFileName = Serenity.sessionVariableCalled(uploadedDocumentSessionKey(fileName));
+    attachedDocumentInDrawerElement(uniqueFileName).assertVisible();
+  }
+
+  private ElementFacade attachedDocumentInDrawerElement(String fileName) {
+    return findByXPathOrCSS(String.format("//*[contains(@class,'attachmentsAppDrawer')]//*[contains(text(),'%s')]",
+                                          fileName));
+  }
+
+  private String uploadedDocumentSessionKey(String fileName) {
+    return "uploadedDocument_" + fileName;
   }
 
   public void clickPreviewAttachedImage(String activity) {
@@ -1055,7 +1093,10 @@ public class SpacePage extends GenericPage {
   }
 
   public void tooltipCommentsDrawerIsDisplayed(String comment) {
-    assertTrue(getCommentsDrawerLikeCommentIcon(comment).getAttribute("aria-expanded").contains("true"));
+    // The tooltip shows while its button is hovered
+    retryOnCondition(() -> assertTrue(getCommentsDrawerLikeCommentIcon(comment).getAttribute("aria-expanded").contains("true")),
+                     () -> hoverOnLikeIconCommentsDrawer(comment),
+                     3);
   }
 
   public void unPinActivityButtonIsDisplayed(String activity) {
@@ -1521,7 +1562,7 @@ public class SpacePage extends GenericPage {
   }
 
   private ElementFacade getCommentsDrawerLikeCommentIcon(String activityComment) {
-    return findByXPathOrCSS(String.format("(//*[contains(@class,'drawerContent')]//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLinkcomment')])[1]",
+    return findByXPathOrCSS(String.format("(//*[contains(@class,'v-navigation-drawer--open')]//*[contains(@class,'drawerContent')]//div[contains(text(),'%s')]//following::button[contains(@id,'LikeLinkcomment')])[1]",
                                           activityComment));
   }
 
@@ -1625,6 +1666,15 @@ public class SpacePage extends GenericPage {
                                           activity));
   }
 
+
+  private void clickAttachDocumentButton() {
+    findByXPathOrCSS("//*[@class='cke_button_icon cke_button__attachfile_icon']/parent::a").click();
+  }
+
+  private ElementFacade attachDocumentsDrawerFileInputElement() {
+    return findByXPathOrCSS("//*[contains(@class,'attachmentsAppDrawer')]//input[@type='file']");
+  }
+
   private ElementFacade getSecondAttachedImageActivity(String activity) {
     return findByXPathOrCSS(String.format("(//*[contains(text(),'%s')]//ancestor::*[contains(@class,'activity-detail')])[1]//*[contains(@class, 'attachments-image-item')][2]",
                                           activity));
@@ -1715,7 +1765,7 @@ public class SpacePage extends GenericPage {
   }
 
   private ElementFacade getSharedVideoPreview(String link) {
-    return findByXPathOrCSS(String.format("//*[contains(@id,'Extactivity-content-extensions')]//following::*[@src]//following::*[@href='%s']//*[contains(@class,'font-weight-bold')]",
+    return findByXPathOrCSS(String.format("//*[contains(@id,'Extactivity-content-extensions')]//*[@href='%s']",
                                           link));
   }
 

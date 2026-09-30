@@ -17,6 +17,7 @@
  */
 package io.meeds.qa.ui.steps.definition;
 
+import static io.meeds.qa.ui.steps.definition.ManageSpaceStepDefinitions.RANDOM_SPACE_NAME;
 import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
 import static io.meeds.qa.ui.utils.Utils.getRandomString;
 import static io.meeds.qa.ui.utils.Utils.refreshPage;
@@ -48,12 +49,6 @@ public class UserProfileStepDefinition {
     userProfileSteps.addWorkExperiences(workExperiences);
   }
 
-  @Then("My points augmented")
-  public void checkMyPointIncrease() {
-    int originalWeeklyPoint = Serenity.sessionVariableCalled("originalWeeklyPoint");
-    userProfileSteps.checkMyPointIncrease(originalWeeklyPoint);
-  }
-
   @Then("^Updated Profile Contact instantMessaging is displayed$")
   public void checkProfileContactInstantMessagingVisible() {
     String instantMessagingType = "Skype";
@@ -64,12 +59,6 @@ public class UserProfileStepDefinition {
   @Given("^Job title '(.*)' and Organization '(.*)' and Job details '(.*)' and Used skills '(.*)' are displayed in Work experiences section$")
   public void checkWorkExperiencesSection(String jobTitle, String organization, String jobDetails, String usedSkills) {
     userProfileSteps.checkWorkExperiencesSection(jobTitle, organization, jobDetails, usedSkills);
-  }
-
-  @When("^I check my points$")
-  public void getMyWeeklyPoint() {
-    int originalWeeklyPoint = userProfileSteps.getMyWeeklyPoint();
-    Serenity.setSessionVariable("originalWeeklyPoint").to(originalWeeklyPoint);
   }
 
   @Then("I go to Received Kudos")
@@ -263,6 +252,22 @@ public class UserProfileStepDefinition {
   @Then("^I upload the Profile avatar '(.*)'$")
   public void uploadProfileAvatar(String fileName) {
     userProfileSteps.uploadProfileAvatar(fileName);
+  }
+
+  @Then("^The user spaces list is displayed in the profile$")
+  public void checkUserSpacesWidgetDisplayed() {
+    userProfileSteps.checkUserSpacesWidgetDisplayed();
+  }
+
+  @When("^I open the user spaces list drawer$")
+  public void openUserSpacesDrawer() {
+    userProfileSteps.openUserSpacesDrawer();
+  }
+
+  @Then("^The random space is listed in the user spaces drawer$")
+  public void checkRandomSpaceListedInUserSpacesDrawer() {
+    String randomSpaceName = Serenity.sessionVariableCalled(RANDOM_SPACE_NAME);
+    userProfileSteps.checkSpaceListedInUserSpacesDrawer(randomSpaceName);
   }
 
 }

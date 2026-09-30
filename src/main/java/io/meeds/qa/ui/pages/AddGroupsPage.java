@@ -19,12 +19,16 @@ package io.meeds.qa.ui.pages;
 
 import static io.meeds.qa.ui.utils.Utils.*;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.ElementFacade;
 import io.meeds.qa.ui.elements.TextBoxElementFacade;
 
 public class AddGroupsPage extends GenericPage {
+
+  private String selectedGroup;
+
   public AddGroupsPage(WebDriver driver) {
     super(driver);
   }
@@ -34,42 +38,37 @@ public class AddGroupsPage extends GenericPage {
   }
 
   public void addMember(String role, String member) {
-    ElementFacade addMemberInGroupBtnElement = addMemberInGroupBtnElement();
-    if (!addMemberInGroupBtnElement.isClickable() || !addMemberInGroupBtnElement.isVisible()) {
-      refreshPage();
-    }
     closeAllDrawers();
-    addMemberInGroupBtnElement.click();
+    // A member is added from the menu of the selected group row
+    retryOnCondition(() -> groupMenuButton(selectedGroup).click(), () -> waitFor(500).milliseconds(), 5);
+    // The menu items can't be clicked until the menu has finished opening
+    retryOnCondition(() -> groupMenuItem("Add member").click(), () -> waitFor(500).milliseconds(), 5);
     ElementFacade selectedRoleFieldElement = selectedRoleFieldElement();
     selectedRoleFieldElement.checkVisible();
     selectedRoleFieldElement.selectByValue(role);
     selectedRoleFieldElement.click();
+    // The user field adds the user whose name is typed when Enter is pressed,
+    // once the user is found: an earlier Enter closes the drawer
     TextBoxElementFacade inviteMemberInputElement = inviteMemberInputElement();
     inviteMemberInputElement.setTextValue(member);
-    boolean found = mentionInField(inviteMemberInputElement, member, 3);
-    if (found) {
-      ElementFacade saveMemberAddedInGroupElement = saveMemberAddedInGroupElement();
-      try {
-        saveMemberAddedInGroupElement.click();
-      } catch (Exception e) {
-        findByXPathOrCSS("//*[contains(@class,'drawerTitle')]").click();
-        saveMemberAddedInGroupElement.click();
-      }
-    }
-    closeAllDrawers();
+    waitFor(3).seconds();
+    inviteMemberInputElement.sendKeys(Keys.ENTER);
+    addedMemberElement().assertVisible();
+    saveMemberAddedInGroupElement().click();
     waitForDrawerToClose();
   }
 
   public ElementFacade groupOpenBtn(String group) {
-    return findByXPathOrCSS(String
-                                  .format("//*[@class='flex sm12 md4 flat']//*[@class='v-list-item__content']//*[contains(text(),'%s')]/preceding::i[@class='v-icon notranslate mdi mdi-menu-right theme--light'][1]",
-                                          group));
+    return findByXPathOrCSS(String.format("%s/ancestor::*[contains(concat(' ', normalize-space(@class), ' '), ' v-list-item ')][1]//i[contains(@class,'fa-caret-right')]/ancestor::button[1]",
+                                          groupTitleXPath(group)));
   }
 
   public ElementFacade groupToSelect(String group) {
-    return findByXPathOrCSS(String
-                                  .format("//*[@class='flex sm12 md4 flat']//*[@class='v-list-item__content']//*[contains(text(),'%s')]",
-                                          group));
+    return findByXPathOrCSS(groupTitleXPath(group));
+  }
+
+  private String groupTitleXPath(String group) {
+    return String.format("//*[@id='GroupsManagement']//*[contains(@class,'v-list-item__title') and contains(text(),'%s')]", group);
   }
 
   public void openGroup(String group) {
@@ -77,15 +76,27 @@ public class AddGroupsPage extends GenericPage {
   }
 
   public void selectGroup(String group) {
-    groupToSelect(group).click();
+    // Selecting the group displays its details and the menu button of its row
+    retryOnCondition(() -> groupToSelect(group).click(), () -> waitFor(500).milliseconds(), 5);
+    selectedGroup = group;
   }
 
-  private ElementFacade addMemberInGroupBtnElement() {
-    return findByXPathOrCSS("//*[contains(@class,'addNewMembershipButton')]");
+  private ElementFacade groupMenuButton(String group) {
+    return findByXPathOrCSS(String.format("%s/ancestor::*[contains(concat(' ', normalize-space(@class), ' '), ' v-list-item ')][1]//i[contains(@class,'fa-ellipsis-v')]/ancestor::button[1]",
+                                          groupTitleXPath(group)));
+  }
+
+  private ElementFacade groupMenuItem(String label) {
+    return findByXPathOrCSS(String.format("//*[contains(@class,'menuable__content__active')]//*[contains(@class,'v-list-item') and normalize-space(.)='%s']",
+                                          label));
+  }
+
+  private ElementFacade addedMemberElement() {
+    return findByXPathOrCSS("//*[@id='membershipFormDrawer']//*[contains(@class,'v-chip') or contains(@class,'identitySuggesterItem')]");
   }
 
   private TextBoxElementFacade inviteMemberInputElement() {
-    return findTextBoxByXPathOrCSS("//input[@id='userNameInput']");
+    return findTextBoxByXPathOrCSS("//input[@id='membershipUserNameInput']");
   }
 
   private ElementFacade saveMemberAddedInGroupElement() {

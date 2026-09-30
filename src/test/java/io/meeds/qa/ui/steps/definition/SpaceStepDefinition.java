@@ -795,7 +795,17 @@ public class SpaceStepDefinition {
   public void attachImageToKudos() {
     spaceSteps.attachImageToKudos();
   }
-  
+
+  @And("^I upload the document '(.*)' to the activity$")
+  public void uploadDocumentToActivity(String fileName) {
+    spaceSteps.uploadDocumentToActivity(fileName);
+  }
+
+  @Then("^The document '(.*)' is attached in the documents drawer$")
+  public void checkDocumentAttachedInDrawer(String fileName) {
+    spaceSteps.checkDocumentAttachedInDrawer(fileName);
+  }
+
   @And("I attach an image to the activity comment")
   public void attachImageToActivityComment() {
     spaceSteps.attachImageToActivityComment();

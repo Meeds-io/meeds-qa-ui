@@ -1,0 +1,142 @@
+/*
+ * This file is part of the Meeds project (https://meeds.io/).
+ *
+ * Copyright (C) 2020 - 2023 Meeds Association contact@meeds.io
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
+package io.meeds.qa.ui.steps;
+
+import io.meeds.qa.ui.pages.AgendaPage;
+
+public class AgendaSteps {
+
+  private AgendaPage agendaPage;
+
+  public void openAgendaApplication() {
+    agendaPage.openAgendaApplication();
+  }
+
+  public void checkAgendaApplicationDisplayed() {
+    agendaPage.checkAgendaApplicationDisplayed();
+  }
+
+  public void checkAddEventButtonDisplayed() {
+    agendaPage.checkAddEventButtonDisplayed();
+  }
+
+  public void checkAgendaViewsSwitcherDisplayed() {
+    agendaPage.checkAgendaViewsSwitcherDisplayed();
+  }
+
+  public void checkAgendaFilterDisplayed() {
+    agendaPage.checkAgendaFilterDisplayed();
+  }
+
+  public void checkAgendaNowLineDisplayed() {
+    agendaPage.checkAgendaNowLineDisplayed();
+  }
+
+  public void goToAgendaView(String view) {
+    agendaPage.goToAgendaView(view);
+  }
+
+  public void clickAddEventButton() {
+    agendaPage.clickAddEventButton();
+  }
+
+  public void checkEventCreationFormStep(String stepLabel) {
+    agendaPage.checkEventCreationFormStep(stepLabel);
+  }
+
+  public void openSettingsPage() {
+    agendaPage.openSettingsPage();
+  }
+
+  public void checkAgendaSettingsDisplayed() {
+    agendaPage.checkAgendaSettingsDisplayed();
+  }
+
+  public void clickEditAgendaSettings() {
+    agendaPage.clickEditAgendaSettings();
+  }
+
+  public void checkAgendaPreferencesDrawerDisplayed() {
+    agendaPage.checkAgendaPreferencesDrawerDisplayed();
+  }
+
+  public void closeEventCreationForm() {
+    agendaPage.closeEventCreationForm();
+  }
+
+  public void pressEscapeInEventCreationForm() {
+    agendaPage.pressEscapeInEventCreationForm();
+  }
+
+  public void checkEventCreationFormClosed() {
+    agendaPage.checkEventCreationFormClosed();
+  }
+
+  public void clickRepetitionSelectBox() {
+    agendaPage.clickRepetitionSelectBox();
+  }
+
+  public void checkRepetitionOption(String option) {
+    agendaPage.checkRepetitionOption(option);
+  }
+
+  public void addEvent(String title) {
+    agendaPage.addEvent(title);
+  }
+
+  public void checkEventCreatedAlert(String alertMessage) {
+    agendaPage.checkEventCreatedAlert(alertMessage);
+  }
+
+  public void openEventDetails(String title) {
+    agendaPage.openEventDetails(title);
+  }
+
+  public void pressEscapeInEventDetails() {
+    agendaPage.pressEscapeInEventDetails();
+  }
+
+  public void checkEventDetailsNotVisible() {
+    agendaPage.checkEventDetailsNotVisible();
+  }
+
+  public void openEditEventForm() {
+    agendaPage.openEditEventForm();
+  }
+
+  public void checkEditEventFormDisplayed() {
+    agendaPage.checkEditEventFormDisplayed();
+  }
+
+  public void openDeleteEventForm() {
+    agendaPage.openDeleteEventForm();
+  }
+
+  public void checkEventButtonDisplayed(String buttonName) {
+    agendaPage.checkEventButtonDisplayed(buttonName);
+  }
+
+  public void clickEventButton(String buttonName) {
+    agendaPage.clickEventButton(buttonName);
+  }
+
+  public void checkEventDeletedFromAgenda(String title) {
+    agendaPage.checkEventDeletedFromAgenda(title);
+  }
+
+}

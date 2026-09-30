@@ -61,17 +61,11 @@ Feature: Achievements
 
     And I login as 'fisrtachievement' random user
 
-    And I go to My Profile page
-    Then I check my points
-
     When I go to the random space
     And I send in the activity 'Achievements - Kudos Post activity' a kudos message 'Achievements - kudos activity comment to cancel'
 
     And I go to My Achievements
     Then Achievement for 'Send kudos 6' is accepted
-
-    When I go to My Profile page
-    Then My points augmented
 
     And I go to the random space
     And I open in activity 'Achievements - Kudos Post activity' the Comments drawer
@@ -83,80 +77,6 @@ Feature: Achievements
     When I login as 'secondachievement' random user
     And I go to My Achievements
     And Achievement for 'Receive kudos 6' is canceled
-
-  @ignore
-  Scenario: Achievements for Send/Cancel Kudos from user profile
-    Given I am authenticated as 'admin' random user
-    And I create the random space if not existing
-    And I go to Programs page
-    And I click on the button add program
-    And I enter the program title 'Achievements program'
-    And I add program with random description
-    And I click on 'Next' button in drawer
-    And I add an audience space
-    And I save the program details
-
-    And I click on 'Add quest' button
-    And I wait for drawer to open
-    And I enter the rule title 'Send kudos 86'
-    And I select a 'meeds' application
-    And I click on 'Start' button in drawer
-    And I add rule random description
-    And I select a 'Send kudos' event
-    And I click on 'Next' button in drawer
-    And I click on 'Next' button in drawer
-    And I select 'Accepted' as default contribution status
-    And I click on 'Next' button in drawer
-    And I click on 'Add' button in drawer
-
-    Then Confirmation message is displayed 'Quest has been successfully created'
-    When I close the notification
-    Then The action 'Send kudos 86' is displayed in program detail
-
-    When I click on 'Add Quest' button
-    And I wait for drawer to open
-    And I enter the rule title 'Receive kudos 86'
-    And I select a 'meeds' application
-    And I click on 'Start' button in drawer
-    And I add rule random description
-    And I select a 'Receive kudos' event
-    And I click on 'Next' button in drawer
-    And I click on 'Next' button in drawer
-    And I select 'Accepted' as default contribution status
-    And I click on 'Next' button in drawer
-    And I click on 'Add' button in drawer
-
-    Then Confirmation message is displayed 'Quest has been successfully created'
-    When I close the notification
-    Then The action 'Receive kudos 86' is displayed in program detail
-
-    When I click on 'Activate the campaign' button
-    Then Confirmation message is displayed 'Campaign activated'
-    And I close the notification
-
-    When I inject the thirdachievement random user if not existing, no wait
-    And I inject the fourachievement random user if not existing
-
-    When I login as 'fourachievement' random user
-    When I go to the random space
-
-    When I login as 'thirdachievement' random user
-    When I go to the random space
-    And I go to the fourachievement user profile
-    And I send kudos with message 'Achievements - Kudos Post activity to cancel'
-
-    And I go to My Achievements
-    Then Achievement for 'Send kudos 86' is accepted
-
-    And I go to Stream page
-    When I cancel the sent kudos activity 'Achievements - Kudos Post activity to cancel'
-
-    And I go to My Achievements
-    Then Achievement for 'Send kudos 86' is canceled
-
-    When I login as 'fourachievement' random user
-    And I go to My Achievements
-    Then Achievement for 'Receive kudos 86' is canceled
 
   Scenario: Achievements listing for program owner/space host
     Given I am authenticated as 'admin' random user

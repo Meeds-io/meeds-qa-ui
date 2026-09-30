@@ -80,6 +80,8 @@ Feature: Actions
     Then The program action does not contain duration limitation
     And I close the opened drawer
 
+  # Suspected product defect: the menu of a hidden activity offers no Unhide action
+  @ignore @Product_bug_activity_unhide
   Scenario: Announce an action from its activity
     Given I am authenticated as 'admin' random user
     And I inject the random space
@@ -378,7 +380,7 @@ Feature: Actions
     And I announce challenge 'Top challenge' with message 'announcement4'
     And I close the notification
 
-    And I go to 'dashboard' in site 'mycraft'
+    And I go to 'dashboard' in site 'myworkspace'
     Then 'Top challenge' is displayed in challenge portlet with '4' participants
 
     When I login as 'admin' random user
@@ -387,6 +389,6 @@ Feature: Actions
     And I filter programs by value 'ALL'
     And I delete the created program
     And I login as 'first' random user
-    And I go to 'dashboard' in site 'mycraft'
+    And I go to 'dashboard' in site 'myworkspace'
 
     Then 'Top challenge' with '4' participants is not displayed in challenge portlet

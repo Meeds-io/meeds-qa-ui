@@ -52,8 +52,8 @@ public class KudosSteps {
     kudosPage.checkKudosSettings(val, period);
   }
 
-  public void clickEditKudos() {
-    kudosPage.clickEditKudos();
+  public void clickEditKudos(String kudosMessage) {
+    kudosPage.clickEditKudos(kudosMessage);
   }
 
   public void clickEditKudosFromReply() {

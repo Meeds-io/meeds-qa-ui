@@ -22,11 +22,17 @@ import static io.meeds.qa.ui.utils.Utils.DEFAULT_WAIT_FOR_TIMEOUT;
 import static io.meeds.qa.ui.utils.Utils.DEFAULT_WAIT_PAGE_LOADING;
 import static io.meeds.qa.ui.utils.Utils.MAX_WAIT_RETRIES;
 import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION_MILLIS;
+import static io.meeds.qa.ui.utils.Utils.getRandomString;
 import static io.meeds.qa.ui.utils.Utils.retryOnCondition;
 import static io.meeds.qa.ui.utils.Utils.waitForLoading;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.lang3.StringUtils;
@@ -83,7 +89,9 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void clickOnElement(ElementFacade element) {
+    element.assertVisible();
     element.click();
+    waitForLoading();
   }
 
   public void closeAlertIfOpened() {
@@ -95,7 +103,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void clickToConfirmDialog() {
-    ElementFacade okButton = findByXPathOrCSS("//*[contains(@class, 'v-dialog--active')]//button[contains(@class, 'primary')]");
+    ElementFacade okButton = findByXPathOrCSS("//*[contains(@class, 'v-dialog--active') and not(contains(@class, 'v-dialog--fullscreen'))]//button[contains(@class, 'primary')]");
     if (okButton.isVisible()) {
       okButton.click();
       okButton.waitUntilNotVisible();
@@ -103,7 +111,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void closeConfirmDialogIfDisplayed() {
-    ElementFacade okButton = findByXPathOrCSS("//*[contains(@class, 'v-dialog--active')]//button[contains(@class, 'primary')]");
+    ElementFacade okButton = findByXPathOrCSS("//*[contains(@class, 'v-dialog--active') and not(contains(@class, 'v-dialog--fullscreen'))]//button[contains(@class, 'primary')]");
     if (okButton.isCurrentlyVisible()) {
       okButton.click();
       okButton.waitUntilNotVisible();
@@ -111,8 +119,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void clickToCancelDialog() {
-    ElementFacade cancelButton =
-                               findByXPathOrCSS("//*[contains(@class, 'v-dialog--active')]//button[not(contains(@class, 'primary'))]");
+    ElementFacade cancelButton = findByXPathOrCSS("//*[contains(@class, 'v-dialog--active') and not(contains(@class, 'v-dialog--fullscreen'))]//button[not(contains(@class, 'primary'))]");
     cancelButton.click();
     cancelButton.waitUntilNotVisible();
   }
@@ -140,6 +147,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void closeAllDialogs() {
+    closeConfirmDialogIfDisplayed();
     int i = MAX_WAIT_RETRIES * 2;
     while (openedDialogElement().isCurrentlyVisible() && i-- > 0) {
       if (dialogCloseIcon().isCurrentlyVisible()) {
@@ -147,6 +155,8 @@ public class BasePageImpl extends PageObject implements BasePage {
       } else {
         pressEscape();
       }
+      waitFor(200).milliseconds(); // Animation duration
+      closeConfirmDialogIfDisplayed();
       try {
         waitOverlayToClose();
       } catch (Exception e) {
@@ -172,6 +182,8 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void closeAllDrawers() {
+    closeAlertIfOpened();
+    closeConfirmDialogIfDisplayed();
     int i = MAX_WAIT_RETRIES * 2;
     while (openedDrawerElement().isCurrentlyVisible() && i-- > 0) {
       if (i > MAX_WAIT_RETRIES) {
@@ -184,13 +196,29 @@ public class BasePageImpl extends PageObject implements BasePage {
           return;
         }
       }
+      waitFor(200).milliseconds(); // Animation duration
       closeAlertIfOpened();
       closeConfirmDialogIfDisplayed();
-      waitFor(200).milliseconds(); // Animation duration
     }
     waitForDrawerToClose();
     if (i == 0) {
       openedDrawerElement().checkNotVisible();
+    }
+  }
+
+  public void closeExtraWindows() {
+    try {
+      WebDriver driver = Serenity.getDriver();
+      List<String> handles = new ArrayList<>(driver.getWindowHandles());
+      if (handles.size() > 1) {
+        for (int i = handles.size() - 1; i >= 1; i--) {
+          driver.switchTo().window(handles.get(i));
+          driver.close();
+        }
+        driver.switchTo().window(handles.get(0));
+      }
+    } catch (Throwable e) { // NOSONAR
+      LOGGER.debug("Unable to close extra browser windows after scenario", e);
     }
   }
 
@@ -204,8 +232,11 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   public boolean closeDrawerIfDisplayed() {
     if (openedDrawerElement().isCurrentlyVisible()) {
+      closeAlertIfOpened();
+      closeConfirmDialogIfDisplayed();
       closeDrawer();
       closeAlertIfOpened();
+      closeConfirmDialogIfDisplayed();
       waitForDrawerToClose();
       return true;
     } else {
@@ -482,6 +513,7 @@ public class BasePageImpl extends PageObject implements BasePage {
 
   public void waitForDrawerToClose(String drawerId, boolean withOverlay) {
     closeAlertIfOpened();
+    closeConfirmDialogIfDisplayed();
     String drawerSelector = StringUtils.isBlank(drawerId) ? OPENED_DRAWER_CSS_SELECTOR : drawerId;
     ElementFacade drawerElement = findByXPathOrCSS(drawerSelector);
     if (drawerElement.isCurrentlyVisible()) {
@@ -515,7 +547,7 @@ public class BasePageImpl extends PageObject implements BasePage {
   }
 
   public void waitForDrawerToOpen(String drawerId, boolean withOverlay) {
-    waitForDrawerToOpen(null, true, false);
+    waitForDrawerToOpen(drawerId, withOverlay, false);
   }
 
   public void waitForDrawerToOpen(boolean withOverlay, boolean throwException) {
@@ -678,6 +710,22 @@ public class BasePageImpl extends PageObject implements BasePage {
                                                                    .to(fileInput.getElement()),
                      () -> waitFor(500).milliseconds());
     waitForProgressBar();
+  }
+
+  // Copies a DataFiles fixture to a uniquely-named sibling file so repeated
+  // test runs don't collide with a same-named document already uploaded to
+  // the user's Personal Documents on a shared, non-reset QA server.
+  public String copyToUniqueUploadFile(String fileName) {
+    int dotIndex = fileName.lastIndexOf('.');
+    String base = dotIndex >= 0 ? fileName.substring(0, dotIndex) : fileName;
+    String extension = dotIndex >= 0 ? fileName.substring(dotIndex) : "";
+    String uniqueFileName = getRandomString(base) + extension;
+    try {
+      Files.copy(Paths.get(UPLOAD_DIRECTORY_PATH, fileName), Paths.get(UPLOAD_DIRECTORY_PATH, uniqueFileName));
+    } catch (IOException e) {
+      throw new IllegalStateException("Unable to copy upload file " + fileName, e);
+    }
+    return uniqueFileName;
   }
 
   public void pressEscape() {

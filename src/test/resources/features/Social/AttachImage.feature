@@ -227,7 +227,7 @@ Feature: Attach images activities
     Given I am authenticated as 'admin' random user
     And I inject the first random user if not existing
 
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
     And I select projects tab
     And I create the random project with the first created user as participant
 
@@ -248,7 +248,7 @@ Feature: Attach images activities
     Given I am authenticated as 'admin' random user
     And I inject the first random user if not existing
 
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
     And I select projects tab
     And I create the random project with the first created user as participant
 
@@ -278,7 +278,7 @@ Feature: Attach images activities
     Given I am authenticated as 'admin' random user
     And I inject the first random user if not existing
 
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
     And I select projects tab
     And I create the random project with the first created user as participant
 
@@ -310,7 +310,7 @@ Feature: Attach images activities
     Given I am authenticated as 'admin' random user
     And I inject the first random user if not existing
 
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
     And I select projects tab
     And I create the random project with the first created user as participant
 

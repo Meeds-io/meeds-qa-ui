@@ -122,6 +122,9 @@ public class ProgramsPage extends GenericPage {
   public void editProgramWithDescription(String programName, String newProgramName, String newProgramDescription) {
     searchProgram(programName);
     getProgramCard(programName).assertVisible();
+    // The menu opens under its card: a card at the bottom of the page would
+    // open it out of reach
+    programThreeDotsButtonElement(programName).scrollToWebElement();
     programThreeDotsButtonElement(programName).click();
     editProgramButtonElement().click();
 
@@ -163,11 +166,15 @@ public class ProgramsPage extends GenericPage {
   }
 
   public void selectProgramsFilter(String value) {
+    // The filter shows once the application is loaded
+    retryOnCondition(() -> programFilterDropdown().checkVisible(), () -> waitFor(1).seconds(), 10);
     programFilterDropdown().selectByValue(value);
     waitForLoading();
   }
 
   public void selectProgramActionsFilter(String value) {
+    // The filter shows once the application is loaded
+    retryOnCondition(() -> rulesStatusDropdown().checkVisible(), () -> waitFor(1).seconds(), 10);
     rulesStatusDropdown().selectByValue(value);
     waitForLoading();
   }
@@ -194,20 +201,17 @@ public class ProgramsPage extends GenericPage {
   }
 
   public void editProgramAction(String actionTitle) {
-    getActionItemElement(actionTitle).hover();
-    actionMenuButton().click();
+    openActionMenu(actionTitle);
     editActionMenuItem().click();
   }
 
   public void enableProgramAction(String actionTitle) {
-    getActionItemElement(actionTitle).hover();
-    actionMenuButton().click();
+    openActionMenu(actionTitle);
     enableActionMenuItem().click();
   }
 
   public void disableProgramAction(String actionTitle) {
-    getActionItemElement(actionTitle).hover();
-    actionMenuButton().click();
+    openActionMenu(actionTitle);
     disableActionMenuItem().click();
   }
 
@@ -386,7 +390,7 @@ public class ProgramsPage extends GenericPage {
   }
 
   private ElementFacade editProgramButtonElement() {
-    return findByXPathOrCSS("//*[contains(@class,'fas fa-edit')]");
+    return findByXPathOrCSS("//*[contains(@class,'menuable__content__active')]//*[contains(@class,'fa-edit')]");
   }
 
   private ElementFacade engagementApplicationLink(String link) {
@@ -444,6 +448,17 @@ public class ProgramsPage extends GenericPage {
 
   private ElementFacade announceButton() {
     return findByXPathOrCSS("//*[@id = 'engagementCenterProgramDetail']//button//*[contains(@class, 'fa-bullhorn')]");
+  }
+
+  /**
+   * The menu button of a quest row shows while the row is hovered, and the
+   * row keeps covering it for a native click.
+   */
+  private void openActionMenu(String actionTitle) {
+    getActionItemElement(actionTitle).hover();
+    ElementFacade menuButton = actionMenuButton();
+    menuButton.waitUntilPresent();
+    ((JavascriptExecutor) getDriver()).executeScript("arguments[0].click();", menuButton);
   }
 
   private ElementFacade actionMenuButton() {

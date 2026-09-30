@@ -309,8 +309,13 @@ public class ApplicationPage extends GenericPage {
   public void goToEditTheApplication(String appTitle) {
     searchAppByTitle(appTitle);
     waitFor(50).milliseconds();
-    openMenu(appTitle);
-    getEditButton().click();
+    // The row menu button toggles the menu: a second click closes it
+    retryOnCondition(() -> {
+      if (!getEditButton().isCurrentlyVisible()) {
+        openMenu(appTitle);
+      }
+      getEditButton().click();
+    }, () -> waitFor(500).milliseconds());
     waitForDrawerToOpen();
   }
 

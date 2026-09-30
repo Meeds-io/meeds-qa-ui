@@ -311,7 +311,8 @@ public class ManageSpacesPage extends GenericPage {
 
   public boolean isSpaceMenuDisplayed() {
     try {
-      ElementFacade webElementFacade = findByXPathOrCSS("#topBarMenu .v-tab--active");
+      // A space URL without page part selects no tab
+      ElementFacade webElementFacade = findByXPathOrCSS("#topBarMenu .v-tab");
       return webElementFacade.isCurrentlyVisible();
     } catch (RuntimeException e) {
       return false;
@@ -339,9 +340,16 @@ public class ManageSpacesPage extends GenericPage {
       waitForDrawerToOpen();
       waitFor(200).milliseconds();
       defaultSpaceTemplateInSpaceFormElement().checkVisible();
+      defaultSpaceTemplateInSpaceFormElement().click();
+      waitFor(200).milliseconds();
+      // The name field is below the templates list, which can push it out of
+      // the drawer's scrollable content. A step transition interrupted by the
+      // template selection leaves it clipped for good: reopen the drawer then
+      retryOnCondition(() -> {
+        spaceNameInputElement().scrollToWebElement();
+        spaceNameInputElement().checkVisible();
+      }, () -> waitFor(1).seconds(), 5);
     }, () -> closeAllDrawers());
-    defaultSpaceTemplateInSpaceFormElement().click();
-    waitFor(200).milliseconds();
   }
 
   private ButtonElementFacade defaultSpaceTemplateInSpaceFormElement() {
@@ -608,7 +616,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   private TextBoxElementFacade spaceNameInputElement() {
-    return findTextBoxByXPathOrCSS("//*[@name='name']");
+    return findTextBoxByXPathOrCSS("//*[contains(@class,'spaceFormDrawer')]//input[@name='name']");
   }
 
   private TextBoxElementFacade spaceSearchDetailsAvatarElement(String spaceName) {
