@@ -39,7 +39,6 @@ Feature: SideBar
     And I login as 'hmenu' random user
     Then The hamburger menu is displayed as stickied
 
-  @pprFailed
   Scenario: Display Red Dot In Unstickied Hamburger Menu
     Given I am authenticated as 'admin' random user
     When I inject the 'reddot' random user, no wait

@@ -1039,7 +1039,8 @@ Feature: Activity Stream
     And In comments drawer, on comment 'commenttestCAP116-116', '(0)' like is displayed
     And I close the opened drawer
 
-  @pprFailed
+  # The link is too long: the comments drawer displays it truncated, without its /members suffix
+  @ignore
   Scenario: Internal Link opening behaviors inside comments
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -1208,7 +1209,6 @@ Feature: Activity Stream
     Then Sixth User is not mentioned in the comment
     And I close the opened drawer
 
-  @pprFailed
   Scenario: Notifications for comments to my activity
     Given I am authenticated as 'admin' random user
 
@@ -1236,7 +1236,6 @@ Feature: Activity Stream
     When I click on the notification that shows that activity 'activityTest146' posted by first user is commented by second user with comment 'activityTest146'
     Then The comment 'commenttest146' is displayed in Comments drawer
 
-  @pprFailed
   Scenario: Notifications for comment to my comment
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |

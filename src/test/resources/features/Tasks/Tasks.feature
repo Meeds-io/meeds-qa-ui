@@ -313,7 +313,6 @@ Feature: Tasks
     And Label 'label6' is displayed in edit task drawer and x icon is not displayed
     And I close the opened drawer
 
-  @pprFailed
   Scenario: when click on notification, user is redirected under the specific project
     Given I am authenticated as 'admin' if random users doesn't exists
       | third  |
