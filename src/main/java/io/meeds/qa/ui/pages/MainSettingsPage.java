@@ -17,6 +17,9 @@
  */
 package io.meeds.qa.ui.pages;
 
+import static org.junit.Assert.assertTrue;
+
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 import io.meeds.qa.ui.elements.ElementFacade;
@@ -92,6 +95,30 @@ public class MainSettingsPage extends GenericPage {
     }
   }
 
+  public void openFontDrawer() {
+    brandingFontEditButton().click();
+    waitForDrawerToOpen();
+  }
+
+  public void selectFont(String fontFamily) {
+    fontDrawerRadio(fontFamily).click();
+  }
+
+  public void saveFontDrawer() {
+    fontDrawerSaveButton().click();
+    waitForDrawerToClose();
+  }
+
+  public void resetFont() {
+    brandingFontResetButton().click();
+  }
+
+  public void checkPlatformFont(String fontFamily) {
+    String bodyFont = String.valueOf(((JavascriptExecutor) getDriver()).executeScript("return getComputedStyle(document.body).fontFamily"));
+    assertTrue(String.format("The page body must be styled with '%s' first, got '%s'", fontFamily, bodyFont),
+               bodyFont.replace("\"", "").replace("'", "").trim().startsWith(fontFamily));
+  }
+
   public void selectAccessDefaultSpace(String randomSpaceName) {
     accessEditDefaultSpaceButton().click();
     waitForDrawerToOpen();
@@ -148,6 +175,23 @@ public class MainSettingsPage extends GenericPage {
 
   private ElementFacade brandingDrawerColorsInput() {
     return findByXPathOrCSS("//*[@id='generalSettings']//*[contains(text(), 'Drawer')]/ancestor::*[contains(@class, 'option-item')]//*[contains(@class, 'fa-edit')]");
+  }
+
+  private ElementFacade brandingFontEditButton() {
+    return findByXPathOrCSS("//*[@id='generalSettings']//*[contains(text(), 'Font')]/ancestor::*[contains(@class, 'option-item')]//*[contains(@class, 'fa-edit')]");
+  }
+
+  private ElementFacade brandingFontResetButton() {
+    return findByXPathOrCSS("//*[@id='generalSettings']//*[contains(text(), 'Font')]/ancestor::*[contains(@class, 'option-item')]//*[contains(@class, 'fa-undo')]");
+  }
+
+  private ElementFacade fontDrawerRadio(String fontFamily) {
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'v-navigation-drawer--open')]//*[contains(@class, 'v-radio')]//*[contains(@class, 'v-label') and normalize-space(text()) = '%s']",
+                                          fontFamily));
+  }
+
+  private ElementFacade fontDrawerSaveButton() {
+    return findByXPathOrCSS("//*[contains(@class, 'v-navigation-drawer--open')]//button[contains(@class, 'btn-primary')]");
   }
 
   private ElementFacade cancelButton() {

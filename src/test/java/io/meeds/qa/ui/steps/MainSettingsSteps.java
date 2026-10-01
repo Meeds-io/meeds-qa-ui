@@ -85,4 +85,24 @@ public class MainSettingsSteps {
     mainSettingsPage.checkOpenExternalUserSwitchButtonIsDisabled();
   }
 
+  public void openFontDrawer() {
+    mainSettingsPage.openFontDrawer();
+  }
+
+  public void selectFont(String fontFamily) {
+    mainSettingsPage.selectFont(fontFamily);
+  }
+
+  public void saveFontDrawer() {
+    mainSettingsPage.saveFontDrawer();
+  }
+
+  public void resetFont() {
+    mainSettingsPage.resetFont();
+  }
+
+  public void checkPlatformFont(String fontFamily) {
+    mainSettingsPage.checkPlatformFont(fontFamily);
+  }
+
 }
