@@ -143,6 +143,9 @@ public class ProgramsPage extends GenericPage {
     try {
       TextBoxElementFacade programDescriptionFieldElement = programDescriptionFieldElement();
       programDescriptionFieldElement.waitUntilVisible();
+      // The title field is focused when the drawer opens, and the keys go to
+      // the focused frame: click the editor first to move the focus into it
+      programDescriptionFieldElement.click();
       programDescriptionFieldElement.setTextValue(programDescription);
     } finally {
       getDriver().switchTo().defaultContent();
