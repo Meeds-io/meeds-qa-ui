@@ -336,7 +336,7 @@ public class ManageSpacesPage extends GenericPage {
       waitFor(200).milliseconds();
     }
     retryOnCondition(() -> {
-      addNewSpaceButtonElement().click();
+      clickAddNewSpaceButton();
       waitForDrawerToOpen();
       waitFor(200).milliseconds();
       defaultSpaceTemplateInSpaceFormElement().checkVisible();
@@ -350,6 +350,20 @@ public class ManageSpacesPage extends GenericPage {
         spaceNameInputElement().checkVisible();
       }, () -> waitFor(1).seconds(), 5);
     }, () -> closeAllDrawers());
+  }
+
+  private void clickAddNewSpaceButton() {
+    // The Add button turns into a menu, to create a main space or a subspace,
+    // once the user can access a space whose template allows subspaces
+    ElementFacade addNewSpaceButtonMenu = addNewSpaceButtonMenuElement();
+    if (addNewSpaceButtonMenu.isCurrentlyVisible()) {
+      if (!createMainSpaceMenuItemElement().isCurrentlyVisible()) {
+        addNewSpaceButtonMenu.click();
+      }
+      createMainSpaceMenuItemElement().click();
+    } else {
+      addNewSpaceButtonElement().click();
+    }
   }
 
   private ButtonElementFacade defaultSpaceTemplateInSpaceFormElement() {
@@ -471,7 +485,15 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   private ElementFacade addNewSpaceButtonElement() {
-    return findByXPathOrCSS("#addNewSpaceButton");
+    return findByXPathOrCSS("#spacesListToolbar #addNewSpaceButton");
+  }
+
+  private ElementFacade addNewSpaceButtonMenuElement() {
+    return findByXPathOrCSS("#spacesListToolbar #addNewSpaceButtonMenu");
+  }
+
+  private ElementFacade createMainSpaceMenuItemElement() {
+    return findByXPathOrCSS("//*[contains(@class, 'menuable__content__active') and contains(@class, 'application-menu')]//*[contains(@class, 'v-list-item') and normalize-space(.)='Create main space']");
   }
 
   private ElementFacade avatarSectionElement() {
