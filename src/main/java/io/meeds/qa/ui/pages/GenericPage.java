@@ -120,7 +120,11 @@ public class GenericPage extends BasePageImpl {
   }
 
   public void checkSuccessMessageDisplayed() {
-    findByXPathOrCSS("//*[contains(@class, 'v-alert')]//*[contains(@class, 'success')]").assertVisible();
+    // The message shows half a second after the server answers, for ten
+    // seconds: a slow server can delay it beyond a single visibility wait
+    retryOnCondition(() -> findByXPathOrCSS("//*[contains(@class, 'v-alert')]//*[contains(@class, 'success')]").assertVisible(),
+                     () -> waitFor(1).seconds(),
+                     3);
   }
 
   public void checkInformationMessageDisplayed() {
