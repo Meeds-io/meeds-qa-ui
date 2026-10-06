@@ -1,10 +1,11 @@
+# The images follow the CI grid, its Jenkins managed file selenium-compose-yml
 services:
   selenium-hub:
-    image: selenium/hub:4.28.0-20250120
+    image: selenium/hub:4.49.0-20260909
     networks:
       - selenium
   chrome:
-    image: selenium/node-chrome:4.28.0-20250120
+    image: selenium/node-chrome:4.49.0-20260909
     shm_size: 2gb
     volumes:
       - /dev/shm:/dev/shm
@@ -20,7 +21,7 @@ services:
     networks:
       - selenium
   firefox:
-    image: selenium/node-firefox:4.28.0-20250120
+    image: selenium/node-firefox:4.49.0-20260909
     shm_size: 2gb
     depends_on:
       - selenium-hub
