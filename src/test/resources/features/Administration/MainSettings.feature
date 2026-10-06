@@ -21,6 +21,7 @@ Feature: Main settings page features
     When I go to main settings page
     And I open branding customizations settings
     Then Branding customization settings is displayed
+    And I apply the default font
 
     When I open the font drawer
     And I select 'Inter' in the font drawer

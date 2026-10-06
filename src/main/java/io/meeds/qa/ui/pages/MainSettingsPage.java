@@ -113,6 +113,16 @@ public class MainSettingsPage extends GenericPage {
     brandingFontResetButton().click();
   }
 
+  public void applyDefaultFont() {
+    // The reset button shows when a font other than the default one is set,
+    // which a previous run can leave
+    if (brandingFontResetButton().isCurrentlyVisible()) {
+      resetFont();
+      waitFor(500).milliseconds();
+      applyCustomization();
+    }
+  }
+
   public void checkPlatformFont(String fontFamily) {
     String bodyFont = String.valueOf(((JavascriptExecutor) getDriver()).executeScript("return getComputedStyle(document.body).fontFamily"));
     assertTrue(String.format("The page body must be styled with '%s' first, got '%s'", fontFamily, bodyFont),

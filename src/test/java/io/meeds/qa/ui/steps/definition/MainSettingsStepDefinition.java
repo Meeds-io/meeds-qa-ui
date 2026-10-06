@@ -145,6 +145,11 @@ public class MainSettingsStepDefinition {
     mainSettingsSteps.resetFont();
   }
 
+  @When("I apply the default font")
+  public void applyDefaultFont() {
+    mainSettingsSteps.applyDefaultFont();
+  }
+
   @Then("^The platform font is '(.*)'$")
   public void checkPlatformFont(String fontFamily) {
     mainSettingsSteps.checkPlatformFont(fontFamily);

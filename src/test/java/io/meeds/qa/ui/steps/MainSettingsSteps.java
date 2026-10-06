@@ -101,6 +101,10 @@ public class MainSettingsSteps {
     mainSettingsPage.resetFont();
   }
 
+  public void applyDefaultFont() {
+    mainSettingsPage.applyDefaultFont();
+  }
+
   public void checkPlatformFont(String fontFamily) {
     mainSettingsPage.checkPlatformFont(fontFamily);
   }
