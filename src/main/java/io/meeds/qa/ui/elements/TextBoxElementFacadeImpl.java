@@ -40,22 +40,20 @@ public class TextBoxElementFacadeImpl extends ElementFacadeImpl implements TextB
 
   static final Logger         LOGGER                    = LoggerFactory.getLogger(TextBoxElementFacadeImpl.class);
 
-  // The keys go to the focused frame: an editor's iframe gets the focus, and
-  // the caret goes to the end of its content as WebDriver would place it
+  // The keys go to the focused frame: an editor's iframe gets the focus when
+  // a field of the page holds it, the caret staying where the editor put it
   private static final String FOCUS_EDITOR_FRAME_SCRIPT = """
       const body = arguments[0];
       if (body.tagName.toLowerCase() !== 'body' || !body.isContentEditable) {
         return;
       }
-      const editorDocument = body.ownerDocument;
-      editorDocument.defaultView.focus();
+      const editorWindow = body.ownerDocument.defaultView;
+      const frame = editorWindow.frameElement;
+      if (!frame || frame.ownerDocument.activeElement === frame) {
+        return;
+      }
+      editorWindow.focus();
       body.focus();
-      const range = editorDocument.createRange();
-      range.selectNodeContents(body);
-      range.collapse(false);
-      const selection = editorDocument.getSelection();
-      selection.removeAllRanges();
-      selection.addRange(range);
       """;
 
   public static TextBoxElementFacadeImpl wrapWebElementFacadeInTextBoxElement(final WebDriver driver,
