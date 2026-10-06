@@ -34,10 +34,29 @@ import org.slf4j.LoggerFactory;
 
 import io.meeds.qa.ui.utils.ExceptionLauncher;
 import net.serenitybdd.core.pages.WebElementFacade;
+import net.thucydides.core.webdriver.javascript.JavascriptExecutorFacade;
 
 public class TextBoxElementFacadeImpl extends ElementFacadeImpl implements TextBoxElementFacade {
 
-  static final Logger LOGGER = LoggerFactory.getLogger(TextBoxElementFacadeImpl.class);
+  static final Logger         LOGGER                    = LoggerFactory.getLogger(TextBoxElementFacadeImpl.class);
+
+  // The keys go to the focused frame: an editor's iframe gets the focus, and
+  // the caret goes to the end of its content as WebDriver would place it
+  private static final String FOCUS_EDITOR_FRAME_SCRIPT = """
+      const body = arguments[0];
+      if (body.tagName.toLowerCase() !== 'body' || !body.isContentEditable) {
+        return;
+      }
+      const editorDocument = body.ownerDocument;
+      editorDocument.defaultView.focus();
+      body.focus();
+      const range = editorDocument.createRange();
+      range.selectNodeContents(body);
+      range.collapse(false);
+      const selection = editorDocument.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+      """;
 
   public static TextBoxElementFacadeImpl wrapWebElementFacadeInTextBoxElement(final WebDriver driver,
                                                                               final WebElementFacade element,
@@ -106,6 +125,7 @@ public class TextBoxElementFacadeImpl extends ElementFacadeImpl implements TextB
         super.sendKeys(backSpace.toArray(new Keys[0]));
       }
     }
+    new JavascriptExecutorFacade(getDriver()).executeScript(FOCUS_EDITOR_FRAME_SCRIPT, this);
     super.sendKeys(value);
     if (keys != null) {
       super.sendKeys(keys);
