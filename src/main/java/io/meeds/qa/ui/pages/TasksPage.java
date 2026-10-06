@@ -1193,6 +1193,8 @@ public class TasksPage extends GenericPage {
   }
 
   private ElementFacade addProjectOrTaskElement() {
+    // The toolbar shows once the projects list is loaded, which can take
+    // several seconds
     return retryGetOnCondition(() -> {
       return Stream.of("//*[@id = 'projectBoardToolbar']//*[contains(@class, 'tasksToolbar')]//button[contains(@class, 'btn-primary')]",
                        "//*[@id = 'projectListToolbar']//button[contains(@class, 'btn-primary')]",
@@ -1201,7 +1203,7 @@ public class TasksPage extends GenericPage {
                    .filter(ElementFacade::isCurrentlyVisible)
                    .findFirst()
                    .orElseThrow();
-    });
+    }, () -> waitFor(1).seconds(), 20);
   }
 
   private ElementFacade addStatusafteroptionElement() {
