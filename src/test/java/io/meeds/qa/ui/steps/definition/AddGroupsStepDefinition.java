@@ -21,7 +21,7 @@ import io.cucumber.java.en.Given;
 import io.meeds.qa.ui.steps.AddGroupsSteps;
 import io.meeds.qa.ui.steps.HomeSteps;
 import net.serenitybdd.core.Serenity;
-import net.thucydides.core.annotations.Steps;
+import net.serenitybdd.annotations.Steps;
 
 public class AddGroupsStepDefinition {
 

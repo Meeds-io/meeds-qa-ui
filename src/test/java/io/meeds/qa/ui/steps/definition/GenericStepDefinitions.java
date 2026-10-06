@@ -28,7 +28,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.meeds.qa.ui.steps.GenericSteps;
 import io.meeds.qa.ui.utils.Utils;
-import net.thucydides.core.annotations.Steps;
+import net.serenitybdd.annotations.Steps;
 
 public class GenericStepDefinitions {
 

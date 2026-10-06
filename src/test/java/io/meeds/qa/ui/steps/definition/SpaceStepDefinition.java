@@ -28,7 +28,7 @@ import io.cucumber.java.en.When;
 import io.meeds.qa.ui.pages.SpacePage;
 import io.meeds.qa.ui.steps.SpaceSteps;
 import net.serenitybdd.core.Serenity;
-import net.thucydides.core.annotations.Steps;
+import net.serenitybdd.annotations.Steps;
 
 public class SpaceStepDefinition {
 

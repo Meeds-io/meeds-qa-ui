@@ -25,7 +25,7 @@ import io.cucumber.java.en.When;
 import io.meeds.qa.ui.steps.AchievementsSteps;
 import io.meeds.qa.ui.utils.Utils;
 import net.serenitybdd.core.Serenity;
-import net.thucydides.core.annotations.Steps;
+import net.serenitybdd.annotations.Steps;
 
 public class AchievementsStepDefinition {
 

@@ -34,7 +34,7 @@ import io.meeds.qa.ui.steps.LoginSteps;
 import io.meeds.qa.ui.steps.ManageSpaceSteps;
 import io.meeds.qa.ui.steps.TasksSteps;
 import net.serenitybdd.core.Serenity;
-import net.thucydides.core.annotations.Steps;
+import net.serenitybdd.annotations.Steps;
 
 public class TasksStepDefinition {
 

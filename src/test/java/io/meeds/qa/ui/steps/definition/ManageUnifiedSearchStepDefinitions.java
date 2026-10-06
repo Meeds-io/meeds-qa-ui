@@ -24,7 +24,7 @@ import io.cucumber.java.fr.Et;
 import io.meeds.qa.ui.steps.HomeSteps;
 import io.meeds.qa.ui.steps.ManageUnifiedSearchSteps;
 import net.serenitybdd.core.Serenity;
-import net.thucydides.core.annotations.Steps;
+import net.serenitybdd.annotations.Steps;
 
 public class ManageUnifiedSearchStepDefinitions {
   @Steps

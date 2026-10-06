@@ -38,13 +38,13 @@
   </scm>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <serenity.version>3.5.1</serenity.version>
+    <serenity.version>5.3.11</serenity.version>
 
-    <junit-jupiter.version>5.8.2</junit-jupiter.version>
-    <junit-platform.version>1.8.2</junit-platform.version>
+    <junit-jupiter.version>6.0.3</junit-jupiter.version>
+    <junit-platform.version>6.0.3</junit-platform.version>
 
-    <org.assertj.version>3.23.1</org.assertj.version>
-    <logback.version>1.2.11</logback.version>
+    <org.assertj.version>3.27.7</org.assertj.version>
+    <logback.version>1.5.38</logback.version>
     <org.aspectj.version>1.8.8</org.aspectj.version>
 
     <cucumber.filter.tags>not @ignored and not @ignore and not @wip and not @skip and not @standardConfigurationOnly</cucumber.filter.tags>
@@ -61,7 +61,7 @@
     <io.meeds.retry.wait.millis>300</io.meeds.retry.wait.millis>
     <!-- Loading Page wait timeout -->
     <io.meeds.page.loading.wait>10</io.meeds.page.loading.wait>
-    <version.surefire.plugin>3.0.0-M8</version.surefire.plugin>
+    <version.surefire.plugin>3.6.0</version.surefire.plugin>
     <!-- Specific target snapshot repository -->
     <exo.snapshots.repo.url>https://repository.exoplatform.org/content/repositories/meeds-snapshots</exo.snapshots.repo.url>
    <timestamp>${maven.build.timestamp}</timestamp>

@@ -20,7 +20,7 @@ package io.meeds.qa.ui.steps.definition;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.meeds.qa.ui.steps.ChatSteps;
-import net.thucydides.core.annotations.Steps;
+import net.serenitybdd.annotations.Steps;
 
 public class ChatStepDefinitions {
 

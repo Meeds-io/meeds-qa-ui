@@ -22,7 +22,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.meeds.qa.ui.steps.RulesSteps;
 import net.serenitybdd.core.Serenity;
-import net.thucydides.core.annotations.Steps;
+import net.serenitybdd.annotations.Steps;
 
 import static io.meeds.qa.ui.utils.Utils.getRandomNumber;
 

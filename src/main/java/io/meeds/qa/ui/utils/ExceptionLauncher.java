@@ -20,7 +20,7 @@ package io.meeds.qa.ui.utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.serenitybdd.core.exceptions.SerenityManagedException;
+import net.serenitybdd.model.exceptions.SerenityManagedException;
 
 public class ExceptionLauncher {
   public static final Logger LOGGER = LoggerFactory.getLogger(ExceptionLauncher.class);

@@ -25,7 +25,7 @@ import io.meeds.qa.ui.steps.NotificationSettingsStep;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import net.thucydides.core.annotations.Steps;
+import net.serenitybdd.annotations.Steps;
 
 public class NotificationSettingsStepDefinition {
 

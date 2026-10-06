@@ -23,7 +23,7 @@ import io.cucumber.java.en.When;
 import io.meeds.qa.ui.steps.ApplicationSteps;
 import io.meeds.qa.ui.steps.GenericSteps;
 import net.serenitybdd.core.Serenity;
-import net.thucydides.core.annotations.Steps;
+import net.serenitybdd.annotations.Steps;
 
 public class ApplicationStepDefinition {
   @Steps

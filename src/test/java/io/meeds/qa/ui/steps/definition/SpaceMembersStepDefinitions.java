@@ -20,7 +20,7 @@ package io.meeds.qa.ui.steps.definition;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.meeds.qa.ui.steps.SpaceMembersSteps;
-import net.thucydides.core.annotations.Steps;
+import net.serenitybdd.annotations.Steps;
 
 public class SpaceMembersStepDefinitions {
 

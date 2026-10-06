@@ -19,7 +19,7 @@ package io.meeds.qa.ui.steps.definition;
 
 import io.cucumber.java.en.Given;
 import io.meeds.qa.ui.steps.NoteSteps;
-import net.thucydides.core.annotations.Steps;
+import net.serenitybdd.annotations.Steps;
 
 public class NoteStepDefinition {
 

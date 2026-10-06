@@ -24,7 +24,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 
 import io.meeds.qa.ui.steps.LoginSteps;
-import net.thucydides.core.annotations.Steps;
+import net.serenitybdd.annotations.Steps;
 
 public class LoginStepDefinitions {
 

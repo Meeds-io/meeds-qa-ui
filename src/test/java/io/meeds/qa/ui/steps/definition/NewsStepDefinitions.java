@@ -23,7 +23,7 @@ import io.cucumber.java.en.When;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import io.meeds.qa.ui.steps.NewsSteps;
-import net.thucydides.core.annotations.Steps;
+import net.serenitybdd.annotations.Steps;
 
 public class NewsStepDefinitions {
 

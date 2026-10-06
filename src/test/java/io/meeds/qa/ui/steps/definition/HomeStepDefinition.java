@@ -33,7 +33,7 @@ import io.meeds.qa.ui.steps.HomeSteps;
 import io.meeds.qa.ui.steps.PeopleSteps;
 import io.meeds.qa.ui.utils.Utils;
 import net.serenitybdd.core.Serenity;
-import net.thucydides.core.annotations.Steps;
+import net.serenitybdd.annotations.Steps;
 
 public class HomeStepDefinition {
   private static final String SECOND_USER_LAST_NAME = "secondUserLastName";
