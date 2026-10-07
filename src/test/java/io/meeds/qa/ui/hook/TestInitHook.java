@@ -51,6 +51,7 @@ import io.meeds.qa.ui.steps.HomeSteps;
 import io.meeds.qa.ui.steps.LoginSteps;
 import io.meeds.qa.ui.steps.ManageBadgesSteps;
 import io.meeds.qa.ui.steps.ManageSpaceSteps;
+import io.meeds.qa.ui.steps.NotificationSettingsStep;
 import io.meeds.qa.ui.steps.SocialSteps;
 import io.meeds.qa.ui.steps.definition.ManageSpaceStepDefinitions;
 import io.meeds.qa.ui.utils.Utils;
@@ -181,10 +182,22 @@ public class TestInitHook {
   @Steps
   public SocialSteps                socialSteps;
 
+  @Steps
+  public NotificationSettingsStep   notificationSettingsStep;
+
   public static TestInitHook        instance;                  // NOSONAR
 
   public TestInitHook() {
     TestInitHook.instance = this; // NOSONAR
+  }
+
+  /**
+   * Restores the notification administration settings the scenario found, run
+   * before the other After hooks, even when the scenario failed
+   */
+  @After(value = "@notificationSettings", order = 20000)
+  public void restoreNotificationSettings() {
+    notificationSettingsStep.restoreNotificationSettings();
   }
 
   @After
