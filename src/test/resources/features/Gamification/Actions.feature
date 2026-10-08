@@ -80,8 +80,6 @@ Feature: Actions
     Then The program action does not contain duration limitation
     And I close the opened drawer
 
-  # Suspected product defect: the menu of a hidden activity offers no Unhide action
-  @ignore @Product_bug_activity_unhide
   Scenario: Announce an action from its activity
     Given I am authenticated as 'admin' random user
     And I inject the random space

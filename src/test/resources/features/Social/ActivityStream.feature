@@ -954,8 +954,6 @@ Feature: Activity Stream
     Then In comments drawer, in comment 'commenttestCAP112-112', Like label should be black
     And In comments drawer, on comment 'commenttestCAP112-112', '(0)' like is displayed
 
-  # Suspected product defect: hovering the like button of a liked comment in the comments drawer shows no likers tooltip
-  @ignore @Product_bug_comment_likers_tooltip
   Scenario: Like my comment/reply from the comment drawer
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
