@@ -58,7 +58,7 @@ public class ManageSpaceSteps {
                                                                             "headers": {
                                                                               "content-type": "application/json",
                                                                             },
-                                                                            "body": `{"id": ${template?.id || 0},"icon":"fab fa-adn","enabled":true,"order":0,"permissions":["*:/platform/users"],"spaceLayoutPermissions":["spaceAdmin"],"spaceDeletePermissions":["spaceAdmin"],"spaceFields":["name", "properties", "invitation", "access"],"spaceDefaultVisibility":"PRIVATE","spaceDefaultRegistration":"OPEN","spaceAllowContentCreation":false}`,
+                                                                            "body": `{"id": ${template?.id || 0},"icon":"fab fa-adn","enabled":true,"order":0,"permissions":["*:/platform/users"],"spaceLayoutPermissions":["spaceAdmin"],"spaceDeletePermissions":["spaceAdmin"],"spaceFields":["name", "properties", "invitation", "access"],"spaceDefaultVisibility":"PRIVATE","spaceDefaultRegistration":"OPEN","spaceAllowContentCreation":false,"extendedProperties":{"meeds.chat.authorized":"true","meeds.chat.enabledByDefault":"true"}}`,
                                                                             "method": template?.id && "PUT" || "POST",
                                                                             "credentials": "include"
                                                                           })
