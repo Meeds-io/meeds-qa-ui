@@ -143,6 +143,7 @@ public class NotificationSettingsPage extends GenericPage {
   }
 
   private void switchEmailNotification(String notificationType, boolean enable) {
+    emailNotificationSwitch(notificationType).assertVisible();
     if (checkedEmailNotificationSwitch(notificationType).isCurrentlyVisible() != enable) {
       emailNotificationSwitch(notificationType).click();
       // Wait for animation to finish
