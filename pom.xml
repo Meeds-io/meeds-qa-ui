@@ -47,7 +47,8 @@
     <logback.version>1.2.11</logback.version>
     <org.aspectj.version>1.8.8</org.aspectj.version>
 
-    <cucumber.filter.tags>not @ignored and not @ignore and not @wip and not @skip and not @standardConfigurationOnly</cucumber.filter.tags>
+    <!-- @mailServer: scenarios needing a mail server fixture (features/EmailConnector); @manual: round-trips the suite cannot drive -->
+    <cucumber.filter.tags>not @ignored and not @ignore and not @wip and not @skip and not @standardConfigurationOnly and not @mailServer and not @manual</cucumber.filter.tags>
     <cucumber-jvm-parallel-plugin.version>5.0.0</cucumber-jvm-parallel-plugin.version>
 
     <failsafe.rerunFailingTestsCount>0</failsafe.rerunFailingTestsCount>
