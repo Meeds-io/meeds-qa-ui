@@ -25,6 +25,9 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.List;
 
@@ -55,7 +58,7 @@ public class ManageSpaceSteps {
                                                                             "headers": {
                                                                               "content-type": "application/json",
                                                                             },
-                                                                            "body": `{"id": ${template?.id || 0},"icon":"fab fa-adn","enabled":true,"order":0,"permissions":["*:/platform/users"],"spaceLayoutPermissions":["spaceAdmin"],"spaceDeletePermissions":["spaceAdmin"],"spaceFields":["name", "properties", "invitation", "access"],"spaceDefaultVisibility":"PRIVATE","spaceDefaultRegistration":"OPEN","spaceAllowContentCreation":false}`,
+                                                                            "body": `{"id": ${template?.id || 0},"icon":"fab fa-adn","enabled":true,"order":0,"permissions":["*:/platform/users"],"spaceLayoutPermissions":["spaceAdmin"],"spaceDeletePermissions":["spaceAdmin"],"spaceFields":["name", "properties", "invitation", "access"],"spaceDefaultVisibility":"PRIVATE","spaceDefaultRegistration":"OPEN","spaceAllowContentCreation":false,"extendedProperties":{"meeds.chat.authorized":"true","meeds.chat.enabledByDefault":"true"}}`,
                                                                             "method": template?.id && "PUT" || "POST",
                                                                             "credentials": "include"
                                                                           })
@@ -130,6 +133,89 @@ public class ManageSpaceSteps {
                                                                 .catch(e => callback(String(e) + e?.stack));
                                                            """;
 
+  /**
+   * Replaces the sidebar settings with the given ones, whose sites, pages and
+   * space templates are referenced by name: their ids are resolved on the
+   * server, and an item referencing a missing one is dropped
+   */
+  private static final String RESTORE_SIDEBAR_SETTINGS         =
+                                                       """
+                                                            const [sidebarSettings] = arguments;
+                                                            const callback = arguments[arguments.length - 1];
+                                                            const fetchJson = url => fetch(url, {"credentials": "include"}).then(resp => {
+                                                              if (!resp || !resp.ok) {
+                                                                throw new Error("Error when retrieving " + url);
+                                                              }
+                                                              return resp.json();
+                                                            });
+                                                            Promise.all([
+                                                              fetchJson("/social/rest/navigation/settings"),
+                                                              fetchJson("/portal/rest/v1/social/sites?siteType=PORTAL&excludeSpaceSites=true&expandNavigations=true"),
+                                                              fetchJson("/social/rest/space/templates?includeDisabled=true"),
+                                                            ])
+                                                            .then(([settings, sites, spaceTemplates]) => {
+                                                              const sidebar = JSON.parse(sidebarSettings);
+                                                              const droppedItems = [];
+                                                              const findNode = (nodes, uri) => {
+                                                                for (const node of nodes || []) {
+                                                                  if (node.uri === uri) {
+                                                                    return node;
+                                                                  }
+                                                                  const child = findNode(node.children, uri);
+                                                                  if (child) {
+                                                                    return child;
+                                                                  }
+                                                                }
+                                                                return null;
+                                                              };
+                                                              const resolveItem = item => {
+                                                                const properties = item.properties || {};
+                                                                if (item.type === "SITE" || item.type === "PAGE") {
+                                                                  const site = sites.find(site => site.name === properties.siteName);
+                                                                  if (!site) {
+                                                                    return false;
+                                                                  }
+                                                                  properties.siteId = String(site.siteId);
+                                                                  if (item.type === "PAGE") {
+                                                                    const node = findNode(site.siteNavigations, item.url.split("/portal/" + properties.siteName + "/")[1]);
+                                                                    if (!node) {
+                                                                      return false;
+                                                                    }
+                                                                    properties.navigationNodeId = String(node.id);
+                                                                  }
+                                                                } else if (item.type === "SPACE_TEMPLATE") {
+                                                                  const spaceTemplate = spaceTemplates.find(spaceTemplate => spaceTemplate.name === item.name);
+                                                                  if (!spaceTemplate) {
+                                                                    return false;
+                                                                  }
+                                                                  properties.spaceTemplateId = String(spaceTemplate.id);
+                                                                }
+                                                                if (item.items) {
+                                                                  item.items = item.items.filter(subItem => resolveItem(subItem) || !droppedItems.push(subItem.name));
+                                                                }
+                                                                return true;
+                                                              };
+                                                              sidebar.items = sidebar.items.filter(item => resolveItem(item) || !droppedItems.push(item.name));
+                                                              settings.sidebar = sidebar;
+                                                              return fetch("/social/rest/navigation/settings", {
+                                                                "headers": {
+                                                                  "content-type": "application/json",
+                                                                },
+                                                                "body": JSON.stringify(settings),
+                                                                "method": "PUT",
+                                                                "credentials": "include"
+                                                              }).then(resp => {
+                                                                if (!resp || !resp.ok) {
+                                                                  throw new Error("Error when saving the sidebar settings");
+                                                                }
+                                                                callback(droppedItems);
+                                                              });
+                                                            })
+                                                            .catch(() => callback(null));
+                                                           """;
+
+  private static final String SIDEBAR_SETTINGS_FILE_PATH       = "/InitData/sidebar-settings.json";
+
   private static final String CLEAR_DEFAULT_SPACES             =
                                                    """
                                                         const callback = arguments[arguments.length - 1];
@@ -171,18 +257,17 @@ public class ManageSpaceSteps {
     if (StringUtils.isNotBlank(spaceUrl)) {
       homePage.openUrl(spaceUrl);
       waitForPageLoading();
-      if (StringUtils.equals(homePage.getCurrentUrl(), spaceUrl)) {
+      // A space that was deleted, or that the user can't see, answers a not
+      // found page at the same URL: only its menu tells the space is displayed
+      if (isSpaceMenuDisplayed() || joinFromSpaceAccessPage()) {
         return;
-      } else if (!manageSpacesPage.isSpaceMenuDisplayed()) {
-        boolean joined = manageSpacesPage.clickSpaceActionToJoin();
-        if (joined) {
-          waitForLoading();
-          return;
-        }
       }
     }
     homePage.goToSpacesPage(false);
-    if (StringUtils.isBlank(spaceName)) {
+    if (StringUtils.isNotBlank(spaceName)) {
+      findSpaceCard(spaceName, spaceNamePrefix, true);
+      goOrJoinToSpace(spaceName);
+    } else {
       spaceName = Utils.getRandomString(spaceNamePrefix);
       if (findSpaceCard(spaceName, spaceNamePrefix)) {
         goOrJoinToSpace(spaceName);
@@ -190,9 +275,32 @@ public class ManageSpaceSteps {
         addSpaceWithRegistration(spaceName, "Open");
       }
       TestInitHook.spaceWithPrefixCreated(spaceNamePrefix, spaceName, homePage.getCurrentUrl());
-    } else if (findSpaceCard(spaceName, spaceNamePrefix, true)) {
-      goOrJoinToSpace(spaceName);
     }
+  }
+
+  /**
+   * A space the user isn't member of redirects to its access page, whose join
+   * button shows once the page is loaded.
+   */
+  private boolean joinFromSpaceAccessPage() {
+    for (int i = 0; i < 10; i++) {
+      if (manageSpacesPage.clickSpaceActionToJoin()) {
+        waitForLoading();
+        return isSpaceMenuDisplayed();
+      }
+      Utils.waitForInMillis(500);
+    }
+    return false;
+  }
+
+  private boolean isSpaceMenuDisplayed() {
+    for (int i = 0; i < 10; i++) {
+      if (manageSpacesPage.isSpaceMenuDisplayed()) {
+        return true;
+      }
+      Utils.waitForInMillis(500);
+    }
+    return false;
   }
 
   public void addSpaceWithInviteUser(String spaceName, String user) {
@@ -437,7 +545,8 @@ public class ManageSpaceSteps {
     wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeAsyncScript(addSpaceScript)
                                                             .toString()
                                                             .equals("true"));
-    String spaceUrl = homePage.getCurrentUrl().split("/portal")[0] + "/portal/g/:spaces:" + spaceName;
+    // The space group id is its pretty name, the lower-cased display name
+    String spaceUrl = homePage.getCurrentUrl().split("/portal")[0] + "/portal/g/:spaces:" + spaceName.toLowerCase();
     TestInitHook.spaceWithPrefixCreated(spaceNamePrefix, spaceName, spaceUrl);
   }
 
@@ -452,6 +561,29 @@ public class ManageSpaceSteps {
     String result = ((JavascriptExecutor) Serenity.getDriver()).executeAsyncScript(SET_SIDEBAR_DEFAULT_MODE)
                                                                .toString();
     assertEquals("true", result);
+  }
+
+  /**
+   * @return the names of the sidebar items dropped since their site, page or
+   *         space template doesn't exist on the server
+   */
+  @SuppressWarnings("unchecked")
+  public List<String> restoreSidebarSettings() {
+    String sidebarSettings;
+    try (InputStream inputStream = ManageSpaceSteps.class.getResourceAsStream(SIDEBAR_SETTINGS_FILE_PATH)) {
+      if (inputStream == null) {
+        throw new IllegalStateException("Missing file " + SIDEBAR_SETTINGS_FILE_PATH);
+      }
+      sidebarSettings = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+    } catch (IOException e) {
+      throw new IllegalStateException("Error when reading " + SIDEBAR_SETTINGS_FILE_PATH, e);
+    }
+    Object droppedItems = ((JavascriptExecutor) Serenity.getDriver()).executeAsyncScript(RESTORE_SIDEBAR_SETTINGS,
+                                                                                       sidebarSettings);
+    if (!(droppedItems instanceof List)) {
+      throw new IllegalStateException("Error when restoring the sidebar settings");
+    }
+    return (List<String>) droppedItems;
   }
 
   public void clearDefaultSpaces() {
@@ -490,10 +622,15 @@ public class ManageSpaceSteps {
   private void goOrJoinToSpace(String spaceName) {
     if (manageSpacesPage.isSpaceCardJoinButtonDisplayed(spaceName)) {
       manageSpacesPage.joinSpaceFromCard(spaceName);
+      // The space answers a not found page until the membership is applied
+      for (int i = 0; i < 10 && manageSpacesPage.isSpaceCardJoinButtonDisplayed(spaceName); i++) {
+        Utils.waitForInMillis(500);
+      }
     }
     manageSpacesPage.goToSpecificSpace(spaceName);
-    if (!manageSpacesPage.isSpaceMenuDisplayed()) {
-      manageSpacesPage.clickSpaceActionToJoin();
+    if (!isSpaceMenuDisplayed() && !manageSpacesPage.clickSpaceActionToJoin()) {
+      Utils.refreshPage();
+      isSpaceMenuDisplayed();
     }
   }
 

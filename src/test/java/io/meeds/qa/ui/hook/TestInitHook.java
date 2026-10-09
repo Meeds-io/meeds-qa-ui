@@ -19,20 +19,28 @@ package io.meeds.qa.ui.hook;
 
 import static io.meeds.qa.ui.utils.ExceptionLauncher.LOGGER;
 import static io.meeds.qa.ui.utils.Utils.DEFAULT_IMPLICIT_WAIT_FOR_TIMEOUT;
+import static io.meeds.qa.ui.utils.Utils.waitForInMillis;
 import static io.meeds.qa.ui.utils.Utils.waitRemainingTime;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.ConnectException;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.NoSuchSessionException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.remote.UnreachableBrowserException;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -43,11 +51,14 @@ import io.meeds.qa.ui.steps.HomeSteps;
 import io.meeds.qa.ui.steps.LoginSteps;
 import io.meeds.qa.ui.steps.ManageBadgesSteps;
 import io.meeds.qa.ui.steps.ManageSpaceSteps;
+import io.meeds.qa.ui.steps.NotificationSettingsStep;
 import io.meeds.qa.ui.steps.SocialSteps;
 import io.meeds.qa.ui.steps.definition.ManageSpaceStepDefinitions;
 import io.meeds.qa.ui.utils.Utils;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
+import net.thucydides.core.steps.StepEventBus;
+import net.thucydides.core.webdriver.WebDriverFacade;
 import net.thucydides.core.webdriver.exceptions.ElementShouldBeVisibleException;
 
 public class TestInitHook {
@@ -69,7 +80,35 @@ public class TestInitHook {
                                                                                             "true")
                                                                                .toLowerCase());
 
-  public static final String              WARMUP_FILE_PATH          = System.getProperty("io.meeds.warmUp.file",
+  public static final boolean             RESTORE_SYSTEM_SITES      =
+                                                               Boolean.parseBoolean(System.getProperty("io.meeds.restoreSystemSites",
+                                                                                                       "true")
+                                                                                          .toLowerCase());
+
+  private static final long               RESTORE_SYSTEM_SITES_SETTLE_MILLIS = 30000;
+
+  /**
+   * The packaged access permissions of the system sites, which aren't the
+   * default ones: restoring a site keeps the permissions changed on the server
+   */
+  private static final Map<String, List<String>> SYSTEM_SITES_ACCESS_PERMISSIONS =
+                                                                          Map.of("administration",
+                                                                                 List.of("*:/platform/users"),
+                                                                                 "analytics",
+                                                                                 List.of("*:/platform/administrators",
+                                                                                         "*:/platform/analytics"),
+                                                                                 "global",
+                                                                                 List.of("Everyone"),
+                                                                                 "public",
+                                                                                 List.of("*:/platform/administrators",
+                                                                                         "publisher:/platform/web-contributors"));
+
+  private static final List<String>       SYSTEM_SITES_DEFAULT_ACCESS_PERMISSIONS = List.of("member:/platform/users",
+                                                                                            "member:/platform/externals");
+
+  private static final String             SYSTEM_SITES_EDIT_PERMISSION = "manager:/platform/administrators";
+
+  public static final String              WARMUP_FILE_PATH         = System.getProperty("io.meeds.warmUp.file",
                                                                                          "warmUpFile.tmp");
 
   public static final int                 WARM_UP_PAGE_LOADING_WAIT = 30;
@@ -143,24 +182,43 @@ public class TestInitHook {
   @Steps
   public SocialSteps                socialSteps;
 
+  @Steps
+  public NotificationSettingsStep   notificationSettingsStep;
+
   public static TestInitHook        instance;                  // NOSONAR
 
   public TestInitHook() {
     TestInitHook.instance = this; // NOSONAR
   }
 
+  /**
+   * Restores the notification administration settings the scenario found, run
+   * before the other After hooks, even when the scenario failed
+   */
+  @After(value = "@notificationSettings", order = 20000)
+  public void restoreNotificationSettings() {
+    notificationSettingsStep.restoreNotificationSettings();
+  }
+
   @After
   public void deleteDatas() {
+    if (recoverLostBrowserSession()) {
+      return;
+    }
+    genericSteps.closeExtraWindows();
     genericSteps.closeAllDrawers();
     genericSteps.closeAllDialogs();
   }
 
   @Before
   public void initDatas() { // NOSONAR
+    recoverLostBrowserSession();
     WebDriver driver = Serenity.getDriver();
     driver.manage().timeouts().implicitlyWait(Duration.ofMillis(DEFAULT_IMPLICIT_WAIT_FOR_TIMEOUT));
 
     warmUp(driver);
+    driver = Serenity.getDriver();
+    openPortalIfBlankPage(driver);
     checkPageState(driver);
 
     SPACES.entrySet().forEach(entry -> {
@@ -178,6 +236,60 @@ public class TestInitHook {
         Serenity.setSessionVariable(entry.getKey()).to(entry.getValue());
       }
     });
+  }
+
+  /**
+   * The browser is shared by the scenarios of a fork: once its session is
+   * lost, every following scenario would fail on it. The session is checked
+   * when a scenario ends and when the next one starts, and the drivers are
+   * closed when it is lost, so that a new browser is started. The examples of
+   * a scenario outline still fail until then: Serenity takes their first
+   * screenshot before the hooks run.
+   *
+   * @return true when the session was lost and the drivers were closed
+   */
+  private boolean recoverLostBrowserSession() {
+    WebDriver driver = Serenity.getDriver();
+    // Serenity suspends the calls made through its facade once a step failed:
+    // the session is checked on the browser behind it
+    WebDriver browser = driver instanceof WebDriverFacade facade ? getInstantiatedBrowser(facade) : driver;
+    if (browser == null) {
+      return false;
+    }
+    try {
+      browser.getWindowHandle();
+      return false;
+    } catch (NoSuchSessionException | UnreachableBrowserException e) {
+      return closeLostBrowser(e);
+    } catch (WebDriverException e) {
+      if (ExceptionUtils.getRootCause(e) instanceof ConnectException) {
+        return closeLostBrowser(e);
+      }
+      return false;
+    }
+  }
+
+  private WebDriver getInstantiatedBrowser(WebDriverFacade facade) {
+    return facade.isInstantiated() ? facade.getProxiedDriver() : null;
+  }
+
+  private boolean closeLostBrowser(WebDriverException e) {
+    LOGGER.warn("Browser session lost, a new browser is started for the next steps", e);
+    Utils.restartBrowser();
+    return true;
+  }
+
+
+  /**
+   * Relative navigations are resolved against the current page's origin: a
+   * browser started after the warmup, like the one replacing a lost session,
+   * is still on its blank page and gets the portal URL first.
+   */
+  private void openPortalIfBlankPage(WebDriver driver) {
+    if (!StringUtils.startsWith(driver.getCurrentUrl(), "http")) {
+      driver.navigate().to(URL);
+      Utils.waitForLoading();
+    }
   }
 
   private void checkPageState(WebDriver driver) {
@@ -266,7 +378,11 @@ public class TestInitHook {
         Utils.waitForLoading(WARM_UP_PAGE_LOADING_WAIT, true);
       } catch (Throwable e) { // NOSONAR
         LOGGER.warn("Error authenticating admin user", e);
-        closeCurrentWindow(driver);
+        // A failed step suspends the Serenity driver calls, which would make
+        // every following attempt fail as well: the attempt restarts clean
+        StepEventBus.getEventBus().reenableWebDriver();
+        Utils.restartBrowser();
+        driver = Serenity.getDriver();
         waitRemainingTime(WARM_UP_PAGE_LOADING_WAIT * 1000l, start);
       }
     } while (!homePageDisplayed && retryCount++ < MAX_WARM_UP_RETRIES);
@@ -288,9 +404,59 @@ public class TestInitHook {
       LOGGER.info("---- FOR LOCAL TESTS, disable WARMUP Phase (used to improve global test execution time only) by adding \n\n\t\t******* -Dio.meeds.initData=false ******* \n\n\n");
       injectSpaces();
       injectUsers();
+      if (RESTORE_SYSTEM_SITES) {
+        LOGGER.info("---- Restore the system sites to their packaged configuration, disable it by adding -Dio.meeds.restoreSystemSites=false");
+        restoreSystemSites();
+        List<String> droppedSidebarItems = manageSpaceSteps.restoreSidebarSettings();
+        if (!droppedSidebarItems.isEmpty()) {
+          LOGGER.warn("Sidebar items {} not restored, their site, page or space template doesn't exist", droppedSidebarItems);
+        }
+      }
     }
 
     LOGGER.info("---- End warmup phase in {} seconds", (System.currentTimeMillis() - start) / 1000);
+  }
+
+  /**
+   * The OVERWRITE mode deletes what was added on the server, but imports each
+   * extension's configuration of a site after deleting what the previous one
+   * imported, which deletes packaged pages such as the login one. A MERGE
+   * right after it misses some of them: they are imported back by a MERGE
+   * of the pages and navigation run once the OVERWRITE is settled.
+   */
+  private void restoreSystemSites() {
+    List<String> systemSites = genericSteps.getSystemSites();
+    for (String siteName : systemSites) {
+      try {
+        genericSteps.restoreSystemSite(siteName, "OVERWRITE", true);
+      } catch (RuntimeException e) {
+        LOGGER.warn("Error when overwriting the site {} from its packaged configuration, proceed to merge it", siteName, e);
+      }
+    }
+    waitForInMillis(RESTORE_SYSTEM_SITES_SETTLE_MILLIS);
+    // Every site is merged, not to leave one without its packaged pages
+    List<String> failedSites = new ArrayList<>();
+    for (String siteName : systemSites) {
+      try {
+        genericSteps.restoreSystemSite(siteName, "MERGE", false);
+      } catch (RuntimeException e) {
+        LOGGER.warn("Error when merging the site {} from its packaged configuration", siteName, e);
+        failedSites.add(siteName);
+      }
+    }
+    for (String siteName : systemSites) {
+      List<String> accessPermissions = SYSTEM_SITES_ACCESS_PERMISSIONS.getOrDefault(siteName,
+                                                                                SYSTEM_SITES_DEFAULT_ACCESS_PERMISSIONS);
+      try {
+        genericSteps.restoreSitePermissions(siteName, accessPermissions, SYSTEM_SITES_EDIT_PERMISSION);
+      } catch (RuntimeException e) {
+        LOGGER.warn("Error when restoring the permissions of the site {}", siteName, e);
+        failedSites.add(siteName);
+      }
+    }
+    if (!failedSites.isEmpty()) {
+      throw new IllegalStateException("Error when restoring the sites " + failedSites + " from their packaged configuration");
+    }
   }
 
   private void injectSpaces() {

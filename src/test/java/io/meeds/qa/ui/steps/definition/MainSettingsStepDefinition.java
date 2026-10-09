@@ -125,4 +125,34 @@ public class MainSettingsStepDefinition {
     mainSettingsSteps.checkOpenExternalUserSwitchButtonIsDisabled();
   }
 
+  @When("I open the font drawer")
+  public void openFontDrawer() {
+    mainSettingsSteps.openFontDrawer();
+  }
+
+  @When("^I select '(.*)' in the font drawer$")
+  public void selectFont(String fontFamily) {
+    mainSettingsSteps.selectFont(fontFamily);
+  }
+
+  @When("I save the font drawer")
+  public void saveFontDrawer() {
+    mainSettingsSteps.saveFontDrawer();
+  }
+
+  @When("I reset the font to default")
+  public void resetFont() {
+    mainSettingsSteps.resetFont();
+  }
+
+  @When("I apply the default font")
+  public void applyDefaultFont() {
+    mainSettingsSteps.applyDefaultFont();
+  }
+
+  @Then("^The platform font is '(.*)'$")
+  public void checkPlatformFont(String fontFamily) {
+    mainSettingsSteps.checkPlatformFont(fontFamily);
+  }
+
 }

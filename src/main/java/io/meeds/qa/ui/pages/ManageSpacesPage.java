@@ -311,7 +311,8 @@ public class ManageSpacesPage extends GenericPage {
 
   public boolean isSpaceMenuDisplayed() {
     try {
-      ElementFacade webElementFacade = findByXPathOrCSS("#topBarMenu .v-tab--active");
+      // A space URL without page part selects no tab
+      ElementFacade webElementFacade = findByXPathOrCSS("#topBarMenu .v-tab");
       return webElementFacade.isCurrentlyVisible();
     } catch (RuntimeException e) {
       return false;
@@ -335,13 +336,34 @@ public class ManageSpacesPage extends GenericPage {
       waitFor(200).milliseconds();
     }
     retryOnCondition(() -> {
-      addNewSpaceButtonElement().click();
+      clickAddNewSpaceButton();
       waitForDrawerToOpen();
       waitFor(200).milliseconds();
       defaultSpaceTemplateInSpaceFormElement().checkVisible();
+      defaultSpaceTemplateInSpaceFormElement().click();
+      waitFor(200).milliseconds();
+      // The name field is below the templates list, which can push it out of
+      // the drawer's scrollable content. A step transition interrupted by the
+      // template selection leaves it clipped for good: reopen the drawer then
+      retryOnCondition(() -> {
+        spaceNameInputElement().scrollToWebElement();
+        spaceNameInputElement().checkVisible();
+      }, () -> waitFor(1).seconds(), 5);
     }, () -> closeAllDrawers());
-    defaultSpaceTemplateInSpaceFormElement().click();
-    waitFor(200).milliseconds();
+  }
+
+  private void clickAddNewSpaceButton() {
+    // The Add button turns into a menu, to create a main space or a subspace,
+    // once the user can access a space whose template allows subspaces
+    ElementFacade addNewSpaceButtonMenu = addNewSpaceButtonMenuElement();
+    if (addNewSpaceButtonMenu.isCurrentlyVisible()) {
+      if (!createMainSpaceMenuItemElement().isCurrentlyVisible()) {
+        addNewSpaceButtonMenu.click();
+      }
+      createMainSpaceMenuItemElement().click();
+    } else {
+      addNewSpaceButtonElement().click();
+    }
   }
 
   private ButtonElementFacade defaultSpaceTemplateInSpaceFormElement() {
@@ -463,7 +485,15 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   private ElementFacade addNewSpaceButtonElement() {
-    return findByXPathOrCSS("#addNewSpaceButton");
+    return findByXPathOrCSS("#spacesListToolbar #addNewSpaceButton");
+  }
+
+  private ElementFacade addNewSpaceButtonMenuElement() {
+    return findByXPathOrCSS("#spacesListToolbar #addNewSpaceButtonMenu");
+  }
+
+  private ElementFacade createMainSpaceMenuItemElement() {
+    return findByXPathOrCSS("//*[contains(@class, 'menuable__content__active') and contains(@class, 'application-menu')]//*[contains(@class, 'v-list-item') and normalize-space(.)='Create main space']");
   }
 
   private ElementFacade avatarSectionElement() {
@@ -608,7 +638,7 @@ public class ManageSpacesPage extends GenericPage {
   }
 
   private TextBoxElementFacade spaceNameInputElement() {
-    return findTextBoxByXPathOrCSS("//*[@name='name']");
+    return findTextBoxByXPathOrCSS("//*[contains(@class,'spaceFormDrawer')]//input[@name='name']");
   }
 
   private TextBoxElementFacade spaceSearchDetailsAvatarElement(String spaceName) {

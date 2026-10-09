@@ -378,7 +378,7 @@ Feature: Actions
     And I announce challenge 'Top challenge' with message 'announcement4'
     And I close the notification
 
-    And I go to 'dashboard' in site 'mycraft'
+    And I go to 'dashboard' in site 'myworkspace'
     Then 'Top challenge' is displayed in challenge portlet with '4' participants
 
     When I login as 'admin' random user
@@ -387,6 +387,6 @@ Feature: Actions
     And I filter programs by value 'ALL'
     And I delete the created program
     And I login as 'first' random user
-    And I go to 'dashboard' in site 'mycraft'
+    And I go to 'dashboard' in site 'myworkspace'
 
     Then 'Top challenge' with '4' participants is not displayed in challenge portlet

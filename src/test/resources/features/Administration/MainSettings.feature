@@ -16,6 +16,31 @@ Feature: Main settings page features
     Then Branding customization settings is displayed
     And The apply button is disabled in Main settings customization
 
+  Scenario: Main settings - Font selection
+    Given I am authenticated as 'admin' random user
+    When I go to main settings page
+    And I open branding customizations settings
+    Then Branding customization settings is displayed
+    And I apply the default font
+
+    When I open the font drawer
+    And I select 'Inter' in the font drawer
+    And I save the font drawer
+    Then The apply button is enabled in Main settings customization
+
+    When I apply main settings customizations
+    And I refresh the page
+    Then The platform font is 'Inter'
+    And The apply button is disabled in Main settings customization
+
+    When I reset the font to default
+    Then The apply button is enabled in Main settings customization
+
+    When I apply main settings customizations
+    And I refresh the page
+    Then The platform font is 'Arimo'
+    And The apply button is disabled in Main settings customization
+
   Scenario: Main settings - Access modification
     Given I am authenticated as 'admin' random user
     And I inject the random space

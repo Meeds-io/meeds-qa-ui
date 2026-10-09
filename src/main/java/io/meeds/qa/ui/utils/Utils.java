@@ -34,6 +34,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.SystemTimeouts;
+import net.thucydides.core.webdriver.WebDriverFacade;
 
 public class Utils {
 
@@ -88,6 +89,22 @@ public class Utils {
 
   public static boolean isStaleElementException(Throwable e) {
     return e instanceof StaleElementReferenceException || (e.getCause() != null && isStaleElementException(e.getCause()));
+  }
+
+  /**
+   * Starts a new browser on the portal, in place of one that can't be used
+   * anymore: its session was lost, or its pages don't load anymore.
+   */
+  public static void restartBrowser() {
+    try {
+      Serenity.getWebdriverManager().closeAllDrivers();
+    } catch (Exception e) { // NOSONAR
+      // The session can already be gone on the grid side
+    }
+    if (Serenity.getDriver() instanceof WebDriverFacade facade) {
+      facade.reset();
+    }
+    Serenity.getDriver().navigate().to(System.getProperty("webdriver.base.url"));
   }
 
   public static void refreshPage() {
@@ -250,12 +267,21 @@ public class Utils {
 
   private static String getPageLoadingScript(boolean includeApps) {
     String pageLoadingScript = "return document.readyState === 'complete'";
+    // The topbar loading indicator id was renamed from 'TopbarLoadingContainer'
+    // to 'TopbarLoading': the page is considered loaded once it is absent or hidden.
+    // Activity file attachments render an indeterminate preview loader that never
+    // completes for some file types (e.g. plain text), so progress bars inside an
+    // '.activity-attachment' card are ignored - otherwise waitForLoading would never
+    // return on any activity-stream page that displays such an attachment.
     return includeApps ? pageLoadingScript
-        + " && (!document.getElementById('TopbarLoadingContainer') || !!document.querySelector('.TopbarLoadingContainer.hidden'))"
-        + " && !document.querySelector('.v-card .v-progress-linear__indeterminate')"
-        + " && !document.querySelector('.v-navigation-drawer--open .v-progress-linear__indeterminate')"
-        + " && !document.querySelector('.v-card .v-progress-circular--indeterminate')"
-        + " && !document.querySelector('.v-navigation-drawer--open .v-progress-circular--indeterminate')"
+        + " && (!document.getElementById('TopbarLoading') || !!document.querySelector('#TopbarLoading.hidden'))"
+        + " && !Array.prototype.some.call("
+        +      "document.querySelectorAll("
+        +        "'.v-card .v-progress-linear__indeterminate,"
+        +        " .v-navigation-drawer--open .v-progress-linear__indeterminate,"
+        +        " .v-card .v-progress-circular--indeterminate,"
+        +        " .v-navigation-drawer--open .v-progress-circular--indeterminate'),"
+        +      "function(e){return !e.closest('.activity-attachment');})"
                        : pageLoadingScript;
   }
 

@@ -1,11 +1,12 @@
+# The images follow the CI grid, its Jenkins managed file selenium-compose-yml
 version: "3.5"
 services:
   selenium-hub:
-    image: selenium/hub:4.8.1
+    image: selenium/hub:4.49.0-20260909
     container_name: selenium-hub
     network_mode: host
   chrome:
-    image: selenium/node-chrome:110.0
+    image: selenium/node-chrome:4.49.0-20260909
     shm_size: 2gb
     volumes:
       - /dev/shm:/dev/shm
@@ -20,7 +21,7 @@ services:
       - SE_NODE_SESSION_TIMEOUT=10800
     network_mode: host
   firefox:
-    image: selenium/node-firefox:110.0
+    image: selenium/node-firefox:4.49.0-20260909
     shm_size: 2gb
     volumes:
       - /dev/shm:/dev/shm

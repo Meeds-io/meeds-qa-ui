@@ -28,6 +28,7 @@ Feature: Notification Settings
     Given I am authenticated as 'admin' random user
 
     When I go to notification administration Page
+    And I enable email notifications for all users
     And I disable email notification for 'Connection request'
     And I go to Settings page
     And I go to manage notifications from settings page

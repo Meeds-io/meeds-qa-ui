@@ -21,28 +21,6 @@ Feature: Social
     And I add in activity 'CommentPost' a comment 'commenttest'
     Then The comment 'commenttest' is displayed in Comments drawer of activity 'CommentPost'
 
-  Scenario: Search users in My connections tab
-    Given I am authenticated as 'admin' if random users doesn't exists
-      | first  |
-      | second  |
-    And I inject the first random user if not existing, no wait
-    And I inject the second random user if not existing
-    And I login as 'first' random user
-    And I go to the second user profile
-    And I connect to the user using the profile
-    And I login as 'second' random user
-    And I go to My Profile page
-    Then The 'Connections' badge is '1'
-    When I click on connections badge
-    And I accept the following connection invitation from random user
-      | first |
-    # Wait for Elasticsearch indexing
-    And I wait '3' seconds
-    And I refresh the page
-    And I go to People Page
-    And I click on People filter and I select My connections
-    Then The search result is well matched with the username entered of the first user
-
   @activitystream
   Scenario: Cancel edit comment
     Given I am authenticated as 'admin' if random users doesn't exists

@@ -500,7 +500,7 @@ public class TasksStepDefinition {
 
   }
 
-  @And("^I click on Filter button$")
+  @And("I click on Filter button")
   public void clickOnFilterButton() {
     tasksSteps.clickFilterButton();
   }

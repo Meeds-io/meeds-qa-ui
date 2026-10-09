@@ -47,10 +47,6 @@ public class UserProfileSteps {
     userProfilePage.checkWorkExperiencesSection(jobTitle, organization, jobDetails, usedSkills);
   }
 
-  public int getMyWeeklyPoint() {
-    return userProfilePage.getMyWeeklyPoint();
-  }
-
   public void goToReceivedKudos() {
     userProfilePage.goToReceivedKudos();
   }
@@ -152,8 +148,16 @@ public class UserProfileSteps {
     userProfilePage.uploadProfileAvatar(fileName);
   }
 
-  public void checkMyPointIncrease(int originalWeeklyPoint) {
-    userProfilePage.checkMyPointIncrease(originalWeeklyPoint);
+  public void checkUserSpacesWidgetDisplayed() {
+    userProfilePage.checkUserSpacesWidgetDisplayed();
+  }
+
+  public void openUserSpacesDrawer() {
+    userProfilePage.openUserSpacesDrawer();
+  }
+
+  public void checkSpaceListedInUserSpacesDrawer(String spaceName) {
+    userProfilePage.checkSpaceListedInUserSpacesDrawer(spaceName);
   }
 
 }

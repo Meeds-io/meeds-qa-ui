@@ -69,7 +69,7 @@ public class NotePage extends GenericPage {
   }
 
   public ElementFacade editNoteButton() {
-    return findByXPathOrCSS("//*[contains(@class, 'notes-application-header')]//i[contains(@class, 'edit-note')]//ancestor::button");
+    return findByXPathOrCSS("//*[contains(@class, 'notes-application-header')]//i[contains(@class, 'edit-note')]//ancestor::*[contains(@class, 'v-btn')][1]");
   }
 
   public ElementFacade notesEditorElement() {

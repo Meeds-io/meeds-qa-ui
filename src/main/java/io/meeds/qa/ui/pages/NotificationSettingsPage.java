@@ -70,6 +70,10 @@ public class NotificationSettingsPage extends GenericPage {
   }
 
   public void disableEmailNotification(String notificationType) {
+    if (hasChannelSwitches(notificationType)) {
+      switchEmailNotification(notificationType, false);
+      return;
+    }
     personalSettingNotificationTypeButton(notificationType).click();
     waitForDrawerToOpen();
     if (emailNotifDrawerInput().isSelected()) {
@@ -82,6 +86,10 @@ public class NotificationSettingsPage extends GenericPage {
   }
 
   public void enableEmailNotification(String notificationType) {
+    if (hasChannelSwitches(notificationType)) {
+      switchEmailNotification(notificationType, true);
+      return;
+    }
     personalSettingNotificationTypeButton(notificationType).click();
     waitForDrawerToOpen();
     if (!emailNotifDrawerInput().isSelected()) {
@@ -93,11 +101,19 @@ public class NotificationSettingsPage extends GenericPage {
   }
 
   public void checkEmailNotificationIsHiddenFor(String notificationType) {
-    personalSettingEmailNotificationElement(notificationType).assertNotVisible();
+    if (hasChannelSwitches(notificationType)) {
+      enabledEmailNotificationSwitch(notificationType).assertNotVisible();
+    } else {
+      personalSettingEmailNotificationElement(notificationType).assertNotVisible();
+    }
   }
 
   public void checkEmailNotificationIsDisplayedFor(String notificationType) {
-    personalSettingEmailNotificationElement(notificationType).assertVisible();
+    if (hasChannelSwitches(notificationType)) {
+      enabledEmailNotificationSwitch(notificationType).assertVisible();
+    } else {
+      personalSettingEmailNotificationElement(notificationType).assertVisible();
+    }
   }
 
   public void editNotificationSender() {
@@ -115,6 +131,55 @@ public class NotificationSettingsPage extends GenericPage {
       // Wait for animation to finish
       waitFor(500).milliseconds();
     }
+  }
+
+  /**
+   * A notification type row holds one switch per channel, or an edit button
+   * opening the channels drawer on servers without that layout.
+   */
+  private boolean hasChannelSwitches(String notificationType) {
+    notificationTypeTitle(notificationType).assertVisible();
+    return notificationTypeChannelSwitch(notificationType).isCurrentlyVisible();
+  }
+
+  private void switchEmailNotification(String notificationType, boolean enable) {
+    emailNotificationSwitch(notificationType).assertVisible();
+    if (checkedEmailNotificationSwitch(notificationType).isCurrentlyVisible() != enable) {
+      emailNotificationSwitch(notificationType).click();
+      // Wait for animation to finish
+      waitFor(500).milliseconds();
+      Utils.waitForLoading();
+    }
+    if (enable) {
+      checkedEmailNotificationSwitch(notificationType).assertVisible();
+    } else {
+      checkedEmailNotificationSwitch(notificationType).assertNotVisible();
+    }
+  }
+
+  private ElementFacade notificationTypeTitle(String notificationType) {
+    return findByXPathOrCSS(String.format("(//*[contains(@class, 'v-list-item__title') and contains(text(), '%s')])[1]",
+                                          notificationType));
+  }
+
+  private ElementFacade notificationTypeChannelSwitch(String notificationType) {
+    return findByXPathOrCSS(String.format("(//*[contains(@class, 'v-list-item__title') and contains(text(), '%s')]/ancestor::*[contains(concat(' ', normalize-space(@class), ' '), ' v-list-item ')][1]//*[contains(@class, 'v-input--switch')])[1]",
+                                          notificationType));
+  }
+
+  private ElementFacade emailNotificationSwitch(String notificationType) {
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'v-input--switch')][.//input[starts-with(@aria-label, 'Email - ') and contains(@aria-label, '%s')]]",
+                                          notificationType));
+  }
+
+  private ElementFacade checkedEmailNotificationSwitch(String notificationType) {
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'v-input--switch')][.//input[starts-with(@aria-label, 'Email - ') and contains(@aria-label, '%s') and @aria-checked='true']]",
+                                          notificationType));
+  }
+
+  private ElementFacade enabledEmailNotificationSwitch(String notificationType) {
+    return findByXPathOrCSS(String.format("//*[contains(@class, 'v-input--switch') and not(contains(@class, 'v-input--is-disabled'))][.//input[starts-with(@aria-label, 'Email - ') and contains(@aria-label, '%s')]]",
+                                          notificationType));
   }
 
   private ElementFacade emailNotifDrawerSwitch() {
@@ -164,11 +229,11 @@ public class NotificationSettingsPage extends GenericPage {
   }
 
   private ElementFacade emailNotifSwitch() {
-    return findByXPathOrCSS("//*[contains(text(), 'mail')]//ancestor::*[contains(@class, 'v-input--switch')]");
+    return findByXPathOrCSS("//*[contains(text(), 'email notifications')]//ancestor::*[contains(@class, 'v-input--switch')]");
   }
 
   private ElementFacade emailNotifSwitchInput() {
-    return findByXPathOrCSS("//*[contains(text(), 'mail')]//ancestor::*[contains(@class, 'v-input--switch')]//input");
+    return findByXPathOrCSS("//*[contains(text(), 'email notifications')]//ancestor::*[contains(@class, 'v-input--switch')]//input");
   }
 
 }

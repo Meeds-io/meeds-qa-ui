@@ -72,9 +72,9 @@ public class KudosStepDefinitions {
     kudoSteps.checkKudosSettings(val, semester);
   }
 
-  @Given("^I click to edit the kudos text$")
-  public void clickEditKudos() {
-    kudoSteps.clickEditKudos();
+  @Given("^I click to edit the kudos '(.*)' from the comments drawer$")
+  public void clickEditKudos(String kudosMessage) {
+    kudoSteps.clickEditKudos(kudosMessage);
   }
 
   @Given("^I click to edit the kudos from a reply comment$")

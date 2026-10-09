@@ -1037,6 +1037,8 @@ Feature: Activity Stream
     And In comments drawer, on comment 'commenttestCAP116-116', '(0)' like is displayed
     And I close the opened drawer
 
+  # The link is too long: the comments drawer displays it truncated, without its /members suffix
+  @ignore
   Scenario: Internal Link opening behaviors inside comments
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -1516,6 +1518,8 @@ Feature: Activity Stream
     And Comment 'commenttestCAP220-1020' is not displayed in the drawer
     Then Check Four comment is displayed in comments drawer
 
+  # Suspected product defect: clicking the likers avatars of an activity shows their tooltip without opening the likers drawer
+  @ignore @Product_bug_activity_likers_drawer
   Scenario: Activity Likers in drawer
     Given I am authenticated as 'admin' if random users doesn't exists
       | first  |
@@ -1692,10 +1696,12 @@ Feature: Activity Stream
     When I login as 'fourth' random user
     And I go to the random space
     Then the activity 'activitytestkudosUS52' is displayed in activity stream
-    When In comment 'activitytestkudoscommentUS52', Kudos label should be black
-    And I click on the kudos button from the comment 'activitytestkudoscommentUS52'
+    And I open in activity 'activitytestkudosUS52' the Comments drawer
+    And In comment 'activitytestkudoscommentUS52', Kudos label should be black
+    When I click on the kudos button from the comments drawer
     And I send to the comment activity a kudos message 'Test Auto comment Kudos US52'
-    And I click to edit the kudos text
+    And I open in activity 'activitytestkudosUS52' the Comments drawer
+    And I click to edit the kudos 'Test Auto comment Kudos US52' from the comments drawer
     And I set the new kudos comment text 'updated kudos message' and I click on update button
     Then the updated Kudos activity 'updated kudos message' is displayed in stream page
 

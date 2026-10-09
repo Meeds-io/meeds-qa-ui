@@ -6,7 +6,7 @@ Feature: Tasks - Projects
       | first  |
     And I inject the first random user if not existing
     And I login as 'first' random user
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
     When I select projects tab
     And I add a new project with a description
     Then Success message is displayed
@@ -17,7 +17,7 @@ Feature: Tasks - Projects
     And I inject the first random user if not existing
     And I login as 'first' random user
     And I create a random space
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
     When I select projects tab
     And I create the space project
     And I search for the created project
@@ -35,7 +35,7 @@ Feature: Tasks - Projects
       | first  |
     And I inject the first random user if not existing
     And I login as 'first' random user
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
     When I select projects tab
     And I create the project 'Project2'
     And I search for the project 'Project2'
@@ -50,7 +50,7 @@ Feature: Tasks - Projects
     And I inject the first random user if not existing, no wait
     And I inject the second random user if not existing
 
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
 
     When I select projects tab
     And I add the random project with first user as the manager and second user as the participant
@@ -61,7 +61,7 @@ Feature: Tasks - Projects
   Scenario: Project's Tasks "BOARD" view
     Given I am authenticated as 'admin' random user
 
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
 
     When I select projects tab
     And I add a new project
@@ -76,7 +76,7 @@ Feature: Tasks - Projects
   Scenario: Check  message when  Project title is empty
     Given I am authenticated as 'admin' random user
 
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
 
     When I click to add new project
     And I click on save project button
@@ -86,7 +86,7 @@ Feature: Tasks - Projects
     Given I am authenticated as 'admin' random user
     And I inject the first random user if not existing
 
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
 
     When I select projects tab
     And I create the random project with the first created user as participant
@@ -101,7 +101,7 @@ Feature: Tasks - Projects
 
     When I return to Projects tab
     And I login as 'first' random user
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
 
     When I select projects tab
     And I search for the created project
@@ -119,7 +119,7 @@ Feature: Tasks - Projects
     And I inject the first random user if not existing
 
     When I login as 'first' random user
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
 
     When I select projects tab
     And I create the project 'teamcap216'
@@ -136,7 +136,7 @@ Feature: Tasks - Projects
   Scenario: check the display "project's creator avatar"
     Given I am authenticated as 'admin' random user
     And I inject the first random user if not existing
-    And I go to 'tasks' in site 'mycraft'
+    And I go to 'tasks' in site 'myworkspace'
     When I select projects tab
     And I add the random project with first user as the participant
     And I search for the created project
@@ -150,7 +150,7 @@ Feature: Tasks - Projects
     And I create a random space
     And I go To AppCenter Drawer
     And I open all applications drawer
-    When I go to 'tasks' in site 'mycraft'
+    When I go to 'tasks' in site 'myworkspace'
     And I select projects tab
     And I create the space project
     And I search for the created project
@@ -164,7 +164,7 @@ Feature: Tasks - Projects
     And I create a random space
     And I go To AppCenter Drawer
     And I open all applications drawer
-    When I go to 'tasks' in site 'mycraft'
+    When I go to 'tasks' in site 'myworkspace'
     And I select projects tab
     And I create the space project
     And I search for the created project

@@ -20,14 +20,17 @@ package io.meeds.qa.ui.steps;
 import static io.meeds.qa.ui.utils.Utils.SHORT_WAIT_DURATION_MILLIS;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.Map;
 
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.meeds.qa.ui.pages.GenericPage;
 
 import net.serenitybdd.core.Serenity;
+import net.thucydides.core.webdriver.WebDriverFacade;
 
 public class GenericSteps {
   private static final String DISABLE_PWA_SCRIPT   =
@@ -68,6 +71,72 @@ public class GenericSteps {
                                                        .then(() => callback(true))
                                                        .catch(() => callback(false));
                                                         """;
+
+  private static final String GET_SYSTEM_SITES_SCRIPT   =
+                                                        """
+                                                             const callback = arguments[arguments.length - 1];
+                                                             fetch("/portal/rest/v1/social/sites?siteType=PORTAL&excludeSpaceSites=true&expand=canRestore", {
+                                                               "credentials": "include"
+                                                             })
+                                                            .then(resp => {
+                                                              if (!resp || !resp.ok) {
+                                                                throw new Error("Error when retrieving sites");
+                                                              }
+                                                              return resp.json();
+                                                            })
+                                                            .then(sites => callback(sites.filter(site => site.canRestore && !site.properties?.IS_SPACE_PUBLIC_SITE)
+                                                                                         .map(site => site.name)))
+                                                            .catch(() => callback(null));
+                                                             """;
+
+  private static final String RESTORE_SYSTEM_SITE_SCRIPT =
+                                                         """
+                                                              const [siteName, importMode, siteLayout] = arguments;
+                                                              const callback = arguments[arguments.length - 1];
+                                                              fetch("/layout/rest/sites/restore", {
+                                                                "headers": {
+                                                                  "content-type": "application/x-www-form-urlencoded",
+                                                                },
+                                                                "body": new URLSearchParams({
+                                                                  "siteType": "PORTAL",
+                                                                  "siteName": siteName,
+                                                                  "importMode": importMode,
+                                                                  "siteLayout": siteLayout,
+                                                                  "pagesLayout": true,
+                                                                  "navigation": true,
+                                                                }),
+                                                                "method": "PUT",
+                                                                "credentials": "include"
+                                                              })
+                                                             .then(resp => callback(!!resp?.ok))
+                                                             .catch(() => callback(false));
+                                                              """;
+
+  private static final String RESTORE_SITE_PERMISSIONS_SCRIPT =
+                                                              """
+                                                                   const [siteName, accessPermissions, editPermission] = arguments;
+                                                                   const callback = arguments[arguments.length - 1];
+                                                                   fetch("/layout/rest/sites/permissions", {
+                                                                     "headers": {
+                                                                       "content-type": "application/json",
+                                                                     },
+                                                                     "body": JSON.stringify({
+                                                                       "siteType": "PORTAL",
+                                                                       "siteName": siteName,
+                                                                       "accessPermissions": accessPermissions,
+                                                                       "editPermission": editPermission,
+                                                                     }),
+                                                                     "method": "PATCH",
+                                                                     "credentials": "include"
+                                                                   })
+                                                                  .then(resp => callback(!!resp?.ok))
+                                                                  .catch(() => callback(false));
+                                                                   """;
+
+  /** A site restore can take longer than the default script timeout */
+  private static final Duration RESTORE_SYSTEM_SITE_TIMEOUT = Duration.ofMinutes(3);
+
+  private static final Duration DEFAULT_SCRIPT_TIMEOUT      = Duration.ofSeconds(30);
 
   private GenericPage         genericPage;
 
@@ -179,6 +248,10 @@ public class GenericSteps {
     genericPage.closeAllDrawers();
   }
 
+  public void closeExtraWindows() {
+    genericPage.closeExtraWindows();
+  }
+
   public void closeBrowserTab(int tabIndex) {
     genericPage.closeBrowserTab(tabIndex);
   }
@@ -258,6 +331,50 @@ public class GenericSteps {
     wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeAsyncScript(DISABLE_PWA_SCRIPT)
                                                             .toString()
                                                             .equals("true"));
+  }
+
+  /**
+   * @return the names of the sites shipped with the platform, which can be
+   *         restored from their packaged configuration
+   */
+  @SuppressWarnings("unchecked")
+  public List<String> getSystemSites() {
+    Object sites = ((JavascriptExecutor) Serenity.getDriver()).executeAsyncScript(GET_SYSTEM_SITES_SCRIPT);
+    if (!(sites instanceof List)) {
+      throw new IllegalStateException("Error when retrieving the system sites");
+    }
+    return (List<String>) sites;
+  }
+
+  public void restoreSitePermissions(String siteName, List<String> accessPermissions, String editPermission) {
+    Object restored = ((JavascriptExecutor) Serenity.getDriver()).executeAsyncScript(RESTORE_SITE_PERMISSIONS_SCRIPT,
+                                                                                   siteName,
+                                                                                   accessPermissions,
+                                                                                   editPermission);
+    if (!Boolean.TRUE.equals(restored)) {
+      throw new IllegalStateException(String.format("Error when restoring the permissions of site %s", siteName));
+    }
+  }
+
+  public void restoreSystemSite(String siteName, String importMode, boolean siteLayout) {
+    // The Serenity driver facade doesn't handle the script timeout
+    WebDriver driver = Serenity.getDriver();
+    if (driver instanceof WebDriverFacade driverFacade) {
+      driver = driverFacade.getProxiedDriver();
+    }
+    WebDriver.Timeouts timeouts = driver.manage().timeouts();
+    timeouts.scriptTimeout(RESTORE_SYSTEM_SITE_TIMEOUT);
+    try {
+      Object restored = ((JavascriptExecutor) Serenity.getDriver()).executeAsyncScript(RESTORE_SYSTEM_SITE_SCRIPT,
+                                                                                     siteName,
+                                                                                     importMode,
+                                                                                     siteLayout);
+      if (!Boolean.TRUE.equals(restored)) {
+        throw new IllegalStateException(String.format("Error when restoring site %s with mode %s", siteName, importMode));
+      }
+    } finally {
+      timeouts.scriptTimeout(DEFAULT_SCRIPT_TIMEOUT);
+    }
   }
 
   public void disableTermsAndConditions() {
